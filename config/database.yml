@@ -7,7 +7,7 @@ development:
   adapter: postgresql
   host: localhost
   port: 5432
-  username: pwood
+  username: db_user_CHANGE_THIS_AS_NEEDED
   database: evercam_dev
   encoding: utf8
   schema_search_path: public
@@ -20,7 +20,7 @@ test:
   adapter: postgresql
   host: localhost
   port: 5432
-  username: pwood
+  username: db_user_CHANGE_THIS_AS_NEEDED
   database: evercam_tst
   encoding: utf8
   schema_search_path: public

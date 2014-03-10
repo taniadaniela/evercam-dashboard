@@ -6,4 +6,14 @@ class CamerasControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get new camera form" do
+    get :new
+    assert_response :success
+  end
+
+  test "should post new camera form" do
+    post :new
+    assert_response :success
+  end
+
 end

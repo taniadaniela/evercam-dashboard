@@ -131,15 +131,15 @@
 
               <div class='row'>
                 <div class='col-md-8 form-group'>
-                  <label class="control-label" for="camera-url">Camera URL or IP</label>
+                  <label class="control-label" for="camera">Camera URL or IP</label>
                   <span data-toggle="tooltip" data-title="This will just contain the IP address in the form of 149.237.192.68 - http:// is already included" class="label label-default">?</span>
                   <div class="input-group">
-                    <span class="input-group-addon">http://</span><input id="textinput" name="textinput" placeholder="149.237.192.68" class="form-control input-sm" required="" type="text">
+                    <span class="input-group-addon">http://</span><input id="camera" name="camera" placeholder="149.237.192.68" class="form-control input-sm" required="" type="text">
                   </div>
                 </div>
 
                 <div class='col-md-4 form-group'>
-                  <label class="control-label" for="port-url">Port</label>
+                  <label class="control-label" for="port">Port</label>
                   <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">?</span>-->
                   <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text">
                 </div>
@@ -148,9 +148,9 @@
               <div class='row'>
                 <div class='col-md-12 form-group'>
 
-                  <label class="control-label" for="snapshot-url">Snapshot URL</label>
+                  <label class="control-label" for="snapshot">Snapshot URL</label>
                   <span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">?</span>
-                  <input type="text" id="textinput" name="textinput" placeholder="/snapshot/jpg" class="form-control input-sm" required="" >
+                  <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot/jpg" class="form-control input-sm" required="" >
 
                 </div>
               </div>
@@ -168,9 +168,9 @@
 
             <div class='col-md-3'>
               <div class="media">
-                <img src="/" width="100%">
+                <img id="testimg" src="/" width="100%">
               </div>
-              <p class="text-center"><a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-refresh"></span>  Test Snapshot</a></p>
+              <p class="text-center"><a href="#" id="test" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-refresh"></span>  Test Snapshot</a></p>
               <p class="text-center"><span data-toggle="tooltip" data-placement="top" data-title="If you have entered the correct Credentials, Camera URL/IP and Port into the fields to the left, the image above should show you what your camera is seeing right now. If there is no preview, then some of the information you have entered could be incorrect. Please check the info or refer to your Camera's Manual." class="label label-default">?</span></p>
             </div>
 
@@ -221,5 +221,20 @@
     $('body').tooltip({
       selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
     });
+
+    $('#test').click(function(e) {
+      var params = ['external_url=http://' + $('#camera').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
+        'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
+      e.preventDefault();
+      $.getJSON('http://localhost:9292/v1/cameras/test.json?' + params.join('&'))
+        .done(function(resp) {
+          console.log('success');
+          $('#testimg').attr('src', resp.data);
+        })
+        .fail(function() {
+          console.log('error');
+        })
+    });
+
   });
 </script>

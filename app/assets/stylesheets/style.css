@@ -27,7 +27,7 @@ a,a:hover,a:focus {
 
 .btn-add {
     border: medium none;
-    cursor: pointer;
+        cursor: pointer;
     display: inline-block;
     color: #414042;
     font-weight: normal;
@@ -41,6 +41,7 @@ a,a:hover,a:focus {
     transition: box-shadow 0.3s ease 0s, background 0.8s ease 0s;
     vertical-align: middle;
     white-space: nowrap;
+    border-radius: 2px;
 }
 
 .btn-add:hover, .btn-add.active {
@@ -163,14 +164,20 @@ a,a:hover,a:focus {
 }
 /*sidebar navigation*/
 #sidebar {
-    width:240px;
     height:100%;
     position:fixed;
     background:#f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    margin-top: 3px;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
     transition:all .3s ease-in-out;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    padding-left: 0;
+    padding-right: 0;
 }
 #sidebar ul li {
     position: relative;
@@ -211,9 +218,7 @@ a,a:hover,a:focus {
     -webkit-border-radius: 3px;
 }
 /*---*/
-.nav-collapse.collapse {
-    display:inline;
-}
+
 ul.sidebar-menu,ul.sidebar-menu li ul.sub {
     margin:-2px 0 0;
     padding:0;
@@ -241,6 +246,7 @@ ul.sidebar-menu li ul.sub li a {
     padding-top:10px;
     line-height:normal;
     height:40px;
+    margin-right: 1px;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
     -o-transition:all 0.3s ease;
@@ -257,7 +263,6 @@ ul.sidebar-menu li ul.sub li a:hover,ul.sidebar-menu li ul.sub li.active a {
     transition:all 0.3s ease;
     display:block;
     background:#fff;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     border-radius: 2px;
 }
 ul.sidebar-menu li {
@@ -280,6 +285,7 @@ ul.sidebar-menu li a {
     font-size:12px;
     outline:none;
     letter-spacing: .06em;
+    margin-right: 6px;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
     -o-transition:all 0.3s ease;
@@ -292,6 +298,7 @@ ul.sidebar-menu li a.active,ul.sidebar-menu li a:hover,ul.sidebar-menu li a:focu
     display:block;
     box-shadow: -10px 3px 10px rgba(0, 0, 0, 0.06);
     border-radius: 2px;
+    margin-right: 0px;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
     -o-transition:all 0.3s ease;
@@ -314,7 +321,6 @@ ul.sidebar-menu li a.active i {
 }
 /*main content*/
 #main-content {
-    margin-left:240px;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
@@ -342,13 +348,15 @@ ul.sidebar-menu li a.active i {
     box-shadow:1px 0 3px rgba(0,0,0,.15);
 }
 .wrapper {
-    display:inline-block;
-    margin-top:0px;
-    padding:15px;
-    width:100%;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid #E5E5E5;
     border-radius: 2px;
-    margin-bottom: 40px; 
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    display: inline-block;
+    margin-bottom: 40px;
+    margin-left: -3px;
+    margin-top: 0;
+    padding: 15px;
+
 }
 .brand {
     background:#FFFFFF;
@@ -358,7 +366,15 @@ ul.sidebar-menu li a.active i {
     position:relative;
 }
 .cam {
-    margin-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.cam img {
+    height: 250px;
+    width: 100%;
+}
+.cam .media {
+
 }
 a.logo {
     font-size:21px;
@@ -688,16 +704,8 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 }
 /*--sidebar toggle---*/
 .sidebar-toggle-box {
-    float:left;
-    margin-top:10px;
-    margin-left:-15px;
-    background:#f5f5f5;
-    border-radius:50%;
-    -webkit-border-radius:50%;
-    width:30px;
-    height:30px;
-    position:absolute;
-    right:-14px;
+    color: #414042;
+    margin-top: 15px;
 }
 .sidebar-toggle-box .fa-bars {
     cursor:pointer;
@@ -709,13 +717,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 .sidebar-toggle-box:hover {
     box-shadow:0 4px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 }
-.hide-left-bar {
-    margin-left:-240px !important;
-    -webkit-transition:all .3s ease-in-out;
-    -moz-transition:all .3s ease-in-out;
-    -o-transition:all .3s ease-in-out;
-    transition:all .3s ease-in-out;
-}
+
 .open-right-bar {
     right:0px !important;
     -webkit-transition:all .3s ease-in-out;
@@ -3639,8 +3641,7 @@ span.customSelect.changed {
 }
 .boxed-page .container {
     background:#f5f5f5;
-    padding-left:0;
-    padding-right:0;
+
 }
 .boxed-page>.container {
     overflow:hidden;

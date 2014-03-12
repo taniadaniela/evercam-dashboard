@@ -11,5 +11,6 @@
  *= require_self
  *= require bootstrap-3.1.1.min
  *= require bootstrap-theme-3.1.1.min
+ *= require ladda-themeless-0.8.0.min.css
  *= require_tree .
  */

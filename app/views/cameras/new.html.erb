@@ -8,12 +8,12 @@
     <div class="nav notify-row" id="top_menu">
       <div class="row">
         <div class="col-xs-10">
-          <a class="btn btn-add" href="add-camera.html" role="button"><i class="fa fa-plus"></i>
-            <span>Add A Camera</span></a>
+          <a class="btn btn-add" href="/cameras/new" role="button"><span class="glyphicon glyphicon-plus"></span>
+            <span>  Add A Camera</span></a>
         </div>
         <div class="col-xs-2">
           <div class="sidebar-toggle-box">
-            <div class="fa fa-bars"></div>
+            <span class="glyphicon glyphicon-th-large"></span>
           </div>
 
         </div>
@@ -24,20 +24,13 @@
 </header>
 <!--header end-->
 <!--sidebar start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
+  <div id="sidebar" class="nav-collapse col-md-2 col-xs-12">
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
-      <!-- <li>
-       <a href="/" class="active">
-           <i class="fa fa-dashboard"></i>
-           <span>Dashboard</span>
-       </a>
-   </li>-->
       <li class="sub-menu">
         <a href="/">
-          <i class="fa fa-camera"></i>
-          <span>My Cameras</span>
+          <span class="glyphicon glyphicon-camera"></span>
+          <span>  My Cameras</span>
         </a>
         <ul class="sub">
           <li><a href="">Mast Wicklow</a></li>
@@ -47,21 +40,13 @@
           <li><a href="#">Washington Uni</a></li>
         </ul>
       </li>
-
-      <!--<li>
-          <a href="#">
-              <i class="fa fa-user"></i>
-              <span>Login Page</span>
-          </a>
-      </li>-->
     </ul>
     <!-- sidebar menu end-->
   </div>
-</aside>
 <!--sidebar end-->
 <!--main content start-->
+<div class="col-md-10 col-xs-12 wrapper">
 <section id="main-content">
-  <section class=" wrapper site-min-height">
     <div class="col-md-12">
 
       <h3>Add A Camera</h3>
@@ -170,7 +155,7 @@
               <div class="media">
                 <img id="testimg" src="/" width="100%">
               </div>
-              <p class="text-center"><a href="#" id="test" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-refresh"></span>  Test Snapshot</a></p>
+              <p class="text-center"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></p>
               <p class="text-center"><span data-toggle="tooltip" data-placement="top" data-title="If you have entered the correct Credentials, Camera URL/IP and Port into the fields to the left, the image above should show you what your camera is seeing right now. If there is no preview, then some of the information you have entered could be incorrect. Please check the info or refer to your Camera's Manual." class="label label-default">?</span></p>
             </div>
 
@@ -203,11 +188,9 @@
 
 
     </div>
-
-
-  </section>
 </section>
 <!--main content end-->
+</div>
 </section>
 </div>
 </div> <!--boxed page end-->
@@ -226,7 +209,7 @@
       var params = ['external_url=http://' + $('#camera').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
         'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
       e.preventDefault();
-      $.getJSON('http://localhost:9292/v1/cameras/test.json?' + params.join('&'))
+      $.getJSON('https://dashboard.evercam.io/v1/cameras/test.json?' + params.join('&'))
         .done(function(resp) {
           console.log('success');
           $('#testimg').attr('src', resp.data);
@@ -236,5 +219,39 @@
         })
     });
 
+
+            $('#test').click(function(e){
+              e.preventDefault();
+              var l = Ladda.create(this);
+              l.start();
+                      $.getJSON('https://dashboard.evercam.io/v1/cameras/test.json?' + params.join('&'))
+                              .done(function(resp) {
+                                  console.log('success');
+                                  $('#testimg').attr('src', resp.data);
+                              })
+                              .always(function() { l.stop(); });
+                return false;
+            })
+
   });
+
+</script>
+<!--Ladda Spin Script-->
+<script>
+    // Bind progress buttons and simulate loading progress
+    Ladda.bind( '.ladda-button', {
+        callback: function( instance ) {
+            var progress = 0;
+            var interval = setInterval( function() {
+                progress = Math.min( progress + Math.random() * 0.1, 1 );
+                instance.setProgress( progress );
+
+                if( progress === 1 ) {
+                    instance.stop();
+                    clearInterval( interval );
+                }
+            }, 200 );
+        }
+    } );
+
 </script>

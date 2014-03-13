@@ -8,108 +8,89 @@
           <div class="nav notify-row" id="top_menu">
             <div class="row">
               <div class="col-xs-10">
-                <a class="btn btn-add" href="add-camera.html" role="button"><i class="fa fa-plus"></i>
+                <a class="btn btn-add" href="/cameras/new" role="button"><span class="glyphicon glyphicon-plus"></span>
                   <span>Add A Camera</span></a>
               </div>
-              <div class="col-xs-2">
-                <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars"></div>
-                </div>
 
-              </div>
             </div>
           </div>
         </div>
       </header>
       <!--header end-->
       <!--sidebar start-->
-      <aside>
-        <div id="sidebar" class="nav-collapse">
-          <!-- sidebar menu start-->
-          <ul class="sidebar-menu" id="nav-accordion">
-            <!-- <li>
-             <a href="/" class="active">
-                 <i class="fa fa-dashboard"></i>
-                 <span>Dashboard</span>
-             </a>
-         </li>-->
-            <li class="sub-menu">
-              <a href="/" class="active">
-                <i class="fa fa-camera"></i>
-                <span>My Cameras</span>
-              </a>
-              <ul class="sub">
-                <li><a href="">Mast Wicklow</a></li>
-                <li><a href="single-camera.html">Remembrance Cam</a></li>
-                <li><a href="">Rooftop Cam</a></li>
-                <li><a href="">Reykjavik Harbour</a></li>
-                <li><a href="">Washington Uni</a></li>
-              </ul>
-            </li>
 
-            <!--<li>
-                <a href="#">
-                    <i class="fa fa-user"></i>
-                    <span>Login Page</span>
-                </a>
-            </li>-->
-          </ul>
-          <!-- sidebar menu end-->
-        </div>
-      </aside>
+      <div id="sidebar" class="nav-collapse col-md-2 col-xs-12">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <li class="sub-menu">
+            <a href="/" class="active">
+              <span class="glyphicon glyphicon-camera"></span>
+              <span>My Cameras</span>
+            </a>
+            <ul class="sub">
+              <li><a href="">Mast Wicklow</a></li>
+              <li><a href="single-camera.html">Remembrance Cam</a></li>
+              <li><a href="">Rooftop Cam</a></li>
+              <li><a href="">Reykjavik Harbour</a></li>
+              <li><a href="">Washington Uni</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+
       <!--sidebar end-->
       <!--main content start-->
-      <section id="main-content">
-        <section class=" wrapper site-min-height">
-          <div class="row cam">
-            <div class="col-md-4">
-              <section class="media">
-                <a href="#">
-                  <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg" width="100%" height="auto">
-                </a>
-              </section>
-            </div>
-            <div class="col-md-4">
-              <section class="media">
-                <a href="single-camera.html">
-                  <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg" width="100%" height="auto">
-                </a>
-              </section>
-            </div>
-            <div class="col-md-4">
-              <section class="media">
-                <a href="#">
-                  <img src="https://dashboard.evercam.io/v1/cameras/washuni/snapshot.jpg" width="100%" height="auto">
-                </a>
-              </section>
-            </div>
-          </div>
-          <div class="row cam">
-            <div class="col-md-4">
-              <section class="media">
-                <a href="#">
-                  <img src="https://dashboard.evercam.io/v1/cameras/marcoanto/snapshot.jpg" width="100%" height="auto">
-                </a>
-              </section>
-            </div>
-            <div class="col-md-4">
-              <section class="media">
-                <a href="#">
-                  <img src="https://dashboard.evercam.io/v1/cameras/mast-wicklow/snapshot.jpg" width="100%" height="auto">
-                </a>
-              </section>
-            </div>
-            <div class="col-md-4">
-              <section class="media">
-                <a href="#">
-                  <img src="https://dashboard.evercam.io/v1/cameras/mast-wicklow/snapshot.jpg" width="100%" height="auto">
-                </a>
-              </section>
-            </div>
-          </div>
+      <div class="col-md-10 col-xs-12 wrapper">
+        <section id="main-content">
+            <div class="row">
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="#">
+                    <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg">
+                  </a>
+                </section>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="single-camera.html">
+                    <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg">
+                  </a>
+                </section>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="#">
+                    <img src="https://dashboard.evercam.io/v1/cameras/washuni/snapshot.jpg">
+                  </a>
+                </section>
+              </div>
 
+
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="#">
+                    <img src="https://dashboard.evercam.io/v1/cameras/marcoanto/snapshot.jpg">
+                  </a>
+                </section>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="#">
+                    <img src="https://dashboard.evercam.io/v1/cameras/mast-wicklow/snapshot.jpg">
+                  </a>
+                </section>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="#">
+                    <img src="https://dashboard.evercam.io/v1/cameras/mast-wicklow/snapshot.jpg">
+                  </a>
+                </section>
+              </div>
+            </div>
         </section>
-      </section>
+      </div>
       <!--main content end-->
     </section>
   </div>

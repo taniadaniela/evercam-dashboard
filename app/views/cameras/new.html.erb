@@ -52,6 +52,7 @@
       <h3>Add A Camera</h3>
 
       <form action="#" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
         <!-- STEP 1 -->
         <fieldset>
@@ -90,13 +91,13 @@
             <div class='col-md-3 col-md-offset-1 form-group'>
               <label class="control-label" for="camera-username">Camera Username</label>
               <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>
-              <input id="camera-username" name="camera-username" placeholder="admin" class="form-control input-sm" required="" type="text">
+              <input id="camera-username" name="camera-username" placeholder="admin" class="form-control input-sm" type="text">
             </div>
 
             <div class='col-md-3 form-group'>
               <label class="control-label" for="camera-password">Camera Password</label>
               <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>
-              <input id="camera-password" name="camera-password" placeholder="12345" class="form-control input-sm" required="" type="text">
+              <input id="camera-password" name="camera-password" placeholder="12345" class="form-control input-sm" type="text">
             </div>
 
           </div>
@@ -135,7 +136,7 @@
 
                   <label class="control-label" for="snapshot">Snapshot URL</label>
                   <span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">?</span>
-                  <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot/jpg" class="form-control input-sm" required="" >
+                  <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot/jpg" class="form-control input-sm" >
 
                 </div>
               </div>
@@ -209,6 +210,18 @@
       var params = ['external_url=http://' + $('#camera').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
         'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
       e.preventDefault();
+      var l = Ladda.create(this);
+      l.start();
+      var progress = 0;
+      var interval = setInterval( function() {
+        progress = Math.min( progress + 0.025, 1 );
+        l.setProgress( progress );
+
+        if( progress === 1 ) {
+          l.stop();
+          clearInterval( interval );
+        }
+      }, 200 );
       $.getJSON('https://dashboard.evercam.io/v1/cameras/test.json?' + params.join('&'))
         .done(function(resp) {
           console.log('success');
@@ -217,41 +230,12 @@
         .fail(function() {
           console.log('error');
         })
+        .always(function() {
+          l.stop();
+          clearInterval( interval );
+        });
     });
 
-
-            $('#test').click(function(e){
-              e.preventDefault();
-              var l = Ladda.create(this);
-              l.start();
-                      $.getJSON('https://dashboard.evercam.io/v1/cameras/test.json?' + params.join('&'))
-                              .done(function(resp) {
-                                  console.log('success');
-                                  $('#testimg').attr('src', resp.data);
-                              })
-                              .always(function() { l.stop(); });
-                return false;
-            })
-
   });
-
-</script>
-<!--Ladda Spin Script-->
-<script>
-    // Bind progress buttons and simulate loading progress
-    Ladda.bind( '.ladda-button', {
-        callback: function( instance ) {
-            var progress = 0;
-            var interval = setInterval( function() {
-                progress = Math.min( progress + Math.random() * 0.1, 1 );
-                instance.setProgress( progress );
-
-                if( progress === 1 ) {
-                    instance.stop();
-                    clearInterval( interval );
-                }
-            }, 200 );
-        }
-    } );
 
 </script>

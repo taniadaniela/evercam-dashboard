@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-
+  <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="ThemeBucket">
@@ -18,6 +18,11 @@
   <![endif]-->
 </head>
 <body>
+<% if signed_in? %>
+<%= current_user.username %> <%= link_to "Sign out", signout_path, method: "delete" %>
+<% else %>
+Not signed in <%= link_to "Sign in", signin_path %>
+<% end %>
 
 <%= yield %>
 

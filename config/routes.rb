@@ -2,6 +2,16 @@ EvercamDashboard::Application.routes.draw do
 
    root 'cameras#index'
 
+   get 'cameras' => 'cameras#index', as: :cameras_index
+
+   get 'cameras/new' => 'cameras#new'
+   post 'cameras/new' => 'cameras#create'
+
+   resources :sessions, only: [:new, :create, :destroy]
+   match '/signup',  to: 'users#new',            via: 'get'
+   match '/signin',  to: 'sessions#new',         via: 'get'
+   match '/signout', to: 'sessions#destroy',     via: 'delete'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -9,7 +19,6 @@ EvercamDashboard::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  resources :cameras
 
   # Example resource route with options:
   #   resources :products do

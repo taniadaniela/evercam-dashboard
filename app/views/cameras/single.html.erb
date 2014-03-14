@@ -52,17 +52,27 @@
               <a data-toggle="tab" href="#live">Live View</a>
             </li>
             <li class="">
+              <a data-toggle="tab" href="#info">Camera Info</a>
+            </li>
+            <li class="">
               <a data-toggle="tab" href="#settings">Settings</a>
             </li>
             <li class="">
-              <a data-toggle="tab" href="#permissions">Permissions</a>
+              <a data-toggle="tab" href="#sharing">Sharing</a>
             </li>
             <li class="">
               <a data-toggle="tab" href="#apps">Apps</a>
             </li>
             <li class="">
-              <a data-toggle="tab" href="#acitivity">Activity</a>
+              <a data-toggle="tab" href="#activity">Activity</a>
             </li>
+            <li class="">
+              <a data-toggle="tab" href="#logs">Logs</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#explorer">API Explorer</a>
+            </li>
+
           </ul>
         </header>
 
@@ -78,8 +88,12 @@
                 </div>
               </div>
               <div class="col-md-4">
-                Camera Info
+               Evercam ID
               </div>
+            </div>
+            <div id="info" class="tab-pane active">
+              ID possible above menu
+
             </div>
 
             <div id="settings" class="tab-pane">
@@ -185,6 +199,31 @@
                       </div>
 
                     </div>
+                  <div class='row'>
+
+                    <div class='col-md-12'>
+                      <h5>Make & Model</h5>
+                    </div>
+
+                    <div class='col-md-6 form-group'>
+                      <label class="control-label" for="camera-username">Camera Vendor</label>
+                                                <span data-toggle="tooltip"
+                                                      data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner"
+                                                      class="label label-default">?</span>
+                      <input id="camera-username" name="camera-username" placeholder="admin"
+                             class="form-control input-sm" required="" type="text">
+                    </div>
+
+                    <div class='col-md-6 form-group'>
+                      <label class="control-label" for="camera-password">Camera Model</label>
+                                                <span data-toggle="tooltip"
+                                                      data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner"
+                                                      class="label label-default">?</span>
+                      <input id="camera-password" name="camera-password" placeholder="12345"
+                             class="form-control input-sm" required="" type="text">
+                    </div>
+
+                  </div>
                     <!-- FINISH & ADD -->
                     <div class='row cam'>
                       <div class='form-group col-md-12'>
@@ -198,16 +237,23 @@
               </form>
             </div>
 
-            <div id="permissions" class="tab-pane">
-              Permissions
+            <div id="sharing" class="tab-pane">
+              Sharing
             </div>
 
             <div id="apps" class="tab-pane">
-              Apps
+              APPS
             </div>
 
-            <div id="acitivity" class="tab-pane">
+            <div id="logs" class="tab-pane">
+              Logs
+            </div>
+            <div id="activity" class="tab-pane">
               Activity
+            </div>
+
+            <div id="explorer" class="tab-pane">
+              Swagger
             </div>
           </div>
         </div>

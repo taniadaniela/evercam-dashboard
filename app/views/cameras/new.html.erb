@@ -3,25 +3,14 @@
 <div class="container clearfix">
 <section id="container" >
 <!--header start-->
-<header class="header box-head">
-  <div class="container ">
-    <div class="nav notify-row" id="top_menu">
-      <div class="row">
-        <div class="col-xs-10">
-          <a class="btn btn-add" href="/cameras/new" role="button"><span class="glyphicon glyphicon-plus"></span>
-            <span>  Add A Camera</span></a>
-        </div>
-        <div class="col-xs-2">
-          <div class="sidebar-toggle-box">
-            <span class="glyphicon glyphicon-th-large"></span>
-          </div>
-
-        </div>
+  <header class="header box-head">
+    <div class="nav notify-row col-md-12" id="top_menu">
+      <div class="col-xs-10">
+        <a class="btn btn-add" href="/cameras/new" role="button"><span class="glyphicon glyphicon-plus"></span>
+          <span>Add A Camera</span></a>
       </div>
     </div>
-
-  </div>
-</header>
+  </header>
 <!--header end-->
 <!--sidebar start-->
   <div id="sidebar" class="nav-collapse col-md-2 col-xs-12">
@@ -128,7 +117,7 @@
                 <div class='col-md-4 form-group'>
                   <label class="control-label" for="port">Port</label>
                   <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">?</span>-->
-                  <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text"  value="<%= params['port'] %>">
+                  <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text" data-validation="length" data-validation-length="min4" value="<%= params['port'] %>">
                 </div>
               </div>
 

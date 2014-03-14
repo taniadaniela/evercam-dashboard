@@ -206,6 +206,10 @@ a,a:hover,a:focus {
     color: #999999;
     opacity: 0.4;
 }
+.form-control::-webkit-input-placeholder {
+    color: #999999;
+    opacity: 0.4;
+}
 .form-control:focus {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;

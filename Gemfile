@@ -32,10 +32,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 gem 'protected_attributes'
+gem 'typhoeus'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -45,3 +45,5 @@ gem 'protected_attributes'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'quiet_assets', :group => :development

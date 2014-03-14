@@ -3,6 +3,7 @@ EvercamDashboard::Application.routes.draw do
    root 'cameras#index'
 
    get 'cameras' => 'cameras#index', as: :cameras_index
+   get 'cameras/single' => 'cameras#single', as: :cameras_single
 
    get 'cameras/new' => 'cameras#new'
    post 'cameras/new' => 'cameras#create'

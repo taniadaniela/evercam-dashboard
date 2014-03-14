@@ -9,4 +9,7 @@ class CamerasController < ApplicationController
       render :new
     end
   end
+
+  def single
+  end
 end

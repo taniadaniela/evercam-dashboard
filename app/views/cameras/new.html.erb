@@ -66,13 +66,13 @@
             <div class='col-md-3 col-md-offset-1 form-group'>
               <label class="control-label" for="camera-name">Evercam Camera Name</label>
               <span data-toggle="tooltip" data-title="This is the friendly name you will give to your Camera to identify it in the Evercam Dashboard" class="label label-default">?</span>
-              <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control input-sm" required="" type="text">
+              <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control input-sm" required="" type="text" value="<%= params['camera-name'] %>">
             </div>
 
             <div class='col-md-3 form-group'>
               <label class="control-label" for="camera-id">Evercam Camera ID</label>
               <span data-toggle="tooltip" data-title="This the ID you have to create for your Camera that will need to be Unique for Evercam." class="label label-default">?</span>
-              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control input-sm" required="" type="text">
+              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control input-sm" required="" type="text" value="<%= params['camera-id'] %>">
             </div>
 
           </div>
@@ -91,13 +91,13 @@
             <div class='col-md-3 col-md-offset-1 form-group'>
               <label class="control-label" for="camera-username">Camera Username</label>
               <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>
-              <input id="camera-username" name="camera-username" placeholder="admin" class="form-control input-sm" type="text">
+              <input id="camera-username" name="camera-username" placeholder="admin" class="form-control input-sm" type="text" value="<%= params['camera-username'] %>">
             </div>
 
             <div class='col-md-3 form-group'>
               <label class="control-label" for="camera-password">Camera Password</label>
               <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>
-              <input id="camera-password" name="camera-password" placeholder="12345" class="form-control input-sm" type="text">
+              <input id="camera-password" name="camera-password" placeholder="12345" class="form-control input-sm" type="text" value="<%= params['camera-password'] %>">
             </div>
 
           </div>
@@ -117,17 +117,18 @@
 
               <div class='row'>
                 <div class='col-md-8 form-group'>
-                  <label class="control-label" for="camera">Camera URL or IP</label>
+                  <label class="control-label" for="camera-url">Camera URL or IP</label>
                   <span data-toggle="tooltip" data-title="This will just contain the IP address in the form of 149.237.192.68 - http:// is already included" class="label label-default">?</span>
                   <div class="input-group">
-                    <span class="input-group-addon">http://</span><input id="camera" name="camera" placeholder="149.237.192.68" class="form-control input-sm" required="" type="text">
+                    <span class="input-group-addon">http://</span>
+                    <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control input-sm" required="" type="text"  value="<%= params['camera-url'] %>">
                   </div>
                 </div>
 
                 <div class='col-md-4 form-group'>
                   <label class="control-label" for="port">Port</label>
                   <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">?</span>-->
-                  <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text">
+                  <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text"  value="<%= params['port'] %>">
                 </div>
               </div>
 
@@ -136,7 +137,7 @@
 
                   <label class="control-label" for="snapshot">Snapshot URL</label>
                   <span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">?</span>
-                  <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot/jpg" class="form-control input-sm" >
+                  <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot/jpg" class="form-control input-sm" value="<%= params['snapshot'] %>" >
 
                 </div>
               </div>

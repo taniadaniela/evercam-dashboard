@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = Default::User.find_by(email: params[:session][:email].downcase)
-    if @user.password_bcrypt == params[:session][:password]
+    if !@user.nil? and @user.password_bcrypt == params[:session][:password]
       sign_in @user
       redirect_to :cameras_index
     else

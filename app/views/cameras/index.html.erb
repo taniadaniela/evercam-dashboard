@@ -41,14 +41,14 @@
             <div class="row">
               <div class="col-md-4 col-sm-6 col-xs-12 cam">
                 <section class="media">
-                  <a href="/cameras/single">
+                  <a href="#">
                     <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg">
                   </a>
                 </section>
               </div>
               <div class="col-md-4 col-sm-6 col-xs-12 cam">
                 <section class="media">
-                  <a href="/">
+                  <a href="single-camera.html">
                     <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg">
                   </a>
                 </section>
@@ -61,28 +61,16 @@
                 </section>
               </div>
 
+              <% @cameras.each do |camera| %>
+              <div class="col-md-4 col-sm-6 col-xs-12 cam">
+                <section class="media">
+                  <a href="/cameras/<%= camera['id'] %>">
+                    <img src="<%= "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+                  </a>
+                </section>
+              </div>
+              <% end %>
 
-              <div class="col-md-4 col-sm-6 col-xs-12 cam">
-                <section class="media">
-                  <a href="#">
-                    <img src="https://dashboard.evercam.io/v1/cameras/marcoanto/snapshot.jpg">
-                  </a>
-                </section>
-              </div>
-              <div class="col-md-4 col-sm-6 col-xs-12 cam">
-                <section class="media">
-                  <a href="#">
-                    <img src="https://dashboard.evercam.io/v1/cameras/mast-wicklow/snapshot.jpg">
-                  </a>
-                </section>
-              </div>
-              <div class="col-md-4 col-sm-6 col-xs-12 cam">
-                <section class="media">
-                  <a href="#">
-                    <img src="https://dashboard.evercam.io/v1/cameras/mast-wicklow/snapshot.jpg">
-                  </a>
-                </section>
-              </div>
             </div>
         </section>
       </div>

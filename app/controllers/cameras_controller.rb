@@ -5,6 +5,10 @@ class CamerasController < ApplicationController
   include ApplicationHelper
 
   def index
+    if current_user.nil?
+      redirect_to :signin_path
+      return
+    end
     response  = API_call("users/#{current_user.username}/cameras", :get)
     puts response.body
     puts response.code
@@ -13,16 +17,14 @@ class CamerasController < ApplicationController
 
   def create
     # API request
-    body = {:api_id => current_user.api_id,
-            :api_key => current_user.api_key,
-            :id => params['camera-id'],
+    body = {:id => params['camera-id'],
             :name => params['camera-name'],
             :is_public => false,
-            :cam_username => params['camera-username'],
-            :cam_password => params['camera-password'],
-            :external_url => params['camera-url'].clone,
+            :external_url => 'http://' + params['camera-url'].clone,
             :jpg_url => params['snapshot']
     }
+    body[:cam_username] = params['camera-username'] unless params['camera-username'].empty?
+    body[:cam_password] = params['camera-password'] unless params['camera-password'].empty?
     body[:external_url] << ':' << params['port'] if params['port']
 
     response  = API_call('cameras', :post, body)
@@ -35,6 +37,7 @@ class CamerasController < ApplicationController
   end
 
   def single
-
+    response  = API_call("/cameras/#{params[:id]}", :get)
+    puts params
   end
 end

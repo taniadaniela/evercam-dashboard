@@ -470,6 +470,17 @@ a,a:hover,a:focus {
     margin-top: 30px;
 }
 /*Add Camera Form*/
+.add-row {
+    border-top: 1px solid #F5F5F5;
+    margin: 0 -30px 25px;
+    padding: 35px 20px 0;
+}
+.add-footer {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-top: 1px solid #E5E5E5;
+    margin: 25px -30px -15px;
+    padding: 25px 0;
+}
 .label {
     border-radius: 0;
 }
@@ -508,6 +519,7 @@ a,a:hover,a:focus {
 }
 #testimg {
     margin-bottom: 10px;
+    max-width: 400px;
 }
 .input-group-addon {
     font-size: 12px;
@@ -544,7 +556,17 @@ a,a:hover,a:focus {
     background-image: none;
     border: medium none;
 }
-
+.alert {
+    text-shadow: none;
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    border-radius: 2px;
+    margin: 10px 0;
+}
+.help-block {
+    font-size: 9px;
+    position: absolute;
+}
 /*sidebar navigation*/
 #sidebar {
     height:100%;

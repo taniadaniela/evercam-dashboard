@@ -469,17 +469,46 @@ a,a:hover,a:focus {
 .create {
     margin-top: 30px;
 }
+/*Single Camera Page*/
+.form-control, .bootstrap-switch {
+    border-radius:2px;
+}
+.bootstrap-switch .bootstrap-switch-handle-on {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on, .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off, .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+    padding-left: 1px;
+}
+.share-list {
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #E5E5E5;
+    border-top: 1px solid #E5E5E5;
+    margin: 42px -15px 9px;
+    padding: 30px 0;
+}
+.sharing {
+
+}
+.add-user {
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
 /*Add Camera Form*/
 .add-row {
     border-top: 1px solid #F5F5F5;
-    margin: 0 -30px 25px;
+    margin: 0 -15px 25px;
     padding: 35px 20px 0;
 }
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: 1px solid #E5E5E5;
-    margin: 25px -30px -15px;
+    margin: 25px -15px -15px;
     padding: 25px 0;
+}
+tbody tr:hover {
+    background-color: #ffffff;
 }
 .label {
     border-radius: 0;
@@ -497,7 +526,8 @@ a,a:hover,a:focus {
     border-radius:1px;
 }
 .panel {
-    border-radius:2px ;
+    border-radius:2px;
+    border: none;
 }
 .form-control {
     background-color: #F5F5F5;
@@ -565,7 +595,7 @@ a,a:hover,a:focus {
 }
 .help-block {
     font-size: 9px;
-    position: absolute;
+    position: ab;
 }
 /*sidebar navigation*/
 #sidebar {
@@ -2968,6 +2998,11 @@ ul.amounts li {
 .progress-sm {
     height:12px;
 }
+.panel-heading {
+    margin: 12px -15px 20px -15px;
+
+}
+
 .panel-heading .nav {
     border:medium none;
     font-size:13px;

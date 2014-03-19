@@ -46,4 +46,5 @@ gem 'typhoeus'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'quiet_assets', :group => :development
+gem 'quiet_assets', group: :development
+gem 'rails_12factor', group: :production

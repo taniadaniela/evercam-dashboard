@@ -1,9 +1,17 @@
 module ApplicationHelper
   def API_call(url, method, body={}, params={})
     unless current_user.nil?
-      params.merge!({:api_id => current_user.api_id,
-                     :api_key => current_user.api_key})
+      if method == :post
+        params.merge!({:api_id => current_user.api_id,
+                       :api_key => current_user.api_key})
+      else
+        params.merge!({:api_id => current_user.api_id,
+                       :api_key => current_user.api_key})
+      end
     end
+    puts body
+    puts params
+    Typhoeus::Config.verbose = true
     request = Typhoeus::Request.new(
       EVERCAM_API + url,
       method: method,

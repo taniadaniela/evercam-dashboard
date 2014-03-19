@@ -39,33 +39,12 @@
       <div class="col-md-10 col-xs-12 wrapper">
         <section id="main-content">
             <div class="row">
-              <div class="col-md-4 col-sm-6 col-xs-12 cam">
-                <section class="media">
-                  <a href="#">
-                    <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg">
-                  </a>
-                </section>
-              </div>
-              <div class="col-md-4 col-sm-6 col-xs-12 cam">
-                <section class="media">
-                  <a href="single-camera.html">
-                    <img src="https://dashboard.evercam.io/v1/cameras/marcopublic/snapshot.jpg">
-                  </a>
-                </section>
-              </div>
-              <div class="col-md-4 col-sm-6 col-xs-12 cam">
-                <section class="media">
-                  <a href="#">
-                    <img src="https://dashboard.evercam.io/v1/cameras/washuni/snapshot.jpg">
-                  </a>
-                </section>
-              </div>
 
               <% @cameras.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam">
                 <section class="media">
                   <a href="/cameras/<%= camera['id'] %>">
-                    <img src="<%= "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+                    <img src="<%= camera['jpg'] %>">
                   </a>
                 </section>
               </div>

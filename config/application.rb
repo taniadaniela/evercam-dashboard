@@ -31,6 +31,8 @@ module EvercamDashboard
                                  'glyphicons-halflings-regular.woff',
                                  'spin-1.3.2.min.js',
                                  'ladda-0.8.0.min.js',
-                                 'ladda-themeless-0.8.0.min.css']
+                                 'ladda-themeless-0.8.0.min.css',
+                                 'bootstrap-switch-3.0.0.min.css',
+                                 'bootstrap-switch-3.0.0.min.js']
   end
 end

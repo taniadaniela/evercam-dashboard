@@ -17,8 +17,6 @@ module Default
     has_many :cameras, :through => :camera_shares, :foreign_key => 'camera_id', :class_name => 'Camera'
 
     def password_bcrypt
-      puts email
-      puts password
       Password.new(password)
     end
 

@@ -328,19 +328,23 @@ h5 {
     margin-top:21px;
 }
 /*Camera Index Page*/
+#camera-dash .wrapper {
+    padding: 0;
+}
+#camera-dash {
+    margin-top: 40px;
+}
 .cam {
     padding-left: 0;
     padding-right: 0;
-    width: 32.2%;
+    width: 32.31%;
 }
 .cam img {
     height: 250px;
     width: 100%;
 }
-
-
 .cam:nth-child(3n+1) {
-    margin-left: 16px;
+    margin-left: 15px;
 }
 /*login page*/
 .login-body {
@@ -482,6 +486,9 @@ h5 {
     margin-top: 30px;
 }
 /*Single Camera Page*/
+#camera-single {
+    margin-top: 40px;
+}
 /*Sharing*/
 #sharing .panel {
     border:1px solid #f5f5f5;
@@ -521,17 +528,34 @@ h5 {
 .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
     border-radius: 1px !important;
 }
+
+
+
+
+
+
 /*Add Camera Form*/
 .add-row {
     border-top: 1px solid #F5F5F5;
     margin: 0 -15px 25px;
-    padding: 35px 20px 0;
+    padding: 35px 0px 0;
+}
+.add-row-last {
+    border-top: 1px solid #F5F5F5;
+    margin: 0 -15px;
+    padding: 35px 0px 0;
 }
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: 1px solid #E5E5E5;
     margin: 25px -15px -15px;
     padding: 25px 0;
+}
+.finish {
+    margin-top: 30px;
+}
+.input-group .has-error {
+    height: 30px;
 }
 tbody tr:hover {
     background-color: #ffffff;
@@ -624,7 +648,9 @@ tbody tr:hover {
 }
 .help-block {
     font-size: 9px;
-    position: ab;
+    position: absolute;
+    margin-bottom: 0;
+    margin-top: 2px;
 }
 /*sidebar navigation*/
 #sidebar {
@@ -761,7 +787,7 @@ ul.sidebar-menu li a.active,ul.sidebar-menu li a:hover,ul.sidebar-menu li a:focu
     color:#414042;
     display:block;
     box-shadow: -10px 3px 10px rgba(0, 0, 0, 0.06);
-    border-radius: 2px;
+    border-radius: 0px;
     margin-right: 0px;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;

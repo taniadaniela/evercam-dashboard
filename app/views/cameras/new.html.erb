@@ -246,8 +246,8 @@
           console.log('success');
           $('#testimg').attr('src', resp.data);
         })
-        .fail(function() {
-          test-error
+        .fail(function(resp) {
+          $('#test-error').text(resp.responseJSON.message);
           console.log('error');
         })
         .always(function() {

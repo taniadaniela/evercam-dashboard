@@ -20,7 +20,6 @@ class CamerasController < ApplicationController
   end
 
   def create
-    API request
     body = {:id => params['camera-id'],
             :name => params['camera-name'],
             :is_public => false,
@@ -33,9 +32,7 @@ class CamerasController < ApplicationController
 
     response  = API_call('cameras', :post, body)
 
-    puts response.body
-    puts response.code
-    if true
+    if response.success?
       redirect_to "/cameras/#{params['camera-id']}"
     else
       render :new

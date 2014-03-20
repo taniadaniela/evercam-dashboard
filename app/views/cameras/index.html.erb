@@ -13,15 +13,6 @@
             </a>
             </li>
           <li>
-            <ul class="sub">
-              <li><a href="">Mast Wicklow</a></li>
-              <li><a href="/single-camera.html">Remembrance Cam</a></li>
-              <li><a href="">Rooftop Cam</a></li>
-              <li><a href="">Reykjavik Harbour</a></li>
-              <li><a href="">Washington Uni</a></li>
-            </ul>
-          </li>
-          <li>
             <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>
               <span>  Add A Camera</span></a>
           </li>
@@ -36,12 +27,14 @@
               <% @cameras.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam">
                 <section class="media">
+                  <div id="cam-name"><h5><%= camera['name'] %></h5></div>
                   <a href="/cameras/<%= camera['id'] %>">
                     <img src="<%= camera['jpg'] %>">
                   </a>
                 </section>
               </div>
               <% end %>
+
 
             </div>
         </section>

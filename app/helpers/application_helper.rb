@@ -1,4 +1,5 @@
 module ApplicationHelper
+  #noinspection RubyArgCount
   def API_call(url, method, body={}, params={})
     unless current_user.nil?
       if method == :post
@@ -11,7 +12,6 @@ module ApplicationHelper
     end
     puts body
     puts params
-    Typhoeus::Config.verbose = true
     request = Typhoeus::Request.new(
       EVERCAM_API + url,
       method: method,

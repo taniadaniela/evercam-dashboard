@@ -33,7 +33,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt', '~> 3.1.2'
 
 gem 'protected_attributes'
 gem 'typhoeus'
@@ -49,3 +49,5 @@ gem 'typhoeus'
 
 gem 'quiet_assets', group: :development
 gem 'rails_12factor', group: :production
+
+ruby '2.1.1'

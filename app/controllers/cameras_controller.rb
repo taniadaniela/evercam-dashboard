@@ -58,5 +58,7 @@ class CamerasController < ApplicationController
     response  = API_call("/cameras/#{params[:id]}", :get)
     @camera =  JSON.parse(response.body)['cameras'][0]
     @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+    @vendors = Default::Vendor.all
+    @models = Default::VendorModel.all
   end
 end

@@ -135,7 +135,7 @@
     <div class='col-lg-3 form-group'>
         <label class="control-label" for="camera-vendor">Camera Vendor</label>
         <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
-        <select id="camera-vendor" name="camera-vendor" class="form-control input-sm" value="<%= params['camera-vendor'] %>">
+        <select id="camera-vendor" name="camera-vendor" class="form-control input-sm">
         <option value="-1">Select Make</option>
           <% @vendors.each_with_index  do |v, index| -%>
           <option value="<%= v.exid -%>">

@@ -1,6 +1,6 @@
 module Default
-  class Firmware < DbBase
-    self.table_name = 'firmwares'
+  class VendorModel < DbBase
+    self.table_name = 'vendor_models'
     self.inheritance_column = 'ruby_type'
     self.primary_key = 'id'
 
@@ -9,6 +9,5 @@ module Default
     end
 
     belongs_to :vendor, :foreign_key => 'vendor_id', :class_name => 'Vendor'
-    has_many :cameras, :foreign_key => 'firmware_id', :class_name => 'Camera'
   end
 end

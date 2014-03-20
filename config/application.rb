@@ -22,6 +22,7 @@ module EvercamDashboard
 
     # Incorporate Bootstrap elements.
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/fonts"
+    config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += ['bootstrap-3.1.0.min.css',
                                  'bootstrap-theme-3.1.0.min.css',
                                  'bootstrap-3.1.0.min.js',

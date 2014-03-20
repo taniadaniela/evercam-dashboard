@@ -2,7 +2,7 @@
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 @import url(http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
-@import url(bucket-ico-fonts.css);
+
 
 html {
     text-rendering: optimizeLegibility !important;
@@ -24,10 +24,14 @@ a,a:hover,a:focus {
     text-decoration:none;
     outline:none;
 }
+h5 {
+    font-weight: 700;
+    font-size: 13px;
+}
 
 .btn-add {
     border: medium none;
-        cursor: pointer;
+    cursor: pointer;
     display: inline-block;
     color: #414042;
     font-weight: normal;
@@ -74,7 +78,15 @@ a,a:hover,a:focus {
  *
  *
  */
-
+.panel-heading .nav > li.active > a {
+    border-left: 1px solid #E5E5E5 !important;
+    border-right: 1px solid #E5E5E5!important;
+    border-top: 1px solid #E5E5E5!important;
+    height: 54px!important;
+}
+.panel-heading .nav > li.active:first-child > a, .panel-heading .nav > li:first-child > a:hover {
+    border-radius: 0px 0 0;
+}
 .navbar {
     left: 0;
     right: 0;
@@ -316,19 +328,23 @@ a,a:hover,a:focus {
     margin-top:21px;
 }
 /*Camera Index Page*/
+#camera-dash .wrapper {
+    padding: 0;
+}
+#camera-dash {
+    margin-top: 40px;
+}
 .cam {
     padding-left: 0;
     padding-right: 0;
-    width: 32.2%;
+    width: 32.31%;
 }
 .cam img {
     height: 250px;
     width: 100%;
 }
-
-
 .cam:nth-child(3n+1) {
-    margin-left: 16px;
+    margin-left: 15px;
 }
 /*login page*/
 .login-body {
@@ -470,6 +486,13 @@ a,a:hover,a:focus {
     margin-top: 30px;
 }
 /*Single Camera Page*/
+#camera-single {
+    margin-top: 40px;
+}
+/*Sharing*/
+.sharing {
+    margin-bottom: 25px;
+}
 .form-control, .bootstrap-switch {
     border-radius:2px;
 }
@@ -487,25 +510,49 @@ a,a:hover,a:focus {
     margin: 42px -15px 9px;
     padding: 30px 0;
 }
-.sharing {
+.well {
+    background-image: none;
+    border-color: #e5e5e5;
+    box-shadow: none;
+    margin-bottom: 12px;
+}
+.well-sm {
+    border-radius: 1px;
+    padding: 5px 10px;
+}
 
+
+.input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
+    border-radius: 1px !important;
 }
-.add-user {
-    margin-top: 10px;
-    padding-top: 20px;
-}
+
+
+
+
 
 /*Add Camera Form*/
 .add-row {
     border-top: 1px solid #F5F5F5;
     margin: 0 -15px 25px;
-    padding: 35px 20px 0;
+    padding: 35px 0px 0;
+}
+.add-row-last {
+    border-top: 1px solid #F5F5F5;
+    margin: 0 -15px 30px;
+    padding: 35px 0px 0;
+    border-bottom: 1px solid #F5F5F5;
 }
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: 1px solid #E5E5E5;
     margin: 25px -15px -15px;
     padding: 25px 0;
+}
+.finish {
+    margin-top: 30px;
+}
+.input-group .has-error {
+    height: 30px;
 }
 tbody tr:hover {
     background-color: #ffffff;
@@ -527,7 +574,15 @@ tbody tr:hover {
 }
 .panel {
     border-radius:2px;
-    border: none;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+#additional {
+cursor: pointer;
+
+}
+#settings {
+    display: none;
 }
 .form-control {
     background-color: #F5F5F5;
@@ -595,7 +650,9 @@ tbody tr:hover {
 }
 .help-block {
     font-size: 9px;
-    position: ab;
+    position: absolute;
+    margin-bottom: 0;
+    margin-top: 2px;
 }
 /*sidebar navigation*/
 #sidebar {
@@ -732,7 +789,7 @@ ul.sidebar-menu li a.active,ul.sidebar-menu li a:hover,ul.sidebar-menu li a:focu
     color:#414042;
     display:block;
     box-shadow: -10px 3px 10px rgba(0, 0, 0, 0.06);
-    border-radius: 2px;
+    border-radius: 0px;
     margin-right: 0px;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
@@ -3016,7 +3073,7 @@ ul.amounts li {
     background:#F5F5F5;
     border-radius:2px 2px 0 0;
     -webkit-border-radius:2px 2px 0 0;
-    border-bottom:none;
+    border-bottom: 1px solid #e5e5e5;
 }
 .panel-heading .nav>li>a,.panel-heading .nav>li.active>a,.panel-heading .nav>li.active>a:hover,.panel-heading .nav>li.active>a:focus {
     border-width:0;
@@ -3030,8 +3087,9 @@ ul.amounts li {
     background:#fff;
 }
 .panel-heading .nav>li:first-child.active>a,.panel-heading .nav>li:first-child>a:hover {
-    border-radius:4px 0 0 0;
-    -webkit-border-radius:2px 0 0 0;
+    border-radius:0px 0 0 0;
+    -webkit-border-radius:0px 0 0 0;
+    border-left:0px!important;
 }
 .tab-right {
     height:58px;

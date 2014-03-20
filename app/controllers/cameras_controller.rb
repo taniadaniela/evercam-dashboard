@@ -48,6 +48,8 @@ class CamerasController < ApplicationController
       redirect_to "/cameras/#{params['camera-id']}"
     else
       flash[:message] = JSON.parse(response.body)['message']
+      @vendors = Default::Vendor.all
+      @models = Default::VendorModel.all
       render :new
     end
   end

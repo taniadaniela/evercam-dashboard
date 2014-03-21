@@ -6,6 +6,7 @@ EvercamDashboard::Application.routes.draw do
    get 'cameras/new' => 'cameras#new'
    post 'cameras/new' => 'cameras#create'
    get 'cameras/:id' => 'cameras#single', as: :cameras_single
+   post 'cameras/:id' => 'cameras#update'
 
    resources :sessions, only: [:new, :create, :destroy]
    match '/signup',  to: 'users#new',            via: 'get'

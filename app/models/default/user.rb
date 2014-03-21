@@ -1,5 +1,7 @@
 module Default
   class User < DbBase
+    include BCrypt
+
     self.table_name = 'users'
     self.inheritance_column = 'ruby_type'
     self.primary_key = 'id'
@@ -13,5 +15,14 @@ module Default
     has_many :camera_shares, :foreign_key => 'user_id', :class_name => 'CameraShare'
     has_many :clients, :through => :access_tokens, :foreign_key => 'client_id', :class_name => 'Client'
     has_many :cameras, :through => :camera_shares, :foreign_key => 'camera_id', :class_name => 'Camera'
+
+    def password_bcrypt
+      Password.new(password)
+    end
+
+    def password_bcrypt=(new_password)
+      values[:password] = Password.create(new_password, cost: 10)
+    end
+
   end
 end

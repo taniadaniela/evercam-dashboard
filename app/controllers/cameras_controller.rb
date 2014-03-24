@@ -11,8 +11,6 @@ class CamerasController < ApplicationController
       return
     end
     response  = API_call("users/#{current_user.username}/cameras", :get)
-    puts response.body
-    puts response.code
     @cameras =  JSON.parse(response.body)['cameras']
     @cameras.each do |c|
       c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
@@ -31,7 +29,7 @@ class CamerasController < ApplicationController
             :external_host => params['camera-url'],
             :internal_host => params['local-ip'],
             :external_http_port => params['port'],
-            :internal_http_port => params['local-port'],
+            :internal_http_port => params['local-http'],
             :jpg_url => params['snapshot']
     }
     body[:cam_username] = params['camera-username'] unless params['camera-username'].empty?
@@ -58,7 +56,7 @@ class CamerasController < ApplicationController
             :external_host => params['camera-url'],
             :internal_host => params['local-ip'],
             :external_http_port => params['port'],
-            :internal_http_port => params['local-port'],
+            :internal_http_port => params['local-http'],
             :jpg_url => params['snapshot'],
             :cam_username => params['camera-username'],
             :cam_password => params['camera-password'],
@@ -66,11 +64,12 @@ class CamerasController < ApplicationController
             :model => params['camera-model']
     }
 
-    response  = API_call('cameras', :patch, body)
+    response  = API_call("/cameras/#{params['camera-id']}", :patch, body)
 
     if response.success?
-      redirect_to "/cameras/#{params['camera-id']}"
+      redirect_to "/cameras/#{params['camera-id']}#settings"
     else
+      puts response.body
       flash[:message] = JSON.parse(response.body)['message']
       response  = API_call("/cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]

@@ -515,6 +515,19 @@
       previous = this.value;
     });
 
+    // Javascript to enable link to tab
+    var url = document.location.toString();
+    if (url.match('#')) {
+      $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
+      setTimeout(function() {scrollTo(0,0)}, 10);
+    }
+
+    // Change hash for page-reload
+    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+      window.location.hash = e.target.hash;
+      scrollTo(0,0);
+    })
+
   });
 </script>
 

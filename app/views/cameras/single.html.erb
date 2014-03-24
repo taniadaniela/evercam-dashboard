@@ -49,7 +49,7 @@
       <a data-toggle="tab" href="#info">Camera Info</a>
     </li>
     <li class="">
-      <a data-toggle="tab" href="#setting">Settings</a>
+      <a data-toggle="tab" href="#camera-settings">Settings</a>
     </li>
     <li class="">
       <a data-toggle="tab" href="#sharing">Sharing</a>
@@ -132,7 +132,7 @@
 
 
 <!--INFO TAB PANE -->
-<div id="setting" class="tab-pane">
+<div id="camera-settings" class="tab-pane">
   <form action="#" method="post">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
@@ -556,6 +556,10 @@
       window.location.hash = e.target.hash;
       scrollTo(0,0);
     })
+
+    $( "#additional" ).click(function() {
+      $( "#settings" ).slideToggle( "slow", function() {});
+    });
 
   });
 </script>

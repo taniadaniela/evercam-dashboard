@@ -102,9 +102,9 @@
                 <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= params['port'] %>">
             </div>
             <div class='col-lg-6 form-group'>
-               <label class="control-label" for="port">Ext. RTSP Port</label>
+               <label class="control-label" for="ext-rtsp-port">Ext. RTSP Port</label>
                <span data-toggle="tooltip" data-title="This Field is optional." class="label label-default">optional</span>
-                <input id="port" name="rtsp-port" placeholder="8901" class="form-control input-sm" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= params['ext-rtsp-port'] %>">
+                <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="8901" class="form-control input-sm" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= params['ext-rtsp-port'] %>">
             </div>
         </div>
         <div class='row'>
@@ -267,11 +267,11 @@
           l.stop();
           clearInterval( interval );
         });
+    });
 
-        $( "#additional" ).click(function() {
-            $( "#settings" ).slideToggle( "slow", function() {
-              });
-            });
+    $( "#additional" ).click(function() {
+      $( "#settings" ).slideToggle( "slow", function() {});
+    });
 
     var previous;
     $('#camera-vendor').one('focus', function() {
@@ -282,9 +282,7 @@
       previous = this.value;
     });
 
-  });
-
   $.validate();
-
+});
 
 </script>

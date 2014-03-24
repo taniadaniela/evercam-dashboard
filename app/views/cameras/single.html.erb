@@ -31,7 +31,7 @@
 
 <section class="wrapper site-min-height col-md-10">
 <div class="row">
-  <div class="col-md-12"><h4>Remembrance Cam  <small>  rem-cam</small></h4></div>
+  <div class="col-md-12"><h4><%= @camera['name'] %>    <small>   <%= @camera['id'] %></small></h4></div>
 </div>
 
 <div class="row">
@@ -82,24 +82,65 @@
                 </div>
               </div>
               <div class="col-md-4 panel panel-body">
-                <p>Camera ID: <%= @camera['id'] %></p>
-                <p>Local IP: <%= @camera.fetch('config', {}).fetch('internal_host', '') %></p>
-                <p>Camera Owner: <%= @camera['owner'] %></p>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                Online / Offline
+=======
+             Online / Offline
+>>>>>>> FETCH_HEAD
+=======
+             Online / Offline
+>>>>>>> FETCH_HEAD
               </div>
             </div>
 
  <!--INFO TAB PANE -->
             <div id="info" class="tab-pane">
-              <div class="panel panel-body">
-              <p>Camera ID: <%= @camera['id'] %></p>
-              <p>Local IP:</p>
-              <p>Camera Owner: <%= @camera['owner'] %></p>
-              <p>Assets:</p>
-              <ul>
-                  <li>JPEG URL: http://evr.cm/rem-cam.jpg</li>
-                  <li>H264 URL: http://evr.cm/rem-cam.h264</li>
-                  <li>Audio URL: http://evr.cm/rem-cam.aac</li>
-              </ul>
+              <div class="col-md-4 panel panel-body">
+                <table class='table borderless'>
+                  <thead>
+                  <tr><h5>Info</h5></tr>
+                  </thead>
+                  <tr>
+                    <td>Camera ID   </td>
+                    <td><%= @camera['id'] %></td>
+                  </tr>
+                  <tr>
+                    <td>Camera Owner   </td>
+                    <td><%= @camera['owner'] %></td>
+                  </tr>
+                  <tr>
+                    <td>Local IP   </td>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    <td><%= @camera.fetch('config', {}).fetch('internal_host', '') %></td>
+=======
+                    <td><%= @camera['ip'] %></td>
+>>>>>>> FETCH_HEAD
+=======
+                    <td><%= @camera['ip'] %></td>
+>>>>>>> FETCH_HEAD
+                  </tr>
+                </table>
+                </div>
+                <div class="col-md-6 panel panel-body">
+                <table class='table borderless'>
+                  <thead>
+                  <tr><h5>Assets</h5></tr>
+                  </thead>
+                  <tr>
+                    <td >JPEG URL   </td>
+                    <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
+                  </tr>
+                  <tr>
+                    <td>H264 URL   </td>
+                    <td>H264 URL: http://evr.cm/rem-cam.h264</td>
+                  </tr>
+                  <tr>
+                    <td>Audio URL  </td>
+                    <td>http://evr.cm/rem-cam.aac</td>
+                  </tr>
+                </table>
               </div>
             </div>
 
@@ -471,7 +512,9 @@
 
 <!--APPS TAB PANE -->
 <div id="apps" class="tab-pane">
-  APPS
+
+   <a href="http://www.evercam.io/apps" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
+
 </div><!--TAB PANE -->
 
 <!--ACTIVITY TAB PANE -->

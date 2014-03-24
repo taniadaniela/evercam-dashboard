@@ -657,6 +657,7 @@ cursor: pointer;
 #testimg {
     margin-bottom: 10px;
     max-width: 400px;
+    background-image: url('http://www.evercam.io/img/connect.png');
 }
 .input-group-addon {
     font-size: 12px;

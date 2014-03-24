@@ -493,8 +493,19 @@ h5 {
     margin-top: 30px;
 }
 /*Single Camera Page*/
+
 #camera-single {
     margin-top: 40px;
+}
+/*Info*/
+.borderless td {
+    border: none !important;
+}
+.borderless tr td:first-child {
+    font-weight: 700;
+}
+#info .panel {
+    clear: both;
 }
 /*Sharing*/
 .sharing {
@@ -533,8 +544,41 @@ h5 {
     border-radius: 1px !important;
 }
 
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: 1px solid #F5F5F5;
+}
+.table > thead > tr > th {
+    border-bottom: 1px solid #E5E5E5;
+}
+/*Apps*/
+.evercam {
+    color: #428BCA;
+    font-weight: 700;
+}
+.apps-btn {
+    border: medium none;
+    border-radius: 2px;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    letter-spacing: 0.06em;
+    line-height: 24px;
+    outline: medium none;
+    overflow: hidden;
+    padding: 14px 14px 12px;
+    position: relative;
+    transition: box-shadow 0.2s ease 0s, background 0.2s ease 0s;
+    vertical-align: middle;
+    white-space: nowrap;
+}
 
-
+.apps-btn:hover, apps-btn.active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
 
 
 /*Add Camera Form*/
@@ -613,6 +657,7 @@ cursor: pointer;
 #testimg {
     margin-bottom: 10px;
     max-width: 400px;
+    background-image: url('http://www.evercam.io/img/connect.png');
 }
 .input-group-addon {
     font-size: 12px;
@@ -2046,17 +2091,7 @@ ul.ft-link li a i {
 .post-info .desk.yellow h3 {
     color:#f8d347;
 }
-.post-btn {
-}
-.post-btn a {
-    float:left;
-    margin-right:8px;
-    font-size:18px;
-    color:#9a9a9a;
-}
-.post-btn a:hover {
-    color:#727272;
-}
+
 .pro-thumb {
     text-align:center;
     display:inline-block;

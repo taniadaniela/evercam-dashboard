@@ -35,7 +35,7 @@
         <li><a href="http://evercam.io/help">/help</a></li>
         <li><a href="http://evercam.io/docs">/docs</a></li>
         <li><a href="/">/cameras</a></li>
-        <li><a href="#">/developer</a></li>
+        <li><a href="/dev">/developer</a></li>
 
       <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
@@ -45,7 +45,7 @@
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">Settings</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="0" href="#">Send Feedback</a></li>
                 <li role="presentation" class="divider"></li>
                 <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>

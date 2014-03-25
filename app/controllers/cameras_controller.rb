@@ -1,6 +1,3 @@
-require 'typhoeus'
-
-
 class CamerasController < ApplicationController
   include SessionsHelper
   include ApplicationHelper

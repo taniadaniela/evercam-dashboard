@@ -11,8 +11,12 @@ EvercamDashboard::Application.routes.draw do
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]
    match '/signup',  to: 'users#new',            via: 'get'
+   get '/users/:id/settings',  to: 'users#settings'
+   post '/users/:id/settings',  to: 'users#settings_update'
    match '/signin',  to: 'sessions#new',         via: 'get'
    match '/signout', to: 'sessions#destroy',     via: 'delete'
+
+   get '/dev' => 'pages#dev'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -33,5 +33,10 @@ module EvercamDashboard
                                  'spin-1.3.2.min.js',
                                  'ladda-0.8.0.min.js',
                                  'ladda-themeless-0.8.0.min.css']
+
+    config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
+      r301      %r{/v1/(.*)},    'https://api.evercam.io/v1/$1'
+    end
+
   end
 end

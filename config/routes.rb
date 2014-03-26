@@ -11,6 +11,7 @@ EvercamDashboard::Application.routes.draw do
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]
    match '/signup',  to: 'users#new',            via: 'get'
+   post '/signup',  to: 'users#create'
    get '/users/:id/settings',  to: 'users#settings'
    post '/users/:id/settings',  to: 'users#settings_update'
    match '/signin',  to: 'sessions#new',         via: 'get'

@@ -24,15 +24,18 @@ class CamerasController < ApplicationController
             :name => params['camera-name'],
             :is_public => false,
             :external_host => params['camera-url'],
-            :internal_host => params['local-ip'],
-            :external_http_port => params['port'],
-            :internal_http_port => params['local-http'],
             :jpg_url => params['snapshot']
     }
     body[:cam_username] = params['camera-username'] unless params['camera-username'].empty?
     body[:cam_password] = params['camera-password'] unless params['camera-password'].empty?
     body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].empty?
-    body[:model] = params['camera-model'] unless params['camera-model'].empty?
+    if body[:vendor]
+      body[:model] = params["camera-model#{body[:vendor]}"] unless params["camera-model#{body[:vendor]}"].empty?
+    end
+
+    body[:internal_http_port] = params['local-http'] unless params['local-http'].empty?
+    body[:external_http_port] = params['port'] unless params['port'].empty?
+    body[:internal_host] = params['local-ip'] unless params['local-ip'].empty?
 
     response  = API_call('cameras', :post, body)
 

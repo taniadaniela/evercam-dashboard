@@ -1,2 +1,2 @@
-EVERCAM_API = 'https://api.evercam.io/v1/'
+EVERCAM_API = 'http://localhost:9292/v1/'
 TIMEOUT = 5

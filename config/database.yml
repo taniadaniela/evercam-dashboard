@@ -14,7 +14,7 @@ test:
   adapter: postgresql
   host: localhost
   port: 5432
-  database: evercam_test
+  database: evercam_dev
   encoding: utf8
   schema_search_path: public
   template: template0

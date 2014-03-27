@@ -1,16 +1,17 @@
 class CamerasController < ApplicationController
+  before_filter :authenticate_user!
   include SessionsHelper
   include ApplicationHelper
 
   def index
-    if current_user.nil?
-      redirect_to signin_path
-      return
-    end
     response  = API_call("users/#{current_user.username}/cameras", :get)
-    @cameras =  JSON.parse(response.body)['cameras']
-    @cameras.each do |c|
-      c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+    if response.success?
+      @cameras =  JSON.parse(response.body)['cameras']
+      @cameras.each do |c|
+        c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+      end
+    else
+      @cameras = []
     end
   end
 

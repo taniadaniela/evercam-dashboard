@@ -51,4 +51,8 @@ gem 'rack-rewrite'
 gem 'quiet_assets', group: :development
 gem 'rails_12factor', group: :production
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+end
+
 ruby '2.1.1'

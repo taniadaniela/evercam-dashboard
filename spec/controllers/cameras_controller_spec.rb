@@ -6,7 +6,7 @@ describe CamerasController do
       get :index
       expect(response).to redirect_to('/signin')
     end
-    end
+  end
 
   describe 'GET #new without auth' do
     it "redirects to signup" do

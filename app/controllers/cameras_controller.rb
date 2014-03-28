@@ -21,32 +21,36 @@ class CamerasController < ApplicationController
   end
 
   def create
-    body = {:id => params['camera-id'],
-            :name => params['camera-name'],
-            :is_public => false,
-            :external_host => params['camera-url'],
-            :jpg_url => params['snapshot']
-    }
-    body[:cam_username] = params['camera-username'] unless params['camera-username'].empty?
-    body[:cam_password] = params['camera-password'] unless params['camera-password'].empty?
-    body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].empty?
-    if body[:vendor]
-      body[:model] = params["camera-model#{body[:vendor]}"] unless params["camera-model#{body[:vendor]}"].empty?
+    response = nil
+    begin
+      body = {:id => params['camera-id'],
+              :name => params['camera-name'],
+              :is_public => false,
+              :external_host => params['camera-url'],
+              :jpg_url => params['snapshot']
+      }
+      body[:cam_username] = params['camera-username'] unless params['camera-username'].empty?
+      body[:cam_password] = params['camera-password'] unless params['camera-password'].empty?
+      body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].empty?
+      if body[:vendor]
+        body[:model] = params["camera-model#{body[:vendor]}"] unless params["camera-model#{body[:vendor]}"].empty?
+      end
+
+      body[:internal_http_port] = params['local-http'] unless params['local-http'].empty?
+      body[:external_http_port] = params['port'] unless params['port'].empty?
+      body[:internal_host] = params['local-ip'] unless params['local-ip'].empty?
+
+      response  = API_call('cameras', :post, body)
+    rescue NoMethodError => _
     end
 
-    body[:internal_http_port] = params['local-http'] unless params['local-http'].empty?
-    body[:external_http_port] = params['port'] unless params['port'].empty?
-    body[:internal_host] = params['local-ip'] unless params['local-ip'].empty?
-
-    response  = API_call('cameras', :post, body)
-
-    if response.success?
-      redirect_to "/cameras/#{params['camera-id']}"
-    else
-      flash[:message] = JSON.parse(response.body)['message']
+    if response.nil? or not response.success?
+      flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
       @vendors = Default::Vendor.all
       @models = Default::VendorModel.all
       render :new
+    elsif response.success?
+      redirect_to "/cameras/#{params['camera-id']}"
     end
   end
 
@@ -70,11 +74,12 @@ class CamerasController < ApplicationController
     if response.success?
       redirect_to "/cameras/#{params['camera-id']}#settings"
     else
+      puts '~~~~~'
       puts response.body
-      flash[:message] = JSON.parse(response.body)['message']
+      puts response.code
+      flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
       response  = API_call("/cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
-      puts @camera
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
       @vendors = Default::Vendor.all
       @models = Default::VendorModel.all

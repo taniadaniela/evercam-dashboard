@@ -10,11 +10,11 @@ module ApplicationHelper
                        :api_key => current_user.api_key})
       end
     end
-    puts '========'
+    puts "\n========"
+    puts method
     puts body
     puts params
-    puts method
-    puts '========'
+    puts "========\n"
     request = Typhoeus::Request.new(
       EVERCAM_API + url,
       method: method,

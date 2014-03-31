@@ -7,21 +7,20 @@
   <ul class="sidebar-menu" id="nav-accordion">
     <li class="sub-menu">
       <a href="/" class="active">
-        <span class="glyphicon glyphicon-camera"></span>
-        <span>  My Cameras</span>
+        <span>My Cameras</span>
       </a>
     </li>
     <li>
-      <ul class="sub">
-        <li><a href="">Mast Wicklow</a></li>
-        <li><a href="/single-camera.html">Remembrance Cam</a></li>
-        <li><a href="">Rooftop Cam</a></li>
-        <li><a href="">Reykjavik Harbour</a></li>
-        <li><a href="">Washington Uni</a></li>
+      <ul class="sub active">
+        <li>
+          <!--<%# @cameras.each do |camera| %>
+                <a href="/cameras/<%#= camera['id'] %>"><%#= camera['name'] %></a>
+                <%# end %>-->
+        </li>
       </ul>
     </li>
     <li>
-      <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>
+      <a href="/cameras/new" class="active"><span class="glyphicon glyphicon-plus"></span>
         <span>  Add A Camera</span></a>
     </li>
   </ul>
@@ -65,6 +64,9 @@
     </li>
     <li class="">
       <a data-toggle="tab" href="#explorer">API Explorer</a>
+    </li>
+    <li class="pull-right">
+      <a data-toggle="tab" href="#delete">Delete</a>
     </li>
 
   </ul>
@@ -229,7 +231,7 @@
           </div>
           <div class="alert">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <span id="test-error">It looks like your... information is incorrect</span>
+            <span id="test-error"><%= flash[:message] %></span>
           </div>
         </div>
         <div class='col-lg-3'>
@@ -539,6 +541,12 @@
 <!--EXPLORER TAB PANE -->
 <div id="explorer" class="tab-pane">
   <p>API EXPLORER</p><p>coming soon...</p>
+</div><!--TAB PANE -->
+
+<!--DELETE TAB PANE -->
+<div id="delete" class="tab-pane">
+  <p>Are you sure you want to DELETE this camera?</p>
+  <a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-refresh"></span>Yes, DELETE</a>
 </div><!--TAB PANE -->
 
 </div><!-- tab-content -->

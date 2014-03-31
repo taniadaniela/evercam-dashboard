@@ -43,7 +43,7 @@ describe CamerasController do
 
     before(:all) do
       id = SecureRandom.uuid
-      @params =  {
+      @params = {
         'camera-id' => id,
         'camera-name' => 'My Cam',
         'camera-url' => '1.1.1.1',
@@ -55,7 +55,7 @@ describe CamerasController do
         'port' => '',
         'local-ip' => ''
       }
-      @patch_params =  {
+      @patch_params = {
         'camera-id' => id,
         'id' => id,
         'camera-name' => 'My New Cam',
@@ -92,8 +92,9 @@ describe CamerasController do
       it "redirects to the updated camera" do
         request.cookies['user'] = 'tj@mhlabs.net'
         post :update, @patch_params
-        expect(response.status).to eq(200)
-        expect(response).to render_template :single
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to "/cameras/#{@params['camera-id']}#settings"
+        expect(flash[:message]).to eq('Settings updated successfully')
       end
     end
 
@@ -103,6 +104,7 @@ describe CamerasController do
         post :update, {'id' => @params['camera-id'], 'camera-id' => @params['camera-id']}
         expect(response.status).to eq(200)
         expect(response).to render_template :single
+        expect(flash[:message]).to eq(["name can't be blank", "jpg url can't be blank", "external host can't be blank"])
       end
     end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SessionsController, :focus => true do
+describe SessionsController do
 
   describe 'POST #create without auth' do
     it "rerenders signin" do

@@ -72,11 +72,9 @@ class CamerasController < ApplicationController
     response  = API_call("/cameras/#{params['camera-id']}", :patch, body)
 
     if response.success?
+      flash[:message] = 'Settings updated successfully'
       redirect_to "/cameras/#{params['camera-id']}#settings"
     else
-      puts '~~~~~'
-      puts response.body
-      puts response.code
       flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
       response  = API_call("/cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]

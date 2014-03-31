@@ -10,4 +10,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def owns_data!
+    if current_user.username != params[:id]
+      sign_out
+      redirect_to '/signin'
+      return
+    end
+  end
+
 end

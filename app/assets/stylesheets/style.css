@@ -335,11 +335,24 @@ h5 {
     margin-top: 40px;
 }
 #cam-name {
-    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.85);
-    padding: 0px 15px;
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
+    padding: 0px 10px;
     position: absolute;
     right: 0;
     top: 0;
+    border-bottom-left-radius:1px;
+    cursor:pointer;
+}
+#cam-refresh {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.0);
+    padding: 3px 5px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    border-top-left-radius: 1px;
+}
+#cam-refresh:hover {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
 }
 .cam {
     padding-left: 0;
@@ -347,8 +360,12 @@ h5 {
     width: 32.31%;
 }
 .cam img {
-    height: 250px;
+    height: auto;
     width: 100%;
+}
+.cam .media {
+    height: 237px;
+    background: #000000;
 }
 .cam:nth-child(3n+1) {
     margin-left: 15px;
@@ -526,6 +543,9 @@ h5 {
 }
 .create {
     margin-top: 30px;
+}
+#country {
+    max-width: 175px;
 }
 
 .use {
@@ -3663,6 +3683,7 @@ ul.clock-category li a:hover i,ul.clock-category li a.active i {
     top:10px;
     right:10px;
 }
+
 .weather-full-info {
     color:#cbcbcb;
 }

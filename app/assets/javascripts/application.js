@@ -16,4 +16,3 @@
 //= require bootstrap-3.1.1.min
 //= require spin-1.3.2.min
 //= require ladda-0.8.0.min
-//= require_tree .

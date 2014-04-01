@@ -84,9 +84,11 @@
                 </div>
               </div>
               <div class="col-md-4 panel panel-body">
-
-                Online / Offline
-
+                <% if @camera['is_online'] %>
+                Online
+                <% else %>
+                Offline
+                <% end %>
               </div>
             </div>
 

@@ -18,6 +18,7 @@ EvercamDashboard::Application.routes.draw do
    match '/signout', to: 'sessions#destroy',     via: 'delete'
 
    get '/dev' => 'pages#dev'
+   get '/swagger' => 'pages#swagger'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

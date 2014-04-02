@@ -44,6 +44,8 @@ GEM
     ffi (1.9.3)
     hike (1.2.3)
     i18n (0.6.9)
+    intercom-rails (0.2.24)
+      activesupport (> 3.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -149,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.2)
   coffee-rails (~> 4.0.0)
+  intercom-rails (~> 0.2.24)
   jbuilder (~> 1.2)
   jquery-rails
   pg

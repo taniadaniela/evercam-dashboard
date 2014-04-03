@@ -10,7 +10,7 @@
 /tmp
 
 #Created assets
-/public/assets/*
+#/public/assets/*
 
 # IDE stuff
 /.idea

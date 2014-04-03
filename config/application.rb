@@ -22,7 +22,8 @@ module EvercamDashboard
 
     # Incorporate Bootstrap elements.
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/fonts"
-    config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
+    #config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
+    #config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += ['bootstrap-3.1.0.min.css',
                                  'bootstrap-theme-3.1.0.min.css',
@@ -33,7 +34,8 @@ module EvercamDashboard
                                  'glyphicons-halflings-regular.woff',
                                  'spin-1.3.2.min.js',
                                  'ladda-0.8.0.min.js',
-                                 'ladda-themeless-0.8.0.min.css']
+                                 'ladda-themeless-0.8.0.min.css',
+                                 'custom.js']
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'

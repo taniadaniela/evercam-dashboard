@@ -790,9 +790,11 @@ tbody tr:hover {
 }
 .alert {
     text-shadow: none;
-    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    /*-webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-    border-radius: 2px;
+    border-radius: 2px;*/
+    webkit-box-shadow:none;
+    box-shadow:none;
     margin: 10px 0;
 }
 .help-block {

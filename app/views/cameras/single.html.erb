@@ -246,16 +246,16 @@
     </fieldset>
 
     <div class="row">
-      <div id="additional">
+      <div id="">
         <div class='col-lg-3'>
-          <span class="label label-primary">4</span><h5><span class="glyphicon glyphicon-plus"></span> Additional Settings</h5>
+          <span class="label label-primary">4</span><h5>Additional Settings</h5>
         </div>
       </div>
       <fieldset>
-        <div id="settings">
+        <div class="col-lg-7">
           <!-- STEP 4 -->
           <div class='row'>
-            <div class='col-lg-3 form-group'>
+            <div class='col-lg-6 form-group'>
               <label class="control-label" for="camera-vendor">Camera Vendor</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <select id="camera-vendor" name="camera-vendor" class="form-control input-sm">
@@ -268,7 +268,7 @@
               </select>
             </div>
 
-            <div class='col-lg-3 form-group'>
+            <div class='col-lg-6 form-group'>
               <%= @camera['model'] %>
               <label class="control-label" for="camera-model">Camera Model</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
@@ -586,6 +586,37 @@
       previous = this.value;
     });
 
+      $('#test').click(function(e) {
+          var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
+              'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
+          e.preventDefault();
+          var l = Ladda.create(this);
+          l.start();
+          var progress = 0;
+          var interval = setInterval( function() {
+              progress = Math.min( progress + 0.025, 1 );
+              l.setProgress( progress );
+
+              if( progress === 1 ) {
+                  l.stop();
+                  clearInterval( interval );
+              }
+          }, 200 );
+          $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
+                  .done(function(resp) {
+                      console.log('success');
+                      $('#testimg').attr('src', resp.data);
+                  })
+                  .fail(function(resp) {
+                      $('#test-error').text(resp.responseJSON.message);
+                      console.log('error');
+                  })
+                  .always(function() {
+                      l.stop();
+                      clearInterval( interval );
+                  });
+      });
+
       // Tooltip
       $('body').popover({
           selector: '[data-toggle="popover"]'
@@ -623,14 +654,10 @@
     })
 
 
-
-    $( "#additional" ).click(function() {
-      $( "#settings" ).slideToggle( "slow", function() {});
-    });
       $( '.refresh' ).click(function() {
           location.reload();
       });
-      $.validate();
-  });
+
+  })
 </script>
 

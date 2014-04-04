@@ -21,8 +21,7 @@
             </ul>
           </li>
           <li>
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>
-              <span>  Add A Camera</span></a>
+            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add A Camera</a>
           </li>
         </ul>
       </div>
@@ -35,10 +34,10 @@
               <% @cameras.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam">
                 <section class="media">
-                  <div id="cam-name"><h5><%= camera['name'] %></h5></div>
                   <a href="/cameras/<%= camera['id'] %>">
-                    <img src="<%= camera['jpg'] %>">
-                    <a href="#" id="cam-refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+                  <div id="cam-name"><h5><%= camera['name'] %></h5></div>
+                    <img src="<%= camera['jpg'] %>"  onerror="brokenImage(this);">
+                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
                   </a>
                 </section>
               </div>
@@ -52,3 +51,12 @@
     </section>
   </div>
 </div> <!--boxed page end-->
+<script type="text/javascript">
+    function brokenImage(img)
+    {
+        img.src='https://www.evercam.io/img/offline.png';
+    }
+    $( '.refresh' ).click(function() {
+        location.reload();
+    });
+</script>

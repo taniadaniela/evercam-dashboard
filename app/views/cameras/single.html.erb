@@ -7,7 +7,7 @@
   <ul class="sidebar-menu" id="nav-accordion">
     <li class="sub-menu">
       <a href="/" class="active">
-        <span>My Cameras</span>
+       <span>My Cameras</span>
       </a>
     </li>
     <li>
@@ -20,8 +20,7 @@
       </ul>
     </li>
     <li>
-      <a href="/cameras/new" class=""><span class="glyphicon glyphicon-plus"></span>
-        <span>  Add A Camera</span></a>
+      <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add A Camera</a>
     </li>
   </ul>
 </div>
@@ -79,17 +78,17 @@
                 <div class="panel media">
                   <img src="<%= @camera['jpg'] %>" width="100%" height="auto">
                 </div>
-                <div class='col-md-12'>
-                  <p class="text-center"><a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-refresh"></span>  Refresh Snapshot</a></p>
-                </div>
               </div>
-              <div class="col-md-4 panel panel-body">
                 <% if @camera['is_online'] %>
-                Online
+                  <div class="col-md-4 panel panel-body online">
+                <span class="glyphicon glyphicon-ok circle-sign"></span>Online
+                  </div>
                 <% else %>
-                Offline
-                <% end %>
-              </div>
+                  <div class="col-md-4 panel panel-body offline">
+                <span class="glyphicon glyphicon-info-sign"></span>Offline
+                  </div>
+              <% end %>
+              <a href="#" class="btn btn-primary refresh" role="button"><span class="glyphicon glyphicon-refresh"></span>Refresh Snapshot</a>
             </div>
 
  <!--INFO TAB PANE -->
@@ -574,7 +573,7 @@
 </section>
 </div> <!--container clearfix END -->
 </div> <!--boxed page end-->
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
 
   $(function () {
@@ -623,10 +622,14 @@
       scrollTo(0,0);
     })
 
+
+
     $( "#additional" ).click(function() {
       $( "#settings" ).slideToggle( "slow", function() {});
     });
-
+      $( '.refresh' ).click(function() {
+          location.reload();
+      });
   });
 </script>
 

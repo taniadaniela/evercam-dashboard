@@ -1,5 +1,3 @@
-require_relative '../../app/models/default/user'
-
 class SessionsController < ApplicationController
   include SessionsHelper
 
@@ -8,11 +6,12 @@ class SessionsController < ApplicationController
 
   def create
     begin
-      @user = Default::User.find_by(email: params[:session][:email].downcase) || Default::User.find_by(username: params[:session][:email].downcase)
+      address = params[:session][:email].downcase
+      @user   = User.where(Sequel.expr(email: address) | Sequel.expr(username: address)).first
     rescue NoMethodError => _
     end
 
-    if !@user.nil? and @user.password_bcrypt == params[:session][:password]
+    if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
       redirect_to :cameras_index
     else

@@ -1,13 +1,11 @@
-require_relative '../../app/models/default/user'
-
 module SessionsHelper
   def sign_in(user)
-    cookies.permanent[:user] = user.email
+    session[:user] = user.email
     @current_user = user
   end
 
   def sign_out
-    cookies.delete(:user)
+    session.clear
     @current_user = nil
   end
 
@@ -20,6 +18,6 @@ module SessionsHelper
   end
 
   def current_user
-    @current_user ||= Default::User.find_by(email: cookies[:user])
+    @current_user ||= User.where(email: session[:user]).first
   end
 end

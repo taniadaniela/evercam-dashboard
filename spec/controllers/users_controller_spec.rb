@@ -65,7 +65,7 @@ describe UsersController do
   context 'with auth' do
     describe 'GET #settings' do
       it "renders the :settings" do
-        request.cookies['user'] = 'tj@mhlabs.net'
+        session['user'] = 'tj@mhlabs.net'
         get :settings, {id: 'tester'}
         expect(response.status).to eq(200)
         expect(response).to render_template :settings
@@ -74,7 +74,7 @@ describe UsersController do
 
     describe 'POST #settings_update with wrong params' do
       it "fails and renders user settings" do
-        request.cookies['user'] = @params[:user][:email]
+        session['user'] = @params[:user][:email]
         post :settings_update, {id: @params[:user][:username]}
         expect(response.status).to eq(200)
         expect(response).to render_template :settings
@@ -86,7 +86,7 @@ describe UsersController do
 
     describe 'POST #settings_update with correct params, but for different user' do
       it "signs out and redirects to sign in" do
-        request.cookies['user'] = @params[:user][:email]
+        session['user'] = @params[:user][:email]
         post :settings_update, {id: 'tester'}
         expect(response.status).to eq(302)
         expect(response).to redirect_to '/signin'
@@ -95,7 +95,7 @@ describe UsersController do
 
     describe 'POST #settings_update with correct params' do
       it "updates and renders user settings" do
-        request.cookies['user'] = @params[:user][:email]
+        session['user'] = @params[:user][:email]
         post :settings_update, @patch_params
         expect(response.status).to eq(200)
         expect(response).to render_template :settings

@@ -34,10 +34,10 @@ group :doc do
 end
 
 gem 'bcrypt', '~> 3.1.2'
-
 gem 'protected_attributes'
-gem 'typhoeus'
 gem 'rack-rewrite'
+gem 'sequel'
+gem 'typhoeus'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -51,6 +51,11 @@ gem 'rack-rewrite'
 gem 'quiet_assets', group: :development
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
+
+group :evercam do
+  gem 'evercam_misc', '0.0.1', git: 'git@github.com:evercam/evercam_misc.git'
+  gem 'evercam_models', '0.0.1', git: 'git@github.com:evercam/evercam_models.git'
+end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

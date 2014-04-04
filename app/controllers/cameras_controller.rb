@@ -16,8 +16,8 @@ class CamerasController < ApplicationController
   end
 
   def new
-    @vendors = Default::Vendor.all
-    @models = Default::VendorModel.all
+    @vendors = Vendor.all
+    @models  = VendorModel.all
   end
 
   def create
@@ -46,8 +46,8 @@ class CamerasController < ApplicationController
 
     if response.nil? or not response.success?
       flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
-      @vendors = Default::Vendor.all
-      @models = Default::VendorModel.all
+      @vendors = Vendor.all
+      @models  = VendorModel.all
       render :new
     elsif response.success?
       redirect_to "/cameras/#{params['camera-id']}"
@@ -80,8 +80,8 @@ class CamerasController < ApplicationController
       response  = API_call("/cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-      @vendors = Default::Vendor.all
-      @models = Default::VendorModel.all
+      @vendors = Vendor.all
+      @models  = VendorModel.all
       render :single
     end
   end
@@ -90,7 +90,7 @@ class CamerasController < ApplicationController
     response  = API_call("/cameras/#{params[:id]}", :get)
     @camera =  JSON.parse(response.body)['cameras'][0]
     @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-    @vendors = Default::Vendor.all
-    @models = Default::VendorModel.all
+    @vendors = Vendor.all
+    @models  = VendorModel.all
   end
 end

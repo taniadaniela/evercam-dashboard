@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   include ApplicationHelper
 
   def new
-    @countries = Default::Country.all
+    @countries = Country.all
   end
 
   def create
@@ -25,17 +25,17 @@ class UsersController < ApplicationController
     end
     if response.nil? or not response.success?
       flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
-      @countries = Default::Country.all
+      @countries = Country.all
       render :new
     else
-      @user = Default::User.find_by(email: params[:user]['email'].downcase)
+      @user = User.where(email: params[:user]['email'].downcase).first
       sign_in @user
       redirect_to "/"
     end
   end
 
   def settings
-    @countries = Default::Country.all
+    @countries = Country.all
   end
 
   def settings_update
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = JSON.parse(response.body)['message']
     end
-    @countries = Default::Country.all
+    @countries = Country.all
     render :settings
   end
 

@@ -344,28 +344,45 @@ h5 {
     cursor:pointer;
 }
 #cam-refresh {
-    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.0);
-    padding: 3px 5px;
     position: absolute;
-    right: 0px;
-    bottom: 0px;
+    right: 5px;
+    bottom: 5px;
     border-top-left-radius: 1px;
+    color: #AAAAAA;
 }
 #cam-refresh:hover {
-    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
+    color: #428BCA;
 }
+
 .cam {
     padding-left: 0;
     padding-right: 0;
     width: 32.31%;
 }
 .cam img {
-    height: auto;
-    width: 100%;
+    height: 100%;
+    height: 100%;
 }
 .cam .media {
+    background-color: #000000;
+    background-image: url("https://www.evercam.io/img/offline.png");
+    background-position: center center;
+    background-size: 250px;
+    background-repeat: no-repeat;
     height: 237px;
-    background: #000000;
+}
+
+.media a {
+    color:#414042;
+    font-weight:300;
+}
+.media a:hover {
+    color:#428BCA;
+    font-weight:300;
+}
+.media h5 {
+    font-size: 14px;
+    font-weight: 500;
 }
 .cam:nth-child(3n+1) {
     margin-left: 15px;
@@ -557,6 +574,29 @@ h5 {
 #camera-single {
     margin-top: 40px;
 }
+/*Live*/
+#live .panel {
+    max-height: 440px;
+    width: auto;
+}
+#live .btn {
+    padding: 14px 18px;
+    margin-top: 1px;
+    margin-left: 10px;
+}
+.offline {
+    background-color: #DC4C3F;
+    color: #fff;
+}
+.online {
+    background-color: #2ECC71;
+    color: #fff;
+}
+
+.glyphicon  {
+    padding-right: 5px;
+}
+
 /*Info*/
 .borderless td {
     border: none !important;
@@ -755,9 +795,11 @@ tbody tr:hover {
 }
 .alert {
     text-shadow: none;
-    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    /*-webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-    border-radius: 2px;
+    border-radius: 2px;*/
+    webkit-box-shadow:none;
+    box-shadow:none;
     margin: 10px 0;
 }
 .help-block {
@@ -785,6 +827,9 @@ tbody tr:hover {
 }
 #sidebar ul li {
     position: relative;
+}
+#sidebar .glyphicon {
+    margin-right: 4px;
 }
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {
@@ -886,7 +931,7 @@ ul.sidebar-menu li a {
     text-decoration:none;
     display:block;
     padding:18px 0 18px 25px;
-    font-size:12px;
+    font-size:14px;
     outline:none;
     letter-spacing: .06em;
     margin-right: 6px;
@@ -895,6 +940,7 @@ ul.sidebar-menu li a {
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     transition:all 0.3s ease;
+    font-weight: 500;
 }
 ul.sidebar-menu li a.active,ul.sidebar-menu li a:hover,ul.sidebar-menu li a:focus {
     background:#ffffff;
@@ -908,6 +954,9 @@ ul.sidebar-menu li a.active,ul.sidebar-menu li a:hover,ul.sidebar-menu li a:focu
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     transition:all 0.3s ease;
+}
+ul.sidebar-menu li a.active {
+    font-weight: 600;
 }
 ul.sidebar-menu li a i {
     font-size:15px;

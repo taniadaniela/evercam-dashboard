@@ -20,8 +20,7 @@
       </ul>
     </li>
     <li>
-      <a href="/cameras/new" class="active"><span class="glyphicon glyphicon-plus"></span>
-        <span>  Add A Camera</span></a>
+      <a href="/cameras/new" class="active"><span class="glyphicon glyphicon-plus"></span>Add A Camera</a>
     </li>
 </ul>
 </div>
@@ -231,14 +230,7 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-  $(function () {
-    $('body').popover({
-      selector: '[data-toggle="popover"]'
-    });
 
-    $('body').tooltip({
-      selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
-    });
 
     $('#test').click(function(e) {
       var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
@@ -284,8 +276,6 @@
       $('#camera-model' + this.value).removeClass('hidden');
       previous = this.value;
     });
-
-
 });
 
 </script>

@@ -230,14 +230,7 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-  $(function () {
-    $('body').popover({
-      selector: '[data-toggle="popover"]'
-    });
 
-    $('body').tooltip({
-      selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
-    });
 
     $('#test').click(function(e) {
       var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
@@ -283,8 +276,6 @@
       $('#camera-model' + this.value).removeClass('hidden');
       previous = this.value;
     });
-
-
 });
 
 </script>

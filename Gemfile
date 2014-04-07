@@ -34,10 +34,10 @@ group :doc do
 end
 
 gem 'bcrypt', '~> 3.1.2'
-
 gem 'protected_attributes'
-gem 'typhoeus'
 gem 'rack-rewrite'
+gem 'sequel'
+gem 'typhoeus'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -52,8 +52,17 @@ gem 'quiet_assets', group: :development
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
 
+group :evercam do
+  gem 'evercam_misc', '~> 0.0'
+  gem 'evercam_models', '~> 0.0'
+end
+
 group :development, :test do
+  gem 'database_cleaner'
+  gem 'factory_girl'
   gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'vcr'
+  gem 'webmock', '~> 1.17'
 end
 
 ruby '2.1.1'

@@ -7,7 +7,7 @@
   <ul class="sidebar-menu" id="nav-accordion">
     <li class="sub-menu">
       <a href="/" class="active">
-       <span>My Cameras</span>
+        <span>My Cameras</span>
       </a>
     </li>
     <li>
@@ -71,90 +71,90 @@
   </ul>
 </header>
 
- <!--LIVE VIEW TAB PANE -->
-          <div class="tab-content">
-            <div id="live" class="tab-pane active">
-              <div class="col-md-8">
-                <div class="panel media">
-                  <img src="<%= @camera['jpg'] %>" width="100%" height="auto">
-                </div>
-              </div>
-                <% if @camera['is_online'] %>
-                  <div class="col-md-4 panel panel-body online">
-                <span class="glyphicon glyphicon-ok circle-sign"></span>Online
-                  </div>
-                <% else %>
-                  <div class="col-md-4 panel panel-body offline">
-                <span class="glyphicon glyphicon-info-sign"></span>Offline
-                  </div>
-              <% end %>
-              <a href="#" class="btn btn-primary refresh" role="button"><span class="glyphicon glyphicon-refresh"></span>Refresh Snapshot</a>
-            </div>
+<!--LIVE VIEW TAB PANE -->
+<div class="tab-content">
+<div id="live" class="tab-pane active">
+  <div class="col-md-8">
+    <div class="panel media">
+      <img src="<%= @camera['jpg'] %>" width="100%" height="auto">
+    </div>
+  </div>
+  <% if @camera['is_online'] %>
+      <div class="col-md-4 panel panel-body online">
+        <span class="glyphicon glyphicon-ok circle-sign"></span>Online
+      </div>
+  <% else %>
+      <div class="col-md-4 panel panel-body offline">
+        <span class="glyphicon glyphicon-info-sign"></span>Offline
+      </div>
+  <% end %>
+  <a href="#" class="btn btn-primary refresh" role="button"><span class="glyphicon glyphicon-refresh"></span>Refresh Snapshot</a>
+</div>
 
- <!--INFO TAB PANE -->
-            <div id="info" class="tab-pane">
-              <div class="col-md-4 panel panel-body">
-                <table class='table borderless'>
-                  <thead>
-                  <tr><h5>Info</h5></tr>
-                  </thead>
-                  <tr>
-                    <td>Camera ID   </td>
-                    <td><%= @camera['id'] %></td>
-                  </tr>
-                  <tr>
-                    <td>Camera Owner   </td>
-                    <td><%= @camera['owner'] %></td>
-                  </tr>
-                  <tr>
-                    <td>Local IP   </td>
-                    <td><%= @camera.fetch('config', {}).fetch('internal_host', '') %></td>
-                  </tr>
-                </table>
-                </div>
-                <div class="col-md-6 panel panel-body">
-                <table class='table borderless'>
-                  <thead>
-                  <tr><h5>Assets</h5></tr>
-                  </thead>
-                  <tr>
-                    <td >JPEG URL   </td>
-                    <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
-                  </tr>
-                  <tr>
-                    <td>H264 URL   </td>
-                    <td>H264 URL: http://evr.cm/rem-cam.h264</td>
-                  </tr>
-                  <tr>
-                    <td>Audio URL  </td>
-                    <td>http://evr.cm/rem-cam.aac</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-md-6 panel panel-body">
-                <table class='table borderless'>
-                  <thead>
-                  <tr><h5>Stream</h5></tr>
-                  </thead>
-                  <tr>
-                    <td >HTTP MPEG4 Stream</td>
-                    <td>http://192.168.1.198:8001/stream.av</td>
-                  </tr>
-                  <tr>
-                    <td>HTTP MJPEG Stream</td>
-                    <td>http://192.168.1.198:8001/stream.jpg</td>
-                  </tr>
-                  <tr>
-                    <td>HTTP ASF Stream</td>
-                    <td>http://192.168.1.198:8001/stream.asf</td>
-                  </tr>
-                  <tr>
-                    <td>HTTP Snapshot Image</td>
-                    <td>http://192.168.1.198:8001/snapshot.jpg</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
+<!--INFO TAB PANE -->
+<div id="info" class="tab-pane">
+  <div class="col-md-4 panel panel-body">
+    <table class='table borderless'>
+      <thead>
+      <tr><h5>Info</h5></tr>
+      </thead>
+      <tr>
+        <td>Camera ID   </td>
+        <td><%= @camera['id'] %></td>
+      </tr>
+      <tr>
+        <td>Camera Owner   </td>
+        <td><%= @camera['owner'] %></td>
+      </tr>
+      <tr>
+        <td>Local IP   </td>
+        <td><%= @camera.fetch('config', {}).fetch('internal_host', '') %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6 panel panel-body">
+    <table class='table borderless'>
+      <thead>
+      <tr><h5>Assets</h5></tr>
+      </thead>
+      <tr>
+        <td >JPEG URL   </td>
+        <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
+      </tr>
+      <tr>
+        <td>H264 URL   </td>
+        <td>H264 URL: http://evr.cm/rem-cam.h264</td>
+      </tr>
+      <tr>
+        <td>Audio URL  </td>
+        <td>http://evr.cm/rem-cam.aac</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6 panel panel-body">
+    <table class='table borderless'>
+      <thead>
+      <tr><h5>Stream</h5></tr>
+      </thead>
+      <tr>
+        <td >HTTP MPEG4 Stream</td>
+        <td>http://192.168.1.198:8001/stream.av</td>
+      </tr>
+      <tr>
+        <td>HTTP MJPEG Stream</td>
+        <td>http://192.168.1.198:8001/stream.jpg</td>
+      </tr>
+      <tr>
+        <td>HTTP ASF Stream</td>
+        <td>http://192.168.1.198:8001/stream.asf</td>
+      </tr>
+      <tr>
+        <td>HTTP Snapshot Image</td>
+        <td>http://192.168.1.198:8001/snapshot.jpg</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 
 <!--INFO TAB PANE -->
@@ -165,18 +165,17 @@
     <!-- STEP 1 -->
     <fieldset>
       <div class='row add-row'>
-        <div class='col-lg-3'>
-          <span class="label label-primary">1</span><h5>Evercam Camera Info</h5>
-        </div>
-        <div class='col-lg-3 form-group'>
-          <label class="control-label" for="camera-name">Camera Name</label>
-          <span data-toggle="tooltip" data-title="This is the friendly name you will give to your Camera to identify it in the Evercam Dashboard" class="label label-default">more info</span>
-          <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control input-sm" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_ " data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." value="<%= @camera['name'] %>">
-        </div>
-        <div class='col-lg-3 form-group'>
-          <label class="control-label" for="camera-id">Camera ID</label>
-          <span data-toggle="tooltip" data-title="This the ID you have to create for your Camera that will need to be Unique for Evercam." class="label label-default">more info</span>
-          <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control input-sm" disabled="disabled" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain letters and '-'. No spaces." value="<%= @camera['id'] %>">
+        <div class='col-lg-10 col-lg-offset-1'>
+          <div class='col-lg-6 form-group'>
+            <label class="control-label" for="camera-name">Friendly Name</label>
+            <!--<span data-toggle="tooltip" data-title="This is the friendly name you will give to your Camera to identify it in the Evercam Dashboard" class="label label-default">?</span>-->
+            <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_ " data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." value="<%= @camera['name'] %>">
+          </div>
+          <div class='col-lg-6 form-group'>
+            <label class="control-label" for="camera-id">Evercam ID</label>
+            <span data-toggle="tooltip" data-title="This ID is unique to your Evercam Camera and cannot be changed" class="label label-default">?</span>
+            <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" disabled="disabled" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain letters and '-'. No spaces." value="<%= @camera['id'] %>">
+          </div>
         </div>
       </div>
 
@@ -185,18 +184,17 @@
     <!-- STEP 2 -->
     <fieldset>
       <div class='row add-row'>
-        <div class='col-lg-3'>
-          <span class="label label-primary">2</span><h5>Cameras Credentials</h5>
-        </div>
-        <div class='col-lg-3 form-group'>
-          <label class="control-label" for="camera-username">Camera Username</label>
-          <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">more info</span>
-          <input id="camera-username" name="camera-username" placeholder="" class="form-control input-sm" type="text" value="<%= @camera['cam_username'] %>">
-        </div>
-        <div class='col-lg-3 form-group'>
-          <label class="control-label" for="camera-password">Camera Password</label>
-          <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">more info</span>
-          <input id="camera-password" name="camera-password" placeholder="" class="form-control input-sm" type="text" value="<%= @camera['cam_password'] %>">
+        <div class='col-lg-10 col-lg-offset-1'>
+          <div class='col-lg-6 form-group'>
+            <label class="control-label" for="camera-username">Camera Username</label>
+            <!--<span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>-->
+            <input id="camera-username" name="camera-username" placeholder="" class="form-control" type="text" value="<%= @camera['cam_username'] %>">
+          </div>
+          <div class='col-lg-6 form-group'>
+            <label class="control-label" for="camera-password">Camera Password</label>
+            <!--<span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>-->
+            <input id="camera-password" name="camera-password" placeholder="" class="form-control" type="text" value="<%= @camera['cam_password'] %>">
+          </div>
         </div>
       </div>
     </fieldset>
@@ -204,84 +202,85 @@
     <!-- STEP 3 -->
     <fieldset>
       <div class='row add-row-last'>
-        <div class='col-lg-3'>
-          <span class="label label-primary">3</span><h5>Path to your Camera</h5>
-        </div>
-        <div class='col-lg-5'>
-          <div class='row'>
-            <div class='col-lg-8 form-group'>
-              <label class="control-label" for="camera-url">External IP (or URL)</label>
-              <span data-toggle="tooltip" data-title="This will just contain the IP address in the form of 149.237.192.68 - http:// is already included" class="label label-default">more info</span>
-              <div class="input-group">
-                <span class="input-group-addon">http://</span>
-                <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control input-sm" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera['external_host'] %>">
+        <div class='col-lg-10 col-lg-offset-1'>
+          <div class='col-lg-8'>
+            <div class='row'>
+              <div class='col-lg-10 form-group'>
+                <label class="control-label" for="camera-url">External IP (or URL)</label>
+                <!--<span data-toggle="tooltip" data-title="This will just contain the IP address in the form of 149.237.192.68 - http:// is already included" class="label label-default">?</span>-->
+                <div class="input-group">
+                  <span class="input-group-addon">http://</span>
+                  <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera['external_host'] %>">
+                </div>
               </div>
             </div>
-            <div class='col-lg-4 form-group'>
-              <label class="control-label" for="port">HTTP Port</label>
-              <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">more info</span>-->
-              <input id="port" name="port" placeholder="8901" class="form-control input-sm" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= @camera['external_http_port'] %>">
+            <div class='row'>
+              <div class='col-lg-5 form-group'>
+                <label class="control-label" for="port">External HTTP Port</label>
+                <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">more info</span>-->
+                <input id="port" name="port" placeholder="8901" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= @camera['external_http_port'] %>">
+              </div>
+              <div class='col-lg-5 form-group'>
+                <label class="control-label" for="ext-rtsp-port">External RTSP Port</label>
+                <!--<span data-toggle="tooltip" data-title="This Field is optional." class="label label-default">optional</span>-->
+                <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="554" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['ext-rtsp-port'] %>">
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-lg-10 form-group'>
+                <label class="control-label" for="snapshot">Snapshot URL</label>
+                <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored. It must begin with '/'" class="label label-default">?</span>-->
+                <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= @camera['jpg_url'] %>" >
+              </div>
+            </div>
+            <div class="">
+              <a href="#" class="close" data-dismiss="alert">&times;</a>
+              <span id="test-error"><%= flash[:message] %></span>
             </div>
           </div>
-          <div class='row'>
-            <div class='col-lg-12 form-group'>
-              <label class="control-label" for="snapshot">Snapshot URL</label>
-              <span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored. It must begin with '/'" class="label label-default">more info</span>
-              <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control input-sm" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= @camera['jpg_url'] %>" >
+          <div class='col-lg-4'>
+            <div class="media">
+              <img id="testimg" src="/" class="text-center" width="100%">
             </div>
+            <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
+            <p class="text-center"><span data-toggle="tooltip" data-placement="top" data-title="If you have entered the correct Credentials, Camera URL/IP and Port into the fields to the left, the image above should show you what your camera is seeing right now. If there is no preview, then some of the information you have entered could be incorrect. Please check the info or refer to your Camera's Manual." class="label label-default">?</span></p>
           </div>
-          <div class="">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <span id="test-error"><%= flash[:message] %></span>
-          </div>
-        </div>
-        <div class='col-lg-3'>
-          <div class="media">
-            <img id="testimg" src="/" class="text-center" width="100%">
-          </div>
-          <p class="text-center"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></p>
-          <p class="text-center"><span data-toggle="tooltip" data-placement="top" data-title="If you have entered the correct Credentials, Camera URL/IP and Port into the fields to the left, the image above should show you what your camera is seeing right now. If there is no preview, then some of the information you have entered could be incorrect. Please check the info or refer to your Camera's Manual." class="label label-default">more info</span></p>
         </div>
       </div>
     </fieldset>
-
+    <fieldset>
     <div class="row">
-      <div id="additional">
-        <div class='col-lg-3'>
-          <span class="label label-primary">4</span><h5><span class="glyphicon glyphicon-plus"></span> Additional Settings</h5>
-        </div>
-      </div>
-      <fieldset>
-        <div id="settings">
+      <div class='col-lg-10 col-lg-offset-1'>
+        <div class="col-lg-7">
           <!-- STEP 4 -->
           <div class='row'>
-            <div class='col-lg-3 form-group'>
+            <div class='col-lg-6 form-group'>
               <label class="control-label" for="camera-vendor">Camera Vendor</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
-              <select id="camera-vendor" name="camera-vendor" class="form-control input-sm">
-              <option selected="selected" value="-1">-- select model --</option>
+              <select id="camera-vendor" name="camera-vendor" class="form-control">
+                <option selected="selected" value="-1">-- select model --</option>
                 <% @vendors.each_with_index  do |v, index| -%>
-                <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor'] %>selected="selected"<% end %>>
-                <%= v.name -%>
-                </option>
+                    <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor'] %>selected="selected"<% end %>>
+                      <%= v.name -%>
+                    </option>
                 <% end %>
               </select>
             </div>
 
-            <div class='col-lg-3 form-group'>
+            <div class='col-lg-6 form-group'>
               <%= @camera['model'] %>
               <label class="control-label" for="camera-model">Camera Model</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <% @vendors.each do |v| -%>
-              <select id="camera-model<%= v.exid -%>" name="camera-model" class="form-control input-sm  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
-                <% v.vendor_models.each_with_index  do |m, index| -%>
-                <% if index == 0 %>
-                <option value="<%= m.name -%>" ><%= m.name -%></option>
-                <% else %>
-                <option value="<%= m.name  -%>" <% if m.name == @camera['model'] %>selected="selected"<% end %> ><%= m.name -%></option>
-                <% end %>
-                <% end -%>
-              </select>
+                  <select id="camera-model<%= v.exid -%>" name="camera-model" class="form-control  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
+                    <% v.vendor_models.each_with_index  do |m, index| -%>
+                        <% if index == 0 %>
+                            <option value="<%= m.name -%>" ><%= m.name -%></option>
+                        <% else %>
+                            <option value="<%= m.name  -%>" <% if m.name == @camera['model'] %>selected="selected"<% end %> ><%= m.name -%></option>
+                        <% end %>
+                    <% end -%>
+                  </select>
               <% end %>
             </div>
           </div>
@@ -289,26 +288,27 @@
             <div class='col-lg-8 form-group'>
               <label class="control-label" for="local-ip">Local IP</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
-              <input id="local-ip" name="local-ip" placeholder="" class="form-control input-sm" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="The Port should be a 2-4 digit number." data-validation-optional="true" value="<%= params['local-ip'] %>">
+              <input id="local-ip" name="local-ip" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="The Port should be a 2-4 digit number." data-validation-optional="true" value="<%= params['local-ip'] %>">
             </div>
           </div>
           <div class="row">
             <div class='col-lg-6 form-group'>
               <label class="control-label" for="local-http">Local HTTP Port</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
-              <input id="local-http" name="local-http" placeholder="" class="form-control input-sm" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-http'] %>">
+              <input id="local-http" name="local-http" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-http'] %>">
             </div>
             <div class='col-lg-6 form-group'>
               <label class="control-label" for="local-rtsp">Local RTSP Port</label>
               <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
-              <input id="local-rtsp" name="local-rtsp" placeholder="" class="form-control input-sm" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-rtsp'] %>">
+              <input id="local-rtsp" name="local-rtsp" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-rtsp'] %>">
             </div>
           </div>
 
 
         </div>
-      </fieldset>
+      </div>
     </div>
+    </fieldset>
     <!-- FINISH & ADD -->
     <fieldset>
       <div class='row'>
@@ -531,7 +531,7 @@
 <!--APPS TAB PANE -->
 <div id="apps" class="tab-pane">
 
-   <a href="http://www.evercam.io/apps" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
+  <a href="http://www.evercam.io/apps" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
 
 </div><!--TAB PANE -->
 
@@ -553,9 +553,9 @@
 <!--DELETE TAB PANE -->
 <div id="delete" class="tab-pane">
   <div class="col-md-6 panel panel-body">
-      <p class="strong">Are you sure you want to DELETE this camera?</p>
-      <a href="#" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span>Yes, DELETE this Camera</a>
-      <a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-ok"></span>No, CANCEL</a>
+    <p class="strong">Are you sure you want to DELETE this camera?</p>
+    <a href="#" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span>Yes, DELETE this Camera</a>
+    <a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-ok"></span>No, CANCEL</a>
   </div>
 </div><!--TAB PANE -->
 
@@ -576,61 +576,88 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
 
-  $(function () {
-    var previous;
-    $('#camera-vendor').one('focus', function() {
-      previous = this.value;
-    }).on('change', function() {
-      $('#camera-model' + previous).addClass('hidden');
-      $('#camera-model' + this.value).removeClass('hidden');
-      previous = this.value;
+    $(function () {
+        var previous;
+        $('#camera-vendor').one('focus', function() {
+            previous = this.value;
+        }).on('change', function() {
+            $('#camera-model' + previous).addClass('hidden');
+            $('#camera-model' + this.value).removeClass('hidden');
+            previous = this.value;
+        });
+
+        $('#test').click(function(e) {
+            var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
+                'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
+            var progress = 0;
+            var interval = setInterval( function() {
+                progress = Math.min( progress + 0.025, 1 );
+                l.setProgress( progress );
+
+                if( progress === 1 ) {
+                    l.stop();
+                    clearInterval( interval );
+                }
+            }, 200 );
+            $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
+                    .done(function(resp) {
+                        console.log('success');
+                        $('#testimg').attr('src', resp.data);
+                    })
+                    .fail(function(resp) {
+                        $('#test-error').text(resp.responseJSON.message);
+                        console.log('error');
+                    })
+                    .always(function() {
+                        l.stop();
+                        clearInterval( interval );
+                    });
+        });
+
+        // Tooltip
+        $('body').popover({
+            selector: '[data-toggle="popover"]'
+        });
+
+        $('body').tooltip({
+            selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
+        });
+
+        $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
+                .done(function(resp) {
+                    console.log('success');
+                    $('#testimg').attr('src', resp.data);
+                })
+                .fail(function(resp) {
+                    $('#test-error').text(resp.responseJSON.message);
+                    console.log('error');
+                })
+                .always(function() {
+                    l.stop();
+                    clearInterval( interval );
+                });
     });
-
-      // Tooltip
-      $('body').popover({
-          selector: '[data-toggle="popover"]'
-      });
-
-      $('body').tooltip({
-          selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
-      });
-
-      $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
-              .done(function(resp) {
-                  console.log('success');
-                  $('#testimg').attr('src', resp.data);
-              })
-              .fail(function(resp) {
-                  $('#test-error').text(resp.responseJSON.message);
-                  console.log('error');
-              })
-              .always(function() {
-                  l.stop();
-                  clearInterval( interval );
-              });
-  });
     // Javascript to enable link to tab
     var url = document.location.toString();
     if (url.match('#')) {
-      $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
-      setTimeout(function() {scrollTo(0,0)}, 10);
+        $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
+        setTimeout(function() {scrollTo(0,0)}, 10);
     }
 
     // Change hash for page-reload
     $('.nav-tabs a').on('shown.bs.tab', function (e) {
-      window.location.hash = e.target.hash;
-      scrollTo(0,0);
+        window.location.hash = e.target.hash;
+        scrollTo(0,0);
     })
 
 
-
-    $( "#additional" ).click(function() {
-      $( "#settings" ).slideToggle( "slow", function() {});
+    $( '.refresh' ).click(function() {
+        location.reload();
     });
-      $( '.refresh' ).click(function() {
-          location.reload();
-      });
-      $.validate();
-  });
+
+    })
 </script>
 

@@ -681,7 +681,16 @@ h5 {
 }
 
 
-/*Add Camera Form*/
+/*Add a Camera Page*/
+.test-snapshot {
+    left: 26%;
+    position: absolute;
+    top: 36%;
+}
+.media .test-snapshot a {
+    color:#ffffff;
+    font-weight: 600;
+}
 .add-row {
     border-top: 1px solid #F5F5F5;
     margin: 0 -15px 25px;
@@ -709,7 +718,11 @@ tbody tr:hover {
     background-color: #ffffff;
 }
 .label {
-    border-radius: 0;
+    border-radius: 15px;
+    font-size: 12px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-top: 2px;
 }
 .label-default {
     background-color: #E0E0E0;
@@ -717,8 +730,9 @@ tbody tr:hover {
     margin-bottom: 4px;
 }
 .control-label {
-    font-weight: normal;
+    font-weight: 600;
     margin-right: 10px;
+    font-size: 14px;
 }
 .input-sm, .input-group-addon {
     border-radius:1px;

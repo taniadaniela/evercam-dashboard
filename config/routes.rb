@@ -7,6 +7,7 @@ EvercamDashboard::Application.routes.draw do
    post 'cameras/new' => 'cameras#create'
    get 'cameras/:id' => 'cameras#single', as: :cameras_single
    post 'cameras/:id' => 'cameras#update'
+   delete 'cameras/:id' => 'cameras#delete'
 
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]

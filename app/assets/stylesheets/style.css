@@ -682,10 +682,67 @@ h5 {
 
 
 /*Add a Camera Page*/
+.additional {
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.info {
+    position: relative;
+    right: 50px;
+    top: -39px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.info-sm {
+    position: relative;
+    right: 0;
+    top: 44px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .test-snapshot {
     left: 26%;
     position: absolute;
-    top: 36%;
+    top: 50%;
+}
+#testimg {
+    margin-top: 45px;
+    max-width: 400px;
+    background-image: url('http://www.evercam.io/img/connect.png');
+}
+.help {
+    padding: 0px 13px;
+    color: #aaaaaa;
+}
+.help-sm {
+    padding: 0px;
+    color: #aaaaaa;
+}
+#add-button {
+    padding: 15px 30px;
+}
+.snapshot {
+    margin-top: 10px;
 }
 .media .test-snapshot a {
     color:#ffffff;
@@ -693,13 +750,13 @@ h5 {
 }
 .add-row {
     border-top: 1px solid #F5F5F5;
-    margin: 0 -15px 25px;
-    padding: 35px 0px 0;
+    margin: 25px -25px 0px;
+    padding: 15px 0px 0;
 }
 .add-row-last {
     border-top: 1px solid #F5F5F5;
-    margin: 0 -15px 30px;
-    padding: 35px 0px 0;
+    margin: 0 -15px 10px;
+    padding: 30px 0px 0;
     border-bottom: 1px solid #F5F5F5;
 }
 .add-footer {
@@ -708,8 +765,11 @@ h5 {
     margin: 25px -15px -15px;
     padding: 25px 0;
 }
-.finish {
-    margin-top: 30px;
+.expand {
+    margin-top: 10px;
+}
+.form-group {
+    margin: 15px 0;
 }
 .input-group .has-error {
     height: 30px;
@@ -718,21 +778,22 @@ tbody tr:hover {
     background-color: #ffffff;
 }
 .label {
-    border-radius: 15px;
-    font-size: 12px;
-    padding-left: 9px;
-    padding-right: 9px;
-    padding-top: 2px;
+    border-radius: 35px;
+    font-size: 16px;
+    padding: 2px 9px;
+    width: 26px
 }
 .label-default {
-    background-color: #E0E0E0;
+    background-color: #f5f5f5;
     color: #428BCA;
+    border: 1px solid #e5e5e5;
     margin-bottom: 4px;
 }
 .control-label {
-    font-weight: 600;
+    font-weight: 400;
     margin-right: 10px;
     font-size: 14px;
+    text-transform:uppercase;
 }
 .input-sm, .input-group-addon {
     border-radius:1px;
@@ -742,12 +803,7 @@ tbody tr:hover {
     border: 1px solid #f5f5f5;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
-#additional {
-  cursor: pointer;
-}
-#settings {
-    display: none;
-}
+
 
 .form-control {
     background-color: #F5F5F5;
@@ -767,11 +823,7 @@ tbody tr:hover {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
 }
-#testimg {
-    margin-bottom: 10px;
-    max-width: 400px;
-    background-image: url('http://www.evercam.io/img/connect.png');
-}
+
 .input-group-addon {
     font-size: 12px;
     background-color: #F5F5F5;
@@ -817,7 +869,7 @@ tbody tr:hover {
     margin: 10px 0;
 }
 .help-block {
-    font-size: 9px;
+    font-size: 10px;
     position: absolute;
     margin-bottom: 0;
     margin-top: 2px;

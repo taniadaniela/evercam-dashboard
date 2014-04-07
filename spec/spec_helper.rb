@@ -1,7 +1,11 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+ENV["RACK_ENV"]  = ENV["RAILS_ENV"]
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'webmock/rspec'
+require 'vcr'
+require 'factory_girl'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -11,6 +15,9 @@ require 'rspec/rails'
 # end with _spec.rb. You can configure this pattern with with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
+require 'database_cleaner'
+require 'factory_girl'
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -40,4 +47,31 @@ RSpec.configure do |config|
   #config.order = "random"
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
+
+  # Configure factory girl stuff.
+  config.include FactoryGirl::Syntax::Methods
+
+  # Configure database cleaner.
+  config.before(:suite) do
+   DatabaseCleaner.strategy = :truncation
+   DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
+
+# VCR.configure do |c|
+#    c.cassette_library_dir = "vcr_cassettes"
+#    c.hook_into :webmock
+#    c.allow_http_connections_when_no_cassette = true
+#    c.configure_rspec_metadata!
+# end
+
+# Load up factories.
+FactoryGirl.find_definitions

@@ -1,6 +1,6 @@
 module SessionsHelper
   def sign_in(user)
-    session[:user] = user.email
+    session[:user] = (user ? user.email : nil)
     @current_user = user
   end
 

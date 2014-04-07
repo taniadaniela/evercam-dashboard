@@ -10,11 +10,13 @@ module ApplicationHelper
                        :api_key => current_user.api_key})
       end
     end
-    puts "\n========"
-    puts method
-    puts body
-    puts params
-    puts "========\n"
+
+    Rails.logger.debug "API Call:\n"\
+                       "   Method:     #{method}\n"\
+                       "   Body:       #{body}\n"\
+                       "   Parameters: #{params}\n"\
+                       "   URI:        #{EVERCAM_API + url}"
+
     request = Typhoeus::Request.new(
       EVERCAM_API + url,
       method: method,

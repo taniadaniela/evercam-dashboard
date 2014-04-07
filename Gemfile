@@ -58,7 +58,11 @@ group :evercam do
 end
 
 group :development, :test do
+  gem 'database_cleaner'
+  gem 'factory_girl'
   gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'vcr'
+  gem 'webmock', '~> 1.17'
 end
 
 ruby '2.1.1'

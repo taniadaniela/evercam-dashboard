@@ -20,7 +20,7 @@
       </ul>
     </li>
     <li>
-      <a href="/cameras/new" class="active"><span class="glyphicon glyphicon-plus"></span><span>  Add A Camera</span></a>
+      <a href="/cameras/new" class="active"><span class="glyphicon glyphicon-plus"></span>Add A Camera</a>
     </li>
   </ul>
 </div>
@@ -42,73 +42,88 @@
       <fieldset>
         <div class='row add-row'>
           <div class='col-lg-10 col-lg-offset-1'>
-            <div class='col-lg-6 form-group'>
+            <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-name">Friendly Name</label>
-              <span data-toggle="tooltip" data-title="This is the friendly name you will give to your Camera to identify it in the Evercam Dashboard" class="label label-default">?</span>
               <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_ " data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." value="<%= params['camera-name'] %>">
             </div>
-            <div class='col-lg-6 form-group'>
+            <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-id">Evercam ID</label>
-              <span data-toggle="tooltip" data-title="This the ID you have to create for your Camera that will need to be Unique for Evercam." class="label label-default">?</span>
-              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain letters and '-'. No spaces." value="<%= params['camera-id'] %>">
+              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain only letters, numbers and hyphens(-). No spaces." value="<%= params['camera-id'] %>">
             </div>
           </div>
+          <span class="col-lg-offset-10 label label-default additional info">?</span>
+          <div class='col-lg-10 col-lg-offset-1 settings'>
+            <p class="help">This is the friendly name you will give to your Camera to identify it in you Camera Dashboard &amp; the Evercam ID you have to create for your Camera. It will need to be Unique.</p>
+          </div>
         </div>
-
       </fieldset>
 
       <!-- STEP 2 -->
       <fieldset>
         <div class='row add-row'>
           <div class='col-lg-10 col-lg-offset-1'>
-            <div class='col-lg-6 form-group'>
+            <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-username">Camera Username</label>
-              <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>
+              <!--<span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>-->
               <input id="camera-username" name="camera-username" placeholder="" class="form-control" type="text" value="<%= params['camera-username'] %>">
             </div>
-            <div class='col-lg-6 form-group'>
+            <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-password">Camera Password</label>
-              <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>
+             <!-- <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>-->
               <input id="camera-password" name="camera-password" placeholder="" class="form-control" type="text" value="<%= params['camera-password'] %>">
             </div>
+          </div>
+          <span class="col-lg-offset-10 label label-default additional info">?</span>
+          <div class='col-lg-10 col-lg-offset-1 settings'>
+            <p class="help">The camera you are trying to connect will already have a Username &amp; Password associated with it. These credentials will have been created by the camera owner.</p>
           </div>
         </div>
       </fieldset>
 
       <!-- STEP 3 -->
       <fieldset>
-        <div class='row add-row'>
+        <div class='row add-row snapshot'>
           <div class='col-lg-10 col-lg-offset-1'>
               <div class='col-lg-8'>
                 <div class='row'>
                   <div class='col-lg-10 form-group'>
-                    <label class="control-label" for="camera-url">External IP (or URL)</label>
-                    <!--<span data-toggle="tooltip" data-title="This will just contain the IP address in the form of 149.237.192.68 - http:// is already included" class="label label-default">?</span>-->
+                    <label class="control-label" for="camera-url">External <strong>IP</strong> (or URL)</label>
                     <div class="input-group">
                       <span class="input-group-addon">http://</span>
                       <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= params['camera-url'] %>">
                     </div>
                   </div>
+                    <span class="col-lg-1 label label-default additional info-sm">?</span>
+                    <div class='col-lg-12 settings'>
+                      <p class="help-sm">This is the IP Address or URL of the Camera.</p>
+                    </div>
                 </div>
-                <div class='row'>
+                <div class='row snapshot'>
                   <div class='col-lg-5 form-group'>
-                    <label class="control-label" for="port">External HTTP Port</label>
+                    <label class="control-label" for="port">External <strong>HTTP</strong> Port</label>
                     <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">more info</span>-->
                     <input id="port" name="port" placeholder="8901" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= params['port'] %>">
                   </div>
                   <div class='col-lg-5 form-group'>
-                    <label class="control-label" for="ext-rtsp-port">External RTSP Port</label>
+                    <label class="control-label" for="ext-rtsp-port">External <strong>RTSP</strong> Port</label>
                     <!--<span data-toggle="tooltip" data-title="This Field is optional." class="label label-default">optional</span>-->
                     <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="554" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['ext-rtsp-port'] %>">
                   </div>
+                      <span class="col-lg-1 label label-default additional info-sm">?</span>
+                      <div class='col-lg-12 settings'>
+                        <p class="help-sm">This is the IP Address or URL of the Camera.</p>
+                      </div>
                 </div>
-                <div class='row'>
+                <div class='row snapshot'>
                   <div class='col-lg-10 form-group'>
                     <label class="control-label" for="snapshot">Snapshot URL</label>
                     <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored. It must begin with '/'" class="label label-default">?</span>-->
                     <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= params['snapshot'] %>" >
                   </div>
-
+                  <span class="col-lg-1 label label-default additional info-sm">?</span>
+                  <div class='col-lg-12 settings'>
+                    <p class="help-sm">This is the IP Address or URL of the Camera.</p>
+                  </div>
                 </div>
                 <div class="alert">
                   <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -121,22 +136,16 @@
                   <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
                 </div>
 
-                <p class="text-center"><span data-toggle="tooltip" data-placement="top" data-title="If you have entered the correct Credentials, Camera URL/IP and Port into the fields to the left, the image above should show you what your camera is seeing right now. If there is no preview, then some of the information you have entered could be incorrect. Please check the info or refer to your Camera's Manual." class="label label-default">?</span></p>
               </div>
           </div>
         </div>
       </fieldset>
-
+      <fieldset>
       <div class="row add-row">
-        <div id="additional">
-          <div class='col-lg-12'>
-           <h5><span class="glyphicon glyphicon-plus"></span> Additional Settings</h5>
-          </div>
-        </div>
+        <p class="col-lg-10 col-lg-offset-1 additional expand"><span class="glyphicon glyphicon-plus"></span>Additional Settings</p>
 
-        <div id="settings">
           <!-- STEP 4 -->
-          <div class='col-lg-6 col-lg-offset-1'>
+          <div class="col-lg-6 col-lg-offset-1 settings">
             <div class='row'>
               <div class='col-lg-6 form-group'>
                 <label class="control-label" for="camera-vendor">Camera Vendor</label>
@@ -153,7 +162,6 @@
 
               <div class='col-lg-6 form-group'>
                 <label class="control-label">Camera Model</label>
-                <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
                 <% @vendors.each do |v| -%>
                     <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control hidden">
                       <% v.vendor_models.each_with_index  do |m, index| -%>
@@ -170,30 +178,30 @@
             <div class="row">
               <div class='col-lg-8 form-group'>
                 <label class="control-label" for="local-ip">Local IP</label>
-                <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
                 <input id="local-ip" name="local-ip" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,4}$"  data-validation-error-msg="The Port should be a 2-4 digit number." data-validation-optional="true" value="<%= params['local-ip'] %>">
               </div>
             </div>
             <div class="row">
               <div class='col-lg-6 form-group'>
                 <label class="control-label" for="local-http">Local HTTP Port</label>
-                <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
                 <input id="local-http" name="local-http" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-http'] %>">
               </div>
               <div class='col-lg-6 form-group'>
                 <label class="control-label" for="local-rtsp">Local RTSP Port</label>
-                <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
                 <input id="local-rtsp" name="local-rtsp" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-rtsp'] %>">
               </div>
             </div>
 
-          </div>
-        </div><!-- End Settings -->
+          </div><!-- Step 4 -->
+         </div>
+        </fieldset>
+
+        <fieldset>
         <!-- FINISH & ADD -->
-        <div class='row col-lg-12'>
+        <div class='row add-row'>
           <div class="col-lg-5 col-lg-offset-3">
             <div class='row'>
-              <div class="text-center finish">
+              <div class="text-center">
                 <!-- Button -->
                 <div class='col-lg-12'>
                   <div class="form-group">
@@ -205,16 +213,15 @@
             </div>
           </div>
         </div>
-      </div>
-
+        </fieldset>
 
       <!-- SUPPORT -->
       <div class="row add-row add-footer">
-        <div class='col-lg-5 col-lg-offset-3'>
+        <div class='col-lg-10 col-lg-offset-1'>
           <h5>Still Can't See Your Camera?</h5>
           <ul class="list-inline">
-            <li><a href="#">FAQ/common-connection-issues</a></li>
-            <li><a href="#">Get our Support Team to connect your Camera</a></li>
+            <li><a href="http://www.evercam.io/help" target="_blank">Help Pages</a></li>
+            <li><a href="#" target="_blank">Support</a></li>
           </ul>
         </div>
       </div>
@@ -231,14 +238,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
     $(function () {
-        $('body').popover({
-            selector: '[data-toggle="popover"]'
-        });
-
-        $('body').tooltip({
-            selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
-        });
-
         $('#test').click(function(e) {
             var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
                 'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
@@ -270,9 +269,14 @@
                     });
         });
 
-
-        $( "#additional" ).click(function() {
-            $( "#settings" ).slideToggle( "slow", function() {});
+        // TOGGLE ADD. SETTINGS
+        $(document).ready(function() {
+            $(".settings").hide();
+            //toggle the componenet with class msg_body
+            $(".additional").click(function()
+            {
+                $(this).next(".settings").slideToggle(500);
+            });
         });
 
         var previous;

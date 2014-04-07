@@ -4,7 +4,6 @@ ENV["RACK_ENV"]  = ENV["RAILS_ENV"]
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
-require 'vcr'
 require 'factory_girl'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -17,7 +16,6 @@ require 'factory_girl'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 require 'database_cleaner'
-require 'factory_girl'
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -65,13 +63,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
-
-# VCR.configure do |c|
-#    c.cassette_library_dir = "vcr_cassettes"
-#    c.hook_into :webmock
-#    c.allow_http_connections_when_no_cassette = true
-#    c.configure_rspec_metadata!
-# end
 
 # Load up factories.
 FactoryGirl.find_definitions

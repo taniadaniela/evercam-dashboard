@@ -53,8 +53,8 @@ gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
 
 group :evercam do
-  gem 'evercam_misc', '0.0.1', git: 'git@github.com:evercam/evercam_misc.git'
-  gem 'evercam_models', '0.0.1', git: 'git@github.com:evercam/evercam_models.git'
+  gem 'evercam_misc', '~> 0.0'
+  gem 'evercam_models', '~> 0.0'
 end
 
 group :development, :test do

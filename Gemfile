@@ -57,7 +57,10 @@ group :evercam do
   gem 'evercam_models', '~> 0.0'
 end
 
-group :development, :test do
+group :development do
+end
+
+group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'rspec-rails', '~> 3.0.0.beta'

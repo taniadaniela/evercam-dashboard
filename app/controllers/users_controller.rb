@@ -34,6 +34,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def confirm
+    redirect_to '/signin'
+  end
+
   def settings
     @countries = Country.all
   end

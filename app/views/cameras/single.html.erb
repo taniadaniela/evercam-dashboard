@@ -174,7 +174,8 @@
           <div class='col-lg-6 form-group'>
             <label class="control-label" for="camera-id">Evercam ID</label>
             <span data-toggle="tooltip" data-title="This ID is unique to your Evercam Camera and cannot be changed" class="label label-default">?</span>
-            <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" disabled="disabled" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain letters and '-'. No spaces." value="<%= @camera['id'] %>">
+            <input id="camera-id" placeholder="roof-cam" class="form-control" disabled="disabled" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain letters and '-'. No spaces." value="<%= @camera['id'] %>">
+            <input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
           </div>
         </div>
       </div>

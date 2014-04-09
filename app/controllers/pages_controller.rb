@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   end
 
   def swagger
+    response.headers["X-Frame-Options"] = "ALLOWALL"
     current_user
   end
 

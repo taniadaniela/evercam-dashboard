@@ -1,5 +1,8 @@
-<div class="row user-profile">
-  <div class="col-xs-10 col-xs-offset-1">
+<div class="container">
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 panel">
+    <div class="row" id="user-settings"><h4>User Account Settings</h4></div>
+    <div class="col-xs-4">
     <form id="userProfile" role="form" method="post" class="center-block">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
@@ -29,12 +32,13 @@
         </select>
       </div>
 
-      <div class="alert alert-danger" id="userProfileErrors">
+      <!--<div class="alert alert-danger" id="userProfileErrors">
         <strong>Error!</strong> <span class="alert-content"></span>
-      </div>
+      </div>-->
 
-      <input type="submit" class="btn btn-default" value="Save"></input>
+      <input type="submit" class="btn btn-primary" value="Save"></input>
     </form>
-
+    </div>
   </div>
+</div>
 </div>

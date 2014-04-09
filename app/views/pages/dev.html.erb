@@ -1,22 +1,32 @@
+<div class="container dev">
 <div class="row user-profile">
-  <div class="col-xs-10 col-xs-offset-1">
-    <form role="form" id="apikeys" class="form-horizontal center-block">
+  <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0 panel panel-body">
+    <div class="row" id="api-keys">
+        <div class="col-md-6 col-md-offset-3">
+            <form role="form" id="apikeys" class="form-horizontal center-block">
 
-      <div class="form-group">
-        <label for="userForename" class="col-sm-2 control-label">API ID</label>
-        <div class="col-sm-10">
-          <input type="text" value="<%= current_user.api_id -%>" class="form-control" id="userForename" readonly="readonly">
+              <div class="form-group">
+                <label for="userForename" class="col-sm-2 control-label api-label">API ID</label>
+                <div class="col-sm-10">
+                  <input type="text" value="<%= current_user.api_id -%>" class="form-control" id="userForename" readonly="readonly">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="userLastname" class="col-sm-2 control-label">API Key</label>
+                <div class="col-sm-10">
+                  <input type="text" value="<%= current_user.api_key -%>" class="form-control" id="userLastname" readonly="readonly">
+                </div>
+              </div>
+
+            </form>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="userLastname" class="col-sm-2 control-label">API Key</label>
-        <div class="col-sm-10">
-          <input type="text" value="<%= current_user.api_key -%>" class="form-control" id="userLastname" readonly="readonly">
-        </div>
-      </div>
-
-    </form>
-
+    </div>
+    <div class="col-md-12">
+         <div class="iframe">
+            <iframe src="https://dashboard.evercam.io/swagger"  scrolling="yes" frameborder="0" allowtransparency="true" width="857" height="1800"></iframe>
+         </div>
+    </div>
   </div>
+</div>
 </div>

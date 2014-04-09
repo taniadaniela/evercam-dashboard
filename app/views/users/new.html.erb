@@ -65,6 +65,9 @@
           <div class="row text-center">
             <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
           </div>
+          <span id="test-error">
+                  <div class="alert-warning"><%= flash[:message] %></div>
+          </span>
           <div class="row text-center create">
             <p class="col-md-12 use">Signing up signifies that you've read and agree to our <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
           </div>
@@ -77,3 +80,21 @@
     <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
   </div>
 </div>
+<script>
+    $(function(){
+        $("alert").on("click", function(){
+            $("." + $(this).attr("data-hide")).hide();
+            /*
+             * The snippet above will hide all elements with the class specified in data-hide,
+             * i.e: data-hide="alert" will hide all elements with the alert property.
+             *
+             * Xeon06 provided an alternative solution:
+             * $(this).closest("." + $(this).attr("data-hide")).hide();
+             * Use this if are using multiple alerts with the same class since it will only find the closest element
+             *
+             * (From jquery doc: For each element in the set, get the first element that matches the selector by
+             * testing the element itself and traversing up through its ancestors in the DOM tree.)
+             */
+        });
+    });
+</script>

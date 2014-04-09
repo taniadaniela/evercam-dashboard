@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   include SessionsHelper
+  layout "forswagger", only: [:swagger]
 
   def dev
     current_user

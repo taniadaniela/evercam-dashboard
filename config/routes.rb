@@ -5,6 +5,7 @@ EvercamDashboard::Application.routes.draw do
    get 'cameras' => 'cameras#index', as: :cameras_index
    get 'cameras/new' => 'cameras#new'
    post 'cameras/new' => 'cameras#create'
+   get 'cameras/:id/jpg' => 'cameras#jpg'
    get 'cameras/:id' => 'cameras#single', as: :cameras_single
    post 'cameras/:id' => 'cameras#update'
    delete 'cameras/:id' => 'cameras#delete'

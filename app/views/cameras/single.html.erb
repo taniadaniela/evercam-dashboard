@@ -76,7 +76,7 @@
 <div id="live" class="tab-pane active">
   <div class="col-md-8">
     <div class="panel media">
-      <img src="<%= @camera['jpg'] %>" width="100%" height="auto">
+      <img src="/cameras/<%= @camera['id'] %>/jpg" width="100%" height="auto">
     </div>
   </div>
   <% if @camera['is_online'] %>

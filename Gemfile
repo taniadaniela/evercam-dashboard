@@ -38,6 +38,8 @@ gem 'protected_attributes'
 gem 'rack-rewrite'
 gem 'sequel'
 gem 'typhoeus'
+gem 'puma'
+gem 'data_uri'
 
 # Use unicorn as the app server
 # gem 'unicorn'

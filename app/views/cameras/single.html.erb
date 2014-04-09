@@ -168,12 +168,10 @@
         <div class='col-lg-10 col-lg-offset-1'>
           <div class='col-lg-6 form-group'>
             <label class="control-label" for="camera-name">Friendly Name</label>
-            <!--<span data-toggle="tooltip" data-title="This is the friendly name you will give to your Camera to identify it in the Evercam Dashboard" class="label label-default">?</span>-->
             <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_ " data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." value="<%= @camera['name'] %>">
           </div>
           <div class='col-lg-6 form-group'>
             <label class="control-label" for="camera-id">Evercam ID</label>
-            <span data-toggle="tooltip" data-title="This ID is unique to your Evercam Camera and cannot be changed" class="label label-default">?</span>
             <input id="camera-id" placeholder="roof-cam" class="form-control" disabled="disabled" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="The ID needs to be unique and contain letters and '-'. No spaces." value="<%= @camera['id'] %>">
             <input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
           </div>
@@ -188,12 +186,10 @@
         <div class='col-lg-10 col-lg-offset-1'>
           <div class='col-lg-6 form-group'>
             <label class="control-label" for="camera-username">Camera Username</label>
-            <!--<span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>-->
             <input id="camera-username" name="camera-username" placeholder="" class="form-control" type="text" value="<%= @camera['cam_username'] %>">
           </div>
           <div class='col-lg-6 form-group'>
             <label class="control-label" for="camera-password">Camera Password</label>
-            <!--<span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>-->
             <input id="camera-password" name="camera-password" placeholder="" class="form-control" type="text" value="<%= @camera['cam_password'] %>">
           </div>
         </div>
@@ -202,13 +198,12 @@
 
     <!-- STEP 3 -->
     <fieldset>
-      <div class='row add-row-last'>
+      <div class='row add-row'>
         <div class='col-lg-10 col-lg-offset-1'>
           <div class='col-lg-8'>
             <div class='row'>
               <div class='col-lg-10 form-group'>
                 <label class="control-label" for="camera-url">External IP (or URL)</label>
-                <!--<span data-toggle="tooltip" data-title="This will just contain the IP address in the form of 149.237.192.68 - http:// is already included" class="label label-default">?</span>-->
                 <div class="input-group">
                   <span class="input-group-addon">http://</span>
                   <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera['external_host'] %>">
@@ -218,46 +213,41 @@
             <div class='row'>
               <div class='col-lg-5 form-group'>
                 <label class="control-label" for="port">External HTTP Port</label>
-                <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">more info</span>-->
                 <input id="port" name="port" placeholder="8901" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= @camera['external_http_port'] %>">
               </div>
               <div class='col-lg-5 form-group'>
                 <label class="control-label" for="ext-rtsp-port">External RTSP Port</label>
-                <!--<span data-toggle="tooltip" data-title="This Field is optional." class="label label-default">optional</span>-->
                 <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="554" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['ext-rtsp-port'] %>">
               </div>
             </div>
             <div class='row'>
               <div class='col-lg-10 form-group'>
                 <label class="control-label" for="snapshot">Snapshot URL</label>
-                <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored. It must begin with '/'" class="label label-default">?</span>-->
                 <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= @camera['jpg_url'] %>" >
               </div>
             </div>
-            <div class="">
-              <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+
               <span id="test-error"><%= flash[:message] %></span>
-            </div>
+
           </div>
           <div class='col-lg-4'>
             <div class="media">
               <img id="testimg" src="/" class="text-center" width="100%">
             </div>
             <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
-            <p class="text-center"><span data-toggle="tooltip" data-placement="top" data-title="If you have entered the correct Credentials, Camera URL/IP and Port into the fields to the left, the image above should show you what your camera is seeing right now. If there is no preview, then some of the information you have entered could be incorrect. Please check the info or refer to your Camera's Manual." class="label label-default">?</span></p>
           </div>
         </div>
       </div>
     </fieldset>
     <fieldset>
-    <div class="row">
+    <div class="row add-row">
       <div class='col-lg-10 col-lg-offset-1'>
         <div class="col-lg-7">
           <!-- STEP 4 -->
           <div class='row'>
             <div class='col-lg-6 form-group'>
               <label class="control-label" for="camera-vendor">Camera Vendor</label>
-              <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <select id="camera-vendor" name="camera-vendor" class="form-control">
                 <option selected="selected" value="-1">-- select model --</option>
                 <% @vendors.each_with_index  do |v, index| -%>
@@ -548,10 +538,11 @@
 
 <!--EXPLORER TAB PANE -->
 <div id="explorer" class="tab-pane">
-  <div class="col-md-12">
+  <div class="col-md-12" id="iframe-explorer">
     <div class="iframe">
       <iframe src="https://dashboard.evercam.io/swagger"  scrolling="yes" frameborder="0" allowtransparency="true" width="857" height="1800"></iframe>
     </div>
+
   </div>
 </div><!--TAB PANE -->
 

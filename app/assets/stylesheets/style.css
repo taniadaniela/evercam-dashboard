@@ -28,6 +28,9 @@ h5 {
     font-weight: 700;
     font-size: 13px;
 }
+label {
+    text-transform: uppercase;
+}
 
 .btn-add {
     border: medium none;
@@ -393,6 +396,12 @@ h5 {
 #cam-refresh:hover {
     color: #428BCA;
 }
+.green {
+    color:#2ECC71;
+}
+.red {
+    color:#DC4C3F;
+}
 
 .cam {
     padding-left: 0;
@@ -584,6 +593,7 @@ h5 {
     font-weight: normal;
     margin-bottom: 0;
     margin-top: 5px;
+    margin-right: 4px;
 }
 
 #registration textarea, input {
@@ -593,6 +603,7 @@ h5 {
     box-shadow: none;
     color: #404142;
     padding: 4px;
+    font-size: 14px;
 }
 #registration textarea, input:focus {
     border-color: #428BCA;
@@ -722,8 +733,15 @@ h5 {
 /*/////////////////////
 API EXPLORER TAB
 /////////////////////*/
-.iframe-explorer {
+#iframe-explorer {
+    overflow: hidden;
+}
 
+#iframe-explorer .iframe {
+    overflow: hidden;
+    width: 842px;
+    margin-top: -355;
+    margin:0 auto;
 }
 
 /*/////////////////////
@@ -772,6 +790,12 @@ Add a Camera Page
     position: absolute;
     top: 50%;
 }
+
+#test-error {
+    padding: 10px;
+    margin: 20px 0 30px;
+    display:block;
+}
 #testimg {
     margin-top: 45px;
     max-width: 400px;
@@ -797,14 +821,12 @@ Add a Camera Page
 }
 .add-row {
     border-top: 1px solid #F5F5F5;
-    margin: 25px -25px 0px;
-    padding: 15px 0px 0;
+    margin: 0 -15px;
+    padding: 20px 0 30px;
 }
 .add-row-last {
-    border-top: 1px solid #F5F5F5;
-    margin: 0 -15px 10px;
-    padding: 30px 0px 0;
-    border-bottom: 1px solid #F5F5F5;
+
+
 }
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
@@ -828,7 +850,7 @@ tbody tr:hover {
     border-radius: 35px;
     font-size: 16px;
     padding: 2px 9px;
-    width: 26px
+    width: 26px;
 }
 .label-default {
     background-color: #f5f5f5;

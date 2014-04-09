@@ -538,7 +538,7 @@
 
 <!--EXPLORER TAB PANE -->
 <div id="explorer" class="tab-pane">
-  <div class="col-md-12" id="iframe-explorer">
+  <div class="col-md-12" #id>
     <div class="iframe">
       <iframe src="https://dashboard.evercam.io/swagger"  scrolling="yes" frameborder="0" allowtransparency="true" width="857" height="1800"></iframe>
     </div>
@@ -615,29 +615,8 @@
                     });
         });
 
-        // Tooltip
-        $('body').popover({
-            selector: '[data-toggle="popover"]'
-        });
 
-        $('body').tooltip({
-            selector: 'a[rel="tooltip"], [data-toggle="tooltip"]'
-        });
 
-        $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
-                .done(function(resp) {
-                    console.log('success');
-                    $('#testimg').attr('src', resp.data);
-                })
-                .fail(function(resp) {
-                    $('#test-error').text(resp.responseJSON.message);
-                    console.log('error');
-                })
-                .always(function() {
-                    l.stop();
-                    clearInterval( interval );
-                });
-    });
     // Javascript to enable link to tab
     var url = document.location.toString();
     if (url.match('#')) {

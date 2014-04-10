@@ -82,7 +82,7 @@ describe CamerasController do
 
     describe 'POST #create with valid parameters' do
       it "redirects to the newly created camera" do
-        stub_request(:post, "https://api.evercam.io/v1/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        stub_request(:post, "https://api.evercam.io/v1/cameras").
           to_return(:status => 200, :body => "", :headers => {})
 
         session['user'] = user.email

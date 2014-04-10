@@ -7,7 +7,7 @@ FactoryGirl.define do
       sequence(:username) {|n| "user#{n}"}
       password "password"
       sequence(:email) {|n| "user#{n}@nowhere.com"}
-      api_id SecureRandom.hex(10)
+      sequence(:api_id) {|n| "#{n}" }
       api_key SecureRandom.hex(10)
       created_at Time.now - 86400
       updated_at Time.now - 86400

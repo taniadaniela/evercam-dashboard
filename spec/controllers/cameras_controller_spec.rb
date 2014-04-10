@@ -71,7 +71,7 @@ describe CamerasController do
       end
     end
 
-    context 'GET #jpg', :focus => true do
+    context 'GET #jpg' do
       it "returns current snapshot if camera is online" do
         stub_request(:get, "https://api.evercam.io/v1/cameras/#{camera.exid}/snapshot.jpg?api_id=#{user.api_id}&api_key=#{user.api_key}").
           to_return(:status => 200, :body => "", :headers => {})

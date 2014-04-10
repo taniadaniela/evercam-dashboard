@@ -71,6 +71,50 @@ describe CamerasController do
       end
     end
 
+    context 'GET #jpg', :focus => true do
+      it "returns current snapshot if camera is online" do
+        stub_request(:get, "https://api.evercam.io/v1/cameras/#{camera.exid}/snapshot.jpg?api_id=#{user.api_id}&api_key=#{user.api_key}").
+          to_return(:status => 200, :body => "", :headers => {})
+
+        session['user'] = user.email
+        get :jpg, {'id' => params['camera-id']}
+        expect(response.status).to eq(200)
+      end
+
+      it "returns latest snapshot if camera is offline" do
+        stub_request(:get, "https://api.evercam.io/v1/cameras/#{camera.exid}/snapshot.jpg?api_id=#{user.api_id}&api_key=#{user.api_key}").
+          to_return(:status => 500, :body => "", :headers => {})
+        stub_request(:get, "https://api.evercam.io/v1/cameras/#{camera.exid}/snapshots/latest.json?api_id=#{user.api_id}&api_key=#{user.api_key}&with_data=true").
+          to_return(:status => 200, :body => '{
+            "snapshots": [
+              {
+                "camera": "qqq",
+                "notes": null,
+                "created_at": 1397055775,
+                "timezone": "Etc/GMT0",
+                "data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+              }
+            ]
+          }', :headers => {})
+
+        session['user'] = user.email
+        get :jpg, {'id' => params['camera-id']}
+        expect(response.status).to eq(200)
+      end
+
+      it "returns 404 if camera is offline and there are no snapshots" do
+        stub_request(:get, "https://api.evercam.io/v1/cameras/#{camera.exid}/snapshot.jpg?api_id=#{user.api_id}&api_key=#{user.api_key}").
+          to_return(:status => 500, :body => "", :headers => {})
+        stub_request(:get, "https://api.evercam.io/v1/cameras/#{camera.exid}/snapshots/latest.json?api_id=#{user.api_id}&api_key=#{user.api_key}&with_data=true").
+          to_return(:status => 200, :body => '{ "snapshots": [] }', :headers => {})
+
+        session['user'] = user.email
+        expect {
+          get :jpg, {'id' => params['camera-id']}
+        }.to raise_error(ActionController::RoutingError)
+      end
+    end
+
     describe 'GET #new' do
       it "renders the :new" do
         session['user'] = user.email

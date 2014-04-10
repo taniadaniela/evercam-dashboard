@@ -28,9 +28,8 @@ h5 {
     font-weight: 700;
     font-size: 13px;
 }
-label {
-    text-transform: uppercase;
-}
+
+
 
 .btn-add {
     border: medium none;
@@ -838,7 +837,7 @@ Add a Camera Page
     margin-top: 10px;
 }
 .form-group {
-    margin: 15px 0;
+
 }
 .input-group .has-error {
     height: 30px;

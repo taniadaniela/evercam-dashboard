@@ -259,9 +259,8 @@
             </div>
 
             <div class='col-lg-6 form-group'>
-              <%= @camera['model'] %>
+              <%# @camera['model'] %>
               <label class="control-label" for="camera-model">Camera Model</label>
-              <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <% @vendors.each do |v| -%>
                   <select id="camera-model<%= v.exid -%>" name="camera-model" class="form-control  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
                     <% v.vendor_models.each_with_index  do |m, index| -%>
@@ -317,11 +316,11 @@
 
     <!-- SUPPORT -->
     <div class="row add-row add-footer">
-      <div class='col-lg-5 col-lg-offset-3'>
+      <div class='col-lg-10 col-lg-offset-1'>
         <h5>Still Can't See Your Camera?</h5>
         <ul class="list-inline">
-          <li><a href="#">FAQ/common-connection-issues</a></li>
-          <li><a href="#">Get our Support Team to connect your Camera</a></li>
+          <li><a href="http://www.evercam.io/help" target="_blank">Help Pages</a></li>
+          <li><a href="#" target="_blank">Support</a></li>
         </ul>
       </div>
     </div>

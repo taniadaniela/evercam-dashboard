@@ -71,24 +71,10 @@
   </ul>
 </header>
 
-<!--LIVE VIEW TAB PANE -->
 <div class="tab-content">
+<!--LIVE VIEW TAB PANE -->
 <div id="live" class="tab-pane active">
-  <div class="col-md-8">
-    <div class="panel media">
-      <img src="/cameras/<%= @camera['id'] %>/jpg" width="100%" height="auto">
-    </div>
-  </div>
-  <% if @camera['is_online'] %>
-      <div class="col-md-4 panel panel-body online">
-        <span class="glyphicon glyphicon-ok circle-sign"></span>Online
-      </div>
-  <% else %>
-      <div class="col-md-4 panel panel-body offline">
-        <span class="glyphicon glyphicon-info-sign"></span>Offline
-      </div>
-  <% end %>
-  <a href="#" class="btn btn-primary refresh" role="button"><span class="glyphicon glyphicon-refresh"></span>Refresh Snapshot</a>
+  <%= render partial: "live/live_tab" %>
 </div>
 
 <!--INFO TAB PANE -->

@@ -18,3 +18,5 @@
 //= require ladda-0.8.0.min
 //= require custom
 //= require sharing
+//= require live
+

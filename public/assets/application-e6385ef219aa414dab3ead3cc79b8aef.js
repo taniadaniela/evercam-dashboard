@@ -11412,6 +11412,67 @@ $(function () {
 
 
 });
+(function() {
+  var initializeSharingTab, onSetCameraAccessClicked;
+
+  onSetCameraAccessClicked = function(event) {
+    var button, cameraId, data, onError, onSuccess, selected, settings;
+    event.preventDefault();
+    selected = $('input[name=optionsRadios]:checked').val();
+    button = $('#set_permissions_submit');
+    cameraId = $('#camera_id').val();
+    data = {};
+    switch (selected) {
+      case "public_discoverable":
+        data["public"] = true;
+        data.discoverable = true;
+        break;
+      case "public_undiscoverable":
+        data["public"] = true;
+        data.discoverable = false;
+        break;
+      default:
+        data["public"] = false;
+        data.discoverable = false;
+    }
+    onError = function(jqXHR, status, error) {
+      alert("Update of camera permissions failed. Please contact support.");
+      button.removeAttr('disabled');
+      return false;
+    };
+    onSuccess = function(data, status, jqXHR) {
+      alert("Camera permissions successfully updated.");
+      button.removeAttr('disabled');
+      return true;
+    };
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onError,
+      success: onSuccess,
+      type: 'POST',
+      url: '/share/camera/' + cameraId
+    };
+    button.attr('disabled', 'disabled');
+    jQuery.ajax(settings);
+    return true;
+  };
+
+  initializeSharingTab = function() {
+    $('#set_permissions_submit').click(onSetCameraAccessClicked);
+    return true;
+  };
+
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+
+  window.Evercam.Share = {
+    initializeTab: initializeSharingTab
+  };
+
+}).call(this);
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -11424,6 +11485,7 @@ $(function () {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 

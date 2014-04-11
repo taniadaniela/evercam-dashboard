@@ -71,6 +71,8 @@ h5 {
     font-size: 13px;
 }
 
+
+
 .btn-add {
     border: medium none;
     cursor: pointer;
@@ -132,7 +134,7 @@ h5 {
 .navbar {
     left: 0;
     right: 0;
-    background-color: #fff;
+    /*background-color: #fff;
     border: none;
     margin: 0;
     box-shadow:0 3px 10px rgba(0, 0, 0, 0.06);
@@ -140,7 +142,7 @@ h5 {
     -moz-border-radius: 0;
     border-radius: 0;
     -webkit-transition: .3s;
-    transition: .3s;
+    transition: .3s;*/
 }
 /* navbar fixed */
 .navbar.affix {
@@ -289,10 +291,10 @@ h5 {
     font-weight: normal;
     color: #414042;
     padding: 10px 30px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
 }
 .navbar .navbar-nav li.dropdown ul.dropdown-menu li a:hover {
-    background-color: #ffffff;
+    background-color: #f5f5f5;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
@@ -327,7 +329,7 @@ h5 {
     border-bottom: 1px solid #999;
 }
 .nav > li > a:hover, .nav > li > a:focus {
-    background-color:#ffffff ;
+    background-color:#f5f5f5 ;
 }
 .navbar .navbar-nav li a span.arrow-left {
     float: right;
@@ -345,7 +347,7 @@ h5 {
     margin: 0 10px;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background-color: #ffffff;
+    background-color: #f5f5f5;
 }
 .navbar .navbar-nav li.dropdown ul.dropdown-menu li .divider {
     background-color: #E5E5E5;
@@ -369,12 +371,52 @@ h5 {
     width: 100%;
     margin-top:21px;
 }
-/*Camera Index Page*/
+
+/*/////////////////////
+//USER SETTINGS
+/////////////////////*/
+
+#userProfile {
+    padding:0px 0 50px;
+}
+
+#user-settings {
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/*/////////////////////
+//DEVELOPER PAGE
+/////////////////////*/
+.dev {
+}
+.form-horizontal .control-label {
+    margin-bottom: 9px;
+    margin-left: 2px;
+    text-align: left;
+}
+#api-keys {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+}
+.iframe {
+    overflow: hidden;
+    width: 842px;
+    margin: 0 auto;
+}
+/*/////////////////////
+//Camera Index Page
+/////////////////////*/
+
 #camera-dash .wrapper {
     padding: 0;
 }
 #camera-dash {
-    margin-top: 40px;
+
 }
 #cam-name {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
@@ -394,6 +436,12 @@ h5 {
 }
 #cam-refresh:hover {
     color: #428BCA;
+}
+.green {
+    color:#2ECC71;
+}
+.red {
+    color:#DC4C3F;
 }
 
 .cam {
@@ -530,7 +578,10 @@ h5 {
     position: relative;
     z-index: 1;
 }
-/*SIGN IN FORM*/
+
+/*/////////////////////
+//SIGN IN FORM
+/////////////////////*/
 #sign-in {
     border: 1px solid #E5E5E5;
     border-radius: 2px;
@@ -583,6 +634,7 @@ h5 {
     font-weight: normal;
     margin-bottom: 0;
     margin-top: 5px;
+    margin-right: 4px;
 }
 
 #registration textarea, input {
@@ -592,6 +644,7 @@ h5 {
     box-shadow: none;
     color: #404142;
     padding: 4px;
+    font-size: 14px;
 }
 #registration textarea, input:focus {
     border-color: #428BCA;
@@ -613,9 +666,6 @@ h5 {
 }
 /*Single Camera Page*/
 
-#camera-single {
-    margin-top: 40px;
-}
 /*Live*/
 #live .panel {
     max-height: 440px;
@@ -721,9 +771,27 @@ h5 {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
     text-decoration: none;
 }
+/*/////////////////////
+API EXPLORER TAB
+/////////////////////*/
+#iframe-explorer {
+    overflow: hidden;
+}
 
+#iframe-explorer .iframe {
+    overflow: hidden;
+    width: 842px;
+    margin-top: -355;
+    margin:0 auto;
+}
 
-/*Add a Camera Page*/
+.exp-swagger {
+
+}
+
+/*/////////////////////
+Add a Camera Page
+/////////////////////*/
 .additional {
     margin-bottom: 18px;
     text-transform: uppercase;
@@ -767,6 +835,12 @@ h5 {
     position: absolute;
     top: 50%;
 }
+
+#test-error {
+    padding: 10px;
+    margin: 20px 0 30px;
+    display:block;
+}
 #testimg {
     margin-top: 45px;
     max-width: 400px;
@@ -792,14 +866,12 @@ h5 {
 }
 .add-row {
     border-top: 1px solid #F5F5F5;
-    margin: 25px -25px 0px;
-    padding: 15px 0px 0;
+    margin: 0 -15px;
+    padding: 20px 0 30px;
 }
 .add-row-last {
-    border-top: 1px solid #F5F5F5;
-    margin: 0 -15px 10px;
-    padding: 30px 0px 0;
-    border-bottom: 1px solid #F5F5F5;
+
+
 }
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
@@ -811,7 +883,7 @@ h5 {
     margin-top: 10px;
 }
 .form-group {
-    margin: 15px 0;
+
 }
 .input-group .has-error {
     height: 30px;
@@ -823,7 +895,7 @@ tbody tr:hover {
     border-radius: 35px;
     font-size: 16px;
     padding: 2px 9px;
-    width: 26px
+    width: 26px;
 }
 .label-default {
     background-color: #f5f5f5;
@@ -842,7 +914,7 @@ tbody tr:hover {
 }
 .panel {
     border-radius:2px;
-    border: 1px solid #f5f5f5;
+    border: 1px solid #e5e5e5;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
@@ -1179,7 +1251,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 }
 .dropdown-menu {
     box-shadow: none;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #e5e5e5 !important;
     border-radius: 2px;
 }
 .dropdown-menu.extended .alert-icon,.noti-info {
@@ -4521,6 +4593,16 @@ div.tagsinput span.tag {
 }
 .alert-success .alert-icon {
     background-color:#98d7ad;
+}
+.alert-blank {
+    text-align: center;
+    margin-top: 30px;
+}
+.alert-warning {
+    background-image: none;
+    background-repeat: repeat-x;
+    margin: 30px 0 0;
+
 }
 .alert-warning .alert-icon {
     background-color:#ffe699;

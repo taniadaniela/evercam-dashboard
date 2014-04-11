@@ -33,4 +33,7 @@ EvercamDashboard::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # Define a Hash for the session initializer.
+  config.session_initializer_settings = {key: '_evercam_dashboard_session'}
 end

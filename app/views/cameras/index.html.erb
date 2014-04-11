@@ -36,9 +36,9 @@
                 <section class="media">
                   <a href="/cameras/<%= camera['id'] %>">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                    <img src="/cameras/<%= camera['id'] %>/jpg" onerror="this.style.display='none'"/>
+                   <div class="cam-center"> <img src="/cameras/<%= camera['id'] %>/jpg" onerror="this.style.display='none'"/></div>
 
-                    <div id="refresh"> <% if camera['is_online'] %>
+                    <div id="offline"> <% if camera['is_online'] %>
                           <span class="green">Online</span>
                       <% else %>
                           <span class="red">Offline</span>

@@ -93,66 +93,74 @@
 
 <!--INFO TAB PANE -->
 <div id="info" class="tab-pane">
-  <div class="col-md-4 panel panel-body">
-    <table class='table borderless'>
-      <thead>
-      <tr><h5>Info</h5></tr>
-      </thead>
-      <tr>
-        <td>Camera ID   </td>
-        <td><%= @camera['id'] %></td>
-      </tr>
-      <tr>
-        <td>Camera Owner   </td>
-        <td><%= @camera['owner'] %></td>
-      </tr>
-      <tr>
-        <td>Local IP   </td>
-        <td><%= @camera.fetch('config', {}).fetch('internal_host', '') %></td>
-      </tr>
-    </table>
-  </div>
-  <div class="col-md-6 panel panel-body">
-    <table class='table borderless'>
-      <thead>
-      <tr><h5>Assets</h5></tr>
-      </thead>
-      <tr>
-        <td >JPEG URL   </td>
-        <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
-      </tr>
-      <tr>
-        <td>H264 URL   </td>
-        <td>H264 URL: http://evr.cm/rem-cam.h264</td>
-      </tr>
-      <tr>
-        <td>Audio URL  </td>
-        <td>http://evr.cm/rem-cam.aac</td>
-      </tr>
-    </table>
-  </div>
-  <div class="col-md-6 panel panel-body">
-    <table class='table borderless'>
-      <thead>
-      <tr><h5>Stream</h5></tr>
-      </thead>
-      <tr>
-        <td >HTTP MPEG4 Stream</td>
-        <td>http://192.168.1.198:8001/stream.av</td>
-      </tr>
-      <tr>
-        <td>HTTP MJPEG Stream</td>
-        <td>http://192.168.1.198:8001/stream.jpg</td>
-      </tr>
-      <tr>
-        <td>HTTP ASF Stream</td>
-        <td>http://192.168.1.198:8001/stream.asf</td>
-      </tr>
-      <tr>
-        <td>HTTP Snapshot Image</td>
-        <td>http://192.168.1.198:8001/snapshot.jpg</td>
-      </tr>
-    </table>
+  <div class="col-lg-12">
+    <div class="col-lg-12 info-panel">
+      <div class="col-lg-4">
+        <table class='table borderless'>
+          <thead>
+          <tr><h4>Info</h4></tr>
+          </thead>
+          <tr>
+            <td>Camera ID   </td>
+            <td><%= @camera['id'] %></td>
+          </tr>
+          <tr>
+            <td>Camera Owner   </td>
+            <td><%= @camera['owner'] %></td>
+          </tr>
+          <tr>
+            <td>Local IP   </td>
+            <td><%= @camera.fetch('config', {}).fetch('internal_host', '') %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 info-panel">
+      <div class="col-lg-9">
+      <table class='table borderless'>
+        <thead>
+        <tr><h4>Assets</h4></tr>
+        </thead>
+        <tr>
+          <td >JPEG URL   </td>
+          <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
+        </tr>
+        <tr>
+          <td>H264 URL   </td>
+          <td>H264 URL: http://evr.cm/rem-cam.h264</td>
+        </tr>
+        <tr>
+          <td>Audio URL  </td>
+          <td>http://evr.cm/rem-cam.aac</td>
+        </tr>
+      </table>
+    </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-lg-9">
+      <table class='table borderless'>
+        <thead>
+        <tr><h4>Stream</h4></tr>
+        </thead>
+        <tr>
+          <td >HTTP MPEG4 Stream</td>
+          <td>http://192.168.1.198:8001/stream.av</td>
+        </tr>
+        <tr>
+          <td>HTTP MJPEG Stream</td>
+          <td>http://192.168.1.198:8001/stream.jpg</td>
+        </tr>
+        <tr>
+          <td>HTTP ASF Stream</td>
+          <td>http://192.168.1.198:8001/stream.asf</td>
+        </tr>
+        <tr>
+          <td>HTTP Snapshot Image</td>
+          <td>http://192.168.1.198:8001/snapshot.jpg</td>
+        </tr>
+      </table>
+    </div>
+    </div>
   </div>
 </div>
 
@@ -161,7 +169,7 @@
 <div id="camera-settings" class="tab-pane">
   <form action="#" method="post">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-
+    <div class='row'><div class="col-md-4 col-md-offset-1"><h4>Settings</h4></div></div>
     <!-- STEP 1 -->
     <fieldset>
       <div class='row add-row'>
@@ -277,19 +285,16 @@
           <div class="row">
             <div class='col-lg-8 form-group'>
               <label class="control-label" for="local-ip">Local IP</label>
-              <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <input id="local-ip" name="local-ip" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="The Port should be a 2-4 digit number." data-validation-optional="true" value="<%= params['local-ip'] %>">
             </div>
           </div>
           <div class="row">
             <div class='col-lg-6 form-group'>
               <label class="control-label" for="local-http">Local HTTP Port</label>
-              <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <input id="local-http" name="local-http" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-http'] %>">
             </div>
             <div class='col-lg-6 form-group'>
               <label class="control-label" for="local-rtsp">Local RTSP Port</label>
-              <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
               <input id="local-rtsp" name="local-rtsp" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['local-rtsp'] %>">
             </div>
           </div>
@@ -355,6 +360,10 @@
 
 <!--EXPLORER TAB PANE -->
 <div id="explorer" class="tab-pane">
+  <div class="col-md-12 info-panel">
+    <h4>Cameras</h4>
+    <p>Here you can make requests to our REST API and explore responses.</p><p> You can use this Cameras ID: <span class="bold"><%= @camera['id'] %></span> </p>
+  </div>  
   <div class="col-md-12">
     <%= stylesheet_link_tag "swagger"%>
     <%= javascript_include_tag "swagger"%>

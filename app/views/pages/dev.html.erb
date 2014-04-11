@@ -4,30 +4,61 @@
     <div class="row" id="api-keys">
         <div class="col-md-6 col-md-offset-3">
             <form role="form" id="apikeys" class="form-horizontal center-block">
-
-              <div class="form-group">
-                <label for="userForename" class="col-sm-2 control-label api-label">API ID</label>
-                <div class="col-sm-10">
-                  <input type="text" value="<%= current_user.api_id -%>" class="form-control" id="userForename" readonly="readonly">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="userLastname" class="col-sm-2 control-label">API Key</label>
-                <div class="col-sm-10">
-                  <input type="text" value="<%= current_user.api_key -%>" class="form-control" id="userLastname" readonly="readonly">
-                </div>
-              </div>
-
+              <table class='table borderless'>
+                <tr>
+                  <td>API ID</td>
+                  <td><%= current_user.api_id -%></td>
+                </tr>
+                <tr>
+                  <td>API Key</td>
+                  <td><%= current_user.api_key -%></td>
+                </tr>
+                <tr height="50" class="border">
+                  <td>Demo Camera ID</td>
+                  <td>
+                    <%= current_user.cameras.first.exid %>
+                  </td>
+                </tr>
+              </table>
             </form>
         </div>
+    
     </div>
     <div class="col-md-12">
-        <div class="iframe-explorer">
-         <div class="iframe">
-            <iframe src="https://dashboard.evercam.io/swagger"  scrolling="yes" frameborder="0" allowtransparency="true" width="857" height="1800"></iframe>
-         </div>
-         </div>
+      <%= stylesheet_link_tag "swagger"%>
+      <%= javascript_include_tag "swagger"%>
+        <script type="text/javascript">
+            $(function () {
+
+                window.swaggerUi = new SwaggerUi({
+                    url: "https://api.evercam.io/v1/swagger/cameras.json",
+                    dom_id: "swagger-ui-container",
+                    supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+                    onComplete: function(swaggerApi, swaggerUi){
+                        window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
+                        window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
+                        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+                        $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
+                        $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
+                    },
+                    onFailure: function(data) {
+                    },
+                    docExpansion: "list"
+                });
+
+                window.swaggerUi.load();
+
+            });
+
+        </script>
+          <div class="exp-swagger">
+            <div id="swagger">
+              <div id="swagger-ui-container" class="swagger-ui-wrap">
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
     </div>
   </div>
 </div>

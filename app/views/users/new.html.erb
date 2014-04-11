@@ -62,13 +62,13 @@
               <%= f.password_field :password, autocomplete: "off" %>
             </div>
           </div>
-          <div class="row text-center">
-            <%= f.submit "Create New Account", class: "btn btn-large btn-primary col-lg-10 col-lg-offset-1" %>
+          <div class="row text-center create">
+            <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
           </div>
           <span id="test-error">
                   <div class="alert-warning"><%= flash[:message] %></div>
           </span>
-          <div class="row text-center create">
+          <div class="row text-center">
             <p class="col-md-12 use">Signing up signifies that you've read and agree to our <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
           </div>
       <% end %>

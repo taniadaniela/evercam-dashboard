@@ -230,11 +230,11 @@ h5 {
 
 .navbar .navbar-nav li.dropdown ul.dropdown-menu {
     border: 0;
-
     padding: 0;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 .navbar .navbar-nav li.dropdown ul.dropdown-menu li,
 .navbar .navbar-nav li.dropdown ul.dropdown-menu li a {
@@ -412,27 +412,32 @@ h5 {
 #offline {
     position: absolute;
     left: 5px;
-    top: 5px;
+    bottom: 5px;
     border-top-left-radius: 1px;
     color: #AAAAAA;
 }
 
-.cam {
+.cam-box {
     padding-left: 0;
     padding-right: 0;
-    width: 32.31%;
+    width: 33%;
+    height: 250px;
+    border: 1px solid red;
+    background-color: #000000;
+    overflow: hidden;
+    text-align: center;
 }
-.cam img {
-    height: 100%;
+.cam-box img {
+    
     height: 100%;
 }
 .cam .media {
-    background-color: #000000;
-    /*background-image: url("https://www.evercam.io/img/offline.png");*/
+    /*background-color: #000000;
+    background-image: url("https://www.evercam.io/img/offline.png");
     background-position: center center;
     background-size: 250px;
     background-repeat: no-repeat;
-    height: 237px;
+    height: 237px;*/
 }
 .cam-center {
 
@@ -589,9 +594,7 @@ h5 {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
 }
-#sign-in .btn {
-    margin-top:13px;
-}
+
 /*CREATE ACCOUNT FORM*/
 #registration {
     border: 1px solid #E5E5E5;
@@ -626,11 +629,9 @@ h5 {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
 }
-#registration .btn {
-    margin-top:13px;
-}
+
 .create {
-    margin-top: 30px;
+    margin-top: 25px !important;
 }
 #country {
     max-width: 186px;
@@ -821,7 +822,7 @@ Add a Camera Page
 .info {
     position: relative;
     right: 50px;
-    top: -39px;
+    top: -41px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -833,7 +834,7 @@ Add a Camera Page
 .info-sm {
     position: relative;
     right: 0;
-    top: 44px;
+    top: 33px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -843,9 +844,9 @@ Add a Camera Page
 }
 
 .test-snapshot {
-    left: 26%;
+    left: 16%;
     position: absolute;
-    top: 50%;
+    top: 45%;
 }
 
 #test-error {
@@ -904,10 +905,9 @@ tbody tr:hover {
     background-color: #ffffff;
 }
 .label {
-    border-radius: 35px;
-    font-size: 16px;
-    padding: 2px 9px;
-    width: 26px;
+    border-radius: 18px;
+    font-size: 13px;
+    padding: 5px 10px;
 }
 .label-default {
     background-color: #f5f5f5;
@@ -981,10 +981,15 @@ tbody tr:hover {
     box-shadow: none;
     text-shadow: none;
 }
+.add-user .btn-primary, .btn-success, .btn-danger {
+    margin-top: 0px;
+    padding: 6px 16px;
+}
 .btn-primary, .btn-success, .btn-danger {
     background-image: none;
     border: medium none;
-    padding: 12px;
+    padding: 10px 40px;
+    margin-top: 20px;
 }
 .alert {
     text-shadow: none;

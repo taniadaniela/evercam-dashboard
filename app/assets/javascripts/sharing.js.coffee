@@ -1,3 +1,11 @@
+showError = (message) ->
+   alert(message)
+   true
+
+showFeedback = (message) ->
+   alert(message)
+   true
+
 onSetCameraAccessClicked = (event) ->
    event.preventDefault()
    selected = $('input[name=optionsRadios]:checked').val()
@@ -17,12 +25,15 @@ onSetCameraAccessClicked = (event) ->
          data.discoverable = false
 
    onError = (jqXHR, status, error) ->
-      alert("Update of camera permissions failed. Please contact support.")
+      showError("Update of camera permissions failed. Please contact support.")
       button.removeAttr('disabled')
       false
 
    onSuccess = (data, status, jqXHR) ->
-      alert("Camera permissions successfully updated.")
+      if data.success
+         showFeedback("Camera permissions successfully updated.")
+      else
+         showError("Update of camera permissions failed. Please contact support.")
       button.removeAttr('disabled')
       true
 
@@ -39,8 +50,39 @@ onSetCameraAccessClicked = (event) ->
    jQuery.ajax(settings)
    true
 
+onDeleteShareClicked = (event) ->
+   event.preventDefault()
+   control  = $(event.currentTarget)
+   row      = control.parent().parent().parent().parent()
+   data     =
+      camera_id: control.attr("camera_id")
+      share_id: control.attr("share_id")
+   onError = (jqXHR, status, error) ->
+      showError("Delete of camera shared failed. Please contact support.")
+      false
+   onSuccess = (data, status, jqXHR) ->
+      if data.success
+         onComplete = ->
+            row.remove()
+         row.fadeOut('slow', onComplete)
+      else
+         showError("Delete of camera shared failed. Please contact support.")
+      true
+
+   settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'DELETE'
+      url: '/share'
+   jQuery.ajax(settings)
+   true
+
 initializeSharingTab = ->
    $('#set_permissions_submit').click(onSetCameraAccessClicked)
+   $('.delete-share-control').click(onDeleteShareClicked)
    true
 
 if !window.Evercam

@@ -15,10 +15,11 @@ module ApplicationHelper
                        "   Method:     #{method}\n"\
                        "   Body:       #{body}\n"\
                        "   Parameters: #{params}\n"\
-                       "   URI:        #{EVERCAM_API   + url}"
+                       "   URI:        http://localhost:9292/v1#{url}"
 
     request = Typhoeus::Request.new(
-      EVERCAM_API + url,
+      #EVERCAM_API + url,
+      "http://localhost:9292/v1" + url,
       method: method,
       body: body,
       params: params,

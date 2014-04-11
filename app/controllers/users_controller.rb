@@ -38,8 +38,6 @@ class UsersController < ApplicationController
     user = User.where(Sequel.expr(email: params[:u]) | Sequel.expr(username: params[:u])).first
     unless user.nil?
       code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
-      puts code
-      puts params[:c]
       if params[:c] == code
         user.confirmed_at = Time.now
         user.save

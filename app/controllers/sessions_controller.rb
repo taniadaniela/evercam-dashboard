@@ -1,7 +1,10 @@
 class SessionsController < ApplicationController
   include SessionsHelper
 
-  def index
+  def new
+    unless current_user.nil?
+      redirect_to :cameras_index
+    end
   end
 
   def create

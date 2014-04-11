@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create, :confirm]
   before_filter :owns_data!
-  skip_before_action :owns_data!, only: [:new, :create]
+  skip_before_action :owns_data!, only: [:new, :create, :confirm]
   include SessionsHelper
   include ApplicationHelper
 
@@ -35,6 +35,17 @@ class UsersController < ApplicationController
   end
 
   def confirm
+    user = User.where(Sequel.expr(email: params[:u]) | Sequel.expr(username: params[:u])).first
+    unless user.nil?
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
+      if params[:c] == code
+        user.confirmed_at = Time.now
+        user.save
+        flash[:notice] = 'Successfully activated your account'
+      else
+        flash[:notice] = 'Activation code is incorrect'
+      end
+    end
     redirect_to '/signin'
   end
 

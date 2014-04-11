@@ -2,36 +2,33 @@
 
 <div class="container section">
 
- <div id="sign-in" class="col-md-4 col-md-offset-4 text-center">
+  <div id="sign-in" class="col-md-4 col-md-offset-4 text-center">
 
-            <h3 class="text-center">Sign in</h3>
+    <h3 class="text-center">Sign in</h3>
 
-            <%= form_for(:session, url: sessions_path) do |f| %>
+    <%= form_for(:session, url: sessions_path) do |f| %>
 
-
-                <div class="row">
-                <%= f.label :email %> / <%= f.label :username %>
-                </div>
-                <%= f.text_field :email %>
-
-
-                 <div class="row">
-                <%= f.label :password %>
-                </div>
-                <%= f.password_field :password %>
+    <div class="row">
+      <%= f.label :email %> / <%= f.label :username %>
+    </div>
+    <%= f.text_field :email %>
 
 
-              <div class="row">
-                <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-             </div>
-         <div class="row create">
-           I've<a href="#"> forgotten my password</a>
-         </div>
-                <% end %>
+    <div class="row">
+      <%= f.label :password %>
+    </div>
+    <%= f.password_field :password %>
 
 
+    <div class="row">
+      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+    </div>
+    <div class="row create">
+      I've<a href="#"> forgotten my password</a>
+    </div>
+    <% end %>
+  </div>
 
-</div>
   <div class="col-md-4 col-md-offset-4 row text-center create">
     <p>Or <%= link_to "Create New Account", signup_path %></p>
   </div>

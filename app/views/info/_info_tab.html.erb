@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-lg-12 info-panel">
+    <div class="col-lg-4">
+      <table class='table borderless'>
+        <thead>
+        <tr><h4>Info</h4></tr>
+        </thead>
+        <tr>
+          <td>Camera ID   </td>
+          <td><%= @camera['id'] %></td>
+        </tr>
+        <tr>
+          <td>Camera Owner   </td>
+          <td><%= @camera['owner'] %></td>
+        </tr>
+        <tr>
+          <td>Local IP   </td>
+          <td><%= @camera.fetch('config', {}).fetch('internal_host', '') %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 info-panel">
+    <div class="col-lg-9">
+    <table class='table borderless'>
+      <thead>
+      <tr><h4>Assets</h4></tr>
+      </thead>
+      <tr>
+        <td >JPEG URL   </td>
+        <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
+      </tr>
+      <tr>
+        <td>H264 URL   </td>
+        <td>H264 URL: http://evr.cm/rem-cam.h264</td>
+      </tr>
+      <tr>
+        <td>Audio URL  </td>
+        <td>http://evr.cm/rem-cam.aac</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-lg-9">
+      <table class='table borderless'>
+        <thead>
+        <tr><h4>Stream</h4></tr>
+        </thead>
+        <tr>
+          <td >HTTP MPEG4 Stream</td>
+          <td>http://192.168.1.198:8001/stream.av</td>
+        </tr>
+        <tr>
+          <td>HTTP MJPEG Stream</td>
+          <td>http://192.168.1.198:8001/stream.jpg</td>
+        </tr>
+        <tr>
+          <td>HTTP ASF Stream</td>
+          <td>http://192.168.1.198:8001/stream.asf</td>
+        </tr>
+        <tr>
+          <td>HTTP Snapshot Image</td>
+          <td>http://192.168.1.198:8001/snapshot.jpg</td>
+        </tr>
+      </table>
+   </div>
+  </div>
+</div>
+  
+  
+
+<script type="text/javascript">
+  $(window.Evercam.Info.initializeTab);
+</script>

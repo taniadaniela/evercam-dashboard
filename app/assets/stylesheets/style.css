@@ -335,11 +335,9 @@ h5 {
 /*/////////////////////
 //USER SETTINGS
 /////////////////////*/
-
 #userProfile {
     padding:0px 0 50px;
 }
-
 #user-settings {
     border-bottom: 1px solid #E5E5E5;
     padding-bottom: 20px;
@@ -347,7 +345,6 @@ h5 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
 /*/////////////////////
 //DEVELOPER PAGE
 /////////////////////*/
@@ -381,9 +378,6 @@ h5 {
 #camera-dash .wrapper {
     padding: 0;
 }
-#camera-dash {
-
-}
 #cam-name {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
     padding: 0px 10px;
@@ -416,19 +410,16 @@ h5 {
     border-top-left-radius: 1px;
     color: #AAAAAA;
 }
-
 .cam-box {
     padding-left: 0;
     padding-right: 0;
     width: 33%;
     height: 250px;
-    border: 1px solid red;
     background-color: #000000;
     overflow: hidden;
     text-align: center;
 }
 .cam-box img {
-    
     height: 100%;
 }
 .cam .media {
@@ -436,13 +427,8 @@ h5 {
     background-image: url("https://www.evercam.io/img/offline.png");
     background-position: center center;
     background-size: 250px;
-    background-repeat: no-repeat;
-    height: 237px;*/
+    background-repeat: no-repeat*/
 }
-.cam-center {
-
-}
-
 .media a {
     color:#414042;
     font-weight:300;
@@ -555,7 +541,7 @@ h5 {
 }
 .section {
     padding-bottom: 60px;
-    padding-top: 60px;
+    padding-top: 30px;
     position: relative;
     z-index: 1;
 }
@@ -669,9 +655,16 @@ select {
     font-size: 11px;
     padding-top: 10px;
 }
-/*Single Camera Page*/
+
+/*/////////////////////
+//SINGLE CAMERA PAGE
+/////////////////////*/
 
 /*Live*/
+.tab-content h4 {
+    margin-bottom: 25px;
+
+}
 #live .panel {
     width: auto;
 }
@@ -688,7 +681,26 @@ select {
     background-color: #2ECC71;
     color: #fff;
 }
-
+#live-refresh {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+    border-top-left-radius: 1px;
+    font-weight: 600;
+    padding: 5px 10px;
+    position: absolute;
+    right: 15px;
+    text-transform: uppercase;
+    top: 0;
+}
+#online {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+    border-top-right-radius: 1px;
+    font-weight: 600;
+    left: 15px;
+    padding: 5px 10px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0;
+}
 .glyphicon  {
     padding-right: 5px;
 }
@@ -711,8 +723,21 @@ select {
 #explorer .info-panel {
     padding-bottom: 20px;
 }
+/*SETTINGS*/
+#camera-settings h4 {
+    margin-left: 15px;
+}
+#camera-settings .add-row {
+    border-bottom: 1px solid #F5F5F5;
+    border-top: medium none;
+    margin: 0 auto;
+    padding: 20px 0 15px;
+    width: 100%;
+}
 
-/*Sharing*/
+
+
+/*SHARING*/
 .sharing {
     margin-bottom: 25px;
 }
@@ -742,6 +767,16 @@ select {
 .well-sm {
     border-radius: 1px;
     padding: 5px 10px;
+}
+.well-set {
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 7px 12px;
+    background-color:#ffffff;
+    border-left: 1px solid #e5e5e5;
+    border-radius: 1px;
 }
 
 
@@ -842,20 +877,12 @@ Add a Camera Page
     -ms-user-select: none;
     user-select: none;
 }
-
 .test-snapshot {
     left: 16%;
     position: absolute;
     top: 45%;
 }
-
-#test-error {
-    
-    
-    
-}
 #testimg {
-    margin-top: 45px;
     max-width: 400px;
     background-image: url('http://www.evercam.io/img/connect.png');
 }
@@ -868,24 +895,23 @@ Add a Camera Page
     color: #aaaaaa;
 }
 #add-button {
-    padding: 15px 30px;
+    padding: 10px 30px;
 }
-.snapshot {
-    margin-top: 10px;
-}
+
 .media .test-snapshot a {
     color:#ffffff;
     font-weight: 600;
 }
 .add-row {
     border-top: 1px solid #F5F5F5;
-    margin: 0 -15px;
-    padding: 20px 0 30px;
+    padding: 30px 0 10px;
 }
-.add-row-last {
+.add-row-bottom {
+ padding: 30px 0 30px;   
+ border-top: 1px solid #F5F5F5;
+}
 
 
-}
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: 1px solid #E5E5E5;

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationHelper, :focus => true do
+describe ApplicationHelper do
 
   context 'Without user session' do
 

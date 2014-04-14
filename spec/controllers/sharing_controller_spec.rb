@@ -25,7 +25,7 @@ describe SharingController do
       }
 
       it "returns success for a valid request" do
-         stub_request(:patch, "https://api.evercam.io/v1//cameras/#{camera.exid}?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
+         stub_request(:patch, "https://api.evercam.io/v1//cameras/#{camera.exid}").
             to_return(:status => 200, :body => "", :headers => {})
 
          post :update_camera, parameters.merge(credentials), {user: owner.email}
@@ -36,7 +36,7 @@ describe SharingController do
       end
 
       it "returns failure for an non-existent camera" do
-         stub_request(:patch, "https://api.evercam.io/v1//cameras/blah?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
+         stub_request(:patch, "https://api.evercam.io/v1//cameras/blah").
             to_return(:status => 404, :body => "", :headers => {})
 
          parameters[:id]  = "blah"
@@ -50,7 +50,7 @@ describe SharingController do
       end
 
       it "returns failure for a camera that is owned by someone else" do
-         stub_request(:patch, "https://api.evercam.io/v1//cameras/#{other_camera.exid}?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
+         stub_request(:patch, "https://api.evercam.io/v1//cameras/#{other_camera.exid}").
             to_return(:status => 403, :body => "", :headers => {})
 
          parameters[:id]  = other_camera.exid

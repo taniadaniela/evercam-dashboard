@@ -6,6 +6,21 @@ describe SessionsController do
     create(:active_user)
   }
 
+  describe 'GET #new without auth' do
+    it "rerenders new" do
+      get :new
+      expect(response).to render_template :new
+    end
+  end
+
+  describe 'GET #new with auth' do
+    it "redirects to index" do
+      session['user'] = user.email
+      get :new
+      expect(response).to redirect_to :cameras_index
+    end
+  end
+
   describe 'POST #create without auth' do
     it "rerenders signin" do
       post :create

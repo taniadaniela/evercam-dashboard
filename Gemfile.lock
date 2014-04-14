@@ -231,6 +231,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   sequel
+  simplecov
   spring
   turbolinks
   typhoeus

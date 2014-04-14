@@ -57,6 +57,7 @@ group :test do
   gem 'vcr'
   gem 'webmock', '~> 1.17'
   gem 'capybara'
+  gem 'simplecov'
 end
 
 ruby '2.1.1'

@@ -1,5 +1,5 @@
 language: ruby
-
+install: bundle install --local
 cache: bundler
 
 rvm:
@@ -15,8 +15,8 @@ env:
   matrix:
   - DATABASE_URL="postgres://localhost/evercam_tst"
   global:
-  - secure: BTrnsgd5wuCTmOOCsFDZ4+JFUj6bvTmwkYvW3snzLBmA1g58mqA/HdqL50tKdRaCb2/Hw0VfNIRvuEmg3zXY4bwF6OpcLKnnwG78MCQqwkHcMaSIkH8xDSjpwkat/UQIHCGuz5U13nGbb6+7UAjQPufJ5S340y0RnrNSl8ZYUSs=
-  - secure: PswTKqbdTSwg5Wh1bir4bh834BVqtBvBcTsPT+oIooi27irlsV1VqUOA/imanL36xaIjJjvqy1WzpnYoDRCU4UuQekqhREv4wI9NTVF7qFuy0A/kgeaGdtY2MzOWsCrL/bXH2/N24b3AWiW4B2O3QPCpWqsKb6b/leDdCO+6OW8=
+  - secure: eDG0eEdm2HjiEKA4WZukbYvTn3kYlM+0SsZmOU0yE/6qV8tNO9erqaI0Wyz0E3i5Lhis2wKLucF4GVl8/QLxXYVTqRfW13YfLtIBoqMrUVKZaM9Lw2DRbwRb/CcKcCeuaV2dCkaB0WGvlcybNX8DXVdzP7MXSdWVJ8oW4UFzscI=
+  - secure: bHbxbeB5q+q+cCXDzHzx33W4vfkte/ihcKjlKUn+ukHyBcrcMeZkvc3EpxznqAmiPC6sWV+NvMQ7JyAUbdI1L6I5Mw26UOmPMzeDDdK3EhoTtKItRKxHOCrVa7uv+ShWgGdLWeStQwrROv+95oruQ2VNsge0DRjQ5Ge1+YbY8Rg=
 
 branches:
   only: master

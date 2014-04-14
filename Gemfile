@@ -56,6 +56,7 @@ group :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'vcr'
   gem 'webmock', '~> 1.17'
+  gem 'capybara'
 end
 
 ruby '2.1.1'

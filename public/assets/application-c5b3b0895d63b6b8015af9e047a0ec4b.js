@@ -11473,6 +11473,90 @@ $(function () {
   };
 
 }).call(this);
+(function() {
+  var initializeLiveTab, onSetCameraAccessClicked;
+
+  onSetCameraAccessClicked = function(event) {
+    return true;
+  };
+
+  initializeLiveTab = function() {
+    $('#set_permissions_submit').click(onSetCameraAccessClicked);
+    return true;
+  };
+
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+
+  window.Evercam.Live = {
+    initializeTab: initializeLiveTab
+  };
+
+}).call(this);
+(function() {
+  var initializeInfoTab, onSetCameraAccessClicked;
+
+  onSetCameraAccessClicked = function(event) {
+    return true;
+  };
+
+  initializeInfoTab = function() {
+    $('#set_permissions_submit').click(onSetCameraAccessClicked);
+    return true;
+  };
+
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+
+  window.Evercam.Info = {
+    initializeTab: initializeInfoTab
+  };
+
+}).call(this);
+(function() {
+  var initializeSettingsTab, onSetCameraAccessClicked;
+
+  onSetCameraAccessClicked = function(event) {
+    return true;
+  };
+
+  initializeSettingsTab = function() {
+    $('#set_permissions_submit').click(onSetCameraAccessClicked);
+    return true;
+  };
+
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+
+  window.Evercam.Settings = {
+    initializeTab: initializeSettingsTab
+  };
+
+}).call(this);
+(function() {
+  var initializeExplorerTab, onSetCameraAccessClicked;
+
+  onSetCameraAccessClicked = function(event) {
+    return true;
+  };
+
+  initializeExplorerTab = function() {
+    $('#set_permissions_submit').click(onSetCameraAccessClicked);
+    return true;
+  };
+
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+
+  window.Evercam.Explorer = {
+    initializeTab: initializeLiveTab
+  };
+
+}).call(this);
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -11485,6 +11569,10 @@ $(function () {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+
+
+
 
 
 

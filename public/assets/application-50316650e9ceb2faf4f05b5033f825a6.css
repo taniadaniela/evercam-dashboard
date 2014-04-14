@@ -70,7 +70,9 @@ h5 {
     font-weight: 700;
     font-size: 13px;
 }
-
+.bold {
+    font-weight: 600;
+}
 
 
 .btn-add {
@@ -270,11 +272,11 @@ h5 {
 
 .navbar .navbar-nav li.dropdown ul.dropdown-menu {
     border: 0;
-
     padding: 0;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 .navbar .navbar-nav li.dropdown ul.dropdown-menu li,
 .navbar .navbar-nav li.dropdown ul.dropdown-menu li a {
@@ -375,11 +377,9 @@ h5 {
 /*/////////////////////
 //USER SETTINGS
 /////////////////////*/
-
 #userProfile {
     padding:0px 0 50px;
 }
-
 #user-settings {
     border-bottom: 1px solid #E5E5E5;
     padding-bottom: 20px;
@@ -387,7 +387,6 @@ h5 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
 /*/////////////////////
 //DEVELOPER PAGE
 /////////////////////*/
@@ -400,13 +399,19 @@ h5 {
 }
 #api-keys {
     border-bottom: 1px solid #E5E5E5;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding-bottom: 10px;
 }
 .iframe {
     overflow: hidden;
     width: 842px;
     margin: 0 auto;
+}
+.border {
+    border-top: 1px solid #f5f5f5;
+    padding-top: 4px;
+    margin-top:4px;a
 }
 /*/////////////////////
 //Camera Index Page
@@ -414,9 +419,6 @@ h5 {
 
 #camera-dash .wrapper {
     padding: 0;
-}
-#camera-dash {
-
 }
 #cam-name {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
@@ -443,25 +445,32 @@ h5 {
 .red {
     color:#DC4C3F;
 }
-
-.cam {
+#offline {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    border-top-left-radius: 1px;
+    color: #AAAAAA;
+}
+.cam-box {
     padding-left: 0;
     padding-right: 0;
-    width: 32.31%;
+    width: 33%;
+    height: 250px;
+    background-color: #000000;
+    overflow: hidden;
+    text-align: center;
 }
-.cam img {
-    height: 100%;
+.cam-box img {
     height: 100%;
 }
 .cam .media {
-    background-color: #000000;
+    /*background-color: #000000;
     background-image: url("https://www.evercam.io/img/offline.png");
     background-position: center center;
     background-size: 250px;
-    background-repeat: no-repeat;
-    height: 237px;
+    background-repeat: no-repeat*/
 }
-
 .media a {
     color:#414042;
     font-weight:300;
@@ -574,7 +583,7 @@ h5 {
 }
 .section {
     padding-bottom: 60px;
-    padding-top: 60px;
+    padding-top: 30px;
     position: relative;
     z-index: 1;
 }
@@ -613,10 +622,8 @@ h5 {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
 }
-#sign-in .btn {
-    margin-top:13px;
-}
-/*REGISTRATION FORM*/
+
+/*CREATE ACCOUNT FORM*/
 #registration {
     border: 1px solid #E5E5E5;
     border-radius: 2px;
@@ -650,25 +657,57 @@ h5 {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
 }
-#registration .btn {
-    margin-top:13px;
-}
+
 .create {
-    margin-top: 30px;
+    margin-top: 25px !important;
 }
 #country {
-    max-width: 175px;
+    max-width: 186px;
+    background-image: url(data:image/png;base64,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);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow:0 0 0 50px #f8f8f8 inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: #333;
 }
 
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: /*your box-shadow*/,0 0 0 50px #f8f8f8 inset;
+    -webkit-text-fill-color: #333;
+    ground-color: #f5f5f5 !important;
+}
+select {
+   background-color: #F5F5F5;
+    border: 1px solid #E5E5E5;
+    box-shadow: none;
+    color: #404142;
+    padding: 4px;
+    border-radius: 1px;
+    font-size: 14px;
+   line-height: 1;
+   height: 30px;
+   -webkit-appearance: none;
+   -moz-appearance:none; /* Firefox */
+       text-indent: 0.01px;
+    text-overflow: '';
+
+}
 .use {
     font-size: 11px;
     padding-top: 10px;
 }
-/*Single Camera Page*/
+
+/*/////////////////////
+//SINGLE CAMERA PAGE
+/////////////////////*/
 
 /*Live*/
+.tab-content h4 {
+    margin-bottom: 25px;
+
+}
 #live .panel {
-    max-height: 440px;
     width: auto;
 }
 #live .btn {
@@ -684,7 +723,26 @@ h5 {
     background-color: #2ECC71;
     color: #fff;
 }
-
+#live-refresh {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+    border-top-left-radius: 1px;
+    font-weight: 600;
+    padding: 5px 10px;
+    position: absolute;
+    right: 15px;
+    text-transform: uppercase;
+    top: 0;
+}
+#online {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+    border-top-right-radius: 1px;
+    font-weight: 600;
+    left: 15px;
+    padding: 5px 10px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0;
+}
 .glyphicon  {
     padding-right: 5px;
 }
@@ -699,7 +757,29 @@ h5 {
 #info .panel {
     clear: both;
 }
-/*Sharing*/
+.info-panel {
+    border-bottom: 1px solid #F5F5F5;
+    margin-bottom: 25px;
+}
+
+#explorer .info-panel {
+    padding-bottom: 20px;
+}
+/*SETTINGS*/
+#camera-settings h4 {
+    margin-left: 15px;
+}
+#camera-settings .add-row {
+    border-bottom: 1px solid #F5F5F5;
+    border-top: medium none;
+    margin: 0 auto;
+    padding: 20px 0 15px;
+    width: 100%;
+}
+
+
+
+/*SHARING*/
 .sharing {
     margin-bottom: 25px;
 }
@@ -729,6 +809,16 @@ h5 {
 .well-sm {
     border-radius: 1px;
     padding: 5px 10px;
+}
+.well-set {
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 7px 12px;
+    background-color:#ffffff;
+    border-left: 1px solid #e5e5e5;
+    border-radius: 1px;
 }
 
 
@@ -809,7 +899,7 @@ Add a Camera Page
 .info {
     position: relative;
     right: 50px;
-    top: -39px;
+    top: -41px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -821,7 +911,7 @@ Add a Camera Page
 .info-sm {
     position: relative;
     right: 0;
-    top: 44px;
+    top: 33px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -829,20 +919,12 @@ Add a Camera Page
     -ms-user-select: none;
     user-select: none;
 }
-
 .test-snapshot {
-    left: 26%;
+    left: 16%;
     position: absolute;
-    top: 50%;
-}
-
-#test-error {
-    padding: 10px;
-    margin: 20px 0 30px;
-    display:block;
+    top: 45%;
 }
 #testimg {
-    margin-top: 45px;
     max-width: 400px;
     background-image: url('http://www.evercam.io/img/connect.png');
 }
@@ -855,24 +937,23 @@ Add a Camera Page
     color: #aaaaaa;
 }
 #add-button {
-    padding: 15px 30px;
+    padding: 10px 30px;
 }
-.snapshot {
-    margin-top: 10px;
-}
+
 .media .test-snapshot a {
     color:#ffffff;
     font-weight: 600;
 }
 .add-row {
     border-top: 1px solid #F5F5F5;
-    margin: 0 -15px;
-    padding: 20px 0 30px;
+    padding: 30px 0 10px;
 }
-.add-row-last {
+.add-row-bottom {
+ padding: 30px 0 30px;   
+ border-top: 1px solid #F5F5F5;
+}
 
 
-}
 .add-footer {
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: 1px solid #E5E5E5;
@@ -892,10 +973,9 @@ tbody tr:hover {
     background-color: #ffffff;
 }
 .label {
-    border-radius: 35px;
-    font-size: 16px;
-    padding: 2px 9px;
-    width: 26px;
+    border-radius: 18px;
+    font-size: 13px;
+    padding: 5px 10px;
 }
 .label-default {
     background-color: #f5f5f5;
@@ -969,9 +1049,15 @@ tbody tr:hover {
     box-shadow: none;
     text-shadow: none;
 }
+.add-user .btn-primary, .btn-success, .btn-danger {
+    margin-top: 0px;
+    padding: 6px 16px;
+}
 .btn-primary, .btn-success, .btn-danger {
     background-image: none;
     border: medium none;
+    padding: 10px 40px;
+    margin-top: 20px;
 }
 .alert {
     text-shadow: none;
@@ -4639,7 +4725,7 @@ div.tagsinput span.tag {
     background-color: #fff7e1;
 }
 
-
+#toppathwrap { position:fixed; top:0px; right:0px; background-color:#F2F1E8; padding:5px; display:none; }
 @media (max-width: 767px) {
     .cam img {
         width: 100%;

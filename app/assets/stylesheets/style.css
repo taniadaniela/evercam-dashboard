@@ -413,7 +413,7 @@ h5 {
 .cam-box {
     padding-left: 0;
     padding-right: 0;
-    width: 33%;
+    width: 33.334%;
     height: 250px;
     background-color: #000000;
     overflow: hidden;
@@ -723,7 +723,7 @@ select {
 #explorer .info-panel {
     padding-bottom: 20px;
 }
-/*SETTINGS*/
+/*CAMERA SETTINGS*/
 #camera-settings h4 {
     margin-left: 15px;
 }
@@ -734,7 +734,36 @@ select {
     padding: 20px 0 15px;
     width: 100%;
 }
+.edit {
+    margin-top: -41px;
+    display: none;
+}
+.settings:hover + .edit {
+    display: block;
+}
+.settings:focus + .edit {
+    display: none;
+}
 
+
+
+.lock, .glyphicon-lock {
+    margin-top: 26px;
+}
+.left-inner-addon {
+    
+}
+.left-inner-addon input {
+    padding: 5px 17px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+.float-left {
+    float: left;
+}
 
 
 /*SHARING*/
@@ -910,6 +939,19 @@ Add a Camera Page
  padding: 30px 0 30px;   
  border-top: 1px solid #F5F5F5;
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+opacity: 1;
+border-left: 1px solid #e5e5e5 !important;
+border: none;
+cursor: pointer;
+}
+.form-control[disabled]:focus, .form-control[readonly]:focus, fieldset[disabled]:focus .form-control:focus {
+box-shadow: none;
+cursor:pointer;
+}
+
 
 
 .add-footer {

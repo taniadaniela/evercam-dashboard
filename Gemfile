@@ -59,6 +59,9 @@ group :test do
   gem 'webmock', '~> 1.17'
   gem 'capybara'
   gem 'simplecov'
+  gem 'rack_session_access'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 end
 
 ruby '2.1.1'

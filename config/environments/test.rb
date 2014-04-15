@@ -13,6 +13,9 @@ EvercamDashboard::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
+  config.assets.enabled = true
+  config.assets.debug = false
+  config.assets.digest = true
   config.serve_static_assets  = true
   config.static_cache_control = "public, max-age=3600"
 
@@ -36,4 +39,7 @@ EvercamDashboard::Application.configure do
 
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session'}
+
+  # Access to rack session
+  config.middleware.use RackSessionAccess::Middleware
 end

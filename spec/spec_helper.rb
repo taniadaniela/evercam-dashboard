@@ -6,6 +6,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'factory_girl'
+require 'rack_session_access/capybara'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -22,10 +23,10 @@ require 'simplecov'
 
 SimpleCov.start 'rails'
 
-Capybara.server_port = 3001
-Capybara.app_host = "http://local.evercam.io:3001"
+#Capybara.server_port = 3001
+#Capybara.app_host = "http://local.evercam.io:3001"
 
-ActionController::Base.asset_host = Capybara.app_host
+#ActionController::Base.asset_host = Capybara.app_host
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

@@ -6,11 +6,59 @@ showFeedback = (message) ->
    alert(message)
    true
 
+addSharingCameraRow = (details) ->
+   row  = $('<tr>')
+   cell = $('<td>')
+   cell.text(details['email'])
+   row.append(cell)
+
+   cell   = $('<td>')
+   div    = $('<div>', {class: "input-group input-group-sm"})
+   select = $('<select>', {class: "form-control"})
+   option = $('<option>')
+   if details.permissions != "full"
+      option.attr("selected", "selected")
+   option.text("Read Only")
+   select.append(option)
+   option = $('<option>')
+   if details.permissions == "full"
+      option.attr("selected", "selected")
+   option.text("Full Rights")
+   select.append(option)
+   div.append(select)
+   cell.append(div)
+   row.append(cell)
+
+   cell = $('<td>')
+   div  = $('<div>', {class: "form-group"})
+   div.append($('<div>', {class: "col-sm-8"}))
+   cell.append(div)
+   row.append(cell)
+
+   cell  = $('<td>')
+   div   = $('<div>', {class: "form-group"})
+   inner = $('<div>', {class: "col-sm-8"})
+   span  = $('<span>', {class: "delete-share-control"})
+   span.attr("camera_id", details["camera_id"])
+   span.attr("share_id", details["share_id"])
+   span.append($('<span>', {class: "glyphicon glyphicon-remove"}))
+   span.append($(document.createTextNode(" Remove User")))
+   span.click(onDeleteShareClicked)
+   inner.append(span)
+   div.append(inner)
+   cell.append(div)
+   row.append(cell)
+
+   row.hide()
+   $('#sharing_list_table tbody').append(row)
+   row.fadeIn()
+   true
+
 onSetCameraAccessClicked = (event) ->
    event.preventDefault()
-   selected = $('input[name=optionsRadios]:checked').val()
+   selected = $('input[name=sharingOptionRadios]:checked').val()
    button   = $('#set_permissions_submit')
-   cameraId = $('#camera_id').val()
+   cameraId = $('#sharing_tab_camera_id').val()
 
    data = {}
    switch selected
@@ -80,9 +128,43 @@ onDeleteShareClicked = (event) ->
    jQuery.ajax(settings)
    true
 
+onAddSharingUserClicked = (event) ->
+   event.preventDefault()
+   emailAddress = $('#sharingUserEmail').val()
+   if $('#sharingPermissionLevel').val() != "Full Rights"
+      permissions = "minimal"
+   else
+      permissions = "full"
+   data =
+      camera_id: $('#sharing_tab_camera_id').val()
+      email:     $('#sharingUserEmail').val()
+      permissions: permissions
+   onError = (jqXHR, status, error) ->
+      showError("Add camera shared failed. Please contact support.")
+      false
+   onSuccess = (data, status, jqXHR) ->
+      if data.success
+         addSharingCameraRow(data)
+         $('#sharingUserEmail').val("")
+      else
+         showError("Add camera shared failed. Please contact support.")
+      true
+
+   settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'POST'
+      url: '/share'
+   jQuery.ajax(settings)
+   true
+
 initializeSharingTab = ->
    $('#set_permissions_submit').click(onSetCameraAccessClicked)
    $('.delete-share-control').click(onDeleteShareClicked)
+   $('#submit_share_button').click(onAddSharingUserClicked)
    true
 
 if !window.Evercam

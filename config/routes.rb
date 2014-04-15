@@ -25,4 +25,5 @@ EvercamDashboard::Application.routes.draw do
 
    post '/share/camera/:id' => 'sharing#update_camera'
    delete '/share' => 'sharing#delete'
+   post '/share' => 'sharing#create'
 end

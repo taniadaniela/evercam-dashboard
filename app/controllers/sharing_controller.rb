@@ -43,7 +43,7 @@ class SharingController < ApplicationController
 
    def create
       result = {success: true}
-      if params[:camera_id] && params[:permissions] && params[:email]
+      if params.include?(:camera_id) && params.include?(:permissions) && params.include?(:email)
          camera_id = params[:camera_id]
          rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
          rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
@@ -51,11 +51,16 @@ class SharingController < ApplicationController
          response = API_call("/cameras/#{camera_id}/share", :post, values)
 
          data  = JSON.parse(response.body)
-         share = data["shares"][0]
-         result[:camera_id] = share["camera_id"]
-         result[:share_id]  = share["id"]
-         result[:permissions] = params[:permissions]
-         result[:email]       = params[:email]
+         if response.success?
+            share = data["shares"][0]
+            result[:camera_id] = share["camera_id"]
+            result[:share_id]  = share["id"]
+            result[:permissions] = params[:permissions]
+            result[:email]       = params[:email]
+         else
+            result[:success] = false
+            result[:message] = "Failed to create camera share."
+         end
       else
          result = {success: false, message: "Insufficient parameters provided."}
       end

@@ -10,42 +10,42 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: 
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
--- Name: postgis; Type: EXTENSION; Schema: -; Owner: 
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial types and functions';
@@ -58,7 +58,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: access_rights; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: access_rights; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE access_rights (
@@ -76,10 +76,8 @@ CREATE TABLE access_rights (
 );
 
 
-ALTER TABLE public.access_rights OWNER TO tjama;
-
 --
--- Name: access_rights_id_seq; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: access_rights_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE access_rights_id_seq
@@ -90,17 +88,15 @@ CREATE SEQUENCE access_rights_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.access_rights_id_seq OWNER TO tjama;
-
 --
--- Name: access_rights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tjama
+-- Name: access_rights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE access_rights_id_seq OWNED BY access_rights.id;
 
 
 --
--- Name: sq_access_tokens; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_access_tokens; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_access_tokens
@@ -111,10 +107,8 @@ CREATE SEQUENCE sq_access_tokens
     CACHE 1;
 
 
-ALTER TABLE public.sq_access_tokens OWNER TO tjama;
-
 --
--- Name: access_tokens; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: access_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE access_tokens (
@@ -131,10 +125,8 @@ CREATE TABLE access_tokens (
 );
 
 
-ALTER TABLE public.access_tokens OWNER TO tjama;
-
 --
--- Name: camera_activities; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE camera_activities (
@@ -147,10 +139,8 @@ CREATE TABLE camera_activities (
 );
 
 
-ALTER TABLE public.camera_activities OWNER TO tjama;
-
 --
--- Name: camera_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: camera_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE camera_activities_id_seq
@@ -161,17 +151,15 @@ CREATE SEQUENCE camera_activities_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.camera_activities_id_seq OWNER TO tjama;
-
 --
--- Name: camera_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tjama
+-- Name: camera_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE camera_activities_id_seq OWNED BY camera_activities.id;
 
 
 --
--- Name: camera_endpoints; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_endpoints; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE camera_endpoints (
@@ -183,10 +171,8 @@ CREATE TABLE camera_endpoints (
 );
 
 
-ALTER TABLE public.camera_endpoints OWNER TO tjama;
-
 --
--- Name: camera_endpoints_id_seq; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: camera_endpoints_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE camera_endpoints_id_seq
@@ -197,17 +183,15 @@ CREATE SEQUENCE camera_endpoints_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.camera_endpoints_id_seq OWNER TO tjama;
-
 --
--- Name: camera_endpoints_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tjama
+-- Name: camera_endpoints_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE camera_endpoints_id_seq OWNED BY camera_endpoints.id;
 
 
 --
--- Name: camera_shares; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_shares; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE camera_shares (
@@ -221,10 +205,8 @@ CREATE TABLE camera_shares (
 );
 
 
-ALTER TABLE public.camera_shares OWNER TO tjama;
-
 --
--- Name: camera_shares_id_seq; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: camera_shares_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE camera_shares_id_seq
@@ -235,17 +217,15 @@ CREATE SEQUENCE camera_shares_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.camera_shares_id_seq OWNER TO tjama;
-
 --
--- Name: camera_shares_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tjama
+-- Name: camera_shares_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE camera_shares_id_seq OWNED BY camera_shares.id;
 
 
 --
--- Name: sq_streams; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_streams; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_streams
@@ -256,10 +236,8 @@ CREATE SEQUENCE sq_streams
     CACHE 1;
 
 
-ALTER TABLE public.sq_streams OWNER TO tjama;
-
 --
--- Name: cameras; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: cameras; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE cameras (
@@ -281,10 +259,8 @@ CREATE TABLE cameras (
 );
 
 
-ALTER TABLE public.cameras OWNER TO tjama;
-
 --
--- Name: sq_clients; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_clients; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_clients
@@ -295,10 +271,8 @@ CREATE SEQUENCE sq_clients
     CACHE 1;
 
 
-ALTER TABLE public.sq_clients OWNER TO tjama;
-
 --
--- Name: clients; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE clients (
@@ -313,10 +287,8 @@ CREATE TABLE clients (
 );
 
 
-ALTER TABLE public.clients OWNER TO tjama;
-
 --
--- Name: sq_countries; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_countries; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_countries
@@ -327,10 +299,8 @@ CREATE SEQUENCE sq_countries
     CACHE 1;
 
 
-ALTER TABLE public.sq_countries OWNER TO tjama;
-
 --
--- Name: countries; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: countries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE countries (
@@ -342,10 +312,8 @@ CREATE TABLE countries (
 );
 
 
-ALTER TABLE public.countries OWNER TO tjama;
-
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE schema_migrations (
@@ -353,10 +321,8 @@ CREATE TABLE schema_migrations (
 );
 
 
-ALTER TABLE public.schema_migrations OWNER TO tjama;
-
 --
--- Name: snapshots; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: snapshots; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE snapshots (
@@ -369,10 +335,8 @@ CREATE TABLE snapshots (
 );
 
 
-ALTER TABLE public.snapshots OWNER TO tjama;
-
 --
--- Name: snapshots_id_seq; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: snapshots_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE snapshots_id_seq
@@ -383,17 +347,15 @@ CREATE SEQUENCE snapshots_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.snapshots_id_seq OWNER TO tjama;
-
 --
--- Name: snapshots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tjama
+-- Name: snapshots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE snapshots_id_seq OWNED BY snapshots.id;
 
 
 --
--- Name: sq_access_tokens_streams_rights; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_access_tokens_streams_rights; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_access_tokens_streams_rights
@@ -404,10 +366,8 @@ CREATE SEQUENCE sq_access_tokens_streams_rights
     CACHE 1;
 
 
-ALTER TABLE public.sq_access_tokens_streams_rights OWNER TO tjama;
-
 --
--- Name: sq_devices; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_devices; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_devices
@@ -418,10 +378,8 @@ CREATE SEQUENCE sq_devices
     CACHE 1;
 
 
-ALTER TABLE public.sq_devices OWNER TO tjama;
-
 --
--- Name: sq_firmwares; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_firmwares; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_firmwares
@@ -432,10 +390,8 @@ CREATE SEQUENCE sq_firmwares
     CACHE 1;
 
 
-ALTER TABLE public.sq_firmwares OWNER TO tjama;
-
 --
--- Name: sq_users; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_users; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_users
@@ -446,10 +402,8 @@ CREATE SEQUENCE sq_users
     CACHE 1;
 
 
-ALTER TABLE public.sq_users OWNER TO tjama;
-
 --
--- Name: sq_vendors; Type: SEQUENCE; Schema: public; Owner: tjama
+-- Name: sq_vendors; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE sq_vendors
@@ -460,10 +414,8 @@ CREATE SEQUENCE sq_vendors
     CACHE 1;
 
 
-ALTER TABLE public.sq_vendors OWNER TO tjama;
-
 --
--- Name: users; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE users (
@@ -484,10 +436,8 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE public.users OWNER TO tjama;
-
 --
--- Name: vendor_models; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: vendor_models; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE vendor_models (
@@ -501,10 +451,8 @@ CREATE TABLE vendor_models (
 );
 
 
-ALTER TABLE public.vendor_models OWNER TO tjama;
-
 --
--- Name: vendors; Type: TABLE; Schema: public; Owner: tjama; Tablespace: 
+-- Name: vendors; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE vendors (
@@ -517,45 +465,43 @@ CREATE TABLE vendors (
 );
 
 
-ALTER TABLE public.vendors OWNER TO tjama;
-
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tjama
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_rights ALTER COLUMN id SET DEFAULT nextval('access_rights_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tjama
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_activities ALTER COLUMN id SET DEFAULT nextval('camera_activities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tjama
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_endpoints ALTER COLUMN id SET DEFAULT nextval('camera_endpoints_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tjama
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_shares ALTER COLUMN id SET DEFAULT nextval('camera_shares_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tjama
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snapshots ALTER COLUMN id SET DEFAULT nextval('snapshots_id_seq'::regclass);
 
 
 --
--- Name: access_rights_pkey; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: access_rights_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY access_rights
@@ -563,7 +509,7 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: camera_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY camera_activities
@@ -571,7 +517,7 @@ ALTER TABLE ONLY camera_activities
 
 
 --
--- Name: camera_endpoints_pkey; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_endpoints_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY camera_endpoints
@@ -579,7 +525,7 @@ ALTER TABLE ONLY camera_endpoints
 
 
 --
--- Name: camera_shares_pkey; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_shares_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY camera_shares
@@ -587,7 +533,7 @@ ALTER TABLE ONLY camera_shares
 
 
 --
--- Name: pk_access_tokens; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_access_tokens; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY access_tokens
@@ -595,7 +541,7 @@ ALTER TABLE ONLY access_tokens
 
 
 --
--- Name: pk_clients; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_clients; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY clients
@@ -603,7 +549,7 @@ ALTER TABLE ONLY clients
 
 
 --
--- Name: pk_countries; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_countries; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY countries
@@ -611,7 +557,7 @@ ALTER TABLE ONLY countries
 
 
 --
--- Name: pk_firmwares; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_firmwares; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY vendor_models
@@ -619,7 +565,7 @@ ALTER TABLE ONLY vendor_models
 
 
 --
--- Name: pk_streams; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_streams; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY cameras
@@ -627,7 +573,7 @@ ALTER TABLE ONLY cameras
 
 
 --
--- Name: pk_users; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_users; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -635,7 +581,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: pk_vendors; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: pk_vendors; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY vendors
@@ -643,7 +589,7 @@ ALTER TABLE ONLY vendors
 
 
 --
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -651,7 +597,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: snapshots_pkey; Type: CONSTRAINT; Schema: public; Owner: tjama; Tablespace: 
+-- Name: snapshots_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY snapshots
@@ -659,168 +605,168 @@ ALTER TABLE ONLY snapshots
 
 
 --
--- Name: access_rights_camera_id_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: access_rights_camera_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX access_rights_camera_id_index ON access_rights USING btree (camera_id);
 
 
 --
--- Name: access_rights_token_id_camera_id_right_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: access_rights_token_id_camera_id_right_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX access_rights_token_id_camera_id_right_index ON access_rights USING btree (token_id, camera_id, "right");
 
 
 --
--- Name: access_rights_token_id_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: access_rights_token_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX access_rights_token_id_index ON access_rights USING btree (token_id);
 
 
 --
--- Name: camera_activities_camera_id_done_at_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_activities_camera_id_done_at_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX camera_activities_camera_id_done_at_index ON camera_activities USING btree (camera_id, done_at);
 
 
 --
--- Name: camera_endpoints_camera_id_scheme_host_port_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_endpoints_camera_id_scheme_host_port_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX camera_endpoints_camera_id_scheme_host_port_index ON camera_endpoints USING btree (camera_id, scheme, host, port);
 
 
 --
--- Name: camera_shares_camera_id_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_shares_camera_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX camera_shares_camera_id_index ON camera_shares USING btree (camera_id);
 
 
 --
--- Name: camera_shares_camera_id_user_id_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_shares_camera_id_user_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX camera_shares_camera_id_user_id_index ON camera_shares USING btree (camera_id, user_id);
 
 
 --
--- Name: camera_shares_user_id_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: camera_shares_user_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX camera_shares_user_id_index ON camera_shares USING btree (user_id);
 
 
 --
--- Name: cameras_mac_address_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: cameras_mac_address_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX cameras_mac_address_index ON cameras USING btree (mac_address);
 
 
 --
--- Name: ix_access_tokens_grantee_id; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ix_access_tokens_grantee_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ix_access_tokens_grantee_id ON access_tokens USING btree (client_id);
 
 
 --
--- Name: ix_access_tokens_grantor_id; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ix_access_tokens_grantor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ix_access_tokens_grantor_id ON access_tokens USING btree (user_id);
 
 
 --
--- Name: ix_firmwares_vendor_id; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ix_firmwares_vendor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ix_firmwares_vendor_id ON vendor_models USING btree (vendor_id);
 
 
 --
--- Name: ix_streams_owner_id; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ix_streams_owner_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ix_streams_owner_id ON cameras USING btree (owner_id);
 
 
 --
--- Name: ix_users_country_id; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ix_users_country_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ix_users_country_id ON users USING btree (country_id);
 
 
 --
--- Name: snapshots_created_at_camera_id_index; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: snapshots_created_at_camera_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX snapshots_created_at_camera_id_index ON snapshots USING btree (created_at, camera_id);
 
 
 --
--- Name: ux_access_tokens_request; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_access_tokens_request; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_access_tokens_request ON access_tokens USING btree (request);
 
 
 --
--- Name: ux_clients_exid; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_clients_exid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_clients_exid ON clients USING btree (api_id);
 
 
 --
--- Name: ux_countries_iso3166_a2; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_countries_iso3166_a2; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_countries_iso3166_a2 ON countries USING btree (iso3166_a2);
 
 
 --
--- Name: ux_streams_name; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_streams_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_streams_name ON cameras USING btree (exid);
 
 
 --
--- Name: ux_users_email; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_users_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_users_email ON users USING btree (email);
 
 
 --
--- Name: ux_users_username; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_users_username; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_users_username ON users USING btree (username);
 
 
 --
--- Name: ux_vendors_exid; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: ux_vendors_exid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX ux_vendors_exid ON vendors USING btree (exid);
 
 
 --
--- Name: vx_vendors_known_macs; Type: INDEX; Schema: public; Owner: tjama; Tablespace: 
+-- Name: vx_vendors_known_macs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX vx_vendors_known_macs ON vendors USING gin (known_macs);
 
 
 --
--- Name: access_rights_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: access_rights_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_rights
@@ -828,7 +774,7 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: access_rights_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: access_rights_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_rights
@@ -836,7 +782,7 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: access_rights_grantor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: access_rights_grantor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_rights
@@ -844,7 +790,7 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: access_rights_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: access_rights_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_rights
@@ -852,7 +798,7 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: access_rights_token_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: access_rights_token_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_rights
@@ -860,7 +806,7 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: access_tokens_grantor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: access_tokens_grantor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_tokens
@@ -868,7 +814,7 @@ ALTER TABLE ONLY access_tokens
 
 
 --
--- Name: camera_activities_access_token_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: camera_activities_access_token_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_activities
@@ -876,7 +822,7 @@ ALTER TABLE ONLY camera_activities
 
 
 --
--- Name: camera_activities_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: camera_activities_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_activities
@@ -884,7 +830,7 @@ ALTER TABLE ONLY camera_activities
 
 
 --
--- Name: camera_endpoints_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: camera_endpoints_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_endpoints
@@ -892,7 +838,7 @@ ALTER TABLE ONLY camera_endpoints
 
 
 --
--- Name: camera_shares_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: camera_shares_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_shares
@@ -900,7 +846,7 @@ ALTER TABLE ONLY camera_shares
 
 
 --
--- Name: camera_shares_sharer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: camera_shares_sharer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_shares
@@ -908,7 +854,7 @@ ALTER TABLE ONLY camera_shares
 
 
 --
--- Name: camera_shares_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: camera_shares_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY camera_shares
@@ -916,7 +862,7 @@ ALTER TABLE ONLY camera_shares
 
 
 --
--- Name: cameras_model_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: cameras_model_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY cameras
@@ -924,7 +870,7 @@ ALTER TABLE ONLY cameras
 
 
 --
--- Name: fk_access_tokens_grantee_id; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: fk_access_tokens_grantee_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_tokens
@@ -932,7 +878,7 @@ ALTER TABLE ONLY access_tokens
 
 
 --
--- Name: fk_access_tokens_grantor_id; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: fk_access_tokens_grantor_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_tokens
@@ -940,7 +886,7 @@ ALTER TABLE ONLY access_tokens
 
 
 --
--- Name: fk_firmwares_vendor_id; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: fk_firmwares_vendor_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY vendor_models
@@ -948,7 +894,7 @@ ALTER TABLE ONLY vendor_models
 
 
 --
--- Name: fk_streams_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: fk_streams_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY cameras
@@ -956,7 +902,7 @@ ALTER TABLE ONLY cameras
 
 
 --
--- Name: fk_users_country_id; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: fk_users_country_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -964,7 +910,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: snapshots_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tjama
+-- Name: snapshots_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snapshots
@@ -972,7 +918,7 @@ ALTER TABLE ONLY snapshots
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: postgres
+-- Name: public; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;

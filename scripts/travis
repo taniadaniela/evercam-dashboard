@@ -5,5 +5,4 @@ SCHEMA="./db/structure.sql"
 
 dropdb --if-exists evercam_tst \
   && createdb evercam_tst \
-  && psql evercam_tst < $SCHEMA \
-  && psql evercam_tst -c "CREATE EXTENSION postgis;"
+  && psql evercam_tst < $SCHEMA

@@ -22,6 +22,11 @@ require 'simplecov'
 
 SimpleCov.start 'rails'
 
+Capybara.server_port = 3001
+Capybara.app_host = "http://local.evercam.io:3001"
+
+ActionController::Base.asset_host = Capybara.app_host
+
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 #ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
@@ -56,6 +61,7 @@ RSpec.configure do |config|
 
   # Configure database cleaner.
   config.before(:suite) do
+    WebMock.disable_net_connect!(:allow_localhost => true)
     DatabaseCleaner[:sequel].strategy = :truncation
     DatabaseCleaner[:sequel].clean_with(:truncation)
   end

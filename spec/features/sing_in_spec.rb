@@ -8,7 +8,7 @@ describe "the signin process", :type => :feature do
 
   context "Session management" do
     it "User sings in with correct password" do
-      stub_request(:get, "https://api.evercam.io/v1/users/user1/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "https://api.evercam.io/v1/users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
       visit "/"

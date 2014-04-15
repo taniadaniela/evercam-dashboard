@@ -1,29 +1,29 @@
-<!--PERMISSIONS-->
+<!--PERMISSIONS: is_public?=<%= @camera['is_public'] %>-->
 <div class="row">
   <div class="col-lg-12">
     <div class="col-md-7 sharing">
       <h4>Permissions</h4>
       <div class="radio">
         <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios1" value="public_discoverable" checked>
+          <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
           <h5><span class="glyphicon glyphicon-globe"></span> Public on the web <small>Anyone on the internet can find access.</small></h5>
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios2" value="public_undiscoverable">
+          <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
           <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small>Anyone who has the link can access. No sign in required.</small></h5>
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios2" value="private">
+          <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
           <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission.</small></h5>
         </label>
       </div>
       <div class="form-group">
         <div class="col-sm-8">
-          <input type="hidden" name="camera_id" id="camera_id" value="<%= @camera["id"] %>"></input>
+          <input type="hidden" name="sharing_tab_camera_id" id="sharing_tab_camera_id" value="<%= @camera["id"] %>"></input>
           <button type="submit" id="set_permissions_submit" class="btn btn-primary btn-sm">Save</button>
         </div>
       </div>
@@ -36,8 +36,7 @@
 <div class="panel panel-body">
   <div class="row">
     <div class="col-md-12">
-    <% if @shares && @shares.count > 0 %>
-      <table class="table">
+      <table class="table" id="sharing_list_table">
         <thead>
         <tr>
           <th>This Camera is Shared With</th>
@@ -48,13 +47,14 @@
         </thead>
         <tbody>
         <% @shares.each do |share| %>
+          <% rights = share["rights"].split(",") %>
           <tr>
-            <td><%= share.sharer.fullname %></td>
+            <td><%= share["email"] %></td>
             <td>
               <div class="input-group input-group-sm">
                 <select class="form-control">
-                  <option>Read Only</option>
-                  <option>Full Rights</option>
+                  <option <%= "selected" if !rights.include?("View") %>>Read Only</option>
+                  <option <%= "selected" if rights.include?("View") %>>Full Rights</option>
                 </select>
               </div>
             </td>
@@ -66,7 +66,7 @@
             <td>
               <div class="form-group">
                 <div class="col-sm-8">
-                  <span class="glyphicon glyphicon-remove"></span> Remove User
+                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"></span> Remove User</span>
                 </div>
               </div>
             </td>
@@ -81,9 +81,6 @@
         </tr>
         </tfoot>
       </table>
-    <% else %>
-      <center>You are not currently sharing this camera with anyone.</center>
-    <% end %>
     </div>
   </div>
 </div>
@@ -100,12 +97,12 @@
     <div class="col-md-5">
       <div class="input-group input-group-sm">
         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-        <input type="email" placeholder="email@domain.com" class="form-control" id="inputEmail3">
+        <input type="email" placeholder="email@domain.com" class="form-control" id="sharingUserEmail" name="sharingUserEmail">
       </div>
     </div>
     <div class="col-md-2">
       <div class="input-group input-group-sm">
-        <select class="form-control">
+        <select id="sharingPermissionLevel" class="form-control">
           <option>Read Only</option>
           <option>Full Rights</option>
         </select>
@@ -113,7 +110,7 @@
     </div>
     <div class="col-md-1">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-sm">Invite</button>
+        <button type="submit" class="btn btn-primary btn-sm" id="submit_share_button">Share</button>
       </div>
     </div>
     <div class="col-md-2">

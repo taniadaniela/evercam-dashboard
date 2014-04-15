@@ -77,4 +77,8 @@ EvercamDashboard::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Define a Hash for the session initializer.
+  config.session_initializer_settings = {key: '_evercam_dashboard_session',
+                                         domain: '.evercam.io'}
 end

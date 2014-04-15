@@ -11,6 +11,9 @@ addons:
 before_script:
 - ./scripts/travis
 
+script:
+- RAILS_ENV=test bundle exec rake spec
+
 env:
   matrix:
   - DATABASE_URL="postgres://localhost/evercam_tst"

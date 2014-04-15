@@ -1,6 +1,8 @@
 language: ruby
 install: bundle install --local
 cache:
+  apt: true
+  bundler: true
   directories:
   - vendor/cache
 

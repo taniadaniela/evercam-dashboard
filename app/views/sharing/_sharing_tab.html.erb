@@ -46,6 +46,7 @@
         </tr>
         </thead>
         <tbody>
+      <% if @shares %>
         <% @shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
           <tr>
@@ -72,6 +73,7 @@
             </td>
           </tr>
         <% end %>
+      <% end %>
         </tbody>
         <tfoot>
         <tr>

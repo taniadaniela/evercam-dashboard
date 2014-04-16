@@ -127,5 +127,11 @@ class CamerasController < ApplicationController
     @shares   = JSON.parse(response.body)['shares']
     @vendors  = Vendor.all
     @models   = VendorModel.all
+    response  = API_call("users/#{current_user.username}/cameras", :get)
+    if response.success?
+      @cameras =  JSON.parse(response.body)['cameras']
+    else
+      @cameras = []
+    end
   end
 end

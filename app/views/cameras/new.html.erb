@@ -3,26 +3,27 @@
 <section id="camera-single" >
 
 <!--sidebar start-->
-<div id="sidebar" class="nav-collapse col-md-2 col-xs-12">
-  <ul class="sidebar-menu" id="nav-accordion">
-    <li class="sub-menu">
-      <a href="/">
+<div id="sidebar" class="col-md-2 col-xs-12">
+  <ul class="sidebar-menu">
+
+    <li class="menu-item">
+      <a href="/" class="">
         <span>My Cameras</span>
       </a>
     </li>
-    <li>
-      <ul class="sub">
-        <li>
-          <!--<%# @cameras.each do |camera| %>
-                <a href="/cameras/<%#= camera['id'] %>"><%#= camera['name'] %></a>
-                <%# end %>-->
-        </li>
-      </ul>
+
+
+    <li class="menu-item">
+      <a href="/" class="">
+        <span>Shared Cameras</span>
+      </a>
     </li>
-    <li>
-      <a href="/cameras/new" class="active"><span class="glyphicon glyphicon-plus"></span>Add A Camera</a>
+
+    <li class="menu-item active">
+      <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add A Camera</a>
     </li>
   </ul>
+
 </div>
 <!--sidebar end-->
 
@@ -236,8 +237,9 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-    $(function () {
-        $('#test').click(function(e) {
+
+    $(document).ready(function() {
+            $('#test').click(function(e) {
             var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
                 'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
             e.preventDefault();
@@ -253,6 +255,7 @@
                     clearInterval( interval );
                 }
             }, 200 );
+
             $.getJSON('https://dashboard.evercam.io/v1/cameras/test.json?' + params.join('&'))
                     .done(function(resp) {
                         console.log('success');
@@ -266,17 +269,22 @@
                         l.stop();
                         clearInterval( interval );
                     });
-        });
+            });
 
         // TOGGLE ADD. SETTINGS
-        $(document).ready(function() {
             $(".settings").hide();
             //toggle the componenet with class msg_body
             $(".additional").click(function()
             {
                 $(this).next(".settings").slideToggle(500);
             });
+
+        // Replace Broken Image
+        $('img').error(function(){
+            $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
         });
+
+
 
         var previous;
         $('#camera-vendor').one('focus', function() {

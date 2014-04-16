@@ -8,7 +8,7 @@ describe "the signin process", :type => :feature do
 
   context "Session management" do
     it "User sings in with correct password" do
-      stub_request(:get, "https://api.evercam.io/v1/users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
       visit "/"
@@ -31,10 +31,10 @@ describe "the signin process", :type => :feature do
 
   context "Camera management" do
     it "User adds new camera with correct parameters" do
-      stub_request(:post, "https://api.evercam.io/v1/cameras").
+      stub_request(:post, "#{EVERCAM_API}cameras").
         to_return(:status => 200, :body => "", :headers => {})
 
-      stub_request(:get, "https://api.evercam.io/v1/cameras/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}cameras/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam"}]}', :headers => {})
 
 

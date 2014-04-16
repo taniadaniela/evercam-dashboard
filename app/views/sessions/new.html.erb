@@ -15,7 +15,7 @@
     <div class="row">
       <%= f.label :email %> / <%= f.label :username %>
     </div>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
 
     <div class="row">
       <%= f.label :password %>

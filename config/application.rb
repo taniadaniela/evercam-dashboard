@@ -36,6 +36,7 @@ module EvercamDashboard
                                  'ladda-0.8.0.min.js',
                                  'swagger.js',
                                  'swagger.css',
+                                 'throbber.gif',
                                  'ladda-themeless-0.8.0.min.css',
                                  'custom.js']
 

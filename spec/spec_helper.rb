@@ -6,6 +6,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'factory_girl'
+require 'rack_session_access/capybara'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -17,6 +18,15 @@ require 'factory_girl'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 require 'database_cleaner'
+require 'capybara/rails'
+require 'simplecov'
+
+SimpleCov.start 'rails'
+
+#Capybara.server_port = 3001
+#Capybara.app_host = "http://local.evercam.io:3001"
+
+#ActionController::Base.asset_host = Capybara.app_host
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -52,6 +62,7 @@ RSpec.configure do |config|
 
   # Configure database cleaner.
   config.before(:suite) do
+    WebMock.disable_net_connect!(:allow_localhost => true)
     DatabaseCleaner[:sequel].strategy = :truncation
     DatabaseCleaner[:sequel].clean_with(:truncation)
   end

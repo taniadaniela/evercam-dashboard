@@ -36,6 +36,7 @@ gem 'sequel'
 gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
+gem 'psych'
 
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
@@ -56,6 +57,11 @@ group :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'vcr'
   gem 'webmock', '~> 1.17'
+  gem 'capybara'
+  gem 'simplecov'
+  gem 'rack_session_access'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 end
 
 ruby '2.1.1'

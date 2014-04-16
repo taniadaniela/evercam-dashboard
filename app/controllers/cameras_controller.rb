@@ -59,7 +59,6 @@ class CamerasController < ApplicationController
       body[:internal_http_port] = params['local-http'] unless params['local-http'].empty?
       body[:external_http_port] = params['port'] unless params['port'].empty?
       body[:internal_host] = params['local-ip'] unless params['local-ip'].empty?
-
       response  = API_call('cameras', :post, body)
     rescue NoMethodError => _
     end
@@ -89,7 +88,7 @@ class CamerasController < ApplicationController
             :model => params['camera-model']
     }
 
-    response  = API_call("/cameras/#{params['camera-id']}", :patch, body)
+    response  = API_call("cameras/#{params['camera-id']}", :patch, body)
 
     if response.success?
       flash[:message] = 'Settings updated successfully'
@@ -97,7 +96,7 @@ class CamerasController < ApplicationController
     else
       Rails.logger.info "RESPONSE BODY: '#{response.body}'"
       flash[:message] = JSON.parse(response.body)['message'] unless response.body.blank?
-      response  = API_call("/cameras/#{params[:id]}", :get)
+      response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
       @vendors = Vendor.all
       @models  = VendorModel.all
@@ -106,25 +105,25 @@ class CamerasController < ApplicationController
   end
 
   def delete
-    response  = API_call("/cameras/#{params['id']}", :delete, {})
+    response  = API_call("cameras/#{params['id']}", :delete, {})
     if response.success?
       flash[:message] = 'Camera deleted successfully'
       redirect_to "/"
     else
       Rails.logger.info "RESPONSE BODY: '#{response.body}'"
       flash[:message] = JSON.parse(response.body)['message'] unless response.body.blank?
-      response  = API_call("/cameras/#{params[:id]}", :get)
+      response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
-      @vendors = Default::Vendor.all
-      @models = Default::VendorModel.all
+      @vendors = Vendor.all
+      @models = VendorModel.all
       render :single
     end
   end
 
   def single
-    response  = API_call("/cameras/#{params[:id]}", :get)
+    response  = API_call("cameras/#{params[:id]}", :get)
     @camera   = JSON.parse(response.body)['cameras'][0]
-    response  = API_call("/cameras/#{params[:id]}/shares", :get)
+    response  = API_call("cameras/#{params[:id]}/shares", :get)
     @shares   = JSON.parse(response.body)['shares']
     @vendors  = Vendor.all
     @models   = VendorModel.all

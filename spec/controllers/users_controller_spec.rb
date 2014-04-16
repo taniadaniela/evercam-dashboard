@@ -39,6 +39,23 @@ describe UsersController do
     end
   end
 
+  describe 'GET #confirm' do
+    it "confirms user if parameters are correct" do
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
+      get :confirm, {:u => user.username, :c => code}
+      expect(response.status).to eq(302)
+      expect(flash[:notice]).to eq('Successfully activated your account')
+      expect(response).to redirect_to '/signin'
+    end
+
+    it "fails to confirm if parameters are incorrect" do
+      get :confirm, {:u => user.username, :c => '123'}
+      expect(response.status).to eq(302)
+      expect(flash[:notice]).to eq('Activation code is incorrect')
+      expect(response).to redirect_to '/signin'
+    end
+  end
+
   describe 'POST #create with wrong params' do
     it "renders the :new" do
       post :create, {}
@@ -49,7 +66,7 @@ describe UsersController do
 
   describe 'POST #create with correct params' do
     it "signs in and redirects to cameras index" do
-      stub_request(:post, "https://api.evercam.io/v1/users").to_return(:status => 200, :body => "", :headers => {})
+      stub_request(:post, "#{EVERCAM_API}users").to_return(:status => 200, :body => "", :headers => {})
 
       post :create, new_user_params
       expect(response.status).to eq(302)
@@ -74,8 +91,7 @@ describe UsersController do
   context 'with auth' do
     describe 'GET #settings' do
       it "renders the :settings" do
-        stub_request(:patch, "https://api.evercam.io/v1/users/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
-          with(:body => "country=&email=&forename=&lastname=").
+        stub_request(:patch, "#{EVERCAM_API}users/#{user.username}").
           to_return(:status => 200, :body => "", :headers => {})
 
         session['user'] = user.email
@@ -87,8 +103,7 @@ describe UsersController do
 
     describe 'POST #settings_update with wrong params' do
       it "fails and renders user settings" do
-        stub_request(:patch, "https://api.evercam.io/v1/users/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
-          with(:body => "country=&email=&forename=&lastname=").
+        stub_request(:patch, "#{EVERCAM_API}users/#{user.username}").
           to_return(status: 400, headers: {},
                     body: "{\"message\":[\"forename can't be blank\",\"lastname can't be blank\",\"country can't be blank\",\"email can't be blank\",\"country is invalid\"]}")
 
@@ -113,7 +128,7 @@ describe UsersController do
 
     describe 'POST #settings_update with correct params' do
       it "updates and renders user settings" do
-        stub_request(:patch, "https://api.evercam.io/v1/users/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        stub_request(:patch, "#{EVERCAM_API}users/#{user.username}").
           to_return(:status => 200, :body => "", :headers => {})
 
         session['user'] = params[:user][:email]

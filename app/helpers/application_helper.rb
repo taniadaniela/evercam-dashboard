@@ -1,13 +1,15 @@
 module ApplicationHelper
+  include SessionsHelper
   #noinspection RubyArgCount
   def API_call(url, method, body={}, params={})
     unless current_user.nil?
-      if method == :post
-        body.merge!({:api_id => current_user.api_id,
-                     :api_key => current_user.api_key})
-      else
+      if method == :get
         params.merge!({:api_id => current_user.api_id,
                        :api_key => current_user.api_key})
+      else
+        body.merge!({:api_id => current_user.api_id,
+                     :api_key => current_user.api_key})
+
       end
     end
 

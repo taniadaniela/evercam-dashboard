@@ -735,20 +735,15 @@ select {
     position: absolute;
     top: 35%;
 }
-
-
-
 .settings-section {
     margin-bottom: 25px;
 }
 .save-settings{
     margin-top: 15px;
 }
-
 #camera-settings .control-label {
     color:#428BCA;
 }
-
 .left-inner-addon {
     position: relative;
     margin-bottom: 10px;
@@ -1273,7 +1268,12 @@ ul.plus li {
     padding: 15px;
 
 }
-
+/*/////////////////////
+//DROPDOWN
+/////////////////////*/
+.navbar-nav > li > .dropdown-menu {
+    margin-top: -15px;
+}
 /*notification*/
 #top_menu .nav>li,ul.top-menu>li {
     float:left;

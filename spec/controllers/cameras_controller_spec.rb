@@ -200,6 +200,9 @@ describe CamerasController do
         stub_request(:get, "#{EVERCAM_API}cameras/#{camera.exid}?api_id=#{user.api_id}&api_key=#{user.api_key}").
          to_return(:status => 200, :body => "{\"cameras\": [{}]}", :headers => {})
 
+        stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+          to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
+
         session['user'] = user.email
         post :update, {'id' => camera.exid, 'camera-id' => camera.exid}
         expect(response.status).to eq(200)

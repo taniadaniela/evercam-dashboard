@@ -108,6 +108,12 @@ class CamerasController < ApplicationController
       @camera =  JSON.parse(response.body)['cameras'][0]
       @vendors = Vendor.all
       @models  = VendorModel.all
+      response  = API_call("users/#{current_user.username}/cameras", :get)
+      if response.success?
+        @cameras =  JSON.parse(response.body)['cameras']
+      else
+        @cameras = []
+      end
       render :single
     end
   end
@@ -143,3 +149,4 @@ class CamerasController < ApplicationController
     end
   end
 end
+

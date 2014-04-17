@@ -37,7 +37,6 @@ gem 'sequel'
 gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
-gem 'psych'
 
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'

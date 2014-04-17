@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       redirect_to :cameras_index
     else
       Rails.logger.warn "Invalid user name and/or password specified."
-      flash[:error] = 'Invalid login/password combination' # Not quite right!
+      flash.now[:error] = 'Invalid login/password combination' # Not quite right!
       render 'new'
     end
   end

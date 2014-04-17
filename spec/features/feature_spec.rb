@@ -41,6 +41,10 @@ describe "the signin process", :type => :feature do
         with(:headers => {'User-Agent'=>'Typhoeus - https://github.com/typhoeus/typhoeus'}).
         to_return(:status => 200, :body => "{}", :headers => {})
 
+      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
+
+
       page.set_rack_session(:user => user.email)
       visit "/cameras/new"
       fill_in "Friendly Name", :with => 'Test Camera'

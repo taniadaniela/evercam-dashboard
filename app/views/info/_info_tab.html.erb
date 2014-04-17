@@ -30,7 +30,7 @@
       </thead>
       <tr>
         <td>JPEG URL</td>
-        <td><%= link_to_unless(@camera['extra_urls']['short_jpg_url'].nil?, @camera['extra_urls']['short_jpg_url']) %></td>
+        <td><%= link_to_unless(@camera.fetch('extra_urls', {})['short_jpg_url'].nil?, @camera.fetch('extra_urls', {})['short_jpg_url']) %></td>
       </tr>
     </table>
     </div>
@@ -57,7 +57,7 @@
         </tr>
         <tr>
           <td>HTTP Snapshot Image</td>
-          <td><%= link_to_unless(@camera['extra_urls']['external_jpg_url'].nil?, @camera['extra_urls']['external_jpg_url']) %></a></td>
+          <td><%= link_to_unless(@camera.fetch('extra_urls', {})['external_jpg_url'].nil?, @camera.fetch('extra_urls', {})['external_jpg_url']) %></a></td>
         </tr>
       </table>
    </div>

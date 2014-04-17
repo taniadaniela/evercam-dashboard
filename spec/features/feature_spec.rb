@@ -37,7 +37,7 @@ describe "the signin process", :type => :feature do
       stub_request(:get, "#{EVERCAM_API}cameras/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam"}]}', :headers => {})
 
-      stub_request(:get, "#{EVERCAM_API}cameras/testcam/shares?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}shares/camera/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
         with(:headers => {'User-Agent'=>'Typhoeus - https://github.com/typhoeus/typhoeus'}).
         to_return(:status => 200, :body => "{}", :headers => {})
 

@@ -131,7 +131,7 @@ describe SharingController do
       end
 
       it 'returns failure if it gets a negative response from the API call' do
-         stub_request(:delete, "#{EVERCAM_API}cameras/#{camera.exid}/share").
+         stub_request(:delete, "#{EVERCAM_API}/shares/camera/#{camera.exid}").
             to_return(:status => 403, :body => "", :headers => {})
 
          delete :delete, parameters.merge(credentials), {user: owner.email}
@@ -144,7 +144,7 @@ describe SharingController do
       end
 
       it 'returns success if it gets a positive response from the API call' do
-         stub_request(:delete, "#{EVERCAM_API}cameras/#{camera.exid}/share").
+         stub_request(:delete, "#{EVERCAM_API}/shares/camera/#{camera.exid}").
             to_return(:status => 200, :body => "", :headers => {})
 
          delete :delete, parameters.merge(credentials), {user: owner.email}
@@ -216,7 +216,7 @@ describe SharingController do
       end
 
       it 'returns failure if it gets a negative response from the API call' do
-         stub_request(:post, "#{EVERCAM_API}cameras/#{camera.exid}/share").
+         stub_request(:post, "#{EVERCAM_API}/shares/camera/#{camera.exid}").
             to_return(:status => 401, :body => "{}", :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}
@@ -229,7 +229,7 @@ describe SharingController do
       end
 
       it 'returns success if it gets a positive response from the API call' do
-         stub_request(:post, "#{EVERCAM_API}cameras/#{camera.exid}/share").
+         stub_request(:post, "#{EVERCAM_API}/shares/camera/#{camera.exid}").
             to_return(:status => 200, :body => "{\"shares\": [{\"camera_id\": \"#{camera.exid}\", \"id\": 1000}]}", :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}

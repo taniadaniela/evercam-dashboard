@@ -123,7 +123,7 @@ class CamerasController < ApplicationController
   def single
     response  = API_call("cameras/#{params[:id]}", :get)
     @camera   = JSON.parse(response.body)['cameras'][0]
-    response  = API_call("cameras/#{params[:id]}/shares", :get)
+    response  = API_call("shares/camera/#{params[:id]}", :get)
     @shares   = JSON.parse(response.body)['shares']
     @vendors  = Vendor.all
     @models   = VendorModel.all

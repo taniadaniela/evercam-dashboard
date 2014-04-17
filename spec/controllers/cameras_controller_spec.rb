@@ -66,7 +66,7 @@ describe CamerasController do
                     body: "{\"cameras\": []}")
 
         stub_request(:get, "#{EVERCAM_API}shares/user/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
-          to_return(:status => 200, :body => "", :headers => {})
+          to_return(:status => 200, :body => "{}", :headers => {})
 
         session['user'] = user.email
         get :index

@@ -12,7 +12,7 @@ describe "the signin process", :type => :feature do
         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
       stub_request(:get, "#{EVERCAM_API}shares/user/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        to_return(:status => 200, :body => "", :headers => {})
+        to_return(:status => 200, :body => "{}", :headers => {})
 
       visit "/"
       fill_in "Email", :with => user.email

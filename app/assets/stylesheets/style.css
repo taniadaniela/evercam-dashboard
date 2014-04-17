@@ -127,7 +127,7 @@ h5 {
     text-align: right;
     width: 50px;
     font-size: 30px;
-    margin: 15px 0 20px 15px;
+
 
     -webkit-transition: color .3s;
     transition: color .3s;
@@ -176,7 +176,7 @@ h5 {
 .navbar .navbar-toggle {
     outline: none;
     border-color: transparent;
-    margin: 20px 0 0 0;
+
     padding: 0;
 }
 .navbar .navbar-toggle:active,
@@ -374,7 +374,6 @@ h5 {
 /*/////////////////////
 //Camera Index Page
 /////////////////////*/
-
 #camera-dash .wrapper {
     padding: 0;
 }
@@ -388,11 +387,8 @@ h5 {
     cursor:pointer;
 }
 #cam-refresh {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    border-top-left-radius: 1px;
     color: #AAAAAA;
+    margin-left: 5px;
 }
 #cam-refresh:hover {
     color: #428BCA;
@@ -404,16 +400,16 @@ h5 {
     color:#DC4C3F;
 }
 #offline {
-    position: absolute;
-    left: 5px;
     bottom: 5px;
-    border-top-left-radius: 1px;
     color: #AAAAAA;
+    left: 50%;
+    margin-left: -28px;
+    position: absolute;
 }
 .cam-box {
     padding-left: 0;
     padding-right: 0;
-    width: 33%;
+    width: 33.334%;
     height: 250px;
     background-color: #000000;
     overflow: hidden;
@@ -723,7 +719,7 @@ select {
 #explorer .info-panel {
     padding-bottom: 20px;
 }
-/*SETTINGS*/
+/*CAMERA SETTINGS*/
 #camera-settings h4 {
     margin-left: 15px;
 }
@@ -734,7 +730,36 @@ select {
     padding: 20px 0 15px;
     width: 100%;
 }
+.edit {
+    margin-top: -41px;
+    display: none;
+}
+.settings:hover + .edit {
+    display: block;
+}
+.settings:focus + .edit {
+    display: none;
+}
 
+
+
+.lock, .glyphicon-lock {
+    margin-top: 26px;
+}
+.left-inner-addon {
+    
+}
+.left-inner-addon input {
+    padding: 5px 17px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+.float-left {
+    float: left;
+}
 
 
 /*SHARING*/
@@ -836,9 +861,39 @@ API EXPLORER TAB
 .exp-swagger {
 
 }
+/*/////////////////////
+//MODAL
+/////////////////////*/
+.modal-dialog {
+    margin: 30px auto;
+    width: 550px;
+}
+
+.modal-content {
+    border-radius: 2px;
+
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    outline: 0 none;
+    position: relative;
+}
+.modal-body {
+    padding: 20px 20px 0;
+    position: relative;
+    text-align: center;
+}
+.modal-footer {
+    margin-top: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    border-top: medium none;
+}
+
 
 /*/////////////////////
-Add a Camera Page
+//Add a Camera Page
 /////////////////////*/
 .additional {
     margin-bottom: 18px;
@@ -880,11 +935,12 @@ Add a Camera Page
 .test-snapshot {
     left: 16%;
     position: absolute;
-    top: 45%;
+    top: 35%;
 }
 #testimg {
     max-width: 400px;
     background-image: url('http://www.evercam.io/img/connect.png');
+    border: 1px solid #f5f5f5;
 }
 .help {
     padding: 0px 13px;
@@ -910,6 +966,19 @@ Add a Camera Page
  padding: 30px 0 30px;   
  border-top: 1px solid #F5F5F5;
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+opacity: 1;
+border-left: 1px solid #e5e5e5 !important;
+border: none;
+cursor: pointer;
+}
+.form-control[disabled]:focus, .form-control[readonly]:focus, fieldset[disabled]:focus .form-control:focus {
+box-shadow: none;
+cursor:pointer;
+}
+
 
 
 .add-footer {
@@ -1033,6 +1102,9 @@ tbody tr:hover {
     margin-top: 2px;
 }
 /*sidebar navigation*/
+.sidebar-menu {
+    margin-bottom: -1px;
+}
 #sidebar {
     height:100%;
     position:fixed;
@@ -1048,10 +1120,57 @@ tbody tr:hover {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     padding-left: 0;
     padding-right: 0;
+    margin-top: 10px;
 }
 #sidebar ul li {
+    margin-left: -40px;
+    padding-left: 15px;
     position: relative;
 }
+#sidebar ul li a {
+    color:#000000;
+}
+#sidebar ul li a:hover {
+    color: #428BCA;
+}
+#sidebar ul li a:active {
+    color: #428BCA;
+}
+.menu-item {
+    border-bottom: 1px solid #E5E5E5;
+    border-top: 1px solid #E5E5E5;
+    margin-bottom: 0px;
+    margin-top: -1px;
+    padding: 10px 0;
+}
+#sidebar .menu-item:hover {
+    background-color: #FFFFFF;
+}
+#sidebar .active {
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+.single-active {
+    border-bottom: 1px solid #aaaaaa;
+}
+.sub-menu-item {
+    line-height: 14px;
+    padding: 6px 0 6px 20px;
+}
+.plus {
+    padding: 2px 0 20px 9px;
+}
+ul.plus li:before {
+    color: #A5A5A5;
+    content: "";
+    font-size: 13px;
+    left: 0;
+    position: absolute;
+}
+ul.plus li {
+    position: relative;
+}
+
 #sidebar .glyphicon {
     margin-right: 4px;
 }
@@ -1092,106 +1211,6 @@ tbody tr:hover {
 }
 /*---*/
 
-ul.sidebar-menu,ul.sidebar-menu li ul.sub {
-    margin:-2px 0 0;
-    padding:0;
-}
-ul.sidebar-menu {
-    margin-top:0px;
-}
-#sidebar>ul>li>ul.sub {
-    display:none;
-}
-#sidebar .sub-menu>.sub li a {
-    padding-left:46px;
-}
-#sidebar>ul>li.active>ul.sub,#sidebar>ul>li>ul.sub>li>a {
-    display:block;
-}
-ul.sidebar-menu li ul.sub li {
-    background:#ffffff;
-    margin-bottom:0;
-    margin-left:0;
-    margin-right:0;
-}
-ul.sidebar-menu li ul.sub li a {
-    font-size:12px;
-    padding-top:10px;
-    line-height:normal;
-    height:40px;
-    margin-right: 1px;
-    -webkit-transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    transition:all 0.3s ease;
-    color:#414042;
-}
-ul.sidebar-menu li ul.sub li a:hover,ul.sidebar-menu li ul.sub li.active a {
-    color:#428BCA;
-    -webkit-transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    transition:all 0.3s ease;
-    display:block;
-    background:#fff;
-    border-radius: 2px;
-}
-ul.sidebar-menu li {
-}
-ul.sidebar-menu li.sub-menu {
-    line-height:15px;
-}
-ul.sidebar-menu ul.sub li {
-    border-bottom:none;
-}
-ul.sidebar-menu li a span {
-    display:inline-block;
-}
-ul.sidebar-menu li a {
-    background-color: #f5f5f5;
-    color:#414042;
-    text-decoration:none;
-    display:block;
-    padding:18px 0 18px 25px;
-    font-size:14px;
-    outline:none;
-    letter-spacing: .06em;
-    margin-right: 6px;
-    -webkit-transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    transition:all 0.3s ease;
-    font-weight: 500;
-}
-ul.sidebar-menu li a.active,ul.sidebar-menu li a:hover,ul.sidebar-menu li a:focus {
-    background:#ffffff;
-    color:#414042;
-    display:block;
-    box-shadow: -10px 3px 10px rgba(0, 0, 0, 0.06);
-    border-radius: 0px;
-    margin-right: 0px;
-    -webkit-transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    transition:all 0.3s ease;
-}
-ul.sidebar-menu li a.active {
-    font-weight: 600;
-}
-ul.sidebar-menu li a i {
-    font-size:15px;
-    padding-right:6px;
-}
-ul.sidebar-menu li a:hover i,ul.sidebar-menu li a:focus i {
-    color:#428BCA;
-}
-ul.sidebar-menu li a.active i {
-    color:#428BCA;
-}
 .mail-info,.mail-info:hover {
     margin:-3px 6px 0 0;
     font-size: 11px;
@@ -4336,32 +4355,7 @@ span.customSelect.changed {
     height:300px;
     width:100%;
 }
-.ullist {
-    border-bottom:#ccc 1px solid;
-    margin-left:20px;
-}
-.ullist li {
-    display:inline-block;
-    margin-left:5px;
-}
-.ullist li a {
-    display:inline-block;
-    padding:10px 20px !important;
-    border-top:#ccc 1px solid;
-    border-left:#ccc 1px solid;
-    border-right:#ccc 1px solid;
-    -moz-border-radius:3px 3px 0 0;
-    -webkit-border-radius:3px 3px 0 0;
-    border-radius:3px 3px 0 0;
-    background:#f1f1f1;
-}
-.ullist li.active a {
-    background:#fff;
-    border-bottom:#fff 1px solid;
-    position:relative;
-    top:1px;
-    margin-bottom: -1px;
-}
+
 
 /*ckEditor*/
 #editor-container {

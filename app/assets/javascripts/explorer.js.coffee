@@ -9,4 +9,4 @@ if !window.Evercam
    window.Evercam = {}
 
 window.Evercam.Explorer =
-   initializeTab: initializeLiveTab
+   initializeTab: initializeExplorerTab

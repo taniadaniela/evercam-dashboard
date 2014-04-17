@@ -10,3 +10,4 @@ if !window.Evercam
 
 window.Evercam.Settings =
    initializeTab: initializeSettingsTab
+

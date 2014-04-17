@@ -22,3 +22,4 @@
 //= require info
 //= require settings
 //= require explorer
+//= require bootbox-4.2.0

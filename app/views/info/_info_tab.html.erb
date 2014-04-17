@@ -29,16 +29,8 @@
       <tr><h4>Assets</h4></tr>
       </thead>
       <tr>
-        <td >JPEG URL   </td>
-        <td>JPEG URL: http://evr.cm/rem-cam.jpg</td>
-      </tr>
-      <tr>
-        <td>H264 URL   </td>
-        <td>H264 URL: http://evr.cm/rem-cam.h264</td>
-      </tr>
-      <tr>
-        <td>Audio URL  </td>
-        <td>http://evr.cm/rem-cam.aac</td>
+        <td>JPEG URL</td>
+        <td><%= link_to_unless(@camera.fetch('extra_urls', {})['short_jpg_url'].nil?, @camera.fetch('extra_urls', {})['short_jpg_url']) %></td>
       </tr>
     </table>
     </div>
@@ -53,19 +45,19 @@
         </thead>
         <tr>
           <td >HTTP MPEG4 Stream</td>
-          <td>http://192.168.1.198:8001/stream.av</td>
+          <td></td>
         </tr>
         <tr>
           <td>HTTP MJPEG Stream</td>
-          <td>http://192.168.1.198:8001/stream.jpg</td>
+          <td></td>
         </tr>
         <tr>
           <td>HTTP ASF Stream</td>
-          <td>http://192.168.1.198:8001/stream.asf</td>
+          <td></td>
         </tr>
         <tr>
           <td>HTTP Snapshot Image</td>
-          <td>http://192.168.1.198:8001/snapshot.jpg</td>
+          <td><%= link_to_unless(@camera.fetch('extra_urls', {})['external_jpg_url'].nil?, @camera.fetch('extra_urls', {})['external_jpg_url']) %></a></td>
         </tr>
       </table>
    </div>

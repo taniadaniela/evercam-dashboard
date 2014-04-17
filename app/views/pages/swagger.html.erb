@@ -8,7 +8,7 @@
           $(function () {
 
             window.swaggerUi = new SwaggerUi({
-              url: "https://api.evercam.io/v1/swagger.json",
+              url: "<%= EVERCAM_API %>swagger.json",
               dom_id: "swagger-ui-container",
               supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
               onComplete: function(swaggerApi, swaggerUi){

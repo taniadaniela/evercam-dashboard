@@ -11,6 +11,9 @@ describe "the signin process", :type => :feature do
       stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
+      stub_request(:get, "#{EVERCAM_API}shares/user/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        to_return(:status => 200, :body => "{}", :headers => {})
+
       visit "/"
       fill_in "Email", :with => user.email
       fill_in "Password", :with => 'pass'

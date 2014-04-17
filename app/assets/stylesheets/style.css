@@ -730,38 +730,46 @@ select {
     padding: 20px 0 15px;
     width: 100%;
 }
-.edit {
-    margin-top: -41px;
-    display: none;
-}
-.settings:hover + .edit {
-    display: block;
-}
-.settings:focus + .edit {
-    display: none;
+#camera-settings .test-snapshot {
+    left: 12%;
+    position: absolute;
+    top: 35%;
 }
 
 
 
-.lock, .glyphicon-lock {
-    margin-top: 26px;
+.settings-section {
+    margin-bottom: 25px;
 }
+.save-settings{
+    margin-top: 15px;
+}
+
+#camera-settings .control-label {
+    color:#428BCA;
+}
+
 .left-inner-addon {
-    
+    position: relative;
+    margin-bottom: 10px;
 }
 .left-inner-addon input {
-    padding: 5px 17px;    
+    padding-left: 30px;
 }
 .left-inner-addon i {
     position: absolute;
-    padding: 10px 12px;
+    padding: 10px 10px;
     pointer-events: none;
 }
 .float-left {
     float: left;
 }
-
-
+.support {
+    padding-left:35px;
+}
+.support h5 {
+    font-size: 18px;
+}
 /*SHARING*/
 .sharing {
     margin-bottom: 25px;
@@ -808,7 +816,10 @@ select {
 .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
     border-radius: 1px !important;
 }
-
+#camera-settings .input-group-addon {
+    border: none;
+    background-color: #fff;
+}
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     border-top: 1px solid #F5F5F5;
 }
@@ -968,7 +979,7 @@ API EXPLORER TAB
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    background-color: #fff;
+background-color: #fff;
 opacity: 1;
 border-left: 1px solid #e5e5e5 !important;
 border: none;
@@ -1086,6 +1097,13 @@ tbody tr:hover {
     padding: 10px 40px;
     margin-top: 20px;
 }
+.btn-edit {
+    background-color: #428BCA ;
+    color: #ffffff;
+}
+#camera-settings .glyphicon-pencil {
+    color: #FFFFFF;
+}
 .alert {
     text-shadow: none;
     /*-webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
@@ -1125,6 +1143,7 @@ tbody tr:hover {
 #sidebar ul li {
     margin-left: -40px;
     padding-left: 15px;
+    padding-right: 2px;
     position: relative;
 }
 #sidebar ul li a {

@@ -89,6 +89,8 @@ class CamerasController < ApplicationController
             :internal_host => params['local-ip'],
             :external_http_port => params['port'],
             :internal_http_port => params['local-http'],
+            :external_rtsp_port => params['ext-rtsp-port'],
+            :internal_rtsp_port => params['local-rtsp'],
             :jpg_url => params['snapshot'],
             :cam_username => params['camera-username'],
             :cam_password => params['camera-password'],

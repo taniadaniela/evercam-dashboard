@@ -25,7 +25,8 @@ module ApplicationHelper
       body: body,
       params: params,
       timeout: TIMEOUT,
-      connecttimeout: TIMEOUT
+      connecttimeout: TIMEOUT,
+      followlocation: true
     )
     request.run
     request.response

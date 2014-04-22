@@ -11,6 +11,9 @@ class CamerasController < ApplicationController
     response  = API_call("users/#{current_user.username}/cameras", :get)
     if response.success?
       @cameras =  JSON.parse(response.body)['cameras']
+      @cameras.each do |c|
+        c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+      end
       response = API_call("shares/user/#{current_user.username}", :get)
       if response.success?
         list = JSON.parse(response.body)['shares']
@@ -34,24 +37,24 @@ class CamerasController < ApplicationController
   end
 
   def jpg
-    res  = API_call("cameras/#{params['id']}/snapshot.jpg", :get)
-    if res.success?
-      response.headers['Content-Type'] = 'image/jpeg'
-      render :text => res.body
-      return
-    else
-      res  = API_call("cameras/#{params['id']}/snapshots/latest.json", :get, {}, {:with_data => true})
-      if res.success?
-        snapshots = JSON.parse(res.body)['snapshots']
-        unless snapshots.empty?
-          uri = URI::Data.new(snapshots[0]['data'])
-          response.headers['Content-Type'] = uri.content_type
-          render :text => uri.data
-          return
-        end
-      end
-    end
-    raise ActionController::RoutingError.new('Not Found')
+    #res  = API_call("cameras/#{params['id']}/snapshot.jpg", :get)
+    #if res.success?
+    #  response.headers['Content-Type'] = 'image/jpeg'
+    #  render :text => res.body
+    #  return
+    # else
+    #   res  = API_call("cameras/#{params['id']}/snapshots/latest.json", :get, {}, {:with_data => true})
+    #   if res.success?
+    #     snapshots = JSON.parse(res.body)['snapshots']
+    #     unless snapshots.empty?
+    #       uri = URI::Data.new(snapshots[0]['data'])
+    #       response.headers['Content-Type'] = uri.content_type
+    #       render :text => uri.data
+    #       return
+    #     end
+    #   end
+    #end
+    #raise ActionController::RoutingError.new('Not Found')
   end
 
   def create
@@ -114,6 +117,7 @@ class CamerasController < ApplicationController
       flash[:message] = JSON.parse(response.body)['message'] unless response.body.blank?
       response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
+      @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
       @vendors = Vendor.all
       @models  = VendorModel.all
       response  = API_call("users/#{current_user.username}/cameras", :get)
@@ -136,6 +140,7 @@ class CamerasController < ApplicationController
       flash[:message] = JSON.parse(response.body)['message'] unless response.body.blank?
       response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
+      @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
       @vendors = Vendor.all
       @models = VendorModel.all
       render :single
@@ -145,6 +150,7 @@ class CamerasController < ApplicationController
   def single
     response  = API_call("cameras/#{params[:id]}", :get)
     @camera   = JSON.parse(response.body)['cameras'][0]
+    @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
     response  = API_call("shares/camera/#{params[:id]}", :get)
     @shares   = JSON.parse(response.body)['shares']
     @vendors  = Vendor.all

@@ -6,6 +6,15 @@ showFeedback = (message) ->
    alert(message)
    true
 
+sendAJAXRequest = (settings) ->
+   token = $('meta[name="csrf-token"]')
+   if token.size() > 0
+      headers =
+         "X-CSRF-Token": token.attr("content")
+      settings.headers = headers
+   jQuery.ajax(settings)
+   true
+
 addSharingCameraRow = (details) ->
    row  = $('<tr>')
    cell = $('<td>')
@@ -95,7 +104,7 @@ onSetCameraAccessClicked = (event) ->
       url: '/share/camera/' + cameraId
 
    button.attr('disabled', 'disabled')
-   jQuery.ajax(settings)
+   sendAJAXRequest(settings)
    true
 
 onDeleteShareClicked = (event) ->
@@ -125,7 +134,7 @@ onDeleteShareClicked = (event) ->
       success: onSuccess
       type: 'DELETE'
       url: '/share'
-   jQuery.ajax(settings)
+   sendAJAXRequest(settings)
    true
 
 onAddSharingUserClicked = (event) ->
@@ -158,7 +167,7 @@ onAddSharingUserClicked = (event) ->
       success: onSuccess
       type: 'POST'
       url: '/share'
-   jQuery.ajax(settings)
+   sendAJAXRequest(settings)
    true
 
 initializeSharingTab = ->

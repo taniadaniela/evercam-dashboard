@@ -1,0 +1,101 @@
+<div class="boxed-page">
+  <div class="container clearfix">
+    <section id="dev-dash">
+
+      <!--sidebar start-->
+      <div id="sidebar" class="col-md-2 col-xs-12">
+        <ul class="sidebar-menu">
+          <li class="menu-item">
+            <a href="/dev" class="">
+              <span>Developer Tools</span>
+            </a>
+          </li>
+          <li class="menu-item active">
+            <a href="/widgets" class="">
+              <span>My Widgets</span>
+            </a>
+          </li>
+        </ul>
+
+
+      </div>
+      <!--sidebar end-->
+      <!--main content start-->
+      <div class="col-md-10 col-xs-12 wrapper">
+        <section id="main-content">
+          <div class="row widget-header">
+            <div class="row">
+              <div class='col-md-12 widget-article-header'>
+                  <div class="col-md-4 pull-right">
+                    <a href="/widgets" type="submit" id="new_widget" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left"></span>Back to Widget Area</a>
+                  </div>
+                  <div class="col-md-8">
+                    <h3>Create a Widget<small>...&#123;coming soon&#125;</small></h3>
+                    <p>Create a widget and add it to your website using the tool below. Simply select your Camera,
+                    the refresh rate of the snapshot and the width of the image and copy and paste the code in the HTML of your page.</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+            <div class="widget-config">
+
+                <div class="col-md-5">
+                    <h3>Configuration</h3>
+
+                    <form id="widget-new" role="form" method="post" class="center-block">
+
+                    <div class="widget-input">
+                        <div class="input-group col-md-10">
+                          <label for="widget-camera">Select your Camera</label>
+                          <select id="widget-camera" name="widget-camera" class="form-control is-required">
+                            <% @cameras.each do |camera| %>
+                                <option class="caret" value="<%= camera['name'] %>">
+                                  <%= camera['name'] %>
+                                </option>
+                            <% end %>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="widget-input">
+                        <label for="widget-refresh-rate">Refresh Rate of Snapshot <small><em>(in Seconds)</em></small></label>
+                        <div class="input-group col-md-10">
+                          <input type="number" value="" class="form-control" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="2">
+                          <span class="input-group-addon">seconds</span>
+                        </div>
+                    </div>
+
+                    <div class="widget-input">
+                        <label for="widget-camera-width">Width of Camera Image to Display <small><em>(in px)</em></small></label>
+                        <div class="input-group col-md-10">
+                          <input type="number" value="" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
+                          <span class="input-group-addon">px</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-1">
+                            <input type="" class="btn btn-primary col-lg-12" value="Create"></input>
+                        </div>
+                    </div>
+                    </form>
+                  <div class="row widget-code">
+                      <div class="col-md-12">
+                        <h5>HTML</h5>
+                        <textarea id="code" class="code col-md-12" type="text">
+                        </textarea>
+                        <p class="help-text">Copy and paste the code into the HTML of your site.</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-7">
+                    <h3>Preview</h3>
+                    <div class="col-lg-12 preview">
+                    </div>
+                </div>
+        </section>
+      </div>
+      <!--main content end-->
+    </section>
+  </div>
+</div> <!--boxed page end-->

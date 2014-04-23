@@ -125,7 +125,7 @@ class CamerasController < ApplicationController
       render :single
     end
   end
-e
+
   def delete
     response  = API_call("cameras/#{params['id']}", :delete, {})
     if response.success?
@@ -157,4 +157,3 @@ e
     end
   end
 end
-

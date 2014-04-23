@@ -13,7 +13,13 @@ class CamerasController < ApplicationController
       @cameras =  JSON.parse(response.body)['cameras']
       response = API_call("shares/user/#{current_user.username}", :get)
       if response.success?
-        @shares = JSON.parse(response.body)['shares']
+        list = JSON.parse(response.body)['shares']
+        if list && !list.empty?
+          camera_ids = []
+          list.each {|share| camera_ids << share['camera_id']}
+          response = API_call("/cameras", :get, {ids: camera_ids.join(",")})
+          @shares = JSON.parse(response.body)['cameras'] if response.success?
+        end
       else
         Rails.logger.warn "Request for user camera shares was unsuccessful."
       end

@@ -23,3 +23,4 @@
 //= require settings
 //= require explorer
 //= require bootbox-4.2.0
+//= require bootstrap3-editable-1.5.1.min

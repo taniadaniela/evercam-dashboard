@@ -1,9 +1,9 @@
 showError = (message) ->
-   alert(message)
+   bootbox.alert(message)
    true
 
 showFeedback = (message) ->
-   alert(message)
+   bootbox.alert(message)
    true
 
 sendAJAXRequest = (settings) ->
@@ -181,3 +181,4 @@ if !window.Evercam
 
 window.Evercam.Share =
    initializeTab: initializeSharingTab
+

@@ -1,65 +1,86 @@
-<div class="container dev">
-<div class="row user-profile">
-  <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0 panel panel-body">
-    <div class="row" id="api-keys">
-        <div class="col-md-6 col-md-offset-3">
-            <form role="form" id="apikeys" class="form-horizontal center-block">
-              <table class='table borderless'>
-                <tr>
-                  <td>API ID</td>
-                  <td><%= current_user.api_id -%></td>
-                </tr>
-                <tr>
-                  <td>API Key</td>
-                  <td><%= current_user.api_key -%></td>
-                </tr>
-                <tr height="50" class="border">
-                  <td>Demo Camera ID</td>
-                  <td>
-                    <%= current_user.cameras.first.exid %>
-                  </td>
-                </tr>
-              </table>
-            </form>
+<div class="boxed-page">
+  <div class="container clearfix">
+    <section id="dev-dash">
+        <!--sidebar start-->
+        <div id="sidebar" class="col-md-2 col-xs-12">
+        <ul class="sidebar-menu">
+          <li class="menu-item active">
+            <a href="/dev" class="">
+              <span>Developer Tools</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/widgets" class="">
+              <span>My Widgets</span>
+            </a>
+          </li>
+        </ul>
         </div>
-    
-    </div>
-    <div class="col-md-12">
-      <%= stylesheet_link_tag "swagger"%>
-      <%= javascript_include_tag "swagger"%>
-        <script type="text/javascript">
-            $(function () {
+        <!--sidebar end-->
+        <!--main content start-->
+        <div class="col-md-10 col-xs-12 wrapper">
+        <section id="main-content">
+            <div class="row api-keys">
+              <div class="col-md-6 col-md-offset-3">
+                <form role="form" id="apikeys" class="form-horizontal center-block">
+                  <table class='table borderless'>
+                    <tr>
+                      <td>API ID</td>
+                      <td><%= current_user.api_id -%></td>
+                    </tr>
+                    <tr>
+                      <td>API Key</td>
+                      <td><%= current_user.api_key -%></td>
+                    </tr>
+                    <tr height="50" class="border">
+                      <td>Demo Camera ID</td>
+                      <td>
+                        <%= current_user.cameras.first.exid %>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div><!-- row -->
+          <div class="col-md-12">
+                <%= stylesheet_link_tag "swagger"%>
+                <%= javascript_include_tag "swagger"%>
+            <script type="text/javascript">
+                $(function () {
 
-                window.swaggerUi = new SwaggerUi({
-                    url: "https://api.evercam.io/v1/swagger/cameras.json",
-                    dom_id: "swagger-ui-container",
-                    supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-                    onComplete: function(swaggerApi, swaggerUi){
-                        window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
-                        window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
-                        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-                        $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
-                        $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
-                    },
-                    onFailure: function(data) {
-                    },
-                    docExpansion: "list"
+                    window.swaggerUi = new SwaggerUi({
+                        url: "<%= EVERCAM_API %>swagger.json",
+                        dom_id: "swagger-ui-container",
+                        supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+                        onComplete: function(swaggerApi, swaggerUi){
+                            window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
+                            window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
+                            $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+                            $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
+                            $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
+                        },
+                        onFailure: function(data) {
+                        },
+                        docExpansion: "list"
+                    });
+
+                    window.swaggerUi.load();
+
                 });
 
-                window.swaggerUi.load();
+            </script>
+                <div class="exp-swagger">
+                  <div id="swagger">
+                    <div id="swagger-ui-container" class="swagger-ui-wrap">
+                      &nbsp;
+                    </div>
+                  </div>
+                </div>
 
-            });
-
-        </script>
-          <div class="exp-swagger">
-            <div id="swagger">
-              <div id="swagger-ui-container" class="swagger-ui-wrap">
-                &nbsp;
-              </div>
-            </div>
           </div>
-
-    </div>
+        </section>
+        </div>
+      <!--main content end-->
+    </section>
   </div>
-</div>
-</div>
+</div> <!--boxed page end-->

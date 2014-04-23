@@ -30,7 +30,14 @@
       </thead>
       <tr>
         <td>JPEG URL</td>
-        <td><%= link_to_unless(@camera.fetch('extra_urls', {})['short_jpg_url'].nil?, @camera.fetch('extra_urls', {})['short_jpg_url']) %></td>
+        <td>
+          <% if @camera['is_public'] %>
+            <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", :only_path => false %>
+          <% else %>
+            <% url = @camera.fetch('extra_urls', {})['short_jpg_url'] %>
+            <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
+          <% end %>
+        </td>
       </tr>
     </table>
     </div>
@@ -41,23 +48,17 @@
     <div class="col-lg-9">
       <table class='table borderless'>
         <thead>
-        <tr><h4>Stream</h4></tr>
+          <tr><h4>Stream</h4></tr>
         </thead>
         <tr>
-          <td >HTTP MPEG4 Stream</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>HTTP MJPEG Stream</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>HTTP ASF Stream</td>
-          <td></td>
+          <td>RTSP Stream</td>
+          <% url = @camera.fetch('extra_urls', {})['external_rtsp_url'] %>
+          <td><%= link_to_unless(url.nil?, url, url, :only_path => false) %></td>
         </tr>
         <tr>
           <td>HTTP Snapshot Image</td>
-          <td><%= link_to_unless(@camera.fetch('extra_urls', {})['external_jpg_url'].nil?, @camera.fetch('extra_urls', {})['external_jpg_url']) %></a></td>
+          <% url = @camera.fetch('extra_urls', {})['external_jpg_url'] %>
+          <td><%= link_to_unless(url.nil?, url, url, :only_path => false) %></td>
         </tr>
       </table>
    </div>

@@ -18,7 +18,7 @@
       <div class="radio">
         <label>
           <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
-          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission.</small></h5>
+          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission in the list below.</small></h5>
         </label>
       </div>
       <div class="form-group">
@@ -33,7 +33,7 @@
 
 
 <!--USER LIST-->
-<div class="panel panel-body">
+<div class="panel-body">
   <div class="row">
     <div class="col-md-12">
       <table class="table" id="sharing_list_table">
@@ -50,7 +50,7 @@
         <% @shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
           <tr>
-            <td><%= share["email"] %></td>
+            <td><span class="glyphicon glyphicon-user"></span> <%= share["email"] %></td>
             <td>
               <div class="input-group input-group-sm">
                 <select class="form-control">
@@ -127,14 +127,16 @@
 <div class="panel panel-body">
   <div class="row">
     <div class="col-md-8">
-      <h5><span class="glyphicon glyphicon-globe"></span>  Link to Share</h5>
+      <h5><span class="glyphicon glyphicon-link"></span>  Link to Share</h5>
       <div class="well well-sm">...</div>
     </div>
   </div>
 </div>
 
+<a href="#" id="username">superuser</a>
 
 <script type="text/javascript">
   $(window.Evercam.Share.initializeTab);
+
 
 </script>

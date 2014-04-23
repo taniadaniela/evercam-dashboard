@@ -488,20 +488,15 @@ textarea {
 }
 
 .cam-box:first-child {
-
-
-    border-radius:2px ;
+    border-top-left-radius: 2px;
 }
-
+.cam-box:first-child img {
+    border-top-left-radius: 2px;
+}
 .cam-box img {
     height: 100%;
 }
-.cam-box:first-child img {
 
-
-    border-radius:2px ;
-
-}
 .cam .media {
     /*background-color: #000000;
     background-image: url("https://www.evercam.io/img/offline.png");
@@ -742,9 +737,9 @@ select {
 
 /*Live*/
 .tab-content h4 {
-    margin-bottom: 25px;
-
+    margin-bottom: 15px;
 }
+
 #live .panel {
     width: auto;
 }
@@ -1276,7 +1271,7 @@ tbody tr:hover {
     padding: 6px 0 6px 20px;
 }
 .plus {
-    padding: 2px 0 20px 9px;
+    padding: 10px 0 20px 9px;
 }
 ul.plus li:before {
     color: #A5A5A5;

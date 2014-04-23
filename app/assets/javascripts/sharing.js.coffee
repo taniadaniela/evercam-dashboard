@@ -107,6 +107,7 @@ onSetCameraAccessClicked = (event) ->
    sendAJAXRequest(settings)
    true
 
+
 onDeleteShareClicked = (event) ->
    event.preventDefault()
    control  = $(event.currentTarget)

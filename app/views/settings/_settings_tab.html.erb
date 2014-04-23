@@ -40,10 +40,10 @@
               <div class='settings form-group'>
                 <label class="control-label" for="camera-name">Friendly Name</label>
                 <input id="camera-name" class="form-control readonly makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" readonly="readonly">
+
               </div>
             </div>
           </div>
-
       </div>
       <div class="col-lg-6">
           <div class='row'><!-- Username  -->
@@ -220,8 +220,8 @@
             $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
         });
 
+    });
 
-    })
     <% unless flash[:message].blank? %>
     bootbox.alert("<%= flash[:message] %>", function() {
         console.log("Alert Callback");

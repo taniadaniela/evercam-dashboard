@@ -486,8 +486,21 @@ textarea {
     overflow: hidden;
     text-align: center;
 }
+
+.cam-box:first-child {
+
+
+    border-radius:2px ;
+}
+
 .cam-box img {
     height: 100%;
+}
+.cam-box:first-child img {
+
+
+    border-radius:2px ;
+
 }
 .cam .media {
     /*background-color: #000000;
@@ -835,6 +848,9 @@ select {
 }
 .support h5 {
     font-size: 18px;
+}
+.snapshot-error {
+    margin-top: 5px;
 }
 /*SHARING*/
 .sharing {

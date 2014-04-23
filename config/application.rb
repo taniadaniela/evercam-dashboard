@@ -27,7 +27,7 @@ module EvercamDashboard
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += ['bootstrap-3.1.0.min.css',
                                  'bootstrap-theme-3.1.0.min.css',
-                                 'bootstrap-3.1.0.min.js'
+                                 'bootstrap-3.1.0.min.js',
                                  'glyphicons-halflings-regular.eot',
                                  'glyphicons-halflings-regular.svg',
                                  'glyphicons-halflings-regular.ttf',

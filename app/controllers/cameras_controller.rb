@@ -37,24 +37,7 @@ class CamerasController < ApplicationController
   end
 
   def jpg
-    #res  = API_call("cameras/#{params['id']}/snapshot.jpg", :get)
-    #if res.success?
-    #  response.headers['Content-Type'] = 'image/jpeg'
-    #  render :text => res.body
-    #  return
-    # else
-    #   res  = API_call("cameras/#{params['id']}/snapshots/latest.json", :get, {}, {:with_data => true})
-    #   if res.success?
-    #     snapshots = JSON.parse(res.body)['snapshots']
-    #     unless snapshots.empty?
-    #       uri = URI::Data.new(snapshots[0]['data'])
-    #       response.headers['Content-Type'] = uri.content_type
-    #       render :text => uri.data
-    #       return
-    #     end
-    #   end
-    #end
-    #raise ActionController::RoutingError.new('Not Found')
+    #TODO: rewrite getting latest snapshot for offline camera
   end
 
   def create

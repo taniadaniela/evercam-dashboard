@@ -12,7 +12,14 @@ describe ApplicationHelper do
 
       it "doesn't add api keys" do
         expect(Typhoeus::Request).to receive(:new)
-        .with("#{EVERCAM_API}test", {:method => :get, :body => {}, :params => {}, :timeout=>TIMEOUT, :connecttimeout=>TIMEOUT})
+        .with("#{EVERCAM_API}test", {
+          :method => :get,
+          :body => {},
+          :params => {},
+          :timeout=>TIMEOUT,
+          :connecttimeout=>TIMEOUT,
+          followlocation: true
+        })
         .once.and_call_original
         API_call('test', :get)
       end
@@ -45,7 +52,8 @@ describe ApplicationHelper do
           :params => {:api_id => user.api_id,
                       :api_key => user.api_key},
           :timeout=>TIMEOUT,
-          :connecttimeout=>TIMEOUT
+          :connecttimeout=>TIMEOUT,
+          followlocation: true
         })
         .once.and_call_original
         API_call('test', :get)
@@ -60,7 +68,8 @@ describe ApplicationHelper do
                     :api_key => user.api_key},
           :params => {},
           :timeout=>TIMEOUT,
-          :connecttimeout=>TIMEOUT
+          :connecttimeout=>TIMEOUT,
+          followlocation: true
         })
         .once.and_call_original
         API_call('test', :post)
@@ -75,7 +84,8 @@ describe ApplicationHelper do
                     :api_key => user.api_key},
           :params => {},
           :timeout=>TIMEOUT,
-          :connecttimeout=>TIMEOUT
+          :connecttimeout=>TIMEOUT,
+          followlocation: true
         })
         .once.and_call_original
         API_call('test', :patch)

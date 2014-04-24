@@ -54,7 +54,7 @@
                 
                   <a href="/cameras/<%= camera['id'] %>">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                    <img src="/cameras/<%= camera['id'] %>/jpg">
+                    <img src="<%= camera['jpg'] %>">
                     <div id="offline"> <% if camera['is_online'] %>
                           <span class="green">Online</span>
                       <% else %>

@@ -80,9 +80,9 @@
     <div class="col-lg-12">
       <div class="col-lg-6">
         <div class='row'>
-          <div class='col-lg-10 settings-odd form-group'>
+          <div class='col-lg-10 form-group'>
             <label class="control-label" for="camera-url">External IP (or URL)</label>
-            <div class="input-group">
+            <div class="input-group settings-odd">
               <span class="input-group-addon">http://</span>
               <span><i class="glyphicon glyphicon-pencil"></i></span>
               <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control makeEditable" readonly="readonly" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera['external_host'] %>">
@@ -132,7 +132,7 @@
       <div class='row'>
         <div class='col-lg-6 settings form-group'>
           <label class="control-label" for="camera-vendor">Camera Vendor</label>
-          <span><i class="glyphicon glyphicon-chevron-down"></i></span>
+          <!--<span><i class="glyphicon glyphicon-chevron-down"></i></span>-->
           <select id="camera-vendor" name="camera-vendor" readonly="readonly" class="form-control makeEditable">
             <option selected="selected" value="-1">-- select model --</option>
             <% @vendors.each_with_index  do |v, index| -%>

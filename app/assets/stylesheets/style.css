@@ -826,7 +826,7 @@ select {
     margin-top: 15px;
 }
 #camera-settings .control-label {
-    color:#428BCA;
+    color:#414042;
 }
 .left-inner-addon {
     position: relative;
@@ -851,6 +851,12 @@ select {
 }
 .snapshot-error {
     margin-top: 5px;
+}
+.settings #camera-vendor {
+
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: right;
 }
 /*SHARING*/
 .sharing {
@@ -1078,13 +1084,14 @@ API EXPLORER TAB
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: #fff;
     opacity: 1;
-    border-left: 1px solid #aaa !important;
     border: none;
     cursor: pointer;
+    /*border-left: 1px solid #aaa !important;
     border-bottom: 1px solid #f5f5f5;
     border-top: 1px solid #f5f5f5;
-    border-right: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;*/
     border-radius: 0px;
+    color:#428bca;
 }
 .form-control[disabled]:focus, .form-control[readonly]:focus, fieldset[disabled]:focus .form-control:focus {
 box-shadow: none;
@@ -1226,11 +1233,12 @@ tbody tr:hover {
     display: block;
 }
 .settings-odd .glyphicon {
-    color:#aaaaaa;
-    display:none;
+    color: #aaaaaa;
+    display: none;
     position: absolute;
-    right:20px;
-    top:6px;
+    right: 5px;
+    top: 11px;
+    z-index: 10;
 }
 .settings-odd:hover .glyphicon {
     display: block;

@@ -134,7 +134,7 @@
           <label class="control-label" for="camera-vendor">Camera Vendor</label>
           <!--<span><i class="glyphicon glyphicon-chevron-down"></i></span>-->
           <select id="camera-vendor" name="camera-vendor" readonly="readonly" class="form-control makeEditable">
-            <option selected="selected" value="-1">-- select model --</option>
+            <option selected="selected" value="">-- select model --</option>
             <% @vendors.each_with_index  do |v, index| -%>
                 <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor'] %>selected="selected"<% end %>>
                   <%= v.name -%>

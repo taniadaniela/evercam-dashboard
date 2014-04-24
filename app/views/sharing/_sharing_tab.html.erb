@@ -18,13 +18,13 @@
       <div class="radio">
         <label>
           <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
-          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission.</small></h5>
+          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission in the list below.</small></h5>
         </label>
       </div>
       <div class="form-group">
         <div class="col-sm-8">
           <input type="hidden" name="sharing_tab_camera_id" id="sharing_tab_camera_id" value="<%= @camera["id"] %>"></input>
-          <button type="submit" id="set_permissions_submit" class="btn btn-primary btn-sm">Save</button>
+          <button type="submit" id="set_permissions_submit" class="alert btn btn-primary btn-sm">Save</button>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
 
 
 <!--USER LIST-->
-<div class="panel panel-body">
+<div class="panel-body">
   <div class="row">
     <div class="col-md-12">
       <table class="table" id="sharing_list_table">
@@ -50,7 +50,7 @@
         <% @shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
           <tr>
-            <td><%= share["email"] %></td>
+            <td><span class="glyphicon glyphicon-user"></span> <%= share["email"] %></td>
             <td>
               <div class="input-group input-group-sm">
                 <select class="form-control">
@@ -78,7 +78,7 @@
         <tfoot>
         <tr>
           <td colspan="4">
-            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            <button type="submit" id="set_permissions_submit" class="btn btn-primary btn-sm">Save</button>
           </td>
         </tr>
         </tfoot>
@@ -127,7 +127,7 @@
 <div class="panel panel-body">
   <div class="row">
     <div class="col-md-8">
-      <h5><span class="glyphicon glyphicon-globe"></span>  Link to Share</h5>
+      <h5><span class="glyphicon glyphicon-link"></span>  Link to Share</h5>
       <div class="well well-sm">...</div>
     </div>
   </div>
@@ -136,4 +136,6 @@
 
 <script type="text/javascript">
   $(window.Evercam.Share.initializeTab);
+
+
 </script>

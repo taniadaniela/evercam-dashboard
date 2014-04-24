@@ -1,9 +1,9 @@
 showError = (message) ->
-   alert(message)
+   bootbox.alert(message)
    true
 
 showFeedback = (message) ->
-   alert(message)
+   bootbox.alert(message)
    true
 
 sendAJAXRequest = (settings) ->
@@ -107,6 +107,7 @@ onSetCameraAccessClicked = (event) ->
    sendAJAXRequest(settings)
    true
 
+
 onDeleteShareClicked = (event) ->
    event.preventDefault()
    control  = $(event.currentTarget)
@@ -181,3 +182,4 @@ if !window.Evercam
 
 window.Evercam.Share =
    initializeTab: initializeSharingTab
+

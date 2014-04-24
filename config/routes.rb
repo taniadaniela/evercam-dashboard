@@ -22,6 +22,8 @@ EvercamDashboard::Application.routes.draw do
 
    get '/dev' => 'pages#dev'
    get '/swagger' => 'pages#swagger'
+   get '/widgets' => 'pages#widgets'
+   get '/widgets-new' => 'pages#widgets_new'
 
    post '/share/camera/:id' => 'sharing#update_camera'
    delete '/share' => 'sharing#delete'

@@ -12,7 +12,7 @@
   <div class="row">
     <div class='col-lg-12'>
       <div class='col-lg-3 form-group'>
-        <div class="left-inner-addon ">
+        <div class="left-inner-addon">
           <i class="glyphicon glyphicon-pencil"></i>
           <input type="button" value="Edit Settings" class="makeEditable btn btn-edit" />
         </div>
@@ -40,10 +40,10 @@
               <div class='settings form-group'>
                 <label class="control-label" for="camera-name">Friendly Name</label>
                 <input id="camera-name" class="form-control readonly makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" readonly="readonly">
+
               </div>
             </div>
           </div>
-
       </div>
       <div class="col-lg-6">
           <div class='row'><!-- Username  -->
@@ -109,6 +109,7 @@
           <img id="testimg" src="/" class="text-center" width="100%">
           <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
         </div>
+        <div class="snapshot-error text-center"<span id="test-error" class="text-center"><%= flash[:message] %></span>
       </div>
     </div>
   </div>
@@ -219,8 +220,8 @@
             $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
         });
 
+    });
 
-    })
     <% unless flash[:message].blank? %>
     bootbox.alert("<%= flash[:message] %>", function() {
         console.log("Alert Callback");

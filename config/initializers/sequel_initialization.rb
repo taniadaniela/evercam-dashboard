@@ -3,12 +3,7 @@
 
 require 'evercam_misc'
 
-configuration = ActiveRecord::Base.configurations[Rails.env]
-configuration['adapter'] = 'postgres' if configuration['adapter'] == 'postgresql'
-configuration['user']    = configuration.delete 'username'
-configuration['logger']  = [Logger.new("log/#{Rails.env}_db.log")]
-configuration['logger'] << Logger.new(STDOUT) if Rails.env.development?
-DB = Sequel::Model.db = Sequel.connect(configuration)
+DB = Sequel::Model.db = Sequel.connect(ENV['DATABASE_URL'])
 Sequel::Model.db.sql_log_level = Rails.application.config.log_level || :debug
 
 if ARGV.any? {|parameter| parameter =~ /(--sandbox|-s)/}

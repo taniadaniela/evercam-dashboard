@@ -7,6 +7,10 @@ class UsersController < ApplicationController
   include ApplicationHelper
 
   def new
+    unless current_user.nil?
+      redirect_to :cameras_index
+      return
+    end
     @countries = Country.all
   end
 

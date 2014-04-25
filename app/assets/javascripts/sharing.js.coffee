@@ -182,4 +182,3 @@ if !window.Evercam
 
 window.Evercam.Share =
    initializeTab: initializeSharingTab
-

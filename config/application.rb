@@ -25,10 +25,7 @@ module EvercamDashboard
     #config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
     #config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
-    config.assets.precompile += ['bootstrap-3.1.0.min.css',
-                                 'bootstrap-theme-3.1.0.min.css',
-                                 'bootstrap-3.1.0.min.js',
-                                 'glyphicons-halflings-regular.eot',
+    config.assets.precompile += ['glyphicons-halflings-regular.eot',
                                  'glyphicons-halflings-regular.svg',
                                  'glyphicons-halflings-regular.ttf',
                                  'glyphicons-halflings-regular.woff',

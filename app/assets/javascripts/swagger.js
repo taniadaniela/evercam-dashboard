@@ -1,5 +1,3 @@
-//= require jquery
-//= require jquery.turbolinks
 //= require lib/shred.bundle
 //= require lib/jquery.slideto.min
 //= require lib/jquery.wiggle.min

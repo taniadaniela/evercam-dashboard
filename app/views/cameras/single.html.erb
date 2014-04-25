@@ -1,3 +1,7 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span>The examples populate this alert with dummy content</span>
+</div>
+
 <div class="boxed-page">
 <div class="container clearfix">
 <section id="camera-single">
@@ -159,66 +163,71 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
 
-    $(function () {
-        var previous;
-        $('#camera-vendor').one('focus', function() {
-            previous = this.value;
-        }).on('change', function() {
-            $('#camera-model' + previous).addClass('hidden');
-            $('#camera-model' + this.value).removeClass('hidden');
-            previous = this.value;
+  $(function () {
+    var previous;
+    $('#camera-vendor').one('focus', function () {
+      previous = this.value;
+    }).on('change', function () {
+      $('#camera-model' + previous).addClass('hidden');
+      $('#camera-model' + this.value).removeClass('hidden');
+      previous = this.value;
+    });
+
+    $('#test').click(function (e) {
+      var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
+          'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
+      e.preventDefault();
+      var l = Ladda.create(this);
+      l.start();
+      var progress = 0;
+      var interval = setInterval(function () {
+        progress = Math.min(progress + 0.025, 1);
+        l.setProgress(progress);
+
+        if (progress === 1) {
+          l.stop();
+          clearInterval(interval);
+        }
+      }, 200);
+      $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
+        .done(function (resp) {
+          console.log('success');
+          $('#testimg').attr('src', resp.data);
+        })
+        .fail(function (resp) {
+          $('#test-error').text(resp.responseJSON.message);
+          console.log('error');
+        })
+        .always(function () {
+          l.stop();
+          clearInterval(interval);
         });
-
-        $('#test').click(function(e) {
-            var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
-                'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
-            e.preventDefault();
-            var l = Ladda.create(this);
-            l.start();
-            var progress = 0;
-            var interval = setInterval( function() {
-                progress = Math.min( progress + 0.025, 1 );
-                l.setProgress( progress );
-
-                if( progress === 1 ) {
-                    l.stop();
-                    clearInterval( interval );
-                }
-            }, 200 );
-            $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
-                    .done(function(resp) {
-                        console.log('success');
-                        $('#testimg').attr('src', resp.data);
-                    })
-                    .fail(function(resp) {
-                        $('#test-error').text(resp.responseJSON.message);
-                        console.log('error');
-                    })
-                    .always(function() {
-                        l.stop();
-                        clearInterval( interval );
-                    });
-        });
-
+    });
 
 
     // Javascript to enable link to tab
     var url = document.location.toString();
     if (url.match('#')) {
-        $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
-        setTimeout(function() {scrollTo(0,0)}, 10);
+      $('.nav-tabs a[href=#' + url.split('#')[1] + ']').tab('show');
+      setTimeout(function () {
+        scrollTo(0, 0)
+      }, 10);
     }
 
     // Change hash for page-reload
     $('.nav-tabs a').on('shown.bs.tab', function (e) {
-        window.location.hash = e.target.hash;
-        scrollTo(0,0);
+      window.location.hash = e.target.hash;
+      scrollTo(0, 0);
     })
 
-    $( '.refresh' ).click(function() {
-        location.reload();
+    $('.refresh').click(function () {
+      location.reload();
     });
 
-    })
+    // Demo for Ciaran
+    //Notification.init(".bb-alert");
+    //Notification.show('test');
+
+  });
 </script>
 

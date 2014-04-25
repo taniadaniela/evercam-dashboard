@@ -17,10 +17,10 @@
 //= require bootstrap-3.1.1.min
 //= require spin-1.3.2.min
 //= require ladda-0.8.0.min
+//= require editable-1.5.1.min
 //= require sharing
 //= require live
 //= require info
 //= require settings
 //= require explorer
 //= require bootbox-4.2.0
-//= require bootstrap3-editable-1.5.1.min

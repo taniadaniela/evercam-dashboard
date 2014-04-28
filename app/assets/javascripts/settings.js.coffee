@@ -1,3 +1,7 @@
+showError = (message) ->
+  Notification.show('<%= flash[:message] %>');
+  true
+
 onSetCameraAccessClicked = (event) ->
 	true
 

@@ -31,8 +31,10 @@ h5 {
 .bold {
     font-weight: 600;
 }
-
-
+.btn {
+    padding: 9px 18px;
+    font-size: 13px;
+}
 .btn-add {
     border: medium none;
     cursor: pointer;
@@ -819,6 +821,9 @@ select {
     position: absolute;
     top: 35%;
 }
+#camera-settings .table {
+    width:auto;
+}
 .settings-section {
     margin-bottom: 25px;
 }
@@ -1034,7 +1039,15 @@ API EXPLORER TAB
     text-align: center;
     border-top: medium none;
 }
+@media (min-width: 767px) {
+    .modal {
+        overflow-y: auto;
+    }
 
+    .modal-open {
+        overflow: auto;
+    }
+}
 
 /*/////////////////////
 //ADD A CAMERA PAGE
@@ -1232,6 +1245,9 @@ tbody tr:hover {
 .btn-default, .btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
     box-shadow: none;
     text-shadow: none;
+}
+.btn-default {
+    background-image: none;
 }
 .add-user .btn-primary, .btn-success, .btn-danger {
     margin-top: 0px;
@@ -1532,7 +1548,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 }
 .dropdown-menu.extended.inbox li a,.dropdown-menu.extended.tasks-bar li a {
     background:#f1f1f1;
-    border-radius:5px;
+    border-radius:zpx;
     -webkit-border-radius:5px;
     padding:10px;
     margin-bottom:10px;
@@ -3654,6 +3670,7 @@ ul.amounts li {
     display:block;
     padding:20px 15px !important;
 }
+
 .tab-bg-dark-navy-blue {
     background:#F5F5F5;
     border-radius:2px 2px 0 0;
@@ -4833,6 +4850,7 @@ div.tagsinput span.tag {
     color:#999;
     font-size:12px;
 }
+
 .alert-info .alert-icon {
     background-color:#99cce3;
 }
@@ -4906,11 +4924,18 @@ div.tagsinput span.tag {
 }
 
 .bb-alert {
-  position:fixed;
-  bottom:25%;
-  right:0;
-  margin-bottom:0;
-  font-size:1.2em;
-  padding:1em 1.3em;
-  z-index:2000;
+    position: fixed;
+    top: 3%;
+    left: 50%;
+    padding: 0.8em 1em;
+    z-index: 2000;
+    font-size: 13px;
+    margin-left: -155px;
+    width: 315px;
+    text-align: center;
+}
+.alert-info {
+    background-image: none;
+    border-color: #428bca;
+    border-radius: 2px;
 }

@@ -159,7 +159,7 @@ onAddSharingUserClicked = (event) ->
          showFeedback("Camera successfully shared with User")
 
       else
-         showError("Adding a User failed. Please check the User's mail address.")
+         showError("Adding a User failed. Please check the User's email address.")
       true
 
    settings =

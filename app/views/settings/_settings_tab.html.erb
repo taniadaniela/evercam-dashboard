@@ -2,7 +2,7 @@
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
   <div class='row'>
     <div class="col-md-4">
-      <h4>Settings</h4>
+      <h4>Settings<small>  <a href="#camera-settings" class="makeEditable"> edit</a></small></h4>
     </div>
 
   </div>
@@ -17,7 +17,7 @@
     </div>
   </div>-->
 <div class="row">
-<div class='col-lg-6'>
+<div class='col-lg-7'>
   <div class='col-lg-12'>
   <table class="table">
     <tr>
@@ -97,6 +97,8 @@
         <label class="control-label" for="camera-model">Camera Model</label>
       </td>
       <td>
+
+        
         <% @vendors.each do |v| -%>
             <select id="camera-model<%= v.exid -%>" name="camera-model" readonly="readonly" class="form-control  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
               <% v.vendor_models.each_with_index  do |m, index| -%>
@@ -107,7 +109,8 @@
                   <% end %>
               <% end -%>
             </select>
-        <% end %>      </td>
+        <% end %>
+      </td>
     </tr>
     <tr>
       <td>
@@ -137,7 +140,7 @@
   </div>
 </div>
   <!-- SNAPSHOT-->
-  <div class="col-lg-4">
+  <div class="col-lg-4 makeNonEditable">
     <div>
       <img id="testimg" src="/" class="text-center" width="100%">
       <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
@@ -181,6 +184,7 @@
 <script type="text/javascript">
     $(window.Evercam.Settings.initializeTab);
     $(function(){
+        // Make Input Fields Non Editable & Editable
         $(".makeNonEditable").click(function(){
             $('input:text').attr("readonly", "readonly");
         });
@@ -193,10 +197,11 @@
             $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
         });
 
-        // Demo for Ciaran
+        // Notifications
         Notification.init(".bb-alert");
+        <% if flash[:message] %>
         Notification.show('<%= flash[:message] %>');
-
+        <% end %>
     });
 
 

@@ -10,6 +10,9 @@ EvercamDashboard::Application.routes.draw do
    post 'cameras/:id' => 'cameras#update'
    delete 'cameras/:id' => 'cameras#delete'
 
+   get 'publiccam' => 'public#index'
+   get 'publiccam/:id' => 'public#single'
+
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]
    match '/signup',  to: 'users#new',            via: 'get'

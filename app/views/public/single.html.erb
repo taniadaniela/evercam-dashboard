@@ -1,0 +1,30 @@
+<%= link_to 'Cameras List', '/publiccam' %>
+<p>
+  <img src="<%= @camera['jpg'] %>" width="300">
+</p>
+
+<h2>Data:</h2>
+<table>
+  <tr>
+    <td>Vendor:</td>
+    <td><%= @camera.vendor.name %></td>
+  </tr>
+  <tr>
+    <td>Model:</td>
+    <td><%= @camera.vendor_model.name %></td>
+  </tr>
+  <tr>
+    <td>Status:</td>
+    <td>
+      <% if @camera.is_online %>
+        Online
+      <% else %>
+        Offline
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Added date:</td>
+    <td><%= @camera.created_at.to_formatted_s(:long_ordinal) %></td>
+  </tr>
+</table>

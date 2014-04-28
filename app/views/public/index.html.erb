@@ -6,8 +6,8 @@
 
 <% @cameras.each do |c| %>
   <tr>
-    <td><%= c.name %></td>
-    <td><%= link_to_unless(c.external_jpg_url.nil?, c.external_jpg_url, c.external_jpg_url, :only_path => false) %></td>
+    <td><%= link_to(c.name, "publiccam/#{c.exid}") %></td>
+    <td><%= link_to(c.external_jpg_url, c.external_jpg_url, :only_path => false) %></td>
   </tr>
 <% end %>
 </table>

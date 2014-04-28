@@ -7,8 +7,8 @@ class PublicController < ApplicationController
   end
 
   def single
-    puts params
-    @cameras = Camera.where(exid: params[:id]).first
+    @camera = Camera.where(exid: params[:id]).first
+    @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera.exid}/snapshot.jpg"
   end
 
 end

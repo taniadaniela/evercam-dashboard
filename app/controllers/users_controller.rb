@@ -74,6 +74,7 @@ class UsersController < ApplicationController
       flash[:message] = JSON.parse(response.body)['message']
     end
     @countries = Country.all
+    refresh_user
     render :settings
   end
 

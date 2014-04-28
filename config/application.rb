@@ -32,6 +32,7 @@ module EvercamDashboard
                                  'spin-1.3.2.min.js',
                                  'ladda-0.8.0.min.js',
                                  'swagger.js',
+                                 'jquery.js',
                                  'swagger.css',
                                  'throbber.gif',
                                  'ladda-themeless-0.8.0.min.css',

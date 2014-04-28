@@ -20,4 +20,8 @@ module SessionsHelper
   def current_user
     @current_user ||= User.where(email: session[:user]).first
   end
+
+  def refresh_user
+    @current_user = User.where(email: session[:user]).first
+  end
 end

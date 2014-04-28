@@ -1,9 +1,9 @@
 showError = (message) ->
-   bootbox.alert(message)
+   Notification.show(message)
    true
 
 showFeedback = (message) ->
-   bootbox.alert(message)
+   Notification.show(message)
    true
 
 sendAJAXRequest = (settings) ->
@@ -150,14 +150,16 @@ onAddSharingUserClicked = (event) ->
       email:     $('#sharingUserEmail').val()
       permissions: permissions
    onError = (jqXHR, status, error) ->
-      showError("Add camera shared failed. Please contact support.")
+      showError("Add camera shared failed. Ensure the email address is correct and that the email has an Evercam account associated with it.")
       false
    onSuccess = (data, status, jqXHR) ->
       if data.success
          addSharingCameraRow(data)
          $('#sharingUserEmail').val("")
+         showFeedback("Camera successfully shared with User")
+
       else
-         showError("Adding a Camera Share failed. Please ensure the email address is correct and that it has an Evercam account associated with it.")
+         showError("Adding a User failed. Please check the User's email address.")
       true
 
    settings =

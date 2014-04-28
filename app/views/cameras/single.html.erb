@@ -1,7 +1,6 @@
 <div class="bb-alert alert alert-info" style="display:none;">
-  <span>The examples populate this alert with dummy content</span>
+  <span></span>
 </div>
-
 <div class="boxed-page">
 <div class="container clearfix">
 <section id="camera-single">
@@ -110,7 +109,7 @@
 <div id="apps" class="tab-pane">
   <div class="col-lg-12">
     <h4>Apps</h4>
-    <a href="http://www.evercam.io/apps" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
+    <a href="http://www.evercam.io/apps" target="_blank" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
   </div>
 </div><!--TAB PANE -->
 
@@ -193,6 +192,7 @@
         .done(function (resp) {
           console.log('success');
           $('#testimg').attr('src', resp.data);
+
         })
         .fail(function (resp) {
           $('#test-error').text(resp.responseJSON.message);
@@ -223,10 +223,6 @@
     $('.refresh').click(function () {
       location.reload();
     });
-
-    // Demo for Ciaran
-    //Notification.init(".bb-alert");
-    //Notification.show('test');
 
   });
 </script>

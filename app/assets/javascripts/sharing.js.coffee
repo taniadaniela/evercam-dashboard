@@ -157,7 +157,7 @@ onAddSharingUserClicked = (event) ->
          addSharingCameraRow(data)
          $('#sharingUserEmail').val("")
       else
-         showError("Add camera shared failed. Please contact support.")
+         showError("Adding a Camera Share failed. Please ensure the email address is correct and that it has an Evercam account associated with it.")
       true
 
    settings =

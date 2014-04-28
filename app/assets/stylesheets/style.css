@@ -918,6 +918,9 @@ select {
 .email-input {
     margin-right: 52px;
 }
+.share-link {
+    margin-top: 25px;
+}
 
 #sharingPermissionLevel {
     width:110px;
@@ -929,7 +932,9 @@ select {
 .glyphicon-remove {
     cursor: pointer;
 }
-
+.share-camera {
+    padding-left: 25px;
+}
 .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
     border-radius: 1px !important;
 }
@@ -946,6 +951,9 @@ select {
 .save
 {
     display: none;
+}
+#sharing_list_table {
+    margin-top: 20px;
 }
 #sharing_list_table .btn-primary {
     margin-top: 0px;

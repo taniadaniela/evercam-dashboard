@@ -2375,11 +2375,11 @@ input[type="button"].btn-block {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url(font-path('glyphicons-halflings-regular.eot'));
-  src: url(font-path('glyphicons-halflings-regular.eot?#iefix')) format('embedded-opentype'),
-  url(font-path('glyphicons-halflings-regular.woff')) format('woff'),
-  url(font-path('glyphicons-halflings-regular.ttf')) format('truetype'),
-  url(font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular')) format('svg');
+  src: url(<%= asset_path 'glyphicons-halflings-regular.eot' %>);
+  src: url(<%= 'glyphicons-halflings-regular.eot?#iefix' %>) format('embedded-opentype'),
+  url(<%= asset_path 'glyphicons-halflings-regular.eot' %>) format('woff'),
+  url(<%= asset_path 'glyphicons-halflings-regular.ttf' %>) format('truetype'),
+  url(<%= asset_path 'glyphicons-halflings-regular.svg#glyphicons_halflingsregular' %>) format('svg');
 }
 .glyphicon {
   position: relative;

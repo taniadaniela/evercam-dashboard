@@ -1,0 +1,10 @@
+<div>
+   <p>Hello from Evercam.io!</p>
+   <p>
+      Evercam user <%= @user.username %> (<%= @user.fullname %>) has shared the
+      <%= @camera_id %> camera with you. To acccess this camera click on the link
+      below or open a new browser tab, paste the link into the URL field and hit
+      the Enter key.
+   </p>
+   <p><a href="https://dashboard.evercam.io/share/new/<%= @key %>">https://dashboard.evercam.io/share/new/<%= @key %></a></p>
+</div>

@@ -29,4 +29,15 @@ EvercamDashboard::Application.configure do
 
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session'}
+
+  # Sendgrid email configuration.
+  ActionMailer::Base.smtp_settings = {
+    user_name:            ENV['SENDGRID_USERNAME'],
+    password:             ENV['SENDGRID_PASSWORD'],
+    domain:               "heroku.com",
+    address:              "smtp.sendgrid.net",
+    port:                 587,
+    authentication:       :plain,
+    enable_starttls_auto: true
+  }
 end

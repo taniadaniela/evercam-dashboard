@@ -11,7 +11,12 @@ class UsersController < ApplicationController
       redirect_to :cameras_index
       return
     end
-    @countries = Country.all
+    @countries     = Country.all
+    @share_request = nil
+    if params[:key]
+      @share_request = CameraShareRequest.where(status: CameraShareRequest::PENDING,
+                                                key: params[:key]).first
+    end
   end
 
   def create
@@ -24,11 +29,20 @@ class UsersController < ApplicationController
         :country => params['country'],
         :password => params[:user]['password']
       }
+      body[:share_request_key] = params[:key] if params.include?(:key)
 
       response  = API_call("users", :post, body)
     end
     if response.nil? or not response.success?
-      flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
+      @share_request = nil
+      if params[:key]
+        @share_request = CameraShareRequest.where(status: CameraShareRequest::PENDING,
+                                                  key: params[:key]).first
+      end
+      if !response.nil?
+         Rails.logger.error "API request returned successfully. Response:\n#{response.body}"
+         flash[:message] = JSON.parse(response.body)['message']
+       end
       @countries = Country.all
       render :new
     else

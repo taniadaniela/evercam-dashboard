@@ -40,7 +40,7 @@
             <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
           </li>
          <li class="menu-item">
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
+            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
           </li>
           <!--  <li class="menu-item">
              <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add Public Camera</a>
@@ -73,24 +73,26 @@
               </div>
               <% end %>
               <% @shares.each do |camera| %>
-                  <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-
-                    <a href="/cameras/<%= camera['id'] %>">
-                      <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                      <img src="/cameras/<%= camera['id'] %>/jpg">
-                      <div id="offline"> <% if camera['is_online'] %>
-                            <span class="green">Online</span>
-                        <% else %>
-                            <span class="red">Offline</span>
-                        <% end %>
-                        <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-                      </div>
-
-                    </a>
-
+              <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
+                <a href="/cameras/<%= camera['id'] %>">
+                  <div id="cam-name"><h5><%= camera['name'] %></h5></div>
+                  <img src="/cameras/<%= camera['id'] %>/jpg">
+                  <div id="offline"> <% if camera['is_online'] %>
+                        <span class="green">Online</span>
+                    <% else %>
+                        <span class="red">Offline</span>
+                    <% end %>
+                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
                   </div>
+                </a>
+              </div>
               <% end %>
 
+              <div class="col-md-4 col-sm-6 col-xs-12 add-cam-box">
+                <a href="/cameras/new">
+                  <p><span class="glyphicon glyphicon-plus"></span>Add an IP Camera</p>
+                </a>
+              </div>
 
             </div>
         </section>

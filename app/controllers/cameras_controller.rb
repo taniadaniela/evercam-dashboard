@@ -136,6 +136,8 @@ class CamerasController < ApplicationController
     @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
     response  = API_call("shares/camera/#{params[:id]}", :get)
     @shares   = JSON.parse(response.body)['shares']
+    response  = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
+    @share_request = JSON.parse(response.body)['share_requests']
     @vendors  = Vendor.all
     @models   = VendorModel.all
     response  = API_call("users/#{current_user.username}/cameras", :get)

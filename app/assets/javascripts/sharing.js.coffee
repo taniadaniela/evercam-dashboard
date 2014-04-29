@@ -154,7 +154,10 @@ onAddSharingUserClicked = (event) ->
       false
    onSuccess = (data, status, jqXHR) ->
       if data.success
-         addSharingCameraRow(data)
+         if data.type == "share"
+            addSharingCameraRow(data)
+         else
+            showFeedback("A notification email has been dispatched to the specified email address.")
          $('#sharingUserEmail').val("")
          showFeedback("Camera successfully shared with User")
 

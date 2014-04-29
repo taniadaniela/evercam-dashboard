@@ -52,9 +52,21 @@ class SharingController < ApplicationController
 
          data  = JSON.parse(response.body)
          if response.success?
-            share = data["shares"][0]
-            result[:camera_id] = share["camera_id"]
-            result[:share_id]  = share["id"]
+            if data.include?("shares")
+               share = data["shares"][0]
+               result[:camera_id]   = share["camera_id"]
+               result[:share_id]    = share["id"]
+               result[:type]        = "share"
+            else
+               share_request = data["share_requests"][0]
+               result[:camera_id]   = share_request["camera_id"]
+               result[:share_id]    = share_request["id"]
+               result[:type]        = "share_request"
+               UserMailer.sign_up_to_share_email(params[:email],
+                                                 params[:camera_id],
+                                                 current_user,
+                                                 share_request["id"]).deliver
+            end
             result[:permissions] = params[:permissions]
             result[:email]       = params[:email]
          else

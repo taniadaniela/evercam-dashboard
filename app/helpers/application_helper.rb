@@ -29,6 +29,7 @@ module ApplicationHelper
       followlocation: true
     )
     request.run
+    Rails.logger.debug "API Response:\n#{request.response.body}"
     request.response
   end
 end

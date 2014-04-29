@@ -9,4 +9,12 @@ class UserMailer < ActionMailer::Base
       @key       = key
       mail(to: email, subject: "#{user.username} has shared a camera with you")
    end
+
+   # This method dispatches an email to an Evercam user whenever another user
+   # shares a camera with them.
+   def camera_shared_notification(email, camera_id, user)
+      @camera_id = camera_id
+      @user      = user
+      mail(to: email, subject: "#{user.username} has shared a camera with you")
+   end
 end

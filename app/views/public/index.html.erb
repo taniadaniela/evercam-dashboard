@@ -1,13 +1,67 @@
-<table>
-  <thead>
-    <th>Name</th>
-    <th>URL</th>
-  </thead>
+<div id="publiccams">
+<header role="banner">
+  <div class="navbar navbar-default">
+    <div class="container">
+      <!-- MOBILE NAVBAR -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- TITLE -->
+        <div class ="row">
+          <div class="col-md-12">
+            <a class="navbar-brand" title="PublicCams" href="#">PublicCams.io</a>
+          </div>
+        </div>
+        <div class="row sub-title">
+          <div class="col-md-12">
+            A list of Public Cameras from around the world
+          </div>
+        </div>
+      </div>
+      <!-- SEARCH BAR -->
+      <!--<div class="collapse navbar-collapse navbar-responsive-collapse">
+        <form class="navbar-form navbar-right" role="search" method="get" id="searchform" action="">
+          <div class="form-group">
+            <input name="s" id="s" type="text" class="search-query form-control" autocomplete="off" placeholder="search" data-provide="typeahead" data-items="4" data-source=''>
+          </div>
+        </form>
+      </div>-->
+    </div> <!-- end .container -->
+  </div> <!-- end .navbar -->
+</header> <!-- end header -->
 
-<% @cameras.each do |c| %>
-  <tr>
-    <td><%= link_to(c.name, "publiccam/#{c.exid}") %></td>
-    <td><%= link_to(c.external_jpg_url, c.external_jpg_url, :only_path => false) %></td>
-  </tr>
-<% end %>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover">
+      <thead>
+        <th>Camera</th>
+        <th>Snapshot URL</th>
+        <th>Status</th>
+      </thead>
+      <% @cameras.each do |c| %>
+        <tr>
+          <td><%= link_to(c.name, "publiccam/#{c.exid}") %></td>
+          <td><%= link_to(c.external_jpg_url, c.external_jpg_url, :only_path => false, target: '_blank') %></td>
+          <td>
+            <% if c.is_online %>
+            <span class="green">Online</span>
+            <% else %>
+            <span class="red">Offline</span>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div><!-- #row -->
+</div><!-- #container -->
+
+</div><!-- #PUBLICCAMS -->
+
+<script>
+
+</script>

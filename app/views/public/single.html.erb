@@ -1,30 +1,91 @@
-<%= link_to 'Cameras List', '/publiccam' %>
-<p>
-  <img src="<%= @camera['jpg'] %>" width="300">
-</p>
+<div id="publiccams">
+  <header role="banner">
+    <div class="navbar navbar-default">
+      <div class="container">
+        <!-- MOBILE NAVBAR -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- TITLE -->
+          <div class ="row">
+            <div class="col-md-12">
+              <a class="navbar-brand" title="PublicCams" href="/publiccam">PublicCams.io</a>
+            </div>
+          </div>
+          <div class="row sub-title">
+            <div class="col-md-12">
+              A list of Public Cameras from around the world
+            </div>
+          </div>
+        </div>
+        <!-- SEARCH BAR -->
+        <!--<div class="collapse navbar-collapse navbar-responsive-collapse">
+          <form class="navbar-form navbar-right" role="search" method="get" id="searchform" action="">
+            <div class="form-group">
+              <input name="s" id="s" type="text" class="search-query form-control" autocomplete="off" placeholder="search" data-provide="typeahead" data-items="4" data-source=''>
+            </div>
+          </form>
+        </div>-->
+      </div> <!-- end .container -->
+    </div> <!-- end .navbar -->
+  </header> <!-- end header -->
 
-<h2>Data:</h2>
-<table>
-  <tr>
-    <td>Vendor:</td>
-    <td><%= @camera.vendor.name %></td>
-  </tr>
-  <tr>
-    <td>Model:</td>
-    <td><%= @camera.vendor_model.name %></td>
-  </tr>
-  <tr>
-    <td>Status:</td>
-    <td>
-      <% if @camera.is_online %>
-        Online
-      <% else %>
-        Offline
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td>Added date:</td>
-    <td><%= @camera.created_at.to_formatted_s(:long_ordinal) %></td>
-  </tr>
-</table>
+
+<div class="container">
+
+  <div class="col-lg-12 list">
+    <!--<span class="glyphicon glyphicon-arrow-left"></span>--> <%= link_to 'Back to Camera List', '/publiccam' %>
+  </div>
+  <div class="col-lg-12">
+    <h4><%= @camera.name %></h4>
+  </div>
+
+
+  <div class="col-lg-12">
+    <div class="col-lg-6 camera-image">
+      <img src="<%= @camera['jpg'] %>" width="100%">
+    </div>
+    <div class="col-lg-5 data">
+      <h4>Data</h4>
+      <table class="table">
+      <tr>
+        <td>Vendor:</td>
+        <td><%= @camera.vendor.name %></td>
+      </tr>
+      <tr>
+        <td>Model:</td>
+        <td><%= @camera.vendor_model.name %></td>
+      </tr>
+      <tr>
+        <td>Status:</td>
+        <td>
+          <% if @camera.is_online %>
+            <span class="green">Online</span>
+          <% else %>
+            <span class="red">Offline</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Added date:</td>
+        <td><%= @camera.created_at.to_formatted_s(:long_ordinal) %></td>
+      </tr>
+      </table>
+    </div>
+  </div>
+
+
+</div><!-- .container -->
+</div><!-- #PUBLICCAMS -->
+
+<script>
+  $(function () {
+  //Replace Broken Image
+    $('img').error(function(){
+     $(this).attr('src', 'https://www.evercam.io/img/publiccams-error.png');
+      });
+  });
+</script>

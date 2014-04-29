@@ -2,6 +2,7 @@
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 @import url(http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
+@import url(http://fonts.googleapis.com/css?family=Share:400,700);
 
 
 html {
@@ -4937,4 +4938,67 @@ div.tagsinput span.tag {
     background-image: none;
     border-color: #428bca;
     border-radius: 2px;
+}
+
+/*///////////////////////////
+// PUBLICCAM STYLES
+///////////////////////////*/
+#publiccams {
+    padding-bottom: 60px;
+}
+body #publiccams {
+    background-color: #ffffff;
+    font-family: 'Share';
+}
+#publiccams a {
+    color:#000;
+}
+#publiccams a:hover {
+    color:#16A085;
+}
+#publiccams .sub-title {
+    margin-bottom: 10px;
+}
+#publiccams .navbar-default {
+    box-shadow: none;
+    background-image:none;
+    background-color: #ffffff;
+}
+#publiccams .navbar .navbar-header {
+    padding-left: 8px;
+}
+#publiccams .navbar .container a.navbar-brand {
+    height: 50px;
+}
+#publiccams .navbar-brand {
+    font-family: 'Share';
+    font-size: 24px;
+    color:#000000;
+    font-weight: 700;
+    line-height: 1.042;
+    padding: 14px 0px;
+}
+/*////INDEX/////*/
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+    background-color: #f9f9f9;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top:1px solid #e5e5e5;
+}
+#publiccams table > thead > tr > th {
+    border-bottom:1px solid #666666;
+    padding-bottom: 12px;
+}
+/*//// SINGLE /////*/
+.list {
+    margin-bottom: 20px;
+}
+#publiccams .camera-image {
+}
+#publiccams #footer {
+    background-color: #ffffff;
+}
+.data {
+    margin-top: -10px;
+    min-height: 540px;
 }

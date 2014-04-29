@@ -91,7 +91,7 @@
                     <label class="control-label" for="camera-url">External <strong>IP</strong> (or URL)</label>
                     <div class="input-group">
                       <span class="input-group-addon">http://</span>
-                      <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= params['camera-url'] %>">
+                      <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." value="<%= params['camera-url'] %>">
                     </div>
                   </div>
                     <span class="label label-default additional info-sm">?</span>
@@ -178,7 +178,7 @@
             <div class="row">
               <div class='col-lg-8 form-group'>
                 <label class="control-label" for="local-ip">Local IP</label>
-                <input id="local-ip" name="local-ip" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,4}$"  data-validation-error-msg="The Port should be a 2-4 digit number." data-validation-optional="true" value="<%= params['local-ip'] %>">
+                <input id="local-ip" name="local-ip" placeholder="" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true" value="<%= params['local-ip'] %>">
               </div>
             </div>
             <div class="row">

@@ -117,7 +117,7 @@
         <label class="control-label" for="local-ip">Local IP</label>
       </td>
       <td>
-        <input id="local-ip" name="local-ip" placeholder="not yet provided" class="form-control makeEditable" type="text" readonly="readonly" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="The Port should be a 2-4 digit number." data-validation-optional="true" value="<%= @camera['internal_host'] %>">
+        <input id="local-ip" name="local-ip" placeholder="not yet provided" class="form-control makeEditable" type="text" readonly="readonly" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true" value="<%= @camera['internal_host'] %>">
       </td>
     </tr>
     <tr>

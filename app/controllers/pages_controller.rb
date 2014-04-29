@@ -7,6 +7,10 @@ class PagesController < ApplicationController
     current_user
   end
 
+  def add_android
+    current_user
+  end
+
   def widgets
     current_user
   end

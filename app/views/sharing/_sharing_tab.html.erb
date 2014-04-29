@@ -7,13 +7,13 @@
     <div class="col-md-6">
         <% styling = 'display: none;' %>
         <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-globe"></span> Public on the web <small>Anyone on the internet can find access.</small></h5>
+          <h5><span class="glyphicon glyphicon-globe"></span> Public on the Web  <small> - Public: [Yes]  &amp; Discoverable: [Yes]</small></h5>
         </div>
         <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small>Anyone who has the link can access. No sign in required.</small></h5>
+          <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small> - Public: [Yes]  &amp; Discoverable: [No]</small></h5>
         </div>
         <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission in the list below.</small></h5>
+          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Public: [No]  &amp; Discoverable: [No]</small></h5>
         </div>
     </div>
     <div class="col-md-4">
@@ -35,19 +35,19 @@
           <div class="radio">
             <label>
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
-              <h5><span class="glyphicon glyphicon-globe"></span> Public on the web <small>Anyone on the internet can find access.</small></h5>
+              <h5><span class="glyphicon glyphicon-globe"></span> Public on the Web <small> -  Public: [Yes]  &amp; Discoverable: [Yes]</small></h5>
             </label>
           </div>
           <div class="radio">
             <label>
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
-              <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small>Anyone who has the link can access. No sign in required.</small></h5>
+              <h5><span class="glyphicon glyphicon-link"></span> Anyone with the Link <small> - Public: [Yes]  &amp; Discoverable: [No]</small></h5>
             </label>
           </div>
           <div class="radio">
             <label>
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
-              <h5><span class="glyphicon glyphicon-user"></span> Specific People <small>Only people explicitly granted permission in the list below.</small></h5>
+              <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Public: [No]  &amp; Discoverable: [No]</small></h5>
             </label>
           </div>
         </div>
@@ -55,7 +55,7 @@
       <div class="modal-footer">
         <div class="col-sm-6">
           <input type="hidden" name="sharing_tab_camera_id" id="sharing_tab_camera_id" value="<%= @camera["id"] %>"></input>
-          <button type="button" id="set_permissions_submit" data-dismiss="modal" class="alert btn btn-primary btn-sm">Save</button>
+          <a href="#" type="button" data-dismiss="modal"  id="set_permissions_submit" class="alert btn btn-primary btn-sm">Save</a>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
         </div>

@@ -1,10 +1,11 @@
 <div>
-   <p>Hello from Evercam.io!</p>
+   <p>Hello from Evercam,</p>
    <p>
-      Evercam user <%= @user.username %> (<%= @user.fullname %>) has shared the
-      <%= @camera_id %> camera with you. To access this camera click on the link
-      below or open a new browser tab, paste the link into the URL field and hit
-      the Enter key.
+      Evercam user <strong><%= @user.username %></strong> (<%= @user.fullname %>) has shared the
+      <em><%= @camera_id %></em> camera with you.
+   </p>
+   <p>
+     To access this camera, you will need to click on this link and create an account.
    </p>
    <p><a href="https://dashboard.evercam.io/cameras/<%= @camera_id %>">https://dashboard.evercam.io/cameras/<%= @camera_id %></a></p>
 </div>

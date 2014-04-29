@@ -28,6 +28,8 @@ EvercamDashboard::Application.routes.draw do
    get '/widgets' => 'pages#widgets'
    get '/widgets-new' => 'pages#widgets_new'
 
+   get '/add-android' => 'pages#add_android'
+
    post '/share/camera/:id' => 'sharing#update_camera'
    delete '/share' => 'sharing#delete'
    post '/share' => 'sharing#create'

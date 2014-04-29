@@ -1,3 +1,6 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
 <div class="boxed-page">
 <div class="container clearfix">
 <section id="camera-single" >
@@ -64,13 +67,11 @@
         <div class='row add-row'>
           <div class='col-lg-10 col-lg-offset-1'>
             <div class='col-lg-5 form-group'>
-              <label class="control-label" for="camera-username">Camera Username</label>
-              <!--<span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Username that you will need to enter here. It will have been created by the camera owner" class="label label-default">?</span>-->
+              <label class="control-label" for="camera-username">Camera Username*</label>
               <input id="camera-username" name="camera-username" placeholder="" class="form-control" type="text" value="<%= params['camera-username'] %>">
             </div>
             <div class='col-lg-5 form-group'>
-              <label class="control-label" for="camera-password">Camera Password</label>
-             <!-- <span data-toggle="tooltip" data-title="The camera you are trying to connect will already have a Password that will have been created by the camera owner" class="label label-default">?</span>-->
+              <label class="control-label" for="camera-password">Camera Password*</label>
               <input id="camera-password" name="camera-password" placeholder="" class="form-control" type="text" value="<%= params['camera-password'] %>">
             </div>
           </div>
@@ -88,7 +89,7 @@
               <div class='col-lg-8'>
                 <div class='row'>
                   <div class='col-lg-10 form-group'>
-                    <label class="control-label" for="camera-url">External <strong>IP</strong> (or URL)</label>
+                    <label class="control-label" for="camera-url">External <strong>IP</strong> (or URL)*</label>
                     <div class="input-group">
                       <span class="input-group-addon">http://</span>
                       <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." value="<%= params['camera-url'] %>">
@@ -96,18 +97,16 @@
                   </div>
                     <span class="label label-default additional info-sm">?</span>
                     <div class='col-lg-12 settings'>
-                      <p class="help-sm">This is the IP Address or URL of the Camera.</p>
+                      <p class="help-sm">The IP Address or URL of the Camera can be in the form of <em>149.237.192.68</em> or <em>webcam-1.faxa.rvk.is</em> </p>
                     </div>
                 </div>
                 <div class='row snapshot'>
                   <div class='col-lg-5 form-group'>
-                    <label class="control-label" for="port">External <strong>HTTP</strong> Port</label>
-                    <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored." class="label label-default">more info</span>-->
+                    <label class="control-label" for="port">External <strong>HTTP</strong> Port*</label>
                     <input id="port" name="port" placeholder="8901" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= params['port'] %>">
                   </div>
                   <div class='col-lg-5 form-group'>
                     <label class="control-label" for="ext-rtsp-port">External <strong>RTSP</strong> Port</label>
-                    <!--<span data-toggle="tooltip" data-title="This Field is optional." class="label label-default">optional</span>-->
                     <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="554" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['ext-rtsp-port'] %>">
                   </div>
                       <span class="label label-default additional info-sm">?</span>
@@ -117,17 +116,14 @@
                 </div>
                 <div class='row snapshot'>
                   <div class='col-lg-10 form-group'>
-                    <label class="control-label" for="snapshot">Snapshot URL</label>
-                    <!--<span data-toggle="tooltip" data-title="The snapshot URL is the path to where the cameras snapshots are currently stored. It must begin with '/'" class="label label-default">?</span>-->
+                    <label class="control-label" for="snapshot">Snapshot URL*</label>
                     <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= params['snapshot'] %>" >
                   </div>
                   <span class="label label-default additional info-sm">?</span>
                   <div class='col-lg-12 settings'>
-                    <p class="help-sm">This is the IP Address or URL of the Camera.</p>
+                    <p class="help-sm">This is the path to where the cameras snapshots are currently stored. It begins with a '/'. <br>eg - http://149.5.43.10:8001<strong>/snapshot.jpg</strong></p>
                   </div>
                 </div>
-
-                  <span id="test-error"><%= flash[:message] %></span>
 
               </div>
               <div class='col-lg-4'>
@@ -135,7 +131,7 @@
                   <img id="testimg" src="/" class="text-center" width="100%">
                   <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
                 </div>
-
+                <span id="test-error"><%= flash[:message] %></span>
               </div>
           </div>
         </div>
@@ -149,7 +145,6 @@
             <div class='row'>
               <div class='col-lg-6 form-group'>
                 <label class="control-label" for="camera-vendor">Camera Vendor</label>
-                <!--<span data-toggle="tooltip" data-title="" class="label label-default">more info</span>-->
                 <select id="camera-vendor" name="camera-vendor" class="form-control">
                   <option value="">Select Make</option>
                   <% @vendors.each_with_index  do |v, index| -%>
@@ -299,7 +294,10 @@
     $('img').error(function () {
       $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
     });
-
+      Notification.init(".bb-alert");
+      <% if flash[:message] %>
+      Notification.show('<%= flash[:message] %>');
+      <% end %>
 
     var previous;
     $('#camera-vendor').one('focus', function () {

@@ -57,6 +57,9 @@ class SharingController < ApplicationController
                result[:camera_id]   = share["camera_id"]
                result[:share_id]    = share["id"]
                result[:type]        = "share"
+               UserMailer.camera_shared_notification(params[:email],
+                                                     params[:camera_id],
+                                                     current_user).deliver
             else
                share_request = data["share_requests"][0]
                result[:camera_id]   = share_request["camera_id"]

@@ -191,6 +191,42 @@ ALTER SEQUENCE camera_endpoints_id_seq OWNED BY camera_endpoints.id;
 
 
 --
+-- Name: camera_share_requests; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE camera_share_requests (
+    id integer NOT NULL,
+    camera_id integer NOT NULL,
+    user_id integer NOT NULL,
+    key character varying(100) NOT NULL,
+    email character varying(250) NOT NULL,
+    status integer NOT NULL,
+    rights character varying(1000) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: camera_share_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE camera_share_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: camera_share_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE camera_share_requests_id_seq OWNED BY camera_share_requests.id;
+
+
+--
 -- Name: camera_shares; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -255,7 +291,8 @@ CREATE TABLE cameras (
     last_online_at timestamp with time zone,
     location geography(Point,4326),
     mac_address macaddr,
-    model_id integer
+    model_id integer,
+    discoverable boolean DEFAULT false NOT NULL
 );
 
 
@@ -490,6 +527,13 @@ ALTER TABLE ONLY camera_endpoints ALTER COLUMN id SET DEFAULT nextval('camera_en
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY camera_share_requests ALTER COLUMN id SET DEFAULT nextval('camera_share_requests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY camera_shares ALTER COLUMN id SET DEFAULT nextval('camera_shares_id_seq'::regclass);
 
 
@@ -522,6 +566,14 @@ ALTER TABLE ONLY camera_activities
 
 ALTER TABLE ONLY camera_endpoints
     ADD CONSTRAINT camera_endpoints_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: camera_share_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY camera_share_requests
+    ADD CONSTRAINT camera_share_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -640,6 +692,20 @@ CREATE UNIQUE INDEX camera_endpoints_camera_id_scheme_host_port_index ON camera_
 
 
 --
+-- Name: camera_share_requests_camera_id_email_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX camera_share_requests_camera_id_email_index ON camera_share_requests USING btree (camera_id, email);
+
+
+--
+-- Name: camera_share_requests_key_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX camera_share_requests_key_index ON camera_share_requests USING btree (key);
+
+
+--
 -- Name: camera_shares_camera_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -707,6 +773,13 @@ CREATE INDEX ix_users_country_id ON users USING btree (country_id);
 --
 
 CREATE UNIQUE INDEX snapshots_created_at_camera_id_index ON snapshots USING btree (created_at, camera_id);
+
+
+--
+-- Name: users_api_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX users_api_id_index ON users USING btree (api_id);
 
 
 --
@@ -802,7 +875,7 @@ ALTER TABLE ONLY access_rights
 --
 
 ALTER TABLE ONLY access_rights
-    ADD CONSTRAINT access_rights_token_id_fkey FOREIGN KEY (token_id) REFERENCES access_tokens(id);
+    ADD CONSTRAINT access_rights_token_id_fkey FOREIGN KEY (token_id) REFERENCES access_tokens(id) ON DELETE CASCADE;
 
 
 --
@@ -835,6 +908,22 @@ ALTER TABLE ONLY camera_activities
 
 ALTER TABLE ONLY camera_endpoints
     ADD CONSTRAINT camera_endpoints_camera_id_fkey FOREIGN KEY (camera_id) REFERENCES cameras(id) ON DELETE CASCADE;
+
+
+--
+-- Name: camera_share_requests_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY camera_share_requests
+    ADD CONSTRAINT camera_share_requests_camera_id_fkey FOREIGN KEY (camera_id) REFERENCES cameras(id) ON DELETE CASCADE;
+
+
+--
+-- Name: camera_share_requests_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY camera_share_requests
+    ADD CONSTRAINT camera_share_requests_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -898,7 +987,7 @@ ALTER TABLE ONLY vendor_models
 --
 
 ALTER TABLE ONLY cameras
-    ADD CONSTRAINT fk_streams_owner_id FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE RESTRICT;
+    ADD CONSTRAINT fk_streams_owner_id FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --

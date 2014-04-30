@@ -22,6 +22,9 @@ class CamerasController < ApplicationController
           list.each {|share| camera_ids << share['camera_id']}
           response = API_call("/cameras", :get, {ids: camera_ids.join(",")})
           @shares = JSON.parse(response.body)['cameras'] if response.success?
+          @shares.each do |c|
+            c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+          end
         end
       else
         Rails.logger.warn "Request for user camera shares was unsuccessful."

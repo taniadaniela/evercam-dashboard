@@ -87,7 +87,7 @@ class CamerasController < ApplicationController
             :cam_username => params['camera-username'],
             :cam_password => params['camera-password'],
             :vendor => params['camera-vendor'],
-            :model => params['camera-vendor'].blank? ? '' : params['camera-model']
+            :model => params['camera-vendor'].blank? ? '' : params["camera-model#{params['camera-vendor']}"]
     }
 
     response  = API_call("cameras/#{params['camera-id']}", :patch, body)

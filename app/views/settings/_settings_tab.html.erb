@@ -85,13 +85,11 @@
     </tr>
     <tr>
       <td>
-        <label class="control-label" for="camera-model">Camera Model</label>
+        <label class="control-label">Camera Model</label>
       </td>
       <td>
-
-        
         <% @vendors.each do |v| -%>
-            <select id="camera-model<%= v.exid -%>" name="camera-model" readonly="readonly" class="form-control  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
+            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" readonly="readonly" class="form-control  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
               <% v.vendor_models.each_with_index  do |m, index| -%>
                   <% if index == 0 %>
                       <option value="<%= m.name -%>" ><%= m.name -%></option>

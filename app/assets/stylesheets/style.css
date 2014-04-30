@@ -5013,7 +5013,7 @@ div.tagsinput span.tag {
 }
 body #publiccams {
     background-color: #ffffff;
-    font-family: 'Share';
+    /*font-family: 'Share';*/
 }
 #publiccams a {
     color:#000;
@@ -5036,7 +5036,7 @@ body #publiccams {
     height: 50px;
 }
 #publiccams .navbar-brand {
-    font-family:'Share',sans-serif;
+    /*font-family:'Share',sans-serif;*/
     font-size: 24px;
     color:#000000;
     font-weight: 700;
@@ -5064,6 +5064,9 @@ body #publiccams {
 }
 #publiccams #footer {
     background-color: #ffffff;
+}
+#publiccams .navbar {
+    border-bottom:none;
 }
 .data {
     margin-top: -10px;

@@ -17,7 +17,7 @@
 
     <li class="menu-item">
       <a href="/" class="">
-        <span>Shared Cameras</span>
+        <span>Cameras Shared With Me</span>
       </a>
     </li>
 
@@ -130,7 +130,7 @@
               </div>
               <div class='col-lg-4'>
                 <div class="media">
-                  <img id="testimg" src="/" class="text-center" width="100%">
+                  <img id="testimg-add" src="/" class="text-center" width="100%">
                   <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
                 </div>
                 <span id="test-error"><%= flash[:message] %></span>
@@ -292,10 +292,7 @@
       $(this).next(".settings").slideToggle(500);
     });
 
-    // Replace Broken Image
-    $('img').error(function () {
-      $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
-    });
+
       Notification.init(".bb-alert");
       <% if flash[:message] %>
       Notification.show('<%= flash[:message] %>');

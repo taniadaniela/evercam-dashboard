@@ -42,9 +42,9 @@
          <li class="menu-item">
             <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
           </li>
-          <!--  <li class="menu-item">
-             <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add Public Camera</a>
-           </li>-->
+          <li class="menu-item">
+             <a href="/publiccam"><span class="glyphicon glyphicon-plus"></span>Add Public Camera</a>
+           </li>
         </ul>
 
       </div>
@@ -55,12 +55,16 @@
             <div>
 
               <% @cameras.each do |camera| %>
+                <a href="/cameras/<%= camera['id'] %>">
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                 
-                  <a href="/cameras/<%= camera['id'] %>">
+
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                    <img src="<%= camera['jpg'] %>">
-                    <div id="offline"> <% if camera['is_online'] %>
+                    <img src="<%= camera['jpg'] %>" onerror="this.style.display='none'" alt="">
+
+
+
+                <div id="offline"> <% if camera['is_online'] %>
                           <span class="green">Online</span>
                       <% else %>
                           <span class="red">Offline</span>
@@ -68,15 +72,16 @@
                       <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
                     </div>
 
-                  </a>
+
                 
               </div>
+                </a>
               <% end %>
               <% @shares.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                 <a href="/cameras/<%= camera['id'] %>">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                  <img src="/cameras/<%= camera['id'] %>/jpg">
+                  <img src="<%= camera['jpg'] %>" alt="">
                   <div id="offline"> <% if camera['is_online'] %>
                         <span class="green">Online</span>
                     <% else %>
@@ -103,11 +108,14 @@
 </div> <!--boxed page end-->
 <script type="text/javascript">
 
-    $(function () {
-        // Replace Broken Image
-        $('img').error(function(){
-            $(this).attr('src', 'https://www.evercam.io/img/error.png ');
-        });
-    });
+
+
+   // $(function () {
+      //$('img').on('error', function( ){
+        //$(this).attr('src', 'https://www.evercam.io/img/error.png ');
+      //});
+
+    //});
+
 
 </script>

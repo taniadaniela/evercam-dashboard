@@ -186,10 +186,6 @@
             $('input:text').removeAttr("readonly");
         });
 
-        // Replace Broken Image
-        $('img').error(function(){
-            $(this).attr('src', 'https://www.evercam.io/img/connect.png ');
-        });
 
         // Notifications
         Notification.init(".bb-alert");

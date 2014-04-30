@@ -3,6 +3,7 @@ class PublicController < ApplicationController
   include ApplicationHelper
 
   def index
+    @user = current_user
     values = {offset: (params[:offset] || 0),
               limit:  (params[:limit] || 100)}
     response = API_call("/public/cameras", :get, values)

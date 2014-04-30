@@ -25,3 +25,4 @@
 //= require explorer
 //= require alerts
 //= require bootbox-4.2.0
+//= require publiccam

@@ -51,6 +51,11 @@
         <tr>
           <td><%= link_to(c["name"], "publiccam/#{c["id"]}") %></td>
           <td><%= link_to(c["extra_urls"]["external_jpg_url"], c["extra_urls"]["external_jpg_url"], :only_path => false, target: '_blank') %></td>
+          <td class="">
+            <div class="add-hover ">
+              <a href="#" class="create-share-button" camera_id="<%= c.exid %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
+            </div>
+          </td>
           <td>
             <% if c["is_online"] %>
             <span class="green">Online</span>
@@ -69,5 +74,5 @@
 </div><!-- #PUBLICCAMS -->
 
 <script>
-
+$(window.Evercam.Publiccam.initialize);
 </script>

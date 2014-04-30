@@ -65,7 +65,9 @@ h5 small {
     text-decoration: none;
     color: #428BCA;
 }
-
+.blue {
+    color:#428bca;
+}
 ::selection {
     background:#428BCA;
     color:#fff;
@@ -955,11 +957,13 @@ select {
     background-repeat: no-repeat;
     background-position: right;
 }
-#sharing_list_table {
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+ {
     margin-bottom: 0px;
     margin-top: 20px;
     margin-left: -5px;
-
 }
 .email-input {
     margin-right: 52px;

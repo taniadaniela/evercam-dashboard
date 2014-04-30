@@ -100,13 +100,41 @@
             </td>
             <td class="col-lg-2">
               <div class="form-group">
-                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"></span> Remove User</span>
+                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"></span> Remove User</a>
               </div>
             </td>
 
           </tr>
         <% end %>
       <% end %>
+      <% if @share_requests %>
+          <% @share_requests.each do |share_request| %>
+            <% rights = share_request["rights"].split(",") %>
+            <tr>
+              <td class="col-lg-4"><span class="glyphicon glyphicon-user"></span> <%= share_request["email"] %><small class="blue">  ...pending</small></td>
+              <td class="col-lg-2">
+                <div class="input-group input-group-sm">
+                  <select class="form-control reveal" show-class="show-save">
+                    <option <%= "selected" if !rights.include?("View") %>>Read Only</option>
+                    <option <%= "selected" if rights.include?("View") %>>Full Rights</option>
+                  </select>
+                </div>
+              </td>
+              <!-- <td class="col-lg-2">
+                   <a href="#">change</a>
+               </td>-->
+              <td class="col-lg-2">
+                <button type="submit" id="set_permissions_submit" class="save show-save btn btn-primary btn-sm">Save</button>
+              </td>
+              <td class="col-lg-2">
+                <div class="form-group">
+
+                </div>
+              </td>
+
+            </tr>
+          <% end %>
+        <% end %>
         </tbody>
         <!--<tfoot>
         <tr>

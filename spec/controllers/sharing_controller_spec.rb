@@ -247,4 +247,73 @@ describe SharingController do
          expect(output["share_id"]).to eq(1000)
       end
    end
+
+   describe 'DELETE /share/request' do
+      let!(:camera) {
+         create(:private_camera)
+      }
+
+      let!(:pending_share_request) {
+         create(:pending_camera_share_request, camera: camera)
+      }
+
+      let(:owner) {
+         camera.owner
+      }
+
+      let(:credentials) {
+         {api_id: owner.api_id, api_key: owner.api_key}
+      }
+
+      let(:parameters) {
+         {:camera_id => camera.exid,
+          :email => pending_share_request.email}
+      }
+
+      it 'returns failure if a camera_id is not specified' do
+         parameters.delete(:camera_id)
+         delete :cancel_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Insufficient parameters provided.")
+      end
+
+      it 'returns failure if an email is not specified' do
+         parameters.delete(:email)
+         delete :cancel_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Insufficient parameters provided.")
+      end
+
+      it 'returns failure if it gets a negative response from the API call' do
+         stub_request(:delete, "#{EVERCAM_API}/shares/requests/#{camera.exid}").
+            to_return(:status => 403, :body => "", :headers => {})
+
+         delete :cancel_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Failed to delete camera share request.")
+      end
+
+      it 'returns success if it gets a positive response from the API call' do
+         stub_request(:delete, "#{EVERCAM_API}/shares/requests/#{camera.exid}").
+            to_return(:status => 200, :body => "", :headers => {})
+
+         delete :cancel_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output["success"]).to eq(true)
+      end
+   end
 end

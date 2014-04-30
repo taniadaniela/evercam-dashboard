@@ -41,6 +41,23 @@ class SharingController < ApplicationController
       render json: result
    end
 
+   def cancel_share_request
+      result = {success: true}
+      if params[:camera_id] && params[:email]
+         values = {email: params[:email]}
+         response = API_call("/shares/requests/#{params[:camera_id]}", :delete, values)
+         if !response.success?
+            Rails.logger.warn "API call failed. Status code returned was #{response.code}. "\
+                              "Response body is '#{response.body}'."
+            result[:success] = false
+            result[:message] = "Failed to delete camera share request."
+         end
+      else
+         result = {success: false, message: "Insufficient parameters provided."}
+      end
+      render json: result
+   end
+
    def create
       result = {success: true}
       if params.include?(:camera_id) && params.include?(:permissions) && params.include?(:email)

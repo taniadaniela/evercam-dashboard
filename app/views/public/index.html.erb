@@ -3,6 +3,9 @@
   <div class="navbar navbar-default">
     <div class="container">
       <!-- MOBILE NAVBAR -->
+      <div class="col-md-6 pull-right">
+        <a class="apps-btn btn pull-right" href="/">Back to Camera Dashboard</a>
+      </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
           <span class="icon-bar"></span>
@@ -12,12 +15,12 @@
         <!-- TITLE -->
         <div class ="row">
           <div class="col-md-12">
-            <a class="navbar-brand" title="PublicCams" href="#">PublicCams.io</a>
+              <a class="navbar-brand" title="PublicCams" href="#">PublicCams</a>
           </div>
         </div>
         <div class="row sub-title">
           <div class="col-md-12">
-            A list of Public Cameras from around the world
+            A list of Public Cameras from around the world.
           </div>
         </div>
       </div>
@@ -40,7 +43,9 @@
       <thead>
         <th>Camera</th>
         <th>Snapshot URL</th>
+        <th class="col-md-3"><span class="">Add to Shared Cameras</span></th>
         <th>Status</th>
+
       </thead>
       <% @cameras.each do |c| %>
         <tr>
@@ -53,6 +58,7 @@
             <span class="red">Offline</span>
             <% end %>
           </td>
+
         </tr>
         <% end %>
       </table>

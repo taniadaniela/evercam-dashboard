@@ -1,8 +1,8 @@
 /*Template Name:BucketAdmin Dashboard build with Bootstrap v3.0.3Template Version:1.0Author:ThemeBucket*/
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-@import url(http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
-@import url(http://fonts.googleapis.com/css?family=Share:400,700);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+@import url(//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
+@import url(//fonts.googleapis.com/css?family=Share:400,700);
 
 
 html {
@@ -28,6 +28,10 @@ a,a:hover,a:focus {
 h5 {
     font-weight: 700;
     font-size: 13px;
+}
+h5 small {
+    font-size: 90%;
+    margin-left: 4px;
 }
 .bold {
     font-weight: 600;
@@ -446,7 +450,23 @@ textarea {
     border-radius: 1px;
 }
 /*/////////////////////
-//Camera Index Page
+//ADD ANDROID PAGE
+/////////////////////*/
+.add-android-header {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 30px;
+    padding: 12px 20px 20px;
+}
+.table-borderless td {
+border-top:none !important;
+    border-bottom:1px solid #f5f5f5;
+    line-height:2.2 !Important;
+}
+.table-borderless tfoot td {
+    border-bottom:none;
+}
+/*/////////////////////
+//CAMERA INDEX PAGE
 /////////////////////*/
 #camera-dash .wrapper {
     padding: 0;
@@ -489,7 +509,27 @@ textarea {
     overflow: hidden;
     text-align: center;
 }
-
+@media (max-width: 480px) {
+    .cam-box {
+        width: 100%;
+    }
+}
+.add-cam-box {
+    padding-left: 0;
+    padding-right: 0;
+    width: 33.334%;
+    height: 250px;
+    line-height: 250px;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #f5f5f5;
+}
+@media (max-width: 480px) {
+    .add-cam-box {
+        width: 100%;
+    }
+}
 .cam-box:first-child {
     border-top-left-radius: 2px;
 }
@@ -1044,7 +1084,6 @@ API EXPLORER TAB
     .modal {
         overflow-y: auto;
     }
-
     .modal-open {
         overflow: auto;
     }
@@ -3648,6 +3687,13 @@ ul.amounts li {
     border-color:#f1f1f1;
     color: #797979;
 }
+li .disabled{
+    color:#e5e5e5 !important;
+
+}
+.nav > li.disabled > a {
+    color:#C0C0C0 !important;
+}
 
 /*general page*/
 .progress-xs {
@@ -4740,7 +4786,7 @@ span.customSelect.changed {
 //footer
 //////////////////*/
 #footer {
-    padding:30px 0px;
+    padding:0px 0px 30px;
 }
 #footer .container {
     border-top:1px solid #e5e5e5;
@@ -4820,7 +4866,9 @@ div.tagsinput span.tag {
     font-size:16px;
     margin: 10px 0;
 }
-
+.alert {
+    border-radius:2px;
+}
 .alert-icon {
     width:40px;
     height:40px;
@@ -4886,6 +4934,9 @@ div.tagsinput span.tag {
 .alert-danger .notification-info a {
     color:#fb6f6b;
 }
+.alert-danger {
+    background-image: none;
+}
 .alert-success .notification-info a {
     color:#42b663;
 }
@@ -4922,7 +4973,9 @@ div.tagsinput span.tag {
     }
 
 }
-
+/*///////////////////////////
+// BB ALERT STYLES
+///////////////////////////*/
 .bb-alert {
     position: fixed;
     top: 3%;
@@ -4933,6 +4986,10 @@ div.tagsinput span.tag {
     margin-left: -155px;
     width: 315px;
     text-align: center;
+}
+#signin .bb-alert {
+    top:20%;
+
 }
 .alert-info {
     background-image: none;
@@ -4971,7 +5028,7 @@ body #publiccams {
     height: 50px;
 }
 #publiccams .navbar-brand {
-    font-family: 'Share';
+    font-family:'Share',sans-serif;
     font-size: 24px;
     color:#000000;
     font-weight: 700;

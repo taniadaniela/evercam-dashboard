@@ -22,13 +22,13 @@ describe "the signin process", :type => :feature do
       expect(page).to have_text("My Cameras")
     end
 
-    it "User sings in with incorrect password" do
+    it "User signs in with incorrect password" do
       visit "/"
       fill_in "Email", :with => user.email
       fill_in "Password", :with => 'xxx'
       click_button "Sign in"
 
-      expect(page).to have_text("Invalid")
+      expect(page.html.include?("Notification.show('Invalid login/password combination')")).to eq(true)
     end
   end
 

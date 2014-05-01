@@ -5068,6 +5068,10 @@ body #publiccams {
 #publiccams .navbar {
     border-bottom:none;
 }
+.public-preview img {
+    max-height: 270px;
+    max-width: 350px;
+}
 .data {
     margin-top: -10px;
     min-height: 540px;
@@ -5082,4 +5086,29 @@ tr:hover .add-hover {
     visibility:hidden;
     opacity:0;
     transition:visibility 0s linear 0.1s,opacity 0.3s linear;
+}
+
+tr:hover .public-preview {
+    visibility: visible;
+    opacity:1;
+}
+@media (max-width: 480px) {
+    tr:hover .public-preview {
+        visibility: hidden;
+    }
+}
+.public-preview {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.1s,opacity 0.5s linear;
+    position: absolute;
+    right: 0;
+    margin-top: -27px;
+}
+.public-table {
+    width: 200px;
+}
+.image-url {
+ max-width: 200px;
+    overflow: hidden;
 }

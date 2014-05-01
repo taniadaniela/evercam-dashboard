@@ -53,13 +53,8 @@
               <% @cameras.each do |camera| %>
                 <a href="/cameras/<%= camera['id'] %>">
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-                
-
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
                     <img src="<%= camera['jpg'] %>" onerror="this.style.display='none'" alt="">
-
-
-
                 <div id="offline"> <% if camera['is_online'] %>
                           <span class="green">Online</span>
                       <% else %>
@@ -67,12 +62,10 @@
                       <% end %>
                       <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
                     </div>
-
-
-                
               </div>
                 </a>
               <% end %>
+
               <% @shares.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                 <a href="/cameras/<%= camera['id'] %>">

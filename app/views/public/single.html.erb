@@ -1,34 +1,50 @@
-<div id="publiccams">
-  <header role="banner">
-    <div class="navbar navbar-default">
-      <div class="container">
-        <div class="col-md-6 pull-right">
-          <a class="apps-btn btn pull-right" href="/">Back to Camera Dashboard</a>
-        </div>
-        <!-- MOBILE NAVBAR -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- TITLE -->
-          <div class ="row">
-            <div class="col-md-12">
-              <a class="navbar-brand" title="PublicCams" href="/publiccam">PublicCams.io</a>
+<div class="boxed-page">
+  <div class="container clearfix">
+    <section id="dev-dash">
+
+      <!--sidebar start-->
+      <div id="sidebar" class="col-md-2 col-xs-12">
+        <ul class="sidebar-menu">
+          <li class="menu-item">
+            <a href="/" class="">
+              <span>My Cameras</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/" class="">
+              <span>Cameras Shared With Me</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
+          </li>
+          <li class="menu-item">
+            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
+          </li>
+          <li class="menu-item active">
+            <a href="/publiccam"><span class="glyphicon glyphicon-plus"></span>Add Public Camera</a>
+          </li>
+        </ul>
+      </div>
+      <!--sidebar end-->
+
+      <!--main content start-->
+      <div class="col-md-10 col-xs-12 wrapper">
+        <section id="main-content">
+          <div class="row widget-header">
+            <div class='col-md-12 widget-article-header'>
+              <h3>Add a Public Camera</h3>
+              <p>Repository of Public Cameras from around the world that you can add to your Camera Dashboard</p>
+
             </div>
           </div>
-          <div class="row sub-title">
-            <div class="col-md-12">
-              A list of Public Cameras from around the world
+            <div class="col-lg-6 list">
+              <span class="glyphicon glyphicon-arrow-left"></span><%= link_to 'Back to Camera List', '/publiccam' %>
             </div>
-          </div>
-        </div>
-        <!-- SEARCH BAR -->
-        <!--<div class="collapse navbar-collapse navbar-responsive-collapse">
-          <form class="navbar-form navbar-right" role="search" method="get" id="searchform" action="">
-            <div class="form-group">
-              <input name="s" id="s" type="text" class="search-query form-control" autocomplete="off" placeholder="search" data-provide="typeahead" data-items="4" data-source=''>
+            <div class="col-lg-6">
+              <span class="pull-right">
+              <a href="#" class="create-share-button btn evercam-btn"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
+              </span>
             </div>
           </form>
         </div>-->

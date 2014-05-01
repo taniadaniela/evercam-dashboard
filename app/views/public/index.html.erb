@@ -1,3 +1,6 @@
+<div class="bb-alert alert alert-danger" style="display:none;">
+  <span></span>
+</div>
 <div class="boxed-page">
   <div class="container clearfix">
     <section id="dev-dash">
@@ -44,34 +47,29 @@
 
                       <table class="table table-hover">
                         <thead>
+                        <th class="col-md-6">Preview</th>
                         <th class="col-md-3 public-table">Camera</th>
-                        <th class="col-md-4 image-url">Image URL</th>
-                        <th class="col-md-3"><span class="">Add</span></th>
-                        <th class="col-md-2">Status</th>
-                        <th class="col-md-2 text-right">Preview</th>
+
+                        <th class="col-md-2"><span class="">Add to My Cameras</span></th>
+                        <th class="col-md-1 text-right">Status</th>
                         </thead>
                         <% @cameras.each do |c| %>
                           <tr>
-
-
-                            <td><%= link_to(c.name, "publiccam/#{c.exid}") %></td>
-                            <td>
-
-                              <%= link_to(c.external_jpg_url, c.external_jpg_url, :only_path => false, target: '_blank') %></td>
-                            <td class="">
+                            <td class="col-md-6">
+                              <div class="public-preview"><img class="" src="<%= c["extra_urls"]["external_jpg_url"] %>"></div>
+                            </td>
+                            <td class="col-md-3 public-list-name"><%= link_to(c["name"], "publiccam/#{c['id']}") %></td>
+                            <td class="col-md-2">
                               <div class="add-hover">
                                 <a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a>
                               </div>
                             </td>
-                            <td>
-                              <% if c.is_online %>
-                                <span class="green">Online</span>
+                            <td class="col-md-1 text-right">
+                              <% if c["is_online"] %>
+                                <span class="green text-right">Online</span>
                               <% else %>
-                                <span class="red">Offline</span>
+                                <span class="red text-right">Offline</span>
                               <% end %>
-                            </td>
-                            <td>
-                              <div class="col-md-2 public-preview"><img class="pull-right" src="<%= c.external_jpg_url %>"></div>
                             </td>
                           </tr>
                         <% end %>
@@ -101,6 +99,7 @@
 
 <script>
 $(window.Evercam.Publiccam.initialize);
+Notification.init(".bb-alert");
 
 
 </script>

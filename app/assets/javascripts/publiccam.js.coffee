@@ -1,3 +1,11 @@
+showError = (message) ->
+  Notification.show(message)
+  true
+
+showFeedback = (message) ->
+  Notification.show(message)
+  true
+
 onAddShareClicked = (event) ->
   event.preventDefault()
   link=$(event.target)
@@ -9,9 +17,9 @@ onAddShareClicked = (event) ->
     false
   onSuccess = (data, status, jqXHR) ->
     if data.success
-      alert("Camera successfully Added to your Shared Cameras")
+      showFeedback("Camera successfully Added to your Shared Cameras")
     else
-      alert("Adding the Public Camera to your Shared Cameras was unsuccessful")
+      showError("Adding Camera to your Shared Cameras Failed")
     true
   window.Evercam.Share.createShare(cameraID, emailAddress, permissions, onSuccess, onError)
   true

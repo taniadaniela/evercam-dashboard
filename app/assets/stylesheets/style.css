@@ -5074,7 +5074,7 @@ body #publiccams {
     border-bottom:none;
 }
 .public-preview img {
-    max-width: 260px;
+    max-width: 420px;
 }
 .data {
     margin-top: -10px;
@@ -5106,15 +5106,21 @@ tr:hover .public-preview {
     opacity: 0;
     transition: visibility 0s linear 0.1s,opacity 0.5s linear;
     position: absolute;
-    right: 0;
-    margin-top: -27px;
+    margin-top: -17px;
+    margin-left: -8px;
+    min-width: 375px;
 }
 .public-table {
     width: 200px;
 }
+.public-list-name {
+    max-width:175px;
+
+}
 .image-url {
  max-width: 200px;
     overflow: hidden;
+    font-size:11px;
 }
 .snapshot-link {
     font-size:11px;

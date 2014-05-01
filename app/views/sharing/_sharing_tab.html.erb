@@ -103,7 +103,6 @@
                   <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"></span></span> Remove User</a>
               </div>
             </td>
-
           </tr>
         <% end %>
       <% end %>
@@ -181,10 +180,8 @@
 <!--LINK TO SHARE-->
 <div class="col-md-6 share-link">
     <h5><span class="glyphicon glyphicon-link"></span>  Link to Share</h5>
-    <div class="well well-sm"><%= "http://evr.cm/#{@camera['id']}.html" %></div>
-
+  <table class="table table-borderless-2"><tr><td><%= "http://evr.cm/#{@camera['id']}.html" %></td></tr><tr><td></td></td></tr></table>
 </div>
-
 
 
 <script type="text/javascript">

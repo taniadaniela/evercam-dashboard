@@ -467,6 +467,11 @@ border-top:none !important;
 .table-borderless tfoot td {
     border-bottom:none;
 }
+.table-borderless-2 {
+    border-bottom:none !important;
+    width:auto;
+}
+
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/

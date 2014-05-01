@@ -86,7 +86,7 @@
             <td class="col-lg-4"><span class="glyphicon glyphicon-user"></span> <%= share["email"] %></td>
             <td class="col-lg-2">
               <div class="input-group input-group-sm">
-                <select class="form-control reveal" show-class="show-save">
+                <select class="form-control reveal">
                   <option <%= "selected" if !rights.include?("View") %>>Read Only</option>
                   <option <%= "selected" if rights.include?("View") %>>Full Rights</option>
                 </select>
@@ -96,7 +96,7 @@
                 <a href="#">change</a>
             </td>-->
             <td class="col-lg-2">
-              <button type="submit" id="set_permissions_submit" class="save show-save btn btn-primary btn-sm">Save</button>
+              <button type="submit" id="set_permissions_submit" class="save btn btn-primary btn-sm">Save</button>
             </td>
             <td class="col-lg-2">
               <div class="form-group">
@@ -190,26 +190,23 @@
 <script type="text/javascript">
   $(window.Evercam.Share.initializeTab);
   $(function () {
-      //reveal & hide save button for rights
-      $('.save').hide();
-      $('.reveal').focus(function() {
-          $('.save').hide();
-          $("."+$(this).attr('show-class')).fadeIn();
-      });
-      $('.save').click(function() {
-              $('.save').fadeOut();
-      });
+    //reveal & hide save button for rights
+    $('.save').hide();
+    $('.reveal').focus(function () {
+      var save = $(this).parents('tr').find('.save');
+      if (save.is(':hidden')) save.fadeIn();
+    });
+    $('.save').click(function () {
+      $(this).fadeOut();
+    });
 
-          $("input[name$='sharingOptionRadios']").click(function() {
-              var test = $(this).val();
+    $("input[name$='sharingOptionRadios']").click(function () {
+      var test = $(this).val();
 
-              $("div.desc").hide();
-              $("#Shares" + test).show();
-          });
-      Notification.init(".bb-alert");
+      $("div.desc").hide();
+      $("#Shares" + test).show();
+    });
+    Notification.init(".bb-alert");
 
   });
-
-
-
 </script>

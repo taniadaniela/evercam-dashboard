@@ -44,10 +44,10 @@
       </thead>
       <% @cameras.each do |c| %>
         <tr>
-          <td><%= link_to(c.name, "publiccam/#{c.exid}") %></td>
-          <td><%= link_to(c.external_jpg_url, c.external_jpg_url, :only_path => false, target: '_blank') %></td>
+          <td><%= link_to(c["name"], "publiccam/#{c["id"]}") %></td>
+          <td><%= link_to(c["extra_urls"]["external_jpg_url"], c["extra_urls"]["external_jpg_url"], :only_path => false, target: '_blank') %></td>
           <td>
-            <% if c.is_online %>
+            <% if c["is_online"] %>
             <span class="green">Online</span>
             <% else %>
             <span class="red">Offline</span>

@@ -16,8 +16,14 @@ class PublicController < ApplicationController
   end
 
   def single
-    @camera = Camera.where(exid: params[:id]).first
-    @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera.exid}/snapshot.jpg"
+    response = API_call("/cameras/#{params[:id]}", :get)
+    if response.success?
+      data = JSON.parse(response.body)
+      if data.include?("cameras") && data["cameras"].size > 0
+        @camera        = data["cameras"][0]
+        @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg"
+      end
+    end
   end
 
 end

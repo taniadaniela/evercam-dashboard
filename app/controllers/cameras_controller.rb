@@ -59,6 +59,8 @@ class CamerasController < ApplicationController
 
       body[:internal_http_port] = params['local-http'] unless params['local-http'].empty?
       body[:external_http_port] = params['port'] unless params['port'].empty?
+      body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].empty?
+      body[:external_rtsp_port] = params['ext-rtsp-port'] unless params['ext-rtsp-port'].empty?
       body[:internal_host] = params['local-ip'] unless params['local-ip'].empty?
       response  = API_call('cameras', :post, body)
     rescue NoMethodError => _

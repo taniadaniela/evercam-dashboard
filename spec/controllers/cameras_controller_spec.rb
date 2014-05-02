@@ -20,6 +20,8 @@ describe CamerasController do
      'camera-model' => '',
      'local-http' => '',
      'port' => '',
+     'ext-rtsp-port' => '',
+     'local-rtsp' => '',
      'local-ip' => ''}
   }
 
@@ -33,7 +35,9 @@ describe CamerasController do
      'camera-password' => '',
      'camera-vendor' => '',
      'local-http' => '',
+     'ext-rtsp-port' => '',
      'port' => '',
+     'local-rtsp' => '',
      'local-ip' => ''}
   }
 
@@ -110,7 +114,9 @@ describe CamerasController do
        'camera-vendor' => model.vendor.exid,
        "camera-model#{model.vendor.exid}" => model.name,
        'local-http' => '111',
+       'ext-rtsp-port' => '333',
        'port' => '8888',
+       'local-rtsp' => '222',
        'local-ip' => '127.0.1.1'}
     }
 

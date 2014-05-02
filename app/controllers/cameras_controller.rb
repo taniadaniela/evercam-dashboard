@@ -35,8 +35,6 @@ class CamerasController < ApplicationController
   end
 
   def new
-    @vendors = Vendor.all
-    @models  = VendorModel.all
   end
 
   def jpg
@@ -68,8 +66,6 @@ class CamerasController < ApplicationController
 
     if response.nil? or not response.success?
       flash[:message] = JSON.parse(response.body)['message'] unless response.nil?
-      @vendors = Vendor.all
-      @models  = VendorModel.all
       render :new
     elsif response.success?
       redirect_to "/cameras/#{params['camera-id']}"
@@ -104,8 +100,6 @@ class CamerasController < ApplicationController
       response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-      @vendors = Vendor.all
-      @models  = VendorModel.all
       response  = API_call("users/#{current_user.username}/cameras", :get)
       if response.success?
         @cameras =  JSON.parse(response.body)['cameras']
@@ -127,8 +121,6 @@ class CamerasController < ApplicationController
       response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-      @vendors = Vendor.all
-      @models = VendorModel.all
       render :single
     end
   end
@@ -141,8 +133,6 @@ class CamerasController < ApplicationController
     @shares         = JSON.parse(response.body)['shares']
     response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
     @share_requests = JSON.parse(response.body)['share_requests']
-    @vendors  = Vendor.all
-    @models   = VendorModel.all
     response  = API_call("users/#{current_user.username}/cameras", :get)
     if response.success?
       @cameras =  JSON.parse(response.body)['cameras']

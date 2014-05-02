@@ -17,11 +17,16 @@ sendAJAXRequest = (settings) ->
 
 addSharingCameraRow = (details) ->
    row  = $('<tr>')
-   cell = $('<td>')
-   cell.text(details['email'])
+   cell = $('<td>', {class: "col-lg-4"})
+   cell.append($('<span>', {class: "glyphicon glyphicon-user"}))
+   cell.append(document.createTextNode(" " + details['email']))
+   if details.type == "share_request"
+      suffix = $('<small>', {class: "blue"})
+      suffix.text(" ...pending")
+      cell.append(suffix)
    row.append(cell)
 
-   cell   = $('<td>')
+   cell   = $('<td>', {class: "col-lg-2"})
    div    = $('<div>', {class: "input-group input-group-sm"})
    select = $('<select>', {class: "form-control"})
    option = $('<option>')
@@ -38,23 +43,28 @@ addSharingCameraRow = (details) ->
    cell.append(div)
    row.append(cell)
 
-   cell = $('<td>')
+   cell = $('<td>', {class: "col-lg-2"})
    div  = $('<div>', {class: "form-group"})
    div.append($('<div>', {class: "col-sm-8"}))
    cell.append(div)
    row.append(cell)
 
-   cell  = $('<td>')
+   cell  = $('<td>', {class: "col-lg-2"})
    div   = $('<div>', {class: "form-group"})
-   inner = $('<div>', {class: "col-sm-8"})
-   span  = $('<span>', {class: "delete-share-control"})
-   span.attr("camera_id", details["camera_id"])
-   span.attr("share_id", details["share_id"])
+   span = $('<span>')
    span.append($('<span>', {class: "glyphicon glyphicon-remove"}))
-   span.append($(document.createTextNode(" Remove User")))
-   span.click(onDeleteShareClicked)
-   inner.append(span)
-   div.append(inner)
+   if details.type == "share"
+      span.addClass("delete-share-control")
+      span.append($(document.createTextNode(" Remove User")))
+      span.click(onDeleteShareClicked)
+      span.attr("share_id", details["share_id"])
+   else
+      span.addClass("delete-share-request-control")
+      span.append($(document.createTextNode(" Revoke Request")))
+      span.click(onDeleteShareRequestClicked)
+      span.attr("email", details["email"])
+   span.attr("camera_id", details["camera_id"])
+   div.append(span)
    cell.append(div)
    row.append(cell)
 
@@ -110,9 +120,9 @@ onSetCameraAccessClicked = (event) ->
 
 onDeleteShareClicked = (event) ->
    event.preventDefault()
-   control  = $(event.currentTarget)
-   row      = control.parent().parent().parent().parent()
-   data     =
+   control = $(event.currentTarget)
+   row     = control.parent().parent().parent()
+   data    =
       camera_id: control.attr("camera_id")
       share_id: control.attr("share_id")
    onError = (jqXHR, status, error) ->
@@ -135,6 +145,35 @@ onDeleteShareClicked = (event) ->
       success: onSuccess
       type: 'DELETE'
       url: '/share'
+   sendAJAXRequest(settings)
+   true
+
+onDeleteShareRequestClicked = (event) ->
+   event.preventDefault()
+   control = $(event.currentTarget)
+   row     = control.parent().parent().parent()
+   data    =
+      camera_id: control.attr("camera_id")
+      email: control.attr("email")
+   onError = (jqXHR, status, error) ->
+      showError("Delete of share request failed. Please contact support.")
+      false
+   onSuccess = (data, success, jqXHR) ->
+      if data.success
+         onComplete = ->
+            row.remove()
+         row.fadeOut('slow', onComplete)
+      else
+         showError("Delete of share request failed. Please contact support.")
+      true
+   settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'DELETE'
+      url: '/share/request'
    sendAJAXRequest(settings)
    true
 
@@ -186,6 +225,7 @@ createShare = (cameraID, email, permissions, onSuccess, onError) ->
 initializeSharingTab = ->
    $('#set_permissions_submit').click(onSetCameraAccessClicked)
    $('.delete-share-control').click(onDeleteShareClicked)
+   $('.delete-share-request-control').click(onDeleteShareRequestClicked)
    $('#submit_share_button').click(onAddSharingUserClicked)
    true
 

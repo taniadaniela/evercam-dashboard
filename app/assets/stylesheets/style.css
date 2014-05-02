@@ -404,7 +404,7 @@ h5 small {
 /////////////////////*/
 .widget-header {
     border-bottom: 1px solid #E5E5E5;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     padding-bottom: 20px;
 }
 .widget-article-header {
@@ -467,6 +467,11 @@ border-top:none !important;
 .table-borderless tfoot td {
     border-bottom:none;
 }
+.table-borderless-2 {
+    border-bottom:none !important;
+    width:auto;
+}
+
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/
@@ -1026,15 +1031,27 @@ select {
     overflow: hidden;
     padding: 14px 14px 12px;
     position: relative;
-    transition: box-shadow 0.2s ease 0s, background 0.2s ease 0s;
+    transition: box-shadow 0.2s ease 0.3s, background 0.2s ease 0s;
     vertical-align: middle;
     white-space: nowrap;
 }
 
-.apps-btn:hover, apps-btn.active {
+.apps-btn:hover, .apps-btn.active {
     background: none repeat scroll 0 0 #FFFFFF;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.evercam-btn {
+    cursor: pointer;
+    border: 1px solid #f5f5f5;
+    border-radius: 2px;
+    -webkit-transition: border 0.3s ease-in-out 0.3s;
+}
+.evercam-btn:hover {
+    border: 1px solid #428BCA;
+    transition: border 0.3s ease-in-out 0s;
 }
 /*/////////////////////
 API EXPLORER TAB
@@ -5012,13 +5029,7 @@ div.tagsinput span.tag {
 }
 body #publiccams {
     background-color: #ffffff;
-    font-family: 'Share';
-}
-#publiccams a {
-    color:#000;
-}
-#publiccams a:hover {
-    color:#16A085;
+    /*font-family: 'Share';*/
 }
 #publiccams .sub-title {
     margin-bottom: 10px;
@@ -5035,7 +5046,7 @@ body #publiccams {
     height: 50px;
 }
 #publiccams .navbar-brand {
-    font-family:'Share',sans-serif;
+    /*font-family:'Share',sans-serif;*/
     font-size: 24px;
     color:#000000;
     font-weight: 700;
@@ -5056,13 +5067,66 @@ body #publiccams {
 /*//// SINGLE /////*/
 .list {
     margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 14px;
 }
 #publiccams .camera-image {
 }
 #publiccams #footer {
     background-color: #ffffff;
 }
+#publiccams .navbar {
+    border-bottom:none;
+}
+.public-preview img {
+    max-width: 420px;
+}
 .data {
     margin-top: -10px;
     min-height: 540px;
+}
+tr:hover .add-hover {
+    visibility:visible;
+    opacity:1;
+    transition-delay:0s;
+
+}
+.add-hover {
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0s linear 0.1s,opacity 0.3s linear;
+}
+
+tr:hover .public-preview {
+    visibility: visible;
+    opacity:1;
+}
+@media (max-width: 480px) {
+    tr:hover .public-preview {
+        visibility: hidden;
+    }
+}
+.public-preview {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.1s,opacity 0.5s linear;
+    position: absolute;
+    margin-top: -17px;
+    margin-left: -8px;
+    min-width: 375px;
+}
+.public-table {
+    width: 200px;
+}
+.public-list-name {
+    max-width:175px;
+
+}
+.image-url {
+ max-width: 200px;
+    overflow: hidden;
+    font-size:11px;
+}
+.snapshot-link {
+    font-size:11px;
 }

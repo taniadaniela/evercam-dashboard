@@ -145,10 +145,6 @@ onAddSharingUserClicked = (event) ->
       permissions = "minimal"
    else
       permissions = "full"
-   data =
-      camera_id: $('#sharing_tab_camera_id').val()
-      email:     $('#sharingUserEmail').val()
-      permissions: permissions
    onError = (jqXHR, status, error) ->
       showError("Add camera shared failed. Ensure the email address is correct and that the email has an Evercam account associated with it.")
       false
@@ -166,17 +162,26 @@ onAddSharingUserClicked = (event) ->
       else
          showError("Adding a User failed. Please check the User's email address.")
       true
-
-   settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      type: 'POST'
-      url: '/share'
-   sendAJAXRequest(settings)
+   createShare($('#sharing_tab_camera_id').val(), emailAddress, permissions, onSuccess, onError)
    true
+
+createShare = (cameraID, email, permissions, onSuccess, onError) ->
+  data =
+    camera_id: cameraID
+    email: email
+    permissions: permissions
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'POST'
+    url: '/share'
+  sendAJAXRequest(settings)
+  true
+
 
 initializeSharingTab = ->
    $('#set_permissions_submit').click(onSetCameraAccessClicked)
@@ -189,3 +194,4 @@ if !window.Evercam
 
 window.Evercam.Share =
    initializeTab: initializeSharingTab
+   createShare: createShare

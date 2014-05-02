@@ -152,7 +152,7 @@
                 <label class="control-label" for="camera-vendor">Camera Vendor</label>
                 <select id="camera-vendor" name="camera-vendor" class="form-control">
                   <option value="">Select Make</option>
-                  <% @vendors.each_with_index  do |v, index| -%>
+                  <% vendors.each_with_index  do |v, index| -%>
                       <option value="<%= v.exid -%>">
                         <%= v.name -%>
                       </option>
@@ -162,9 +162,9 @@
 
               <div class='col-lg-6 form-group'>
                 <label class="control-label">Camera Model</label>
-                <% @vendors.each do |v| -%>
+                <% vendors.each do |v| -%>
                     <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
-                      <% v.vendor_models.each_with_index  do |m, index| -%>
+                      <% models(v.id).each_with_index  do |m, index| -%>
                           <% if index == 0 %>
                               <option selected="selected" value="<%= m.name  -%>"><%= m.name -%></option>
                           <% else %>

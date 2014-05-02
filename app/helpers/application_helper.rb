@@ -1,6 +1,15 @@
 module ApplicationHelper
   include SessionsHelper
   #noinspection RubyArgCount
+
+  def vendors
+    @vendors ||= Vendor.order(:name).all
+  end
+
+  def models(vendor)
+    VendorModel.where(:vendor_id => vendor).order(Sequel.lit("case when name = 'Default' then 0 else 1 end, name")).all
+  end
+
   def API_call(url, method, body={}, params={})
     unless current_user.nil?
       if method == :get
@@ -29,7 +38,6 @@ module ApplicationHelper
       followlocation: true
     )
     request.run
-    Rails.logger.debug "API Response:\n#{request.response.body}"
     request.response
   end
 end

@@ -13,13 +13,13 @@ onAddShareClicked = (event) ->
   cameraID = link.attr("camera_id")
   permissions = "minimal"
   onError = (jqXHR, status, error) ->
-    alert("Add Camera to my Shared Camera failed")
+    showError("Add camera to my shared cameras failed.")
     false
   onSuccess = (data, status, jqXHR) ->
     if data.success
-      showFeedback("Successfully Added to your Shared Cameras")
+      showFeedback("Successfully added to your shared cameras.")
     else
-      showError("Failed to add Camera to your Shared Cameras")
+      showError("Failed to add camera to your shared cameras.")
     true
   window.Evercam.Share.createShare(cameraID, emailAddress, permissions, onSuccess, onError)
   true

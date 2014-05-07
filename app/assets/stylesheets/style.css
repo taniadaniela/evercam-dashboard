@@ -33,6 +33,10 @@ h5 small {
     font-size: 90%;
     margin-left: 4px;
 }
+strong {
+    font-weight: 700;
+    font-weight: bold;
+}
 .bold {
     font-weight: 600;
 }
@@ -500,6 +504,9 @@ border-top:none !important;
 .red {
     color:#DC4C3F;
 }
+.grey {
+    color:#aaa;
+}
 #offline {
     bottom: 5px;
     color: #AAAAAA;
@@ -507,6 +514,7 @@ border-top:none !important;
     margin-left: -28px;
     position: absolute;
 }
+
 .cam-box {
     padding-left: 0;
     padding-right: 0;
@@ -843,8 +851,7 @@ select {
     clear: both;
 }
 .info-panel {
-    border-bottom: 1px solid #F5F5F5;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 #explorer .info-panel {
@@ -1437,6 +1444,21 @@ ul.plus li {
 
 #sidebar .glyphicon {
     margin-right: 4px;
+}
+#offline-menu {
+
+}
+.red-dot {
+    color: #DC4C3F;
+    position: absolute;
+    right: 7px;
+    top: 5px;
+}
+.green-dot {
+    color: #2ECC71;
+    position: absolute;
+    right: 7px;
+    top: 5px;
 }
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {

@@ -34,4 +34,6 @@ EvercamDashboard::Application.routes.draw do
    delete '/share' => 'sharing#delete'
    delete '/share/request' => 'sharing#cancel_share_request'
    post '/share' => 'sharing#create'
+   patch '/share/:id' => 'sharing#update_share'
+   patch '/share/request/:id' => 'sharing#update_share_request'
 end

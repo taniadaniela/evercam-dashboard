@@ -17,6 +17,11 @@ sendAJAXRequest = (settings) ->
 
 addSharingCameraRow = (details) ->
    row  = $('<tr>')
+   if details.type == "share_request"
+      row.attr("share-request-id", details['share_id'])
+   else
+      row.attr("share-id", details['share_id'])
+
    cell = $('<td>', {class: "col-lg-4"})
    cell.append($('<span>', {class: "glyphicon glyphicon-user"}))
    cell.append(document.createTextNode(" " + details['email']))
@@ -28,13 +33,14 @@ addSharingCameraRow = (details) ->
 
    cell   = $('<td>', {class: "col-lg-2"})
    div    = $('<div>', {class: "input-group input-group-sm"})
-   select = $('<select>', {class: "form-control"})
-   option = $('<option>')
+   select = $('<select>', {class: "form-control reveal", "show-class": "show-save"})
+   select.focus(onPermissionsFocus)
+   option = $('<option>', {value: "minimal"})
    if details.permissions != "full"
       option.attr("selected", "selected")
    option.text("Read Only")
    select.append(option)
-   option = $('<option>')
+   option = $('<option>', {value: "full"})
    if details.permissions == "full"
       option.attr("selected", "selected")
    option.text("Full Rights")
@@ -44,9 +50,13 @@ addSharingCameraRow = (details) ->
    row.append(cell)
 
    cell = $('<td>', {class: "col-lg-2"})
-   div  = $('<div>', {class: "form-group"})
-   div.append($('<div>', {class: "col-sm-8"}))
-   cell.append(div)
+   button = $('<button>', {class: "save show-save btn btn-primary bt-sm"})
+   button.text("Save")
+   if details.type == "share"
+      button.click(onSaveShareClicked)
+   else
+      button.click(onSaveShareRequestClicked)
+   cell.append(button)
    row.append(cell)
 
    cell  = $('<td>', {class: "col-lg-2"})
@@ -204,6 +214,62 @@ onAddSharingUserClicked = (event) ->
    createShare($('#sharing_tab_camera_id').val(), emailAddress, permissions, onSuccess, onError)
    true
 
+onSaveShareClicked = (event) ->
+   event.preventDefault()
+   button  = $(this)
+   row     = button.parent().parent()
+   control = row.find('select')
+   data    =
+      permissions: control.val()
+   onError = (jqXHR, status, error) ->
+      showError("Update of share failed. Please contact support.")
+      false
+   onSuccess = (data, success, jqXHR) ->
+      if data.success
+         showFeedback("Share successfully updated.")
+         button.fadeOut()
+      else
+         showError("Update of share failed. Please contact support.")
+      true
+   settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PATCH'
+      url: '/share/' + row.attr("share-id")
+   sendAJAXRequest(settings)
+   true
+
+onSaveShareRequestClicked = (event) ->
+   event.preventDefault()
+   button  = $(this)
+   row     = button.parent().parent()
+   control = row.find('select')
+   data    =
+      permissions: control.val()
+   onError = (jqXHR, status, error) ->
+      showError("Update of share request failed. Please contact support.")
+      false
+   onSuccess = (data, success, jqXHR) ->
+      if data.success
+         showFeedback("Share request successfully updated.")
+         button.fadeOut()
+      else
+         showError("Update of share request failed. Please contact support.")
+      true
+   settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PATCH'
+      url: '/share/request/' + row.attr("share-request-id")
+   sendAJAXRequest(settings)
+   true
+
 createShare = (cameraID, email, permissions, onSuccess, onError) ->
   data =
     camera_id: cameraID
@@ -221,12 +287,27 @@ createShare = (cameraID, email, permissions, onSuccess, onError) ->
   sendAJAXRequest(settings)
   true
 
+onPermissionsFocus = (event) ->
+   $(this).parent().parent().parent().find("td:eq(2) button").fadeIn()
+   true
+
+onSharingOptionsClicked = (event) ->
+   test = $(this).val();
+   $("div.desc").hide();
+   $("#Shares" + test).show();
+   true
 
 initializeSharingTab = ->
    $('#set_permissions_submit').click(onSetCameraAccessClicked)
    $('.delete-share-control').click(onDeleteShareClicked)
    $('.delete-share-request-control').click(onDeleteShareRequestClicked)
    $('#submit_share_button').click(onAddSharingUserClicked)
+   $('.update-share-button').click(onSaveShareClicked)
+   $('.update-share-request-button').click(onSaveShareRequestClicked)
+   $('.save').hide()
+   $('.reveal').focus(onPermissionsFocus);
+   $("input[name$='sharingOptionRadios']").click(onSharingOptionsClicked);
+   Notification.init(".bb-alert")
    true
 
 if !window.Evercam

@@ -86,6 +86,8 @@ describe SharingController do
       end
    end
 
+   #----------------------------------------------------------------------------
+
    describe 'DELETE /share' do
       let!(:camera) {
          create(:private_camera)
@@ -154,6 +156,8 @@ describe SharingController do
          expect(output["success"]).to eq(true)
       end
    end
+
+   #----------------------------------------------------------------------------
 
    describe 'POST /share' do
       let!(:camera) {
@@ -248,6 +252,8 @@ describe SharingController do
       end
    end
 
+   #----------------------------------------------------------------------------
+
    describe 'DELETE /share/request' do
       let!(:camera) {
          create(:private_camera)
@@ -314,6 +320,124 @@ describe SharingController do
          output = JSON.parse(response.body)
          expect(output.include?("success")).to eq(true)
          expect(output["success"]).to eq(true)
+      end
+   end
+
+   #----------------------------------------------------------------------------
+
+   describe 'PATCH /share/request' do
+      let!(:share_request) {
+         create(:pending_camera_share_request)
+      }
+
+      let(:camera) {
+         share_request.camera
+      }
+
+      let(:owner) {
+         camera.owner
+      }
+
+      let(:parameters) {
+         {id: share_request.key, permissions: "full"}
+      }
+
+      let(:credentials) {
+         {api_id: owner.api_id, api_key: owner.api_key}
+      }
+
+      it 'returns success if it gets a positive response from the API call' do
+         stub_request(:patch, "#{EVERCAM_API}/shares/requests/#{share_request.key}").
+            to_return(:status => 200, :body => "", :headers => {})
+
+         patch :update_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output["success"]).to eq(true)
+      end
+
+      it 'returns failure if it gets a negative response from the API call' do
+         stub_request(:patch, "#{EVERCAM_API}/shares/requests/#{share_request.key}").
+            to_return(:status => 403, :body => "", :headers => {})
+
+         patch :update_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Failed to update share request. Please contact support.")
+      end
+
+      it 'returns failure if permissions are not specified' do
+         parameters.delete(:permissions)
+         patch :update_share_request, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Insufficient parameters provided.")
+      end
+   end
+
+   #----------------------------------------------------------------------------
+
+   describe 'PATCH /share' do
+      let!(:share) {
+         create(:private_share)
+      }
+
+      let(:camera) {
+         share.camera
+      }
+
+      let(:owner) {
+         camera.owner
+      }
+
+      let(:parameters) {
+         {id: share.id, permissions: "full"}
+      }
+
+      let(:credentials) {
+         {api_id: owner.api_id, api_key: owner.api_key}
+      }
+
+      it 'returns success if it gets a positive response from the API call' do
+         stub_request(:patch, "#{EVERCAM_API}/shares/camera/#{share.id}").
+            to_return(:status => 200, :body => "", :headers => {})
+
+         patch :update_share, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output["success"]).to eq(true)
+      end
+
+      it 'returns failure if it gets a negative response from the API call' do
+         stub_request(:patch, "#{EVERCAM_API}/shares/camera/#{share.id}").
+            to_return(:status => 403, :body => "", :headers => {})
+
+         patch :update_share, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Failed to update share. Please contact support.")
+      end
+
+      it 'returns failure if permissions are not specified' do
+         parameters.delete(:permissions)
+         patch :update_share, parameters.merge(credentials), {user: owner.email}
+         expect(response.status).to eq(200)
+         output = JSON.parse(response.body)
+         expect(output.include?("success")).to eq(true)
+         expect(output.include?("message")).to eq(true)
+         expect(output["success"]).to eq(false)
+         expect(output["message"]).to eq("Insufficient parameters provided.")
       end
    end
 end

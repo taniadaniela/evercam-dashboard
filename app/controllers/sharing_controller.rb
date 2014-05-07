@@ -98,4 +98,36 @@ class SharingController < ApplicationController
       end
       render json: result
    end
+
+   def update_share
+      result = {success: true}
+      if params.include?(:id) && params.include?(:permissions)
+         rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
+         rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
+         values   = {rights: rights.join(",")}
+         response = API_call("/shares/camera/#{params[:id]}", :patch, values)
+         if !response.success?
+            result = {success: false, message: "Failed to update share. Please contact support."}
+         end
+      else
+         result = {success: false, message: "Insufficient parameters provided."}
+      end
+      render json: result
+   end
+
+   def update_share_request
+      result = {success: true}
+      if params.include?(:id) && params.include?(:permissions)
+         rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
+         rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
+         values   = {rights: rights.join(",")}
+         response = API_call("/shares/requests/#{params[:id]}", :patch, values)
+         if !response.success?
+            result = {success: false, message: "Failed to update share request. Please contact support."}
+         end
+      else
+         result = {success: false, message: "Insufficient parameters provided."}
+      end
+      render json: result
+   end
 end

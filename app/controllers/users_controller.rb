@@ -83,9 +83,10 @@ class UsersController < ApplicationController
     response  = API_call("users/#{current_user.username}", :patch, body)
 
     if response.success?
-      flash[:message] = 'Settings updated successfully'
+      flash.now[:message] = 'Settings updated successfully'
+      session[:user] = User.by_login(current_user.username).email
     else
-      flash[:message] = JSON.parse(response.body)['message']
+      flash.now[:message] = JSON.parse(response.body)['message']
     end
     @countries = Country.all
     refresh_user

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:new, :create, :confirm]
+  skip_before_action :authenticate_user!, only: [:new, :create, :confirm, :password_reset_request, :password_update]
   before_filter :owns_data!
-  skip_before_action :owns_data!, only: [:new, :create, :confirm]
+  skip_before_action :owns_data!, only: [:new, :create, :confirm, :password_reset_request, :password_update]
   include SessionsHelper
   include ApplicationHelper
 
@@ -91,6 +91,42 @@ class UsersController < ApplicationController
     @countries = Country.all
     refresh_user
     render :settings
+  end
+
+  def password_reset_request
+    email = params[:email]
+    unless email.nil?
+      user = User.by_login(email)
+      token = SecureRandom.hex(16)
+
+      if user
+        t = Time.now
+        expires = t + 1.hour
+
+        user.update(reset_token: token, token_expires_at: expires)
+
+        UserMailer.password_reset(email, user, token).deliver
+        flash[:message] = "Please check your email for further instructions..."
+      else
+        flash[:message] = "Email not found"
+      end
+
+
+    end
+  end
+
+  def password_update
+    token = params[:token]
+    username = params[:username]
+    user = User.by_login(username)
+    unless user.nil? or token != user.reset_token or user.token_expires_at < Time.now
+      user.update(password: params[:password], reset_token: '', token_expires_at: Time.now)
+      sign_in user
+      redirect_to "/", message: 'Your password has been changed'
+    else
+      puts request.post?
+      flash[:message] = 'Invalid username or token' if request.post?
+    end
   end
 
 end

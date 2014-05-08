@@ -16,7 +16,7 @@
       </li>
       <ul class="plus">
         <% @cameras.each do |camera| %>
-        <li class="sub-menu-item <%= is_active?("/cameras/#{camera['name']}") %>">
+        <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
           <%= link_to camera["name"], "/cameras/#{camera['id']}" %>
             <div id="offline-menu"> <% if camera['is_online'] %>
                 <span class="green-dot"><small>on</small></span>

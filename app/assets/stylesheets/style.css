@@ -1447,10 +1447,13 @@ tbody tr:hover {
 }
 .sub-menu-item {
     line-height: 14px;
-    padding: 6px 0 6px 20px;
+    padding: 7px 0 8px 20px;
+}
+.plus .active {
+    background-color: red;
 }
 .plus {
-    padding: 6px 5px 10px 0px;
+    padding: 6px 0px 10px 0px;
 }
 ul.plus li:before {
     color: #A5A5A5;

@@ -143,3 +143,4 @@ class CamerasController < ApplicationController
     end
   end
 end
+

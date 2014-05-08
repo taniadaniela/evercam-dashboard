@@ -308,7 +308,7 @@ strong {
 .navbar .navbar-nav li a.active,
 .navbar .navbar-nav li.active a {
     color: #428BCA !important;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #ffffff;
 }
 .nav > li > a:hover, .nav > li > a:focus {
     background-color:#f5f5f5 ;
@@ -1449,11 +1449,14 @@ tbody tr:hover {
     line-height: 14px;
     padding: 7px 0 8px 20px;
 }
+#sidebar .sub-menu-item:hover {
+    background-color: #FFFFFF;
+}
 .plus .active {
     background-color: red;
 }
 .plus {
-    padding: 6px 0px 10px 0px;
+    padding: 0px 0px 10px 0px;
 }
 ul.plus li:before {
     color: #A5A5A5;
@@ -1475,14 +1478,17 @@ ul.plus li {
 .red-dot {
     color: #DC4C3F;
     position: absolute;
-    right: 7px;
-    top: 5px;
+    right: 10px;
+    top: 6px;
 }
 .green-dot {
     color: #2ECC71;
     position: absolute;
-    right: 7px;
+    right: 10px;
     top: 5px;
+    border: 1px solid white;
+    border-radius: 2px;
+    padding: 0px 1px 2px 1px
 }
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {
@@ -5129,7 +5135,7 @@ body #publiccams {
 }
 .add-to-cams {
     position: absolute;
-    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.6);
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
     border-bottom-left-radius: 1px;
     cursor: pointer;
     padding: 0 10px;
@@ -5137,7 +5143,23 @@ body #publiccams {
     margin-left: -80px;
     left: 50%;
     top:50%;
-    margin-top: -14px;
+    background-color: #428bca;
+    margin-top: -12px;
+    visibility: hidden;
+    border-radius: 1px;
+    opacity: 0;
+}
+.add-to-cams:hover {
+    background-color: #3680c0;
+}
+.add-to-cams a {
+    color: #FFFFFF;
+}
+
+.public-cam-box:hover .add-to-cams {
+    visibility: visible;
+    opacity:1;
+    transition: visibility 0s linear 0.1s,opacity 0.3s linear;
 }
 /*//// SINGLE /////*/
 .list {
@@ -5171,8 +5193,6 @@ tr:hover .add-hover {
     opacity:0;
     transition:visibility 0s linear 0.1s,opacity 0.3s linear;
 }
-
-
 tr:hover .public-preview {
     visibility: visible;
     opacity:1;

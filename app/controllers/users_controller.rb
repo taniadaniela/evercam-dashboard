@@ -101,14 +101,14 @@ class UsersController < ApplicationController
 
       if user
         t = Time.now
-        expires = t + 1.hour
+        expires = t + 24.hour
 
         user.update(reset_token: token, token_expires_at: expires)
 
         UserMailer.password_reset(email, user, token).deliver
-        flash[:message] = "Please check your email for further instructions..."
+        flash[:message] = "We’ve sent you an email with instructions for changing your password."
       else
-        flash[:message] = "Email not found"
+        flash[:message] = "Email address not found."
       end
 
 
@@ -124,7 +124,6 @@ class UsersController < ApplicationController
       sign_in user
       redirect_to "/", message: 'Your password has been changed'
     else
-      puts request.post?
       flash[:message] = 'Invalid username or token' if request.post?
     end
   end

@@ -26,8 +26,8 @@ onAddShareClicked = (event) ->
 
 initialize = ->
   $(".create-share-button").click(onAddShareClicked)
+  Notification.init(".bb-alert")
   true
-
 
 if !window.Evercam
   window.Evercam = {}

@@ -17,7 +17,11 @@ class PublicController < ApplicationController
   end
 
   def single
-    response = API_call("/cameras/#{params[:id]}", :get)
+    @user = current_user
+    values = {offset: (params[:offset] || 0),
+              limit:  (params[:limit] || 100)}
+    response = API_call("/cameras/#{params[:id]}", :get, values)
+    @cameras = []
     if response.success?
       data = JSON.parse(response.body)
       if data.include?("cameras") && data["cameras"].size > 0

@@ -7,13 +7,13 @@
     <div class="col-md-6">
         <% styling = 'display: none;' %>
         <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-globe"></span> Public on the Web  <small> - Public: [Yes]  &amp; Discoverable: [Yes]</small></h5>
+          <h5><span class="glyphicon glyphicon-globe"></span> Public on the Web  <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small></h5>
         </div>
         <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small> - Public: [Yes]  &amp; Discoverable: [No]</small></h5>
+          <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small></h5>
         </div>
         <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Public: [No]  &amp; Discoverable: [No]</small></h5>
+          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Is Public: [No]  &amp; Discoverable: [No]</small></h5>
         </div>
     </div>
     <div class="col-md-4">

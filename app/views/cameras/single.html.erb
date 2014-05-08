@@ -18,6 +18,12 @@
         <% @cameras.each do |camera| %>
             <li class="sub-menu-item">
               <a href="/cameras/<%= camera['id'] %>">
+                <div id="offline-menu"> <% if camera['is_online'] %>
+                    <span class="green-dot"><small>on</small></span>
+                  <% else %>
+                    <span class="red-dot"><small>off</small></span>
+                  <% end %>
+                </div>
                 <%= camera['name'] %>
               </a>
             </li>
@@ -26,7 +32,7 @@
 
       <li class="menu-item active">
         <a href="/" class="">
-          <span>Shared Cameras</span>
+          <span>Cameras Shared With Me</span>
         </a>
       </li>
 

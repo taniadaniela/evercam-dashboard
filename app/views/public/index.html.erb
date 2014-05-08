@@ -4,7 +4,6 @@
 <div class="boxed-page">
   <div class="container clearfix">
     <section id="dev-dash">
-
       <!--sidebar start-->
       <div id="sidebar" class="col-md-2 col-xs-12">
         <ul class="sidebar-menu">
@@ -16,7 +15,7 @@
           <li class="menu-item">
             <a href="/" class="">
               <span>Cameras Shared With Me</span>
-            </a>
+  </a>
           </li>
           <li class="menu-item">
             <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
@@ -30,8 +29,6 @@
         </ul>
       </div>
       <!--sidebar end-->
-
-
       <!--main content start-->
       <div class="col-md-10 col-xs-12 wrapper">
         <section id="main-content">
@@ -42,8 +39,6 @@
 
             </div>
           </div>
-
-
         <div id="publiccams">
           <!-- Nav tabs -->
          <div class="new-panel-heading">
@@ -55,9 +50,7 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <div class="tab-pane active" id="grid">
-
               <% @cameras.each do |c| %>
-
                 <div class="col-md-4 col-sm-6 col-xs-12 public-cam-box">
                   <div id="cam-name">
                     <h5><%= link_to(c["name"], "/publiccam/#{c['id']}") %></h5>
@@ -66,11 +59,8 @@
                   <div class="add-to-cams">
                     <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
                   </div>
-
                 </div>
-
               <% end %>
-
             </div>
             <div class="tab-pane" id="list">
               <div class="row">
@@ -106,18 +96,8 @@
                 </div>
               </div><!-- #row -->
             </div>
-
-
           </div>
-
-
-
-
-
-
         </div><!-- #PUBLICCAMS -->
-
-
         </section>
       </div>
       <!--main content end-->
@@ -126,24 +106,8 @@
 </div> <!--boxed page end-->
 
 
-
-
-
-
-
-
-
-
-
-
 <script>
 $(window.Evercam.Publiccam.initialize);
-Notification.init(".bb-alert");
-
-$('#myTab a[href="#grid"]').tab('show')
-$('#myTab a[href="#list"]').tab('show')
-
-
-
+Notification.init(".bb-alert")
 </script>
 

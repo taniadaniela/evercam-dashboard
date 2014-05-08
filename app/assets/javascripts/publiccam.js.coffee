@@ -34,3 +34,6 @@ if !window.Evercam
 
 window.Evercam.Publiccam =
   initialize: initialize
+
+
+

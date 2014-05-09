@@ -19,7 +19,7 @@ EvercamDashboard::Application.routes.draw do
    post '/signup',  to: 'users#create'
    get '/reset',  to: 'users#password_reset_request'
    post '/reset',  to: 'users#password_reset_request'
-   get '/newpassword',  to: 'users#password_update'
+   get '/newpassword',  to: 'users#password_update_form'
    post '/newpassword',  to: 'users#password_update'
    get '/users/:id/settings',  to: 'users#settings'
    get '/confirm',  to: 'users#confirm'

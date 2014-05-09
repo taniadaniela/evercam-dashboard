@@ -1,8 +1,6 @@
 /*Template Name:BucketAdmin Dashboard build with Bootstrap v3.0.3Template Version:1.0Author:ThemeBucket*/
 /* Import fonts */
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-@import url(//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
-@import url(//fonts.googleapis.com/css?family=Share:400,700);
 
 @font-face {
     font-family: 'proxima-nova-bold';
@@ -10,17 +8,7 @@
     src: url('/assets/vendor/fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
     url('/assets/vendor/fonts/proximanova-bold-webfont.woff') format('woff'),
     url('/assets/vendor/fonts/proximanova-bold-webfont.ttf') format('truetype'),
-    url('/assets/vendor/fonts/proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'proxima-nova-italic';
-    src: url('/assets/vendor/fonts/proximanova-regitalic-webfont.eot');
-    src: url('/assets/vendor/fonts/proximanova-regitalic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/assets/vendor/fonts/proximanova-regitalic-webfont.woff') format('woff'),
-    url('/assets/vendor/fonts/proximanova-regitalic-webfont.ttf') format('truetype'),
-    url('/assets/vendor/fonts/proximanova-regitalic-webfont.svg#proxima_novaregular_italic') format('svg');
+    url('/assets/vendor/fonts/proximanova-bold-webfont.svg#proxima-nova-bold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -30,7 +18,7 @@
     src: url('/assets/vendor/fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
     url('/assets/vendor/fonts/proximanova-regular-webfont.woff') format('woff'),
     url('/assets/vendor/fonts/proximanova-regular-webfont.ttf') format('truetype'),
-    url('/assets/vendor/fonts/proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+    url('/assets/vendor/fonts/proximanova-regular-webfont.svg#proxima-nova-regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }

@@ -547,6 +547,7 @@ table {
   padding: 10px;
   margin: 0 0 10px 0;
 }
+
 .swagger-ui-wrap .markdown pre code {
   line-height: 1.6em;
 }
@@ -554,8 +555,9 @@ table {
   margin: 20px 0 25px 0 !important;
 }
 .swagger-ui-wrap ul#resources {
-  font-family: "Droid Sans", sans-serif;
+  font-family: "Anonymous Pro", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace;
   font-size: 1.0em;
+  color:#222;
 }
 .swagger-ui-wrap ul#resources li.resource {
   border-bottom: 1px solid #dddddd;
@@ -628,8 +630,7 @@ table {
   display: block;
   clear: none;
   float: left;
-  font-family: "Droid Sans", sans-serif;
-  font-weight: bold;
+  font-family: 'proxima-nova-bold', "Droid Sans", sans-serif;
 }
 .swagger-ui-wrap ul#resources li.resource div.heading h2 a {
   color: #999999;
@@ -669,6 +670,7 @@ table {
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.path a {
   color: black;
   text-decoration: none;
+  font-size:12px;
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.path a:hover {
   text-decoration: underline;
@@ -700,6 +702,7 @@ table {
   clear: none;
   float: right;
   margin: 6px 10px 0 0;
+  font-family:'proxima-nova-regular';
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading ul.options li {
   float: left;
@@ -905,6 +908,7 @@ table {
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.get div.heading h3 span.http_method a {
   background-color: #0f6ab4;
+
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.get div.heading ul.options li {
   border-right: 1px solid #dddddd;
@@ -1036,6 +1040,12 @@ table {
 }
 .swagger-ui-wrap form.form_box p strong {
   color: black;
+}
+#swagger-ui-container #resources ul.endpoints li.endpoint ul.operations div.heading {
+  padding:10px;
+}
+#swagger-ui-container #resources ul.endpoints li.endpoint ul.operations li.operation div.heading {
+  border-radius:2px;
 }
 .title {
   font-style: bold;

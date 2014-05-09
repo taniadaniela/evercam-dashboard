@@ -23,7 +23,7 @@ a,a:hover,a:focus {
     outline:none;
 }
 h5 {
-    font-weight: 700;
+    font-family: 'proxima-nova-bold';
     font-size: 13px;
 }
 h5 small {
@@ -31,8 +31,7 @@ h5 small {
     margin-left: 4px;
 }
 strong {
-    font-weight: 700;
-    font-weight: bold;
+    font-family: 'proxima-nova-bold';
 }
 .bold {
     font-weight: 600;
@@ -295,7 +294,7 @@ strong {
     margin: 0 0 0 32px;
     padding: 0;
     color: #414042;
-    font-size: 14px;
+    font-size: 16px;
     -webkit-transition: .3s;
     transition: .3s;
 }
@@ -855,7 +854,7 @@ select {
     border: none !important;
 }
 .borderless tr td:first-child {
-    font-weight: 700;
+    font-family: 'proxima-nova-bold';
 }
 #info .panel {
     clear: both;
@@ -1438,6 +1437,7 @@ tbody tr:hover {
 }
 #sidebar .active {
     background-color: #FFFFFF;
+    font-family: 'proxima-nova-bold';
 }
 .single-active {
     border-bottom: 1px solid #aaaaaa;

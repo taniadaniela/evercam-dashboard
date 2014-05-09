@@ -55,7 +55,7 @@
                   <div id="cam-name">
                     <h5><%= link_to(c["name"], "/publiccam/#{c['id']}") %></h5>
                   </div>
-                    <img class="" src="<%= c["extra_urls"]["external_jpg_url"] %>">
+                    <img onerror="this.style.display='none'" class="" src="<%= c["extra_urls"]["external_jpg_url"] %>">
                   <div class="add-to-cams">
                     <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
                   </div>

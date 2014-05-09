@@ -1,5 +1,7 @@
 <% provide(:title, "Create New Account") %>
-
+<div class="bb-alert alert alert-danger" style="display:none;">
+  <span></span>
+</div>
 <div class="container section">
   <div id="signin" class="col-md-12 text-center">
     <div class="branding">
@@ -74,16 +76,6 @@
           <div class="row text-center create">
             <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
           </div>
-          <span id="test-error">
-            <div class="alert-warning">
-              <ul>
-                <% flash[:message].try(:each) do |m| %>
-                  <li><%= m %></li>
-                <% end %>
-              </ul>
-
-            </div>
-          </span>
           <div class="row text-center">
             <p class="col-md-12 use">Signing up signifies that you've read and agree to our <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
           </div>
@@ -101,6 +93,12 @@
   </div>
 </div>
 <script>
+    //$(window.Evercam.Users.initialize);
+    Notification.init(".bb-alert");
+    <% flash[:message].try(:each) do |m| %>
+    Notification.show('<%= m %>');
+    <% end %>
+
     $(function(){
         $("alert").on("click", function(){
             $("." + $(this).attr("data-hide")).hide();

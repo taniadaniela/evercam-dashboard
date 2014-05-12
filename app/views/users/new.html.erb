@@ -19,7 +19,7 @@
             <div class="col-lg-3">
               <%= f.label :forename %>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-9">
               <%= f.text_field :forename, value: params.fetch('user', {})[:forename] %>
             </div>
           </div>
@@ -28,7 +28,7 @@
             <div class="col-lg-3">
               <%= f.label :lastname %>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-9">
               <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname] %>
               <!-- Plan to join First and Last Name to one Input -->
             </div>
@@ -38,7 +38,7 @@
             <div class="col-lg-3">
               <%= f.label :username %>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-9">
               <%= f.text_field :username, value: params.fetch('user', {})[:username] %>
             </div>
           </div>
@@ -47,7 +47,7 @@
             <div class="col-lg-3">
               <%= f.label :country %>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-9">
               <%= select_tag(:country, options_for_select(@countries.map {|c| [c.name, c.iso3166_a2] }, params[:country])) %>
             </div>
           </div>
@@ -56,7 +56,7 @@
             <div class="col-lg-3">
               <%= f.label :email %>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-9">
             <% if @share_request.nil? %>
               <%= f.text_field :email, value: params.fetch('user', {})[:email] %>
             <% else %>
@@ -69,11 +69,11 @@
             <div class="col-lg-3">
               <%= f.label :password %>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-9">
               <%= f.password_field :password, autocomplete: "off" %>
             </div>
           </div>
-          <div class="row text-center create">
+          <div class="text-center create">
             <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
           </div>
           <div class="row text-center">

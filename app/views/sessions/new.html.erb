@@ -9,29 +9,33 @@
     </div>
   </div>
 
-  <div id="sign-in" class="col-md-4 col-md-offset-4 text-center">
+  <div id="sign-in" class="col-md-4 col-md-offset-4">
 
     <h3 class="text-center">Sign in</h3>
 
     <%= form_for(:session, url: sessions_path) do |f| %>
 
-    <div class="row">
-      <%= f.label :email %> / <%= f.label :username %>
-    </div>
-    <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <%= f.label :email %> / <%= f.label :username %>
+        <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
+      </div>
 
-    <div class="row">
-      <%= f.label :password %>
-    </div>
-    <%= f.password_field :password %>
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
 
-    <div class="row create">
-      <%= f.submit "Sign in", class: "btn btn-large btn-primary col-lg-6 col-lg-offset-3" %>
-    </div>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="sign-in">
+          <%= f.submit "Sign in", class: "btn btn-large btn-primary col-lg-6 col-lg-offset-3" %>
+        </div>
+      </div>
 
-    <div class="row create">
-      I've<a href="https://api.evercam.io/reset/password"> forgotten my password</a>
-    </div>
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <div class="create">
+          I've<a href="https://api.evercam.io/reset/password"> forgotten my password</a>
+        </div>
+      </div>
     <% end %>
   </div>
 

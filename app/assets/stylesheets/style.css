@@ -708,13 +708,10 @@ textarea {
 #sign-in .row {
     margin-top: 20px;
 }
-#sign-in h3{
-    padding-bottom:10px;
-}
 #sign-in label {
     font-weight: normal;
     margin-bottom: 0;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 
 #sign-in textarea, input {
@@ -728,6 +725,13 @@ textarea {
 #sign-in textarea, input:focus {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
+}
+#sign-in input {
+    width: 100%;
+    margin: 0 auto;
+}
+.sign-in {
+    margin-top: 34px;
 }
 
 /*CREATE ACCOUNT FORM*/
@@ -759,6 +763,7 @@ textarea {
     color: #404142;
     padding: 4px;
     font-size: 14px;
+    width: 100% ;
 }
 #registration textarea, input:focus {
     border-color: #428BCA;
@@ -766,7 +771,7 @@ textarea {
 }
 
 .create {
-    margin-top: 25px !important;
+    margin-top: 20px !important;
 }
 #country {
     max-width: 186px;

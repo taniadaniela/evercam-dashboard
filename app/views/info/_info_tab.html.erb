@@ -6,15 +6,15 @@
         <tr><h4>Info</h4></tr>
         </thead>
         <tr>
-          <td>Camera ID</td>
+          <td>Camera ID:</td>
           <td><%= @camera['id'] %></td>
         </tr>
         <tr>
-          <td>Camera Owner</td>
+          <td>Camera Owner:</td>
           <td><%= @camera['owner'] %></td>
         </tr>
         <tr>
-          <td>Local IP</td>
+          <td>Local IP:</td>
           <td><%= @camera['internal_host'] %></td>
         </tr>
       </table>
@@ -26,10 +26,10 @@
     <div class="col-md-12">
       <h4>Short URLs</h4>
     </div>
-    <div class="col-md-1">
-      <strong>JPEG</strong>
+    <div class="col-md-2">
+      JPEG
     </div>
-    <div class="col-md-11">
+    <div class="col-md-10">
       <% if @camera['is_public'] %>
         <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", :only_path => false %>
       <% else %>
@@ -43,10 +43,10 @@
     <div class="col-md-12">
       <h4>Dynamic DNS URLs</h4>
     </div>
-    <div class="col-md-1">
-      <strong>JPEG</strong>
+    <div class="col-md-2">
+      JPEG
     </div>
-    <div class="col-md-11">
+    <div class="col-md-10">
       <% url = @camera.fetch('extra_urls', {})['short_jpg_url'] %>
       <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
     </div>
@@ -57,17 +57,17 @@
     <div class="col-md-12">
       <h4>Base URLs</h4>
     </div>
-    <div class="col-md-1">
-      <strong>RTSP</strong>
+    <div class="col-md-2">
+      RTSP
     </div>
-    <div class="col-md-11">
+    <div class="col-md-10">
       <% url = @camera.fetch('extra_urls', {})['external_rtsp_url'] %>
       <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
     </div>
-    <div class="col-md-1">
-      <strong>JPEG</strong>
+    <div class="col-md-2">
+      JPEG
     </div>
-    <div class="col-md-11">
+    <div class="col-md-10">
       <% url = @camera.fetch('extra_urls', {})['external_jpg_url'] %>
       <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
     </div>

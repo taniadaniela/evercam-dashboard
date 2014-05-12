@@ -6,32 +6,7 @@ class CamerasController < ApplicationController
   include ApplicationHelper
 
   def index
-    @cameras = []
-    @shares  = []
-    response  = API_call("users/#{current_user.username}/cameras", :get)
-    if response.success?
-      @cameras =  JSON.parse(response.body)['cameras']
-      @cameras.each do |c|
-        c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-      end
-      response = API_call("shares/user/#{current_user.username}", :get)
-      if response.success?
-        list = JSON.parse(response.body)['shares']
-        if list && !list.empty?
-          camera_ids = []
-          list.each {|share| camera_ids << share['camera_id']}
-          response = API_call("/cameras", :get, {ids: camera_ids.join(",")})
-          @shares = JSON.parse(response.body)['cameras'] if response.success?
-          @shares.each do |c|
-            c['jpg'] = "#{EVERCAM_API}cameras/#{c['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-          end
-        end
-      else
-        Rails.logger.warn "Request for user camera shares was unsuccessful."
-      end
-    else
-      Rails.logger.warn "Request for user cameras was unsuccessful."
-    end
+    load_cameras_and_shares
   end
 
   def new
@@ -102,12 +77,7 @@ class CamerasController < ApplicationController
       response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-      response  = API_call("users/#{current_user.username}/cameras", :get)
-      if response.success?
-        @cameras =  JSON.parse(response.body)['cameras']
-      else
-        @cameras = []
-      end
+      load_cameras_and_shares
       render :single
     end
   end
@@ -135,11 +105,6 @@ class CamerasController < ApplicationController
     @shares         = JSON.parse(response.body)['shares']
     response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
     @share_requests = JSON.parse(response.body)['share_requests']
-    response  = API_call("users/#{current_user.username}/cameras", :get)
-    if response.success?
-      @cameras =  JSON.parse(response.body)['cameras']
-    else
-      @cameras = []
-    end
+    load_cameras_and_shares
   end
 end

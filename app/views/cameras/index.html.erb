@@ -1,3 +1,6 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
 <div class="boxed-page">
   <div class="container clearfix">
     <section id="camera-dash">
@@ -109,12 +112,9 @@
 </div> <!--boxed page end-->
 <script type="text/javascript">
 
-   // $(function () {
-      //$('img').on('error', function( ){
-        //$(this).attr('src', 'https://www.evercam.io/img/error.png ');
-      //});
-
-    //});
-
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
 
 </script>

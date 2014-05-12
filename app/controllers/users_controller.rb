@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:new, :create, :confirm]
+  skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
+                     :password_reset_request, :password_update, :password_update_form]
   before_filter :owns_data!
-  skip_before_action :owns_data!, only: [:new, :create, :confirm]
+  skip_before_action :owns_data!, only: [:new, :create, :confirm,
+                     :password_reset_request, :password_update, :password_update_form]
   include SessionsHelper
   include ApplicationHelper
 
@@ -91,6 +93,57 @@ class UsersController < ApplicationController
     @countries = Country.all
     refresh_user
     render :settings
+  end
+
+  def password_reset_request
+    email = params[:email]
+    unless email.nil?
+      user = User.by_login(email)
+
+      if user
+        t = Time.now
+        if user.token_expires_at.present? and user.token_expires_at < t
+          expires = user.token_expires_at
+          token = user.reset_token
+        else
+          expires = t + 24.hour
+          token = SecureRandom.hex(16)
+        end
+
+        user.update(reset_token: token, token_expires_at: expires)
+
+        UserMailer.password_reset(email, user, token).deliver
+        flash[:message] = "We’ve sent you an email with instructions for changing your password."
+      else
+        flash[:message] = "Email address not found."
+      end
+
+
+    end
+  end
+
+  def password_update_form
+    username = params[:u]
+    user = User.by_login(username)
+    if user.nil? or user.token_expires_at.blank? or user.token_expires_at < Time.now
+      @expired = true
+    else
+      @expired = false
+    end
+    render "password_update"
+  end
+
+  def password_update
+    token = params[:token]
+    username = params[:username]
+    user = User.by_login(username)
+    if user.nil? or token != user.reset_token or user.token_expires_at < Time.now
+      flash[:message] = 'Invalid username or token'
+    else
+      user.update(password: params[:password], reset_token: '', token_expires_at: Time.now)
+      sign_in user
+      redirect_to "/", message: 'Your password has been changed'
+    end
   end
 
 end

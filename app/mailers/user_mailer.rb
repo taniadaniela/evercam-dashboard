@@ -17,4 +17,10 @@ class UserMailer < ActionMailer::Base
       @user      = user
       mail(to: email, subject: "#{user.username} has shared a camera with you")
    end
+
+   def password_reset(email, user, token)
+      @token    = token
+      @user     = user
+      mail(to: email, subject: "#{user.username} has requested password reset")
+   end
 end

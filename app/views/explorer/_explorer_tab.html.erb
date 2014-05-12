@@ -1,6 +1,6 @@
 <div class="col-md-12 info-panel">
   <h4>Cameras</h4>
-  <p>Here you can make requests to our REST API and explore responses.</p><p> You can use this Cameras ID: <span class="bold"><%= @camera['id'] %></span> </p>
+  <p>Here you can make requests to our REST API and explore responses.</p><p> You can use this Cameras ID: <span class="bold explorer-id"><%= @camera['id'] %></span> </p>
 </div>  
 <div class="col-md-12">
   <%= stylesheet_link_tag "swagger"%>
@@ -29,7 +29,7 @@
         });
 
     </script>
-      <div class="exp-swagger">
+      <div id="exp-swagger">
         <div id="swagger">
           <div id="swagger-ui-container" class="swagger-ui-wrap">
             &nbsp;

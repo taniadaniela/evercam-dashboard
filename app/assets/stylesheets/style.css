@@ -12,7 +12,7 @@ body {
     font-family: 'proxima-nova-regular', 'Open Sans',sans-serif;
     padding:0px !important;
     margin:0px !important;
-    font-size:13px;
+    font-size:14px;
     text-rendering:optimizeLegibility;
 }
 ul li {
@@ -23,23 +23,22 @@ a,a:hover,a:focus {
     outline:none;
 }
 h5 {
-    font-weight: 700;
-    font-size: 13px;
+    font-family: 'proxima-nova-bold';
+    font-size: 14px;
 }
 h5 small {
     font-size: 90%;
     margin-left: 4px;
 }
 strong {
-    font-weight: 700;
-    font-weight: bold;
+    font-family: 'proxima-nova-bold';
 }
 .bold {
-    font-weight: 600;
+    font-family:'proxima-nova-bold';
 }
 .btn {
     padding: 9px 18px;
-    font-size: 13px;
+    font-size: 14px;
 }
 .btn-add {
     border: medium none;
@@ -295,7 +294,7 @@ strong {
     margin: 0 0 0 32px;
     padding: 0;
     color: #414042;
-    font-size: 14px;
+    font-size: 16px;
     -webkit-transition: .3s;
     transition: .3s;
 }
@@ -372,19 +371,15 @@ strong {
 /////////////////////*/
 .dev {
 }
-#dev-dash .exp-swagger {
-    overflow: hidden;
-    width: 900px;
-}
 #dev-dash #swagger-ui-container {
     overflow: hidden;
     width: 900px;
+    margin-top: -30px;
 }
 
 #dev-dash #resources_container {
     background-color: #FFFFFF;
-    margin-left: -56px;
-    max-width: 950px;
+    max-width: 912px;
 }
 .form-horizontal .control-label {
     margin-bottom: 9px;
@@ -712,13 +707,10 @@ textarea {
 #sign-in .row {
     margin-top: 20px;
 }
-#sign-in h3{
-    padding-bottom:10px;
-}
 #sign-in label {
     font-weight: normal;
     margin-bottom: 0;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 
 #sign-in textarea, input {
@@ -732,6 +724,13 @@ textarea {
 #sign-in textarea, input:focus {
     border-color: #428BCA;
     box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
+}
+#sign-in input {
+    width: 100%;
+    margin: 0 auto;
+}
+.sign-in {
+    margin-top: 34px;
 }
 
 /*CREATE ACCOUNT FORM*/
@@ -763,6 +762,7 @@ textarea {
     color: #404142;
     padding: 4px;
     font-size: 14px;
+    width: 100% ;
 }
 #registration textarea, input:focus {
     border-color: #428BCA;
@@ -770,7 +770,7 @@ textarea {
 }
 
 .create {
-    margin-top: 25px !important;
+    margin-top: 20px !important;
 }
 #country {
     max-width: 186px;
@@ -817,7 +817,10 @@ select {
     text-transform: uppercase;
     margin-top: 5px;
 }
-/*Live*/
+.nav-tabs > li {
+    margin-bottom: -2px;
+}
+/*LIVE*/
 .tab-content h4 {
     margin-bottom: 15px;
 }
@@ -853,22 +856,25 @@ select {
     padding-right: 5px;
 }
 
-/*Info*/
+/*INFO*/
 .borderless td {
     border: none !important;
 }
 .borderless tr td:first-child {
-    font-weight: 700;
+    font-family: 'proxima-nova-bold';
 }
 #info .panel {
     clear: both;
+}
+#info a {
+    word-wrap: break-word;
 }
 .info-panel {
     margin-bottom: 15px;
 }
 
 #explorer .info-panel {
-    padding-bottom: 20px;
+    padding-bottom: 00px;
     margin-bottom: 0px;
 }
 /*CAMERA SETTINGS*/
@@ -1021,6 +1027,10 @@ select {
 .table > thead > tr > th {
     border-bottom: 1px solid #E5E5E5;
 }
+th {
+    font-weight: normal;
+    font-family: 'proxima-nova-bold';
+}
 .save
 {
     display: none;
@@ -1032,7 +1042,7 @@ select {
     margin-top: 0px;
     padding: 6px 20px;
 }
-/*Apps*/
+/*APPS*/
 .evercam {
     color: #428BCA;
     font-weight: 700;
@@ -1079,25 +1089,31 @@ API EXPLORER TAB
 #iframe-explorer {
     overflow: hidden;
 }
-
 #iframe-explorer .iframe {
     overflow: hidden;
     width: 842px;
     margin-top: -355;
     margin:0 auto;
 }
-
-.exp-swagger {
-
+#exp-swagger {
+    margin-top: -20px;
+}
+.explorer-id {
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 6px 15px 6px 13px;
+    margin-left: 10px;
 }
 /*/////////////////////
 //MODAL
 /////////////////////*/
+#myModal input {
+    width:auto;
+}
 .modal-dialog {
     margin: 30px auto;
     width: 550px;
 }
-
 .modal-content {
     border-radius: 2px;
 
@@ -1174,7 +1190,6 @@ API EXPLORER TAB
 #testimg {
     max-width: 400px;
     background-image: url('https://www.evercam.io/img/connect.png');
-
 }
 #testimg-add {
     max-width: 400px;
@@ -1393,7 +1408,7 @@ tbody tr:hover {
     margin-bottom: 0;
     margin-top: 2px;
 }
-/*sidebar navigation*/
+/*SIDEBAR NAVIGATION*/
 .sidebar-menu {
     margin-bottom: -1px;
 }
@@ -1416,7 +1431,7 @@ tbody tr:hover {
 }
 #sidebar ul li {
     margin-left: -40px;
-    padding-left: 15px;
+    padding-left: 12px;
     padding-right: 2px;
     position: relative;
 }
@@ -1441,6 +1456,7 @@ tbody tr:hover {
 }
 #sidebar .active {
     background-color: #FFFFFF;
+    font-family: 'proxima-nova-bold';
 }
 .single-active {
     border-bottom: 1px solid #aaaaaa;
@@ -3784,7 +3800,7 @@ li .disabled{
 
 .panel-heading .nav {
     border:medium none;
-    font-size:13px;
+    font-size:14px;
     margin:-15px -15px -15px;
 }
 .tab-bg-dark-navy-blue ul>li>a {

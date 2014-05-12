@@ -105,7 +105,12 @@ class CamerasController < ApplicationController
     @shares         = JSON.parse(response.body)['shares']
     response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
     @share_requests = JSON.parse(response.body)['share_requests']
-    load_cameras_and_shares
+    response  = API_call("users/#{current_user.username}/cameras", :get)
+    if response.success?
+      @cameras =  JSON.parse(response.body)['cameras']
+    else
+      @cameras = []
+    end
   end
 end
 

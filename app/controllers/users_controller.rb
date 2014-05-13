@@ -113,12 +113,10 @@ class UsersController < ApplicationController
         user.update(reset_token: token, token_expires_at: expires)
 
         UserMailer.password_reset(email, user, token).deliver
-        flash[:message] = "We’ve sent you an email with instructions for changing your password."
+        flash.now[:message] = "We’ve sent you an email with instructions for changing your password."
       else
-        flash[:message] = "Email address not found."
+        flash.now[:message] = "Email address not found."
       end
-
-
     end
   end
 
@@ -140,7 +138,9 @@ class UsersController < ApplicationController
     if user.nil? or token != user.reset_token or user.token_expires_at < Time.now
       flash[:message] = 'Invalid username or token'
     else
-      user.update(password: params[:password], reset_token: '', token_expires_at: Time.now)
+      user.update(reset_token: '', token_expires_at: Time.now)
+      user.password = params[:password]
+      user.save
       sign_in user
       redirect_to "/", message: 'Your password has been changed'
     end

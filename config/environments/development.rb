@@ -29,4 +29,7 @@ EvercamDashboard::Application.configure do
 
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session'}
+
+  config.action_mailer.delivery_method = :file
+  config.action_mailer.file_settings = { :location => Rails.root.join('log/mails') }
 end

@@ -104,6 +104,10 @@ class CamerasController < ApplicationController
       raise "Internal server error. Please contact support." if !output.include?("cameras")
       raise "Unable to find the specified camera." if output["cameras"].size == 0
       @camera = output['cameras'][0]
+      @page = params[:page].to_i || 0
+      response = API_call("cameras/#{params[:id]}/logs", :get, objects: 'true', page: @page)
+      @logs = JSON.parse(response.body)['logs']
+      @pages = JSON.parse(response.body)['pages']
       @share   = nil
       if @camera['owner'] != current_user.username
         response = API_call("shares", :get, camera_id: params[:id], user_id: current_user.username)

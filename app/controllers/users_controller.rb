@@ -140,7 +140,7 @@ class UsersController < ApplicationController
     if user.nil? or token != user.reset_token or user.token_expires_at < Time.now
       flash[:message] = 'Invalid username or token'
     else
-      user.update(password: params[:password], reset_token: '', token_expires_at: Time.now)
+      user.update(password: params[:password], reset_token: '', token_expires_at: Time.now - 1.hour)
       sign_in user
       redirect_to "/", message: 'Your password has been changed'
     end

@@ -3,7 +3,7 @@
     <h4>Logs</h4>
     <select id="types" multiple class="form-control">
       <% @types.each do |t| %>
-      <option value="<%= t %>" <% if params[:types].include?(t)%> selected="selected"<% end %>><%= t.capitalize %></option>
+      <option value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> selected="selected"<% end %>><%= t.capitalize %></option>
       <% end %>
     </select>
     <input id="current-page" type="hidden" value="<%= @page + 1 %>">

@@ -69,7 +69,7 @@ describe CamerasController do
           to_return(status: 200, headers: {},
                     body: "{\"cameras\": []}")
 
-        stub_request(:get, "#{EVERCAM_API}shares/user/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        stub_request(:get, "#{EVERCAM_API}shares/users/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
           to_return(:status => 200, :body => "{}", :headers => {})
 
         session['user'] = user.email
@@ -178,7 +178,7 @@ describe CamerasController do
       it "renders the :single" do
         stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}?api_id=#{user.api_id}&api_key=#{user.api_key}").
           to_return(status: 200, headers: {}, body: "{\"cameras\": [{}]}")
-        stub_request(:get, "#{EVERCAM_API}shares/camera/#{params['camera-id']}?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        stub_request(:get, "#{EVERCAM_API}shares/cameras/#{params['camera-id']}?api_id=#{user.api_id}&api_key=#{user.api_key}").
           to_return(:status => 200, :body => "{\"shares\": []}", :headers => {})
         stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})

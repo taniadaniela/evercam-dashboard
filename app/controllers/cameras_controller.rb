@@ -86,7 +86,7 @@ class CamerasController < ApplicationController
     response = nil
     if [true, "true"].include?(params[:share])
       Rails.logger.debug "Deleting share for camera id '#{params[:id]}'."
-      response = API_call("shares/camera/#{params[:id]}", :delete, share_id: params[:share_id])
+      response = API_call("shares/cameras/#{params[:id]}", :delete, share_id: params[:share_id])
     else
       Rails.logger.debug "Deleting camera id '#{params[:id]}'."
       response = API_call("cameras/#{params[:id]}", :delete, {})

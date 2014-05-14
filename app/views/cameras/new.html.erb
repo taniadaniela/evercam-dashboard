@@ -39,11 +39,12 @@
 <!--main content start-->
 <div class="col-lg-10 col-xs-12 wrapper">
   <section id="main-content">
-    <div class="row">
-    <div class='col-lg-10 col-lg-offset-1'>
-    <h3>Add an IP Camera</h3>
+    <div class="row add-android-header">
+      <div class='col-md-12'>
+        <h3>Add an IP Camera</h3>
+        <p>Connect an IP Camera to Evercam</p>
+      </div>
     </div>
-     </div>
     <form method="post">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
@@ -53,11 +54,11 @@
           <div class='col-lg-10 col-lg-offset-1'>
             <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-name">Friendly Name</label>
-              <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_ " data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." value="<%= params['camera-name'] %>">
+              <input id="camera-name" name="camera-name" placeholder="Rooftop Camera" class="form-control" required="" type="text" data-validation="alphanumeric length" data-validation-length="max24" data-validation-allowing="-_ " data-validation-error-msg="Max 24 characters containing letters, spaces and hyphens. " value="<%= params['camera-name'] %>">
             </div>
             <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-id">Evercam ID</label>
-              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" required="" type="text" data-validation="alphanumeric" data-validation-allowing="-_" data-validation-error-msg="Must be unique. Only letters, numbers &amp; hyphens. No spaces." value="<%= params['camera-id'] %>">
+              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" required="" type="text" data-validation="alphanumeric length" data-validation-length="min4" data-validation-allowing="-_" data-validation-error-msg="Min 4 characters. Only letters, numbers &amp; hyphens. No spaces." value="<%= params['camera-id'] %>">
             </div>
           </div>
           <span class="col-lg-offset-10 label label-default additional info">?</span>
@@ -72,11 +73,11 @@
         <div class='row add-row'>
           <div class='col-lg-10 col-lg-offset-1'>
             <div class='col-lg-5 form-group'>
-              <label class="control-label" for="camera-username">Camera Username*</label>
+              <label class="control-label" for="camera-username">Camera Username</label>
               <input id="camera-username" name="camera-username" placeholder="camba" class="form-control" type="text" value="<%= params['camera-username'] %>">
             </div>
             <div class='col-lg-5 form-group'>
-              <label class="control-label" for="camera-password">Camera Password*</label>
+              <label class="control-label" for="camera-password">Camera Password</label>
               <input id="camera-password" name="camera-password" placeholder="Camba123" class="form-control" type="text" value="<%= params['camera-password'] %>">
             </div>
           </div>
@@ -91,59 +92,60 @@
       <fieldset>
         <div class='row add-row-bottom'>
           <div class='col-lg-10 col-lg-offset-1'>
-              <div class='col-lg-8'>
-                <div class='row'>
-                  <div class='col-lg-10 form-group'>
-                    <label class="control-label" for="camera-url">External <strong>IP</strong> (or URL)*</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">http://</span>
-                      <input id="camera-url" name="camera-url" placeholder="149.5.43.10" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." value="<%= params['camera-url'] %>">
-                    </div>
-                  </div>
-                    <span class="label label-default additional info-sm">?</span>
-                    <div class='col-lg-12 settings'>
-                      <p class="help-sm">Can be in the form of 149.5.43.10 or webcam-1.faxa.rvk.is<br><span class="light-grey">http://<span class="blue">149.5.43.10</span>:8001/snapshot.jpg</span></p>
-                    </div>
-                </div>
-                <div class='row snapshot'>
-                  <div class='col-lg-5 form-group'>
-                    <label class="control-label" for="port">External <strong>HTTP</strong> Port*</label>
-                    <input id="port" name="port" placeholder="8001" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." value="<%= params['port'] %>">
-                  </div>
-                  <div class='col-lg-5 form-group'>
-                    <label class="control-label" for="ext-rtsp-port">External <strong>RTSP</strong> Port</label>
-                    <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="554" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['ext-rtsp-port'] %>">
-                  </div>
-                      <span class="label label-default additional info-sm">?</span>
-                      <div class='col-lg-12 settings'>
-                        <p class="help-sm">The External HTTP Port is contained in the Snapshot URL<br><span class="light-grey">http://149.5.43.10:<span class="blue">8001</span>/snapshot.jpg</span></p>
-                      </div>
-                </div>
-                <div class='row snapshot'>
-                  <div class='col-lg-10 form-group'>
-                    <label class="control-label" for="snapshot">Snapshot URL Ending*</label>
-                    <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control" data-validation="custom" data-validation-regexp="^([/?].*)?$" data-validation-error-msg="This doesn't appear to be a valid snapshot URL ending. It must begin with a /" value="<%= params['snapshot'] %>" >
-                  </div>
-                  <span class="label label-default additional info-sm">?</span>
-                  <div class='col-lg-12 settings'>
-                    <p class="help-sm">This is the path to where the cameras snapshots are currently stored. It begins with a '/'. <br><span class="light-grey">http://149.5.43.10:8001<span class="blue">/snapshot.jpg</span></span></p>
+            <div class='col-lg-7'>
+              <div class='row'>
+                <div class='col-lg-10 form-group'>
+                  <label class="control-label" for="camera-url">External <strong>IP</strong> (or URL)*</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">http://</span>
+                    <input id="camera-url" name="camera-url" placeholder="149.5.43.10" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." value="<%= params['camera-url'] %>">
                   </div>
                 </div>
+                <span class="label label-default additional info-sm">?</span>
+                <div class='col-lg-12 settings'>
+                  <p class="help-sm">Can be in the form of 149.5.43.10 or webcam-1.faxa.rvk.is<br><span class="light-grey">http://<span class="blue">149.5.43.10</span>:8001/snapshot.jpg</span></p>
+                </div>
+              </div>
+              <div class='row snapshot'>
+                <div class='col-lg-5 form-group'>
+                  <label class="control-label" for="port">External <strong>HTTP</strong> Port*</label>
+                  <input id="port" name="port" placeholder="8001" class="form-control" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a #, 2-5 digits." value="<%= params['port'] %>">
+                </div>
+                <div class='col-lg-5 form-group'>
+                  <label class="control-label" for="ext-rtsp-port">External <strong>RTSP</strong> Port</label>
+                  <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="554" class="form-control" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true" value="<%= params['ext-rtsp-port'] %>">
+                </div>
+                <span class="label label-default additional info-sm">?</span>
+                <div class='col-lg-12 settings'>
+                  <p class="help-sm">The External HTTP Port is contained in the Snapshot URL<br><span class="light-grey">http://149.5.43.10:<span class="blue">8001</span>/snapshot.jpg</span></p>
+                </div>
+              </div>
+              <div class='row snapshot'>
+                <div class='col-lg-10 form-group'>
+                  <label class="control-label" for="snapshot">Snapshot URL Ending*</label>
+                  <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control" data-validation="custom" data-validation-regexp="^[/?].*?$" data-validation-error-msg="This doesn't appear to be a valid snapshot URL ending. It must begin with a /" value="<%= params['snapshot'] %>" >
+                </div>
+                <span class="label label-default additional info-sm">?</span>
+                <div class='col-lg-12 settings'>
+                  <p class="help-sm">This is the path to where the cameras snapshots are currently stored. It begins with a '/'. <br><span class="light-grey">http://149.5.43.10:8001<span class="blue">/snapshot.jpg</span></span></p>
+                </div>
+              </div>
+            </div>
+            <div class='col-lg-5'>
+              <div class="media">
+                <img id="testimg-add" src="/" class="text-center" width="100%">
+                <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
+              </div>
 
-              </div>
-              <div class='col-lg-4'>
-                <div class="media">
-                  <img id="testimg-add" src="/" class="text-center" width="100%">
-                  <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
-                </div>
-                <span id="test-error"><%= flash[:message] %></span>
-              </div>
+              <span id="test-error"><%= flash[:message] %></span>
+
+            </div>
           </div>
         </div>
       </fieldset>
       <fieldset>
-      <div class="row add-row-bottom">
-        <p class="col-lg-10 col-lg-offset-1 additional expand"><span class="glyphicon glyphicon-plus"></span>Additional Settings</p>
+        <div class="add-row-bottom">
+          <p class="col-lg-10 col-lg-offset-1 additional expand"><span class="glyphicon glyphicon-plus"></span>Additional Settings</p>
 
           <!-- STEP 4 -->
           <div class="col-lg-6 col-lg-offset-1 settings">
@@ -153,9 +155,9 @@
                 <select id="camera-vendor" name="camera-vendor" class="form-control">
                   <option value="">Select Make</option>
                   <% vendors.each_with_index  do |v, index| -%>
-                      <option value="<%= v.exid -%>">
-                        <%= v.name -%>
-                      </option>
+                    <option value="<%= v.exid -%>">
+                      <%= v.name -%>
+                    </option>
                   <% end %>
                 </select>
               </div>
@@ -163,15 +165,15 @@
               <div class='col-lg-6 form-group'>
                 <label class="control-label">Camera Model</label>
                 <% vendors.each do |v| -%>
-                    <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
-                      <% models(v.id).each_with_index  do |m, index| -%>
-                          <% if index == 0 %>
-                              <option selected="selected" value="<%= m.name  -%>"><%= m.name -%></option>
-                          <% else %>
-                              <option value="<%= m.name  -%>"><%= m.name -%></option>
-                          <% end %>
-                      <% end -%>
-                    </select>
+                  <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
+                    <% models(v.id).each_with_index  do |m, index| -%>
+                      <% if index == 0 %>
+                        <option selected="selected" value="<%= m.name  -%>"><%= m.name -%></option>
+                      <% else %>
+                        <option value="<%= m.name  -%>"><%= m.name -%></option>
+                      <% end %>
+                    <% end -%>
+                  </select>
                 <% end %>
               </div>
             </div>
@@ -193,10 +195,10 @@
             </div>
 
           </div><!-- Step 4 -->
-         </div>
-        </fieldset>
+        </div>
+      </fieldset>
 
-        <fieldset>
+      <fieldset>
         <!-- FINISH & ADD -->
         <div class='row add-row'>
           <div class="col-lg-5 col-lg-offset-3">
@@ -213,7 +215,7 @@
             </div>
           </div>
         </div>
-        </fieldset>
+      </fieldset>
 
       <!-- SUPPORT -->
       <div class="row add-row add-footer">
@@ -247,7 +249,7 @@
   $(document).ready(function () {
     $('#test').click(function (e) {
       var intRegex = /^\d+$/,
-        port = $('#port').val();
+          port = $('#port').val();
       e.preventDefault();
       // Validate port
       if(port !== '' && (!intRegex.test(port) || port > 65535)) {
@@ -262,7 +264,7 @@
         return;
       }
       var params = ['external_url=http://' + $('#camera-url').val() + port, 'jpg_url=' + $('#snapshot').val(),
-          'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
+            'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
       var l = Ladda.create(this);
       l.start();
       var progress = 0;
@@ -277,19 +279,19 @@
       }, 200);
 
       $.getJSON('<%= EVERCAM_API %>cameras/test.json?' + params.join('&'))
-        .done(function (resp) {
-          console.log('success');
-          $('#test-error').text('');
-          $('#testimg-add').attr('src', resp.data);
-        })
-        .fail(function (resp) {
-          $('#test-error').text(resp.responseJSON.message);
-          console.log('error');
-        })
-        .always(function () {
-          l.stop();
-          clearInterval(interval);
-        });
+          .done(function (resp) {
+            console.log('success');
+            $('#test-error').text('Snapshot successfully retrieved');
+            $('#testimg-add').attr('src', resp.data);
+          })
+          .fail(function (resp) {
+            $('#test-error').text(resp.responseJSON.message);
+            console.log('error');
+          })
+          .always(function () {
+            l.stop();
+            clearInterval(interval);
+          });
     });
 
     // TOGGLE ADD. SETTINGS
@@ -299,10 +301,10 @@
       $(this).next(".settings").slideToggle(500);
     });
 
-      Notification.init(".bb-alert");
-      <% if flash[:message] %>
-      Notification.show('<%= flash[:message] %>');
-      <% end %>
+    Notification.init(".bb-alert");
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
 
     var previous;
     $('#camera-vendor').one('focus', function () {

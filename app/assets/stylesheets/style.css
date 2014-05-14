@@ -1109,6 +1109,46 @@ API EXPLORER TAB
     margin-left: 10px;
 }
 /*/////////////////////
+API EXPLORER TAB
+/////////////////////*/
+#logs .form-control {
+    background-color: #ffffff;
+    border: none;
+    height: 104px;
+    padding: 3px 10px 0px 0px;
+
+}
+.log-option {
+    background-color: #FFFFFF;
+    border: medium none;
+
+}
+#logs .form-control:focus {
+    box-shadow: none;
+}
+#logs .bold {
+    text-transform: capitalize;
+}
+.bloc {
+    overflow: hidden;
+    width: 322px;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 0px 0 10px;
+}
+.bloc h4 {
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #E5E5E5;
+    margin-top: 0;
+    padding:10px 0px 10px 10px;
+}
+.bloc select {
+    margin: 0 0 0 11px;
+}
+#apply-types {
+    margin: 15px 0px 35px;
+}
+/*/////////////////////
 //MODAL
 /////////////////////*/
 #myModal input {
@@ -1375,6 +1415,10 @@ tbody tr:hover {
     padding: 10px 40px;
     margin-top: 20px;
 }
+.btn-primary:focus {
+    box-shadow: none;
+}
+
 .btn-edit {
     background-color: #428BCA ;
     color: #ffffff;

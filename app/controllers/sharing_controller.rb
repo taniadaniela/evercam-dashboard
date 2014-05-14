@@ -28,7 +28,7 @@ class SharingController < ApplicationController
       result   = {success: true}
       if params[:camera_id] && params[:share_id]
          values   = {share_id: params[:share_id]}
-         response = API_call("/shares/camera/#{params[:camera_id]}", :delete, values)
+         response = API_call("/shares/cameras/#{params[:camera_id]}", :delete, values)
          if !response.success?
             Rails.logger.warn "API call failed. Status code returned was #{response.code}. "\
                               "Response body is '#{response.body}'."
@@ -65,7 +65,7 @@ class SharingController < ApplicationController
          rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
          rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
          values   = {email: params[:email], rights: rights.join(",")}
-         response = API_call("/shares/camera/#{camera_id}", :post, values)
+         response = API_call("/shares/cameras/#{camera_id}", :post, values)
 
          data  = JSON.parse(response.body)
          if response.success?
@@ -105,7 +105,7 @@ class SharingController < ApplicationController
          rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
          rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
          values   = {rights: rights.join(",")}
-         response = API_call("/shares/camera/#{params[:id]}", :patch, values)
+         response = API_call("/shares/cameras/#{params[:id]}", :patch, values)
          if !response.success?
             result = {success: false, message: "Failed to update share. Please contact support."}
          end

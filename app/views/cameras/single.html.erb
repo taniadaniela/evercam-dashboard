@@ -156,9 +156,13 @@
 <div id="delete" class="tab-pane">
   <div class="col-md-6 panel panel-body">
     <p class="strong">Are you sure you want to DELETE this camera?</p>
-   <%= link_to @camera, method: :delete, class:"btn btn-danger", role:"button" do %>
-    <span class="glyphicon glyphicon-remove"></span>Yes, DELETE this Camera</a>
-   <% end %>
+  <% if @share.nil? %>
+    <a href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger" rel="nofollow" role="button" data-method="delete">
+  <% else %>
+    <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger" rel="nofollow" role="button" data-method="delete">
+  <% end %>
+      <span class="glyphicon glyphicon-remove"></span>Yes, DELETE this Camera</a>
+    </a>
     <a href="#live" data-toggle="tab" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-ok"></span>No, CANCEL</a>
   </div>
 </div><!--TAB PANE -->

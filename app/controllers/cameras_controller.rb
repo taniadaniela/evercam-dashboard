@@ -83,17 +83,23 @@ class CamerasController < ApplicationController
   end
 
   def delete
-    response  = API_call("cameras/#{params['id']}", :delete, {})
-    if response.success?
-      flash[:message] = 'Camera deleted successfully'
-      redirect_to "/"
+    response = nil
+    if [true, "true"].include?(params[:share])
+      Rails.logger.debug "Deleting share for camera id '#{params[:id]}'."
+      response = API_call("shares/camera/#{params[:id]}", :delete, share_id: params[:share_id])
     else
-      Rails.logger.info "RESPONSE BODY: '#{response.body}'"
-      flash[:message] = JSON.parse(response.body)['message'] unless response.body.blank?
-      response  = API_call("cameras/#{params[:id]}", :get)
-      @camera =  JSON.parse(response.body)['cameras'][0]
-      @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-      render :single
+      Rails.logger.debug "Deleting camera id '#{params[:id]}'."
+      response = API_call("cameras/#{params[:id]}", :delete, {})
+    end
+
+    if response.success?
+      flash[:message] = "Camera deleted successfully."
+      redirect_to '/'
+    else
+      message = response.body.blank? ? nil : JSON.parse(response.body)['message']
+      Rails.logger.error "Camera delete failed. Details: #{message}"
+      flash[:message] = (message || "Camera delete failed. Please contact support")
+      redirect_to url_for(action: 'single', id: params[:id], share: params[:share])
     end
   end
 
@@ -101,6 +107,11 @@ class CamerasController < ApplicationController
     response  = API_call("cameras/#{params[:id]}", :get)
     @camera   = JSON.parse(response.body)['cameras'][0]
     @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+    @share = nil
+    if params[:share]
+      response = API_call("shares", :get, camera_id: @camera["id"], user_id: current_user.username)
+      @share   = JSON.parse(response.body)['shares'][0]
+    end
     response        = API_call("shares/camera/#{params[:id]}", :get)
     @shares         = JSON.parse(response.body)['shares']
     response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")

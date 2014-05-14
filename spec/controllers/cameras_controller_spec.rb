@@ -202,7 +202,7 @@ describe CamerasController do
         post :delete, {'id' => params['camera-id']}
         expect(response.status).to eq(302)
         expect(response).to redirect_to "/"
-        expect(flash[:message]).to eq('Camera deleted successfully')
+        expect(flash[:message]).to eq('Camera deleted successfully.')
       end
     end
 
@@ -216,8 +216,8 @@ describe CamerasController do
                     body: "{\"cameras\": [{}]}")
         session['user'] = user.email
         post :delete, {'id' => params['camera-id']}
-        expect(response.status).to eq(200)
-        expect(response).to render_template :single
+        expect(response.status).to eq(302)
+        expect(response.location).to eq("http://test.host/cameras/#{camera.exid}")
         expect(flash[:message]).to eq('failed')
       end
     end

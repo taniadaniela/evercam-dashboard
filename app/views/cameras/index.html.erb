@@ -16,7 +16,7 @@
           <ul class="plus">
             <% @cameras.each do |camera| %>
             <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>">
+              <a href="/cameras/<%= camera['id'] %>?share=false">
                 <div id="offline-menu"> <% if camera['is_online'] %>
                     <span class="green-dot"><small>on</small></span>
                   <% else %>
@@ -36,7 +36,7 @@
           <ul class="plus">
               <% @shares.each do |camera| %>
               <li class="sub-menu-item">
-                <a href="/cameras/<%= camera['id'] %>">
+                <a href="/cameras/<%= camera['id'] %>?share=true">
                   <div id="offline-menu"> <% if camera['is_online'] %>
                       <span class="green-dot"><small>on</small></span>
                     <% else %>
@@ -66,7 +66,7 @@
             <div>
 
               <% @cameras.each do |camera| %>
-                <a href="/cameras/<%= camera['id'] %>">
+                <a href="/cameras/<%= camera['id'] %>?share=false">
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
                     <img src="<%= camera['jpg'] %>" onerror="this.style.display='none'" alt="">
@@ -83,7 +83,7 @@
 
               <% @shares.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-                <a href="/cameras/<%= camera['id'] %>">
+                <a href="/cameras/<%= camera['id'] %>?share=true">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
                   <img src="<%= camera['jpg'] %>" alt="">
                   <div id="offline"> <% if camera['is_online'] %>

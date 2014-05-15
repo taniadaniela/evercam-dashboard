@@ -86,7 +86,7 @@ class CamerasController < ApplicationController
     response = nil
     if [true, "true"].include?(params[:share])
       Rails.logger.debug "Deleting share for camera id '#{params[:id]}'."
-      response = API_call("shares/camera/#{params[:id]}", :delete, share_id: params[:share_id])
+      response = API_call("shares/cameras/#{params[:id]}", :delete, share_id: params[:share_id])
     else
       Rails.logger.debug "Deleting camera id '#{params[:id]}'."
       response = API_call("cameras/#{params[:id]}", :delete, {})
@@ -112,7 +112,7 @@ class CamerasController < ApplicationController
       response = API_call("shares", :get, camera_id: @camera["id"], user_id: current_user.username)
       @share   = JSON.parse(response.body)['shares'][0]
     end
-    response        = API_call("shares/camera/#{params[:id]}", :get)
+    response        = API_call("shares/cameras/#{params[:id]}", :get)
     @shares         = JSON.parse(response.body)['shares']
     response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
     @share_requests = JSON.parse(response.body)['share_requests']

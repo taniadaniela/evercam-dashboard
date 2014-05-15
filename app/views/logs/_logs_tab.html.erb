@@ -1,21 +1,23 @@
 <div class="col-lg-12 info-panel">
   <h4>Logs</h4>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="bloc">
-        <h4>Action</h4>
-        <select id="types" multiple class="form-control">
-          <!--<option class="log-option">View All</option>-->
+
+    <div class="col-md-12 filter">
+      <div class="col-md-1 action-title"><h5>Actions:</h5></div>
+      <div class="col-md-8" id="types">
+        <label class="checkbox-inline">All<input value="" type="checkbox" class="" /> </label>
           <% @types.each do |t| %>
-          <option class="log-option" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> selected="selected"<% end %>><%= t.capitalize %></option>
+           <label class="checkbox-inline">
+             <%= t.capitalize %><input type="checkbox" class="" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> selected="selected"<% end %> />
+           </label>
           <% end %>
-        </select>
       </div>
-      <input id="current-page" type="hidden" value="<%= @page + 1 %>">
-      <input id="exid" type="hidden" value="<%= @camera['id'] %>">
-      <button id="apply-types" class="btn">Filter</button>
+      <div class="col-md-3">
+        <input id="current-page" type="hidden" value="<%= @page + 1 %>">
+        <input id="exid" type="hidden" value="<%= @camera['id'] %>">
+        <button id="apply-types" class="btn btn-primary pull-right">Filter</button>
+      </div>
     </div>
-  </div>
+
   <div class="row">
     <div class="col-md-12">
       <table class="table table-hover">

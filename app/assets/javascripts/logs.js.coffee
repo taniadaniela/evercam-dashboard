@@ -1,5 +1,4 @@
 updateLogTypesFilter = (event) ->
-  console.log($('#types').val())
   window.location = "/cameras/" + $('#exid').val() + "?page=" + $('#current-page').val() + "&types=" + $('#types').val().join() + "#logs"
   true
 

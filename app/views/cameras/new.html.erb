@@ -39,7 +39,7 @@
 <!--main content start-->
 <div class="col-lg-10 col-xs-12 wrapper">
   <section id="main-content">
-    <div class="row add-android-header">
+    <div class="row add-ip-header">
       <div class='col-md-12'>
         <h3>Add an IP Camera</h3>
         <p>Connect an IP Camera to Evercam</p>
@@ -58,7 +58,7 @@
             </div>
             <div class='col-lg-5 form-group'>
               <label class="control-label" for="camera-id">Evercam ID</label>
-              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" required="" type="text" data-validation="alphanumeric length" data-validation-length="min4" data-validation-allowing="-_" data-validation-error-msg="Min 4 characters. Only letters, numbers &amp; hyphens. No spaces." value="<%= params['camera-id'] %>">
+              <input id="camera-id" name="camera-id" placeholder="roof-cam" class="form-control" required="" type="text" data-validation="alphanumeric length custom" data-validation-regexp="^[a-z0-9._/-]{2,100}$" data-validation-length="min4" data-validation-allowing="-_" data-validation-error-msg="Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces." value="<%= params['camera-id'] %>">
             </div>
           </div>
           <span class="col-lg-offset-10 label label-default additional info">?</span>

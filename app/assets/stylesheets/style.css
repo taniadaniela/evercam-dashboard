@@ -460,7 +460,7 @@ textarea {
 .add-android-header {
     border-bottom: 1px solid #E5E5E5;
     margin-bottom: 30px;
-    padding: 12px 20px 20px;
+    padding: 15px 20px 20px;
 }
 .table-borderless td {
     border-top:none !important;
@@ -1146,6 +1146,11 @@ API EXPLORER TAB
 /*/////////////////////
 //ADD IP CAMERA PAGE
 /////////////////////*/
+.add-ip-header {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 30px;
+    padding: 0px 20px 20px;
+}
 .additional {
     margin-bottom: 18px;
     text-transform: uppercase;

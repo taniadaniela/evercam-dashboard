@@ -18,3 +18,5 @@ var Notification = (function() {
 
   return that;
 }());
+
+

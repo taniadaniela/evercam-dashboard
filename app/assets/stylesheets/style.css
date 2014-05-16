@@ -460,7 +460,7 @@ textarea {
 .add-android-header {
     border-bottom: 1px solid #E5E5E5;
     margin-bottom: 30px;
-    padding: 12px 20px 20px;
+    padding: 15px 20px 20px;
 }
 .table-borderless td {
     border-top:none !important;
@@ -1116,7 +1116,6 @@ API EXPLORER TAB
 }
 .modal-content {
     border-radius: 2px;
-
     background-color: #FFFFFF;
     border: none;
     border-radius: 2px;
@@ -1145,8 +1144,13 @@ API EXPLORER TAB
 }
 
 /*/////////////////////
-//ADD A CAMERA PAGE
+//ADD IP CAMERA PAGE
 /////////////////////*/
+.add-ip-header {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 30px;
+    padding: 0px 20px 20px;
+}
 .additional {
     margin-bottom: 18px;
     text-transform: uppercase;
@@ -1183,17 +1187,19 @@ API EXPLORER TAB
     user-select: none;
 }
 .test-snapshot {
-    left: 16%;
+    left: 15%;
     position: absolute;
-    top: 35%;
+    top: 30%;
 }
 #testimg {
     max-width: 400px;
     background-image: url('https://www.evercam.io/img/connect.png');
 }
 #testimg-add {
-    max-width: 400px;
+    max-width: 240px;
     background-image: url('https://www.evercam.io/img/connect-add.png');
+}
+#test-error {
 
 }
 .help {
@@ -1218,12 +1224,12 @@ API EXPLORER TAB
     font-weight: 600;
 }
 .add-row {
-    border-top: 1px solid #F5F5F5;
+    /*border-top: 1px solid #F5F5F5;*/
     padding: 30px 0 10px;
 }
 .add-row-bottom {
-    padding: 30px 0 30px;
-    border-top: 1px solid #F5F5F5;
+    padding: 30px 0 20px;
+    /*border-top: 1px solid #F5F5F5;*/
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
@@ -5086,6 +5092,14 @@ div.tagsinput span.tag {
 #signin .bb-alert {
     top:20%;
 
+}
+.bbb-alert {
+    padding: 0.8em 1em;
+    z-index: 2000;
+    font-size: 13px;
+    margin-left: -155px;
+    width: 315px;
+    text-align: center;
 }
 .alert-info {
     background-image: none;

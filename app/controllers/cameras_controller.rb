@@ -12,10 +12,6 @@ class CamerasController < ApplicationController
   def new
   end
 
-  def jpg
-    #TODO: rewrite getting latest snapshot for offline camera
-  end
-
   def create
     response = nil
     begin

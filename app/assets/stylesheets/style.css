@@ -1109,7 +1109,7 @@ API EXPLORER TAB
     margin-left: 10px;
 }
 /*/////////////////////
-API EXPLORER TAB
+API LOGS TAB
 /////////////////////*/
 #logs .form-control {
     background-color: #ffffff;
@@ -1164,6 +1164,10 @@ API EXPLORER TAB
 .filter h5 {
     font-family: 'proxima-nova-bold';
     font-size: 14px;
+}
+.table-logs td {
+    border-bottom: none !Important;
+    border-top: none !Important;
 }
 /*/////////////////////
 //MODAL

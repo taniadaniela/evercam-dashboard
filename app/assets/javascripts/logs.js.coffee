@@ -1,5 +1,5 @@
 updateLogTypesFilter = (event) ->
-  window.location = "/cameras/" + $('#exid').val() + "?page=" + $('#current-page').val() + "&types=" + $('#types').val().join() + "#logs"
+  window.location = "/cameras/" + $('#exid').val() + "?page=" + $('#current-page').val() + "&types=" + $("#input[name='type']:checked").val().join() + "#logs"
   true
 
 

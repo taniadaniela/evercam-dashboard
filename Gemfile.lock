@@ -36,6 +36,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    airbrake (3.1.16)
+      builder
+      multi_json
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     builder (3.2.2)
@@ -229,6 +232,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   bcrypt (~> 3.1.2)
   capybara
   coffee-rails (~> 4.0.0)

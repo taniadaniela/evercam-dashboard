@@ -41,6 +41,8 @@ gem 'data_uri'
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
 
+gem 'airbrake'
+
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.0'

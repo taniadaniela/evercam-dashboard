@@ -3,7 +3,7 @@
 
     <div class="col-md-12 filter">
       <div class="col-md-1 action-title"><h5>Actions:</h5></div>
-      <div class="col-md-8" id="types">
+      <div class="col-md-10" id="types">
         <label class="checkbox-inline">All<input value="" type="checkbox" class="" /> </label>
           <% @types.each do |t| %>
            <label class="checkbox-inline">
@@ -11,12 +11,22 @@
            </label>
           <% end %>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-1">
         <input id="current-page" type="hidden" value="<%= @page + 1 %>">
         <input id="exid" type="hidden" value="<%= @camera['id'] %>">
         <button id="apply-types" class="btn btn-primary pull-right">Filter</button>
       </div>
     </div>
+
+    <div class="col-md-6" id="date-box">
+      <div class="col-md-6">
+        <strong>From:</strong> <input id="datetimepicker" type="text" >
+      </div>
+      <div class="col-md-6">
+        <strong>To:</strong> <input id="datetimepicker" type="text" >
+      </div>
+    </div>
+
 
   <div class="row">
     <div class="col-md-12">
@@ -59,4 +69,6 @@
 
 <script type="text/javascript">
   $(window.Evercam.Logs.initializeTab);
+   $('#datetimepicker').datetimepicker();
+
 </script>

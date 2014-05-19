@@ -20,3 +20,4 @@
 //= require editable-1.5.1.min
 //= require alerts
 //= require bootbox-4.2.0
+//= require jquery.datetimepicker-2.2.5.min

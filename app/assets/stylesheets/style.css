@@ -1131,7 +1131,8 @@ API LOGS TAB
 }
 #logs .checkbox-inline {
     padding-left: 0px;
-    margin-right: 16px;
+    margin-right: 10px;
+    margin-bottom: 8px;
 }
 #logs .checkbox input[type="checkbox"], #logs .checkbox-inline input[type="checkbox"] {
     float: left;
@@ -1143,7 +1144,17 @@ API LOGS TAB
 #logs .checkbox input[type="checkbox"]:focus, #logs .checkbox-inline input[type="checkbox"]:focus {
     box-shadow:none;
 }
-
+#date-box {
+    background-color: #f5f5f5;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+}
+#datetimepicker {
+    background-color: #ffffff;
+}
 #apply-types {
     margin: 5px -25px 5px;
     padding: 5px 15px;
@@ -1156,7 +1167,7 @@ API LOGS TAB
 }
 .filter {
     border: 1px solid #e5e5e5;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     margin-top: 20px;
     background-color: #f5f5f5;
     border-radius: 2px;

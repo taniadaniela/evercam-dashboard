@@ -22,7 +22,7 @@ module Evercam
             owner = camera.owner
             Sequel::Model.db.transaction do
                User.all.each do |user|
-                  if CameraShare.where(camera_id: camera.id, user_id: user.id).count == 0
+                  if camera.owner_id != user.id && CameraShare.where(camera_id: camera.id, user_id: user.id).count == 0
                      puts "Creating a share for the '#{user.username}' user (id: #{user.id})."
                      CameraShare.create(camera: camera,
                                         user:   user,

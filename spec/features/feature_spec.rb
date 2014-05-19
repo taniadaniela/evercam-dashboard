@@ -51,6 +51,10 @@ describe "the signin process", :type => :feature do
         with(:body => "status=PENDING").
         to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
 
+      stub_request(:get, "https://api.evercam.io/v1/shares?api_id=#{user.api_id}&api_key=#{user.api_key}").
+         with(:body => "camera_id=testcam&user_id=#{user.username}").
+         to_return(:status => 200, :body => '{"shares": [{}]}', :headers => {})
+
 
 
       page.set_rack_session(:user => user.email)

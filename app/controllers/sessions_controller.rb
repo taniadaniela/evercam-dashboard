@@ -17,8 +17,15 @@ class SessionsController < ApplicationController
 
     if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
-      Rails.logger.debug "Redirecting to the cameras index action."
-      redirect_to :cameras_index
+      if session[:redirect_url]
+        url = session[:redirect_url]
+        Rails.logger.debug "Redirecting to #{url}."
+        session[:redirect_url] = nil
+        redirect_to url
+      else
+        Rails.logger.debug "Redirecting to the cameras index action."
+        redirect_to :cameras_index
+     end
     else
       Rails.logger.warn "Invalid user name and/or password specified."
       flash.now[:error] = 'Invalid login/password combination' # Not quite right!

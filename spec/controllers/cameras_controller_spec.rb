@@ -185,9 +185,12 @@ describe CamerasController do
         stub_request(:get, "#{EVERCAM_API}shares/requests/?api_id=#{user.api_id}&api_key=#{user.api_key}").
           with(:body => "status=PENDING").
           to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
+        stub_request(:get, "https://api.evercam.io/v1/shares?api_id=#{user.api_id}&api_key=#{user.api_key}").
+          with(:body => "camera_id=#{params['camera-id']}&user_id=#{user.username}").
+          to_return(:status => 200, :body => '{"shares": [{}]}', :headers => {})
 
         session['user'] = user.email
-        get :single, {'id' => params['camera-id']}
+        get :single, id: params['camera-id']
         expect(response.status).to eq(200)
         expect(response).to render_template :single
       end

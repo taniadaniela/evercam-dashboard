@@ -6,7 +6,8 @@ module CamerasHelper
       snapshots = JSON.parse(res.body)['snapshots']
       unless snapshots.empty?
         uri = URI::Data.new(snapshots[0]['data'])
-        return "<img class='snap' data-proxy='#{proxy}' src='#{uri}' onerror=\"this.style.display='none'\" alt=''>".html_safe
+        img_class = camera['is_online'] ? 'snap' : ''
+        return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' onerror=\"this.style.display='none'\" alt=''>".html_safe
       end
     end
     "<img class='live' src='#{proxy}' onerror=\"this.style.display='none'\" alt=''>".html_safe

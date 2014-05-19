@@ -105,22 +105,31 @@ class CamerasController < ApplicationController
 
   def single
     response  = API_call("cameras/#{params[:id]}", :get)
-    @camera   = JSON.parse(response.body)['cameras'][0]
-    @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-    @share = nil
-    if params[:share]
-      response = API_call("shares", :get, camera_id: @camera["id"], user_id: current_user.username)
-      @share   = JSON.parse(response.body)['shares'][0]
-    end
-    response        = API_call("shares/cameras/#{params[:id]}", :get)
-    @shares         = JSON.parse(response.body)['shares']
-    response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
-    @share_requests = JSON.parse(response.body)['share_requests']
-    response  = API_call("users/#{current_user.username}/cameras", :get)
-    if response.success?
-      @cameras =  JSON.parse(response.body)['cameras']
-    else
-      @cameras = []
+    begin
+      output  = JSON.parse(response.body)
+      raise "Internal server error. Please contact support." if !output.include?("cameras")
+      raise "Unable to find the specified camera." if output["cameras"].size == 0
+      @camera = output['cameras'][0]
+      @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+      @share   = nil
+      if @camera['owner'] != current_user.username
+        response = API_call("shares", :get, camera_id: params[:id], user_id: current_user.username)
+        @share   = JSON.parse(response.body)['shares'][0]
+      end
+      response        = API_call("shares/cameras/#{params[:id]}", :get)
+      @shares         = JSON.parse(response.body)['shares']
+      response        = API_call("shares/requests/#{@camera['id']}", :get, status: "PENDING")
+      @share_requests = JSON.parse(response.body)['share_requests']
+      response  = API_call("users/#{current_user.username}/cameras", :get)
+      if response.success?
+        @cameras =  JSON.parse(response.body)['cameras']
+      else
+        @cameras = []
+      end
+    rescue => error
+      Rails.logger.error "Error fetching camera details.\nCause: #{error}\n" + error.backtrace.join("\n")
+      flash[:error] = "#{error}"
+      redirect_to action: "index"
     end
   end
 end

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     if current_user.nil?
+      session[:redirect_url] = request.original_url
       redirect_to signin_path
       return
     end

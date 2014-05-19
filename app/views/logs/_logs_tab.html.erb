@@ -7,7 +7,7 @@
         <label class="checkbox-inline">All<input value="" type="checkbox" class="" /> </label>
           <% @types.each do |t| %>
            <label class="checkbox-inline">
-             <%= t.capitalize %><input name="type" type="checkbox" class="" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> selected="selected"<% end %> />
+             <%= t.capitalize %><input name="type" type="checkbox" class="" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> checked<% end %> />
            </label>
           <% end %>
       </div>
@@ -29,9 +29,13 @@
         <tbody>
           <% @logs.each do |l| %>
           <tr>
-            <td>On <span class="bold"><%= Time.at(l['done_at']).to_datetime %></span></td>
+            <td>On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822)  %></span></td>
             <td>Camera was <span class="bold"><%= l['action'] %></span></td>
-            <td>by <span class="bold"><%= l['who'] %></span></td>
+            <td>
+              <% unless ['online', 'offline'].include?l['action'] %>
+                by <span class="bold"><%= l['who']  %></span>
+              <% end %>
+            </td>
           </tr>
           <% end %>
         </tbody>

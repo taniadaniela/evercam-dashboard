@@ -105,7 +105,7 @@ class CamerasController < ApplicationController
       raise "Unable to find the specified camera." if output["cameras"].size == 0
       @camera = output['cameras'][0]
       @page = (params[:page].to_i - 1) || 0
-      @types = %w(created accessed viewed edited captured)
+      @types = ['created', 'accessed', 'viewed', 'edited', 'captured', 'shared', 'stopped sharing', 'online', 'offline']
       response = API_call("cameras/#{params[:id]}/logs", :get, objects: 'true', page: @page, types: params[:types])
       @logs = JSON.parse(response.body)['logs']
       @pages = JSON.parse(response.body)['pages']

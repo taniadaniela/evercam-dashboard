@@ -74,9 +74,11 @@
     <li class="">
       <a data-toggle="tab" href="#info">Camera Info</a>
     </li>
+    <% if @camera["owner"] == current_user.username %>
     <li class="">
       <a data-toggle="tab" href="#camera-settings">Settings</a>
     </li>
+    <% end %>
     <li class="">
       <a data-toggle="tab" href="#sharing">Sharing</a>
     </li>
@@ -101,28 +103,28 @@
 
 <div class="tab-content">
 <!--LIVE VIEW TAB PANE -->
-<div id="live" class="tab-pane active">
+<div id="live" class="tab-pane fade active">
   <%= render partial: "live/live_tab" %>
 </div>
 
 <!--INFO TAB PANE -->
-<div id="info" class="tab-pane">
+<div id="info" class="tab-pane fade">
   <%= render partial: "info/info_tab" %>
 </div>
 
 <!--INFO TAB PANE -->
-<div id="camera-settings" class="tab-pane">
+<div id="camera-settings" class="tab-pane fade">
   <%= render partial: "settings/settings_tab" %>
 </div>
 
 <!--SHARING TAB PANE -->
-<div id="sharing" class="tab-pane">
+<div id="sharing" class="tab-pane fade">
    <%= render partial: "sharing/sharing_tab" %>
 </div>
 
 
 <!--APPS TAB PANE -->
-<div id="apps" class="tab-pane">
+<div id="apps" class="tab-pane fade">
   <div class="col-lg-12">
     <h4>Apps</h4>
     <a href="http://www.evercam.io/apps" target="_blank" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
@@ -130,12 +132,12 @@
 </div><!--TAB PANE -->
 
 <!--EXPLORER TAB PANE -->
-<div id="explorer" class="tab-pane">
+<div id="explorer" class="tab-pane fade">
   <%= render partial: "explorer/explorer_tab" %>
 </div><!--TAB PANE -->
 
 <!--ACTIVITY TAB PANE -->
-<div id="activity" class="tab-pane">
+<div id="activity" class="tab-pane fade">
   <div class="col-lg-12">
     <h4>Activity</h4>
     <p>coming soon...</p>
@@ -143,27 +145,32 @@
 </div><!--TAB PANE -->
 
 <!--LOGS TAB PANE -->
-<div id="logs" class="tab-pane">
+<div id="logs" class="tab-pane fade">
   <div class="col-lg-12">
     <h4>Logs</h4>
     <p>coming soon...</p>
   </div>  
 </div><!--TAB PANE -->
 
-
-
 <!--DELETE TAB PANE -->
-<div id="delete" class="tab-pane">
-  <div class="col-md-6 panel panel-body">
-    <p class="strong">Are you sure you want to DELETE this camera?</p>
+<div id="delete" class="tab-pane fade">
+  <div class="col-md-8 panel panel-body">
   <% if @share.nil? %>
-    <a href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger" rel="nofollow" role="button" data-method="delete">
+      <p><strong>Are you sure you want to DELETE this camera?</strong></p>
+      <div class="col-md-6">
+        <a href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger" rel="nofollow" role="button" data-method="delete">
+          Yes, DELETE this Camera</a>
   <% else %>
-    <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger" rel="nofollow" role="button" data-method="delete">
+      <p><strong>Are you sure you want to REMOVE this camera from your Shared Cameras?</strong></p>
+      <p>(This camera will not be deleted and will still exist in Public Cameras.)</p>
+      <div class="col-md-6">
+        <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger" rel="nofollow" role="button" data-method="delete">
+          Yes, REMOVE this Camera</a>
   <% end %>
-      <span class="glyphicon glyphicon-remove"></span>Yes, DELETE this Camera</a>
-    </a>
-    <a href="#live" data-toggle="tab" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-ok"></span>No, CANCEL</a>
+    </div>
+    <div class="col-md-6">
+      <a href="#live" data-toggle="tab" class="btn btn-primary" role="button">No, CANCEL</a>
+    </div>
   </div>
 </div><!--TAB PANE -->
 

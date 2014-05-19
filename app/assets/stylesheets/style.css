@@ -32,6 +32,7 @@ h5 small {
 }
 strong {
     font-family: 'proxima-nova-bold';
+    font-weight: normal;
 }
 .bold {
     font-family:'proxima-nova-bold';
@@ -872,7 +873,10 @@ select {
 .info-panel {
     margin-bottom: 15px;
 }
-
+.info-panel h5 {
+    font-family: 'proxima-nova-bold';
+    font-size: 14px;
+}
 #explorer .info-panel {
     padding-bottom: 00px;
     margin-bottom: 0px;

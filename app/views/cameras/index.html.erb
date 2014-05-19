@@ -69,7 +69,7 @@
                 <a href="/cameras/<%= camera['id'] %>?share=false">
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                    <img src="<%= camera['jpg'] %>" onerror="this.style.display='none'" alt="">
+                    <%= preview(camera) %>
                 <div id="offline"> <% if camera['is_online'] %>
                           <span class="green">Online</span>
                       <% else %>
@@ -110,14 +110,9 @@
     </section>
   </div>
 </div> <!--boxed page end-->
+<%= javascript_include_tag "cameras" %>
 <script type="text/javascript">
 
-   // $(function () {
-      //$('img').on('error', function( ){
-        //$(this).attr('src', 'https://www.evercam.io/img/error.png ');
-      //});
-
-    //});
    Notification.init(".bb-alert");
    <% if flash[:message] %>
    Notification.show('<%= flash[:message] %>');

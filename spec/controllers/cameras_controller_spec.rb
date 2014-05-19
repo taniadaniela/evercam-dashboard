@@ -151,6 +151,8 @@ describe CamerasController do
         expect(response.status).to eq(302)
         expect(response).to redirect_to "/cameras/#{camera.exid}#camera-settings"
         expect(flash[:message]).to eq('Settings updated successfully')
+        camera.reload
+        expect(camera.is_public?).to eq(false)
       end
     end
 

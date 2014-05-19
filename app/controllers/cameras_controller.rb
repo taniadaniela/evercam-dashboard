@@ -48,7 +48,6 @@ class CamerasController < ApplicationController
   def update
     body = {:id => params['camera-id'],
             :name => params['camera-name'],
-            :is_public => false,
             :external_host => params['camera-url'],
             :internal_host => params['local-ip'],
             :external_http_port => params['port'],

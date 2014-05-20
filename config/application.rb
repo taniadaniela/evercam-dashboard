@@ -54,7 +54,8 @@ module EvercamDashboard
                                  'custom.js',
                                  'bootbox-4.2.0.js',
                                  'editable-1.5.1.min.js',
-                                 'jquery.datetimepicker-2.2.5.min.js']
+                                 'jquery.datetimepicker-2.2.5.min.js',
+                                 'jquery.datetimepicker-2.2.5.min.css']
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'

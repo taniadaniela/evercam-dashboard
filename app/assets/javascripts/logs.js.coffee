@@ -6,9 +6,9 @@ updateLogTypesFilter = () ->
   window.location = "/cameras/" + $('#exid').val() + "?page=" + $('#current-page').val() + "&types=" + types.join() + "#logs"
   true
 
-
 initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
+  $(".datetimepicker").datetimepicker()
   true
 
 if !window.Evercam

@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
     if reply.success?
       @cameras =  JSON.parse(reply.body)['cameras']
       @cameras.each do |camera|
-        camera['jpg'] = "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
         @shares << camera if !camera['owned']
       end
       @cameras = @cameras - @shares if @shares.length > 0

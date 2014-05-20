@@ -5,7 +5,7 @@
 
   <div class="col-lg-12">
     <a href="#" id="live-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-    <img src="<%= @camera['jpg'] %>" alt="Camera appears to be offline" width="100%" height="auto">
+    <%= preview(@camera, true) %>
   </div>
 </div>
 

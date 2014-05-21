@@ -41,7 +41,6 @@ describe "the signin process", :type => :feature do
         to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam"}]}', :headers => {})
 
       stub_request(:get, "#{EVERCAM_API}shares/cameras/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        with(:headers => {'User-Agent'=>'Typhoeus - https://github.com/typhoeus/typhoeus'}).
         to_return(:status => 200, :body => "{}", :headers => {})
 
       stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
@@ -51,9 +50,12 @@ describe "the signin process", :type => :feature do
         with(:body => "status=PENDING").
         to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
 
-      stub_request(:get, "https://api.evercam.io/v1/shares?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}shares?api_id=#{user.api_id}&api_key=#{user.api_key}").
          with(:body => "camera_id=testcam&user_id=#{user.username}").
          to_return(:status => 200, :body => '{"shares": [{}]}', :headers => {})
+      
+      stub_request(:get, "#{EVERCAM_API}cameras/testcam/snapshots/latest.json?api_id=#{user.api_id}&api_key=#{user.api_key}&with_data=true").
+        to_return(:status => 200, :body => '{"snapshots": []}', :headers => {})
 
 
 

@@ -74,7 +74,7 @@
     <li class="">
       <a data-toggle="tab" href="#info">Camera Info</a>
     </li>
-    <% if @camera["owner"] == current_user.username %>
+    <% if @share.nil? %>
     <li class="">
       <a data-toggle="tab" href="#camera-settings">Settings</a>
     </li>
@@ -95,7 +95,12 @@
       <a data-toggle="tab" href="#logs">Logs</a>
     </li>
     <li class="pull-right">
-      <a data-toggle="tab" href="#delete"><span class="glyphicon glyphicon-remove"></span>  Delete</a>
+      <a data-toggle="tab" href="#delete"><span class="glyphicon glyphicon-remove"></span>
+        <% if @share.nil? %>
+        Delete</a>
+        <% else %>
+        Remove</a>
+        <% end %>
     </li>
 
   </ul>

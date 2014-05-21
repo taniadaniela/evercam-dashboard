@@ -819,7 +819,7 @@ select {
     margin-top: 5px;
 }
 .nav-tabs > li {
-    margin-bottom: -2px;
+    margin-bottom: -3px;
 }
 /*LIVE*/
 .tab-content h4 {
@@ -895,7 +895,7 @@ select {
 #camera-settings .test-snapshot {
     left: 25%;
     position: absolute;
-    top: 36%;
+    top: 41%;
 }
 #camera-settings .table {
     width:auto;
@@ -905,6 +905,7 @@ select {
 }
 .save-settings{
     margin-top: 15px;
+    padding-right: 25px;
 }
 #camera-settings .control-label {
     color:#414042;
@@ -1098,9 +1099,6 @@ API EXPLORER TAB
     width: 842px;
     margin-top: -355;
     margin:0 auto;
-}
-#exp-swagger {
-    margin-top: -20px;
 }
 .explorer-id {
     border: 1px solid #e5e5e5;
@@ -1373,7 +1371,6 @@ tbody tr:hover {
     background-image: none;
     border: medium none;
     padding: 10px 40px;
-    margin-top: 20px;
 }
 .btn-edit {
     background-color: #428BCA ;
@@ -1410,7 +1407,7 @@ tbody tr:hover {
     border-radius: 2px;*/
     webkit-box-shadow:none;
     box-shadow:none;
-    margin: 10px 0;
+    margin: 0px 0;
 }
 .help-block {
     font-size: 10px;

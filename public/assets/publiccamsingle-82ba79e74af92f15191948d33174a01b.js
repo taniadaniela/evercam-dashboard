@@ -1,0 +1,1 @@
+(function(){window.Evercam||(window.Evercam={}),window.Evercam.PubliccamSingle={initializeTab:initializeLiveTab}}).call(this);

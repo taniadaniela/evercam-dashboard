@@ -85,7 +85,7 @@
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                 <a href="/cameras/<%= camera['id'] %>?share=true">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                  <img src="<%= camera['jpg'] %>" alt="">
+                    <%= preview(camera) %>
                   <div id="offline"> <% if camera['is_online'] %>
                         <span class="green">Online</span>
                     <% else %>

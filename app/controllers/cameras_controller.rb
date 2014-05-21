@@ -71,7 +71,6 @@ class CamerasController < ApplicationController
       flash[:message] = JSON.parse(response.body)['message'] unless response.body.blank?
       response  = API_call("cameras/#{params[:id]}", :get)
       @camera =  JSON.parse(response.body)['cameras'][0]
-      @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
       load_cameras_and_shares
       render :single
     end
@@ -105,7 +104,6 @@ class CamerasController < ApplicationController
       raise "Internal server error. Please contact support." if !output.include?("cameras")
       raise "Unable to find the specified camera." if output["cameras"].size == 0
       @camera = output['cameras'][0]
-      @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
       @share   = nil
       if @camera['owner'] != current_user.username
         response = API_call("shares", :get, camera_id: params[:id], user_id: current_user.username)

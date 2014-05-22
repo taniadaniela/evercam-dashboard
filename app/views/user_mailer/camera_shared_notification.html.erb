@@ -1,0 +1,11 @@
+<div>
+  <p>Hello from Evercam,</p>
+  <p>
+    <strong><%= @user.fullname %>)</strong> has shared the <em><%= @camera_id %></em> camera with you.</p>
+  <p>
+    Click on the link below to access this camera (or copy the link into the URL field of your browser).
+  </p>
+  <p><a href="https://dashboard.evercam.io/signup?key=<%= @key %>">https://dashboard.evercam.io/signup?key=<%= @key %></a></p>
+  <br/><br/>
+  <div><img src="https://www.evercam.io/img/logo.png" width="104" height="25" alt="Evercam.io" /></div>
+</div>

@@ -4,10 +4,10 @@
   <div class="col-md-12 filter">
     <h5>Events</h5>
     <div id="types">
-      <label class="checkbox-inline">All<input value="" type="checkbox" class="" /> </label>
+      <label class="checkbox-inline">All<input value="" type="checkbox" /> </label>
       <% @types.each do |t| %>
       <label class="checkbox-inline">
-       <%= t.capitalize %><input name="type" type="checkbox" class="" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> checked<% end %> />
+       <%= t.capitalize %><input name="type" type="checkbox" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> checked<% end %> />
       </label>
       <% end %>
     </div>

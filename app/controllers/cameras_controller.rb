@@ -15,20 +15,23 @@ class CamerasController < ApplicationController
   def create
     response = nil
     begin
+      raise "No camera id specified in request." if params['camera-id'].blank?
+      raise "No camera name specified in request." if params['camera-name'].blank?
+
       body = {:external_host => params['camera-url'],
               :jpg_url => params['snapshot']}
-      body[:cam_username] = params['camera-username'] unless params['camera-username'].empty?
-      body[:cam_password] = params['camera-password'] unless params['camera-password'].empty?
-      body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].empty?
+      body[:cam_username] = params['camera-username'] unless params['camera-username'].blank?
+      body[:cam_password] = params['camera-password'] unless params['camera-password'].blank?
+      body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].blank?
       if body[:vendor]
-        body[:model] = params["camera-model#{body[:vendor]}"] unless params["camera-model#{body[:vendor]}"].empty?
+        body[:model] = params["camera-model#{body[:vendor]}"] unless params["camera-model#{body[:vendor]}"].blank?
       end
 
-      body[:internal_http_port] = params['local-http'] unless params['local-http'].empty?
-      body[:external_http_port] = params['port'] unless params['port'].empty?
-      body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].empty?
-      body[:external_rtsp_port] = params['ext-rtsp-port'] unless params['ext-rtsp-port'].empty?
-      body[:internal_host] = params['local-ip'] unless params['local-ip'].empty?
+      body[:internal_http_port] = params['local-http'] unless params['local-http'].blank?
+      body[:external_http_port] = params['port'] unless params['port'].blank?
+      body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].blank?
+      body[:external_rtsp_port] = params['ext-rtsp-port'] unless params['ext-rtsp-port'].blank?
+      body[:internal_host] = params['local-ip'] unless params['local-ip'].blank?
 
       api = get_evercam_api
       api.create_camera(params['camera-id'],
@@ -94,7 +97,7 @@ class CamerasController < ApplicationController
                          error.backtrace.join("\n")
       flash[:error] = "An error occurred deleting your camera. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to action: single, id: params[:id], share: params[:share]
+      redirect_to action: 'single', id: params[:id], share: params[:share]
     end
   end
 
@@ -116,7 +119,7 @@ class CamerasController < ApplicationController
         @share = api.get_camera_share(params[:id], current_user.username)
       end
       @shares         = api.get_camera_shares(params[:id])
-      @share_requests = api.get_camera_share_request(params[:id], 'PENDING')
+      @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @cameras        = api.get_user_cameras(current_user.username)
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

@@ -33,12 +33,17 @@ class ApplicationController < ActionController::Base
   end
 
   def get_evercam_api
-    configuration     = Rails.application.config
-    settings          = (configuration.evercam_api || {})
-    parameters        = {api_id: current_user.api_id,
-                         api_key: current_user.api_key,
-                         logger: Rails.logger}
-    parameters        = parameters.merge(settings) if !settings.empty?
+    configuration = Rails.application.config
+    parameters    = {api_id: current_user.api_id,
+                     api_key: current_user.api_key,
+                     logger: Rails.logger}
+    settings      = {}
+    begin
+      settings = (configuration.evercam_api || {})
+    rescue => error
+      # Deliberately ignored.
+    end
+    parameters    = parameters.merge(settings) if !settings.empty?
     Evercam::API.new(parameters)
   end
 end

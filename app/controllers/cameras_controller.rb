@@ -106,7 +106,7 @@ class CamerasController < ApplicationController
       @camera = output['cameras'][0]
       @page = (params[:page].to_i - 1) || 0
       @types = ['created', 'accessed', 'viewed', 'edited', 'captured', 'shared', 'stopped sharing', 'online', 'offline']
-      response = API_call("cameras/#{params[:id]}/logs", :get, objects: 'true', page: @page, types: params[:types])
+      response = API_call("cameras/#{params[:id]}/logs", :get, objects: 'true', page: @page, types: params[:types], from: params[:from], to: params[:to])
       @logs = JSON.parse(response.body)['logs']
       @pages = JSON.parse(response.body)['pages']
       @share   = nil

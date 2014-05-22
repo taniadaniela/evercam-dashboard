@@ -15,10 +15,10 @@
     <div class="col-md-12" id="date-box">
       <div class="row">
         <div class="col-md-3">
-          From: <input id="datetimepicker" class="datetimepicker" type="text" >
+          From: <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') %>">
         </div>
         <div class="col-md-3">
-          To: <input id="datetimepicker2" class="datetimepicker" type="text" >
+          To: <input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%Y/%m/%d %H:%M') %>">
         </div>
       </div>
     </div>

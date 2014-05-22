@@ -15,10 +15,10 @@
     <div class="col-md-12" id="date-box">
       <div class="row">
         <div class="col-md-3">
-          From: <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') %>">
+          From: <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') unless params[:from].blank? %>">
         </div>
         <div class="col-md-3">
-          To: <input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%Y/%m/%d %H:%M') %>">
+          To: <input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%Y/%m/%d %H:%M') unless params[:to].blank? %>">
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
   </div><!-- row -->
 
 </div><!-- info panel -->
-
+<% unless @pages.blank? %>
 <div class="col-md-12">
   <ul class="pagination">
     <% 1.upto(@pages + 1) do |i| %>
@@ -67,9 +67,7 @@
     <% end %>
   </ul>
 </div>
-
+<% end %>
 <script type="text/javascript">
   $(window.Evercam.Logs.initializeTab);
-
-
 </script>

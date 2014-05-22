@@ -195,7 +195,7 @@ onAddSharingUserClicked = (event) ->
    else
       permissions = "full"
    onError = (jqXHR, status, error) ->
-      showError("Add camera shared failed. Ensure the email address is correct and that the email has an Evercam account associated with it.")
+      showError("Add camera shared failed.")
       false
    onSuccess = (data, status, jqXHR) ->
       if data.success
@@ -209,7 +209,7 @@ onAddSharingUserClicked = (event) ->
          $('#sharingUserEmail').val("")
 
       else
-         showError("Adding a User failed. Please check the User's email address.")
+         showError("Adding a User failed.")
       true
    createShare($('#sharing_tab_camera_id').val(), emailAddress, permissions, onSuccess, onError)
    true

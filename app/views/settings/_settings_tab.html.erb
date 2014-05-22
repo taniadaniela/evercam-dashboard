@@ -48,8 +48,8 @@
         <label class="control-label" for="camera-url">External IP (or URL) *</label>
       </td>
       <td>
-        <!--<span class="input-group-addon">http://</span>-->
-        <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="form-control makeEditable" readonly="readonly" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera['external_host'] %>">
+        <span class="input-group-addon">http://</span>
+        <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" readonly="readonly" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera['external_host'] %>">
       </td>
     </tr>
     <tr>
@@ -137,7 +137,7 @@
   </div>
 </div>
   <!-- SNAPSHOT-->
-  <div class="col-lg-4 makeNonEditable">
+  <div class="col-lg-5 makeNonEditable">
     <div>
       <img id="testimg" src="" class="text-center" width="100%">
       <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
@@ -214,7 +214,6 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!--END DELETE MODAL-->
-
 <script type="text/javascript">
     $(window.Evercam.Settings.initializeTab);
     $(function(){
@@ -225,6 +224,7 @@
         $(".makeEditable").click(function(){
             $('input:text').removeAttr("readonly");
         });
+
 
 
         // Notifications

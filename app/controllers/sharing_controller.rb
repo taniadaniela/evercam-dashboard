@@ -7,13 +7,16 @@ class SharingController < ApplicationController
    def update_camera
       result    = {success: true}
       if params[:id] && !params[:public].nil? && !params[:discoverable].nil?
-         values    = {id: params[:id],
-                      is_public: params[:public],
-                      discoverable: (params[:discoverable] == "true")}
-         response  = API_call("cameras/#{params[:id]}", :patch, values)
-         if !response.success?
-            Rails.logger.warn "API call failed. Status code returned was #{response.code}. "\
-                              "Response body is '#{response.body}'."
+         begin
+            values    = {id: params[:id],
+                         is_public: params[:public],
+                         discoverable: (params[:discoverable] == "true")}
+            api = get_evercam_api
+            api.update_camera(params[:id], values)
+         rescue => error
+            env["airbrake.error_id"] = notify_airbrake(error)
+            Rails.logger.warn "Exception caught updating camera permissions.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
             result[:success] = false
             result[:message] = "Failed to update camera permissions."
          end
@@ -27,11 +30,12 @@ class SharingController < ApplicationController
    def delete
       result   = {success: true}
       if params[:camera_id] && params[:share_id]
-         values   = {share_id: params[:share_id]}
-         response = API_call("/shares/cameras/#{params[:camera_id]}", :delete, values)
-         if !response.success?
-            Rails.logger.warn "API call failed. Status code returned was #{response.code}. "\
-                              "Response body is '#{response.body}'."
+         begin
+            get_evercam_api.delete_camera_share(params[:camera_id], params[:share_id])
+         rescue => error
+            env["airbrake.error_id"] = notify_airbrake(error)
+            Rails.logger.warn "Exception caught deleting camera share.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
             result[:success] = false
             result[:message] = "Failed to delete camera share."
          end
@@ -44,11 +48,12 @@ class SharingController < ApplicationController
    def cancel_share_request
       result = {success: true}
       if params[:camera_id] && params[:email]
-         values = {email: params[:email]}
-         response = API_call("/shares/requests/#{params[:camera_id]}", :delete, values)
-         if !response.success?
-            Rails.logger.warn "API call failed. Status code returned was #{response.code}. "\
-                              "Response body is '#{response.body}'."
+         begin
+            get_evercam_api.cancel_camera_share_request(params[:camera_id], params[:email])
+         rescue => error
+            env["airbrake.error_id"] = notify_airbrake(error)
+            Rails.logger.warn "Exception caught cancelling camera share request.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
             result[:success] = false
             result[:message] = "Failed to delete camera share request."
          end
@@ -64,34 +69,30 @@ class SharingController < ApplicationController
          camera_id = params[:camera_id]
          rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
          rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
-         values   = {email: params[:email], rights: rights.join(",")}
-         response = API_call("/shares/cameras/#{camera_id}", :post, values)
-
-         data  = JSON.parse(response.body)
-         if response.success?
-            if data.include?("shares")
-               share = data["shares"][0]
-               result[:camera_id]   = share["camera_id"]
-               result[:share_id]    = share["id"]
-               result[:type]        = "share"
+         share  = nil
+         begin
+            share = get_evercam_api.share_camera(camera_id, params[:email], rights)
+            result[:camera_id]   = share["camera_id"]
+            result[:share_id]    = share["id"]
+            result[:type]        = share["type"]
+            result[:permissions] = params[:permissions]
+            result[:email]       = params[:email]
+            if share["type"] == "share"
                UserMailer.camera_shared_notification(params[:email],
                                                      params[:camera_id],
                                                      current_user).deliver
             else
-               share_request = data["share_requests"][0]
-               result[:camera_id]   = share_request["camera_id"]
-               result[:share_id]    = share_request["id"]
-               result[:type]        = "share_request"
                UserMailer.sign_up_to_share_email(params[:email],
                                                  params[:camera_id],
                                                  current_user,
                                                  share_request["id"]).deliver
             end
-            result[:permissions] = params[:permissions]
-            result[:email]       = params[:email]
-         else
+         rescue => error
+            env["airbrake.error_id"] = notify_airbrake(error)
+            Rails.logger.warn "Exception caught creating camera share.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
             result[:success] = false
-            result[:message] = "Failed to create camera share."
+            result[:message] = "Failed to create camera share request."
          end
       else
          result = {success: false, message: "Insufficient parameters provided."}
@@ -104,9 +105,12 @@ class SharingController < ApplicationController
       if params.include?(:id) && params.include?(:permissions)
          rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
          rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
-         values   = {rights: rights.join(",")}
-         response = API_call("/shares/cameras/#{params[:id]}", :patch, values)
-         if !response.success?
+         begin
+            get_evercam_api.update_camera_share(params[:id], rights)
+         rescue => error
+            env["airbrake.error_id"] = notify_airbrake(error)
+            Rails.logger.warn "Exception caught updating camera share.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
             result = {success: false, message: "Failed to update share. Please contact support."}
          end
       else
@@ -120,9 +124,12 @@ class SharingController < ApplicationController
       if params.include?(:id) && params.include?(:permissions)
          rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
          rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
-         values   = {rights: rights.join(",")}
-         response = API_call("/shares/requests/#{params[:id]}", :patch, values)
-         if !response.success?
+         begin
+            get_evercam_api.update_camera_share_request(params[:id], rights)
+         rescue => error
+            env["airbrake.error_id"] = notify_airbrake(error)
+            Rails.logger.warn "Exception caught updating camera share.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
             result = {success: false, message: "Failed to update share request. Please contact support."}
          end
       else

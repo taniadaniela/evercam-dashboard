@@ -34,9 +34,11 @@ class ApplicationController < ActionController::Base
 
   def get_evercam_api
     configuration = Rails.application.config
-    parameters    = {api_id: current_user.api_id,
-                     api_key: current_user.api_key,
-                     logger: Rails.logger}
+    parameters    = {logger: Rails.logger}
+    if current_user
+      parameters = parameters.merge(api_id: current_user.api_id,
+                                    api_key: current_user.api_key)
+    end
     settings      = {}
     begin
       settings = (configuration.evercam_api || {})

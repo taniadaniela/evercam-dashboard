@@ -8,7 +8,7 @@ describe "the signin process", :type => :feature do
 
   context "Session management" do
     it "User sings in with correct password" do
-      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true").
         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
       stub_request(:get, "#{EVERCAM_API}shares/users/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").
@@ -34,24 +34,25 @@ describe "the signin process", :type => :feature do
 
   context "Camera management" do
     it "User adds new camera with correct parameters" do
-      stub_request(:post, "#{EVERCAM_API}cameras").
-        to_return(:status => 200, :body => "", :headers => {})
+      stub_request(:post, "#{EVERCAM_API}cameras.json").
+        to_return(:status => 200, :body => '{"cameras": [{"id": "testcam", "name": "Test Camera"}]}', :headers => {})
 
-      stub_request(:get, "#{EVERCAM_API}cameras/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam"}]}', :headers => {})
 
-      stub_request(:get, "#{EVERCAM_API}shares/cameras/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        to_return(:status => 200, :body => "{}", :headers => {})
+      stub_request(:get, "#{EVERCAM_API}shares/cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        to_return(:status => 200, :body => '{"shares": []}', :headers => {})
 
-      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true").
         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
-      stub_request(:get, "#{EVERCAM_API}shares/requests/testcam?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        with(:body => "status=PENDING").
+      stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=false").
+         to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
+
+      stub_request(:get, "#{EVERCAM_API}shares/requests/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}&status=PENDING").
         to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
 
-      stub_request(:get, "#{EVERCAM_API}shares?api_id=#{user.api_id}&api_key=#{user.api_key}").
-         with(:body => "camera_id=testcam&user_id=#{user.username}").
+      stub_request(:get, "#{EVERCAM_API}shares.json?api_id=#{user.api_id}&api_key=#{user.api_key}&camera_id=testcam&user_id=#{user.username}").
          to_return(:status => 200, :body => '{"shares": [{}]}', :headers => {})
       stub_request(:get, "#{EVERCAM_API}cameras/testcam/logs?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"logs": []}', :headers => {})
@@ -70,6 +71,7 @@ describe "the signin process", :type => :feature do
       fill_in "Snapshot URL", :with => '/snapshot.jpg'
       click_button "Finish & Add"
 
+      # puts "PAGE:\n#{page.public_methods.sort.join("\n")}"
       expect(page).to have_text("Test Camera")
       expect(page).to have_text("testcam")
       expect(page).to have_text("Live View")

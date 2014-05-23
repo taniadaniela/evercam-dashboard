@@ -1,78 +1,84 @@
-<div class="row">
-  <div class="col-lg-12 info-panel">
-    <div class="col-lg-4">
-      <table class='table borderless'>
-        <thead>
-        <tr><h4>Info</h4></tr>
-        </thead>
-        <tr>
-          <td>Camera ID:</td>
-          <td><%= @camera['id'] %></td>
-        </tr>
-        <tr>
-          <td>Camera Owner:</td>
-          <td><%= @camera['owner'] %></td>
-        </tr>
-        <tr>
-          <td>Local IP:</td>
-          <td><%= @camera['internal_host'] %></td>
-        </tr>
-      </table>
-    </div>
+<div class="col-md-12">
+  <h4>Info</h4>
+</div>
+
+<div class='col-lg-7'>
+  <table class="table">
+    <tr>
+      <td class="col-md-4">
+        <label class="control-label">Evercam ID</label>
+      </td>
+      <td class="col-md-6 settings">
+        <%= @camera['id'] %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-md-4">
+        <label class="control-label" for="camera-name">Camera Owner</label>
+      </td>
+      <td class="col-md-6">
+        <%= @camera['owner'] %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-md-4">
+        <label class="control-label" for="camera-name">Local IP</label>
+      </td>
+      <td class="col-md-6">
+        <%= @camera['internal_host'] %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="col-md-5 url-container">
+  <div class="row info-panel">
+      <div class="col-md-12">
+        <h5>Short URLs</h5>
+      </div>
+      <div class="col-md-2">
+        JPEG
+      </div>
+      <div class="col-md-10">
+        <% if @camera['is_public'] %>
+          <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", :only_path => false %>
+        <% else %>
+          <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">    ...(Only available for public cameras)</small>
+        <% end %>
+      </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 info-panel">
-    <div class="col-md-12">
-      <h5>Short URLs</h5>
-    </div>
-    <div class="col-md-2">
-      JPEG
-    </div>
-    <div class="col-md-10">
-      <% if @camera['is_public'] %>
-        <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", :only_path => false %>
-      <% else %>
-        <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">          ...(Only available for public cameras)</small>
-      <% end %>
-    </div>
+  <div class="row info-panel">
+      <div class="col-md-12">
+        <h5>Dynamic DNS URLs</h5>
+      </div>
+      <div class="col-md-2">
+        JPEG
+      </div>
+      <div class="col-md-10">
+        <% url = @camera.fetch('short', {})['jpg_url'] %>
+        <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+      </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 info-panel">
-    <div class="col-md-12">
-      <h5>Dynamic DNS URLs</h5>
-    </div>
-    <div class="col-md-2">
-      JPEG
-    </div>
-    <div class="col-md-10">
-      <% url = @camera.fetch('short', {})['jpg_url'] %>
-      <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
-    </div>
+  <div class="row info-panel">
+      <div class="col-md-12">
+        <h5>Base URLs</h5>
+      </div>
+      <div class="col-md-2">
+        RTSP
+      </div>
+      <div class="col-md-10">
+        <% url = @camera.fetch('external', {})['rtsp_url'] %>
+        <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+      </div>
+      <div class="col-md-2">
+        JPEG
+      </div>
+      <div class="col-md-10">
+        <% url = @camera.fetch('external', {})['jpg_url']  %>
+        <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+      </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 info-panel">
-    <div class="col-md-12">
-      <h5>Base URLs</h5>
-    </div>
-    <div class="col-md-2">
-      RTSP
-    </div>
-    <div class="col-md-10">
-      <% url = @camera.fetch('external', {})['rtsp_url'] %>
-      <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
-    </div>
-    <div class="col-md-2">
-      JPEG
-    </div>
-    <div class="col-md-10">
-      <% url = @camera.fetch('external', {})['jpg_url'] %>
-      <%= link_to_unless(url.nil?, url, url, :only_path => false) %>
-    </div>
-   </div>
-</div>
+</div><!--URL Container -->
 
   
   

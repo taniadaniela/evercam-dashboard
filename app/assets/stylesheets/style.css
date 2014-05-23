@@ -819,7 +819,7 @@ select {
     margin-top: 5px;
 }
 .nav-tabs > li {
-    margin-bottom: -2px;
+    margin-bottom: -3px;
 }
 /*LIVE*/
 .tab-content h4 {
@@ -852,12 +852,28 @@ select {
     text-transform: uppercase;
     top: 0;
 }
-
+.offline-overlay img {
+    position: relative;
+}
+.offline-overlay {
+background-color: rgba(0,0,0,.5);
+    position: absolute;
+}
 .glyphicon  {
     padding-right: 5px;
 }
 
 /*INFO*/
+#info .table {
+    width: auto;
+}
+#info .tabs {
+    margin: 30px;
+}
+#info .control-label {
+    padding: 6px 0px 0px;
+    font-family: 'proxima-nova-bold';
+}
 .borderless td {
     border: none !important;
 }
@@ -881,6 +897,13 @@ select {
     padding-bottom: 00px;
     margin-bottom: 0px;
 }
+
+.url-container {
+    background-color: #f5f5f5;
+    padding: 3px 14px;
+    margin-left: 15px;
+    border-radius: 2px;
+}
 /*CAMERA SETTINGS*/
 #camera-settings h4 {
     margin-left: 15px;
@@ -895,16 +918,27 @@ select {
 #camera-settings .test-snapshot {
     left: 25%;
     position: absolute;
-    top: 36%;
+    top: 41%;
 }
 #camera-settings .table {
     width:auto;
+}
+#camera-settings .input-group-addon {
+    border: none;
+    background-color: #fff;
+    float:left;
+    width: 49px;
+    margin-top: 5px;
+}
+#camera-settings .camera-url {
+    width: 230px;
 }
 .settings-section {
     margin-bottom: 25px;
 }
 .save-settings{
     margin-top: 15px;
+    padding-right: 25px;
 }
 #camera-settings .control-label {
     color:#414042;
@@ -925,17 +959,27 @@ select {
 .float-left {
     float: left;
 }
+
 .support {
     padding-left:35px;
 }
 .support h5 {
     font-size: 18px;
 }
+#testimg {
+    max-width: 328px;
+    background-image: url('https://www.evercam.io/img/connect.png');
+}
 .snapshot-error {
     margin-top: 5px;
+    position: absolute;
+    text-align: center;
+    margin: 0 auto;
+    width: 336px;
+    margin-top: 27px;
+
 }
 .settings #camera-vendor {
-
     background-color: white;
     background-repeat: no-repeat;
     background-position: right;
@@ -1021,10 +1065,7 @@ select {
 .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
     border-radius: 1px !important;
 }
-#camera-settings .input-group-addon {
-    border: none;
-    background-color: #fff;
-}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     border-top: 1px solid #F5F5F5;
 }
@@ -1098,9 +1139,6 @@ API EXPLORER TAB
     width: 842px;
     margin-top: -355;
     margin:0 auto;
-}
-#exp-swagger {
-    margin-top: -20px;
 }
 .explorer-id {
     border: 1px solid #e5e5e5;
@@ -1265,12 +1303,9 @@ API LOGS TAB
 .test-snapshot {
     left: 15%;
     position: absolute;
-    top: 30%;
+    top: 42%;
 }
-#testimg {
-    max-width: 400px;
-    background-image: url('https://www.evercam.io/img/connect.png');
-}
+
 #testimg-add {
     max-width: 240px;
     background-image: url('https://www.evercam.io/img/connect-add.png');
@@ -1445,7 +1480,6 @@ tbody tr:hover {
     background-image: none;
     border: medium none;
     padding: 10px 40px;
-    margin-top: 20px;
 }
 .btn-primary:focus {
     box-shadow: none;
@@ -1486,7 +1520,7 @@ tbody tr:hover {
     border-radius: 2px;*/
     webkit-box-shadow:none;
     box-shadow:none;
-    margin: 10px 0;
+    margin: 0px 0;
 }
 .help-block {
     font-size: 10px;
@@ -1549,7 +1583,7 @@ tbody tr:hover {
 }
 .sub-menu-item {
     line-height: 14px;
-    padding: 7px 0 8px 20px;
+    padding: 7px 29px 8px 11px !Important;
 }
 #sidebar .sub-menu-item:hover {
     background-color: #FFFFFF;

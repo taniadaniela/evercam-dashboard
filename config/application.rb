@@ -54,6 +54,7 @@ module EvercamDashboard
                                  'custom.js',
                                  'bootbox-4.2.0.js',
                                  'editable-1.5.1.min.js',
+                                 'moment.min.js',
                                  'jquery.datetimepicker-2.2.5.min.js',
                                  'jquery.datetimepicker-2.2.5.min.css']
 

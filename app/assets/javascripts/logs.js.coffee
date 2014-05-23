@@ -1,3 +1,5 @@
+table = null
+
 updateLogTypesFilter = () ->
   exid = $('#exid').val()
   page = $('#current-page').val()
@@ -10,12 +12,29 @@ updateLogTypesFilter = () ->
   fromto_seg = ''
   fromto_seg += '&from=' + from unless isNaN(from)
   fromto_seg += '&to=' + to unless isNaN(to)
-  window.location = "/cameras/" + exid + "?page=" + page + "&types=" + types.join() + fromto_seg + "#logs"
+  table.ajax.url($('#base-url').val()+ "&page=" + page + "&types=" + types.join() + fromto_seg).load()
   true
 
 initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
   $(".datetimepicker").datetimepicker()
+  table = $('#logs-table').DataTable({
+    "ajax": {
+      'url': $('#ajax-url').val(),
+      'dataSrc': 'logs'
+    },
+    'columns': [
+      {'data': ( row, type, set, meta ) ->
+        return moment(row.done_at*1000).format('MMMM Do YYYY, H:mm:ss')
+      },
+      {'data': ( row, type, set, meta ) ->
+        if row.action is 'shared' or row.action is 'stopped sharing'
+          return row.action + ' with ' + row.extra.with
+        return row.action
+      },
+      {'data': 'who'}
+    ]
+  })
   true
 
 if !window.Evercam

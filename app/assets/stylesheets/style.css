@@ -1147,6 +1147,78 @@ API EXPLORER TAB
     margin-left: 10px;
 }
 /*/////////////////////
+API LOGS TAB
+/////////////////////*/
+#logs .form-control {
+    background-color: #ffffff;
+    border: none;
+    height: 104px;
+    padding: 3px 10px 0px 0px;
+
+}
+.log-option {
+    background-color: #FFFFFF;
+    border: medium none;
+}
+#logs .form-control:focus {
+    box-shadow: none;
+}
+#logs .bold {
+    text-transform: capitalize;
+}
+#logs .checkbox-inline {
+    padding-left: 0px;
+    margin-right: 4px;
+    margin-bottom: 8px;
+}
+#logs .checkbox input[type="checkbox"], #logs .checkbox-inline input[type="checkbox"] {
+    float: left;
+    margin-left: -6px;
+    width: 24px;
+    margin-top: 1px;
+    height: 15px;
+}
+#logs .checkbox input[type="checkbox"]:focus, #logs .checkbox-inline input[type="checkbox"]:focus {
+    box-shadow:none;
+}
+
+.filter {
+    border: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    padding: 10px 18px 10px;
+}
+.filter h5 {
+    font-family: 'proxima-nova-bold';
+    font-size: 14px;
+}
+#apply-types {
+    margin: 12px -5px 10px;
+    padding: 5px 15px;
+}
+#types {
+    padding-left: 4px;
+}
+#date-box {
+    margin: -4px -14px 10px;
+}
+#date-box input {
+    width: 130px;
+    height: 25px;
+    margin-top: 3px;
+    font-family: proxima-nova-regular;
+    margin-left: 10px;
+    padding-left: 10px;
+    background-color: #ffffff;
+    border-radius:2px;
+}
+.table-logs td {
+    border-bottom: none !Important;
+    border-top: none !Important;
+}
+/*/////////////////////
 //MODAL
 /////////////////////*/
 #myModal input {
@@ -1409,6 +1481,10 @@ tbody tr:hover {
     border: medium none;
     padding: 10px 40px;
 }
+.btn-primary:focus {
+    box-shadow: none;
+}
+
 .btn-edit {
     background-color: #428BCA ;
     color: #ffffff;

@@ -35,7 +35,7 @@ gem 'protected_attributes'
 gem 'rack-rewrite'
 gem 'sequel'
 gem 'typhoeus'
-gem 'puma'
+gem 'unicorn'
 gem 'data_uri'
 
 gem 'rails_12factor', group: :production

@@ -2,14 +2,19 @@ class PublicController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
 
+  LIMIT = 9
+
   def index
     @user    = current_user
     @cameras = []
     begin
-      @cameras = get_evercam_api.get_public_cameras(offset: (params[:offset] || 0),
-                                                    limit:  (params[:limit] || 100))
+      @page    = (params[:page].to_i - 1) || 0
+      @page = 0 if @page < 0
+      offset = @page*LIMIT
+      @cameras, @pages = get_evercam_api.get_public_cameras(offset: offset,
+                                                    limit:  LIMIT)
       @cameras.delete_if do |camera|
-        (camera["extra_urls"].nil? || camera["extra_urls"]["external_jpg_url"].nil?)
+        (camera["short"].nil? || camera["short"]["jpg_url"].nil?)
       end
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

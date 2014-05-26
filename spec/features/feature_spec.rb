@@ -54,8 +54,9 @@ describe "the signin process", :type => :feature do
 
       stub_request(:get, "#{EVERCAM_API}shares.json?api_id=#{user.api_id}&api_key=#{user.api_key}&camera_id=testcam&user_id=#{user.username}").
          to_return(:status => 200, :body => '{"shares": [{}]}', :headers => {})
-      stub_request(:get, "#{EVERCAM_API}cameras/testcam/logs?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        to_return(:status => 200, :body => '{"logs": []}', :headers => {})
+
+      stub_request(:get, "#{EVERCAM_API}cameras/testcam/logs.json?api_id=#{user.api_id}&api_key=#{user.api_key}&page=-1&types=").
+         to_return(:status => 200, :body => '{"logs": [], "pages": 1}', :headers => {})
       
       stub_request(:get, "#{EVERCAM_API}cameras/testcam/snapshots/latest.json?api_id=#{user.api_id}&api_key=#{user.api_key}&with_data=true").
         to_return(:status => 200, :body => '{"snapshots": []}', :headers => {})

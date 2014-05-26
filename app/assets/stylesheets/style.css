@@ -1218,6 +1218,37 @@ API LOGS TAB
     border-bottom: none !Important;
     border-top: none !Important;
 }
+#logs-table_length {
+    margin-top: 17px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: none repeat scroll 0 0 #e5e5e5 !Important;
+    border: 1px solid #fff !Important;
+    border-radius: 2px !Important;
+    color: #333333 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: none repeat scroll 0 0 #e5e5e5 !Important;
+    border: 1px solid #fff !Important;
+    border-radius: 2px;
+    color: #428BCA !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    box-shadow: none !important;
+}
+table.dataTable thead th, table.dataTable thead td {
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+.dataTables_length, .dataTables_filter {
+    padding: 5px !important;
+}
+table.dataTable.no-footer {
+    border-bottom: 1px solid #e5e5e5 !important;
+
+}
 /*/////////////////////
 //MODAL
 /////////////////////*/
@@ -5369,4 +5400,8 @@ tr:hover .public-preview {
 }
 .snapshot-link {
     font-size:11px;
+}
+
+.log-action {
+  text-transform: capitalize;
 }

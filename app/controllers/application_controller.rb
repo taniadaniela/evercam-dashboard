@@ -22,15 +22,30 @@ class ApplicationController < ActionController::Base
   def load_cameras_and_shares
     @cameras = []
     @shares  = []
-    reply  = API_call("users/#{current_user.username}/cameras", :get, include_shared: true)
-    if reply.success?
-      @cameras =  JSON.parse(reply.body)['cameras']
-      @cameras.each do |camera|
-        @shares << camera if !camera['owned']
-      end
-      @cameras = @cameras - @shares if @shares.length > 0
-    else
-      Rails.logger.warn "Request for user cameras was unsuccessful."
+    api      = get_evercam_api
+    begin
+      @cameras = api.get_user_cameras(current_user.username, true)
+    rescue => error
+      Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
     end
+    @cameras.each {|camera| @shares << camera if !camera['owned']}
+    @cameras = @cameras - @shares if @shares.length > 0
+  end
+
+  def get_evercam_api
+    configuration = Rails.application.config
+    parameters    = {logger: Rails.logger}
+    if current_user
+      parameters = parameters.merge(api_id: current_user.api_id,
+                                    api_key: current_user.api_key)
+    end
+    settings      = {}
+    begin
+      settings = (configuration.evercam_api || {})
+    rescue => error
+      # Deliberately ignored.
+    end
+    parameters    = parameters.merge(settings) if !settings.empty?
+    Evercam::API.new(parameters)
   end
 end

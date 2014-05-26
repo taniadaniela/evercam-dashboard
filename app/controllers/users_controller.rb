@@ -22,35 +22,29 @@ class UsersController < ApplicationController
   end
 
   def create
-    if params.has_key?('user')
-      body = {
-        :forename => params[:user]['forename'],
-        :lastname => params[:user]['lastname'],
-        :username => params[:user]['username'],
-        :email => params[:user]['email'],
-        :country => params['country'],
-        :password => params[:user]['password']
-      }
-      body[:share_request_key] = params[:key] if params.include?(:key)
-
-      response  = API_call("users", :post, body)
-    end
-    if response.nil? or not response.success?
-      @share_request = nil
-      if params[:key]
-        @share_request = CameraShareRequest.where(status: CameraShareRequest::PENDING,
-                                                  key: params[:key]).first
+    user = params[:user]
+    begin
+      if user.nil?
+        raise "No user details specified in request."
       end
-      if !response.nil?
-         Rails.logger.error "API request returned successfully. Response:\n#{response.body}"
-         flash[:message] = JSON.parse(response.body)['message']
-       end
-      @countries = Country.all
-      render :new
-    else
-      @user = User.where(email: params[:user]['email'].downcase).first
-      sign_in @user
+      output = get_evercam_api.create_user(user['forename'],
+                                           user['lastname'],
+                                           user['username'],
+                                           user['email'],
+                                           user['password'],
+                                           params['country'],
+                                           params[:share_request_key])
+
+      user = User.where(email: user[:email].downcase).first
+      sign_in user
       redirect_to "/"
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught in create user request.\nCause: #{error}\n" +
+                         error.backtrace.join("\n")
+      flash[:message] = "An error occurred creating your account. Please try "\
+                        "again and, if the problem persists, contact support."
+      redirect_to action: 'new', user: user
     end
   end
 
@@ -74,25 +68,28 @@ class UsersController < ApplicationController
   end
 
   def settings_update
-    body = {
-      :forename => params['user-forename'],
-      :lastname => params['user-lastname'],
-      :country => params['country']
-    }
-
-    body[:email] = params['email'] unless params['email'] == current_user.email
-
-    response  = API_call("users/#{current_user.username}", :patch, body)
-
-    if response.success?
-      flash.now[:message] = 'Settings updated successfully'
-      session[:user] = User.by_login(current_user.username).email
-    else
-      flash.now[:message] = JSON.parse(response.body)['message']
+    begin
+      parameters = {}
+      parameters[:forename] = params['user-forename'] if params.include?('user-forename')
+      parameters[:lastname] = params['user-lastname'] if params.include?('user-lastname')
+      parameters[:country]  = params['country'] if params.include?('country')
+      if params.include?('email')
+        parameters[:email] = params['email'] unless params['email'] = current_user.email
+      end
+      if !parameters.empty?
+         get_evercam_api.update_user(current_user.username, parameters)
+         session[:user] = User.by_login(current_user.username).email
+         refresh_user
+       end
+      flash[:message] = 'Settings updated successfully'
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
+                         error.backtrace.join("\n")
+      flash[:message] = "An error occurred updating your details. Please try "\
+                        "again and, if the problem persists, contact support."
     end
-    @countries = Country.all
-    refresh_user
-    render :settings
+    redirect_to action: 'settings'
   end
 
   def password_reset_request

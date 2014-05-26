@@ -15,24 +15,35 @@ updateLogTypesFilter = () ->
   table.ajax.url($('#base-url').val()+ "&page=" + page + "&types=" + types.join() + fromto_seg).load()
   true
 
+toggleAllTypeFilters = ->
+  if $('#all-types').is(':checked')
+    $("input[name='type']").prop('checked', true);
+  else
+    $("input[name='type']").prop('checked', false);
+
 initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
   $(".datetimepicker").datetimepicker()
+  $('#all-types').click(toggleAllTypeFilters)
   table = $('#logs-table').DataTable({
     "ajax": {
       'url': $('#ajax-url').val(),
       'dataSrc': 'logs'
     },
     'columns': [
-      {'data': ( row, type, set, meta ) ->
+      {data: ( row, type, set, meta ) ->
         return moment(row.done_at*1000).format('MMMM Do YYYY, H:mm:ss')
       },
-      {'data': ( row, type, set, meta ) ->
+      {data: ( row, type, set, meta ) ->
         if row.action is 'shared' or row.action is 'stopped sharing'
           return row.action + ' with ' + row.extra.with
         return row.action
-      },
-      {'data': 'who'}
+      , className: 'log-action'},
+      {data: ( row, type, set, meta ) ->
+        if row.action is 'online' or row.action is 'offline'
+          return 'System'
+        return row.who
+      }
     ]
   })
   true

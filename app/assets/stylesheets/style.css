@@ -5370,3 +5370,7 @@ tr:hover .public-preview {
 .snapshot-link {
     font-size:11px;
 }
+
+.log-action {
+  text-transform: capitalize;
+}

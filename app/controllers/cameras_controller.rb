@@ -108,11 +108,10 @@ class CamerasController < ApplicationController
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
-      parameters        = {object: 'true', page: @page, types: params[:types]}
+      parameters        = {objects: true, page: @page, types: params[:types]}
       parameters[:from] = params[:from] if !params[:from].blank?
       parameters[:to]   = params[:to] if !params[:to].blank?
       output            = api.get_logs(params[:id], parameters)
-      Rails.logger.debug "**** OUTPUT:\n#{output}"
       @logs             = output[:logs]
       @pages            = output[:pages]
       @share  = nil

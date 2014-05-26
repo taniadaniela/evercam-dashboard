@@ -188,7 +188,7 @@ describe CamerasController do
         stub_request(:get, "#{EVERCAM_API}shares.json?api_id=#{user.api_id}&api_key=#{user.api_key}&camera_id=#{params['camera-id']}&user_id=#{user.username}").
            to_return(:status => 200, :body => '{"shares": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}/logs.json?api_id=#{user.api_id}&api_key=#{user.api_key}&page=-1&types=").
-          to_return(:status => 200, :body => '{"logs": [], "pages": 1}', :headers => {})
+          to_return(:status => 200, :body => '{"logs": [{}], "pages": 1}', :headers => {})
 
         session['user'] = user.email
         get :single, id: params['camera-id']

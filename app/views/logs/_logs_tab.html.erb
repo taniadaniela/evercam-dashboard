@@ -44,7 +44,7 @@
         <tbody>
           <% @logs.each do |l| %>
           <tr>
-            <td>On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822)  %></span></td>
+            <td>On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822) unless l['done_at'].nil? %></span></td>
             <td><span class="bold"><%= l['action'] %></span></td>
             <td>
               <% unless ['online', 'offline'].include?l['action'] %>

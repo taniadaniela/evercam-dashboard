@@ -1,0 +1,1 @@
+(function(){window.Evercam||(window.Evercam={}),$(function(){return $("img").error(function(){return $(this).attr("src","https://www.evercam.io/img/publiccams-error.png")})})}).call(this);

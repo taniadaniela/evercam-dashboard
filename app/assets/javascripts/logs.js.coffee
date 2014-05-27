@@ -44,7 +44,8 @@ initializeLogsTab = ->
           return 'System'
         return row.who
       }
-    ]
+    ],
+    'iDisplayLength': 50
   })
   true
 

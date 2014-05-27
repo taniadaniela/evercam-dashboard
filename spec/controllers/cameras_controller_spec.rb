@@ -92,6 +92,9 @@ describe CamerasController do
         stub_request(:post, "#{EVERCAM_API}cameras.json").
           to_return(:status => 200, :body => '{"cameras": [{}]}', :headers => {})
 
+        stub_request(:post, "#{EVERCAM_API}cameras/#{params['camera-id']}/snapshots.json").
+          to_return(:status => 200, :body => '{"snapshots": [{"camera": "aaaa11123","notes": null,"created_at": 1401205738,"timezone": "Etc/UTC"}]}', :headers => {})
+
         session['user'] = user.email
         post :create, params
         expect(response.status).to eq(302)
@@ -123,6 +126,9 @@ describe CamerasController do
       it "redirects to the newly created camera" do
         stub_request(:post, "#{EVERCAM_API}cameras.json").
           to_return(:status => 200, :body => '{"cameras": [{}]}', :headers => {})
+
+        stub_request(:post, "#{EVERCAM_API}cameras/#{params['camera-id']}/snapshots.json").
+          to_return(:status => 200, :body => '{"snapshots": [{"camera": "aaaa11123","notes": null,"created_at": 1401205738,"timezone": "Etc/UTC"}]}', :headers => {})
 
         session['user'] = user.email
         post :create, full_params

@@ -24,8 +24,18 @@ onAddShareClicked = (event) ->
   window.Evercam.Share.createShare(cameraID, emailAddress, permissions, onSuccess, onError)
   true
 
+setList = ->
+  $.removeCookie('public-style')
+  $.cookie('public-style', 'list', { expires: 365 })
+
+setGrid = ->
+  $.removeCookie('public-style')
+  $.cookie('public-style', 'grid', { expires: 365 })
+
 initialize = ->
   $(".create-share-button").click(onAddShareClicked)
+  $('#grid-style').click(setGrid)
+  $('#list-style').click(setList)
   Notification.init(".bb-alert")
   true
 

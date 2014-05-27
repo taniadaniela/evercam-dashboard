@@ -43,26 +43,27 @@
           <!-- Nav tabs -->
          <div class="new-panel-heading">
            <ul class="nav nav-tabs">
-            <li class="active"><a href="#grid" data-toggle="tab"><span class="glyphicon glyphicon-th"></span>Grid</a></li>
-            <li><a href="#list" data-toggle="tab"><span class="glyphicon glyphicon-align-justify"></span>List</a></li>
+            <li id="grid-style" class="<%= 'active' unless cookies['public-style'] == 'list' %>"><a href="#grid" data-toggle="tab"><span class="glyphicon glyphicon-th"></span>Grid</a></li>
+            <li id="list-style" class="<%= 'active' if cookies['public-style'] == 'list' %>"><a href="#list" data-toggle="tab"><span class="glyphicon glyphicon-align-justify"></span>List</a></li>
           </ul>
          </div>
           <!-- Tab panes -->
           <div class="tab-content">
-            <div class="tab-pane active" id="grid">
+            <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="grid">
               <% @cameras.each do |c| %>
                 <div class="col-md-4 col-sm-6 col-xs-12 public-cam-box">
                   <div id="cam-name">
                     <h5><%= link_to(c["name"], "/publiccam/#{c['id']}") %></h5>
                   </div>
-                    <img onerror="this.style.display='none'" src="<%= c["extra_urls"]["external_jpg_url"] %>">
+                    <img onerror="this.style.display='none'" src="<%= c["short"]["jpg_url"] %>">
                   <div class="add-to-cams">
                     <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
                   </div>
                 </div>
               <% end %>
+
             </div>
-            <div class="tab-pane" id="list">
+            <div class="tab-pane <%= 'active' if cookies['public-style'] == 'list' %>" id="list">
               <div class="row">
                 <div class="col-md-12">
                   <table class="table table-hover">
@@ -75,7 +76,7 @@
                     <% @cameras.each do |c| %>
                       <tr>
                         <td class="col-md-6">
-                          <div class="public-preview"><img src="<%= c["extra_urls"]["external_jpg_url"] %>"></div>
+                          <div class="public-preview"><img src="<%= c["short"]["jpg_url"] %>"></div>
                         </td>
                         <td class="col-md-3 public-list-name"><%= link_to(c["name"], "publiccam/#{c['id']}") %></td>
                         <td class="col-md-2">
@@ -96,6 +97,20 @@
                 </div>
               </div><!-- #row -->
             </div>
+
+            <% unless @pages.blank? %>
+            <div class="col-md-12">
+              <ul class="pagination">
+                <% 1.upto(@pages + 1) do |i| %>
+                <% if (@page + 1) == i %>
+                <li class="active"><a href="publiccam?page=<%= i %>"><%= i %><span class="sr-only">(current)</span></a></li>
+                <% else %>
+                <li><a href="publiccam?page=<%= i %>"><%= i %></a></li>
+                <% end %>
+                <% end %>
+              </ul>
+            </div>
+            <% end %>
           </div>
         </div><!-- #PUBLICCAMS -->
         </section>

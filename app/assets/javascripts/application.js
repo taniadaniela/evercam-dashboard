@@ -22,3 +22,4 @@
 //= require bootbox-4.2.0
 //= require jquery.datetimepicker-2.2.5.min
 //= require moment.min
+//= require jquery.cookie.js

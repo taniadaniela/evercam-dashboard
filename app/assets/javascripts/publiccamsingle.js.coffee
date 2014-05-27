@@ -1,5 +1,8 @@
 if !window.Evercam
   window.Evercam = {}
 
-window.Evercam.PubliccamSingle =
-  initializeTab: initializeLiveTab
+$ ->
+  #Replace Broken Image
+  $('img').error( ->
+    $(this).attr('src', 'https://www.evercam.io/img/publiccams-error.png')
+  )

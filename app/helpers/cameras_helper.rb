@@ -17,6 +17,7 @@ module CamerasHelper
   end
 
   def preview(camera, live=false)
+    proxy = "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
     begin
       res = get_evercam_api.get_latest_snapshot(camera['id'], true)
       if !res.nil?

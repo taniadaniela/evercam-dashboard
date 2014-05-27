@@ -38,6 +38,7 @@ class CamerasController < ApplicationController
                         params['camera-name'],
                         false,
                         body)
+      api.store_snapshot(params['camera-id'], 'Initial snapshot')
       redirect_to action: 'single', id: params['camera-id']
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

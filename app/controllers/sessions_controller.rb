@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   include SessionsHelper
 
+  protect_from_forgery except: :destroy
+
   def new
     unless current_user.nil?
       redirect_to :cameras_index

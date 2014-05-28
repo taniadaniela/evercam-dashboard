@@ -18,6 +18,9 @@
       </td>
       <td class="col-md-6">
         <%= @camera['owner'] %>
+        <% if @camera['owner'] == current_user.username %>
+          <small class="blue"> (you)</small>
+        <% end %>
       </td>
     </tr>
     <tr>

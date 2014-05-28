@@ -85,7 +85,7 @@ class SharingController < ApplicationController
                UserMailer.sign_up_to_share_email(params[:email],
                                                  params[:camera_id],
                                                  current_user,
-                                                 share_request["id"]).deliver
+                                                 share["id"]).deliver
             end
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)

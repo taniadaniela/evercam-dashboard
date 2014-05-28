@@ -43,7 +43,7 @@
         <% if @camera['is_public'] %>
           <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", :only_path => false %>
         <% else %>
-          <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">    ...(Only available for public cameras)</small>
+          <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small>
         <% end %>
       </div>
   </div>
@@ -55,7 +55,7 @@
         JPEG
       </div>
       <div class="col-md-10">
-        <% url = @camera.fetch('short', {})['jpg_url'] %>
+        <% url = @camera.fetch('dyndns', {})['jpg_url'] %>
         <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
       </div>
   </div>

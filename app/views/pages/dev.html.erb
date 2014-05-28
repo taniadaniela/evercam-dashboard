@@ -35,7 +35,7 @@
                     <tr height="50" class="border">
                       <td>Demo Camera ID</td>
                       <td>
-                        <%= current_user.cameras.first.exid %>
+                        <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
                       </td>
                     </tr>
                   </table>

@@ -132,5 +132,22 @@ class CamerasController < ApplicationController
       redirect_to action: 'index'
     end
   end
+
+  def transfer
+    result = {success: true}
+    begin
+      raise BadRequestError.new("No camera id specified in request.") if !params.include?(:camera_id)
+      raise BadRequestError.new("No user email specified in request.") if !params.include?(:email)
+      get_evercam_api.change_camera_owner(params[:camera_id], params[:email])
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught transferring camera ownership.\nCause: #{error}\n" +
+                         error.backtrace.join("\n")
+      message = "An error occurred transferring ownership of this camera. Please "\
+                "try again and, if the problem persists, contact support."
+      result  = {success: false, message: message, error: "#{error}"}
+    end
+    render json: result
+  end
 end
 

@@ -11,6 +11,7 @@
       <td class="col-md-6 settings">
         <%= @camera['id'] %>
       </td>
+      <td class="col-md-2"></td>
     </tr>
     <tr>
       <td class="col-md-4">
@@ -18,6 +19,11 @@
       </td>
       <td class="col-md-6">
         <%= @camera['owner'] %>
+      </td>
+      <td class="col-md-2">
+      <% if @camera['owner'] %>
+         <button id="change_owner_button" type="button" class="btn btn-default">Change</button>
+      <% end %>
       </td>
     </tr>
     <tr>
@@ -27,6 +33,7 @@
       <td class="col-md-6">
         <%= @camera['internal_host'] %>
       </td>
+      <td class="col-md-2"></td>
     </tr>
   </table>
 </div>
@@ -80,8 +87,42 @@
   </div>
 </div><!--URL Container -->
 
-  
-  
+<div id="change_owner_dialog" class="modal fade" role="fade">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4>Transfer Camera Ownership</h4>
+         </div>
+         <div class="modal-body">
+            <p class="text-left">
+               Enter the user name or email address of the Evercam user that you want to transfer ownership of this camera to in the field below.
+               <p><strong>
+                  Note that once you click submit you will no longer be the owner of the camera and may lose all rights to the
+                  camera and associated artifacts.
+               </strong></p>
+            </p>
+            <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p><br/>
+            <input type="text" id="new_owner_email" name="new_owner_email" placeholder="Enter New Owners Email Address">
+            <input type="hidden" id="change_owner_camera_id" name="camera-id" value="<%= @camera['id'] %>">
+            <br/>
+         </div>
+         <div class="modal-footer">
+            <hr/>
+            <div class="col-sm-8">
+               <div class="btn-toolbar pull-left">
+                  <div class="btn-group">
+                     <button type="button" id="submit_change_owner_button" class="btn btn-default btn-danger">Submit</button>
+                  </div>
+                  <div class="btn-group">
+                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>  
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);

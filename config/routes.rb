@@ -2,6 +2,7 @@ EvercamDashboard::Application.routes.draw do
 
    root 'cameras#index'
 
+   get 'cameras/transfer' => 'cameras#transfer'
    get 'cameras' => 'cameras#index', as: :cameras_index
    get 'cameras/new' => 'cameras#new'
    post 'cameras/new' => 'cameras#create'

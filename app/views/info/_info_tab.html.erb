@@ -19,6 +19,11 @@
       <td class="col-md-6">
         <%= @camera['owner'] %>
       </td>
+      <td class="col-md-2">
+      <% if @camera['owner'] %>
+         <button id="change_owner_button" type="button" class="btn btn-default">Change</button>
+      <% end %>
+      </td>
     </tr>
     <tr>
       <td class="col-md-4">

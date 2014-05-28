@@ -46,7 +46,6 @@ module EvercamDashboard
                                  'cameras.js',
                                  'camera_single.js',
                                  'publiccam.js',
-                                 'publiccamsingle.js',
                                  'jquery.js',
                                  'swagger.css',
                                  'throbber.gif',

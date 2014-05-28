@@ -1,3 +1,6 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
 <div class="boxed-page">
   <div class="container clearfix">
     <section id="dev-dash">
@@ -44,7 +47,7 @@
           </div>
           <div class="col-lg-6">
       <span class="pull-right">
-      <a href="#" class="create-share-button btn evercam-btn"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
+      <a href="#" class="create-share-button btn evercam-btn" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
       </span>
           </div>
           <div class="col-lg-12">
@@ -89,4 +92,7 @@
   </div> <!--Container clearfix page end-->
 </div> <!--boxed page end-->
 
-<%= javascript_include_tag "publiccamsingle" %>
+<%= javascript_include_tag "publiccam" %>
+<script>
+  $(window.Evercam.Publiccam.initialize);
+</script>

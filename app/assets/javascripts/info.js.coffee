@@ -65,6 +65,8 @@ showChangeOwnerDialog = (clear) ->
 initializeInfoTab = ->
    $('#set_permissions_submit').click(onSetCameraAccessClicked)
    $('.open-sharing').click(showSharingTab)
+   $('#change_owner_button').click(onChangeOwnerButtonClicked)
+   $('#submit_change_owner_button').click(onChangeOwnerSubmitClicked)
    true
 
 if !window.Evercam

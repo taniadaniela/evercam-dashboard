@@ -3,7 +3,7 @@
     <% if @camera['is_online'] %>
       <%= preview(@camera, true) %>
     <% else %>
-      <div class="tint"><%= preview(@camera, true) %></div>
+      <div class="tint"><%= preview(@camera, true ) %></div>
     <% end %>
     <a href="#" id="live-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
   </div>

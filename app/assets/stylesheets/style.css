@@ -822,6 +822,10 @@ select {
     margin-bottom: -3px;
 }
 /*LIVE*/
+#live img {
+    max-height: 600px;
+    width: auto;
+}
 .tab-content h4 {
     margin-bottom: 15px;
 }
@@ -852,30 +856,21 @@ select {
     text-transform: uppercase;
     top: 0;
 }
-.tint {
-    position: relative;
-    float: left;
-    cursor: pointer;
+.tint img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+.tint img:hover {
+    -webkit-filter: grayscale(10%);
+    -moz-filter: grayscale(10%);
+    filter: grayscale(10%);
+    -moz-transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    -o-transition: all .1s linear;
+    transition: all .1s linear;
 }
 
-.tint:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255,255,255, 0.6);
-    -moz-transition: background .1s linear;
-    -webkit-transition: background .1s linear;
-    -o-transition: background .1s linear;
-    transition: background .1s linear;
-}
-
-.tint:hover:before {
-    background: none;
-}
 
 .glyphicon  {
     padding-right: 5px;

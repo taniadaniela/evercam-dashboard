@@ -32,6 +32,7 @@ class CamerasController < ApplicationController
       body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].blank?
       body[:external_rtsp_port] = params['ext-rtsp-port'] unless params['ext-rtsp-port'].blank?
       body[:internal_host] = params['local-ip'] unless params['local-ip'].blank?
+      body[:is_online] = true
 
       api = get_evercam_api
       api.create_camera(params['camera-id'],

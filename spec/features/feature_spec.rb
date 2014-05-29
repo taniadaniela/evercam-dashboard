@@ -62,9 +62,9 @@ describe "the signin process", :type => :feature do
         to_return(:status => 200, :body => '{"snapshots": []}', :headers => {})
 
       stub_request(:post, "#{EVERCAM_API}cameras/testcam/snapshots.json").
-        with(:body => "api_id=#{user.api_id}&api_key=#{user.api_key}&notes=Initial%20snapshot",
-             :headers => {'User-Agent'=>'Faraday v0.9.0'}).
-        to_return(:status => 200, :body => '{"snapshots": [{"camera": "aaaa11123","notes": null,"created_at": 1401205738,"timezone": "Etc/UTC"}]}', :headers => {})
+         with(:body => {"api_id"=>"#{user.api_id}", "api_key"=>"#{user.api_key}", "notes"=>"Initial snapshot"},
+              :headers => {'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Faraday v0.9.0'}).
+         to_return(:status => 200, :body => '{"snapshots": [{"camera": "aaaa11123","notes": null,"created_at": 1401205738,"timezone": "Etc/UTC"}]}', :headers => {})
 
 
 

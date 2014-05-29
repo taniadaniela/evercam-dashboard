@@ -1,4 +1,6 @@
 class PublicController < ApplicationController
+  before_filter :authenticate_user!
+
   include SessionsHelper
   include ApplicationHelper
 

@@ -94,12 +94,18 @@ onSetCameraAccessClicked = (event) ->
       when "public_discoverable"
          data.public = true
          data.discoverable = true
+         $('#public-short-link').show()
+         $('#private-short-link').hide()
       when "public_undiscoverable"
          data.public = true
          data.discoverable = false
+         $('#public-short-link').show()
+         $('#private-short-link').hide()
       else
          data.public = false
          data.discoverable = false
+         $('#public-short-link').hide()
+         $('#private-short-link').show()
 
    onError = (jqXHR, status, error) ->
       showError("Update of camera permissions failed. Please contact support.")

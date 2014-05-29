@@ -23,14 +23,16 @@ toggleAllTypeFilters = ->
 
 initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
-  $(".datetimepicker").datetimepicker()
+  $('.datetimepicker').datetimepicker()
   $('#all-types').click(toggleAllTypeFilters)
   table = $('#logs-table').DataTable({
-    "ajax": {
-      'url': $('#ajax-url').val(),
-      'dataSrc': 'logs'
+    ajax: {
+      url: $('#ajax-url').val(),
+      dataSrc: 'logs',
+      error: (xhr, error, thrown) ->
+        Notification.show(xhr.responseJSON.message)
     },
-    'columns': [
+    columns: [
       {data: ( row, type, set, meta ) ->
         return moment(row.done_at*1000).format('MMMM Do YYYY, H:mm:ss')
       },
@@ -45,7 +47,7 @@ initializeLogsTab = ->
         return row.who
       }
     ],
-    'iDisplayLength': 50
+    iDisplayLength: 50
   })
   true
 

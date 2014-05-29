@@ -1151,9 +1151,7 @@ API LOGS TAB
 /////////////////////*/
 #logs .form-control {
     background-color: #ffffff;
-    border: none;
-    height: 104px;
-    padding: 3px 10px 0px 0px;
+    padding: 0px 5px 0px 9px;
 
 }
 .log-option {
@@ -1218,8 +1216,8 @@ API LOGS TAB
     border-bottom: none !Important;
     border-top: none !Important;
 }
-#logs-table_length {
-    margin-top: 17px;
+#logs-table_filter .form-control {
+    margin-left: 10px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
 

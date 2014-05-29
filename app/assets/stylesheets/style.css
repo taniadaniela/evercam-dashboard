@@ -23,7 +23,7 @@ a,a:hover,a:focus {
     outline:none;
 }
 h5 {
-    font-family: 'proxima-nova-bold';
+    font-family: 'proxima-nova-bold', 'Open Sans',sans-serif;
     font-size: 14px;
 }
 h5 small {
@@ -31,11 +31,11 @@ h5 small {
     margin-left: 4px;
 }
 strong {
-    font-family: 'proxima-nova-bold';
+    font-family: 'proxima-nova-bold', 'Open Sans',sans-serif;
     font-weight: normal;
 }
 .bold {
-    font-family:'proxima-nova-bold';
+    font-family:'proxima-nova-bold', 'Open Sans',sans-serif;
 }
 .btn {
     padding: 9px 18px;
@@ -848,17 +848,35 @@ select {
     font-weight: 600;
     padding: 5px 10px;
     position: absolute;
-    right: 15px;
+    left: 15px;
     text-transform: uppercase;
     top: 0;
 }
-.offline-overlay img {
+.tint {
     position: relative;
+    float: left;
+    cursor: pointer;
 }
-.offline-overlay {
-background-color: rgba(0,0,0,.5);
+
+.tint:before {
+    content: "";
+    display: block;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255, 0.6);
+    -moz-transition: background .1s linear;
+    -webkit-transition: background .1s linear;
+    -o-transition: background .1s linear;
+    transition: background .1s linear;
 }
+
+.tint:hover:before {
+    background: none;
+}
+
 .glyphicon  {
     padding-right: 5px;
 }
@@ -992,6 +1010,12 @@ background-color: rgba(0,0,0,.5);
 .sharing {
     margin-bottom: 25px;
 }
+.has-access {
+    margin-left: 17px;
+    background-color: #f5f5f5;
+    padding-left: 0px;
+}
+
 .form-control, .bootstrap-switch {
     border-radius:2px;
 }
@@ -1037,14 +1061,11 @@ background-color: rgba(0,0,0,.5);
 .table > tbody > tr > td {
     vertical-align: middle;
 }
-{
-    margin-bottom: 0px;
-    margin-top: 20px;
-    margin-left: -5px;
-}
+
 .email-input {
     margin-right: 52px;
 }
+
 .share-link {
     margin-top: 25px;
 }
@@ -1056,8 +1077,14 @@ background-color: rgba(0,0,0,.5);
     background-position: right;
 
 }
+#sharing .glyphicon-plus {
+margin-left: 4px;
+}
 .glyphicon-remove {
     cursor: pointer;
+}
+.remove {
+    font-family: 'proxima-nova-regular', 'Open Sans',sans-serif;
 }
 .share-camera {
     padding-left: 25px;

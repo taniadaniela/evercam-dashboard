@@ -67,8 +67,7 @@ class SharingController < ApplicationController
       result = {success: true}
       if params.include?(:camera_id) && params.include?(:permissions) && params.include?(:email)
          camera_id = params[:camera_id]
-         rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
-         rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
+         rights = generate_rights_list(params[:permissions])
          share  = nil
          begin
             share = get_evercam_api.share_camera(camera_id, params[:email], rights)
@@ -103,8 +102,7 @@ class SharingController < ApplicationController
    def update_share
       result = {success: true}
       if params.include?(:id) && params.include?(:permissions)
-         rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
-         rights.concat([AccessRight::VIEW, AccessRight::EDIT, AccessRight::DELETE]) if params[:permissions] == "full"
+         rights = generate_rights_list(params[:permissions])
          begin
             get_evercam_api.update_camera_share(params[:id], rights)
          rescue => error
@@ -136,5 +134,20 @@ class SharingController < ApplicationController
          result = {success: false, message: "Insufficient parameters provided."}
       end
       render json: result
+   end
+
+   private
+
+   def generate_rights_list(permissions)
+      rights = [AccessRight::LIST, AccessRight::SNAPSHOT]
+      if permissions == "full"
+         AccessRight::BASE_RIGHTS.each do |right|
+            if right != AccessRight::DELETE
+               rights << right if !rights.include?(right)
+               rights << "#{AccessRight::GRANT}~#{right}"
+            end
+         end
+      end
+      rights
    end
 end

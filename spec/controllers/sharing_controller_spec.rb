@@ -221,7 +221,7 @@ describe SharingController do
 
       it 'returns failure if it gets a negative response from the API call' do
          stub_request(:post, "#{EVERCAM_API}shares/cameras/#{camera.exid}.json").
-            with(:body => "api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=#{CGI.escape(shared_with.email)}&rights=list%2Csnapshot%2Cview%2Cedit%2Cdelete").
+            with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 403, :body => '{"message": "Unauthorized"}', :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}
@@ -235,7 +235,7 @@ describe SharingController do
 
       it 'returns success if it gets a positive response from the API call' do
          stub_request(:post, "#{EVERCAM_API}shares/cameras/#{camera.exid}.json").
-            with(:body => "api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=#{CGI.escape(shared_with.email)}&rights=list%2Csnapshot%2Cview%2Cedit%2Cdelete").
+            with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 200, :body => '{"shares": [{"camera_id": "' + camera.exid + '", "id": 1000}]}', :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}
@@ -412,7 +412,7 @@ describe SharingController do
 
       it 'returns success if it gets a positive response from the API call' do
          stub_request(:patch, "#{EVERCAM_API}shares/cameras/#{share.id}.json").
-            with(:body => "api_id=#{owner.api_id}&api_key=#{owner.api_key}&rights=list%2Csnapshot%2Cview%2Cedit%2Cdelete").
+            with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 200, :body => "", :headers => {})
 
          patch :update_share, parameters.merge(credentials), {user: owner.email}
@@ -424,7 +424,7 @@ describe SharingController do
 
       it 'returns failure if it gets a negative response from the API call' do
          stub_request(:patch, "#{EVERCAM_API}shares/cameras/#{share.id}.json").
-            with(:body => "api_id=#{owner.api_id}&api_key=#{owner.api_key}&rights=list%2Csnapshot%2Cview%2Cedit%2Cdelete").
+            with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 403, :body => '{"message": "Unauthorized"}', :headers => {})
 
          patch :update_share, parameters.merge(credentials), {user: owner.email}

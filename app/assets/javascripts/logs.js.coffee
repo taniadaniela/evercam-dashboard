@@ -25,6 +25,9 @@ initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
   $('.datetimepicker').datetimepicker()
   $('#all-types').click(toggleAllTypeFilters)
+  jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
+    return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
+
   table = $('#logs-table').DataTable({
     ajax: {
       url: $('#ajax-url').val(),
@@ -35,7 +38,7 @@ initializeLogsTab = ->
     columns: [
       {data: ( row, type, set, meta ) ->
         return moment(row.done_at*1000).format('MMMM Do YYYY, H:mm:ss')
-      },
+      , orderDataType: 'string-date', type: 'string-date' },
       {data: ( row, type, set, meta ) ->
         if row.action is 'shared' or row.action is 'stopped sharing'
           return row.action + ' with ' + row.extra.with
@@ -47,7 +50,8 @@ initializeLogsTab = ->
         return row.who
       }
     ],
-    iDisplayLength: 50
+    iDisplayLength: 50,
+    order: [[ 0, "desc" ]]
   })
   true
 

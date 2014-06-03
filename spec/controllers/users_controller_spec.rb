@@ -142,4 +142,74 @@ describe UsersController do
     end
   end
 
+  context 'Password reset' do
+
+    describe 'GET #password_reset_request' do
+      it "renders the :password_reset_request" do
+        get :password_reset_request
+        expect(response.status).to eq(200)
+        expect(response).to render_template :password_reset_request
+      end
+    end
+
+    describe 'POST #password_reset_request with invalid params' do
+      it "renders the :password_reset_request with error msg" do
+        post :password_reset_request, {email: 'invalid'}
+        expect(response.status).to eq(200)
+        expect(response).to render_template :password_reset_request
+        expect(flash[:message]).to eq('Email address not found.')
+      end
+    end
+
+    describe 'POST #password_reset_request with valid params' do
+      it "renders the :password_reset_request and creates reset_token" do
+        post :password_reset_request, {email: user.email}
+        expect(response.status).to eq(200)
+        expect(response).to render_template :password_reset_request
+        expect(flash[:message]).to eq('We’ve sent you an email with instructions for changing your password.')
+        db_user = User.first
+        new_token = db_user.reset_token
+        expect(db_user.reset_token).to_not be_nil
+        expect(db_user.token_expires_at).to be_within(1).of(Time.now + 24.hour)
+        # Don't reset token when requested again
+        post :password_reset_request, {email: user.email}
+        expect(response.status).to eq(200)
+        expect(response).to render_template :password_reset_request
+        expect(flash[:message]).to eq('We’ve sent you an email with instructions for changing your password.')
+        db_user = User.first
+        expect(db_user.reset_token).to eq(new_token)
+        expect(db_user.token_expires_at).to be_within(1).of(Time.now + 24.hour)
+      end
+    end
+
+    describe 'GET #password_update_form' do
+      it "renders the :password_reset_request" do
+        get :password_update_form
+        expect(response.status).to eq(200)
+        expect(response).to render_template :password_update
+      end
+    end
+
+    describe 'POST #password_update with invalid params' do
+      it "renders the :password_update" do
+        post :password_update
+        expect(response.status).to eq(200)
+        expect(response).to render_template :password_update
+      end
+    end
+
+    describe 'POST #password_update with valid params' do
+      it "updates password and redirects to index" do
+        post :password_reset_request, {email: user.email}
+        db_user = User.first
+        post :password_update, {token: db_user.reset_token, username: db_user.email, password: 'test'}
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to("/")
+        db_user.reload
+        expect(db_user.password).to eq('test')
+      end
+    end
+
+  end
+
 end

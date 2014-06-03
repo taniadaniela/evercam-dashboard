@@ -16,7 +16,7 @@
           <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Is Public: [No]  &amp; Discoverable: [No]</small></h5>
         </div>
     </div>
-<% if @camera["owner"] == current_user.username %>
+  <% if @camera["owner"] == current_user.username %>
     <div class="col-md-4">
         <div class="form-group">
             <div class="col-sm-6">
@@ -99,7 +99,7 @@
             </td>
             <td class="col-lg-2">
               <div class="form-group">
-                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"></span></span> Remove User</a>
+                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"> <span class="remove">Remove User</span></span></span>
               </div>
             </td>
           </tr>
@@ -123,8 +123,7 @@
               </td>
               <td class="col-lg-2">
                 <div class="form-group">
-                  <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"></span></span> Revoke Request</a>
-
+                  <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"> <span class="remove">Revoke Request</span></span></span>
                 </div>
               </td>
 
@@ -169,7 +168,10 @@
 <!--LINK TO SHARE-->
 <div class="col-md-6 share-link">
     <h5><span class="glyphicon glyphicon-link"></span>  Link to Share</h5>
-  <table class="table table-borderless-2"><tr><td><%= "http://evr.cm/#{@camera['id']}.html" %></td></tr><tr><td></td></td></tr></table>
+  <table class="table table-borderless-2">
+    <tr><td><%= "http://evr.cm/#{@camera['id']}.html" %></td></tr>
+    <tr><td></td></tr>
+  </table>
 </div>
 
 

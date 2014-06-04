@@ -66,7 +66,7 @@
 
 <div class="col-md-12">
 <!--tab nav start-->
-
+  <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
 <header class="panel-heading tab-bg-dark-navy-blue ">
   <ul class="nav nav-tabs">
     <li class="active">
@@ -75,7 +75,7 @@
     <li>
       <a data-toggle="tab" href="#info">Camera Info</a>
     </li>
-    <% if @camera["rights"].split(",").include?("edit") %>
+    <% if has_edit_right %>
     <li>
       <a data-toggle="tab" href="#sharing">Sharing</a>
     </li>
@@ -86,7 +86,7 @@
     <li>
       <a data-toggle="tab" href="#explorer">API Explorer</a>
     </li>
-    <% if @camera["rights"].split(",").include?("edit") %>
+    <% if has_edit_right %>
     <li>
       <a data-toggle="tab" href="#logs">Logs</a>
     </li>
@@ -94,7 +94,7 @@
     <li class="disabled">
       <a data-toggle="tab" href="#apps">Apps</a>
     </li>
-    <% if @camera["rights"].split(",").include?("edit") %>
+    <% if has_edit_right %>
     <li class="pull-right">
       <a data-toggle="tab" href="#camera-settings"><span class="glyphicon glyphicon-cog"></span></a>
     </li>

@@ -38,7 +38,7 @@ describe "the signin process", :type => :feature do
         to_return(:status => 200, :body => '{"cameras": [{"id": "testcam", "name": "Test Camera"}]}', :headers => {})
 
       stub_request(:get, "#{EVERCAM_API}cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam"}]}', :headers => {})
+        to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam", "rights": ""}]}', :headers => {})
 
       stub_request(:get, "#{EVERCAM_API}shares/cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
         to_return(:status => 200, :body => '{"shares": []}', :headers => {})

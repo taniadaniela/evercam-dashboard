@@ -1053,6 +1053,12 @@ select {
     background-repeat: no-repeat;
     background-position: right;
 }
+#sharing_list_table .disabled {
+    width: 110px;
+    background-image: none;
+
+
+}
 .table > tbody > tr > td {
     vertical-align: middle;
 }

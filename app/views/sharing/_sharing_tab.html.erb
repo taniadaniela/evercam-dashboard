@@ -85,13 +85,23 @@
         <% @shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
           <tr share-id="<%= share["id"] %>">
-            <td class="col-lg-4"><span class="glyphicon glyphicon-user"></span> <%= share["email"] %></td>
+            <td class="col-lg-4">
+              <span class="glyphicon glyphicon-user"></span> <%= share["email"] %>
+                <% if share["email"] == current_user.email %>
+                <small class="blue"> (you)</small>
+                <% end %>
+                </td>
             <td class="col-lg-2">
               <div class="input-group input-group-sm">
-                <select class="form-control reveal" show-class="show-save">
-                  <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
-                  <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
-                </select>
+                <% if share["email"] == current_user.email %>
+                  <select class="form-control reveal disabled" disabled show-class="show-save">
+                <% else %>
+                    <select class="form-control reveal" show-class="show-save">
+                <% end %>
+                    <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
+                    <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
+                  </select>
+
               </div>
             </td>
             <td class="col-lg-2">
@@ -99,7 +109,13 @@
             </td>
             <td class="col-lg-2">
               <div class="form-group">
-                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"> <span class="remove">Remove User</span></span></span>
+                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>">
+                   <% if share["email"] == current_user.email %>
+                    <span class="glyphicon glyphicon-remove"> <span class="remove">Remove Yourself</span></span>
+                    <% else %>
+                    <span class="glyphicon glyphicon-remove"> <span class="remove">Remove User</span></span>
+                    <% end %>
+                  </span>
               </div>
             </td>
           </tr>

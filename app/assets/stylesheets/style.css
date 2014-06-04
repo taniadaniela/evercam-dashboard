@@ -1208,6 +1208,21 @@ API LOGS TAB
 #logs .checkbox input[type="checkbox"]:focus, #logs .checkbox-inline input[type="checkbox"]:focus {
     box-shadow:none;
 }
+table.table-bordered tbody th, table.table-bordered tbody td {
+    padding-left: 15px;
+}
+table.table-bordered.dataTable {
+    table-layout: fixed;
+}
+.pagination > li {
+    display: inline-block;
+}
+@-moz-document url-prefix() {
+    #logs-table_length .form-control {
+        padding: 6px 5px 0 9px;
+    }
+}
+
 
 .filter {
     border: 1px solid #e5e5e5;

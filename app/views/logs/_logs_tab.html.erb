@@ -38,16 +38,16 @@
     <div class="col-md-12">
       <table id="logs-table" class="table table-logs table-striped table-bordered">
         <thead>
-          <th>Date &amp; Time</th>
-          <th>Event</th>
-          <th>User/Client</th>
+          <th class="col-md-4">Date &amp; Time</th>
+          <th class="col-md-4">Event</th>
+          <th class="col-md-4">User/Client</th>
         </thead>
         <tbody>
           <% @logs.each do |l| %>
           <tr>
-            <td>On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822) unless l['done_at'].nil? %></span></td>
-            <td><span class="bold"><%= l['action'] %></span></td>
-            <td>
+            <td class="col-md-4">On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822) unless l['done_at'].nil? %></span></td>
+            <td class="col-md-4"><span class="bold"><%= l['action'] %></span></td>
+            <td class="col-md-4">
               <% unless ['online', 'offline'].include?l['action'] %>
                 by <span class="bold"><%= l['who']  %></span>
               <% end %>

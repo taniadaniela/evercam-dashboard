@@ -824,7 +824,7 @@ select {
 /*LIVE*/
 #live img {
     max-height: 600px;
-    width: auto;
+    width: 100%;
 }
 .tab-content h4 {
     margin-bottom: 15px;
@@ -1080,6 +1080,7 @@ margin-left: 4px;
 }
 .remove {
     font-family: 'proxima-nova-regular', 'Open Sans',sans-serif;
+    cursor: pointer;
 }
 .share-camera {
     padding-left: 25px;
@@ -1352,17 +1353,19 @@ table.dataTable.no-footer {
     user-select: none;
 }
 .test-snapshot {
-    left: 15%;
+    left: 22%;
     position: absolute;
-    top: 42%;
+    top: 40%;
 }
-
 #testimg-add {
     max-width: 240px;
     background-image: url('https://www.evercam.io/img/connect-add.png');
+    display: block;
+    margin: 0 auto;
 }
 #test-error {
-
+    text-align: center;
+    display: block;
 }
 .help {
     padding: 0px 15px;

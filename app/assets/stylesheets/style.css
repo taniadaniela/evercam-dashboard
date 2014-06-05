@@ -982,6 +982,8 @@ select {
 #testimg {
     max-width: 328px;
     background-image: url('https://www.evercam.io/img/connect.png');
+    border: 1px solid #fff;
+    height: 227px;
 }
 .snapshot-error {
     margin-top: 5px;
@@ -993,7 +995,6 @@ select {
 
 }
 .settings #camera-vendor {
-    background-color: white;
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -1208,6 +1209,21 @@ API LOGS TAB
 #logs .checkbox input[type="checkbox"]:focus, #logs .checkbox-inline input[type="checkbox"]:focus {
     box-shadow:none;
 }
+table.table-bordered tbody th, table.table-bordered tbody td {
+    padding-left: 15px;
+}
+table.table-bordered.dataTable {
+    table-layout: fixed;
+}
+.pagination > li {
+    display: inline-block;
+}
+@-moz-document url-prefix() {
+    #logs-table_length .form-control {
+        padding: 6px 5px 0 9px;
+    }
+}
+
 
 .filter {
     border: 1px solid #e5e5e5;
@@ -1538,13 +1554,28 @@ tbody tr:hover {
 }
 .btn-primary, .btn-success, .btn-danger {
     background-image: none;
-    border: medium none;
     padding: 10px 40px;
+    -webkit-transition:all .2s ease-in-out;
+    -moz-transition:all .2s ease-in-out;
+    -o-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
+}
+.btn-primary, .btn-success {
+    border: medium none;
 }
 .btn-primary:focus {
     box-shadow: none;
 }
+.btn-danger {
+    border: 1px solid #c0392b;
+    background-color: #f5f5f5;
+    color: #c0392b;
 
+}
+.btn-danger:hover, .btn-danger:focus {
+    background-color: #e5e5e5;
+    color: #c0392b;
+}
 .btn-edit {
     background-color: #428BCA ;
     color: #ffffff;
@@ -5264,7 +5295,8 @@ div.tagsinput span.tag {
     text-align: center;
 }
 #signin .bb-alert {
-    top:20%;
+    position: absolute;
+    top: 71px;
 
 }
 .bbb-alert {

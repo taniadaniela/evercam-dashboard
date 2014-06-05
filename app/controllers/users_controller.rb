@@ -42,8 +42,8 @@ class UsersController < ApplicationController
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught in create user request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
-      flash[:message] = "An error occurred creating your account. Please try "\
-                        "again and, if the problem persists, contact support."
+      flash[:message] = ["An error occurred creating your account. Please check "\
+                       "the details and try again. If the problem persists, contact support."]
       redirect_to action: 'new', user: user
     end
   end

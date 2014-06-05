@@ -16,7 +16,7 @@
         <label class="control-label">Evercam ID</label>
       </td>
       <td class="col-md-6 settings">
-        <div class="well-set"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
+        <div class="well-set" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
       </td>
     </tr>
     <tr>
@@ -97,7 +97,7 @@
       </td>
       <td>
         <% vendors.each do |v| -%>
-            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" readonly="readonly" class="form-control  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
+            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" readonly="readonly" class="form-control camera-model  <% if v.exid != @camera['vendor'] %>hidden<% end %>">
               <% models(v.id).each_with_index  do |m, index| -%>
                   <% if index == 0 %>
                       <option value="<%= m.name -%>" ><%= m.name -%></option>
@@ -201,7 +201,7 @@
         <div class="col-sm-8">
           <% if @share.nil? %>
             <a href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-              <span class="glyphicon glyphicon-remove"></span>  Delete</a>
+              <span class="glyphicon glyphicon-remove"></span>  Delete Camera</a>
           <% else %>
             <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
               <span class="glyphicon glyphicon-remove"></span>  Remove</a>
@@ -220,11 +220,12 @@
         // Make Input Fields Non Editable & Editable
         $(".makeNonEditable").click(function(){
             $('input:text').attr("readonly", "readonly");
+            $('select').attr("readonly", "readonly");
         });
         $(".makeEditable").click(function(){
             $('input:text').removeAttr("readonly");
+            $('select').removeAttr("readonly");
         });
-
 
 
         // Notifications

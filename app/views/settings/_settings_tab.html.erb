@@ -201,7 +201,7 @@
         <div class="col-sm-8">
           <% if @share.nil? %>
             <a href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-              <span class="glyphicon glyphicon-remove"></span>  Delete</a>
+              <span class="glyphicon glyphicon-remove"></span>  Delete Camera</a>
           <% else %>
             <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
               <span class="glyphicon glyphicon-remove"></span>  Remove</a>

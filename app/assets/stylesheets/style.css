@@ -1554,13 +1554,28 @@ tbody tr:hover {
 }
 .btn-primary, .btn-success, .btn-danger {
     background-image: none;
-    border: medium none;
     padding: 10px 40px;
+    -webkit-transition:all .2s ease-in-out;
+    -moz-transition:all .2s ease-in-out;
+    -o-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
+}
+.btn-primary, .btn-success {
+    border: medium none;
 }
 .btn-primary:focus {
     box-shadow: none;
 }
+.btn-danger {
+    border: 1px solid #c0392b;
+    background-color: #f5f5f5;
+    color: #c0392b;
 
+}
+.btn-danger:hover, .btn-danger:focus {
+    background-color: #e5e5e5;
+    color: #c0392b;
+}
 .btn-edit {
     background-color: #428BCA ;
     color: #ffffff;

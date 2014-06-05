@@ -982,6 +982,8 @@ select {
 #testimg {
     max-width: 328px;
     background-image: url('https://www.evercam.io/img/connect.png');
+    border: 1px solid #fff;
+    height: 227px;
 }
 .snapshot-error {
     margin-top: 5px;
@@ -993,7 +995,6 @@ select {
 
 }
 .settings #camera-vendor {
-    background-color: white;
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -5279,7 +5280,8 @@ div.tagsinput span.tag {
     text-align: center;
 }
 #signin .bb-alert {
-    top:20%;
+    position: absolute;
+    top: 71px;
 
 }
 .bbb-alert {

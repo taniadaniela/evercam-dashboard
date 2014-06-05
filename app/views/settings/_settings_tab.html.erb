@@ -16,7 +16,7 @@
         <label class="control-label">Evercam ID</label>
       </td>
       <td class="col-md-6 settings">
-        <div class="well-set"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
+        <div class="well-set" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
       </td>
     </tr>
     <tr>
@@ -226,7 +226,6 @@
             $('input:text').removeAttr("readonly");
             $('select').removeAttr("readonly");
         });
-
 
 
         // Notifications

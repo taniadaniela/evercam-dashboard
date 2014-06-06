@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-   default from: "noreply@evercam.io"
+   default from: "support@evercam.io"
 
    # This method dispatches an email whenever a user chooses to share a camera
    # with a user that doesn't currently possess an Evercam account.

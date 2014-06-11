@@ -120,9 +120,7 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
       end
-      @shares         = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
-      @cameras        = api.get_user_cameras(current_user.username)
       load_cameras_and_shares
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

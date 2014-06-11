@@ -8,7 +8,7 @@
     </li>
     <ul class="plus">
       <% @cameras.each do |camera| %>
-        <li class="sub-menu-item <%= is_active? %>">
+        <li class="sub-menu-item">
           <a href="/cameras/<%= camera['id'] %>?share=false">
             <div id="offline-menu"> <% if camera['is_online'] %>
                 <span class="green-dot"><small>on</small></span>

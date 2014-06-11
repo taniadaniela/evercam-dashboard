@@ -406,6 +406,10 @@ strong {
     padding-top: 4px;
     margin-top:4px;
 }
+
+#users_GET_users_id_rights_format {
+   display: none !important;
+}
 /*/////////////////////
 //Widget PAGE
 /////////////////////*/

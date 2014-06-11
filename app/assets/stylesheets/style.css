@@ -118,9 +118,11 @@ strong {
     -webkit-transition: .3s;
     transition: .3s;*/
 }
-/*////////
 
-/////////*
+.nav>li>a>img {
+    border-radius: 2px;
+}
+
 
 
 /* navbar fixed */
@@ -403,6 +405,10 @@ strong {
     border-top: 1px solid #f5f5f5;
     padding-top: 4px;
     margin-top:4px;
+}
+
+#users_GET_users_id_rights_format {
+   display: none !important;
 }
 /*/////////////////////
 //Widget PAGE
@@ -853,7 +859,7 @@ select {
     font-weight: 600;
     padding: 5px 10px;
     position: absolute;
-    left: 15px;
+    right: 15px;
     text-transform: uppercase;
     top: 0;
 }
@@ -5099,6 +5105,7 @@ span.customSelect.changed {
 #footer .container {
     border-top:1px solid #e5e5e5;
     padding-top: 30px;
+    margin-top: 100px;
 }
 #footer ul li {
     display:inline;

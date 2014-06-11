@@ -5,61 +5,8 @@
   <div class="container clearfix">
     <section id="camera-dash">
 
-    <!--sidebar start-->
-      <div id="sidebar" class="col-md-2 col-xs-12">
-        <ul class="sidebar-menu">
-          <li class="menu-item active">
-            <a href="/cameras">
-              <span>My Cameras</span>
-            </a>
-          </li>
-          <ul class="plus">
-            <% @cameras.each do |camera| %>
-            <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>?share=false">
-                <div id="offline-menu"> <% if camera['is_online'] %>
-                    <span class="green-dot"><small>on</small></span>
-                  <% else %>
-                    <span class="red-dot"><small>off</small></span>
-                  <% end %>
-                </div>
-                <%= camera['name'] %>
-              </a>
-            </li>
-            <% end %>
-          </ul>
-          <li class="menu-item active">
-            <a href="/cameras">
-              <span>Cameras Shared With Me</span>
-            </a>
-          </li>
-          <ul class="plus">
-              <% @shares.each do |camera| %>
-              <li class="sub-menu-item">
-                <a href="/cameras/<%= camera['id'] %>?share=true">
-                  <div id="offline-menu"> <% if camera['is_online'] %>
-                      <span class="green-dot"><small>on</small></span>
-                    <% else %>
-                      <span class="red-dot"><small>off</small></span>
-                    <% end %>
-                  </div>
-                  <%= camera['name'] %>
-                </a>
-              </li>
-              <% end %>
-          </ul>
-          <li class="menu-item">
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-          </li>
-         <li class="menu-item">
-            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-          </li>
-          <li class="menu-item">
-             <a href="/publiccam"><span class="glyphicon glyphicon-plus"></span>Add Public Camera</a>
-           </li>
-        </ul>
-      </div>
-      <!--sidebar end-->
+      <%= render :partial => "sidebar/sidebar" %>
+
       <!--main content start-->
       <div class="col-md-10 col-xs-12 wrapper">
         <section id="main-content">

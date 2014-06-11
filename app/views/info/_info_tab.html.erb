@@ -50,10 +50,10 @@
         JPEG
       </div>
       <div class="col-md-10">
-          <div id="public-short-link" style="<%= 'display: none;' unless @camera['is_public'] %>">
+          <div id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
           </div>
-          <div id="private-short-link" style="<%= 'display: none;' if @camera['is_public'] %>">
+          <div id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
             <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small>
           </div>
       </div>

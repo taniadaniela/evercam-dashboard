@@ -185,7 +185,14 @@
 <div class="col-md-6 share-link">
     <h5><span class="glyphicon glyphicon-link"></span>  Link to Share</h5>
   <table class="table table-borderless-2">
-    <tr><td><%= "http://evr.cm/#{@camera['id']}.html" %></td></tr>
+    <tr><td>
+      <div id="public-short-page" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+        <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
+      </div>
+      <div id="private-short-page" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+        <%= "http://evr.cm/#{@camera['id']}.html" %> <small class="grey">(Only available for public cameras, you can change your settings above)</small>
+      </div>
+    </td></tr>
     <tr><td></td></tr>
   </table>
 </div>

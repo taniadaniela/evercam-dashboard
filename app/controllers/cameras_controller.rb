@@ -123,6 +123,7 @@ class CamerasController < ApplicationController
       @shares         = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @cameras        = api.get_user_cameras(current_user.username)
+      load_cameras_and_shares
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +

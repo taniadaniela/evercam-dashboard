@@ -33,7 +33,7 @@ end
 gem 'bcrypt', '~> 3.1.2'
 gem 'protected_attributes'
 gem 'rack-rewrite'
-gem 'sequel'
+gem 'sequel', '= 4.10.0'
 gem 'typhoeus'
 gem 'unicorn'
 gem 'data_uri'

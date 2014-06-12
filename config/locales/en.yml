@@ -21,3 +21,18 @@
 
 en:
   hello: "Hello world"
+  errors:
+    country_field_invalid: Select a country from the list.
+    country_invalid_error: Select a country from the list.
+    duplicate_email_error: The email address specified is already registered for an Evercam account.
+    duplicate_username_error: The user name provided is already registered for an Evercam account.
+    email_field_duplicate: Enter a different email address.
+    email_field_invalid: Must be a valid email address.
+    forename_field_invalid: Fore names can consist of alphabetic characters only.
+    invalid_country_error: The country selected is not supported.
+    invalid_parameters: One or more of the values you entered is incorrect. Please check the field errors below and correct them before re-submitting the information.
+    lastname_field_invalid: Last names can consist of alphabetic characters only.
+    password_field_invalid: Password cannot be blank.
+    unknown_error: An error occurred processing your request. Please try again and, if the problem persists, contact support.
+    username_field_duplicate: Enter a different user name.
+    username_field_invalid: User names can consist of alphabetic and underscore characters.

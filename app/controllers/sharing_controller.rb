@@ -70,7 +70,9 @@ class SharingController < ApplicationController
          rights = generate_rights_list(params[:permissions])
          share  = nil
          begin
-            share = get_evercam_api.share_camera(camera_id, params[:email], rights)
+            api = get_evercam_api
+            share = api.share_camera(camera_id, params[:email], rights)
+            snapshot = api.get_live_image(camera_id)
             result[:camera_id]   = share["camera_id"]
             result[:share_id]    = share["id"]
             result[:type]        = share["type"]
@@ -79,12 +81,14 @@ class SharingController < ApplicationController
             if share["type"] == "share"
                UserMailer.camera_shared_notification(params[:email],
                                                      params[:camera_id],
-                                                     current_user).deliver
+                                                     current_user,
+                                                     snapshot).deliver
             else
                UserMailer.sign_up_to_share_email(params[:email],
                                                  params[:camera_id],
                                                  current_user,
-                                                 share["id"]).deliver
+                                                 share["id"],
+                                                 snapshot).deliver
             end
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)

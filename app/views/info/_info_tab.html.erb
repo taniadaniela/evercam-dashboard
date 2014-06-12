@@ -24,7 +24,7 @@
         <% end %>
       </td>
       <td class="col-md-2">
-      <% if @camera['owner'] %>
+      <% if @camera['owner'] == current_user.username %>
          <button id="change_owner_button" type="button" class="btn btn-default">Change</button>
       <% end %>
       </td>

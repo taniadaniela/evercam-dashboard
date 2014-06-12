@@ -40,10 +40,16 @@ class UsersController < ApplicationController
       redirect_to "/"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
+      if error.kind_of?(Evercam::EvercamError)
+         flash[:message] = [t("errors.#{error.code}")]
+         assess_field_errors(error)
+      else
+         flash[:message] = ["An error occurred creating your account. Please check "\
+                            "the details and try again. If the problem persists, "\
+                            "contact support."]
+      end
       Rails.logger.error "Exception caught in create user request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
-      flash[:message] = ["An error occurred creating your account. Please check "\
-                       "the details and try again. If the problem persists, contact support."]
       redirect_to action: 'new', user: user
     end
   end
@@ -141,6 +147,24 @@ class UsersController < ApplicationController
       sign_in user
       redirect_to "/", message: 'Your password has been changed'
     end
+  end
+
+  private
+
+  def assess_field_errors(error)
+    field_errors = {}
+    case error.code
+      when "duplicate_email_error"
+        field_errors["email"] = t("errors.email_field_duplicate")
+      when "duplicate_username_error"
+        field_errors["username"] = t("errors.username_field_duplicate")
+      when "invalid_country_error"
+        field_errors["country"] = t("country_field_invalid")
+      when "invalid_parameters"
+        puts "ERROR.CONTEXT: #{error.context}"
+        error.context.each {|field| field_errors[field] = t("errors.#{field}_field_invalid")}
+    end
+    flash[:field_errors] = field_errors
   end
 
 end

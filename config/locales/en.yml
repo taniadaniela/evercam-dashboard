@@ -27,7 +27,7 @@ en:
     duplicate_email_error: The email address specified is already registered for an Evercam account.
     duplicate_username_error: The user name provided is already registered for an Evercam account.
     email_field_duplicate: Enter a different email address.
-    email_field_invalid: Must be a valid email address.
+    email_field_invalid: Must be a valid email address and at least 6 characters long.
     forename_field_invalid: Fore names can consist of alphabetic characters only.
     invalid_country_error: The country selected is not supported.
     invalid_parameters: One or more of the values you entered is incorrect. Please check the field errors below and correct them before re-submitting the information.
@@ -35,4 +35,4 @@ en:
     password_field_invalid: Password cannot be blank.
     unknown_error: An error occurred processing your request. Please try again and, if the problem persists, contact support.
     username_field_duplicate: Enter a different user name.
-    username_field_invalid: User names can consist of alphabetic and underscore characters.
+    username_field_invalid: User names must consist of at least 3 alphabetic and underscore characters.

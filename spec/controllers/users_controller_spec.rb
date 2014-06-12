@@ -130,8 +130,8 @@ describe UsersController do
     describe 'POST #settings_update with correct params' do
       it "updates and renders user settings" do
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}.json").
-          with(:body => "api_id=#{user.api_id}&api_key=#{user.api_key}&country=pl&forename=Aaaddd&lastname=Bbbeeee").
-          to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
+          with(:body => {"api_id"=>user.api_id, "api_key"=>user.api_key, "country"=>"pl", "email"=>patch_params[:email], "forename"=>"Aaaddd", "lastname"=>"Bbbeeee"}).
+               to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
         session['user'] = params[:user][:email]
         post :settings_update, patch_params

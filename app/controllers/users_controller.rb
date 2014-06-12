@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       parameters[:lastname] = params['user-lastname'] if params.include?('user-lastname')
       parameters[:country]  = params['country'] if params.include?('country')
       if params.include?('email')
-        parameters[:email] = params['email'] unless params['email'] = current_user.email
+        parameters[:email] = params['email'] unless params['email'] == current_user.email
       end
       if !parameters.empty?
          get_evercam_api.update_user(current_user.username, parameters)

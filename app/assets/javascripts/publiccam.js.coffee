@@ -39,10 +39,6 @@ initialize = ->
   $('#grid-style').click(setGrid)
   $('#list-style').click(setList)
   Notification.init(".bb-alert")
-  #Replace Broken Image
-  $('img').error( ->
-    $(this).attr('src', 'https://www.evercam.io/img/publiccams-error.png')
-  )
   true
 
 if !window.Evercam

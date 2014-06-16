@@ -10,6 +10,7 @@ class CamerasController < ApplicationController
   end
 
   def new
+   @user = (flash[:user] || {})
   end
 
   def create
@@ -43,10 +44,29 @@ class CamerasController < ApplicationController
       redirect_to action: 'single', id: params['camera-id']
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
+      flash[:user] = {"camera-name" => params["camera-name"],
+                      "camera-id" => params["camera-id"],
+                      "camera-username" => params["camera-username"],
+                      "camera-password" => params["camera-password"],
+                      "camera-url" => params["camera-url"],
+                      "port" => params["port"],
+                      "ext-rtsp-port" => params["ext-rtsp-port"],
+                      "snapshot" => params["snapshot"],
+                      "camera-vendor" => params["camera-vendor"],
+                      "camera-model" => params["camera-model"],
+                      "local-ip" => params["local-ip"],
+                      "local-http" => params["local-http"],
+                      "local-rtsp" => params["local-rtsp"]}
+      if error.kind_of?(Evercam::EvercamError)
+         flash[:message] = [t("errors.#{error.code}")]
+         assess_field_errors(error)
+      else
+         flash[:message] = ["An error occurred creating your account. Please check "\
+                            "the details and try again. If the problem persists, "\
+                            "contact support."]
+      end
       Rails.logger.error "Exception caught in create camera request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
-      flash[:message] = "An error occurred creating your new camera. Please try "\
-                        "again and, if the problem persists, contact support."
       redirect_to action: 'new'
     end
   end
@@ -148,6 +168,23 @@ class CamerasController < ApplicationController
       result  = {success: false, message: message, error: "#{error}"}
     end
     render json: result
+  end
+
+  private
+
+  def assess_field_errors(error)
+    field_errors = {}
+    case error.code
+      when "vendor_not_found_error"
+        field_errors["username"] = t("errors.invalid_vendor_error")
+      when "model_not_found_error"
+        field_errors["model"] = t("errors.invalid_model_error")
+      when "duplicate_camera_id_error"
+        field_errors["id"] = t("errors.#{error.code}")
+      when "invalid_parameters"
+        error.context.each {|field| field_errors[field] = t("errors.#{field}_field_invalid")}
+    end
+    flash[:field_errors] = field_errors
   end
 end
 

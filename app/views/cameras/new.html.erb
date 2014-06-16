@@ -42,7 +42,7 @@
     </div>
 
     <!-- FORM START -->
-    <%= form_tag('#', method: 'post') do %>
+    <%= form_tag('/cameras/new', method: 'post', class: "has-validation-callback") do %>
       <% field_errors = (flash[:field_errors] || {}) %>
 
       <!-- STEP 1 -->

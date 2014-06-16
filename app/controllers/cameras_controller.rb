@@ -136,10 +136,11 @@ class CamerasController < ApplicationController
       output            = api.get_logs(params[:id], parameters)
       @logs             = output[:logs]
       @pages            = output[:pages]
-      @share  = nil
+      @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
       end
+      @camera_shares  = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       load_cameras_and_shares
     rescue => error

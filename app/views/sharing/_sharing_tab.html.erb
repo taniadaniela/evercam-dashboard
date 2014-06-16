@@ -81,8 +81,11 @@
         </tr>
         </thead>
         <tbody>
-      <% if @shares %>
-        <% @shares.each do |share| %>
+      <% if @camera_shares %>
+        <% @camera_shares.each do |share| %>
+          <!--
+             <%= raw("#{share}") %>
+          -->
           <% rights = share["rights"].split(",") %>
           <tr share-id="<%= share["id"] %>">
             <td class="col-lg-4">

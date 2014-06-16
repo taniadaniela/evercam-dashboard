@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'json'
 require_relative 'stub_helper'
 
-describe "sharing actions", :type => :feature, :focus=>true, :js => true do
+describe "sharing actions", :type => :feature, :js => true do
 
   let!(:user) {
     create(:active_user, :password => 'pass')

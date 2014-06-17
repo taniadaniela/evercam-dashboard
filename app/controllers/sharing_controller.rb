@@ -83,7 +83,7 @@ class SharingController < ApplicationController
             result[:share_id]    = share["id"]
             result[:type]        = share["type"]
             result[:permissions] = params[:permissions]
-            result[:email]       = params[:email]
+            result[:email]       = share["email"]
             if share["type"] == "share"
                UserMailer.camera_shared_notification(params[:email],
                                                      params[:camera_id],
@@ -101,10 +101,13 @@ class SharingController < ApplicationController
             Rails.logger.warn "Exception caught creating camera share.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
             result[:success] = false
-            result[:message] = "Failed to create camera share request."
+            result[:message] = error.message
+            result[:code]    = error.code
          end
       else
-         result = {success: false, message: "Insufficient parameters provided."}
+         result = {success: false,
+                   message: "Insufficient parameters provided.",
+                   code: "insufficient_parameters"}
       end
       render json: result
    end

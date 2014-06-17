@@ -215,7 +215,21 @@ onAddSharingUserClicked = (event) ->
          $('#sharingUserEmail').val("")
 
       else
-         showError("Adding a User failed.")
+         message = "Adding a camera share failed."
+         switch data.code
+            when "camera_not_found_error"
+               message = "Unable to locate details for the camera in the system. Please refresh your view and try again."
+            when "duplicate_share_error"
+               message = "The camera has already been shared with the specified user."
+            when "duplicate_share_request_error"
+               message = "A share request for the specified email address already exists for this camera."
+            when "share_grantor_not_found_error"
+               message = "Unable to locate details for the user granting the share in the system."
+            when "invalid_parameters"
+               message = "Invalid rights specified for share creation request."
+            else
+               message = data.message
+         showError(message)
       true
    createShare($('#sharing_tab_camera_id').val(), emailAddress, permissions, onSuccess, onError)
    true

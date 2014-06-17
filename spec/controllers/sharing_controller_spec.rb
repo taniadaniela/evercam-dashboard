@@ -222,7 +222,7 @@ describe SharingController do
       it 'returns failure if it gets a negative response from the API call' do
          stub_request(:post, "#{EVERCAM_API}shares/cameras/#{camera.exid}.json").
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
-            to_return(:status => 403, :body => '{"message": "Unauthorized"}', :headers => {})
+            to_return(:status => 403, :body => '{"message": "Unauthorized", "code": "unknown_error", "context": []}', :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}
          expect(response.status).to eq(200)
@@ -230,13 +230,13 @@ describe SharingController do
          expect(output.include?("success")).to eq(true)
          expect(output.include?("message")).to eq(true)
          expect(output["success"]).to eq(false)
-         expect(output["message"]).to eq("Failed to create camera share request.")
+         expect(output["message"]).to eq("Unauthorized")
       end
 
       it 'returns success if it gets a positive response from the API call' do
          stub_request(:post, "#{EVERCAM_API}shares/cameras/#{camera.exid}.json").
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
-            to_return(:status => 200, :body => '{"shares": [{"camera_id": "' + camera.exid + '", "id": 1000}]}', :headers => {})
+            to_return(:status => 200, :body => '{"shares": [{"camera_id": "' + camera.exid + '", "id": 1000, "email": "' + shared_with.email + '"}]}', :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}
          expect(response.status).to eq(200)

@@ -69,10 +69,15 @@ class SharingController < ApplicationController
          camera_id = params[:camera_id]
          rights = generate_rights_list(params[:permissions])
          share  = nil
+         api = get_evercam_api
          begin
-            api = get_evercam_api
+           snapshot = api.get_live_image(camera_id)
+         rescue => error
+           # Ignore snapshot error, we can send email without image
+         end
+
+         begin
             share = api.share_camera(camera_id, params[:email], rights)
-            snapshot = api.get_live_image(camera_id)
             result[:camera_id]   = share["camera_id"]
             result[:share_id]    = share["id"]
             result[:type]        = share["type"]

@@ -224,6 +224,9 @@ describe SharingController do
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 403, :body => '{"message": "Unauthorized"}', :headers => {})
 
+         stub_request(:get, "#{EVERCAM_API}cameras/#{camera.exid}/live.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
+           to_return(:status => 200, :body => '{"data" : ""}', :headers => {})
+
          post :create, parameters.merge(credentials), {user: owner.email}
          expect(response.status).to eq(200)
          output = JSON.parse(response.body)

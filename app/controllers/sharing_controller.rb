@@ -69,6 +69,7 @@ class SharingController < ApplicationController
          camera_id = params[:camera_id]
          rights = generate_rights_list(params[:permissions])
          share  = nil
+         snapshot = nil
          api = get_evercam_api
          begin
            snapshot = api.get_live_image(camera_id)

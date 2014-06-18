@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative 'stub_helper'
+require_relative '../stub_helper'
 
 describe "user actions", :type => :feature, :js => true do
 

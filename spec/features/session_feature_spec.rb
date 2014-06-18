@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "session related test", :type => :feature do
+describe "session related test", :type => :feature, :js => true do
 
   let!(:user) {
     create(:active_user, :password => 'pass')

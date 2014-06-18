@@ -1,7 +1,7 @@
 require 'spec_helper'
-require_relative 'stub_helper'
+require_relative '../stub_helper'
 
-describe "public cams actions", :type => :feature do
+describe "public cams actions", :type => :feature, :js => true do
 
   let!(:user) {
     create(:active_user, :password => 'pass')

@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'json'
-require_relative 'stub_helper'
+require_relative '../stub_helper'
 
 describe "sharing actions", :type => :feature, :js => true do
 

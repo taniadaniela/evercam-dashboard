@@ -19,7 +19,7 @@ before_script:
   - sleep 1
 
 script:
-- RAILS_ENV=test bundle exec rake spec
+- RAILS_ENV=test bundle exec rspec --pattern 'c*/*_spec.rb,h*/*_spec.rb'
 
 env:
   matrix:

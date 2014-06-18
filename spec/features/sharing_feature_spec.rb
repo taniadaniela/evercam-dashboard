@@ -15,12 +15,6 @@ describe "sharing actions", :type => :feature, :js => true do
   it "User shares his camera" do
     cameras_stubs(user)
 
-    stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true").
-        to_return(:status => 200, :body => {:cameras => [{:id => 'testcam', :name => 'Test Camera', :rights => 'edit'}]}.to_json, :headers => {})
-
-    stub_request(:get, "#{EVERCAM_API}cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
-        to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam", "rights": "edit"}]}', :headers => {})
-
     page.set_rack_session(:user => user.email)
     visit "/"
     first(:link, 'Test Camera').click

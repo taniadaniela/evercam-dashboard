@@ -3,13 +3,13 @@ def cameras_stubs(user)
     to_return(:status => 200, :body => '{"cameras": [{"id": "testcam", "name": "Test Camera"}]}', :headers => {})
 
   stub_request(:get, "#{EVERCAM_API}cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
-    to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam", "rights": ""}]}', :headers => {})
+    to_return(:status => 200, :body => '{"cameras": [{"name": "Test Camera", "id": "testcam", "rights": "edit", "owner":"'+user.username+'"}]}', :headers => {})
 
   stub_request(:get, "#{EVERCAM_API}shares/cameras/testcam.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
     to_return(:status => 200, :body => '{"shares": []}', :headers => {})
 
   stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true").
-    to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
+    to_return(:status => 200, :body => {:cameras => [{:id => 'testcam', :name => 'Test Camera', :rights => 'edit'}]}.to_json, :headers => {})
 
   stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=false").
     to_return(:status => 200, :body => '{"cameras": []}', :headers => {})

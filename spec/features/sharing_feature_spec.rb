@@ -12,8 +12,20 @@ describe "sharing actions", :type => :feature, :js => true do
     create(:active_user, :password => 'pass')
   }
 
-  it "User shares his camera" do
+  it "User shares his camera", :focus=>true do
     cameras_stubs(user)
+    stub_request(:post, "#{EVERCAM_API}shares/cameras/testcam.json").
+      to_return(:status => 200, :body => '{
+        "share_requests": [
+          {
+            "id": "9433a3970ec9799d277b92187d95e9d70f6a653c810f1df801",
+            "camera_id": "austin2",
+            "user_id": "tjama",
+            "email": "teast@aa.pl",
+            "rights": "View"
+          }
+        ]
+      }', :headers => {})
 
     page.set_rack_session(:user => user.email)
     visit "/"
@@ -22,7 +34,12 @@ describe "sharing actions", :type => :feature, :js => true do
 
     fill_in('sharingUserEmail', :with => user2.email)
 
-    click_link 'Share'
+    click_button 'submit_share_button'
+
+    expect(page).to have_text("A notification email has been dispatched to the specified email address.")
+    expect(WebMock).to have_requested(:post, "#{EVERCAM_API}shares/cameras/testcam.json").
+      with(:body => {:api_id =>"#{user.api_id}", :api_key =>"#{user.api_key}",
+                    :email=>user2.email, :rights=>"list,snapshot"}).once
   end
 
 end

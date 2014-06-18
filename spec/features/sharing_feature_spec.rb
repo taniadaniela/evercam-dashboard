@@ -12,7 +12,7 @@ describe "sharing actions", :type => :feature, :js => true do
     create(:active_user, :password => 'pass')
   }
 
-  it "User shares his camera", :focus=>true do
+  it "User shares his camera" do
     cameras_stubs(user)
     stub_request(:post, "#{EVERCAM_API}shares/cameras/testcam.json").
       to_return(:status => 200, :body => '{

@@ -47,4 +47,31 @@ describe "Camera management", :type => :feature, :js => true do
     expect(page).to have_text("Camera deleted successfully.")
   end
 
+  it "User changes his camera settings" do
+    cameras_stubs(user)
+    stub_request(:patch, "#{EVERCAM_API}cameras/testcam.json").
+      to_return(:status => 200, :body => '{"msg":"ok"}', :headers => {})
+
+    page.set_rack_session(:user => user.email)
+
+    visit "/"
+    first(:link, 'Test Camera').click
+    click_link 'camera-settings-link'
+
+    expect(page).to have_text("Settings")
+
+    fill_in('camera-username', :with => 'admin')
+    click_button 'Save Settings'
+
+    expect(page).to have_text("Settings updated successfully")
+
+    expect(WebMock).to have_requested(:patch, "#{EVERCAM_API}cameras/testcam.json").
+      with(:body => {:name=>"Test Camera", :external_host=>"media.lintvnews.com",
+                     :internal_host=>"", :external_http_port=>"80", :internal_http_port=>"",
+                     :external_rtsp_port=>"", :internal_rtsp_port=>"", :jpg_url=>"/BTI/KXAN07.jpg",
+                     :vendor=>"", :model=>"", :cam_username=>"", :cam_password=>"",
+                     :api_id=>user.api_id, :api_key=>user.api_key}).once
+
+  end
+
 end

@@ -17,12 +17,12 @@
 
           <div class="row text-center">
             <div class="col-sm-3">
-              <%= f.label :forename %>
+              <%= f.label :firstname %>
             </div>
-            <div class="col-sm-9 form-group<%= field_errors.include?("forename") ? " has-error" : "" %>">
-              <%= f.text_field :forename, value: params.fetch('user', {})[:forename], class: "form-control" %>
-            <% if field_errors.include?("forename") %>
-              <span class="help-block arrow_box form-error text-left"><%= field_errors["forename"] %></span>
+            <div class="col-sm-9 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
+              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control" %>
+            <% if field_errors.include?("firstname") %>
+              <span class="help-block arrow_box form-error text-left"><%= field_errors["firstname"] %></span>
             <% end %>
             </div>
 

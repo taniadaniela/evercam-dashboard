@@ -5,7 +5,7 @@ describe UsersController do
   let!(:user) {create(:active_user)}
   let(:params) {
     {user: {
-        forename: user.forename,
+        firstname: user.firstname,
         lastname: user.lastname,
         username: user.username,
         email: user.email,
@@ -15,7 +15,7 @@ describe UsersController do
   }
   let(:patch_params) {
     {id: user.username,
-     'user-forename' => 'Aaaddd',
+     'user-firstname' => 'Aaaddd',
      'user-lastname' => 'Bbbeeee',
      email: "#{user.username}2@evercam.io",
      password: 'asdf',
@@ -23,7 +23,7 @@ describe UsersController do
   }
   let(:new_user_params) {
     id = SecureRandom.hex(8)
-    {user: {forename: 'Joe',
+    {user: {firstname: 'Joe',
             lastname: 'Bloggs',
             username: id,
             email: "#{id}@nowhere.com",
@@ -67,7 +67,7 @@ describe UsersController do
   describe 'POST #create with correct params' do
     it "signs in and redirects to cameras index" do
       stub_request(:post, "#{EVERCAM_API}users.json").
-        with(:body => "country=ie&email=#{CGI.escape(new_user_params[:user][:email])}&forename=Joe&lastname=Bloggs&password=password&username=#{new_user_params[:user][:username]}").
+        with(:body => "country=ie&email=#{CGI.escape(new_user_params[:user][:email])}&firstname=Joe&lastname=Bloggs&password=password&username=#{new_user_params[:user][:username]}").
         to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
       #stub_request(:post, "#{EVERCAM_API}users").to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
@@ -107,11 +107,11 @@ describe UsersController do
     describe 'POST #settings_update with wrong params' do
       it "fails and renders user settings" do
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}.json").
-          with(:body => "api_id=#{user.api_id}&api_key=#{user.api_key}&forename=",).
-          to_return(:status => 400, :body => '{"message": ["forename cannot be blank"]}', :headers => {})
+          with(:body => "api_id=#{user.api_id}&api_key=#{user.api_key}&firstname=",).
+          to_return(:status => 400, :body => '{"message": ["firstname cannot be blank"]}', :headers => {})
 
         session['user'] = user.email
-        post :settings_update, {id: user.username, 'user-forename' => ''}
+        post :settings_update, {id: user.username, 'user-firstname' => ''}
         expect(response.status).to eq(302)
         expect(response).to redirect_to "/users/#{user.username}/settings"
         expect(flash[:message]).to eq("An error occurred updating your details. Please try again and, if the problem persists, contact support.")
@@ -130,7 +130,7 @@ describe UsersController do
     describe 'POST #settings_update with correct params' do
       it "updates and renders user settings" do
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}.json").
-          with(:body => {"api_id"=>user.api_id, "api_key"=>user.api_key, "country"=>"pl", "email"=>patch_params[:email], "forename"=>"Aaaddd", "lastname"=>"Bbbeeee"}).
+          with(:body => {"api_id"=>user.api_id, "api_key"=>user.api_key, "country"=>"pl", "email"=>patch_params[:email], "firstname"=>"Aaaddd", "lastname"=>"Bbbeeee"}).
                to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
         session['user'] = params[:user][:email]

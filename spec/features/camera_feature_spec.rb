@@ -6,7 +6,7 @@ describe "Camera management", :type => :feature, :js => true do
     create(:active_user, :password => 'pass')
   }
 
-  it "User adds new camera with correct parameters" do
+  it "User adds new camera with correct parameters", :focus=>true do
     cameras_stubs(user)
     page.set_rack_session(:user => user.email)
 

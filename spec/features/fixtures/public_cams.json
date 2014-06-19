@@ -1,0 +1,185 @@
+{
+  "cameras": [
+    {
+      "id": "vinniequinnpuz",
+      "name": "vinniequinnpuz",
+      "owner": "vinniequinn",
+      "vendor": "evercam-capture",
+      "vendor_name": "Evercam Capture",
+      "model": "Front Camera",
+      "created_at": 1400852406,
+      "updated_at": 1402562973,
+      "last_polled_at": 1402562973,
+      "last_online_at": 1401741109,
+      "timezone": "Europe/Dublin",
+      "is_online": false,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/vinniequinnpuz.jpg"
+      }
+    },
+    {
+      "id": "eh-cam",
+      "name": "Emerald Hills Cam - Cali",
+      "owner": "campbellzachary",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1401372622,
+      "updated_at": 1402326229,
+      "last_polled_at": 1402326227,
+      "last_online_at": 1402326227,
+      "timezone": "Etc/UTC",
+      "is_online": true,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/eh-cam.jpg"
+      }
+    },
+    {
+      "id": "alpaca-cam",
+      "name": "Lone Juniper",
+      "owner": "campbellzachary",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1402395409,
+      "updated_at": 1402562899,
+      "last_polled_at": 1402562894,
+      "last_online_at": 1402395409,
+      "timezone": "Etc/UTC",
+      "is_online": false,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/alpaca-cam.jpg"
+      }
+    },
+    {
+      "id": "vinniequinnxrm",
+      "name": "vinniequinnxrm",
+      "owner": "vinniequinn",
+      "vendor": "evercam-capture",
+      "vendor_name": "Evercam Capture",
+      "model": "Front Camera",
+      "created_at": 1401744983,
+      "updated_at": 1402562973,
+      "last_polled_at": 1402562973,
+      "last_online_at": 1402510663,
+      "timezone": "America/Los_Angeles",
+      "is_online": false,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/vinniequinnxrm.jpg"
+      }
+    },
+    {
+      "id": "emerald-hills-cam",
+      "name": "Emerald Hills Cam",
+      "owner": "ciaranhan",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1401372457,
+      "updated_at": 1402562928,
+      "last_polled_at": 1402562927,
+      "last_online_at": 1402562927,
+      "timezone": "Etc/UTC",
+      "is_online": true,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/emerald-hills-cam.jpg"
+      }
+    },
+    {
+      "id": "galway-habour-cam",
+      "name": "Galway Harbour",
+      "owner": "campbellzachary",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1402067870,
+      "updated_at": 1402562937,
+      "last_polled_at": 1402562937,
+      "last_online_at": 1402562937,
+      "timezone": "Etc/UTC",
+      "is_online": true,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/galway-habour-cam.jpg"
+      }
+    },
+    {
+      "id": "heidelberg_view_2",
+      "name": "Heidelberg View CIA",
+      "owner": "ciaran",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1399967563,
+      "updated_at": 1402562942,
+      "last_polled_at": 1402562942,
+      "last_online_at": 1402562942,
+      "timezone": "Etc/UTC",
+      "is_online": true,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/heidelberg_view_2.jpg"
+      }
+    },
+    {
+      "id": "cftp-cam",
+      "name": "Camera facing Twin Peaks",
+      "owner": "campbellzachary",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1402399166,
+      "updated_at": 1402562907,
+      "last_polled_at": 1402562907,
+      "last_online_at": 1402562907,
+      "timezone": "Etc/UTC",
+      "is_online": true,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/cftp-cam.jpg"
+      }
+    },
+    {
+      "id": "liffey-dublin-cam",
+      "name": "Liffey Dublin",
+      "owner": "campbellzachary",
+      "vendor": null,
+      "vendor_name": null,
+      "model": null,
+      "created_at": 1402067931,
+      "updated_at": 1402562946,
+      "last_polled_at": 1402562946,
+      "last_online_at": 1402562946,
+      "timezone": "Etc/UTC",
+      "is_online": true,
+      "is_public": true,
+      "location": null,
+      "discoverable": true,
+      "short": {
+        "jpg_url": "http://evr.cm/liffey-dublin-cam.jpg"
+      }
+    }
+  ],
+  "pages": 9
+}

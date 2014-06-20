@@ -102,7 +102,7 @@
             <% unless @pages.blank? %>
             <div class="col-md-12">
               <ul class="pagination">
-                <% 1.upto(@pages + 1) do |i| %>
+                <% 1.upto(@pages) do |i| %>
                 <% if (@page + 1) == i %>
                 <li class="active"><a href="publiccam?page=<%= i %>"><%= i %><span class="sr-only">(current)</span></a></li>
                 <% else %>

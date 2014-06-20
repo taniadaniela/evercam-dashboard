@@ -19,6 +19,7 @@ class UsersController < ApplicationController
       @share_request = CameraShareRequest.where(status: CameraShareRequest::PENDING,
                                                 key: params[:key]).first
     end
+    params[:country] = request.location.country_code.downcase
   end
 
   def create

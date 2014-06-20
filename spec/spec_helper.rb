@@ -63,6 +63,7 @@ RSpec.configure do |config|
   # Configure database cleaner.
   config.before(:suite) do
     WebMock.disable_net_connect!(:allow_localhost => true)
+    DatabaseCleaner[:sequel].strategy = :truncation
     DatabaseCleaner[:sequel].clean_with(:truncation, except: %w[spatial_ref_sys])
   end
 

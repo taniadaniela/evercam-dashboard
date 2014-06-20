@@ -28,7 +28,7 @@ en:
     duplicate_username_error: The Username provided is already taken.
     email_field_duplicate: That email already has an Evercam account associated with it.
     email_field_invalid: Must be a valid email address and at least 6 characters long.
-    firstname_field_invalid: Fore names can consist of alphabetic characters only.
+    firstname_field_invalid: First names can consist of alphabetic characters only.
     incomplete_camera_urls_error: You must specify at least one of the external or internal settings.
     invalid_country_error: The country selected is not supported.
     invalid_parameters: Please check the field errors below and correct them before re-submitting the information.

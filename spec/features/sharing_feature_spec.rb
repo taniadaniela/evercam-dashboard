@@ -27,6 +27,9 @@ describe "sharing actions", :type => :feature, :js => true do
         ]
       }', :headers => {})
 
+    stub_request(:get, "#{EVERCAM_API}cameras/testcam/live.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
+      to_return(:status => 200, :body => '"data":"aaa"', :headers => {})
+
     page.set_rack_session(:user => user.email)
     visit "/"
     first(:link, 'Test Camera').click

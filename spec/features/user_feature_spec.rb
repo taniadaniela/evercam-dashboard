@@ -51,7 +51,7 @@ describe "user actions", :type => :feature, :js => true do
   it "User sings up" do
     cameras_stubs(user)
     stub_request(:post, "#{EVERCAM_API}users.json").
-      to_return(:status => 200, :body => '{}', :headers => {})
+      to_return(:status => 201, :body => '{"users":[{"username":"ccc"}]}', :headers => {})
 
     visit "/"
     click_link 'Create New Account'

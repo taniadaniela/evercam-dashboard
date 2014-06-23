@@ -46,9 +46,9 @@ gem 'airbrake'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.0'
+  gem 'evercam_models', '~> 0.1.0'
 end
-gem 'evercam', '~> 0.0'
+gem 'evercam', '~> 0.1.0'
 
 group :development do
   gem 'quiet_assets'

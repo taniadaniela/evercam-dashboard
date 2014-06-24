@@ -66,7 +66,9 @@
     <% end %>
   </ul>
 </header>
+
   <!--DELETE MODAL-->
+  <% if !has_edit_right %>
   <div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -80,11 +82,12 @@
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           </div>
         </div>
-
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+  </div><!-- /.modal --> 
+  <% end %>
   <!--END DELETE MODAL-->
+
 <div class="tab-content">
 <!--LIVE VIEW TAB PANE -->
 <div id="live" class="tab-pane active">

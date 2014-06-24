@@ -23,6 +23,6 @@ class UserMailer < ActionMailer::Base
    def password_reset(email, user, token)
       @token    = token
       @user     = user
-      mail(to: email, subject: "#{user.username} has requested password reset")
+      mail(to: email, subject: "Password reset requested for Evercam")
    end
 end

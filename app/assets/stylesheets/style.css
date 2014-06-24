@@ -1124,6 +1124,10 @@ th {
     margin-top: 0px;
     padding: 6px 20px;
 }
+#private-short-page small {
+    float:left;
+}
+
 /*APPS*/
 .evercam {
     color: #428BCA;

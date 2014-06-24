@@ -18,6 +18,12 @@
       width: auto !important;
     }
   }
+  @media only screen and (max-width: 480px){
+    .logo{
+      max-width:28% !important;
+      max-width:175px !important;
+    }
+  }
 </style>
 <!-- HEADER -->
 <table class="head-wrap" bgcolor="#f5f5f5" style="width: 100%; margin: 0; padding: 0;">
@@ -28,7 +34,7 @@
         <table bgcolor="#f5f5f5" style="width: 100%; margin: 0; padding: 0;">
           <tr style="margin: 0; padding: 0;text-align:center;">
             <td style="margin: 0; padding: 0;">
-              <img src="http://www.evercam.io/img/logo.png" style="max-width:28%;max-width:175px;padding-top:10px;margin:0;">
+              <img src="http://www.evercam.io/img/logo.png" class="logo" style="max-width:28%;max-width:175px;padding-top:10px;margin:0;">
             </td>
           </tr>
         </table>
@@ -59,6 +65,7 @@
             <br>
             <%= image_tag attachments['snapshot.jpg'].url, alt: 'Camera Preview', :style => "width: 600px" -%>
             <% end %>
+            <br>
             <br>
             <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">We're still in beta and greatly appreciate any feedback so if you have any suggestions or if there is anything we can do to improve your Evercam experience, please let us know!</p>
             <p style="line-height: 1.6; margin: 0 0 0px; padding: 0;">The Evercam Team</p>

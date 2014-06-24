@@ -99,7 +99,7 @@ describe "user actions", :type => :feature, :js => true do
       with(:body => 'country=ie&email=cccaaaie&forename=AAA&lastname=BBB&password=qwer&username=ccc',
       :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).once
 
-    expect(page).to have_text('One or more of the values you entered is incorrect.')
+    expect(page).to have_text('Must be a valid email address and at least 6 characters long.')
   end
 
 

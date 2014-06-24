@@ -819,7 +819,7 @@ select {
     padding-top: 10px;
 }
 @media (min-width: 890px) {
-    .has-error .help-block {
+    #registration .has-error .help-block {
         color: #a94442;
         position: absolute;
         display: inline;
@@ -1340,7 +1340,6 @@ table.table-bordered.dataTable {
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: none repeat scroll 0 0 #e5e5e5 !Important;
-    border: 1px solid #fff !Important;
     border-radius: 2px;
     color: #428BCA !important;
 }

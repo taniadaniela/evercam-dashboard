@@ -113,10 +113,7 @@
 </div>
 <script>
     //$(window.Evercam.Users.initialize);
-    Notification.init(".bb-alert");
-    <% flash[:message].try(:each) do |m| %>
-    Notification.show('<%= m %>');
-    <% end %>
+
 
     $(function(){
         $("alert").on("click", function(){

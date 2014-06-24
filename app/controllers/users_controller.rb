@@ -162,7 +162,6 @@ class UsersController < ApplicationController
       when "invalid_country_error"
         field_errors["country"] = t("country_field_invalid")
       when "invalid_parameters"
-        puts "ERROR.CONTEXT: #{error.context}"
         error.context.each {|field| field_errors[field] = t("errors.#{field}_field_invalid")}
     end
     flash[:field_errors] = field_errors

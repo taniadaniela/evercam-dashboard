@@ -48,7 +48,7 @@ describe "user actions", :type => :feature, :js => true do
 
   end
 
-  it "User sings up" do
+  it "User sings up with correct data" do
     cameras_stubs(user)
     stub_request(:post, "#{EVERCAM_API}users.json").
       to_return(:status => 201, :body => '{"users":[{"username":"ccc"}]}', :headers => {})
@@ -69,6 +69,37 @@ describe "user actions", :type => :feature, :js => true do
     expect(WebMock).to have_requested(:post, "#{EVERCAM_API}users.json").
       with(:body => 'country=ie&email=ccc%40aaa.ie&forename=AAA&lastname=BBB&password=qwer&username=ccc',
       :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).once
+  end
+
+  it "User sings up with invalid data" do
+    cameras_stubs(user)
+    stub_request(:post, "#{EVERCAM_API}users.json").
+      to_return(:status => 400, :body => '{
+        "message": "Invalid parameters specified to request.",
+        "code": "invalid_parameters",
+        "context": [
+          "email"
+        ]
+      }', :headers => {})
+
+    visit "/"
+    click_link 'Create New Account'
+
+    expect(page).to have_text('Create a free Account')
+
+    fill_in('user_forename', :with => 'AAA')
+    fill_in('user_lastname', :with => 'BBB')
+    fill_in('user_username', :with => 'ccc')
+    fill_in('user_email', :with => 'cccaaaie')
+    fill_in('user_password', :with => 'qwer')
+
+    click_button 'Create New Account'
+
+    expect(WebMock).to have_requested(:post, "#{EVERCAM_API}users.json").
+      with(:body => 'country=ie&email=cccaaaie&forename=AAA&lastname=BBB&password=qwer&username=ccc',
+      :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).once
+
+    expect(page).to have_text('One or more of the values you entered is incorrect.')
   end
 
 

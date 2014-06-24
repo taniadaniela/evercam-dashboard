@@ -7,7 +7,11 @@ class UserMailer < ActionMailer::Base
       @camera_id = camera_id
       @user      = user
       @key       = key
-      @snapshot  = snapshot
+      @add_snap = false
+      unless snapshot.nil?
+        attachments.inline['snapshot.jpg'] = snapshot
+        @add_snap = true
+      end
       mail(to: email, subject: "#{user.username} has shared a camera with you")
    end
 
@@ -16,7 +20,11 @@ class UserMailer < ActionMailer::Base
    def camera_shared_notification(email, camera_id, user, snapshot)
       @camera_id = camera_id
       @user      = user
-      @snapshot  = snapshot
+      @add_snap = false
+      unless snapshot.nil?
+        attachments.inline['snapshot.jpg'] = snapshot
+        @add_snap = true
+      end
       mail(to: email, subject: "#{user.username} has shared a camera with you")
    end
 

@@ -72,7 +72,7 @@ class SharingController < ApplicationController
          snapshot = nil
          api = get_evercam_api
          begin
-           snapshot = api.get_live_image(camera_id)
+           snapshot = api.get_snapshot(camera_id)
          rescue => error
            # Ignore snapshot error, we can send email without image
          end

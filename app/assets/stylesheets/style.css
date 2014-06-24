@@ -1510,7 +1510,9 @@ tbody tr:hover {
     background-color: #F5F5F5;
     border: 1px solid #E5E5E5;
     box-shadow: none;
-    color: #404142;}
+    padding: 6px;
+    color: #404142;
+}
 
 .form-control::-moz-placeholder {
     color: #999999;

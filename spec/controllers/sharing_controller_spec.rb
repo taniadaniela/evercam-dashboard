@@ -224,7 +224,7 @@ describe SharingController do
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 403, :body => '{"message": "Unauthorized", "code": "unknown_error", "context": []}', :headers => {})
 
-         stub_request(:get, "#{EVERCAM_API}cameras/#{camera.exid}/live.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
+         stub_request(:get, "#{EVERCAM_API}cameras/#{camera.exid}/snapshot.jpg?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
            to_return(:status => 200, :body => '{"data" : ""}', :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}
@@ -241,7 +241,7 @@ describe SharingController do
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 200, :body => '{"shares": [{"camera_id": "' + camera.exid + '", "id": 1000, "email": "' + shared_with.email + '"}]}', :headers => {})
 
-         stub_request(:get, "#{EVERCAM_API}cameras/#{camera.exid}/live.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
+         stub_request(:get, "#{EVERCAM_API}cameras/#{camera.exid}/snapshot.jpg?api_id=#{owner.api_id}&api_key=#{owner.api_key}").
            to_return(:status => 200, :body => '{"data" : ""}', :headers => {})
 
          post :create, parameters.merge(credentials), {user: owner.email}

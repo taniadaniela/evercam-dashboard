@@ -824,14 +824,14 @@ select {
         position: absolute;
         display: inline;
         left: 99%;
-        top: -3px;
+        top: -6px;
         overflow: visible;
-        width: 100%;
+        width: 112%;
         background-color: #f2dede;
-        padding: 3px 6px;
+        padding: 5px 6px;
         border-radius: 2px;
-        line-height: 14px;
-        font-size: 12px;
+        line-height: 16px;
+        font-size: 14px;
     }
     .arrow_box {
         position: relative;

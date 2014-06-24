@@ -159,7 +159,7 @@
     });
 
     $('#test').click(function (e) {
-      var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val(),
+      var params = ['external_url=http://' + $('#camera-url').val() + ':' + $('#port').val(), 'jpg_url=' + $('#snapshot').val().replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X'),
           'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
       e.preventDefault();
       var l = Ladda.create(this);
@@ -174,7 +174,7 @@
           clearInterval(interval);
         }
       }, 200);
-      $.getJSON('https://api.evercam.io/v1/cameras/test.json?' + params.join('&'))
+      $.getJSON('<%= EVERCAM_API %>cameras/test.json?' + params.join('&'))
         .done(function (resp) {
           console.log('success');
           $('#testimg').attr('src', resp.data);

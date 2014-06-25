@@ -87,7 +87,7 @@ describe "user actions", :type => :feature, :js => true do
 
     expect(page).to have_text('Create a free Account')
 
-    fill_in('user_forename', :with => 'AAA')
+    fill_in('user_firstname', :with => 'AAA')
     fill_in('user_lastname', :with => 'BBB')
     fill_in('user_username', :with => 'ccc')
     fill_in('user_email', :with => 'cccaaaie')
@@ -96,7 +96,7 @@ describe "user actions", :type => :feature, :js => true do
     click_button 'Create New Account'
 
     expect(WebMock).to have_requested(:post, "#{EVERCAM_API}users.json").
-      with(:body => 'country=ie&email=cccaaaie&forename=AAA&lastname=BBB&password=qwer&username=ccc',
+      with(:body => 'country=ie&email=cccaaaie&firstname=AAA&lastname=BBB&password=qwer&username=ccc',
       :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).once
 
     expect(page).to have_text('Must be a valid email address and at least 6 characters long.')

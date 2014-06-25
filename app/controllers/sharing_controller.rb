@@ -84,17 +84,19 @@ class SharingController < ApplicationController
             result[:type]        = share["type"]
             result[:permissions] = params[:permissions]
             result[:email]       = share["email"]
-            if share["type"] == "share"
-               UserMailer.camera_shared_notification(params[:email],
-                                                     params[:camera_id],
-                                                     current_user,
-                                                     snapshot).deliver
-            else
-               UserMailer.sign_up_to_share_email(params[:email],
-                                                 params[:camera_id],
-                                                 current_user,
-                                                 share["id"],
-                                                 snapshot).deliver
+            if result[:email] != current_user.email
+              if share["type"] == "share"
+                 UserMailer.camera_shared_notification(params[:email],
+                                                       params[:camera_id],
+                                                       current_user,
+                                                       snapshot).deliver
+              else
+                 UserMailer.sign_up_to_share_email(params[:email],
+                                                   params[:camera_id],
+                                                   current_user,
+                                                   share["id"],
+                                                   snapshot).deliver
+              end
             end
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)

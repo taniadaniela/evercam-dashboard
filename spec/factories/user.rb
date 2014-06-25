@@ -2,7 +2,7 @@ FactoryGirl.define do
    factory :user do
       to_create {|instance| instance.save}
 
-      forename "John"
+      firstname "John"
       lastname "Smith"
       sequence(:username) {|n| "user#{n}"}
       password "password"

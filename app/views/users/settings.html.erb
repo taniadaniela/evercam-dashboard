@@ -10,12 +10,12 @@
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
       <div class="form-group">
-        <label for="user-forename">Forename</label>
-        <input type="text" value="<%= current_user.forename -%>" class="form-control" id="user-forename" name="user-forename" placeholder="Enter forename">
+        <label for="user-firstname">First Name</label>
+        <input type="text" value="<%= current_user.firstname -%>" class="form-control" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
       </div>
 
       <div class="form-group">
-        <label for="user-lastname">Lastname</label>
+        <label for="user-lastname">Last Name</label>
         <input type="text" value="<%= current_user.lastname -%>" class="form-control" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
       </div>
 

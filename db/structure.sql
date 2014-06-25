@@ -459,7 +459,7 @@ CREATE TABLE users (
     id integer DEFAULT nextval('sq_users'::regclass) NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
-    forename text NOT NULL,
+    firstname text NOT NULL,
     lastname text NOT NULL,
     username text NOT NULL,
     password text NOT NULL,

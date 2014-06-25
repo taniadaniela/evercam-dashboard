@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       if user.nil?
         raise "No user details specified in request."
       end
-      output = get_evercam_api.create_user(user['forename'],
+      output = get_evercam_api.create_user(user['firstname'],
                                            user['lastname'],
                                            user['username'],
                                            user['email'],
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def settings_update
     begin
       parameters = {}
-      parameters[:forename] = params['user-forename'] if params.include?('user-forename')
+      parameters[:firstname] = params['user-firstname'] if params.include?('user-firstname')
       parameters[:lastname] = params['user-lastname'] if params.include?('user-lastname')
       parameters[:country]  = params['country'] if params.include?('country')
       if params.include?('email')

@@ -123,6 +123,7 @@ GEM
     minitest (5.3.5)
     multi_json (1.10.1)
     multipart-post (2.0.0)
+    newrelic_rpm (3.8.1.221)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     pg (0.17.1)
@@ -263,6 +264,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   launchy
+  newrelic_rpm
   pg
   protected_attributes
   quiet_assets

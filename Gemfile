@@ -38,6 +38,7 @@ gem 'typhoeus'
 gem 'unicorn'
 gem 'data_uri'
 gem 'geocoder'
+gem 'newrelic_rpm'
 
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'

@@ -1246,8 +1246,11 @@ API LOGS TAB
 /////////////////////*/
 #logs .form-control {
     background-color: #ffffff;
-    padding: 0px 5px 0px 9px;
-
+    padding: 0px 5px 0px 5px;
+}
+#logs-table_length .form-control {
+    height: 32px;
+    border-radius: 2px;
 }
 .log-option {
     background-color: #FFFFFF;
@@ -1255,6 +1258,9 @@ API LOGS TAB
 }
 #logs .form-control:focus {
     box-shadow: none;
+}
+#logs-table_length option {
+    text-align: center;
 }
 #logs .bold {
     text-transform: capitalize;
@@ -1321,6 +1327,7 @@ table.table-bordered.dataTable {
     padding-left: 10px;
     background-color: #ffffff;
     border-radius:2px;
+    font-size: 13px;
 }
 .table-logs td {
     border-bottom: none !Important;
@@ -1328,6 +1335,7 @@ table.table-bordered.dataTable {
 }
 #logs-table_filter .form-control {
     margin-left: 10px;
+    font-size: 13px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
 
@@ -3904,7 +3912,7 @@ ul.amounts li {
 }
 .dataTables_length select {
     width:65px;
-    padding:5px 8px;
+
 }
 .dataTables_length label,.dataTables_filter label {
     font-weight:300;

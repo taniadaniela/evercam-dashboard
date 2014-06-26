@@ -46,7 +46,7 @@
       <div class="col-md-12">
         <h5>Short URLs</h5>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-10">
         JPEG
       </div>
       <div class="col-md-10">
@@ -62,31 +62,36 @@
       <div class="col-md-12">
         <h5>Dynamic DNS URLs</h5>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-10">
         JPEG
       </div>
       <div class="col-md-10">
-        <% url = @camera.fetch('dyndns', {})['jpg_url'] %>
+
+        <% if url = @camera.fetch('dyndns', {})['jpg_url'] %>
         <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+        <% else %>
+        none
+        <% end %>
+
       </div>
   </div>
   <div class="row info-panel">
       <div class="col-md-12">
         <h5>Base URLs</h5>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-10">
+        JPEG
+      </div>
+      <div class="col-md-10 info-panel">
+        <% url = @camera.fetch('external', {})['jpg_url'] %>
+        <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+      </div>
+      <div class="col-md-10">
         RTSP
       </div>
       <div class="col-md-10">
         <% url = @camera.fetch('external', {})['rtsp_url'] %>
         <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-      </div>
-      <div class="col-md-2">
-        JPEG
-      </div>
-      <div class="col-md-10">
-        <% url = @camera.fetch('external', {})['jpg_url']  %>
-        <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
       </div>
   </div>
 </div><!--URL Container -->

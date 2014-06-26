@@ -884,7 +884,6 @@ select {
 }
 /*LIVE*/
 #live img {
-    max-height: 600px;
     width: 100%;
 }
 .tab-content h4 {

@@ -17,7 +17,7 @@
 
           <div class="row text-center">
             <div class="col-sm-3">
-              <%= f.label :firstname, 'Firstname' %>
+              <%= f.label :firstname, 'First Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
               <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control" %>
@@ -30,7 +30,7 @@
 
           <div class="row text-center">
             <div class="col-sm-3">
-              <%= f.label :lastname, 'Lastname' %>
+              <%= f.label :lastname, 'Last Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
               <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control" %>
@@ -67,7 +67,7 @@
 
           <div class="row text-center">
             <div class="col-sm-3">
-              <%= f.label :email %>
+              <%= f.label :email, 'Email' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
             <% if @share_request.nil? %>

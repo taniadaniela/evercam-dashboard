@@ -67,7 +67,7 @@
 
           <div class="row text-center">
             <div class="col-sm-3">
-              <%= f.label :email %>
+              <%= f.label :email, 'Email' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
             <% if @share_request.nil? %>

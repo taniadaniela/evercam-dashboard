@@ -49,15 +49,18 @@
           <div class="tab-content">
             <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="grid">
               <% @cameras.each do |c| %>
+
+                <a href="/publiccam/<%= c['id'] %>">
                 <div class="col-md-4 col-sm-6 col-xs-12 public-cam-box">
                   <div id="cam-name">
-                    <h5><%= link_to(c["name"], "/publiccam/#{c['id']}") %></h5>
+                    <h5><%= c["name"] %></h5>
                   </div>
                     <img onerror="this.style.display='none'" src="<%= c["short"]["jpg_url"] %>">
                   <div class="add-to-cams">
                     <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
                   </div>
                 </div>
+                </a>
               <% end %>
 
             </div>

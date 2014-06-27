@@ -43,17 +43,7 @@
           <th class="col-md-4">User/Client</th>
         </thead>
         <tbody>
-          <% @logs.each do |l| %>
-          <tr>
-            <td class="col-md-4">On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822) unless l['done_at'].nil? %></span></td>
-            <td class="col-md-4"><span class="bold"><%= l['action'] %></span></td>
-            <td class="col-md-4">
-              <% unless ['online', 'offline'].include?l['action'] %>
-                by <span class="bold"><%= l['who']  %></span>
-              <% end %>
-            </td>
-          </tr>
-          <% end %>
+
         </tbody>
       </table>
     </div>

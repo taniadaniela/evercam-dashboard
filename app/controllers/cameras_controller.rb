@@ -130,12 +130,9 @@ class CamerasController < ApplicationController
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
-      parameters        = {objects: true, page: @page, types: params[:types]}
-      parameters[:from] = params[:from] if !params[:from].blank?
-      parameters[:to]   = params[:to] if !params[:to].blank?
-      output            = api.get_logs(params[:id], parameters)
-      @logs             = output[:logs]
-      @pages            = output[:pages]
+      if params[:from].blank?
+        params[:from] = (Time.now - 24.hours)
+      end
       @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)

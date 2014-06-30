@@ -301,7 +301,9 @@
     $('#test').click(function (e) {
       var intRegex = /^\d+$/,
           port = $('#port').val(),
-          ext_url = $('#camera-url').val();
+          ext_url = $('#camera-url').val(),
+          $snap = $('#snapshot'),
+          jpg_url = $snap.val();
       e.preventDefault();
       // Validate port
       if(port !== '' && (!intRegex.test(port) || port > 65535)) {
@@ -318,7 +320,12 @@
         $('#test-error').text('This is local IP. Please use external IP.');
         return;
       }
-      var params = ['external_url=http://' + ext_url + port, 'jpg_url=' + $('#snapshot').val(),
+      // Auto-fix snapshot
+      if (jpg_url.indexOf('/') == 0) {
+        $snap.val(jpg_url.substring(1));
+        jpg_url = $snap.val();
+      }
+      var params = ['external_url=http://' + ext_url + port, 'jpg_url=/' + jpg_url,
             'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
       var l = Ladda.create(this);
       l.start();

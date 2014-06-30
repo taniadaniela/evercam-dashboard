@@ -24,7 +24,7 @@
             <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
           </li>
           <li class="menu-item active">
-            <a href="/publiccam"><span class="glyphicon glyphicon-plus"></span>Add Public Camera</a>
+            <a href="/publiccam">Public Cameras</a>
           </li>
         </ul>
       </div>
@@ -34,10 +34,7 @@
         <section id="main-content">
           <div class="row widget-header">
             <div class='col-md-12 widget-article-header'>
-              <h3>Add a Public Camera</h3>
-              <p>Repository of Public Cameras from around the world that you can add to your Camera Dashboard</p>
-              <p>To add any of your cameras to this repository, simply select the camera you want to add and go to the sharing tab. Change the Who Has Access to be Public on the web and it will appear here for others to follow. </p>
-
+              <h3>Public Cameras</h3>
             </div>
           </div>
         <div id="publiccams">
@@ -52,15 +49,18 @@
           <div class="tab-content">
             <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="grid">
               <% @cameras.each do |c| %>
+
+                <a href="/publiccam/<%= c['id'] %>">
                 <div class="col-md-4 col-sm-6 col-xs-12 public-cam-box">
                   <div id="cam-name">
-                    <h5><%= link_to(c["name"], "/publiccam/#{c['id']}") %></h5>
+                    <h5><%= c["name"] %></h5>
                   </div>
                     <img onerror="this.style.display='none'" src="<%= c["short"]["jpg_url"] %>">
                   <div class="add-to-cams">
                     <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
                   </div>
                 </div>
+                </a>
               <% end %>
 
             </div>

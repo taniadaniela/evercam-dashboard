@@ -71,10 +71,13 @@ class SharingController < ApplicationController
          share  = nil
          snapshot = nil
          api = get_evercam_api
-         begin
-           snapshot = api.get_snapshot(camera_id)
-         rescue => error
-           # Ignore snapshot error, we can send email without image
+         if params[:email] != current_user.email
+           # Don't take snapshot if you share public camera
+           begin
+             snapshot = api.get_snapshot(camera_id)
+           rescue => error
+             # Ignore snapshot error, we can send email without image
+           end
          end
 
          begin

@@ -17,7 +17,6 @@ describe "Camera management", :type => :feature, :js => true do
     fill_in "Evercam ID", :with => 'testcam'
     fill_in "camera-url", :with => '1.1.1.1'
     fill_in "port", :with => '123'
-    fill_in "ext-rtsp-port", :with => '1123'
     fill_in "Snapshot URL", :with => '/snapshot.jpg'
     click_button "Finish & Add"
 

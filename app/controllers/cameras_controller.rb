@@ -14,7 +14,6 @@ class CamerasController < ApplicationController
   end
 
   def create
-    response = nil
     begin
       raise "No camera id specified in request." if params['camera-id'].blank?
       raise "No camera name specified in request." if params['camera-name'].blank?
@@ -40,7 +39,6 @@ class CamerasController < ApplicationController
                         params['camera-name'],
                         false,
                         body)
-      api.store_snapshot(params['camera-id'], 'Initial snapshot')
       redirect_to action: 'single', id: params['camera-id']
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -68,6 +66,13 @@ class CamerasController < ApplicationController
       Rails.logger.error "Exception caught in create camera request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
       redirect_to action: 'new'
+      return
+    end
+    begin
+      # Storing snapshot is not essential, so don't show any errors to user
+      api.store_snapshot(params['camera-id'], 'Initial snapshot')
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
     end
   end
 

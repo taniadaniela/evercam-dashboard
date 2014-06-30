@@ -137,6 +137,21 @@ describe CamerasController do
       end
     end
 
+    describe 'POST #create with valid full parameters, but snapshot error' do
+      it "redirects to the newly created camera" do
+        stub_request(:post, "#{EVERCAM_API}cameras.json").
+          to_return(:status => 200, :body => '{"cameras": [{}]}', :headers => {})
+
+        stub_request(:post, "#{EVERCAM_API}cameras/#{params['camera-id']}/snapshots.json").
+          to_return(:status => 500, :body => '{"message":"error"', :headers => {})
+
+        session['user'] = user.email
+        post :create, full_params
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to("/cameras/#{params['camera-id']}")
+      end
+    end
+
     describe 'POST #create with missing parameters' do
       it "redirects to the new camera form" do
         session['user'] = user.email

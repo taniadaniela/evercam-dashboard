@@ -124,5 +124,12 @@
 <%= javascript_include_tag "publiccam" %>
 <script>
 $(window.Evercam.Publiccam.initialize);
+
+Notification.init(".bb-alert");
+<% if flash[:error] %>
+Notification.show('<%= flash[:error] %>');
+<% end %>
 </script>
+
+
 

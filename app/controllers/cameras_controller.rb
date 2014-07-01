@@ -142,10 +142,10 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
       end
-      @camera_shares = Rails.cache.fetch("#{current_user.username}/cam_shares", expires_in: 5.minutes) do
+      @camera_shares = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/cam_shares", expires_in: 5.minutes) do
         api.get_camera_shares(params[:id])
       end
-      @share_requests  = Rails.cache.fetch("#{current_user.username}/share_reqs", expires_in: 5.minutes) do
+      @share_requests  = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/share_reqs", expires_in: 5.minutes) do
         api.get_camera_share_requests(params[:id], 'PENDING')
       end
       load_cameras_and_shares

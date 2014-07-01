@@ -1,22 +1,19 @@
 <!--PERMISSIONS: is_public?=<%= @camera['is_public'] %>-->
 
 
-<div class="col-md-8">
-    <h4>Who can access camera:</h4>
+<div class="col-md-12">
     <% styling = 'display: none;' %>
     <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
-      <h5><span class="glyphicon glyphicon-globe"></span> Public on the Web  <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
+      <h5>This Camera is Public on the Web  <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
     </div>
     <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
-      <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
+      <h5>This camera can be accessed by anyone with the link <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
     </div>
     <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
-      <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Is Public: [No]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
+      <h5>This camera can be accessed by Specific People (listed below) <small> - Is Public: [No]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
     </div>
 </div>
-<div class="col-md-8 margin-top">
-  <span class="note show-on-private">The specific people who can access this camera are listed below.</span>
-</div>
+
 
 
 
@@ -65,7 +62,7 @@
       <table class="table" id="sharing_list_table">
         <thead>
         <tr>
-          <th class="shared-with">This Camera is Shared With</th>
+          <th>This Camera is Shared With</th>
           <th>Permissions</th>
           <th></th>
           <th></th>
@@ -148,7 +145,7 @@
 
     <div class="add-user">
       <div class="col-md-12">
-        <h4>Share camera with</h4>
+        <h5>Share camera with</h5>
       </div>
 
         <div class="col-sm-4 email-input">
@@ -182,7 +179,7 @@
 
 <!--LINK TO SHARE-->
 <div class="col-md-6 share-link">
-    <h4>Link to Share Camera</h4>
+    <h5>Link to Share Camera</h5>
   <div>
       <div id="public-short-page" class="well-sm show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
         <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>

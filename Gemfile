@@ -40,6 +40,8 @@ gem 'data_uri'
 gem 'geocoder'
 gem 'newrelic_rpm'
 gem 'heroku-deflater'
+gem 'memcachier'
+gem 'dalli'
 
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
@@ -71,4 +73,4 @@ group :test do
   gem 'launchy'
 end
 
-ruby '2.1.1'
+ruby '2.1.2'

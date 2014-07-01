@@ -20,8 +20,8 @@ describe "public cams actions", :type => :feature, :js => true do
     expect(page).to have_text("Public Cameras")
     expect(page).to have_text("Emerald Hills Cam - Cali")
 
-    # There should be 10 pages of cameras
-    expect(find_link('10').visible?).to be_truthy
+    # There should be 9 pages of cameras
+    expect(find_link('9').visible?).to be_truthy
 
   end
 

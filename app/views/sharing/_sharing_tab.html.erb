@@ -1,29 +1,19 @@
 <!--PERMISSIONS: is_public?=<%= @camera['is_public'] %>-->
 
 
-    <div class="col-lg-12">
-        <h4>Who Has Access</h4>
+<div class="col-md-12">
+    <% styling = 'display: none;' %>
+    <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
+      <h5>This Camera is Public on the Web  <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
     </div>
-    <div class="col-md-6">
-        <% styling = 'display: none;' %>
-        <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-globe"></span> Public on the Web  <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small></h5>
-        </div>
-        <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-link"></span> Anyone with the link <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small></h5>
-        </div>
-        <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
-          <h5><span class="glyphicon glyphicon-user"></span> Specific People <small> - Is Public: [No]  &amp; Discoverable: [No]</small></h5>
-        </div>
+    <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
+      <h5>This camera can be accessed by anyone with the link <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
     </div>
+    <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
+      <h5>This camera can be accessed by Specific People (listed below) <small> - Is Public: [No]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
+    </div>
+</div>
 
-    <div class="col-md-4">
-        <div class="form-group">
-            <div class="col-sm-6">
-                <h5><a href="#" data-toggle="modal" data-target="#myModal">change</a></h5>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -67,9 +57,7 @@
 </div><!-- /.modal -->
 <!--END SHARING MODAL-->
 
-
 <!--USER LIST-->
-
     <div class="col-md-12">
       <table class="table" id="sharing_list_table">
         <thead>
@@ -89,13 +77,13 @@
           <% rights = share["rights"].split(",") %>
           <tr share-id="<%= share["id"] %>">
             <td class="col-lg-4">
-              <span class="glyphicon glyphicon-user"></span> <%= share["email"] %>
+              <%= share["email"] %>
                 <% if share["email"] == current_user.email %>
                 <small class="blue"> (you)</small>
                 <% end %>
                 </td>
             <td class="col-lg-2">
-              <div class="input-group input-group-sm">
+              <div class="input-group">
                 <% if share["email"] == current_user.email %>
                   <select class="form-control reveal disabled" disabled show-class="show-save">
                 <% else %>
@@ -104,7 +92,6 @@
                     <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
                     <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
                   </select>
-
               </div>
             </td>
             <td class="col-lg-2">
@@ -128,9 +115,9 @@
           <% @share_requests.each do |share_request| %>
             <% rights = share_request["rights"].split(",") %>
             <tr share-request-id="<%= share_request["id"] %>">
-              <td class="col-lg-4"><span class="glyphicon glyphicon-user"></span> <%= share_request["email"] %><small class="blue">  ...pending</small></td>
+              <td class="col-lg-4"><%= share_request["email"] %><small class="blue">  ...pending</small></td>
               <td class="col-lg-2">
-                <div class="input-group input-group-sm">
+                <div class="input-group">
                   <select class="form-control reveal" show-class="show-save">
                     <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
                     <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
@@ -154,22 +141,22 @@
     </div>
 
 
-
-
 <!--ADD A USER-->
 
     <div class="add-user">
-        <div class="col-md-12">
-            <h5><span class="glyphicon glyphicon-plus"></span>  Add A User</h5>
-        </div>
+      <div class="col-md-12">
+        <h5>Share camera with</h5>
+      </div>
+
         <div class="col-sm-4 email-input">
-          <div class="input-group input-group-sm">
+
+          <div data-toggle="tooltip" data-placement="top" title="You can share this Camera with an email address or an Evercam Username" class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
             <input type="email" placeholder="email@domain.com" class="form-control" id="sharingUserEmail" name="sharingUserEmail">
           </div>
         </div>
         <div class="col-sm-2">
-          <div class="input-group input-group-sm">
+          <div class="input-group">
             <select id="sharingPermissionLevel" class="form-control">
               <option>Read Only</option>
               <option>Full Rights</option>
@@ -182,22 +169,31 @@
           </div>
         </div>
     </div>
+<div class="col-md-10">
+  <p>
+    <span class="note">If the email address doesn't have an account associated with it, a link will be sent to that email address to create an account in order to see the camera. The camera share will show as pending until the account is created. </span>
+  </p>
+</div>
+
 
 
 <!--LINK TO SHARE-->
 <div class="col-md-6 share-link">
-    <h5><span class="glyphicon glyphicon-link"></span>  Link to Share</h5>
-  <table class="table table-borderless-2">
-    <tr><td>
-      <div id="public-short-page" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+    <h5>Link to Share Camera</h5>
+  <div>
+      <div id="public-short-page" class="well-sm show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
         <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
       </div>
-      <div id="private-short-page" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-        <%= "http://evr.cm/#{@camera['id']}.html" %> <small class="grey">(Only available for public cameras, you can change your settings above)</small>
+      <div id="private-short-page" class="well-sm show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+        <%= "http://evr.cm/#{@camera['id']}.html" %>
       </div>
-    </td></tr>
-    <tr><td></td></tr>
-  </table>
+  </div>
+</div>
+<div class="col-md-12">
+  <p>
+    <span class="note show-on-private">Only available for public cameras. You can change this in your settings above.</span>
+    <span class="note">The link to this camera can be shared with any Evercam user.</span>
+  </p>
 </div>
 
 

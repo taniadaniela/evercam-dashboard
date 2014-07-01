@@ -76,6 +76,7 @@
         <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control makeEditable" readonly="readonly" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= @camera['jpg_url'] %>" >
       </td>
     </tr>
+    <% cache do %>
     <tr>
       <td>
         <label class="control-label" for="camera-vendor">Camera Vendor</label>
@@ -109,6 +110,7 @@
         <% end %>
       </td>
     </tr>
+    <% end %>
     <tr>
       <td>
         <label class="control-label" for="local-ip">Local IP</label>

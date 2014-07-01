@@ -142,8 +142,12 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
       end
-      @camera_shares  = api.get_camera_shares(params[:id])
-      @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
+      @camera_shares = Rails.cache.fetch("#{current_user.username}/cam_shares", expires_in: 5.minutes) do
+        api.get_camera_shares(params[:id])
+      end
+      @share_requests  = Rails.cache.fetch("#{current_user.username}/share_reqs", expires_in: 5.minutes) do
+        api.get_camera_share_requests(params[:id], 'PENDING')
+      end
       load_cameras_and_shares
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

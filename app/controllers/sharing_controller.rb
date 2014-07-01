@@ -101,6 +101,12 @@ class SharingController < ApplicationController
                                                    snapshot).deliver
               end
             end
+            # Invalidate cache for shares
+            if share["type"] == "share"
+              Rails.cache.delete("#{current_user.username}/cam_shares")
+            else
+              Rails.cache.delete("#{current_user.username}/share_reqs")
+            end
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
             Rails.logger.warn "Exception caught creating camera share.\n"\

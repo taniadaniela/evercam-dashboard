@@ -185,9 +185,9 @@
 
 
 <!--LINK TO SHARE-->
-<div class="col-md-4 share-link">
+<div class="col-md-6 share-link">
     <h5>Link to Share Camera</h5>
-  <div class="link">
+  <div>
       <div id="public-short-page" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
         <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
       </div>

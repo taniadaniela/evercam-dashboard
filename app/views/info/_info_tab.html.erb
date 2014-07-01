@@ -1,47 +1,41 @@
-<div class="col-md-12">
-  <h4>Info</h4>
+<div class='col-lg-6'>
+<div class="row">
+      <div class="col-md-4">
+        <h5>Evercam ID</h5>
+      </div>
+      <div class="col-md-6">
+        <p><%= @camera['id'] %></p>
+      </div>
 </div>
-
-<div class='col-lg-7'>
-  <table class="table">
-    <tr>
-      <td class="col-md-4">
-        <label class="control-label">Evercam ID</label>
-      </td>
-      <td class="col-md-6 settings">
-        <%= @camera['id'] %>
-      </td>
-      <td class="col-md-2"></td>
-    </tr>
-    <tr>
-      <td class="col-md-4">
-        <label class="control-label" for="camera-name">Camera Owner</label>
-      </td>
-      <td class="col-md-6">
-        <%= @camera['owner'] %>
+  <div class="row info">
+      <div class="col-md-4">
+        <h5>Camera Owner</h5>
+      </div>
+      <div class="col-md-6">
+       <p><%= @camera['owner'] %>
         <% if @camera['owner'] == current_user.username %>
-          <small class="blue"> (you)</small>
+          <small>(you)  </small><a href="#" id="change_owner_button" type="button" class="blue">  Change</a>
         <% end %>
-      </td>
-      <td class="col-md-2">
-      <% if @camera['owner'] == current_user.username %>
-         <button id="change_owner_button" type="button" class="btn btn-default">Change</button>
-      <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-md-4">
-        <label class="control-label" for="camera-name">Local IP</label>
-      </td>
-      <td class="col-md-6">
-        <%= @camera['internal_host'] %>
-      </td>
-      <td class="col-md-2"></td>
-    </tr>
-  </table>
+       </p>
+      </div>
+      <div class="col-md-2">
+
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4">
+        <h5>Local IP</h5>
+      </div>
+      <div class="col-md-6">
+        <p><%= @camera['internal_host'] %></p>
+      </div>
+      <div class="col-md-2"></div>
+  </div>
+
 </div>
 
-<div class="col-md-5 url-container">
+<div class="col-md-12">
+<div class="url-container">
   <div class="row info-panel">
       <div class="col-md-12">
         <h5>Short URLs</h5>
@@ -95,6 +89,7 @@
       </div>
   </div>
 </div><!--URL Container -->
+</div>
 
 <div id="change_owner_dialog" class="modal fade" role="fade">
    <div class="modal-dialog">

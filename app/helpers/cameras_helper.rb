@@ -27,7 +27,7 @@ module CamerasHelper
           uri = URI::Data.new(res['data'])
           img_class = camera['is_online'] ? 'snap' : ''
           if live
-            return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' alt='Camera appears to be offline' width='100%' height='auto'>".html_safe
+            return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' width='100%' height='auto'>".html_safe
           else
             return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' >".html_safe
           end
@@ -37,7 +37,7 @@ module CamerasHelper
         uri = URI::Data.new("data:image/jpeg;base64,#{data}")
         img_class = camera['is_online'] ? 'snap' : ''
         if live
-          return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' alt='Camera appears to be offline' width='100%' height='auto'>".html_safe
+          return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' width='100%' height='auto'>".html_safe
         else
           return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' >".html_safe
         end
@@ -48,7 +48,7 @@ module CamerasHelper
     end
 
     if live
-      "<img class='live' src='#{proxy}' alt='Camera appears to be offline' width='100%' height='auto'>".html_safe
+      "<img class='live' src='#{proxy}' width='100%' height='auto'>".html_safe
     else
       "<img class='live' src='#{proxy}' onerror=\"this.style.display='none'\" alt=''>".html_safe
     end

@@ -29,6 +29,7 @@ h5 {
 h5 small {
     font-size: 90%;
     margin-left: 4px;
+    margin-right: 10px;
 }
 strong {
     font-family: 'proxima-nova-bold', 'Open Sans',sans-serif;
@@ -885,10 +886,10 @@ select {
 }
 /*LIVE*/
 #live img {
-    width: 100%;
+    max-width: 650px;
 }
 .tab-content h4 {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-family: 'proxima-nova-bold';
 }
 
@@ -914,7 +915,7 @@ select {
     font-weight: 600;
     padding: 5px 10px;
     position: absolute;
-    right: 15px;
+    left: 15px;
     text-transform: uppercase;
     top: 0;
 }
@@ -942,12 +943,21 @@ select {
 #info .table {
     width: auto;
 }
+#info {
+    margin-left: 5px;
+}
 #info .tabs {
     margin: 30px;
 }
 #info .control-label {
     padding: 6px 0px 0px;
     font-family: 'proxima-nova-bold';
+}
+#info p {
+    margin: 8px 0;
+}
+.info a {
+    margin-left: 10px;
 }
 .borderless td {
     border: none !important;
@@ -969,15 +979,17 @@ select {
     font-size: 14px;
 }
 #explorer .info-panel {
-    padding-bottom: 00px;
+    padding-bottom: 0px;
     margin-bottom: 0px;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 .url-container {
-    background-color: #f5f5f5;
-    padding: 3px 14px;
-    margin-left: 15px;
-    border-radius: 2px;
+    border-top: 1px solid #f5f5f5;
+    margin-top: 20px;
+    padding-top: 15px;
+
 }
 /*CAMERA SETTINGS*/
 #camera-settings h4 {
@@ -1063,19 +1075,37 @@ select {
 
 
 /*SHARING*/
+.table {
+    margin-bottom: 5px;
+}
+#sharing .table > tbody > tr > td, #sharing .table > thead > tr > th {
+    padding-left: 2px !important;
+    padding: 5px;
+}
 #sharing-section {
     margin-bottom: 15px;
     overflow: auto;
+}
+#sharing {
+    margin-left: 5px;
 }
 .sharing {
     margin-bottom: 25px;
 }
 .has-access {
-    margin-left: 17px;
+    margin-left: 7px;
     background-color: #f5f5f5;
     padding-left: 0px;
 }
-
+.margin-top {
+    margin-top: 10px;
+}
+.shared-with {
+    font-size: 17.5px;
+}
+.add-user h4 {
+    margin-bottom: 8px;
+}
 .form-control, .bootstrap-switch {
     border-radius:2px;
 }
@@ -1133,10 +1163,8 @@ select {
 .share-link {
     margin-top: 25px;
     margin-bottom: 10px;
-    margin-left: 5px;
 }
 .add-user {
-    margin-left: 5px;
     margin-bottom: 7px;
     float: left;
 }
@@ -1202,7 +1230,8 @@ th {
     border-left: 2px solid #428bca;
     padding: 3px 8px;
     background-color: #f9f9f9;
-    margin-left: 5px;
+    clear:both;
+    float: left;
 }
 
 /*APPS*/
@@ -1317,22 +1346,15 @@ table.table-bordered.dataTable {
         padding: 6px 5px 0 9px;
     }
 }
-
-
 .filter {
-    border: 1px solid #e5e5e5;
-    margin-bottom: 15px;
-    margin-top: 0px;
-    background-color: #f5f5f5;
-    border-radius: 2px;
-    padding: 10px 18px 10px;
+    margin-left: 5px;
 }
 .filter h5 {
     font-family: 'proxima-nova-bold';
     font-size: 14px;
 }
 #apply-types {
-    margin: 12px -5px 10px;
+    margin: 6px 0px 22px;
     padding: 5px 15px;
 }
 #types {
@@ -1343,7 +1365,7 @@ table.table-bordered.dataTable {
 }
 #date-box input {
     width: 130px;
-    height: 25px;
+    height: 30px;
     margin-top: 3px;
     font-family: proxima-nova-regular;
     margin-left: 10px;
@@ -4148,7 +4170,7 @@ li .disabled{
     height:12px;
 }
 .panel-heading {
-    margin: 12px -15px 20px -15px;
+    margin: 12px -15px 12px -15px;
 }
 
 .panel-heading .nav {

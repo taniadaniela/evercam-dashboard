@@ -141,6 +141,7 @@ class CamerasController < ApplicationController
       @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
+        redirect_to action: 'index' if @share.nil?
       end
       @camera_shares = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/cam_shares", expires_in: 5.minutes) do
         api.get_camera_shares(params[:id])

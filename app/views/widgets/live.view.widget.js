@@ -59,7 +59,7 @@
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     script_tag.setAttribute("src",
-      "http://code.jquery.com/jquery-2.1.1.min.js");
+      "https://code.jquery.com/jquery-2.1.1.min.js");
     if (script_tag.readyState) {
       script_tag.onreadystatechange = function () { // For old versions of IE
         if (this.readyState === 'complete' || this.readyState === 'loaded') {

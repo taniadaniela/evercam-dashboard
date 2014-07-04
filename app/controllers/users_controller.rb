@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       if error.kind_of?(Evercam::EvercamError)
-         flash[:message] = [t("errors.#{error.code}")]
+         flash[:message] = [t("errors.#{error.code}")] unless error.code.nil?
          assess_field_errors(error)
       else
          flash[:message] = ["An error occurred creating your account. Please check "\

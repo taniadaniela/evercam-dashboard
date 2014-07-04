@@ -1,6 +1,6 @@
 <!--PERMISSIONS: is_public?=<%= @camera['is_public'] %>-->
 
-
+<div class='panel-body'>
 <div class="col-md-12">
     <% styling = 'display: none;' %>
     <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
@@ -195,6 +195,9 @@
     <span class="note">The link to this camera can be shared with any Evercam user.</span>
   </p>
 </div>
+
+</div><!-- panel body -->
+
 
 
 <script type="text/javascript">

@@ -1,11 +1,12 @@
 <form action="#" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-  <div class='row'>
-    <div class="col-md-4">
-      <h4>Settings<small>  <a href="#camera-settings" class="makeEditable"> edit</a></small></h4>
-    </div>
+<div class='panel-body'>
 
-  </div>
+<div class="row">
+<div class="col-md-4">
+  <h4>Settings<small>  <a href="#camera-settings" class="makeEditable"> edit</a></small></h4>
+</div>
+</div>
 
 <div class="row">
 <div class='col-lg-7'>
@@ -185,8 +186,9 @@
     </div>
   </div>
 </fieldset>
-
+</div><! --panel-body -->
 </form>
+
 
 <!--DELETE MODAL-->
 <div id="deleteModal" class="modal fade">
@@ -215,6 +217,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 <!--END DELETE MODAL-->
 <script type="text/javascript">
     $(window.Evercam.Settings.initializeTab);

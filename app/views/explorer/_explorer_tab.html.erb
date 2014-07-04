@@ -1,6 +1,8 @@
+<div class='panel-body'>
 <div class="col-md-12 info-panel">
   <p>Make requests to our REST API and explore responses.</p><p> You can use this Cameras ID: <span class="bold explorer-id"><%= @camera['id'] %></span> </p>
-</div>  
+</div>
+
 <div class="col-md-12">
   <%= stylesheet_link_tag "swagger"%>
   <%= javascript_include_tag "swagger"%>
@@ -37,6 +39,7 @@
       </div>
 
 </div>
+</div><!--panel-body -->
 
 <script type="text/javascript">
   $(window.Evercam.Explorer.initializeTab);

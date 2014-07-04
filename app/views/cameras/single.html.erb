@@ -2,15 +2,12 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="boxed-page">
-<div class="container clearfix">
-<section id="camera-single">
 
   <%= render :partial => "sidebar/sidebar" %>
-
-<section class="wrapper site-min-height col-md-10">
-<div class="row">
-  <div class="col-md-8">
+<section id="main-content">
+<section id="camera-single" class="wrapper site-min-height col-md-10">
+<div class="camera-title">
+  <div class="col-md-8 col-sm-12">
     <h4><%= @camera['name'] %><small>   &#123;<%= @camera['id'] %>&#125;</small></h4>
   </div>
   <div id="status" class="col-md-4">
@@ -22,13 +19,11 @@
   </div>
 </div>
 
-<div class="row">
 
-
-<div class="col-md-12">
+<section class="panel">
 <!--tab nav start-->
   <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
-<header class="panel-heading tab-bg-dark-navy-blue ">
+<header class="panel-heading tab-bg-dark-navy-blue">
   <ul class="nav nav-tabs">
     <li class="active">
       <a data-toggle="tab" href="#live">Live View</a>
@@ -66,7 +61,7 @@
     <% end %>
   </ul>
 </header>
-  </div>
+  </section>
 
   <!--DELETE MODAL-->
   <% if !has_edit_right %>
@@ -123,9 +118,11 @@
 
 <!--APPS TAB PANE -->
 <div id="apps" class="tab-pane">
+  <div class='panel-body'>
   <div class="col-lg-12">
-    <a href="http://www.evercam.io/apps" target="_blank" class="btn apps-btn">View <span class="evercam"> /Apps </span> To Add To Your Camera</a>
+    <a href="http://www.evercam.io/apps" target="_blank">View Apps To Add To Your Camera</a>
   </div>
+  </div><!--panel-body -->
 </div><!--TAB PANE -->
 
 
@@ -136,15 +133,11 @@
 
 </div><!-- tab-content -->
 
-
-
-</div><!-- Row -->
+</section><!-- Section Wrapper -->
 </section><!-- Section Wrapper -->
 
 
-</section>
-</div> <!--container clearfix END -->
-</div> <!--boxed page end-->
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
 

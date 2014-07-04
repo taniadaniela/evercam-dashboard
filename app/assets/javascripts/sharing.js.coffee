@@ -23,7 +23,6 @@ addSharingCameraRow = (details) ->
       row.attr("share-id", details['share_id'])
 
    cell = $('<td>', {class: "col-lg-4"})
-   cell.append($('<span>', {class: "glyphicon glyphicon-user"}))
    cell.append(document.createTextNode(" " + details['email']))
    if details.type == "share_request"
       suffix = $('<small>', {class: "blue"})

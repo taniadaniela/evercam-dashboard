@@ -240,6 +240,7 @@ onSaveShareClicked = (event) ->
    control = row.find('select')
    data    =
       permissions: control.val()
+      camera_id: $('#ec_cam_id').text()
    onError = (jqXHR, status, error) ->
       showError("Update of share failed. Please contact support.")
       false

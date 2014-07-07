@@ -130,9 +130,8 @@ class SharingController < ApplicationController
          begin
             get_evercam_api.update_camera_share(params[:id], rights)
             # Invalidate cache for shares
-            Rails.cache.delete("#{current_user.username}/#{params[:id]}/cam_shares")
-            Rails.cache.delete("#{current_user.username}/#{params[:id]}/share_reqs")
-            puts 'Invalidated cache!'
+            Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
+            Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
             Rails.logger.warn "Exception caught updating camera share.\n"\

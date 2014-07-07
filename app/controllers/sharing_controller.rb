@@ -71,10 +71,13 @@ class SharingController < ApplicationController
          share  = nil
          snapshot = nil
          api = get_evercam_api
-         begin
-           snapshot = api.get_snapshot(camera_id)
-         rescue => error
-           # Ignore snapshot error, we can send email without image
+         if params[:email] != current_user.email
+           # Don't take snapshot if you share public camera
+           begin
+             snapshot = api.get_snapshot(camera_id)
+           rescue => error
+             # Ignore snapshot error, we can send email without image
+           end
          end
 
          begin
@@ -98,6 +101,12 @@ class SharingController < ApplicationController
                                                    snapshot).deliver
               end
             end
+            # Invalidate cache for shares
+            if share["type"] == "share"
+              Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
+            else
+              Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
+            end
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
             Rails.logger.warn "Exception caught creating camera share.\n"\
@@ -120,6 +129,9 @@ class SharingController < ApplicationController
          rights = generate_rights_list(params[:permissions])
          begin
             get_evercam_api.update_camera_share(params[:id], rights)
+            # Invalidate cache for shares
+            Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
+            Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
             Rails.logger.warn "Exception caught updating camera share.\n"\

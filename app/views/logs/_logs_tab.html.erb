@@ -2,10 +2,8 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
 <script type="text/javascript" src="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 <div class="col-lg-12 info-panel">
-  <h4>Logs</h4>
-
-  <div class="col-md-12 filter">
-    <h5>Events</h5>
+  <div class="filter">
+    <h5>Filter by Events</h5>
     <div id="types">
       <label class="checkbox-inline">All<input id="all-types" value="" type="checkbox" /> </label>
       <% @types.each do |t| %>
@@ -43,17 +41,7 @@
           <th class="col-md-4">User/Client</th>
         </thead>
         <tbody>
-          <% @logs.each do |l| %>
-          <tr>
-            <td class="col-md-4">On <span class="bold"><%= Time.at(l['done_at']).to_formatted_s(:rfc822) unless l['done_at'].nil? %></span></td>
-            <td class="col-md-4"><span class="bold"><%= l['action'] %></span></td>
-            <td class="col-md-4">
-              <% unless ['online', 'offline'].include?l['action'] %>
-                by <span class="bold"><%= l['who']  %></span>
-              <% end %>
-            </td>
-          </tr>
-          <% end %>
+
         </tbody>
       </table>
     </div>

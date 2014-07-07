@@ -15,13 +15,13 @@ describe "public cams actions", :type => :feature, :js => true do
     page.set_rack_session(:user => user.email)
 
     visit "/"
-    click_link "Add Public Camera"
+    click_link "Public Cameras"
 
-    expect(page).to have_text("Add a Public Camera")
+    expect(page).to have_text("Public Cameras")
     expect(page).to have_text("Emerald Hills Cam - Cali")
 
-    # There should be 10 pages of cameras
-    expect(find_link('10').visible?).to be_truthy
+    # There should be 9 pages of cameras
+    expect(find_link('9').visible?).to be_truthy
 
   end
 

@@ -20,8 +20,14 @@ class ApplicationController < ActionController::Base
   end
 
   def load_cameras_and_shares
-    @cameras = []
-    @shares  = []
+    @cameras = Rails.cache.fetch("#{current_user.username}/cameras")
+    @shares  = Rails.cache.fetch("#{current_user.username}/shares")
+    if @cameras.nil? or @shares.nil?
+      @cameras = []
+      @shares = []
+    else
+      return
+    end
     api      = get_evercam_api
     begin
       @cameras = api.get_user_cameras(current_user.username, true)
@@ -30,6 +36,8 @@ class ApplicationController < ActionController::Base
     end
     @cameras.each {|camera| @shares << camera if !camera['owned']}
     @cameras = @cameras - @shares if @shares.length > 0
+    Rails.cache.write("#{current_user.username}/cameras", @cameras, expires_in: 5.minutes)
+    Rails.cache.write("#{current_user.username}/shares", @shares, expires_in: 5.minutes)
   end
 
   def get_evercam_api

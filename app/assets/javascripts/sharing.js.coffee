@@ -23,7 +23,6 @@ addSharingCameraRow = (details) ->
       row.attr("share-id", details['share_id'])
 
    cell = $('<td>', {class: "col-lg-4"})
-   cell.append($('<span>', {class: "glyphicon glyphicon-user"}))
    cell.append(document.createTextNode(" " + details['email']))
    if details.type == "share_request"
       suffix = $('<small>', {class: "blue"})
@@ -241,6 +240,7 @@ onSaveShareClicked = (event) ->
    control = row.find('select')
    data    =
       permissions: control.val()
+      camera_id: $('#ec_cam_id').text()
    onError = (jqXHR, status, error) ->
       showError("Update of share failed. Please contact support.")
       false

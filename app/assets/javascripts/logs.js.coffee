@@ -12,7 +12,9 @@ updateLogTypesFilter = () ->
   fromto_seg = ''
   fromto_seg += '&from=' + from unless isNaN(from)
   fromto_seg += '&to=' + to unless isNaN(to)
-  table.ajax.url($('#base-url').val()+ "&page=" + page + "&types=" + types.join() + fromto_seg).load()
+  newurl = $('#base-url').val()+ "&page=" + page + "&types=" + types.join() + fromto_seg
+  table.ajax.url(newurl).load() if table?
+  $('#ajax-url').val(newurl) if not table?
   true
 
 toggleAllTypeFilters = ->
@@ -27,7 +29,7 @@ initializeLogsTab = ->
   $('#all-types').click(toggleAllTypeFilters)
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
-
+  updateLogTypesFilter()
   table = $('#logs-table').DataTable({
     ajax: {
       url: $('#ajax-url').val(),

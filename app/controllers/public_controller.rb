@@ -42,6 +42,7 @@ class PublicController < ApplicationController
                          error.backtrace.join("\n")
       flash[:error] = "An error occurred fetching the camera details. Please try "\
                       "again and, if the problem persists, contact support."
+      redirect_to '/publiccam'
     end
   end
 

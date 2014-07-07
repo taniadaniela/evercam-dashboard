@@ -10,11 +10,10 @@ class CamerasController < ApplicationController
   end
 
   def new
-   @user = (flash[:user] || {})
+    @user = (flash[:user] || {})
   end
 
   def create
-    response = nil
     begin
       raise "No camera id specified in request." if params['camera-id'].blank?
       raise "No camera name specified in request." if params['camera-name'].blank?
@@ -40,7 +39,6 @@ class CamerasController < ApplicationController
                         params['camera-name'],
                         false,
                         body)
-      api.store_snapshot(params['camera-id'], 'Initial snapshot')
       redirect_to action: 'single', id: params['camera-id']
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -58,16 +56,23 @@ class CamerasController < ApplicationController
                       "local-http" => params["local-http"],
                       "local-rtsp" => params["local-rtsp"]}
       if error.kind_of?(Evercam::EvercamError)
-         flash[:message] = [t("errors.#{error.code}")]
-         assess_field_errors(error)
+        flash[:message] = [t("errors.#{error.code}")] unless error.code.nil?
+        assess_field_errors(error)
       else
-         flash[:message] = ["An error occurred creating your account. Please check "\
+        flash[:message] = ["An error occurred creating your account. Please check "\
                             "the details and try again. If the problem persists, "\
                             "contact support."]
       end
       Rails.logger.error "Exception caught in create camera request.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       redirect_to action: 'new'
+      return
+    end
+    begin
+      # Storing snapshot is not essential, so don't show any errors to user
+      api.store_snapshot(params['camera-id'], 'Initial snapshot')
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
     end
   end
 
@@ -93,7 +98,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       flash[:message] = "An error occurred updating the details for your camera. "\
                         "Please try again and, if this problem persists, contact "\
                         "support."
@@ -116,7 +121,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting camera.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       flash[:error] = "An error occurred deleting your camera. Please try again "\
                       "and, if the problem persists, contact support."
       redirect_to action: 'single', id: params[:id], share: params[:share]
@@ -130,23 +135,25 @@ class CamerasController < ApplicationController
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
-      parameters        = {objects: true, page: @page, types: params[:types]}
-      parameters[:from] = params[:from] if !params[:from].blank?
-      parameters[:to]   = params[:to] if !params[:to].blank?
-      output            = api.get_logs(params[:id], parameters)
-      @logs             = output[:logs]
-      @pages            = output[:pages]
+      if params[:from].blank?
+        params[:from] = (Time.now - 24.hours)
+      end
       @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
+        redirect_to action: 'index' if @share.nil?
       end
-      @camera_shares  = api.get_camera_shares(params[:id])
-      @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
+      @camera_shares = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/cam_shares", expires_in: 5.minutes) do
+        api.get_camera_shares(params[:id])
+      end
+      @share_requests  = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/share_reqs", expires_in: 5.minutes) do
+        api.get_camera_share_requests(params[:id], 'PENDING')
+      end
       load_cameras_and_shares
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       flash[:error] = "An error occurred fetching the details for your camera. "\
                       "Please try again and, if the problem persists, contact "\
                       "support."
@@ -163,7 +170,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught transferring camera ownership.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       message = "An error occurred transferring ownership of this camera. Please "\
                 "try again and, if the problem persists, contact support."
       result  = {success: false, message: message, error: "#{error}"}

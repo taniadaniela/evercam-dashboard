@@ -84,6 +84,8 @@ EvercamDashboard::Application.configure do
 
   config.force_ssl = true
 
+  config.cache_store = :dalli_store, nil, { :namespace => 'dashboard', :expires_in => 1.day, :compress => true }
+
   # Sendgrid email configuration.
   ActionMailer::Base.smtp_settings = {
     user_name:            ENV['SENDGRID_USERNAME'],

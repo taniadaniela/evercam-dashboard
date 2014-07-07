@@ -31,21 +31,24 @@
 </div>
 <!--logo end-->
 
-<div class="nav notify-row" id="top_menu">
-
-  <ul class="nav top-menu">
-
-  </ul>
-
-</div>
 
 <div class="top-nav clearfix">
   <!--search & user info start-->
   <ul class="nav pull-right top-menu">
+    <li>
+      <a href="/cameras">
+        Cameras
+      </a>
+    </li>
+    <li>
+      <a href="/dev">
+        Developer
+      </a>
+    </li>
     <!-- user login dropdown start-->
     <li class="dropdown">
       <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-        <img width="33" height="33" src="https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y">
+        <img width="18" height="18" src="https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y">
         <%= current_user.username %>
         <b class="caret"></b>
       </a>

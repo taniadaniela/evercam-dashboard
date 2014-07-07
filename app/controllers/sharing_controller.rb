@@ -103,9 +103,9 @@ class SharingController < ApplicationController
             end
             # Invalidate cache for shares
             if share["type"] == "share"
-              Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
+              Rails.cache.delete("#{current_user.username}/cam_shares")
             else
-              Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
+              Rails.cache.delete("#{current_user.username}/share_reqs")
             end
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
@@ -129,9 +129,6 @@ class SharingController < ApplicationController
          rights = generate_rights_list(params[:permissions])
          begin
             get_evercam_api.update_camera_share(params[:id], rights)
-            # Invalidate cache for shares
-            Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
-            Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
             Rails.logger.warn "Exception caught updating camera share.\n"\

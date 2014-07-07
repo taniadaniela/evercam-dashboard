@@ -44,7 +44,6 @@ module EvercamDashboard
                                  'ladda-0.8.0.min.js',
                                  'swagger.js',
                                  'cameras.js',
-                                 'widgets.js',
                                  'camera_single.js',
                                  'publiccam.js',
                                  'jquery.js',

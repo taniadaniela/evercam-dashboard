@@ -30,9 +30,8 @@ EvercamDashboard::Application.routes.draw do
 
    get '/dev' => 'pages#dev'
    get '/swagger' => 'pages#swagger'
-   get '/widgets' => 'widgets#widgets'
-   get '/widgets-new' => 'widgets#widgets_new'
-   get '/live.view.widget' => 'widgets#live_view_widget'
+   get '/widgets' => 'pages#widgets'
+   get '/widgets-new' => 'pages#widgets_new'
 
    get '/add-android' => 'pages#add_android'
 

@@ -18,11 +18,7 @@ module CamerasHelper
 
   def preview(camera, live=false)
     camera_obj = Camera.by_exid(camera['id'])
-    if camera_obj.nil?
-      preview = nil
-    else
-      preview = camera_obj.preview
-    end
+    preview = camera_obj.preview unless camera_obj.nil?
     proxy = "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
     begin
       if preview.nil?

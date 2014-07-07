@@ -13,6 +13,15 @@ class PagesController < ApplicationController
     current_user
   end
 
+  def widgets
+    current_user
+  end
+
+  def widgets_new
+    current_user
+    load_cameras_and_shares
+  end
+
   def swagger
     response.headers["X-Frame-Options"] = "ALLOWALL"
     current_user

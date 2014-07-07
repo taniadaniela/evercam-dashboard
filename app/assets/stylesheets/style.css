@@ -1110,7 +1110,13 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     clear:both;
     float: left;
 }
-
+.delete-share-request-control {
+    margin-top: 4px;
+}
+#sharing .table > tbody > tr > td {
+    vertical-align: middle;
+    padding: 2px;
+}
 /*LOGS*/
 #apply-types {
     margin: 20px 0px;
@@ -6356,6 +6362,7 @@ input:-webkit-autofill {
 /*/////////////////////
 //TABLE
 /////////////////////*/
+
 .table-borderless td {
     border-top:none !important;
     border-bottom:1px solid #f5f5f5;

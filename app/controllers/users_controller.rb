@@ -94,7 +94,7 @@ class UsersController < ApplicationController
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
       if error.kind_of?(Evercam::EvercamError)
-        flash[:message] = t("errors.#{error.code}")
+        flash[:message] = t("errors.#{error.code}") unless error.code.nil?
         assess_field_errors(error)
       else
       flash[:message] = "An error occurred updating your details. Please try "\
@@ -166,6 +166,8 @@ class UsersController < ApplicationController
         field_errors["username"] = t("errors.username_field_duplicate")
       when "invalid_country_error"
         field_errors["country"] = t("errors.country_field_invalid")
+      when "unknown_error"
+        field_errors["unknown"] = t("errors.unknown_error")
       when "invalid_parameters"
         error.context.each {|field| field_errors[field] = t("errors.#{field}_field_invalid")}
     end

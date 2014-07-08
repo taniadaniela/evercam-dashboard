@@ -94,8 +94,13 @@ class UsersController < ApplicationController
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
       if error.kind_of?(Evercam::EvercamError)
-        flash[:message] = t("errors.#{error.code}") unless error.code.nil?
-        assess_field_errors(error)
+        if error.code
+          flash[:message] = t("errors.#{error.code}")
+          assess_field_errors(error)
+        else
+          flash[:message] = "An error occurred updating your details. Please try "\
+          "again and, if the problem persists, contact support."
+        end
       else
       flash[:message] = "An error occurred updating your details. Please try "\
                         "again and, if the problem persists, contact support."

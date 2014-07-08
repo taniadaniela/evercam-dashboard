@@ -57,6 +57,7 @@ module EvercamDashboard
                                  'jquery.cookie.js',
                                  'jquery.datetimepicker-2.2.5.min.js',
                                  'jquery.datetimepicker-2.2.5.min.css',
+                                 'jquery.dcjqaccordion.2.7.js',
                                  'jquery.nicescroll.js']
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do

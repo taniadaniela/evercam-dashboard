@@ -1,54 +1,45 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="boxed-page">
-  <div class="container clearfix">
-    <section id="dev-dash">
+<!-- sidebar menu start-->
+<aside>
+  <div id="sidebar" class="nav-collapse">
+    <div class="leftside-navigation">
+      <ul class="sidebar-menu" id="nav-accordion">
+        <li>
+          <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
+        </li>
+        <li>
+          <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
+        </li>
+        <li>
+          <a class="active" href="/publiccam">Public Cameras</a>
+        </li>
+        <li class="sub-menu">
+          <a href="/">
+            <span>My Cameras</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a href="/">
+            <span>My Shared Cameras</span>
+          </a>
+        </li>
+      </ul></div>
+  </div>
+</aside>
+<!-- sidebar menu end-->
 
-      <!--sidebar start-->
-      <div id="sidebar" class="col-md-2 col-xs-12">
-        <ul class="sidebar-menu">
-          <li class="menu-item">
-            <a href="/">
-              <span>My Cameras</span>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="/">
-              <span>Cameras Shared With Me</span>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-          </li>
-          <li class="menu-item">
-            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-          </li>
-          <li class="menu-item active">
-            <a href="/publiccam">Public Cameras</a>
-          </li>
-        </ul>
-      </div>
-      <!--sidebar end-->
+<section id="main-content">
+  <section class="wrapper site-min-height">
 
-      <!--main content start-->
-      <div class="col-md-10 col-xs-12 wrapper">
-
-        <section id="main-content">
-          <div class="row widget-header">
-            <div class='col-md-12 widget-article-header'>
-              <h3>Add a Public Camera</h3>
-              <p>Repository of Public Cameras from around the world that you can add to your Camera Dashboard</p>
-
-            </div>
-          </div>
           <div class="col-lg-6 list">
             <span class="glyphicon glyphicon-arrow-left"></span><%= link_to 'Back to Camera List', '/publiccam' %>
           </div>
           <div class="col-lg-6">
-      <span class="pull-right">
-      <a href="#" class="create-share-button btn evercam-btn" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
-      </span>
+            <span class="pull-right">
+            <a href="#" class="create-share-button btn evercam-btn" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
+            </span>
           </div>
           <div class="col-lg-12">
             <h4><%= @camera['name'] %></h4>
@@ -86,11 +77,9 @@
             </div>
           </div>
 
-        </section>
-      </div> <!-- main content end-->
     </section>
-  </div> <!--Container clearfix page end-->
-</div> <!--boxed page end-->
+</section>
+
 
 <%= javascript_include_tag "publiccam" %>
 <script>

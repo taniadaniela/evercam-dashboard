@@ -18,12 +18,12 @@
           <a href="/publiccam">Public Cameras</a>
         </li>
         <li class="sub-menu">
-          <a href="javascript:;">
+          <a href="/">
             <span>My Cameras</span>
           </a>
         </li>
         <li class="sub-menu">
-          <a href="javascript:;">
+          <a href="/">
             <span>My Shared Cameras</span>
           </a>
         </li>
@@ -82,7 +82,7 @@
   <div class='col-md-8'>
     <div class='col-md-5 form-group<%= field_errors["vendor"] ? ' has-error' : '' %>'>
       <%= label_tag('camera-vendor', "Camera Vendor", class: "control-label") %>
-      <%= select_tag('camera-vendor', options_from_collection_for_select(vendors, "exid", "name"), prompt: "Select Make", selected: @user[:vendor]) %>
+      <%= select_tag('camera-vendor', options_from_collection_for_select(vendors, "exid", "name"), class:"form-control", prompt: "Select Make", selected: @user[:vendor]) %>
       <% if field_errors["vendor"] %>
         <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
       <% end %>
@@ -255,18 +255,18 @@
 
 <!-- FINISH & ADD -->
 <fieldset>
-  <div class='row add-row'>
+
     <div class='col-md-12'>
       <div class="form-group">
         <label class="control-label" for="add-button"></label>
         <button id="add-button" name="add-button" class="btn btn-primary">Finish &amp; Add</button>
       </div>
     </div>
-  </div>
+
 </fieldset>
 
 <!-- SUPPORT -->
-<div class="row add-row add-footer">
+<div class="row add-footer">
   <div class='col-lg-10'>
     <div class='col-lg-12'>
     <h5>Still Can't See Your Camera?</h5>

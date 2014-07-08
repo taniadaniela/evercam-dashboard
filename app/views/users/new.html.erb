@@ -58,7 +58,7 @@
               <%= f.label :country %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("country") ? " has-error" : "" %>">
-              <%= select_tag(:country, options_for_select(@countries.map {|c| [c.name, c.iso3166_a2] }, params[:country])) %>
+              <%= select_tag(:country, options_for_select(@countries.map {|c| [c.name, c.iso3166_a2] }, params[:country]))  %>
             <% if field_errors.include?("country") %>
               <span class="help-block arrow_box form-error text-left"><%= field_errors["country"] %></span>
             <% end %>

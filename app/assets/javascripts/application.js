@@ -24,3 +24,4 @@
 //= require moment.min
 //= require jquery.cookie.js
 //= require jquery.nicescroll.js
+//= require jquery.dcjqaccordion.2.7.js

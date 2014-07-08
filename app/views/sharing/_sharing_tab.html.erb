@@ -1,7 +1,7 @@
 <!--PERMISSIONS: is_public?=<%= @camera['is_public'] %>-->
 
 <div class='panel-body'>
-<div class="col-md-12">
+
     <% styling = 'display: none;' %>
     <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
       <h5>This Camera is Public on the Web  <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
@@ -11,7 +11,7 @@
     </div>
     <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
       <h5>This camera can be accessed by Specific People (listed below) <small> - Is Public: [No]  &amp; Discoverable: [No]</small><a href="#" data-toggle="modal" data-target="#myModal">  change</a></h5>
-    </div>
+
 </div>
 
 
@@ -58,6 +58,7 @@
 <!--END SHARING MODAL-->
 
 <!--USER LIST-->
+  <div class="row">
     <div class="col-md-12">
       <table class="table" id="sharing_list_table">
         <thead>
@@ -139,11 +140,12 @@
         </tbody>
       </table>
     </div>
+  </div>
 
 
 <!--ADD A USER-->
 
-    <div class="add-user">
+    <div class="row mb25 add-user">
       <div class="col-md-12">
         <h5>Share camera with</h5>
       </div>
@@ -168,17 +170,19 @@
             <button type="submit" class="btn btn-primary btn-sm" id="submit_share_button">Share</button>
           </div>
         </div>
+      <div class="col-md-10">
+        <p>
+          <span class="note">If the email address doesn't have an account associated with it, a link will be sent to that email address to create an account in order to see the camera. The camera share will show as pending until the account is created. </span>
+        </p>
+      </div>
     </div>
-<div class="col-md-10">
-  <p>
-    <span class="note">If the email address doesn't have an account associated with it, a link will be sent to that email address to create an account in order to see the camera. The camera share will show as pending until the account is created. </span>
-  </p>
-</div>
+
 
 
 
 <!--LINK TO SHARE-->
-<div class="col-md-6 share-link">
+<div class="row">
+  <div class="col-md-6 share-link">
     <h5>Link to Share Camera</h5>
   <div>
       <div id="public-short-page" class="well-sm show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
@@ -195,7 +199,7 @@
     <span class="note">The link to this camera can be shared with any Evercam user.</span>
   </p>
 </div>
-
+</div>
 </div><!-- panel body -->
 
 

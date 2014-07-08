@@ -93,8 +93,18 @@ class UsersController < ApplicationController
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
+      if error.kind_of?(Evercam::EvercamError)
+        if error.code
+          flash[:message] = t("errors.#{error.code}")
+          assess_field_errors(error)
+        else
+          flash[:message] = "An error occurred updating your details. Please try "\
+          "again and, if the problem persists, contact support."
+        end
+      else
       flash[:message] = "An error occurred updating your details. Please try "\
                         "again and, if the problem persists, contact support."
+      end
     end
     redirect_to action: 'settings'
   end
@@ -160,7 +170,9 @@ class UsersController < ApplicationController
       when "duplicate_username_error"
         field_errors["username"] = t("errors.username_field_duplicate")
       when "invalid_country_error"
-        field_errors["country"] = t("country_field_invalid")
+        field_errors["country"] = t("errors.country_field_invalid")
+      when "unknown_error"
+        field_errors["unknown"] = t("errors.unknown_error")
       when "invalid_parameters"
         error.context.each {|field| field_errors[field] = t("errors.#{field}_field_invalid")}
     end

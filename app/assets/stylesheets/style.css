@@ -1077,7 +1077,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     border-radius: 3px !important;
     background-color: #fff;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
-    border: 1px solid #e5e6e9;
+    border: 1px solid #e9eaed;
 }
 #live .btn {
     padding: 14px 18px;
@@ -3177,6 +3177,9 @@ ul.amounts li {
     font-size:14px;
     margin:-10px -15px -10px;
 }
+#camera-single .panel-heading {
+    background-color: #f6f7f8;
+}
 .tab-bg-dark-navy-blue ul>li>a {
     display:block;
     padding:20px 15px !important;
@@ -3209,9 +3212,13 @@ ul.amounts li {
     border-radius: 0px;
     background-color: #fff;
 }
-.panel-heading .nav>li.active>a,.panel-heading .nav>li>a:hover {
+.panel-heading .nav>li.active>a {
     color:#428bca;
-    background:#fff;
+    background:#ffffff;
+}
+.panel-heading .nav>li>a:hover {
+    color:#428bca;
+    background:#f6f7f8;
 }
 .panel-heading .nav>li:first-child.active>a,.panel-heading .nav>li:first-child>a:hover {
     border-radius:0px 0 0 0;

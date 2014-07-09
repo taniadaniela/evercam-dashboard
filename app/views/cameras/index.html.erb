@@ -7,41 +7,65 @@
   <section class="wrapper site-min-height">
 
 
-    <section class="panel">
-      <% @cameras.each do |camera| %>
-        <a href="/cameras/<%= camera['id'] %>?share=false">
-          <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-            <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-            <%= preview(camera) %>
-            <div id="offline"> <% if camera['is_online'] %>
-                <span class="green">Online</span>
-              <% else %>
-                <span class="red">Offline</span>
-              <% end %>
-              <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-            </div>
-          </div>
-        </a>
-      <% end %>
-    </section>    
+    <section id="my-cameras" class="panel">
+      <header class="panel-heading">
+        My Cameras
+      </header>
+      <div class="panel-body">
 
-    <section class="panel">
-      <% @shares.each do |camera| %>
-        <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-          <a href="/cameras/<%= camera['id'] %>?share=true">
-            <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-            <%= preview(camera) %>
-            <div id="offline"> <% if camera['is_online'] %>
-                <span class="green">Online</span>
-              <% else %>
-                <span class="red">Offline</span>
-              <% end %>
-              <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-            </div>
-          </a>
-        </div>
-      <% end %>
+
+          <% @cameras.each do |camera| %>
+            <a href="/cameras/<%= camera['id'] %>?share=false">
+              <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
+                <div id="cam-name"><h5><%= camera['name'] %></h5></div>
+                <%= preview(camera) %>
+                <div id="offline"> <% if camera['is_online'] %>
+                    <span class="green">Online</span>
+                  <% else %>
+                    <span class="red">Offline</span>
+                  <% end %>
+                  <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div>
+              </div>
+            </a>
+          <% end %>
+
+
+      </div>
     </section>
+
+
+    <section id="my-shared-cameras" class="panel">
+      <header class="panel-heading">
+        My Shared Cameras
+      </header>
+      <div class="panel-body">
+
+
+          <% @shares.each do |camera| %>
+            <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
+              <a href="/cameras/<%= camera['id'] %>?share=true">
+                <div id="cam-name"><h5><%= camera['name'] %></h5></div>
+                <%= preview(camera) %>
+                <div id="offline"> <% if camera['is_online'] %>
+                    <span class="green">Online</span>
+                  <% else %>
+                    <span class="red">Offline</span>
+                  <% end %>
+                  <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div>
+              </a>
+            </div>
+          <% end %>
+
+
+      </div>
+    </section>
+
+
+
+
+
 
   </section>
 </section>

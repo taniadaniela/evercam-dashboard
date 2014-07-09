@@ -174,10 +174,19 @@ h5 {
 #sidebar ul li {
     position: relative;
 }
-
-.glyphicon-plus {
-    margin-right: 4px;
+#sidebar .nav-group {
+    border-top: 3px solid #e9eaed;
 }
+#sidebar .glyphicon-plus {
+    margin-right: 8px;
+    float: right;
+    border: 1px solid #e9eaed;
+    border-radius: 56%;
+    padding: 5px 5px 6px 6px;
+    top: -3px;
+    color: #aaa;
+}
+
 .leftside-navigation,.right-stat-bar{
     height: 100%;
 }
@@ -185,6 +194,15 @@ h5 {
 .right-stat-bar ul {
     list-style-type: none;
     padding-left: 0;
+}
+@media (max-width: 767px) {
+    #sidebar {
+        margin-left: -240px;
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
+        -o-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+    }
 }
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {
@@ -241,7 +259,7 @@ ul.sidebar-menu {
     display:none;
 }
 #sidebar .sub-menu>.sub li a {
-    padding-left:33px;
+    padding-left:20px;
 }
 #sidebar>ul>li.active>ul.sub,#sidebar>ul>li>ul.sub>li>a {
     display:block;
@@ -334,6 +352,11 @@ ul.sidebar-menu li a.active i {
     -o-transition:all .3s ease-in-out;
     transition:all .3s ease-in-out;
 }
+@media (max-width: 767px) {
+    #main-content {
+        margin-left: 0px;
+    }
+}
 .footer {
     min-height:60px;
     padding:0 15px;
@@ -363,6 +386,12 @@ ul.sidebar-menu li a.active i {
     width:100%;
     margin-bottom: -25px;
 }
+@media (max-width: 768px) {
+    .wrapper {
+margin-top: 80px;
+    }
+}
+
 .brand {
     background:#428bca;
     float:left;
@@ -393,10 +422,7 @@ a.logo span {
 .logo img {
     width: 80%;
 }
-.glyphicon-list {
-    margin-top: 8px;
-    margin-left: 9px;
-}
+
 /*notification*/
 #top_menu .nav>li,ul.top-menu>li {
     float:left;
@@ -650,6 +676,13 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     border-bottom-color:#000;
     border-top-color: #000;
 }
+
+.active  .caret {
+    border-left: 4px solid @black;
+    border-right: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
 /*form*/
 .position-center {
     width:62%;
@@ -706,7 +739,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     float:left;
     margin-top:12px;
     margin-left:-15px;
-    background:#e5e5e5;
+    background:#e9eaed;
     border-radius:50%;
     -webkit-border-radius:50%;
     width:32px;
@@ -714,7 +747,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     position:absolute;
     right:-15px;
 }
-.sidebar-toggle-box .fa-bars {
+.sidebar-toggle-box .glyphicon-list {
     cursor:pointer;
     display:inline-block;
     font-size:15px;
@@ -750,24 +783,31 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 }
 .toggle-right-box {
     float:left;
-    background:#f6f6f6;
+    background:#E9EAED;
+    margin-top:3px;
     border-radius:50%;
     -webkit-border-radius:50%;
-    width:35px;
-    height:35px;
+    width:32px;
+    height:32px;
 }
+@media (max-width: 480px) {
+    .toggle-right-box {
+        display: none;
+    }
+}
+
 .toggle-right-box:hover {
-    background:#32D2C9;
+    background:#fff;
 }
 .toggle-right-box:hover .fa-bars {
     color:rgba(0,0,0,0.3);
 }
-.toggle-right-box .fa-bars {
+.toggle-right-box .glyphicon-list {
     cursor:pointer;
     display:inline-block;
     font-size:15px;
-    padding:10px;
-    color: #bfbfc1;
+    padding:8px 8px 8px 9px;
+    color:rgba(0,0,0,.3);
 }
 .red-dot {
     color: #DC4C3F;
@@ -1406,7 +1446,7 @@ input:focus {
     width:100%;
 }
 .timeline .time-show {
-    margin-right:-75px;
+    margin-right:-100px;
     margin-top:30px;
     position:relative;
     margin-bottom:30px;
@@ -1415,7 +1455,7 @@ input:focus {
     /*margin-top:-80px;*/
 }
 .time-show .btn {
-    width:150px;
+    width:200px;
 }
 .timeline .time-show a {
     color:#fff;
@@ -1497,6 +1537,7 @@ h3.timeline-title {
     left:-60px;
     position:absolute;
     top:5px;
+    padding: 4px;
 }
 .timeline .timeline-icon {
     background:#C7CBD6;
@@ -1512,7 +1553,7 @@ h3.timeline-title {
     color:#39B6AE;
 }
 .timeline-desk h1.blue,.timeline-desk span a.blue {
-    color:#56C9F5;
+    color:#428ca;
 }
 .timeline-desk h1.purple,.timeline-desk span a.purple {
     color:#8074C6;
@@ -1530,7 +1571,7 @@ h3.timeline-title {
     background:#39B6AE;
 }
 .timeline .timeline-icon.blue {
-    background:#56C9F5;
+    background:#428bca;
 }
 .timeline .timeline-icon.purple {
     background:#8074C6;
@@ -1628,7 +1669,7 @@ h3.timeline-title {
     margin-bottom:30px;
 }
 .timeline-item.alt h1,.timeline-item.alt p {
-    text-align: right;
+    text-align: left;
 }
 /*---revenue----*/
 .revenue-head {

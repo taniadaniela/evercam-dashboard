@@ -34,6 +34,7 @@ h4 {
 }
 h5 {
     font-size: 16px;
+    text-transform: uppercase;
 }
 .blue {
     color:#428bca;
@@ -383,7 +384,7 @@ ul.sidebar-menu li a.active i {
 .wrapper {
     display:inline-block;
     margin-top:55px;
-    padding:10px;
+    padding:8px;
     width:100%;
     margin-bottom: -25px;
 }
@@ -995,13 +996,14 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/
+#camera-index .wrapper {
+    padding: 0px;
+}
+
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
     padding: 0px;
 }
 
-#camera-dash .wrapper {
-    padding: 0;
-}
 #cam-name {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
     padding: 0px 10px;
@@ -1097,13 +1099,13 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     padding-left: 2px;
 }
 .camera-title h4 {
-margin-top: 0px;
+margin-top: 5px;
 }
 /*LIVE*/
 #live img {
     max-width: 650px;
 }
-/*LIVE*/
+
 #live img {
     max-width: 650px;
 }
@@ -1145,7 +1147,13 @@ padding: 0px;
     color: #2ECC71;
     padding-right: 5px;
     text-transform: uppercase;
-    margin-top: 2px;
+    margin-top: 5px;
+}
+.red {
+    color: #DC4C3F;
+    padding-right: 5px;
+    text-transform: uppercase;
+    margin-top: 5px;
 }
 #live-refresh {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
@@ -1172,6 +1180,10 @@ padding: 0px;
     transition: all .1s linear;
 }
 
+/*INFO*/
+#info .table > thead > tr > th {
+    text-transform: uppercase;
+}
 
 /*SHARING*/
 .note {
@@ -1181,6 +1193,7 @@ padding: 0px;
     background-color: #f9f9f9;
     clear:both;
     float: left;
+    margin-top: 8px;
 }
 .delete-share-request-control {
     margin-top: 4px;
@@ -1188,6 +1201,16 @@ padding: 0px;
 #sharing .table > tbody > tr > td {
     vertical-align: middle;
     padding: 2px;
+}
+#sharing .radio input[type="radio"] {
+    width: 25px;
+}
+.share-section {
+    margin-bottom: 15px;
+}
+
+.email-input {
+margin-top: -25px;
 }
 /*LOGS*/
 #apply-types {
@@ -1207,6 +1230,11 @@ padding: 0px;
 input:focus {
     box-shadow: none;
 }
+
+#explorer #resources {
+    width: 100% !important
+}
+
 /*CAMERA SETTINGS*/
 #camera-settings label{
     font-weight:normal;
@@ -2437,7 +2465,9 @@ ul.inbox-pagination li {
     font-weight:400;
     font-family: 'Open Sans',sans-serif;
 }
-
+.modal-body {
+    overflow: auto;
+}
 .compose-mail {
     width: 100%;
     display: inline-block;
@@ -3274,7 +3304,7 @@ ul.amounts li {
 }
 .panel-heading .nav>li>a:hover {
     color:#428bca;
-    background:#f6f7f8;
+    background:#ffffff;
 }
 .panel-heading .nav>li:first-child.active>a,.panel-heading .nav>li:first-child>a:hover {
     border-radius:0px 0 0 0;
@@ -6295,6 +6325,9 @@ input:-webkit-autofill:focus {
 /*///////////////////////////
 // PUBLIC CAMS
 ///////////////////////////*/
+#public-index .wrapper {
+    padding:0px;
+}
 .public-cam-box {
     padding-left: 0;
     padding-right: 0;
@@ -6561,9 +6594,8 @@ table.table-clean thead th {
     border-radius: 0px !Important;
 }
 .form-control {
-    border-radius: 0px !Important;
-    border-bottom-right-radius:0px;
-    border-top-right-radius:0px !important;
+    border-radius: 3px !Important;
+
 }
 /*/////////////////////
 //MARGINS

@@ -8,22 +8,24 @@
   <div id="sidebar" class="nav-collapse">
     <div class="leftside-navigation">
       <ul class="sidebar-menu" id="nav-accordion">
-        <li>
-          <a class="active" href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-        </li>
-        <li>
-          <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-        </li>
+
+          <li class="sub-menu">
+            <a href="/"><span>My Cameras</span></a>
+          </li>
+
         <div class="nav-group">
         <li>
           <a href="/publiccam">Public Cameras</a>
         </li>
         </div>
         <div class="nav-group">
-        <li class="sub-menu">
-          <a href="/"><span>My Cameras</span></a>
+        <li>
+          <a class="active" href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
         </li>
-        <div>
+        <li>
+          <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
+        </li>
+        </div>
       </ul>
     </div>
   </div>
@@ -266,16 +268,12 @@
 
     <!-- SUPPORT -->
     <div class="row add-footer">
-      <div class='col-lg-10'>
-        <div class='col-lg-12'>
           <h5>Still Can't See Your Camera?</h5>
           <ul class="list-inline">
             <li><a href="http://www.evercam.io/develop/help" target="_blank">Help Pages</a></li>
             <!--<li><a href="#" target="_blank">Support</a></li>-->
           </ul>
           <p>If you don't the details of a camera yourself and would like to see how this process works, you can use the placeholder information and the info given in the examples in the help ? icons and it will work!</p>
-        </div>
-      </div>
     </div>
 
   <% end %>

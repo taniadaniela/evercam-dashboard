@@ -2,15 +2,12 @@
   <span></span>
 </div>
 <%= render :partial => "sidebar/sidebar" %>
-
+<div id="camera-index">
 <section id="main-content">
   <section class="wrapper site-min-height">
 
-    <section id="my-cameras" class="panel">
-      <header class="panel-heading">
-        Added By Me
-      </header>
-      <div class="panel-body">
+
+
           <% @cameras.each do |camera| %>
             <a href="/cameras/<%= camera['id'] %>?share=false">
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
@@ -27,15 +24,12 @@
             </a>
           <% end %>
 
-      </div>
-    </section>
 
 
-    <section id="my-shared-cameras" class="panel">
-      <header class="panel-heading">
-        Shared With Me
-      </header>
-      <div class="panel-body">
+
+
+
+
 
 
           <% @shares.each do |camera| %>
@@ -55,8 +49,8 @@
           <% end %>
 
 
-      </div>
-    </section>
+
+
 
 
 
@@ -66,6 +60,7 @@
   </section>
 </section>
 <!--main content end-->
+</div>
 
 <script>
 

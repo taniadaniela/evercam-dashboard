@@ -3,16 +3,16 @@
 
 require 'evercam_misc'
 
-DB = Sequel::Model.db = Sequel.connect(ENV['DATABASE_URL'])
-Sequel::Model.db.sql_log_level = Rails.application.config.log_level || :debug
+# DB = Sequel::Model.db = Sequel.connect(ENV['DATABASE_URL'])
+# Sequel::Model.db.sql_log_level = Rails.application.config.log_level || :debug
 
-if ARGV.any? {|parameter| parameter =~ /(--sandbox|-s)/}
-   # Do everything inside a transaction when using rails c --sandbox (or -s).
-   DB.pool.after_connect = proc do |connection|
-      DB.send(:add_transaction, connection, {})
-      DB.send(:begin_transaction, connection, {})
-   end
-end
+# if ARGV.any? {|parameter| parameter =~ /(--sandbox|-s)/}
+#    # Do everything inside a transaction when using rails c --sandbox (or -s).
+#    DB.pool.after_connect = proc do |connection|
+#       DB.send(:add_transaction, connection, {})
+#       DB.send(:begin_transaction, connection, {})
+#    end
+# end
 
-# Connection created, pull in the model classes.
-require 'evercam_models'
+# # Connection created, pull in the model classes.
+# require 'evercam_models'

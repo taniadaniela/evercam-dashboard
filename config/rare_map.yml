@@ -1,6 +1,17 @@
-db:
+legacy:
   adapter: postgresql
   host: localhost
   port: 5432
-  username: evercam
   database: evercam_dev
+  encoding: utf8
+  schema_search_path: public
+  template: template0
+
+old_db:
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  database: evercam_dev
+  encoding: utf8
+  schema_search_path: public
+  template: template0

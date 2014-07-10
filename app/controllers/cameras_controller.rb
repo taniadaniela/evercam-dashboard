@@ -117,6 +117,8 @@ class CamerasController < ApplicationController
         api.delete_camera(params[:id])
       end
       flash[:message] = "Camera deleted successfully."
+      Rails.cache.delete("#{current_user.username}/cameras")
+      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to '/'
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

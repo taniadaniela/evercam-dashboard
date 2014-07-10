@@ -65,10 +65,11 @@
 
 
 
-    <div class="panel-body tab-content">
+    <div class="tab-content panel-body">
       <!--LIVE VIEW TAB PANE -->
       <div id="live" class="tab-pane active">
         <%= render partial: "live/live_tab" %>
+
       </div>
 
       <!--INFO TAB PANE -->
@@ -96,7 +97,6 @@
         <%= render partial: "logs/logs_tab" %>
       </div><!--TAB PANE -->
 
-
       <!--APPS TAB PANE -->
       <div id="apps" class="tab-pane">
         <div class='panel-body'>
@@ -106,13 +106,14 @@
         </div><!--panel-body -->
       </div><!--TAB PANE -->
 
-
       <!--SETTINGS TAB PANE -->
       <div id="camera-settings" class="tab-pane">
         <%= render partial: "settings/settings_tab" %>
       </div><!--TAB PANE -->
-    </div>
-  </section>
+
+    </div><!--panel body-->
+
+  </section><!--panel-->
 
 
 

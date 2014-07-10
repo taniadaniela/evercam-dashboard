@@ -1,13 +1,12 @@
-
   <section id="unseen">
     <table class="table table-borderless">
       <thead>
       <tr>
         <th class="col-md-2">
-          Camera Info
+          General Info
         </th>
-        <td>
-        </td>
+        <th>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -34,9 +33,6 @@
     </table>
   </section>
 
-</div>
-
-
   <section id="unseen">
     <table class="table table-borderless">
       <thead>
@@ -44,8 +40,8 @@
         <th class="col-md-2">
           Short URLs
         </th>
-        <td>
-        </td>
+        <th>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -57,19 +53,7 @@
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
         </td>
           <td id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-            <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small>
-          </div>
-      </div>
-  </div>
-  <div class="row info-panel">
-      <div class="col-md-12">
-        <h5>Dynamic DNS URLs</h5>
-      </div>
-      <div class="col-md-10">
-        JPEG
-      </div>
-      <div class="col-md-10">
-
+            <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small> `
         </td>
       </tr>
       </tbody>

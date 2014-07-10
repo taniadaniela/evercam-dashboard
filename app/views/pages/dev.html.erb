@@ -24,15 +24,15 @@
             <form role="form" id="apikeys" class="form-horizontal center-block">
               <table class='table borderless'>
                 <tr>
-                  <td>API ID</td>
+                  <td><strong>API ID</strong></td>
                   <td><%= current_user.api_id -%></td>
                 </tr>
                 <tr>
-                  <td>API Key</td>
+                  <td><strong>API Key</strong></td>
                   <td><%= current_user.api_key -%></td>
                 </tr>
-                <tr height="50" class="border">
-                  <td>Demo Camera ID</td>
+                <tr>
+                  <td><strong>Demo Camera ID</strong></td>
                   <td>
                     <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
                   </td>

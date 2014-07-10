@@ -9,7 +9,7 @@ html {
     -webkit-font-smoothing: antialiased !important;
 }
 body {
-    color:#767676;
+    color:#414042;
     background:#e9eaed;
     font-family: 'Open Sans',sans-serif;
     padding:0px !important;
@@ -36,6 +36,9 @@ h5 {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 600;
+}
+small {
+    color:#aaa;
 }
 .blue {
     color:#428bca;
@@ -6351,7 +6354,7 @@ input:-webkit-autofill:focus {
 .public-cam-box {
     padding-left: 0;
     padding-right: 0;
-    width: 33.334%;
+    width: 33.33%;
     height: 350px;
     line-height: 250px;
     background-color: #e5e5e5;

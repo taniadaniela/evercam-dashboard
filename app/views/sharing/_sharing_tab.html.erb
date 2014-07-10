@@ -37,7 +37,7 @@
   <div class="row">
     <div class="col-md-12">
       <h5>This Camera is Shared With</h5>
-      <table class="table table-borderless" id="sharing_list_table">
+      <table class="table table-striped" id="sharing_list_table">
         <thead>
         <tr>
           <th>Email</th>
@@ -79,7 +79,7 @@
               <div class="form-group">
                   <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>">
                    <% if share["email"] == current_user.email %>
-                    <span class="glyphicon glyphicon-remove"> <span class="remove">Remove Yourself</span></span>
+                    <span class="glyphicon glyphicon-remove"></span>
                     <% else %>
                     <span class="glyphicon glyphicon-remove"> <span class="remove">Remove User</span></span>
                     <% end %>

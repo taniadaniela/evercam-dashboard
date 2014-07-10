@@ -6328,6 +6328,9 @@ input:-webkit-autofill:focus {
 #public-index .wrapper {
     padding:0px;
 }
+#public-index .panel-heading {
+    padding: 17px 15px 16px;
+}
 .public-cam-box {
     padding-left: 0;
     padding-right: 0;
@@ -6540,6 +6543,7 @@ input:-webkit-autofill {
     font-family: 'proxima-nova-bold';
     position: absolute;
 }
+
 /*/////////////////////
 //DEV
 /////////////////////*/

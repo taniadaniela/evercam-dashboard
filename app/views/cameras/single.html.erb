@@ -7,20 +7,20 @@
 <div id="camera-single">
 <section id="main-content">
   <section class="wrapper site-min-height">
-<div class="row">
-    <div class="camera-title">
-      <div class="col-md-8 col-sm-12">
-        <h4><%= @camera['name'] %><small>   &#123;<%= @camera['id'] %>&#125;</small></h4>
-      </div>
-      <div id="status" class="col-md-4">
-        <% if @camera['is_online'] %>
-          <h5 class="green pull-right">Online</h5>
-        <% else %>
-          <h5 class="red pull-right">Offline</h5>
-        <% end %>
-      </div>
+    <div class="row">
+        <div class="camera-title">
+          <div class="col-md-8 col-sm-12">
+            <h4><%= @camera['name'] %><small>   &#123;<%= @camera['id'] %>&#125;</small></h4>
+          </div>
+          <div id="status" class="col-md-4">
+            <% if @camera['is_online'] %>
+              <h5 class="green pull-right">Online</h5>
+            <% else %>
+              <h5 class="red pull-right">Offline</h5>
+            <% end %>
+          </div>
+        </div>
     </div>
-</div>
 
   <section class="panel">
     <% has_edit_right = @camera["rights"].split(",").include?("edit") %>

@@ -33,8 +33,9 @@ h4 {
     text-transform: uppercase;
 }
 h5 {
-    font-size: 16px;
+    font-size: 14px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 .blue {
     color:#428bca;
@@ -791,6 +792,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     -webkit-border-radius:50%;
     width:32px;
     height:32px;
+    display: none;
 }
 @media (max-width: 480px) {
     .toggle-right-box {
@@ -1183,6 +1185,7 @@ padding: 0px;
 /*INFO*/
 #info .table > thead > tr > th {
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 /*SHARING*/
@@ -1489,7 +1492,7 @@ input:focus {
     width:100%;
 }
 .timeline .time-show {
-    margin-right:-100px;
+    margin-right:-115px;
     margin-top:30px;
     position:relative;
     margin-bottom:30px;
@@ -1498,7 +1501,8 @@ input:focus {
     /*margin-top:-80px;*/
 }
 .time-show .btn {
-    width:200px;
+    width:230px;
+    text-transform: uppercase;
 }
 .timeline .time-show a {
     color:#fff;
@@ -1541,6 +1545,7 @@ h3.timeline-title {
     font-size:16px;
     font-weight:300;
     margin:0 0 5px;
+    text-transform: uppercase;
 }
 .timeline-desk .panel {
     display:block;
@@ -3256,6 +3261,7 @@ ul.amounts li {
     color: #414042;
     text-transform: uppercase;
     border-bottom: 1px solid #e9eaed;
+    font-size: 14px;
 }
 
 .panel-heading .nav {
@@ -3265,6 +3271,9 @@ ul.amounts li {
 }
 #camera-single .panel-heading {
     background-color: #f6f7f8;
+}
+#camera-single .row {
+    margin-right: -8px;
 }
 .tab-bg-dark-navy-blue ul>li>a {
     display:block;

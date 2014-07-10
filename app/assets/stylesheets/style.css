@@ -3526,6 +3526,14 @@ input:focus:invalid:focus,textarea:focus:invalid:focus,select:focus:invalid:focu
     padding: 0;
 }
 /*widget*/
+#live-widget textarea {
+    border-radius: 2px;
+    border:1px solid #e5e5e5;
+    min-height: 300px;
+}
+.widget-input {
+margin: 10px 0px;
+}
 .user-heading.alt {
     display:inline-block;
     width:100%;
@@ -3534,7 +3542,7 @@ input:focus:invalid:focus,textarea:focus:invalid:focus,select:focus:invalid:focu
 .alt.gray-bg {
     background:#474751;
 }
-.terques-bg {
+.terques-bg 1 {
     background:#428bca;
 }
 .profile-nav.alt.green-border ul>li>a:hover i {

@@ -10,7 +10,7 @@ class CamerasController < ApplicationController
   end
 
   def new
-   @user = (flash[:user] || {})
+    @user = (flash[:user] || {})
   end
 
   def create
@@ -56,15 +56,15 @@ class CamerasController < ApplicationController
                       "local-http" => params["local-http"],
                       "local-rtsp" => params["local-rtsp"]}
       if error.kind_of?(Evercam::EvercamError)
-         flash[:message] = [t("errors.#{error.code}")]
-         assess_field_errors(error)
+        flash[:message] = [t("errors.#{error.code}")] unless error.code.nil?
+        assess_field_errors(error)
       else
-         flash[:message] = ["An error occurred creating your account. Please check "\
+        flash[:message] = ["An error occurred creating your account. Please check "\
                             "the details and try again. If the problem persists, "\
                             "contact support."]
       end
       Rails.logger.error "Exception caught in create camera request.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       redirect_to action: 'new'
       return
     end
@@ -98,7 +98,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       flash[:message] = "An error occurred updating the details for your camera. "\
                         "Please try again and, if this problem persists, contact "\
                         "support."
@@ -121,7 +121,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting camera.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       flash[:error] = "An error occurred deleting your camera. Please try again "\
                       "and, if the problem persists, contact support."
       redirect_to action: 'single', id: params[:id], share: params[:share]
@@ -153,7 +153,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       flash[:error] = "An error occurred fetching the details for your camera. "\
                       "Please try again and, if the problem persists, contact "\
                       "support."
@@ -170,7 +170,7 @@ class CamerasController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught transferring camera ownership.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+                           error.backtrace.join("\n")
       message = "An error occurred transferring ownership of this camera. Please "\
                 "try again and, if the problem persists, contact support."
       result  = {success: false, message: message, error: "#{error}"}

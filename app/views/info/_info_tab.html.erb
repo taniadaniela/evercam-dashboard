@@ -34,6 +34,7 @@
     </table>
   </section>
 
+</div>
 
 
   <section id="unseen">
@@ -57,6 +58,17 @@
         </td>
           <td id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
             <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small>
+          </div>
+      </div>
+  </div>
+  <div class="row info-panel">
+      <div class="col-md-12">
+        <h5>Dynamic DNS URLs</h5>
+      </div>
+      <div class="col-md-10">
+        JPEG
+      </div>
+      <div class="col-md-10">
 
         </td>
       </tr>

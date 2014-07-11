@@ -14,7 +14,8 @@ class PublicController < ApplicationController
       @page = 0 if @page < 0
       offset = @page*LIMIT
       output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  limit:  LIMIT)
+                                                  limit:  LIMIT,
+                                                  thumbnail: true)
       @cameras = output[:cameras]
       @pages = output[:pages]
 

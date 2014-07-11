@@ -117,6 +117,8 @@ class CamerasController < ApplicationController
         api.delete_camera(params[:id])
       end
       flash[:message] = "Camera deleted successfully."
+      Rails.cache.delete("#{current_user.username}/cameras")
+      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to '/'
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -131,7 +133,7 @@ class CamerasController < ApplicationController
   def single
     begin
       api               = get_evercam_api
-      @camera           = api.get_camera(params[:id])
+      @camera           = api.get_camera(params[:id], true)
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']

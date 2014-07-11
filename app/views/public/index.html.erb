@@ -51,7 +51,7 @@
                   <div id="cam-name">
                     <h5><%= c["name"] %></h5>
                   </div>
-                    <img onerror="this.style.display='none'" src="<%= c["short"]["jpg_url"] %>">
+                    <%= preview(c, true) %>
                   <div class="add-to-cams">
                     <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
                   </div>
@@ -63,23 +63,6 @@
             <div class="tab-pane <%= 'active' if cookies['public-style'] == 'list' %>" id="map">
               <div class="row">
 
-                  <div class="col-sm-12">
-                    <section class="panel">
-                      <header class="panel-heading">
-                        Google Map with Location List
-                        <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                            <a href="javascript:;" class="fa fa-cog"></a>
-                            <a href="javascript:;" class="fa fa-times"></a>
-                         </span>
-                      </header>
-                      <div class="panel-body">
-
-                        <div id="gmap-list"></div>
-
-
-                      </div>
-                    </section>
                   </div>
 
               </div><!-- #row -->
@@ -104,6 +87,9 @@
         </section>
       </div>
       <!--main content end-->
+    </section>
+  </div>
+</div> <!--boxed page end-->
 
 
 
@@ -118,28 +104,6 @@ Notification.init(".bb-alert");
 <% if flash[:error] %>
 Notification.show('<%= flash[:error] %>');
 <% end %>
-
-//ul list example
-new Maplace({
-  locations: LocsB,
-  map_div: '#gmap-list',
-  controls_type: 'list',
-  controls_title: 'Choose a location:'
-}).Load();
-
-new Maplace({
-  locations: LocsB,
-  map_div: '#gmap-tabs',
-  controls_div: '#controls-tabs',
-  controls_type: 'list',
-  controls_on_map: false,
-  show_infowindow: false,
-  start: 1,
-  afterShow: function(index, location, marker) {
-    $('#info').html(location.html);
-  }
-}).Load();
-
 </script>
 
 

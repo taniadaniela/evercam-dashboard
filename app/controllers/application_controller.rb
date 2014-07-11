@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
     end
     api      = get_evercam_api
     begin
-      @cameras = api.get_user_cameras(current_user.username, true)
+      @cameras = api.get_user_cameras(current_user.username, true, true)
     rescue => error
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
     end
-    @cameras.each {|camera| @shares << camera if !camera['owned']}
+    @cameras.each {|camera| @shares << camera unless camera['owned'] }
     @cameras = @cameras - @shares if @shares.length > 0
     Rails.cache.write("#{current_user.username}/cameras", @cameras, expires_in: 5.minutes)
     Rails.cache.write("#{current_user.username}/shares", @shares, expires_in: 5.minutes)

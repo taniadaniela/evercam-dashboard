@@ -6414,9 +6414,8 @@ input:-webkit-autofill:focus {
 /*/////////////////////
 //ADD IP CAMERA PAGE
 /////////////////////*/
-.add-ip-header {
-
-    padding: 0px 20px 20px;
+#add-ip label {
+    font-family: 'proxima-nova-regular', "Open Sans", Helvetica, Arial, sans-serif;
 }
 .additional {
     margin-bottom: 18px;
@@ -6458,13 +6457,13 @@ input:-webkit-autofill:focus {
 
 }
 #testimg-add {
-    width: 200px;
+    width: 202px;
     background-image: url('https://www.evercam.io/img/connect-add.png');
     display: block;
     margin: 0 auto;
     position: absolute;
-    top: 12px;
-    margin-left: -53px;
+    top: 120px;
+    margin-left: -58px;
 }
 #test-error {
     text-align: center;
@@ -6617,11 +6616,11 @@ table.table-clean thead th {
 //BORDER RADIUS WAR
 /////////////////////*/
 .input-group-addon {
-    border-radius: 0px !Important;
+    border:1px solid #e5e5e5;
 }
 .form-control {
-    border-radius: 3px !Important;
 
+    border:1px solid #e5e5e5;
 }
 /*/////////////////////
 //MARGINS

@@ -81,7 +81,7 @@
                    <% if share["email"] == current_user.email %>
                     <span class="glyphicon glyphicon-remove"></span>
                     <% else %>
-                    <span class="glyphicon glyphicon-remove"> <span class="remove">Remove User</span></span>
+                    <span class="glyphicon glyphicon-remove"> <span class="remove">Remove</span></span>
                     <% end %>
                   </span>
               </div>
@@ -107,7 +107,7 @@
               </td>
               <td class="col-lg-2">
                 <div class="form-group">
-                  <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"> <span class="remove">Revoke Request</span></span></span>
+                  <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"> <span class="remove">Revoke</span></span></span>
                 </div>
               </td>
 

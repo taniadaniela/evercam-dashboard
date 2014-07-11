@@ -1,4 +1,4 @@
-class Vendor < LegacyBase
+class DashVendor < ActiveRecord::Base
   self.table_name = 'vendors'
   self.inheritance_column = 'ruby_type'
   self.primary_key = 'id'

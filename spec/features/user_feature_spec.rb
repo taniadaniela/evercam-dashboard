@@ -41,7 +41,7 @@ describe "user actions", :type => :feature, :js => true do
     cameras_stubs(user)
     page.set_rack_session(:user => user.email)
     visit "/"
-    click_link '/developer'
+    click_link 'Developer'
 
     expect(page).to have_text(user.api_id)
     expect(page).to have_text(user.api_key)

@@ -32,10 +32,13 @@
 <section id="main-content">
   <section class="wrapper">
 <div class="row">
+  <header class="panel-heading">
+    <div class="col-md-12" id="user-settings"><h5>User Account Settings</h5></div>
+    </header>
   <div class="panel-body">
-    <div class="col-md-12" id="user-settings"><h4>User Account Settings</h4></div>
+
     <div class="col-xs-4">
-    <form id="userProfile" role="form" method="post" class="center-block">
+    <form id="userProfile" role="form" method="post" class="form-horizontal">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
       <div class="form-group">

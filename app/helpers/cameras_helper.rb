@@ -17,12 +17,7 @@ module CamerasHelper
   end
 
   def preview(camera, live=false)
-    camera_obj = Camera.by_exid(camera['id'])
-    if camera_obj.nil?
-      preview = nil
-    else
-      preview = camera_obj.preview
-    end
+    preview = camera['thumbnail']
     proxy = "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
     begin
       if preview.nil?
@@ -37,8 +32,7 @@ module CamerasHelper
           end
         end
       else
-        data = Base64.encode64(preview).gsub("\n", '')
-        uri = URI::Data.new("data:image/jpeg;base64,#{data}")
+        uri = URI::Data.new(preview)
         img_class = camera['is_online'] ? 'snap' : ''
         if live
           return "<img class='#{img_class}' data-proxy='#{proxy}' src='#{uri}' width='100%' height='auto'>".html_safe

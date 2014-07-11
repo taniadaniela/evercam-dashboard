@@ -58,7 +58,7 @@ describe "Camera management", :type => :feature, :js => true do
     click_link 'camera-settings-link'
 
     expect(page).to have_text("Settings")
-
+    click_link 'edit'
     fill_in('camera-username', :with => 'admin')
     click_button 'Save Settings'
 
@@ -68,7 +68,7 @@ describe "Camera management", :type => :feature, :js => true do
       with(:body => {:name=>"Test Camera", :external_host=>"media.lintvnews.com",
                      :internal_host=>"", :external_http_port=>"80", :internal_http_port=>"",
                      :external_rtsp_port=>"", :internal_rtsp_port=>"", :jpg_url=>"/BTI/KXAN07.jpg",
-                     :vendor=>"", :model=>"", :cam_username=>"", :cam_password=>"",
+                     :vendor=>"", :model=>"", :cam_username=>"admin", :cam_password=>"",
                      :api_id=>user.api_id, :api_key=>user.api_key}).once
 
   end

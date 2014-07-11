@@ -1,4 +1,5 @@
 //= require sharing
+//= require cameras
 
 showError = (message) ->
   Notification.show(message)

@@ -12,13 +12,14 @@
       "last_polled_at": 1402562973,
       "last_online_at": 1401741109,
       "timezone": "Europe/Dublin",
-      "is_online": false,
+      "is_online": true,
       "is_public": true,
       "location": null,
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/vinniequinnpuz.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "eh-cam",
@@ -38,7 +39,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/eh-cam.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "alpaca-cam",
@@ -52,13 +54,14 @@
       "last_polled_at": 1402562894,
       "last_online_at": 1402395409,
       "timezone": "Etc/UTC",
-      "is_online": false,
+      "is_online": true,
       "is_public": true,
       "location": null,
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/alpaca-cam.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "vinniequinnxrm",
@@ -78,7 +81,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/vinniequinnxrm.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "emerald-hills-cam",
@@ -98,7 +102,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/emerald-hills-cam.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "galway-habour-cam",
@@ -118,7 +123,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/galway-habour-cam.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "heidelberg_view_2",
@@ -138,7 +144,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/heidelberg_view_2.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "cftp-cam",
@@ -158,7 +165,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/cftp-cam.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     },
     {
       "id": "liffey-dublin-cam",
@@ -178,7 +186,8 @@
       "discoverable": true,
       "short": {
         "jpg_url": "http://evr.cm/liffey-dublin-cam.jpg"
-      }
+      },
+      "thumbnail": "aaa"
     }
   ],
   "pages": 9

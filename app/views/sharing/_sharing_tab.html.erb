@@ -9,19 +9,19 @@
           <div class="radio">
             <label>
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
-              <p>Public on the Web <small> -  Public: [Yes]  &amp; Discoverable: [Yes]</small></p>
+              <p>Public on the web <small> -  Public: [Yes]  &amp; Discoverable: [Yes]</small></p>
             </label>
           </div>
           <div class="radio">
             <label>
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
-              <p>Available to Anyone with the Link <small> - Public: [Yes]  &amp; Discoverable: [No]</small></p>
+              <p>Available to anyone with the link <small> - Public: [Yes]  &amp; Discoverable: [No]</small></p>
             </label>
           </div>
           <div class="radio">
             <label>
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
-              <p><span class="glyphicon glyphicon-user"></span> Specific People <small> - Public: [No]  &amp; Discoverable: [No]</small></p>
+              <p><span class="glyphicon glyphicon-user"></span>Available to specific people <small> - Public: [No]  &amp; Discoverable: [No]</small></p>
             </label>
           </div>
         </div>

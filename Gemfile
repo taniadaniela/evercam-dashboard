@@ -48,6 +48,10 @@ gem 'intercom-rails', '~> 0.2.24'
 
 gem 'airbrake'
 
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+
+gem 'devise'
+
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.2.0'

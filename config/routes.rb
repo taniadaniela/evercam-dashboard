@@ -1,5 +1,6 @@
 EvercamDashboard::Application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
    root 'cameras#index'
 
    get 'cameras/transfer' => 'cameras#transfer'

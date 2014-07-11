@@ -3,5 +3,5 @@ class DashVendor < ActiveRecord::Base
   self.inheritance_column = 'ruby_type'
   self.primary_key = 'id'
 
-  has_many :vendor_models, :foreign_key => 'vendor_id', :class_name => 'VendorModel'
+  has_many :vendor_models, :foreign_key => 'vendor_id', :class_name => 'DashVendorModel'
 end

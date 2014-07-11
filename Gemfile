@@ -48,13 +48,9 @@ gem 'intercom-rails', '~> 0.2.24'
 
 gem 'airbrake'
 
-# gem 'activeadmin', github: 'gregbell/active_admin'
-
-# gem 'devise'
-
-# gem 'jquery-ui-rails', '~> 4.2.1'
-
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+
+gem 'devise'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'

@@ -1,68 +1,69 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="boxed-page">
-  <div class="container clearfix">
+<%= render :partial => "sidebar/sidebar" %>
+<section id="main-content">
+  <section class="wrapper site-min-height">
     <section id="camera-dash">
 
-      <%= render :partial => "sidebar/sidebar" %>
+
 
       <!--main content start-->
-      <div class="col-md-10 col-xs-12 wrapper">
-        <section id="main-content">
-            <div>
 
-              <% @cameras.each do |camera| %>
-                <a href="/cameras/<%= camera['id'] %>?share=false">
-              <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
+
+          <div>
+
+            <% @cameras.each do |camera| %>
+              <a href="/cameras/<%= camera['id'] %>?share=false">
+                <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                    <%= preview(camera) %>
-                <div id="offline"> <% if camera['is_online'] %>
-                          <span class="green">Online</span>
-                      <% else %>
-                          <span class="red">Offline</span>
-                      <% end %>
-                      <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-                    </div>
-              </div>
-                </a>
-              <% end %>
+                  <%= preview(camera) %>
+                  <div id="offline"> <% if camera['is_online'] %>
+                      <span class="green">Online</span>
+                    <% else %>
+                      <span class="red">Offline</span>
+                    <% end %>
+                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+                  </div>
+                </div>
+              </a>
+            <% end %>
 
-              <% @shares.each do |camera| %>
+            <% @shares.each do |camera| %>
               <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
                 <a href="/cameras/<%= camera['id'] %>?share=true">
                   <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                    <%= preview(camera) %>
+                  <%= preview(camera) %>
                   <div id="offline"> <% if camera['is_online'] %>
-                        <span class="green">Online</span>
+                      <span class="green">Online</span>
                     <% else %>
-                        <span class="red">Offline</span>
+                      <span class="red">Offline</span>
                     <% end %>
                     <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
                   </div>
                 </a>
               </div>
-              <% end %>
+            <% end %>
 
-              <div class="col-md-4 col-sm-6 col-xs-12 add-cam-box">
-                <a href="/cameras/new">
-                  <p><span class="glyphicon glyphicon-plus"></span>Add an IP Camera</p>
-                </a>
-              </div>
-
+            <div class="col-md-4 col-sm-6 col-xs-12 add-cam-box">
+              <a href="/cameras/new">
+                <p><span class="glyphicon glyphicon-plus"></span>Add an IP Camera</p>
+              </a>
             </div>
+
+          </div>
         </section>
-      </div>
+
       <!--main content end-->
     </section>
-  </div>
-</div> <!--boxed page end-->
+  </section>
+</section>
 <%= javascript_include_tag "cameras" %>
 <script type="text/javascript">
 
-   Notification.init(".bb-alert");
-   <% if flash[:message] %>
-   Notification.show('<%= flash[:message] %>');
-   <% end %>
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
 
 </script>

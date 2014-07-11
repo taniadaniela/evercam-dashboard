@@ -1,11 +1,12 @@
 <% provide(:title, "Create New Account") %>
-<div class="container section">
+<section id="new-account" class="site-min-height">
+<div class="container section" id="new-account">
   <div id="signin" class="col-md-12 text-center">
     <div class="bb-alert alert alert-danger" style="display:none;">
       <span></span>
     </div>
     <div class="branding">
-      <a class="logo" href="/"><img src="https://www.evercam.io/img/logo.png"></a>
+      <a class="sign-in-logo" href="/"><img src="https://www.evercam.io/img/logo.png"></a>
     </div>
   </div>
   <div id="registration" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -58,7 +59,7 @@
               <%= f.label :country %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("country") ? " has-error" : "" %>">
-              <%= select_tag(:country, options_for_select(@countries.map {|c| [c.name, c.iso3166_a2] }, params[:country])) %>
+              <%= select_tag(:country, options_for_select(@countries.map {|c| [c.name, c.iso3166_a2] }, params[:country]))  %>
             <% if field_errors.include?("country") %>
               <span class="help-block arrow_box form-error text-left"><%= field_errors["country"] %></span>
             <% end %>
@@ -111,6 +112,8 @@
     <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
   </div>
 </div>
+</section>
+
 <script>
     //$(window.Evercam.Users.initialize);
 

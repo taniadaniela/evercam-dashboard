@@ -23,3 +23,5 @@
 //= require jquery.datetimepicker-2.2.5.min
 //= require moment.min
 //= require jquery.cookie.js
+//= require jquery.nicescroll.js
+//= require jquery.dcjqaccordion.2.7.js

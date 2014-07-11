@@ -1,95 +1,128 @@
-<div class='col-lg-6'>
-<div class="row">
-      <div class="col-md-4">
-        <h5>Evercam ID</h5>
-      </div>
-      <div class="col-md-6">
-        <p id="ec_cam_id"><%= @camera['id'] %></p>
-      </div>
-</div>
-  <div class="row info">
-      <div class="col-md-4">
-        <h5>Camera Owner</h5>
-      </div>
-      <div class="col-md-6">
-       <p><%= @camera['owner'] %>
-        <% if @camera['owner'] == current_user.username %>
-          <small>(you)  </small><a href="#" id="change_owner_button" type="button" class="blue">  Change</a>
-        <% end %>
-       </p>
-      </div>
-      <div class="col-md-2">
+  <section id="unseen">
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th class="col-md-2">
+          General Info
+        </th>
+        <td>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          Evercam ID
+        </td>
+        <td>
+          <%= @camera['id'] %>
+        </td>
+      </tr>
+      <tr>
+        <td>Camera Owner</td>
+        <td><%= @camera['owner'] %>
+          <% if @camera['owner'] == current_user.username %>
+            <small>(you)  </small><a href="#" id="change_owner_button" type="button" class="blue">  change</a>
+          <% end %></td>
+      </tr>
+      <tr>
+        <td>Local IP</td>
+        <td><%= @camera['internal_host'] %></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
 
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-4">
-        <h5>Local IP</h5>
-      </div>
-      <div class="col-md-6">
-        <p><%= @camera['internal_host'] %></p>
-      </div>
-      <div class="col-md-2"></div>
-  </div>
-
-</div>
-
-<div class="col-md-12">
-<div class="url-container">
-  <div class="row info-panel">
-      <div class="col-md-12">
-        <h5>Short URLs</h5>
-      </div>
-      <div class="col-md-10">
-        JPEG
-      </div>
-      <div class="col-md-10">
-          <div id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+  <section id="unseen">
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th class="col-md-2">
+          Short URLs
+        </th>
+        <td>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          JPEG
+        </td>
+        <td id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
-          </div>
-          <div id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-            <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small>
-          </div>
-      </div>
-  </div>
-  <div class="row info-panel">
-      <div class="col-md-12">
-        <h5>Dynamic DNS URLs</h5>
-      </div>
-      <div class="col-md-10">
-        JPEG
-      </div>
-      <div class="col-md-10">
+        </td>
+          <td id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+            <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small> `
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
 
-        <% if url = @camera.fetch('dyndns', {})['jpg_url'] %>
-        <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-        <% else %>
-        none
-        <% end %>
+  <section id="unseen">
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th class="col-md-2">
+          Dynamic DNS URLs
+        </th>
+        <td>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          JPEG
+        </td>
+        <td>
+          <% if url = @camera.fetch('dyndns', {})['jpg_url'] %>
+            <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+          <% else %>
+            none
+          <% end %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
 
-      </div>
-  </div>
-  <div class="row info-panel">
-      <div class="col-md-12">
-        <h5>Base URLs</h5>
-      </div>
-      <div class="col-md-10">
-        JPEG
-      </div>
-      <div class="col-md-10 info-panel">
-        <% url = @camera.fetch('external', {})['jpg_url'] %>
-        <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-      </div>
-      <div class="col-md-10">
-        RTSP
-      </div>
-      <div class="col-md-10">
-        <% url = @camera.fetch('external', {})['rtsp_url'] %>
-        <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-      </div>
-  </div>
-</div><!--URL Container -->
-</div>
+  <section id="unseen">
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th class="col-md-2">
+          Base URLs
+        </th>
+        <td>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          JPEG
+        </td>
+        <td>
+          <% url = @camera.fetch('external', {})['jpg_url'] %>
+          <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          RTSP
+        </td>
+        <td>
+          <% url = @camera.fetch('external', {})['rtsp_url'] %>
+          <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+
 
 <div id="change_owner_dialog" class="modal fade" role="fade">
    <div class="modal-dialog">
@@ -126,7 +159,8 @@
          </div>
       </div>
    </div>
-</div>  
+</div>
+
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);

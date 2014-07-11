@@ -1,50 +1,52 @@
 <% provide(:title, "Sign in") %>
-<div class="container section">
-  <div id="signin" class="col-md-12 text-center">
-    <div class="bb-alert alert alert-danger" style="display:none;">
-      <span></span>
+<section id="sign-in-section" class="site-min-height">
+  <div class="container section">
+    <div id="signin" class="col-md-12 text-center">
+      <div class="bb-alert alert alert-danger" style="display:none;">
+        <span></span>
+      </div>
+      <div class="branding">
+      <a class="sign-in-logo" href="/"><img src="https://www.evercam.io/img/logo.png"></a>
+      </div>
     </div>
-    <div class="branding">
-    <a class="logo" href="/"><img src="https://www.evercam.io/img/logo.png"></a>
+
+    <div id="sign-in" class="col-md-4 col-md-offset-4">
+
+      <h3 class="text-center">Sign in</h3>
+
+      <%= form_for(:session, url: sessions_path) do |f| %>
+
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <%= f.label :email %> / <%= f.label :username %>
+          <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <%= f.label :password %>
+          <%= f.password_field :password %>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+          <div class="sign-in">
+            <%= f.submit "Sign in", class: "btn btn-large btn-primary col-lg-6 col-lg-offset-3" %>
+          </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <div class="create">
+            I've<a href="/reset"> forgotten my password</a>
+          </div>
+        </div>
+
+      <% end %>
     </div>
+
+    <div class="col-md-4 col-md-offset-4 row text-center create">
+      <p>Or <%= link_to "Create New Account", signup_path %></p>
+    </div>
+
   </div>
-
-  <div id="sign-in" class="col-md-4 col-md-offset-4">
-
-    <h3 class="text-center">Sign in</h3>
-
-    <%= form_for(:session, url: sessions_path) do |f| %>
-
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <%= f.label :email %> / <%= f.label :username %>
-        <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
-      </div>
-
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-      </div>
-
-      <div class="col-md-8 col-md-offset-2">
-        <div class="sign-in">
-          <%= f.submit "Sign in", class: "btn btn-large btn-primary col-lg-6 col-lg-offset-3" %>
-        </div>
-      </div>
-
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <div class="create">
-          I've<a href="/reset"> forgotten my password</a>
-        </div>
-      </div>
- 
-    <% end %>
-  </div>
-
-  <div class="col-md-4 col-md-offset-4 row text-center create">
-    <p>Or <%= link_to "Create New Account", signup_path %></p>
-  </div>
-
-</div>
+</section>
 <script>
   Notification.init(".bb-alert");
   <% if flash[:error] %>

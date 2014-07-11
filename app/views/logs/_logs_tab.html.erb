@@ -1,9 +1,11 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
 <script type="text/javascript" src="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-<div class="col-lg-12 info-panel">
+
+<div class="info-panel">
   <div class="filter">
-    <h5>Filter by Events</h5>
+    <div class="row mb15">
+    <div class="col-md-2"><h5>Filter by Events</h5></div>
     <div id="types">
       <label class="checkbox-inline">All<input id="all-types" value="" type="checkbox" /> </label>
       <% @types.each do |t| %>
@@ -12,23 +14,26 @@
       </label>
       <% end %>
     </div>
-    <h5>Date &amp; Time Range</h5>
-    <div class="col-md-12" id="date-box">
-      <div class="row">
-        <div class="col-md-3">
-          From: <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') unless params[:from].blank? %>">
-        </div>
-        <div class="col-md-3">
-          To: <input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%Y/%m/%d %H:%M') unless params[:to].blank? %>">
-        </div>
-      </div>
     </div>
-    <div class="col-md-1">
-      <input id="current-page" type="hidden" value="<%= @page + 1 %>">
-      <input id="exid" type="hidden" value="<%= @camera['id'] %>">
-      <input id="base-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
-      <input id="ajax-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
-      <button id="apply-types" class="btn btn-primary pull-right">Filter</button>
+    <div class="row mb15">
+      <div class="col-md-2 mt20"><h5>Date &amp; Time Range</h5></div>
+
+        <div class="col-md-3 ml-15">
+          <label>From:</label> <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') unless params[:from].blank? %>">
+        </div>
+        <div class="col-md-3">
+          <label>To:</label><input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%Y/%m/%d %H:%M') unless params[:to].blank? %>">
+        </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2">
+        <input id="current-page" type="hidden" value="<%= @page + 1 %>">
+        <input id="exid" type="hidden" value="<%= @camera['id'] %>">
+        <input id="base-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
+        <input id="ajax-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
+        <button id="apply-types" class="btn btn-primary">Show Report</button>
+      </div>
     </div>
   </div>
 
@@ -48,6 +53,7 @@
   </div><!-- row -->
 
 </div><!-- info panel -->
+
 
 <script type="text/javascript">
   $(window.Evercam.Logs.initializeTab);

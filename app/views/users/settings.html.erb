@@ -1,10 +1,39 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="container">
+<!-- sidebar menu start-->
+<aside>
+  <div id="sidebar" class="nav-collapse">
+    <div class="leftside-navigation">
+      <ul class="sidebar-menu" id="nav-accordion">
+
+        <li class="sub-menu">
+          <a href="/"><span>My Cameras</span></a>
+        </li>
+
+        <div class="nav-group">
+          <li>
+            <a href="/publiccam">Public Cameras</a>
+          </li>
+        </div>
+        <div class="nav-group">
+          <li>
+            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
+          </li>
+          <li>
+            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</aside>
+<!-- sidebar menu end-->
+<section id="main-content">
+  <section class="wrapper">
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1 panel">
-    <div class="row" id="user-settings"><h4>User Account Settings</h4></div>
+  <div class="panel-body">
+    <div class="col-md-12" id="user-settings"><h4>User Account Settings</h4></div>
     <div class="col-xs-4">
     <form id="userProfile" role="form" method="post" class="center-block">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
@@ -44,11 +73,38 @@
     </div>
   </div>
 </div>
-</div>
+</section>
+  </section>
 <script>
     //$(window.Evercam.Users.initialize);
     Notification.init(".bb-alert");
     <% if flash[:message] %>
     Notification.show('<%= flash[:message] %>');
     <% end %>
+
+    $(function() {
+
+      if ($.fn.niceScroll) {
+        $(".leftside-navigation").niceScroll({
+          cursorcolor: "#428bca",
+          cursorborder: "0px solid #fff",
+          cursorborderradius: "0px",
+          cursorwidth: "3px"
+        });
+
+        $(".leftside-navigation").getNiceScroll().resize();
+        if ($('#sidebar').hasClass('hide-left-bar')) {
+          $(".leftside-navigation").getNiceScroll().hide();
+        }
+        $(".leftside-navigation").getNiceScroll().show();
+
+        $(".right-stat-bar").niceScroll({
+          cursorcolor: "#1FB5AD",
+          cursorborder: "0px solid #fff",
+          cursorborderradius: "0px",
+          cursorwidth: "3px"
+        });
+
+      }
+    });
 </script>

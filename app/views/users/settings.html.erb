@@ -56,7 +56,9 @@
     </div>
 
       <div class="portlet-body form">
-        <form class="form-horizontal" role="form">
+        <form id="userProfile" role="form" method="post" class="form-horizontal">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
           <div class="form-body">
 
             <div class="form-group">
@@ -113,38 +115,10 @@
 
 
 
-
-
 <script>
-    //$(window.Evercam.Users.initialize);
-    Notification.init(".bb-alert");
-    <% if flash[:message] %>
-    Notification.show('<%= flash[:message] %>');
-    <% end %>
-
-    $(function() {
-
-      if ($.fn.niceScroll) {
-        $(".leftside-navigation").niceScroll({
-          cursorcolor: "#428bca",
-          cursorborder: "0px solid #fff",
-          cursorborderradius: "0px",
-          cursorwidth: "3px"
-        });
-
-        $(".leftside-navigation").getNiceScroll().resize();
-        if ($('#sidebar').hasClass('hide-left-bar')) {
-          $(".leftside-navigation").getNiceScroll().hide();
-        }
-        $(".leftside-navigation").getNiceScroll().show();
-
-        $(".right-stat-bar").niceScroll({
-          cursorcolor: "#1FB5AD",
-          cursorborder: "0px solid #fff",
-          cursorborderradius: "0px",
-          cursorwidth: "3px"
-        });
-
-      }
-    });
+  //$(window.Evercam.Users.initialize);
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
 </script>

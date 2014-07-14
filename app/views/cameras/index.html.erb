@@ -1,18 +1,12 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
+<div class="page-container">
 <%= render :partial => "sidebar/sidebar" %>
-<section id="main-content">
-  <section class="wrapper site-min-height">
-    <section id="camera-dash">
-
-
+<div class="page-content-wrapper">
+  <div class="page-content">
 
       <!--main content start-->
-
-
-          <div>
-
             <% @cameras.each do |camera| %>
               <a href="/cameras/<%= camera['id'] %>?share=false">
                 <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
@@ -50,14 +44,11 @@
                 <p><span class="glyphicon glyphicon-plus"></span>Add an IP Camera</p>
               </a>
             </div>
-
-          </div>
-        </section>
-
       <!--main content end-->
-    </section>
-  </section>
-</section>
+
+  </div>
+</div>
+</div>
 <%= javascript_include_tag "cameras" %>
 <script type="text/javascript">
 

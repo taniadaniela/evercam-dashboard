@@ -1,10 +1,19 @@
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <!-- sidebar menu start-->            <div class="leftside-navigation">
-    <ul class="sidebar-menu" id="nav-accordion">
-      <div class="">
+<div class="page-sidebar-wrapper">
+    <!-- sidebar menu start-->
+  <div class="page-sidebar navbar-collapse collapse">
+
+  <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+    <!--<li class="sidebar-toggler-wrapper">
+       BEGIN SIDEBAR TOGGLER BUTTON -->
+      <!--<div class="sidebar-toggler">
+      </div>-->
+      <!-- END SIDEBAR TOGGLER BUTTON
+    </li>-->
+    <li>
+      <a href="/dev">Developer</a>
+    </li>
         <li>
-          <a class="active" href="/">My Cameras</a>
+          <a href="/">My Cameras</a>
         </li>
         <li class="sub-menu">
           <a href="javascript:;">
@@ -48,24 +57,24 @@
             <% end %>
           </ul>
         </li>
-      </div>
-      <div class="nav-group">
+
+
         <li>
           <a class="public-cam" href="/publiccam">Public Cameras</a>
         </li>
-      </div>
-      <div class="nav-group">
+
         <li>
-          <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
+          <a href="/cameras/new">Add IP Camera</a>
         </li>
         <li>
-          <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
+          <a href="/add-android">Add Android Camera</a>
         </li>
-      </div>
-    </ul></div>
-    <!-- sidebar menu end-->
+
+    </ul>
   </div>
-</aside>
+    <!-- sidebar menu end-->
+</div>
+
 
 <script>
   $(function() {

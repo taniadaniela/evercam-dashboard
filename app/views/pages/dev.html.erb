@@ -1,23 +1,42 @@
-<!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
-        <li>
-          <a class="active" href="/dev">API Docs</a>
+<div class="page-container" id="public-index">
+  <!-- sidebar menu start-->
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+
+      <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <li class="sidebar-toggler-wrapper">
+          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+          <div class="sidebar-toggler">
+          </div>
+          <!-- END SIDEBAR TOGGLER BUTTON -->
         </li>
         <li>
-          <a href="/widgets">Widgets</a>
+          <a href="/dev">Developer</a>
         </li>
-      </ul></div>
+        <li>
+        <a href="/">My Cameras</a>
+        </li>
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
+        </li>
+
+        <li>
+          <a href="/cameras/new">Add IP Camera</a>
+        </li>
+        <li>
+          <a href="/add-android">Add Android Camera</a>
+        </li>
+
+      </ul>
+    </div>
   </div>
-</aside>
-<!-- sidebar menu end-->
+  <!-- sidebar menu end-->
+  <div class="page-content-wrapper">
+    <div class="page-content">
 <!--main content start-->
-<section id="main-content">
-  <section class="wrapper site-min-height">
-      <section class="panel">
-        <div class="panel-body">
+
+
+
 
           <form role="form" id="apikeys" class="form-horizontal center-block">
 
@@ -79,8 +98,8 @@
             </div>
           </div>
 
-      </div>
-    </section>
-  </section>
-</section><!--main content end-->
 
+
+</div>
+</div>
+</div>

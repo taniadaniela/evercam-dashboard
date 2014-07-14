@@ -2,16 +2,16 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-
+<div class="page-container">
   <%= render :partial => "sidebar/sidebar" %>
-<div id="camera-single">
-<section id="main-content">
-  <section class="wrapper site-min-height">
-<div class="col-md-12">
+  <div class="page-content-wrapper">
+  <div class="page-content" id="camera-single">
+
+
     <div class="row">
         <div class="camera-title">
           <div class="col-md-8 col-sm-12">
-            <h4><%= @camera['name'] %><small>   <%= @camera['id'] %></small></h4>
+            <h3 class="page-title"><%= @camera['name'] %><small>   <%= @camera['id'] %></small></h3>
           </div>
           <div id="status" class="col-md-4">
             <% if @camera['is_online'] %>
@@ -22,10 +22,10 @@
           </div>
         </div>
     </div>
-</div>
-  <section class="panel">
+
+  <div class="portlet-body">
     <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
-    <header class="panel-heading">
+    <div class="tabbable tabbable-custom">
       <ul class="nav nav-tabs">
         <li class="active">
           <a data-toggle="tab" href="#live">Live View</a>
@@ -62,7 +62,7 @@
           </li>
         <% end %>
       </ul>
-    </header>
+
 
 
     <!--DELETE MODAL-->
@@ -86,7 +86,7 @@
     <% end %>
     <!--END DELETE MODAL-->
 
-    <div class="tab-content panel-body">
+    <div class="tab-content">
       <!--LIVE VIEW TAB PANE -->
       <div id="live" class="tab-pane active">
         <%= render partial: "live/live_tab" %>
@@ -133,18 +133,10 @@
       </div><!--TAB PANE -->
 
     </div><!--panel body-->
-
-  </section><!--panel-->
-
-
-
-
-
-
-
-
-</section>
-</section>
+    </div>
+  </div><!--panel-->
+</div>
+</div>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>

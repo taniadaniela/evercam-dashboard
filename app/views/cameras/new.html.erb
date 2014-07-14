@@ -1,46 +1,45 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
+<div class="page-container">
 
-<section id="camera-single">
 <!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
+<div class="page-sidebar-wrapper">
+  <div class="page-sidebar navbar-collapse collapse">
 
-          <li class="sub-menu">
-            <a href="/"><span>My Cameras</span></a>
-          </li>
+    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+      <!--<li class="sidebar-toggler-wrapper">
+        <div class="sidebar-toggler">
+        </div>
+      </li>-->
 
-        <div class="nav-group">
-        <li>
-          <a href="/publiccam">Public Cameras</a>
-        </li>
-        </div>
-        <div class="nav-group">
-        <li>
-          <a class="active" href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-        </li>
-        <li>
-          <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-        </li>
-        </div>
-      </ul>
-    </div>
+      <li>
+        <a class="active" href="/">My Cameras</a>
+      </li>
+      <li>
+        <a class="public-cam" href="/publiccam">Public Cameras</a>
+      </li>
+
+      <li>
+        <a href="/cameras/new">Add IP Camera</a>
+      </li>
+      <li>
+        <a href="/add-android">Add Android Camera</a>
+      </li>
+
+    </ul>
   </div>
-</aside>
+</div>
 <!-- sidebar menu end-->
+
+<div class="page-content-wrapper">
+<div class="page-content" id="add-ip">
 <!--main content start-->
-<section id="main-content">
-<section id="add-ip" class="wrapper site-min-height">
 
-
-<section class="panel">
-  <header class="panel-heading">
+  <h3 class="page-title">
     Add an IP Camera
-  </header>
-  <div class="panel-body">
+  </h3>
+  <div class="row">
 
   <!-- FORM START -->
   <%= form_tag('/cameras/new', method: 'post', class: "has-validation-callback") do %>
@@ -266,31 +265,25 @@
 
     </fieldset>
 
-    <!-- SUPPORT -->
+    <!-- SUPPORT
     <div class="row add-footer">
           <h5>Still Can't See Your Camera?</h5>
           <ul class="list-inline">
             <li><a href="http://www.evercam.io/develop/help" target="_blank">Help Pages</a></li>
-            <!--<li><a href="#" target="_blank">Support</a></li>-->
+            <li><a href="#" target="_blank">Support</a></li
           </ul>
           <p>If you don't the details of a camera yourself and would like to see how this process works, you can use the placeholder information and the info given in the examples in the help ? icons and it will work!</p>
-    </div>
+    </div>-->
 
   <% end %>
   <!-- FORM END. -->
 
   </div>
-</section>
 
 
-
-
-
-
-</section>
-</section>
-</section><!-- Camera Single -->
-
+</div>
+</div><!-- Camera Single -->
+</div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
 

@@ -1,39 +1,42 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div id="public-index">
-<!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
 
-        <li class="sub-menu">
-          <a href="/"><span>My Cameras</span></a>
+<div class="page-container" id="public-index">
+  <!-- sidebar menu start-->
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+
+      <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <li class="sidebar-toggler-wrapper">
+          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+          <div class="sidebar-toggler">
+          </div>
+          <!-- END SIDEBAR TOGGLER BUTTON -->
+        </li>
+        <li class="sidebar-search-wrapper hidden-xs">
+        <li>
+          <a class="active" href="/">My Cameras</a>
+        </li>
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
         </li>
 
-        <div class="nav-group">
-          <li>
-            <a class="active" href="/publiccam">Public Cameras</a>
-          </li>
-        </div>
-        <div class="nav-group">
-          <li>
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-          </li>
-          <li>
-            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-          </li>
-        </div>
+        <li>
+          <a href="/cameras/new">Add IP Camera</a>
+        </li>
+        <li>
+          <a href="/add-android">Add Android Camera</a>
+        </li>
+
       </ul>
     </div>
   </div>
-</aside>
-<!-- sidebar menu end-->
-<section id="main-content">
-  <section class="wrapper site-min-height">
+  <!-- sidebar menu end-->
+  <div class="page-content-wrapper">
+    <div class="page-content">
 
-    <section class="panel">
+
           <!-- Nav tabs -->
         <div class="panel-heading">
            <ul class="nav nav-tabs">
@@ -84,17 +87,7 @@
 
           </div>
         </div><!-- #PUBLICCAMS -->
-        </section>
-      </div>
-      <!--main content end-->
-    </section>
-  </div>
-</div> <!--boxed page end-->
 
-
-
-  </section>
-</section>
 </div>
 <%= javascript_include_tag "publiccam" %>
 <script>

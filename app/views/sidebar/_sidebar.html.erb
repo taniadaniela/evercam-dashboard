@@ -2,7 +2,7 @@
     <!-- sidebar menu start-->
   <div class="page-sidebar navbar-collapse collapse">
 
-  <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+  <ul id="nav-accordion" class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
     <!--<li class="sidebar-toggler-wrapper">
        BEGIN SIDEBAR TOGGLER BUTTON -->
       <!--<div class="sidebar-toggler">
@@ -10,22 +10,30 @@
       <!-- END SIDEBAR TOGGLER BUTTON
     </li>-->
     <li>
-      <a href="/dev">Developer</a>
+      <a href="javascript:;">
+        <span class="title">Developer</span>
+        <span class="caret"></span>
+      </a>
+      <ul class="sub-menu">
+        <li>
+          <a href="/dev">
+            API Docs</a>
+        </li>
+        <li>
+          <a href="/widgets">
+            Widgets</a>
+        </li>
+      </ul>
     </li>
+
         <li>
           <a href="/">My Cameras</a>
         </li>
-        <li class="sub-menu">
-          <a href="javascript:;">
-            <span>Added By Me</span>
-            <b class="caret"></b>
-          </a>
-          <ul class="sub">
             <% @cameras.each do |camera| %>
               <li class="sub-menu-item">
                 <a href="/cameras/<%= camera['id'] %>?share=false">
                   <div id="offline-menu"> <% if camera['is_online'] %>
-                      <span class="green-dot"><small>on</small></span>
+
                     <% else %>
                       <span class="red-dot"><small>off</small></span>
                     <% end %>
@@ -34,19 +42,13 @@
                 </a>
               </li>
             <% end %>
-          </ul>
-        </li>
-        <li class="sub-menu">
-          <a href="javascript:;">
-            <span>Shared with me</span>
-            <b class="caret"></b>
-          </a>
-          <ul class="sub">
+
+
             <% @shares.each do |camera| %>
               <li class="sub-menu-item">
                 <a href="/cameras/<%= camera['id'] %>?share=true">
                   <div id="offline-menu"> <% if camera['is_online'] %>
-                      <span class="green-dot"><small>on</small></span>
+
                     <% else %>
                       <span class="red-dot"><small>off</small></span>
                     <% end %>
@@ -55,8 +57,8 @@
                 </a>
               </li>
             <% end %>
-          </ul>
-        </li>
+
+
 
 
         <li>
@@ -64,64 +66,9 @@
         </li>
 
         <li>
-          <a href="/cameras/new">Add IP Camera</a>
+          <a href="/cameras/new">Add Camera</a>
         </li>
-        <li>
-          <a href="/add-android">Add Android Camera</a>
-        </li>
-
     </ul>
   </div>
     <!-- sidebar menu end-->
 </div>
-
-
-<script>
-  $(function() {
-
-    if ($.fn.dcAccordion) {
-      $('#nav-accordion').dcAccordion({
-        eventType: 'click',
-        autoClose: false,
-        saveState: true,
-        disableLink: true,
-        speed: 'slow',
-        showCount: false,
-        autoExpand: true,
-        classExpand: 'dcjq-current-parent'
-      });
-    }
-
-  if ($.fn.niceScroll) {
-    $(".leftside-navigation").niceScroll({
-      cursorcolor: "#428bca",
-      cursorborder: "0px solid #fff",
-      cursorborderradius: "0px",
-      cursorwidth: "3px"
-    });
-
-    $(".leftside-navigation").getNiceScroll().resize();
-    if ($('#sidebar').hasClass('hide-left-bar')) {
-      $(".leftside-navigation").getNiceScroll().hide();
-    }
-    $(".leftside-navigation").getNiceScroll().show();
-
-    $(".right-stat-bar").niceScroll({
-      cursorcolor: "#1FB5AD",
-      cursorborder: "0px solid #fff",
-      cursorborderradius: "0px",
-      cursorwidth: "3px"
-    });
-
-  }
-
-
-
-  });
-
-
-
-
-
-
-</script>

@@ -3,15 +3,27 @@
   <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
 
-      <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-        <li class="sidebar-toggler-wrapper">
-          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+      <ul id="nav-accordion" class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <!--<li class="sidebar-toggler-wrapper">
           <div class="sidebar-toggler">
           </div>
-          <!-- END SIDEBAR TOGGLER BUTTON -->
-        </li>
+        </li>-->
         <li>
-          <a href="/dev">Developer</a>
+          <a href="javascript:;" class="active">
+            <span class="title">Developer</span>
+            <span class="caret"></span>
+
+          </a>
+          <ul class="sub-menu">
+            <li class="active">
+              <a href="/dev">
+                API</a>
+            </li>
+            <li>
+              <a href="/widgets">
+                Widgets</a>
+            </li>
+          </ul>
         </li>
         <li>
         <a href="/">My Cameras</a>
@@ -21,10 +33,7 @@
         </li>
 
         <li>
-          <a href="/cameras/new">Add IP Camera</a>
-        </li>
-        <li>
-          <a href="/add-android">Add Android Camera</a>
+          <a href="/cameras/new">Add Camera</a>
         </li>
 
       </ul>
@@ -103,3 +112,21 @@
 </div>
 </div>
 </div>
+<script>
+  $(function() {
+
+    if ($.fn.dcAccordion) {
+      $('#nav-accordion').dcAccordion({
+        eventType: 'click',
+        autoClose: false,
+        saveState: true,
+        disableLink: true,
+        speed: 'slow',
+        showCount: false,
+        autoExpand: true,
+        classExpand: 'dcjq-current-parent'
+      });
+    }
+
+  });
+</script>

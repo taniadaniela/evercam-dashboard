@@ -6,7 +6,7 @@
 
   <div class="filter">
     <div class="row mb15">
-    <div class="col-md-2"><p>Filter by Events</p></div>
+    <div class="col-md-2 margin-right-30"><h5>Filter by Events</h5></div>
     <div class="form-group" id="types">
       <div class="checkbox-list">
       <label class="checkbox-inline"><input id="all-types" value="" type="checkbox" />All </label>
@@ -18,10 +18,10 @@
       </div>
     </div>
     </div>
-    <div class="row mb15">
-      <div class="col-md-2 mt20"><h5>Date &amp; Time Range</h5></div>
+    <div class="row">
+      <div class="col-md-2"><h5>Date &amp; Time Range</h5></div>
 
-        <div class="col-md-3 ml-15">
+        <div class="col-md-3">
           <label>From:</label> <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') unless params[:from].blank? %>">
         </div>
         <div class="col-md-3">

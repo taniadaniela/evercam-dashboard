@@ -13,8 +13,8 @@ EvercamDashboard::Application.routes.draw do
    delete 'cameras/:id' => 'cameras#delete'
 
    get 'publiccam' => 'public#index'
+   get 'publiccam/map' => 'public#map'
    get 'publiccam/:id' => 'public#single'
-   get 'publiccam/map' => 'public#location'
 
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]
@@ -37,6 +37,7 @@ EvercamDashboard::Application.routes.draw do
    get '/live.view.widget' => 'widgets#live_view_widget'
 
    get '/add-android' => 'pages#add_android'
+   get '/location' => 'pages#location'
 
    post '/share/camera/:id' => 'sharing#update_camera'
    delete '/share' => 'sharing#delete'

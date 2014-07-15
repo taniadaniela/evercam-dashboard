@@ -275,7 +275,7 @@ input:-webkit-autofill {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
     border-bottom-left-radius: 1px;
     cursor: pointer;
-    padding: 10px 0 5px;
+    padding: 10px 10px 5px;
     position: absolute;
     margin-left: -80px;
     left: 50%;
@@ -314,6 +314,32 @@ input:-webkit-autofill {
 
 .glyphicon-arrow-left {
     margin-right: 5px;
+}
+
+
+/***
+Google Maps
+***/
+.gmaps {
+    height: 300px;
+    width: 100%;
+    /* important!  bootstrap sets max-width on img to 100% which conflicts with google map canvas*/
+}
+.gmaps img {
+    max-width: none;
+}
+
+#gmap_static div {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 100%;
+    display: block;
+    height: 300px;
+}
+
+#gmap_routes_instructions {
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 /*/////////////////////
@@ -789,3 +815,6 @@ margin-left: 236px;}
 .merge-left {
     margin-left:0px !important;
 }
+
+
+

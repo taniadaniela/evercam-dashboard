@@ -63,8 +63,13 @@ module EvercamDashboard
                                  'jquery.uniform.min-v2.1.min.js',
                                  'metronic-layout.css',
                                  'metronic-components.css',
+<<<<<<< HEAD
                                  'uniform.default.min.css',
                                  'quick-sidebar.js',
+=======
+                                 'maps-google.js',
+                                 'quick-sidebar.js']
+>>>>>>> 30fc401... adding maps
                                  'jquery.dcjqaccordion.2.7.js',
                                  'rails_admin/rails_admin.css',
                                  'rails_admin/rails_admin.js',

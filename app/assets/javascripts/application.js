@@ -27,3 +27,4 @@
 //= require quick-sidebar.js
 //= require layout.js
 //= require jquery.uniform.min-v2.1.js
+//= require maps-google.js

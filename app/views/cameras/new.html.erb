@@ -152,7 +152,7 @@
                 <%= label_tag('snapshot', "Snapshot URL Ending*", class: "control-label") %>
                 <div class="input-group snap-end">
                   <span class="prepend">/</span>
-                  <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpeg|.JPEG|.gif|.GIF| .png|.PNG)$/", "data-validation-error-msg" => "This doesn't appear to be a valid snapshot URL ending.") %>
+                  <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control") %>
                 </div>
               </div>
 
@@ -170,14 +170,14 @@
             <div class='row add-row'>
               <div class='col-md-5 form-group<%= field_errors["username"] ? ' has-error' : '' %>'>
                 <%= label_tag('camera-username', "Camera Username", class: "control-label") %>
-                <%= text_field_tag("camera-username", @user['camera-username'], "class" => "form-control") %>
+                <%= text_field_tag("camera-username", @user['camera-username'], "class" => "form-control", :autocomplete => "off") %>
                 <% if field_errors["username"] %>
                   <span class="help-block form-error text-left"><%= field_errors["username"] %></span>
                 <% end %>
               </div>
               <div class='col-md-5 form-group<%= field_errors["password"] ? ' has-error' : '' %>'>
                 <%= label_tag('camera-password', "Camera Password", class: "control-label") %>
-                <%= password_field_tag("camera-password", @user['camera-password'], class: "form-control") %>
+                <%= password_field_tag("camera-password", @user['camera-password'], class: "form-control", :autocomplete => "off") %>
                 <% if field_errors["password"] %>
                   <span class="help-block form-error text-left"><%= field_errors["password"] %></span>
                 <% end %>

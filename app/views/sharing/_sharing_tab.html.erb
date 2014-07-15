@@ -6,24 +6,24 @@
   </div>
     <div class="col-md-8">
         <div class="col-md-12 text-left sharing">
-          <div class="radio">
-            <label>
+
+            <label class="radio">
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
               <p>Public on the web <small> -  Public: [Yes]  &amp; Discoverable: [Yes]</small></p>
             </label>
-          </div>
-          <div class="radio">
-            <label>
+
+
+            <label class="radio">
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
               <p>Available to anyone with the link <small> - Public: [Yes]  &amp; Discoverable: [No]</small></p>
             </label>
-          </div>
-          <div class="radio">
-            <label>
+
+
+            <label class="radio">
               <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
               <p>Available to specific people <small> - Public: [No]  &amp; Discoverable: [No]</small></p>
             </label>
-          </div>
+
         </div>
     </div>
       <div class="col-md-2 pull-right">
@@ -76,10 +76,10 @@
               <button type="submit" class="save show-save btn btn-primary btn-sm update-share-button">Save</button>
             </td>
             <td class="col-lg-2">
-              <div class="form-group">
+              <div class="form-group>
                   <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>">
                    <% if share["email"] == current_user.email %>
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="margin-top-10 glyphicon glyphicon-remove">Remove</span>
                     <% else %>
                     <span class="glyphicon glyphicon-remove"> <span class="remove">Remove</span></span>
                     <% end %>

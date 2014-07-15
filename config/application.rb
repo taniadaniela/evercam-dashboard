@@ -59,7 +59,16 @@ module EvercamDashboard
                                  'jquery.cookie.js',
                                  'jquery.datetimepicker-2.2.5.min.js',
                                  'jquery.datetimepicker-2.2.5.min.css',
-                                 'quick-sidebar.js']
+                                 'layout.js',
+                                 'jquery.uniform.min-v2.1.min.js',
+                                 'metronic-layout.css',
+                                 'metronic-components.css',
+                                 'uniform.default.min.css',
+                                 'quick-sidebar.js'
+                                 'jquery.dcjqaccordion.2.7.js',
+                                 'rails_admin/rails_admin.css',
+                                 'rails_admin/rails_admin.js',
+                                 'jquery.nicescroll.js']
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'

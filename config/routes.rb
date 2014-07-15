@@ -14,6 +14,7 @@ EvercamDashboard::Application.routes.draw do
 
    get 'publiccam' => 'public#index'
    get 'publiccam/:id' => 'public#single'
+   get 'publiccam/map' => 'public#location'
 
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]

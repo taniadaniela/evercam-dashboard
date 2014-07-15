@@ -12,7 +12,10 @@
  *= require bootstrap-3.1.1.css.scss
  *= require bootstrap-theme-3.1.1.min
  *= require ladda-themeless-0.8.0.min.css
- *= require style.css
  *= require fonts.css
  *= require jquery.datetimepicker-2.2.5.min.css
+ *= require metronic-components.css
+ *= require metronic-layout.css
+ *= require style.css
+ *= require uniform.default.min.css
  */

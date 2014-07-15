@@ -9,6 +9,16 @@
           </div>
         </li>-->
         <li>
+          <a href="/">Camera Dashboard</a>
+        </li>
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
+        </li>
+
+        <li>
+          <a href="/cameras/new">Add Camera</a>
+        </li>
+        <li>
           <a href="javascript:;" class="active">
             <span class="title">Developer</span>
             <span class="caret"></span>
@@ -22,25 +32,15 @@
               <a href="/widgets" class="active">
                 <span class="title">Widgets</span>
                 <span class="caret"></span>
-                </a>
+              </a>
               <ul class="sub-menu">
                 <li class="active">
                   <a href="/widgets-new">
-                   Live View</a>
+                    Live View</a>
                 </li>
               </ul>
             </li>
           </ul>
-        </li>
-        <li>
-          <a href="/">Camera Dashboard</a>
-        </li>
-        <li>
-          <a class="public-cam" href="/publiccam">Public Cameras</a>
-        </li>
-
-        <li>
-          <a href="/cameras/new">Add Camera</a>
         </li>
 
       </ul>
@@ -56,14 +56,10 @@
         Create a Live View Widget
       </h3>
       <div class="row">
-        <div class="col-md-9 margin-bottom-20">
-            <p>Create a widget and add it to your website using the tool below. Simply select your Camera,
-              the refresh rate of the snapshot and the width of the image and copy and paste the code in the HTML of your page.</p>
-        </div>
+
       </div>
       <div class="row">
         <div id="live-widget" class="widget-config">
-          <div class="col-lg-12"><h3>Configuration</h3></div>
           <% if @cameras.empty? %>
         <div class="col-md-12"><h5>No public, online cams found</h5></div>
         <% else %>
@@ -85,15 +81,15 @@
               </div>
             </div>
 
-            <div class="widget-input">
+            <div class="widget-input margin-top-20">
               <label for="widget-refresh-rate">Refresh Rate of Snapshot <small><em>(in Seconds)</em></small></label>
               <div class="input-group col-md-10">
-                <input type="number" value="5" class="form-control" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="5">
+                <input type="number" value="1" class="form-control" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1">
                 <span class="input-group-addon">seconds</span>
               </div>
             </div>
 
-            <div class="widget-input">
+            <div class="widget-input margin-top-20">
               <label for="widget-camera-width">Width of Camera Image to Display <small><em>(in px)</em></small></label>
               <div class="input-group col-md-10">
                 <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
@@ -103,10 +99,10 @@
           </form>
           <div class="margin-top-20 row widget-code">
             <div class="col-md-12">
-              <h5>HTML</h5>
-              <textarea id="code" class="code col-md-12" type="text">
+              <h5>Embed this code on your webpage</h5>
+              <textarea id="code" class="pretty-code col-md-12" type="text">
               </textarea>
-              <p class="help-text">Copy and paste the between the &#60;body&#62; tags of your site.</p>
+
             </div>
           </div>
         </div>
@@ -128,5 +124,30 @@
 
 </div>
 </div>
+<script>
+  $(document).ready(function() {
+    var copy_sel = $('.code-block a.code-copy');
 
+    // Disables other default handlers on click (avoid issues)
+    copy_sel.on('click', function(e) {
+      e.preventDefault();
+    });
+
+    // Apply clipboard click event
+    copy_sel.clipboard({
+      path: '/path/to/flashes/jquery.clipboard.swf',
+
+      copy: function() {
+        var this_sel = $(this);
+
+        // Hide "Copy" and show "Copied, copy again?" message in link
+        this_sel.find('.code-copy-first').hide();
+        this_sel.find('.code-copy-done').show();
+
+        // Return text in closest element (useful when you have multiple boxes that can be copied)
+        return this_sel.closest('.code-block').text();
+      }
+    });
+  });
+</script>
 <%= javascript_include_tag "widgets" %>

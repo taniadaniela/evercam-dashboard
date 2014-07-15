@@ -1,110 +1,125 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
+<div class="page-container">
+
 <!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
+<div class="page-sidebar-wrapper">
+  <div class="page-sidebar navbar-collapse collapse">
 
-        <li class="sub-menu">
-          <a href="/"><span>My Cameras</span></a>
-        </li>
-
-        <div class="nav-group">
-          <li>
-            <a href="/publiccam">Public Cameras</a>
-          </li>
+    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+      <!--<li class="sidebar-toggler-wrapper">
+        <div class="sidebar-toggler">
         </div>
-        <div class="nav-group">
-          <li>
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-          </li>
-          <li>
-            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-          </li>
-        </div>
-      </ul>
-    </div>
-  </div>
-</aside>
-<!-- sidebar menu end-->
-<section id="main-content">
-  <section class="wrapper">
-<div class="row">
-  <div class="panel-body">
-    <div class="col-md-12" id="user-settings"><h4>User Account Settings</h4></div>
-    <div class="col-xs-4">
-    <form id="userProfile" role="form" method="post" class="center-block">
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+      </li>-->
 
-      <div class="form-group">
-        <label for="user-firstname">First Name</label>
-        <input type="text" value="<%= current_user.firstname -%>" class="form-control" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
-      </div>
+      <li>
+        <a href="/dev">Developer</a>
+      </li>
+      <li>
+        <a href="/">Camera Dashboard</a>
+      </li>
+      <li>
+        <a href="/publiccam">Public Cameras</a>
+      </li>
 
-      <div class="form-group">
-        <label for="user-lastname">Last Name</label>
-        <input type="text" value="<%= current_user.lastname -%>" class="form-control" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
-      </div>
+      <li>
+        <a href="/cameras/new">Add Camera</a>
+      </li>
 
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" value="<%= current_user.email -%>" class="form-control" id="email" name="email" placeholder="Enter email">
-      </div>
-
-      <div class="form-group">
-        <label for="country">Country</label>
-        <select id="country" name="country" class="form-control is-required">
-          <% @countries.each do |c| %>
-          <option value="<%= c.iso3166_a2 -%>" <% if c == current_user.country %>selected="selected"<% end %>>
-          <%= c.name -%>
-          </option>
-          <% end %>
-        </select>
-      </div>
-
-      <!--<div class="alert alert-danger" id="userProfileErrors">
-        <strong>Error!</strong> <span class="alert-content"></span>
-      </div>-->
-
-      <input type="submit" class="btn btn-primary" value="Save" name="Save"/>
-    </form>
-    </div>
+    </ul>
   </div>
 </div>
-</section>
-  </section>
+<!-- sidebar menu end-->
+
+<div class="page-content-wrapper">
+<div class="page-content" id="add-ip">
+<!--main content start-->
+<!-- sidebar menu end-->
+
+<div class="col-md-6">
+  <!-- BEGIN SAMPLE FORM PORTLET-->
+  <div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-gift"></i> User Settings
+        </div>
+        <div class="tools">
+          <a href="" class="collapse">
+          </a>
+          <a href="#portlet-config" data-toggle="modal" class="config">
+          </a>
+          <a href="" class="reload">
+          </a>
+          <a href="" class="remove">
+          </a>
+        </div>
+    </div>
+
+      <div class="portlet-body form">
+        <form id="userProfile" role="form" method="post" class="form-horizontal">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+          <div class="form-body">
+
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="user-firstname">First Name</label>
+              <div class="col-md-6">
+              <input type="text" value="<%= current_user.firstname -%>" class="form-control" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="user-lastname">Last Name</label>
+              <div class="col-md-6">
+              <input type="text" value="<%= current_user.lastname -%>" class="form-control" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="email">Email address</label>
+              <div class="col-md-6">
+              <input type="email" value="<%= current_user.email -%>" class="form-control" id="email" name="email" placeholder="Enter email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="country">Country</label>
+              <div class="col-md-6">
+              <select id="country" name="country" class="form-control is-required">
+                <% @countries.each do |c| %>
+                  <option value="<%= c.iso3166_a2 -%>" <% if c == current_user.country %>selected="selected"<% end %>>
+                    <%= c.name -%>
+                  </option>
+                <% end %>
+              </select>
+              </div>
+            </div>
+
+            <div class="form-actions right1">
+              <div class="col-lg-offset-3 col-md-3">
+                <input type="submit" class="btn blue" value="Save" name="Save"/>
+              </div>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+  </div>
+  </div>
+
+
+
+</div>
+</div>
+
+
+
 <script>
-    //$(window.Evercam.Users.initialize);
-    Notification.init(".bb-alert");
-    <% if flash[:message] %>
-    Notification.show('<%= flash[:message] %>');
-    <% end %>
-
-    $(function() {
-
-      if ($.fn.niceScroll) {
-        $(".leftside-navigation").niceScroll({
-          cursorcolor: "#428bca",
-          cursorborder: "0px solid #fff",
-          cursorborderradius: "0px",
-          cursorwidth: "3px"
-        });
-
-        $(".leftside-navigation").getNiceScroll().resize();
-        if ($('#sidebar').hasClass('hide-left-bar')) {
-          $(".leftside-navigation").getNiceScroll().hide();
-        }
-        $(".leftside-navigation").getNiceScroll().show();
-
-        $(".right-stat-bar").niceScroll({
-          cursorcolor: "#1FB5AD",
-          cursorborder: "0px solid #fff",
-          cursorborderradius: "0px",
-          cursorwidth: "3px"
-        });
-
-      }
-    });
+  //$(window.Evercam.Users.initialize);
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
 </script>

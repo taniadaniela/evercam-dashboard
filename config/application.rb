@@ -59,8 +59,7 @@ module EvercamDashboard
                                  'jquery.cookie.js',
                                  'jquery.datetimepicker-2.2.5.min.js',
                                  'jquery.datetimepicker-2.2.5.min.css',
-                                 'jquery.dcjqaccordion.2.7.js',
-                                 'jquery.nicescroll.js']
+                                 'quick-sidebar.js']
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'

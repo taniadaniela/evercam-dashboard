@@ -16,64 +16,56 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
   <![endif]-->
 </head>
-<body data-no-turbolink>
+<body class="page-header-fixed page-quick-sidebar-over-content" data-no-turbolink>
+
 <% if signed_in? %>
-<section id="container">
-<header class="header fixed-top clearfix">
-<!--logo start-->
-<div class="brand">
+  <div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner">
+      <!-- BEGIN LOGO -->
+      <div class="page-logo">
+        <a class="logo-default" href="/"><img src="https://www.evercam.io/img/logo-av.png"></a>
 
-  <a class="logo" href="/"><img src="https://www.evercam.io/img/logo-av.png"></a>
-
-  <div class="sidebar-toggle-box">
-    <div class="glyphicon glyphicon-list"></div>
-  </div>
-</div>
-<!--logo end-->
-
-
-<div class="top-nav clearfix">
-  <!--search & user info start-->
-  <ul class="nav pull-right top-menu">
-    <li>
-      <a href="/cameras">
-        Cameras
-      </a>
-    </li>
-    <li>
-      <a href="/dev">
-        Developer
-      </a>
-    </li>
-    <!-- user login dropdown start-->
-    <li class="dropdown">
-      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-        <img width="18" height="18" src="https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y">
-        <%= current_user.username %>
-        <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu extended logout">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">Settings</a></li>
-        <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
-      </ul>
-    </li>
-    <!-- user login dropdown end -->
-    <li>
-      <div class="toggle-right-box">
-        <div class="glyphicon glyphicon-list"></div>
       </div>
-    </li>
-  </ul>
-  <% else %>
-    <!--<li><%= link_to "Sign in", signin_path, class: "" %></li>-->
-  <% end %>
-  <!--search & user info end-->
+      <!-- END LOGO -->
+
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <div class="top-menu">
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown dropdown-user">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+              <img class="img-circle" width="18" height="18" src="https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y">
+					<span class="username">
+					<%= current_user.fullname %>
+            <b class="caret"></b>
+          </span>
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">Settings</a></li>
+              <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+      <!-- END TOP NAVIGATION MENU -->
+      </div>
+<% else %>
+  <!--<li><%= link_to "Sign in", signin_path, class: "" %></li>-->
+<% end %>
+
+
+
+  </div>
+  <!-- END HEADER INNER -->
+<div class="clearfix">
 </div>
-</header>
+  <!-- END HEADER -->
         <%= yield %>
 
 
-
+<!--
 <div id="footer">
 
     <div class="row">
@@ -86,7 +78,7 @@
           <li><a href="http://www.evercam.io/contact" target="_blank">/contact</a></li>
         </ul>
 
-    </div><!-- End Row -->
+    </div><!-- End Row
 
 </div><!-- End Footer Section -->
 

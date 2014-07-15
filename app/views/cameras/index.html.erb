@@ -1,18 +1,75 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<%= render :partial => "sidebar/sidebar" %>
-<section id="main-content">
-  <section class="wrapper site-min-height">
-    <section id="camera-dash">
+<div class="page-container" id="camera-index">
+  <div class="page-sidebar-wrapper">
+    <!-- sidebar menu start-->
+    <div class="page-sidebar navbar-collapse collapse">
 
+      <ul id="nav-accordion" class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <!--<li class="sidebar-toggler-wrapper">
+           BEGIN SIDEBAR TOGGLER BUTTON -->
+        <!--<div class="sidebar-toggler">
+        </div>-->
+        <!-- END SIDEBAR TOGGLER BUTTON
+      </li>-->
+        <li>
+          <a href="/dev">
+            <span class="title">Developer</span>
+          </a>
 
+        </li>
+
+        <li>
+          <a class="active" href="javascript:;">
+            <span class="title open">Camera Dashboard</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="sub-menu">
+            <% @cameras.each do |camera| %>
+            <li class="sub-menu-item">
+              <a href="/cameras/<%= camera['id'] %>?share=false">
+                <div id="offline-menu"> <% if camera['is_online'] %>
+                  <% else %>
+                    <span class="red-dot"><small>off</small></span>
+                  <% end %>
+                </div>
+                <%= camera['name'] %>
+              </a>
+            </li>
+            <% end %>
+            <% @shares.each do |camera| %>
+              <li class="sub-menu-item">
+                <span class="share-icon"></span>
+                <a href="/cameras/<%= camera['id'] %>?share=true">
+                  <div id="offline-menu">
+                    <% if camera['is_online'] %>
+                    <% else %>
+                      <span class="red-dot"><small>off</small></span>
+                    <% end %>
+                  </div>
+                  <%= camera['name'] %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
+        </li>
+
+        <li>
+          <a href="/cameras/new">Add Camera</a>
+        </li>
+      </ul>
+    </div>
+    <!-- sidebar menu end-->
+  </div>
+<div class="page-content-wrapper">
+  <div class="page-content">
 
       <!--main content start-->
-
-
-          <div>
-
             <% @cameras.each do |camera| %>
               <a href="/cameras/<%= camera['id'] %>?share=false">
                 <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
@@ -50,14 +107,11 @@
                 <p><span class="glyphicon glyphicon-plus"></span>Add an IP Camera</p>
               </a>
             </div>
-
-          </div>
-        </section>
-
       <!--main content end-->
-    </section>
-  </section>
-</section>
+
+  </div>
+</div>
+</div>
 <%= javascript_include_tag "cameras" %>
 <script type="text/javascript">
 

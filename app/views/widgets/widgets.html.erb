@@ -1,33 +1,65 @@
-<!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
+<div class="page-container" id="public-index">
+  <!-- sidebar menu start-->
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+
+      <ul id="nav-accordion" class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <!--<li class="sidebar-toggler-wrapper">
+          <div class="sidebar-toggler">
+          </div>
+        </li>-->
         <li>
-          <a href="/dev">Interactive Docs</a>
+          <a href="javascript:;" class="active">
+            <span class="title">Developer</span>
+            <span class="caret"></span>
+
+          </a>
+          <ul class="sub-menu">
+            <li>
+              <a href="/dev">
+                API</a>
+            </li>
+            <li>
+              <a  class="active" href="/widgets">
+                Widgets</a>
+            </li>
+          </ul>
         </li>
         <li>
-          <a class="active" href="/widgets">Widgets</a>
+          <a href="/">Camera Dashboard</a>
         </li>
-      </ul></div>
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
+        </li>
+
+        <li>
+          <a href="/cameras/new">Add Camera</a>
+        </li>
+
+      </ul>
+    </div>
   </div>
-</aside>
-<!-- sidebar menu end-->
-<!--main content start-->
-<section id="main-content">
-  <section class="wrapper site-min-height">
+  <!-- sidebar menu end-->
+  <div class="page-content-wrapper">
+    <div class="page-content">
+
       <!--main content start-->
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <!--progress bar start-->
-        <section class="panel">
-          <header class="panel-heading">
-            Live View Widget
-            <span class="tools pull-right">
-                           <a href="/widgets-new" type="submit" id="new_widget"><span class="glyphicon glyphicon-plus"></span>Create New Widget</a>
-                            </span>
-          </header>
+
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <h3 class="page-title">Live View Widget</h3>
+              </div>
+              <div class="col-md-6">
+                <a href="/widgets-new" type="submit" class="btn btn-primary pull-right" id="new_widget">Create a Widget</a>
+              </div>
+            </div>
+          </div>
+
           <div class="panel-body">
             <p> Our Live View Widget allows you to easily embed a Live View (refreshing JPEGs) from any connected camera, straight onto your site or in your app.</p>
             <p>The first step to getting the live view on your website is to put the following 2 lines of code inside the the &lt;head&gt; tag on your site:</p>
@@ -36,23 +68,11 @@
             <p>Then all you need to do is output the following code between the &lt;body&gt; tags on your site and you have your live view widget:</p>
             <pre><code>&lt;img evercam="{your camera id here}" width="640" height="100%" refresh="2000"&gt;</code></pre>
           </div>
-        </section>
+
         <!--progress bar end-->
 
       </div>
-      <div class="col-md-6">
-        <!--progress bar start-->
-        <section class="panel">
-          <header class="panel-heading">
-            Recorded Widget
-          </header>
-          <div class="panel-body">
-            <p>Coming soon.</p>
-          </div>
-        </section>
-        <!--progress bar end-->
 
-      </div>
     </div>
 
 
@@ -61,6 +81,6 @@
 
 
       <!--main content end-->
-  </section>
-</section>
-
+</div>
+</div>
+</div>

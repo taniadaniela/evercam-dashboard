@@ -1,48 +1,49 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div id="public-index">
-<!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
 
-        <li class="sub-menu">
-          <a href="/"><span>My Cameras</span></a>
+<div class="page-container" id="public-index">
+  <!-- sidebar menu start-->
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+
+      <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <!--<li class="sidebar-toggler-wrapper">
+          <div class="sidebar-toggler">
+          </div>
+        </li>-->
+
+        <li>
+          <a href="/dev">Developer</a>
+        </li>
+        <li>
+          <a href="/">Camera Dashboard</a>
+        </li>
+        <li>
+          <a class="active" href="/publiccam">Public Cameras</a>
         </li>
 
-        <div class="nav-group">
-          <li>
-            <a class="active" href="/publiccam">Public Cameras</a>
-          </li>
-        </div>
-        <div class="nav-group">
-          <li>
-            <a href="/cameras/new"><span class="glyphicon glyphicon-plus"></span>Add IP Camera</a>
-          </li>
-          <li>
-            <a href="/add-android"><span class="glyphicon glyphicon-plus"></span>Add Android Camera</a>
-          </li>
-        </div>
+        <li>
+          <a href="/cameras/new">Add Camera</a>
+        </li>
+
       </ul>
     </div>
   </div>
-</aside>
-<!-- sidebar menu end-->
-<section id="main-content">
-  <section class="wrapper site-min-height">
+  <!-- sidebar menu end-->
+  <div class="page-content-wrapper">
+    <div class="page-content">
 
-    <section class="panel">
+
           <!-- Nav tabs -->
-        <div class="panel-heading">
+       <!-- <div class="panel-heading">
            <ul class="nav nav-tabs">
             <li id="grid-style" class="<%= 'active' unless cookies['public-style'] == 'list' %>"><a href="#grid" data-toggle="tab"><span class="glyphicon glyphicon-th"></span>Grid</a></li>
             <li id="list-style" class="<%= 'active' if cookies['public-style'] == 'list' %>"><a href="#map" data-toggle="tab"><span class="glyphicon glyphicon-align-justify"></span>Map</a></li>
           </ul>
-         </div>
+         </div>-->
           <!-- Tab panes -->
-          <div class="tab-content">
+         <!-- <div class="tab-content">-->
             <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="grid">
               <% @cameras.each do |c| %>
 
@@ -66,7 +67,7 @@
                   </div>
 
               </div><!-- #row -->
-            </div>
+      <!--</div>-->
 
             <% unless @pages.blank? %>
             <div class="col-md-12">
@@ -84,17 +85,7 @@
 
           </div>
         </div><!-- #PUBLICCAMS -->
-        </section>
-      </div>
-      <!--main content end-->
-    </section>
-  </div>
-</div> <!--boxed page end-->
 
-
-
-  </section>
-</section>
 </div>
 <%= javascript_include_tag "publiccam" %>
 <script>

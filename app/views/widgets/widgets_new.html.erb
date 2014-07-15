@@ -1,39 +1,74 @@
-<!-- sidebar menu start-->
-<aside>
-  <div id="sidebar" class="nav-collapse">
-    <div class="leftside-navigation">
-      <ul class="sidebar-menu" id="nav-accordion">
+<div class="page-container">
+  <!-- sidebar menu start-->
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+
+      <ul id="nav-accordion" class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <!--<li class="sidebar-toggler-wrapper">
+          <div class="sidebar-toggler">
+          </div>
+        </li>-->
         <li>
-          <a href="/dev">Interactive Docs</a>
+          <a href="javascript:;" class="active">
+            <span class="title">Developer</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="sub-menu">
+            <li>
+              <a href="/dev">
+                API</a>
+            </li>
+            <li>
+              <a href="/widgets" class="active">
+                <span class="title">Widgets</span>
+                <span class="caret"></span>
+                </a>
+              <ul class="sub-menu">
+                <li class="active">
+                  <a href="/widgets-new">
+                   Live View</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
         <li>
-          <a href="/widgets">Widgets</a>
+          <a href="/">Camera Dashboard</a>
         </li>
-      </ul></div>
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
+        </li>
+
+        <li>
+          <a href="/cameras/new">Add Camera</a>
+        </li>
+
+      </ul>
+    </div>
   </div>
-</aside>
-<!-- sidebar menu end-->
-<section id="main-content">
-  <section class="wrapper site-min-height">
+  <!-- sidebar menu end-->
+  <div class="page-content-wrapper">
+    <div class="page-content">
   <!--main content start-->
 
-    <section class="panel">
-      <header class="panel-heading">
-        Create a Live View Widgeta
 
-      </header>
-      <div class="panel-body">
-
-          <p>Create a widget and add it to your website using the tool below. Simply select your Camera,
-            the refresh rate of the snapshot and the width of the image and copy and paste the code in the HTML of your page.</p>
-
+      <h3 class="page-title">
+        Create a Live View Widget
+      </h3>
+      <div class="row">
+        <div class="col-md-9 margin-bottom-20">
+            <p>Create a widget and add it to your website using the tool below. Simply select your Camera,
+              the refresh rate of the snapshot and the width of the image and copy and paste the code in the HTML of your page.</p>
+        </div>
+      </div>
       <div class="row">
         <div id="live-widget" class="widget-config">
-        <% if @cameras.empty? %>
-        <h3>No public, online cams found</h3>
+          <div class="col-lg-12"><h3>Configuration</h3></div>
+          <% if @cameras.empty? %>
+        <div class="col-md-12"><h5>No public, online cams found</h5></div>
         <% else %>
         <div class="col-md-5">
-          <h5>Configuration</h5>
+
 
           <form id="widget-new" role="form" method="post" class="center-block">
 
@@ -66,7 +101,7 @@
               </div>
             </div>
           </form>
-          <div class="row widget-code">
+          <div class="margin-top-20 row widget-code">
             <div class="col-md-12">
               <h5>HTML</h5>
               <textarea id="code" class="code col-md-12" type="text">
@@ -85,11 +120,13 @@
       </div>
     </div>
 
-      </div>
-    </div>
-    </section>
-  </section>
-</section>
+
+
+
   <!--main content end-->
+
+
+</div>
+</div>
 
 <%= javascript_include_tag "widgets" %>

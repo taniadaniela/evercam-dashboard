@@ -14,7 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-3.1.1.min
+//= require bootstrap
 //= require spin-1.3.2.min
 //= require ladda-0.8.0.min
 //= require editable-1.5.1.min

@@ -1019,6 +1019,8 @@ Page sidebar
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > .sub-menu > li > .sub-menu > li > a {
     padding-left: 80px;
 }
+
+
 .page-sidebar .page-sidebar-menu li.active > .sub-menu,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li.active > .sub-menu {
     display: block;
@@ -5546,6 +5548,7 @@ Page Header
 .page-sidebar .page-sidebar-menu > li.open > a > i {
     color: #E5E5E5;
 }
+
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > .arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > .arrow.open:before,
 .page-sidebar .page-sidebar-menu > li:hover > a > .arrow:before,
 .page-sidebar .page-sidebar-menu > li:hover > a > .arrow.open:before,
@@ -5639,9 +5642,11 @@ Page Header
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a,
-.page-sidebar .page-sidebar-menu .sub-menu > li.open > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
     background: #f5f5f5 !important;
+}
+.page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
+    color:#428bca;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a > i,
 .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a > i,
@@ -5676,6 +5681,10 @@ Page Header
 .page-sidebar .sidebar-search .input-group .form-control::-moz-placeholder {
     color: #a4acb5;
     opacity: 1;
+}
+.page-sidebar .page-sidebar-menu .sub-menu .active > li > a {
+
+    color:#428bca;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .form-control:-ms-input-placeholder,
 .page-sidebar .sidebar-search .input-group .form-control:-ms-input-placeholder {
@@ -14516,7 +14525,7 @@ background-color:#e5e5e5;
 /*/////////////////////
 //ADD IP CAMERA PAGE
 /////////////////////*/
-#add-ip label {
+#add-ip {
 
 }
 .additional {
@@ -14691,7 +14700,7 @@ input:-webkit-autofill {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
     border-bottom-left-radius: 1px;
     cursor: pointer;
-    padding: 0 10px;
+    padding: 10px 0 5px;
     position: absolute;
     margin-left: -80px;
     left: 50%;

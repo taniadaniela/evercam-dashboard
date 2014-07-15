@@ -1,8 +1,8 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="page-container">
 
+<div class="page-container">
 <!-- sidebar menu start-->
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
@@ -210,27 +210,11 @@
                   <div id="test-error"></div>
                 </div>
               </div>
-              <div class='col-md-5 form-group<%= field_errors["password"] ? ' has-error' : '' %>'>
-                <%= label_tag('camera-password', "Camera Password", class: "control-label") %>
-                <%= password_field_tag("camera-password", @user['camera-password'], class: "form-control") %>
-                <% if field_errors["password"] %>
-                  <span class="help-block form-error text-left"><%= field_errors["password"] %></span>
-                <% end %>
-              </div>
 
             </div><!-- col-12 -->
 
           </div><!-- row -->
 
-        <div class='col-lg-4'>
-          <div class="test-snapshot">
-            <div class="vertical-align">
-              <span class="glyphicon glyphicon-arrow-right blue"></span>
-            </div>
-            <a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>
-            <div id="test-error"></div>
-          </div>
-        </div>
 
           <fieldset>
             <div class="add-row-bottom">

@@ -19,8 +19,16 @@
                 API</a>
             </li>
             <li>
-              <a href="/widgets">
-                Widgets</a>
+              <a href="/widgets-new">
+                <span class="title">Widgets</span>
+                <span class="caret"></span>
+              </a>
+              <ul class="sub-menu">
+                <li>
+                  <a href="/widgets-new">
+                    Live View</a>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
@@ -111,21 +119,3 @@
 </div>
 </div>
 </div>
-<script>
-  $(function() {
-
-    if ($.fn.dcAccordion) {
-      $('#nav-accordion').dcAccordion({
-        eventType: 'click',
-        autoClose: false,
-        saveState: true,
-        disableLink: true,
-        speed: 'slow',
-        showCount: false,
-        autoExpand: true,
-        classExpand: 'dcjq-current-parent'
-      });
-    }
-
-  });
-</script>

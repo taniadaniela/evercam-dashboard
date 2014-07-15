@@ -1,0 +1,791 @@
+/*/////////////////////
+//CAMERA INDEX PAGE
+/////////////////////*/
+#camera-index .page-content-wrapper .page-content {
+    padding:0;
+}
+
+#my-cameras .panel-body, #my-shared-cameras .panel-body {
+    padding: 0px;
+}
+
+#cam-name {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.60);
+    padding: 10px 10px 0px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-bottom-left-radius:1px;
+    cursor:pointer;
+}
+
+.cam-box:hover #cam-refresh {
+    visibility: visible;
+    opacity: 1;
+}
+
+#cam-refresh {
+    visibility: hidden;
+    opacity: 0;
+    color: #AAAAAA;
+    margin-left: 5px;
+    transition:visibility 0s linear 0.1s,opacity 0.4s linear;
+}
+#cam-refresh:hover {
+    color: #428BCA;
+}
+.green {
+    color:#2ECC71;
+}
+.red {
+    color:#DC4C3F;
+}
+.grey {
+    color:#aaa;
+}
+#offline {
+    bottom: 5px;
+    color: #AAAAAA;
+    left: 50%;
+    margin-left: -28px;
+    position: absolute;
+}
+
+.cam-box {
+    height: 357px;
+    overflow: hidden;
+    text-align: center;
+background-color:#e5e5e5;
+
+}
+.cam-box:nth-child(3n+3) {
+    margin-right: 0px;
+}
+@media (max-width: 480px) {
+    .cam-box {
+        width: 100%;
+    }
+}
+.add-cam-box {
+    padding-left: 0;
+    padding-right: 0;
+    width: 33.334%;
+    height: 357px;
+    line-height: 350px;
+    overflow: hidden;
+    text-align: center;
+
+}
+.add-cam-box p {
+    border: 1px solid #f5f5f5;
+    background-color: #fff;
+}
+@media (max-width: 480px) {
+    .add-cam-box {
+        width: 100%;
+    }
+}
+
+.cam-box img {
+    height: 120%;
+    /*background-image: url("https://www.evercam.io/img/error.png");*/
+    color:#ffffff;
+    margin-left: -15px;
+
+}
+.logo-default img {
+    max-width: 200px;
+}
+
+/*/////////////////////
+//ADD IP CAMERA PAGE
+/////////////////////*/
+#add-ip {
+
+}
+.additional {
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.label {
+    margin-top: 30px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 25px;
+}
+.info-sm {
+    position: relative;
+    right: 0;
+    top: 33px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.test-snapshot {
+    margin-top: 40px;
+
+}
+#testimg-add {
+    width: 202px;
+    background-image: url('https://www.evercam.io/img/connect-add.png');
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    top: 120px;
+    margin-left: -58px;
+}
+#test-error {
+    text-align: center;
+    display: block;
+    max-width: 103px;
+}
+#test {
+    margin-bottom: 8px;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #f5f5f5 inset;
+}
+.help {
+    padding: 0px 15px;
+    color: #428bca;
+    border-left: 2px solid #428bca;
+    margin-left: 15px;
+    margin-top: 12px;
+}
+.help-sm {
+    padding: 0px;
+    color: #666666;
+    border-left: 2px solid #428bca;
+    padding-left: 12px;
+    margin-bottom: 20px;
+}
+.help-block {
+    font-size: 10px;
+    width:110%;
+    margin-bottom: 0;
+    margin-top: 2px;
+}
+#add-button {
+    padding: 10px 30px;
+    margin-top: 10px;
+}
+
+.media .test-snapshot a {
+    color:#ffffff;
+    font-weight: 600;
+}
+.add-row {
+    /*border-top: 1px solid #F5F5F5;*/
+    padding: 13px 0 10px;
+}
+.add-row-bottom {
+    padding: 15px 0;
+    /*border-top: 1px solid #F5F5F5;*/
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+    opacity: 1;
+    border: none;
+    cursor: pointer;
+    /*border-left: 1px solid #aaa !important;
+    border-bottom: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;*/
+    border-radius: 0px !Important;
+    color:#428bca;
+}
+.form-control[disabled]:focus, .form-control[readonly]:focus, fieldset[disabled]:focus .form-control:focus {
+    box-shadow: none;
+    cursor:pointer;
+}
+
+.model {
+    min-width: 259px;
+}
+.add-row .form-group {
+    margin-bottom: 0px;
+}
+.vertical-align {
+    display: inline-block;
+    margin-left: -26px;
+
+}
+
+.glyphicon-arrow-right {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#ext-ip .help-block {
+    display: none; /*temp-fix*/
+}
+.snap-path, .make-model {
+    margin-top: 7px;
+}
+.snap-end {
+    min-width:173px;
+}
+.prepend {
+    margin-left: -16px;
+    margin-top: 6px;
+    font-family: 'proxima-nova-bold';
+    position: absolute;
+}
+
+/*///////////////////////////
+// PUBLIC CAMS
+///////////////////////////*/
+#public-index .page-content-wrapper .page-content {
+    padding:0px;
+}
+
+.public-cam-box {
+    height: 350px;
+    line-height: 250px;
+    overflow: hidden;
+    text-align: center;
+
+}
+.public-cam-box img {
+    height:120%;
+    margin-left: -15px;
+
+}
+.add-to-cams {
+    position: absolute;
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
+    border-bottom-left-radius: 1px;
+    cursor: pointer;
+    padding: 10px 0 5px;
+    position: absolute;
+    margin-left: -80px;
+    left: 50%;
+    top:50%;
+    background-color: #428bca;
+    margin-top: -12px;
+    visibility: hidden;
+    border-radius: 1px;
+    opacity: 0;
+}
+.add-to-cams:hover {
+    background-color: #3680c0;
+}
+.add-to-cams a {
+    color: #FFFFFF;
+}
+
+.public-cam-box:hover .add-to-cams {
+    visibility: visible;
+    opacity:1;
+    transition: visibility 0s linear 0.1s,opacity 0.3s linear;
+}
+.create-share-button {
+    margin-top: -3px;
+}
+
+#public-cam-single .glyphicon-plus {
+    margin-left: 8px;
+    float: right;
+    border: 1px solid #428bca;
+    border-radius: 56%;
+    padding: 5px 5px 6px 6px;
+    top: -5px;
+    color: #428bca;
+}
+
+.glyphicon-arrow-left {
+    margin-right: 5px;
+}
+
+/*/////////////////////
+//SINGLE CAMERA PAGE
+/////////////////////*/
+
+.camera-title {
+
+}
+
+/*LIVE*/
+#live img {
+    width: 100%;
+}
+
+#live .panel-body {
+    padding: 0px;
+}
+.tab-content h4 {
+    margin-bottom: 5px;
+    font-family: 'proxima-nova-regular', 'Open Sans',sans-serif;
+}
+.camera-preview {
+    position: relative;
+}
+#live .panel {
+    width: auto;
+}
+.panel {
+    margin-bottom: 20px;
+    background: none;
+    background-color: #fff;
+    box-shadow:none;
+    border: none;
+}
+#live .btn {
+    padding: 14px 18px;
+    margin-top: 1px;
+    margin-left: 10px;
+}
+.offline {
+    background-color: #DC4C3F;
+    color: #fff;
+}
+.online {
+    background-color: #2ECC71;
+    color: #fff;
+}
+.green {
+    color: #2ECC71;
+    margin-top: 10px;
+}
+.red {
+    color: #DC4C3F;
+    margin-top: 10px;
+}
+#live-refresh {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+    border-top-right-radius: 1px;
+    font-weight: 600;
+    padding: 5px 10px;
+    position: absolute;
+    left: 15px;
+    text-transform: uppercase;
+    bottom: 15px;
+}
+.tint img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+.tint img:hover {
+    -webkit-filter: grayscale(10%);
+    -moz-filter: grayscale(10%);
+    filter: grayscale(10%);
+    -moz-transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    -o-transition: all .1s linear;
+    transition: all .1s linear;
+}
+/* INFO */
+.first-row {
+max-width:200px;
+    min-width:200px;
+}
+#info .table>tbody>tr>td {
+padding:0px;
+}
+#info .table>thead>tr>th {
+    padding: 0px 0 4px;
+}
+/*EXPLORER */
+#exp-swagger .container {
+    width: 100%;
+    margin-top: -40px;
+ }
+
+/*SHARING*/
+.note {
+    font-size: 12px;
+    border-left: 2px solid #428bca;
+    padding: 3px 8px;
+    background-color: #f9f9f9;
+    clear:both;
+    float: left;
+    margin-top: 8px;
+}
+.sharing {
+    margin-top: -9px;
+}
+.delete-share-request-control {
+    margin-top: 4px;
+}
+#sharing .table > tbody > tr > td {
+    vertical-align: middle;
+    padding:  0px 10px;
+}
+#sharing .radio input[type="radio"] {
+    width: 125px;
+}
+#sharing .radio {
+    min-height:24px;
+}
+.share-section {
+    margin-bottom: 15px;
+}
+#sharingUserEmail {
+    width:280px;
+}
+.email-input {
+    margin-top: -25px;
+}
+/*LOGS*/
+#apply-types {
+    margin: 20px 0px;
+}
+.glyphicon-cog {
+    font-size: 16px;
+}
+.checkbox-inline input[type="checkbox"] {
+    float: left;
+    margin-left: -19px;
+    width: 18px;
+    margin-top: 4px;
+}
+
+input:focus {
+    box-shadow: none;
+}
+
+#explorer #resources {
+    width: 100% !important
+}
+
+/*CAMERA SETTINGS*/
+#camera-settings label{
+    font-weight:normal;
+    padding-top:5px;
+    font-family: 'proxima-nova-regular', 'Open Sans', helvetica, arial;
+}
+#camera-settings .form-control {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#camera-settings .input-group-addon {
+    background-color: #fff;
+    border: none;
+}
+#testimg {
+    max-width: 328px;
+    background-image: url('https://www.evercam.io/img/connect.png');
+    border: 1px solid #fff;
+    height: 227px;
+}
+.radio label {
+    float:left;
+}
+.settings-id {
+    width: 168px;
+    padding-left: 10px;
+    margin-top: 6px;
+}
+/*///////////////////////////
+// BB ALERT STYLES
+///////////////////////////*/
+.bb-alert {
+    position: fixed;
+    top: 3.3%;
+    left: 50%;
+    padding: 0.8em 1em;
+    z-index: 10000;
+    font-size: 13px;
+    margin-left: -155px;
+    width: 315px;
+    text-align: center;
+}
+#signin .bb-alert {
+    position: absolute;
+    top: 71px;
+
+}
+.bbb-alert {
+    padding: 0.8em 1em;
+    z-index: 2000;
+    font-size: 13px;
+    margin-left: -155px;
+    width: 315px;
+    text-align: center;
+}
+.alert-info {
+    background-image: none;
+    border-color: #428bca;
+    border-radius: 2px;
+}
+/*/////////////////////
+//DEV
+/////////////////////*/
+#swagger-ui-container .container {
+    float: left;
+}
+#apikeys {
+    margin: 20px 4px 40px;
+}
+/*/////////////////////
+//SIGN IN FORM
+/////////////////////*/
+#sign-in-section {
+    background-color:#f5f5f5;
+}
+#sign-in {
+    border: 1px solid #E5E5E5;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    background-color: #ffffff;
+    padding: 40px 0;
+}
+#sign-in .row {
+    margin-top: 20px;
+}
+#sign-in label {
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+#signin .branding {
+    margin: 30px auto 30px;
+
+
+}
+#signin .branding img {
+
+    max-width: 200px;
+}
+#sign-in textarea, input {
+    border: 1px solid #E5E5E5;
+    background-color: #F5F5F5;
+    border: 1px solid #E5E5E5;
+    box-shadow: none;
+    color: #404142;
+    padding: 4px;
+}
+#sign-in textarea, input:focus {
+    border-color: #428BCA;
+    box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
+}
+#sign-in input {
+    width: 100%;
+    margin: 0 auto;
+}
+.sign-in {
+    margin-top: 34px;
+}
+
+/*CREATE ACCOUNT FORM - SIGNUP*/
+#new-account {
+    background-color:#f5f5f5;
+}
+#registration {
+    border: 1px solid #E5E5E5;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    background-color: #ffffff;
+    padding: 20px 0 40px;
+}
+#registration .row {
+    margin-top: 12px;
+}
+#registration h3{
+    padding-bottom:10px;
+}
+#registration label {
+    font-weight: normal;
+    margin-top: 7px;
+    min-width: 106px;
+    margin-left: -14px;
+    text-align: left;
+}
+#registration textarea, input {
+    border: 1px solid #E5E5E5;
+    background-color: #F5F5F5;
+    border: 1px solid #E5E5E5;
+    box-shadow: none;
+    color: #404142;
+    padding: 4px;
+    font-size: 14px;
+    width: 100% ;
+}
+#registration textarea, input:focus {
+    border-color: #428BCA;
+    box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
+}
+
+.create {
+    margin-top: 20px !important;
+}
+.use {
+    font-size:10px;
+}
+select {
+    width: 100%;
+}
+@-moz-document url-prefix() {
+
+    #country {
+        background-image: none;
+    }
+
+}
+/* Chrome fix for input colors */
+input:-webkit-autofill {
+    -webkit-box-shadow:0 0 0 50px #f8f8f8 inset !important; /* Change the color to your own background color */
+    -webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 50px #f8f8f8 inset;
+    -webkit-text-fill-color: #333;
+    background-color: #f5f5f5 !important;
+}
+
+/* tooltip errors sign-in */
+@media (min-width: 890px) {
+    #registration .has-error .help-block {
+        color: #a94442;
+        position: absolute;
+        display: inline;
+        left: 99%;
+        top: -6px;
+        overflow: visible;
+        width: 112%;
+        background-color: #f2dede;
+        padding: 5px 6px;
+        border-radius: 2px;
+        line-height: 16px;
+        font-size: 14px;
+    }
+    .arrow_box {
+        position: relative;
+        background: #f2dede;
+        border: 1px solid #dca7a7;
+    }
+    .arrow_box:after, .arrow_box:before {
+        right: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .arrow_box:after {
+        border-color: rgba(242, 222, 222, 0);
+        border-right-color: #f2dede;
+        border-width: 5px;
+        margin-top: -5px;
+    }
+    .arrow_box:before {
+        border-color: rgba(220, 167, 167, 0);
+        border-right-color: #dca7a7;
+        border-width: 6px;
+        margin-top: -6px;
+    }
+}
+
+.has-error .form-control {
+    background-color: #F5F5F5 !important;
+    border: 1px solid #E5E5E5;
+    box-shadow: none;
+    padding: 6px;
+    color: #404142;
+}
+/*/////////////////////
+//SIDEBAR
+/////////////////////*/
+#offline-menu {
+    float: right;
+}
+.red-dot {
+    color: #DC4C3F;
+    position: relative;
+    right: -9px;
+    top: -1px;
+    border: 1px solid #e9eaed;
+    border-radius: 2px;
+    padding: 0px 2px 1px 2px;
+}
+.green-dot {
+    color: #2ECC71;
+    position: absolute;
+    right: -9px;
+    top: 8px;
+    border: 1px solid #e9eaed;
+    border-radius: 2px;
+    padding: 0px 2px 1px 2px;
+}
+
+.sub-menu-item a {
+    border: none !important;
+    padding-left: 30px !important;
+}
+.share-icon {
+    background-image: url('https://www.evercam.io/img/share.png');
+    width: 19px;
+    display: block;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    height: 9px;
+    float: left;
+    margin-top: 16px;
+    margin-left: 7px;
+}
+
+/*/////////////////////
+//TABLE
+/////////////////////*/
+
+.table-borderless td {
+    border-top:none !important;
+    border-bottom:none !important;
+    line-height:2.2 !Important;
+}
+.table-borderless th {
+    border-top:none !important;
+    border-bottom:none !important;
+}
+.table-borderless tfoot td {
+    border-bottom:none;
+}
+.table-borderless-2 {
+    border-bottom:none !important;
+    width:auto;
+}
+.table-clean > tbody > tr > td{
+    border-right: none !Important;
+}
+table.table-clean thead th {
+    border-right: none !Important;
+}
+#offline-menu {
+    float: right;
+
+}
+
+#main-content {
+margin-left: 236px;}
+.hide-left-bar {
+    margin-left:-236px !important;
+
+}
+
+.merge-left {
+    margin-left:0px !important;
+}

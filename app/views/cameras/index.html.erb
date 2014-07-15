@@ -1,8 +1,71 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="page-container">
-<%= render :partial => "sidebar/sidebar" %>
+<div class="page-container" id="camera-index">
+  <div class="page-sidebar-wrapper">
+    <!-- sidebar menu start-->
+    <div class="page-sidebar navbar-collapse collapse">
+
+      <ul id="nav-accordion" class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <!--<li class="sidebar-toggler-wrapper">
+           BEGIN SIDEBAR TOGGLER BUTTON -->
+        <!--<div class="sidebar-toggler">
+        </div>-->
+        <!-- END SIDEBAR TOGGLER BUTTON
+      </li>-->
+        <li>
+          <a href="/dev">
+            <span class="title">Developer</span>
+          </a>
+
+        </li>
+
+        <li>
+          <a class="active" href="javascript:;">
+            <span class="title open">Camera Dashboard</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="sub-menu">
+            <% @cameras.each do |camera| %>
+            <li class="sub-menu-item">
+              <a href="/cameras/<%= camera['id'] %>?share=false">
+                <div id="offline-menu"> <% if camera['is_online'] %>
+                  <% else %>
+                    <span class="red-dot"><small>off</small></span>
+                  <% end %>
+                </div>
+                <%= camera['name'] %>
+              </a>
+            </li>
+            <% end %>
+            <% @shares.each do |camera| %>
+              <li class="sub-menu-item">
+                <span class="share-icon"></span>
+                <a href="/cameras/<%= camera['id'] %>?share=true">
+                  <div id="offline-menu">
+                    <% if camera['is_online'] %>
+                    <% else %>
+                      <span class="red-dot"><small>off</small></span>
+                    <% end %>
+                  </div>
+                  <%= camera['name'] %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+
+        <li>
+          <a class="public-cam" href="/publiccam">Public Cameras</a>
+        </li>
+
+        <li>
+          <a href="/cameras/new">Add Camera</a>
+        </li>
+      </ul>
+    </div>
+    <!-- sidebar menu end-->
+  </div>
 <div class="page-content-wrapper">
   <div class="page-content">
 

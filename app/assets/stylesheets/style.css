@@ -14416,8 +14416,8 @@ Purple Seance
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/
-#camera-index {
-    padding-top: 15px;
+#camera-index .page-content-wrapper .page-content {
+    padding:0;
 }
 
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
@@ -14485,7 +14485,7 @@ Purple Seance
     padding-left: 0;
     padding-right: 0;
     width: 33.334%;
-    height: 3570px;
+    height: 357px;
     line-height: 350px;
     overflow: hidden;
     text-align: center;
@@ -14502,7 +14502,7 @@ Purple Seance
 }
 
 .cam-box img {
-    height: 118%;
+    height: 120%;
     /*background-image: url("https://www.evercam.io/img/error.png");*/
     color:#ffffff;
     margin-left: -15px;
@@ -14669,21 +14669,20 @@ input:-webkit-autofill {
 /*///////////////////////////
 // PUBLIC CAMS
 ///////////////////////////*/
-#public-index .wrapper {
+#public-index .page-content-wrapper .page-content {
     padding:0px;
 }
-#public-index .panel-heading {
-    padding: 17px 15px 16px;
-}
+
 .public-cam-box {
     height: 350px;
     line-height: 250px;
     overflow: hidden;
     text-align: center;
-    margin-bottom: 15px;
+
 }
 .public-cam-box img {
-    height:118%;
+    height:120%;
+    margin-left: -15px;
 
 }
 .add-to-cams {
@@ -15120,11 +15119,14 @@ input:-webkit-autofill:focus {
 /*/////////////////////
 //SIDEBAR
 /////////////////////*/
+#offline-menu {
+    float: right;
+}
 .red-dot {
     color: #DC4C3F;
-    position: absolute;
-    right: 6px;
-    top: 7px;
+    position: relative;
+    right: -9px;
+    top: -1px;
     border: 1px solid #e9eaed;
     border-radius: 2px;
     padding: 0px 2px 1px 2px;
@@ -15132,7 +15134,7 @@ input:-webkit-autofill:focus {
 .green-dot {
     color: #2ECC71;
     position: absolute;
-    right: 6px;
+    right: -9px;
     top: 8px;
     border: 1px solid #e9eaed;
     border-radius: 2px;
@@ -15143,6 +15145,18 @@ input:-webkit-autofill:focus {
     border: none !important;
     padding-left: 30px !important;
 }
+.share-icon {
+    background-image: url('https://www.evercam.io/img/share.png');
+    width: 19px;
+    display: block;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    height: 9px;
+    float: left;
+    margin-top: 13px;
+    margin-left: 7px;
+}
+
 /*/////////////////////
 //TABLE
 /////////////////////*/
@@ -15168,4 +15182,8 @@ input:-webkit-autofill:focus {
 }
 table.table-clean thead th {
     border-right: none !Important;
+}
+#offline-menu {
+    float: right;
+
 }

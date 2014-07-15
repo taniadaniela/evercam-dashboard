@@ -71,7 +71,7 @@
         </div>
         <div class='col-lg-4'>
           <div class="media">
-            <img id="testimg-add" src="/" class="text-center" width="100%">
+            <img id="testimg" src="" class="text-center" width="100%">
           </div>
         </div>
       </div>
@@ -293,71 +293,8 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-  function validate_hostname(str) {
-    var ValidIpAddressRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
-    var ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/;
-    return ValidIpAddressRegex.test(str) || ValidHostnameRegex.test(str);
-  }
 
   $(document).ready(function () {
-    $('#test').click(function (e) {
-      var intRegex = /^\d+$/,
-          port = $('#port').val(),
-          ext_url = $('#camera-url').val(),
-          $snap = $('#snapshot'),
-          jpg_url = $snap.val();
-      e.preventDefault();
-      // Validate port
-      if(port !== '' && (!intRegex.test(port) || port > 65535)) {
-        $('#test-error').text('Port value is incorrect');
-        return;
-      } else if (port !== '') {
-        port = ':' + port;
-      }
-      // Validate host
-      if (ext_url === '' || !validate_hostname(ext_url)) {
-        $('#test-error').text('External URL is incorrect');
-        return;
-      } else if (ext_url.indexOf('192.168') == 0 || ext_url.indexOf('127.0.0') == 0 || ext_url.indexOf('10.') == 0) {
-        $('#test-error').text('This is local IP. Please use external IP.');
-        return;
-      }
-      // Auto-fix snapshot
-      if (jpg_url.indexOf('/') == 0) {
-        $snap.val(jpg_url.substring(1));
-        jpg_url = $snap.val();
-      }
-      var params = ['external_url=http://' + ext_url + port, 'jpg_url=/' + jpg_url,
-            'cam_username=' + $('#camera-username').val(), 'cam_password=' + $('#camera-password').val()];
-      var l = Ladda.create(this);
-      l.start();
-      var progress = 0;
-      var interval = setInterval(function () {
-        progress = Math.min(progress + 0.025, 1);
-        l.setProgress(progress);
-
-        if (progress === 1) {
-          l.stop();
-          clearInterval(interval);
-        }
-      }, 200);
-
-      $.getJSON('<%= EVERCAM_API %>cameras/test.json?' + params.join('&'))
-          .done(function (resp) {
-            console.log('success');
-            $('#test-error').text('Snapshot successfully retrieved');
-            $('#testimg-add').attr('src', resp.data);
-          })
-          .fail(function (resp) {
-            $('#test-error').text(resp.responseJSON.message);
-            console.log('error');
-          })
-          .always(function () {
-            l.stop();
-            clearInterval(interval);
-          });
-    });
-
     // TOGGLE ADD. SETTINGS
     $(".settings").hide();
     //toggle the componenet with class msg_body
@@ -382,4 +319,4 @@
     $.validate();
   });
 </script>
-
+<%= javascript_include_tag "testsnapshot"%>

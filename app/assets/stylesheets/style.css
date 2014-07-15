@@ -10145,6 +10145,7 @@ Custom tabs
     -moz-border-radius: 0;
     border-radius: 0;
     padding: 10px;
+    overflow:auto;
 }
 .tabbable-custom.nav-justified .tab-content {
     margin-top: -1px;
@@ -14812,7 +14813,11 @@ input:-webkit-autofill {
     -o-transition: all .1s linear;
     transition: all .1s linear;
 }
-/* LIVE */
+/* INFO */
+.first-row {
+max-width:200px;
+    min-width:200px;
+}
 #info .table>tbody>tr>td {
 padding:0px;
 }
@@ -14846,6 +14851,9 @@ padding:0px;
 }
 #sharing .radio input[type="radio"] {
     width: 25px;
+}
+#sharing .radio {
+    min-height:24px;
 }
 .share-section {
     margin-bottom: 15px;

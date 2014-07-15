@@ -13,16 +13,6 @@
       <a href="/dev">
         <span class="title">Developer</span>
       </a>
-      <ul class="sub-menu">
-        <li>
-          <a href="/dev">
-            API Docs</a>
-        </li>
-        <li>
-          <a href="/widgets">
-            Widgets</a>
-        </li>
-      </ul>
     </li>
 
         <li>
@@ -44,9 +34,9 @@
               </li>
             <% end %>
 
-
             <% @shares.each do |camera| %>
               <li class="sub-menu-item">
+                <span class="share-icon"></span>
                 <a href="/cameras/<%= camera['id'] %>?share=true">
                   <div id="offline-menu"> <% if camera['is_online'] %>
 

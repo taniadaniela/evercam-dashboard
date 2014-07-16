@@ -134,6 +134,7 @@ class CamerasController < ApplicationController
     begin
       api               = get_evercam_api
       @camera           = api.get_camera(params[:id], true)
+      @camera.extend Hashie::Extensions::DeepFetch
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
@@ -153,6 +154,7 @@ class CamerasController < ApplicationController
       end
       load_cameras_and_shares
     rescue => error
+      puts error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
                            error.backtrace.join("\n")

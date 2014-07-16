@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <td>Local IP</td>
-        <td><%= @camera['internal_host'] %></td>
+        <td><%= @camera['internal']['host'] %></td>
       </tr>
       </tbody>
     </table>
@@ -38,7 +38,7 @@
       <thead>
       <tr>
         <th class="col-md-2 first-row">
-          Short URLs
+          Proxy URLs
         </th>
         <td>
         </td>
@@ -77,11 +77,8 @@
           JPEG
         </td>
         <td>
-          <% if url = @camera.fetch('dyndns', {})['jpg_url'] %>
-            <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-          <% else %>
-            none
-          <% end %>
+          <% url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
+          <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
         </td>
       </tr>
       </tbody>
@@ -102,19 +99,55 @@
       <tbody>
       <tr>
         <td>
-          JPEG
+          Camera
         </td>
         <td>
-          <% url = @camera.fetch('external', {})['jpg_url'] %>
+          <% url = @camera.deep_fetch(:external, :http, :camera) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
         </td>
       </tr>
       <tr>
         <td>
-          RTSP
+          JPEG
         </td>
         <td>
-          <% url = @camera.fetch('external', {})['rtsp_url'] %>
+          <% url = @camera.deep_fetch(:external, :http, :jpg) {} %>
+          <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          MJPEG
+        </td>
+        <td>
+          <% url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
+          <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          MPEG
+        </td>
+        <td>
+          <% url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
+          <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Audio
+        </td>
+        <td>
+          <% url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
+          <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          H264
+        </td>
+        <td>
+          <% url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
         </td>
       </tr>

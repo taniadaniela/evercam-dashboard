@@ -18,7 +18,7 @@ describe "session related test", :type => :feature, :js => true do
     fill_in "Password", :with => 'pass'
     click_button "Sign in"
 
-    expect(page).to have_text("My Cameras")
+    expect(page).to have_text("Cameras")
   end
 
   it "User signs in with incorrect password" do

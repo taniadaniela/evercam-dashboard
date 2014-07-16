@@ -11,7 +11,7 @@ describe "Camera management", :type => :feature, :js => true do
     page.set_rack_session(:user => user.email)
 
     visit "/"
-    click_link "Add IP Camera"
+    click_link "Add Camera"
 
     fill_in "Friendly Name", :with => 'Test Camera'
     fill_in "Evercam ID", :with => 'testcam'
@@ -20,7 +20,6 @@ describe "Camera management", :type => :feature, :js => true do
     fill_in "Snapshot URL", :with => '/snapshot.jpg'
     click_button "Finish & Add"
 
-    # puts "PAGE:\n#{page.public_methods.sort.join("\n")}"
     expect(page).to have_text("Test Camera")
     expect(page).to have_text("testcam")
     expect(page).to have_text("Live View")

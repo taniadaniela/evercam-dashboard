@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <td>Local IP</td>
-        <td><%= @camera['internal']['host'] %></td>
+        <td><%= @camera.deep_fetch(:internal, :host) {} %></td>
       </tr>
       </tbody>
     </table>

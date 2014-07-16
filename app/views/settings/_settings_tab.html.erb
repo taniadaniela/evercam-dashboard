@@ -55,7 +55,7 @@
         <div class="input-group">
         <span class="input-group-addon">http://</span>
         <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" readonly="readonly" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
-               value="<%= @camera['external']['host'] %>">
+               value="<%= @camera.deep_fetch(:external, :host) {} %>">
         </div>
       </td>
     </tr>
@@ -65,7 +65,7 @@
       </td>
       <td>
         <input id="port" name="port" placeholder="not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" readonly="readonly" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
-               value="<%= @camera['external']['http']['port'] %>">
+               value="<%= @camera.deep_fetch(:external, :http, :port) {} %>">
       </td>
     </tr>
     <tr>
@@ -74,7 +74,7 @@
       </td>
       <td>
         <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="not yet provided" class="form-control makeEditable" type="text" data-validation="custom" readonly="readonly" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
-               value="<%= @camera['external']['rtsp']['port'] %>">
+               value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
       </td>
     </tr>
     <tr>
@@ -83,7 +83,7 @@
       </td>
       <td>
         <input type="text" id="snapshot" name="snapshot" placeholder="/snapshot.jpg" class="form-control makeEditable" readonly="readonly" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
-               value="<%= @camera['external']['http']['jpg'].sub("http://#{@camera['external']['host']}", '').sub(":#{@camera['external']['http']['port']}", '') %>" >
+               value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %>" >
       </td>
     </tr>
     <% cache do %>
@@ -127,7 +127,7 @@
       </td>
       <td>
         <input id="local-ip" name="local-ip" placeholder="not yet provided" class="form-control makeEditable" type="text" readonly="readonly" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
-               value="<%= @camera['internal']['host'] %>">
+               value="<%= @camera.deep_fetch(:internal, :host) {} %>">
       </td>
     </tr>
     <tr>
@@ -136,7 +136,7 @@
       </td>
       <td>
         <input id="local-http" name="local-http" placeholder="not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
-               value="<%= @camera['internal']['http']['port'] %>">
+               value="<%= @camera.deep_fetch(:internal, :http, :port) {}  %>">
       </td>
     </tr>
     <tr>
@@ -145,7 +145,7 @@
       </td>
       <td>
         <input id="local-rtsp" name="local-rtsp" placeholder="not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
-               value="<%= @camera['internal']['rtsp']['port'] %>">
+               value="<%= @camera.deep_fetch(:internal, :rtsp, :port) {} %>">
       </td>
     </tr>
   </table>

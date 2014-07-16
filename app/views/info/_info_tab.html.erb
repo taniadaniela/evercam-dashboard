@@ -77,7 +77,7 @@
           JPEG
         </td>
         <td>
-          <% url = @camera.deep_fetch :dyndns :http :jpg {|key| nil } %>
+          <% url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
         </td>
       </tr>
@@ -102,7 +102,7 @@
           Camera
         </td>
         <td>
-          <% url = @camera['external']['http']['camera'] %>
+          <% url = @camera.deep_fetch(:external, :http, :camera) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
         </td>
       </tr>
@@ -111,7 +111,7 @@
           JPEG
         </td>
         <td>
-          <% url = @camera['external']['http']['jpg'] %>
+          <% url = @camera.deep_fetch(:external, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
         </td>
       </tr>
@@ -120,7 +120,7 @@
           MJPEG
         </td>
         <td>
-          <% url = @camera['external']['http']['mjpg'] %>
+          <% url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
         </td>
       </tr>
@@ -129,7 +129,7 @@
           MPEG
         </td>
         <td>
-          <% url = @camera['external']['rtsp']['mpeg'] %>
+          <% url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
         </td>
       </tr>
@@ -138,7 +138,7 @@
           Audio
         </td>
         <td>
-          <% url = @camera['external']['rtsp']['audio'] %>
+          <% url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
         </td>
       </tr>
@@ -147,7 +147,7 @@
           H264
         </td>
         <td>
-          <% url = @camera['external']['rtsp']['h264'] %>
+          <% url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
         </td>
       </tr>

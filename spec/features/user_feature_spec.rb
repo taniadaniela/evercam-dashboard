@@ -15,7 +15,7 @@ describe "user actions", :type => :feature, :js => true do
     page.set_rack_session(:user => user.email)
 
     visit "/"
-    click_link user.username
+    click_link user.fullname
     click_link 'Settings'
 
     expect(page).to have_text("User Account Settings")

@@ -133,7 +133,7 @@ class CamerasController < ApplicationController
   def single
     begin
       api               = get_evercam_api
-      @camera           = api.get_camera(params[:id], true)
+      @camera           = Hashie::Mash.new(api.get_camera(params[:id], true))
       @camera.extend Hashie::Extensions::DeepFetch
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',

@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap-3.2.0.css
+ *= require bootstrap-3.2.0.css.scss
  *= require bootstrap-theme
  *= require ladda-themeless-0.8.0.min.css
  *= require fonts.css

@@ -20,7 +20,7 @@ class PublicController < ApplicationController
       @pages = output[:pages]
 
       @cameras.delete_if do |camera|
-        (camera["short"].nil? || camera["short"]["jpg_url"].nil?)
+        (camera["proxy_url"].nil? || camera["proxy_url"]["jpg"].nil?)
       end
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

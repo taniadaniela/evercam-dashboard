@@ -24,6 +24,5 @@
 //= require moment.min
 //= require jquery.cookie.js
 //= require jquery.dcjqaccordion.2.7.js
-//= require quick-sidebar.js
 //= require layout.js
 //= require jquery.uniform.min-v2.1.js

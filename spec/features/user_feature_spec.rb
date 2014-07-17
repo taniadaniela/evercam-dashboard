@@ -18,7 +18,7 @@ describe "user actions", :type => :feature, :js => true do
     click_link user.fullname
     click_link 'Settings'
 
-    expect(page).to have_text("User Account Settings")
+    expect(page).to have_text("User Settings")
 
     fill_in('user-firstname', :with => 'AAA')
     fill_in('user-lastname', :with => 'BBB')

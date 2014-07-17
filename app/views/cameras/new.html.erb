@@ -160,7 +160,7 @@
                       <%= label_tag('snapshot', "Snapshot URL Ending*", class: "control-label") %>
                       <div class="input-group snap-end">
                         <span class="prepend">/</span>
-                        <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpeg|.JPEG|.gif|.GIF| .png|.PNG)$/", "data-validation-error-msg" => "This doesn't appear to be a valid snapshot URL ending.") %>
+                        <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control") %>
                       </div>
                     </div>
 

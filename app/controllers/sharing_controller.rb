@@ -101,6 +101,11 @@ class SharingController < ApplicationController
                                                    snapshot).deliver
               end
             end
+            # Invalidate target user shared cameras
+            target_user = User.by_login(result[:email])
+            unless target_user.nil?
+              Rails.cache.delete("#{target_user.username}/shares")
+            end
             # Invalidate cache for shares
             if share["type"] == "share"
               Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")

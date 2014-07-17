@@ -26,6 +26,15 @@
           <% end %></td>
       </tr>
       <tr>
+        <td>
+          Camera Location
+        </td>
+        <td>
+          <%= @camera.deep_fetch(:location, :lng) {} %>
+          <%= @camera.deep_fetch(:location, :lat) {} %>
+        </td>
+      </tr>
+      <tr>
         <td>Local IP</td>
         <td><%= @camera.deep_fetch(:internal, :host) {} %></td>
       </tr>

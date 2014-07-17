@@ -495,11 +495,7 @@ input:focus {
 }
 
 /*CAMERA SETTINGS*/
-#camera-settings label{
-    font-weight:normal;
-    padding-top:5px;
-    font-family: 'proxima-nova-regular', 'Open Sans', helvetica, arial;
-}
+
 #camera-settings .form-control {
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -561,7 +557,10 @@ input:focus {
     float: left;
 }
 #apikeys {
-    margin: 20px 4px 40px;
+    margin: 20px 4px 0px;
+    border-bottom: 1px solid #f5f5f5;
+    overflow: auto;
+    padding-bottom: 20px;
 }
 /*/////////////////////
 //SIGN IN FORM
@@ -809,12 +808,36 @@ table.table-clean thead th {
 margin-left: 236px;}
 .hide-left-bar {
     margin-left:-236px !important;
-
 }
-
 .merge-left {
     margin-left:0px !important;
 }
 
+/*MAP*/
+#map-canvas {
+    width: 100%;
+    height: 500px;
+}
 
+.page-sidebar a {
+    color: #414042;
+}
+.active a {
+    color: #428bca;
+}
+.active .open {
+    color: #428bca;
+}
 
+/* PASSWORD RESET */
+#pass-reset .branding .logo {
+    height: 70px;
+    display: block;
+    margin-top: 20px;
+}
+#pass-reset .branding .logo img  {
+    max-width: 200px;
+}
+#pass-reset .panel {
+    padding: 20px 0px 30px 20px;
+}

@@ -26,4 +26,3 @@
 //= require jquery.dcjqaccordion.2.7.js
 //= require layout.js
 //= require jquery.uniform.min-v2.1.js
-//= require maps-google.js

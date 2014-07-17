@@ -828,3 +828,16 @@ margin-left: 236px;}
 .active .open {
     color: #428bca;
 }
+
+/* PASSWORD RESET */
+#pass-reset .branding .logo {
+    height: 70px;
+    display: block;
+    margin-top: 20px;
+}
+#pass-reset .branding .logo img  {
+    max-width: 200px;
+}
+#pass-reset .panel {
+    padding: 20px 0px 30px 20px;
+}

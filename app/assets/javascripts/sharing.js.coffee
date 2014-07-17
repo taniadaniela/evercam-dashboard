@@ -200,17 +200,17 @@ onAddSharingUserClicked = (event) ->
    else
       permissions = "full"
    onError = (jqXHR, status, error) ->
-      showError("Add camera shared failed.")
+      showError("Failed to share camera.")
       false
    onSuccess = (data, status, jqXHR) ->
       if data.success
          if data.type == "share"
             addSharingCameraRow(data)
-            showFeedback("Camera successfully shared with User")
+            showFeedback("Camera successfully shared with user")
          else
             data.type == "share_request"
             addSharingCameraRow(data)
-            showFeedback("A notification email has been dispatched to the specified email address.")
+            showFeedback("A notification email has been sent to the specified email address.")
          $('#sharingUserEmail').val("")
 
       else
@@ -221,7 +221,7 @@ onAddSharingUserClicked = (event) ->
             when "duplicate_share_error"
                message = "The camera has already been shared with the specified user."
             when "duplicate_share_request_error"
-               message = "A share request for the specified email address already exists for this camera."
+               message = "A share request for that email address already exists for this camera."
             when "share_grantor_not_found_error"
                message = "Unable to locate details for the user granting the share in the system."
             when "invalid_parameters"

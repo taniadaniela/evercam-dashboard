@@ -87,7 +87,6 @@
                value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %>" >
       </td>
     </tr>
-    <% cache do %>
     <tr>
       <td>
         <label class="control-label" for="camera-vendor">Camera Vendor</label>
@@ -121,7 +120,6 @@
         <% end %>
       </td>
     </tr>
-    <% end %>
     <tr>
       <td>
         <label class="control-label" for="local-ip">Local IP</label>

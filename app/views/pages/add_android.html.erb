@@ -1,51 +1,20 @@
-<div class="page-container">
-<!-- sidebar menu start-->
-<div class="page-sidebar-wrapper">
-  <!-- sidebar menu start-->
-  <div class="page-sidebar navbar-collapse collapse">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0 }
+    #map-canvas { height: 100% }
+  </style>
+  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?sensor=TRUE">
+  </script>
+  <script type="text/javascript">
 
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-      <li class="sidebar-toggler-wrapper">
-        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-        <div class="sidebar-toggler">
-        </div>
-        <!-- END SIDEBAR TOGGLER BUTTON -->
-      </li>
-      <li>
-        <a href="/dev">Developer</a>
-      </li>
-      <li>
-        <a class="active" href="/">Camera Dashboard</a>
-      </li>
-      <li>
-        <a class="public-cam" href="/publiccam">Public Cameras</a>
-      </li>
-
-      <li>
-        <a href="/cameras/new">Add IP Camera</a>
-      </li>
-      <li>
-        <a href="/add-android">Add Android Camera</a>
-      </li>
-
-    </ul>
-  </div>
-</div>
-  <!-- sidebar menu end-->
-
-  <div class="page-content-wrapper">
-    <div class="page-content" id="add-ip">
-<p>
-  Download our Android App from the Google Play Store to connect your Android Camera.
-  <a href ="https://play.google.com/store/apps/details?id=io.evercam.capture" target="_blank">
-    Evercam Capture
-  </a>
-</p>
-
-
-
-</div>
-</div>
-      <!--main content end-->
-
-</div>
+  </script>
+</head>
+<body>
+<div id="map-canvas"/>
+</body>
+</html>

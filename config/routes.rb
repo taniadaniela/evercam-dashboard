@@ -16,6 +16,8 @@ EvercamDashboard::Application.routes.draw do
    get 'publiccam/map' => 'public#map'
    get 'publiccam/:id' => 'public#single'
 
+   get 'locations' => 'locations#index'
+
    resources :sessions, only: [:new, :create, :destroy]
    resources :users, only: [:new, :create]
    match '/signup',  to: 'users#new',            via: 'get'

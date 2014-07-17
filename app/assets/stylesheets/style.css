@@ -809,12 +809,23 @@ table.table-clean thead th {
 margin-left: 236px;}
 .hide-left-bar {
     margin-left:-236px !important;
-
 }
-
 .merge-left {
     margin-left:0px !important;
 }
 
+/*MAP*/
+#map-canvas {
+    width: 100%;
+    height: 500px;
+}
 
-
+.page-sidebar a {
+    color: #414042;
+}
+.active a {
+    color: #428bca;
+}
+.active .open {
+    color: #428bca;
+}

@@ -1880,14 +1880,14 @@ Forms
 ***/
 /* Input placeholder font color */
 .form-control::-moz-placeholder {
-    color: #888888;
+    color: #e0e0e0;
     opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-    color: #888888;
+    color: #e0e0e0;
 }
 .form-control::-webkit-input-placeholder {
-    color: #888888;
+    color: #e0e0e0;
 }
 
 /* Form inputs */
@@ -1974,6 +1974,8 @@ Forms
     padding: 5px 10px;
     font-size: 13px;
 }
+
+
 
 select.input-sm {
     height: 28px;
@@ -3899,8 +3901,8 @@ Custom tables
 }
 
 .table thead tr th {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 14px;
+
 }
 
 .table-advance {

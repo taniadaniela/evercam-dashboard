@@ -161,7 +161,7 @@
       $('#map-canvas').replaceWith("<p>The location of this camera was not found</p>");
       return;
     }
-    var cameraLatlng = new google.maps.LatLng(cameraLong, cameraLat);
+    var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
     var mapOptions = {
       zoom: 8,
       center: cameraLatlng

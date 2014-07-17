@@ -53,9 +53,16 @@
         <li>
           <a data-toggle="tab" href="#apps">Apps</a>
         </li>
+
         <li>
           <a id="nav-tabs" data-toggle="tab" href="#location">Location</a>
         </li>
+        <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
+          <li>
+            <a data-toggle="tab" href="#local">Local Storage</a>
+          </li>
+        <% else %>
+        <% end %>
         <% if has_edit_right %>
           <li class="pull-right">
             <a data-toggle="tab" href="#camera-settings" id="camera-settings-link">Settings <span class="glyphicon glyphicon-cog"></span></a>
@@ -131,13 +138,35 @@
         </div><!--panel-body -->
       </div><!--TAB PANE -->
 
+
+
+
       <!--APPS TAB PANE -->
       <div id="location" class="tab-pane">
-
 
           <div id="map-canvas"></div>
 
       </div><!--TAB PANE -->
+
+        <!--Local TAB PANE -->
+        <div id="local" class="tab-pane">
+          <div evercam="localstorage"></div>
+
+          <script type="text/javascript" src="https://s3.amazonaws.com/cdn.evercam.io/js/localstorage/0.0.1/hikvision.local.storage.mini.js"></script>
+          <script type="text/javascript">
+            // Set Evercam Camera ID
+            LocalStorage.options.cameraId = '<%= @camera['id'] %>';
+
+
+            // OR //
+            // Using api_id and api_key
+            LocalStorage.options.api_id = '<%= current_user.api_id -%>';
+            LocalStorage.options.api_key = '<%= current_user.api_key -%>';
+
+            // Finally Load the widget
+            LocalStorage.Load();
+          </script>
+        </div><!--TAB PANE -->
 
       <!--SETTINGS TAB PANE -->
       <div id="camera-settings" class="tab-pane">

@@ -62,6 +62,8 @@ group :development do
   gem 'quiet_assets'
   gem 'spring'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
 end
 
 group :test do

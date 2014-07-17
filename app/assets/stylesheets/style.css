@@ -495,11 +495,7 @@ input:focus {
 }
 
 /*CAMERA SETTINGS*/
-#camera-settings label{
-    font-weight:normal;
-    padding-top:5px;
-    font-family: 'proxima-nova-regular', 'Open Sans', helvetica, arial;
-}
+
 #camera-settings .form-control {
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -561,7 +557,10 @@ input:focus {
     float: left;
 }
 #apikeys {
-    margin: 20px 4px 40px;
+    margin: 20px 4px 0px;
+    border-bottom: 1px solid #f5f5f5;
+    overflow: auto;
+    padding-bottom: 20px;
 }
 /*/////////////////////
 //SIGN IN FORM

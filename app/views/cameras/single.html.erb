@@ -157,6 +157,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
   function initialize() {
+    if (cameraLong === '') return "The coordinates weren't found.";
+
     var cameraLatlng = new google.maps.LatLng(cameraLong, cameraLat);
     var mapOptions = {
       zoom: 8,

@@ -734,12 +734,12 @@ Customized Bootstrap Buttons
     border-color: #cccccc;
 }
 .btn-default .badge {
-    color: white;
+    color: white !important;
     background-color: #333333;
 }
 
 .btn-primary {
-    color: white;
+    color: white !important;
     background-color: #428bca;
     border-color: #357ebd;
 }
@@ -859,7 +859,7 @@ Customized Bootstrap Buttons
 }
 
 .btn-danger {
-    color: white;
+    color: white !important;
     background-color: #f3565d;
     border-color: #f13e46;
 }

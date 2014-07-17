@@ -379,7 +379,7 @@ Page Header
     display: inline-block;
     margin-left: 6px;
     font-size: 13px;
-    font-weight: 300;
+
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
     margin-top: -2px;
@@ -390,11 +390,11 @@ Page Header
     margin-top: 5px;
     margin: 0;
     font-size: 13px;
-    font-weight: 300;
+ =
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a {
     font-size: 14px;
-    font-weight: 300;
+
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a i {
     width: 15px;

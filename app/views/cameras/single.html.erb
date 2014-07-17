@@ -136,7 +136,7 @@
 
 
           <div id="map-canvas"></div>
-
+            <div id="no-map">No location found for this camera</div>
       </div><!--TAB PANE -->
 
       <!--SETTINGS TAB PANE -->
@@ -157,7 +157,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
   function initialize() {
-    if (cameraLong === '') return "The coordinates weren't found.";
+    if (cameraLong === '') return;
+    $("#no-map").hide();
 
     var cameraLatlng = new google.maps.LatLng(cameraLong, cameraLat);
     var mapOptions = {

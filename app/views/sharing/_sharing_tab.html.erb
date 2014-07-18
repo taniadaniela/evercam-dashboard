@@ -76,14 +76,8 @@
               <button type="submit" class="save show-save btn btn-primary btn-sm update-share-button">Save</button>
             </td>
             <td class="col-lg-2">
-              <div class="form-group>
-                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>">
-                   <% if share["email"] == current_user.email %>
-                    <span class="margin-top-10 glyphicon glyphicon-remove">Remove</span>
-                    <% else %>
-                    <span class="glyphicon glyphicon-remove"> <span class="remove">Remove</span></span>
-                    <% end %>
-                  </span>
+              <div class="form-group">
+                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="margin-top-10 glyphicon glyphicon-remove">Remove</span></span>
               </div>
             </td>
           </tr>

@@ -472,6 +472,9 @@ padding:0px;
 .email-input {
     margin-top: -25px;
 }
+.glyphicon-remove {
+    cursor: pointer;
+}
 /*LOGS*/
 #apply-types {
     margin: 20px 0px;

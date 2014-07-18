@@ -840,6 +840,16 @@ margin-left: 236px;}
 .active .open {
     color: #428bca;
 }
+#map {
+     width: 500px;
+     height: 500px;
+}
+
+#map-public {
+    width: 100%;
+    height: 166px;
+    max-width: 332px;
+}
 
 /* PASSWORD RESET */
 #pass-reset .branding .logo {

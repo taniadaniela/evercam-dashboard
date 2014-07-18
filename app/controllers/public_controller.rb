@@ -35,7 +35,8 @@ class PublicController < ApplicationController
     @camera  = nil
     @user    = current_user
     begin
-      @camera        = get_evercam_api.get_camera(params[:id])
+      @camera        = Hashie::Mash.new(get_evercam_api.get_camera(params[:id]))
+      @camera.extend Hashie::Extensions::DeepFetch
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

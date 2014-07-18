@@ -87,20 +87,6 @@ class SharingController < ApplicationController
             result[:type]        = share["type"]
             result[:permissions] = params[:permissions]
             result[:email]       = share["email"]
-            if result[:email] != current_user.email
-              if share["type"] == "share"
-                 UserMailer.camera_shared_notification(params[:email],
-                                                       params[:camera_id],
-                                                       current_user,
-                                                       snapshot).deliver
-              else
-                 UserMailer.sign_up_to_share_email(params[:email],
-                                                   params[:camera_id],
-                                                   current_user,
-                                                   share["id"],
-                                                   snapshot).deliver
-              end
-            end
             # Invalidate target user shared cameras
             target_user = User.by_login(result[:email])
             unless target_user.nil?

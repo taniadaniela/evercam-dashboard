@@ -132,20 +132,13 @@
       <!--APPS TAB PANE -->
       <div id="apps" class="tab-pane">
         <div class='panel-body'>
-
             <a href="http://www.evercam.io/apps" target="_blank">View Apps To Add To Your Camera</a>
-
         </div><!--panel-body -->
       </div><!--TAB PANE -->
 
-
-
-
-      <!--APPS TAB PANE -->
+      <!--LOCATION TAB PANE -->
       <div id="location" class="tab-pane">
-
-          <div id="map-canvas"></div>
-
+        <%= render partial: "location/location_tab" %>
       </div><!--TAB PANE -->
 
         <!--Local TAB PANE -->
@@ -179,41 +172,10 @@
 </div>
 </div>
 </div>
-<%= javascript_tag do %>
-  cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
-  cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
-<% end %>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-  function initialize() {
-    if (cameraLong === '') {
-      $('#map-canvas').replaceWith("<p>The location of this camera was not found</p>");
-      return;
-    }
-    var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
-    var mapOptions = {
-      zoom: 8,
-      center: cameraLatlng
-    }
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-    var marker = new google.maps.Marker({
-      position: cameraLatlng,
-      map: map,
-      title: 'Camera Location'
-    });
-
-    var mapFirstClick = false;
-    $("#nav-tabs").click(function() {
-      mapFirstClick || setTimeout(function() {
-        google.maps.event.trigger(map, 'resize');
-        mapFirstClick = true;
-        map.setCenter(cameraLatlng);
-      }, 200);
-    });
-
-  }
-  google.maps.event.addDomListener(window, 'load', initialize);
 
 
   $(function () {

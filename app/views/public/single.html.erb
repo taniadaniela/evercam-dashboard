@@ -1,7 +1,8 @@
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="page-container" id="public-index">
+<div class="page-container">
   <!-- sidebar menu start-->
   <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
@@ -36,28 +37,20 @@
       <div class="col-md-12">
         <!--progress bar start-->
         <section class="panel">
-          <header class="panel-heading">
-            <%= @camera['name'] %>
-            <span class="tools pull-right">
-                                 <a href="#" class="create-share-button btn evercam-btn" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
+          <div class="col-md-6">
+            <h3 class=page-title"><%= @camera['name'] %></h3>
+            </div>
+            <span class="col-md-6">
+                                 <a href="#" class="create-share-button btn evercam-btn pull-right" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
                             </span>
-          </header>
-          <div class="panel-body">
-            <div class="row">
+
+
               <div class="col-lg-6 camera-image">
                 <img src="<%= @camera['jpg'] %>" width="100%">
               </div>
-              <div class="col-lg-6 data">
+              <div class="col-lg-5 data">
 
                 <table class="table table-borderless">
-                  <tr>
-                    <td>Vendor:</td>
-                    <td><%= @camera["vendor_name"] %></td>
-                  </tr>
-                  <tr>
-                    <td>Model:</td>
-                    <td><%= @camera['model'] %></td>
-                  </tr>
                   <tr>
                     <td>Status:</td>
                     <td>
@@ -69,52 +62,67 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Location:</td>
-                    <td></td>
+                    <td>Vendor:</td>
+                    <td><%= @camera["vendor_name"] %></td>
+                  </tr>
+                  <tr>
+                    <td>Model:</td>
+                    <td><%= @camera['model'] %></td>
                   </tr>
                   <tr>
                     <td>Added date:</td>
                     <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
                   </tr>
+                  <tr>
+                    <td>Location:</td>
+                    <td><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></td>
+                  </tr>
                 </table>
+                <div id="map-public"></div>
               </div>
-            </div>
-          </div>
+
+
         </section>
         <!--progress bar end-->
 
       </div>
     </div>
 
-
-
     <div class="row">
-      <div class="col-lg-2">
-
-
-        <div class="row">
-          <div class="col-md-12">
-            <!--progress bar start-->
-            <section class="panel">
-
-              <div class="panel-body">
-
-                <span class="glyphicon glyphicon-arrow-left"></span><span class="pull-right"><%= link_to 'Public Cameras', '/publiccam' %></span>
-
-              </div>
-            </section>
-            <!--progress bar end-->
-
-          </div>
+        <div class="col-lg-2 margin-top-20">
+            <div class="col-md-12">
+              <!--progress bar start-->
+                <span class="glyphicon glyphicon-arrow-left"></span><span class="pull-right"><%= link_to 'Public Cameras', '/publiccam' %></span
+            </div>
         </div>
-      </div>
     </div>
 
-    </div>
   </div>
 </div>
 
-<%= javascript_include_tag "publiccam" %>
+
+  <%= javascript_tag do %>
+    cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
+    cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
+    <% end %><%= javascript_include_tag "publiccam" %>
 <script>
   $(window.Evercam.Publiccam.initialize);
+
+  function initialize() {
+    var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
+    var mapOptions = {
+      zoom: 8,
+      center: cameraLatlng
+    }
+    var map = new google.maps.Map(document.getElementById('map-public'), mapOptions);
+
+    var marker = new google.maps.Marker({
+      position: cameraLatlng,
+      map: map,
+      title: 'Camera Location'
+    });
+
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>

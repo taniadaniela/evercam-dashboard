@@ -42,6 +42,10 @@ class SharingController < ApplicationController
       else
          result = {success: false, message: "Insufficient parameters provided."}
       end
+      # Invalidate cache for shares
+      if result[:success]
+        Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
+      end
       render json: result
    end
 
@@ -59,6 +63,10 @@ class SharingController < ApplicationController
          end
       else
          result = {success: false, message: "Insufficient parameters provided."}
+      end
+      # Invalidate cache for shares
+      if result[:success]
+        Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
       end
       render json: result
    end
@@ -132,6 +140,10 @@ class SharingController < ApplicationController
       else
          result = {success: false, message: "Insufficient parameters provided."}
       end
+      # Invalidate cache for shares
+      if result[:success]
+        Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/cam_shares")
+      end
       render json: result
    end
 
@@ -150,6 +162,10 @@ class SharingController < ApplicationController
          end
       else
          result = {success: false, message: "Insufficient parameters provided."}
+      end
+      # Invalidate cache for shares
+      if result[:success]
+        Rails.cache.delete("#{current_user.username}/#{params[:camera_id]}/share_reqs")
       end
       render json: result
    end

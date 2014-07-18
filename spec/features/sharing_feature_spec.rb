@@ -39,7 +39,7 @@ describe "sharing actions", :type => :feature, :js => true do
 
     click_button 'submit_share_button'
 
-    expect(page).to have_text("A notification email has been dispatched to the specified email address.")
+    expect(page).to have_text("A notification email has been sent to the specified email address.")
     expect(WebMock).to have_requested(:post, "#{EVERCAM_API}shares/cameras/testcam.json").
       with(:body => {:api_id =>"#{user.api_id}", :api_key =>"#{user.api_key}",
                     :email=>user2.email, :rights=>"list,snapshot"}).once

@@ -240,7 +240,7 @@ onSaveShareClicked = (event) ->
    control = row.find('select')
    data    =
       permissions: control.val()
-      camera_id: $('#ec_cam_id').text()
+      camera_id: $('#ec_cam_id').text().trim()
    onError = (jqXHR, status, error) ->
       showError("Update of share failed. Please contact support.")
       false
@@ -269,6 +269,7 @@ onSaveShareRequestClicked = (event) ->
    control = row.find('select')
    data    =
       permissions: control.val()
+      camera_id: $('#ec_cam_id').text().trim()
    onError = (jqXHR, status, error) ->
       showError("Update of share request failed. Please contact support.")
       false

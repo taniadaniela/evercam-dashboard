@@ -139,7 +139,7 @@ background-color:#e5e5e5;
     user-select: none;
 }
 .test-snapshot {
-    margin-top: 40px;
+    margin-top: 15px;
 
 }
 #testimg-add {
@@ -152,9 +152,8 @@ background-color:#e5e5e5;
     margin-left: -58px;
 }
 #test-error {
-    text-align: center;
+    text-align: left;
     display: block;
-    max-width: 103px;
 }
 #test {
     margin-bottom: 8px;
@@ -285,7 +284,9 @@ input:-webkit-autofill {
     visibility: hidden;
     border-radius: 1px;
     opacity: 0;
+    color: #fff;
 }
+
 .add-to-cams:hover {
     background-color: #3680c0;
 }
@@ -341,6 +342,12 @@ Google Maps
     margin-top: 10px;
     margin-bottom: 0px;
 }
+#public-map .create-share-button {
+    background-color: #428bca;
+    color: #fff;
+    width: 190px;
+    margin: 0 auto;
+}
 
 /*/////////////////////
 //SINGLE CAMERA PAGE
@@ -359,8 +366,7 @@ Google Maps
     padding: 0px;
 }
 .tab-content h4 {
-    margin-bottom: 5px;
-    font-family: 'proxima-nova-regular', 'Open Sans',sans-serif;
+
 }
 .camera-preview {
     position: relative;
@@ -447,15 +453,17 @@ padding:0px;
     float: left;
     margin-top: 8px;
 }
+#sharing .table > tbody > tr > td {
+    vertical-align: middle;
+}
 .sharing {
     margin-top: -9px;
 }
+.glyphicon-remove {
+    margin-right: 5px;
+}
 .delete-share-request-control {
     margin-top: 4px;
-}
-#sharing .table > tbody > tr > td {
-    vertical-align: middle;
-    padding:  0px 10px;
 }
 #sharing .radio input[type="radio"] {
     width: 20px;
@@ -506,6 +514,7 @@ input:focus {
 #camera-settings .input-group-addon {
     background-color: #fff;
     border: none;
+    padding: 6px 0px 6px 12px;
 }
 #testimg {
     max-width: 328px;

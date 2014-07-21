@@ -2624,11 +2624,11 @@ Custom Scrollbars
 
 ::-moz-selection {
     color: #fff;
-    background: #e45000;
+    background: #428bca;
 }
 ::selection {
     color: #fff;
-    background: #e45000;
+    background: #428bca;
 }
 
 /* Global classes */

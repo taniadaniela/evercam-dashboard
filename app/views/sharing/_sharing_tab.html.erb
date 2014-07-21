@@ -73,11 +73,11 @@
               </div>
             </td>
             <td class="col-lg-2">
-              <button type="submit" class="save show-save btn btn-primary btn-sm update-share-button">Save</button>
+              <button type="submit" class="save show-save btn btn-primary update-share-button">Save</button>
             </td>
             <td class="col-lg-2">
               <div class="form-group">
-                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="margin-top-10 glyphicon glyphicon-remove">Remove</span></span>
+                  <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"> </span>Remove</span>
               </div>
             </td>
           </tr>
@@ -97,12 +97,13 @@
                 </div>
               </td>
               <td class="col-lg-2">
-                <button type="submit" class="save show-save btn btn-primary btn-sm update-share-request-button">Save</button>
+                <button type="submit" class="save show-save btn btn-primary update-share-request-button">Save</button>
               </td>
               <td class="col-lg-2">
                 <div class="form-group">
-                  <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"> <span class="remove">Revoke</span></span></span>
+                  <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"> </span>Revoke</span>
                 </div>
+              </td>
               </td>
 
             </tr>
@@ -134,7 +135,7 @@
       </div>
       <div class="col-sm-2">
         <div class="form-group share-camera">
-          <button type="submit" class="btn btn-primary btn-sm" id="submit_share_button">Share</button>
+          <button type="submit" class="btn btn-primary" id="submit_share_button">Share</button>
         </div>
       </div>
     <!--<div class="col-md-10">

@@ -30,8 +30,8 @@
           Camera Location
         </td>
         <td>
+          <%= @camera.deep_fetch(:location, :lat) {} %>,
           <%= @camera.deep_fetch(:location, :lng) {} %>
-          <%= @camera.deep_fetch(:location, :lat) {} %>
         </td>
       </tr>
       <tr>
@@ -86,8 +86,11 @@
           JPEG
         </td>
         <td>
-          <% url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
+          <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% else %>
+             n/a
+            <% end %>
         </td>
       </tr>
       </tbody>
@@ -111,8 +114,11 @@
           Camera
         </td>
         <td>
-          <% url = @camera.deep_fetch(:external, :http, :camera) {} %>
+          <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+          <% else %>
+            <span class="grey">n/a</span>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -120,8 +126,11 @@
           JPEG
         </td>
         <td>
-          <% url = @camera.deep_fetch(:external, :http, :jpg) {} %>
+          <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+          <% else %>
+            <span class="grey">n/a</span>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -129,8 +138,11 @@
           MJPEG
         </td>
         <td>
-          <% url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
+          <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+          <span class="grey">n/a</span>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -138,8 +150,11 @@
           MPEG
         </td>
         <td>
-          <% url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
+          <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+            <span class="grey">n/a</span>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -147,8 +162,11 @@
           Audio
         </td>
         <td>
-          <% url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
+          <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+            <span class="grey">n/a</span>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -156,8 +174,11 @@
           H264
         </td>
         <td>
-          <% url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+          <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+            <span class="grey">n/a</span>
+          <% end %>
         </td>
       </tr>
       </tbody>
@@ -187,7 +208,6 @@
             <br/>
          </div>
          <div class="modal-footer">
-            <hr/>
             <div class="col-sm-8">
                <div class="btn-toolbar pull-left">
                   <div class="btn-group">

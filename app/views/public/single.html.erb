@@ -117,4 +117,40 @@
 <%= javascript_include_tag "publiccam" %>
 <script>
   $(window.Evercam.Publiccam.initialize);
+
+
+  // This example displays a marker at the center of Australia.
+  // When the user clicks the marker, an info window opens.
+
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+    var mapOptions = {
+      zoom: 4,
+      center: myLatlng
+    };
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var contentString = '<div id="content">'+
+        '<div id="public-map">'+
+        '<IMG BORDER="0" SRC="https://snap.evercam.io/wick-mast-3.jpg?t=wJr6jtcdq5r1IOlvyIK3K23xYfTObX/n7dNZDJd4gqAzOTNWbDUmCUb2D6uMNQFvAs9pzjX8UostvB388LJ2owUp4FHKI9UxRLJr86et4sY=">'+
+        '</div>'+
+        '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+      maxWidth: 500,
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: ''
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
 </script>

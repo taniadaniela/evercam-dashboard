@@ -17,40 +17,60 @@
 </html>
 
 <script>
-  // This example displays a marker at the center of Australia.
-  // When the user clicks the marker, an info window opens.
+  $(document).ready(function() {
+    // execute
+    (function() {
+      // map options
+      var options = {
+        zoom: 5,
+        center: new google.maps.LatLng(39.909736, -98.522109), // centered US
+        mapTypeId: google.maps.MapTypeId.TERRAIN,
+        mapTypeControl: false
+      };
 
-  function initialize() {
-    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-    var mapOptions = {
-      zoom: 4,
-      center: myLatlng
-    };
+      // init map
+      var map = new google.maps.Map(document.getElementById('map-canvas'), options);
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      // NY and CA sample Lat / Lng
+      var southWest = new google.maps.LatLng(40.744656, -74.005966);
+      var northEast = new google.maps.LatLng(34.052234, -118.243685);
+      var lngSpan = northEast.lng() - southWest.lng();
+      var latSpan = northEast.lat() - southWest.lat();
 
-    var contentString = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">Camera Title</h1>'+
-        '<div id="bodyContent">'+
-        '<IMG BORDER="0" ALIGN="Left" SRC="https://www.evercam.io/img/logo-av.png">'+
-        '</div>'+
-        '</div>';
+      // set multiple marker
+      for (var i = 0; i < 250; i++) {
+        // init markers
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(southWest.lat() + latSpan * Math.random(), southWest.lng() + lngSpan * Math.random()),
+          map: map,
+          title: 'Click Me ' + i
+        });
 
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
+        var contentString = '<div id="content">'+
+            '<div id="public-map">'+
+            '<IMG BORDER="0" SRC="https://snap.evercam.io/wick-mast-3.jpg?t=wJr6jtcdq5r1IOlvyIK3K23xYfTObX/n7dNZDJd4gqAzOTNWbDUmCUb2D6uMNQFvAs9pzjX8UostvB388LJ2owUp4FHKI9UxRLJr86et4sY=">'+
+            '</div>'+
+            '</div>';
 
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: 'Uluru (Ayers Rock)'
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
-    });
-  }
+        var infowindow = new google.maps.InfoWindow({
+          maxWidth: 500,
+          content: contentString
+        });
 
-  google.maps.event.addDomListener(window, 'load', initialize);
+        // process multiple info windows
+        (function(marker, i) {
+          // add click event
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+            infowindow.open(map, marker);
+          });
+        })(marker, i);
+      }
+    })();
+  });
 </script>
+
+
+

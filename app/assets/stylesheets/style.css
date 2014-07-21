@@ -286,6 +286,7 @@ input:-webkit-autofill {
     opacity: 0;
     color: #fff;
 }
+
 .add-to-cams:hover {
     background-color: #3680c0;
 }
@@ -340,6 +341,12 @@ Google Maps
 #gmap_routes_instructions {
     margin-top: 10px;
     margin-bottom: 0px;
+}
+#public-map .create-share-button {
+    background-color: #428bca;
+    color: #fff;
+    width: 190px;
+    margin: 0 auto;
 }
 
 /*/////////////////////

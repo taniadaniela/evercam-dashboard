@@ -284,6 +284,7 @@ input:-webkit-autofill {
     visibility: hidden;
     border-radius: 1px;
     opacity: 0;
+    color: #fff;
 }
 .add-to-cams:hover {
     background-color: #3680c0;

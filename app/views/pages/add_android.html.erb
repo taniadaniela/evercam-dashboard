@@ -7,14 +7,50 @@
     body { height: 100%; margin: 0; padding: 0 }
     #map-canvas { height: 100% }
   </style>
-  <script type="text/javascript"
-          src="https://maps.googleapis.com/maps/api/js?sensor=TRUE">
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=TRUE">
   </script>
-  <script type="text/javascript">
 
-  </script>
 </head>
 <body>
 <div id="map-canvas"/>
 </body>
 </html>
+
+<script>
+  // This example displays a marker at the center of Australia.
+  // When the user clicks the marker, an info window opens.
+
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+    var mapOptions = {
+      zoom: 4,
+      center: myLatlng
+    };
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">Camera Title</h1>'+
+        '<div id="bodyContent">'+
+        '<IMG BORDER="0" ALIGN="Left" SRC="https://www.evercam.io/img/logo-av.png">'+
+        '</div>'+
+        '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'Uluru (Ayers Rock)'
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>

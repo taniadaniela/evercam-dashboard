@@ -83,6 +83,8 @@ module EvercamDashboard
                                  'admin/admin.js',
                                  'jquery.nicescroll.js']
 
+    config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
+
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'
     end

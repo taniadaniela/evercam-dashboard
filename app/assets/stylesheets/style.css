@@ -139,7 +139,7 @@ background-color:#e5e5e5;
     user-select: none;
 }
 .test-snapshot {
-    margin-top: 40px;
+    margin-top: 15px;
 
 }
 #testimg-add {
@@ -152,9 +152,8 @@ background-color:#e5e5e5;
     margin-left: -58px;
 }
 #test-error {
-    text-align: center;
+    text-align: left;
     display: block;
-    max-width: 103px;
 }
 #test {
     margin-bottom: 8px;
@@ -359,8 +358,7 @@ Google Maps
     padding: 0px;
 }
 .tab-content h4 {
-    margin-bottom: 5px;
-    font-family: 'proxima-nova-regular', 'Open Sans',sans-serif;
+
 }
 .camera-preview {
     position: relative;
@@ -506,6 +504,7 @@ input:focus {
 #camera-settings .input-group-addon {
     background-color: #fff;
     border: none;
+    padding: 6px 0px 6px 12px;
 }
 #testimg {
     max-width: 328px;

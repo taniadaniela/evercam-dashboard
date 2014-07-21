@@ -2,6 +2,7 @@ EvercamDashboard::Application.routes.draw do
 
    namespace :admin do
       get '/' => 'dashboard#index'
+      get '/map' => 'dashboard#map'
       resources :dash_cameras, path: :cameras
       resources :dash_users, path: :users
    end

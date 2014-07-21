@@ -7,4 +7,8 @@ class Admin::DashboardController < AdminController
     @new_cameras = @dash_cameras.where('created_at >= ?', 1.month.ago)
   end
 
+  def map
+    @dash_cameras = DashCamera.where.not(location: nil)
+  end
+
 end

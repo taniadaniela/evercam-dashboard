@@ -10,6 +10,8 @@
 //= require metronic/components.css
 //= require metronic/plugins.css
 //= require metronic/layout.css
+//= require metronic/portfolio.css
+//= require metronic/profile.css
 //= require metronic/default.css
 //= require metronic/custom.css
 //= require admin/fonts.css
@@ -37,4 +39,33 @@ table.dataTable thead .sorting_desc_disabled { background: image-url('metronic/s
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+#admin-dash_users-show .camera-snapshot{
+  .img-responsive{
+    width: 100%;
+  }
+  a.mix-link{
+    margin-right: -20px;
+  }
+  .mix-details{
+    opacity: 0.9;
+  }
+}
+
+.profile-nav .img-responsive{
+  width: 100%;
+}
+
+#admin-dash_cameras-index,
+#admin-dash_users-index{
+  .table td a{
+    display: block;
+  }
+}
+
+#map_canvas{
+  min-height: 600px;
+  height: 100%;
+  width: 100%;
 }

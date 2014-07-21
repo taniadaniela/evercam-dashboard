@@ -4,6 +4,11 @@ class DashUser < ActiveRecord::Base
   self.inheritance_column = 'ruby_type'
   self.primary_key = 'id'
 
+  belongs_to :dash_country, class_name: 'DashCountry', foreign_key: 'country_id', primary_key: 'id'
+  has_many :dash_cameras, :foreign_key => 'owner_id', :class_name => 'DashCamera'
+  has_many :dash_cameras_by_dash_camera_shares, :source => :dash_camera, :through => :dash_camera_shares, :foreign_key => 'camera_id', :class_name => 'DashCamera'
+  has_many :dash_camera_shares, :foreign_key => 'user_id', :class_name => 'DashCameraShare'
+
   def self.by_login(val)
     where(username: val).or(email: val).first
   end

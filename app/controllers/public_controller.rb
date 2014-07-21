@@ -17,7 +17,7 @@ class PublicController < ApplicationController
                                                   limit:  LIMIT,
                                                   thumbnail: true)
       @cameras = output[:cameras]
-      @cameras.each do |c|
+      @cameras.map! do |c|
         c = Hashie::Mash.new(c)
         c.extend Hashie::Extensions::DeepFetch
       end

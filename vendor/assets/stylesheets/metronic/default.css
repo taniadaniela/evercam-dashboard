@@ -5,7 +5,7 @@ body {
   background-color: #3d3d3d;
 }
 
-/*********** 
+/***********
 Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
@@ -63,7 +63,7 @@ Page Header
   background: #333333;
 }
 .page-header.navbar .menu-toggler {
-  background-image: url(../../img/sidebar_toggler_icon_default.png);
+  background-image: image-url('metronic/sidebar_toggler_icon_default.png');
 }
 
 /* Default Horizontal Menu */
@@ -410,8 +410,8 @@ Quick Sidebar Layout
   background: #393939;
 }
 
-/*** 
-Quick Sidebar Toggler 
+/***
+Quick Sidebar Toggler
 ***/
 .page-quick-sidebar-toggler {
   background: #525252;
@@ -532,7 +532,7 @@ Quick Sidebar Content
 }
 
 /******
-Page Footer 
+Page Footer
 ******/
 .page-footer .page-footer-inner {
   color: #a3a3a3;

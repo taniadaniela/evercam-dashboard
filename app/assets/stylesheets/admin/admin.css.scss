@@ -1,0 +1,71 @@
+//= require metronic/bootstrap.min.css
+//= require metronic/uniform.default.css
+//= require metronic/bootstrap-switch.min.css
+//= require metronic/jquery.gritter.css
+//= require metronic/daterangepicker-bs3.css
+//= require metronic/fullcalendar.css
+//= require metronic/dataTables.bootstrap.css
+//= require metronic/jqvmap.css
+//= require metronic/tasks.css
+//= require metronic/components.css
+//= require metronic/plugins.css
+//= require metronic/layout.css
+//= require metronic/portfolio.css
+//= require metronic/profile.css
+//= require metronic/default.css
+//= require metronic/custom.css
+//= require admin/fonts.css
+//= require_self
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
+  width: 18px;
+  height: 18px;
+}
+
+table.dataTable thead .sorting { background: image-url('metronic/sort_both.png') no-repeat center right; }
+table.dataTable thead .sorting_asc { background: image-url('metronic/sort_asc.png') no-repeat center right; }
+table.dataTable thead .sorting_desc { background: image-url('metronic/sort_desc.png') no-repeat center right; }
+
+table.dataTable thead .sorting_asc_disabled { background: image-url('metronic/sort_asc_disabled.png') no-repeat center right; }
+table.dataTable thead .sorting_desc_disabled { background: image-url('metronic/sort_desc_disabled.png') no-repeat center right; }
+
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-toggler,
+.page-sidebar .sidebar-toggler {
+  background: image-url('metronic/sidebar_inline_toggler_icon_default.jpg');
+}
+
+.page-logo{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#admin-dash_users-show .camera-snapshot{
+  .img-responsive{
+    width: 100%;
+  }
+  a.mix-link{
+    margin-right: -20px;
+  }
+  .mix-details{
+    opacity: 0.9;
+  }
+}
+
+.profile-nav .img-responsive{
+  width: 100%;
+}
+
+#admin-dash_cameras-index,
+#admin-dash_users-index{
+  .table td a{
+    display: block;
+  }
+}
+
+#map_canvas{
+  min-height: 600px;
+  height: 100%;
+  width: 100%;
+}

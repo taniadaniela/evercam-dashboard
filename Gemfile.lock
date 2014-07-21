@@ -1,4 +1,21 @@
 GIT
+  remote: git://github.com/nixme/jazz_hands.git
+  revision: 5e4b48f145883ecb14b55bf04eacc28ac9662676
+  branch: bring-your-own-debugger
+  specs:
+    jazz_hands (0.5.2)
+      awesome_print (~> 1.2)
+      coolline (>= 0.4.2)
+      hirb (~> 0.7.1)
+      pry (~> 0.9.12)
+      pry-doc (~> 0.4.6)
+      pry-git (~> 0.2.3)
+      pry-rails (~> 0.3.2)
+      pry-remote (>= 0.1.7)
+      pry-stack_explorer (~> 0.4.9)
+      railties (>= 3.0, < 5.0)
+
+GIT
   remote: git://github.com/sferik/rails_admin.git
   revision: e7be525b362f612741f973e48034f68d15118d9d
   specs:
@@ -59,8 +76,14 @@ GEM
       builder
       multi_json
     arel (5.0.1.20140414130214)
+    awesome_print (1.2.0)
     bcrypt (3.1.7)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    byebug (2.7.0)
+      columnize (~> 0.3)
+      debugger-linecache (~> 1.2)
     capybara (2.4.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -69,6 +92,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -76,10 +100,14 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
+    columnize (0.8.9)
+    coolline (0.4.4)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     dalli (2.7.2)
     data_uri (0.1.0)
+    debug_inspector (0.0.2)
+    debugger-linecache (1.2.0)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -87,6 +115,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    diffy (3.0.5)
     docile (1.1.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -126,6 +155,10 @@ GEM
       railties (>= 3.2, < 5.0)
     geocoder (1.1.9)
     georuby (2.2.1)
+    grit (2.5.0)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     haml (4.0.5)
       tilt
     hashie (3.2.0)
@@ -135,6 +168,7 @@ GEM
     heroku-deflater (0.5.3)
       rack (>= 1.4.5)
     hike (1.2.3)
+    hirb (0.7.2)
     i18n (0.6.11)
     intercom-rails (0.2.24)
       activesupport (> 3.0)
@@ -160,6 +194,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     memcachier (0.0.2)
+    method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.4.0)
@@ -172,8 +207,31 @@ GEM
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.5)
+    posix-spawn (0.3.8)
     protected_attributes (1.0.8)
       activemodel (>= 4.0.1, < 5.0)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-byebug (1.3.2)
+      byebug (~> 2.7)
+      pry (~> 0.9.12)
+    pry-doc (0.4.6)
+      pry (>= 0.9)
+      yard (>= 0.8)
+    pry-git (0.2.3)
+      diffy
+      grit
+      pry (>= 0.9.8)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
+    pry-stack_explorer (0.4.9.1)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -255,6 +313,7 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    slop (3.5.0)
     spring (1.1.3)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -294,6 +353,7 @@ GEM
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    yard (0.8.7.4)
     yui-compressor (0.12.0)
 
 PLATFORMS
@@ -316,6 +376,7 @@ DEPENDENCIES
   hashie_rails
   heroku-deflater
   intercom-rails (~> 0.2.24)
+  jazz_hands!
   jbuilder (~> 1.2)
   jquery-rails
   jquery-turbolinks
@@ -324,6 +385,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   protected_attributes
+  pry-byebug
   quiet_assets
   rack-rewrite
   rack_session_access

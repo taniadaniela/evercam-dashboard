@@ -126,6 +126,7 @@
 </div>
 <script>
   $(document).ready(function() {
+    /** TODO - fix and move to widgets.js.coffee
     var copy_sel = $('.code-block a.code-copy');
 
     // Disables other default handlers on click (avoid issues)
@@ -147,7 +148,7 @@
         // Return text in closest element (useful when you have multiple boxes that can be copied)
         return this_sel.closest('.code-block').text();
       }
-    });
+    });*/
   });
 </script>
 <%= javascript_include_tag "widgets" %>

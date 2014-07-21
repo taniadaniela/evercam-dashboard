@@ -50,7 +50,7 @@
               <td><%= human_boolean(dash_camera.is_online) %></td>
               <td><%= human_boolean(dash_camera.is_public) %></td>
               <td><%= dash_camera.created_at.strftime("%d/%m/%y") %></td>
-              <td><%= dash_camera.last_polled_at.strftime("%d/%m/%y") %></td>
+              <td><%= dash_camera.last_polled_at.strftime("%d/%m/%y") if dash_camera.last_polled_at %></td>
             </tr>
             <% end %>
           </tbody>

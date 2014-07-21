@@ -41,6 +41,16 @@ module EvercamDashboard
                                  'proximanova-bold-webfont.ttf',
                                  'proximanova-bold-webfont.svg',
                                  'proximanova-bold-webfont.eot',
+                                 'FontAwesome.otf',
+                                 'fontawesome-webfont.eot',
+                                 'fontawesome-webfont.svg',
+                                 'fontawesome-webfont.ttf',
+                                 'fontawesome-webfont.woff',
+                                 'Simple-Line-Icons.eot',
+                                 'Simple-Line-Icons.svg',
+                                 'Simple-Line-Icons.ttf',
+                                 'Simple-Line-Icons.woff',
+                                 'Simple-Line-Icons.dev.svg',
                                  'spin-1.3.2.min.js',
                                  'ladda-0.8.0.min.js',
                                  'swagger.js',
@@ -79,3 +89,13 @@ module EvercamDashboard
 
   end
 end
+
+
+
+
+
+
+
+
+
+

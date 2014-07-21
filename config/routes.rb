@@ -5,6 +5,7 @@ EvercamDashboard::Application.routes.draw do
       get '/map' => 'dashboard#map'
       resources :dash_cameras, path: :cameras
       resources :dash_users, path: :users
+      mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
    end
 
    root 'cameras#index'

@@ -453,15 +453,17 @@ padding:0px;
     float: left;
     margin-top: 8px;
 }
+#sharing .table > tbody > tr > td {
+    vertical-align: middle;
+}
 .sharing {
     margin-top: -9px;
 }
+.glyphicon-remove {
+    margin-right: 5px;
+}
 .delete-share-request-control {
     margin-top: 4px;
-}
-#sharing .table > tbody > tr > td {
-    vertical-align: middle;
-    padding:  0px 10px;
 }
 #sharing .radio input[type="radio"] {
     width: 20px;

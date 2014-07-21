@@ -82,5 +82,6 @@
       :api_version: '1.0'
       :mount_path: swagger
       :hide_documentation_path: true
-      :base_path: https://qqq.evercam.io/v1
+      :base_path: https://proxy.evr.cm:9292/v1
+  :testserver: true
 

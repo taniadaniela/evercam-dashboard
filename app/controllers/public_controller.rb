@@ -16,7 +16,8 @@ class PublicController < ApplicationController
       output = get_evercam_api.get_public_cameras(offset: offset,
                                                   limit:  LIMIT,
                                                   thumbnail: true)
-      @cameras = output[:cameras]
+      @cameras = Hashie::Mash.new(output[:cameras])
+      @camera.extend Hashie::Extensions::DeepFetch
       @pages = output[:pages]
 
       @cameras.delete_if do |camera|

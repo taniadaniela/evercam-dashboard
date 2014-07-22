@@ -38,9 +38,11 @@
 }
 .green {
     color:#2ECC71;
+    margin-top: 10px;
+    margin-right: 6px;
 }
 .red {
-    color:#DC4C3F;
+    color:#DC4C3F !important;
 }
 .grey {
     color:#aaa;
@@ -860,6 +862,11 @@ margin-left: 236px;}
     margin-top: 12px;
     margin-bottom: 5px;
     font-weight:600;
+}
+
+/* USER SETTINGS */
+#user-settings .form-horizontal .control-label {
+    text-align: left;
 }
 
 /* PASSWORD RESET */

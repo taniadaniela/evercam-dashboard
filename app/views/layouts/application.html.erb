@@ -26,7 +26,7 @@
     <div class="page-header-inner">
       <!-- BEGIN LOGO -->
       <div class="page-logo">
-        <a class="logo-default" href="/"><img src="https://www.evercam.io/img/logo-av.png"></a>
+        <a class="logo-default" href="/"><img src="https://www.evercam.io/img/evercam-white.png"></a>
 
       </div>
       <!-- END LOGO -->
@@ -43,12 +43,12 @@
               <img class="img-circle" width="18" height="18" src="https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y">
 					<span class="username">
 					<%= current_user.fullname %>
-            <b class="caret"></b>
+            <i class="fa fa-angle-down"></i>
           </span>
-              <i class="fa fa-angle-down"></i>
+
             </a>
             <ul class="dropdown-menu">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">Settings</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a></li>
               <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
 
             </ul>

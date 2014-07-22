@@ -15,8 +15,10 @@
     position: absolute;
     right: 0;
     top: 0;
-    border-bottom-left-radius:1px;
     cursor:pointer;
+    border-bottom: 2px solid #303030;
+    color: #303030;
+
 }
 
 .cam-box:hover #cam-refresh {
@@ -94,7 +96,8 @@ background-color:#e5e5e5;
 
 }
 .logo-default img {
-    max-width: 200px;
+    max-width: 151px;
+    margin-top: 9px;
 }
 
 /*/////////////////////
@@ -573,6 +576,12 @@ input:focus {
     overflow: auto;
     padding-bottom: 20px;
 }
+#code {
+    max-width: 390px;
+    min-height: 150px;
+    border: 2px solid #e5e5e5;
+    padding: 7px;
+}
 /*/////////////////////
 //SIGN IN FORM
 /////////////////////*/
@@ -754,7 +763,7 @@ input:-webkit-autofill:focus {
     position: relative;
     right: -9px;
     top: -1px;
-    border: 1px solid #e9eaed;
+    border: 1px solid #4d4d4d;
     border-radius: 2px;
     padding: 0px 2px 1px 2px;
 }
@@ -767,21 +776,23 @@ input:-webkit-autofill:focus {
     border-radius: 2px;
     padding: 0px 2px 1px 2px;
 }
-
+.icon-wrench {
+    size: 16px;
+}
 .sub-menu-item a {
     border: none !important;
-    padding-left: 30px !important;
+    padding-left: 40px !important;
 }
 .share-icon {
     background-image: url('https://www.evercam.io/img/share.png');
     width: 19px;
     display: block;
-    background-size: 15px;
+    background-size: 14px;
     background-repeat: no-repeat;
     height: 9px;
     float: left;
     margin-top: 16px;
-    margin-left: 7px;
+    margin-left: 20px;
 }
 
 /*/////////////////////
@@ -827,23 +838,14 @@ margin-left: 236px;}
 /*MAP */
 #map-canvas {
     width: 100%;
-    height: 650px;
+    height: 680px;
 }
 
 #public-map-canvas {
     width: 100%;
-    height: 630px;
+    height: 650px;
 }
 
-.page-sidebar a {
-    color: #414042;
-}
-.active a {
-    color: #428bca;
-}
-.active .open {
-    color: #428bca;
-}
 #map {
      width: 500px;
      height: 500px;
@@ -871,4 +873,9 @@ margin-left: 236px;}
 }
 #pass-reset .panel {
     padding: 20px 0px 30px 20px;
+}
+
+
+.page-sidebar .page-sidebar-menu .sub-menu-item a {
+    padding: 7px 15px;
 }

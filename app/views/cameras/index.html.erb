@@ -14,8 +14,7 @@
       </li>-->
         <li>
           <a class="active" href="javascript:;">
-            <span class="title open">Camera Dashboard</span>
-            <span class="caret"></span>
+            <i class="icon-camera"></i>My Cameras <i class="fa fa-angle-down"></i>
           </a>
           <ul class="sub-menu">
             <% @cameras.each do |camera| %>
@@ -48,15 +47,15 @@
         </li>
 
         <li>
-          <a class="public-cam" href="/publiccam">Public Cameras</a>
+          <a class="public-cam" href="/publiccam"><i class="icon-map"></i>Public Cameras</a>
         </li>
 
         <li>
-          <a href="/cameras/new">Add Camera</a>
+          <a href="/cameras/new"><i class="icon-plus"></i>Add Camera</a>
         </li>
         <li>
           <a href="/dev">
-            <span class="title">Developer</span>
+            <i class="icon-wrench"></i><span class="title">Developer</span>
           </a>
 
         </li>

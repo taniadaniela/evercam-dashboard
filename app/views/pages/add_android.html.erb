@@ -7,70 +7,14 @@
     body { height: 100%; margin: 0; padding: 0 }
     #map-canvas { height: 100% }
   </style>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=TRUE">
+  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?sensor=TRUE">
   </script>
+  <script type="text/javascript">
 
+  </script>
 </head>
 <body>
 <div id="map-canvas"/>
 </body>
 </html>
-
-<script>
-  $(document).ready(function() {
-    // execute
-    (function() {
-      // map options
-      var options = {
-        zoom: 5,
-        center: new google.maps.LatLng(39.909736, -98.522109), // centered US
-        mapTypeId: google.maps.MapTypeId.TERRAIN,
-        mapTypeControl: false
-      };
-
-      // init map
-      var map = new google.maps.Map(document.getElementById('map-canvas'), options);
-
-      // NY and CA sample Lat / Lng
-      var southWest = new google.maps.LatLng(40.744656, -74.005966);
-      var northEast = new google.maps.LatLng(34.052234, -118.243685);
-      var lngSpan = northEast.lng() - southWest.lng();
-      var latSpan = northEast.lat() - southWest.lat();
-
-      // set multiple marker
-      for (var i = 0; i < 250; i++) {
-        // init markers
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(southWest.lat() + latSpan * Math.random(), southWest.lng() + lngSpan * Math.random()),
-          map: map,
-          title: 'Click Me ' + i
-        });
-
-        var contentString = '<div id="content">'+
-            '<div id="public-map">'+
-            '<IMG BORDER="0" SRC="https://snap.evercam.io/wick-mast-3.jpg?t=wJr6jtcdq5r1IOlvyIK3K23xYfTObX/n7dNZDJd4gqAzOTNWbDUmCUb2D6uMNQFvAs9pzjX8UostvB388LJ2owUp4FHKI9UxRLJr86et4sY=">'+
-            '</div>'+
-            '</div>';
-
-        var infowindow = new google.maps.InfoWindow({
-          maxWidth: 500,
-          content: contentString
-        });
-
-        // process multiple info windows
-        (function(marker, i) {
-          // add click event
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-            infowindow.open(map, marker);
-          });
-        })(marker, i);
-      }
-    })();
-  });
-</script>
-
-
-

@@ -3,6 +3,7 @@ EvercamDashboard::Application.routes.draw do
    namespace :admin do
       get '/' => 'dashboard#index'
       get '/map' => 'dashboard#map'
+      get '/kpi' => 'dashboard#kpi'
       resources :dash_cameras, path: :cameras
       resources :dash_users, path: :users
       mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'

@@ -105,6 +105,82 @@
       </div>
     </div>
     <!-- END DASHBOARD STATS -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="portlet box yellow">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-signal"></i>
+              KPI
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div class="task-content">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr role="row" class="heading">
+                    <th>&nbsp;</th>
+                    <% 11.downto(0) do |i| %>
+                    <th>
+                      <%= i.months.ago.strftime("%B %Y") %>
+                    </th>
+                    <% end %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      New Cameras
+                    </td>
+                    <% 11.downto(0) do |i| %>
+                    <td>
+                      <%= DashCamera.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
+                    </td>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <td>
+                      Total Cameras
+                    </td>
+                    <% 11.downto(0) do |i| %>
+                    <td>
+                      <%= DashCamera.where(created_at: DashCamera.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>
+                    </td>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <td>
+                      New Users
+                    </td>
+                    <% 11.downto(0) do |i| %>
+                    <td>
+                      <%= DashUser.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
+                    </td>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <td>
+                      Total Users
+                    </td>
+                    <% 11.downto(0) do |i| %>
+                    <td>
+                      <%= DashUser.where(created_at: DashUser.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>
+                    </td>
+                    <% end %>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="scroller-footer">
+              <div class="btn-arrow-link pull-right">
+                <a href="/admin/kpi">See KPIs</a>
+                <i class="icon-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row ">
       <div class="col-md-6 col-sm-6">
         <div class="portlet box blue-steel">
@@ -171,7 +247,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                <% @new_users.each do |dash_user| %>
+                  <% @new_users.each do |dash_user| %>
                   <tr>
                     <td><%= dash_user.fullname %></td>
                     <td><%= dash_user.email %></td>

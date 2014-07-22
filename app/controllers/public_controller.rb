@@ -12,11 +12,15 @@ class PublicController < ApplicationController
     begin
       @page    = (params[:page].to_i - 1) || 0
       @page = 0 if @page < 0
-      offset = @page*LIMIT
+      offset = @page
       output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  limit:  LIMIT,
                                                   thumbnail: true)
       @cameras = output[:cameras]
+      @cameras.map! do |c|
+        c = Hashie::Mash.new(c)
+        c.extend Hashie::Extensions::DeepFetch
+      end
+
       @pages = output[:pages]
 
       @cameras.delete_if do |camera|
@@ -35,7 +39,8 @@ class PublicController < ApplicationController
     @camera  = nil
     @user    = current_user
     begin
-      @camera        = get_evercam_api.get_camera(params[:id])
+      @camera        = Hashie::Mash.new(get_evercam_api.get_camera(params[:id]))
+      @camera.extend Hashie::Extensions::DeepFetch
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -53,9 +58,8 @@ class PublicController < ApplicationController
     begin
       @page    = (params[:page].to_i - 1) || 0
       @page = 0 if @page < 0
-      offset = @page*LIMIT
+      offset = @page
       output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  limit:  LIMIT,
                                                   thumbnail: true)
       @cameras = output[:cameras]
       @pages = output[:pages]

@@ -5,6 +5,15 @@ validate_hostname= (str) ->
 
 
 $ ->
+  $('#camera-url').on('input', () ->
+    val = $(this).val()
+    a = document.createElement('a')
+    a.href = val
+    $(this).val(a.hostname)
+    $('#port').val(a.port)
+    $('#snapshot').val(a.pathname)
+  )
+
   $('#test').click((e) ->
     intRegex = /^\d+$/
     port = $('#port').val()

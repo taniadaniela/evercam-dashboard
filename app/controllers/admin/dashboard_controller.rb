@@ -11,4 +11,7 @@ class Admin::DashboardController < AdminController
     @dash_cameras = DashCamera.where.not(location: nil)
   end
 
+  def kpi
+  end
+
 end

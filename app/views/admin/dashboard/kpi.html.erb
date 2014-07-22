@@ -1,35 +1,77 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
   <div class="page-content">
-    <!-- BEGIN PAGE HEADER-->
-    <div class="row">
+    <div class="row ">
       <div class="col-md-12">
-        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-        <h3 class="page-title">
-          KPI
-        </h3>
-        <ul class="page-breadcrumb breadcrumb">
-          <li>
-            <i class="fa fa-home"></i>
-            <a href="/admin">Home</a>
-            <i class="fa fa-angle-right"></i>
-          </li>
-          <li>
-            <a href="#">Dashboard</a>
-          </li>
-          <li class="pull-right">
-            <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
-              <i class="icon-calendar"></i>
-              <span></span>
-              <i class="fa fa-angle-down"></i>
+        <div class="portlet box purple">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-signal"></i>
+              Total Users/Cameras Chart
             </div>
-          </li>
-        </ul>
-        <!-- END PAGE TITLE & BREADCRUMB-->
+          </div>
+          <div class="portlet-body">
+            <div id="total_users_cameras" class="kpi-chart" style="height: 400px; "></div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- END PAGE HEADER-->
-    <!-- BEGIN DASHBOARD STATS -->
+    <div class="row ">
+      <div class="col-md-6">
+        <div class="portlet box yellow">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-users"></i>
+              New Users Chart
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div id="new_users" class="kpi-chart" style="height: 400px; "></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="portlet box red">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-video-camera"></i>
+              New Cameras Chart
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div id="new_cameras" class="kpi-chart" style="height: 400px; "></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-6">
+        <div class="portlet box yellow">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-video-camera"></i>
+              Online Cameras
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div id="cameras_online" class="kpi-chart" style="height: 400px; "></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="portlet box red">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-video-camera"></i>
+              Users With More Than One Camera
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div id="users_multiple_cameras" class="kpi-chart" style="height: 400px; "></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr role="row" class="heading">
@@ -85,9 +127,214 @@
       </tbody>
     </table>
   </div>
-  <!-- END DASHBOARD STATS -->
-  <div class="row "></div>
 </div>
 </div>
 <!-- END CONTENT -->
 
+<script type="text/javascript">
+  var glob = {};
+  $(function() {
+
+    var new_user_data = [
+    <% 11.downto(0) do |i| %>
+    ['<%= i.months.ago.strftime("%B %Y") %>', <%= DashUser.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>],
+    <% end %>
+    ];
+
+    var new_camera_data = [
+    <% 11.downto(0) do |i| %>
+    ['<%= i.months.ago.strftime("%B %Y") %>', <%= DashCamera.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>],
+    <% end %>
+    ];
+
+    $.plot("#new_users", [ new_user_data ], {
+      series: {
+        bars: {
+          show: true,
+          barWidth: 0.6,
+          align: "center"
+        }
+      },
+      xaxis: {
+        mode: "categories",
+        tickLength: 0
+      }
+    });
+
+    $.plot("#new_cameras", [ new_camera_data ], {
+      series: {
+        bars: {
+          show: true,
+          barWidth: 0.6,
+          align: "center"
+        }
+      },
+      xaxis: {
+        mode: "categories",
+        tickLength: 0
+      }
+    });
+
+    var online_cameras = [
+    { label: "Cameras Online",  data: <%= DashCamera.where(is_online: true).count %>},
+    { label: "Cameras Offline",  data: <%= DashCamera.where(is_online: false).count %>},
+    ];
+
+    var users_multiple_cameras = [
+    { label: "Users with 1 Camera", data: <%= DashUser.joins(:dash_cameras).group("users.id").having("count(cameras.id) = ?",1).length %>},
+    { label: "Users with >1 Camera",  data: <%= DashUser.joins(:dash_cameras).group("users.id").having("count(cameras.id) > ?",1).length %>},
+    ];
+
+    $.plot('#cameras_online', online_cameras, {
+      series: {
+        pie: {
+          show: true,
+          radius: 1,
+          label: {
+            show: true,
+            radius: 3/4,
+            formatter: labelFormatter,
+            background: {
+              opacity: 0.5,
+              color: '#000'
+            }
+          }
+        }
+      },
+      legend: {
+        show: false
+      }
+    });
+
+  $.plot('#users_multiple_cameras', users_multiple_cameras, {
+    series: {
+      pie: {
+        show: true,
+        radius: 1,
+        label: {
+          show: true,
+          radius: 3 / 4,
+          formatter: labelFormatter,
+          background: {
+            opacity: 0.5,
+            color: '#000'
+          }
+        }
+      }
+    },
+    legend: {
+      show: false
+    }
+  });
+
+    function labelFormatter(label, series) {
+      return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+    }
+
+    function total_users_cameras() {
+      function randValue() {
+        return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+      }
+      var cameras = [
+      <% 11.downto(0) do |i| %>
+      ['<%= i.months.ago.strftime("%B %Y") %>', <%= DashCamera.where(created_at: DashCamera.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>],
+      <% end %>
+      ];
+      var users = [
+      <% 11.downto(0) do |i| %>
+      ['<%= i.months.ago.strftime("%B %Y") %>', <%= DashUser.where(created_at: DashUser.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>],
+      <% end %>
+      ];
+
+      var plot = $.plot($("#total_users_cameras"), [{
+        data: cameras,
+        label: "Cameras",
+        lines: {
+          lineWidth: 1,
+        },
+        shadowSize: 0
+
+      }, {
+        data: users,
+        label: "Users",
+        lines: {
+          lineWidth: 1,
+        },
+        shadowSize: 0
+      }], {
+        series: {
+          lines: {
+            show: true,
+            lineWidth: 2,
+            fill: true,
+            fillColor: {
+              colors: [{
+                opacity: 0.05
+              }, {
+                opacity: 0.01
+              }]
+            }
+          },
+          points: {
+            show: true,
+            radius: 3,
+            lineWidth: 1
+          },
+          shadowSize: 2
+        },
+        grid: {
+          hoverable: true,
+          clickable: true,
+          tickColor: "#eee",
+          borderColor: "#eee",
+          borderWidth: 1
+        },
+        colors: ["#d12610", "#37b7f3", "#52e136"],
+        xaxis: {
+          mode: "categories",
+          tickLength: 0
+        },
+        yaxis: {
+          ticks: 11,
+          tickDecimals: 0,
+          tickColor: "#eee",
+        }
+      });
+
+function showTooltip(x, y, contents) {
+  $('<div id="tooltip">' + contents + '</div>').css({
+    position: 'absolute',
+    display: 'none',
+    top: y + 5,
+    left: x + 15,
+    border: '1px solid #333',
+    padding: '4px',
+    color: '#fff',
+    'border-radius': '3px',
+    'background-color': '#333',
+    opacity: 0.80
+  }).appendTo("body").fadeIn(200);
+}
+
+var previousPoint = null;
+$("#total_users_cameras").bind("plothover", function (event, pos, item) {
+  $("#x").text(pos.x.toFixed(2));
+  $("#y").text(pos.y.toFixed(2));
+
+  if (item) {
+    if (previousPoint != item.dataIndex) {
+      previousPoint = item.dataIndex;
+
+      $("#tooltip").remove();
+
+      showTooltip(item.pageX, item.pageY, item.datapoint[1] + " " + item.series.label + " on " + item.series.data[item.datapoint[0]][0]);
+    }
+  } else {
+    $("#tooltip").remove();
+    previousPoint = null;
+  }
+});
+}
+total_users_cameras();
+});
+</script>

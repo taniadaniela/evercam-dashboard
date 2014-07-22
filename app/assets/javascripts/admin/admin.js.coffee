@@ -7,6 +7,9 @@
 #= require metronic/jquery.blockui.min.js
 #= require metronic/jquery.cokie.min.js
 #= require metronic/jquery.uniform.min.js
+#= require metronic/jquery.flot.js
+#= require metronic/jquery.flot.categories.min.js
+#= require metronic/jquery.flot.pie.min.js
 #= require metronic/bootstrap-switch.min.js
 #= require metronic/select2.min.js
 #= require metronic/jquery.dataTables.min.js

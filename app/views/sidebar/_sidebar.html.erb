@@ -9,19 +9,13 @@
       </div>-->
       <!-- END SIDEBAR TOGGLER BUTTON
     </li>-->
-
-
         <li>
-          <span class="glyphicon glyphicon-camera"></span>
-          <a href="/">My Cameras
-          <span class="caret"></span>
-          </a>
+          <a href="/"><i class="icon-camera"></i>My Cameras <i class="fa fa-angle-down"></i></a>
         </li>
             <% @cameras.each do |camera| %>
               <li class="sub-menu-item">
                 <a href="/cameras/<%= camera['id'] %>?share=false">
                   <div id="offline-menu"> <% if camera['is_online'] %>
-
                     <% else %>
                       <span class="red-dot"><small>off</small></span>
                     <% end %>
@@ -46,19 +40,16 @@
               </li>
             <% end %>
 
-
-
-
         <li>
-          <a class="public-cam" href="/publiccam">Public Cameras</a>
+          <a class="public-cam" href="/publiccam"><i class="icon-map"></i>Public Cameras</a>
         </li>
 
         <li>
-          <a href="/cameras/new">Add Camera</a>
+          <a href="/cameras/new"><i class="icon-plus"></i>Add Camera</a>
         </li>
         <li>
           <a href="/dev">
-            <span class="title">Developer</span>
+            <i class="icon-wrench"></i><span class="title">Developer</span>
           </a>
         </li>
     </ul>

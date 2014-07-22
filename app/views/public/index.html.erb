@@ -90,14 +90,14 @@
       (function (marker) {
         // add click event
         google.maps.event.addListener(marker, 'click', function () {
-          infowindow.open(map, marker);
-
           infowindow = new google.maps.InfoWindow({
             content: "<%= preview(c, true) %>"+
                 '<h5><%= c["name"] %></h5>'+
                 '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>'
-
+            
           });
+
+          infowindow.open(map, marker);
         });
       })(marker);
       <% end %>

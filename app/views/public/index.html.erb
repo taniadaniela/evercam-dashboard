@@ -38,16 +38,6 @@
             <div class="caption">
               <i class=​"fa fa-globe">​</i>​Map View
             </div>
-            <div class="tools">
-              <a href="" class="collapse">
-              </a>
-              <a href="#portlet-config" data-toggle="modal" class="config">
-              </a>
-              <a href="" class="reload">
-              </a>
-              <a href="" class="remove">
-              </a>
-            </div>
           </div>
 
           <div class="portlet-body">
@@ -100,13 +90,14 @@
       (function (marker) {
         // add click event
         google.maps.event.addListener(marker, 'click', function () {
+          infowindow.open(map, marker);
+
           infowindow = new google.maps.InfoWindow({
             content: "<%= preview(c, true) %>"+
                 '<h5><%= c["name"] %></h5>'+
                 '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>'
-          });
 
-          infowindow.open(map, marker);
+          });
         });
       })(marker);
       <% end %>

@@ -254,9 +254,6 @@ input:-webkit-autofill {
 /*///////////////////////////
 // PUBLIC CAMS
 ///////////////////////////*/
-#public-index .page-content-wrapper .page-content {
-    padding:0px;
-}
 
 .public-cam-box {
     height: 350px;
@@ -299,7 +296,7 @@ input:-webkit-autofill {
     transition: visibility 0s linear 0.1s,opacity 0.3s linear;
 }
 .create-share-button {
-    margin-top: -3px;
+    margin-top: -14px;
 }
 
 #public-cam-single .glyphicon-plus {
@@ -311,7 +308,9 @@ input:-webkit-autofill {
     top: -5px;
     color: #428bca;
 }
+#public-cam-single {
 
+}
 .glyphicon-arrow-left {
     margin-right: 5px;
 }
@@ -813,10 +812,15 @@ margin-left: 236px;}
     margin-left:0px !important;
 }
 
-/*MAP*/
+/*MAP */
 #map-canvas {
     width: 100%;
-    height: 500px;
+    height: 650px;
+}
+
+#public-map-canvas {
+    width: 100%;
+    height: 630px;
 }
 
 .page-sidebar a {
@@ -832,11 +836,16 @@ margin-left: 236px;}
      width: 500px;
      height: 500px;
 }
-
+/*MAP PUBLIC*/
 #map-public {
     width: 100%;
     height: 166px;
     max-width: 332px;
+}
+#public-index h5 {
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight:600;
 }
 
 /* PASSWORD RESET */

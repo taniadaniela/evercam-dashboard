@@ -1,100 +1,118 @@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=TRUE"></script>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
 
 <div class="page-container" id="public-index">
-  <!-- sidebar menu start-->
-  <div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
-
-      <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-        <!--<li class="sidebar-toggler-wrapper">
-          <div class="sidebar-toggler">
-          </div>
-        </li>-->
-        <li>
-          <a href="/">Camera Dashboard</a>
-        </li>
-        <li class="active">
-          <a href="/publiccam">Public Cameras</a>
-        </li>
-
-        <li>
-          <a href="/cameras/new">Add Camera</a>
-        </li>
-        <li>
-          <a href="/dev">Developer</a>
-        </li>
-      </ul>
+<!-- sidebar menu start-->
+    <div class="page-sidebar-wrapper">
+      <div class="page-sidebar navbar-collapse collapse">
+        <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+          <!--<li class="sidebar-toggler-wrapper">
+            <div class="sidebar-toggler">
+            </div>
+          </li>-->
+          <li>
+            <a href="/">Camera Dashboard</a>
+          </li>
+          <li class="active">
+            <a href="/publiccam">Public Cameras</a>
+          </li>
+          <li>
+            <a href="/cameras/new">Add Camera</a>
+          </li>
+          <li>
+            <a href="/dev">Developer</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <!-- sidebar menu end-->
-  <div class="page-content-wrapper">
+<!-- sidebar menu end-->
+    <div class="page-content-wrapper">
     <div class="page-content">
+      <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="portlet">
 
-<!--<a href="/publicam/map">map</a>-->
-          <!-- Nav tabs -->
-       <!-- <div class="panel-heading">
-           <ul class="nav nav-tabs">
-            <li id="grid-style" class="<%= 'active' unless cookies['public-style'] == 'list' %>"><a href="#grid" data-toggle="tab"><span class="glyphicon glyphicon-th"></span>Grid</a></li>
-            <li id="list-style" class="<%= 'active' if cookies['public-style'] == 'list' %>"><a href="#map" data-toggle="tab"><span class="glyphicon glyphicon-align-justify"></span>Map</a></li>
-          </ul>
-         </div>-->
-          <!-- Tab panes -->
-         <!-- <div class="tab-content">-->
-            <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="grid">
-              <% @cameras.each do |c| %>
-
-                <a href="/publiccam/<%= c['id'] %>">
-                <div class="col-md-4 col-sm-6 col-xs-12 public-cam-box">
-                  <div id="cam-name">
-                    <h5><%= c["name"] %></h5>
-                    <%= c.deep_fetch(:location, :lat) {} %>
-                  </div>
-                    <%= preview(c, true) %>
-                  <div class="add-to-cams">
-                    <h5><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to My Cameras</a></h5>
-                  </div>
-                </div>
-                </a>
-              <% end %>
-
+          <div class="portlet-title">
+            <div class="caption">
+              <i class=​"fa fa-globe">​</i>​Map View
             </div>
-            <div class="tab-pane <%= 'active' if cookies['public-style'] == 'list' %>" id="map">
-              <div class="row">
-
-                  </div>
-
-              </div><!-- #row -->
-      <!--</div>-->
-
-            <% unless @pages.blank? %>
-            <div class="col-md-12">
-              <ul class="pagination">
-                <% 1.upto(@pages) do |i| %>
-                <% if (@page + 1) == i %>
-                <li class="active"><a href="publiccam?page=<%= i %>"><%= i %><span class="sr-only">(current)</span></a></li>
-                <% else %>
-                <li><a href="publiccam?page=<%= i %>"><%= i %></a></li>
-                <% end %>
-                <% end %>
-              </ul>
+            <div class="tools">
+              <a href="" class="collapse">
+              </a>
+              <a href="#portlet-config" data-toggle="modal" class="config">
+              </a>
+              <a href="" class="reload">
+              </a>
+              <a href="" class="remove">
+              </a>
             </div>
-            <% end %>
-
           </div>
-        </div><!-- #PUBLICCAMS -->
+
+          <div class="portlet-body">
+              <div id="map-canvas"></div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    </div>
 
 </div>
+
 <%= javascript_include_tag "publiccam" %>
+
 <script>
-$(window.Evercam.Publiccam.initialize);
+  $(window.Evercam.Publiccam.initialize);
 
-Notification.init(".bb-alert");
-<% if flash[:error] %>
-Notification.show('<%= flash[:error] %>');
-<% end %>
+  Notification.init(".bb-alert");
+  <% if flash[:error] %>
+  Notification.show('<%= flash[:error] %>');
+  <% end %>
+
+  $(document).ready(function () {
+    // execute
+    (function () {
+      // map options
+      var options = {
+        zoom: 2,
+        center: new google.maps.LatLng(25, 10), // centered US
+        mapTypeControl: false
+      };
+
+      // init map
+      var map = new google.maps.Map(document.getElementById('map-canvas'), options);
+
+      // set multiple marker
+      <% @cameras.each do |c| %>
+      // init markers
+        <% if c.deep_fetch(:location) {} != nil %>
+
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(<%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %>),
+        map: map,
+        title: 'Click Me '
+      });
+
+      // process multiple info windows
+      (function (marker) {
+        // add click event
+        google.maps.event.addListener(marker, 'click', function () {
+          infowindow = new google.maps.InfoWindow({
+            content: "<%= preview(c, true) %>"+
+                '<h5><%= c["name"] %></h5>'+
+                '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>'
+          });
+
+          infowindow.open(map, marker);
+        });
+      })(marker);
+      <% end %>
+      <% end %>
+
+    })();
+  });
 </script>
-
-
 

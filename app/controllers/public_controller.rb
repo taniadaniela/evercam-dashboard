@@ -12,9 +12,8 @@ class PublicController < ApplicationController
     begin
       @page    = (params[:page].to_i - 1) || 0
       @page = 0 if @page < 0
-      offset = @page*LIMIT
+      offset = @page
       output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  limit:  LIMIT,
                                                   thumbnail: true)
       @cameras = output[:cameras]
       @cameras.map! do |c|
@@ -59,9 +58,8 @@ class PublicController < ApplicationController
     begin
       @page    = (params[:page].to_i - 1) || 0
       @page = 0 if @page < 0
-      offset = @page*LIMIT
+      offset = @page
       output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  limit:  LIMIT,
                                                   thumbnail: true)
       @cameras = output[:cameras]
       @pages = output[:pages]

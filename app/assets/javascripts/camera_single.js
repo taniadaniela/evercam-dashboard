@@ -4,3 +4,4 @@
 //= require settings
 //= require explorer
 //= require logs
+//= require location.js

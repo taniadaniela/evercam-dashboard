@@ -22,7 +22,7 @@
         <a href="/cameras/new"><i class="icon-plus"></i>Add Camera</a>
       </li>
       <li>
-        <a href="/dev"><i class="icon-wrench"></i>Developer</a>
+        <a href="/dev"><i class="icon-briefcase"></i>Developer</a>
       </li>
     </ul>
   </div>
@@ -46,45 +46,47 @@
   <div class="tab-content">
     <div class="tab-pane active" id="tab_1_1">
 
-        <div class="row">
+
 
         <!-- FORM START -->
         <%= form_tag('/cameras/new', method: 'post', class: "has-validation-callback") do %>
           <% field_errors = (flash[:field_errors] || {}) %>
 
           <!-- STEP 1 -->
-          <fieldset>
+
+            <form class="form-horizontal" role="form">
             <div class='row add-row'>
-              <div class='col-md-8'>
-                <div class='col-md-5 form-group<%= field_errors["name"] ? ' has-error' : '' %>'>
-                  <%= label_tag('camera-name', "Friendly Name*", class: "control-label") %>
-                  <%= text_field_tag("camera-name", @user['camera-name'], "placeholder" => "Rooftop Camera", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Max 24 characters containing letters, spaces and hyphens.") %>
-                  <% if field_errors["name"] %>
-                    <span class="help-block form-error text-left"><%= field_errors["name"] %></span>
-                  <% end %>
+              <div class='col-md-12'>
+
+                <div class='form-group<%= field_errors["name"] ? ' has-error' : '' %>'>
+                  <%= label_tag('camera-name', "Friendly Name*", class: "col-md-2 control-label") %>
+                  <div class="col-md-4">
+                    <%= text_field_tag("camera-name", @user['camera-name'], "placeholder" => "Rooftop Camera", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Max 24 characters containing letters, spaces and hyphens.") %>
+                    <% if field_errors["name"] %>
+                      <span class="help-block form-error text-left"><%= field_errors["name"] %></span>
+                    <% end %>
+                  </div>
                 </div>
-                <div class='col-md-5 model form-group<%= field_errors["id"] ? ' has-error' : '' %>'>
-                  <%= label_tag('camera-id', "Evercam ID*", class: "control-label") %>
-                  <%= text_field_tag("camera-id", @user['camera-id'], "placeholder" => "roof-cam", "class" => "form-control", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
-                  <% if field_errors["id"] %>
-                    <span class="help-block form-error text-left"><%= field_errors["id"] %></span>
-                  <% end %>
+                <div class='model form-group<%= field_errors["id"] ? ' has-error' : '' %>'>
+                    <%= label_tag('camera-id', "Evercam ID*", class: "col-md-2 control-label") %>
+                  <div class="col-md-4">
+                    <%= text_field_tag("camera-id", @user['camera-id'], "placeholder" => "roof-cam", "class" => "form-control", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
+                    <% if field_errors["id"] %>
+                      <span class="help-block form-error text-left"><%= field_errors["id"] %></span>
+                    <% end %>
+                  </div>
                 </div>
                 <!-- <span class="col-sm-1 label label-default additional info-2">?</span>
                  <div class='row col-lg-12 settings'>
                    <p class="help">The Friendly Name is how you will identify your Camera in the Dashboard. You also need to create an ID for each camera that will have to be Unique to Evercam.</p>
                  </div>-->
-              </div>
-              <div class='col-lg-4'>
-                <div class="media">
-                  <img id="testimg-add" src="/" class="text-center" width="100%">
-                </div>
+
               </div>
             </div>
-          </fieldset>
+
 
           <!-- MAKE & MODEL -->
-          <fieldset>
+
             <div class='row add-row make-model'>
               <div class='col-md-8'>
                 <div class='col-md-5 form-group<%= field_errors["vendor"] ? ' has-error' : '' %>'>
@@ -120,7 +122,7 @@
 
               </div>
             </div>
-          </fieldset>
+
 
 
 
@@ -129,7 +131,7 @@
               <div class='col-md-8'>
 
                 <!-- SNAPSHOT PATH -->
-                <fieldset>
+
                   <div class="row add-row snap-path">
 
                     <div id="ext-ip" class='col-md-4 form-group<%= field_errors["external_host"] ? ' has-error' : '' %>'>
@@ -168,11 +170,10 @@
                                   </div>-->
 
                   </div>
-                </fieldset>
 
 
-                <!-- USERNAME & PASSWORD -->
-                <fieldset>
+
+
                   <div class='row add-row'>
                     <div class='col-md-5 form-group<%= field_errors["username"] ? ' has-error' : '' %>'>
                       <%= label_tag('camera-username', "Camera Username", class: "control-label") %>
@@ -194,7 +195,7 @@
                       <p class="help">The camera you are trying to connect will already have a Username &amp; Password associated with it. These credentials will have been created by the camera owner.</p>
                     </div>-->
                   </div>
-                </fieldset>
+
 
               </div><!-- col-8 -->
 
@@ -213,7 +214,7 @@
           </div><!-- row -->
 
 
-          <fieldset>
+
             <div class="add-row-bottom">
               <p class="col-lg-8 additional expand"><span class="glyphicon glyphicon-plus"></span>Additional Settings</p>
 
@@ -258,10 +259,9 @@
 
               </div><!-- Step 4 -->
             </div>
-          </fieldset>
 
           <!-- FINISH & ADD -->
-          <fieldset>
+
 
             <div class='col-md-12'>
               <div class="form-group">
@@ -270,7 +270,7 @@
               </div>
             </div>
 
-          </fieldset>
+
 
           <!-- SUPPORT
           <div class="row add-footer">
@@ -284,8 +284,8 @@
 
         <% end %>
         <!-- FORM END. -->
+        </form>
 
-        </div>
     </div>
 
     <div class="tab-pane" id="tab_1_2">
@@ -294,7 +294,7 @@
       </p>
       <a href="https://play.google.com/store/search?q=pub:Evercam.io">
         <img alt="Android app on Google Play"
-             src="http://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+             src="http://developer.android.com/images/brand/en_app_rgb_wo_60.png" width="100"/>
       </a>
     </div>
   </div>

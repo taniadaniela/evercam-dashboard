@@ -80,6 +80,8 @@ EvercamDashboard::Application.configure do
   config.session_initializer_settings = {key: '_evercam_dashboard_session',
                                          domain: '.evr.cm'}
 
+  config.evercam_api = {host: 'localhost', port: 9292, scheme: 'http'}
+
   config.force_ssl = false
 
   config.cache_store = :dalli_store, nil, { :namespace => 'dashboard', :expires_in => 1.day, :compress => true }

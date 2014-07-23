@@ -38,9 +38,11 @@
 }
 .green {
     color:#2ECC71;
+    margin-top: 10px;
+    margin-right: 6px;
 }
 .red {
-    color:#DC4C3F;
+    color:#DC4C3F !important;
 }
 .grey {
     color:#aaa;
@@ -103,14 +105,13 @@ background-color:#e5e5e5;
 /*/////////////////////
 //ADD IP CAMERA PAGE
 /////////////////////*/
-#add-ip {
 
+#add-ip .tab-content {
+padding: 20px 0px 0px 0px;
 }
 .additional {
-    margin-bottom: 18px;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 14px;
+    margin-bottom: -1px;
+    margin-left: 5px;
     cursor: pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -119,7 +120,10 @@ background-color:#e5e5e5;
     -ms-user-select: none;
     user-select: none;
 }
-
+.settings {
+    border-top: 1px solid #e5e5e5;
+margin-bottom: 20px;
+}
 .label {
     margin-top: 30px;
     -webkit-touch-callout: none;
@@ -142,24 +146,37 @@ background-color:#e5e5e5;
     user-select: none;
 }
 .test-snapshot {
-    margin-top: 15px;
+     margin-top: 15px;
+ }
 
+#add-test .test-snapshot {
+    margin-top: -4px;
 }
-#testimg-add {
-    width: 202px;
-    background-image: url('https://www.evercam.io/img/connect-add.png');
-    display: block;
-    margin: 0 auto;
+
+#add-test {
     position: absolute;
-    top: 120px;
-    margin-left: -58px;
+    margin-left: -128px;
+}
+.test-img-holder {
+    width: 200px;
+    height: 200px;
+    border:1px solid #e5e5e5;
+    overflow: hidden;
 }
 #test-error {
-    text-align: left;
-    display: block;
+     margin-top: 5px;
+    text-align: center;
+}
+#testimg-add {
+    height: 100%;
+    width:auto;
 }
 #test {
-    margin-bottom: 8px;
+    margin: 0 auto;
+    width: 200px;
+    display: block;
+    margin: 0;
+
 }
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #f5f5f5 inset;
@@ -179,15 +196,18 @@ input:-webkit-autofill {
     margin-bottom: 20px;
 }
 .help-block {
-    font-size: 10px;
+    font-size: 11px;
     width:110%;
     margin-bottom: 0;
     margin-top: 2px;
+    color:#aaa;
 }
 #add-button {
     padding: 10px 30px;
     margin-top: 10px;
 }
+
+
 
 .media .test-snapshot a {
     color:#ffffff;
@@ -237,12 +257,10 @@ input:-webkit-autofill {
     transform: translateY(-50%);
 }
 
-#ext-ip .help-block {
+#ext-ip .form-error {
     display: none; /*temp-fix*/
 }
-.snap-path, .make-model {
-    margin-top: 7px;
-}
+
 .snap-end {
     min-width:173px;
 }
@@ -519,10 +537,15 @@ input:focus {
     padding: 6px 0px 6px 12px;
 }
 #testimg {
-    max-width: 328px;
-    background-image: url('https://www.evercam.io/img/connect.png');
-    border: 1px solid #fff;
-    height: 227px;
+    height: 100%;
+    width:auto;
+
+}
+.test-img-settings {
+    border: 1px solid #e5e5e5;
+    width: 300px;
+    height:300px;
+    overflow: hidden;
 }
 .radio label {
     float:left;
@@ -531,6 +554,14 @@ input:focus {
     width: 168px;
     padding-left: 10px;
     margin-top: 6px;
+}
+#camera-settings .test-snapshot{
+    float: left;
+}
+#camera-settings #test-error {
+    float: left;
+    clear: both;
+    display: none;
 }
 /*///////////////////////////
 // BB ALERT STYLES
@@ -776,7 +807,7 @@ input:-webkit-autofill:focus {
     border-radius: 2px;
     padding: 0px 2px 1px 2px;
 }
-.icon-wrench {
+.icon-briefcase {
     size: 16px;
 }
 .sub-menu-item a {
@@ -862,6 +893,11 @@ margin-left: 236px;}
     font-weight:600;
 }
 
+/* USER SETTINGS */
+#user-settings .form-horizontal .control-label {
+    text-align: left;
+}
+
 /* PASSWORD RESET */
 #pass-reset .branding .logo {
     height: 70px;
@@ -878,4 +914,8 @@ margin-left: 236px;}
 
 .page-sidebar .page-sidebar-menu .sub-menu-item a {
     padding: 7px 15px;
+}
+
+.hide {
+    display: none;
 }

@@ -5,13 +5,13 @@ validate_hostname= (str) ->
 
 
 $ ->
-  $('#camera-url').on('input', () ->
+  $('#camera-url-web').on('input', () ->
     val = $(this).val()
     a = document.createElement('a')
     a.href = val
     $(this).val(a.hostname)
-    $('#port').val(a.port)
-    $('#snapshot').val(a.pathname)
+    $('#port-web').val(a.port)
+    $('#snapshot-web').val(a.pathname)
   )
 
   $('#test').click((e) ->

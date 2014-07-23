@@ -6,7 +6,7 @@
     url = '<%= EVERCAM_API %>cameras/<%= params[:c] %>/snapshot.jpg',
     container,
     refresh = 1000*<%= params[:r] %>,
-    imgStyle = "height: 100%; width: 100%;";
+    imgStyle = "width: 100%;";
 
   function updateImage() {
     if (refresh > 0) {

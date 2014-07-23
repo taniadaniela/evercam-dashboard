@@ -15,27 +15,24 @@
             <% @cameras.each do |camera| %>
               <li class="sub-menu-item">
                 <a href="/cameras/<%= camera['id'] %>?share=false">
-                  <div id="offline-menu"> <% if camera['is_online'] %>
-                    <% else %>
-                      <span class="red-dot"><small>off</small></span>
-                    <% end %>
-                  </div>
                   <%= camera['name'] %>
+                  <% if camera['is_online'] %>
+                  <% else %>
+                    <i class="red fa fa-chain-broken"></i>
+                  <% end %>
                 </a>
               </li>
             <% end %>
 
             <% @shares.each do |camera| %>
               <li class="sub-menu-item">
-                <span class="share-icon"></span>
                 <a href="/cameras/<%= camera['id'] %>?share=true">
-                  <div id="offline-menu"> <% if camera['is_online'] %>
-
-                    <% else %>
-                      <span class="red-dot"><small>off</small></span>
-                    <% end %>
-                  </div>
                   <%= camera['name'] %>
+                  <i class="icon-users"></i>
+                  <% if camera['is_online'] %>
+                  <% else %>
+                    <i class="red fa fa-chain-broken"></i>
+                  <% end %>
                 </a>
               </li>
             <% end %>
@@ -49,7 +46,7 @@
         </li>
         <li>
           <a href="/dev">
-            <i class="icon-wrench"></i><span class="title">Developer</span>
+            <i class="icon-briefcase"></i><span class="title">Developer</span>
           </a>
         </li>
     </ul>

@@ -17,7 +17,6 @@
       <li>
         <a href="/publiccam"><i class="icon-map"></i>Public Cameras</a>
       </li>
-
       <li class="active">
         <a href="/cameras/new"><i class="icon-plus"></i>Add Camera</a>
       </li>
@@ -31,282 +30,315 @@
 
 <div class="page-content-wrapper">
 <div class="page-content" id="add-ip">
+
 <!--main content start-->
 <div class="tabbable tabbable-custom">
-  <ul class="nav nav-tabs">
-    <li class="active">
-      <a href="#tab_1_1" data-toggle="tab">
-        Add IP Camera </a>
-    </li>
-    <li>
-      <a href="#tab_1_2" data-toggle="tab">
-        Add Android Camera </a>
-    </li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab_1_1">
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="#tab_1_1" data-toggle="tab">
+      Add IP Camera </a>
+  </li>
+  <li>
+    <a href="#tab_1_2" data-toggle="tab">
+      Add Android Camera
+    </a>
+  </li>
+  <!--<li>
+    <a href="#tab_1_3" data-toggle="tab">
+      Add a WebCam
+    </a>
+  </li>-->
+</ul>
 
+<div class="tab-content">
 
+<div class="tab-pane active" id="tab_1_1">
 
-        <!-- FORM START -->
-        <%= form_tag('/cameras/new', method: 'post', class: "has-validation-callback") do %>
-          <% field_errors = (flash[:field_errors] || {}) %>
+<!-- FORM START -->
+<%= form_tag('/cameras/new', method: 'post', class: "form-horizontal has-validation-callback") do %>
+  <% field_errors = (flash[:field_errors] || {}) %>
+  <div class="col-md-12">
+  <form class="form-horizontal" role="form">
+  <div class="col-md-11">
 
-          <!-- STEP 1 -->
-
-            <form class="form-horizontal" role="form">
-            <div class='row add-row'>
-              <div class='col-md-12'>
-
-                <div class='form-group<%= field_errors["name"] ? ' has-error' : '' %>'>
-                  <%= label_tag('camera-name', "Friendly Name*", class: "col-md-2 control-label") %>
-                  <div class="col-md-4">
-                    <%= text_field_tag("camera-name", @user['camera-name'], "placeholder" => "Rooftop Camera", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Max 24 characters containing letters, spaces and hyphens.") %>
-                    <% if field_errors["name"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["name"] %></span>
-                    <% end %>
-                  </div>
-                </div>
-                <div class='model form-group<%= field_errors["id"] ? ' has-error' : '' %>'>
-                    <%= label_tag('camera-id', "Evercam ID*", class: "col-md-2 control-label") %>
-                  <div class="col-md-4">
-                    <%= text_field_tag("camera-id", @user['camera-id'], "placeholder" => "roof-cam", "class" => "form-control", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
-                    <% if field_errors["id"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["id"] %></span>
-                    <% end %>
-                  </div>
-                </div>
-                <!-- <span class="col-sm-1 label label-default additional info-2">?</span>
-                 <div class='row col-lg-12 settings'>
-                   <p class="help">The Friendly Name is how you will identify your Camera in the Dashboard. You also need to create an ID for each camera that will have to be Unique to Evercam.</p>
-                 </div>-->
-
-              </div>
-            </div>
-
-
-          <!-- MAKE & MODEL -->
-
-            <div class='row add-row make-model'>
-              <div class='col-md-8'>
-                <div class='col-md-5 form-group<%= field_errors["vendor"] ? ' has-error' : '' %>'>
-                  <%= label_tag('camera-vendor', "Camera Vendor", class: "control-label") %>
-                  <%= select_tag('camera-vendor', options_from_collection_for_select(vendors, "exid", "name"), class:"form-control", prompt: "Select Make", selected: @user[:vendor]) %>
-                  <% if field_errors["vendor"] %>
-                    <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
-                  <% end %>
-                </div>
-
-                <div class='col-md-5 model form-group<%= field_errors["model"] ? ' has-error' : '' %>'>
-                  <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
-                  <% vendors.each do |v| -%>
-                    <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
-                      <% models(v.id).each_with_index  do |m, index| -%>
-                        <% if index == 0 %>
-                          <option selected="selected" value="<%= m.name  -%>"><%= m.name -%></option>
-                        <% else %>
-                          <option value="<%= m.name  -%>"><%= m.name -%></option>
-                        <% end %>
-                      <% end -%>
-                    </select>
-                  <% end %>
-                  <% if field_errors["model"] %>
-                    <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
-                  <% end %>
-                </div>
-
-                <!--          <span class="col-sm-1 label label-default additional info-2">?</span>
-                          <div class='col-lg-11 settings row'>
-                            <p class="help">The Camera Vendor &amp; Model can help retrieve the snapshot of the Camera.</p>
-                          </div>-->
-
-              </div>
-            </div>
-
-
-
-
-          <div class='row'>
-            <div class='col-md-12'>
-              <div class='col-md-8'>
-
-                <!-- SNAPSHOT PATH -->
-
-                  <div class="row add-row snap-path">
-
-                    <div id="ext-ip" class='col-md-4 form-group<%= field_errors["external_host"] ? ' has-error' : '' %>'>
-                      <%= label_tag('camera-url', raw("External <strong>IP</strong> (or URL)*"), class: "control-label") %>
-                      <div class="input-group">
-                        <span class="input-group-addon">http://</span>
-                        <%= text_field_tag("camera-url", @user['camera-url'], "placeholder" => "149.5.43.10", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.") %>
-                        <% if field_errors["external_host"] %>
-                          <span class="help-block form-error text-left"><%= field_errors["external_host"] %></span>
-                        <% end %>
-                      </div>
-                    </div>
-
-                    <div class='col-md-2 form-group<%= field_errors["external_http_port"] ? ' has-error' : '' %>'>
-                      <%= label_tag('port', raw("HTTP*"), class: "control-label") %>
-                      <div class="input-group">
-                        <span class="prepend">:</span>
-                        <%= text_field_tag("port", @user['port'], "placeholder" => "8001", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.") %>
-                        <% if field_errors["external_http_port"] %>
-                          <span class="help-block form-error text-left"><%= field_errors["external_http_port"] %></span>
-                        <% end %>
-                      </div>
-                    </div>
-
-                    <div class='col-md-4 form-group<%= field_errors["jpg_url"] ? ' has-error' : '' %>'>
-                      <%= label_tag('snapshot', "Snapshot URL Ending*", class: "control-label") %>
-                      <div class="input-group snap-end">
-                        <span class="prepend">/</span>
-                        <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control") %>
-                      </div>
-                    </div>
-
-                    <!--              <span class="col-sm-1 label label-default additional info-2">?</span>
-                                  <div class='col-lg-12 settings row'>
-                                    <p class="help">This is the snapshot path of the camera. It will contain the IP, the External HTTP port and the entire snapshot ending. eg. http://149.5.43.10:8001/snapshot.jpg</p>
-                                  </div>-->
-
-                  </div>
-
-
-
-
-                  <div class='row add-row'>
-                    <div class='col-md-5 form-group<%= field_errors["username"] ? ' has-error' : '' %>'>
-                      <%= label_tag('camera-username', "Camera Username", class: "control-label") %>
-                      <%= text_field_tag("camera-username", @user['camera-username'], "class" => "form-control") %>
-                      <% if field_errors["username"] %>
-                        <span class="help-block form-error text-left"><%= field_errors["username"] %></span>
-                      <% end %>
-                    </div>
-                    <div class='col-md-5 form-group<%= field_errors["password"] ? ' has-error' : '' %>'>
-                      <%= label_tag('camera-password', "Camera Password", class: "control-label") %>
-                      <%= password_field_tag("camera-password", @user['camera-password'], class: "form-control") %>
-                      <% if field_errors["password"] %>
-                        <span class="help-block form-error text-left"><%= field_errors["password"] %></span>
-                      <% end %>
-                    </div>
-
-                    <!--<span class="col-lg-1 label label-default additional info-2">?</span>
-                    <div class='col-lg-12 settings row'>
-                      <p class="help">The camera you are trying to connect will already have a Username &amp; Password associated with it. These credentials will have been created by the camera owner.</p>
-                    </div>-->
-                  </div>
-
-
-              </div><!-- col-8 -->
-
-              <div class='col-lg-4'>
-                <div class="test-snapshot">
-                  <div class="vertical-align">
-                    <span class="glyphicon glyphicon-arrow-right blue"></span>
-                  </div>
-                  <a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>
-                  <div id="test-error"></div>
-                </div>
-              </div>
-
-            </div><!-- col-12 -->
-
-          </div><!-- row -->
-
-
-
-            <div class="add-row-bottom">
-              <p class="col-lg-8 additional expand"><span class="glyphicon glyphicon-plus"></span>Additional Settings</p>
-
-              <!-- STEP 4  -->
-              <div class="col-md-6 settings">
-
-                <div class="row">
-                  <div class='col-md-6 form-group<%= field_errors["internal_host"] ? ' has-error' : '' %>'>
-                    <%= label_tag('local-ip', "Local IP", class: "control-label") %>
-                    <div class="input-group">
-                      <span class="input-group-addon">http://</span>
-                      <%= text_field_tag("local-ip", @user['local-ip'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.", "data-validation-optional" => "true") %>
-                      <% if field_errors["internal_host"] %>
-                        <span class="help-block form-error text-left"><%= field_errors["internal_host"] %></span>
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class='col-md-6 form-group<%= field_errors["internal_http_port"] ? ' has-error' : '' %>'>
-                    <%= label_tag('local-http', "Local HTTP Port", class: "control-label") %>
-                    <%= text_field_tag("local-http", @user['local-http'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true") %>
-                    <% if field_errors["internal_http_port"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["internal_http_port"] %></span>
-                    <% end %>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class='col-md-6 form-group<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
-                    <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "control-label") %>
-                    <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "placeholder" => "554", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
-                    <% if field_errors["external_rtsp_port"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["external_rtsp_port"] %></span>
-                    <% end %>
-                  </div>
-                  <div class='col-md-6 form-group<%= field_errors["internal_rtsp_port"] ? ' has-error' : '' %>'>
-                    <%= label_tag('local-rtsp', "Local RTSP Port", class: "control-label") %>
-                    <%= text_field_tag("local-rtsp", @user['local-rtsp'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true") %>
-                    <% if field_errors["internal_rtsp_port"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["internal_rtsp_port"] %></span>
-                    <% end %>
-                  </div>
-                </div>
-
-              </div><!-- Step 4 -->
-            </div>
-
-          <!-- FINISH & ADD -->
-
-
-            <div class='col-md-12'>
-              <div class="form-group">
-                <label class="control-label" for="add-button"></label>
-                <button id="add-button" name="add-button" class="btn btn-primary">Finish &amp; Add</button>
-              </div>
-            </div>
-
-
-
-          <!-- SUPPORT
-          <div class="row add-footer">
-                <h5>Still Can't See Your Camera?</h5>
-                <ul class="list-inline">
-                  <li><a href="http://www.evercam.io/develop/help" target="_blank">Help Pages</a></li>
-                  <li><a href="#" target="_blank">Support</a></li
-                </ul>
-                <p>If you don't the details of a camera yourself and would like to see how this process works, you can use the placeholder information and the info given in the examples in the help ? icons and it will work!</p>
-          </div>-->
-
-        <% end %>
-        <!-- FORM END. -->
-        </form>
-
-    </div>
-
-    <div class="tab-pane" id="tab_1_2">
-      <p>
-        Our Android app makes it easy for you to add your camera to your Evercam dashboard.
-      </p>
-      <a href="https://play.google.com/store/search?q=pub:Evercam.io">
-        <img alt="Android app on Google Play"
-             src="http://developer.android.com/images/brand/en_app_rgb_wo_60.png" width="100"/>
-      </a>
+  <!--NAME & ID -->
+  <div class="row">
+    <div class='col-md-12'>
+      <div class='<%= field_errors["name"] ? ' has-error' : '' %>'>
+        <%= label_tag('camera-name', "Friendly Name*", class: "col-md-2 control-label") %>
+        <div class="col-md-3">
+          <%= text_field_tag("camera-name", @user['camera-name'], "placeholder" => "Rooftop Camera", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Max 24 characters containing letters, spaces and hyphens.") %>
+          <% if field_errors["name"] %>
+            <span class="help-block form-error text-left"><%= field_errors["name"] %></span>
+          <% end %>
+          <div class="help-block">
+            To identify your camera in the dashboard.
+          </div>
+        </div>
+      </div>
+      <div class='model<%= field_errors["id"] ? ' has-error' : '' %>'>
+        <%= label_tag('camera-id', "Evercam ID*", class: "col-md-2 control-label") %>
+        <div class="col-md-3">
+          <%= text_field_tag("camera-id", @user['camera-id'], "placeholder" => "roof-cam", "class" => "form-control", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
+          <% if field_errors["id"] %>
+            <span class="help-block form-error text-left"><%= field_errors["id"] %></span>
+          <% end %>
+          <div class="help-block">
+            This must be unique and cannot be changed.
+          </div>
+        </div>
+      </div>
+      <!-- <span class="col-sm-1 label label-default additional info-2">?</span>
+       <div class='row col-lg-12 settings'>
+         <p class="help">The Friendly Name is how you will identify your Camera in the Dashboard. You also need to create an ID for each camera that will have to be Unique to Evercam.</p>
+       </div>-->
     </div>
   </div>
+
+
+  <!-- MAKE & MODEL -->
+  <div class='row margin-top-30'>
+    <div class='col-md-12'>
+      <div class='<%= field_errors["vendor"] ? ' has-error' : '' %>'>
+        <%= label_tag('camera-vendor', "Camera Vendor", class: "col-md-2 control-label") %>
+        <div class="col-md-3">
+          <%= select_tag('camera-vendor', options_from_collection_for_select(vendors, "exid", "name"), class:"form-control", prompt: "Select Make", selected: @user[:vendor]) %>
+          <% if field_errors["vendor"] %>
+            <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class='<%= field_errors["model"] ? ' has-error' : '' %>'>
+        <%= label_tag('camera-model', "Camera Model", class: "col-md-2 control-label") %>
+        <div class="col-md-3">
+          <% vendors.each do |v| -%>
+            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
+              <% models(v.id).each_with_index  do |m, index| -%>
+                <% if index == 0 %>
+                  <option selected="selected" value="<%= m.name  -%>"><%= m.name -%></option>
+                <% else %>
+                  <option value="<%= m.name  -%>"><%= m.name -%></option>
+                <% end %>
+              <% end -%>
+            </select>
+          <% end %>
+          <% if field_errors["model"] %>
+            <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
+          <% end %>
+        </div>
+      </div>
+      <!--          <span class="col-sm-1 label label-default additional info-2">?</span>
+                <div class='col-lg-11 settings row'>
+                  <p class="help">The Camera Vendor &amp; Model can help retrieve the snapshot of the Camera.</p>
+                </div>-->
+    </div>
+  </div>
+
+
+  <!-- SNAPSHOT PATH -->
+  <div class='row margin-top-20'>
+    <div class='col-md-12'>
+
+      <label for="" class="col-md-2 control-label margin-top-30">Snapshot URL</label>
+      <div class="col-md-3">
+        <div id="ext-ip" class='<%= field_errors["external_host"] ? ' has-error' : '' %>'>
+          <%= label_tag('camera-url', raw("External <strong>IP</strong> (or URL)*"), class: "grey control-label") %>
+          <div class="input-group">
+            <span class="input-group-addon">http://</span>
+            <%= text_field_tag("camera-url", @user['camera-url'], "placeholder" => "149.5.43.10", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.") %>
+          </div>
+          <div class="help-block">
+            Just include the domain part - not the path
+            <% if field_errors["external_host"] %>
+              <span class="help-block form-error text-left"><%= field_errors["external_host"] %></span>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+      <div class='col-md-2<%= field_errors["external_http_port"] ? ' has-error' : '' %>'>
+        <%= label_tag('port', raw("HTTP*"), class: "grey control-label") %>
+        <div class="input-group">
+          <span class="prepend">:</span>
+          <%= text_field_tag("port", @user['port'], "placeholder" => "8001", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.") %>
+          <% if field_errors["external_http_port"] %>
+            <span class="help-block form-error text-left"><%= field_errors["external_http_port"] %></span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class='col-md-3<%= field_errors["jpg_url"] ? ' has-error' : '' %>'>
+        <%= label_tag('snapshot', "Snapshot URL Ending*", class: "grey control-label") %>
+        <div class="snap-end">
+          <span class="prepend">/</span>
+          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control") %>
+        </div>
+        <div class="help-block">
+          Include the whole path - everything after the first /
+        </div>
+      </div>
+
+      <!--              <span class="col-sm-1 label label-default additional info-2">?</span>
+                    <div class='col-lg-12 settings row'>
+                      <p class="help">This is the snapshot path of the camera. It will contain the IP, the External HTTP port and the entire snapshot ending. eg. http://149.5.43.10:8001/snapshot.jpg</p>
+                    </div>-->
+
+
+    </div><!-- col-12 -->
+  </div><!-- row -->
+
+  <!-- USERNAME & PASS -->
+  <div class="row margin-top-30">
+    <div class='col-md-12'>
+
+      <div class='<%= field_errors["username"] ? ' has-error' : '' %>'>
+        <%= label_tag('camera-username', "Camera Username", class: "col-md-2 control-label") %>
+        <div class="col-md-3">
+          <%= text_field_tag("camera-username", @user['camera-username'], "class" => "form-control") %>
+          <% if field_errors["username"] %>
+            <span class="help-block form-error text-left"><%= field_errors["username"] %></span>
+          <% end %>
+        </div>
+      </div>
+      <div class='<%= field_errors["password"] ? ' has-error' : '' %>'>
+        <%= label_tag('camera-password', "Camera Password", class: "col-md-2 control-label") %>
+        <div class="col-md-3">
+          <%= password_field_tag("camera-password", @user['camera-password'], class: "form-control") %>
+          <% if field_errors["password"] %>
+            <span class="help-block form-error text-left"><%= field_errors["password"] %></span>
+          <% end %>
+        </div>
+      </div>
+      <!--<span class="col-lg-1 label label-default additional info-2">?</span>
+      <div class='col-lg-12 settings row'>
+        <p class="help">The camera you are trying to connect will already have a Username &amp; Password associated with it. These credentials will have been created by the camera owner.</p>
+      </div>-->
+
+    </div><!-- col-12 -->
+  </div><!-- row -->
+
+
+  <!-- USERNAME & PASS -->
+  <div class="row margin-top-30">
+    <div class='col-md-12'>
+      <div class="btn btn-default additional expand"><i class="icon-plus"></i>  Additional Settings</div>
+
+      <!-- STEP 4  -->
+      <div class="settings">
+
+        <div class="row margin-top-20">
+          <div class="col-md-12">
+            <label for="" class="col-md-2 control-label">Local IP</label>
+            <div class="col-md-3">
+              <div class='<%= field_errors["internal_host"] ? ' has-error' : '' %>'>
+                <%= label_tag('local-ip', "Local IP", class: "col-md-2 control-label hide") %>
+                <div class="input-group">
+                  <span class="input-group-addon">http://</span>
+                  <%= text_field_tag("local-ip", @user['local-ip'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.", "data-validation-optional" => "true") %>
+                  <% if field_errors["internal_host"] %>
+                    <span class="help-block form-error text-left"><%= field_errors["internal_host"] %></span>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+            <div class='<%= field_errors["internal_http_port"] ? ' has-error' : '' %>'>
+              <%= label_tag('local-http', "Local HTTP Port", class: "col-md-2 control-label") %>
+              <div class="col-md-3">
+                <%= text_field_tag("local-http", @user['local-http'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true") %>
+                <% if field_errors["internal_http_port"] %>
+                  <span class="help-block form-error text-left"><%= field_errors["internal_http_port"] %></span>
+                <% end %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row margin-top-20">
+          <div class="col-md-12">
+            <div class='<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
+              <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "col-md-2 control-label") %>
+              <div class="col-md-3">
+                <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "placeholder" => "554", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
+                <% if field_errors["external_rtsp_port"] %>
+                  <span class="help-block form-error text-left"><%= field_errors["external_rtsp_port"] %></span>
+                <% end %>
+              </div>
+            </div>
+            <div class='<%= field_errors["internal_rtsp_port"] ? ' has-error' : '' %>'>
+              <%= label_tag('local-rtsp', "Local RTSP Port", class: "col-md-2 control-label") %>
+              <div class="col-md-3">
+                <%= text_field_tag("local-rtsp", @user['local-rtsp'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true") %>
+                <% if field_errors["internal_rtsp_port"] %>
+                  <span class="help-block form-error text-left"><%= field_errors["internal_rtsp_port"] %></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- settings -->
+    </div>
+  </div>
+  </div><!-- END COL-md-11-->
+
+  <div class="col-md-1">
+    <div class="media" id="add-test">
+      <div class="test-img-holder"><img id="testimg-add" src="" class="text-center" width="100%"></div>
+      <div class="test-snapshot">
+        <a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>
+        <div id="test-error"></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- FINISH & ADD -->
+  <div class="row">
+    <div class='form-actions col-md-12 margin-top-20'>
+      <div class="form-group margin-left-20">
+        <label class="control-label" for="add-button"></label>
+        <button id="add-button" name="add-button" class="btn btn-primary">Finish &amp; Add</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+</form>
 </div>
+<!-- FORM END. -->
+</div><!-- END TAB PANE 1 -->
+
+<!--            <div class="tab-pane" id="tab_1_3">
+              <p>
+                Easily add a webcam to your account by pasting the URL of the camera below
+              </p>
+
+            </div>END TAB PANE 2 -->
+
+<div class="tab-pane" id="tab_1_2">
+  <p>
+    Our Android app makes it easy for you to add your camera to your Evercam dashboard.
+  </p>
+  <a href="https://play.google.com/store/search?q=pub:Evercam.io">
+    <img alt="Android app on Google Play"
+         src="http://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+  </a>
+</div><!-- TAB PANE 3 -->
+
+</div><!-- TAB CONTENT -->
+
+</div><!-- PAGE CONTENT -->
+</div><!-- PAGE CONTENT WRAPPER -->
+
+
+</div><!-- PAge Container -->
 
 
 
-
-
-</div>
-</div><!-- Camera Single -->
-</div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
   function validate_hostname(str) {
@@ -357,6 +389,7 @@
           clearInterval(interval);
         }
       }, 200);
+
 
       $.getJSON('<%= EVERCAM_API %>cameras/test.json?' + params.join('&'))
           .done(function (resp) {

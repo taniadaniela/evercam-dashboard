@@ -16,7 +16,7 @@
           </div>
           <div id="status" class="col-md-4">
             <% if @camera['is_online'] %>
-              <h5 class="green pull-right">Online</h5>
+              <h5 class="green pull-right"><i class="fa fa-check"></i>Online</h5>
             <% else %>
               <h5 class="red pull-right">Offline</h5>
             <% end %>
@@ -62,7 +62,7 @@
         <% end %>
         <% if has_edit_right %>
           <li class="pull-right">
-            <a data-toggle="tab" href="#camera-settings" id="camera-settings-link">Settings <span class="glyphicon glyphicon-cog"></span></a>
+            <a data-toggle="tab" href="#camera-settings" id="camera-settings-link"><i class="fa fa-cog"></i>Settings</a>
           </li>
         <% else %>
           <li class="pull-right">

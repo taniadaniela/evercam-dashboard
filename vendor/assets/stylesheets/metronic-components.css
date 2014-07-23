@@ -1687,13 +1687,21 @@ Form Layouts
 .form .form-body {
     padding: 10px;
 }
-.form .form-actions {
-    padding: 20px 10px;
+#add-ip .form .form-actions {
+
     margin-top: 20px;
     background-color: #f5f5f5;
     border-top: 1px solid #e5e5e5;
     *zoom: 1;
 }
+.form-actions {
+
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e5e5e5;
+    *zoom: 1;
+}
+
 .form .form-actions:before, .form .form-actions:after {
     content: " ";
     display: table;
@@ -2085,7 +2093,7 @@ label {
     color: #8a6d3b;
 }
 
-.has-error .help-block,
+.help-block .form-error,
 .has-error .help-inline,
 .has-error .control-label,
 .has-error .radio,

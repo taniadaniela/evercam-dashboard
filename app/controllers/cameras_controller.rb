@@ -85,11 +85,11 @@ class CamerasController < ApplicationController
                   :internal_http_port => params['local-http'],
                   :external_rtsp_port => params['ext-rtsp-port'],
                   :internal_rtsp_port => params['local-rtsp'],
-                  :location_lat => params['location-lat'],
-                  :location_lng => params['location-lng'],
                   :jpg_url => params['snapshot'],
                   :vendor => params['camera-vendor'],
                   :model => params['camera-vendor'].blank? ? '' : params["camera-model#{params['camera-vendor']}"],
+                  :location_lat => params['location-lat'],
+                  :location_lng => params['location-lng'],
                   :cam_username => params['camera-username'],
                   :cam_password => params['camera-password']}
 

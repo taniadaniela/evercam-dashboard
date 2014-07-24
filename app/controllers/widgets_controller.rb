@@ -18,7 +18,7 @@ class WidgetsController < ApplicationController
 
   def live_view_widget
     respond_to do |format|
-      format.js { render :file => "widgets/live.view.widget.js" }
+      format.js { render :file => "widgets/live.view.widget.js", :mime_type => Mime::Type['text/javascript']}
     end
   end
 

@@ -1,8 +1,8 @@
   <section id="unseen">
-    <table class="table table-borderless">
+    <table class="portlet table table-borderless">
       <thead>
       <tr>
-        <th class="col-md-2 first-row">
+        <th class="portlet-title col-md-2 first-row">
           General Info
         </th>
         <td>
@@ -26,17 +26,23 @@
           <% end %></td>
       </tr>
       <tr>
+        <td>Local IP</td>
+        <td><%= @camera.deep_fetch(:internal, :host) {} %></td>
+      </tr>
+      <tr>
         <td>
           Camera Location
         </td>
         <td>
-          <%= @camera.deep_fetch(:location, :lat) {} %>,
-          <%= @camera.deep_fetch(:location, :lng) {} %>
+          <div id="info-location">
+            <%= @camera.deep_fetch(:location, :lat) {} %>,
+            <%= @camera.deep_fetch(:location, :lng) {} %>
+          </div>
         </td>
       </tr>
       <tr>
-        <td>Local IP</td>
-        <td><%= @camera.deep_fetch(:internal, :host) {} %></td>
+        <td>Date Added</td>
+        <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
       </tr>
       </tbody>
     </table>
@@ -89,7 +95,7 @@
           <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
             <% else %>
-             n/a
+             <span class="grey">n/a</span>
             <% end %>
         </td>
       </tr>
@@ -223,7 +229,19 @@
    </div>
 </div>
 
+  <%= javascript_tag do %>
+    cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
+    cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
+  <% end %>
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
+  $(document).ready(function() {
+    if (cameraLong === '') {
+      $('#info-location').replaceWith("<p>Not found</p>");
+      return;
+    }
+  });
+
+
 </script>

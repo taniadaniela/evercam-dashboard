@@ -13,7 +13,7 @@ class WidgetsController < ApplicationController
     current_user
     load_cameras_and_shares
     @cameras = @cameras + @shares
-    @cameras.delete_if { |c| !c['is_public'] or !c['is_online']}
+    @cameras.delete_if { |c| !c['is_public']}
   end
 
 

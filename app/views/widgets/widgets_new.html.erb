@@ -72,7 +72,7 @@
                 <select id="widget-camera" name="widget-camera" class="form-control is-required">
                   <% @cameras.each do |camera| %>
                   <option class="caret" value="<%= camera['id'] %>">
-                    <%= camera['name'] %>
+                    <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
                   </option>
                   <% end %>
                 </select>

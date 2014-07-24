@@ -8,7 +8,7 @@ describe "public cams actions", :type => :feature, :js => true do
   }
 
   it "User clicks Public Cameras button" do
-    stub_request(:get, "#{EVERCAM_API}public/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&limit=9&offset=0&thumbnail=true").
+    stub_request(:get, "#{EVERCAM_API}public/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&offset=0&thumbnail=true").
       to_return(:status => 200, :body => IO.read('spec/features/fixtures/public_cams.json'), :headers => {})
     cameras_stubs(user)
 
@@ -17,7 +17,7 @@ describe "public cams actions", :type => :feature, :js => true do
     visit "/"
     click_link "Public Cameras"
 
-    expect(page).to have_text("Map View")
+    expect(page.html).to include('<div id="map-canvas"')
 
   end
 

@@ -12,13 +12,14 @@ class WidgetsController < ApplicationController
   def widgets_new
     current_user
     load_cameras_and_shares
+    @cameras = @cameras + @shares
     @cameras.delete_if { |c| !c['is_public'] or !c['is_online']}
   end
 
 
   def live_view_widget
     respond_to do |format|
-      format.js { render :file => "widgets/live.view.widget.js" }
+      format.js { render :file => "widgets/live.view.widget.js", :mime_type => Mime::Type['text/javascript']}
     end
   end
 

@@ -94,6 +94,8 @@ class CamerasController < ApplicationController
       api = get_evercam_api
       api.update_camera(params['camera-id'], settings)
       flash[:message] = 'Settings updated successfully'
+      Rails.cache.delete("#{current_user.username}/cameras")
+      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to "/cameras/#{params['camera-id']}#camera-settings"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

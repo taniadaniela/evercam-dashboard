@@ -13,6 +13,8 @@ class SharingController < ApplicationController
                          discoverable: (params[:discoverable] == "true")}
             api = get_evercam_api
             api.update_camera(params[:id], values)
+            Rails.cache.delete("#{current_user.username}/cameras")
+            Rails.cache.delete("#{current_user.username}/shares")
          rescue => error
             env["airbrake.error_id"] = notify_airbrake(error)
             Rails.logger.warn "Exception caught updating camera permissions.\n"\

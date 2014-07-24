@@ -36,7 +36,8 @@
 <!--USER LIST-->
   <div class="row">
     <div class="col-md-12">
-      <h5>This Camera is Shared With</h5>
+<% if @camera_shares or @share_requests %>
+     <h5>This Camera is Shared With</h5>
       <table class="table table-striped table-bordered table-hover table-full-width" id="sharing_list_table">
         <thead>
         <tr>
@@ -113,13 +114,14 @@
       </table>
     </div>
   </div>
+        <% else %>
+      None
+        <% end %>
 
 
 <!--ADD A USER-->
 
   <div class="row padding-top-20">
-
-
       <div class="col-sm-3 email-input">
         <div class="input-group">
           <h5>Share camera with</h5> <input type="email" placeholder="email@domain.com or Username" class="form-control" id="sharingUserEmail" name="sharingUserEmail">
@@ -144,8 +146,6 @@
       </p>
     </div>-->
   </div>
-
-
 
 
 <!--LINK TO SHARE-->

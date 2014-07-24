@@ -1,4 +1,5 @@
-<div id="map-canvas"></div>
+<div id="map-canvas">
+</div>
 
 <%= javascript_tag do %>
   cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';

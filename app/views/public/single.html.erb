@@ -51,7 +51,16 @@
         <div class="portlet-body">
           <div class="row">
           <div class="col-lg-8 camera-image">
+            <% if @camera['is_online'] %>
             <img src="<%= @camera['jpg'] %>" width="100%">
+            <% else %>
+              <div class="offline-public">
+                <div class="offline-text">
+                  <p>This camera appears to be offline.</p>
+                  <p>We are currently unable to fetch a snapshot.</p>
+                </div>
+              </div>
+            <% end %>
           </div>
           <div class="col-lg-4 data">
             <table class="table table-borderless">
@@ -71,10 +80,12 @@
               </tr>
               <tr>
                 <td>Model:</td>
-                <td><%= @camera['model'] %></td>
+                <td><%= @camera['model'] %>
+
+                </td>
               </tr>
               <tr>
-                <td>Added date:</td>
+                <td>Date Added:</td>
                 <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
               </tr>
               <tr>

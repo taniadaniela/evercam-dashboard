@@ -506,7 +506,7 @@ max-width:200px;
     margin-bottom: 0px;
 }
 /*SHARING*/
-.note {
+.note-link {
     font-size: 12px;
     border-left: 2px solid #428bca;
     padding: 3px 8px;
@@ -545,6 +545,14 @@ max-width:200px;
 .glyphicon-remove {
     cursor: pointer;
 }
+
+#sharing .note.note-info {
+    margin-top: -20px;
+}
+.no-share-hide {
+    display: none;
+}
+
 /*LOGS*/
 #apply-types {
     margin: 20px 0px;

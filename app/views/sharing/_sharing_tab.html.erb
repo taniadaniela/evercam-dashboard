@@ -34,9 +34,10 @@
 <!--END SHARING MODAL-->
 
 <!--USER LIST-->
+
   <div class="row">
     <div class="col-md-12">
-<% unless @camera_shares.empty? and @share_requests.empty? %>
+
      <h5>This Camera is Shared With</h5>
       <table class="table table-striped table-bordered table-hover table-full-width" id="sharing_list_table">
         <thead>
@@ -106,7 +107,6 @@
                 </div>
               </td>
               </td>
-
             </tr>
           <% end %>
         <% end %>
@@ -114,9 +114,7 @@
       </table>
     </div>
   </div>
-        <% else %>
-      None
-        <% end %>
+
 
 
 <!--ADD A USER-->
@@ -150,24 +148,26 @@
 
 <!--LINK TO SHARE-->
 <div class="row margin-top-30">
-  <div class="col-md-6 share-link">
+  <div class="col-md-12 share-link">
     <h5>Link to Share Camera</h5>
-  <div>
+  </div>
+    <div>
+      <div class="col-md-12">
       <div id="public-short-page" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
         <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
       </div>
       <div id="private-short-page" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
         <%= "http://evr.cm/#{@camera['id']}.html" %>
       </div>
-  </div>
-</div>
-  <div class="col-md-12">
-    <p>
-      <span class="note show-on-private">Only available for public cameras. You can change this in your settings above.</span>
-    </p>
+      </div>
   </div>
 
-</div><!-- panel body -->
+  <div class="col-md-12">
+    <p>
+      <span class="note-link show-on-private">Only available for public cameras. You can change this in your settings above.</span>
+    </p>
+  </div>
+</div>
 
 
 

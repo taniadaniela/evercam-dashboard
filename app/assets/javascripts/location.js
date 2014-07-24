@@ -1,6 +1,6 @@
 function initialize() {
   if (cameraLong === '') {
-    $('#map-canvas').replaceWith("<p>The location of this camera was not found</p>");
+    $('#map-canvas').replaceWith("<p>The location of this camera was not found. You can set the location in the Settings tab.</p>");
     return;
   }
   var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);

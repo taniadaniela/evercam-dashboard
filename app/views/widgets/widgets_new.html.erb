@@ -49,13 +49,24 @@
     <div class="page-content">
       <!--main content start-->
 
+      <div class="portlet light bg-inverse">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-play"></i>Create a Live View Widget
+          </div>
+          <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="javascript:;" class="reload">
+            </a>
+            <a href="javascript:;" class="remove">
+            </a>
+          </div>
+        </div>
 
-      <h3 class="page-title">
-        Create a Live View Widget
-      </h3>
-      <div class="row">
-
-      </div>
+        <div class="portlet-body">
       <div class="row">
         <div id="live-widget" class="widget-config">
           <% if @cameras.empty? %>
@@ -67,7 +78,9 @@
               <form id="widget-new" role="form" method="post" class="center-block">
 
                 <div class="widget-input form-group">
-                  <label class="col-md-5 control-label" for="widget-camera">Select your Camera</label>
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-camera">Select your Camera</label>
+                  </div>
                   <div class="input-group col-md-6">
                     <select id="widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
@@ -81,8 +94,9 @@
                 </div>
 
                 <div class="form-group widget-input">
-                  <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
-
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
+                  </div>
                   <div class="input-group col-md-6">
                     <input type="number" value="1" class="form-control input-inline" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100.5],float" data-validation-error-msg="Can contain numbers between 0.05 and 100.5">
                     <span class="input-group-addon">seconds</span>
@@ -90,9 +104,11 @@
                 </div>
 
                 <div class="form-group widget-input margin-top-20">
-                  <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
+                  </div>
                   <div class="input-group col-md-6">
-                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
+                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Can contain numbers between 20 and 1600">
                     <span class="input-group-addon">px</span>
                   </div>
                 </div>
@@ -115,6 +131,8 @@
             </div>
           <% end %>
         </div>
+        </div>
+      </div>
       </div>
       <!--main content end-->
     </div>
@@ -146,6 +164,7 @@
         return this_sel.closest('.code-block').text();
       }
     });*/
+      $.validate();
     });
   </script>
 

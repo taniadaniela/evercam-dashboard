@@ -47,7 +47,7 @@
   <!-- sidebar menu end-->
   <div class="page-content-wrapper">
     <div class="page-content">
-  <!--main content start-->
+      <!--main content start-->
 
 
       <h3 class="page-title">
@@ -59,81 +59,80 @@
       <div class="row">
         <div id="live-widget" class="widget-config">
           <% if @cameras.empty? %>
-        <div class="col-md-12"><h5>No public, online cams found</h5></div>
-        <% else %>
-        <div class="col-md-5">
+            <div class="col-md-12"><h5>No public, online cams found</h5></div>
+          <% else %>
+            <div class="col-md-5">
 
 
-          <form id="widget-new" role="form" method="post" class="center-block">
+              <form id="widget-new" role="form" method="post" class="center-block">
 
-            <div class="widget-input">
-              <div class="input-group col-md-10">
-                <label for="widget-camera">Select your Camera</label>
-                <select id="widget-camera" name="widget-camera" class="form-control is-required">
-                  <% @cameras.each do |camera| %>
-                  <option class="caret" value="<%= camera['id'] %>">
-                    <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
-                  </option>
-                  <% end %>
-                </select>
+                <div class="widget-input form-group">
+                  <label class="col-md-5 control-label" for="widget-camera">Select your Camera</label>
+                  <div class="input-group col-md-6">
+                    <select id="widget-camera" name="widget-camera" class="form-control is-required">
+                      <% @cameras.each do |camera| %>
+                        <option class="caret" value="<%= camera['id'] %>">
+                          <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
+                        </option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="form-group widget-input">
+                  <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
+
+                  <div class="input-group col-md-6">
+                    <input type="number" value="1" class="form-control input-inline" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100.5],float" data-validation-error-msg="Can contain numbers between 0.05 and 100.5">
+                    <span class="input-group-addon">seconds</span>
+                  </div>
+                </div>
+
+                <div class="form-group widget-input margin-top-20">
+                  <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
+                  <div class="input-group col-md-6">
+                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
+                    <span class="input-group-addon">px</span>
+                  </div>
+                </div>
+              </form>
+              <div class="margin-top-30 row widget-code">
+                <div class="col-md-11">
+                  <h5>Embed this code on your webpage:</h5>
+                  <textarea id="code" class="pretty-code col-md-12" type="text">
+                  </textarea>
+
+                </div>
               </div>
             </div>
 
-            <div class="widget-input margin-top-20">
-              <label for="widget-refresh-rate">Refresh Rate of Snapshot <small><em>(in Seconds)</em></small></label>
-              <div class="input-group col-md-10">
-                <input type="number" value="1" class="form-control" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1">
-                <span class="input-group-addon">seconds</span>
+
+            <div class="col-md-7">
+              <h5>Preview</h5>
+              <div class="preview">
               </div>
             </div>
-
-            <div class="widget-input margin-top-20">
-              <label for="widget-camera-width">Width of Camera Image to Display <small><em>(in px)</em></small></label>
-              <div class="input-group col-md-10">
-                <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
-                <span class="input-group-addon">px</span>
-              </div>
-            </div>
-          </form>
-          <div class="margin-top-20 row widget-code">
-            <div class="col-md-12">
-              <h5>Embed this code on your webpage:</h5>
-              <textarea id="code" class="pretty-code col-md-12" type="text">
-              </textarea>
-
-            </div>
-          </div>
+          <% end %>
         </div>
-
-        <div class="col-md-7">
-          <h5>Preview</h5>
-          <div class="preview">
-          </div>
-        </div>
-        <% end %>
       </div>
+      <!--main content end-->
     </div>
+  </div>
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      /** TODO - fix and move to widgets.js.coffee
+       var copy_sel = $('.code-block a.code-copy');
 
-
-
-  <!--main content end-->
-
-
-</div>
-</div>
-<script>
-  $(document).ready(function() {
-    /** TODO - fix and move to widgets.js.coffee
-    var copy_sel = $('.code-block a.code-copy');
-
-    // Disables other default handlers on click (avoid issues)
-    copy_sel.on('click', function(e) {
+       // Disables other default handlers on click (avoid issues)
+       copy_sel.on('click', function(e) {
       e.preventDefault();
     });
 
-    // Apply clipboard click event
-    copy_sel.clipboard({
+       // Apply clipboard click event
+       copy_sel.clipboard({
       path: '/path/to/flashes/jquery.clipboard.swf',
 
       copy: function() {
@@ -147,6 +146,7 @@
         return this_sel.closest('.code-block').text();
       }
     });*/
-  });
-</script>
+    });
+  </script>
+
 <%= javascript_include_tag "widgets" %>

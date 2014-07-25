@@ -966,3 +966,10 @@ margin-left: 236px;}
 .hide {
     display: none;
 }
+/* WIDGET */
+#widget-new .has-error .help-block {
+    position: absolute;
+    font-size: 12px;
+    top: 35px;
+    left: 0;
+}

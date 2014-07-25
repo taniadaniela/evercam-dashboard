@@ -2591,6 +2591,9 @@ Custom Scrollbars
 ::-webkit-scrollbar {
     width: 12px;
 }
+#sidebar::-webkit-scrollbar {
+    width: 5px;
+}
 
 ::-webkit-scrollbar-track {
     background-color: #eaeaea;
@@ -4027,6 +4030,7 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:last-child > a,
 .page-sidebar .page-sidebar-menu > li:last-child > a {
     border-bottom: 1px solid transparent !important;
+    padding-bottom: 12px;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow.open:before,
 .page-sidebar .page-sidebar-menu li > a > .arrow:before,

@@ -58,7 +58,7 @@
 <%= form_tag('/cameras/new', method: 'post', class: "form-horizontal has-validation-callback") do %>
   <% field_errors = (flash[:field_errors] || {}) %>
   <div class="col-md-12">
-  <form class="form-horizontal" role="form">
+  <form class="form-horizontal" autocomplete="off" role="form">
   <div class="col-md-11">
 
   <!--NAME & ID -->

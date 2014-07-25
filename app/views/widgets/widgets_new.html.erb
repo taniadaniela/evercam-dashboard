@@ -73,15 +73,16 @@
             <div class="col-md-12"><h5>No public, online cams found</h5></div>
           <% else %>
             <div class="col-md-5">
-
+              <p class="note note-info">Only public cameras can be used to make a widget.</p>
 
               <form id="widget-new" role="form" method="post" class="center-block">
+
 
                 <div class="widget-input form-group">
                   <div class="my-row">
                     <label class="col-md-5 control-label" for="widget-camera">Select your Camera</label>
                   </div>
-                  <div class="input-group col-md-6">
+                  <div class="input-group col-md-7">
                     <select id="widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
                         <option class="caret" value="<%= camera['id'] %>">
@@ -97,8 +98,8 @@
                   <div class="my-row">
                     <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
                   </div>
-                  <div class="input-group col-md-6">
-                    <input type="number" value="1" class="form-control input-inline" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100.5],float" data-validation-error-msg="Can contain numbers between 0.05 and 100.5">
+                  <div class="input-group col-md-7">
+                    <input type="number" value="1" class="form-control input-inline" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100.5],float" data-validation-error-msg="Must be a number between 0.05 and 100.5">
                     <span class="input-group-addon">seconds</span>
                   </div>
                 </div>
@@ -107,14 +108,14 @@
                   <div class="my-row">
                     <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
                   </div>
-                  <div class="input-group col-md-6">
-                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Can contain numbers between 20 and 1600">
+                  <div class="input-group col-md-7">
+                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Must be a number between 20 and 1600">
                     <span class="input-group-addon">px</span>
                   </div>
                 </div>
               </form>
               <div class="margin-top-30 row widget-code">
-                <div class="col-md-11">
+                <div class="col-md-12">
                   <h5>Embed this code on your webpage:</h5>
                   <textarea id="code" class="pretty-code col-md-12" type="text">
                   </textarea>

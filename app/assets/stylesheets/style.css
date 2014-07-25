@@ -675,6 +675,8 @@ input:focus {
     border: 2px solid #e5e5e5;
     padding: 7px;
     width: 100%;
+    max-width:400px;
+
 }
 /*/////////////////////
 //SIGN IN FORM
@@ -943,6 +945,26 @@ margin-left: 236px;}
 /* USER SETTINGS */
 #user-settings .form-horizontal .control-label {
     text-align: left;
+}
+ {
+    display: none;
+
+}
+#user-settings .help-inline .input-inline:hover {
+    display: block;
+}
+
+#some-element {
+    opacity: 0;
+}
+
+#some-div:hover #some-element {
+    opacity: 1;
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -ms-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
 }
 
 /* PASSWORD RESET */

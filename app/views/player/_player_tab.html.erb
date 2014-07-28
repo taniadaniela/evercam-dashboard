@@ -13,11 +13,12 @@
         aspectratio: '4:3'
       });
     </script>
-    <p>RTSP found. Player should be working</p>
-    <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+
+   <p><strong>RTSP Stream: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
   <% else %>
     RTSP not found
   <% end %>
+  </div>
 
 <script type="text/javascript">
 

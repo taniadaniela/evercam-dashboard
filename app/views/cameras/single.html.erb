@@ -59,13 +59,14 @@
             <a data-toggle="tab" href="#local">Local Storage</a>
           </li>
         <% else %>
-          <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
-            <li>
+        <% end %>
+        <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+           <li>
               <a data-toggle="tab" href="#player">Player <small><em>BETA</em></small></a>
             </li>
-          <% else %>
-          <% end %>
+        <% else %>
         <% end %>
+
         <% if has_edit_right %>
           <li class="pull-right">
             <a data-toggle="tab" href="#camera-settings" id="camera-settings-link"><i class="fa fa-cog"></i>Settings</a>

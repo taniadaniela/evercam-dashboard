@@ -62,7 +62,7 @@
           <div class="form-body">
 
             <div class="form-group">
-              <label class="col-md-3 control-label" for="user-username">UserName</label>
+              <label class="col-md-3 control-label" for="user-username">Username</label>
               <div class="col-md-9" id="some-div">
                 <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" disabled placeholder="">
                 <span id="some-element" class="help-inline">
@@ -86,9 +86,12 @@
 
             <div class="form-group">
               <label class="col-md-3 control-label" for="email">Email address</label>
-              <div class="col-md-6">
-              <input type="email" value="<%= current_user.email -%>" class="form-control input-medium" id="email" name="email" placeholder="Enter email">
+              <div class="col-md-9">
+              <input type="email" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
+              <!--<span class="help-inline red">
+											Unverified. <a href="">Resend Verification</a></span>-->
               </div>
+
             </div>
 
             <div class="form-group">

@@ -59,6 +59,12 @@
             <a data-toggle="tab" href="#local">Local Storage</a>
           </li>
         <% else %>
+          <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+            <li>
+              <a data-toggle="tab" href="#player">Player <small><em>BETA</em></small></a>
+            </li>
+          <% else %>
+          <% end %>
         <% end %>
         <% if has_edit_right %>
           <li class="pull-right">
@@ -136,6 +142,11 @@
         <div id="local" class="tab-pane">
           <%= render partial: "local/local_tab" %>
         </div><!--TAB PANE -->
+
+      <!--Local TAB PANE -->
+      <div id="player" class="tab-pane">
+        <%= render partial: "player/player_tab" %>
+      </div><!--TAB PANE -->
 
       <!--SETTINGS TAB PANE -->
       <div id="camera-settings" class="tab-pane">

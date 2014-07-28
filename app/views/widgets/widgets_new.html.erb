@@ -47,93 +47,111 @@
   <!-- sidebar menu end-->
   <div class="page-content-wrapper">
     <div class="page-content">
-  <!--main content start-->
+      <!--main content start-->
 
+      <div class="portlet light bg-inverse">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-play"></i>Create a Live View Widget
+          </div>
+          <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="javascript:;" class="reload">
+            </a>
+            <a href="javascript:;" class="remove">
+            </a>
+          </div>
+        </div>
 
-      <h3 class="page-title">
-        Create a Live View Widget
-      </h3>
-      <div class="row">
-
-      </div>
+        <div class="portlet-body">
       <div class="row">
         <div id="live-widget" class="widget-config">
           <% if @cameras.empty? %>
-        <div class="col-md-12"><h5>No public, online cams found</h5></div>
-        <% else %>
-        <div class="col-md-5">
+            <div class="col-md-12"><h5>No public, online cams found</h5></div>
+          <% else %>
+            <div class="col-md-5">
+              <p class="note note-info">Only public cameras can be used to make a widget.</p>
+
+              <form id="widget-new" role="form" method="post" class="center-block">
 
 
-          <form id="widget-new" role="form" method="post" class="center-block">
+                <div class="widget-input form-group">
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-camera">Select your Camera</label>
+                  </div>
+                  <div class="input-group col-md-7">
+                    <select id="widget-camera" name="widget-camera" class="form-control is-required">
+                      <% @cameras.each do |camera| %>
+                        <option class="caret" value="<%= camera['id'] %>">
+                          <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
+                        </option>
+                      <% end %>
+                    </select>
+                  </div>
 
-            <div class="widget-input">
-              <div class="input-group col-md-10">
-                <label for="widget-camera">Select your Camera</label>
-                <select id="widget-camera" name="widget-camera" class="form-control is-required">
-                  <% @cameras.each do |camera| %>
-                  <option class="caret" value="<%= camera['id'] %>">
-                    <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
-                  </option>
-                  <% end %>
-                </select>
+                </div>
+
+                <div class="form-group widget-input">
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
+                  </div>
+                  <div class="input-group col-md-7">
+                    <input type="number" value="1" class="form-control input-inline" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100.5],float" data-validation-error-msg="Must be a number between 0.05 and 100.5">
+                    <span class="input-group-addon">seconds</span>
+                  </div>
+                </div>
+
+                <div class="form-group widget-input margin-top-20">
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
+                  </div>
+                  <div class="input-group col-md-7">
+                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Must be a number between 20 and 1600">
+                    <span class="input-group-addon">px</span>
+                  </div>
+                </div>
+              </form>
+              <div class="margin-top-30 row widget-code">
+                <div class="col-md-12">
+                  <h5>Embed this code on your webpage:</h5>
+                  <textarea id="code" class="pretty-code col-md-12" type="text">
+                  </textarea>
+
+                </div>
               </div>
             </div>
 
-            <div class="widget-input margin-top-20">
-              <label for="widget-refresh-rate">Refresh Rate of Snapshot <small><em>(in Seconds)</em></small></label>
-              <div class="input-group col-md-10">
-                <input type="number" value="1" class="form-control" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1">
-                <span class="input-group-addon">seconds</span>
+
+            <div class="col-md-7">
+              <h5>Preview</h5>
+              <div class="preview">
               </div>
             </div>
-
-            <div class="widget-input margin-top-20">
-              <label for="widget-camera-width">Width of Camera Image to Display <small><em>(in px)</em></small></label>
-              <div class="input-group col-md-10">
-                <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
-                <span class="input-group-addon">px</span>
-              </div>
-            </div>
-          </form>
-          <div class="margin-top-20 row widget-code">
-            <div class="col-md-12">
-              <h5>Embed this code on your webpage:</h5>
-              <textarea id="code" class="pretty-code col-md-12" type="text">
-              </textarea>
-
-            </div>
-          </div>
+          <% end %>
         </div>
-
-        <div class="col-md-7">
-          <h5>Preview</h5>
-          <div class="preview">
-          </div>
         </div>
-        <% end %>
       </div>
+      </div>
+      <!--main content end-->
     </div>
+  </div>
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      /** TODO - fix and move to widgets.js.coffee
+       var copy_sel = $('.code-block a.code-copy');
 
-
-
-  <!--main content end-->
-
-
-</div>
-</div>
-<script>
-  $(document).ready(function() {
-    /** TODO - fix and move to widgets.js.coffee
-    var copy_sel = $('.code-block a.code-copy');
-
-    // Disables other default handlers on click (avoid issues)
-    copy_sel.on('click', function(e) {
+       // Disables other default handlers on click (avoid issues)
+       copy_sel.on('click', function(e) {
       e.preventDefault();
     });
 
-    // Apply clipboard click event
-    copy_sel.clipboard({
+       // Apply clipboard click event
+       copy_sel.clipboard({
       path: '/path/to/flashes/jquery.clipboard.swf',
 
       copy: function() {
@@ -147,6 +165,8 @@
         return this_sel.closest('.code-block').text();
       }
     });*/
-  });
-</script>
+      $.validate();
+    });
+  </script>
+
 <%= javascript_include_tag "widgets" %>

@@ -70,7 +70,8 @@
       var options = {
         zoom: 2,
         center: new google.maps.LatLng(25, 10), // centered US
-        mapTypeControl: false
+        mapTypeControl: false,
+        streetViewControl: false
       };
 
       // init map
@@ -87,17 +88,14 @@
         title: 'Click Me '
       });
 
+      var infowindow = new google.maps.InfoWindow();
       // process multiple info windows
       (function (marker) {
         // add click event
         google.maps.event.addListener(marker, 'click', function () {
-          infowindow = new google.maps.InfoWindow({
-            content: "<%= preview(c, true) %>"+
-                '<h5><%= c["name"] %></h5>'+
-                '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>'
-            
-          });
-
+          infowindow.setContent("<%= preview(c, true) %>"+
+              '<h5><%= c["name"] %></h5>'+
+              '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>');
           infowindow.open(map, marker);
         });
       })(marker);

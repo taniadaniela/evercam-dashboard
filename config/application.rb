@@ -76,6 +76,7 @@ module EvercamDashboard
                                  'rails_admin/rails_admin.js',
                                  'admin/admin.css',
                                  'admin/admin.js',
+                                 'jquery.slimscroll.min.js',
                                  'jquery.nicescroll.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]

@@ -19,3 +19,6 @@ if !window.Evercam
 
 window.Evercam.Users =
   initialize: initialize
+
+jQuery ->
+$('div').tooltip();

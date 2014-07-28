@@ -26,3 +26,5 @@
 //= require jquery.dcjqaccordion.2.7.js
 //= require layout.js
 //= require jquery.uniform.min-v2.1.js
+//= require jquery.nicescroll.js
+//= require jquery.slimscroll.min.js

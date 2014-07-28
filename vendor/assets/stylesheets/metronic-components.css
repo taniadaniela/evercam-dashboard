@@ -4401,13 +4401,12 @@ Tiles(new in v1.1.1)
 /***
 Custimized Bootstrap Wells
 ***/
+
 .well {
-    background-color: #eee;
-    border: 0;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
+    border-color: #e5e5e5;
+    background-color: #f5f5f5;
 }
+
 
 /* Button */
 .btn.default {

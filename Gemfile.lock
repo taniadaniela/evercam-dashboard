@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: git://github.com/sferik/rails_admin.git
-  revision: a16c7007e60b63537e82ffa991cca90d22d1e2b5
+  revision: 02ba1dab32dcaa1ec79c37a587373baa4d1ebff5
   specs:
     rails_admin (0.6.2)
       builder (~> 3.1)
@@ -115,7 +115,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    diffy (3.0.5)
+    diffy (3.0.6)
     docile (1.1.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -130,7 +130,7 @@ GEM
     evercam_misc (0.0.9)
       3scale_client (~> 2.3)
       dotenv (~> 0.10)
-    evercam_models (0.3.1)
+    evercam_models (0.3.3)
       activesupport (~> 4.1)
       bcrypt (~> 3.1)
       dotenv (~> 0.10)

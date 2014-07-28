@@ -2,15 +2,18 @@
 
 <script type="text/javascript" src="https://s3.amazonaws.com/cdn.evercam.io/js/localstorage/0.0.1/hikvision.local.storage.mini.js"></script>
 <script type="text/javascript">
-  // Set Evercam Camera ID
-  LocalStorage.options.cameraId = '<%= @camera['id'] %>';
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  if ($(e.target).attr('href') == '#local') {
+    // Set Evercam Camera ID
+    LocalStorage.options.cameraId = '<%= @camera['id'] %>';
 
+    // OR //
+    // Using api_id and api_key
+    LocalStorage.options.api_id = '<%= current_user.api_id -%>';
+    LocalStorage.options.api_key = '<%= current_user.api_key -%>';
 
-  // OR //
-  // Using api_id and api_key
-  LocalStorage.options.api_id = '<%= current_user.api_id -%>';
-  LocalStorage.options.api_key = '<%= current_user.api_key -%>';
-
-  // Finally Load the widget
-  LocalStorage.Load();
+    // Finally Load the widget
+    LocalStorage.Load();
+  }
+})
 </script>

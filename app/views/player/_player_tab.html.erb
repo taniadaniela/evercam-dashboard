@@ -1,0 +1,25 @@
+<script src="https://jwpsrv.com/library/AvbyZBZAEeSVQiIACtqXBA.js"></script>
+
+<div id="player" class="tab-pane">
+  <div id='playerjsuHWVtecUxm'></div>
+
+  <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+    <div id='playerjsuHWVtecUxm'></div>
+    <script type='text/javascript'>
+      jwplayer('playerjsuHWVtecUxm').setup({
+        file: '<% @camera.deep_fetch(:external, :rtsp, :h264) {} %>',
+        image: '//www.longtailvideo.com/content/images/jw-player/lWMJeVvV-876.jpg',
+        width: '100%',
+        aspectratio: '4:3'
+      });
+    </script>
+
+   <p><strong>RTSP Stream: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
+  <% else %>
+    RTSP not found
+  <% end %>
+  </div>
+
+<script type="text/javascript">
+
+</script>

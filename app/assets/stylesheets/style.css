@@ -626,6 +626,16 @@ input:focus {
     clear: both;
     display: none;
 }
+
+/*CAMERA PLAYER*/
+#playerjsuHWVtecUxm {
+    max-width: 600px;
+    margin-bottom: 10px;
+}
+#camera-single li small {
+    color:#aaaaaa;
+}
+
 /*///////////////////////////
 // BB ALERT STYLES
 ///////////////////////////*/

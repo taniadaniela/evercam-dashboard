@@ -539,10 +539,16 @@ max-width:200px;
 #sharing .table > tbody > tr > td {
     vertical-align: middle;
 }
+#sharing small {
+    color:#a0a0a0;
+}
 .sharing {
     margin-top: -9px;
 }
-
+.modal-footer {
+    text-align: left
+;
+}
 #sharing .form-horizontal .control-label {
     text-align: left;
     margin-left: -10px;
@@ -589,7 +595,7 @@ max-width:200px;
 }
 .desc {
     padding: 18px 5px 10px;
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 #sharing i {
     margin-right: 4px;
@@ -603,7 +609,7 @@ td .share-camera {
     padding-left: 5px;
 }
 .add-user  {
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 .share {
     float: left;
@@ -1046,6 +1052,9 @@ margin-left: 236px;}
     display: none;
 }
 /* WIDGET */
+#live-widget .control-label {
+    margin-top: 8px;
+}
 #widget-new .has-error .help-block {
     position: absolute;
     font-size: 12px;

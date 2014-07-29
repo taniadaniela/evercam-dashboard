@@ -11,17 +11,17 @@
           <div class="row"><h5>Visibility Options</h5></div>
         <label class="radio">
           <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
-          <p>Public on the web <span class="grey"> - Anyone on the Internet can find and view.</span></p>
+          <p>Public on the web <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small></p>
         </label>
 
         <label class="radio">
           <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
-          <p>Anyone with the link can view this camera.</p>
+          <p>Anyone with the link can view this camera. <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small></p>
         </label>
 
         <label class="radio">
           <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
-          <p>Only specific people can access this camera (listed emails).</p>
+          <p>Only specific people can access this camera (listed emails). <small> - Is Public: [No]  &amp; Discoverable: [No]</small></p>
         </label>
         </div>
       </div>
@@ -48,13 +48,13 @@
         </div>
       <% styling = 'display: none;' %>
       <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
-        <p><i class="fa fa-globe"></i>  This Camera is Public on the Web <span class="grey"> - Anyone on the Internet can find and view.</span> <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a></p>
+        <p><i class="fa fa-globe"></i>  This Camera is Public on the Web <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small> <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a></p>
       </div>
       <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
-        <p><i class="fa fa-link"></i> This camera can be accessed by anyone with the link <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a></p>
+        <p><i class="fa fa-link"></i> This camera can be accessed by anyone with the link <small> - Is Public: [Yes]  &amp; Discoverable: [No]</small><a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a></p>
       </div>
       <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
-        <p><i class="icon-users"></i>  Specific people can access<a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a></p>
+        <p><i class="icon-users"></i>  Specific people can access <small> - Is Public: [No]  &amp; Discoverable: [No]</small><a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a></p>
       </div>
 
         <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">

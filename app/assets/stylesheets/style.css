@@ -1046,6 +1046,9 @@ margin-left: 236px;}
     display: none;
 }
 /* WIDGET */
+#live-widget .control-label {
+    margin-top: 8px;
+}
 #widget-new .has-error .help-block {
     position: absolute;
     font-size: 12px;

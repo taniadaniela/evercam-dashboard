@@ -3,21 +3,27 @@
 <div id="player" class="tab-pane">
   <div id='playerjsuHWVtecUxm'></div>
 
-  <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+
     <div id='playerjsuHWVtecUxm'></div>
     <script type='text/javascript'>
       jwplayer('playerjsuHWVtecUxm').setup({
-        file: '<% @camera.deep_fetch(:external, :rtsp, :h264) {} %>',
+        file: '<%= @camera.deep_fetch(:proxy_url, :hls) {} %>',
         image: '//www.longtailvideo.com/content/images/jw-player/lWMJeVvV-876.jpg',
         width: '100%',
         aspectratio: '4:3'
       });
     </script>
-
-   <p><strong>RTSP Stream: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
+  <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
+   <p><strong>hls: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %><span class=​"glyphicon glyphicon-new-window"></span></p>
   <% else %>
-    RTSP not found
+    hls not found
   <% end %>
+  <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
+    <p><strong>rtmp: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
+  <% else %>
+    rtmp not found
+  <% end %>
+
   </div>
 
 <script type="text/javascript">

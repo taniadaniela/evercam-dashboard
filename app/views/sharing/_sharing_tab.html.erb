@@ -67,7 +67,7 @@
               <% rights = share["rights"].split(",") %>
               <tr share-id="<%= share["id"] %>">
                 <td class="col-lg-4">
-                    <%= share["email"] %>
+                   <%= share["email"] %>
                   <% if share["email"] == current_user.email %>
                     <small class="blue"> (you)</small>
                   <% end %>
@@ -135,7 +135,7 @@
       <table class="table table-borderless">
         <tr>
           <td class="col-lg-4">
-            <p class="share">Share Camera with</p>
+            <p class="share"><i class="icon-plus"></i>  Share Camera with</p>
             <div class="email-input">
               <div class="input-group">
                 <input type="email" placeholder="Email address or Username" class="form-control" id="sharingUserEmail" name="sharingUserEmail">
@@ -157,7 +157,7 @@
               <button type="submit" class="btn btn-primary" id="submit_share_button">Share</button>
             </div>
           </td>
-          <td class="col-lg-2"></td>
+          <td class="col-lg-2">
 
         <!--<div class="col-md-10">
           <p>

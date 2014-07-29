@@ -595,7 +595,7 @@ max-width:200px;
 }
 .desc {
     padding: 18px 5px 10px;
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 #sharing i {
     margin-right: 4px;
@@ -609,7 +609,7 @@ td .share-camera {
     padding-left: 5px;
 }
 .add-user  {
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 .share {
     float: left;

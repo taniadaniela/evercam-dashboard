@@ -79,16 +79,7 @@ class SharingController < ApplicationController
          camera_id = params[:camera_id]
          rights = generate_rights_list(params[:permissions])
          share  = nil
-         snapshot = nil
          api = get_evercam_api
-         if params[:email] != current_user.email
-           # Don't take snapshot if you share public camera
-           begin
-             snapshot = api.get_snapshot(camera_id)
-           rescue => error
-             # Ignore snapshot error, we can send email without image
-           end
-         end
 
          begin
             share = api.share_camera(camera_id, params[:email], rights)

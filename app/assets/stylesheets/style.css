@@ -539,10 +539,16 @@ max-width:200px;
 #sharing .table > tbody > tr > td {
     vertical-align: middle;
 }
+#sharing small {
+    color:#a0a0a0;
+}
 .sharing {
     margin-top: -9px;
 }
-
+.modal-footer {
+    text-align: left
+;
+}
 #sharing .form-horizontal .control-label {
     text-align: left;
     margin-left: -10px;

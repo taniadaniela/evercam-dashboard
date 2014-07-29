@@ -137,8 +137,12 @@ h4 {
 
 h5 {
     font-size: 14px;
+    font-weight: 600;
 }
-
+th {
+    font-size: 14px;
+    font-weight: 600;
+}
 h6 {
     font-size: 12px;
 }
@@ -4146,7 +4150,7 @@ Custom tabs
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    padding: 10px;
+    padding: 20 15px;
     overflow:auto;
 }
 .tabbable-custom.nav-justified .tab-content {

@@ -28,3 +28,4 @@
 //= require jquery.uniform.min-v2.1.js
 //= require jquery.nicescroll.js
 //= require jquery.slimscroll.min.js
+//= require bootstrap-tabdrop.js

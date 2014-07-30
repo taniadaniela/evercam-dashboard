@@ -157,10 +157,10 @@ Page Header
     position: absolute;
     width: 1em;
     height: 0.15em;
-    background: black;
+    background: white;
     box-shadow:
-    0 0.25em 0 0 black,
-    0 0.5em 0 0 black;
+    0 0.25em 0 0 white,
+    0 0.5em 0 0 white;
 }
 .page-header.navbar .menu-toggler:hover {
     filter: alpha(opacity=100);
@@ -720,7 +720,7 @@ Horizontal Menu
     }
     .page-header.navbar .top-menu {
         display: block;
-        clear: both;
+        margin-right: 10px;
     }
     .page-header.navbar .top-menu .navbar-nav {
         margin-right: 0;
@@ -1374,7 +1374,7 @@ Page sidebar
     }
     .page-sidebar.navbar-collapse.in {
         border-top: 0 !important;
-        margin: 20px;
+        margin: 0px;
         position: relative;
         overflow: hidden !important;
         overflow-y: auto !important;
@@ -1412,7 +1412,7 @@ Page sidebar
     /* Page sidebar */
     .page-sidebar,
     .page-sidebar.in {
-        margin: 0 10px 10px 10px !important;
+        margin: 0 10px 10px 0px !important;
     }
     .page-header-fixed.page-header-fixed-mobile .page-sidebar, .page-header-fixed.page-header-fixed-mobile
     .page-sidebar.in {
@@ -3681,7 +3681,7 @@ div.content-form-page .checkbox-list {
 
 
 .nav-tabs {
-    border-color: #e6400c;
+    border-color: transparent;
     padding-bottom: 1px;
     font-size: 14px;
     margin-bottom: 0;
@@ -3689,7 +3689,7 @@ div.content-form-page .checkbox-list {
 .nav-tabs > li > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
     color: #647484;
     border-radius: 0;
-    padding: 5px 15px 4px;
+    padding: 10px 15px;
     border: none !important;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
@@ -3774,7 +3774,7 @@ Page Header
     /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
-    background-color: #333333;
+    background-color: #303030;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
     color: #999999;
@@ -3787,7 +3787,7 @@ Page Header
     background-color: #333333;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-    background-color: #151515;
+    background-color: #1f1f1f;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle .username {
     color: #999999;
@@ -4396,18 +4396,18 @@ Page Footer
         /* Top menu */
     }
     .page-header.navbar .top-menu {
-        background-color: #3d3d3d;
+        background-color: #1f1f1f;
     }
     .page-header-fixed-mobile .page-header.navbar .top-menu {
         background-color: #1f1f1f;
     }
     .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-        background-color: #363636;
+        background-color: #1f1f1f;
     }
     .page-header-fixed-mobile .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
         background: none;
     }
     .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle:hover {
-        background-color: #333333;
+        background-color: #1f1f1f;
     }
 }

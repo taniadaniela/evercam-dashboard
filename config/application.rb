@@ -78,6 +78,7 @@ module EvercamDashboard
                                  'admin/admin.css',
                                  'admin/admin.js',
                                  'jquery.slimscroll.min.js',
+                                 'bootstrap-tabdrop.js',
                                  'jquery.nicescroll.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]

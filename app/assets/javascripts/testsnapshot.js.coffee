@@ -24,6 +24,9 @@ $ ->
     if (jpg_url.indexOf('/') == 0)
       $snap.val(jpg_url.substring(1))
       jpg_url = $snap.val()
+    if (ext_url.indexOf('http://') == 0)
+      $snap.val(ext_url.substring(7))
+      ext_url = $snap.val()
 
     # Encode parameters
     jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
@@ -62,7 +65,7 @@ $ ->
     $.getJSON(EVERCAMP_API + 'cameras/test.json?' + params.join('&'))
     .done((resp) ->
       console.log('success')
-      $('#test-error').text('Snapshot successfully retrieved')
+      $('#test-error').text('We got a snapshot')
       $('#testimg').attr('src', resp.data)
     )
     .fail((resp) ->

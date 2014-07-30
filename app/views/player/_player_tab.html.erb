@@ -16,12 +16,12 @@
   <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
    <p><strong>hls: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %><span class=​"glyphicon glyphicon-new-window"></span></p>
   <% else %>
-    hls not found
+    <p>hls not found</p>
   <% end %>
   <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
     <p><strong>rtmp: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
   <% else %>
-    rtmp not found
+    <p>rtmp not found</p>
   <% end %>
 
   </div>

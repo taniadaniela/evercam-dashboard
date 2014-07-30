@@ -4128,6 +4128,7 @@ Custom tabs
 }
 .tabbable-custom > .nav-tabs > li > a {
     margin-right: 0;
+
 }
 .tabbable-custom > .nav-tabs > li > a:hover {
     background: #fff;

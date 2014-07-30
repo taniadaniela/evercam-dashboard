@@ -177,7 +177,7 @@ Page Header
 .page-header.navbar .menu-toggler.responsive-toggler {
     display: none;
     float: right;
-    margin: 15px 6px 0 6px;
+    margin: 18px 6px 0 6px;
 }
 .page-header.navbar .top-menu {
     margin: 0;
@@ -2053,6 +2053,7 @@ Page content
     .page-content-wrapper .page-content .page-title small {
         display: block;
         clear: both;
+        margin-left: 0;
     }
     .page-content-wrapper .page-content .page-breadcrumb.breadcrumb .dashboard-date-range {
         padding-tops: 9px;

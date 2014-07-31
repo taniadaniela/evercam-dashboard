@@ -29,3 +29,4 @@
 //= require jquery.nicescroll.js
 //= require jquery.slimscroll.min.js
 //= require bootstrap-tabdrop.js
+//= require jwplayer.js

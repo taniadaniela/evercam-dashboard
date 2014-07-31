@@ -536,6 +536,10 @@ max-width:200px;
 #info .table>thead>tr>th {
     padding: 0px 0 4px;
 }
+/*LOCATION */
+#location #map-canvas {
+    max-height: 680px;
+}
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;
@@ -675,7 +679,7 @@ input:focus {
 #camera-settings .input-group-addon {
     background-color: #fff;
     border: none;
-    padding: 6px 0px 6px 12px;
+    padding: 6px 8px 6px 1  px;
 }
 
 #testimg {
@@ -709,10 +713,7 @@ input:focus {
 }
 
 /*CAMERA PLAYER*/
-#playerjsuHWVtecUxm {
-    max-width: 600px;
-    margin-bottom: 20px;
-}
+
 #camera-single li small {
     color:#aaaaaa;
 }
@@ -721,6 +722,26 @@ input:focus {
     overflow-x: hidden;
     overflow-y: hidden;
 }
+.screen {
+    border: 1px solid #e5e5e5;
+    width: 565px;
+    height: 318px;
+    position: relative;
+    background-color: #f5f5f5;
+
+}
+.play {
+    width:auto;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    left: 50%;
+    margin-left: -50px;
+}
+#player_wrapper {
+ border: 1px solid #f5f5f5;
+}
+
 /*///////////////////////////
 // BB ALERT STYLES
 ///////////////////////////*/

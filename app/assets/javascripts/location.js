@@ -5,8 +5,10 @@ function initialize() {
   }
   var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
   var mapOptions = {
-    zoom: 8,
-    center: cameraLatlng
+    zoom: 13,
+    center: cameraLatlng,
+    mapTypeControl: false,
+    streetViewControl: false
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 

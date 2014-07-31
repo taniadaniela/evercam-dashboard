@@ -3,21 +3,21 @@
   "use strict";
 // Localize jQuery variable
   var jQuery,
-    url = '<%= EVERCAM_API %>cameras/<%= params[:c] %>/snapshot.jpg',
+    url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/snapshot.jpg',
     container,
-    refresh = 1000*<%= params[:r] %>,
+    refresh = 1000*<%= params[:refresh] %>,
     imgStyle = "width: 100%;";
 
   function updateImage() {
     if (refresh > 0) {
       window.ec_watcher = setTimeout(updateImage, refresh);
     }
-    jQuery("<img style='" + imgStyle + "'/>").attr('src', url)
+    jQuery("<img style='" + imgStyle + "'/>").attr('src', url + '?' + new Date().getTime())
       .load(function() {
         if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
           console.log('broken image!');
         } else {
-          container.find('img').replaceWith(jQuery(this))
+          container.empty().append(jQuery(this))
           console.log('updated');
         }
       });

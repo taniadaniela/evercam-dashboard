@@ -5,7 +5,7 @@ updateCode = () ->
   url = 'https://dashboard.evercam.io'
   #url = 'http://local.evercam.io:3000'
   baseText = "<div id='ec-container' style='width: "+width+"px'></div>
-      <script src='"+url+"/live.view.widget.js?r="+refresh+"&c="+camera+"' async></script>"
+      <script src='"+url+"/live.view.widget.js?refresh="+refresh+"&camera="+camera+"' async></script>"
   $('#code').text(baseText)
   document.removeEventListener("visibilitychange", window.ec_vis_handler, false);
   clearTimeout(window.ec_watcher) if window.ec_watcher?

@@ -8,23 +8,23 @@
 
 
 <div class="row">
-<div class='col-lg-5'>
+<div class='col-lg-4 col-md-6 col-sm-6'>
   <div class=''>
   <table class="table table-borderless">
 
     <tr>
-      <td class="col-md-3">
+      <td class="col-lg-1">
         <label class="control-label">Evercam ID</label>
       </td>
-      <td class="col-md-6 settings">
+      <td class="col-lg-2 settings">
         <div class="settings-id" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
       </td>
     </tr>
     <tr>
-      <td class="col-md-2">
+      <td>
         <label class="control-label" for="camera-name">Friendly Name</label>
       </td>
-      <td class="col-md-4">
+      <td>
         <input id="camera-name" class="form-control readonly makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" readonly="readonly">
       </td>
     </tr>
@@ -169,7 +169,7 @@
   </div>
 </div>
   <!-- SNAPSHOT-->
-  <div class="col-lg-5 makeNonEditable">
+  <div class="col-lg-5 col-md-4 col-sm-6 makeNonEditable">
     <div>
       <div class="test-img-settings"><img id="testimg" src="" class="text-center" width="100%"></div>
       <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>

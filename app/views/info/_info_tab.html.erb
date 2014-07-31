@@ -1,74 +1,72 @@
-  <section id="unseen">
-    <table class="portlet table table-borderless">
-      <thead>
-      <tr>
-        <th class="portlet-title col-md-2 first-row">
-          General Info
-        </th>
-        <td>
-        </td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          Evercam ID
-        </td>
-        <td id="ec_cam_id">
-          <%= @camera['id'] %>
-        </td>
-      </tr>
-      <tr>
-        <td>Camera Owner</td>
-        <td><%= @camera['owner'] %>
-          <% if @camera['owner'] == current_user.username %>
-            <small>(you)  </small><a href="#" id="change_owner_button" type="button" class="blue">  change</a>
-          <% end %></td>
-      </tr>
-      <tr>
-        <td>Local IP</td>
-        <td><%= @camera.deep_fetch(:internal, :host) {} %></td>
-      </tr>
-      <tr>
-        <td>
-          Camera Location
-        </td>
-        <td>
-          <div id="info-location">
-            <%= @camera.deep_fetch(:location, :lat) {} %>,
-            <%= @camera.deep_fetch(:location, :lng) {} %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Date Added</td>
-        <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
-      </tr>
-      </tbody>
-    </table>
+  <section id="unseen" class="row">
+    <div class="col-md-4">
+      <table class="portlet table table-borderless">
+        <thead>
+        <tr>
+          <th class="portlet-title col-md-2 first-row">
+            General Info
+          </th>
+          <td>
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="col-md-1">
+            Evercam ID
+          </td>
+          <td id="ec_cam_id">
+            <%= @camera['id'] %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-1">Camera Owner</td>
+          <td><%= @camera['owner'] %>
+            <% if @camera['owner'] == current_user.username %>
+              <small>(you)  </small><a href="#" id="change_owner_button" type="button" class="blue">  change</a>
+            <% end %></td>
+        </tr>
+        <tr>
+          <td class="col-md-1">Local IP</td>
+          <td><%= @camera.deep_fetch(:internal, :host) {} %></td>
+        </tr>
+        <tr>
+          <td class="col-md-1">
+            Camera Location
+          </td>
+          <td>
+            <div id="info-location">
+              <%= @camera.deep_fetch(:location, :lat) {} %>,
+              <%= @camera.deep_fetch(:location, :lng) {} %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-1">Date Added</td>
+          <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section id="unseen">
     <table class="table table-borderless">
       <thead>
       <tr>
-        <th class="col-md-2 first-row">
+        <th class="col-md-4 first-row">
           Proxy URLs
         </th>
-        <td>
-        </td>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>
-          JPEG
-        </td>
-        <td id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
-            <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
-        </td>
-          <td id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-            <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey">(Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small> `
+          <span class="dark-grey">JPEG:</span>
+        <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+            <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
+          <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+            <%= "http://evr.cm/#{@camera['id']}.jpg" %> <small class="grey"> (Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</small></span>
         </td>
       </tr>
       </tbody>
@@ -79,19 +77,15 @@
     <table class="table table-borderless">
       <thead>
       <tr>
-        <th class="col-md-2 first-row">
+        <th class="col-md-4 first-row">
           Dynamic DNS URLs
         </th>
-        <td>
-        </td>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>
-          JPEG
-        </td>
-        <td>
+          <span class="dark-grey">JPEG:</span>
           <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
             <% else %>
@@ -107,19 +101,16 @@
     <table class="table table-borderless">
       <thead>
       <tr>
-        <th class="col-md-2 first-row">
+        <th class="col-md-4 first-row">
           Base URLs
         </th>
-        <td>
-        </td>
+
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>
-          Camera
-        </td>
-        <td>
+          <span class="dark-grey">Camera:</span>
           <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
           <% else %>
@@ -129,9 +120,7 @@
       </tr>
       <tr>
         <td>
-          JPEG
-        </td>
-        <td>
+          <span class="dark-grey">JPEG:</span>
           <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
           <% else %>
@@ -141,9 +130,7 @@
       </tr>
       <tr>
         <td>
-          MJPEG
-        </td>
-        <td>
+          <span class="dark-grey">MJPEG:</span>
           <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -153,9 +140,7 @@
       </tr>
       <tr>
         <td>
-          MPEG
-        </td>
-        <td>
+          <span class="dark-grey">MPEG:</span>
           <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -165,9 +150,7 @@
       </tr>
       <tr>
         <td>
-          Audio
-        </td>
-        <td>
+          <span class="dark-grey">Audio:</span>
           <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -177,9 +160,7 @@
       </tr>
       <tr>
         <td>
-          H264
-        </td>
-        <td>
+          <span class="dark-grey">H264:</span>
           <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>

@@ -49,6 +49,11 @@
     color:#aaa;
     font: 400 14px 'Open Sans', Arial, sans-serif;
 }
+.dark-grey {
+    color:#777777;
+    font: 400 14px 'Open Sans', Arial, sans-serif;
+    margin-right: 16px;
+}
 .blue {
     color:#428bca;
 }
@@ -170,6 +175,9 @@ margin-bottom: 20px;
 }
 #test-error {
      margin-top: 5px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 .testimg-add {
@@ -642,9 +650,12 @@ td .share-camera {
 }
 .checkbox-inline input[type="checkbox"] {
     float: left;
-    margin-left: -19px;
-    width: 18px;
     margin-top: 4px;
+}
+@media (max-width: 480px) {
+    .checkbox-list {
+        padding-left: 35px;
+    }
 }
 
 input:focus {
@@ -666,6 +677,7 @@ input:focus {
     border: none;
     padding: 6px 0px 6px 12px;
 }
+
 #testimg {
     height: 100%;
     width:auto;
@@ -691,7 +703,9 @@ input:focus {
 #camera-settings #test-error {
     float: left;
     clear: both;
-    display: none;
+    text-align: left;
+    margin-top: 8px;
+
 }
 
 /*CAMERA PLAYER*/
@@ -702,7 +716,11 @@ input:focus {
 #camera-single li small {
     color:#aaaaaa;
 }
-
+#local {
+    max-height: 616px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 /*///////////////////////////
 // BB ALERT STYLES
 ///////////////////////////*/
@@ -1085,12 +1103,7 @@ margin-left: 236px;}
  margin-left: -10px;
 }
 
-#test-error {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
+
 
 
 

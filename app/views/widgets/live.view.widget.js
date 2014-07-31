@@ -12,7 +12,7 @@
     if (refresh > 0) {
       window.ec_watcher = setTimeout(updateImage, refresh);
     }
-    jQuery("<img style='" + imgStyle + "'/>").attr('src', url)
+    jQuery("<img style='" + imgStyle + "'/>").attr('src', url + '?' + new Date().getTime())
       .load(function() {
         if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
           console.log('broken image!');

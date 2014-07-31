@@ -1,6 +1,7 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_action :verify_authenticity_token, only: [:live_view_widget]
+  skip_before_action :authenticate_user!, only: [:live_view_widget]
 
   include SessionsHelper
   include ApplicationHelper

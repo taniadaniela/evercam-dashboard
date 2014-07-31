@@ -1109,6 +1109,11 @@ margin-left: 236px;}
 #live-widget .control-label {
     margin-top: 8px;
 }
+#ec-container {
+    border:1px solid #e5e5e5;
+    width: 400px;
+    height: 200px;
+}
 #widget-new .has-error .help-block {
     position: absolute;
     font-size: 12px;

@@ -363,7 +363,11 @@ input:-webkit-autofill {
 .glyphicon-arrow-left {
     margin-right: 5px;
 }
-
+#public-info p {
+    margin-top: 13px;
+    color: #aaa;
+    margin-left: 7px;
+}
 /*MAP */
 #map-canvas {
     width: 100%;
@@ -382,7 +386,7 @@ input:-webkit-autofill {
 /*MAP PUBLIC*/
 #map-public {
     width: 100%;
-    height: 166px;
+    height: 180px;
     max-width: 332px;
 }
 #public-index h5 {

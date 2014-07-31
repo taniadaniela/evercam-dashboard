@@ -93,9 +93,8 @@
       (function (marker) {
         // add click event
         google.maps.event.addListener(marker, 'click', function () {
-          infowindow.setContent("<%= preview(c, true) %>"+
-              '<h5><%= c["name"] %></h5>'+
-              '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>');
+          infowindow.setContent("<a href='/publiccam/<%= c['id'] %>'><%= preview(c, true) %></a>"+
+              '<h5><a href="/publiccam/<%= c['id'] %>"><%= c["name"] %></a></h5>');
           infowindow.open(map, marker);
         });
       })(marker);

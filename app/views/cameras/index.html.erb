@@ -7,36 +7,36 @@
     <div id="sidebar" class="page-sidebar navbar-collapse collapse">
 
       <ul id="nav-accordion" class="page-sidebar-menu slimScrollBar" data-auto-scroll="true" data-slide-speed="200">
-       <!-- <li class="sidebar-toggler-wrapper">
-        <div class="sidebar-toggle-box">
-        <div class="sidebar-toggler .fa-bars">
-        </div></div>
-      </li>-->
+        <!-- <li class="sidebar-toggler-wrapper">
+         <div class="sidebar-toggle-box">
+         <div class="sidebar-toggler .fa-bars">
+         </div></div>
+       </li>-->
         <li>
           <a class="active" href="javascript:;">
             <i class="icon-camera"></i>My Cameras <i class="fa fa-angle-down"></i>
           </a>
           <ul class="sub-menu">
             <% @cameras.each do |camera| %>
-            <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>?share=false">
-                <%= camera['name'] %>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
+              <li class="sub-menu-item">
+                <a href="/cameras/<%= camera['id'] %>?share=false">
+                  <%= camera['name'] %>
+                  <% if camera['is_online'] %>
+                  <% else %>
+                    <i class="red fa fa-chain-broken"></i>
+                  <% end %>
+                </a>
+              </li>
             <% end %>
             <% @shares.each do |camera| %>
               <li class="sub-menu-item">
                 <a href="/cameras/<%= camera['id'] %>?share=true">
                   <%= camera['name'] %>
                   <i class="icon-users"></i>
-                    <% if camera['is_online'] %>
-                    <% else %>
-                      <i class="red fa fa-chain-broken"></i>
-                    <% end %>
+                  <% if camera['is_online'] %>
+                  <% else %>
+                    <i class="red fa fa-chain-broken"></i>
+                  <% end %>
                 </a>
               </li>
             <% end %>
@@ -60,51 +60,57 @@
     </div>
     <!-- sidebar menu end-->
   </div>
-<div class="page-content-wrapper">
-  <div id="main-content" class="page-content">
+  <div class="page-content-wrapper">
+    <div id="main-content" class="page-content">
 
       <!--main content start-->
-            <% @cameras.each do |camera| %>
-              <a href="/cameras/<%= camera['id'] %>?share=false">
-                <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-                  <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                  <%= preview(camera) %>
-                  <div id="offline"> <% if camera['is_online'] %>
-                      <span class="green">Online</span>
-                    <% else %>
-                      <span class="red">Offline</span>
-                    <% end %>
-                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-                  </div>
-                </div>
-              </a>
-            <% end %>
+      <% @cameras.each do |camera| %>
 
-            <% @shares.each do |camera| %>
-              <div class="col-md-4 col-sm-6 col-xs-12 cam-box">
-                <a href="/cameras/<%= camera['id'] %>?share=true">
-                  <div id="cam-name"><h5><%= camera['name'] %></h5></div>
-                  <%= preview(camera) %>
-                  <div id="offline"> <% if camera['is_online'] %>
-                      <span class="green">Online</span>
-                    <% else %>
-                      <span class="red">Offline</span>
-                    <% end %>
-                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-                  </div>
-                </a>
-              </div>
-            <% end %>
-
-            <div class="col-md-4 col-sm-6 col-xs-12 add-cam-box">
-              <a href="/cameras/new">
-                <p><span class="glyphicon glyphicon-plus"></span>Add an IP Camera</p>
-              </a>
+        <div class="col-lg-4 camera-index">
+          <a class="" href="/cameras/<%= camera['id'] %>?share=false">
+            <div class="snapshot">
+              <%= preview(camera) %>
             </div>
+            <div class="camera-info">
+              <div class="camera-name">
+                <%= camera['name'] %><% if camera['is_online'] %>
+                <% else %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+                <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+              </div>
+            </div>
+          </a>
+        </div>
+
+
+      <% end %>
+
+      <% @shares.each do |camera| %>
+
+        <div class="col-lg-4 camera-index">
+          <a href="/cameras/<%= camera['id'] %>?share=true">
+            <div class="snapshot">
+              <%= preview(camera) %>
+            </div>
+            <div class="camera-info">
+              <div class="camera-name">
+                <%= camera['name'] %><% if camera['is_online'] %>
+                <% else %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+                <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      <% end %>
+
       <!--main content end-->
 
+    </div>
   </div>
-</div>
 </div>
 <%= javascript_include_tag "cameras" %>
 <script type="text/javascript">

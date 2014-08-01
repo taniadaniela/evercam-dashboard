@@ -50,71 +50,104 @@
       <!--main content start-->
 
 
-      <h3 class="page-title">
-        Create a Live View Widget
-      </h3>
-      <div class="row">
+      <script type="text/javascript">
+        var cCode = "";
+        var newImageUrl = "";
+        var IsHover = false;
+        var s = 0;
+        function ShowCamImage(idimg, idmain, camstatus, CamCode) {
+          return;
+          $(this).delay();
+          var p = $("#" + idmain);
+          var position = p.position();
+          $("#" + idimg).css("left", (position.left + 165) + "px");
+          $("#" + idimg).css("top", position.top + "px");
+          $("#" + idimg).slideDown(0);
+          IsHover = true;
+          s = setTimeout("callfunction('" + CamCode + "');", 3000);
+        }
+        function OnHoveChangeImg() {
+          IsHover = true;
+          s = setTimeout("callfunction('" + cCode + "');", 3000);
+        }
 
-      </div>
-      <div class="row">
-        <div id="live-widget" class="widget-config">
-          <% if @cameras.empty? %>
-            <div class="col-md-12"><h5>No public, online cams found</h5></div>
-          <% else %>
-            <div class="col-md-5">
+        function callfunction(cameraCode) {
+          var obj = { cameraCode: cameraCode };
+          var jsonData = JSON.stringify(obj);
+          $.ajax({
+            type: "POST",
+            url: "WebService/CameraWS2.asmx/GetLastSnapshot",
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            context: cameraCode,
+            success: ChangeImageSuccess,
+            error: ChangeImageError
+          });
+        }
+        function ChangeImageSuccess(data, textStatus, XMLHttpRequest) {
+          newImageUrl = data.d + "?" + Math.random();
+          cCode = this;
+          $("#imgLoadOnHover").attr("src", data.d+"?"+ Math.random());
+          $('#imgLoadOnHover').onImagesLoad({
+            selectorCallback: ChangeOnHoverImage
+          });
+        }
+        function ChangeImageError(XMLHttpRequest, textStatus, errorThrown) {
+          var obj = jQuery.parseJSON(XMLHttpRequest.responseText)
+          //$("#ddd").html("An error occured: " + obj.Message);
+        }
+        function ChangeOnHoverImage() {
+          $("#img" + cCode).attr("src", $("#imgLoadOnHover").attr("src"));
+          /*if (IsHover)
+           callfunction(cCode);*/
+          if (IsHover)
+            s = setTimeout("callfunction('" + cCode + "');", 3000);
+          else
+            clearTimeout(s);
+        }
 
+        function HideCamImage(id, camstatus, CamCode) {
+          return;
+          $("#" + id).slideUp(0);
+          clearTimeout(s);
+          IsHover = false;
+          cCode = "";
+        }
 
-              <form id="widget-new" role="form" method="post" class="center-block">
-
-                <div class="widget-input">
-                  <div class="input-group col-md-10">
-                    <label for="widget-camera">Select your Camera</label>
-                    <select id="widget-camera" name="widget-camera" class="form-control is-required">
-                      <% @cameras.each do |camera| %>
-                        <option class="caret" value="<%= camera['id'] %>">
-                          <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
-                        </option>
-                      <% end %>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="widget-input margin-top-20">
-                  <label for="widget-refresh-rate">Refresh Rate of Snapshot <small><em>(in Seconds)</em></small></label>
-                  <div class="input-group col-md-10">
-                    <input type="number" value="1" class="form-control" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1">
-                    <span class="input-group-addon">seconds</span>
-                  </div>
-                </div>
-
-                <div class="widget-input margin-top-20">
-                  <label for="widget-camera-width">Width of Camera Image to Display <small><em>(in px)</em></small></label>
-                  <div class="input-group col-md-10">
-                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600">
-                    <span class="input-group-addon">px</span>
-                  </div>
-                </div>
-              </form>
-              <div class="margin-top-20 row widget-code">
-                <div class="col-md-12">
-                  <h5>Embed this code on your webpage:</h5>
-                  <textarea id="code" class="pretty-code col-md-12" type="text">
-                  </textarea>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-7">
-              <h5>Preview</h5>
-              <div class="preview">
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-
+        function RedirectUrl(url) {
+          window.location = url;
+        }
+        function RestartCamraFLeft(code, IsCallFun) {
+          if (!IsCallFun)
+            return;
+          $.ajax({
+            type: "POST",
+            url: "/WebService/CameraWS2.asmx/RestartCamera",
+            data: JSON.stringify({ cameraCode: code }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            context: { code: code },
+            success: RestartCamraFLeftSuccess,
+            error: function(XMLHttpRequest, textStatus, errorThrown) {/* alert(XMLHttpRequest.responseText);*/ }
+          });
+        }
+        function RestartCamraFLeftSuccess(data, textStatus, XMLHttpRequest) {
+          alert(this.code);
+          if (data == "Active") {
+            //cssclass = CheckAndGetClass("divStatus" + cameraCode);
+            //$("#divStatus" + cameraCode).removeClass(cssclass).addClass("leftmenu-itemon-img");
+          }
+          else if (data == "Paused") {
+            //cssclass = CheckAndGetClass("divStatus" + cameraCode);
+            //$("#divStatus" + cameraCode).removeClass(cssclass).addClass("leftmenu-itempau-img");
+          }
+          else if (data == "Offline") {
+            //cssclass = CheckAndGetClass("divStatus" + cameraCode);
+            //$("#divStatus" + cameraCode).removeClass(cssclass).addClass("leftmenu-itemoff-img");
+          }
+        }
+      </script>
 
 
       <!--main content end-->

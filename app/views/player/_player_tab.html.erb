@@ -13,18 +13,25 @@
         aspectratio: '4:3'
       });
     </script>
-  <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
-   <p><strong>hls: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %><span class=​"glyphicon glyphicon-new-window"></span></p>
-  <% else %>
-    <p>hls not found</p>
-  <% end %>
-  <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
-    <p><strong>rtmp: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
-  <% else %>
-    <p>rtmp not found</p>
-  <% end %>
 
+  <div class="row margin-top-20">
+    <div class="col-md-12">
+      <h5>Streams</h5>
+
+    <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
+     <p><strong>hls: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %><span class=​"glyphicon glyphicon-new-window"></span></p>
+    <% else %>
+      <p>hls not found</p>
+    <% end %>
+    <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
+      <p><strong>rtmp: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
+    <% else %>
+      <p>rtmp not found</p>
+    <% end %>
+    </div>
   </div>
+
+</div>
 
 <script type="text/javascript">
 

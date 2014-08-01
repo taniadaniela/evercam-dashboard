@@ -29,27 +29,20 @@
       </div>
     </div>
 <!-- sidebar menu end-->
-    <div class="page-content-wrapper">
-    <div class="page-content">
-
-        <!--BEGIN TABS-->
-        <div class="portlet">
-
-         <!-- <div class="portlet-title">
-            <div class="caption">
-              <i class=​"icon-home">​</i>​Map View
-            </div>
-          </div>-->
-
-          <div class="portlet-body">
-              <div id="map-canvas"></div>
-          </div>
+<div class="page-content-wrapper">
+  <div class="page-content">
+   <!-- <div class="portlet-title">
+      <div class="caption">
+        <i class=​"icon-home">​</i>​Map View
+      </div>
+    </div>-->
+      <div class="portlet-body">
+        <div id="map-canvas">
         </div>
+      </div>
+  </div>
+</div>
 
-
-
-    </div>
-    </div>
 
 </div>
 
@@ -68,11 +61,14 @@
     (function () {
       // map options
       var options = {
-        zoom: 2,
-        center: new google.maps.LatLng(25, 10), // centered US
+        zoom: 4,
+        minZoom: 3,
+        maxZoom: 17,
+        center: new google.maps.LatLng(47, 16),
         mapTypeControl: false,
         streetViewControl: false
       };
+
 
       // init map
       var map = new google.maps.Map(document.getElementById('map-canvas'), options);
@@ -88,14 +84,15 @@
         title: 'Click Me '
       });
 
+
+
       var infowindow = new google.maps.InfoWindow();
       // process multiple info windows
       (function (marker) {
         // add click event
         google.maps.event.addListener(marker, 'click', function () {
-          infowindow.setContent("<%= preview(c, true) %>"+
-              '<h5><%= c["name"] %></h5>'+
-              '<p><a href="/publiccam/<%= c['id'] %>">View Camera</a></p>');
+          infowindow.setContent("<a href='/publiccam/<%= c['id'] %>'><%= preview(c, true) %></a>"+
+              '<h5><a href="/publiccam/<%= c['id'] %>"><%= c["name"] %></a></h5>');
           infowindow.open(map, marker);
         });
       })(marker);

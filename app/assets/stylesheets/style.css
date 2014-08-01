@@ -5,17 +5,46 @@
 #camera-index .page-content-wrapper .page-content {
     padding:0;
 }
-
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
     padding: 0px;
+    margin-left: -10px;
 }
+.camera-index {
+    overflow: hidden;
+    height: 300px;
+    margin-top: 6px;
+    margin-left: -8px;
+}
+.link {
+    z-index: 100000;
+    height: 300px;
+
+}
+.snapshot {
+    position:relative;
+    height: 443px;
+    text-align: center;
+}
+.snapshot img {
+    height: 100%;
+}
+
 #camera-index .page-content{
     overflow-y:hidden !important;
     overflow-x:hidden !important;
 }
-#camera-index a {
+
+#camera-index a:hover {
     color:#fff;
     text-decoration: none;
+}
+.camera-name a {
+    color:#aaa;
+    transition:all 0s linear 0.2s,all 0.3s linear;
+}
+.camera-index:hover .camera-name a {
+    color:#fff;
+    opacity: 1;
 }
 .camera-info {
     background-image: linear-gradient(
@@ -29,6 +58,7 @@
     position: absolute;
     bottom: 0;
     cursor: pointer;
+    pointer-events:none;
     height: 100%;
     width: 100%;
 }
@@ -44,9 +74,13 @@
     opacity: 1;
 }
 .snapshot {
-    position:relative;
+
+}
+.camera-index:nth-child(3n+1) {
+margin-left: 4px;
 }
 #cam-refresh {
+    display: none;
     visibility: hidden;
     opacity: 0;
     color: #AAAAAA;
@@ -69,25 +103,11 @@
 .blue {
     color:#428bca;
 }
-
-
 .logo-default img {
     max-width: 151px;
     margin-top: 9px;
 }
-.camera-index {
-    overflow: hidden;
-    height: 300px;
-    margin-top: 6px;
-    margin-left: -8px;
-}
-.snapshot {
-    height: 443px;
-    text-align: center;
-}
-.snapshot img {
-    height: 100%;
-}
+
 /*/////////////////////
 //ADD IP CAMERA PAGE
 /////////////////////*/
@@ -1037,7 +1057,7 @@ table.table-clean thead th {
 }
 
 #main-content {
-margin-left: 236px;}
+margin-left: 228px;}
 .hide-left-bar {
     margin-left:-236px !important;
 }

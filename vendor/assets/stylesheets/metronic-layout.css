@@ -2311,7 +2311,7 @@ Template Name: Metronic - Responsive Website Template build with Twitter Bootstr
 body {
     color: #414042;
     direction: ltr;
-    font: 400 14px 'Open Sans', Arial, sans-serif;
+    font: 14px 'proxima-nova-regular', 'Open Sans', Arial, sans-serif;
     background: #303030;
 }
 

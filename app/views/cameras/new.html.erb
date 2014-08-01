@@ -173,7 +173,7 @@
         <%= label_tag('snapshot', "Snapshot URL Ending*", class: "grey control-label") %>
         <div class="snap-end">
           <span class="prepend">/</span>
-          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_/.", "data-validation-error-msg" => "" ) %>
+          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
         </div>
         <div id="box" class="box">
           Include the whole path - everything after the first /

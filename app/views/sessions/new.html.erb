@@ -16,14 +16,20 @@
 
       <%= form_for(:session, url: sessions_path) do |f| %>
 
-        <div class="col-md-8 col-md-offset-2 text-center">
+         <div class="col-md-8 col-md-offset-2 text-center">
           <%= f.label :email %> / <%= f.label :username %>
+            <div class="input-icon right">
+              <i class="icon-user"></i>
           <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
+            </div>
         </div>
 
         <div class="col-md-8 col-md-offset-2 text-center">
           <%= f.label :password %>
+          <div class="input-icon right">
+            <i class="icon-key"></i>
           <%= f.password_field :password %>
+            </div>
         </div>
 
         <div class="col-md-8 col-md-offset-2">

@@ -603,6 +603,7 @@ max-width:200px;
     width:100%;
     min-width: 220px;
     margin-top: 1px;
+    background-color: #fff;
 }
 .email-input {
     float: left;
@@ -817,7 +818,8 @@ input:focus {
 }
 #sign-in label {
     font-weight: normal;
-    margin-bottom: 0;
+    margin-bottom: 5px;
+
     margin-top: 15px;
 }
 #signin .branding {
@@ -835,7 +837,7 @@ input:focus {
     border: 1px solid #E5E5E5;
     box-shadow: none;
     color: #404142;
-    padding: 4px;
+    padding: 6px;
 }
 #sign-in textarea, input:focus {
     border-color: #428BCA;
@@ -844,14 +846,19 @@ input:focus {
 #sign-in input {
     width: 100%;
     margin: 0 auto;
+
 }
 .sign-in {
-    margin-top: 34px;
+    margin-top: 28px;
 }
 
 /*CREATE ACCOUNT FORM - SIGNUP*/
 #new-account {
     background-color:#f5f5f5;
+}
+#new-account select {
+    height: 34px;
+    border-radius: 0px !important;
 }
 #registration {
     border: 1px solid #E5E5E5;
@@ -879,13 +886,13 @@ input:focus {
     border: 1px solid #E5E5E5;
     box-shadow: none;
     color: #404142;
-    padding: 4px;
+    padding: 6px;
     font-size: 14px;
     width: 100% ;
 }
 #registration textarea, input:focus {
     border-color: #428BCA;
-    box-shadow: 0 0 5px rgba(66, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
+    box-shadow: 0 0 5px rgba(255, 139, 202, 0.75), 2px 2px 3px rgba(255, 255, 255, 0.2) inset;
 }
 
 .create {
@@ -906,14 +913,14 @@ select {
 }
 /* Chrome fix for input colors */
 input:-webkit-autofill {
-    -webkit-box-shadow:0 0 0 50px #f8f8f8 inset !important; /* Change the color to your own background color */
+    -webkit-box-shadow:0 0 0 50px #f9f9f9 inset !important; /* Change the color to your own background color */
     -webkit-text-fill-color: #333;
 }
 
 input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 50px #f8f8f8 inset;
+    -webkit-box-shadow: 0 0 0 50px #f9f9f9 inset;
     -webkit-text-fill-color: #333;
-    background-color: #f5f5f5 !important;
+    background-color: #f9f9f9 !important;
 }
 
 /* tooltip errors sign-in */

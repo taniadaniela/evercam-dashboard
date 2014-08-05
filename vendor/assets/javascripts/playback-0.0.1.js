@@ -11,7 +11,7 @@
 
     Playback = {
         options: {
-            playbackUrl: 'http://playback.azurewebsites.net/Recording.html',
+            playbackUrl: 'https://playback.azurewebsites.net/Recording.html',
             cameraId: "",
             token: "",
             api_id: "",

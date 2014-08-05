@@ -54,6 +54,9 @@
         <li>
           <a id="nav-tabs" data-toggle="tab" href="#location">Location</a>
         </li>
+        <li>
+          <a data-toggle="tab" href="#recording">Recording</a>
+        </li>
         <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
           <li>
             <a data-toggle="tab" href="#local">Local Storage</a>
@@ -139,15 +142,23 @@
         <%= render partial: "location/location_tab" %>
       </div><!--TAB PANE -->
 
+      <!--Recording TAB PANE -->
+      <div id="recording" class="tab-pane">
+        <%= render partial: "recording/recording_tab" %>
+      </div><!--TAB PANE -->
+
         <!--Local TAB PANE -->
         <div id="local" class="tab-pane">
           <%= render partial: "local/local_tab" %>
         </div><!--TAB PANE -->
 
-      <!--Local TAB PANE -->
+
+      <!--Player TAB PANE -->
       <div id="player" class="tab-pane">
         <%= render partial: "player/player_tab" %>
       </div><!--TAB PANE -->
+
+
 
       <!--SETTINGS TAB PANE -->
       <div id="camera-settings" class="tab-pane">
@@ -163,9 +174,6 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-
-
-
   $(function () {
     var previous;
     $('#camera-vendor').one('focus', function () {

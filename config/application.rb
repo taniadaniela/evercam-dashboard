@@ -80,6 +80,7 @@ module EvercamDashboard
                                  'jquery.slimscroll.min.js',
                                  'bootstrap-tabdrop.js',
                                  'jwplayer.js',
+                                 'playback-0.0.1.js',
                                  'jquery.nicescroll.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]

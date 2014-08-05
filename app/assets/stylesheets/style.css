@@ -537,6 +537,9 @@ Google Maps
 #location #map-canvas {
     max-height: 680px;
 }
+#location p {
+    margin-bottom: 0px;
+}
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;

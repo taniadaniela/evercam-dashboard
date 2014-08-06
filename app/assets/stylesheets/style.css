@@ -238,7 +238,7 @@ input:-webkit-autofill {
     /*border-top: 1px solid #F5F5F5;*/
 }
 
-#settings .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+/*#settings .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: #fff;
     opacity: 1;
     border: none;
@@ -246,14 +246,14 @@ input:-webkit-autofill {
     /*border-left: 1px solid #aaa !important;
     border-bottom: 1px solid #f5f5f5;
     border-top: 1px solid #f5f5f5;
-    border-right: 1px solid #f5f5f5;*/
+    border-right: 1px solid #f5f5f5;
     border-radius: 0px !Important;
     color:#428bca;
 }
 .form-control[disabled]:focus, .form-control[readonly]:focus, fieldset[disabled]:focus .form-control:focus {
     box-shadow: none;
     cursor:pointer;
-}
+}*/
 
 .model {
     min-width: 259px;
@@ -543,6 +543,12 @@ max-width:100%}
 .info-location {
 
 }
+.edit {
+    top: 41px;
+    position: absolute;
+    right: 22px;
+
+}
 #map-info {
     width: 100%;
     height: 335px;
@@ -717,7 +723,7 @@ input:focus {
 #testimg {
     height: 100%;
     width:auto;
-
+    position: absolute;
 }
 .test-img-settings {
     border: 1px solid #e5e5e5;

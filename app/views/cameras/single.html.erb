@@ -70,37 +70,43 @@
         <% else %>
         <% end %>
 
-        <% if has_edit_right %>
-          <li class="pull-right">
-            <a data-toggle="tab" href="#camera-settings" id="camera-settings-link">Settings   <i class="fa fa-cog"></i></a>
-          </li>
-        <% else %>
           <li class="pull-right">
             <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="glyphicon glyphicon-trash"></span></a>
           </li>
-        <% end %>
+
       </ul>
 
 
     <!--DELETE MODAL-->
-    <% if !has_edit_right %>
+
       <div id="deleteModal" class="modal fade">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body">
-              <p class="text-left">Are You Sure You Want to <strong>Remove</strong> this Camera?</p>
+              <% if @share.nil? %>
+              <p class="text-left">Are You Sure You Want to <strong>Delete</strong> this Camera?</p>
+              <% else %>
+                <p class="text-left">Are You Sure You Want to <strong>Remove</strong> this Camera?</p>
+              <% end %>
             </div>
             <div class="modal-footer">
               <div class="col-sm-8">
-                <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-                  <span class="glyphicon glyphicon-remove"></span>  Remove</a>
+
+                <% if @share.nil? %>
+                  <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
+                    <span class="glyphicon glyphicon-trash"></span>  Delete Camera</a>
+                <% else %>
+                  <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
+                    <span class="glyphicon glyphicon-trash"></span>  Remove</a>
+                <% end %>
+
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-    <% end %>
+
     <!--END DELETE MODAL-->
 
     <div class="tab-content">

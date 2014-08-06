@@ -173,7 +173,7 @@ describe CamerasController do
         session['user'] = user.email
         post :update, patch_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to "/cameras/#{camera.exid}#camera-settings"
+        expect(response).to redirect_to "/cameras/#{camera.exid}#info"
         expect(flash[:message]).to eq('Settings updated successfully')
         camera.reload
         expect(camera.is_public?).to eq(false)

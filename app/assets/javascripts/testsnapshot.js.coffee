@@ -24,9 +24,7 @@ $ ->
     if (jpg_url.indexOf('/') == 0)
       $snap.val(jpg_url.substring(1))
       jpg_url = $snap.val()
-    if (ext_url.indexOf('http://') == 0)
-      $snap.val(ext_url.substring(7))
-      ext_url = $snap.val()
+
 
     # Encode parameters
     jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
@@ -49,7 +47,7 @@ $ ->
     params = ['external_url=http://' + ext_url + port,
               'jpg_url=/' + jpg_url,
               'cam_username=' + $('#camera-username').val(),
-              'cam_password=' + $('#camera-password').val()]
+              'cam_password=' + $('#camera-passord').val()]
 
     l = Ladda.create(this);
     l.start();

@@ -36,7 +36,7 @@
 <!--main content start-->
 <!-- sidebar menu end-->
 
-<div class="col-md-6">
+<div class="col-md-7">
   <!-- BEGIN SAMPLE FORM PORTLET-->
   <div class="portlet">
     <div class="portlet-title">
@@ -59,14 +59,14 @@
         <form id="userProfile" role="form" method="post" class="form-horizontal">
           <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
-          <div class="form-body">
+
 
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-username">Username</label>
               <div class="col-md-9" id="some-div">
                 <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" disabled placeholder="">
                 <span id="some-element" class="help-inline">
-											Cannot be changed.</span>
+											Username cannot be changed.</span>
               </div>
             </div>
 
@@ -113,7 +113,7 @@
               </div>
             </div>
 
-          </div>
+
 
         </form>
       </div>

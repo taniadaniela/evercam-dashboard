@@ -98,7 +98,7 @@ class CamerasController < ApplicationController
       flash[:message] = 'Settings updated successfully'
       Rails.cache.delete("#{current_user.username}/cameras")
       Rails.cache.delete("#{current_user.username}/shares")
-      redirect_to "/cameras/#{params['camera-id']}#camera-settings"
+      redirect_to "/cameras/#{params['camera-id']}#info"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +

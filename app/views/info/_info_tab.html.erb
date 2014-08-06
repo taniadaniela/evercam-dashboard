@@ -192,13 +192,6 @@
               <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save Settings</button>
             </div>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <div class="pull-right margin-right-20">
-              <% if @share.nil? %>
-                <a id="delete-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" href=""><span class="glyphicon glyphicon-trash"></span>  Delete</a>
-              <% else %>
-                <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" href=""><span class="glyphicon glyphicon-trash"></span>  Remove</a>
-              <% end %>
-            </div>
           </div>
         </div>
 
@@ -268,7 +261,7 @@
           <% end %>
       </div>
       <div class="portlet-body col-md-8">
-        <table class="table table-borderless margin-top-5">
+        <table class="table table-borderless">
           <tr>
             <td>Status:</td>
             <td>
@@ -345,9 +338,9 @@
     <div class="portlet-body">
       <div class="info-preview">
         <div class="camera-preview">
-          <div>
-
-          </div>
+     <!--     <div>
+            <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
+          </div>-->
           <% if @camera['is_online'] %>
             <%= preview(@camera, true) %>
           <% else %>
@@ -375,18 +368,14 @@
     <div class="portlet-body">
 
   <section id="unseen">
+    <p>Proxy URLs</p>
     <table class="table table-borderless">
-      <thead>
+
       <tr>
-        <th class="col-md-4 first-row">
-          Proxy URLs
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <span class="dark-grey">JPEG:</span>
+        <td class="col-md-1">
+          JPEG:
+          </td>
+        <td  class="col-md-2">
         <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
           <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
@@ -394,23 +383,18 @@
             <p class="grey"> (Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</p></span>
         </td>
       </tr>
-      </tbody>
+
     </table>
   </section>
 
   <section id="unseen">
+    <p>Dynamic DNS </p>
     <table class="table table-borderless">
-      <thead>
       <tr>
-        <th class="col-md-4 first-row">
-          Dynamic DNS URLs
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <span class="dark-grey">JPEG:</span>
+        <td class="col-md-1 ah">
+          JPEG:
+          </td>
+        <td class="col-md-2">
           <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
             <% else %>
@@ -423,19 +407,14 @@
   </section>
 
   <section id="unseen">
+    <p>Base URLs</p>
     <table class="table table-borderless">
-      <thead>
-      <tr>
-        <th class="col-md-4 first-row">
-          Base URLs
-        </th>
 
-      </tr>
-      </thead>
-      <tbody>
       <tr>
-        <td>
-          <span class="dark-grey">Camera:</span>
+        <td class="col-md-1">
+          Camera:
+        </td>
+        <td class="col-md-2">
           <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
           <% else %>
@@ -445,7 +424,9 @@
       </tr>
       <tr>
         <td>
-          <span class="dark-grey">JPEG:</span>
+        JPEG:
+        </td>
+        <td>
           <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
           <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
           <% else %>
@@ -455,7 +436,9 @@
       </tr>
       <tr>
         <td>
-          <span class="dark-grey">MJPEG:</span>
+          MJPEG
+        </td>
+        <td>
           <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -465,7 +448,9 @@
       </tr>
       <tr>
         <td>
-          <span class="dark-grey">MPEG:</span>
+          MPEG:
+        </td>
+        <td>
           <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -475,7 +460,9 @@
       </tr>
       <tr>
         <td>
-          <span class="dark-grey">Audio:</span>
+          Audio:
+        </td>
+        <td>
           <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -485,7 +472,9 @@
       </tr>
       <tr>
         <td>
-          <span class="dark-grey">H264:</span>
+          H264
+        </td>
+        <td>
           <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
           <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
           <% else %>
@@ -493,7 +482,7 @@
           <% end %>
         </td>
       </tr>
-      </tbody>
+
     </table>
   </section>
   </div>

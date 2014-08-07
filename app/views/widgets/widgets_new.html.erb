@@ -1,3 +1,4 @@
+<title>Evercam - Live View Widget</title>
 <div class="page-container">
   <!-- sidebar menu start-->
   <div class="page-sidebar-wrapper">
@@ -70,7 +71,9 @@
       <div class="row">
         <div id="live-widget" class="widget-config">
           <% if @cameras.empty? %>
-            <div class="col-md-12"><h5>No public, online cams found</h5></div>
+            <div class="col-md-5">
+              <p class="note note-info">No public cameras found. Only public cameras can be used to make a widget. You can make a camera public from the sharing tab of camera or add a public camera from the list of public cameras.</p>
+            </div>
           <% else %>
             <div class="col-md-5">
               <p class="note note-info">Only public cameras can be used to make a widget.</p>

@@ -1,3 +1,4 @@
+<title>Evercam - User Settings</title>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
@@ -41,7 +42,7 @@
   <div class="portlet">
     <div class="portlet-title">
         <div class="caption">
-          <i class="fa fa-cog"></i> User Settings
+          User Settings
         </div>
         <div class="tools">
           <a href="" class="collapse">
@@ -64,7 +65,7 @@
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-username">Username</label>
               <div class="col-md-9" id="some-div">
-                <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" disabled placeholder="">
+                <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline"  id="user-username" name="user-username" disabled placeholder="">
                 <span id="some-element" class="help-inline">
 											Username cannot be changed.</span>
               </div>
@@ -73,21 +74,21 @@
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-firstname">First Name</label>
               <div class="col-md-6">
-              <input type="text" value="<%= current_user.firstname -%>" class="form-control input-medium" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
+              <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control input-medium" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
                 </div>
             </div>
 
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-lastname">Last Name</label>
               <div class="col-md-6">
-              <input type="text" value="<%= current_user.lastname -%>" class="form-control input-medium" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
+              <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control input-medium" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-md-3 control-label" for="email">Email address</label>
               <div class="col-md-9">
-              <input type="email" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
+              <input data-validation="email" type="email" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
               <!--<span class="help-inline red">
 											Unverified. <a href="">Resend Verification</a></span>-->
               </div>
@@ -124,10 +125,15 @@
 
 </div>
 </div>
+</div>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 
 
 <script>
+  $(document).ready(function () {
+  $.validate();
+  });
   //$(window.Evercam.Users.initialize);
   Notification.init(".bb-alert");
   <% if flash[:message] %>

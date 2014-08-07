@@ -43,7 +43,7 @@
       Add Android Camera
     </a>
   </li>
- <!-- <li>
+<!-- <li>
     <a href="#tab_1_3" data-toggle="tab">
       Add a WebCam
     </a>
@@ -95,7 +95,7 @@
 
 
   <!-- MAKE & MODEL -->
-  <div class='row margin-top-30'>
+  <div class='row margin-top-40'>
     <div class='col-md-12'>
       <div class='<%= field_errors["vendor"] ? ' has-error' : '' %>'>
         <%= label_tag('camera-vendor', "Camera Vendor", class: "col-md-2 control-label") %>
@@ -135,7 +135,7 @@
 
 
   <!-- SNAPSHOT PATH -->
-  <div class='row margin-top-20'>
+  <div class='row margin-top-30'>
     <div class='col-md-12'>
 
       <label for="" class="col-md-2 control-label margin-top-30">Snapshot URL</label>
@@ -170,7 +170,7 @@
         <%= label_tag('snapshot', "Snapshot URL Ending*", class: "grey control-label") %>
         <div class="snap-end">
           <span class="prepend prepend-2">/</span>
-          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
+          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
         </div>
 
       </div>
@@ -185,7 +185,7 @@
   </div><!-- row -->
 
   <!-- USERNAME & PASS -->
-  <div class="row margin-top-30">
+  <div class="row margin-top-40">
     <div class='col-md-12'>
 
       <div class='<%= field_errors["username"] ? ' has-error' : '' %>'>
@@ -300,7 +300,7 @@
       <div class="form-group margin-left-20">
         <label class="control-label" for="add-button"></label>
         <section class="progress-demo">
-        <button id="add-button" name="add-button" class="margin-top-20 btn btn-primary ladda-button" role="button" data-size="xl" data-style="expand-left"><span class="ladda-label"> Finish &amp; Add</button>
+        <button id="add-button" name="add-button" class="margin-top-20 btn btn-primary ladda-button" role="button" data-size="xl" data-style="expand-left"><span class="ladda-label"> Finish &amp; Add</span></button>
           </section>
       </div>
     </div>
@@ -327,6 +327,7 @@
 </div><!-- TAB PANE 3 -->
 
  <div class="tab-pane" id="tab_1_3">
+
 
 
 </div><!--END TAB PANE 3 -->

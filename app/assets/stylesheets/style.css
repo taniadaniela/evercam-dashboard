@@ -204,7 +204,7 @@ input:-webkit-autofill {
     font-size: 11px;
     width:110%;
     margin-bottom: 0;
-    border
+
     margin-top: 2px;
     color:#aaa;
 }
@@ -217,7 +217,6 @@ input:-webkit-autofill {
 }
 #add-ip .help-sm {
     padding: 0px;
-    color: #666666;
     padding-left: 0px;
     margin-bottom: 20px;
 }
@@ -226,9 +225,12 @@ input:-webkit-autofill {
     width:110%;
     margin-bottom: 0;
     margin-top: 2px;
-    color:#aaa;
-}
+    position: absolute;
 
+}
+.has-error .help-block {
+    background-color: #fff;
+}
 
 .box {
     font-size: 11px;
@@ -297,7 +299,11 @@ input:-webkit-autofill {
 #ext-ip .form-error {
     display: none; /*temp-fix*/
 }
-
+#ext-ip .help-block {
+    position: absolute;
+    top: 34px;
+    right: -22px;
+}
 .snap-end {
     min-width:173px;
 }
@@ -557,6 +563,9 @@ max-width:100%}
 }
 .margin-top-5 {
     margin-top: 5px;
+}
+.margin-top-40 {
+    margin-top: 40px;
 }
 .info-header {
     font-weight: 600;

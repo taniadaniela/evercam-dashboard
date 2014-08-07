@@ -1,4 +1,4 @@
-<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<title>Evercam - Cam: <%= @camera['name'] %></title>
 <%= javascript_include_tag "camera_single" %>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
@@ -32,7 +32,13 @@
           <a data-toggle="tab" href="#live">Live View</a>
         </li>
         <li>
-          <a id="nav-tabs-2" data-toggle="tab" href="#info">Info / Settings</a>
+          <a id="nav-tabs-2" data-toggle="tab" href="#info">
+            <% if has_edit_right %>
+            Info / Settings
+            <% else %>
+              Info
+            <% end %>
+          </a>
         </li>
         <% if has_edit_right %>
           <li>
@@ -49,10 +55,6 @@
         <% end %>
         <li>
           <a data-toggle="tab" href="#apps">Apps</a>
-        </li>
-
-        <li>
-          <a id="nav-tabs" data-toggle="tab" href="#location">Location</a>
         </li>
         <li>
           <a data-toggle="tab" href="#recording">Recording</a>
@@ -84,9 +86,9 @@
           <div class="modal-content">
             <div class="modal-body">
               <% if @share.nil? %>
-              <p class="text-left">Are You Sure You Want to <strong>Delete</strong> this Camera?</p>
+              <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
               <% else %>
-                <p class="text-left">Are You Sure You Want to <strong>Remove</strong> this Camera?</p>
+                <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
               <% end %>
             </div>
             <div class="modal-footer">
@@ -141,11 +143,6 @@
 
             <p><a href="http://www.evercam.io/apps" target="_blank">View Apps To Add To Your Camera</a></p>
 
-      </div><!--TAB PANE -->
-
-      <!--LOCATION TAB PANE -->
-      <div id="location" class="tab-pane">
-        <%= render partial: "location/location_tab" %>
       </div><!--TAB PANE -->
 
       <!--Recording TAB PANE -->

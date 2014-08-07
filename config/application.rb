@@ -80,7 +80,10 @@ module EvercamDashboard
                                  'jquery.slimscroll.min.js',
                                  'bootstrap-tabdrop.js',
                                  'jwplayer.js',
-                                 'playback-0.0.1.js',
+                                 'metronic/respond.min.js',
+                                 'metronic/metronic.js',
+                                 'metronic/layout.js',
+                                 'metronic/quick-sidebar.js',
                                  'jquery.nicescroll.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]

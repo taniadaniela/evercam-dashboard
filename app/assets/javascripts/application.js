@@ -30,4 +30,7 @@
 //= require jquery.slimscroll.min.js
 //= require bootstrap-tabdrop.js
 //= require jwplayer.js
-//= require playback-0.0.1.js
+//= require metronic/respond.min.js
+//= require metronic/metronic.js
+//= require metronic/layout.js
+//= require metronic/quick-sidebar.js

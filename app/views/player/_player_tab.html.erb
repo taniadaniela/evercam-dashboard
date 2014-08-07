@@ -3,15 +3,21 @@
 <div id="player" class="tab-pane">
   <div id='playerjsuHWVtecUxm'></div>
 
-
-    <div id='playerjsuHWVtecUxm'></div>
     <script type='text/javascript'>
-      jwplayer('playerjsuHWVtecUxm').setup({
-        file: '<%= @camera.deep_fetch(:proxy_url, :hls) {} %>',
-        image: '//www.longtailvideo.com/content/images/jw-player/lWMJeVvV-876.jpg',
-        width: '100%',
-        aspectratio: '4:3'
-      });
+    {
+        var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
+        console.log('rtmp:', url);
+        $.getJSON(url, null,
+                  function (d) {
+                      console.log('rtmp redir:', d);
+                      jwplayer('playerjsuHWVtecUxm').setup({
+                          file: d.rtmp_url,
+                          width: '100%',
+                          aspectratio: '16:9',
+                          autostart: 'true'
+                      });
+                  });
+    }
     </script>
 
   <div class="row margin-top-20">

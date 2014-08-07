@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="portlet-body">
-
+              <div class='col-lg-8'>
               <table class="table table-borderless">
 
                 <tr>
@@ -174,7 +174,19 @@
                   </td>
                 </tr>
               </table>
+              </div>
+              <div class='col-lg-4'>
 
+                    <div class="test-img-settings">
+                      <img id="testimg" src="" class="text-center">
+                    </div>
+                    <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
+
+                  <div class="snapshot-error text-center">
+                    <span id="test-error" class="text-center"><%= flash[:message] %></span>
+                  </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -380,7 +392,12 @@
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
           <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
             <%= "http://evr.cm/#{@camera['id']}.jpg" %>
-            <p class="grey"> (Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a>)</p></span>
+            <% if has_edit_right %>
+              <p class="grey">Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a></p>
+            <% else %>
+            <p class="grey">Only available for public cameras.</p>
+            <% end %>
+            </span>
         </td>
       </tr>
 

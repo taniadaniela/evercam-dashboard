@@ -67,25 +67,23 @@
       <div class='<%= field_errors["name"] ? ' has-error' : '' %>'>
         <%= label_tag('camera-name', "Friendly Name*", class: "col-md-2 control-label") %>
         <div class="col-md-3">
-          <%= text_field_tag("camera-name", @user['camera-name'], "placeholder" => "Rooftop Camera", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Max 24 characters containing letters, spaces and hyphens.") %>
+          <%= text_field_tag("camera-name", @user['camera-name'], "placeholder" => "Rooftop Camera", "class" => "form-control", "data-validation-help" => "To identify your camera in the dashboard.", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Max 24 characters containing letters, spaces and hyphens.") %>
           <% if field_errors["name"] %>
             <span class="help-block form-error text-left"><%= field_errors["name"] %></span>
           <% end %>
-          <div id="box" class="box">
-            To identify your camera in the dashboard.
-          </div>
+
         </div>
       </div>
       <div class='model<%= field_errors["id"] ? ' has-error' : '' %>'>
         <%= label_tag('camera-id', "Evercam ID*", class: "col-md-2 control-label") %>
         <div class="col-md-3">
-          <%= text_field_tag("camera-id", @user['camera-id'], "placeholder" => "roof-cam", "class" => "form-control", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
+          <%= text_field_tag("camera-id", @user['camera-id'], "placeholder" => "roof-cam", "class" => "form-control", "data-validation-help" => "This must be unique and cannot be changed.", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
           <% if field_errors["id"] %>
             <div class="help-block form-error text-left"><%= field_errors["id"] %></div>
           <% end %>
-          <div id="box" class="box">
+         <!-- <div id="box" class="box">
             This must be unique and cannot be changed.
-          </div>
+          </div>-->
         </div>
       </div>
       <!-- <span class="col-sm-1 label label-default additional info-2">?</span>
@@ -146,10 +144,9 @@
           <%= label_tag('camera-url', raw("External <strong>IP</strong> (or URL)*"), class: "grey control-label") %>
           <div class="input-group">
             <span class="input-group-addon">http://</span>
-            <%= text_field_tag("camera-url", @user['camera-url'], "placeholder" => "149.5.43.10", "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.") %>
+            <%= text_field_tag("camera-url", @user['camera-url'], "placeholder" => "149.5.43.10", "class" => "form-control", "data-validation-help" => "Just include the domain. Not http:// or anything anything from the first /", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.") %>
           </div>
           <div id="box" class="box">
-            Just include the domain. Not http:// or anything anything from the first /
             <% if field_errors["external_host"] %>
               <span class="help-block form-error text-left"><%= field_errors["external_host"] %></span>
             <% end %>
@@ -173,11 +170,9 @@
         <%= label_tag('snapshot', "Snapshot URL Ending*", class: "grey control-label") %>
         <div class="snap-end">
           <span class="prepend prepend-2">/</span>
-          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
+          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
         </div>
-        <div id="box" class="box">
-          Include the whole path - everything after the first /
-        </div>
+
       </div>
 
       <!--              <span class="col-sm-1 label label-default additional info-2">?</span>
@@ -196,7 +191,7 @@
       <div class='<%= field_errors["username"] ? ' has-error' : '' %>'>
         <%= label_tag('camera-username', "Camera Username", class: "col-md-2 control-label") %>
         <div class="col-md-3">
-          <%= text_field_tag("camera-username", @user['camera-username'], "class" => "form-control") %>
+          <%= text_field_tag("camera-username", @user['camera-username'], "data-validation-help" => "Enter the Username of the camera.", "class" => "form-control") %>
           <% if field_errors["username"] %>
             <span class="help-block form-error text-left"><%= field_errors["username"] %></span>
           <% end %>
@@ -205,7 +200,7 @@
       <div class='<%= field_errors["password"] ? ' has-error' : '' %>'>
         <%= label_tag('camera-password', "Camera Password", class: "col-md-2 control-label") %>
         <div class="col-md-3">
-          <%= password_field_tag("camera-password", @user['camera-password'], class: "form-control") %>
+          <%= password_field_tag("camera-password", @user['camera-password'],"data-validation-help" => "Enter the Password of the camera.",  class: "form-control") %>
           <% if field_errors["password"] %>
             <span class="help-block form-error text-left"><%= field_errors["password"] %></span>
           <% end %>

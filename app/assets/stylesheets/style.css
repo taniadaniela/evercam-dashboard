@@ -204,6 +204,27 @@ input:-webkit-autofill {
     font-size: 11px;
     width:110%;
     margin-bottom: 0;
+    border
+    margin-top: 2px;
+    color:#aaa;
+}
+
+#add-ip .help {
+    padding: 0px 15px;
+    color: #428bca;
+    margin-left: 0px;
+    margin-top: 12px;
+}
+#add-ip .help-sm {
+    padding: 0px;
+    color: #666666;
+    padding-left: 0px;
+    margin-bottom: 20px;
+}
+#add-ip .help-block {
+    font-size: 11px;
+    width:110%;
+    margin-bottom: 0;
     margin-top: 2px;
     color:#aaa;
 }

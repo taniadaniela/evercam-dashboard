@@ -221,7 +221,7 @@ input:-webkit-autofill {
     margin-bottom: 20px;
 }
 #add-ip .help-block {
-    font-size: 11px;
+    font-size: 12px;
     width:110%;
     margin-bottom: 0;
 
@@ -959,7 +959,7 @@ input:focus {
     color: #404142;
     padding: 6px;
     font-size: 14px;
-    width: 100% ;
+
 }
 #registration textarea, input:focus {
     border-color: #428BCA;

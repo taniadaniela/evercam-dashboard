@@ -210,10 +210,10 @@ input:-webkit-autofill {
 }
 
 #add-ip .help {
-    padding: 0px 15px;
-    color: #428bca;
-    margin-left: 0px;
-    margin-top: 12px;
+    padding: 0px 1px;
+    color: #aaa;
+    border-left: none;
+    margin-left: 0;
 }
 #add-ip .help-sm {
     padding: 0px;
@@ -224,14 +224,20 @@ input:-webkit-autofill {
     font-size: 11px;
     width:110%;
     margin-bottom: 0;
-    margin-top: 2px;
+
     position: absolute;
 
 }
 .has-error .help-block {
     background-color: #fff;
 }
+#port .help-block {
 
+
+    margin-top: 20px !important;
+
+
+}
 .box {
     font-size: 11px;
     width: 110%;
@@ -297,7 +303,7 @@ input:-webkit-autofill {
 }
 
 #ext-ip .form-error {
-    display: none; /*temp-fix*/
+     /*temp-fix*/
 }
 #ext-ip .help-block {
     position: absolute;

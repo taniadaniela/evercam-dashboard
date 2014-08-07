@@ -144,7 +144,7 @@
           <%= label_tag('camera-url', raw("External <strong>IP</strong> (or URL)*"), class: "grey control-label") %>
           <div class="input-group">
             <span class="input-group-addon">http://</span>
-            <%= text_field_tag("camera-url", @user['camera-url'], "placeholder" => "149.5.43.10", "class" => "form-control", "data-validation-help" => "Just include the domain. Not http:// or anything anything from the first /", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.") %>
+            <%= text_field_tag("camera-url", @user['camera-url'], "placeholder" => "149.5.43.10", "class" => "form-control", "data-validation-help" => "Just include the domain. Not http:// or anything anything from the first /", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP address or URL.") %>
           </div>
           <div id="box" class="box">
             <% if field_errors["external_host"] %>
@@ -170,7 +170,7 @@
         <%= label_tag('snapshot', "Snapshot URL Ending*", class: "grey control-label") %>
         <div class="snap-end">
           <span class="prepend prepend-2">/</span>
-          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
+          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain eg.data-externe/webcam/webcam.jpg", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "" ) %>
         </div>
 
       </div>
@@ -254,12 +254,12 @@
         </div>
 
 
-        <div class="row margin-top-20">
+        <div id="port" class="row margin-top-20">
           <div class="col-md-12">
             <div class='<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
               <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "col-md-2 control-label") %>
               <div class="col-md-3">
-                <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
+                <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$","data-validation-help" => "The port should be a 2-5 digit number", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
                 <% if field_errors["external_rtsp_port"] %>
                   <span class="help-block form-error text-left"><%= field_errors["external_rtsp_port"] %></span>
                 <% end %>

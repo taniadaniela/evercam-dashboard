@@ -1053,10 +1053,9 @@ Page sidebar
     filter: alpha(opacity=70);
     width: 30px;
     height: 27px;
-
     float: right;
-    background: #fff;
-    border:1px solid #e5e5e5;
+    background: #2B2B2B;
+
 
 
 }
@@ -1073,10 +1072,10 @@ Page sidebar
     position: absolute;
     width: 1em;
     height: 0.15em;
-    background: black;
+    background: #aaaaaa;
     box-shadow:
-    0 0.25em 0 0 black,
-    0 0.5em 0 0 black;
+    0 0.25em 0 0 #aaaaaa,
+    0 0.5em 0 0 #aaaaaa;
 }
 
 .page-sidebar .sidebar-toggler:hover,
@@ -1969,6 +1968,7 @@ Page content
         padding: 20px 20px 10px 20px;
         overflow:auto;
     }
+
     .page-content-wrapper .page-content.no-min-height {
         min-height: auto;
     }
@@ -4099,7 +4099,7 @@ Page Header
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-toggler,
 .page-sidebar .sidebar-toggler {
-    background: url(../../img/sidebar_inline_toggler_icon_default.jpg);
+    /*background: url(../../img/sidebar_inline_toggler_icon_default.jpg);*/
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group,
 .page-sidebar .sidebar-search .input-group {

@@ -4,33 +4,64 @@
   <span></span>
 </div>
 <div class="page-container">
-  <!-- sidebar menu start-->
+  <!-- BEGIN SIDEBAR -->
   <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
-
+      <!-- BEGIN SIDEBAR MENU -->
       <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-        <!--<li class="sidebar-toggler-wrapper">
+
+        <li class="sidebar-toggler-wrapper">
+          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
           <div class="sidebar-toggler">
           </div>
-        </li>-->
-        <li>
-          <a href="/"><i class="icon-camera"></i>My Cameras</a>
+          <!-- END SIDEBAR TOGGLER BUTTON -->
+        </li>
+        <li class="start ">
+          <a href="/">
+            <i class="icon-camera"></i>
+            <span class="title">My Cameras</span>
+          </a>
         </li>
         <li>
-          <a class="active" href="/publiccam"><i class="icon-map"></i>Public Cameras</a>
+          <a href="/publiccam">
+            <i class="icon-map"></i>
+            <span class="title">Public Cameras</span>
+          </a>
         </li>
-
         <li>
-          <a href="/cameras/new"><i class="icon-plus"></i>Add Camera</a>
+          <a href="/cameras/new">
+            <i class="icon-plus"></i>
+            <span class="title">Add Camera</span>
+          </a>
         </li>
-        <li>
-          <a href="/dev"><i class="icon-briefcase"></i>Developer</a>
+        <li class="last">
+          <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Developer</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+            <li>
+              <a href="/dev">API Docs</a>
+            </li>
+            <li>
+              <a href="javascript:;">
+                Widgets <span class="arrow"></span>
+              </a>
+              <ul class="sub-menu">
+                <li>
+                  <a href="/widgets-new">Live View Widget</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
 
       </ul>
+      <!-- END SIDEBAR MENU -->
     </div>
   </div>
-  <!-- sidebar menu end-->
+  <!-- END SIDEBAR -->
   <div class="page-content-wrapper">
     <div class="page-content">
 
@@ -123,6 +154,14 @@
     <% end %><%= javascript_include_tag "publiccam" %>
 <script>
   $(window.Evercam.Publiccam.initialize);
+
+
+  jQuery(document).ready(function() {
+    Metronic.init(); // init metronic core components
+    Layout.init(); // init current layout
+    QuickSidebar.init() // init quick sidebar
+  });
+
 
   $(document).ready(function() {
     if (cameraLong === '') {

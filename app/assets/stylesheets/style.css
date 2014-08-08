@@ -5,6 +5,7 @@
 #camera-index .page-content-wrapper .page-content {
     padding:0;
 }
+
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
     padding: 0px;
     margin-left: -10px;
@@ -630,6 +631,15 @@ max-width:100%}
     clear:both;
     float: left;
     margin-top: 8px;
+}
+#sharing .radio-inline + .radio-inline {
+    margin-left: 0;
+}
+#sharing .radio-inline{
+    padding-left: 0;
+}
+#sharing div.radio {
+    margin-top: 5px;
 }
 .table-bordered-top {
     border-bottom:1px solid #e5e5e5;

@@ -7,7 +7,7 @@
 }
 
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
-    padding: 0px;
+    padding: 0px 0 4px 0;
     margin-left: -10px;
 }
 .camera-index {

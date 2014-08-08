@@ -2092,6 +2092,7 @@ Page footer
 .page-footer .page-footer-tools {
     float: right;
     display: inline-block;
+    margin-right: 46px;
 }
 .page-footer .page-footer-tools .go-top {
     display: block;

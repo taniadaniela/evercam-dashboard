@@ -1,5 +1,5 @@
 onSetCameraAccessClicked = (event) ->
-	true
+  true
 
 initializeLiveTab = ->
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
@@ -14,15 +14,13 @@ initializeLiveTab = ->
   $('#live-refresh').click ->
     $oldimg = $('.camera-preview img')
     $("<img />").attr('src', $oldimg.attr('src')).load () ->
-      if not this.complete or this.naturalWidth is undefined or this.naturalWidth is 0
-        console.log('refresh failed - camera offline')
-      else
+
         $oldimg.replaceWith($(this))
     return false
   true
 
 if !window.Evercam
-   window.Evercam = {}
+  window.Evercam = {}
 
 window.Evercam.Live =
-   initializeTab: initializeLiveTab
+  initializeTab: initializeLiveTab

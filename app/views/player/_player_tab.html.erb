@@ -1,28 +1,8 @@
 <script src="https://jwpsrv.com/library/AvbyZBZAEeSVQiIACtqXBA.js"></script>
 
-<div id="player" class="tab-pane">
-  <div id='playerjsuHWVtecUxm'></div>
 
-    <script type='text/javascript'>
-    {
-        var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
-        console.log('rtmp:', url);
-        $.getJSON(url, null,
-                  function (d) {
-                      console.log('rtmp redir:', d);
-                      jwplayer('playerjsuHWVtecUxm').setup({
-                          file: d.rtmp_url,
-                          width: '100%',
-                          aspectratio: '16:9',
-                          autostart: 'true'
-                      });
-                  });
-    }
-    </script>
-  </div>
-
-
-<div class="col-md-6 col-sm-6 col-xs-12">
+<div class="row">
+<div class="col-md-8 col-sm-8 col-xs-12">
 
 
   <div class="option-1 switch" style="display: none;">
@@ -36,31 +16,19 @@
   <div class="option-3 switch" style="display: none;">
     <h5>JPEG Refresh Proxy</h5>
     <div class="player-container"></div>
-    <script src="https://jwpsrv.com/library/AvbyZBZAEeSVQiIACtqXBA.js"></script>
-    <div id="player" class="tab-pane">
-      <div id='playerjsuHWVtecUxm'></div>
-      <script type='text/javascript'>
-        jwplayer('playerjsuHWVtecUxm').setup({
-          file: 'http://evr.cm/#{@camera['id']}.jpg',
-          image: '//www.longtailvideo.com/content/images/jw-player/lWMJeVvV-876.jpg',
-          width: '100%',
-          aspectratio: '4:3'
-        });
-      </script>
-    </div>
-    <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
   </div>
   <div class="option-4 switch" style="display: none;">
     <h5>MJPEG VLC Ext</h5>
-    <div class="player-container"></div>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :mjpeg) {} %>"></embed>
   </div>
   <div class="option-5 switch" style="display: none;">
     <h5>MJPEG VLC Int</h5>
-    <div class="player-container"></div>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:internal, :mjpeg) {} %>"></embed>
+
   </div>
   <div class="option-6 switch" style="display: none;">
     <h5>RTSP H264 VLC Ext</h5>
-    <div class="player-container"></div>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height=380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :h264) {} %>"></embed>
   </div>
   <div class="option-7 switch" style="display: none;">
     <h5>RTSP H264 VLC Int</h5>
@@ -68,19 +36,56 @@
   </div>
   <div class="option-8 switch" style="display: none;">
     <h5>RTMP VLC Proxy</h5>
-    <div class="player-container"></div>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>"></embed>
+
   </div>
   <div class="option-9 switch" style="display: none;">
     <h5>RTMP JW Proxy</h5>
 
+      <div id='playerjsuHWVtecUxm'></div>
+
+      <script type='text/javascript'>
+        {
+          var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
+          console.log('rtmp:', url);
+          $.getJSON(url, null,
+              function (d) {
+                console.log('rtmp redir:', d);
+                jwplayer('playerjsuHWVtecUxm').setup({
+                  file: d.rtmp_url,
+                  width: '100%',
+                  aspectratio: '16:9',
+                  autostart: 'true'
+                });
+              });
+        }
+      </script>
+
   </div>
   <div class="option-10 switch" style="display: none;">
     <h5>HLS VLC Proxy</h5>
-    <div class="player-container"></div>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :hls) {} %>"></embed>
   </div>
   <div class="option-11 switch" style="display: none;">
     <h5>HLS JW Proxy</h5>
-    <div class="player-container"></div>
+    <div id='playerjsuHWVtecUxm1'></div>
+
+    <script type='text/javascript'>
+      {
+        var url = '<%= @camera.deep_fetch(:proxy_url, :hls) {} %>';
+        console.log('hls:', url);
+        $.getJSON(url, null,
+            function (d) {
+              console.log('hls redir:', d);
+              jwplayer('playerjsuHWVtecUxm1').setup({
+                file: d.hls_url,
+                width: '100%',
+                aspectratio: '16:9',
+                autostart: 'true'
+              });
+            });
+      }
+    </script>
   </div>
 
 <select name="action" class='margin-top-10 margin-bottom-20' id="getPlayer" onchange="admSelectCheck(this);">
@@ -193,23 +198,7 @@
 </select>
 
 
-
-  <div style="display: none;">
-    <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
-      <p><%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %><span class=​"glyphicon glyphicon-new-window"></span></p>
-    <% else %>
-      <p>hls not found</p>
-    <% end %>
-
-
-    <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
-      <p><%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
-    <% else %>
-      <p>rtmp not found</p>
-    <% end %>
-  </div>
-
-
+</div>
 </div>
 
 

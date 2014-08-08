@@ -569,12 +569,8 @@ max-width:100%}
     transition: all .1s linear;
 }
 /* INFO */
-#private-short-link, #public-short-link {
-    margin-left: -58px;
-}
-.td-fix {
-    margin-right: 69px;
-}
+
+
 .info-preview {
     width:100%;
     overflow: hidden;
@@ -595,6 +591,10 @@ max-width:100%}
 }
 .info-location {
 
+}
+.table-fixed {
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 .edit {
     top: 41px;

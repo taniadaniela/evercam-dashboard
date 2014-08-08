@@ -1,4 +1,25 @@
+<script src="https://jwpsrv.com/library/AvbyZBZAEeSVQiIACtqXBA.js"></script>
 
+<div id="player" class="tab-pane">
+  <div id='playerjsuHWVtecUxm'></div>
+
+    <script type='text/javascript'>
+    {
+        var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
+        console.log('rtmp:', url);
+        $.getJSON(url, null,
+                  function (d) {
+                      console.log('rtmp redir:', d);
+                      jwplayer('playerjsuHWVtecUxm').setup({
+                          file: d.rtmp_url,
+                          width: '100%',
+                          aspectratio: '16:9',
+                          autostart: 'true'
+                      });
+                  });
+    }
+    </script>
+  </div>
 
 
 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -188,8 +209,8 @@
     <% end %>
   </div>
 
-</div>
 
+</div>
 
 
 

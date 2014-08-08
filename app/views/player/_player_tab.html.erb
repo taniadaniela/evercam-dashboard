@@ -6,11 +6,11 @@
 
 
   <div class="option-1 switch" style="display: none;">
-    <h5>JPEG Refresh Ext</h5>
+    <h5>JPEG Refresh External</h5>
     <div class="player-container"></div>
   </div>
   <div class="option-2 switch" style="display: none;">
-    <h5>JPEG Refresh Int</h5>
+    <h5>JPEG Refresh Internal</h5>
     <div class="player-container"></div>
   </div>
   <div class="option-3 switch" style="display: none;">
@@ -18,20 +18,20 @@
     <div class="player-container"></div>
   </div>
   <div class="option-4 switch" style="display: none;">
-    <h5>MJPEG VLC Ext</h5>
+    <h5>MJPEG VLC External</h5>
     <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :mjpeg) {} %>"></embed>
   </div>
   <div class="option-5 switch" style="display: none;">
-    <h5>MJPEG VLC Int</h5>
+    <h5>MJPEG VLC Internal</h5>
     <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:internal, :mjpeg) {} %>"></embed>
 
   </div>
   <div class="option-6 switch" style="display: none;">
-    <h5>RTSP H264 VLC Ext</h5>
+    <h5>RTSP H264 VLC External</h5>
     <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height=380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :h264) {} %>"></embed>
   </div>
   <div class="option-7 switch" style="display: none;">
-    <h5>RTSP H264 VLC Int</h5>
+    <h5>RTSP H264 VLC Internal</h5>
     <div class="player-container"></div>
   </div>
   <div class="option-8 switch" style="display: none;">
@@ -90,7 +90,7 @@
 
 <select name="action" class='margin-top-10 margin-bottom-20' id="getPlayer" onchange="admSelectCheck(this);">
   <option value="option-1">
-    JPEG Refresh Ext
+    JPEG Refresh External
     <span class="grey">
           <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
           - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
@@ -100,7 +100,7 @@
   </span>
   </option>
   <option value="option-2">
-    JPEG Refresh Int
+    JPEG Refresh Internal
     <span class="grey">
           <% if url = @camera.deep_fetch(:internal, :http, :jpg) {} %>
           - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
@@ -116,7 +116,7 @@
   </span>
   </option>
   <option value="option-4">
-    MJPEG VLC Ext
+    MJPEG VLC External
     <span class="grey">
           <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
           - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
@@ -126,7 +126,7 @@
     </span>
   </option>
   <option value="option-5">
-    MJPEG VLC Int
+    MJPEG VLC Internal
     <span class="grey">
           <% if url = @camera.deep_fetch(:internal, :rtsp, :mpeg) {} %>
           - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
@@ -136,7 +136,7 @@
   </span>
   </option>
   <option value="option-6">
-    RTSP H264 VLC Ext
+    RTSP H264 VLC External
     <span class="grey">
           <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
           - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
@@ -146,7 +146,7 @@
   </span>
   </option>
   <option value="option-7">
-    RTSP H264 VLC Int
+    RTSP H264 VLC Internal
     <span class="grey">
           <% if url = @camera.deep_fetch(:internal, :rtsp, :h264) {} %>
           - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>

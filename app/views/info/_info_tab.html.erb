@@ -387,16 +387,12 @@
         <td class="col-md-1">
           JPEG:
           </td>
-        <td  class="col-md-2">
+        <td class="col-md-2 ah">
         <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
           <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
             <%= "http://evr.cm/#{@camera['id']}.jpg" %>
-            <% if has_edit_right %>
-              <p class="grey">Only available for public cameras, you can change your settings <a class="open-sharing" href="#sharing">here</a></p>
-            <% else %>
-            <p class="grey">Only available for public cameras.</p>
-            <% end %>
+
             </span>
         </td>
       </tr>
@@ -413,7 +409,7 @@
           </td>
         <td class="col-md-2">
           <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
-          <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+          <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
             <% else %>
              <span class="grey">Not available</span>
             <% end %>
@@ -426,7 +422,6 @@
   <section id="unseen">
     <p>Base URLs</p>
     <table class="table table-borderless">
-
       <tr>
         <td class="col-md-1">
           Camera:

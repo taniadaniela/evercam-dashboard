@@ -1,44 +1,219 @@
 <script src="https://jwpsrv.com/library/AvbyZBZAEeSVQiIACtqXBA.js"></script>
 
-<div id="player" class="tab-pane">
-  <div id='playerjsuHWVtecUxm'></div>
+
+<div class="row">
+<div class="col-md-5 col-sm-5 col-xs-12 padding-right-10">
+
+
+  <div class="option-1 switch" style="display: none;">
+    <h5>JPEG Refresh Ext</h5>
+    <div class="player-container"></div>
+  </div>
+  <div class="option-2 switch" style="display: none;">
+    <h5>JPEG Refresh Int</h5>
+    <div class="player-container"></div>
+  </div>
+  <div class="option-3 switch" style="display: none;">
+    <h5>JPEG Refresh Proxy</h5>
+    <div class="player-container"></div>
+  </div>
+  <div class="option-4 switch" style="display: none;">
+    <h5>MJPEG VLC Ext</h5>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :mjpeg) {} %>"></embed>
+  </div>
+  <div class="option-5 switch" style="display: none;">
+    <h5>MJPEG VLC Int</h5>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:internal, :mjpeg) {} %>"></embed>
+
+  </div>
+  <div class="option-6 switch" style="display: none;">
+    <h5>RTSP H264 VLC Ext</h5>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height=380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :h264) {} %>"></embed>
+  </div>
+  <div class="option-7 switch" style="display: none;">
+    <h5>RTSP H264 VLC Int</h5>
+    <div class="player-container"></div>
+  </div>
+  <div class="option-8 switch" style="display: none;">
+    <h5>RTMP VLC Proxy</h5>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>"></embed>
+
+  </div>
+  <div class="option-9 switch" style="display: none;">
+    <h5>RTMP JW Proxy</h5>
+
+      <div id='playerjsuHWVtecUxm'></div>
+
+      <script type='text/javascript'>
+        {
+          var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
+          console.log('rtmp:', url);
+          $.getJSON(url, null,
+              function (d) {
+                console.log('rtmp redir:', d);
+                jwplayer('playerjsuHWVtecUxm').setup({
+                  file: d.rtmp_url,
+                  width: '100%',
+                  aspectratio: '16:9',
+                  autostart: 'true'
+                });
+              });
+        }
+      </script>
+
+  </div>
+  <div class="option-10 switch" style="display: none;">
+    <h5>HLS VLC Proxy</h5>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :hls) {} %>"></embed>
+  </div>
+  <div class="option-11 switch" style="display: none;">
+    <h5>HLS JW Proxy</h5>
+    <div id='playerjsuHWVtecUxm1'></div>
 
     <script type='text/javascript'>
-    {
-        var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
-        console.log('rtmp:', url);
+      {
+        var url = '<%= @camera.deep_fetch(:proxy_url, :hls) {} %>';
+        console.log('hls:', url);
         $.getJSON(url, null,
-                  function (d) {
-                      console.log('rtmp redir:', d);
-                      jwplayer('playerjsuHWVtecUxm').setup({
-                          file: d.rtmp_url,
-                          width: '100%',
-                          aspectratio: '16:9',
-                          autostart: 'true'
-                      });
-                  });
-    }
+            function (d) {
+              console.log('hls redir:', d);
+              jwplayer('playerjsuHWVtecUxm1').setup({
+                file: d.hls_url,
+                width: '100%',
+                aspectratio: '16:9',
+                autostart: 'true'
+              });
+            });
+      }
     </script>
+  </div>
 
-  <div class="row margin-top-20">
-    <div class="col-md-12">
-      <h5>Streams</h5>
-
-    <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
-     <p><strong>hls: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %><span class=​"glyphicon glyphicon-new-window"></span></p>
-    <% else %>
-      <p>hls not found</p>
-    <% end %>
-    <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
-      <p><strong>rtmp: </strong> <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
+<select name="action" class='margin-top-10 margin-bottom-20' id="getPlayer" onchange="admSelectCheck(this);">
+  <option value="option-1">
+    JPEG Refresh Ext
+    <span class="grey">
+          <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
+          - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+          <% else %>
+            - Not available
+          <% end %>
+  </span>
+  </option>
+  <option value="option-2">
+    JPEG Refresh Int
+    <span class="grey">
+          <% if url = @camera.deep_fetch(:internal, :http, :jpg) {} %>
+          - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+          <% else %>
+            - Not available
+          <% end %>
+  </span>
+  </option>
+  <option value="option-3">
+    JPEG Refresh Proxy
+    <span class="grey">
+     - <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
+  </span>
+  </option>
+  <option value="option-4">
+    MJPEG VLC Ext
+    <span class="grey">
+          <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
+          - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+         - Not available
+          <% end %>
+    </span>
+  </option>
+  <option value="option-5">
+    MJPEG VLC Int
+    <span class="grey">
+          <% if url = @camera.deep_fetch(:internal, :rtsp, :mpeg) {} %>
+          - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+          - Not available
+          <% end %>
+  </span>
+  </option>
+  <option value="option-6">
+    RTSP H264 VLC Ext
+    <span class="grey">
+          <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+          - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+          - Not available
+          <% end %>
+  </span>
+  </option>
+  <option value="option-7">
+    RTSP H264 VLC Int
+    <span class="grey">
+          <% if url = @camera.deep_fetch(:internal, :rtsp, :h264) {} %>
+          - <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+          <% else %>
+          - Not available
+          <% end %>
+  </span>
+  </option>
+  <option value="option-8">
+    RTMP VLC Proxy
+    <span class="grey">
+        <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
+      <p><%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p>
     <% else %>
       <p>rtmp not found</p>
     <% end %>
-    </div>
-  </div>
+  </span>
+  </option>
+  <option value="option-9">
+    RTMP JW Proxy
+    <span class="grey">
+        <% if url = @camera.deep_fetch(:proxy_url, :rtmp) {} %>
+      - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+      <% else %>
+      - Not found
+      <% end %>
+  </span>
+  </option>
+  <option value="option-10">
+    HLS VLC Proxy
+    <span class="grey">
+    <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
+      - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+    <% else %>
+      - hls not found
+    <% end %>
+  </span>
+  </option>
+  <option value="option-11">
+    HLS JW Proxy
+    <span class="grey">
+    <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
+      - <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+    <% else %>
+      - hls not found
+    <% end %>
+  </span>
+  </option>
+</select>
+
 
 </div>
+</div>
+
+
 
 <script type="text/javascript">
-
+  function admSelectCheck(nameSelect){
+    if(nameSelect.value){
+      var preElements = document.getElementsByClassName('switch');
+      for(var i=0; i < preElements.length; i++){
+        //if the class contains the selected value, then show it, else hide it
+        preElements[i].style.display = preElements[i].classList.contains(nameSelect.value)?'block':'none';
+      }
+    }
+  }
+  window.onload = function (){
+    document.getElementById('getPlayer').onchange();
+  }
 </script>

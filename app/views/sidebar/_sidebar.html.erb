@@ -10,39 +10,13 @@
         </div>
         <!-- END SIDEBAR TOGGLER BUTTON -->
       </li>
-      <li class="start ">
-        <a href="javascript:;">
+      <li class="start">
+        <a href="/">
           <i class="icon-camera"></i>
           <span class="title">My Cameras</span>
-          <span class="arrow "></span>
         </a>
-        <ul class="sub-menu">
-          <% @cameras.each do |camera| %>
-            <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>?share=false">
-                <%= camera['name'] %>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
-          <% end %>
-          <% @shares.each do |camera| %>
-            <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>?share=true">
-                <%= camera['name'] %>
-                <i class="icon-users"></i>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
-          <% end %>
-        </ul>
       </li>
-      <li>
+            <li>
         <a href="/publiccam">
           <i class="icon-map"></i>
           <span class="title">Public Cameras</span>
@@ -54,14 +28,14 @@
           <span class="title">Add Camera</span>
         </a>
       </li>
-      <li class="last">
+      <li>
         <a href="javascript:;">
-          <i class="icon-folder"></i>
+          <i class="icon-briefcase"></i>
           <span class="title">Developer</span>
           <span class="arrow "></span>
         </a>
         <ul class="sub-menu">
-          <li>
+          <li class="active">
             <a href="/dev">API Docs</a>
           </li>
           <li>

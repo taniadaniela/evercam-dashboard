@@ -729,6 +729,9 @@ td .share-camera {
     font: 400 14px 'Open Sans', Arial, sans-serif;
 }
 /*LOGS*/
+#logs .checkbox-inline {
+    padding-left: 0;
+}
 #apply-types {
     margin: 20px 0px;
 }
@@ -799,7 +802,11 @@ input:focus {
     width:auto;
 }
 /*CAMERA PLAYER*/
-
+.player-container {
+    width: 100%;
+    height: 280px;
+    background-color: #e5e5e5;
+}
 #camera-single li small {
     color:#aaaaaa;
 }

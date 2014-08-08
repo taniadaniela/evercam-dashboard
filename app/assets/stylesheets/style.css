@@ -5,8 +5,9 @@
 #camera-index .page-content-wrapper .page-content {
     padding:0;
 }
+
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
-    padding: 0px;
+    padding: 0px 0 4px 0;
     margin-left: -10px;
 }
 .camera-index {
@@ -631,6 +632,15 @@ max-width:100%}
     float: left;
     margin-top: 8px;
 }
+#sharing .radio-inline + .radio-inline {
+    margin-left: 0;
+}
+#sharing .radio-inline{
+    padding-left: 0;
+}
+#sharing div.radio {
+    margin-top: 5px;
+}
 .table-bordered-top {
     border-bottom:1px solid #e5e5e5;
 }
@@ -926,6 +936,7 @@ input:focus {
 /*CREATE ACCOUNT FORM - SIGNUP*/
 #new-account {
     background-color:#f5f5f5;
+    min-height: 960px;
 }
 #new-account select {
     height: 34px;

@@ -2,7 +2,7 @@
 
 
 <div class="row">
-<div class="col-md-8 col-sm-8 col-xs-12">
+<div class="col-md-5 col-sm-5 col-xs-12 padding-right-10">
 
 
   <div class="option-1 switch" style="display: none;">
@@ -19,16 +19,16 @@
   </div>
   <div class="option-4 switch" style="display: none;">
     <h5>MJPEG VLC Ext</h5>
-    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :mjpeg) {} %>"></embed>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :mjpeg) {} %>"></embed>
   </div>
   <div class="option-5 switch" style="display: none;">
     <h5>MJPEG VLC Int</h5>
-    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:internal, :mjpeg) {} %>"></embed>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:internal, :mjpeg) {} %>"></embed>
 
   </div>
   <div class="option-6 switch" style="display: none;">
     <h5>RTSP H264 VLC Ext</h5>
-    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height=380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :h264) {} %>"></embed>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height=380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:external, :h264) {} %>"></embed>
   </div>
   <div class="option-7 switch" style="display: none;">
     <h5>RTSP H264 VLC Int</h5>
@@ -36,7 +36,7 @@
   </div>
   <div class="option-8 switch" style="display: none;">
     <h5>RTMP VLC Proxy</h5>
-    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>"></embed>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>"></embed>
 
   </div>
   <div class="option-9 switch" style="display: none;">
@@ -64,7 +64,7 @@
   </div>
   <div class="option-10 switch" style="display: none;">
     <h5>HLS VLC Proxy</h5>
-    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="100%" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :hls) {} %>"></embed>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :hls) {} %>"></embed>
   </div>
   <div class="option-11 switch" style="display: none;">
     <h5>HLS JW Proxy</h5>

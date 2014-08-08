@@ -5,7 +5,7 @@
 <div class="col-md-5 col-sm-5 col-xs-12 padding-right-10">
 
 
-  <div class="option-1 switch" style="display: none;">
+  <!--<div class="option-1 switch" style="display: none;">
     <h5>JPEG Refresh External</h5>
     <div class="player-container"></div>
   </div>
@@ -38,7 +38,7 @@
     <h5>RTMP VLC Proxy</h5>
     <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>"></embed>
 
-  </div>
+  </div>-->
   <div class="option-9 switch" style="display: none;">
     <h5>RTMP JW Proxy</h5>
 
@@ -62,10 +62,10 @@
       </script>
 
   </div>
-  <div class="option-10 switch" style="display: none;">
+ <!-- <div class="option-10 switch" style="display: none;">
     <h5>HLS VLC Proxy</h5>
     <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"version="VideoLAN.VLCPlugin.2" width="640" height="380" id="vlc" loop="yes"autoplay="yes" target="<%= @camera.deep_fetch(:proxy_url, :hls) {} %>"></embed>
-  </div>
+  </div>-->
   <div class="option-11 switch" style="display: none;">
     <h5>HLS JW Proxy</h5>
     <div id='playerjsuHWVtecUxm1'></div>
@@ -89,7 +89,7 @@
   </div>
 
 <select name="action" class='margin-top-10 margin-bottom-20' id="getPlayer" onchange="admSelectCheck(this);">
-  <option value="option-1">
+  <!--<option value="option-1">
     JPEG Refresh External
     <span class="grey">
           <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
@@ -164,7 +164,7 @@
       <p>rtmp not found</p>
     <% end %>
   </span>
-  </option>
+  </option>-->
   <option value="option-9">
     RTMP JW Proxy
     <span class="grey">
@@ -175,7 +175,7 @@
       <% end %>
   </span>
   </option>
-  <option value="option-10">
+ <!-- <option value="option-10">
     HLS VLC Proxy
     <span class="grey">
     <% if url = @camera.deep_fetch(:proxy_url, :hls) {} %>
@@ -184,7 +184,7 @@
       - hls not found
     <% end %>
   </span>
-  </option>
+  </option>-->
   <option value="option-11">
     HLS JW Proxy
     <span class="grey">

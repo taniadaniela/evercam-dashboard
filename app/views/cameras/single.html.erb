@@ -65,10 +65,13 @@
           </li>
         <% else %>
         <% end %>
-
-           <li>
-              <a data-toggle="tab" href="#player">Player <small><em>BETA</em></small></a>
-            </li>
+        <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+          <li>
+            <a data-toggle="tab" href="#player">Player <small><em>BETA</em></small></a>
+          </li>
+        <% else %>
+        <% end %>
+   
 
           <li class="pull-right">
             <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="glyphicon glyphicon-trash"></span></a>

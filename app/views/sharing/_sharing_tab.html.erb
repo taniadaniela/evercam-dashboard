@@ -100,7 +100,7 @@
           <tbody>
           <tr>
             <td>
-              <%= @camera['owner'] %>
+              <%= @owner.email %>
               <% if @camera['owner'] == current_user.username %>
                 <small>(you)  </small>
               <% end %></td>

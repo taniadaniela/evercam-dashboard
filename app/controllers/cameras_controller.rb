@@ -149,7 +149,7 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
         redirect_to action: 'index' if @share.nil?
-        @owner = User.where(:username => @camera['owner'])
+        @owner = User.where(:username => @camera['owner']).first
       else
         @owner = current_user
       end

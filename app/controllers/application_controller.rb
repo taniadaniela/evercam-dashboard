@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
     @cameras = @cameras - @shares if @shares.length > 0
     Rails.cache.write("#{current_user.username}/cameras", @cameras, expires_in: 5.minutes)
     Rails.cache.write("#{current_user.username}/shares", @shares, expires_in: 5.minutes)
+    nil
   end
 
   def get_evercam_api

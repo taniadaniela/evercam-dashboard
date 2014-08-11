@@ -27,8 +27,9 @@ describe UsersController do
             lastname: 'Bloggs',
             username: id,
             email: "#{id}@nowhere.com",
+            country: 'ie',
             password: 'password'},
-      country: 'ie'}
+      }
   }
 
   describe 'GET #new' do
@@ -59,13 +60,17 @@ describe UsersController do
   describe 'POST #create with wrong params' do
     it "renders the :new" do
       post :create, {}
-      expect(response.status).to eq(302)
-      expect(response).to redirect_to('/users/new')
+      expect(response.status).to eq(200)
+      expect(response).to render_template :new
     end
   end
 
   describe 'POST #create with correct params' do
     it "signs in and redirects to cameras index" do
+      stub_request(:post, "#{EVERCAM_API}users.json").
+        with(:body => {"country"=>"", "email"=>"#{CGI.escape(new_user_params[:user][:email])}", "firstname"=>"Joe", "lastname"=>"Bloggs", "password"=>"password", "username"=>"#{new_user_params[:user][:username]}"}).
+        to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
+
       stub_request(:post, "#{EVERCAM_API}users.json").
         with(:body => "country=ie&email=#{CGI.escape(new_user_params[:user][:email])}&firstname=Joe&lastname=Bloggs&password=password&username=#{new_user_params[:user][:username]}").
         to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})

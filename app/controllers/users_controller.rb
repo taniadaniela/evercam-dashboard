@@ -33,7 +33,7 @@ class UsersController < ApplicationController
                                            user['username'],
                                            user['email'],
                                            user['password'],
-                                           params['country'],
+                                           user['country'],
                                            params[:share_request_key])
 
       user = User.where(email: user[:email].downcase).first
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       end
       Rails.logger.error "Exception caught in create user request.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
-      redirect_to action: 'new', user: user
+      render action: 'new', user: user
     end
   end
 

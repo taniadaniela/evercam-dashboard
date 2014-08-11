@@ -35,6 +35,13 @@ GIT
       sass-rails (~> 4.0)
 
 GIT
+  remote: git://github.com/stefanpenner/country_select.git
+  revision: 3fb63542c085148bcea73198037d37f15c6154d7
+  specs:
+    country_select (2.0.0.beta2)
+      countries (~> 0.9.3)
+
+GIT
   remote: git@github.com:bmabey/database_cleaner.git
   revision: 8d7f72ffc99befd5ce67d333a99e0cf054c24f81
   specs:
@@ -102,8 +109,11 @@ GEM
     coffee-script-source (1.7.1)
     columnize (0.8.9)
     coolline (0.4.4)
+    countries (0.9.3)
+      currencies (~> 0.4.2)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    currencies (0.4.2)
     dalli (2.7.2)
     data_uri (0.1.0)
     debug_inspector (0.0.2)
@@ -366,6 +376,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.2)
   capybara
   coffee-rails (~> 4.0.0)
+  country_select!
   dalli
   data_uri
   database_cleaner!

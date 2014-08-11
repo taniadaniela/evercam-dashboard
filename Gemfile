@@ -43,6 +43,7 @@ gem 'heroku_rails_deflate'
 gem 'memcachier'
 gem 'dalli'
 gem 'hashie_rails'
+gem 'country_select', github: 'stefanpenner/country_select'
 
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'

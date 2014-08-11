@@ -1,22 +1,26 @@
-<h3 class="ec">
-  <%= @client.name %> has requested access to the following:
-</h3>
-<ol>
-<% @permissions.each do |permission| %>
-  <li>
-    Permission to <strong><%= permission[:right] %> on <%= permission[:target] %></strong>
-  </li>
-<% end %>
-</ol>
-<br />
-<div>
-  <form method='POST' action="/oauth2/feedback">
-    <button type='submit' name='action' value='approve' class='btn btn-success'>
-      Approve
-    </button>
-    <button type='submit' name='action' value='decline' class='btn btn-danger'>
-      Decline
-    </button>
-  </form>
+<div id="new-account" class="container section" style="margin-top: 100px;">
+  <div id="registration" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <h3 class="ec">
+      <%= @client.name %> has requested access to the following:
+    </h3>
+    <ol>
+    <% @permissions.each do |permission| %>
+      <li>
+        Permission to <strong><%= permission[:right] %> on <%= permission[:target] %></strong>
+      </li>
+    <% end %>
+    </ol>
+    <br />
+    <div>
+      <form method='POST' action="/oauth2/feedback">
+        <button type='submit' name='action' value='approve' class='btn btn-success'>
+          Approve
+        </button>
+        <button type='submit' name='action' value='decline' class='btn btn-danger'>
+          Decline
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 

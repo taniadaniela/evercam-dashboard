@@ -77,7 +77,7 @@ EvercamDashboard::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Define a Hash for the session initializer.
-  config.session_initializer_settings = {key: '_evercam_dashboard_session',
+  config.session_initializer_settings = {key: '_evercam_dashboard_staging_session',
                                          domain: '.evr.cm'}
 
   config.evercam_api = {host: 'proxy.evr.cm', port: 9292, scheme: 'http'}

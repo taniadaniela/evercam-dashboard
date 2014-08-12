@@ -1,4 +1,5 @@
 class Oauth2Controller < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_filter :authenticate_user!, :only => [:feedback, :authorize]
   include SessionsHelper
   include ApplicationHelper

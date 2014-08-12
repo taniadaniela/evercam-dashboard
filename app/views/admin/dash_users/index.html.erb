@@ -30,8 +30,10 @@
             <tr role="row" class="heading">
               <th name="order_name" class="sorting">Name</th>
               <th name="order_email" class="sorting">Email</th>
+              <th name="order_camera_count" class="sorting">Cameras</th>
               <th name="order_country" class="sorting">Country</th>
               <th name="order_registered" class="sorting datatable-date">Registered</th>
+              <th name="order_email_confirmed" class="sorting">Confirmed Email</th>
             </tr>
           </thead>
           <tbody>
@@ -39,8 +41,10 @@
             <tr>
               <td><%= link_to dash_user.fullname, admin_dash_user_path(dash_user) %></td>
               <td><%= dash_user.email %></td>
+              <td><%= link_to dash_user.dash_cameras.length, "#{admin_dash_user_path(dash_user)}#tab_1_12" %></td>
               <td><%= dash_user.dash_country.name %></td>
               <td><%= dash_user.created_at.strftime("%d/%m/%y") %></td>
+              <td><%= human_boolean(dash_user.confirmed_at.present?) %></td>
             </tr>
             <% end %>
           </tbody>

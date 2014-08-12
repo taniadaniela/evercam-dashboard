@@ -47,7 +47,7 @@ $ ->
     params = ['external_url=http://' + ext_url + port,
               'jpg_url=/' + jpg_url,
               'cam_username=' + $('#camera-username').val(),
-              'cam_password=' + $('#camera-passord').val()]
+              'cam_password=' + $('#camera-password').val()]
 
     l = Ladda.create(this);
     l.start();

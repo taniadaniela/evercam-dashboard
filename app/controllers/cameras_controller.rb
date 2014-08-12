@@ -39,6 +39,8 @@ class CamerasController < ApplicationController
                         params['camera-name'],
                         false,
                         body)
+      Rails.cache.delete("#{current_user.username}/cameras")
+      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to action: 'single', id: params['camera-id']
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

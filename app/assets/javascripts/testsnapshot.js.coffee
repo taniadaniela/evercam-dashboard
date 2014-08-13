@@ -63,8 +63,11 @@ $ ->
     $.getJSON(EVERCAMP_API + 'cameras/test.json?' + params.join('&'))
     .done((resp) ->
       console.log('success')
-      $('#test-error').text('We got a snapshot')
-      $('#testimg').attr('src', resp.data)
+      if (resp.data.indexOf('data:text/html') == 0)
+        $('#test-error').text("We got a response, but it's not an image")
+      else
+        $('#test-error').text('We got a snapshot')
+        $('#testimg').attr('src', resp.data)
     )
     .fail((resp) ->
       $('#test-error').text(resp.responseJSON.message)

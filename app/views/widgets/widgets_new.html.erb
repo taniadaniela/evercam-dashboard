@@ -88,7 +88,6 @@
             </div>
           <% else %>
             <div class="col-md-5">
-              <p class="note note-info">Only public cameras can be used to make a widget.</p>
 
               <form id="widget-new" role="form" method="post" class="center-block">
 
@@ -101,7 +100,7 @@
                     <select id="widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
                         <option class="caret" value="<%= camera['id'] %>">
-                          <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %>
+                          <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
                         </option>
                       <% end %>
                     </select>

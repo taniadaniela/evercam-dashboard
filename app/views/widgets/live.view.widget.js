@@ -6,13 +6,15 @@
     url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/snapshot.jpg',
     container,
     refresh = 1000*<%= params[:refresh] %>,
+    priv = <%= params[:private] %>,
+    iframeStyle = "width: 100%; height:500px",
     imgStyle = "width: 100%;";
 
   function updateImage() {
     if (refresh > 0) {
       window.ec_watcher = setTimeout(updateImage, refresh);
     }
-    jQuery("<img style='" + imgStyle + "'/>").attr('src', url + '?' + new Date().getTime())
+    jQuery("<img style='" + imgStyle + "'/>").attr('src', url + '&' + new Date().getTime())
       .load(function() {
         if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
           console.log('broken image!');
@@ -38,10 +40,17 @@
     jQuery(document).ready(function($) {
       /******* Load HTML *******/
       container = $('#ec-container');
-      container.html("<img/>");
-      updateImage();
-      window.ec_vis_handler = handleVisibilityChange;
-      document.addEventListener("visibilitychange", handleVisibilityChange, false);
+      if (priv) {
+        container.html('<iframe id="ec-frame" style="' + iframeStyle + '" src="http://local.evercam.io:3000/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>" frameborder="0" scrolling="no"/>');
+        $('#ec-frame').load(function() {
+          console.log($('#ec-frame').attr('src'));
+        });
+      } else {
+        container.html("<img/>");
+        updateImage();
+        window.ec_vis_handler = handleVisibilityChange;
+        document.addEventListener("visibilitychange", handleVisibilityChange, false);
+      }
     });
   }
 

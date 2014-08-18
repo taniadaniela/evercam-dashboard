@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   include SessionsHelper
 
   protect_from_forgery except: :destroy
+  after_action :allow_iframe, only: :new
 
   def new
     unless current_user.nil?

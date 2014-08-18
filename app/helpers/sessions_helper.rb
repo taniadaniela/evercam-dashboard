@@ -24,4 +24,9 @@ module SessionsHelper
   def refresh_user
     @current_user = User.where(email: session[:user]).first
   end
+
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
+  end
+
 end

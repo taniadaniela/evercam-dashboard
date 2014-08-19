@@ -38,6 +38,7 @@ EvercamDashboard::Application.routes.draw do
   get '/confirm',  to: 'users#confirm'
   post '/users/:id/settings',  to: 'users#settings_update'
   match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/widget_signin',  to: 'sessions#widget_new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   get '/dev' => 'pages#dev'

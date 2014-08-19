@@ -7,7 +7,7 @@
     container,
     refresh = 1000*<%= params[:refresh] %>,
     priv = <%= params[:private] %>,
-    iframeStyle = "width: 100%; height:500px",
+    iframeStyle = "width: 100%; height:100%;",
     imgStyle = "width: 100%;";
 
   function updateImage() {

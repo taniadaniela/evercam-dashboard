@@ -2,9 +2,15 @@ class SessionsController < ApplicationController
   include SessionsHelper
 
   protect_from_forgery except: :destroy
-  after_action :allow_iframe, only: :new
+  after_action :allow_iframe, only: :widget_new
 
   def new
+    unless current_user.nil?
+      redirect_to :cameras_index
+    end
+  end
+
+  def widget_new
     unless current_user.nil?
       redirect_to :cameras_index
     end

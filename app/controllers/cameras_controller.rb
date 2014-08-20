@@ -7,6 +7,7 @@ class CamerasController < ApplicationController
 
   def index
     load_cameras_and_shares
+    GC.start
   end
 
   def new

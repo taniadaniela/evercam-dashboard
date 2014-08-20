@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     if current_user.nil?
       session[:redirect_url] = request.original_url
       redirect_to signin_path
-      return
     end
   end
 
@@ -16,7 +15,6 @@ class ApplicationController < ActionController::Base
     if current_user.username != params[:id]
       sign_out
       redirect_to '/signin'
-      return
     end
   end
 

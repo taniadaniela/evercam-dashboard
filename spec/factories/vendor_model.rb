@@ -4,7 +4,6 @@ FactoryGirl.define do
 
     association :vendor, factory: :vendor
     sequence(:name) { |n| "name#{n}" }
-    known_models ['*']
     config({})
   end
 end

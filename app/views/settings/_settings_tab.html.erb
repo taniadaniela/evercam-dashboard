@@ -110,9 +110,9 @@
             <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" readonly="readonly" class="form-control camera-model  <% if v.exid != @camera['vendor_id'] %>hidden<% end %>">
               <% models(v.id).each_with_index  do |m, index| -%>
                   <% if index == 0 %>
-                      <option value="<%= m.name -%>" ><%= m.name -%></option>
+                      <option value="<%= m.exid -%>" ><%= m.name -%></option>
                   <% else %>
-                      <option value="<%= m.name -%>" <% if m.name == @camera['model'] %>selected="selected"<% end %> ><%= m.name -%></option>
+                      <option value="<%= m.exid -%>" <% if m.exid == @camera['id'] %>selected="selected"<% end %> ><%= m.name -%></option>
                   <% end %>
               <% end -%>
             </select>

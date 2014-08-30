@@ -162,6 +162,9 @@ class CamerasController < ApplicationController
       @share_requests  = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/share_reqs", expires_in: 5.minutes) do
         api.get_camera_share_requests(params[:id], 'PENDING')
       end
+      @webhooks  = Rails.cache.fetch("webhooks/#{params[:id]}", expires_in: 5.minutes) do
+        api.get_webhooks(params[:id])
+      end
       load_cameras_and_shares
     rescue => error
       puts error

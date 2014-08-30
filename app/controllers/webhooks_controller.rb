@@ -10,6 +10,7 @@ class WebhooksController < ApplicationController
       raise "No url specified in request." if params['url'].blank?
       api = get_evercam_api
       response = api.create_webhook(params['camera_id'], params['url'], current_user.username)
+      Rails.cache.delete("webhooks/#{response['camera_id']}")
       render json: response
       return
     rescue => error

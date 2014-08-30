@@ -2,6 +2,7 @@
   <div class="col-md-12">
     <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
       <tbody>
+        <% if @webhooks %>
         <% @webhooks.each do |webhook| %>
         <tr webhook-id="<%= webhook['id'] %>">
           <td class="col-lg-8">
@@ -13,6 +14,7 @@
             </div>
           </td>
         </tr>
+        <% end %>
         <% end %>
       </tbody>
     </table>

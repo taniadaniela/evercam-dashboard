@@ -115,6 +115,7 @@
       var map = new google.maps.Map(document.getElementById('map-canvas'), options);
 
       // set multiple marker
+
       <% @cameras.each do |c| %>
       // init markers
         <% if c.deep_fetch(:location) {} != nil %>

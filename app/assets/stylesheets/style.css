@@ -578,7 +578,7 @@ max-width:100%}
 .info-preview img {
     width: auto;
     min-width: 169px;
-    max-width: 465px;
+    max-width: 100%;
 }
 .margin-top-5 {
     margin-top: 5px;

@@ -127,6 +127,18 @@
                     <span class="input-group-addon">px</span>
                   </div>
                 </div>
+
+                <div class="form-group widget-input">
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate</label>
+                  </div>
+                  <div class="input-group col-md-7">
+                    <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required">
+                      <option class="caret" value="false">No</option>
+                      <option class="caret" value="true">Yes</option>
+                    </select>
+                  </div>
+                </div>
               </form>
               <div class="margin-top-30 row widget-code">
                 <div class="col-md-12">
@@ -184,6 +196,7 @@
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         QuickSidebar.init() // init quick sidebar
+        window.api_credentials = { api_id: '<%= current_user.api_id %>', api_key: '<%= current_user.api_key %>' }
       });
 
       $.validate();

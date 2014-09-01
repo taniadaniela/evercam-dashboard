@@ -41,7 +41,7 @@
       /******* Load HTML *******/
       container = $('#ec-container');
       if (priv) {
-        container.html('<iframe id="ec-frame" style="' + iframeStyle + '" src="https://dashboard.evercam.io/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>" frameborder="0" scrolling="no"/>');
+        container.html('<iframe id="ec-frame" style="' + iframeStyle + '" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>" frameborder="0" scrolling="no"/>');
         $('#ec-frame').load(function() {
           console.log($('#ec-frame').attr('src'));
         });

@@ -14,7 +14,7 @@ class WebhooksController < ApplicationController
       render json: response
       return
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
+      env["airbrake.error_id"] = notify_airbrake(error) unless error.code == 'invalid_url'
       if error.kind_of?(Evercam::EvercamError)
         flash[:message] = [t("errors.#{error.code}")] unless error.code.nil?
       else

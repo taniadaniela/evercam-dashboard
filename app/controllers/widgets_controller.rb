@@ -26,7 +26,9 @@ class WidgetsController < ApplicationController
   end
 
   def live_view_private_widget
-    if current_user.nil?
+    widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+    sign_in(widget_user) if widget_user
+    if current_user.nil? and widget_user.nil?
       session[:redirect_url] = request.original_url
       redirect_to '/widget_signin'
       return

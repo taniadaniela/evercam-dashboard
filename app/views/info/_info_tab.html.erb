@@ -293,23 +293,38 @@
           </tr>
           <tr>
             <td>Owner:</td>
-            <td><%= @camera['owner'] %></td>
-          </tr>
-          <tr>
-            <td>Vendor:</td>
-            <td><%= @camera["vendor_name"] %></td>
-          </tr>
-
-          <tr>
-            <td>Model:</td>
-            <td><%= @camera['model'] %>
-
-            </td>
+            <td>
+              <% if @camera['owner'] == current_user.email %>
+                <small class="blue"> (you)</small>
+              <% end %>
+              <%= @camera['owner'] %></td>
           </tr>
           <tr>
             <td>Date Added:</td>
             <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
           </tr>
+          <tr>
+            <td>Vendor:</td>
+            <td>
+              <% if @camera["vendor_name"] != nil %>
+              <%= @camera["vendor_name"] %>
+                <% else %>
+                <span class="grey">Not provided</span>
+                <% end %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Model:</td>
+            <td>
+              <% if @camera["model"] != nil %>
+              <%= @camera['model'] %>
+              <% else %>
+              <span class="grey">Not provided</span>
+              <% end %>
+            </td>
+          </tr>
+
 
           <% if has_edit_right %>
             <tr>

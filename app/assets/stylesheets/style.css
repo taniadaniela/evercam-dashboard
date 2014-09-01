@@ -1091,6 +1091,16 @@ input:-webkit-autofill:focus {
     padding: 6px;
     color: #404142;
 }
+
+/*/////////////////////
+//AUTH
+/////////////////////*/
+.padding-left-20 {
+    padding-left: 20px;
+}
+.padding-left-10 {
+    padding-left: 10px;
+}
 /*/////////////////////
 //SIDEBAR
 /////////////////////*/
@@ -1172,11 +1182,10 @@ table.table-clean thead th {
 }
 #offline-menu {
     float: right;
-
 }
-
 #main-content {
-margin-left: 228px;}
+    margin-left: 228px;
+}
 .hide-left-bar {
     margin-left:-236px !important;
 }
@@ -1184,15 +1193,11 @@ margin-left: 228px;}
     margin-left:0px !important;
 }
 
-
 /* USER SETTINGS */
 #user-settings .form-horizontal .control-label {
     text-align: left;
 }
-{
-    display: none;
 
-}
 #user-settings .help-inline .input-inline:hover {
     display: block;
 }

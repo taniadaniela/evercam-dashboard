@@ -98,50 +98,51 @@
   <% end %>
 
   $(document).ready(function () {
-    // execute
-    (function () {
-      // map options
-      var options = {
-        zoom: 4,
-        minZoom: 3,
-        maxZoom: 17,
-        center: new google.maps.LatLng(47, 16),
-        mapTypeControl: false,
-        streetViewControl: false
-      };
-
-
-      // init map
-      var map = new google.maps.Map(document.getElementById('map-canvas'), options);
-
-      // set multiple marker
-
-      <% @cameras.each do |c| %>
-      // init markers
-        <% if c.deep_fetch(:location) {} != nil %>
-
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(<%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %>),
-        map: map,
-        title: 'Click Me '
-      });
-
-
-
-      var infowindow = new google.maps.InfoWindow();
-      // process multiple info windows
-      (function (marker) {
-        // add click event
-        google.maps.event.addListener(marker, 'click', function () {
-          infowindow.setContent("<a href='/publiccam/<%= c['id'] %>'><%= preview(c, true) %></a>"+
-              '<h5><a href="/publiccam/<%= c['id'] %>"><%= c["name"] %></a></h5>');
-          infowindow.open(map, marker);
-        });
-      })(marker);
-      <% end %>
-      <% end %>
-
-    })();
   });
+  // execute
+  (function () {
+    // map options
+    var options = {
+      zoom: 4,
+      minZoom: 3,
+      maxZoom: 17,
+      center: new google.maps.LatLng(47, 16),
+      mapTypeControl: false,
+      streetViewControl: false
+    };
+
+
+    // init map
+    var map = new google.maps.Map(document.getElementById('map-canvas'), options);
+
+    // set multiple marker
+
+    <% @cameras.each do |c| %>
+    // init markers
+
+    <% if c.deep_fetch(:location) {} != nil && c['is_online'] %>
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(<%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %>),
+      map: map,
+      title: 'Click Me '
+    });
+
+
+
+    var infowindow = new google.maps.InfoWindow();
+    // process multiple info windows
+    (function (marker) {
+      // add click event
+      google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent("<a href='/publiccam/<%= c['id'] %>'><%= preview(c, true) %></a>"+
+            '<h5><a href="/publiccam/<%= c['id'] %>"><%= c["name"] %></a></h5>');
+        infowindow.open(map, marker);
+      });
+    })(marker);
+    <% end %>
+    <% end %>
+
+  })();
 </script>
 

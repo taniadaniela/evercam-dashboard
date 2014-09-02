@@ -32,6 +32,7 @@ en:
     incomplete_camera_urls_error: You must specify at least one of the external or internal settings.
     invalid_country_error: The country selected is not supported.
     invalid_parameters: Please check the field errors below and correct them before re-submitting the information.
+    invalid_url: The provided url is not valid.
     lastname_field_invalid: Last names can consist of alphabetic characters only.
     model_not_found_error: Unable to locate the details for the specified model in the system. Please refresh your view and try again.
     password_field_invalid: Your Password cannot be blank.

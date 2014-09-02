@@ -35,5 +35,5 @@ EvercamDashboard::Application.configure do
 
   # Evercam API settings. Uncomment this line to test against a locally
   # running version of rack.apps.
-  config.evercam_api = {host: 'localhost', port: 3000, scheme: 'http'}
+  config.evercam_api = {host: 'localhost', port: 9292, scheme: 'http'}
 end

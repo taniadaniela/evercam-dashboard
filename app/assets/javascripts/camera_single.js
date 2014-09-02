@@ -4,4 +4,5 @@
 //= require settings
 //= require explorer
 //= require logs
+//= require webhooks
 //= require location.js

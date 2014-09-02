@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
+      <tbody>
+        <% if @webhooks %>
+        <% @webhooks.each do |webhook| %>
+        <tr webhook-id="<%= webhook['id'] %>">
+          <td class="col-lg-8">
+            <a href="<%= webhook['url'] %>"><%= webhook['url'] %></a>
+          </td>
+          <td class="col-lg-2">
+            <div class="form-group">
+            <span class="delete-webhook-control" camera_id="<%= @camera["id"] %>" webhook_id="<%= webhook['id'] %>"><span class="glyphicon glyphicon-remove"> </span>Remove</span>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--ADD A WEBHOOK-->
+
+<div class="row form-horizontal margin-top-10">
+  <div class="col-md-12">
+    <div class="add-user">
+      <table class="table table-borderless">
+        <tr>
+          <td class="col-lg-8">
+            <div class="webhook-input">
+              <div>
+                <input type="url" placeholder="Webhook URL" class="form-control" id="newWebhookUrl" name="newWebhookUrl">
+              </div>
+            </div>
+          </td>
+          <td class="col-lg-2">
+            <div class="form-group webhook-camera">
+              <button type="submit" class="btn btn-primary" id="submit_webhook_button">Add Webhook</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(window.Evercam.Webhook.initializeTab);
+  window.Evercam.current_user = "<%= current_user.username %>"
+</script>

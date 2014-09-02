@@ -59,6 +59,9 @@
         <li>
           <a data-toggle="tab" href="#recording">Recording</a>
         </li>
+        <li>
+          <a data-toggle="tab" href="#webhook">Webhooks</a>
+        </li>
         <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
           <li>
             <a data-toggle="tab" href="#local">Local Storage</a>
@@ -149,6 +152,11 @@
       <!--Recording TAB PANE -->
       <div id="recording" class="tab-pane">
         <%= render partial: "recording/recording_tab" %>
+      </div><!--TAB PANE -->
+
+      <!--Webhook TAB PANE -->
+      <div id="webhook" class="tab-pane">
+        <%= render partial: "webhook/webhook_tab" %>
       </div><!--TAB PANE -->
 
         <!--Local TAB PANE -->

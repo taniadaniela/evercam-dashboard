@@ -52,9 +52,10 @@ onDeleteWebhookClicked = (event) ->
     camera_id: control.attr("camera_id")
     webhook_id: control.attr("webhook_id")
   onError = (jqXHR, status, error) ->
-    showError("Delete of camera webhook failed. Please contact support.")
+    showError("Deleting webhook failed. Please contact support.")
     false
   onSuccess = (data, status, jqXHR) ->
+    control.off()
     onComplete = ->
       row.remove()
     row.fadeOut('slow', onComplete)
@@ -78,9 +79,12 @@ onAddWebhookUserClicked = (event) ->
     showError("Failed to add new webhook to the camera.")
     false
   onSuccess = (data, status, jqXHR) ->
-    addWebhookRow(data)
-    showFeedback("Webhook successfully added to the camera")
-    $('#newWebhookUrl').val("")
+    if data.success
+      addWebhookRow(data)
+      showFeedback("Webhook successfully added to the camera")
+      $('#newWebhookUrl').val("")
+    else
+      showError("Failed to add new webhook to the camera. The provided url is not valid.")
     true
   createWebhook($('#sharing_tab_camera_id').val(), webhookUrl, onSuccess, onError)
   true
@@ -109,6 +113,8 @@ onPermissionsFocus = (event) ->
 initializeWebhookTab = ->
   $('.delete-webhook-control').click(onDeleteWebhookClicked)
   $('#submit_webhook_button').click(onAddWebhookUserClicked)
+  $('#newWebhookUrl').keypress (e)->
+    $('#submit_webhook_button').trigger('click') if e.which is 13
   $('.save').hide()
   $('.reveal').focus(onPermissionsFocus);
   Notification.init(".bb-alert")

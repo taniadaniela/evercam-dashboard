@@ -368,7 +368,6 @@ input:-webkit-autofill {
 .add-to-cams a {
     color: #FFFFFF;
 }
-
 .public-cam-box:hover .add-to-cams {
     visibility: visible;
     opacity:1;
@@ -913,6 +912,13 @@ input:focus {
     width: 100%;
 
 
+}
+/*/////////////////////
+//INTERCOM
+/////////////////////*/
+#IntercomDefaultWidget {
+    display: none !important;
+    visibility: none !important;
 }
 /*/////////////////////
 //SIGN IN FORM

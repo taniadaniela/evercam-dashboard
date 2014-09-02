@@ -1,7 +1,6 @@
 <!--PERMISSIONS: is_public?=<%= @camera['is_public'] %>-->
 
 
-
 <div id="myModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -9,26 +8,26 @@
       <div class="modal-body">
         <div class="col-md-12">
           <div class="row"><h5>Visibility Options</h5></div>
-          <div class="form-group">
-            <div class="radio-list">
-        <label class="radio-inline">
-          <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
-          Public on the web <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small>
-        </label>
+            <div class="form-group">
+              <div class="radio-list">
+                <label class="radio-inline">
+                <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
+                Public on the web <small> - Is Public: [Yes]  &amp; Discoverable: [Yes]</small>
+                </label>
 
-        <label class="radio-inline">
-          <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
-          Anyone with the link<small> - Is Public: [Yes]  &amp; Discoverable: [No]</small>
-        </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
+                  Anyone with the link<small> - Is Public: [Yes]  &amp; Discoverable: [No]</small>
+                </label>
 
-        <label class="radio-inline">
-          <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
-          Specific people can access (listed emails) <small> - Is Public: [No]  &amp; Discoverable: [No]</small>
-        </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
+                  Specific people can access (listed emails) <small> - Is Public: [No]  &amp; Discoverable: [No]</small>
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       <div class="modal-footer">
         <input type="hidden" name="sharing_tab_camera_id" id="sharing_tab_camera_id" value="<%= @camera["id"] %>"></input>

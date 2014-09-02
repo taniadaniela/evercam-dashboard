@@ -1260,7 +1260,9 @@ table.table-clean thead th {
 .margin-left--10 {
     margin-left: -10px;
 }
-
+#live-widget .help-block {
+    width: 100%;
+}
 
 
 

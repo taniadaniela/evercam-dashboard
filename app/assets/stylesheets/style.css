@@ -13,8 +13,9 @@
 .camera-index {
     overflow: hidden;
     height: 300px;
-    margin-top: 6px;
-    margin-left: -8px;
+    margin-top: 4px;
+    padding-left: 5px;
+    padding-right: 0px;
 }
 .link {
     z-index: 100000;
@@ -78,7 +79,7 @@
 
 }
 .camera-index:nth-child(3n+1) {
-    margin-left: 4px;
+    padding-right: 4px;
 }
 #cam-refresh {
     display: none;
@@ -367,7 +368,6 @@ input:-webkit-autofill {
 .add-to-cams a {
     color: #FFFFFF;
 }
-
 .public-cam-box:hover .add-to-cams {
     visibility: visible;
     opacity:1;
@@ -578,7 +578,7 @@ max-width:100%}
 .info-preview img {
     width: auto;
     min-width: 169px;
-    max-width: 465px;
+    max-width: 100%;
 }
 .margin-top-5 {
     margin-top: 5px;
@@ -670,8 +670,10 @@ max-width:100%}
     margin-top: -9px;
 }
 .modal-footer {
-    text-align: left
-;
+    text-align: left;
+}
+.delete-share-control {
+
 }
 #sharing .form-horizontal .control-label {
     text-align: left;
@@ -860,7 +862,14 @@ input:focus {
 #player_wrapper {
     border: 1px solid #f5f5f5;
 }
-
+/*///////////////////////////
+// RECORDING
+///////////////////////////*/
+#recording {
+    max-height: 616px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 /*///////////////////////////
 // BB ALERT STYLES
 ///////////////////////////*/
@@ -912,6 +921,13 @@ input:focus {
     width: 100%;
 
 
+}
+/*/////////////////////
+//INTERCOM
+/////////////////////*/
+#IntercomDefaultWidget {
+    display: none !important;
+    visibility: none !important;
 }
 /*/////////////////////
 //SIGN IN FORM
@@ -1091,6 +1107,16 @@ input:-webkit-autofill:focus {
     padding: 6px;
     color: #404142;
 }
+
+/*/////////////////////
+//AUTH
+/////////////////////*/
+.padding-left-20 {
+    padding-left: 20px;
+}
+.padding-left-10 {
+    padding-left: 10px;
+}
 /*/////////////////////
 //SIDEBAR
 /////////////////////*/
@@ -1172,11 +1198,10 @@ table.table-clean thead th {
 }
 #offline-menu {
     float: right;
-
 }
-
 #main-content {
-margin-left: 228px;}
+    margin-left: 228px;
+}
 .hide-left-bar {
     margin-left:-236px !important;
 }
@@ -1184,15 +1209,11 @@ margin-left: 228px;}
     margin-left:0px !important;
 }
 
-
 /* USER SETTINGS */
 #user-settings .form-horizontal .control-label {
     text-align: left;
 }
-{
-    display: none;
 
-}
 #user-settings .help-inline .input-inline:hover {
     display: block;
 }
@@ -1236,9 +1257,13 @@ margin-left: 228px;}
     margin-top: 8px;
 }
 #ec-container {
-    border:1px solid #e5e5e5;
+    height: 194%;
+
+}
+.preview {
+    border:1px solid #f5f5f5;
     width: 400px;
-    height: 200px;
+    height: 220px;
 }
 #widget-new .has-error .help-block {
     position: absolute;
@@ -1254,7 +1279,10 @@ margin-left: 228px;}
 .margin-left--10 {
     margin-left: -10px;
 }
-
+#live-widget .help-block {
+    width: 100%;
+    font-size:12px;
+}
 
 
 

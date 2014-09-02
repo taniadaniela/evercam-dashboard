@@ -368,7 +368,6 @@ input:-webkit-autofill {
 .add-to-cams a {
     color: #FFFFFF;
 }
-
 .public-cam-box:hover .add-to-cams {
     visibility: visible;
     opacity:1;
@@ -671,8 +670,10 @@ max-width:100%}
     margin-top: -9px;
 }
 .modal-footer {
-    text-align: left
-;
+    text-align: left;
+}
+.delete-share-control {
+
 }
 #sharing .form-horizontal .control-label {
     text-align: left;
@@ -861,7 +862,14 @@ input:focus {
 #player_wrapper {
     border: 1px solid #f5f5f5;
 }
-
+/*///////////////////////////
+// RECORDING
+///////////////////////////*/
+#recording {
+    max-height: 616px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 /*///////////////////////////
 // BB ALERT STYLES
 ///////////////////////////*/
@@ -913,6 +921,13 @@ input:focus {
     width: 100%;
 
 
+}
+/*/////////////////////
+//INTERCOM
+/////////////////////*/
+#IntercomDefaultWidget {
+    display: none !important;
+    visibility: none !important;
 }
 /*/////////////////////
 //SIGN IN FORM
@@ -1242,9 +1257,13 @@ table.table-clean thead th {
     margin-top: 8px;
 }
 #ec-container {
-    border:1px solid #e5e5e5;
+    height: 194%;
+
+}
+.preview {
+    border:1px solid #f5f5f5;
     width: 400px;
-    height: 200px;
+    height: 220px;
 }
 #widget-new .has-error .help-block {
     position: absolute;

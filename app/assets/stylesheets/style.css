@@ -1262,6 +1262,7 @@ table.table-clean thead th {
 }
 #live-widget .help-block {
     width: 100%;
+    font-size:12px;
 }
 
 

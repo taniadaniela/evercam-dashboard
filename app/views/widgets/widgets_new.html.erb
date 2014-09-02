@@ -1,5 +1,5 @@
 <title>Evercam - Live View Widget</title>
-<div class="page-container">
+<div id="live-widget" class="page-container">
   <!-- BEGIN SIDEBAR -->
   <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
@@ -130,7 +130,7 @@
 
                 <div class="form-group widget-input">
                   <div class="my-row">
-                    <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate</label>
+                    <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate<span class="grey">*</span></label>
                   </div>
                   <div class="input-group col-md-7">
                     <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required">
@@ -148,6 +148,9 @@
 
                 </div>
               </div>
+              <div class="help-block margin-top-20">
+                *Warning. Choosing this option will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
+              </div>
             </div>
 
 
@@ -161,6 +164,7 @@
         </div>
       </div>
       </div>
+
       <!--main content end-->
     </div>
   </div>

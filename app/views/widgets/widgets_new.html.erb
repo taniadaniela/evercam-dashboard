@@ -113,7 +113,7 @@
                     <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
                   </div>
                   <div class="input-group col-md-7">
-                    <input type="number" value="1" class="form-control input-inline" min="0.05" max="100" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100],float" data-validation-error-msg="Image Refresh Rate must be between 0.05 and 100 seconds">
+                    <input type="text" pattern="\d*" value="1" class="form-control input-inline" min="0.05" maxlength="3" max="100" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100],float" data-validation-error-msg="Refresh Rate must be between 0.05 and 100 seconds">
                     <span class="input-group-addon">seconds</span>
                   </div>
                 </div>
@@ -123,17 +123,17 @@
                     <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
                   </div>
                   <div class="input-group col-md-7">
-                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" min="200" max="1600" data-validation="number" data-validation-allowing="range[200;1600],float" data-validation-error-msg="Image Width must be between 200 and 1600 pixels">
+                    <input type="text" pattern="\d*" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" min="200" max="1600" maxlength="4" data-validation="number" data-validation-allowing="range[200;1600],float" data-validation-error-msg="Image Width must be between 200 and 1600 pixels">
                     <span class="input-group-addon">px</span>
                   </div>
                 </div>
 
-                <div class="form-group widget-input">
+                <div class="form-group widget-input margin-top-20">
                   <div class="my-row">
-                    <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate<span class="grey">*</span></label>
+                    <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate<span style="visibility: hidden;" class="true switch grey">*</span></label>
                   </div>
                   <div class="input-group col-md-7">
-                    <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required">
+                    <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required" onchange="admSelectCheck(this);">
                       <option class="caret" value="false">No</option>
                       <option class="caret" value="true">Yes</option>
                     </select>
@@ -148,8 +148,8 @@
 
                 </div>
               </div>
-              <div class="help-block margin-top-20">
-                *Warning. Choosing this option will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
+              <div class="true switch help-block margin-top-20" style="visibility: hidden;">
+                * Warning. Choosing 'Yes' will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
               </div>
             </div>
 
@@ -205,6 +205,19 @@
 
       $.validate();
     });
+
+    function admSelectCheck(nameSelect){
+      if(nameSelect.value){
+        var preElements = document.getElementsByClassName('switch');
+        for(var i=0; i < preElements.length; i++){
+          //if the class contains the selected value, then show it, else hide it
+          preElements[i].style.visibility = preElements[i].classList.contains(nameSelect.value)?'visible':'hidden';
+        }
+      }
+    }
+    window.onload = function (){
+      document.getElementById('widget-authenticate').onchange();
+    }
   </script>
 
 <%= javascript_include_tag "widgets" %>

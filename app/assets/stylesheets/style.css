@@ -866,7 +866,7 @@ input:focus {
 // RECORDING
 ///////////////////////////*/
 #recording {
-    max-height: 616px;
+    max-height: 680px;
     overflow-x: hidden;
     overflow-y: hidden;
 }

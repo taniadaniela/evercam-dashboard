@@ -75,6 +75,9 @@ onDeleteWebhookClicked = (event) ->
 onAddWebhookUserClicked = (event) ->
   event.preventDefault()
   webhookUrl = $('#newWebhookUrl').val()
+  if webhookUrl == ''
+    showError("Webhook URL can't be blank.")
+    return
   onError = (jqXHR, status, error) ->
     showError("Failed to add new webhook to the camera.")
     false

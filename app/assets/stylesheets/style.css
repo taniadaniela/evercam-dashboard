@@ -491,6 +491,7 @@ Google Maps
 }
 
 /*LIVE*/
+
 #live img {
     width: auto;
 max-width:100%}
@@ -569,8 +570,13 @@ max-width:100%}
     transition: all .1s linear;
 }
 /* INFO */
-
-
+#info .portlet.solid.bordered > .portlet-title {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ffffff;
+}
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
 .info-preview {
     width:100%;
     overflow: hidden;
@@ -597,9 +603,8 @@ max-width:100%}
     word-wrap: break-word;
 }
 .edit {
-    top: 41px;
-    position: absolute;
-    right: 22px;
+    margin-top: -7px;
+    font-size: 12px;
 
 }
 

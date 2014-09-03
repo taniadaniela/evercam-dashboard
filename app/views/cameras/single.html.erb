@@ -1,4 +1,4 @@
-<title>Evercam - Cam: <%= @camera['name'] %></title>
+<title>Evercam - Cam:<%= @camera['name'] %></title>
 <%= javascript_include_tag "camera_single" %>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
@@ -32,13 +32,7 @@
           <a data-toggle="tab" href="#live">Live View</a>
         </li>
         <li>
-          <a id="nav-tabs-2" data-toggle="tab" href="#info">
-            <% if has_edit_right %>
-            Info / Settings
-            <% else %>
-              Info
-            <% end %>
-          </a>
+          <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
         </li>
         <% if has_edit_right %>
           <li>

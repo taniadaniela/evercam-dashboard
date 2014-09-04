@@ -574,6 +574,12 @@ max-width:100%}
     margin-bottom: 5px;
     border-bottom: 1px solid #ffffff;
 }
+#info .green {
+    margin-top: 1px;
+}
+#info .portlet.solid {
+    overflow-x: hidden;
+}
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
@@ -618,7 +624,7 @@ max-width:100%}
 }
 #map-info {
     width: 100%;
-    height: 335px;
+    height: 215px;
 }
 .dark-grey {
     color:#777777;
@@ -833,6 +839,9 @@ input:focus {
     width:auto;
 }
 /*CAMERA PLAYER*/
+#player {
+    min-height: 500px;
+}
 .player-container {
     width: 640px;
     height: 380px;

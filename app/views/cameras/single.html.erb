@@ -29,10 +29,10 @@
     <div class="tabbable tabbable-custom">
       <ul class="nav nav-tabs">
         <li class="active">
-          <a data-toggle="tab" href="#live">Live View</a>
+          <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
         </li>
         <li>
-          <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
+          <a data-toggle="tab" href="#live">Live View</a>
         </li>
         <% if has_edit_right %>
           <li>
@@ -110,15 +110,14 @@
     <!--END DELETE MODAL-->
 
     <div class="tab-content">
-      <!--LIVE VIEW TAB PANE -->
-      <div id="live" class="tab-pane active">
-        <%= render partial: "live/live_tab" %>
-
+      <!--INFO TAB PANE -->
+      <div id="info" class="tab-pane active">
+        <%= render partial: "info/info_tab" %>
       </div>
 
-      <!--INFO TAB PANE -->
-      <div id="info" class="tab-pane">
-        <%= render partial: "info/info_tab" %>
+      <!--LIVE VIEW TAB PANE -->
+      <div id="live" class="tab-pane">
+        <%= render partial: "live/live_tab" %>
       </div>
 
       <!--SHARING TAB PANE -->
@@ -164,12 +163,6 @@
         <%= render partial: "player/player_tab" %>
       </div><!--TAB PANE -->
 
-
-
-      <!--SETTINGS TAB PANE -->
-      <div id="camera-settings" class="tab-pane">
-        <%= render partial: "settings/settings_tab" %>
-      </div><!--TAB PANE -->
 
     </div><!--panel body-->
     </div>

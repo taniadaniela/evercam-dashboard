@@ -82,7 +82,7 @@
               <div class='col-lg-8'>
               <table class="table table-fixed table-borderless">
                 <tr>
-                  <td>
+                  <td class="col-md-4">
                     <label class="control-label" for="camera-vendor">Vendor</label>
                   </td>
                   <td>
@@ -346,10 +346,10 @@
               </div>
               <div class="portlet-body">
                 <div class="row">
-                <div class='col-lg-8'>
+                <div class='col-lg-6'>
                   <table class="table table-fixed table-borderless">
                     <tr>
-                      <td>
+                      <td class="col-md-3">
                         <label class="control-label" for="location-lat">Latitude</label>
                       </td>
                       <td>
@@ -397,303 +397,26 @@
 <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
 <div id="unseen">
 <div class="row">
-    <div class="col-md-6">
-      <div class="portlet solid bordered grey-cararra margin-bottom-5">
-        <div class="portlet-title">
-          <div class="caption">
-            Evercam Details
-          </div>
-          <% if has_edit_right %>
-            <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal-1">Edit</div>
-          <% else %>
-          <% end %>
-        </div>
-        <div class="portlet-body col-md-8">
-          <table class="table table-fixed table-borderless">
-            <tr>
-              <td class="col-lg-4">Name:</td>
-              <td class="col-lg-8">
-                <%= @camera['name'] %>
-              </td>
-            </tr>
-            <tr>
-              <td>ID:</td>
-              <td>
-                <span id="ec_cam_id">
-                  <%= @camera['id'] %>
-                </span></td>
-            </tr>
-            <tr>
-              <td>Owner:</td>
-              <td>
-                <% if @camera['owner'] == current_user.email %>
-                  <small class="blue"> (you)</small>
-                <% end %>
-                <%= @camera['owner'] %></td>
-            </tr>
-            <tr>
-              <td>Date Added:</td>
-              <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
-            </tr>
-          </table>
-        </div>
-      </div>​<!-- end portlet 1 -->
-
-
-      <div class="portlet solid bordered grey-cararra">
-        <div class="portlet-title">
-          <div class="caption">
-            Camera Details
-          </div>
-          <% if has_edit_right %>
-            <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal">Edit</div>
-          <% else %>
-          <% end %>
-        </div>
-
-        <div class="portlet-body col-md-8">
-          <table class="table table-fixed table-borderless">
-            <tr>
-              <td class="col-lg-4">Vendor:</td>
-              <td class="col-lg-8">
-                <% if @camera["vendor_name"] != nil %>
-                  <%= @camera["vendor_name"] %>
-                <% else %>
-                  <span class="grey">Not provided</span>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td>Model:</td>
-              <td>
-                <% if @camera["model"] != nil %>
-                  <%= @camera['model'] %>
-                <% else %>
-                  <span class="grey">Not provided</span>
-                <% end %>
-              </td>
-            </tr>
-            <% if has_edit_right %>
-              <tr>
-                <td>Username:</td>
-                <td><%= @camera['cam_username'] %></td>
-              </tr>
-              <tr>
-                <td>Password:</td>
-                <td><%= @camera['cam_password'] %></td>
-              </tr>
-              <tr>
-                <td>Snapshot URL:</td>
-                <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %></td>
-              </tr>
-            <% else %>
-
-            <% end %>
-
-          </table>
-        </div>
-      </div><! -- end portlet 2 -->
-
-      <div class="portlet solid bordered grey-cararra">
-        <div class="portlet-title">
-          <div class="caption">
-            Ports
-          </div>
-          <% if has_edit_right %>
-            <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal-3">Edit</div>
-          <% else %>
-          <% end %>
-        </div>
-        <div class="portlet-body col-md-8">
-          <table class="table table-fixed table-borderless">
-            <tr>
-              <td>External</td>
-              <td>
-                IP (or URL)
-              </td>
-              <td>
-                <%= @camera.deep_fetch(:external, :host) {} %>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>HTTP</td>
-              <td><%= @camera.deep_fetch(:external, :http, :port) {} %></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>RTSP</td>
-              <td>
-                <%= @camera.deep_fetch(:external, :rtsp, :port) {} %></td>
-            </tr>
-            <tr>
-              <td>Internal</td>
-              <td>
-                IP
-              </td>
-              <td>
-                <%= @camera.deep_fetch(:internal, :host) {} %>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>HTTP</td>
-              <td><%= @camera.deep_fetch(:internal, :http, :port) {} %></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>RTSP</td>
-              <td><%= @camera.deep_fetch(:internal, :rtsp, :port) {} %></td>
-            </tr>
-
-          </table>
-        </div>​
-      </div><! -- end portlet 3 -->
-      <div class="portlet solid bordered grey-cararra">
-
-        <div class="portlet-title">
-          <div class="caption">
-            URLs
-          </div>
-        </div>
-
-        <div class="portlet-body">
-
-          <section id="unseen">
-            <p>Proxy URLs</p>
-            <table class="table table-borderless table-fixed">
-
-              <tr>
-                <td class="col-lg-2">
-                  JPEG:
-                </td>
-                <td>
-        <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
-            <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
-          <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-            <%= "http://evr.cm/#{@camera['id']}.jpg" %>
-
-            </span>
-                </td>
-              </tr>
-
-            </table>
-          </section>
-
-          <section id="unseen">
-            <p>Dynamic DNS </p>
-            <table class="table table-fixed table-borderless">
-              <tr>
-                <td class="col-lg-2">
-                  JPEG:
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
-                    <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </section>
-
-          <section id="unseen">
-            <p>Base URLs</p>
-            <table class="table table-fixed table-borderless">
-              <tr>
-                <td class="col-lg-2">
-                  Camera:
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
-                    <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-lg-2">
-                  JPEG:
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
-                    <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-lg-2">
-                  MJPEG
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
-                    <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-lg-2">
-                  MPEG:
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
-                    <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-lg-2">
-                  Audio:
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
-                    <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-lg-2">
-                  H264
-                </td>
-                <td>
-                  <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
-                    <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-                  <% else %>
-                    <span class="grey">Not available</span>
-                  <% end %>
-                </td>
-              </tr>
-
-            </table>
-          </section>
-        </div>
-      </div>
-    </div>
-
-
 
   <div class="col-md-6">
-    <div class="portlet margin-bottom-0">
+
+    <div class="portlet solid bordered grey-cararra">
       <div class="portlet-title">
         <div class="caption">
           Live View
+        </div>
+        <div id="status" class="pull-right">
+          <% if @camera['is_online'] %>
+            <h5 class="green pull-right"><i class="fa fa-check"></i>Online</h5>
+          <% else %>
+            <h5 class="red pull-right">Offline</h5>
+          <% end %>
         </div>
       </div>
       <div class="portlet-body">
         <div class="info-preview">
           <div class="camera-preview">
-       <!--     <div>
+        <!--     <div>
               <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
             </div>-->
             <% if @camera['is_online'] %>
@@ -702,25 +425,335 @@
               <div class="tint"><%= preview(@camera, true ) %></div>
             <% end %>
           </div>
-      </div>​
+        </div>​
+      </div>
     </div>
-  </div>
-  </div>
-  <div class="col-md-6 info-location">
-    <div class="portlet">
-      <div class="portlet-title">
-        <div class="caption">
-          Location
+
+    <div class="info-location">
+      <div class="portlet solid bordered grey-cararra">
+        <div class="portlet-title">
+          <div class="caption">
+            Location
+          </div>
+          <% if has_edit_right %>
+            <div href='#settings-modal' data-toggle='modal' data-target='#settings-modal-4' id="edit-location" class="pull-right edit btn btn-primary">
+              Edit
+            </div>
+          <% else %>
+          <% end %>
+        </div>
+        <div class="portlet-body">
+          <div id="map-info"></div>
+          <div class="row">
+            <div id="co-ordinates" class="col-md-6">
+              <p class="grey"><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="portlet-body">
-        <div id="map-info"></div>
+    </div>
+
+
+
+
+  </div>
+  <div class="col-md-6">
+    <div class="portlet solid bordered grey-cararra margin-bottom-5">
+      <div class="portlet-title">
+        <div class="caption">
+          Evercam Details
+        </div>
+        <% if has_edit_right %>
+          <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal-1">Edit</div>
+        <% else %>
+        <% end %>
+      </div>
+      <div class="portlet-body col-md-8">
+        <table class="table table-fixed table-borderless">
+          <tr>
+            <td>ID:</td>
+            <td>
+                <span id="ec_cam_id">
+                  <%= @camera['id'] %>
+                </span></td>
+          </tr>
+          <tr>
+            <td class="col-lg-4">Name:</td>
+            <td class="col-lg-8">
+              <%= @camera['name'] %>
+            </td>
+          </tr>
+          <tr>
+            <td>Owner:</td>
+            <td>
+              <% if @camera['owner'] == current_user.email %>
+                <small class="blue"> (you)</small>
+              <% end %>
+              <%= @camera['owner'] %></td>
+          </tr>
+          <tr>
+            <td>Date Added:</td>
+            <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
+          </tr>
+        </table>
+      </div>
+    </div>​<!-- end portlet 1 -->
+
+
+    <div class="portlet solid bordered grey-cararra">
+      <div class="portlet-title">
+        <div class="caption">
+          Camera Details
+        </div>
+        <% if has_edit_right %>
+          <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal">Edit</div>
+        <% else %>
+        <% end %>
+      </div>
+
+      <div class="portlet-body col-md-8">
+        <table class="table table-fixed table-borderless">
+          <tr>
+            <td class="col-lg-4">Vendor:</td>
+            <td class="col-lg-8">
+              <% if @camera["vendor_name"] != nil %>
+                <%= @camera["vendor_name"] %>
+              <% else %>
+                <span class="grey">Not provided</span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Model:</td>
+            <td>
+              <% if @camera["model"] != nil %>
+                <%= @camera['model'] %>
+              <% else %>
+                <span class="grey">Not provided</span>
+              <% end %>
+            </td>
+          </tr>
+          <% if has_edit_right %>
+            <tr>
+              <td>Username:</td>
+              <td><%= @camera['cam_username'] %></td>
+            </tr>
+            <tr>
+              <td>Password:</td>
+              <td><%= @camera['cam_password'] %></td>
+            </tr>
+            <tr>
+              <td>Snapshot URL:</td>
+              <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %></td>
+            </tr>
+            <tr>
+              <td>Camera Software:</td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+          <% else %>
+
+          <% end %>
+
+        </table>
+      </div>
+    </div><! -- end portlet 2 -->
+    <% if has_edit_right %>
+    <div class="portlet solid bordered grey-cararra">
+      <div class="portlet-title">
+        <div class="caption">
+          Ports
+        </div>
+          <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal-3">Edit</div>
+      </div>
+      <div class="portlet-body col-md-8">
+        <table class="table table-fixed table-borderless">
+          <tr>
+            <td class="col-md-2">External</td>
+            <td class="col-md-3">
+              IP (or URL):
+            </td>
+            <td class="col-md-7">
+              <%= @camera.deep_fetch(:external, :host) {} %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>HTTP:</td>
+            <td><%= @camera.deep_fetch(:external, :http, :port) {} %></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>RTSP:</td>
+            <td>
+              <%= @camera.deep_fetch(:external, :rtsp, :port) {} %></td>
+          </tr>
+          <tr>
+            <td>Internal</td>
+            <td>
+              IP:
+            </td>
+            <td>
+              <%= @camera.deep_fetch(:internal, :host) {} %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>HTTP:</td>
+            <td><%= @camera.deep_fetch(:internal, :http, :port) {} %></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>RTSP:</td>
+            <td><%= @camera.deep_fetch(:internal, :rtsp, :port) {} %></td>
+          </tr>
+
+        </table>
       </div>​
-      <div class="margin-top-0">
-        <a href='#settings-modal' data-toggle='modal' data-target='#settings-modal-4'>Edit location</a>
+    </div><! -- end portlet 3 -->
+    <% else %>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-12">
+    <div class="portlet solid bordered grey-cararra">
+
+      <div class="portlet-title">
+        <div class="caption">
+          URLs
+        </div>
+      </div>
+
+      <div class="portlet-body">
+
+        <section id="unseen">
+          <p>Proxy URLs</p>
+          <table class="table table-borderless table-fixed">
+
+            <tr>
+              <td class="col-lg-2">
+                JPEG:
+              </td>
+              <td>
+        <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+            <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
+          <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+            <%= "http://evr.cm/#{@camera['id']}.jpg" %>
+
+            </span>
+              </td>
+            </tr>
+
+          </table>
+        </section>
+
+        <section id="unseen">
+          <p>Dynamic DNS </p>
+          <table class="table table-fixed table-borderless">
+            <tr>
+              <td class="col-lg-2">
+                JPEG:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="unseen">
+          <p>Base URLs</p>
+          <table class="table table-fixed table-borderless">
+            <tr>
+              <td class="col-lg-2">
+                Camera:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-2">
+                JPEG:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-2">
+                MJPEG
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-2">
+                MPEG:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-2">
+                Audio:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-2">
+                H264
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+
+          </table>
+        </section>
       </div>
     </div>
   </div>
+
 </div>
 </div>
 
@@ -740,7 +773,9 @@
 
   function initialize() {
     if (cameraLong === '') {
-      $('#map-info').replaceWith("<a href='#settings-modal' data-toggle='modal' data-target='#settings-modal-4'>Set camera location</a>");
+      $('#map-info').replaceWith("<p>Not Set</p><a href='#settings-modal' data-toggle='modal' data-target='#settings-modal-4'>Set camera location</a>");
+      $('#edit-location').replaceWith("");
+      $('#co-ordinates').replaceWith("");
       return;
     }
     var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);

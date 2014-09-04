@@ -4136,7 +4136,7 @@ Custom tabs
 
 }
 .tabbable-custom > .nav-tabs > li > a:hover {
-    background: #fff;
+    background: none;
     border-color: transparent;
     padding:10px 15px;
 }

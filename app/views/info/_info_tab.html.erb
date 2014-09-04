@@ -18,7 +18,7 @@
       <div class="portlet-body">
        <div class="row">
         <div class='col-lg-8'>
-          <table class="table table-borderless">
+          <table class="table table-fixed table-borderless">
             <tr>
               <td class="col-lg-1">
                 <label class="control-label">Evercam ID</label>
@@ -80,7 +80,7 @@
             <div class="portlet-body">
               <div class="row">
               <div class='col-lg-8'>
-              <table class="table table-borderless">
+              <table class="table table-fixed table-borderless">
                 <tr>
                   <td>
                     <label class="control-label" for="camera-vendor">Vendor</label>
@@ -137,7 +137,7 @@
                     <label class="control-label" for="snapshot">Snapshot URL</label>
                   </td>
                   <td>
-                    <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" ="" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
+                    <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
                     value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %>" >
                   </td>
                 </tr>
@@ -409,10 +409,10 @@
           <% end %>
         </div>
         <div class="portlet-body col-md-8">
-          <table class="table table-borderless">
+          <table class="table table-fixed table-borderless">
             <tr>
-              <td>Name:</td>
-              <td>
+              <td class="col-lg-4">Name:</td>
+              <td class="col-lg-8">
                 <%= @camera['name'] %>
               </td>
             </tr>
@@ -452,10 +452,10 @@
         </div>
 
         <div class="portlet-body col-md-8">
-          <table class="table table-borderless">
+          <table class="table table-fixed table-borderless">
             <tr>
-              <td>Vendor:</td>
-              <td>
+              <td class="col-lg-4">Vendor:</td>
+              <td class="col-lg-8">
                 <% if @camera["vendor_name"] != nil %>
                   <%= @camera["vendor_name"] %>
                 <% else %>
@@ -505,7 +505,7 @@
           <% end %>
         </div>
         <div class="portlet-body col-md-8">
-          <table class="table table-borderless">
+          <table class="table table-fixed table-borderless">
             <tr>
               <td>External</td>
               <td>
@@ -564,10 +564,10 @@
             <table class="table table-borderless table-fixed">
 
               <tr>
-                <td style="width:4%">
+                <td class="col-lg-2">
                   JPEG:
                 </td>
-                <td class="col-md-2 ah">
+                <td>
         <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
             <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
           <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
@@ -582,12 +582,12 @@
 
           <section id="unseen">
             <p>Dynamic DNS </p>
-            <table class="table table-borderless">
+            <table class="table table-fixed table-borderless">
               <tr>
-                <td style="width:5%">
+                <td class="col-lg-2">
                   JPEG:
                 </td>
-                <td class="col-md-2">
+                <td>
                   <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
                     <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
                   <% else %>
@@ -601,12 +601,12 @@
 
           <section id="unseen">
             <p>Base URLs</p>
-            <table class="table table-borderless">
+            <table class="table table-fixed table-borderless">
               <tr>
-                <td style="width:6%">
+                <td class="col-lg-2">
                   Camera:
                 </td>
-                <td class="col-md-2">
+                <td>
                   <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
                     <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
                   <% else %>
@@ -615,7 +615,7 @@
                 </td>
               </tr>
               <tr>
-                <td>
+                <td class="col-lg-2">
                   JPEG:
                 </td>
                 <td>
@@ -627,7 +627,7 @@
                 </td>
               </tr>
               <tr>
-                <td>
+                <td class="col-lg-2">
                   MJPEG
                 </td>
                 <td>
@@ -639,7 +639,7 @@
                 </td>
               </tr>
               <tr>
-                <td>
+                <td class="col-lg-2">
                   MPEG:
                 </td>
                 <td>
@@ -651,7 +651,7 @@
                 </td>
               </tr>
               <tr>
-                <td>
+                <td class="col-lg-2">
                   Audio:
                 </td>
                 <td>
@@ -663,7 +663,7 @@
                 </td>
               </tr>
               <tr>
-                <td>
+                <td class="col-lg-2">
                   H264
                 </td>
                 <td>

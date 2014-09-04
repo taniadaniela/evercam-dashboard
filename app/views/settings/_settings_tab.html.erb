@@ -77,15 +77,7 @@
                value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
       </td>
     </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="snapshot">Snapshot URL</label>
-      </td>
-      <td>
-        <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" readonly="readonly" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
-               value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %>" >
-      </td>
-    </tr>
+
     <tr>
       <td>
         <label class="control-label" for="camera-vendor">Camera Vendor</label>

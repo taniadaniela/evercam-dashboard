@@ -138,7 +138,7 @@
                   </td>
                   <td>
                     <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
-                    value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %>" >
+                    value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %>" >
                   </td>
                 </tr>
               </table>
@@ -545,7 +545,7 @@
             </tr>
             <tr>
               <td>Snapshot URL:</td>
-              <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') %></td>
+              <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %></td>
             </tr>
             <tr>
               <td>Camera Software:</td>

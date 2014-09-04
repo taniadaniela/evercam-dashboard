@@ -1948,7 +1948,7 @@ Page content
 .page-content {
     margin-top: 0px;
     padding: 0px;
-    background-color: #fff;
+    background-color: #f9f9f9;
 }
 .page-full-width .page-content {
     margin-left: 0px !important;
@@ -3697,7 +3697,7 @@ div.content-form-page .checkbox-list {
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
     color: #555;
     cursor: default;
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #ddd !important;
     border-bottom-color: transparent !important;
 }
@@ -3710,7 +3710,7 @@ div.content-form-page .checkbox-list {
 .nav>li>a{position:relative;display:block;padding:10px 15px}
 .tab-content {
     background: #FAFAFA;
-    padding: 20px 15px;
+    padding: 20px;
 }
 
 /* content search */

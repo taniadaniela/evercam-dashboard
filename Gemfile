@@ -54,6 +54,8 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 gem 'devise'
 
+gem 'ie_iframe_cookies'
+
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.3.4'

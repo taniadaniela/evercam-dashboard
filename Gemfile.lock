@@ -177,6 +177,7 @@ GEM
     hike (1.2.3)
     hirb (0.7.2)
     i18n (0.6.11)
+    ie_iframe_cookies (0.1.6)
     intercom-rails (0.2.24)
       activesupport (> 3.0)
     jbuilder (1.5.3)
@@ -383,6 +384,7 @@ DEPENDENCIES
   geocoder
   hashie_rails
   heroku_rails_deflate
+  ie_iframe_cookies
   intercom-rails (~> 0.2.24)
   jazz_hands!
   jbuilder (~> 1.2)

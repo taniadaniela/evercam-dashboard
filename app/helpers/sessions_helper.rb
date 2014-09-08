@@ -26,7 +26,7 @@ module SessionsHelper
   end
 
   def allow_iframe
-    response.headers.except! 'X-Frame-Options'
+    headers['X-Frame-Options'] = 'ALLOWALL'
   end
 
 end

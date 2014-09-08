@@ -91,8 +91,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
+    cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -158,12 +161,22 @@ GEM
     ffi (1.9.3)
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
+    formatador (0.2.5)
     geocoder (1.1.9)
     georuby (2.2.1)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
+    guard (2.6.1)
+      formatador (>= 0.2.4)
+      listen (~> 2.7)
+      lumberjack (~> 1.0)
+      pry (>= 0.9.12)
+      thor (>= 0.18.1)
+    guard-rspec (4.3.1)
+      guard (~> 2.1)
+      rspec (>= 2.14, < 4.0)
     haml (4.0.5)
       tilt
     hashie (3.2.0)
@@ -176,6 +189,7 @@ GEM
       rack (>= 1.4.5)
     hike (1.2.3)
     hirb (0.7.2)
+    hitimes (1.2.2)
     i18n (0.6.11)
     ie_iframe_cookies (0.1.6)
     intercom-rails (0.2.24)
@@ -198,6 +212,11 @@ GEM
     kgio (2.9.2)
     launchy (2.4.2)
       addressable (~> 2.3)
+    listen (2.7.9)
+      celluloid (>= 0.15.2)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+    lumberjack (1.0.9)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -205,7 +224,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.0)
-    minitest (5.4.0)
+    minitest (5.4.1)
     multi_json (1.10.1)
     multipart-post (2.0.0)
     nested_form (0.3.2)
@@ -214,6 +233,11 @@ GEM
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
+    poltergeist (1.5.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
     posix-spawn (0.3.9)
     protected_attributes (1.0.8)
@@ -276,29 +300,32 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
     rdoc (4.1.1)
       json (~> 1.4)
     remotipart (1.2.1)
-    rspec-collection_matchers (1.0.0)
-      rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.0.0.beta2)
-      rspec-support (= 3.0.0.beta2)
-    rspec-expectations (3.0.0.beta2)
+    rspec (3.1.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+    rspec-core (3.1.1)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.0.0.beta2)
-    rspec-mocks (3.0.0.beta2)
-      rspec-support (= 3.0.0.beta2)
-    rspec-rails (3.0.0.beta2)
+      rspec-support (~> 3.1.0)
+    rspec-mocks (3.1.0)
+      rspec-support (~> 3.1.0)
+    rspec-rails (3.1.0)
       actionpack (>= 3.0)
-      activemodel (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-collection_matchers
-      rspec-core (= 3.0.0.beta2)
-      rspec-expectations (= 3.0.0.beta2)
-      rspec-mocks (= 3.0.0.beta2)
-      rspec-support (= 3.0.0.beta2)
-    rspec-support (3.0.0.beta2)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.0)
     rubyzip (1.1.6)
     safe_yaml (1.0.3)
     sass (3.2.19)
@@ -335,6 +362,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timers (4.0.0)
+      hitimes
     timezone (0.3.2)
     treetop (1.4.15)
       polyglot
@@ -359,6 +388,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
     websocket (1.0.7)
+    websocket-driver (0.3.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.4)
@@ -370,7 +400,6 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   bcrypt (~> 3.1.2)
-  capybara
   coffee-rails (~> 4.0.0)
   country_select!
   dalli
@@ -382,6 +411,7 @@ DEPENDENCIES
   evercam_models (~> 0.3.4)
   factory_girl
   geocoder
+  guard-rspec (~> 4.3.1)
   hashie_rails
   heroku_rails_deflate
   ie_iframe_cookies
@@ -394,6 +424,7 @@ DEPENDENCIES
   memcachier
   newrelic_rpm
   pg
+  poltergeist
   protected_attributes
   pry-byebug
   quiet_assets
@@ -403,7 +434,8 @@ DEPENDENCIES
   rails-footnotes (>= 4.0.0, < 5)
   rails_12factor
   rails_admin!
-  rspec-rails (= 3.0.0.beta2)
+  rspec (~> 3.1.0)
+  rspec-rails (~> 3.1.0)
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver

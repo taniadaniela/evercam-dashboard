@@ -68,15 +68,17 @@ group :development do
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
+  gem 'rspec', '~> 3.1.0'
+  gem 'guard-rspec', '~> 4.3.1'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
-  gem 'rspec-rails', '= 3.0.0.beta2'
   gem 'vcr'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'webmock', '~> 1.17'
-  gem 'capybara'
+  gem 'poltergeist'
   gem 'simplecov'
   gem 'rack_session_access'
   gem 'selenium-webdriver'

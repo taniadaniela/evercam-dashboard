@@ -10,7 +10,7 @@ General reset
 /* Set default body */
 body {
     color: black;
-    font-family: "Open Sans", sans-serif;
+    font-family: "proxima-nova-regular", "Open Sans", Arial, Helvetica, sans-serif;
     padding: 0px !important;
     margin: 0px !important;
     font-size: 14px;

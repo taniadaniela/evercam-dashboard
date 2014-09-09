@@ -20,6 +20,9 @@ EvercamDashboard::Application.routes.draw do
   post 'cameras/:id' => 'cameras#update'
   delete 'cameras/:id' => 'cameras#delete'
 
+  post 'webhooks' => 'webhooks#create'
+  delete 'webhooks/:id' => 'webhooks#delete'
+
   get 'publiccam' => 'public#index'
   get 'publiccam/map' => 'public#map'
   get 'publiccam/:id' => 'public#single'
@@ -28,6 +31,7 @@ EvercamDashboard::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
+  get '/sessions', to: redirect('/')
   match '/signup',  to: 'users#new',            via: 'get'
   post '/signup',  to: 'users#create'
   get '/reset',  to: 'users#password_reset_request'

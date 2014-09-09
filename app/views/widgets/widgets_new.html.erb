@@ -1,5 +1,5 @@
 <title>Evercam - Live View Widget</title>
-<div class="page-container">
+<div id="live-widget" class="page-container">
   <!-- BEGIN SIDEBAR -->
   <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
@@ -12,7 +12,7 @@
           </div>
           <!-- END SIDEBAR TOGGLER BUTTON -->
         </li>
-        <li class="start ">
+        <li class="start">
           <a href="/">
             <i class="icon-camera"></i>
             <span class="title">My Cameras</span>
@@ -67,16 +67,6 @@
           <div class="caption">
             <i class="icon-play"></i>Create a Live View Widget
           </div>
-          <div class="tools">
-            <a href="javascript:;" class="collapse">
-            </a>
-            <a href="#portlet-config" data-toggle="modal" class="config">
-            </a>
-            <a href="javascript:;" class="reload">
-            </a>
-            <a href="javascript:;" class="remove">
-            </a>
-          </div>
         </div>
 
         <div class="portlet-body">
@@ -94,7 +84,7 @@
 
                 <div class="widget-input form-group">
                   <div class="my-row">
-                    <label class="col-md-5 control-label" for="widget-camera">Select your Camera</label>
+                    <label class="col-md-5 control-label" for="widget-camera">Select Camera</label>
                   </div>
                   <div class="input-group col-md-7">
                     <select id="widget-camera" name="widget-camera" class="form-control is-required">
@@ -105,7 +95,6 @@
                       <% end %>
                     </select>
                   </div>
-
                 </div>
 
                 <div class="form-group widget-input">
@@ -113,7 +102,7 @@
                     <label class="col-md-5 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
                   </div>
                   <div class="input-group col-md-7">
-                    <input type="number" value="1" class="form-control input-inline" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100],float" data-validation-error-msg="Image Refresh Rate must be between 0.05 and 100 seconds">
+                    <input type="text" pattern="\d*" value="1" class="form-control input-inline" min="0.05" maxlength="3" max="100" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100],float" data-validation-error-msg="Refresh Rate must be between 0.05 and 100 seconds">
                     <span class="input-group-addon">seconds</span>
                   </div>
                 </div>
@@ -123,8 +112,20 @@
                     <label class="col-md-5 control-label" for="widget-camera-width">Width of Image to Display</label>
                   </div>
                   <div class="input-group col-md-7">
-                    <input type="number" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Image Width must be between 20 and 1600 pixels">
+                    <input type="text" pattern="\d*" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" min="200" max="1600" maxlength="4" data-validation="number" data-validation-allowing="range[200;1600],float" data-validation-error-msg="Image Width must be between 200 and 1600 pixels">
                     <span class="input-group-addon">px</span>
+                  </div>
+                </div>
+
+                <div class="form-group widget-input margin-top-20">
+                  <div class="my-row">
+                    <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate<span style="visibility: hidden;" class="true switch grey">*</span></label>
+                  </div>
+                  <div class="input-group col-md-7">
+                    <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required" onchange="admSelectCheck(this);">
+                      <option class="caret" value="false">No</option>
+                      <option class="caret" value="true">Yes</option>
+                    </select>
                   </div>
                 </div>
               </form>
@@ -135,6 +136,9 @@
                   </textarea>
 
                 </div>
+              </div>
+              <div class="true switch help-block margin-top-20" style="visibility: hidden;">
+                * Warning. Choosing 'Yes' will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
               </div>
             </div>
 
@@ -149,6 +153,7 @@
         </div>
       </div>
       </div>
+
       <!--main content end-->
     </div>
   </div>
@@ -184,10 +189,24 @@
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         QuickSidebar.init() // init quick sidebar
+        window.api_credentials = { api_id: '<%= current_user.api_id %>', api_key: '<%= current_user.api_key %>' }
       });
 
       $.validate();
     });
+
+    function admSelectCheck(nameSelect){
+      if(nameSelect.value){
+        var preElements = document.getElementsByClassName('switch');
+        for(var i=0; i < preElements.length; i++){
+          //if the class contains the selected value, then show it, else hide it
+          preElements[i].style.visibility = preElements[i].classList.contains(nameSelect.value)?'visible':'hidden';
+        }
+      }
+    }
+    window.onload = function (){
+      document.getElementById('widget-authenticate').onchange();
+    }
   </script>
 
 <%= javascript_include_tag "widgets" %>

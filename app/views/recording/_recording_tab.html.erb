@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title></title>
+<p class="note note-info">While this product is in beta, to enable 24/7 or scheduled recording for your camera, please contact us on support@evercam.io.</p>
 
-</head>
-<body>
 <div evercam="playback"></div>
 
 <script type="text/javascript">
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  if ($(e.target).attr('href') == '#recording') {
   Playback.options.cameraId = '<%= @camera['id'] %>';
   //Playback.options.token = '407e61785700c1db6055f3960f1f80c0';
   //Playback.options.api_id = 'ac45487a';
   //Playback.options.api_key = 'ef811c60ebba8b62ce11fec9c50bc51b';
   Playback.Load();
+    }
+  })
 </script>
-</body>
-</html>

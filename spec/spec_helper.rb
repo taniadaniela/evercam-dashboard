@@ -18,13 +18,14 @@ require 'rack_session_access/capybara'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 require 'database_cleaner'
-require 'capybara/rails'
+require 'capybara/poltergeist'
 require 'simplecov'
 
 SimpleCov.start 'rails'
 
 #Capybara.server_port = 3001
 #Capybara.app_host = "http://local.evercam.io:3001"
+Capybara.javascript_driver = :poltergeist
 
 #ActionController::Base.asset_host = Capybara.app_host
 
@@ -54,6 +55,9 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   #config.order = "random"
+
+  config.infer_spec_type_from_file_location!
+
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
 

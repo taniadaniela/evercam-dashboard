@@ -112,13 +112,22 @@
               </tr>
               <tr>
                 <td>Vendor:</td>
-                <td><%= @camera["vendor_name"] %></td>
+                <td>
+                  <% if @camera["vendor_name"] != nil %>
+                  <%= @camera["vendor_name"] %>
+                  <% else %>
+                    <span class="grey">Unknown</span>
+                  <% end %>
+                </td>
               </tr>
-
               <tr>
                 <td>Model:</td>
-                <td><%= @camera['model_name'] %>
-
+                <td>
+                  <% if @camera["model_name"] != nil %>
+                  <%= @camera['model'] %>
+                  <% else %>
+                    <span class="grey">Unknown</span>
+                  <% end %>
                 </td>
               </tr>
               <tr>

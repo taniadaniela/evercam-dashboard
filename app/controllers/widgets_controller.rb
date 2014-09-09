@@ -1,8 +1,9 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :allow_iframe, only: :live_view_private_widget
+  before_filter :normal_cookies_for_ie_in_iframes!, only: :live_view_private_widget
   skip_before_action :verify_authenticity_token, only: [:live_view_widget, :live_view_private_widget]
   skip_before_action :authenticate_user!, only: [:live_view_widget, :live_view_private_widget]
-  after_action :allow_iframe, only: :live_view_private_widget
   skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :live_view_private_widget]
 
   include SessionsHelper
@@ -26,7 +27,12 @@ class WidgetsController < ApplicationController
   end
 
   def live_view_private_widget
-    if current_user.nil?
+    widget_user = nil
+    unless params[:api_id].blank? or params[:api_key].blank?
+      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+      sign_in(widget_user) if widget_user
+    end
+    if current_user.nil? and widget_user.nil?
       session[:redirect_url] = request.original_url
       redirect_to '/widget_signin'
       return

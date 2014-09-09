@@ -36,6 +36,7 @@ gem 'rack-rewrite'
 gem 'sequel', '= 4.10.0'
 gem 'typhoeus'
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 gem 'data_uri'
 gem 'geocoder'
 gem 'newrelic_rpm'
@@ -54,11 +55,13 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 gem 'devise'
 
+gem 'ie_iframe_cookies'
+
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.0'
+  gem 'evercam_models', '~> 0.3.4'
 end
-gem 'evercam', '~> 0.2.0'
+gem 'evercam', '~> 0.2.4'
 
 group :development do
   gem 'quiet_assets'
@@ -66,15 +69,17 @@ group :development do
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
+  gem 'rspec', '~> 3.1.0'
+  gem 'guard-rspec', '~> 4.3.1'
 end
 
 group :test do
-  gem 'database_cleaner', git: 'git@github.com:bmabey/database_cleaner.git'
+  gem 'database_cleaner'
   gem 'factory_girl'
-  gem 'rspec-rails', '= 3.0.0.beta2'
   gem 'vcr'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'webmock', '~> 1.17'
-  gem 'capybara'
+  gem 'poltergeist'
   gem 'simplecov'
   gem 'rack_session_access'
   gem 'selenium-webdriver'

@@ -624,7 +624,7 @@ max-width:100%}
 }
 #map-info {
     width: 100%;
-    height: 215px;
+    height: 280px;
 }
 .dark-grey {
     color:#777777;
@@ -648,10 +648,14 @@ max-width:100%}
 #location p {
     margin-bottom: 0px;
 }
+.marker-info {
+    position: absolute;
+    margin-top: -49px;
+}
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;
-    margin-top: -40px;
+    margin-top: -49px;
 }
 #unseen p {
     color: #aaaaaa;

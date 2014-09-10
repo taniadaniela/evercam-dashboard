@@ -91,8 +91,8 @@ class CamerasController < ApplicationController
                   :jpg_url => params['snapshot'],
                   :vendor => params['camera-vendor'],
                   :model => params['camera-vendor'].blank? ? '' : params["camera-model#{params['camera-vendor']}"],
-                  :location_lat => params['location-lat'],
-                  :location_lng => params['location-lng'],
+                  :location_lat => params['cameraLat'],
+                  :location_lng => params['cameraLng'],
                   :cam_username => params['camera-username'],
                   :cam_password => params['camera-password']}
 

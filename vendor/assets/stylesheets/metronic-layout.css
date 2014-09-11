@@ -373,7 +373,7 @@ Page Header
     margin: 0px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-    padding: 13px 0px 13px 14px;
+    padding: 13px 0px 12px 14px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > .username {
     display: inline-block;
@@ -389,7 +389,7 @@ Page Header
     margin-top: 5px;
     margin: 0;
     font-size: 13px;
- =
+=
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a {
     font-size: 14px;
@@ -1054,7 +1054,7 @@ Page sidebar
     width: 30px;
     height: 27px;
     float: right;
-    background: #2B2B2B;
+
 
 
 
@@ -2215,7 +2215,7 @@ Theme Panel
     background: #d5dade url(../img/icon-color.png) center no-repeat;
 }
 .theme-panel > .toggler:hover {
-    background-color: #3d3d3d !important;
+    background-color: #414042 !important;
 }
 .theme-panel > .toggler-close {
     display: none;
@@ -2224,7 +2224,7 @@ Theme Panel
     padding: 20px;
     cursor: pointer;
     position: absolute;
-    background: #3d3d3d url(../img/icon-color-close.png) center no-repeat !important;
+    background: #414042 url(../img/icon-color-close.png) center no-repeat !important;
 }
 .theme-panel > .toggler-close:hover {
     background-color: #222 !important;
@@ -2234,7 +2234,7 @@ Theme Panel
     right: 40px;
     display: none;
     position: absolute;
-    background: #3d3d3d;
+    background: #414042;
 }
 .theme-panel > .theme-options > .theme-option {
     color: #cfcfcf;
@@ -3698,8 +3698,8 @@ div.content-form-page .checkbox-list {
     color: #555;
     cursor: default;
     background-color: #ffffff;
-    border: 1px solid #ddd !important;
-    border-bottom-color: transparent !important;
+    border: 1px solid #ddd ;
+    border-bottom-color: transparent;
 }
 .nav-tabs>li {
     margin-bottom: -2px ;
@@ -3762,7 +3762,7 @@ Pre-Footer and pre-footer elements
 Boby
 ****/
 body {
-    background-color: #3d3d3d;
+    background-color: #414041;
 }
 
 /***********
@@ -3770,13 +3770,13 @@ Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
-    background-color: #1f1f1f;
+    background-color: #000000;
     /* Top notification menu/bar */
     /* Header seaech box */
     /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
-    background-color: #303030;
+    background-color: #000000;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
     color: #999999;
@@ -3789,7 +3789,7 @@ Page Header
     background-color: #333333;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-    background-color: #1f1f1f;
+    background-color: #000000;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle .username {
     color: #999999;
@@ -3940,7 +3940,7 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-    background-color: #3d3d3d;
+    background-color: #414042;
     /* Sidebar search */
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu,
@@ -4055,7 +4055,7 @@ Page Header
 }
 .page-sidebar-closed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu:hover .sub-menu, .page-sidebar-closed
 .page-sidebar .page-sidebar-menu:hover .sub-menu {
-    background-color: #3d3d3d;
+    background-color: #414042;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li > a {
@@ -4108,7 +4108,7 @@ Page Header
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .form-control,
 .page-sidebar .sidebar-search .input-group .form-control {
-    background-color: #3d3d3d;
+    background-color: #414042;
     color: #616161;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .form-control::-moz-placeholder,
@@ -4134,7 +4134,7 @@ Page Header
 }
 .page-sidebar-closed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.open .input-group, .page-sidebar-closed
 .page-sidebar .sidebar-search.open .input-group {
-    background-color: #3d3d3d;
+    background-color: #414042;
 }
 .page-sidebar-closed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.open .remove > i, .page-sidebar-closed
 .page-sidebar .sidebar-search.open .remove > i {
@@ -4155,12 +4155,12 @@ Page Header
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-solid.open .input-group,
 .page-sidebar .sidebar-search.sidebar-search-solid.open .input-group {
-    border: 1px solid #3d3d3d;
-    background: #3d3d3d;
+    border: 1px solid #414042;
+    background: #414042;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-solid.open .input-group .form-control,
 .page-sidebar .sidebar-search.sidebar-search-solid.open .input-group .form-control {
-    background: #3d3d3d;
+    background: #414042;
 }
 
 /*************
@@ -4343,7 +4343,7 @@ Page Footer
         /* Page footer */
     }
     .page-boxed .page-container {
-        background-color: #3d3d3d;
+        background-color: #414042;
         border-left: 1px solid #4d4d4d;
         border-bottom: 1px solid #4d4d4d;
     }
@@ -4381,7 +4381,7 @@ Page Footer
         background-color: #2b2b2b;
     }
     .page-sidebar .page-sidebar-menu > li > a {
-        border-top: 1px solid #3d3d3d;
+        border-top: 1px solid #414042;
     }
     .page-sidebar .page-sidebar-menu > li:hover > a, .page-sidebar .page-sidebar-menu > li.open > a {
         background: #242424;

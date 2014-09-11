@@ -338,93 +338,6 @@
 
   <div class="col-md-6">
 
-    <div class="portlet solid bordered grey-cararra">
-      <div class="portlet-title">
-        <div class="caption">
-          Live View
-        </div>
-        <div id="status" class="pull-right">
-          <% if @camera['is_online'] %>
-            <h5 class="green pull-right"><i class="fa fa-check"></i>Online</h5>
-          <% else %>
-            <h5 class="red pull-right">Offline</h5>
-          <% end %>
-        </div>
-      </div>
-      <div class="portlet-body">
-        <div class="info-preview">
-          <div class="camera-preview">
-        <!--     <div>
-              <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-            </div>-->
-            <% if @camera['is_online'] %>
-              <%= preview(@camera, true) %>
-            <% else %>
-              <div class="tint"><%= preview(@camera, true ) %></div>
-            <% end %>
-          </div>
-        </div>​
-      </div>
-    </div>
-
-    <div class="info-location">
-      <div class="portlet solid bordered grey-cararra">
-        <div class="portlet-title">
-          <div class="caption">
-            Location
-          </div>
-          <% if has_edit_right %>
-            <div class="pull-right edit btn btn-primary edit-location" id='edit-location'>Edit</div>
-          <% else %>
-          <% end %>
-        </div>
-        <div class="portlet-body">
-          <div id="map-info"></div>
-
-          <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
-
-          <p id="co-ordinates" class="grey margin-top-5"><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
-
-            <div id="location-settings" class="row" style="display: none;">
-              <div class="col-md-8">
-                <p><strong>New location</strong></p>
-                <table class="table table-fixed table-borderless">
-                  <tr>
-                    <td class="col-md-4">
-                      <label class="control-label" for="location-lat">Latitude</label>
-                    </td>
-                    <td>
-                      <input id="cameraLat" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label class="control-label" for="location-lng">Longitude</label>
-                    </td>
-                    <td>
-                      <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lng) {} %>">
-                    </td>
-                  </tr>
-                </table>
-              </div>
-                <div class="save-settings">
-                  <div class='col-lg-12'>
-                    <div class='pull-left form-group'>
-                      <label class="control-label" for="add-button"></label>
-                      <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-  </div>
-  <div class="col-md-6">
     <div class="portlet solid bordered grey-cararra margin-bottom-5">
       <div class="portlet-title">
         <div class="caption">
@@ -466,6 +379,41 @@
         </table>
       </div>
     </div>​<!-- end portlet 1 -->
+
+    <div class="portlet solid bordered grey-cararra">
+      <div class="portlet-title">
+        <div class="caption">
+          Live View
+        </div>
+        <div id="status" class="pull-right">
+          <% if @camera['is_online'] %>
+            <h5 class="green pull-right"><i class="fa fa-check"></i>Online</h5>
+          <% else %>
+            <h5 class="red pull-right">Offline</h5>
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="info-preview">
+          <div class="camera-preview">
+        <!--     <div>
+              <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
+            </div>-->
+            <% if @camera['is_online'] %>
+              <%= preview(@camera, true) %>
+            <% else %>
+              <div class="tint"><%= preview(@camera, true ) %></div>
+            <% end %>
+          </div>
+        </div>​
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="col-md-6">
+
 
 
     <div class="portlet solid bordered grey-cararra">
@@ -586,7 +534,64 @@
     </div><! -- end portlet 3 -->
     <% else %>
     <% end %>
+    <div class="info-location">
+      <div class="portlet solid bordered grey-cararra">
+        <div class="portlet-title">
+          <div class="caption">
+            Location
+          </div>
+          <% if has_edit_right %>
+            <div class="pull-right edit btn btn-primary edit-location" id='edit-location'>Edit</div>
+          <% else %>
+          <% end %>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div id="map-info"></div>
+            </div>
 
+
+            <div class="col-md-6">
+
+              <p id="co-ordinates"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+              <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
+              <div id="location-settings" class="row" style="display: none;">
+                <div class="col-md-12">
+                  <p><strong>New location</strong></p>
+                  <table class="table table-fixed table-borderless">
+                    <tr>
+                      <td class="col-md-4">
+                        <label class="control-label" for="location-lat">Latitude</label>
+                      </td>
+                      <td>
+                        <input id="cameraLat" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="control-label" for="location-lng">Longitude</label>
+                      </td>
+                      <td>
+                        <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lng) {} %>">
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="save-settings">
+                  <div class='col-lg-12'>
+                    <div class='pull-left form-group'>
+                      <label class="control-label" for="add-button"></label>
+                      <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="col-md-12">
@@ -741,14 +746,27 @@
 
   function initialize() {
     if (cameraLong === '') {
-      $('#co-ordinates').replaceWith("<p>Location not set. Drag the marker to set the location</p>");
+      $('#co-ordinates').replaceWith("<p>The location is not set. <br />Right click on the map to place a marker.</p>");
     }
     var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
-    var mapOptions = {
-      zoom: 8,
-      center: cameraLatlng
+
+    if (cameraLong === '') {
+
+      var mapOptions = {
+        zoom: 2,
+        center: cameraLatlng
+      }
+
+    } else {
+
+      var mapOptions = {
+        zoom: 12,
+        center: cameraLatlng
+      }
 
     }
+
+
     var map = new google.maps.Map(document.getElementById('map-info'), mapOptions);
 
     var marker = new google.maps.Marker({

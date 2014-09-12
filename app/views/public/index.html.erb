@@ -95,7 +95,7 @@
 
             <div class="tab-pane <%= 'active' if cookies['public-style'] == 'list' %>" id="list">
               <div class="col-md-12 margin-top-20">
-
+                <p id="city"></p>
                 <table id="public-list" class="table table-fixed flip-content" style="border-collapse:collapse;">
                   <thead>
                   <tr>
@@ -122,8 +122,8 @@
                         <% end %>
                       </td>
                       <td><%= c['owner'] %></td>
-                      <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></div></td>
-                      <td class="show-arrow text-success"><a href="/publiccam/<%= c['id'] %>">View <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                      <td><div id="camera-location"><p id="<%= c['id'] %>"></p></div></td>
+                      <td class="show-arrow text-success"><a href="/publiccam/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
                       <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
 
@@ -153,7 +153,10 @@
 
 
 </div>
-
+<% @cameras.each do |c| %>
+lat = '<%= c.deep_fetch(:location, :lat) {} %>';
+lng = '<%= c.deep_fetch(:location, :lng) {} %>';
+<% end %>
 <%= javascript_include_tag "publiccam" %>
 
 <script>
@@ -202,8 +205,6 @@
       title: 'Click Me '
     });
 
-
-
     var infowindow = new google.maps.InfoWindow();
     // process multiple info windows
     (function (marker) {
@@ -220,12 +221,14 @@
   })();
   $(document).ready( function () {
     $('#public-list').DataTable( {
-          "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+          "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
           "aoColumnDefs": [
         { 'bSortable': false, 'aTargets': [ 1, 4, 5, 6 ] }
       ]
       } );
   } );
+
+
 
 </script>
 

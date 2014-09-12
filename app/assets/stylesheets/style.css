@@ -441,6 +441,9 @@ table.dataTable {
 table.dataTable thead > tr > th {
     padding-left: 7px !important;
 }
+div.dataTables_filter input {
+    margin-left: 6px;
+}
 /*MAP PUBLIC*/
 
 #map-public {

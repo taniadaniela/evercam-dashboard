@@ -109,7 +109,11 @@
 /*/////////////////////
 //ADD IP CAMERA PAGE
 /////////////////////*/
-
+#add-ip .form-actions {
+    margin-top: 20px;
+    border-top: 1px solid #f5f5f5;
+    padding-bottom: 5px;
+}
 #add-ip .tab-content {
     padding: 20px 0px 0px 0px;
 }

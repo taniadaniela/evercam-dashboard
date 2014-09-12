@@ -75,12 +75,17 @@
           </div>
           <div class="tools">
             <div class="caption">
-            <a href="#" class="create-share-button btn evercam-btn pull-right" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>"><span class="glyphicon glyphicon-plus"></span>Add to Cameras Shared With Me</a>
+            <a href="#" class="create-share-button btn evercam-btn pull-right" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras Shared With Me <i class="icon-plus"></i></a>
             </div>
           </div>
         </div>
 
         <div id="public-info" class="portlet-body">
+          <div class="row">
+            <div class="col-md-12 margin-bottom-20">
+              <div class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span><%= link_to 'Back', '/publiccam' %></div>
+            </div>
+          </div>
           <div class="row">
           <div class="col-lg-8 camera-image">
             <% if @camera['is_online'] %>
@@ -144,12 +149,6 @@
           </div>
         </div>
 
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <span class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span><%= link_to 'Back to public map', '/publiccam' %></span
       </div>
     </div>
 

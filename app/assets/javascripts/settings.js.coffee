@@ -11,6 +11,5 @@ if !window.Evercam
 window.Evercam.Settings =
    initializeTab: initializeSettingsTab
 
-jQuery ->
-  $('div').tooltip();
+
 

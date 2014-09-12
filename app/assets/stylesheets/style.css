@@ -305,7 +305,7 @@ input:-webkit-autofill {
 }
 
 #ext-ip .form-error {
-     /*temp-fix*/
+    /*temp-fix*/
 }
 #ext-ip .help-block {
     position: absolute;
@@ -331,7 +331,10 @@ input:-webkit-autofill {
 /*///////////////////////////
 // PUBLIC CAMS
 ///////////////////////////*/
-
+#public-index .tab-content {
+    padding-top: 0px;
+    margin-top: 0px;
+}
 .public-cam-box {
     height: 350px;
     line-height: 250px;
@@ -412,7 +415,12 @@ input:-webkit-autofill {
     width: 500px;
     height: 500px;
 }
+.hiddenRow {
+    padding: 0 !important;
+}
+
 /*MAP PUBLIC*/
+
 #map-public {
     width: 100%;
     height: 166px;
@@ -422,6 +430,21 @@ input:-webkit-autofill {
     margin-top: 12px;
     margin-bottom: 5px;
     font-weight:600;
+}
+#public-index a {
+    cursor: pointer;
+    text-decoration: none;
+}
+#public-index tr {
+    border-bottom: none;
+}
+#public-index tr td {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #public-index .page-content-wrapper .page-content {
@@ -494,7 +517,7 @@ Google Maps
 
 #live img {
     width: auto;
-max-width:100%}
+    max-width:100%}
 
 #live .panel-body {
     padding: 0px;
@@ -648,10 +671,7 @@ max-width:100%}
 #location p {
     margin-bottom: 0px;
 }
-.marker-info {
-    position: absolute;
-    margin-top: -49px;
-}
+
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;
@@ -771,7 +791,7 @@ td .share-camera {
 }
 /*APPS*/
 #apps li{
-list-style: none;
+    list-style: none;
 }
 #apps a {
     text-decoration: none;
@@ -818,6 +838,17 @@ list-style: none;
     transition: all 0.3s ease 0.1s, background 0.3s ease 0.1s;
 }
 .apps:hover #hover-arrow {
+    color: #aaa;
+}
+
+#hover-arrow {
+    color:#fff;
+    transition: all 0.3s ease 0.1s, background 0.3s ease 0.1s;
+}
+.apps:hover #hover-arrow {
+    color: #aaa;
+}
+.show-arrow:hover #hover-arrow {
     color: #aaa;
 }
 

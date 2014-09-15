@@ -103,7 +103,7 @@
                     <th class="col-md-1">Snapshot</th>
                     <th class="col-md-1">Status</th>
                     <th class="col-md-2">Camera Owner</th>
-                    <th class="col-md-3">Co-Ordinates</th>
+                    <th class="col-md-3">Location</th>
                     <th class="col-md-1">Camera Page</th>
                     <th class="col-md-2">Add to my Cameras</th>
                   </tr>
@@ -122,7 +122,7 @@
                         <% end %>
                       </td>
                       <td><%= c['owner'] %></td>
-                      <td><div id="camera-location"><p id="<%= c['id'] %>"></p></div></td>
+                      <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></p></div></td>
                       <td class="show-arrow text-success"><a href="/publiccam/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
                       <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
@@ -153,10 +153,7 @@
 
 
 </div>
-<% @cameras.each do |c| %>
-lat = '<%= c.deep_fetch(:location, :lat) {} %>';
-lng = '<%= c.deep_fetch(:location, :lng) {} %>';
-<% end %>
+
 <%= javascript_include_tag "publiccam" %>
 
 <script>

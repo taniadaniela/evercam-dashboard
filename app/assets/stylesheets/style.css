@@ -104,6 +104,7 @@
 .logo-default img {
     max-width: 151px;
     margin-top: 9px;
+    float: left;
 }
 
 /*/////////////////////
@@ -1305,6 +1306,23 @@ input:-webkit-autofill:focus {
     top: 46px;
     bottom: 10px;
     z-index: 10000;
+}
+.sidebar-toggler-wrapper {
+    width: 24px;
+    overflow: auto;
+    height: 24px;
+    margin-top: 10px;
+    float: right;
+}
+@media (max-width: 890px) {
+    .sidebar-toggler-wrapper {
+        display: none;
+    }
+}
+.sidebar-toggler {
+    padding: 10px 0px 14px 3px;
+    z-index: 10000;
+    cursor: pointer;
 }
 #main-content {
     position: relative !important;

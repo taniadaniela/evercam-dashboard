@@ -57,6 +57,7 @@
   <!-- END SIDEBAR -->
   <div class="page-content-wrapper">
     <div class="page-content">
+
       <div class="row">
         <div class="camera-title">
           <div class="col-xs-6 col-md-6">
@@ -71,134 +72,140 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-12 margin-bottom-20">
-          <div class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span><%= link_to 'Public Cameras', '/publiccam' %></div>
+          <div class=""><span class="glyphicon glyphicon-arrow-left"></span><%= link_to 'Public Cameras', '/publiccam' %></div>
+          <a href="#" class="create-share-button btn evercam-btn pull-right" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras Shared With Me <i class="icon-plus"></i></a>
         </div>
       </div>
-    <div id="public-cam-single" class="">
-      <div class="portlet">
-        <div class="tabbable tabbable-custom">
-        <div class="tab-content">
-      <div class="row">
 
-        <div class="col-md-6">
-          <div id="public-info" class="portlet-body">
-            <div class="portlet solid bordered grey-cararra">
-              <div class="portlet-title">
-                <div class="caption">
-                  Live View
-                </div>
-              </div>
-              <div class="portlet-body">
-                <div class="info-preview">
-                  <div class="camera-preview">
-                    <!--     <div>
-                          <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-                        </div>-->
-                    <% if @camera['is_online'] %>
-                      <%= preview(@camera, true) %>
-                    <% else %>
-                      <div class="tint"><%= preview(@camera, true ) %></div>
-                      <img src="<%= @camera['jpg'] %>" width="100%">
-                      <div class="offline-public">
-                        <div class="offline-text">
-                          <p>This camera appears to be offline.</p>
-                          <p>We are currently unable to fetch a snapshot.</p>
+      <div id="public-cam-single">
+        <div class="portlet">
+
+        <div class="tabbable tabbable-custom">
+          <div class="tab-content">
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div id="public-info" class="portlet-body">
+                    <div class="portlet solid bordered grey-cararra">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          Live View
                         </div>
                       </div>
-                    <% end %>
+                      <div class="portlet-body">
+                        <div class="info-preview">
+                          <div class="camera-preview">
+                            <!--     <div>
+                                  <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
+                                </div>-->
+                            <% if @camera['is_online'] %>
+                              <%= preview(@camera, true) %>
+                            <% else %>
+                              <div class="tint"><%= preview(@camera, true ) %></div>
+                              <img src="<%= @camera['jpg'] %>" width="100%">
+                              <div class="offline-public">
+                                <div class="offline-text">
+                                  <p>This camera appears to be offline.</p>
+                                  <p>We are currently unable to fetch a snapshot.</p>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>​
+                      </div>
+                    </div>
                   </div>
-                </div>​
-              </div>
-            </div>
-          </div>
-        </div>
+                </div>
 
-        <div class="col-md-6">
-          <div id="public-info" class="portlet-body">
-            <div class="portlet solid bordered grey-cararra">
-              <div class="portlet-title">
-                <div class="caption">
-                  Camera Details
-                </div>
-              </div>
-              <div class="portlet-body">
-                <table class="table table-fixed table-borderless">
-                  <tr>
-                    <td class="col-md-2">Status:</td>
-                    <td class="col-md-8">
-                      <% if @camera['is_online'] %>
-                        <span class="green">Online</span>
-                      <% else %>
-                        <span class="red">Offline</span>
-                      <% end %>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Owner:</td>
-                    <td><%= @camera['owner'] %></td>
-                  </tr>
-                  <tr>
-                    <td>Vendor:</td>
-                    <td>
-                      <% if @camera["vendor_name"] != nil %>
-                        <%= @camera["vendor_name"] %>
-                      <% else %>
-                        <span class="grey">Unknown</span>
-                      <% end %>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Model:</td>
-                    <td>
-                      <% if @camera["vendor_name"] != nil %>
-                        <%= @camera['model'] %>
-                      <% else %>
-                        <span class="grey">Unknown</span>
-                      <% end %>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Date Added:</td>
-                    <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div id="public-info" class="portlet-body">
-            <div class="portlet solid bordered grey-cararra">
-              <div class="portlet-title">
-                <div class="caption">
-                  Location
-                </div>
-              </div>
-              <div class="portlet-body">
-                <div class="info-preview">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div id="map-public"></div>
-                    </div>
-                    <div class="col-md-6">
-                      <p"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+                <div class="col-md-6">
+                  <div id="public-info" class="portlet-body">
+                    <div class="portlet solid bordered grey-cararra">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          Camera Details
+                        </div>
+                      </div>
+                      <div class="portlet-body">
+                        <table class="table table-fixed table-borderless">
+                          <tr>
+                            <td class="col-md-2">Status:</td>
+                            <td class="col-md-8">
+                              <% if @camera['is_online'] %>
+                                <span class="green">Online</span>
+                              <% else %>
+                                <span class="red">Offline</span>
+                              <% end %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Owner:</td>
+                            <td><%= @camera['owner'] %></td>
+                          </tr>
+                          <tr>
+                            <td>Vendor:</td>
+                            <td>
+                              <% if @camera["vendor_name"] != nil %>
+                                <%= @camera["vendor_name"] %>
+                              <% else %>
+                                <span class="grey">Unknown</span>
+                              <% end %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Model:</td>
+                            <td>
+                              <% if @camera["vendor_name"] != nil %>
+                                <%= @camera['model'] %>
+                              <% else %>
+                                <span class="grey">Unknown</span>
+                              <% end %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Date Added:</td>
+                            <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
+                          </tr>
+                        </table>
+                      </div>
                     </div>
                   </div>
-                </div>​
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div><!--end row-->
-        </div><!--end tabbable custom-->
-      </div>
+                </div><!-- end col-md-6-->
+
+                  <div class="col-md-6">
+                    <div id="public-info" class="portlet-body">
+                      <div class="portlet solid bordered grey-cararra">
+                        <div class="portlet-title">
+                          <div class="caption">
+                            Location
+                          </div>
+                        </div>
+                        <div class="portlet-body">
+                          <div class="info-preview">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div id="map-public"></div>
+                              </div>
+                              <div class="col-md-6">
+                                <p"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+                              </div>
+                            </div>
+                          </div>​
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              </div><!--row -->
+            </div><!--tab ccontent-->
+          </div><!--end tabbable custom-->
+        </div><!--portlet-->
+      </div><!--public-cam-single-->
+
     </div>
-
   </div>
-</div>
 
 
   <%= javascript_tag do %>

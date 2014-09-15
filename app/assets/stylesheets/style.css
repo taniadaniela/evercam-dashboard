@@ -336,6 +336,7 @@ input:-webkit-autofill {
 /*///////////////////////////
 // PUBLIC CAMS
 ///////////////////////////*/
+
 #public-index .tab-content {
     padding-top: 0px;
     margin-top: 0px;
@@ -413,7 +414,7 @@ input:-webkit-autofill {
 /*MAP */
 #map-canvas {
     width: 100%;
-    height: 735px;
+    height: 855px;
 }
 
 #public-map-canvas {
@@ -449,8 +450,7 @@ div.dataTables_filter input {
 
 #map-public {
     width: 100%;
-    height: 166px;
-    max-width: 332px;
+    height: 250px
 }
 #public-index h5 {
     margin-top: 12px;
@@ -485,7 +485,7 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     background:none !important;
 }
 
-/*SINGLE PUBLIC*/
+/*PUBLIC SINGLE*/
 .offline-public {
     display: table;
     border: 1px solid #e5e5e5;
@@ -494,12 +494,18 @@ a[href^="http://maps.google.com/maps"]{display:none !important}
     background-color: #f5f5f5;
 
 }
+#public-single .table>tbody>tr>td {
+    padding: 1px 2px;
+}
 .offline-text {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 }
-
+#public-single .portlet.solid.bordered > .portlet-title {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ffffff;
+}
 /***
 Google Maps
 ***/
@@ -684,7 +690,7 @@ Google Maps
     min-width:200px;
 }
 #info .table>tbody>tr>td {
-    padding: 0px 1px;
+    padding: 1px 2px;
 }
 #info .table>thead>tr>th {
     padding: 0px 0 4px;

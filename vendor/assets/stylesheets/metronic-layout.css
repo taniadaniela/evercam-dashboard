@@ -1065,10 +1065,10 @@ Page sidebar
     position: absolute;
     width: 1em;
     height: 0.15em;
-    background: #aaaaaa;
+    background: #FFFFFF;
     box-shadow:
-    0 0.25em 0 0 #aaaaaa,
-    0 0.5em 0 0 #aaaaaa;
+    0 0.25em 0 0 #FFFFFF,
+    0 0.5em 0 0 #FFFFFF;
 }
 
 .page-sidebar .sidebar-toggler:hover,

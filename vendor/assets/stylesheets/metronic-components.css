@@ -4220,7 +4220,7 @@ Custom tabs
 }
 .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
     border: 0 !important;
-    border-bottom: 4px solid #fbcdcf !important;
+    border-bottom: 4px solid #68A2D5 !important;
 }
 
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {

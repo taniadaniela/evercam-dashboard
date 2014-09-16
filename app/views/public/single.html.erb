@@ -191,7 +191,7 @@
                                 <div id="map-public"></div>
                               </div>
                               <div class="col-md-6">
-                                <p"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+                                <p><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
                               </div>
                             </div>
                           </div>​
@@ -208,7 +208,7 @@
 
     </div>
   </div>
-
+  <input type="button" value="Click me..." onclick="alert(address);" />
 
   <%= javascript_tag do %>
     cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
@@ -251,5 +251,8 @@
 
   }
   google.maps.event.addDomListener(window, 'load', initialize);
+
+/**/
+
 
 </script>

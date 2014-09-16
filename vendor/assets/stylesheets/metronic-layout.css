@@ -379,7 +379,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > .username {
     display: inline-block;
     margin-left: 6px;
-    font-size: 13px;
+    font-size: 16px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
     margin-top: -2px;
@@ -393,7 +393,7 @@ Page Header
 =
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a {
-    font-size: 14px;
+    font-size: 15px;
 
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a i {
@@ -860,6 +860,7 @@ Page sidebar
     border-top-color: transparent !important;
 }
 .page-sidebar .page-sidebar-menu > li.last > a,
+
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.last > a {
     border-bottom-color: transparent !important;
 }
@@ -871,8 +872,7 @@ Page sidebar
     border: 0px;
     padding: 12px 15px;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 300;
+    font-size: 16px;
 }
 .page-sidebar .page-sidebar-menu > li > a > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i {
@@ -905,13 +905,13 @@ Page sidebar
 }
 .page-sidebar .page-sidebar-menu > li.open > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a {
-    font-size: 14px;
+    font-size: 16px;
 }
 .page-sidebar .page-sidebar-menu > li.active > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a {
     border: none;
     text-shadow: none;
-    font-size: 14px;
+    font-size: 16px;
 }
 .page-sidebar .page-sidebar-menu > li.active > a > .selected,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .selected {
@@ -983,8 +983,7 @@ Page sidebar
     margin: 0;
     padding: 8px 15px 8px 43px;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 300;
+    font-size: 16px;
     background: none;
 }
 
@@ -993,13 +992,13 @@ Page sidebar
     margin: 0;
     padding: 8px 15px 5px 43px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
 
     background: none;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a > i {
-    font-size: 14px;
+    font-size: 16px;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a .arrow:before,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a .arrow:before {
@@ -1091,7 +1090,7 @@ Page sidebar
 .page-sidebar .sidebar-search .input-group .form-control,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .form-control {
     border: 0;
-    font-size: 14px;
+    font-size: 16px;
     padding: 0;
     height: auto;
     line-height: auto;
@@ -1648,7 +1647,7 @@ Quick Sidebar Content
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav .page-quick-sidebar-back-to-list {
     vertical-align: middle;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav .page-quick-sidebar-back-to-list > i {
     font-size: 17px;
@@ -1699,7 +1698,7 @@ Quick Sidebar Content
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-users .media-list .media .media-body .media-heading {
     margin: 5px 0 0 0;
-    font-size: 14px;
+    font-size: 16px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-users .media-list .media .media-body .media-heading-sub {
     font-size: 11px;
@@ -1853,8 +1852,7 @@ Page content
     display: block;
     color: #666;
     margin: 0px 0px 15px 0px;
-    font-weight: 300;
-    font-family: "Open Sans", sans-serif;
+    font-family: "proxima-nova-regular", "Open Sans", sans-serif;
     /* subtitle */
 }
 .page-title small {
@@ -2304,7 +2302,7 @@ Template Name: Metronic - Responsive Website Template build with Twitter Bootstr
 body {
     color: #414042;
     direction: ltr;
-    font: 14px 'proxima-nova-regular', 'Open Sans', Arial, sans-serif;
+    font: 16px 'proxima-nova-regular', 'Open Sans', Arial, sans-serif;
     background: #f5f5f5;
 }
 

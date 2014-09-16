@@ -6,6 +6,9 @@
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   if ($(e.target).attr('href') == '#recording') {
   Playback.options.cameraId = '<%= @camera['id'] %>';
+    Playback.options.api_id = '<%= current_user.api_id -%>';
+    Playback.options.api_key = '<%= current_user.api_key -%>';
+
   //Playback.options.token = '407e61785700c1db6055f3960f1f80c0';
   //Playback.options.api_id = 'ac45487a';
   //Playback.options.api_key = 'ef811c60ebba8b62ce11fec9c50bc51b';

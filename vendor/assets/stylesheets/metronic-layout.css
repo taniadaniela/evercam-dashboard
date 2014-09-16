@@ -52,7 +52,7 @@ Page Header
     border: 0px;
     padding: 0px;
     box-shadow: none;
-    height: 46px;
+    height: 67px;
     min-height: 46px;
     filter: none;
     background: #000;
@@ -72,9 +72,10 @@ Page Header
     float: left;
     display: block;
     width: 235px;
-    height: 46px;
+    height: 67px;
     padding-left: 14px;
     padding-right: 20px;
+    background-color: #428bca;
 }
 .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo {
     padding: 0;
@@ -191,7 +192,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
     margin: 0px;
     padding: 0px 4px;
-    height: 46px;
+    height:67px;
     display: inline-block;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
@@ -373,7 +374,7 @@ Page Header
     margin: 0px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-    padding: 13px 0px 12px 14px;
+    padding: 24px 0px 23px 14px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > .username {
     display: inline-block;
@@ -711,9 +712,6 @@ Horizontal Menu
 @media (max-width: 480px) {
     /* 480px */
     /* Fixed header for mobile */
-    .page-header-fixed.page-header-fixed-mobile .page-header.navbar {
-        height: 92px;
-    }
 
     .page-header.navbar {
         /* Top menu */
@@ -783,7 +781,7 @@ Page container
     clear: both;
 }
 .page-header-fixed .page-container {
-    margin-top: 46px;
+    margin-top: 67px;
 }
 .page-footer-fixed.page-footer-fixed-mobile .page-container {
     margin-bottom: 20px !important;
@@ -805,12 +803,7 @@ Page container
         margin-top: 46px !important;
     }
 }
-@media (max-width: 480px) {
-    /* Page container */
-    .page-header-fixed.page-header-fixed-mobile .page-container {
-        margin-top: 92px !important;
-    }
-}
+
 /***
 Page sidebar
 ***/
@@ -983,7 +976,6 @@ Page sidebar
     background: none;
     margin: 0px;
     padding: 0px;
-    margin-top: 1px !important;
     /* 2nd level sub menu */
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a {
@@ -1072,10 +1064,10 @@ Page sidebar
     position: absolute;
     width: 1em;
     height: 0.15em;
-    background: #aaaaaa;
+    background: #FFFFFF;
     box-shadow:
-    0 0.25em 0 0 #aaaaaa,
-    0 0.5em 0 0 #aaaaaa;
+    0 0.25em 0 0 #FFFFFF,
+    0 0.5em 0 0 #FFFFFF;
 }
 
 .page-sidebar .sidebar-toggler:hover,
@@ -1948,7 +1940,7 @@ Page content
 .page-content {
     margin-top: 0px;
     padding: 0px;
-    background-color: #f9f9f9;
+    background-color: #f1f1f1;
 }
 .page-full-width .page-content {
     margin-left: 0px !important;
@@ -3770,14 +3762,26 @@ Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
-    background-color: #428bca;
+    background-color: #68A2D5;
     /* Top notification menu/bar */
     /* Header seaech box */
     /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
 }
+@media (max-width: 992px) {
+    .page-header.navbar {
+        background-color: #428bca;
+        /* Top notification menu/bar */
+        /* Header seaech box */
+        /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
+    }
+}
+
+
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
         background-color: #68a2d5;
 }
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
     color: #999999;
 }
@@ -3789,7 +3793,15 @@ Page Header
     background-color: #68a2d5;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-    background-color: #428bca;
+    background-color: #68a2d5;
+}
+@media (max-width: 992px) {
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
+        background-color: #428bca;
+        /* Top notification menu/bar */
+        /* Header seaech box */
+        /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
+    }
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle .username {
     color: #ffffff;
@@ -3975,7 +3987,7 @@ Page Header
     color: #d9d9d9;
 }
 .page-sidebar .page-sidebar-menu .active {
-    background: #303030;
+    background: #494D51;
     color: #d9d9d9;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > i,
@@ -3993,14 +4005,14 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a,
 .page-sidebar .page-sidebar-menu > li.active > a,
 .page-sidebar .page-sidebar-menu > li.active.open > a {
-    background: #303030;
+    background: #494D51;
     border-top-color: transparent;
     color: white;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a:hover,
 .page-sidebar .page-sidebar-menu > li.active > a:hover,
 .page-sidebar .page-sidebar-menu > li.active.open > a:hover {
-    background: #303030;
+    background: #494D51;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > i,
 .page-sidebar .page-sidebar-menu > li.active > a > i,
@@ -4031,7 +4043,7 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open + li > a,
 .page-sidebar .page-sidebar-menu > li.active.open + li > a {
     border-top-color: #4d4d4d;
-    background-color: #428bca;
+
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:last-child > a,
 .page-sidebar .page-sidebar-menu > li:last-child > a {
@@ -4060,6 +4072,7 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li > a {
     color: #bdbdbd;
+    background-color: #34393D;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li > a > i,
 .page-sidebar .page-sidebar-menu .sub-menu > li > a > i {
@@ -4414,6 +4427,6 @@ Page Footer
         background: none;
     }
     .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle:hover {
-        background-color: #1f1f1f;
+        background-color: #428bca;
     }
 }

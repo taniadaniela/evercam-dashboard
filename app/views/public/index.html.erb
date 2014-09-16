@@ -13,21 +13,14 @@
     <div class="page-sidebar navbar-collapse collapse">
       <!-- BEGIN SIDEBAR MENU -->
       <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-
-        <li class="sidebar-toggler-wrapper">
-          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-          <div class="sidebar-toggler">
-          </div>
-          <!-- END SIDEBAR TOGGLER BUTTON -->
-        </li>
-        <li class="start ">
+        <li class="start">
           <a href="/">
             <i class="icon-camera"></i>
             <span class="title">My Cameras</span>
           </a>
         </li>
         <li>
-          <a href="/publiccam">
+          <a class="active" href="/publiccam">
             <i class="icon-map"></i>
             <span class="title">Public Cameras</span>
           </a>
@@ -103,7 +96,7 @@
                     <th class="col-md-1">Snapshot</th>
                     <th class="col-md-1">Status</th>
                     <th class="col-md-2">Camera Owner</th>
-                    <th class="col-md-3">Co-Ordinates</th>
+                    <th class="col-md-3">Location</th>
                     <th class="col-md-1">Camera Page</th>
                     <th class="col-md-2">Add to my Cameras</th>
                   </tr>
@@ -122,7 +115,7 @@
                         <% end %>
                       </td>
                       <td><%= c['owner'] %></td>
-                      <td><div id="camera-location"><p id="<%= c['id'] %>"></p></div></td>
+                      <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></p></div></td>
                       <td class="show-arrow text-success"><a href="/publiccam/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
                       <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
@@ -153,10 +146,7 @@
 
 
 </div>
-<% @cameras.each do |c| %>
-lat = '<%= c.deep_fetch(:location, :lat) {} %>';
-lng = '<%= c.deep_fetch(:location, :lng) {} %>';
-<% end %>
+
 <%= javascript_include_tag "publiccam" %>
 
 <script>

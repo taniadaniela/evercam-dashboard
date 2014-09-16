@@ -29,23 +29,32 @@
       <div class="page-logo">
         <a class="logo-default" href="/"><img src="https://www.evercam.io/img/evercam-white.png"></a>
 
+        <div class="sidebar-toggler-wrapper">
+          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+          <div class="sidebar-toggler">
+          </div>
+          <!-- END SIDEBAR TOGGLER BUTTON -->
+        </div>
       </div>
       <!-- END LOGO -->
       <!-- BEGIN RESPONSIVE MENU TOGGLER -->
       <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
       </a>
       <!-- END RESPONSIVE MENU TOGGLER -->
-
+      <div class="nav-title pull-left">
+        <a href="/"><h4>Dashboard</h4></a>
+      </div>
       <!-- BEGIN TOP NAVIGATION MENU -->
       <div class="top-menu">
+
         <ul class="nav navbar-nav pull-right">
           <li class="dropdown dropdown-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <img class="img-circle" width="18" height="18" src="https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y">
-					<span class="username">
-					<%= current_user.fullname %>
-            <i class="fa fa-angle-down"></i>
-          </span>
+              <div class="avatar"><%= current_user.fullname[0,1] %></div>
+					    <span class="username">
+				      	<%= current_user.fullname %>
+                <i class="fa fa-angle-down"></i>
+              </span>
 
             </a>
             <ul class="dropdown-menu">
@@ -89,7 +98,12 @@
     </div><!-- End Row
 
 </div><!-- End Footer Section -->
-
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<button id="button">Click me</button>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -188,8 +202,6 @@
 
   });
 
-
 </script>
-</section>
 </body>
 </html>

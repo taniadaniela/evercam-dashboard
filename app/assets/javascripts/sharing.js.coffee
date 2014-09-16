@@ -64,12 +64,12 @@ addSharingCameraRow = (details) ->
    span.append($('<span>', {class: "glyphicon glyphicon-remove"}))
    if details.type == "share"
       span.addClass("delete-share-control")
-      span.append($(document.createTextNode(" Remove")))
+      span.append($(document.createTextNode("Remove")))
       span.click(onDeleteShareClicked)
       span.attr("share_id", details["share_id"])
    else
       span.addClass("delete-share-request-control")
-      span.append($(document.createTextNode(" Revoke")))
+      span.append($(document.createTextNode("Revoke")))
       span.click(onDeleteShareRequestClicked)
       span.attr("email", details["email"])
    span.attr("camera_id", details["camera_id"])

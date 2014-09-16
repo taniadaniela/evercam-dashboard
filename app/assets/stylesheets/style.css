@@ -1,4 +1,21 @@
+/*/////////////////////
+//HEADER
+/////////////////////*/
+.avatar {
+    background:#ffffff;
+    border-radius: 1px !important; /* one half of ( (border * 2) + height + padding ) */
+    color: #428bca;
+    font: bold 15px/13px Helvetica, Verdana, Tahoma;
+    height: 20px;
+    padding: 4px 4px 3px 3px;
+    text-align: center;
+    min-width: 16px;
+    float: left;
+}
 
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle a {
+    margin-top: 4px;
+}
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/

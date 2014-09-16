@@ -1347,6 +1347,9 @@ input:-webkit-autofill:focus {
     margin-top: 17px;
     margin-right: -13px;
     float: right;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
 @media (max-width: 980px) {
     .sidebar-toggler-wrapper {

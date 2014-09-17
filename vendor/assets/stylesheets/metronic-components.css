@@ -8511,7 +8511,7 @@ Purple Seance
 
 @media only screen and (min-width: 992px) {
     #mobile-dev-menu {
-        display: none;
+        display: none !Important;
     }
 }
 @media only screen and (max-width: 992px) {

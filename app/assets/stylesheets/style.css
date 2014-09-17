@@ -1,3 +1,4 @@
+
 /*/////////////////////
 //HEADER
 /////////////////////*/
@@ -436,14 +437,21 @@ input:-webkit-autofill {
     margin-left: 7px;
 }
 /*MAP */
-#map-canvas {
+#map-canvas{
     width: 100%;
-    height: 855px;
+    height: 900px;
+    background: #e9e9e9;
 }
 
+/* Smartphones (portrait) ----------- */
+@media screen and (max-width: 480px){
+    #map-canvas{
+        height: 300px;
+    }
+}
 #public-map-canvas {
     width: 100%;
-    height: 650px;
+    height: 300px;
 }
 
 #map {
@@ -837,13 +845,12 @@ td .share-camera {
     background-color: #f9f9f9;
 }
 .share {
+    font-family: 'proxima-nova-bold';
     float: left;
-    margin-top: 9px;
+    margin: 0px;
     margin-right: 15px;
 }
-.share {
-    font: 400 14px 'Open Sans', Arial, sans-serif;
-}
+
 /*APPS*/
 #apps li{
     list-style: none;
@@ -854,6 +861,7 @@ td .share-camera {
 }
 .apps h4 {
     margin-top: 8px;
+    font-family: 'proxima-nova-bold';
 }
 .apps {
     text-align: center;

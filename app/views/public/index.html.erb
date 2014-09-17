@@ -1,4 +1,7 @@
 <title>Evercam - Public Cameras</title>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
+<script type="text/javascript" src="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=TRUE"></script>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
@@ -10,21 +13,14 @@
     <div class="page-sidebar navbar-collapse collapse">
       <!-- BEGIN SIDEBAR MENU -->
       <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-
-        <li class="sidebar-toggler-wrapper">
-          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-          <div class="sidebar-toggler">
-          </div>
-          <!-- END SIDEBAR TOGGLER BUTTON -->
-        </li>
-        <li class="start ">
+        <li class="start">
           <a href="/">
             <i class="icon-camera"></i>
             <span class="title">My Cameras</span>
           </a>
         </li>
         <li>
-          <a href="/publiccam">
+          <a class="active" href="/publiccam">
             <i class="icon-map"></i>
             <span class="title">Public Cameras</span>
           </a>
@@ -63,19 +59,90 @@
     </div>
   </div>
   <!-- END SIDEBAR -->
-<div class="page-content-wrapper">
-  <div class="page-content">
-   <!-- <div class="portlet-title">
-      <div class="caption">
-        <i class=​"icon-home">​</i>​Map View
-      </div>
-    </div>-->
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <!-- <div class="portlet-title">
+         <div class="caption">
+           <i class=​"icon-home">​</i>​Map View
+         </div>
+       </div>-->
       <div class="portlet-body">
-        <div id="map-canvas">
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs ">
+            <li id="map-style" class="<%= 'active' unless cookies['public-style'] == 'list' %>">
+              <a href="#map-view" data-toggle="tab">
+                <i class="icon-map"></i> Map </a>
+            </li>
+            <li class="<%= 'active' if cookies['public-style'] == 'list' %>">
+              <a href="#list" data-toggle="tab">
+                <i class="icon-list"></i> List </a>
+            </li>
+
+          </ul>
+          <div class="tab-content">
+
+            <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="map-view">
+              <div id="map-canvas">
+              </div>
+            </div>
+
+            <div class="tab-pane <%= 'active' if cookies['public-style'] == 'list' %>" id="list">
+              <div class="col-md-12 margin-top-20">
+                <p id="city"></p>
+                <table id="public-list" class="table table-fixed flip-content" style="border-collapse:collapse;">
+                  <thead>
+                  <tr>
+                    <th class="col-md-3">Camera Name</th>
+                    <th class="col-md-1">Snapshot</th>
+                    <th class="col-md-1">Status</th>
+                    <th class="col-md-2">Camera Owner</th>
+                    <th class="col-md-3">Location</th>
+                    <th class="col-md-1">Camera Page</th>
+                    <th class="col-md-2">Add to my Cameras</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @cameras.each do |c| %>
+                    <tr>
+                      <td><%= c["name"] %></td>
+                      <td data-toggle="collapse" data-target="#<%= c["id"] %>" class="show-arrow">
+                        <a data-toggle="modal" href="#<%= c["id"] %>">Preview </a></td>
+                      <td class="text-success">
+                        <% if c["is_online"] %>
+                          <span class="green">Online</span>
+                        <% else %>
+                          <span class="red">Offline</span>
+                        <% end %>
+                      </td>
+                      <td><%= c['owner'] %></td>
+                      <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></p></div></td>
+                      <td class="show-arrow text-success"><a href="/publiccam/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                      <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
+                    </tr>
+
+
+                    <div class="modal fade" id="<%= c["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="public-preview" id="<%= c["id"] %>"> <%= preview(c, true) %> </div>
+                            <i data-dismiss="modal" class="icon-close modal-dismiss"></i>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
         </div>
+
       </div>
+    </div>
   </div>
-</div>
 
 
 </div>
@@ -128,8 +195,6 @@
       title: 'Click Me '
     });
 
-
-
     var infowindow = new google.maps.InfoWindow();
     // process multiple info windows
     (function (marker) {
@@ -144,5 +209,16 @@
     <% end %>
 
   })();
+  $(document).ready( function () {
+    $('#public-list').DataTable( {
+          "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
+          "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [ 1, 4, 5, 6 ] }
+      ]
+      } );
+  } );
+
+
+
 </script>
 

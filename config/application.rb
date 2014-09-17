@@ -84,6 +84,8 @@ module EvercamDashboard
                                  'metronic/metronic.js',
                                  'metronic/layout.js',
                                  'metronic/quick-sidebar.js',
+                                 'metronic/classie.js',
+                                 'metronic/modernizr.custom.js',
                                  'jquery.nicescroll.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]

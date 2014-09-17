@@ -34,3 +34,5 @@
 //= require metronic/metronic.js
 //= require metronic/layout.js
 //= require metronic/quick-sidebar.js
+//= require metronic/classie.js
+//= require metronic/modernizr.custom.js

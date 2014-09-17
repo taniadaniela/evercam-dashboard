@@ -22,12 +22,12 @@ General reset
 }
 @font-face {
     font-family: 'proxima-nova-bold';
-    src: url('proximanova-bold-webfont.eot');
-    src: url('proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
-    url('proximanova-bold-webfont.woff2') format('woff2'),
-    url('proximanova-bold-webfont.woff') format('woff'),
-    url('proximanova-bold-webfont.ttf') format('truetype'),
-    url('proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg');
+    src: url('proximanova-semibold-webfont.eot');
+    src: url('proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('proximanova-semibold-webfont.woff2') format('woff2'),
+    url('proximanova-semibold-webfont.woff') format('woff'),
+    url('proximanova-semibold-webfont.ttf') format('truetype'),
+    url('proximanova-semibold-webfont.svg#proxima_nova_rgbold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -160,11 +160,11 @@ h4 {
 
 h5 {
     font-size: 16px;
-    font-family: "proxima-nova-regular", "Open Sans", sans-serif;
+    font-family: "proxima-nova-bold", "Open Sans", sans-serif;
 }
 th {
     font-size: 16px;
-    font-family: "proxima-nova-regular", "Open Sans", sans-serif;
+    font-family: "proxima-nova-bold", "Open Sans", sans-serif;
 }
 h6 {
     font-size: 12px;
@@ -210,7 +210,10 @@ hr {
     border-top: 1px solid #eee;
     border-bottom: 0;
 }
-
+b, strong {
+    font-weight: normal;
+    font-family: 'proxima-nova-bold';
+}
 /* Unstyled List */
 .list-unstyled li > .list-unstyled {
     margin-left: 25px;
@@ -243,7 +246,7 @@ Utilities
 }
 
 .bold {
-    font-weight: 600 !important;
+    font-family: 'proxima-nova-bold';
 }
 
 .fix-margin {

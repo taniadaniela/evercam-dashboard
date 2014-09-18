@@ -28,7 +28,7 @@ function initialize() {
   });
 
 }
-google.maps.event.addDomListener(window, 'load', initialize);
+window.onload = initialize;
 
 // Handle sidebar menu
 var handleSidebarMenu = function () {

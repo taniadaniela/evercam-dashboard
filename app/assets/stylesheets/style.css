@@ -782,7 +782,7 @@ Google Maps
     text-align: left;
 }
 .delete-share-control {
-
+    cursor: pointer;
 }
 #sharing .form-horizontal .control-label {
     text-align: left;
@@ -1414,10 +1414,7 @@ li .dev-menu-title:hover {
 .icon-briefcase {
     size: 16px;
 }
-.sub-menu-item a {
-    border: none !important;
-    padding-left: 40px !important;
-}
+
 .share-icon {
     background-image: url('https://www.evercam.io/img/share.png');
     width: 19px;
@@ -1430,6 +1427,16 @@ li .dev-menu-title:hover {
     margin-left: 20px;
 }
 
+
+.page-sidebar .page-sidebar-menu .sub-menu-item a {
+    padding: 7px 15px;
+    color: #bdbdbd;
+}
+.sub-menu-item a {
+    border: none !important;
+    color: #bdbdbd;
+    padding: 7px 5px 7px 45px !important;
+}
 /*/////////////////////
 //TABLE
 /////////////////////*/
@@ -1502,11 +1509,6 @@ table.table-clean thead th {
 }
 #pass-reset .panel {
     padding: 20px 0px 30px 20px;
-}
-
-
-.page-sidebar .page-sidebar-menu .sub-menu-item a {
-    padding: 7px 15px;
 }
 
 .hide {

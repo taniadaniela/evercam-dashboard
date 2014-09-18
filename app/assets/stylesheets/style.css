@@ -737,7 +737,23 @@ Google Maps
 #location p {
     margin-bottom: 0px;
 }
-
+#co-ordinates {
+    margin-bottom: 10px;
+    margin-left: -15px;
+}
+.info-location p {
+    background-color: #eef7fb;
+    border-color: #428bca;
+    margin: 0 0 20px -15px;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #428bca;
+}
+#location-settings {
+    margin-right: 0px;
+}
+#location-settings .table {
+    margin-bottom: 10px;
+}
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;

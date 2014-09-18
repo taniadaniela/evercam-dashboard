@@ -8503,10 +8503,10 @@ Purple Seance
 
 /*SIdebar Plugin - Blueprints */
 #dev .page-content-wrapper .page-content, #live-widget .page-content-wrapper .page-content {
-    margin-left: 470px;
+    margin-left: 425px;
 }
 #resources_container {
-    width:920px;
+    width:965px;
 }
 
 @media only screen and (min-width: 992px) {
@@ -8560,7 +8560,7 @@ Purple Seance
 /* Orientation-dependent styles for the content of the menu */
 
 .cbp-spmenu-vertical {
-    width: 235px;
+    width: 190px;
     height: 100%;
     top: 0;
     z-index: 1000;

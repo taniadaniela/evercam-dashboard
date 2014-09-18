@@ -842,6 +842,7 @@ Page sidebar
     margin: 0;
     padding: 0;
     border: 0px;
+    cursor:pointer;
 }
 .page-sidebar .page-sidebar-menu > li.sidebar-toggler-wrapper, .page-sidebar .page-sidebar-menu > li.sidebar-search-wrapper,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.sidebar-toggler-wrapper,
@@ -3970,6 +3971,7 @@ Page Header
 .page-sidebar .page-sidebar-menu > li > a {
     /*border-top: 1px solid #4d4d4d;*/
     color: #d9d9d9;
+    background-color: #34393D;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i,
 .page-sidebar .page-sidebar-menu > li > a > i {
@@ -3989,9 +3991,16 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
 .page-sidebar .page-sidebar-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu > li.open > a {
-    background: #494d51;
     color: #d9d9d9;
 }
+@media only screen and (min-width: 992px) {
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
+    .page-sidebar .page-sidebar-menu > li:hover > a,
+    .page-sidebar .page-sidebar-menu > li.open > a {
+        background: #34393D;
+    }
+}
+
 .page-sidebar .page-sidebar-menu .active {
     background: #494D51;
     color: #d9d9d9;
@@ -4409,7 +4418,7 @@ Page Footer
      /*   border-top: 1px solid #414042;*/
     }
     .page-sidebar .page-sidebar-menu > li:hover > a, .page-sidebar .page-sidebar-menu > li.open > a {
-        background: #242424;
+        background: #494D51;
     }
     .page-sidebar .page-sidebar-menu > li:last-child > a {
         border-bottom: 0 !important;

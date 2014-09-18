@@ -171,4 +171,6 @@ var QuickSidebar = function () {
         }
     };
 
+
+
 }();

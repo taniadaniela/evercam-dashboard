@@ -180,6 +180,12 @@ Page Header
     float: right;
     margin: 18px 6px 0 6px;
 }
+@media only screen and (max-width: 990px) {
+    .page-header.navbar .menu-toggler.responsive-toggler {
+        margin-top:28px;
+    }
+}
+
 .page-header.navbar .top-menu {
     margin: 0;
     padding: 0;
@@ -815,8 +821,14 @@ Page sidebar
     position: relative;
     margin-right: -100%;
 }
-
 /* Page Sidebar */
+.page-sidebar {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 .page-sidebar.navbar-collapse,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover.navbar-collapse {
     padding: 0;
@@ -836,6 +848,7 @@ Page sidebar
     margin: 0;
     padding: 0;
     border: 0px;
+    cursor:pointer;
 }
 .page-sidebar .page-sidebar-menu > li.sidebar-toggler-wrapper, .page-sidebar .page-sidebar-menu > li.sidebar-search-wrapper,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.sidebar-toggler-wrapper,
@@ -1153,7 +1166,7 @@ Page sidebar
     .page-sidebar-fixed .page-sidebar {
         position: fixed !important;
         margin-left: 0;
-        top: 46px;
+        top: 67px;
     }
     .page-sidebar-fixed .page-sidebar-menu > li.last {
         margin-bottom: 15px !important;
@@ -1489,7 +1502,9 @@ Quick Sidebar Toggler
 .page-footer {
     transition: margin 0.3s;
 }
-
+.page-sidebar {
+    z-index: 100001;
+}
 /* Quick sidebar with push content */
 .page-quick-sidebar-open.page-quick-sidebar-push-content .page-sidebar-wrapper {
     transition: margin-left 0.3s;
@@ -3962,6 +3977,7 @@ Page Header
 .page-sidebar .page-sidebar-menu > li > a {
     /*border-top: 1px solid #4d4d4d;*/
     color: #d9d9d9;
+    background-color: #34393D;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i,
 .page-sidebar .page-sidebar-menu > li > a > i {
@@ -3978,12 +3994,24 @@ Page Header
 .page-sidebar .page-sidebar-menu > li > a > .arrow.open:before {
     color: #777777;
 }
-.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
+.page-sidebar-closed.page-sidebar-fixed .page-si debar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
 .page-sidebar .page-sidebar-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu > li.open > a {
-    background: #494d51;
     color: #d9d9d9;
 }
+.page-sidebar .page-sidebar-menu > li > a:hover {
+    background: #494D51 !Important;
+}
+@media only screen and (min-width: 992px) {
+    .page-sidebar .page-sidebar-menu > li:hover > a {
+        background: #494D51;
+    }
+
+    .page-sidebar .page-sidebar-menu > li.open > a {
+        background: #34393D
+    }
+}
+
 .page-sidebar .page-sidebar-menu .active {
     background: #494D51;
     color: #d9d9d9;
@@ -4011,6 +4039,12 @@ Page Header
 .page-sidebar .page-sidebar-menu > li.active > a:hover,
 .page-sidebar .page-sidebar-menu > li.active.open > a:hover {
     background: #494D51;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > i,
 .page-sidebar .page-sidebar-menu > li.active > a > i,
@@ -4395,7 +4429,7 @@ Page Footer
      /*   border-top: 1px solid #414042;*/
     }
     .page-sidebar .page-sidebar-menu > li:hover > a, .page-sidebar .page-sidebar-menu > li.open > a {
-        background: #242424;
+        background: #494D51;
     }
     .page-sidebar .page-sidebar-menu > li:last-child > a {
         border-bottom: 0 !important;
@@ -4428,7 +4462,5 @@ Page Footer
     .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle:hover {
         background-color: #428bca;
     }
-    .page-header.navbar .menu-toggler.responsive-toggler {
-        margin-top: 28px;
-    }
+
 }

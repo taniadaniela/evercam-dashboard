@@ -1,5 +1,5 @@
 <title>Evercam - Developer</title>
-<div class="page-container" id="public-index">
+<div class="page-container" id="dev">
   <!-- BEGIN SIDEBAR -->
   <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
@@ -24,13 +24,12 @@
             <span class="title">Add Camera</span>
           </a>
         </li>
-        <li class="open">
-          <a href="javascript:;">
+        <li id="showLeft" class="active">
+          <a class="active">
             <i class="icon-briefcase"></i>
             <span class="title">Developer</span>
-            <span class="arrow "></span>
           </a>
-          <ul class="sub-menu">
+          <ul id="mobile-dev-menu" class="sub-menu">
             <li class="active">
               <a href="/dev">API Docs</a>
             </li>
@@ -54,75 +53,92 @@
   <!-- END SIDEBAR -->
   <div class="page-content-wrapper">
     <div class="page-content">
-<!--main content start-->
+
+<!-- SLIDEY SIDEY MENU -->
+      <div class="cbp-spmenu-push">
+        <nav class="cbp-spmenu cbp-spmenu-open cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+          <h3>Menu</h3>
+          <ul>
+            <li class="active">
+              <a class="active" href="/dev">API Docs</a>
+            </li>
+            <li>
+              <a class="dev-menu-title">
+                Widgets <span class="arrow"></span>
+              </a>
+              <ul class="sub-menu">
+                <li>
+                  <a href="/widgets-new">Live View Widget</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+<!-- END SLIDEY SIDEY MENU -->
 
 
+        <!--main content start-->
 
+        <form role="form" id="apikeys" class="form-horizontal center-block">
 
-          <form role="form" id="apikeys" class="form-horizontal center-block">
-
-              <div class="col-md-2">
-
-              <strong>API ID</strong>
-                <%= current_user.api_id -%>
-
-              </div>
-              <div class="col-md-4">
-
-                <strong>API Key</strong>
-                <%= current_user.api_key -%>
-
-                </div>
-              <div class="col-md-4">
-             <strong>Demo Camera ID</strong>
-
-                  <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
-
-                </div>
-
-          </form>
-
-
-              <%= stylesheet_link_tag "swagger"%>
-              <%= javascript_include_tag "swagger"%>
-          <script type="text/javascript">
-              $(function () {
-
-                  window.swaggerUi = new SwaggerUi({
-                      url: "<%= EVERCAM_API %>swagger.json",
-                      dom_id: "swagger-ui-container",
-                      supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-                      onComplete: function(swaggerApi, swaggerUi){
-                          window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
-                          window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
-                          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-                          $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
-                          $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
-                      },
-                      onFailure: function(data) {
-                      },
-                      docExpansion: "list"
-                  });
-
-                  window.swaggerUi.load();
-
-              });
-          </script>
-
-
-
-          <div class="exp-swagger">
-            <div id="swagger">
-              <div id="swagger-ui-container" class="swagger-ui-wrap">
-                &nbsp;
-              </div>
-            </div>
+          <div class="col-md-2">
+            <strong>API ID</strong>
+            <%= current_user.api_id -%>
+          </div>
+          <div class="col-md-5">
+            <strong>API Key</strong>
+            <%= current_user.api_key -%>
+          </div>
+          <div class="col-md-4">
+            <strong>Demo Camera ID</strong>
+            <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
           </div>
 
+        </form>
 
 
-</div>
-</div>
+            <%= stylesheet_link_tag "swagger"%>
+            <%= javascript_include_tag "swagger"%>
+            <script type="text/javascript">
+                $(function () {
+
+                    window.swaggerUi = new SwaggerUi({
+                        url: "<%= EVERCAM_API %>swagger.json",
+                        dom_id: "swagger-ui-container",
+                        supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+                        onComplete: function(swaggerApi, swaggerUi){
+                            window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
+                            window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
+                            $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+                            $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
+                            $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
+                        },
+                        onFailure: function(data) {
+                        },
+                        docExpansion: "list"
+                    });
+
+                    window.swaggerUi.load();
+
+                });
+            </script>
+
+
+
+            <div class="exp-swagger">
+              <div id="swagger">
+                <div id="swagger-ui-container" class="swagger-ui-wrap">
+                  &nbsp;
+                </div>
+              </div>
+            </div>
+
+
+
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -131,4 +147,5 @@
     Layout.init(); // init current layout
     QuickSidebar.init() // init quick sidebar
   });
+
 </script>

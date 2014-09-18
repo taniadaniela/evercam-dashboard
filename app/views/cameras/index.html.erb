@@ -9,7 +9,7 @@
     <!-- BEGIN SIDEBAR MENU -->
     <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
 
-      <li class="start open">
+      <li class="start">
         <a class="active" href="javascript:;">
           <i class="icon-camera"></i>
           <span class="title">My Cameras</span>
@@ -53,18 +53,17 @@
           <span class="title">Add Camera</span>
         </a>
       </li>
-      <li class="last">
-        <a href="javascript:;">
+      <li id="showLeft">
+        <a>
           <i class="icon-briefcase"></i>
           <span class="title">Developer</span>
-          <span class="arrow "></span>
         </a>
-        <ul class="sub-menu">
-          <li>
+        <ul id="mobile-dev-menu" class="sub-menu">
+          <li class="active">
             <a href="/dev">API Docs</a>
           </li>
           <li>
-            <a href="javascript:;">
+             <a href="javascript:;">
               Widgets <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
@@ -84,6 +83,30 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
   <div class="page-content">
+
+    <!-- SLIDEY SIDEY MENU -->
+    <div class="cbp-spmenu-push">
+      <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+        <h3>Menu</h3>
+        <ul>
+          <li>
+            <a href="/dev">API Docs</a>
+          </li>
+          <li>
+            <a class="dev-menu-title">
+              Widgets <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+              <li>
+                <a href="/widgets-new">Live View Widget</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- END SLIDEY SIDEY MENU -->
+
     <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
     <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -172,4 +195,21 @@
     Layout.init(); // init current layout
     QuickSidebar.init() // init quick sidebar
   });
+  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+      showLeft = document.getElementById( 'showLeft' )
+      body = document.body;
+
+  showLeft.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuLeft, 'cbp-spmenu-open' );
+    disableOther( 'showLeft' );
+  };
+
+
+  function disableOther( button ) {
+    if( button !== 'showLeft' ) {
+      classie.toggle( showLeft, 'disabled' );
+    }
+
+  }
 </script>

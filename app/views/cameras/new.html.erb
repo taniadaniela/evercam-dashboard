@@ -5,55 +5,7 @@
 
 <div class="page-container">
 <!-- BEGIN SIDEBAR -->
-<div class="page-sidebar-wrapper">
-  <div class="page-sidebar navbar-collapse collapse">
-    <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-      <li class="">
-        <a href="/">
-          <i class="icon-camera"></i>
-          <span class="title">My Cameras</span>
-        </a>
-      </li>
-      <li>
-        <a href="/publiccam">
-          <i class="icon-map"></i>
-          <span class="title">Public Cameras</span>
-        </a>
-      </li>
-      <li>
-        <a class="active" href="/cameras/new">
-          <i class="icon-plus"></i>
-          <span class="title">Add Camera</span>
-        </a>
-      </li>
-      <li class="last">
-        <a href="javascript:;">
-          <i class="icon-briefcase"></i>
-          <span class="title">Developer</span>
-          <span class="arrow "></span>
-        </a>
-        <ul class="sub-menu">
-          <li>
-            <a href="/dev">API Docs</a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              Widgets <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="/widgets-new">Live View Widget</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-    <!-- END SIDEBAR MENU -->
-  </div>
-</div>
+<%= render :partial => "sidebar/sidebar" %>
 <!-- END SIDEBAR -->
 
 <div class="page-content-wrapper">
@@ -417,7 +369,23 @@
     $.validate();
   });
 
+  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+      showLeft = document.getElementById( 'showLeft' )
+  body = document.body;
 
+  showLeft.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuLeft, 'cbp-spmenu-open' );
+    disableOther( 'showLeft' );
+  };
+
+
+  function disableOther( button ) {
+    if( button !== 'showLeft' ) {
+      classie.toggle( showLeft, 'disabled' );
+    }
+
+  }
 
 
 

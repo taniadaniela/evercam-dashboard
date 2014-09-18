@@ -238,6 +238,7 @@ var Layout = function () {
         }
     }
 
+
     // Hanles sidebar toggler
     var handleSidebarToggler = function () {
         var body = $('body');

@@ -1367,6 +1367,12 @@ input:-webkit-autofill:focus {
     -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
+
+    display:none;
+}
+li .dev-menu-title:hover {
+    background-color: #494D51;
+    cursor: default !important;
 }
 @media (max-width: 980px) {
     .sidebar-toggler-wrapper {
@@ -1571,3 +1577,4 @@ table.table-clean thead th {
     margin-right: 0;
     text-align: right;
 }
+

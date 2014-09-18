@@ -757,6 +757,10 @@ Google Maps
 #location-settings .table {
     margin-bottom: 10px;
 }
+.center-image {
+    text-align: center;
+    height: 100%;
+}
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;

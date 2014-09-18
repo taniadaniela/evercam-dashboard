@@ -6,17 +6,15 @@
 <div class="page-container">
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
-  <div class="page-sidebar navbar-collapse collapse">
+  <div class="page-sidebar">
     <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-
-      <li class="start">
-        <a class="active" href="javascript:;">
+    <ul class="page-sidebar-menu">
+      <li class="active open">
+        <a href="/cameras" class="active">
           <i class="icon-camera"></i>
-          <span class="title">My Cameras</span>
-          <span class="arrow "></span>
+          <span href="/cameras" class="title">My Cameras</span>
         </a>
-        <ul class="sub-menu">
+      </li>
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item">
               <a href="/cameras/<%= camera['id'] %>?share=false">
@@ -40,8 +38,6 @@
               </a>
             </li>
           <% end %>
-        </ul>
-      </li>
       <li>
         <a href="/publiccam">
           <i class="icon-map"></i>

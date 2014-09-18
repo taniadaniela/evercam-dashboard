@@ -670,10 +670,7 @@ Google Maps
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
-#info .portlet > .portlet-title  {
-    margin-bottom: 0;
-    border-bottom:none;
-}
+
 .info-preview {
     width:100%;
     overflow: hidden;
@@ -727,6 +724,15 @@ Google Maps
 #info .table>thead>tr>th {
     padding: 0px 0 4px;
 }
+#settings-modal .portlet {
+    margin-bottom: 0px;
+}
+.save-settings {
+    margin-left: -19px;
+}
+.modal-content {
+    background-color: #e5e5e5;
+}
 /*LOCATION */
 #location #map-canvas {
     max-height: 680px;
@@ -734,7 +740,27 @@ Google Maps
 #location p {
     margin-bottom: 0px;
 }
-
+#co-ordinates {
+    margin-bottom: 10px;
+    margin-left: -15px;
+}
+.info-location p {
+    background-color: #eef7fb;
+    border-color: #428bca;
+    margin: 0 0 20px -15px;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #428bca;
+}
+#location-settings {
+    margin-right: 0px;
+}
+#location-settings .table {
+    margin-bottom: 10px;
+}
+.center-image {
+    text-align: center;
+    height: 100%;
+}
 /*EXPLORER */
 #exp-swagger .container {
     width: 100%;
@@ -779,7 +805,7 @@ Google Maps
     text-align: left;
 }
 .delete-share-control {
-
+    cursor: pointer;
 }
 #sharing .form-horizontal .control-label {
     text-align: left;
@@ -1007,7 +1033,7 @@ input:focus {
 
 }
 .test-img-settings {
-    border: 1px solid #e5e5e5;
+    background-color: #ffffff;
     height:200px;
     overflow: hidden;
     width: 100%;
@@ -1411,10 +1437,7 @@ li .dev-menu-title:hover {
 .icon-briefcase {
     size: 16px;
 }
-.sub-menu-item a {
-    border: none !important;
-    padding-left: 40px !important;
-}
+
 .share-icon {
     background-image: url('https://www.evercam.io/img/share.png');
     width: 19px;
@@ -1427,6 +1450,16 @@ li .dev-menu-title:hover {
     margin-left: 20px;
 }
 
+
+.page-sidebar .page-sidebar-menu .sub-menu-item a {
+    padding: 7px 15px;
+    color: #bdbdbd;
+}
+.sub-menu-item a {
+    border: none !important;
+    color: #bdbdbd;
+    padding: 7px 5px 7px 45px !important;
+}
 /*/////////////////////
 //TABLE
 /////////////////////*/
@@ -1499,11 +1532,6 @@ table.table-clean thead th {
 }
 #pass-reset .panel {
     padding: 20px 0px 30px 20px;
-}
-
-
-.page-sidebar .page-sidebar-menu .sub-menu-item a {
-    padding: 7px 15px;
 }
 
 .hide {

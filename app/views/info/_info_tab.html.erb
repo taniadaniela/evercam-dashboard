@@ -21,7 +21,7 @@
                     <table class="table table-fixed table-borderless">
                       <tr>
                         <td class="col-lg-1">
-                          <label class="control-label">Evercam ID</label>
+                          <label class="control-label">ID:</label>
                         </td>
                         <td class="col-lg-2 settings">
                           <div class="settings-id" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
@@ -29,7 +29,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="camera-name">Friendly Name</label>
+                          <label class="control-label" for="camera-name">Name:</label>
                         </td>
                         <td>
                           <input id="camera-name" class="form-control  makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" ="">
@@ -67,8 +67,6 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-
-
         <div class="row">
           <div class='col-lg-12 col-md-12 col-sm-12'>
             <div class='portlet'>
@@ -83,7 +81,7 @@
                     <table class="table table-fixed table-borderless">
                       <tr>
                         <td class="col-md-4">
-                          <label class="control-label" for="camera-vendor">Vendor</label>
+                          <label class="control-label" for="camera-vendor">Vendor:</label>
                         </td>
                         <td>
                           <select id="camera-vendor" name="camera-vendor" ="" class="form-control makeEditable">
@@ -98,7 +96,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label">Model</label>
+                          <label class="control-label">Model:</label>
                         </td>
                         <td>
                           <% vendors.each do |v| -%>
@@ -116,7 +114,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="camera-username">Camera Username</label>
+                          <label class="control-label" for="camera-username">Username:</label>
                         </td>
                         <td>
                           <input id="camera-username" name="camera-username" placeholder="" class="form-control  makeEditable" ="" type="text"
@@ -125,7 +123,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="camera-password">Camera Password</label>
+                          <label class="control-label" for="camera-password">Password:</label>
                         </td>
                         <td>
                           <input id="camera-password" name="camera-password" placeholder="" class="form-control " ="" type="text"
@@ -134,7 +132,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="snapshot">Snapshot URL</label>
+                          <label class="control-label" for="snapshot">Snapshot URL:</label>
                         </td>
                         <td>
                           <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
@@ -147,13 +145,91 @@
                   <div class='col-lg-4'>
 
                     <div class="test-img-settings">
+                      <div class="center-image">
                       <img id="testimg" src="" class="text-center">
+                      </div>
                     </div>
                     <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
 
                     <div class="snapshot-error text-center">
                       <span id="test-error" class="text-center"><%= flash[:message] %></span>
                     </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class='col-lg-8'>
+                <div class='portlet'>
+                  <div class="portlet-title">
+                    <div class="caption">
+                      Ports
+                    </div>
+                  </div>
+                  <div class="portlet-body">
+
+
+                        <table class="table table-fixed table-borderless">
+                          <tr>
+                            <td>
+                              <label class="control-label" for="camera-url">External IP Address (or URL):</label>
+                            </td>
+                            <td>
+                              <div class="input-group">
+                                <span class="input-group-addon">http://</span>
+                                <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
+                                value="<%= @camera.deep_fetch(:external, :host) {} %>">
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label class="control-label" for="port">External HTTP Port:</label>
+                            </td>
+                            <td>
+                              <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" ="" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
+                              value="<%= @camera.deep_fetch(:external, :http, :port) {} %>">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label class="control-label" for="ext-rtsp-port">External RTSP Port:</label>
+                            </td>
+                            <td>
+                              <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" ="" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
+                              value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label class="control-label" for="local-ip">Internal IP Address:</label>
+                            </td>
+                            <td>
+                              <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" ="" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
+                              value="<%= @camera.deep_fetch(:internal, :host) {} %>">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label class="control-label" for="local-http">Internal HTTP Port:</label>
+                            </td>
+                            <td>
+                              <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" ="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                              value="<%= @camera.deep_fetch(:internal, :http, :port) {}  %>">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label class="control-label" for="local-rtsp">Internal RTSP Port:</label>
+                            </td>
+                            <td>
+                              <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" ="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                              value="<%= @camera.deep_fetch(:internal, :rtsp, :port) {} %>">
+                            </td>
+                          </tr>
+                        </table>
+
 
                   </div>
                 </div>
@@ -448,7 +524,13 @@
           <% if has_edit_right %>
             <tr>
               <td>Username:</td>
-              <td><%= @camera['cam_username'] %></td>
+              <td>
+                <% if @camera["cam_username"] != nil %>
+                <%= @camera['cam_username'] %>
+                <% else %>
+                  <span class="grey">Not provided</span>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td>Password:</td>
@@ -481,7 +563,7 @@
           <div class="caption">
             Ports
           </div>
-          <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal-3">Edit</div>
+          <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal">Edit</div>
         </div>
         <div class="portlet-body col-md-8">
           <table class="table table-fixed table-borderless">
@@ -490,25 +572,25 @@
               <td class="col-md-3">
                 IP (or URL):
               </td>
-              <td class="col-md-7">
+              <td class="col-md-6">
                 <%= @camera.deep_fetch(:external, :host) {} %>
               </td>
             </tr>
             <tr>
               <td></td>
-              <td>HTTP:</td>
+              <td>HTTP Port:</td>
               <td><%= @camera.deep_fetch(:external, :http, :port) {} %></td>
             </tr>
             <tr>
               <td></td>
-              <td>RTSP:</td>
+              <td>RTSP Port:</td>
               <td>
                 <%= @camera.deep_fetch(:external, :rtsp, :port) {} %></td>
             </tr>
             <tr>
               <td>Internal</td>
               <td>
-                IP:
+                IP Port:
               </td>
               <td>
                 <%= @camera.deep_fetch(:internal, :host) {} %>
@@ -516,12 +598,12 @@
             </tr>
             <tr>
               <td></td>
-              <td>HTTP:</td>
+              <td>HTTP Port:</td>
               <td><%= @camera.deep_fetch(:internal, :http, :port) {} %></td>
             </tr>
             <tr>
               <td></td>
-              <td>RTSP:</td>
+              <td>RTSP Port:</td>
               <td><%= @camera.deep_fetch(:internal, :rtsp, :port) {} %></td>
             </tr>
 
@@ -550,41 +632,43 @@
 
             <div class="col-md-6">
 
-              <p id="co-ordinates"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+              <div id="co-ordinates"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
               <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
               <div id="location-settings" class="row" style="display: none;">
-                <div class="col-md-12">
-                  <% if has_edit_right %>
-                  <p><strong>New location</strong></p>
-                  <table class="table table-fixed table-borderless">
-                    <tr>
-                      <td class="col-md-4">
-                        <label class="control-label" for="location-lat">Latitude</label>
-                      </td>
-                      <td>
-                        <input id="cameraLat" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label class="control-label" for="location-lng">Longitude</label>
-                      </td>
-                      <td>
-                        <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lng) {} %>">
-                      </td>
-                    </tr>
-                  </table>
-                  <div class="save-settings">
-                    <div class='col-lg-12'>
-                      <div class='pull-left form-group'>
-                        <label class="control-label" for="add-button"></label>
-                        <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
-                      </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <% if has_edit_right %>
+                    <span><strong>New location</strong></span>
+                    <table class="table table-fixed table-borderless">
+                      <tr>
+                        <td class="col-md-4">
+                          <label class="control-label" for="location-lat">Latitude</label>
+                        </td>
+                        <td>
+                          <input id="cameraLat" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="control-label" for="location-lng">Longitude</label>
+                        </td>
+                        <td>
+                          <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lng) {} %>">
+                        </td>
+                      </tr>
+                    </table>
+                    <div class="save-settings">
+
+                        <div class='pull-left form-group'>
+                          <label class="control-label" for="add-button"></label>
+                          <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
+                        </div>
+
                     </div>
+                    <% else %>
+                      <p class="note note-info">You do not have permission to save edits to the camera location</p>
+                    <% end %>
                   </div>
-                  <% else %>
-                    <p class="note note-info">You do not have permission to save edits to the camera location</p>
-                  <% end %>
                 </div>
 
 
@@ -600,140 +684,140 @@
 
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet solid bordered grey-cararra">
 
-<div class="col-md-12">
-  <div class="portlet solid bordered grey-cararra">
-
-    <div class="portlet-title">
-      <div class="caption">
-        URLs
+      <div class="portlet-title">
+        <div class="caption">
+          URLs
+        </div>
       </div>
-    </div>
 
-    <div class="portlet-body">
+      <div class="portlet-body">
 
-      <section id="unseen">
-        <p>Proxy URLs</p>
-        <table class="table table-borderless table-fixed">
+        <section id="unseen">
+          <p>Proxy URLs</p>
+          <table class="table table-borderless table-fixed">
 
-          <tr>
-            <td class="col-lg-2">
-              JPEG:
-            </td>
-            <td>
-        <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
-            <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
-          <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-            <%= "http://evr.cm/#{@camera['id']}.jpg" %>
+            <tr>
+              <td class="col-lg-1">
+                JPEG:
+              </td>
+              <td>
+          <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+              <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
+            <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+              <%= "http://evr.cm/#{@camera['id']}.jpg" %>
 
-            </span>
-            </td>
-          </tr>
+              </span>
+              </td>
+            </tr>
 
-        </table>
-      </section>
+          </table>
+        </section>
 
-      <section id="unseen">
-        <p>Dynamic DNS </p>
-        <table class="table table-fixed table-borderless">
-          <tr>
-            <td class="col-lg-2">
-              JPEG:
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
-                <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </section>
+        <section id="unseen">
+          <p>Dynamic DNS </p>
+          <table class="table table-fixed table-borderless">
+            <tr>
+              <td class="col-lg-1">
+                JPEG:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
 
-      <section id="unseen">
-        <p>Base URLs</p>
-        <table class="table table-fixed table-borderless">
-          <tr>
-            <td class="col-lg-2">
-              Camera:
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
-                <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="col-lg-2">
-              JPEG:
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
-                <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="col-lg-2">
-              MJPEG
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
-                <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="col-lg-2">
-              MPEG:
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
-                <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="col-lg-2">
-              Audio:
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
-                <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="col-lg-2">
-              H264
-            </td>
-            <td>
-              <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
-                <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
-              <% else %>
-                <span class="grey">Not available</span>
-              <% end %>
-            </td>
-          </tr>
+        <section id="unseen">
+          <p>Base URLs</p>
+          <table class="table table-fixed table-borderless">
+            <tr>
+              <td class="col-lg-1">
+                Camera:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-1">
+                JPEG:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
+                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-1">
+                MJPEG
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :http, :mjpg) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-1">
+                MPEG:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :rtsp, :mpeg) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-1">
+                Audio:
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :rtsp, :audio) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-lg-1">
+                H264
+              </td>
+              <td>
+                <% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
+                  <%= link_to_unless(url.nil?, url, url,  :only_path => false) %>
+                <% else %>
+                  <span class="grey">Not available</span>
+                <% end %>
+              </td>
+            </tr>
 
-        </table>
-      </section>
+          </table>
+        </section>
+      </div>
     </div>
   </div>
 </div>
-
 
 </form>
 <%= javascript_tag do %>
@@ -751,12 +835,19 @@
   });
 
   function initialize() {
-    if (cameraLong === '') {
-      $('#co-ordinates').replaceWith("<p>The location is not set. <br /><br />You can drag the marker to set the cameras location.</p>");
+    if (cameraLong === '0') {
+      $('#co-ordinates').replaceWith("<p>The location is not set. Drag the marker to the location of your camera.</p>");
     }
+
+    if (cameraLong != '0') {
+      $(".edit-location").click(function() {
+        $("#testies").toggle();
+      });
+    }
+
     var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
 
-    if (cameraLong === '') {
+    if (cameraLong === '0') {
 
       var mapOptions = {
         zoom: 2,
@@ -766,7 +857,7 @@
     } else {
 
       var mapOptions = {
-        zoom: 8,
+        zoom: 17,
         center: cameraLatlng
       }
 
@@ -813,9 +904,7 @@
   google.maps.event.addDomListener(window, 'load', initialize);
 
 
-  $(".edit-location").click(function() {
-    $("#testies").toggle();
-  });
+
 
 
 </script>

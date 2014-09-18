@@ -821,8 +821,14 @@ Page sidebar
     position: relative;
     margin-right: -100%;
 }
-
 /* Page Sidebar */
+.page-sidebar {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 .page-sidebar.navbar-collapse,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover.navbar-collapse {
     padding: 0;
@@ -3997,7 +4003,7 @@ Page Header
     .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
     .page-sidebar .page-sidebar-menu > li:hover > a,
     .page-sidebar .page-sidebar-menu > li.open > a {
-        background: #34393D;
+        background: #494d51;
     }
 }
 

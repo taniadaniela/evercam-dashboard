@@ -2907,7 +2907,7 @@ Portlets
 }
 .portlet > .portlet-title {
     margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ffffff;
 }
 .portlet > .portlet-title:before, .portlet > .portlet-title:after {
     content: " ";

@@ -670,10 +670,7 @@ Google Maps
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
-#info .portlet > .portlet-title  {
-    margin-bottom: 0;
-    border-bottom:none;
-}
+
 .info-preview {
     width:100%;
     overflow: hidden;
@@ -729,6 +726,12 @@ Google Maps
 }
 #settings-modal .portlet {
     margin-bottom: 0px;
+}
+.save-settings {
+    margin-left: -19px;
+}
+.modal-content {
+    background-color: #e5e5e5;
 }
 /*LOCATION */
 #location #map-canvas {
@@ -1026,7 +1029,7 @@ input:focus {
 
 }
 .test-img-settings {
-    border: 1px solid #e5e5e5;
+    background-color: #ffffff;
     height:200px;
     overflow: hidden;
     width: 100%;

@@ -105,7 +105,7 @@
                               <% if index == 0 %>
                                 <option value="<%= m.name -%>" ><%= m.name -%></option>
                               <% else %>
-                                <option value="<%= m.name -%>" <% if m.name == @camera['model'] %>selected="selected"<% end %> ><%= m.name -%></option>
+                                <option value="<%= m.name -%>" <% if m.name == @camera["model_name"] %>selected="selected"<% end %> ><%= m.name -%></option>
                               <% end %>
                             <% end -%>
                             </select>
@@ -514,8 +514,8 @@
           <tr>
             <td>Model:</td>
             <td>
-              <% if @camera["model"] != nil %>
-                <%= @camera['model'] %>
+              <% if @camera['model_name'] != nil %>
+                <%= @camera['model_name'] %>
               <% else %>
                 <span class="grey">Not provided</span>
               <% end %>

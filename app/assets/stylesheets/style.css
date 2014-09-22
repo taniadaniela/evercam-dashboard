@@ -724,14 +724,20 @@ Google Maps
 #info .table>thead>tr>th {
     padding: 0px 0 4px;
 }
-#settings-modal .portlet {
+#settings-modal .portlet, #settings-modal-1 .portlet {
     margin-bottom: 0px;
 }
-.save-settings {
-    margin-left: -19px;
-}
+
 .modal-content {
     background-color: #e5e5e5;
+}
+#settings-modal-1 .has-error .help-block {
+ background-color: transparent;
+}
+#info-preview {
+    border: none;
+    width: 100%;
+    height: auto;
 }
 /*LOCATION */
 #location #map-canvas {
@@ -1546,6 +1552,11 @@ table.table-clean thead th {
 
 }
 .preview {
+    border:1px solid #f5f5f5;
+    width: 400px;
+    height: 220px;
+}
+#info .preview {
     border:1px solid #f5f5f5;
     width: 400px;
     height: 220px;

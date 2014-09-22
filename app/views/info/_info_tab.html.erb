@@ -32,7 +32,7 @@
                           <label class="control-label" for="camera-name">Name:</label>
                         </td>
                         <td>
-                          <input id="camera-name" class="form-control  makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" ="">
+                          <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" data-validation-allowing="-_ " data-validation="alphanumeric" data-validation-length="max24" required="" placeholder="" name="camera-name">
                         </td>
                       </tr>
                     </table>
@@ -499,11 +499,11 @@
         <% end %>
       </div>
 
-      <div class="portlet-body col-md-8">
+      <div class="portlet-body col-md-12">
         <table class="table table-fixed table-borderless">
           <tr>
-            <td class="col-lg-4">Vendor:</td>
-            <td class="col-lg-8">
+            <td class="col-lg-3">Vendor:</td>
+            <td class="col-lg-9">
               <% if @camera["vendor_name"] != nil %>
                 <%= @camera["vendor_name"] %>
               <% else %>
@@ -658,12 +658,10 @@
                       </tr>
                     </table>
                     <div class="save-settings">
-
                         <div class='pull-left form-group'>
                           <label class="control-label" for="add-button"></label>
                           <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
                         </div>
-
                     </div>
                     <% else %>
                       <p class="note note-info">You do not have permission to save edits to the camera location</p>
@@ -679,7 +677,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div><!-- end info location-->
   </div>
 
 </div>
@@ -834,6 +832,7 @@
     }
   });
 
+
   function initialize() {
     if (cameraLong === '0') {
       $('#co-ordinates').replaceWith("<p>The location is not set. Drag the marker to the location of your camera.</p>");
@@ -857,7 +856,7 @@
     } else {
 
       var mapOptions = {
-        zoom: 17,
+        zoom: 14,
         center: cameraLatlng
       }
 
@@ -881,8 +880,6 @@
       }, 200);
     });
 
-
-
     // Register Custom "dragend" Event
     google.maps.event.addListener(marker, 'dragend', function() {
       $('#location-settings').css('display', 'block');
@@ -902,9 +899,5 @@
 
   }
   google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-
 
 </script>

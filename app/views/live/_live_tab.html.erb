@@ -1,15 +1,25 @@
 <div class="camera-preview">
-  <a href='#' onclick='location.reload(true); return false;' class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-  <!--remove id="live-refresh" from above temporarily-->
-  <% if @camera['is_online'] %>
-    <%= preview(@camera, true) %>
+
+  <% if @camera['is_online'] && @camera['is_public'] %>
+    <img id="myImage" src="https://api.evercam.io/v1/cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>">
   <% else %>
-    <div class="tint"><%= preview(@camera, true ) %></div>
+    <div><%= preview(@camera, true ) %></div>
   <% end %>
+
 </div>
-
-
 
 <script type="text/javascript">
   $(window.Evercam.Live.initializeTab);
+  <% if @camera['is_online'] && @camera['is_public'] %>
+
+  jQuery(document).ready(function() {
+    window.api_credentials = { api_id: '<%= current_user.api_id %>', api_key: '<%= current_user.api_key %>' }
+  });
+
+  setInterval(function() {
+    var myImageElement = document.getElementById('myImage');
+    myImageElement.src = 'https://api.evercam.io/v1/cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>?rand=' + new Date().getTime();
+  }, 1000);
+  <% else %>
+  <% end %>
 </script>

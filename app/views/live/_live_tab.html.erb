@@ -1,6 +1,6 @@
 <div class="camera-preview">
   <% if @camera['is_online'] && @camera['is_public'] %>
-    <img id="myImage" src="https://api.evercam.io/v1/cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>">
+    <img id="myImage" src="https://api.evercam.io/v1/cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>" onerror="imgError(this);">
   <% else %>
     <div><%= preview(@camera, true) %></div>
   <% end %>
@@ -16,4 +16,10 @@
   }, 1000);
   <% else %>
   <% end %>
+
+  function imgError(image) {
+    image.onerror = "";
+    image.src = "https://www.evercam.io/img/live-error.png";
+    return true;
+  }
 </script>

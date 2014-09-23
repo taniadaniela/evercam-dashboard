@@ -12,10 +12,6 @@
   $(window.Evercam.Live.initializeTab);
   <% if @camera['is_online'] && @camera['is_public'] %>
 
-  jQuery(document).ready(function() {
-    window.api_credentials = { api_id: '<%= current_user.api_id %>', api_key: '<%= current_user.api_key %>' }
-  });
-
   setInterval(function() {
     var myImageElement = document.getElementById('myImage');
     myImageElement.src = 'https://api.evercam.io/v1/cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>?rand=' + new Date().getTime();

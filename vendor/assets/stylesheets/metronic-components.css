@@ -4535,11 +4535,11 @@ Blue Default
 }
 .blue.btn:hover, .blue.btn:focus, .blue.btn:active, .blue.btn.active {
     color: white;
-    background-color: #2e7af7;
+    background-color: #428bca;
 }
 .open .blue.btn.dropdown-toggle {
     color: white;
-    background-color: #2e7af7;
+    background-color: #428bca;
 }
 .blue.btn:active, .blue.btn.active {
     background-image: none;
@@ -4548,22 +4548,22 @@ Blue Default
     background-image: none;
 }
 .blue.btn.disabled, .blue.btn.disabled:hover, .blue.btn.disabled:focus, .blue.btn.disabled:active, .blue.btn.disabled.active, .blue.btn[disabled], .blue.btn[disabled]:hover, .blue.btn[disabled]:focus, .blue.btn[disabled]:active, .blue.btn[disabled].active, fieldset[disabled] .blue.btn, fieldset[disabled] .blue.btn:hover, fieldset[disabled] .blue.btn:focus, fieldset[disabled] .blue.btn:active, fieldset[disabled] .blue.btn.active {
-    background-color: #4b8df8;
+    background-color: #428bca;
 }
 .blue.btn .badge {
-    color: #4b8df8;
+    color: #428bca;
     background-color: white;
 }
 
 /* Button Strip */
 .btn.blue-stripe {
-    border-left: 3px solid #4b8df8;
+    border-left: 3px solid #428bca;
 }
 
 /* Portlet */
 .portlet > .portlet-body.blue,
 .portlet.blue {
-    background-color: #4b8df8;
+    background-color: #428bca;
 }
 
 .portlet.solid.blue > .portlet-title,
@@ -4580,7 +4580,7 @@ Blue Default
     border-top: 0;
 }
 .portlet.box.blue > .portlet-title {
-    background-color: #4b8df8;
+    background-color: #428bca;
 }
 .portlet.box.blue > .portlet-title > .caption {
     color: white;

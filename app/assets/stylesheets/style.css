@@ -1509,10 +1509,17 @@ table.table-clean thead th {
 #user-settings .form-horizontal .control-label {
     text-align: left;
 }
-
+.cancel  {
+    margin-left: 10px;
+    float: left;
+}
 #user-settings .help-inline .input-inline:hover {
     display: block;
 }
+#user-settings .blue.btn {
+    float: left;
+}
+
 
 #some-element {
     opacity: 0;

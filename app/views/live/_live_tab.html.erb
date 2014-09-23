@@ -1,11 +1,9 @@
 <div class="camera-preview">
-
   <% if @camera['is_online'] && @camera['is_public'] %>
     <img id="myImage" src="https://api.evercam.io/v1/cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>">
   <% else %>
-    <div><%= preview(@camera, true ) %></div>
+    <div><%= preview(@camera, true) %></div>
   <% end %>
-
 </div>
 
 <script type="text/javascript">

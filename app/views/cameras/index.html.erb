@@ -187,7 +187,11 @@
 
 </div>
 <!-- END CONTAINER -->
-
+<%= javascript_tag do %>
+  <% @cameras.each do |camera| %>
+  imagea = '<%= preview(camera) %>';
+    <% end %>
+<% end %>
 <%= javascript_include_tag "cameras" %>
 <script>
   jQuery(document).ready(function() {
@@ -210,6 +214,5 @@
     if( button !== 'showLeft' ) {
       classie.toggle( showLeft, 'disabled' );
     }
-
   }
 </script>

@@ -38,7 +38,7 @@ $ ->
 
     # Validate host
     if (ext_url == '' || !validate_hostname(ext_url))
-      $('#test-error').text('External URL is incorrect')
+      $('#test-error').text('External IP Address (or URL) is incorrect')
       return
     else if (ext_url.indexOf('192.168') == 0 || ext_url.indexOf('127.0.0') == 0 || ext_url.indexOf('10.') == 0)
       $('#test-error').text('This is local IP. Please use external IP.')

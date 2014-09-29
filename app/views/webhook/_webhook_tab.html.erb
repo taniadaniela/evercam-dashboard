@@ -1,4 +1,20 @@
 <div class="row">
+  <div class="col-md-8">
+    <p>Webhooks can be used to notify an external address whenever a camera goes online or offline.</p>
+    <p>For example, if we add <span style="color:#409b1c">http://example.com/payload</span> to the list of webhooks for the camera "<%= @camera.id %>", that address would receive a POST request with the following data when camera's status changed:</p>
+  </div>
+  <div class="col-md-4">
+<pre>{
+  <span style="color:#409b1c">"id"</span>: <span style="color:#409b1c">"<%= @camera.id %>"</span>,
+  <span style="color:#409b1c">"last_polled_at"</span>: <span style="color:#409b1c">"<%= @camera.last_polled_at %> "</span>,
+  <span style="color:#409b1c">"last_online_at"</span>: <span style="color:#409b1c">"<%= @camera.last_online_at %> "</span>,
+  <span style="color:#409b1c">"is_online"</span>: <span style="color:#3b5bb5"><%= @camera.is_online %></span>
+}
+</pre>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-12">
     <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
       <tbody>

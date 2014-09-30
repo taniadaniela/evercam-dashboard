@@ -117,7 +117,7 @@
                           <label class="control-label" for="camera-username">Username:</label>
                         </td>
                         <td>
-                          <input id="camera-username" name="camera-username" placeholder="" class="form-control  makeEditable" ="" type="text"
+                          <input id="camera-username" name="camera-username" placeholder="Not yet provided" class="form-control  makeEditable" ="" type="text"
                           value="<%= @camera['cam_username'] %>">
                         </td>
                       </tr>
@@ -126,7 +126,7 @@
                           <label class="control-label" for="camera-password">Password:</label>
                         </td>
                         <td>
-                          <input id="camera-password" name="camera-password" placeholder="" class="form-control " ="" type="text"
+                          <input id="camera-password" name="camera-password" placeholder="Not yet provided" class="form-control " ="" type="text"
                           value="<%= @camera['cam_password'] %>">
                         </td>
                       </tr>
@@ -135,7 +135,7 @@
                           <label class="control-label" for="snapshot">Snapshot URL:</label>
                         </td>
                         <td>
-                          <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
+                          <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
                                  value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %>" >
                         </td>
                       </tr>
@@ -178,7 +178,7 @@
                             <td>
                               <div class="input-group">
                                 <span class="input-group-addon">http://</span>
-                                <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
+                                <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
                                 value="<%= @camera.deep_fetch(:external, :host) {} %>">
                               </div>
                             </td>
@@ -525,7 +525,7 @@
             <tr>
               <td>Username:</td>
               <td>
-                <% if @camera["cam_username"] != nil %>
+                <% if @camera["cam_username"] != "" %>
                 <%= @camera['cam_username'] %>
                 <% else %>
                   <span class="grey">Not provided</span>
@@ -534,7 +534,13 @@
             </tr>
             <tr>
               <td>Password:</td>
-              <td><%= @camera['cam_password'] %></td>
+              <td>
+                <% if @camera["cam_password"] != "" %>
+                  <%= @camera['cam_password'] %>
+                <% else %>
+                  <span class="grey">Not provided</span>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td>Snapshot URL:</td>

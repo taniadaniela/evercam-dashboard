@@ -670,7 +670,13 @@ Google Maps
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
-
+#info .table-borderless td {
+    line-height: 1.5 !Important;
+    padding: 7px 2px !important;
+}
+#info .table {
+    margin-bottom: 5px;
+}
 .info-preview {
     width:100%;
     overflow: hidden;
@@ -1129,7 +1135,7 @@ input:focus {
 ///////////////////////////*/
 .bb-alert {
     position: fixed;
-    top: 3.3%;
+    top: 14px;
     left: 50%;
     padding: 0.8em 1em;
     z-index: 10000;
@@ -1140,7 +1146,7 @@ input:focus {
 }
 #signin .bb-alert {
     position: absolute;
-    top: 71px;
+    top: 68px;
 
 }
 .bbb-alert {

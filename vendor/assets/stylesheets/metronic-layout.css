@@ -982,7 +982,7 @@ Page sidebar
     list-style: none;
     display: none;
     padding: 0;
-    margin: 0px 0px 8px 0px;
+    margin: 0px 0px 0px 0px;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {

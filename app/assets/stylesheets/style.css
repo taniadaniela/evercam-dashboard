@@ -38,10 +38,16 @@
 }
 .camera-index {
     overflow: hidden;
-    height: 300px;
+    height: 412px;
     margin-top: 4px;
     padding-left: 5px;
     padding-right: 0px;
+
+}
+@media screen and (max-width: 1600px) {
+    .camera-index {
+        height: 300px;
+    }
 }
 .link {
     z-index: 100000;
@@ -50,7 +56,7 @@
 }
 .snapshot {
     position:relative;
-    height: 443px;
+    height: 100%;
     text-align: center;
 }
 .snapshot img {
@@ -843,6 +849,7 @@ Google Maps
 }
 .delete-share-request-control {
     margin-top: 4px;
+    cursor: pointer;
 }
 #sharing .radio input[type="radio"] {
     width: 20px;

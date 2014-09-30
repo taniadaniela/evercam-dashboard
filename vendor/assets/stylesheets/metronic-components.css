@@ -1952,7 +1952,7 @@ Forms
     box-shadow: none;
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    cursor: not-allowed;
+    cursor: default;
     background-color: #eeeeee;
 }
 .form-control.height-auto {
@@ -8567,7 +8567,7 @@ Purple Seance
 }
 
 .cbp-spmenu-vertical a {
-    padding: 12px 15px;
+    padding: 13px 15px 12px;
 }
 
 .cbp-spmenu-horizontal {

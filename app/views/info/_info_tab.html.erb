@@ -32,7 +32,7 @@
                           <label class="control-label" for="camera-name">Name:</label>
                         </td>
                         <td>
-                          <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" data-validation-allowing="-_ " data-validation="alphanumeric" data-validation-length="max24" required="" placeholder="" name="camera-name">
+                          <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" data-validation-allowing="-_ " data-validation="alphanumeric" placeholder="" name="camera-name">
                         </td>
                       </tr>
                     </table>
@@ -53,7 +53,6 @@
                 <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
               </div>
               <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <input type="reset" class="btn btn-default cancel" value="Reset" name="Reset"/>
             </div>
           </div>
         </fieldset>
@@ -85,7 +84,7 @@
                           <label class="control-label" for="camera-vendor">Vendor:</label>
                         </td>
                         <td>
-                          <select id="camera-vendor" name="camera-vendor" ="" class="form-control makeEditable">
+                          <select id="camera-vendor" name="camera-vendor" class="form-control makeEditable">
                           <option selected="selected" value="">-- select model --</option>
                           <% vendors.each_with_index  do |v, index| -%>
                             <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor_id'] %>selected="selected"<% end %>>
@@ -118,7 +117,7 @@
                           <label class="control-label" for="camera-username">Username:</label>
                         </td>
                         <td>
-                          <input id="camera-username" name="camera-username" placeholder="" class="form-control  makeEditable" ="" type="text"
+                          <input id="camera-username" name="camera-username" placeholder="Not yet provided" class="form-control  makeEditable" ="" type="text"
                           value="<%= @camera['cam_username'] %>">
                         </td>
                       </tr>
@@ -127,7 +126,7 @@
                           <label class="control-label" for="camera-password">Password:</label>
                         </td>
                         <td>
-                          <input id="camera-password" name="camera-password" placeholder="" class="form-control " ="" type="text"
+                          <input id="camera-password" name="camera-password" placeholder="Not yet provided" class="form-control " ="" type="text"
                           value="<%= @camera['cam_password'] %>">
                         </td>
                       </tr>
@@ -136,7 +135,7 @@
                           <label class="control-label" for="snapshot">Snapshot URL:</label>
                         </td>
                         <td>
-                          <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
+                          <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
                                  value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %>" >
                         </td>
                       </tr>
@@ -179,7 +178,7 @@
                             <td>
                               <div class="input-group">
                                 <span class="input-group-addon">http://</span>
-                                <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
+                                <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
                                 value="<%= @camera.deep_fetch(:external, :host) {} %>">
                               </div>
                             </td>
@@ -505,7 +504,7 @@
           <tr>
             <td class="col-lg-3">Vendor:</td>
             <td class="col-lg-9">
-              <% if @camera["vendor_name"] != nil %>
+              <% if @camera["vendor_name"] != "" %>
                 <%= @camera["vendor_name"] %>
               <% else %>
                 <span class="grey">Not provided</span>
@@ -515,7 +514,7 @@
           <tr>
             <td>Model:</td>
             <td>
-              <% if @camera['model_name'] != nil %>
+              <% if @camera['model_name'] != "" %>
                 <%= @camera['model_name'] %>
               <% else %>
                 <span class="grey">Not provided</span>
@@ -526,7 +525,7 @@
             <tr>
               <td>Username:</td>
               <td>
-                <% if @camera["cam_username"] != nil %>
+                <% if @camera["cam_username"] != "" %>
                 <%= @camera['cam_username'] %>
                 <% else %>
                   <span class="grey">Not provided</span>
@@ -535,12 +534,20 @@
             </tr>
             <tr>
               <td>Password:</td>
-              <td><%= @camera['cam_password'] %></td>
+              <td>
+                <% if @camera["cam_password"] != "" %>
+                  <%= @camera['cam_password'] %>
+                <% else %>
+                  <span class="grey">Not provided</span>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td>Snapshot URL:</td>
               <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %></td>
             </tr>
+
+            <% if @camera["vendor_name"] != "Evercam Capture" %>
             <tr>
               <td>Camera Software:</td>
               <td>
@@ -551,6 +558,10 @@
                 <% end %>
               </td>
             </tr>
+            <% else %>
+
+            <% end %>
+
           <% else %>
 
           <% end %>
@@ -826,6 +837,8 @@
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
+
+
   $(document).ready(function() {
     if (cameraLong === '') {
       $('#info-location').replaceWith("<p>Not set</p>");
@@ -905,6 +918,18 @@
   <% if flash[:message] %>
   Notification.show('<%= flash[:message] %>');
   <% end %>
+
+  function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+  }
+  $('.modal').on('show.bs.modal', centerModal);
+  $(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+  });
 
 
 </script>

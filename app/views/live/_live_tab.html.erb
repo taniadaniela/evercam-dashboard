@@ -1,25 +1,26 @@
-<div class="camera-preview">
-  <% if @camera['is_online'] && @camera['is_public'] %>
-    <img id="myImage" src="https://api.evercam.io/v1/cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>" onerror="imgError(this);">
-  <% else %>
-    <div><%= preview(@camera, true) %></div>
-  <% end %>
-</div>
+<% if @camera['is_online'] %>
+  <div class="camera-preview">
+    <div>
+      <div class="row">
+        <div class="col-md-6">
+          <img id="myImage" style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="col-md-5">
+    <%= preview(@camera, true) %>
+    <p class="margin-top-20"><span class="red">Camera offline</span> - we can't get a live feed at the moment</p>
+  </div>
+<% end %>
 
 <script type="text/javascript">
   $(window.Evercam.Live.initializeTab);
-  <% if @camera['is_online'] && @camera['is_public'] %>
 
-  setInterval(function() {
+  var int_time = setInterval(function() {
     var myImageElement = document.getElementById('myImage');
-    myImageElement.src = 'https://api.evercam.io/v1/cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%= current_user.api_id -%>&api_key=<%= current_user.api_key -%>?rand=' + new Date().getTime();
+    myImageElement.src = '<%= EVERCAM_API %>cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>&rand=' + new Date().getTime();
   }, 1000);
-  <% else %>
-  <% end %>
 
-  function imgError(image) {
-    image.onerror = "";
-    image.src = "https://www.evercam.io/img/live-error.png";
-    return true;
-  }
 </script>

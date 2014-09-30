@@ -677,6 +677,9 @@ Google Maps
 #info .table {
     margin-bottom: 5px;
 }
+#info .help-block {
+    font-size: 12px;
+}
 .info-preview {
     width:100%;
     overflow: hidden;
@@ -733,12 +736,17 @@ Google Maps
 #settings-modal .portlet, #settings-modal-1 .portlet {
     margin-bottom: 0px;
 }
-
+#settings-modal .table-borderless td, #settings-modal-1 .table-borderless td  {
+    padding: 2px 2px !important;
+}
 .modal-content {
     background-color: #e5e5e5;
 }
 #settings-modal-1 .has-error .help-block {
  background-color: transparent;
+}
+#settings-modal-1 .control-label {
+    margin-top: 8px;
 }
 #info-preview {
     border: none;
@@ -1042,7 +1050,12 @@ input:focus {
 #testimg {
     height: 100%;
     width:auto;
-
+}
+.save-settings {
+    margin-top: 20px;
+}
+.save-settings .form-group {
+    margin-bottom: 0px;
 }
 .test-img-settings {
     background-color: #ffffff;

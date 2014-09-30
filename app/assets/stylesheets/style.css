@@ -1464,7 +1464,7 @@ li .dev-menu-title:hover {
 .sub-menu-item a {
     border: none !important;
     color: #bdbdbd;
-    padding: 7px 5px 7px 45px !important;
+    padding: 7px 5px 7px 40px !important;
 }
 /*/////////////////////
 //TABLE
@@ -1520,9 +1520,14 @@ table.table-clean thead th {
     float: left;
 }
 
+#user-settings .has-error .help-block {
+    font-size: 12px;
+    background-color: transparent;
+}
 
 #some-element {
     opacity: 0;
+    position: absolute;
 }
 
 #some-div:hover #some-element {

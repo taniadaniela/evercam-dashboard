@@ -134,7 +134,7 @@
                     </td>
                     <% 11.downto(0) do |i| %>
                     <td>
-                      <%= DashCamera.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
+                      <%= @dash_cameras.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
                     </td>
                     <% end %>
                   </tr>
@@ -143,9 +143,9 @@
                       Total Cameras
                     </td>
                     <% 11.downto(0) do |i| %>
-                    <td>
-                      <%= DashCamera.where(created_at: DashCamera.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>
-                    </td>
+                      <td>
+                        <%= @dash_cameras.where(created_at: @dash_cameras.first.created_at..i.months.ago.end_of_month).count %>
+                      </td>
                     <% end %>
                   </tr>
                   <tr>
@@ -154,7 +154,7 @@
                     </td>
                     <% 11.downto(0) do |i| %>
                     <td>
-                      <%= DashUser.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
+                      <%= @dash_users.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
                     </td>
                     <% end %>
                   </tr>
@@ -163,9 +163,9 @@
                       Total Users
                     </td>
                     <% 11.downto(0) do |i| %>
-                    <td>
-                      <%= DashUser.where(created_at: DashUser.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>
-                    </td>
+                      <td>
+                        <%= @dash_users.where(created_at: @dash_users.first.created_at..i.months.ago.end_of_month).count %>
+                      </td>
                     <% end %>
                   </tr>
                 </tbody>
@@ -204,12 +204,14 @@
                 <tbody>
                   <% @new_cameras.each do |dash_camera| %>
                   <tr>
-                    <td><%= dash_camera.name %></td>
                     <td>
-                      <%= DashVendorModel.find(dash_camera.model_id).name if dash_camera.model_id %>
+                      <%= link_to dash_camera.name, admin_dash_camera_path(dash_camera) %>
                     </td>
                     <td>
-                      <%= DashVendor.find(DashVendorModel.find(dash_camera.model_id).vendor_id).name if dash_camera.model_id %>
+                      <%= dash_camera.dash_vendor_model.name if dash_camera.dash_vendor_model %>
+                    </td>
+                    <td>
+                      <%= dash_camera.dash_vendor_model.vendor.name if dash_camera.dash_vendor_model and dash_camera.dash_vendor_model.vendor %>
                     </td>
                     <td><%= dash_camera.created_at.strftime("%d/%m/%y") %></td>
                   </tr>
@@ -249,9 +251,9 @@
                 <tbody>
                   <% @new_users.each do |dash_user| %>
                   <tr>
-                    <td><%= dash_user.fullname %></td>
+                    <td><%= link_to dash_user.fullname, admin_dash_user_path(dash_user) %></td>
                     <td><%= dash_user.email %></td>
-                    <td><%= DashCountry.find(dash_user.country_id).name %></td>
+                    <td><%= dash_user.dash_country.name %></td>
                     <td><%= dash_user.created_at.strftime("%d/%m/%y") %></td>
                   </tr>
                   <% end %>

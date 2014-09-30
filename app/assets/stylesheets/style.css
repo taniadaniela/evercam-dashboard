@@ -689,7 +689,9 @@ Google Maps
     min-width: 169px;
     max-width: 100%;
 }
-
+#deleteModal .modal-footer {
+    padding: 0px 14px 25px;
+}
 .info-header {
     font-weight: 600;
 }

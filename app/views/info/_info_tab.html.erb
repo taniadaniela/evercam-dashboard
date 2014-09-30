@@ -84,7 +84,7 @@
                           <label class="control-label" for="camera-vendor">Vendor:</label>
                         </td>
                         <td>
-                          <select id="camera-vendor" name="camera-vendor" ="" class="form-control makeEditable">
+                          <select id="camera-vendor" name="camera-vendor" class="form-control makeEditable">
                           <option selected="selected" value="">-- select model --</option>
                           <% vendors.each_with_index  do |v, index| -%>
                             <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor_id'] %>selected="selected"<% end %>>
@@ -540,6 +540,8 @@
               <td>Snapshot URL:</td>
               <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %></td>
             </tr>
+
+            <% if @camera["vendor_name"] != "Evercam Capture" %>
             <tr>
               <td>Camera Software:</td>
               <td>
@@ -550,6 +552,10 @@
                 <% end %>
               </td>
             </tr>
+            <% else %>
+
+            <% end %>
+
           <% else %>
 
           <% end %>

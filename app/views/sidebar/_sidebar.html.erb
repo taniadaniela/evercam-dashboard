@@ -2,12 +2,27 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
     <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-      <li class="start ">
+    <ul class="page-sidebar-menu">
+      <li>
         <a href="/">
           <i class="icon-camera"></i>
           <span class="title">My Cameras</span>
         </a>
+      </li>
+      <li class="">
+        <ul class="sub-menu">
+          <% @cameras.each do |camera| %>
+            <li class="sub-menu-item">
+              <a href="/cameras/<%= camera['id'] %>?share=false">
+                <%= camera['name'] %>
+                <% if camera['is_online'] %>
+                <% else %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
       </li>
       <li>
         <a href="/publiccam">

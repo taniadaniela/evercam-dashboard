@@ -11,6 +11,7 @@ class CamerasController < ApplicationController
   end
 
   def new
+    load_cameras_and_shares
     @user = (flash[:user] || {})
   end
 

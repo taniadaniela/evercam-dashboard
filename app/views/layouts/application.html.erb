@@ -46,6 +46,8 @@
       <!-- END RESPONSIVE MENU TOGGLER -->
       <div class="nav-title pull-left">
         <a href="/"><h4>Dashboard</h4></a>
+        <a href="/cameras/new"><i class="icon-plus"></i></a>
+        <a href="/dev"><i class="icon-briefcase"></i></a>
       </div>
       <!-- BEGIN TOP NAVIGATION MENU -->
       <div class="top-menu">
@@ -131,12 +133,7 @@
 
     $('.sidebar-toggle-box .glyphicon-list').click(function (e) {
 
-      $(".leftside-navigation").niceScroll({
-        cursorcolor: "#1FB5AD",
-        cursorborder: "0px solid #fff",
-        cursorborderradius: "0px",
-        cursorwidth: "3px"
-      });
+
 
       $('#sidebar').toggleClass('hide-left-bar');
       if ($('#sidebar').hasClass('hide-left-bar')) {

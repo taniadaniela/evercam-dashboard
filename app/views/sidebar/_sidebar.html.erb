@@ -9,10 +9,10 @@
           <span class="title">My Cameras</span>
         </a>
       </li>
-      <li class="">
+      <li>
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
-            <li class="sub-menu-item">
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
               <a href="/cameras/<%= camera['id'] %>?share=false">
                 <%= camera['name'] %>
                 <% if camera['is_online'] %>

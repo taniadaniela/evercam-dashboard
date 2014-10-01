@@ -439,10 +439,9 @@ input:-webkit-autofill {
     margin-right: 5px;
 }
 #public-info p {
-    margin-top: 13px;
+    margin-top: 2px;
     color: #aaa;
-    margin-left: 7px;
-}
+    }
 /*MAP */
 #map-canvas{
     width: 100%;

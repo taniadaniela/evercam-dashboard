@@ -6,6 +6,7 @@ EvercamDashboard::Application.routes.draw do
     get '/kpi' => 'dashboard#kpi'
     resources :dash_cameras, path: :cameras
     resources :dash_users, path: :users
+    get '/users/:id/impersonate' => 'dash_users#impersonate', as: :impersonate
     mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
   end
 

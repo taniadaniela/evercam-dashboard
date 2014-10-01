@@ -26,18 +26,6 @@
               </a>
             </li>
           <% end %>
-          <% @shares.each do |camera| %>
-            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-              <a href="/cameras/<%= camera['id'] %>?share=true">
-                <%= camera['name'] %>
-                <i class="icon-users"></i>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
-          <% end %>
       <li>
         <a href="/publiccam">
           <i class="icon-map"></i>

@@ -653,10 +653,15 @@ Google Maps
     text-transform: uppercase;
     bottom: 15px;
 }
+.tint {
+    width: 100%;
+}
 .tint img {
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
     filter: grayscale(100%);
+    width:100%;
+    min-width: 500px;
 }
 .tint img:hover {
     -webkit-filter: grayscale(10%);
@@ -696,7 +701,7 @@ Google Maps
     overflow: hidden;
 }
 .info-preview img {
-    width: auto;
+    width: 100%;
     min-width: 169px;
     max-width: 100%;
 }

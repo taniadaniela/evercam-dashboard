@@ -472,13 +472,18 @@
       <div class="portlet-body">
         <div class="info-preview">
           <div class="camera-preview">
-            <!--     <div>
-                  <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-                </div>-->
-            <% if @camera['is_online'] %>
+            <% if @camera['is_online'] && @camera["vendor_name"] != "Evercam Capture" %>
+              <!--Online not capture-->
               <%= preview(@camera, true) %>
-            <% else %>
+            <% elsif @camera['is_online'] && @camera["vendor_name"] == "Evercam Capture" %>
+              <!--Online and is Capture-->
+              <div class="capture"><%= preview(@camera, true ) %></div>
+            <% elsif @camera["vendor_name"] != "Evercam Capture"  %>
+              <!--Offline Not Capture-->
               <div class="tint"><%= preview(@camera, true ) %></div>
+            <% else %>
+              <!--Offline Capture-->
+              <div class="tint capture"><%= preview(@camera, true ) %></div>
             <% end %>
           </div>
         </div>​

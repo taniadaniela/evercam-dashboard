@@ -705,6 +705,9 @@ Google Maps
     min-width: 169px;
     max-width: 100%;
 }
+.capture {
+    max-width: 300px;
+}
 #deleteModal .modal-footer {
     padding: 0px 14px 25px;
 }

@@ -1108,9 +1108,9 @@ input:focus {
 // RECORDING
 ///////////////////////////*/
 #recording {
-    max-height: 680px;
+    /*max-height: 680px;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: hidden;*/
 }
 /*///////////////////////////
 // WEBHOOK
@@ -1606,3 +1606,104 @@ table.table-clean thead th {
     text-align: right;
 }
 
+/*Start Recording tab stylesheet*/
+.loader-bg{
+    left: 2px;
+    top: 2px;
+    position: absolute;
+    display: none;
+    background: url('trans-grey.png') 0px;
+}
+.playback-slider-outer{
+    width:100%;
+    height:1.14em;
+    cursor:pointer;
+    margin-top:2px;
+    background:url(sel.jpg) repeat-x -2px 0px;
+}
+
+.playback-slider-inner{
+    background:#0000FE url(bar.jpg) repeat-x -2px 0px;
+    width:0px;
+    height:1.14em;
+    float:left;
+    position:relative;
+}
+
+.ui-slider-recordings{
+    background: url(p1.gif);
+    height:1.14em;
+}
+
+.clear-f{clear: both;padding: 0px;margin: 0px;}
+
+.margin-top-10{margin-top: 10px;}
+
+.playback-info-bar{
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    padding: 5px 0px;
+    background-color: #f3f3f3;
+}
+
+.playback-datepicker{
+    border:solid 1px #999999;
+}
+
+.playback-buttons-bar{
+    width: 100%;
+    text-align: center;
+}
+
+.width100{width: 100%;}
+
+.MDSlider-outer{
+    background-color: #e2e2e2;
+    border: 1px solid #b6b6b6;
+    max-width: 66em;
+    height: 93px;
+    padding: 5px 10px;
+}
+
+.MDSlider{
+    max-width: 66em;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 93px;
+}
+
+#divSliderMD ul, ol{
+    margin: 0;
+}
+
+#MDSliderItem li{
+    width: 75px;
+    height: 85px;
+    font-size: 10px;
+    text-align: center;
+    list-style: none;
+    padding-right: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.label-noMD{
+    position:relative;
+    top:30px;
+    text-align:center;
+    width:100%;
+    z-index:100;
+}
+
+#divPopup{
+    position: absolute;
+    text-align: center;
+    display: none;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
+    font-size: 8pt;
+    padding-left: 3px;
+    padding-right:3px;
+}
+/*End Recording tab stylesheet*/

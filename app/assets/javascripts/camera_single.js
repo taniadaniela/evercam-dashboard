@@ -1,4 +1,5 @@
 //= require sharing
+//= require recording
 //= require live
 //= require info
 //= require settings

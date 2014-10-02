@@ -84,6 +84,9 @@ describe CamerasController do
 
     describe 'GET #new' do
       it "renders the :new" do
+        stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=true").
+          to_return(status: 200, headers: {}, body: "{\"cameras\": []}")
+        
         session['user'] = user.email
         get :new
         expect(response.status).to eq(200)

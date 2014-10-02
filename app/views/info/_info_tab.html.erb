@@ -552,7 +552,7 @@
               <td>Camera Software:</td>
               <td>
                 <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
-                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <div id="port-80"><p class="grey"><%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p></div>
                 <% else %>
                   <span class="grey">Not available</span>
                 <% end %>
@@ -833,11 +833,18 @@
 <%= javascript_tag do %>
   cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
   cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
+  port = '<%= @camera.deep_fetch(:external, :http, :port) {} %>';
 <% end %>
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
 
+  $(document).ready(function() {
+    if (port === '80') {
+      $('#port-80').replaceWith("<p>Not available</p>");
+      return;
+    }
+  });
 
   $(document).ready(function() {
     if (cameraLong === '') {

@@ -554,10 +554,10 @@
 
             <% if @camera["vendor_name"] != "Evercam Capture" %>
             <tr>
-              <td>Camera Software:</td>
+              <td>Camera Source:</td>
               <td>
                 <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
-                <div id="port-80"><p class="grey"><%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %></p></div>
+                <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
                 <% else %>
                   <span class="grey">Not available</span>
                 <% end %>
@@ -843,13 +843,6 @@
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
-
-  $(document).ready(function() {
-    if (port === '80') {
-      $('#port-80').replaceWith("<p>Not available</p>");
-      return;
-    }
-  });
 
   $(document).ready(function() {
     if (cameraLong === '') {

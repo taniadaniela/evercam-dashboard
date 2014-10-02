@@ -472,13 +472,18 @@
       <div class="portlet-body">
         <div class="info-preview">
           <div class="camera-preview">
-            <!--     <div>
-                  <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-                </div>-->
-            <% if @camera['is_online'] %>
+            <% if @camera['is_online'] && @camera["vendor_name"] != "Evercam Capture" %>
+              <!--Online not capture-->
               <%= preview(@camera, true) %>
-            <% else %>
+            <% elsif @camera['is_online'] && @camera["vendor_name"] == "Evercam Capture" %>
+              <!--Online and is Capture-->
+              <div class="capture"><%= preview(@camera, true ) %></div>
+            <% elsif @camera["vendor_name"] != "Evercam Capture"  %>
+              <!--Offline Not Capture-->
               <div class="tint"><%= preview(@camera, true ) %></div>
+            <% else %>
+              <!--Offline Capture-->
+              <div class="tint capture"><%= preview(@camera, true ) %></div>
             <% end %>
           </div>
         </div>​
@@ -549,10 +554,10 @@
 
             <% if @camera["vendor_name"] != "Evercam Capture" %>
             <tr>
-              <td>Camera Software:</td>
+              <td>Camera Source:</td>
               <td>
                 <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
-                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
                 <% else %>
                   <span class="grey">Not available</span>
                 <% end %>
@@ -833,11 +838,11 @@
 <%= javascript_tag do %>
   cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
   cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
+  port = '<%= @camera.deep_fetch(:external, :http, :port) {} %>';
 <% end %>
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
-
 
   $(document).ready(function() {
     if (cameraLong === '') {

@@ -2,26 +2,41 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
     <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-      <li class="start ">
-        <a href="/">
+    <ul class="page-sidebar-menu">
+      <li class="<%= is_active?("/cameras/") %>">
+        <a href="/cameras">
           <i class="icon-camera"></i>
           <span class="title">My Cameras</span>
         </a>
       </li>
       <li>
+        <ul class="sub-menu">
+          <% @cameras.each do |camera| %>
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+              <a href="/cameras/<%= camera['id'] %>?share=false">
+                <%= camera['name'] %>
+                <% if camera['is_online'] %>
+                <% else %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="<%= is_active?("/publiccam") %>">
         <a href="/publiccam">
           <i class="icon-map"></i>
           <span class="title">Public Cameras</span>
         </a>
       </li>
-      <li>
+      <li class="<%= is_active?("/cameras/new") %>">
         <a href="/cameras/new">
           <i class="icon-plus"></i>
           <span class="title">Add Camera</span>
         </a>
       </li>
-      <li id="showLeft">
+      <li id="showLeft" class="<%= is_active?("/dev") %>">
         <a>
           <i class="icon-briefcase"></i>
           <span class="title">Developer</span>

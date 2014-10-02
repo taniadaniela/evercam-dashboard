@@ -4,67 +4,10 @@
   <span></span>
 </div>
 <div class="page-container">
-<!-- BEGIN SIDEBAR -->
-<div class="page-sidebar-wrapper">
-  <div class="page-sidebar">
-    <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu">
-      <li class="active open">
-        <a href="/cameras" class="active">
-          <i class="icon-camera"></i>
-          <span href="/cameras" class="title">My Cameras</span>
-        </a>
-      </li>
-          <% @cameras.each do |camera| %>
-            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-              <a href="/cameras/<%= camera['id'] %>?share=false">
-                <%= camera['name'] %>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
-          <% end %>
-      <li>
-        <a href="/publiccam">
-          <i class="icon-map"></i>
-          <span class="title">Public Cameras</span>
-        </a>
-      </li>
-      <li>
-        <a href="/cameras/new">
-          <i class="icon-plus"></i>
-          <span class="title">Add Camera</span>
-        </a>
-      </li>
-      <li id="showLeft">
-        <a>
-          <i class="icon-briefcase"></i>
-          <span class="title">Developer</span>
-        </a>
-        <ul id="mobile-dev-menu" class="sub-menu">
-          <li class="active">
-            <a href="/dev">API Docs</a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              Widgets <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="/widgets-new">Live View Widget</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+  <!-- BEGIN SIDEBAR -->
+  <%= render :partial => "sidebar/sidebar" %>
+  <!-- END SIDEBAR -->
 
-    </ul>
-    <!-- END SIDEBAR MENU -->
-  </div>
-</div>
-<!-- END SIDEBAR -->
   <div class="page-content-wrapper">
   <div class="page-content" id="camera-single">
 

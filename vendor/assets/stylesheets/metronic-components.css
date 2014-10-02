@@ -8500,7 +8500,9 @@ Purple Seance
 }
 
 
-
+.page-sidebar .page-sidebar-menu .sub-menu {
+    display:block !important;
+}
 /*SIdebar Plugin - Blueprints */
 #dev .page-content-wrapper .page-content, #live-widget .page-content-wrapper .page-content {
     margin-left: 425px;

@@ -1,55 +1,7 @@
 <%= content_for(:title, "Evercam: Live View Widget") %>
 <div id="live-widget" class="page-container">
   <!-- BEGIN SIDEBAR -->
-  <div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
-      <!-- BEGIN SIDEBAR MENU -->
-      <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-
-        <li>
-          <a href="/">
-            <i class="icon-camera"></i>
-            <span class="title">My Cameras</span>
-          </a>
-        </li>
-        <li>
-          <a href="/publiccam">
-            <i class="icon-map"></i>
-            <span class="title">Public Cameras</span>
-          </a>
-        </li>
-        <li>
-          <a href="/cameras/new">
-            <i class="icon-plus"></i>
-            <span class="title">Add Camera</span>
-          </a>
-        </li>
-        <li class="start active open">
-          <a href="javascript:;">
-            <i class="icon-briefcase"></i>
-            <span class="title">Developer</span>
-          </a>
-          <!--<ul class="sub-menu">
-            <li>
-              <a href="/dev">API Docs</a>
-            </li>
-            <li class="start active open">
-              <a href="javascript:;">
-                Widgets <span class="arrow"></span>
-              </a>
-              <ul class="sub-menu">
-                <li class="active">
-                  <a href="/widgets-new">Live View Widget</a>
-                </li>
-              </ul>
-            </li>
-          </ul>-->
-        </li>
-
-      </ul>
-      <!-- END SIDEBAR MENU -->
-    </div>
-  </div>
+  <%= render :partial => "sidebar/sidebar" %>
   <!-- END SIDEBAR -->
   <div class="page-content-wrapper">
     <div class="page-content">

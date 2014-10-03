@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   layout "forswagger", only: [:swagger]
 
   def dev
-    load_cameras_and_shares
+    load_user_cameras
     current_user
   end
 

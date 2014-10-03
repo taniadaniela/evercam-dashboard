@@ -42,6 +42,7 @@ class PublicController < ApplicationController
       @camera        = Hashie::Mash.new(get_evercam_api.get_camera(params[:id]))
       @camera.extend Hashie::Extensions::DeepFetch
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg"
+      load_user_cameras
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching the details for a public cameras.\nCause: #{error}\n" +

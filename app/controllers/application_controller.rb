@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-  def load_cameras_and_shares
+  def load_user_cameras
     @cameras = Rails.cache.fetch("#{current_user.username}/cameras")
     if @cameras.nil?
       @cameras = []

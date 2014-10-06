@@ -4,7 +4,7 @@ class PublicController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
 
-  LIMIT = 9
+  LIMIT = 1000
 
   def index
     @user    = current_user
@@ -14,7 +14,8 @@ class PublicController < ApplicationController
       @page = 0 if @page < 0
       offset = @page
       output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  thumbnail: true)
+                                                  thumbnail: true,
+                                                  limit: LIMIT)
       @cameras = output[:cameras]
       @cameras.map! do |c|
         c = Hashie::Mash.new(c)
@@ -52,30 +53,5 @@ class PublicController < ApplicationController
       redirect_to '/publiccam'
     end
   end
-
-  def map
-    @user    = current_user
-    @cameras = []
-    begin
-      @page    = (params[:page].to_i - 1) || 0
-      @page = 0 if @page < 0
-      offset = @page
-      output = get_evercam_api.get_public_cameras(offset: offset,
-                                                  thumbnail: true)
-      @cameras = output[:cameras]
-      @pages = output[:pages]
-
-      @cameras.delete_if do |camera|
-        (camera["short"].nil? || camera["short"]["jpg_url"].nil?)
-      end
-    rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
-      Rails.logger.error "Exception caught fetching a list of public cameras.\nCause: #{error}\n" +
-                           error.backtrace.join("\n")
-      flash[:error] = "An error occurred fetching the public camera details. Please try "\
-                      "again and, if the problem persists, contact support."
-    end
-  end
-
 
 end

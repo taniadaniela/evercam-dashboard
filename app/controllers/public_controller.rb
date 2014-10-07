@@ -9,22 +9,25 @@ class PublicController < ApplicationController
   def index
     @user    = current_user
     @cameras = []
+    @public_cameras = []
     begin
+      load_user_cameras
+
       @page    = (params[:page].to_i - 1) || 0
       @page = 0 if @page < 0
       offset = @page
       output = get_evercam_api.get_public_cameras(offset: offset,
                                                   thumbnail: true,
                                                   limit: LIMIT)
-      @cameras = output[:cameras]
-      @cameras.map! do |c|
+      @public_cameras = output[:cameras]
+      @public_cameras.map! do |c|
         c = Hashie::Mash.new(c)
         c.extend Hashie::Extensions::DeepFetch
       end
 
       @pages = output[:pages]
 
-      @cameras.delete_if do |camera|
+      @public_cameras.delete_if do |camera|
         (camera["proxy_url"].nil? || camera["proxy_url"]["jpg"].nil?)
       end
     rescue => error

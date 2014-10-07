@@ -450,7 +450,7 @@ input:-webkit-autofill {
 /*MAP */
 #map-canvas{
     width: 100%;
-    height: 900px;
+    height: 1000px;
     background: #e9e9e9;
 }
 

@@ -19,7 +19,7 @@
         <div class="caption">
           User Settings
         </div>
-      <div class="pull-right edit btn btn-primary makeEditable">Edit</div>
+      <div id="show" class="pull-right edit btn btn-primary makeEditable">Edit</div>
     </div>
 
       <div class="portlet-body form">
@@ -72,15 +72,19 @@
               </div>
             </div>
 
-            <div class="margin-top-10 user-save">
+            <div class="margin-top-10">
               <div class="col-lg-offset-3 col-md-5">
-                <input type="submit" class="btn blue" value="Save" name="Save"/>
-                <input type="reset" class="makeNonEditable btn btn-default cancel" value="Cancel" name="Reset"/>
+                <p style="display: none;">
+                  <input type="submit" id="hide" class="btn blue" value="Save" name="Save"/>
+                  <input type="reset" id="hide-2" class="makeNonEditable btn btn-default cancel" value="Cancel" name="Reset"/>
+                </p>
               </div>
               <div class="col-md-3">
 
               </div>
             </div>
+
+
 
 
 
@@ -139,5 +143,16 @@
     $('select').removeAttr("readonly");
   });
 
+  $(document).ready(function(){
+    $("#hide").click(function(){
+      $("p").fadeOut();
+    });
+    $("#hide-2").click(function(){
+      $("p").fadeOut();
+    });
+    $("#show").click(function(){
+      $("p").fadeIn();
+    });
+  });
 
 </script>

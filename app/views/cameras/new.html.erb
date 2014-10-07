@@ -39,6 +39,10 @@
   <% field_errors = (flash[:field_errors] || {}) %>
   <div class="col-md-12">
   <form class="form-horizontal" autocomplete="off" role="form">
+  <!-- A workaround for chrome autofill entering camera user & pass autocomplete="off" no longer obeyed -->
+  <input style="display:none" type="text" name="fakeusernameremembered"/>
+  <input style="display:none" type="password" name="fakepasswordremembered"/>
+
   <div class="col-md-11">
 
   <!--NAME & ID -->

@@ -36,7 +36,9 @@
 #camera-index .page-content-wrapper .page-content {
     padding:0;
 }
-
+.margin-top-3 {
+    margin-top: 3px;
+}
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
     padding: 0px 0 4px 0;
     margin-left: -10px;
@@ -628,7 +630,6 @@ Google Maps
 }
 .green {
     color: #2ECC71;
-    margin-top: 10px;
 }
 .red {
     color: #DC4C3F !important;
@@ -1555,6 +1556,7 @@ table.table-clean thead th {
 #user-settings .form-horizontal .control-label {
     text-align: left;
 }
+
 .cancel  {
     margin-left: 10px;
     float: left;

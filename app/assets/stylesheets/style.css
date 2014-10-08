@@ -813,6 +813,14 @@ Google Maps
     padding-top: 6px;
 }
 /*SHARING*/
+#sharing_list_table {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 .note-link {
     font-size: 12px;
     border-left: 2px solid #428bca;

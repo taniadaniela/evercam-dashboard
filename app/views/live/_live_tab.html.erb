@@ -18,11 +18,9 @@
 <script type="text/javascript">
   <% if @camera['is_online'] %>
   $(window.Evercam.Live.initializeTab);
-
   var int_time = setInterval(function() {
     var myImageElement = document.getElementById('myImage');
     myImageElement.src = '<%= EVERCAM_API %>cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>&rand=' + new Date().getTime();
   }, 1000);
-  <% else %>
   <% end %>
 </script>

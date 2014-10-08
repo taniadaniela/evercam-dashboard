@@ -13,7 +13,7 @@
     text-align: center;
     min-width: 25px;
     float: left;
-    margin-top: -3px;
+    margin-top: 1px;
     margin-right: 5px;
     text-transform: uppercase;
 }
@@ -707,7 +707,7 @@ Google Maps
     max-width: 100%;
 }
 .capture {
-    max-width: 300px;
+    max-width: 450px;
 }
 #deleteModal .modal-footer {
     padding: 0px 14px 25px;
@@ -1471,6 +1471,20 @@ display:none ;
 li .dev-menu-title:hover {
     background-color: #494D51;
     cursor: default !important;
+}
+.widgets-menu {
+
+}
+li span {
+    margin-top: 5px;
+}
+.dev-menu-title {
+    text-transform: uppercase;
+    padding-left: 15px;
+    color:#e5e5e5;
+    font-size: 12px;
+    margin: 15px 0 5px;
+
 }
 @media (max-width: 980px) {
     .sidebar-toggler-wrapper {

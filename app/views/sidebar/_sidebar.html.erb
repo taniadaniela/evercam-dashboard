@@ -13,11 +13,15 @@
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-              <a href="/cameras/<%= camera['id'] %>?share=false">
+              <a href="/cameras/<%= camera['id'] %>">
                 <%= camera['name'] %>
                 <% if camera['is_online'] %>
                 <% else %>
                   <i class="red fa fa-chain-broken"></i>
+                <% end %>
+                <% if camera['owner'] == current_user.username %>
+                <% else %>
+                  <i class="icon icon-users"></i>
                 <% end %>
               </a>
             </li>

@@ -36,7 +36,9 @@
 #camera-index .page-content-wrapper .page-content {
     padding:0;
 }
-
+.margin-top-3 {
+    margin-top: 3px;
+}
 #my-cameras .panel-body, #my-shared-cameras .panel-body {
     padding: 0px 0 4px 0;
     margin-left: -10px;
@@ -450,7 +452,7 @@ input:-webkit-autofill {
 /*MAP */
 #map-canvas{
     width: 100%;
-    height: 900px;
+    height: 1000px;
     background: #e9e9e9;
 }
 
@@ -628,7 +630,6 @@ Google Maps
 }
 .green {
     color: #2ECC71;
-    margin-top: 10px;
 }
 .red {
     color: #DC4C3F !important;
@@ -812,6 +813,14 @@ Google Maps
     padding-top: 6px;
 }
 /*SHARING*/
+#sharing_list_table {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 .note-link {
     font-size: 12px;
     border-left: 2px solid #428bca;
@@ -1555,6 +1564,7 @@ table.table-clean thead th {
 #user-settings .form-horizontal .control-label {
     text-align: left;
 }
+
 .cancel  {
     margin-left: 10px;
     float: left;

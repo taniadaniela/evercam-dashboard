@@ -1,0 +1,1 @@
+$(function(){$.fn.dcAccordion&&$("#nav-accordion").dcAccordion({eventType:"click",autoClose:!1,saveState:!0,disableLink:!0,speed:"slow",showCount:!1,autoExpand:!0,classExpand:"dcjq-current-parent"})});

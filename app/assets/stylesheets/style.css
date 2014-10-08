@@ -215,6 +215,12 @@
     border:1px solid #e5e5e5;
     overflow: hidden;
 }
+@media (max-width: 767px) {
+    #add-test {
+        position: static ;
+        margin-left: 0px;
+    }
+}
 #test-error {
     margin-top: 5px;
     width: 100%;
@@ -789,6 +795,11 @@ Google Maps
 #co-ordinates {
     margin-bottom: 10px;
     margin-left: -15px;
+}
+@media (max-width: 480px) {
+    #co-ordinates {
+        margin-left: 0px;
+    }
 }
 .info-location p {
     background-color: #eef7fb;

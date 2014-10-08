@@ -1416,11 +1416,11 @@ Page sidebar
     /* Page sidebar */
     .page-sidebar,
     .page-sidebar.in {
-        margin: 0 10px 10px 0px !important;
+        margin: 0 0px 10px 0px !important;
     }
     .page-header-fixed.page-header-fixed-mobile .page-sidebar, .page-header-fixed.page-header-fixed-mobile
     .page-sidebar.in {
-        margin-top: 10px !important;
+    /*    margin-top: 10px !important;*/
     }
 }
 /******************

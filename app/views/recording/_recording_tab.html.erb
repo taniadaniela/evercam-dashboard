@@ -1,18 +1,32 @@
-<p class="note note-info">While this product is in beta, to enable 24/7 or scheduled recording for your camera, please contact us on support@evercam.io.</p>
+<p class="note note-info">This feature is still in beta. If you would like to enable 24/7 recording, or scheduling recording, send us an email - support@evercam.io</p>
 
 <div evercam="playback"></div>
 
 <script type="text/javascript">
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  if ($(e.target).attr('href') == '#recording') {
-  Playback.options.cameraId = '<%= @camera['id'] %>';
+
+  window.widgetLoaded = false;
+
+  $(document).ready(function () {
+    if (window.location.hash === '#recording' && !window.widgetLoaded) {
+      initLocalStorage();
+    }
+  });
+
+  $('.tabbable-custom').on('click', 'a[data-toggle="tab"]', function () {
+    if ($(this).attr('href') === '#recording' && !window.widgetLoaded) {
+      initLocalStorage();
+    }
+  });
+
+  function initLocalStorage() {
+    Playback.options.cameraId = '<%= @camera['id'] %>';
     Playback.options.api_id = '<%= current_user.api_id -%>';
     Playback.options.api_key = '<%= current_user.api_key -%>';
 
-  //Playback.options.token = '407e61785700c1db6055f3960f1f80c0';
-  //Playback.options.api_id = 'ac45487a';
-  //Playback.options.api_key = 'ef811c60ebba8b62ce11fec9c50bc51b';
-  Playback.Load();
-    }
-  })
+    //Playback.options.token = '407e61785700c1db6055f3960f1f80c0';
+    //Playback.options.api_id = 'ac45487a';
+    //Playback.options.api_key = 'ef811c60ebba8b62ce11fec9c50bc51b';
+    Playback.Load();
+  }
+
 </script>

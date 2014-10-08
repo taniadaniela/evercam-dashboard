@@ -8,17 +8,17 @@
 
   $(document).ready(function () {
     if (window.location.hash === '#recording' && !window.widgetLoaded) {
-      initLocalStorage();
+      initPlayback();
     }
   });
 
   $('.tabbable-custom').on('click', 'a[data-toggle="tab"]', function () {
     if ($(this).attr('href') === '#recording' && !window.widgetLoaded) {
-      initLocalStorage();
+      initPlayback();
     }
   });
 
-  function initLocalStorage() {
+  function initPlayback() {
     Playback.options.cameraId = '<%= @camera['id'] %>';
     Playback.options.api_id = '<%= current_user.api_id -%>';
     Playback.options.api_key = '<%= current_user.api_key -%>';

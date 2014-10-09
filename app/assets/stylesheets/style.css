@@ -610,7 +610,8 @@ Google Maps
     padding: 0px;
 }
 .tab-content h4 {
-
+    font-family: 'proxima-nova-bold';
+margin-bottom: 0px;
 }
 .camera-preview {
     position: relative;
@@ -828,6 +829,9 @@ Google Maps
     padding-top: 6px;
 }
 /*SHARING*/
+#sharing a {
+ text-decoration: none;
+}
 #sharing_list_table {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -835,6 +839,10 @@ Google Maps
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+#change_owner input {
+    width: 300px;
+    margin: 10px 0 0;
 }
 .note-link {
     font-size: 12px;

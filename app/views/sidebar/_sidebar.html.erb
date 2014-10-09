@@ -14,14 +14,15 @@
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
               <a href="/cameras/<%= camera['id'] %>">
+                <% if camera['owner'] == current_user.username %>
+                  <i class="icon icon-users" style="visibility: hidden;"></i>
+                <% else %>
+                  <i class="icon icon-users"></i>
+                <% end %>
                 <%= camera['name'] %>
                 <% if camera['is_online'] %>
                 <% else %>
                   <i class="red fa fa-chain-broken"></i>
-                <% end %>
-                <% if camera['owner'] == current_user.username %>
-                <% else %>
-                  <i class="icon icon-users"></i>
                 <% end %>
               </a>
             </li>
@@ -46,7 +47,7 @@
           <span class="title">Developer</span>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
-          <li class="active">
+          <li>
             <a href="/dev">API Docs</a>
           </li>
           <li>
@@ -76,15 +77,13 @@
       <li>
         <a href="/dev">API Docs</a>
       </li>
-      <li>
-        <a class="dev-menu-title">
-          Widgets <span class="arrow"></span>
-        </a>
-        <ul class="sub-menu">
-          <li>
-            <a href="/widgets-new">Live View Widget</a>
-          </li>
-        </ul>
+
+      <div class="dev-menu-title">
+        Widgets
+      </div>
+
+      <li class="widgets-menu">
+        <a class="active" href="/widgets-new">Live View Widget</a>
       </li>
     </ul>
   </nav>

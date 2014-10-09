@@ -56,19 +56,21 @@
           camera and associated artifacts.
         </strong></p>
         </p>
-        <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p><br/>
+        <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
         <input type="text" id="new_owner_email" name="new_owner_email" placeholder="Enter New Owners Email Address">
         <input type="hidden" id="change_owner_camera_id" name="camera-id" value="<%= @camera['id'] %>">
         <br/>
       </div>
       <div class="modal-footer">
-        <div class="col-sm-8">
-          <div class="btn-toolbar pull-left">
-            <div class="btn-group">
-              <button type="button" id="submit_change_owner_button" class="btn btn-default btn-danger">Submit</button>
-            </div>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="btn-toolbar pull-left">
+              <div class="btn-group">
+                <button type="button" id="submit_change_owner_button" class="btn btn-default btn-danger">Submit</button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
         </div>
@@ -107,7 +109,7 @@
             <td>Is Owner
             <td></td>
             <td> <% if @camera['owner'] == current_user.username %>
-                <a href="#" id="change_owner" data-toggle="modal" data-target="#change_owner" type="button" class="blue">  Transfer</a>
+                <a href="#" id="transfer" data-toggle="modal" data-target="#change_owner" type="button" class="blue">  Transfer</a>
               <% end %></td></td></td>
           </tr>
           <% if @camera_shares %>
@@ -243,4 +245,16 @@
 
 <script type="text/javascript">
   $(window.Evercam.Share.initializeTab);
+
+  function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+  }
+  $('.modal').on('show.bs.modal', centerModal);
+  $(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+  });
 </script>

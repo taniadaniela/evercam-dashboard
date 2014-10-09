@@ -79,6 +79,7 @@ addSharingCameraRow = (details) ->
 
    row.hide()
    $('#sharing_list_table tbody').append(row)
+   row.find('.save').hide()
    row.fadeIn()
    true
 

@@ -109,7 +109,7 @@
             <td>Is Owner
             <td></td>
             <td> <% if @camera['owner'] == current_user.username %>
-                <a href="#" id="change_owner" data-toggle="modal" data-target="#change_owner" type="button" class="blue">  Transfer</a>
+                <a href="#" id="transfer" data-toggle="modal" data-target="#change_owner" type="button" class="blue">  Transfer</a>
               <% end %></td></td></td>
           </tr>
           <% if @camera_shares %>

@@ -832,6 +832,10 @@ margin-bottom: 0px;
 #sharing a {
  text-decoration: none;
 }
+#transfer {
+    display: block;
+    padding:8px 0 4px;
+}
 #sharing_list_table {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

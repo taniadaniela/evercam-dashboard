@@ -4530,7 +4530,7 @@ Blue Default
 /* Button */
 .blue.btn {
     color: white;
-    background-color: #4b8df8;
+    background-color: #428bca;
     border-color: "";
 }
 .blue.btn:hover, .blue.btn:focus, .blue.btn:active, .blue.btn.active {

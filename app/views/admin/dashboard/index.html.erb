@@ -116,60 +116,7 @@
           </div>
           <div class="portlet-body">
             <div class="task-content">
-              <table class="table table-striped table-bordered table-hover">
-                <thead>
-                  <tr role="row" class="heading">
-                    <th>&nbsp;</th>
-                    <% 11.downto(0) do |i| %>
-                    <th>
-                      <%= i.months.ago.strftime("%B %Y") %>
-                    </th>
-                    <% end %>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      New Cameras
-                    </td>
-                    <% 11.downto(0) do |i| %>
-                    <td>
-                      <%= @dash_cameras.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
-                    </td>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <td>
-                      Total Cameras
-                    </td>
-                    <% 11.downto(0) do |i| %>
-                      <td>
-                        <%= @dash_cameras.where(created_at: @dash_cameras.first.created_at..i.months.ago.end_of_month).count %>
-                      </td>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <td>
-                      New Users
-                    </td>
-                    <% 11.downto(0) do |i| %>
-                    <td>
-                      <%= @dash_users.where(created_at: i.months.ago.beginning_of_month..i.months.ago.end_of_month).count %>
-                    </td>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <td>
-                      Total Users
-                    </td>
-                    <% 11.downto(0) do |i| %>
-                      <td>
-                        <%= @dash_users.where(created_at: @dash_users.first.created_at..i.months.ago.end_of_month).count %>
-                      </td>
-                    <% end %>
-                  </tr>
-                </tbody>
-              </table>
+              <%= render 'kpi_table' %>
             </div>
             <div class="scroller-footer">
               <div class="btn-arrow-link pull-right">

@@ -18,6 +18,7 @@ limit = ChunkSize
 sliderpercentage = 679
 playDirection = 1
 playStep = 1
+CameraOffset = 0
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -254,12 +255,13 @@ ChangeFormatAndGetFormatted = (str) ->
   true
 
 handleBodyLoadContent = ->
-  offset = 0
+  offset = $('#camera_time_offset').val()
+  CameraOffset = parseInt(offset)/3600
   currentDate = getLocationBaseDateTime(offset)
   cameraCurrentHour = currentDate.getHours()
 
-  $("#hourCalandar a[class*='ui-state-default']").removeClass("ui-state-active")
-  $("#tdI" + cameraCurrentHour + " a").addClass("ui-state-active")
+  $("#hourCalandar td[class*='day']").removeClass("active")
+  $("#tdI" + cameraCurrentHour + " a").addClass("active")
   PreviousImageHour = "tdI" + cameraCurrentHour;
 
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
@@ -277,11 +279,12 @@ getLocationBaseDateTime = (offset) ->
   #get UTC time in msec
   #d.getTime() returns the number of milliseconds since 1970/01/01 for d
   #d.getTimezoneOffset() Returns the time difference between UTC time and local time, in minutes
-  utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+  utc = d.getTime() + (d.getTimezoneOffset() * 60000)
   #create new Date object for different Location
   #using supplied offset
-  nd = new Date(utc + offset);
-  return nd;
+  utc = (utc + parseInt(offset))
+  nd = new Date(utc)
+  return nd
   true
 
 HighlightCurrentMonth = ->
@@ -359,8 +362,9 @@ BoldSnapshotHourSuccess = (result, context) ->
   lastBoldHour = 0;
   hasRecords = false;
   for hour in result.hours
-    $("#tdI"+hour).css("font-weight", "bold");
-    lastBoldHour = hour
+    hr = hour + CameraOffset
+    $("#tdI"+hr).css("font-weight", "bold");
+    lastBoldHour = hr
     hasRecords = true
 
   if hasRecords
@@ -377,9 +381,9 @@ GetCameraInfo = ->
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
   showLoader()
-
-  fromDT = GetFromDT().getTime()/1000
-  toDT = GetToDT().getTime()/1000
+  #getTime()
+  fromDT = GetFromDT()/1000
+  toDT = GetToDT()/1000
 
   cameraId = $('#recording_tab_camera_id').val()
   api_id = $('#recording_tab_api_id').val()
@@ -477,17 +481,29 @@ shortDate = (date) ->
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
-  hour = cameraCurrentHour
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
+  hour = parseInt(cameraCurrentHour)
+  fDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
+  console.log fDt
+  return fDt
   true
 
 GetToDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
-  hour = cameraCurrentHour + 1
+  hour = parseInt(cameraCurrentHour) + 1
+  tDt = 0
   if hour == 24
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59)
+    tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59)
   else
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
+    tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
+  console.log tDt
+  return tDt
+  true
+
+StripLeadingZeros = (input) ->
+  if input.length > 1 && input.substr(0,1) == "0"
+    return input.substr(1)
+  else
+    return input
   true
 
 DateToFormattedStr = (d) ->
@@ -813,6 +829,7 @@ SelectImagesByMinSec = ->
 
     while i < snapshotInfos.length
       si = snapshotInfos[i]
+
       sDt = si.date.substring(si.date.indexOf(" ") + 1).split(":")
       if sDt[1] is min
         if sDt[2] is sec
@@ -848,7 +865,7 @@ SelectImagesByMinSec = ->
 handleMinSecDropDown = ->
   hour = 1
 
-  while hour <= 23
+  while hour <= 59
     option = $("<option>").val(FormatNumTo2(hour)).append(FormatNumTo2(hour))
     $("#ddlRecMinutes").append option
     option = $("<option>").val(FormatNumTo2(hour)).append(FormatNumTo2(hour))

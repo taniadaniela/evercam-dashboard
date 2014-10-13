@@ -58,7 +58,6 @@ changeMonthFromArrow = (value) ->
   data.api_id = api_id
   data.api_key = api_key
   onError = (jqXHR, status, error) ->
-    #showError("Update of camera permissions failed. Please contact support.")
     false
 
   settings =
@@ -102,7 +101,6 @@ datePickerSelect = (value)->
     BoldSnapshotHour(false)
   else
     NoRecordingDayOrHour()
-    #clearHourCalander();
 
   ClearCalanderTimeOut = setTimeout(ResetDays, 100);
   true
@@ -117,7 +115,6 @@ datePickerChange=(value)->
   data.api_id = api_id
   data.api_key = api_key
   onError = (jqXHR, status, error) ->
-    #showError("Update of camera permissions failed. Please contact support.")
     false
 
   settings =
@@ -233,8 +230,6 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").fadeIn()
-  #$("#diverrorinfo").fadeOut();
-  #$("#divRecent").fadeOut();
   $("#divInfo").html("<b>Frame " + currFrame + " of " + totalSnaps + "</b> " + dt + " ")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -248,8 +243,6 @@ UpdateSnapshotRec = (snapInfo) ->
 
 ChangeFormatAndGetFormatted = (str) ->
   dtAr = str.split("/")
-
-  #alert(dtAr[2] + '-----' + (dtAr[1] - 1) + '----' + dtAr[0]);
   dt = new Date(dtAr[1] + "/" + dtAr[0] + "/" + dtAr[2])
   DateToFormattedStr dt
   true
@@ -268,20 +261,14 @@ handleBodyLoadContent = ->
   showLoader()
   HighlightCurrentMonth()
   BoldSnapshotHour(false)
-  #getCameraStorageSpace();
   true
 
 getLocationBaseDateTime = (offset) ->
   #create Date object for current location
   d = new Date()
-  #convert to msec
-  #add local time zone offset
-  #get UTC time in msec
-  #d.getTime() returns the number of milliseconds since 1970/01/01 for d
   #d.getTimezoneOffset() Returns the time difference between UTC time and local time, in minutes
   utc = d.getTime() + (d.getTimezoneOffset() * 60000)
-  #create new Date object for different Location
-  #using supplied offset
+  #create new Date object for different Location using supplied offset
   utc = (utc + parseInt(offset))
   nd = new Date(utc)
   return nd
@@ -297,7 +284,6 @@ HighlightCurrentMonth = ->
   data.api_id = api_id
   data.api_key = api_key
   onError = (jqXHR, status, error) ->
-    #showError("Update of camera permissions failed. Please contact support.")
     false
 
   settings =
@@ -340,8 +326,6 @@ BoldSnapshotHour = (callFromDt) ->
   data.api_id = api_id
   data.api_key = api_key
   onError = (jqXHR, status, error) ->
-    #showError("Update of camera permissions failed. Please contact support.")
-    #$("#divMSG").html("HighlightHourFailed:" + result.responseText);
     false
 
   settings =
@@ -381,7 +365,6 @@ GetCameraInfo = ->
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
   showLoader()
-  #getTime()
   fromDT = GetFromDT()/1000
   toDT = GetToDT()/1000
 
@@ -397,8 +380,6 @@ GetCameraInfo = ->
   data.api_id = api_id
   data.api_key = api_key
   onError = (jqXHR, status, error) ->
-    #showError("Update of camera permissions failed. Please contact support.")
-    #$("#divMSG").html("HighlightHourFailed:" + result.responseText);
     false
   onSuccess = (response) ->
     snapshotInfoIdx = 0
@@ -423,9 +404,6 @@ GetCameraInfo = ->
       currentFrameNumber=1
       SetInfoMessage(currentFrameNumber, shortDate(new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)))
       loadImage(snapshotInfos[snapshotInfoIdx].created_at)
-
-      #SetPlayFromImage(0)
-      #BindMDStrip()
     true
 
   settings =
@@ -447,7 +425,6 @@ loadImage = (timestamp) ->
   api_key = $('#recording_tab_api_key').val()
 
   data = {}
-  #data.timestamp = timestamp
   data.with_data = true
   data.range = 1
   data.api_id = api_id
@@ -536,8 +513,7 @@ NoRecordingDayOrHour = ->
   $("#divInfo").fadeOut()
   $("#divPointer").width(0)
   $("#divSliderBackground").width(0)
-  #$("#txtCurrentUrl").val("")
-  #$("#divSliderMD").width(759)
+
   $("#MDSliderItem").html("")
   $("#divNoMd").show()
   $("#divNoMd").text('No motion detected')
@@ -563,28 +539,27 @@ SetImageHour = (hr, id) ->
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
 
-  #uncomment this if condition after complete
-  #if $("#" + id).css('font-weight') == '700' || $("#" + id).css('font-weight') =='bold'
-  $("#divSliderBackground").width("100%")
-  $("#divSliderMD").width("100%")
-  $("#MDSliderItem").html("")
-  $("#divNoMd").show()
-  #$("#divNoMd").text('Loading motions...')
-  $("#btnCreateHourMovie").removeAttr('disabled')
-  GetCameraInfo()
-  #else
-  #  $("#divRecent").show()
-  #  $("#divInfo").fadeOut()
-  #  $("#divSliderBackground").width("0%")
-  #  $("#txtCurrentUrl").val("")
-  #  $("#divSliderMD").width("100%")
-  #  $("#MDSliderItem").html("")
-  #  $("#btnCreateHourMovie").attr('disabled', true)
-  #  totalFrames = 0
-  #  $("#imgPlayback").attr("src", "/assets/norecordings.gif")
-  #  $("#divNoMd").show()
-  #  $("#divNoMd").text('No motion detected')
-  #  HideLoader()
+  if $("#" + id).css('font-weight') == '700' || $("#" + id).css('font-weight') =='bold'
+    $("#divSliderBackground").width("100%")
+    $("#divSliderMD").width("100%")
+    $("#MDSliderItem").html("")
+    $("#divNoMd").show()
+    $("#divNoMd").text('Loading motions...')
+    $("#btnCreateHourMovie").removeAttr('disabled')
+    GetCameraInfo()
+  else
+    $("#divRecent").show()
+    $("#divInfo").fadeOut()
+    $("#divSliderBackground").width("0%")
+    $("#txtCurrentUrl").val("")
+    $("#divSliderMD").width("100%")
+    $("#MDSliderItem").html("")
+    $("#btnCreateHourMovie").attr('disabled', true)
+    totalFrames = 0
+    $("#imgPlayback").attr("src", "/assets/norecordings.gif")
+    $("#divNoMd").show()
+    $("#divNoMd").text('No motion detected')
+    HideLoader()
   true
 
 Pause = ->
@@ -850,7 +825,6 @@ SelectImagesByMinSec = ->
     currentFrameNumber = snapshotInfos.length + 1
     snapshotInfoIdx = snapshotInfos.length
 
-    #var si = snapshotInfos[snapshotInfoIdx];
     UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
   return
 

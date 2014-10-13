@@ -1609,7 +1609,7 @@ table.table-clean thead th {
 /*Start Recording tab stylesheet*/
 .col-recording-right{
     float: left;
-    width: 220px;
+    width: 230px;
 }
 .loader-bg{
     left: 2px;

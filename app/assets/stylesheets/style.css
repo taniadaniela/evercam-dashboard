@@ -1607,6 +1607,10 @@ table.table-clean thead th {
 }
 
 /*Start Recording tab stylesheet*/
+.col-recording-right{
+    float: left;
+    width: 220px;
+}
 .loader-bg{
     left: 2px;
     top: 2px;
@@ -1662,7 +1666,7 @@ table.table-clean thead th {
     background-color: #e2e2e2;
     border: 1px solid #b6b6b6;
     max-width: 66em;
-    height: 93px;
+    height: 105px;
     padding: 5px 10px;
 }
 
@@ -1705,5 +1709,24 @@ table.table-clean thead th {
     font-size: 8pt;
     padding-left: 3px;
     padding-right:3px;
+}
+
+.datepicker-bg{
+    background-color: #fff;
+    width: 210px;
+}
+
+.datepicker{
+    border: 1px solid #cccccc;
+    font-size: 11px;
+}
+
+.table-condensed th {
+    font-size: 13px;
+}
+
+.table-condensed tbody{
+    border: 1px solid #dddddd;
+    background-color: #f6f6f6;
 }
 /*End Recording tab stylesheet*/

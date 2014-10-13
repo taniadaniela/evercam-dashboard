@@ -601,7 +601,7 @@ HideLoader = ->
   true
 
 handleWindowResize = ->
-  $(window).resize = ->
+  $(window).bind "resize", ->
     totalWidth = $("#divSlider").width()
     $("#divPointer").width(totalWidth * currentFrameNumber / totalFrames)
   true
@@ -697,12 +697,6 @@ DoNextImg = ->
     currentFrameNumber = snapshotInfos.length
     snapshotInfoIdx = snapshotInfos.length - 1
     return
-  #unless snapshotInfos?
-  #  GetAllSnapshots()
-  #  return
-  #if snapshotInfoIdx >= snapshotInfos.length
-  #  GetAllSnapshots()
-  #  return
   si = snapshotInfos[snapshotInfoIdx]
   cameraId = $('#recording_tab_camera_id').val()
   api_id = $('#recording_tab_api_id').val()

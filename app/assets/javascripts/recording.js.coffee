@@ -483,7 +483,6 @@ GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
   fDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
-  console.log fDt
   return fDt
   true
 
@@ -495,7 +494,6 @@ GetToDT = ->
     tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59)
   else
     tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
-  console.log tDt
   return tDt
   true
 

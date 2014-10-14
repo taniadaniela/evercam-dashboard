@@ -5,7 +5,7 @@
 <div class="col-md-5 col-sm-5 col-xs-12 padding-right-10">
 
 
-  <!--<div class="option-1 switch" style="display: none;">
+  <div class="option-1 switch" style="display: none;">
     <h5>JPEG Refresh External</h5>
     <div class="player-container"></div>
   </div>
@@ -13,7 +13,7 @@
     <h5>JPEG Refresh Internal</h5>
     <div class="player-container"></div>
   </div>
-  <div class="option-3 switch" style="display: none;">
+  <!--<div class="option-3 switch" style="display: none;">
     <h5>JPEG Refresh Proxy</h5>
     <div class="player-container"></div>
   </div>
@@ -89,7 +89,7 @@
   </div>
 
 <select name="action" class='margin-top-10 margin-bottom-20' id="getPlayer" onchange="admSelectCheck(this);">
-  <!--<option value="option-1">
+  <option value="option-1">
     JPEG Refresh External
     <span class="grey">
           <% if url = @camera.deep_fetch(:external, :http, :jpg) {} %>
@@ -109,7 +109,7 @@
           <% end %>
   </span>
   </option>
-  <option value="option-3">
+  <!--<option value="option-3">
     JPEG Refresh Proxy
     <span class="grey">
      - <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>

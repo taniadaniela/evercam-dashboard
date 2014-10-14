@@ -37,6 +37,7 @@ gem 'rack-rewrite'
 gem 'sequel', '= 4.10.0'
 gem 'typhoeus'
 gem 'puma'
+gem 'puma_worker_killer'
 gem 'data_uri'
 gem 'geocoder'
 gem 'newrelic_rpm'
@@ -56,6 +57,8 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'devise'
 
 gem 'ie_iframe_cookies'
+
+gem 'heroku-api'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'

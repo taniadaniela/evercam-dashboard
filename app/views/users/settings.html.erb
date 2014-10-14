@@ -11,59 +11,48 @@
 <div class="page-content" id="user-settings">
 <!--main content start-->
 <!-- sidebar menu end-->
-
-<div class="col-md-7">
+<div class="row">
+  <div class="col-md-5">
   <!-- BEGIN SAMPLE FORM PORTLET-->
   <div class="portlet">
     <div class="portlet-title">
         <div class="caption">
           User Settings
         </div>
-        <div class="tools">
-          <a href="" class="collapse">
-          </a>
-          <a href="#portlet-config" data-toggle="modal" class="config">
-          </a>
-          <a href="" class="reload">
-          </a>
-          <a href="" class="remove">
-          </a>
-        </div>
+      <div id="show" class="pull-right edit btn btn-primary makeEditable">Edit</div>
     </div>
 
       <div class="portlet-body form">
         <form id="userProfile" role="form" method="post" class="form-horizontal">
           <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
-
-
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-username">Username</label>
               <div class="col-md-9" id="some-div">
                 <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline"  id="user-username" name="user-username" disabled placeholder="">
                 <span id="some-element" class="help-inline">
-											Username cannot be changed.</span>
+											Username can't be changed.</span>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-firstname">First Name</label>
               <div class="col-md-6">
-              <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control input-medium" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
+              <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control input-medium" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
                 </div>
             </div>
 
             <div class="form-group">
               <label class="col-md-3 control-label" for="user-lastname">Last Name</label>
               <div class="col-md-6">
-              <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control input-medium" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
+              <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control input-medium" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-3 control-label" for="email">Email address</label>
+              <label class="col-md-3 control-label" for="email">Email</label>
               <div class="col-md-9">
-              <input data-validation="email" type="email" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
+              <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
               <!--<span class="help-inline red">
 											Unverified. <a href="">Resend Verification</a></span>-->
               </div>
@@ -73,7 +62,7 @@
             <div class="form-group">
               <label class="col-md-3 control-label" for="country">Country</label>
               <div class="col-md-6">
-              <select id="country" name="country" class="input-medium form-control is-required">
+              <select id="country" readonly="readonly" name="country" class="input-medium form-control is-required">
                 <% @countries.each do |c| %>
                   <option value="<%= c.iso3166_a2 -%>" <% if c == current_user.country %>selected="selected"<% end %>>
                     <%= c.name -%>
@@ -83,11 +72,19 @@
               </div>
             </div>
 
-            <div class="right1">
-              <div class="col-lg-offset-3 col-md-3">
-                <input type="submit" class="btn blue" value="Save" name="Save"/>
+            <div class="margin-top-10">
+              <div class="col-lg-offset-3 col-md-12">
+                <p style="display: none;">
+                  <input type="submit" id="hide" class="btn blue" value="Save" name="Save"/>
+                  <input type="reset" id="hide-2" class="makeNonEditable btn btn-default cancel" value="Cancel" name="Reset"/>
+                </p>
+              </div>
+              <div class="col-md-3">
+
               </div>
             </div>
+
+
 
 
 
@@ -95,6 +92,7 @@
       </div>
   </div>
   </div>
+</div>
 
 
 
@@ -136,4 +134,26 @@
     }
 
   }
+  // Make Input Fields Non Editable & Editable
+  $(".makeNonEditable").click(function(){
+    $('input:text').attr("readonly", "readonly");
+    $('select').attr("readonly", "readonly");
+  });
+  $(".makeEditable").click(function(){
+    $('input:text').removeAttr("readonly");
+    $('select').removeAttr("readonly");
+  });
+
+  $(document).ready(function(){
+    $("#hide").click(function(){
+      $("p").fadeOut();
+    });
+    $("#hide-2").click(function(){
+      $("p").fadeOut();
+    });
+    $("#show").click(function(){
+      $("p").fadeIn();
+    });
+  });
+
 </script>

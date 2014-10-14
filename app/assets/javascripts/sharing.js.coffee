@@ -79,6 +79,7 @@ addSharingCameraRow = (details) ->
 
    row.hide()
    $('#sharing_list_table tbody').append(row)
+   row.find('.save').hide()
    row.fadeIn()
    true
 
@@ -147,7 +148,7 @@ onDeleteShareClicked = (event) ->
       if data.success
          onComplete = ->
             row.remove()
-         row.fadeOut('slow', onComplete)
+         row.fadeOut(onComplete)
       else
          showError("Delete of camera shared failed. Please contact support.")
       true
@@ -177,7 +178,7 @@ onDeleteShareRequestClicked = (event) ->
       if data.success
          onComplete = ->
             row.remove()
-         row.fadeOut('slow', onComplete)
+         row.fadeOut(onComplete)
       else
          showError("Delete of share request failed. Please contact support.")
       true

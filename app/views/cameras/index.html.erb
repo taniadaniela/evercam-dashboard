@@ -1,85 +1,13 @@
+<%= content_for(:title, "Evercam: Camera Dashboard") %>
 <!-- END HEADER -->
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container" id="camera-index">
-<!-- BEGIN SIDEBAR -->
-<div class="page-sidebar-wrapper">
-  <div class="page-sidebar navbar-collapse collapse">
-    <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+  <!-- BEGIN SIDEBAR -->
+  <%= render :partial => "sidebar/sidebar" %>
+  <!-- END SIDEBAR -->
 
-      <li class="start active open">
-        <a class="active" href="javascript:;">
-          <i class="icon-camera"></i>
-          <span class="title">My Cameras</span>
-          <span class="arrow "></span>
-        </a>
-        <ul class="sub-menu">
-          <% @cameras.each do |camera| %>
-            <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>?share=false">
-                <%= camera['name'] %>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
-          <% end %>
-          <% @shares.each do |camera| %>
-            <li class="sub-menu-item">
-              <a href="/cameras/<%= camera['id'] %>?share=true">
-                <%= camera['name'] %>
-                <i class="icon-users"></i>
-                <% if camera['is_online'] %>
-                <% else %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              </a>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-      <li>
-        <a href="/publiccam">
-          <i class="icon-map"></i>
-          <span class="title">Public Cameras</span>
-        </a>
-      </li>
-      <li>
-        <a href="/cameras/new">
-          <i class="icon-plus"></i>
-          <span class="title">Add Camera</span>
-        </a>
-      </li>
-      <li id="showLeft">
-        <a>
-          <i class="icon-briefcase"></i>
-          <span class="title">Developer</span>
-        </a>
-        <ul id="mobile-dev-menu" class="sub-menu">
-          <li class="active">
-            <a href="/dev">API Docs</a>
-          </li>
-          <li>
-             <a href="javascript:;">
-              Widgets <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="/widgets-new">Live View Widget</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-    <!-- END SIDEBAR MENU -->
-  </div>
-</div>
-<!-- END SIDEBAR -->
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
   <div class="page-content">
@@ -154,30 +82,7 @@
             </a>
           </div>
 
-
         <% end %>
-
-        <% @shares.each do |camera| %>
-
-          <div class="col-lg-4 camera-index">
-            <a href="/cameras/<%= camera['id'] %>?share=true">
-              <div class="snapshot">
-                <%= preview(camera) %>
-              </div>
-              <div class="camera-info">
-                <div class="camera-name">
-                  <%= camera['name'] %><% if camera['is_online'] %>
-                  <% else %>
-                    <i class="red fa fa-chain-broken"></i>
-                  <% end %>
-                  <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        <% end %>
-
       </div>
     </div>
     <!-- END PAGE CONTENT-->
@@ -210,6 +115,5 @@
     if( button !== 'showLeft' ) {
       classie.toggle( showLeft, 'disabled' );
     }
-
   }
 </script>

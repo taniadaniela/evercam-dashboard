@@ -32,7 +32,7 @@
                           <label class="control-label" for="camera-name">Name:</label>
                         </td>
                         <td>
-                          <input id="camera-name" class="form-control  makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" ="">
+                          <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" data-validation-allowing="-_ " data-validation="alphanumeric" placeholder="" name="camera-name">
                         </td>
                       </tr>
                     </table>
@@ -52,7 +52,7 @@
                 <label class="control-label" for="add-button"></label>
                 <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
               </div>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </div>
         </fieldset>
@@ -84,7 +84,7 @@
                           <label class="control-label" for="camera-vendor">Vendor:</label>
                         </td>
                         <td>
-                          <select id="camera-vendor" name="camera-vendor" ="" class="form-control makeEditable">
+                          <select id="camera-vendor" name="camera-vendor" class="form-control makeEditable">
                           <option selected="selected" value="">-- select model --</option>
                           <% vendors.each_with_index  do |v, index| -%>
                             <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor_id'] %>selected="selected"<% end %>>
@@ -103,9 +103,9 @@
                             <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" ="" class="form-control camera-model  <% if v.exid != @camera['vendor_id'] %>hidden<% end %>">
                             <% models(v.id).each_with_index  do |m, index| -%>
                               <% if index == 0 %>
-                                <option value="<%= m.name -%>" ><%= m.name -%></option>
+                                <option value="<%= m.exid -%>" ><%= m.name -%></option>
                               <% else %>
-                                <option value="<%= m.name -%>" <% if m.name == @camera["model_name"] %>selected="selected"<% end %> ><%= m.name -%></option>
+                                <option value="<%= m.exid -%>" <% if m.name == @camera["model_name"] %>selected="selected"<% end %> ><%= m.name -%></option>
                               <% end %>
                             <% end -%>
                             </select>
@@ -117,7 +117,7 @@
                           <label class="control-label" for="camera-username">Username:</label>
                         </td>
                         <td>
-                          <input id="camera-username" name="camera-username" placeholder="" class="form-control  makeEditable" ="" type="text"
+                          <input id="camera-username" name="camera-username" placeholder="Not yet provided" class="form-control  makeEditable" ="" type="text"
                           value="<%= @camera['cam_username'] %>">
                         </td>
                       </tr>
@@ -126,7 +126,7 @@
                           <label class="control-label" for="camera-password">Password:</label>
                         </td>
                         <td>
-                          <input id="camera-password" name="camera-password" placeholder="" class="form-control " ="" type="text"
+                          <input id="camera-password" name="camera-password" placeholder="Not yet provided" class="form-control " ="" type="text"
                           value="<%= @camera['cam_password'] %>">
                         </td>
                       </tr>
@@ -135,7 +135,7 @@
                           <label class="control-label" for="snapshot">Snapshot URL:</label>
                         </td>
                         <td>
-                          <input type="text" id="snapshot" name="snapshot" placeholder="snapshot.jpg" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
+                          <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL"
                                  value="<%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %>" >
                         </td>
                       </tr>
@@ -151,7 +151,7 @@
                     </div>
                     <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
 
-                    <div class="snapshot-error text-center">
+                    <div id="test-error-out" class="snapshot-error text-center">
                       <span id="test-error" class="text-center"><%= flash[:message] %></span>
                     </div>
 
@@ -178,7 +178,7 @@
                             <td>
                               <div class="input-group">
                                 <span class="input-group-addon">http://</span>
-                                <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
+                                <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
                                 value="<%= @camera.deep_fetch(:external, :host) {} %>">
                               </div>
                             </td>
@@ -397,7 +397,7 @@
                 <label class="control-label" for="add-button"></label>
                 <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
               </div>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="reset" class="btn btn-default" data-dismiss="modal">Cancsel</button>
             </div>
           </div>
         </fieldset>
@@ -472,13 +472,18 @@
       <div class="portlet-body">
         <div class="info-preview">
           <div class="camera-preview">
-            <!--     <div>
-                  <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-                </div>-->
-            <% if @camera['is_online'] %>
+            <% if @camera['is_online'] && @camera["vendor_name"] != "Evercam Capture" %>
+              <!--Online not capture-->
               <%= preview(@camera, true) %>
-            <% else %>
+            <% elsif @camera['is_online'] && @camera["vendor_name"] == "Evercam Capture" %>
+              <!--Online and is Capture-->
+              <div class="capture"><%= preview(@camera, true ) %></div>
+            <% elsif @camera["vendor_name"] != "Evercam Capture"  %>
+              <!--Offline Not Capture-->
               <div class="tint"><%= preview(@camera, true ) %></div>
+            <% else %>
+              <!--Offline Capture-->
+              <div class="tint capture"><%= preview(@camera, true ) %></div>
             <% end %>
           </div>
         </div>​
@@ -499,12 +504,12 @@
         <% end %>
       </div>
 
-      <div class="portlet-body col-md-8">
+      <div class="portlet-body col-md-12">
         <table class="table table-fixed table-borderless">
           <tr>
-            <td class="col-lg-4">Vendor:</td>
-            <td class="col-lg-8">
-              <% if @camera["vendor_name"] != nil %>
+            <td class="col-lg-3">Vendor:</td>
+            <td class="col-lg-9">
+              <% if @camera["vendor_name"] != "" %>
                 <%= @camera["vendor_name"] %>
               <% else %>
                 <span class="grey">Not provided</span>
@@ -514,7 +519,7 @@
           <tr>
             <td>Model:</td>
             <td>
-              <% if @camera['model_name'] != nil %>
+              <% if @camera['model_name'] != "" %>
                 <%= @camera['model_name'] %>
               <% else %>
                 <span class="grey">Not provided</span>
@@ -525,7 +530,7 @@
             <tr>
               <td>Username:</td>
               <td>
-                <% if @camera["cam_username"] != nil %>
+                <% if @camera["cam_username"] != "" %>
                 <%= @camera['cam_username'] %>
                 <% else %>
                   <span class="grey">Not provided</span>
@@ -534,22 +539,34 @@
             </tr>
             <tr>
               <td>Password:</td>
-              <td><%= @camera['cam_password'] %></td>
+              <td>
+                <% if @camera["cam_password"] != "" %>
+                  <%= @camera['cam_password'] %>
+                <% else %>
+                  <span class="grey">Not provided</span>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td>Snapshot URL:</td>
               <td><%= @camera.deep_fetch(:external, :http, :jpg) {''}.sub("http://#{@camera.deep_fetch(:external, :host) {''}}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) {''}}", '') if @camera.deep_fetch(:external, :http, :jpg) {''} %></td>
             </tr>
+
+            <% if @camera["vendor_name"] != "Evercam Capture" %>
             <tr>
-              <td>Camera Software:</td>
+              <td>Camera Source:</td>
               <td>
                 <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
-                  <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+                <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
                 <% else %>
                   <span class="grey">Not available</span>
                 <% end %>
               </td>
             </tr>
+            <% else %>
+
+            <% end %>
+
           <% else %>
 
           <% end %>
@@ -632,7 +649,7 @@
 
             <div class="col-md-6">
 
-              <div id="co-ordinates"><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
+              <div id="co-ordinates"><strong>Coordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
               <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
               <div id="location-settings" class="row" style="display: none;">
                 <div class="row">
@@ -658,12 +675,10 @@
                       </tr>
                     </table>
                     <div class="save-settings">
-
                         <div class='pull-left form-group'>
                           <label class="control-label" for="add-button"></label>
                           <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save</button>
                         </div>
-
                     </div>
                     <% else %>
                       <p class="note note-info">You do not have permission to save edits to the camera location</p>
@@ -679,7 +694,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div><!-- end info location-->
   </div>
 
 </div>
@@ -823,16 +838,19 @@
 <%= javascript_tag do %>
   cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
   cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
+  port = '<%= @camera.deep_fetch(:external, :http, :port) {} %>';
 <% end %>
 
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
+
   $(document).ready(function() {
     if (cameraLong === '') {
       $('#info-location').replaceWith("<p>Not set</p>");
       return;
     }
   });
+
 
   function initialize() {
     if (cameraLong === '0') {
@@ -857,10 +875,9 @@
     } else {
 
       var mapOptions = {
-        zoom: 17,
+        zoom: 14,
         center: cameraLatlng
       }
-
     }
 
     var map = new google.maps.Map(document.getElementById('map-info'), mapOptions);
@@ -880,8 +897,6 @@
         map.setCenter(cameraLatlng);
       }, 200);
     });
-
-
 
     // Register Custom "dragend" Event
     google.maps.event.addListener(marker, 'dragend', function() {
@@ -903,8 +918,41 @@
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
+  // Notifications
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
 
+  function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+  }
+  $('.modal').on('show.bs.modal', centerModal);
+  $(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+  });
 
+  $('.modal').on('hidden.bs.modal', function(){
+    $(this).find('form')[0].reset();
+  });
+
+    var sPathToDefaultImg = 'https://www.evercam.io/img/offline.png';
+    var fnValidateImage = function(oImg) {
+      img = new Image();
+      img.onerror = function() {
+        oImg.src = sPathToDefaultImg;
+      };
+      img.src = oImg.src;
+    };
+    var aImg = document.getElementsByTagName('IMG');
+    var i = aImg.length;
+    while (--i !== -1) {
+      fnValidateImage(aImg[i]);
+    }
 
 
 </script>

@@ -6,11 +6,12 @@ class CamerasController < ApplicationController
   include ApplicationHelper
 
   def index
-    load_cameras_and_shares
-    GC.start
+    load_user_cameras
+    # GC.start
   end
 
   def new
+    load_user_cameras
     @user = (flash[:user] || {})
   end
 
@@ -170,7 +171,7 @@ class CamerasController < ApplicationController
       @webhooks  = Rails.cache.fetch("webhooks/#{params[:id]}", expires_in: 5.minutes) do
         api.get_webhooks(params[:id])
       end
-      load_cameras_and_shares
+      load_user_cameras
     rescue => error
       puts error
       env["airbrake.error_id"] = notify_airbrake(error)

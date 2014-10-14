@@ -15,8 +15,7 @@ class WidgetsController < ApplicationController
 
   def widgets_new
     current_user
-    load_cameras_and_shares
-    @cameras = @cameras + @shares
+    load_user_cameras
   end
 
 

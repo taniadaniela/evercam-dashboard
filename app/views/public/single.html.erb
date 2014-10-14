@@ -1,4 +1,4 @@
-<title>Evercam - Public Cameras</title>
+<%= content_for(:title, "Evercam: Public Camera") %>
 <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
@@ -36,11 +36,9 @@
 
       <div id="public-cam-single">
         <div class="portlet">
-
-        <div class="tabbable tabbable-custom">
-          <div class="tab-content">
+          <div class="tabbable tabbable-custom">
+            <div class="tab-content">
               <div class="row">
-
                 <div class="col-md-6">
                   <div id="public-info" class="portlet-body">
                     <div class="portlet solid bordered grey-cararra">
@@ -59,13 +57,13 @@
                               <%= preview(@camera, true) %>
                             <% else %>
                               <div class="tint"><%= preview(@camera, true ) %></div>
-                              <img src="<%= @camera['jpg'] %>" width="100%">
-                              <div class="offline-public">
+
+                              <!--<div class="offline-public">
                                 <div class="offline-text">
                                   <p>This camera appears to be offline.</p>
                                   <p>We are currently unable to fetch a snapshot.</p>
                                 </div>
-                              </div>
+                              </div>-->
                             <% end %>
                           </div>
                         </div>​
@@ -142,8 +140,8 @@
                               <div class="col-md-6">
                                 <div id="map-public"></div>
                               </div>
-                              <div class="col-md-6">
-                                <p><strong>Co-Ordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+                              <div id="pub-location" class="col-md-6">
+                                Coordinates<br /><p><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
                               </div>
                             </div>
                           </div>​
@@ -178,9 +176,9 @@
 
 
   $(document).ready(function() {
-    if (cameraLong === '') {
-      $('#pub-location').replaceWith("<p>Not set</p>");
-      $('#map-public').replaceWith("<p></p>");
+    if (cameraLong === '0') {
+      $('#pub-location').replaceWith("<p></p>");
+      $('#map-public').replaceWith("<p>The location of this camera has not been set.</p>");
       return;
     }
   });

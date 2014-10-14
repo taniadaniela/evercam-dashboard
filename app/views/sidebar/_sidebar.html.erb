@@ -2,32 +2,52 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
     <!-- BEGIN SIDEBAR MENU -->
-    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-      <li class="start ">
-        <a href="/">
+    <ul class="page-sidebar-menu">
+      <li class="<%= is_active?("/cameras/") %>">
+        <a href="/cameras">
           <i class="icon-camera"></i>
           <span class="title">My Cameras</span>
         </a>
       </li>
       <li>
+        <ul class="sub-menu">
+          <% @cameras.each do |camera| %>
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+              <a href="/cameras/<%= camera['id'] %>">
+                <% if camera['owner'] == current_user.username %>
+                  <i class="icon icon-users" style="visibility: hidden;"></i>
+                <% else %>
+                  <i class="icon icon-users"></i>
+                <% end %>
+                <%= camera['name'] %>
+                <% if camera['is_online'] %>
+                <% else %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="<%= is_active?("/publiccam") %>">
         <a href="/publiccam">
           <i class="icon-map"></i>
           <span class="title">Public Cameras</span>
         </a>
       </li>
-      <li>
+      <li class="<%= is_active?("/cameras/new") %>">
         <a href="/cameras/new">
           <i class="icon-plus"></i>
           <span class="title">Add Camera</span>
         </a>
       </li>
-      <li id="showLeft">
+      <li id="showLeft" class="<%= is_active?("/dev") %>">
         <a>
           <i class="icon-briefcase"></i>
           <span class="title">Developer</span>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
-          <li class="active">
+          <li>
             <a href="/dev">API Docs</a>
           </li>
           <li>
@@ -57,15 +77,13 @@
       <li>
         <a href="/dev">API Docs</a>
       </li>
-      <li>
-        <a class="dev-menu-title">
-          Widgets <span class="arrow"></span>
-        </a>
-        <ul class="sub-menu">
-          <li>
-            <a href="/widgets-new">Live View Widget</a>
-          </li>
-        </ul>
+
+      <div class="dev-menu-title">
+        Widgets
+      </div>
+
+      <li class="widgets-menu">
+        <a href="/widgets-new">Live View Widget</a>
       </li>
     </ul>
   </nav>

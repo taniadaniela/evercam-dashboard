@@ -1952,7 +1952,7 @@ Forms
     box-shadow: none;
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    cursor: not-allowed;
+    cursor: default;
     background-color: #eeeeee;
 }
 .form-control.height-auto {
@@ -2259,7 +2259,7 @@ Input icons
     text-align: center;
 }
 .modal .input-icon > i {
-    z-index: 10055;
+    z-index: 10055000;
 }
 .has-success .input-icon > i {
     color: #45b6af;
@@ -2591,7 +2591,7 @@ Metro icons
 Customized Bootstrap Modal
 ***/
 .modal {
-    z-index: 10050;
+    z-index: 10050000;
     outline: none;
     overflow-y: auto !important;
     /* Fix content shifting to the right on modal open due to scrollbar closed */
@@ -4530,16 +4530,16 @@ Blue Default
 /* Button */
 .blue.btn {
     color: white;
-    background-color: #4b8df8;
+    background-color: #428bca;
     border-color: "";
 }
 .blue.btn:hover, .blue.btn:focus, .blue.btn:active, .blue.btn.active {
     color: white;
-    background-color: #2e7af7;
+    background-color: #428bca;
 }
 .open .blue.btn.dropdown-toggle {
     color: white;
-    background-color: #2e7af7;
+    background-color: #428bca;
 }
 .blue.btn:active, .blue.btn.active {
     background-image: none;
@@ -4548,22 +4548,22 @@ Blue Default
     background-image: none;
 }
 .blue.btn.disabled, .blue.btn.disabled:hover, .blue.btn.disabled:focus, .blue.btn.disabled:active, .blue.btn.disabled.active, .blue.btn[disabled], .blue.btn[disabled]:hover, .blue.btn[disabled]:focus, .blue.btn[disabled]:active, .blue.btn[disabled].active, fieldset[disabled] .blue.btn, fieldset[disabled] .blue.btn:hover, fieldset[disabled] .blue.btn:focus, fieldset[disabled] .blue.btn:active, fieldset[disabled] .blue.btn.active {
-    background-color: #4b8df8;
+    background-color: #428bca;
 }
 .blue.btn .badge {
-    color: #4b8df8;
+    color: #428bca;
     background-color: white;
 }
 
 /* Button Strip */
 .btn.blue-stripe {
-    border-left: 3px solid #4b8df8;
+    border-left: 3px solid #428bca;
 }
 
 /* Portlet */
 .portlet > .portlet-body.blue,
 .portlet.blue {
-    background-color: #4b8df8;
+    background-color: #428bca;
 }
 
 .portlet.solid.blue > .portlet-title,
@@ -4580,7 +4580,7 @@ Blue Default
     border-top: 0;
 }
 .portlet.box.blue > .portlet-title {
-    background-color: #4b8df8;
+    background-color: #428bca;
 }
 .portlet.box.blue > .portlet-title > .caption {
     color: white;
@@ -8500,7 +8500,9 @@ Purple Seance
 }
 
 
-
+.page-sidebar .page-sidebar-menu .sub-menu {
+    display:block !important;
+}
 /*SIdebar Plugin - Blueprints */
 #dev .page-content-wrapper .page-content, #live-widget .page-content-wrapper .page-content {
     margin-left: 425px;
@@ -8567,7 +8569,7 @@ Purple Seance
 }
 
 .cbp-spmenu-vertical a {
-    padding: 12px 15px 13px;
+    padding: 13px 15px 12px;
 }
 
 .cbp-spmenu-horizontal {

@@ -1,4 +1,4 @@
-<title>Evercam - Add Camera</title>
+<%= content_for(:title, "Evercam: Add Camera") %>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
@@ -39,6 +39,10 @@
   <% field_errors = (flash[:field_errors] || {}) %>
   <div class="col-md-12">
   <form class="form-horizontal" autocomplete="off" role="form">
+  <!-- A workaround for chrome autofill entering camera user & pass autocomplete="off" no longer obeyed -->
+  <input style="display:none" type="text" name="fakeusernameremembered"/>
+  <input style="display:none" type="password" name="fakepasswordremembered"/>
+
   <div class="col-md-11">
 
   <!--NAME & ID -->
@@ -336,8 +340,6 @@
     var ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/;
     return ValidIpAddressRegex.test(str) || ValidHostnameRegex.test(str);
   }
-
-
 
   $(document).ready(function () {
 

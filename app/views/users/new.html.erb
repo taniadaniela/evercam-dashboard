@@ -75,7 +75,7 @@
             <% if @share_request.nil? %>
               <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control" %>
             <% else %>
-              <%= f.text_field :email, value: @share_request.email, readonly: 'readonly' %>
+              <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control" %>
             <% end %>
             <% if field_errors.include?("email") %>
               <span class="help-block arrow_box form-error text-left"><%= field_errors["email"] %></span>

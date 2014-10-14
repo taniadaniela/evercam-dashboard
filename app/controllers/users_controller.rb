@@ -34,7 +34,7 @@ class UsersController < ApplicationController
                                            user['email'],
                                            user['password'],
                                            user['country'],
-                                           params[:share_request_key])
+                                           params[:key])
 
       user = User.where(email: user[:email].downcase).first
       sign_in user

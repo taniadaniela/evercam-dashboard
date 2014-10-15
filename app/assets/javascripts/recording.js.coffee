@@ -158,7 +158,6 @@ ResetDays = ->
         break
       j++
     return
-
   return
 
 handleSlider = ->
@@ -272,7 +271,6 @@ getLocationBaseDateTime = (offset) ->
   utc = (utc + parseInt(offset))
   nd = new Date(utc)
   return nd
-  true
 
 HighlightCurrentMonth = ->
   d = $("#ui_date_picker_inline").datepicker('getDate');
@@ -353,18 +351,19 @@ BoldSnapshotHourSuccess = (result, context) ->
 
   if hasRecords
     if this.isCall
-      GetCameraInfo()
+      GetCameraInfo true
     else
       SetImageHour(lastBoldHour, "tdI" + lastBoldHour)
   else
     NoRecordingDayOrHour()
   true
 
-GetCameraInfo = ->
+GetCameraInfo = (isShowLoader) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
-  showLoader()
+  if isShowLoader
+    showLoader()
   fromDT = GetFromDT()/1000
   toDT = GetToDT()/1000
 
@@ -373,8 +372,8 @@ GetCameraInfo = ->
   api_key = $('#recording_tab_api_key').val()
 
   data = {}
-  data.from = fromDT  #1409994000
-  data.to = toDT #1409997600
+  data.from = fromDT
+  data.to = toDT
   data.limit = limit
   data.page = 1
   data.api_id = api_id
@@ -397,11 +396,12 @@ GetCameraInfo = ->
       $("#divFrameMode").removeClass("hide").addClass("show")
       iterations = Math.ceil(totalSnaps / ChunkSize)
       sliderpercentage = Math.ceil(100 / iterations)
+
       if sliderpercentage > 100
         sliderpercentage = 100
-      $("#divSlider").width(sliderpercentage + "%");
-      #changedPlayFrom = DateToFormattedStr(new Date(response[0].date));
+      $("#divSlider").width(sliderpercentage + "%")
       currentFrameNumber=1
+
       SetInfoMessage(currentFrameNumber, shortDate(new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)))
       loadImage(snapshotInfos[snapshotInfoIdx].created_at)
     true
@@ -453,15 +453,14 @@ loadImage = (timestamp) ->
   true
 
 shortDate = (date) ->
-  return FormatNumTo2(date.getDate())+'/'+FormatNumTo2(date.getMonth()+1)+'/'+date.getFullYear()+' '+FormatNumTo2(date.getHours())+':'+FormatNumTo2(date.getMinutes())+':'+FormatNumTo2(date.getSeconds())
-  true
+  hour = parseInt(cameraCurrentHour)
+  return FormatNumTo2(date.getDate())+'/'+FormatNumTo2(date.getMonth()+1)+'/'+date.getFullYear()+' '+FormatNumTo2(hour)+':'+FormatNumTo2(date.getMinutes())+':'+FormatNumTo2(date.getSeconds())
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
   fDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
   return fDt
-  true
 
 GetToDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -472,14 +471,12 @@ GetToDT = ->
   else
     tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
   return tDt
-  true
 
 StripLeadingZeros = (input) ->
   if input.length > 1 && input.substr(0,1) == "0"
     return input.substr(1)
   else
     return input
-  true
 
 DateToFormattedStr = (d) ->
   if d == null then return ""
@@ -498,14 +495,12 @@ DateToFormattedStr = (d) ->
   else if miliseconds.length == 0 || miliseconds == 0
     miliseconds = ''
   return "" + FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds
-  true
 
 FormatNumTo2 = (n) ->
   if n < 10
     return "0" + n
   else
     return n
-  true
 
 NoRecordingDayOrHour = ->
   $("#divRecent").show()
@@ -544,9 +539,8 @@ SetImageHour = (hr, id) ->
     $("#divSliderMD").width("100%")
     $("#MDSliderItem").html("")
     $("#divNoMd").show()
-    $("#divNoMd").text('Loading motions...')
     $("#btnCreateHourMovie").removeAttr('disabled')
-    GetCameraInfo()
+    GetCameraInfo true
   else
     $("#divRecent").show()
     $("#divInfo").fadeOut()
@@ -577,7 +571,6 @@ handleWindowResize = ->
   $(window).bind "resize", ->
     totalWidth = $("#divSlider").width()
     $("#divPointer").width(totalWidth * currentFrameNumber / totalFrames)
-  true
   true
 
 handlePlay = ->
@@ -847,6 +840,14 @@ handleMinSecDropDown = ->
 
   return
 
+handleTabEvent = ->
+  $("a[data-toggle=\"tab\"]").bind "click", ->
+    tabName = $(this).html()
+    if tabName is "Recording"
+      GetCameraInfo false
+
+  true
+
 initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -854,6 +855,7 @@ initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
+  handleTabEvent()
   true
 
 if !window.Evercam

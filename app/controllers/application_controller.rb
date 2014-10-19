@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user_cameras
-    @cameras = Rails.cache.fetch("#{current_user.username}/cameras")
+    # temporarily disable fetching from cache
+    # @cameras = Rails.cache.fetch("#{current_user.username}/cameras")
     if @cameras.nil?
       @cameras = []
     else

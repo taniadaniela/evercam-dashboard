@@ -146,7 +146,7 @@ class CamerasController < ApplicationController
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
-
+      @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
       time_zone         = TZInfo::Timezone.get(@camera['timezone'])
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset

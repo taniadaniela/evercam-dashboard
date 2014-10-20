@@ -31,7 +31,16 @@
       }
       img.src = src;
     }
-    int_time = setInterval(loadImage, 1000);
+
+    $('a[data-toggle="tab"]').bind("click",function(){
+      var tabName = $(this).html();
+      if (tabName == "Live View") {
+        int_time = setInterval(loadImage, 1000);
+      }
+      else {
+        clearInterval(int_time);
+      }
+    });
   }());
   <% end %>
 

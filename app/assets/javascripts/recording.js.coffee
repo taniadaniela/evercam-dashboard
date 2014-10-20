@@ -209,12 +209,11 @@ handleSlider = ->
       nextFrameNum = 0
     if nextFrameNum > totalFrames
       nextFrameNum = totalFrames
-    if nextFrameNum is totalFrames
+    if nextFrameNum is totalFrames || nextFrameNum is snapshotInfoIdx
       return
     showLoader()
     snapshotInfoIdx = nextFrameNum
     currentFrameNumber = snapshotInfoIdx + 1
-    console.log nextFrameNum
     UpdateSnapshotRec(snapshotInfos[nextFrameNum])
     true
 

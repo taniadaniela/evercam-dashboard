@@ -2505,7 +2505,7 @@ Metro icons
 
 /* white icon */
 .m-icon-white {
-  background-image: url(../img/syncfusion-icons-white.png);
+  background-image: image-url('metronic/syncfusion-icons-white.png');
 }
 
 /*  Misc */
@@ -2679,7 +2679,8 @@ Customized Bootstrap Panels
   padding: 10px 15px;
 }
 .accordion .panel .panel-title .accordion-toggle.accordion-toggle-styled {
-  background: url("../img/accordion-plusminus.png") no-repeat;
+  background-image: image-url('metronic/accordion-plusminus.png');
+  background-repeat: no-repeat;
   background-position: right -19px;
   margin-right: 15px;
 }
@@ -2918,29 +2919,29 @@ Portlets
 }
 .portlet > .portlet-title > .tools > a.remove {
   margin-bottom: 2px;
-  background-image: url(../img/portlet-remove-icon.png);
+  background-image: image-url('metronic/portlet-remove-icon.png');
   background-repeat: no-repeat;
   width: 11px;
 }
 .portlet > .portlet-title > .tools > a.config {
   margin-bottom: 2px;
-  background-image: url(../img/portlet-config-icon.png);
+  background-image: image-url('metronic/portlet-config-icon.png');
   background-repeat: no-repeat;
   width: 12px;
 }
 .portlet > .portlet-title > .tools > a.reload {
   margin-bottom: 2px;
-  background-image: url(../img/portlet-reload-icon.png);
+  background-image: image-url('metronic/portlet-reload-icon.png');
   width: 13px;
 }
 .portlet > .portlet-title > .tools > a.expand {
   margin-bottom: 2px;
-  background-image: url(../img/portlet-expand-icon.png);
+  background-image: image-url('metronic/portlet-expand-icon.png');
   width: 14px;
 }
 .portlet > .portlet-title > .tools > a.collapse {
   margin-bottom: 2px;
-  background-image: url(../img/portlet-collapse-icon.png);
+  background-image: image-url('metronic/portlet-collapse-icon.png');
   width: 14px;
 }
 .portlet > .portlet-title > .tools > a:hover {
@@ -3015,19 +3016,19 @@ Portlets
   border: 0px;
 }
 .portlet.solid > .portlet-title > .tools > a.remove {
-  background-image: url(../img/portlet-remove-icon-white.png);
+  background-image: image-url('metronic/portlet-remove-icon-white.png');
 }
 .portlet.solid > .portlet-title > .tools > a.config {
-  background-image: url(../img/portlet-config-icon-white.png);
+  background-image: image-url('metronic/portlet-config-icon-white.png');
 }
 .portlet.solid > .portlet-title > .tools > a.reload {
-  background-image: url(../img/portlet-reload-icon-white.png);
+  background-image: image-url('metronic/portlet-reload-icon-white.png');
 }
 .portlet.solid > .portlet-title > .tools > a.expand {
-  background-image: url(../img/portlet-expand-icon-white.png);
+  background-image: image-url('metronic/portlet-expand-icon-white.png');
 }
 .portlet.solid > .portlet-title > .tools > a.collapse {
-  background-image: url(../img/portlet-collapse-icon-white.png);
+  background-image: image-url('metronic/portlet-collapse-icon-white.png');
 }
 
 /* Solid bordered portlet */
@@ -3049,19 +3050,19 @@ Portlets
   margin-top: 3px;
 }
 .portlet.box > .portlet-title > .tools > a.remove {
-  background-image: url(../img/portlet-remove-icon-white.png);
+  background-image: image-url('metronic/portlet-remove-icon-white.png');
 }
 .portlet.box > .portlet-title > .tools > a.config {
-  background-image: url(../img/portlet-config-icon-white.png);
+  background-image: image-url('metronic/portlet-config-icon-white.png');
 }
 .portlet.box > .portlet-title > .tools > a.reload {
-  background-image: url(../img/portlet-reload-icon-white.png);
+  background-image: image-url('metronic/portlet-reload-icon-white.png');
 }
 .portlet.box > .portlet-title > .tools > a.expand {
-  background-image: url(../img/portlet-expand-icon-white.png);
+  background-image: image-url('metronic/portlet-expand-icon-white.png');
 }
 .portlet.box > .portlet-title > .tools > a.collapse {
-  background-image: url(../img/portlet-collapse-icon-white.png);
+  background-image: image-url('metronic/portlet-collapse-icon-white.png');
 }
 .portlet.box > .portlet-body {
   background-color: #fff;

@@ -179,8 +179,8 @@ handleSlider = ->
     if x > sliderEndX - 80
       x = sliderEndX - 80
     motionVal = ""
-
-    $("#divPopup").html("Frame " + idx + ", " + shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal)
+    frameNo = idx + 1
+    $("#divPopup").html("Frame " + frameNo + ", " + shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal)
     $("#divPopup").show()
     $("#divPopup").offset({ top: ev.pageY + 20, left: x })
 
@@ -199,19 +199,22 @@ handleSlider = ->
   $("#divSlider").mouseout(onSliderMouseOut)
 
   onSliderClick = (ev) ->
-    showLoader()
     sliderStartX = $("#divSlider").offset().left
     sliderEndX = sliderStartX + $("#divSlider").width()
     x = ev.pageX - sliderStartX
     percent = x / (sliderEndX - sliderStartX)
     nextFrameNum = parseInt(totalFrames * percent)
 
-    if (nextFrameNum == 0)
-      nextFrameNum = 1
-    if (nextFrameNum > totalFrames)
+    if nextFrameNum < 0
+      nextFrameNum = 0
+    if nextFrameNum > totalFrames
       nextFrameNum = totalFrames
+    if nextFrameNum is totalFrames
+      return
+    showLoader()
     snapshotInfoIdx = nextFrameNum
     currentFrameNumber = snapshotInfoIdx + 1
+    console.log nextFrameNum
     UpdateSnapshotRec(snapshotInfos[nextFrameNum])
     true
 
@@ -843,7 +846,7 @@ handleMinSecDropDown = ->
 handleTabEvent = ->
   $("a[data-toggle=\"tab\"]").bind "click", ->
     tabName = $(this).html()
-    if tabName is "Recording"
+    if tabName is "Snapshots"
       GetCameraInfo false
 
   true

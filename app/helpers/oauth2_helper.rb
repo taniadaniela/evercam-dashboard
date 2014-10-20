@@ -33,9 +33,9 @@ module Oauth2Helper
     resource, right, extent = scope.split(":")
     output = {right: right}
     if resource == 'cameras'
-      output[:target] = "all of your existing cameras."
+      output[:target] = "all of your existing cameras"
     elsif resource == "camera"
-      output[:target] = "'#{extent}' camera."
+      output[:target] = "'#{extent}' camera"
     elsif resource == 'snapshots'
       output[:target] = "all of your existing snapshots"
     elsif resource == "user"

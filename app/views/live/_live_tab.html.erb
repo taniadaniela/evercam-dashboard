@@ -33,11 +33,13 @@
     }
 
     $('a[data-toggle="tab"]').bind("click",function(){
-      var tabName = $(this).html()
-      if (tabName == "Live View")
+      var tabName = $(this).html();
+      if (tabName == "Live View") {
         int_time = setInterval(loadImage, 1000);
-      else
+      }
+      else {
         clearInterval(int_time);
+      }
     });
   }());
   <% end %>

@@ -725,11 +725,10 @@ margin-bottom: 0px;
 #deleteModal .modal-footer {
     padding: 0px 14px 25px;
 }
-.info-header {
-    font-weight: 600;
-}
-.info-location {
-
+.title-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #AAAAAA;
 }
 .table-fixed {
     table-layout: fixed;
@@ -1107,10 +1106,7 @@ input:focus {
 #camera-settings .table > tbody > tr > td {
     padding: 4px 0px;
 }
-#testimg {
-    height: 100%;
-    width:auto;
-}
+
 .save-settings {
     margin-top: 20px;
 }
@@ -1119,9 +1115,13 @@ input:focus {
 }
 .test-img-settings {
     background-color: #ffffff;
-    height:200px;
+    height:165px;
     overflow: hidden;
     width: 100%;
+}
+#testimg {
+    height: auto;
+    width:100%;
 }
 .radio label {
     float:left;

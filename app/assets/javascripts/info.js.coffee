@@ -74,3 +74,4 @@ if !window.Evercam
 
 window.Evercam.Info =
    initializeTab: initializeInfoTab
+

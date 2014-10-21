@@ -17,7 +17,7 @@
                 <% if camera['owner'] == current_user.username %>
                   <i class="icon icon-users" style="visibility: hidden;"></i>
                 <% else %>
-                  <i class="icon icon-users"></i>
+                  <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
                 <% end %>
                 <%= camera['name'] %>
                 <% if camera['is_online'] %>
@@ -112,4 +112,8 @@
     }
 
   }
+
+  $(function() {
+    $('.icon-users').tooltip();
+  });
 </script>

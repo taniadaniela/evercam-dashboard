@@ -391,6 +391,7 @@ input:-webkit-autofill {
     margin-top: 0px;
     background-color: #ffffff;
     overflow: auto;
+    padding-bottom: 0px;
 }
 .public-cam-box {
     height: 350px;
@@ -701,8 +702,8 @@ margin-bottom: 0px;
     margin-bottom: 5px;
 }
 #info .table-borderless td {
-    line-height: 1.5 !Important;
-    padding: 7px 2px !important;
+    line-height: 1.2 !Important;
+    padding: 6px 2px !important;
 }
 #info .table {
     margin-bottom: 5px;
@@ -725,12 +726,13 @@ margin-bottom: 0px;
 #deleteModal .modal-footer {
     padding: 0px 14px 25px;
 }
-.info-header {
-    font-weight: 600;
-}
-.info-location {
+.title-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #AAAAAA;
 
 }
+
 .table-fixed {
     table-layout: fixed;
     word-wrap: break-word;
@@ -1107,10 +1109,7 @@ input:focus {
 #camera-settings .table > tbody > tr > td {
     padding: 4px 0px;
 }
-#testimg {
-    height: 100%;
-    width:auto;
-}
+
 .save-settings {
     margin-top: 20px;
 }
@@ -1119,9 +1118,13 @@ input:focus {
 }
 .test-img-settings {
     background-color: #ffffff;
-    height:200px;
+    height:165px;
     overflow: hidden;
     width: 100%;
+}
+#testimg {
+    height: auto;
+    width:100%;
 }
 .radio label {
     float:left;
@@ -1484,6 +1487,18 @@ display:none ;
 }
 .page-sidebar-menu {
     z-index: 10000 !important;
+}
+.tooltip-inner {
+    background-color: #494d51 !important;
+    color: #ffffff;
+    opacity: 1 !Important;
+}
+#sidebar .tooltip.top .tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    border-top-color: #fff !Important;
 }
 .sidebar-toggler-wrapper {
     width: 24px;
@@ -1875,3 +1890,9 @@ table.table-clean thead th {
     background-color: #f6f6f6;
 }
 /*End Recording tab stylesheet*/
+
+
+/*METRONIC-LAYOUT OVERRIDES */
+.page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
+ color:#ffffff;
+}

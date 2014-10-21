@@ -391,6 +391,7 @@ input:-webkit-autofill {
     margin-top: 0px;
     background-color: #ffffff;
     overflow: auto;
+    padding-bottom: 0px;
 }
 .public-cam-box {
     height: 350px;

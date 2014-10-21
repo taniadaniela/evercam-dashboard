@@ -130,8 +130,8 @@ table {
 }
 .swagger-ui-wrap b,
 .swagger-ui-wrap strong {
-  font-family: 'proxima-nova-regular', "Droid Sans", sans-serif;
-  font-weight: bold;
+  font-family: "Anonymous Pro", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace;
+  font-weight: normal;
 }
 .swagger-ui-wrap q,
 .swagger-ui-wrap blockquote {
@@ -169,7 +169,7 @@ table {
 }
 .swagger-ui-wrap table thead tr th {
   padding: 5px;
-  font-size: 0.9em;
+  font-size: 1em;
   color: #666666;
   border-bottom: 1px solid #999999;
 }
@@ -183,7 +183,7 @@ table {
   padding: 6px;
   font-size: 12px;
   border-bottom: 1px solid #cccccc;
-  vertical-align: top;
+  vertical-align: center;
   line-height: 1.3em;
 }
 .swagger-ui-wrap ol {
@@ -193,7 +193,7 @@ table {
 }
 .swagger-ui-wrap ol li {
   padding: 5px 0px;
-  font-size: 0.9em;
+  font-size: 1em;
   color: #333333;
 }
 .swagger-ui-wrap ol,
@@ -381,10 +381,11 @@ table {
 .swagger-ui-wrap .model-signature .description .strong {
   font-weight: bold;
   color: #000;
-  font-size: .9em;
+  font-size: 1em;
+  padding-left: 2px;
 }
 .swagger-ui-wrap .model-signature .description div {
-  font-size: 0.9em;
+  font-size: 1em;
   line-height: 1.7em;
   margin-left: 1em;
 }
@@ -411,7 +412,7 @@ table {
   padding: 1px 3px;
 }
 .swagger-ui-wrap .required {
-  font-weight: bold;
+  font-weight: normal;
 }
 .swagger-ui-wrap input.parameter {
   width: 300px;
@@ -424,6 +425,9 @@ table {
   padding: 10px 0 10px 0;
   font-family: 'proxima-nova-regular', "Droid Sans", sans-serif;
   font-weight: bold;
+}
+#swagger-ui-container textarea, input {
+  font-size: 12px;
 }
 .swagger-ui-wrap .heading_with_menu {
   float: none;
@@ -520,7 +524,7 @@ table {
 .swagger-ui-wrap form.formtastic fieldset.inputs ol li p.inline-hints {
   margin-left: 0;
   font-style: italic;
-  font-size: 0.9em;
+  font-size: 1em;
   margin: 0;
 }
 .swagger-ui-wrap form.formtastic fieldset.buttons {
@@ -756,7 +760,7 @@ table {
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.content div.sandbox_header a {
   padding: 4px 0 0 10px;
   display: inline-block;
-  font-size: 0.9em;
+  font-size: 1em;
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.content div.sandbox_header img {
   display: block;
@@ -782,7 +786,7 @@ table {
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.content div.response div.block pre {
   font-family: "Anonymous Pro", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace;
   padding: 10px;
-  font-size: 0.9em;
+  font-size: 1em;
   max-height: 800px;
   overflow-y: auto;
 }
@@ -1044,7 +1048,7 @@ table {
   font-size: 0.8em;
 }
 .swagger-ui-wrap form.form_box p {
-  font-size: 0.9em;
+  font-size: 1em;
   padding: 0 0 15px;
   color: #7e7b6d;
 }
@@ -1220,7 +1224,7 @@ table {
   text-decoration: none;
   font-weight: bold;
   padding: 6px 8px;
-  font-size: 0.9em;
+  font-size: 1em;
   color: white;
   background-color: #547f00;
   -moz-border-radius: 4px;
@@ -1234,7 +1238,7 @@ table {
   background-color: #547f00;
 }
 #header form#api_selector .input input {
-  font-size: 0.9em;
+  font-size: 1em;
   padding: 3px;
   margin: 0;
 }
@@ -1281,5 +1285,8 @@ table {
 }
 
 #_GET_cameras_test_format {
+  display:none !important;
+}
+#users_GET_users_id_rights_format {
   display:none !important;
 }

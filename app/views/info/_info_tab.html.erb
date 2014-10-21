@@ -491,10 +491,14 @@
           </div>
           <div href="#" class="pull-right edit btn btn-primary" data-toggle="modal" data-target="#settings-modal">Edit</div>
         </div>
-        <div class="portlet-body col-md-8">
+        <div class="portlet-body col-md-6 col-sm-12">
           <table class="table table-fixed table-borderless">
             <tr>
-              <td class="col-md-2">External</td>
+              <td>
+                <span class="title-label">External</span>
+              </td>
+            </tr>
+            <tr>
               <td class="col-md-3">
                 IP (or URL):
               </td>
@@ -503,18 +507,20 @@
               </td>
             </tr>
             <tr>
-              <td></td>
               <td>HTTP Port:</td>
               <td><%= @camera.deep_fetch(:external, :http, :port) {} %></td>
             </tr>
             <tr>
-              <td></td>
               <td>RTSP Port:</td>
               <td>
                 <%= @camera.deep_fetch(:external, :rtsp, :port) {} %></td>
             </tr>
             <tr>
-              <td>Internal</td>
+              <td>
+                <span class="title-label">Internal</span>
+              </td>
+            </tr>
+            <tr>
               <td>
                 IP Port:
               </td>
@@ -523,12 +529,10 @@
               </td>
             </tr>
             <tr>
-              <td></td>
               <td>HTTP Port:</td>
               <td><%= @camera.deep_fetch(:internal, :http, :port) {} %></td>
             </tr>
             <tr>
-              <td></td>
               <td>RTSP Port:</td>
               <td><%= @camera.deep_fetch(:internal, :rtsp, :port) {} %></td>
             </tr>
@@ -621,9 +625,12 @@
       <div class="portlet-body">
 
         <section id="unseen">
-          <p>Proxy URLs</p>
           <table class="table table-borderless table-fixed">
-
+            <tr>
+              <td class="col-lg-1">
+                <span class="title-label">Proxy URL's</span>
+              </td>
+            </tr>
             <tr>
               <td class="col-lg-1">
                 JPEG:
@@ -642,8 +649,12 @@
         </section>
 
         <section id="unseen">
-          <p>Dynamic DNS </p>
           <table class="table table-fixed table-borderless">
+            <tr>
+              <td class="col-lg-1">
+                <span class="title-label">Dynamic DNS</span>
+              </td>
+            </tr>
             <tr>
               <td class="col-lg-1">
                 JPEG:
@@ -661,8 +672,13 @@
         </section>
 
         <section id="unseen">
-          <p>Base URLs</p>
+
           <table class="table table-fixed table-borderless">
+            <tr>
+              <td class="col-lg-1">
+                <span class="title-label">Base URLs</span>
+              </td>
+            </tr>
             <tr>
               <td class="col-lg-1">
                 Camera:
@@ -777,7 +793,7 @@
     if (cameraLong === '0') {
 
       var mapOptions = {
-        zoom: 2,
+        zoom: 0,
         center: cameraLatlng
       }
 

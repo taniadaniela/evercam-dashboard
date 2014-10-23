@@ -182,7 +182,7 @@
                         <td>
                           <div class="input-group">
                             <span class="input-group-addon">http://</span>
-                            <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" ="" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
+                            <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
                             value="<%= @camera.deep_fetch(:external, :host) {} %>">
                           </div>
                         </td>
@@ -192,7 +192,7 @@
                           <label class="control-label" for="port">HTTP Port:</label>
                         </td>
                         <td>
-                          <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" ="" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
+                          <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$"  data-validation-error-msg="The Port should be a 1-5 digit number."
                           value="<%= @camera.deep_fetch(:external, :http, :port) {} %>">
                         </td>
                       </tr>
@@ -201,7 +201,7 @@
                           <label class="control-label" for="ext-rtsp-port">RTSP Port:</label>
                         </td>
                         <td>
-                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" ="" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
+                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" ="" data-validation-regexp="^[0-9]{1,5}$"  data-validation-error-msg="The Port should be a 1-5 digit number."
                           value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
                         </td>
                       </tr>
@@ -215,7 +215,7 @@
                           <label class="control-label" for="local-ip">IP Address:</label>
                         </td>
                         <td>
-                          <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" ="" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
+                          <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{1,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
                           value="<%= @camera.deep_fetch(:internal, :host) {} %>">
                         </td>
                       </tr>
@@ -224,7 +224,7 @@
                           <label class="control-label" for="local-http">HTTP Port:</label>
                         </td>
                         <td>
-                          <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" ="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                          <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$"  data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true"
                           value="<%= @camera.deep_fetch(:internal, :http, :port) {}  %>">
                         </td>
                       </tr>
@@ -233,7 +233,7 @@
                           <label class="control-label" for="local-rtsp">RTSP Port:</label>
                         </td>
                         <td>
-                          <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" ="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                          <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$"  data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true"
                           value="<%= @camera.deep_fetch(:internal, :rtsp, :port) {} %>">
                         </td>
                       </tr>
@@ -557,12 +557,12 @@
           <div class="row">
             <div class="col-md-6">
               <div id="map-info"></div>
+              <div id="co-ordinates"><strong>Coordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
             </div>
 
 
             <div class="col-md-6">
 
-              <div id="co-ordinates"><strong>Coordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
               <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
               <div id="location-settings" class="row" style="display: none;">
                 <div class="row">
@@ -765,7 +765,7 @@
   cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
   port = '<%= @camera.deep_fetch(:external, :http, :port) {} %>';
 <% end %>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
 
@@ -776,7 +776,7 @@
     }
   });
 
-
+  $.validate();
   function initialize() {
     if (cameraLong === '0') {
       $('#co-ordinates').replaceWith("<p>The location is not set. Drag the marker to the location of your camera.</p>");

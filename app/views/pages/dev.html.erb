@@ -63,6 +63,7 @@
                             $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
                             $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
                             $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
+                            $("a:contains('/public/nearest.jpg.json')").text('/public/nearest.jpg');
                         },
                         onFailure: function(data) {
                         },

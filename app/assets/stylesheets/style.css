@@ -710,6 +710,7 @@ margin-bottom: 0px;
 }
 #info .help-block {
     font-size: 12px;
+    background: none;
 }
 .info-preview {
     width:100%;

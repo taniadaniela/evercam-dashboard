@@ -73,8 +73,6 @@ module EvercamDashboard
                                  'uniform.default.min.css',
                                  'quick-sidebar.js',
                                  'jquery.dcjqaccordion.2.7.js',
-                                 'rails_admin/rails_admin.css',
-                                 'rails_admin/rails_admin.js',
                                  'admin/admin.css',
                                  'admin/admin.js',
                                  'jquery.slimscroll.min.js',

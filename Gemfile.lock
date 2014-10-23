@@ -16,25 +16,6 @@ GIT
       railties (>= 3.0, < 5.0)
 
 GIT
-  remote: git://github.com/sferik/rails_admin.git
-  revision: 2f27c3b004a8eb9d8a03c994ee59c2a09c307160
-  specs:
-    rails_admin (0.6.2)
-      builder (~> 3.1)
-      coffee-rails (~> 4.0)
-      font-awesome-rails (>= 3.0)
-      haml (~> 4.0)
-      jquery-rails (~> 3.0)
-      jquery-ui-rails (~> 4.0)
-      kaminari (~> 0.14)
-      nested_form (~> 0.3)
-      rack-pjax (~> 0.7)
-      rails (~> 4.0)
-      remotipart (~> 1.0)
-      safe_yaml (~> 1.0)
-      sass-rails (~> 4.0)
-
-GIT
   remote: git://github.com/stefanpenner/country_select.git
   revision: 89e0e89febd192896d2cf5d7c0256389ff551db4
   specs:
@@ -138,7 +119,7 @@ GEM
     evercam_misc (0.0.9)
       3scale_client (~> 2.3)
       dotenv (~> 0.10)
-    evercam_models (0.3.4)
+    evercam_models (0.3.5)
       activesupport (~> 4.1)
       bcrypt (~> 3.1)
       dotenv (~> 0.10)
@@ -160,8 +141,6 @@ GEM
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.3)
-    font-awesome-rails (4.1.0.0)
-      railties (>= 3.2, < 5.0)
     formatador (0.2.5)
     geocoder (1.1.9)
     georuby (2.2.1)
@@ -179,8 +158,6 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
-    haml (4.0.5)
-      tilt
     hashie (3.2.0)
     hashie_rails (0.0.1)
       hashie (>= 3.0)
@@ -208,12 +185,7 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (4.2.1)
-      railties (>= 3.2.16)
     json (1.8.1)
-    kaminari (0.16.1)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     listen (2.7.9)
@@ -231,7 +203,6 @@ GEM
     minitest (5.4.1)
     multi_json (1.10.1)
     multipart-post (2.0.0)
-    nested_form (0.3.2)
     newrelic_rpm (3.9.1.236)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -276,9 +247,6 @@ GEM
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
-    rack-pjax (0.8.0)
-      nokogiri (~> 1.5)
-      rack (~> 1.1)
     rack-rewrite (1.5.0)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -313,7 +281,6 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.1)
       json (~> 1.4)
-    remotipart (1.2.1)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -412,7 +379,7 @@ DEPENDENCIES
   devise
   evercam (~> 0.2.4)
   evercam_misc (~> 0.0)
-  evercam_models (~> 0.3.4)
+  evercam_models (~> 0.3.5)
   factory_girl
   geocoder
   guard-rspec (~> 4.3.1)
@@ -440,7 +407,6 @@ DEPENDENCIES
   rails (~> 4.1.0)
   rails-footnotes (>= 4.0.0, < 5)
   rails_12factor
-  rails_admin!
   rspec (~> 3.1.0)
   rspec-rails (~> 3.1.0)
   sass-rails (~> 4.0.0)

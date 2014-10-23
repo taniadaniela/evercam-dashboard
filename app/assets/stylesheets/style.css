@@ -1715,7 +1715,19 @@ table.table-clean thead th {
     font-size:12px;
 }
 
+/* Hikvision Widget */
+#hikvision-widget .control-label {
+    margin-top: 8px;
+}
 
+#hikvision-widget .help-block {
+    width: 100%;
+    font-size:12px;
+}
+
+#hikvision-widget .placeholder {
+    border:1px solid #f5f5f5;
+}
 
 
 /*!

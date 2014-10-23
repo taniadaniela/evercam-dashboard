@@ -18,6 +18,11 @@ class WidgetsController < ApplicationController
     load_user_cameras
   end
 
+  def widgets_hikvision
+    current_user
+    load_user_cameras
+  end
+
 
   def live_view_widget
     respond_to do |format|

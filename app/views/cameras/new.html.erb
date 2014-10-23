@@ -93,7 +93,8 @@
 
       <div class='<%= field_errors["model"] ? ' has-error' : '' %>'>
         <%= label_tag('camera-model', "Camera Model", class: "col-md-2 control-label") %>
-        <div class="col-md-3">
+        <div id="reveal" class="col-md-3">
+          <p class="help-block this form-error text-left" style="display: none;">Leave this as 'Default' if you're unsure</p>
           <% vendors.each do |v| -%>
             <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
               <% models(v.id).each_with_index  do |m, index| -%>
@@ -108,6 +109,7 @@
           <% if field_errors["model"] %>
             <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
           <% end %>
+
         </div>
       </div>
       <!--          <span class="col-sm-1 label label-default additional info-2">?</span>
@@ -123,7 +125,7 @@
     <div class='col-md-12'>
 
       <label for="" class="col-md-2 control-label margin-top-30">Snapshot URL</label>
-      <div class="col-md-3">
+      <div id="unreveal" class="col-md-3">
         <div id="ext-ip" class='<%= field_errors["external_host"] ? ' has-error' : '' %>'>
           <%= label_tag('camera-url', raw("External <strong>IP</strong> (or URL)*"), class: "grey control-label") %>
           <div class="input-group">
@@ -388,8 +390,18 @@
     }
 
   }
+  $("#hide").click(function(){
+    $("p").fadeOut();
+  });
 
-
+  $(document).ready(function(){
+    $("#reveal").click(function(){
+      $(".this").fadeIn();
+    });
+    $("#unreveal").click(function(){
+      $(".this").fadeOut();
+    });
+  });
 
   var EVERCAMP_API = '<%= EVERCAM_API %>';
 </script>

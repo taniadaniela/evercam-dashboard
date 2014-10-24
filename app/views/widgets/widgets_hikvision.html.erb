@@ -79,6 +79,10 @@
                         </select>
                       </div>
                     </div>
+
+                    <div class="true switch help-block margin-top-20" style="visibility: hidden;">
+                      * Warning. Choosing 'Yes' will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
+                    </div>
                   </form>
 
                 </div>
@@ -86,14 +90,11 @@
                   <div class="row widget-code">
                     <div class="col-md-12">
                       <h5>Embed this code on your webpage:</h5>
-                      <textarea id="code" class="pretty-code col-md-12" type="text">
+                      <textarea id="code" class="pretty-code col-md-12" type="text" readonly onclick="javascript:this.select();">
                       </textarea>
                     </div>
                   </div>
 
-                  <div class="true switch help-block margin-top-20" style="visibility: hidden;">
-                    * Warning. Choosing 'Yes' will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
-                  </div>
                 </div>
 
                 <div class="clear-f"></div>

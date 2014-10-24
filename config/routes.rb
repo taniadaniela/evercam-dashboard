@@ -50,6 +50,8 @@ EvercamDashboard::Application.routes.draw do
   get '/widgets-new' => 'widgets#widgets_new'
   get '/live.view.widget' => 'widgets#live_view_widget'
   get '/live.view.private.widget' => 'widgets#live_view_private_widget'
+  get '/widgets-hikvision' => 'widgets#widgets_hikvision'
+  get '/hikvision.local.storage' => 'widgets#hikvision_local_storage'
 
   get '/add-android' => 'pages#add_android'
   get '/location' => 'pages#location'

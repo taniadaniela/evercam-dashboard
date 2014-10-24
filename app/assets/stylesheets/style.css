@@ -1730,8 +1730,24 @@ table.table-clean thead th {
     font-size:12px;
 }
 
+/* Hikvision Widget */
+#hikvision-widget .control-label {
+    margin-top: 8px;
+}
 
+#hikvision-widget .help-block {
+    width: 100%;
+    font-size:12px;
+}
 
+#hikvision-widget .placeholder {
+    border:1px solid #f5f5f5;
+}
+.line-break{
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
 
 /*!
 * Tab drop for Bootstrap

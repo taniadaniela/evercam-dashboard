@@ -126,14 +126,17 @@
   function initLocalStorage() {
     var url = window.location.origin;
     var camera = $("#widget-camera").val();
-    var pre_auth = $('#widget-authenticate').val()
+    var camera_name = $('#widget-camera option:selected').text()
+    var pre_auth = $('#widget-authenticate').val();
+    var priv = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
     var api_credentials = '';
+
     if(pre_auth == 'true') {
       api_credentials = "&amp;api_id&#61;<%= current_user.api_id -%>&amp;api_key&#61;<%= current_user.api_key -%>";
     }
 
     var embedCode = '&lt;div evercam&#61;"localstorage"&gt;&lt;&#47;div&gt;'+
-        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera + api_credentials + '"&gt;&lt;&#47;script&gt;';
+        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+priv + api_credentials + '"&gt;&lt;&#47;script&gt;';
     $('#code').html(embedCode);
 
     $(".placeholder").empty();

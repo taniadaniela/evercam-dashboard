@@ -25,20 +25,12 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user_cameras
-    # temporarily disable fetching from cache
-    # @cameras = Rails.cache.fetch("#{current_user.username}/cameras")
-    if @cameras.nil?
-      @cameras = []
-    else
-      return
-    end
-    api      = get_evercam_api
+    api = get_evercam_api
     begin
       @cameras = api.get_user_cameras(current_user.username, true, true)
     rescue => error
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
     end
-    Rails.cache.write("#{current_user.username}/cameras", @cameras, expires_in: 5.minutes)
     nil
   end
 

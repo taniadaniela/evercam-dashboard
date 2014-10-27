@@ -3,15 +3,11 @@ module ApplicationHelper
   #noinspection RubyArgCount
 
   def vendors
-    Rails.cache.fetch("vendors") do
-      Vendor.order(:name).all
-    end
+    Vendor.order(:name).all
   end
 
   def models(vendor)
-    Rails.cache.fetch("#{vendor}/models") do
-      VendorModel.where(:vendor_id => vendor).order(Sequel.lit("case when name = 'Default' then 0 else 1 end, name")).all
-    end
+    VendorModel.where(:vendor_id => vendor).order(Sequel.lit("case when name = 'Default' then 0 else 1 end, name")).all
   end
 
   def is_active?(link_path)

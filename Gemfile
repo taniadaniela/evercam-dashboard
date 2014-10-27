@@ -42,8 +42,6 @@ gem 'data_uri'
 gem 'geocoder'
 gem 'newrelic_rpm'
 gem 'heroku_rails_deflate'
-gem 'memcachier'
-gem 'dalli'
 gem 'hashie_rails'
 gem 'country_select', github: 'stefanpenner/country_select'
 

@@ -41,8 +41,6 @@ class CamerasController < ApplicationController
                         params['camera-name'],
                         false,
                         body)
-      Rails.cache.delete("#{current_user.username}/cameras")
-      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to action: 'single', id: params['camera-id']
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -100,8 +98,6 @@ class CamerasController < ApplicationController
       api = get_evercam_api
       api.update_camera(params['camera-id'], settings)
       flash[:message] = 'Settings updated successfully'
-      Rails.cache.delete("#{current_user.username}/cameras")
-      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to "/cameras/#{params['camera-id']}#info"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -125,8 +121,6 @@ class CamerasController < ApplicationController
         api.delete_camera(params[:id])
       end
       flash[:message] = "Camera deleted successfully."
-      Rails.cache.delete("#{current_user.username}/cameras")
-      Rails.cache.delete("#{current_user.username}/shares")
       redirect_to '/'
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -162,15 +156,9 @@ class CamerasController < ApplicationController
       else
         @owner = current_user
       end
-      @camera_shares = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/cam_shares", expires_in: 5.minutes) do
-        api.get_camera_shares(params[:id])
-      end
-      @share_requests  = Rails.cache.fetch("#{current_user.username}/#{params[:id]}/share_reqs", expires_in: 5.minutes) do
-        api.get_camera_share_requests(params[:id], 'PENDING')
-      end
-      @webhooks  = Rails.cache.fetch("webhooks/#{params[:id]}", expires_in: 5.minutes) do
-        api.get_webhooks(params[:id])
-      end
+      @camera_shares = api.get_camera_shares(params[:id])
+      @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
+      @webhooks = api.get_webhooks(params[:id])
       load_user_cameras
     rescue => error
       puts error

@@ -6,9 +6,6 @@ cache:
   directories:
   - vendor/cache
 
-services:
-- memcached
-
 rvm:
 - 2.1.3
 

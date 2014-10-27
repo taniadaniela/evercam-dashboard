@@ -83,7 +83,4 @@ EvercamDashboard::Application.configure do
   config.evercam_api = {host: 'proxy.evr.cm', port: 9292, scheme: 'http'}
 
   config.force_ssl = false
-
-  config.cache_store = :dalli_store, nil, { :namespace => 'dashboard', :expires_in => 1.day, :compress => true }
-
 end

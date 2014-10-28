@@ -20,7 +20,7 @@ module CamerasHelper
     preview = camera['thumbnail']
     proxy = "#{EVERCAM_API}cameras/#{camera['id']}/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
     begin
-      if preview.nil?
+      if preview.nil? or preview == ""
         res = get_evercam_api.get_latest_snapshot(camera['id'], true)
         unless res.nil?
           uri = URI::Data.new(res['data'])

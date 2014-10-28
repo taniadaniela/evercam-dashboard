@@ -1,10 +1,10 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :allow_iframe, only: :live_view_private_widget
-  before_filter :normal_cookies_for_ie_in_iframes!, only: :live_view_private_widget
-  skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget]
-  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget]
-  skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget]
+  before_filter :allow_iframe, only: :live_view_private_widget; :hikvision_private_widget
+  before_filter :normal_cookies_for_ie_in_iframes!, only: :live_view_private_widget; :hikvision_private_widget
+  skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget, :hikvision_private_widget]
+  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget, :hikvision_private_widget]
+  skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget, :hikvision_private_widget]
 
   include SessionsHelper
   include ApplicationHelper

@@ -8,6 +8,8 @@ You are not allowed to view this camera
 <% elsif @not_exist %>
     <p style="font-family: helvetica, arial">We are unable to fetch a live feed from this camera.<p>
 <% else %>
-    <iframe style="overflow-y: hidden, overflow-x: scroll, width: 100%, height: 640px" src="http://playback.azurewebsites.net/home/doc/page/main.aspx?camera/<%= params[:camera] %>&api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" /></iframe>
+    <div>
+        <iframe style="overflow-y: hidden; overflow-x: scroll; width: 100%; height: 640px;" src="http://playback.azurewebsites.net/home/doc/page/main.aspx?camera=<%= params[:camera] %>&api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+    </div>
 <% end %>
 </body>

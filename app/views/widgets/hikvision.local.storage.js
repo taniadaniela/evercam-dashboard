@@ -28,9 +28,9 @@
     };
 
     function initStorage() {
-        var priv = <%= params[:private] %>;
+        var is_private = <%= params[:private] %>;
 
-        if(priv) {
+        if(is_private) {
             var iframe =
             jQuery("<iframe />")
             .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })

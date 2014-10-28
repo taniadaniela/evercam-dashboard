@@ -128,7 +128,7 @@
     var camera = $("#widget-camera").val();
     var camera_name = $('#widget-camera option:selected').text()
     var pre_auth = $('#widget-authenticate').val();
-    var priv = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
+    var is_private = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
     var api_credentials = '';
 
     if(pre_auth == 'true') {
@@ -136,7 +136,7 @@
     }
 
     var embedCode = '&lt;div evercam&#61;"localstorage"&gt;&lt;&#47;div&gt;'+
-        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+priv + api_credentials + '"&gt;&lt;&#47;script&gt;';
+        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + '"&gt;&lt;&#47;script&gt;';
     $('#code').html(embedCode);
 
     $(".placeholder").empty();

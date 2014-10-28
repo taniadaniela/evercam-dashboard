@@ -396,7 +396,7 @@ DEPENDENCIES
   protected_attributes
   pry-byebug
   puma
-  puma_worker_killer
+  puma_worker_killer (~> 0.0.3)
   quiet_assets
   rack-rewrite
   rack_session_access

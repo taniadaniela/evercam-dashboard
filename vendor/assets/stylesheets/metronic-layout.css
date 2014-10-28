@@ -788,6 +788,10 @@ Page container
 }
 .page-header-fixed .page-container {
     margin-top: 67px;
+    margin-bottom:-14px;
+}
+.page-header-fixed #public-index {
+    margin-bottom:-22px;
 }
 .page-footer-fixed.page-footer-fixed-mobile .page-container {
     margin-bottom: 20px !important;

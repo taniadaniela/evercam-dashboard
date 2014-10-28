@@ -56,4 +56,25 @@ class WidgetsController < ApplicationController
     render :layout => false
   end
 
+  def hikvision_private_widget
+    widget_user = nil
+    unless params[:api_id].blank? or params[:api_key].blank?
+      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+      sign_in(widget_user) if widget_user
+    end
+    if current_user.nil? and widget_user.nil?
+      session[:redirect_url] = request.original_url
+      redirect_to '/widget_signin'
+      return
+    end
+    begin
+      api = get_evercam_api
+      api.get_snapshot(params[:camera])
+    rescue => error
+      @unathorized = error.status_code == 403
+      @not_exist = error.status_code == 404
+    end
+    render :layout => false
+  end
+
 end

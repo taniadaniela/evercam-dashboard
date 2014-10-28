@@ -44,7 +44,7 @@ $ ->
       showFeedback("External IP Address (or URL) is incorrect")
       return
     else if (ext_url.indexOf('192.168') == 0 || ext_url.indexOf('127.0.0') == 0 || ext_url.indexOf('10.') == 0)
-      showFeedback("This is local IP. Please use external IP.")
+      showFeedback("This is the Internal IP. Please use the External IP.")
       return
 
     params = ['external_url=http://' + ext_url + port,

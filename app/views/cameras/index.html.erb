@@ -1,5 +1,8 @@
 <%= content_for(:title, "Evercam: Camera Dashboard") %>
 <!-- END HEADER -->
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
@@ -116,4 +119,11 @@
       classie.toggle( showLeft, 'disabled' );
     }
   }
+
+  // Notifications
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
+
 </script>

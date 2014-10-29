@@ -3,6 +3,9 @@ validate_hostname= (str) ->
   ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/
   ValidIpAddressRegex.test(str) || ValidHostnameRegex.test(str)
 
+showFeedback = (message) ->
+  Notification.show(message)
+  true
 
 $ ->
   $('#camera-url-web').on('input', () ->
@@ -31,17 +34,17 @@ $ ->
     e.preventDefault();
     # Validate port
     if(port != '' && (!intRegex.test(port) || port > 65535))
-      $('#test-error').text('Port value is incorrect')
+      showFeedback("Port value is incorrect")
       return
     else if (port != '')
       port = ':' + port
 
     # Validate host
     if (ext_url == '' || !validate_hostname(ext_url))
-      $('#test-error').text('External IP Address (or URL) is incorrect')
+      showFeedback("External IP Address (or URL) is incorrect")
       return
     else if (ext_url.indexOf('192.168') == 0 || ext_url.indexOf('127.0.0') == 0 || ext_url.indexOf('10.') == 0)
-      $('#test-error').text('This is local IP. Please use external IP.')
+      showFeedback("This is the Internal IP. Please use the External IP.")
       return
 
     params = ['external_url=http://' + ext_url + port,
@@ -64,9 +67,9 @@ $ ->
     .done((resp) ->
       console.log('success')
       if (resp.data.indexOf('data:text/html') == 0)
-        $('#test-error').text("We got a response, but it's not an image")
+        showFeedback("We got a response, but it's not an image")
       else
-        $('#test-error').text('We got a snapshot')
+        showFeedback("We got a snapshot")
         $('#testimg').attr('src', resp.data)
     )
     .fail((resp) ->

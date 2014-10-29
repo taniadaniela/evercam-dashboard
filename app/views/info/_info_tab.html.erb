@@ -150,11 +150,9 @@
                       </div>
                     </div>
                     <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
-
-                    <div id="test-error-out" class="snapshot-error text-center">
-                      <span id="test-error" class="text-center"><%= flash[:message] %></span>
+                    <div id="test-error-out" class="snapshot-error">
+                      <span id="test-error" class="text-center"></span>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -177,7 +175,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="camera-url">IP Address (or URL):</label>
+                          <label class="control-label" for="camera-url">IP (or URL):</label>
                         </td>
                         <td>
                           <div class="input-group">
@@ -212,7 +210,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="local-ip">IP Address:</label>
+                          <label class="control-label" for="local-ip">IP (or URL):</label>
                         </td>
                         <td>
                           <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{1,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
@@ -263,50 +261,11 @@
 
         </fieldset>
 
-        <!-- SUPPORT -->
-        <!-- <fieldset>
-         <div class="row add-footer">
-           <div class='col-lg-10 support'>
-             <h5>Still Can't See Your Camera?</h5>
-             <p>If your still having trouble getting your camera connected you can reach out for some support.</p>
-             <ul>
-               <li>Visit our <a href="http://www.evercam.io/help" target="_blank">Help Pages</a></li>
-               <li>Or email us <a href="#" target="_blank">Support@evercam.io</a></li>
-             </ul>
-           </div>
-         </div>
-       </fieldset>-->
 
 
 
 
-        <!--DELETE MODAL-->
-        <div id="deleteModal" class="modal fade">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <% if @share.nil? %>
-                  <p class="text-left">Are You Sure You Want to <strong>Delete</strong> this Camera?</p>
-                <% else %>
-                  <p class="text-left">Are You Sure You Want to <strong>Remove</strong> this Camera?</p>
-                <% end %>
-              </div>
-              <div class="modal-footer">
-                <div class="col-sm-8">
-                  <% if @share.nil? %>
-                    <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-                      <span class="glyphicon glyphicon-trash"></span>  Delete Camera</a>
-                  <% else %>
-                    <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-                      <span class="glyphicon glyphicon-trash"></span>  Remove</a>
-                  <% end %>
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                </div>
-              </div>
 
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
       </div>
 
 
@@ -522,7 +481,7 @@
             </tr>
             <tr>
               <td>
-                IP Port:
+                IP (or URL):
               </td>
               <td>
                 <%= @camera.deep_fetch(:internal, :host) {} %>

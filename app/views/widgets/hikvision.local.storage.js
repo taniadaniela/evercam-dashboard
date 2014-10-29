@@ -29,8 +29,10 @@
 
     function initStorage() {
         var is_private = <%= params[:private] %>;
+        var api_id = '<%= params[:api_id] %>';
+        var api_id = '<%= params[:api_key] %>';
 
-        if(is_private) {
+        if(is_private || (api_id != '' && api_id != '')) {
             var iframe =
             jQuery("<iframe />")
             .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })

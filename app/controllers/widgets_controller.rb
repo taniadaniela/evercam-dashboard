@@ -67,13 +67,7 @@ class WidgetsController < ApplicationController
       redirect_to '/widget_signin'
       return
     end
-    begin
-      api = get_evercam_api
-      api.get_snapshot(params[:camera])
-    rescue => error
-      @unathorized = error.status_code == 403
-      @not_exist = error.status_code == 404
-    end
+
     render :layout => false
   end
 

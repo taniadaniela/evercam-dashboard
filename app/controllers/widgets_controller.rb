@@ -1,6 +1,7 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :allow_iframe, only: :live_view_private_widget; :hikvision_private_widget
+  after_action :allow_iframe, only: :hikvision_private_widget
   before_filter :normal_cookies_for_ie_in_iframes!, only: :live_view_private_widget; :hikvision_private_widget
   skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget, :hikvision_private_widget]
   skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :live_view_private_widget, :hikvision_private_widget]
@@ -67,13 +68,7 @@ class WidgetsController < ApplicationController
       redirect_to '/widget_signin'
       return
     end
-    begin
-      api = get_evercam_api
-      api.get_snapshot(params[:camera])
-    rescue => error
-      @unathorized = error.status_code == 403
-      @not_exist = error.status_code == 404
-    end
+
     render :layout => false
   end
 

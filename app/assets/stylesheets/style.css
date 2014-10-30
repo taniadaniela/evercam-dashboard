@@ -285,20 +285,17 @@ input:-webkit-autofill {
     font-size: 12px;
     width:110%;
     margin-bottom: 0;
-
     position: absolute;
-
 }
 .has-error .help-block {
     background-color: #fff;
 }
-#port .help-block {
-
-
-    margin-top: 20px !important;
-
-
+#camera-port .help-block {
+padding-top: 35px;
 }
+#port .help-block {
+    margin-top: 20px !important;
+    }
 .box {
     font-size: 11px;
     width: 110%;

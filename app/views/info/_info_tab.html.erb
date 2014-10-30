@@ -769,7 +769,11 @@
     var marker = new google.maps.Marker({
       position: cameraLatlng,
       map: map,
+      <% if has_edit_right %>
       draggable:true,
+      <% else %>
+      draggable:false,
+      <% end %>
       title: 'Camera Location'
     });
 
@@ -797,6 +801,8 @@
       // Update the textbox
       document.getElementById('cameraLat').value=point.lat();
       document.getElementById('cameraLng').value=point.lng();
+      $(cameraLat).val(marker.getPosition().lat().toFixed(7));
+      $(cameraLng).val(marker.getPosition().lng().toFixed(7));
     });
 
   }

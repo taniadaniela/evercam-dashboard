@@ -769,7 +769,11 @@
     var marker = new google.maps.Marker({
       position: cameraLatlng,
       map: map,
+      <% if has_edit_right %>
       draggable:true,
+      <% else %>
+      draggable:false,
+      <% end %>
       title: 'Camera Location'
     });
 

@@ -58,7 +58,7 @@ gem 'heroku-api'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.5'
+  gem 'evercam_models', '~> 0.3.7'
 end
 gem 'evercam', '~> 0.2.4'
 

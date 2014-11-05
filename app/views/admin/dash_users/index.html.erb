@@ -28,6 +28,7 @@
         <table class="table table-striped table-bordered table-hover table-datatable" id="datatable_ajax">
           <thead>
             <tr role="row" class="heading">
+              <th name="order_admin" class="sorting">Admin</th>
               <th name="order_username" class="sorting">Username</th>
               <th name="order_name" class="sorting">Name</th>
               <th name="order_email" class="sorting">Email</th>
@@ -40,6 +41,13 @@
           <tbody>
             <% @dash_users.each do |dash_user| %>
             <tr>
+              <td>
+                <% if dash_user.is_admin? %>
+                  Yes
+                <% else %>
+                  No
+                <% end %>
+              </td>
               <td><%= dash_user.username %></td>
               <td><%= link_to dash_user.fullname, admin_dash_user_path(dash_user) %></td>
               <td><%= dash_user.email %></td>

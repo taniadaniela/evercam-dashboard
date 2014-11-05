@@ -6,6 +6,7 @@ EvercamDashboard::Application.routes.draw do
     get '/kpi' => 'dashboard#kpi'
     resources :dash_cameras, path: :cameras
     resources :dash_users, path: :users
+    resources :dash_vendor_model, path: :models
     get '/users/:id/impersonate' => 'dash_users#impersonate', as: :impersonate
   end
 

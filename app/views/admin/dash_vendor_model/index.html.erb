@@ -1,0 +1,65 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+          Evercam Vendors & Models
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+          <li>
+            <i class="fa fa-home"></i>
+            <a href="/admin">Home</a>
+            <i class="fa fa-angle-right"></i>
+          </li>
+          <li>
+            <a href="#">Vendors & Models</a>
+          </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+      </div>
+    </div>
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped table-bordered table-hover" id="datatable_vendor_models">
+          <thead>
+          <tr role="row" class="heading">
+            <th name="order_vendor" class="sorting">Vendor</th>
+            <th name="order_model" class="sorting">Model</th>
+            <th name="order_snapshot_url" class="sorting">Snapshot</th>
+            <th name="order_thumbnail" class="sorting">Thumbnail</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @dash_vendors_models.each do |dash_vendor_model| %>
+              <tr>
+                <td><%= dash_vendor_model.vendor.name %></td>
+                <td><%= dash_vendor_model.name %></td>
+                <td><%= dash_vendor_model.jpg_url %></td>
+                <td></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+  </div>
+</div>
+<!-- END CONTENT -->
+
+<script>
+    $("#datatable_vendor_models").dataTable({
+        aaSorting: [0, "asc"],
+        aLengthMenu: [
+            [25, 50, 100, 200, -1],
+            [25, 50, 100, 200, "All"]
+        ],
+        iDisplayLength: 50
+    });
+    //$("#datatable_vendor_models").fnSort( [ [0,'asc'] ] )});
+</script>

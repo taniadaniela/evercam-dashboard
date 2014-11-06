@@ -604,7 +604,45 @@ Google Maps
 }
 
 /*LIVE*/
+.demo-wrapper {
+    width: 38%;
+    margin: 0 auto;
+}
+.html5-fullscreen-api {
+    position: relative;
+}
+.html5-fullscreen-api img {
+    max-width: 100%;
+}
+.html5-fullscreen-api .icon-size-fullscreen {
+    z-index: 100;
+    display: inline-block;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+    color: rgb(243,243,243);
+    font-size: 16px;
+    font-weight: 600;
+    -moz-transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+}
+#fullscreen:-webkit-full-screen {
+    background:#E5E5E5;
+    width: 100%;
+}
 
+#fullscreen:-webkit-full-screen img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.html5-fullscreen-api .icon-size-fullscreen:hover {
+    color: rgb(255,255,255);
+}
 #live img {
     width: auto;
     max-width:100%;
@@ -616,7 +654,7 @@ Google Maps
 }
 .tab-content h4 {
     font-family: 'proxima-nova-bold';
-margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 .camera-preview {
     position: relative;

@@ -8,6 +8,7 @@ class Admin::DashVendorModelController < AdminController
 
   def show
     @dash_vendor_model = DashVendorModel.includes(:vendor).find(params[:id])
+    @total_cameras = DashCamera.where(model_id: params[:id])
   end
 
   def update

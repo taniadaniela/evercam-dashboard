@@ -19,6 +19,7 @@
 #= require metronic/datatable.js
 #= require metronic/layout.js
 #= require metronic/quick-sidebar.js
+#= require alerts.js
 
 $ ->
   Metronic.init()

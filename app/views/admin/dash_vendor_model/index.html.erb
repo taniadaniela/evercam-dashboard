@@ -22,6 +22,46 @@
       </div>
     </div>
     <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE SUMMARY -->
+    <div class="row">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <div class="portlet sale-summary">
+          <div class="portlet-title">
+            <div class="caption">
+              Summary
+            </div>
+            <div class="tools">
+              <a class="reload" href="javascript:;">
+              </a>
+            </div>
+          </div>
+          <div class="portlet-body">
+            <ul class="list-unstyled">
+              <li>
+                <span class="sale-info">
+                  Total Vendors
+                  <i class="fa fa-img-up"></i>
+                </span>
+                <span class="sale-num">
+                  <%= @total_vendors %>
+                </span>
+              </li>
+              <li>
+                <span class="sale-info">
+                  Total Cameras
+                  <i class="fa fa-img-down"></i>
+                </span>
+                <span class="sale-num">
+                  <%= @total_cameras %>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE SUMMARY -->
     <!-- BEGIN PAGE CONTENT-->
     <div class="row">
       <div class="col-md-12">
@@ -38,9 +78,9 @@
           <% @dash_vendors_models.each do |dash_vendor_model| %>
               <tr>
                 <td><%= dash_vendor_model.vendor.name %></td>
-                <td><%= dash_vendor_model.name %></td>
+                <td><%= link_to dash_vendor_model.name, admin_dash_vendor_model_path(dash_vendor_model.id) %></td>
                 <td><%= dash_vendor_model.jpg_url %></td>
-                <td></td>
+                <td>thumbnail</td>
               </tr>
           <% end %>
           </tbody>

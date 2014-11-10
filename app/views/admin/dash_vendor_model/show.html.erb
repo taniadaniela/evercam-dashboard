@@ -31,10 +31,13 @@
     <!-- END PAGE HEADER-->
     <!-- BEGIN PAGE SUMMARY -->
     <div class="row">
-      <div class="col-md-8 profile-info">
+      <div class="col-md-6 profile-info">
         <div class="">
           <h1><%= @dash_vendor_model.name %></h1>
         </div>
+      </div>
+      <div class="col-md-2">
+        <img class="img-responsive" src="/assets/default_thumbnail.jpg"/>
       </div>
       <div class="col-md-4">
         <div class="portlet sale-summary">
@@ -64,7 +67,7 @@
       </div>
     </div>
     <!-- END PAGE SUMMARY -->
-    <form action="#" method="post">
+    <form action="" method="post">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
       <!-- BEGIN PAGE CONTENT-->
       <div class="row">
@@ -78,7 +81,7 @@
             </ul>
             <div class="pull-right btn-menu">
               <a href="javascript:;" id="edit-model" class="makeEditable edit btn grey">Edit</a>
-              <button id="save-model" name="save-model" class="edit btn grey hide">Save</button>&nbsp;
+              <button id="vendor_models" name="vendor_models" class="edit btn grey hide">Save</button>&nbsp;
               <a href="javascript:;" id="cancel-save-model" class="makeNonEditable hide edit btn grey">Cancel</a>
             </div>
             <div class="tab-content">
@@ -87,18 +90,18 @@
                   <tbody>
                   <tr>
                     <td>Vendor</td>
-                    <td><input id="vendor-name" maxlength="150" name="vendor-name" placeholder="" class="non-editable form-control" readonly="readonly" type="text"
-                               value="<%= @dash_vendor_model.vendor.name %>"><input type="hidden" id="vendor-name-old" value="<%= @dash_vendor_model.vendor.name %>"/></td>
+                    <td><input id="vendor_name" maxlength="150" name="vendor_name" placeholder="" class="non-editable form-control" readonly="readonly" type="text"
+                               value="<%= @dash_vendor_model.vendor.name %>"></td>
                   </tr>
                   <tr>
                     <td>Model</td>
-                    <td><input id="model-name" maxlength="150" name="model-name" placeholder="" class="non-editable form-control" readonly="readonly" type="text"
-                               value="<%= @dash_vendor_model.name %>"><input type="hidden" id="model-name-old" value="<%= @dash_vendor_model.name %>"/></td>
+                    <td><input id="name" maxlength="150" name="name" placeholder="" class="non-editable form-control" readonly="readonly" type="text"
+                               value="<%= @dash_vendor_model.name %>"></td>
                   </tr>
                   <tr>
                     <td>Snapshot</td>
-                    <td><input id="model-jpg-url" maxlength="150" name="model-jpg-url" placeholder="" class="non-editable form-control" readonly="readonly" type="text"
-                               value="<%= @dash_vendor_model.jpg_url %>"><input type="hidden" id="jpg-url-old" value="<%= @dash_vendor_model.jpg_url %>"/></td>
+                    <td><input id="jpg_url" maxlength="150" name="jpg_url" placeholder="" class="non-editable form-control" readonly="readonly" type="text"
+                               value="<%= @dash_vendor_model.jpg_url %>"></td>
                   </tr>
                   </tbody>
                 </table>
@@ -109,7 +112,7 @@
       </div>
       <!-- END PAGE CONTENT-->
       <!-- Hidden fields -->
-      <input type="hidden" name="vendor-id" value="<%= @dash_vendor_model.vendor_id %>">
+      <input type="hidden" name="vendor_id" value="<%= @dash_vendor_model.vendor_id %>">
     </form>
   </div>
 </div>
@@ -120,39 +123,19 @@
     // Make Input Fields Non Editable & Editable
     $(".makeNonEditable").click(function(){
       $('input:text').attr("readonly", "readonly");
-      $('select').attr("readonly", "readonly");
       $('input:text').addClass("non-editable");
 
-      $("#save-model").addClass("hide");
+      $("#vendor_models").addClass("hide");
       $("#cancel-save-model").addClass("hide");
       $("#edit-model").removeClass("hide");
     });
     $(".makeEditable").click(function(){
       $('input:text').removeAttr("readonly");
-      $('select').removeAttr("readonly");
       $('input:text').removeClass("non-editable");
 
-      $("#save-model").removeClass("hide");
+      $("#vendor_models").removeClass("hide");
       $("#cancel-save-model").removeClass("hide");
       $("#edit-model").addClass("hide");
-    });
-
-    $("#save-model").bind("click", function(){
-      var is_changed = false;
-      if($("#vendor-name").val() != $("#vendor-name-old").val()) {
-        is_changed = true;
-      }
-      if($("#model-name").val() != $("#model-name-old").val()) {
-        is_changed = true;
-      }
-      if($("#model-jpg-url").val() != $("#jpg-url-old").val()) {
-        is_changed = true;
-      }
-
-      if(!is_changed){
-        Notification.show('Please change value to save.');
-      }
-      return is_changed;
     });
 
     // Notifications

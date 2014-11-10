@@ -14,17 +14,10 @@ class Admin::DashVendorModelController < AdminController
   def update
     begin
       @vendor_model = DashVendorModel.find(params[:id])
-      if @vendor_model.name != "#{params['model-name']}"
-        @vendor_model.update_attribute(:name, "#{params['model-name']}")
-      end
-      if @vendor_model.jpg_url != "#{params['model-jpg-url']}"
-        @vendor_model.update_attribute(:jpg_url, "#{params['model-jpg-url']}")
-      end
+      @vendor_model.update_attributes(name: params['name'], jpg_url: params['jpg_url'])
 
-      @vendor = DashVendor.find(params['vendor-id'])
-      if @vendor.name != "#{params['vendor-name']}"
-        @vendor.update_attribute(:name, "#{params['vendor-name']}")
-      end
+      @vendor = DashVendor.find(params['vendor_id'])
+      @vendor.update_attribute(:name, params['vendor_name'])
 
       flash[:message] = 'Vendor Model updated successfully'
       redirect_to "/admin/models/#{params['id']}"

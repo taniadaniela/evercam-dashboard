@@ -63,7 +63,7 @@
     </div>
     <!-- END PAGE SUMMARY -->
     <!-- BEGIN PAGE CONTENT-->
-    <div class="row">
+    <div id="divRow" class="row hide">
       <div class="col-md-12">
         <table class="table table-striped table-bordered table-hover" id="datatable_vendor_models">
           <thead>
@@ -80,7 +80,7 @@
                 <td><%= dash_vendor_model.vendor.name %></td>
                 <td><%= link_to dash_vendor_model.name, admin_dash_vendor_model_path(dash_vendor_model.id) %></td>
                 <td><%= dash_vendor_model.jpg_url %></td>
-                <td>thumbnail</td>
+                <td></td>
               </tr>
           <% end %>
           </tbody>
@@ -101,5 +101,6 @@
         ],
         iDisplayLength: 50
     });
+    $("#divRow").removeClass('hide');
     //$("#datatable_vendor_models").fnSort( [ [0,'asc'] ] )});
 </script>

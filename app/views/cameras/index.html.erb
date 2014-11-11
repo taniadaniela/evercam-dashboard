@@ -1,4 +1,4 @@
-<%= content_for(:title, "Evercam: Camera Dashboard") %>
+  <%= content_for(:title, "Evercam: Camera Dashboard") %>
 <!-- END HEADER -->
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
@@ -68,7 +68,7 @@
         <!--main content start-->
         <% @cameras.each do |camera| %>
 
-          <div class="col-lg-4 camera-index">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
             <a class="" href="/cameras/<%= camera['id'] %>?share=false">
               <div class="snapshot">
                 <%= preview(camera) %>

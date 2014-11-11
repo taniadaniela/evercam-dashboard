@@ -2,8 +2,10 @@
   <div class="camera-preview">
     <div>
       <div class="row">
-        <div class="col-md-6">
-          <img id="myImage" style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+        <div class="col-lg-8 col-md-12">
+          <div id="fullscreen" class="html5-fullscreen-api">
+            <img id="myImage" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+          </div>
         </div>
       </div>
     </div>
@@ -14,7 +16,7 @@
     <p class="margin-top-20"><span class="red">Camera offline</span> - we can't get a live feed at the moment</p>
   </div>
 <% end %>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/1.0.4/screenfull.min.js"></script>
 <script type="text/javascript">
   <% if @camera['is_online'] %>
   var int_time;
@@ -43,6 +45,11 @@
     });
   }());
   <% end %>
+
+  $('#myImage').click(function () {
+    screenfull.toggle(this);
+  });
+
 
   var sPathToDefaultImg = 'https://www.evercam.io/img/offline.png';
   var fnValidateImage = function(oImg) {

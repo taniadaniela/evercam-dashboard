@@ -706,7 +706,7 @@ Horizontal Menu
         margin-right: 80px;
     }
 }
-@media (max-width: 580px) {
+@media (max-width: 780px) {
     /* Page header */
     .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle .username {
         display: none;

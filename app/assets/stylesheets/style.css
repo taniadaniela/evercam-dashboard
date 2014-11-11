@@ -604,19 +604,24 @@ Google Maps
 }
 
 /*LIVE*/
-
-#live img {
-    width: auto;
-    max-width:100%;
-    border: 1px solid #e5e5e5 !important;
+.demo-wrapper {
+    width: 38%;
+    margin: 0 auto;
 }
 
+#live img {
+    width: 100%;
+
+}
+.tint img {
+    border: 1px solid #e5e5e5 !important;
+}
 #live .panel-body {
     padding: 0px;
 }
 .tab-content h4 {
     font-family: 'proxima-nova-bold';
-margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 .camera-preview {
     position: relative;

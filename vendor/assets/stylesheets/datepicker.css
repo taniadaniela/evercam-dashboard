@@ -80,7 +80,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+.datepicker .dow {
+    color: #000000;
+}
 .table-condensed > tbody > tr > td
 .table-striped .datepicker table tr td,
 .table-striped .datepicker table tr th {
@@ -90,10 +92,14 @@
 .datepicker table tr td.day:hover {
   background: #eeeeee;
   cursor: pointer;
+    color: #000000;
+}
+.datepicker table tr td.day {
+        color: #c5c5c5;
 }
 .datepicker table tr td.old,
 .datepicker table tr td.new {
-  color: #999999;
+  color: #e5e5e5;
 }
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {
@@ -307,6 +313,7 @@
 .datepicker table tr td.active.disabled[disabled],
 .datepicker table tr td.active.disabled:hover[disabled] {
   background-color: #e5e5e5;
+    color: #888888;
 }
 .datepicker table tr td.active:active,
 .datepicker table tr td.active:hover:active,

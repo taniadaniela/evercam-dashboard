@@ -21,6 +21,9 @@
 .datepicker-inline {
   width: 209px;
 }
+.datepicker {
+ margin-bottom: 10px;
+}
 .datepicker.datepicker-rtl {
   direction: rtl;
 }

@@ -506,7 +506,7 @@ FormatNumTo2 = (n) ->
 
 NoRecordingDayOrHour = ->
   $("#divRecent").show()
-  $("#imgPlayback").attr("src", "/assets/norecordings.gif")
+  $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
   $("#divInfo").fadeOut()
   $("#divPointer").width(0)
   $("#divSliderBackground").width(0)
@@ -552,7 +552,7 @@ SetImageHour = (hr, id) ->
     $("#MDSliderItem").html("")
     $("#btnCreateHourMovie").attr('disabled', true)
     totalFrames = 0
-    $("#imgPlayback").attr("src", "/assets/norecordings.gif")
+    $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
     $("#divNoMd").show()
     $("#divNoMd").text('No motion detected')
     HideLoader()

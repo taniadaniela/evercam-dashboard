@@ -1203,6 +1203,21 @@ input:focus {
     overflow-x: hidden;
     overflow-y: hidden;*/
 }
+#recording-tab .table-condensed > tbody > tr > td {
+    padding: 0px;
+}
+#recording-tab .datepicker td {
+    width: 25px;
+    height: 25px;
+}
+#recording-tab .table-condensed tbody {
+    background-color:#fff;
+    border: none;
+}
+#recording-tab thead {
+    background-color: #f6f6f6;
+    border: 1px solid #e5e5e5;
+}
 /*///////////////////////////
 // WEBHOOK
 ///////////////////////////*/
@@ -1896,7 +1911,7 @@ table.table-clean thead th {
 }
 
 .datepicker{
-    border: 1px solid #cccccc;
+    border: 1px solid #e5e5e5;
     font-size: 12px;
 }
 

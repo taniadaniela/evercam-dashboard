@@ -154,7 +154,7 @@ ResetDays = ->
 
     while j < BoldDays.length
       if BoldDays[j] is iDay
-        calDay.css "font-weight", "bold"
+        calDay.css "color": "#428bca","font-family": "proxima-nova-bold"
         break
       j++
     return
@@ -308,7 +308,7 @@ HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
 
     for result in results.days
       if result == iDay
-        calDay.css("font-weight", "bold")
+        calDay.css("color": "#428bca", "font-family": "proxima-nova-bold")
         break
   )
   true
@@ -347,7 +347,7 @@ BoldSnapshotHourSuccess = (result, context) ->
   hasRecords = false;
   for hour in result.hours
     hr = hour + CameraOffset
-    $("#tdI"+hr).css("font-weight", "bold");
+    $("#tdI"+hr).css("color": "#428bca","font-family": "proxima-nova-bold");
     lastBoldHour = hr
     hasRecords = true
 

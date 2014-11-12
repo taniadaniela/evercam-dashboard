@@ -675,6 +675,21 @@ Google Maps
     text-transform: uppercase;
     bottom: 15px;
 }
+.hover-fullscreen {
+    position: absolute;
+    top:24px;
+    right:35px;
+    color:#f1f1f9;
+    opacity: 0;
+    -moz-transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+#fullscreen:hover .hover-fullscreen {
+    opacity: 1;
+}
 .tint {
     width: 100%;
 }
@@ -1010,7 +1025,7 @@ td .share-camera {
     width: 50%;
     margin: 0 auto;
 }
-.evercam-play
+
 #hover-arrow {
     color:#fff;
     transition: all 0.3s ease 0.1s, background 0.3s ease 0.1s;

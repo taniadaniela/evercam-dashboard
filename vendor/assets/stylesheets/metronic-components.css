@@ -165,6 +165,7 @@ h5 {
 th {
     font-size: 16px;
     font-family: "proxima-nova-bold", "Open Sans", sans-serif;
+    font-weight: normal;
 }
 h6 {
     font-size: 12px;

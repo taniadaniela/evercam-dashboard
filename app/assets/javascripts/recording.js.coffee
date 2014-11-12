@@ -138,7 +138,7 @@ clearHourCalander = ->
   calDays = $("#hourCalandar td[class*='day']")
   calDays.each(->
     calDay = $(this)
-    calDay.css("font-weight", "normal")
+    calDay.css("color": "#c5c5c5", "font-family":"proxima-nova-regular", "font-weight":"normal" )
   )
   true
 
@@ -154,7 +154,7 @@ ResetDays = ->
 
     while j < BoldDays.length
       if BoldDays[j] is iDay
-        calDay.css "font-weight", "bold"
+        calDay.css "color": "#428bca","font-weight": "bold", "font-family":"proxima-nova-bold"
         break
       j++
     return
@@ -308,7 +308,7 @@ HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
 
     for result in results.days
       if result == iDay
-        calDay.css("font-weight", "bold")
+        calDay.css("color": "#428bca","font-weight": "bold", "font-family":"proxima-nova-bold")
         break
   )
   true
@@ -347,7 +347,7 @@ BoldSnapshotHourSuccess = (result, context) ->
   hasRecords = false;
   for hour in result.hours
     hr = hour + CameraOffset
-    $("#tdI"+hr).css("font-weight", "bold");
+    $("#tdI"+hr).css("color": "#428bca","font-weight": "bold", "font-family":"proxima-nova-bold");
     lastBoldHour = hr
     hasRecords = true
 
@@ -506,7 +506,7 @@ FormatNumTo2 = (n) ->
 
 NoRecordingDayOrHour = ->
   $("#divRecent").show()
-  $("#imgPlayback").attr("src", "/assets/norecordings.gif")
+  $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
   $("#divInfo").fadeOut()
   $("#divPointer").width(0)
   $("#divSliderBackground").width(0)
@@ -552,7 +552,7 @@ SetImageHour = (hr, id) ->
     $("#MDSliderItem").html("")
     $("#btnCreateHourMovie").attr('disabled', true)
     totalFrames = 0
-    $("#imgPlayback").attr("src", "/assets/norecordings.gif")
+    $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
     $("#divNoMd").show()
     $("#divNoMd").text('No motion detected')
     HideLoader()

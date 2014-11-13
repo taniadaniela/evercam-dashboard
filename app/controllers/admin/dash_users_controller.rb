@@ -8,6 +8,24 @@ class Admin::DashUsersController < AdminController
     @dash_user = DashUser.find(params[:id])
   end
 
+  def update
+    begin
+      @dash_user = DashUser.find(params[:id])
+      @dash_user.update_attribute(:is_admin, params['userRightsRadios'])
+
+      flash[:message] = "User rights updated successfully"
+      redirect_to "/admin/users/#{params['id']}"
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught updating User Rights.\nCause: #{error}\n" +
+                             error.backtrace.join("\n")
+      flash[:message] = "An error occurred updating User Rights. "\
+                        "Please try again and, if this problem persists, contact "\
+                        "support."
+      redirect_to "/admin/users/#{params['id']}"
+    end
+  end
+
   def impersonate
     user = User[params[:id]]
     if user

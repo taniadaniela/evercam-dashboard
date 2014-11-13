@@ -107,3 +107,39 @@ table.dataTable thead .sorting_desc_disabled { background: image-url('metronic/s
   top: 68px;
 
 }
+
+#userRightsModal{
+  font-family: "proxima-nova-bold","Open Sans",sans-serif;
+}
+#userRightsModal .radio {
+  min-height:24px;
+}
+#userRightsModal .radio-inline + .radio-inline {
+  margin-left: 0;
+}
+#userRightsModal .radio-inline{
+  padding-left: 0;
+}
+#userRightsModal div.radio {
+  margin-top: 5px;
+}
+.modal-footer {
+  text-align: left;
+}
+#userRightsModal .form-group {
+  margin-bottom: 0;
+}
+#userRightsModal .modal-header {
+  padding: 9px;
+}
+#userRightsModal h5 {
+  font-size: 16px;
+  font-weight: 500;
+}
+#userRightsModal label{
+  font-size: 13px;
+  font-weight: normal;
+}
+.change{
+  margin-left: 30px;
+}

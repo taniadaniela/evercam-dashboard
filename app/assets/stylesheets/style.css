@@ -1211,7 +1211,7 @@ input:focus {
     border: 1px solid #f5f5f5;
 }
 /*///////////////////////////
-// RECORDING
+// RECORDING - SNAPSHOT
 ///////////////////////////*/
 #recording {
     /*max-height: 680px;
@@ -1235,6 +1235,13 @@ input:focus {
 }
 #imgPlayback {
     border: 1px solid #efefef;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
 }
 .left-column {
     width: 100%;
@@ -1259,6 +1266,122 @@ input:focus {
     .right-column {
         width: 30%;
     }
+}
+.snapshots {
+    position: relative;
+    overflow:hidden;
+}
+.snapshots i {
+    color:#ffffff;
+    cursor: pointer;
+}
+.tri-option {
+    top:18px;
+    right:15px;
+    position: absolute;
+    opacity: 1;
+    cursor: pointer;
+}
+.menu-right.menu-open .tri-option {
+    opacity: 0;
+}
+.fa-ellipsis-v {
+    padding: 10px 13px 8px 14px;
+    background: rgba(0,0,0,.6);
+    border-radius: 50%;
+    font-size:17px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.top{top:0}
+
+.right{right:0;}
+.float-right {
+    float: right;
+}
+ul li {
+    padding-left: 0px;
+    margin: 0;
+    padding: 0;
+}
+.snapshot-menu-bar li i {
+    margin: 24px auto;
+    display:block;
+}
+.snapshot-menu-bar a:hover {
+    text-decoration: none;
+}
+.snapshot-menu-bar {
+    background: #428bca;
+    position: fixed;
+    width: 60px;
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+}
+.snapshot-menu-bar-2 {
+    background: #68A2D5;
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+/* Vertical menu that slides from the left or right */
+
+.menu-right {
+    right: -60px;
+    position: absolute;
+
+}
+
+.menu-right.menu-open {
+    right: 0px;
+}
+
+
+.menu-right2 {
+    right: -60px;
+    position: absolute;
+
+}
+
+.menu-right2.menu-open {
+    right: 0px;
+}
+
+
+@media screen and (max-height: 26.375em){
+
+    .snapshot-menu-bar {
+        font-size: 90%;
+        width: 190px;
+    }
+
+    .menu-left,
+    .menu-push-toleft {
+        left: -190px;
+    }
+
+    .menu-right {
+        right: -190px;
+    }
+
+    .menu-push-toright {
+        left: 190px;
+    }
+}
+.snapshots:hover .snapshot-sidebar {
+    opacity: 1;
 }
 
 /*Start Recording tab stylesheet*/

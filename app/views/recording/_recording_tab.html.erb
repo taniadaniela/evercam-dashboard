@@ -3,7 +3,7 @@
 
   <!-- Left Portion -->
   <div class="left-column">
-    <div class="">
+    <div class="snapshots">
       <div class="loader-bg" id="imgLoaderRec">
         <table cellspacing="0" cellpadding="6" border="0" width="100%" height="100%">
           <tr>
@@ -14,17 +14,25 @@
         </table>
       </div>
       <img id="imgPlayback" style="width: 100%;" src=""/>
-      <div id="snapshot-sidebar">
-      <ul></ul>Share
+     <!--share options hidden temporarily-->
+      <div class="tri-option" id="showRight">
+        <i class="fa fa-ellipsis-v" style="display:none;"></i>
       </div>
+      <div class="top right">
+        <ul class="snapshot-menu-bar menu-right" id="menu-s2">
+          <li><i class="icon-arrow-right" id="hideRight"></i></li>
+          <li><i class="icon-share" id="showRight2"></i></li>
+          <ul class="snapshot-menu-bar snapshot-menu-bar-2  menu-right2" id="menu-s1">
+            <li><i class="icon-arrow-right" id="hideRight2"></i></li>
+            <li><a href="https://plus.google.com/share?url=YOURURLHERE"><i class="icon-envelope-letter"></i></a></li>
+            <li><a href="https://twitter.com/intent/tweet?url=YOURURLHERE&text=<%= @camera['name'] %>&via=evrcm"><i class="icon-social-twitter"></i></a></li>
+            <li><a href="https://facebook.com/sharer.php?u=YOURURLHERE"><i class="icon-social-facebook"></i></a></li>
+          </ul>
+        </ul>
+      </div>
+      <!--share options hidden temporarily-->
     </div>
 
-    <div class="clear-f"></div>
-    <div id="divSliderBackground" class="slider slider-basic ui-slider ui-slider-horizontal ui-slider-recordings ui-widget ui-widget-content ui-corner-all">
-      <div id="divSlider" class="playback-slider-outer">
-        <div id="divPointer" class="playback-slider-inner"></div>
-      </div>
-    </div>
 
     <div class="margin-top-10"></div>
     <div id="divInfo" class="playback-info-bar"><b>Frame 10 of 18</b> 12/11/2013 16:20:48</div>
@@ -199,4 +207,59 @@
 
 <script type="text/javascript">
   $(window.Evercam.Recordings.initializeTab);
+  var menuRight2 = document.getElementById( 'menu-s1' ),
+      menuRight = document.getElementById( 'menu-s2' ),
+      body = document.body;
+
+  showRight2.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuRight2, 'menu-open' );
+    disableOther( 'showRight2' );
+  };
+  hideRight2.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuRight2, 'menu-open' );
+    disableOther( 'showRight2' );
+  };
+  showRight.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuRight, 'menu-open' );
+    disableOther( 'showRight' );
+  };
+  hideRight.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuRight, 'menu-open' );
+    disableOther( 'showRight' );
+  };
+
+
+  function disableOther( button ) {
+    if( button !== 'showRight2' ) {
+      classie.toggle( showRight2, 'disabled' );
+    }
+    if( button !== 'showRight' ) {
+      classie.toggle( showRight, 'disabled' );
+    }
+
+  }
+  $('#demo1').sharrre({
+    share: {
+      googlePlus: true,
+      facebook: true,
+      twitter: true
+    },
+    buttons: {
+      googlePlus: {size: 'tall', annotation:'bubble'},
+      facebook: {layout: 'box_count'},
+      twitter: {count: 'vertical', via: '_JulienH'}
+    },
+    hover: function(api, options){
+      $(api.element).find('.buttons').show();
+    },
+    hide: function(api, options){
+      $(api.element).find('.buttons').hide();
+    },
+    enableTracking: true
+  });
+
 </script>

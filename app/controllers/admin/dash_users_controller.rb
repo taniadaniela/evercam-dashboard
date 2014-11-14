@@ -6,22 +6,28 @@ class Admin::DashUsersController < AdminController
 
   def show
     @dash_user = DashUser.find(params[:id])
+    @countries = Country.all
   end
 
   def update
     begin
       @dash_user = DashUser.find(params[:id])
-      @dash_user.update_attribute(:is_admin, params['userRightsRadios'])
+      @dash_user.update_attributes(firstname: params['user-firstname'], lastname: params['user-lastname'],
+                               email: params['user-email'], country_id: params['country'],
+                               is_admin: params['user-rights-radios'])
 
-      flash[:message] = "User rights updated successfully"
+      flash[:message] = "User details updated successfully"
       redirect_to "/admin/users/#{params['id']}"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
-      Rails.logger.error "Exception caught updating User Rights.\nCause: #{error}\n" +
+      Rails.logger.error "Exception caught updating User details.\nCause: #{error}\n" +
                              error.backtrace.join("\n")
-      flash[:message] = "An error occurred updating User Rights. "\
-                        "Please try again and, if this problem persists, contact "\
-                        "support."
+      if(error.message.index("ux_users_email"))
+        flash[:message] = "The email address specified is already registered for an Evercam account."
+      else
+        flash[:message] = "An error occurred updating User details. "\
+                          "Please try again and, if this problem persists, contact support."
+      end
       redirect_to "/admin/users/#{params['id']}"
     end
   end

@@ -4,32 +4,64 @@
 
 <form action="" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-  <div id="userRightsModal" class="modal fade" data-width="300">
+  <div id="user-rights-modal" class="modal fade">
     <div class="modal-dialog" style="width:400px;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-          <h5>User Rights</h5>
+          <h5>User Details</h5>
         </div>
         <div class="modal-body">
           <div class="form-group">
-          <div class="radio-list">
-            <label class="radio-inline">
-              <input type="radio" name="userRightsRadios" id="userRightsRadios1" value="true" <%= "checked" if @dash_user.is_admin %>>
-              Allow admin permissions</small>
-            </label>
+            <table class="user-table">
+              <tr>
+                <td class="col-md-4"><label class="control-label">First Name:</label></td>
+                <td><input data-validation-error-msg="Cannot be blank" type="text" data-validation="length" data-validation-length="min1" id="user-firstname" name="user-firstname" class="form-control" value="<%= @dash_user.firstname %>"/></td>
+              </tr>
+              <tr>
+                <td class="col-md-4"><label class="control-label">Last Name:</label></td>
+                <td><input data-validation-error-msg="Cannot be blank" type="text" data-validation="length" data-validation-length="min1" id="user-lastname" name="user-lastname" class="form-control" value="<%= @dash_user.lastname %>"/></td>
+              </tr>
+              <tr>
+                <td class="col-md-4"><label class="control-label">Email:</label></td>
+                <td><input data-validation="email" type="text" id="user-email" name="user-email" class="form-control" value="<%= @dash_user.email %>"/></td>
+              </tr>
+              <tr>
+                <td class="col-md-4"><label class="control-label">Country:</label></td>
+                <td>
+                  <select id="country" name="country" class="form-control is-required">
+                    <% @countries.each do |c| %>
+                      <option value="<%= c.id -%>" <% if c.name == @dash_user.dash_country.name %>selected="selected"<% end %>>
+                        <%= c.name -%>
+                      </option>
+                    <% end %>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-md-4"><label class="control-label">Permissions:</label></td>
+                <td>
+                  <div class="radio-list">
+                    <label class="radio-inline">
+                      <input type="radio" name="user-rights-radios" id="user-rights-radios1" value="true" <%= "checked" if @dash_user.is_admin %>>
+                      Allow admin permissions</small>
+                    </label>
 
-            <label class="radio-inline">
-              <input type="radio" name="userRightsRadios" id="userRightsRadios2" value="false" <%= "checked" if !@dash_user.is_admin %>>
-              Do not allow admin permissions</small>
-            </label>
-          </div>
+                    <label class="radio-inline">
+                      <input type="radio" name="user-rights-radios" id="user-rights-radios2" value="false" <%= "checked" if !@dash_user.is_admin %>>
+                      Do not allow admin permissions</small>
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
           </div>
         </div>
 
         <fieldset>
           <div class="modal-footer">
-            <button type="submit" id="saveUserRights" name="saveUserRights" class="push btn btn-primary">Save</button>
+            <button type="submit" id="save-user-rights" name="save-user-rights" class="push btn btn-primary">Save</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </fieldset>
@@ -185,7 +217,7 @@
                             <% else %>
                                 No
                             <% end %>
-                            <a href="#" class="change" data-toggle="modal" data-target="#userRightsModal">Change</a>
+                            <a href="#" class="change" data-toggle="modal" data-target="#user-rights-modal">Change</a>
                           </td>
                         </tr>
                         <tr>
@@ -267,9 +299,15 @@
   </div>
   <!-- END CONTENT -->
 </form>
+<% if flash[:message] %>
+  <%= flash[:message] %>
+<% end %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 
 <script type="text/javascript">
   $(function(){
+    $.validate();
+
     // Notifications
     Notification.init(".bb-alert");
     <% if flash[:message] %>

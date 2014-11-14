@@ -8,8 +8,8 @@ EvercamDashboard::Application.routes.draw do
     resources :dash_users, path: :users
     resources :dash_vendor_model, path: :models
     get '/users/:id/impersonate' => 'dash_users#impersonate', as: :impersonate
-    post '/users/:id' => 'dash_users#update'
-    post '/models/:id' => 'dash_vendor_model#update'
+    put '/users/:id' => 'dash_users#update'
+    put '/models/:id' => 'dash_vendor_model#update'
   end
 
   root 'cameras#index'

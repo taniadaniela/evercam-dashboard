@@ -10,8 +10,7 @@ ClearCalanderTimeOut = null
 isPlaying = false
 PauseAfterPlay = false
 playInterval = 250
-#temporarily decreased ChunkSize from 3600 to reduce server load
-ChunkSize = 100
+ChunkSize = 3600
 normalSpeed = 1000
 totalSnaps = 0
 changedPlayFrom = ""

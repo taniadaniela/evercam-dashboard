@@ -514,13 +514,13 @@
         </div>
         <div class="portlet-body">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div id="map-info"></div>
               <div id="co-ordinates"><strong>Coordinates</strong><br /><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
             </div>
 
 
-            <div class="col-md-6">
+            <div class="col-md-12">
 
               <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
               <div id="location-settings" class="row" style="display: none;">

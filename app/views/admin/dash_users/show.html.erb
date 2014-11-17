@@ -16,20 +16,20 @@
             <table class="user-table">
               <tr>
                 <td class="col-md-4"><label class="control-label">First Name:</label></td>
-                <td><input data-validation-error-msg="Cannot be blank" type="text" data-validation="length" data-validation-length="min1" id="user-firstname" name="user-firstname" class="form-control" value="<%= @dash_user.firstname %>"/></td>
+                <td><input data-validation-error-msg="Cannot be blank" type="text" data-validation="length" data-validation-length="min1" id="firstname" name="firstname" class="form-control" value="<%= @dash_user.firstname %>"/></td>
               </tr>
               <tr>
                 <td class="col-md-4"><label class="control-label">Last Name:</label></td>
-                <td><input data-validation-error-msg="Cannot be blank" type="text" data-validation="length" data-validation-length="min1" id="user-lastname" name="user-lastname" class="form-control" value="<%= @dash_user.lastname %>"/></td>
+                <td><input data-validation-error-msg="Cannot be blank" type="text" data-validation="length" data-validation-length="min1" id="lastname" name="lastname" class="form-control" value="<%= @dash_user.lastname %>"/></td>
               </tr>
               <tr>
                 <td class="col-md-4"><label class="control-label">Email:</label></td>
-                <td><input data-validation="email" type="text" id="user-email" name="user-email" class="form-control" value="<%= @dash_user.email %>"/></td>
+                <td><input data-validation="email" type="text" id="email" name="email" class="form-control" value="<%= @dash_user.email %>"/></td>
               </tr>
               <tr>
                 <td class="col-md-4"><label class="control-label">Country:</label></td>
                 <td>
-                  <select id="country" name="country" class="form-control is-required">
+                  <select id="country_id" name="country_id" class="form-control is-required">
                     <% @countries.each do |c| %>
                       <option value="<%= c.id -%>" <% if c.name == @dash_user.dash_country.name %>selected="selected"<% end %>>
                         <%= c.name -%>
@@ -43,12 +43,12 @@
                 <td>
                   <div class="radio-list">
                     <label class="radio-inline">
-                      <input type="radio" name="user-rights-radios" id="user-rights-radios1" value="true" <%= "checked" if @dash_user.is_admin %>>
+                      <input type="radio" name="is_admin" id="user-rights-radios1" value="true" <%= "checked" if @dash_user.is_admin %>>
                       Allow admin permissions</small>
                     </label>
 
                     <label class="radio-inline">
-                      <input type="radio" name="user-rights-radios" id="user-rights-radios2" value="false" <%= "checked" if !@dash_user.is_admin %>>
+                      <input type="radio" name="is_admin" id="user-rights-radios2" value="false" <%= "checked" if !@dash_user.is_admin %>>
                       Do not allow admin permissions</small>
                     </label>
                   </div>

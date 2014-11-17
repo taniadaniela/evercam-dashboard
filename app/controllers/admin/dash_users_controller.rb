@@ -12,9 +12,9 @@ class Admin::DashUsersController < AdminController
   def update
     begin
       @dash_user = DashUser.find(params[:id])
-      @dash_user.update_attributes(firstname: params['user-firstname'], lastname: params['user-lastname'],
-                               email: params['user-email'], country_id: params['country'],
-                               is_admin: params['user-rights-radios'])
+      @dash_user.update_attributes(firstname: params['firstname'], lastname: params['lastname'],
+                               email: params['email'], country_id: params['country_id'],
+                               is_admin: params['is_admin'])
 
       flash[:message] = "User details updated successfully"
       redirect_to "/admin/users/#{params['id']}"

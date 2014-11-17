@@ -19,6 +19,7 @@ sliderpercentage = 679
 playDirection = 1
 playStep = 1
 CameraOffset = 0
+xhrRequestChangeMonth = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -26,7 +27,7 @@ sendAJAXRequest = (settings) ->
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  jQuery.ajax(settings)
+  xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
 initDatePicker = ->
@@ -45,11 +46,16 @@ initDatePicker = ->
   true
 
 changeMonthFromArrow = (value) ->
+  xhrRequestChangeMonth.abort()
   $("#ui_date_picker_inline").datepicker('fill');
   d = $("#ui_date_picker_inline").datepicker('getDate');
   day = d.getMonth()
   if value =='n'
     day = day + 2
+  if(day is 13)
+    day = 1
+  if(day is 0)
+    day = 12
   cameraId = $('#recording_tab_camera_id').val()
   api_id = $('#recording_tab_api_id').val()
   api_key = $('#recording_tab_api_key').val()

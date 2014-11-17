@@ -107,3 +107,71 @@ table.dataTable thead .sorting_desc_disabled { background: image-url('metronic/s
   top: 68px;
 
 }
+
+#user-rights-modal{
+  font-family: "proxima-nova-bold","Open Sans",sans-serif;
+}
+#user-rights-modal .radio {
+  min-height:24px;
+}
+#user-rights-modal .radio-inline + .radio-inline {
+  margin-left: 0;
+}
+#user-rights-modal .radio-inline{
+  padding-left: 0;
+}
+#user-rights-modal div.radio {
+  margin-top: 5px;
+}
+.modal-footer {
+  text-align: left;
+}
+#user-rights-modal .form-group {
+  margin-bottom: 0;
+}
+#user-rights-modal .modal-header {
+  padding: 9px;
+}
+#user-rights-modal h5 {
+  font-size: 16px;
+  font-weight: 500;
+}
+#user-rights-modal label{
+  font-size: 13px;
+  font-weight: normal;
+}
+.change{
+  margin-left: 30px;
+}
+
+#user-rights-modal .user-table{
+  border: 0;
+  margin-bottom: 0;
+  width: 100%;
+}
+.user-table td{
+  height: 38px;
+}
+#user-rights-modal .control-label{
+  margin-top: 7px;
+}
+#user-rights-modal .form-control {
+  border-color: #dbdbdb;
+  border-radius: 0;
+  box-shadow: none;
+  color: #777;
+  background-color: #f9f9f9;
+}
+#user-rights-modal .col-md-4{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.modal-content{
+  background-color: #e5e5e5;
+}
+div.radio{
+  margin-left: 0;
+}
+#user-rights-modal .form-error{
+  font-size: 11px;
+}

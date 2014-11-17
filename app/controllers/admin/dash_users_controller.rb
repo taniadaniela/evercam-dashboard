@@ -6,6 +6,30 @@ class Admin::DashUsersController < AdminController
 
   def show
     @dash_user = DashUser.find(params[:id])
+    @countries = Country.all
+  end
+
+  def update
+    begin
+      @dash_user = DashUser.find(params[:id])
+      @dash_user.update_attributes(firstname: params['firstname'], lastname: params['lastname'],
+                               email: params['email'], country_id: params['country_id'],
+                               is_admin: params['is_admin'])
+
+      flash[:message] = "User details updated successfully"
+      redirect_to "/admin/users/#{params['id']}"
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught updating User details.\nCause: #{error}\n" +
+                             error.backtrace.join("\n")
+      if(error.message.index("ux_users_email"))
+        flash[:message] = "The email address specified is already registered for an Evercam account."
+      else
+        flash[:message] = "An error occurred updating User details. "\
+                          "Please try again and, if this problem persists, contact support."
+      end
+      redirect_to "/admin/users/#{params['id']}"
+    end
   end
 
   def impersonate

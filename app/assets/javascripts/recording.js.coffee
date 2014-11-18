@@ -19,6 +19,7 @@ sliderpercentage = 679
 playDirection = 1
 playStep = 1
 CameraOffset = 0
+xhrRequestChangeMonth = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -26,7 +27,7 @@ sendAJAXRequest = (settings) ->
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  jQuery.ajax(settings)
+  xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
 initDatePicker = ->
@@ -45,11 +46,16 @@ initDatePicker = ->
   true
 
 changeMonthFromArrow = (value) ->
+  xhrRequestChangeMonth.abort()
   $("#ui_date_picker_inline").datepicker('fill');
   d = $("#ui_date_picker_inline").datepicker('getDate');
   day = d.getMonth()
   if value =='n'
     day = day + 2
+  if(day is 13)
+    day = 1
+  if(day is 0)
+    day = 12
   cameraId = $('#recording_tab_camera_id').val()
   api_id = $('#recording_tab_api_id').val()
   api_key = $('#recording_tab_api_key').val()
@@ -138,7 +144,7 @@ clearHourCalander = ->
   calDays = $("#hourCalandar td[class*='day']")
   calDays.each(->
     calDay = $(this)
-    calDay.css("color": "#c5c5c5", "font-family":"proxima-nova-regular", "font-weight":"normal" )
+    calDay.removeClass('has-snapshot')
   )
   true
 
@@ -148,16 +154,15 @@ ResetDays = ->
   calDays = $("#ui_date_picker_inline table td[class*='day']")
   calDays.each (idx, el) ->
     calDay = $(this)
-    iDay = parseInt(calDay.text())
-
-    j = 0
-
-    while j < BoldDays.length
-      if BoldDays[j] is iDay
-        calDay.css "color": "#428bca","font-weight": "bold", "font-family":"proxima-nova-bold"
-        break
-      j++
-    return
+    if !calDay.hasClass('old') && !calDay.hasClass('new')
+      iDay = parseInt(calDay.text())
+      j = 0
+      while j < BoldDays.length
+        if BoldDays[j] is iDay
+          calDay.addClass('has-snapshot')
+          break
+        j++
+      return
   return
 
 handleSlider = ->
@@ -304,12 +309,12 @@ HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
   BoldDays = results.days
   calDays.each(->
     calDay = $(this)
-    iDay = parseInt(calDay.text())
-
-    for result in results.days
-      if result == iDay
-        calDay.css("color": "#428bca","font-weight": "bold", "font-family":"proxima-nova-bold")
-        break
+    if !calDay.hasClass('old') && !calDay.hasClass('new')
+      iDay = parseInt(calDay.text())
+      for result in results.days
+        if result == iDay
+          calDay.addClass('has-snapshot')
+          break
   )
   true
 
@@ -347,7 +352,7 @@ BoldSnapshotHourSuccess = (result, context) ->
   hasRecords = false;
   for hour in result.hours
     hr = hour + CameraOffset
-    $("#tdI"+hr).css("color": "#428bca","font-weight": "bold", "font-family":"proxima-nova-bold");
+    $("#tdI"+hr).addClass('has-snapshot')
     lastBoldHour = hr
     hasRecords = true
 
@@ -536,7 +541,7 @@ SetImageHour = (hr, id) ->
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
 
-  if $("#" + id).css('font-weight') == '700' || $("#" + id).css('font-weight') =='bold'
+  if $("#" + id).hasClass('has-snapshot')
     $("#divSliderBackground").width("100%")
     $("#divSliderMD").width("100%")
     $("#MDSliderItem").html("")

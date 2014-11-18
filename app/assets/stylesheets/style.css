@@ -1202,6 +1202,11 @@ input:focus {
     overflow-x: hidden;
     overflow-y: hidden;*/
 }
+#recording .has-snapshot{
+    color: #428bca;
+    font-family: proxima-nova-bold;
+    font-weight: bold;
+}
 #recording-tab .table-condensed > tbody > tr > td {
     padding: 0px;
 }
@@ -1260,7 +1265,7 @@ input:focus {
 }
 .playback-slider-outer{
     width:100%;
-    height:1.14em;
+    height:1.12em;
     cursor:pointer;
     margin-top:2px;
     background:url(sel.jpg) repeat-x -2px 0px;
@@ -1269,14 +1274,14 @@ input:focus {
 .playback-slider-inner{
     background:#0000FE url(bar.jpg) repeat-x -2px 0px;
     width:0px;
-    height:1.14em;
+    height:1.12em;
     float:left;
     position:relative;
 }
 
 .ui-slider-recordings{
     background: url(p1.gif);
-    height:0;
+    height:1.12em;
 }
 
 .clear-f{clear: both;padding: 0px;margin: 0px;}

@@ -608,7 +608,24 @@ Google Maps
     width: 38%;
     margin: 0 auto;
 }
+#fullscreen {
+    cursor: pointer;
+}
 
+.fullscreen-expand {
+    position: absolute;
+    top: 9px;
+    right: 23px;
+    color: #FFFFFF;
+    opacity: 0;
+    -moz-transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all .2s linear;
+}
+#fullscreen:hover .fullscreen-expand {
+    opacity: 1;
+}
 #live img {
 max-width: 100%;
 }
@@ -674,21 +691,7 @@ max-width: 100%;
     text-transform: uppercase;
     bottom: 15px;
 }
-.hover-fullscreen {
-    position: absolute;
-    top:24px;
-    right:35px;
-    color:#f1f1f9;
-    opacity: 0;
-    -moz-transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    transition: all .2s linear;
-}
 
-#fullscreen:hover .hover-fullscreen {
-    opacity: 1;
-}
 .tint {
     width: 100%;
 }
@@ -1234,13 +1237,7 @@ input:focus {
 }
 #imgPlayback {
     border: 1px solid #efefef;
-    -webkit-user-select: none; /* Chrome/Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
 
-    /* Rules below not implemented in browsers yet */
-    -o-user-select: none;
-    user-select: none;
 }
 .left-column {
     width: 100%;
@@ -1269,6 +1266,13 @@ input:focus {
 .snapshots {
     position: relative;
     overflow:hidden;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
 }
 .snapshots i {
     color:#ffffff;

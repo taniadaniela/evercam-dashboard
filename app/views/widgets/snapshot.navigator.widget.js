@@ -12,12 +12,7 @@
     "use strict";
 
     // Localize jQuery variable
-    var jQuery,
-        playbackUrl = 'http://playback.azurewebsites.net/home/doc/page/main.aspx';
-    /*cameraId: "",
-     token: "",
-     api_id: "",
-     api_key: ""*/
+    var jQuery;
 
     function scriptLoadHandler() {
         // Restore $ and window.jQuery to their previous values and store the
@@ -36,13 +31,13 @@
             var iframe =
                 jQuery("<iframe />")
                     .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-                    .attr({ "src": '<%= request.base_url %>/widgets-snapshot-navigator?camera=<%= params[:camera] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
-                    .appendTo("div[evercam='localstorage']");
+                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>', "frameborder": "0" })
+                    .appendTo("div[evercam='snapshot-navigator']");
         } else {
             var iframe =
                 jQuery("<iframe />")
                     .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-                    .attr({ "src": '<%= request.base_url %>/widgets-snapshot-navigator?camera=<%= params[:camera] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
+                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
                     .appendTo("div[evercam='snapshot-navigator']");
         }
     };

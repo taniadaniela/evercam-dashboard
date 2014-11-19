@@ -63,12 +63,19 @@
         width: 30%;
     }
 }
-@media (max-width: 700px) {
+@media (max-width: 780px) {
     .left-column {
-        width: 70%;
+        width: 558px;
+        float: left;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 20px;
     }
     .right-column {
-        width: 30%;
+        width: 208px;
+        padding-left: 0px;
+        padding-right: 0px;
+        float: left;
     }
 }
 /*Start Recording tab stylesheet*/

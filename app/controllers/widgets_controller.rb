@@ -72,4 +72,37 @@ class WidgetsController < ApplicationController
     render :layout => false
   end
 
+  def widget_snapshot_navigator
+    current_user
+    load_user_cameras
+  end
+
+  def snapshot_navigator
+    respond_to do |format|
+      format.js { render :file => "widgets/snapshot.navigator.widget.js", :mime_type => Mime::Type.lookup('text/javascript')}
+    end
+  end
+
+  def snapshot_navigator_widget
+    widget_user = nil
+    unless params[:api_id].blank? or params[:api_key].blank?
+      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+      sign_in(widget_user) if widget_user
+    end
+    if current_user.nil? and widget_user.nil?
+      session[:redirect_url] = request.original_url
+      redirect_to '/widget_signin'
+      return
+    end
+
+    api               = get_evercam_api
+    @camera           = Hashie::Mash.new(api.get_camera(params[:camera], true))
+    @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
+    time_zone         = TZInfo::Timezone.get(@camera['timezone'])
+    current           = time_zone.current_period
+    @offset           = current.utc_offset + current.std_offset
+
+    render :layout => false
+  end
+
 end

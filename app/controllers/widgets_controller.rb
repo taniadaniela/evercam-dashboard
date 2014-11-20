@@ -85,25 +85,32 @@ class WidgetsController < ApplicationController
   end
 
   def snapshot_navigator_widget
-    widget_user = nil
-    unless params[:api_id].blank? or params[:api_key].blank?
-      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
-      sign_in(widget_user) if widget_user
-    end
-    if current_user.nil? and widget_user.nil?
-      session[:redirect_url] = request.original_url
-      redirect_to '/widget_signin'
-      return
-    end
+    begin
+      widget_user = nil
+      unless params[:api_id].blank? or params[:api_key].blank?
+        widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+        sign_in(widget_user) if widget_user
+      end
+      if current_user.nil? and widget_user.nil?
+        session[:redirect_url] = request.original_url
+        redirect_to '/widget_signin'
+        return
+      end
 
-    api               = get_evercam_api
-    @camera           = Hashie::Mash.new(api.get_camera(params[:camera], true))
-    @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
-    time_zone         = TZInfo::Timezone.get(@camera['timezone'])
-    current           = time_zone.current_period
-    @offset           = current.utc_offset + current.std_offset
+      api               = get_evercam_api
+      @camera           = Hashie::Mash.new(api.get_camera(params[:camera], true))
+      @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
+      time_zone         = TZInfo::Timezone.get(@camera['timezone'])
+      current           = time_zone.current_period
+      @offset           = current.utc_offset + current.std_offset
 
-    render :layout => false
+      render :layout => false
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught in snapshot navigator.\nCause: #{error}\n" +
+                             error.backtrace.join("\n")
+      flash[:message] = error.message
+    end
   end
 
 end

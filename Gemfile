@@ -44,17 +44,13 @@ gem 'newrelic_rpm'
 gem 'heroku_rails_deflate'
 gem 'hashie_rails'
 gem 'country_select', github: 'stefanpenner/country_select'
-
 gem 'rails_12factor', group: :production
 gem 'intercom-rails', '~> 0.2.24'
-
 gem 'airbrake'
-
 gem 'devise'
-
 gem 'ie_iframe_cookies'
-
 gem 'heroku-api'
+gem 'skylight'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'

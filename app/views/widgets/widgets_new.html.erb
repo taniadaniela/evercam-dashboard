@@ -26,9 +26,6 @@
             <li class="widgets-menu">
               <a href="/widgets-hikvision">Hikvision Widget</a>
             </li>
-            <li class="widgets-menu">
-              <a href="/widgets-snapshot-navigator">Snapshot Navigator Widget</a>
-            </li>
           </ul>
         </nav>
       </div>
@@ -62,7 +59,7 @@
                       <div class="input-group col-md-7">
                         <select id="widget-camera" name="widget-camera" class="form-control is-required">
                           <% @cameras.each do |camera| %>
-                            <option class="" value="<%= camera['id'] %>">
+                            <option class="caret" value="<%= camera['id'] %>">
                               <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
                             </option>
                           <% end %>

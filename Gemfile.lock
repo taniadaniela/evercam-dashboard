@@ -118,7 +118,7 @@ GEM
     evercam_misc (0.0.9)
       3scale_client (~> 2.3)
       dotenv (~> 0.10)
-    evercam_models (0.3.7)
+    evercam_models (0.3.9)
       activesupport (~> 4.1)
       bcrypt (~> 3.1)
       dotenv (~> 0.10)
@@ -378,7 +378,7 @@ DEPENDENCIES
   devise
   evercam (~> 0.2.4)
   evercam_misc (~> 0.0)
-  evercam_models (~> 0.3.7)
+  evercam_models (~> 0.3.9)
   factory_girl
   geocoder
   guard-rspec (~> 4.3.1)

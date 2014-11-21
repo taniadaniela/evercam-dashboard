@@ -90,6 +90,7 @@
     position: absolute;
     display: none;
     background: url('trans-grey.png') 0px;
+    height: 480px;
 }
 .playback-slider-outer{
     width:100%;

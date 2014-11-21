@@ -1250,15 +1250,6 @@ input:focus {
     }
 }
 
-@media (min-width: 850px) {
-    .left-column {
-        width: 70%;
-    }
-    .right-column {
-        width: 30%;
-    }
-}
-
 /*Start Recording tab stylesheet*/
 @media (min-width: 840px) {
     .col-recording-right {
@@ -1921,7 +1912,7 @@ table.table-clean thead th {
     font-size:12px;
 }
 
-/* Start Hikvision Widget */
+/* Hikvision Widget */
 #hikvision-widget .control-label {
     margin-top: 8px;
 }
@@ -1939,22 +1930,6 @@ table.table-clean thead th {
     margin-bottom: 15px;
     margin-top: 15px;
 }
-/* End Hikvision Widget */
-
-/* Start Snapshot Navigator Widget */
-#snapshot-widget .control-label {
-    margin-top: 8px;
-}
-
-#snapshot-widget .help-block {
-    width: 100%;
-    font-size:12px;
-}
-
-#snapshot-widget .placeholder {
-    border:1px solid #f5f5f5;
-}
-/* End Snapshot Navigator Widget */
 
 /*!
 * Tab drop for Bootstrap

@@ -1,6 +1,6 @@
-<%= content_for(:title, "Evercam: Hikvision Playback Widget") %>
+<%= content_for(:title, "Evercam: Snapshot Navigator Widget") %>
 
-<div id="hikvision-widget" class="page-container">
+<div id="snapshot-widgets" class="page-container">
   <!-- BEGIN SIDEBAR -->
   <%= render :partial => "sidebar/sidebar" %>
   <!-- END SIDEBAR -->
@@ -25,10 +25,11 @@
             </li>
 
             <li class="widgets-menu">
-              <a class="active" href="/widgets-hikvision">Hikvision Widget</a>
+              <a href="/widgets-hikvision">Hikvision Widget</a>
             </li>
+
             <li class="widgets-menu">
-              <a href="/widgets-snapshot-navigator">Snapshot Navigator Widget</a>
+              <a class="active" href="/widgets-snapshot-navigator">Snapshot Navigator Widget</a>
             </li>
           </ul>
         </nav>
@@ -39,13 +40,13 @@
       <div class="portlet light bg-inverse">
         <div class="portlet-title">
           <div class="caption">
-            <i class="icon-play"></i>Create a Hikvision Playback Widget
+            <i class="icon-play"></i>Create a Snapshot Navigator Widget
           </div>
         </div>
 
         <div class="portlet-body">
           <div class="row">
-            <div id="hikvision-widget" class="widget-config">
+            <div id="snapshot-widget" class="widget-config">
               <% if @cameras.empty? %>
                 <div class="col-md-5">
                   <p class="note note-info">No public cameras found. Only public cameras can be used to make a widget. You can make a camera public from the sharing tab of camera or add a public camera from the list of public cameras.</p>
@@ -60,12 +61,9 @@
                       <div class="input-group col-md-7">
                         <select id="widget-camera" name="widget-camera" class="form-control is-required">
                           <% @cameras.each do |camera| %>
-                            <% has_edit_right = camera["rights"].split(",").include?("edit") %>
-                            <% if camera['vendor_name'] == 'Hikvision Digital Technology' && has_edit_right %>
-                              <option class="" value="<%= camera['id'] %>">
-                                <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
-                              </option>
-                            <% end %>
+                            <option class="" value="<%= camera['id'] %>">
+                              <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
+                            </option>
                           <% end %>
                         </select>
                       </div>
@@ -104,20 +102,18 @@
 
                 <div class="col-md-12">
                   <div class="line-break"></div>
-                  <div evercam="localstorage" class="placeholder"></div>
+                  <div class="placeholder"></div>
                 </div>
               <% end %>
             </div>
           </div>
         </div>
       </div>
-
       <!--main content end-->
     </div>
   </div>
 </div>
-<!-- <div evercam="localstorage"></div> -->
-<script type="text/javascript" src="https://s3.amazonaws.com/cdn.evercam.io/js/localstorage/0.0.1/hikvision.local.storage.mini.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function () {
     initLocalStorage();
@@ -138,15 +134,16 @@
       api_credentials = "&amp;api_id&#61;<%= current_user.api_id -%>&amp;api_key&#61;<%= current_user.api_key -%>";
     }
 
-    var embedCode = '&lt;div evercam&#61;"localstorage"&gt;&lt;&#47;div&gt;'+
-        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + '"&gt;&lt;&#47;script&gt;';
+    var embedCode = '&lt;div evercam&#61;"snapshot-navigator"&gt;&lt;&#47;div&gt;'+
+        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;snapshot.navigator.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + '"&gt;&lt;&#47;script&gt;';
     $('#code').html(embedCode);
 
     $(".placeholder").empty();
-    LocalStorage.options.cameraId = camera;
-    LocalStorage.options.api_id = '<%= current_user.api_id -%>';
-    LocalStorage.options.api_key = '<%= current_user.api_key -%>';
-    LocalStorage.Load();
+    var iframe =
+        jQuery("<iframe />")
+            .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
+            .attr({ "src": '/snapshot.navigator.widget?camera='+camera, "frameborder": "0" })
+            .appendTo(".placeholder");
   }
 
   function admSelectCheck(nameSelect){

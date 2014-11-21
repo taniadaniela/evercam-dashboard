@@ -38,16 +38,8 @@ class WidgetsController < ApplicationController
   end
 
   def live_view_private_widget
-    widget_user = nil
-    unless params[:api_id].blank? or params[:api_key].blank?
-      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
-      sign_in(widget_user) if widget_user
-    end
-    if current_user.nil? and widget_user.nil?
-      session[:redirect_url] = request.original_url
-      redirect_to '/widget_signin'
-      return
-    end
+    check_user_login(false)
+
     begin
       api = get_evercam_api
       api.get_snapshot(params[:camera])
@@ -59,18 +51,7 @@ class WidgetsController < ApplicationController
   end
 
   def hikvision_private_widget
-    widget_user = nil
-    unless params[:api_id].blank? or params[:api_key].blank?
-      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
-      sign_in(widget_user) if widget_user
-    end
-    if current_user.nil? and widget_user.nil?
-      session[:redirect_url] = request.original_url
-      redirect_to '/widget_signin'
-      return
-    end
-
-    render :layout => false
+    check_user_login(true)
   end
 
   def widget_snapshot_navigator
@@ -86,16 +67,7 @@ class WidgetsController < ApplicationController
 
   def snapshot_navigator_widget
     begin
-      widget_user = nil
-      unless params[:api_id].blank? or params[:api_key].blank?
-        widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
-        sign_in(widget_user) if widget_user
-      end
-      if current_user.nil? and widget_user.nil?
-        session[:redirect_url] = request.original_url
-        redirect_to '/widget_signin'
-        return
-      end
+      check_user_login(false)
 
       api               = get_evercam_api
       @camera           = Hashie::Mash.new(api.get_camera(params[:camera], true))
@@ -110,6 +82,24 @@ class WidgetsController < ApplicationController
       Rails.logger.error "Exception caught in snapshot navigator.\nCause: #{error}\n" +
                              error.backtrace.join("\n")
       flash[:message] = error.message
+    end
+  end
+
+  private
+
+  def check_user_login(is_hikvision_widget)
+    widget_user = nil
+    unless params[:api_id].blank? or params[:api_key].blank?
+      widget_user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+      sign_in(widget_user) if widget_user
+    end
+    if current_user.nil? and widget_user.nil?
+      session[:redirect_url] = request.original_url
+      redirect_to '/widget_signin'
+      return
+    end
+    if(is_hikvision_widget)
+      render :layout => false
     end
   end
 

@@ -61,14 +61,12 @@
 
             <div class="form-group">
               <label class="col-md-3 control-label">Account Status</label>
-              <div class="col-md-9">
-                <span class="account-status">
+              <div class="col-md-9 account-status">
                 <% if current_user.confirmed_at %>
                   Verified
                 <% else %>
                   Not Verified
                 <% end %>
-                </span>
               </div>
 
             </div>

@@ -1845,6 +1845,10 @@ table.table-clean thead th {
     background-color: transparent;
 }
 
+#user-settings .account-status{
+    margin-top: 8px;
+}
+
 #some-element {
     opacity: 0;
     position: absolute;

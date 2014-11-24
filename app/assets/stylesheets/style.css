@@ -1227,7 +1227,6 @@ input:focus {
 }
 .left-column {
     width: 100%;
-    max-width: 706px;
     float: left;
     padding-left: 15px;
     padding-right: 15px;
@@ -1243,10 +1242,10 @@ input:focus {
 
 @media (min-width: 850px) {
     .left-column {
-        width: 70%;
+        width: 67%;
     }
     .right-column {
-        width: 30%;
+        width: 33%;
     }
 }
 

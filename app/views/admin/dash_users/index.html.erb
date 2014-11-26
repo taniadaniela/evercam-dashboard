@@ -23,7 +23,7 @@
     </div>
     <!-- END PAGE HEADER-->
     <!-- BEGIN PAGE CONTENT-->
-    <div id="divRow" class="row hide">
+    <div id="user-list-row" class="row hide">
       <div class="col-md-12">
         <table class="table table-striped table-bordered table-hover user-list-table" id="datatable_ajax">
           <thead>
@@ -75,7 +75,10 @@
         type: "date-uk",
         targets: 'datatable-date'
       }
-    ]
+    ],
+    initComplete: function(){
+      $("#user-list-row").removeClass('hide');
+    }
   });
-  $("#divRow").removeClass('hide');
+
 </script>

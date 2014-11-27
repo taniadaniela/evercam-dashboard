@@ -355,7 +355,7 @@
           <div class="camera-preview">
             <% if @camera['is_online'] && @camera["vendor_name"] != "Evercam Capture" %>
               <!--Online not capture-->
-              <img id="myImage" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+              <img src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
             <% elsif @camera['is_online'] && @camera["vendor_name"] == "Evercam Capture" %>
               <!--Online and is Capture-->
               <div class="capture"><%= preview(@camera, true ) %></div>
@@ -847,7 +847,7 @@
     $(this).find('form')[0].reset();
   });
 
-    var sPathToDefaultImg = 'https://www.evercam.io/img/offline.png';
+    var sPathToDefaultImg = '/assets/offline.svg';
     var fnValidateImage = function(oImg) {
       img = new Image();
       img.onerror = function() {

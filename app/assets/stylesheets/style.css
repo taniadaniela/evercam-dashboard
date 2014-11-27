@@ -599,8 +599,28 @@ Google Maps
 //SINGLE CAMERA PAGE
 /////////////////////*/
 
-.camera-title {
+.dropdown-toggle { font-size: 18px;
 
+}
+@media screen and (min-width: 480px) {
+    .camera-switch {
+        display: none;
+    }
+    .camera-switch a {
+        cursor: pointer;
+        font-size: 18px;
+    }
+    .online-status {
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .camera-name-title {
+        display: none;
+    }
+    .online-status {
+        margin-top: 5px;
+    }
 }
 
 /*LIVE*/

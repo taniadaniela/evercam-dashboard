@@ -37,9 +37,33 @@
     <div class="row">
         <div class="camera-title">
           <div class="col-xs-8 col-md-8">
-            <h3 class="page-title"><%= @camera['name'] %><small>   <%= @camera['id'] %></small></h3>
+            <h3 class="camera-name-title page-title"><%= @camera['name'] %><small>   <%= @camera['id'] %></small></h3>
+            <!--MOBILE CAMERA SWITCH MENU -->
+            <div class="btn-group camera-switch">
+              <a class="dropdown-toggle" data-toggle="dropdown"><%= @camera['name'] %> <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <% @cameras.each do |camera| %>
+                  <li role="presentation" class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+                    <a href="/cameras/<%= camera['id'] %>">
+                      <% if camera['owner'] == current_user.username %>
+                        <i class="icon icon-users" style="visibility: hidden;"></i>
+                      <% else %>
+                        <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
+                      <% end %>
+                      <%= camera['name'] %>
+                      <% if camera['is_online'] %>
+                      <% else %>
+                        <i class="red fa fa-chain-broken"></i>
+                      <% end %>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+
           </div>
-          <div class="col-xs-4 col-md-4 margin-top-10">
+          <div class="col-xs-4 col-md-4 online-status">
             <div class="pull-right">
             <% if @camera['is_online'] %>
                 <h5 class="green">Online</h5>

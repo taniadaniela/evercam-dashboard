@@ -353,10 +353,9 @@
       <div class="portlet-body">
         <div class="info-preview">
           <div class="camera-preview">
-
             <% if @camera['is_online'] && @camera["vendor_name"] != "Evercam Capture" %>
               <!--Online not capture-->
-              <%= preview(@camera, true) %>
+              <img id="myImage" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
             <% elsif @camera['is_online'] && @camera["vendor_name"] == "Evercam Capture" %>
               <!--Online and is Capture-->
               <div class="capture"><%= preview(@camera, true ) %></div>

@@ -353,10 +353,9 @@
       <div class="portlet-body">
         <div class="info-preview">
           <div class="camera-preview">
-
             <% if @camera['is_online'] && @camera["vendor_name"] != "Evercam Capture" %>
               <!--Online not capture-->
-              <%= preview(@camera, true) %>
+              <img src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
             <% elsif @camera['is_online'] && @camera["vendor_name"] == "Evercam Capture" %>
               <!--Online and is Capture-->
               <div class="capture"><%= preview(@camera, true ) %></div>
@@ -539,7 +538,7 @@
               <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
               <div id="location-settings" class="row" style="display: none;">
                 <div>
-                  <div class="col-md-12">
+                  <div class="col-md-8 margin-top-20">
                     <% if has_edit_right %>
                     <span><strong>New location</strong></span>
                     <table class="table table-fixed table-borderless">
@@ -548,7 +547,7 @@
                           <label class="control-label" for="location-lat">Latitude</label>
                         </td>
                         <td>
-                          <input id="cameraLat" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
+                          <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
                         </td>
                       </tr>
                       <tr>
@@ -767,6 +766,8 @@
 
       var mapOptions = {
         zoom: 0,
+        minZoom: 2,
+        maxZoom: 17,
         center: cameraLatlng
       }
 
@@ -774,6 +775,8 @@
 
       var mapOptions = {
         zoom: 14,
+        minZoom: 2,
+        maxZoom: 17,
         center: cameraLatlng
       }
     }
@@ -813,9 +816,9 @@
       // Center the map at given point
       map.panTo(point);
       // Update the textbox
-      document.getElementById('cameraLat').value=point.lat();
+      document.getElementById('cameraLats').value=point.lat();
       document.getElementById('cameraLng').value=point.lng();
-      $(cameraLat).val(marker.getPosition().lat().toFixed(7));
+      $(cameraLats).val(marker.getPosition().lat().toFixed(7));
       $(cameraLng).val(marker.getPosition().lng().toFixed(7));
     });
 
@@ -844,7 +847,7 @@
     $(this).find('form')[0].reset();
   });
 
-    var sPathToDefaultImg = 'https://www.evercam.io/img/offline.png';
+    var sPathToDefaultImg = '/assets/offline.svg';
     var fnValidateImage = function(oImg) {
       img = new Image();
       img.onerror = function() {

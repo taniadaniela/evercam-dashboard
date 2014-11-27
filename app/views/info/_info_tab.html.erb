@@ -539,7 +539,7 @@
               <p id="testies" style="display: none;" class="note note-info marker-info">Drag the marker to re-locate the camera</p>
               <div id="location-settings" class="row" style="display: none;">
                 <div>
-                  <div class="col-md-12">
+                  <div class="col-md-8 margin-top-20">
                     <% if has_edit_right %>
                     <span><strong>New location</strong></span>
                     <table class="table table-fixed table-borderless">
@@ -548,7 +548,7 @@
                           <label class="control-label" for="location-lat">Latitude</label>
                         </td>
                         <td>
-                          <input id="cameraLat" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
+                          <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
                         </td>
                       </tr>
                       <tr>
@@ -817,9 +817,9 @@
       // Center the map at given point
       map.panTo(point);
       // Update the textbox
-      document.getElementById('cameraLat').value=point.lat();
+      document.getElementById('cameraLats').value=point.lat();
       document.getElementById('cameraLng').value=point.lng();
-      $(cameraLat).val(marker.getPosition().lat().toFixed(7));
+      $(cameraLats).val(marker.getPosition().lat().toFixed(7));
       $(cameraLng).val(marker.getPosition().lng().toFixed(7));
     });
 

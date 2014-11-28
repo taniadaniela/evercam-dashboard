@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   def load_user_cameras
     api = get_evercam_api
     begin
-      @cameras = api.get_user_cameras(current_user.username, true, true)
+      @cameras = api.get_user_cameras(current_user.username, true, true) if @cameras.blank?
     rescue => error
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
     end

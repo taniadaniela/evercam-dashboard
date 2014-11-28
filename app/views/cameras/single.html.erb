@@ -94,15 +94,7 @@
           <li>
             <a data-toggle="tab" href="#local">Local Storage</a>
           </li>
-        <% else %>
         <% end %>
-        <!--<% if url = @camera.deep_fetch(:external, :rtsp, :h264) {} %>
-          <li>
-            <a data-toggle="tab" href="#player">Player <small><em>BETA</em></small></a>
-          </li>
-        <% else %>
-        <% end %>-->
-   
 
           <li class="pull-right">
             <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="glyphicon glyphicon-trash"></span></a>
@@ -186,12 +178,6 @@
         <div id="local" class="tab-pane">
           <%= render partial: "local/local_tab" %>
         </div><!--TAB PANE -->
-
-
-      <!--Player TAB PANE -->
-      <div id="player" class="tab-pane">
-        <%= render partial: "player/player_tab" %>
-      </div><!--TAB PANE -->
 
 
     </div><!--panel body-->

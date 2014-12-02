@@ -21,7 +21,6 @@ playStep = 1
 CameraOffset = 0
 xhrRequestChangeMonth = null
 playFromDateTime = null
-isFoundPlayFrom = false
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -438,9 +437,9 @@ GetCameraInfo = (isShowLoader) ->
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
       if playFromDateTime isnt null
-        frameDateTime = playFromDateTime
         snapshotTimeStamp = GetUTCDate(playFromDateTime)/1000
-        SetPlayFromImage snapshotTimeStamp
+        snapshotTimeStamp = SetPlayFromImage snapshotTimeStamp
+        frameDateTime = new Date(snapshotTimeStamp*1000)
         if currentFrameNumber isnt 1
           playFromDateTime = null
 
@@ -468,7 +467,7 @@ loadImage = (timestamp) ->
 
   data = {}
   data.with_data = true
-  data.range = 10
+  data.range = 1
   data.api_id = api_id
   data.api_key = api_key
 
@@ -478,10 +477,6 @@ loadImage = (timestamp) ->
   onSuccess = (response) ->
     if response.snapshots.length > 0
       $("#imgPlayback").attr("src", response.snapshots[0].data)
-      if playFromDateTime isnt null
-        SetPlayFromImage response.snapshots[0].created_at
-        SetInfoMessage(currentFrameNumber, shortDate(new Date(response.snapshots[0].created_at*1000)))
-        playFromDateTime = null
     HideLoader()
     true
 
@@ -497,6 +492,15 @@ loadImage = (timestamp) ->
 
   sendAJAXRequest(settings)
   true
+
+SetPlayFromImage = (timestamp) ->
+  i = 0
+  while i < snapshotInfos.length
+    if snapshotInfos[i].created_at >= timestamp
+      currentFrameNumber = i + 1
+      snapshotInfoIdx = i
+      return snapshotInfos[i].created_at
+    i++
 
 GetUTCDate = (date) ->
   UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
@@ -787,18 +791,6 @@ DoNextImg = ->
   sendAJAXRequest(settings)
   return
 
-SetPlayFromImage = (timestamp) ->
-  i = 0
-  while i < snapshotInfos.length
-    if snapshotInfos[i].created_at is timestamp
-      currentFrameNumber = i + 1
-      snapshotInfoIdx = i
-      HideLoader()
-      isFoundPlayFrom = false
-      return
-    i++
-  return
-
 SelectImagesByMinSec = ->
   min = FormatNumTo2($("#ddlRecMinutes").val())
   sec = FormatNumTo2($("#ddlRecSeconds").val())
@@ -865,7 +857,8 @@ handleTabEvent = ->
     if tabName is "Snapshots" && playFromDateTime is null
       GetCameraInfo false
 
-  true
+  $("#share-url").bind "click", ->
+    @select()
 
 initializeRecordingsTab = ->
   initDatePicker()

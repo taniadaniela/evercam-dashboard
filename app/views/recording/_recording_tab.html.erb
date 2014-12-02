@@ -16,8 +16,6 @@
       <img id="imgPlayback" style="width: 100%;" src=""/>
     </div>
 
-
-    <div class="margin-top-10"></div>
     <div id="divInfo" class="playback-info-bar"><b>Frame 10 of 18</b> 12/11/2013 16:20:48</div>
     <div class="clear-f"></div>
 
@@ -48,9 +46,9 @@
           <a href="javascript:;" class="btn grey skipframe">-5</a>
         </div>
         <div class="btn-group">
-          <a href="javascript:;" class="btn grey skipframe">-Frame</a>
-          <a href="javascript:;" class="btn grey" id="btnPlayRec">Play</a>
-          <a href="javascript:;" class="btn grey skipframe">+Frame</a>
+          <a href="javascript:;" class="btn grey skipframe">- Frame</a>
+          <a href="javascript:;" class="btn grey" id="btnPlayRec"><i class="icon-control-play"></i></a>
+          <a href="javascript:;" class="btn grey skipframe">+ Frame</a>
         </div>
         <div class="btn-group">
           <a href="javascript:;" class="btn grey skipframe">+5</a>
@@ -61,11 +59,11 @@
     </div>
     <div id="divPlayMode" class="hide">
       <div class="playback-buttons-bar">
-        <div class="btn-group"><a href="javascript:;" class="btn grey" id="btnFRwd">&lt;&lt;</a></div>
-        <div class="btn-group"><a href="javascript:;" class="btn grey" id="btnRwd">&lt;</a></div>
-        <div class="btn-group"><a href="javascript:;" class="btn grey" id="btnPauseRec">Pause</a></div>
-        <div class="btn-group"><a href="javascript:;" class="btn grey" id="btnFwd">&gt;</a></div>
-        <div class="btn-group"><a href="javascript:;" class="btn grey" id="btnFFwd">&gt;&gt;</a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-10" ><a href="javascript:;" class="btn grey" id="btnFRwd"><i class="icon icon-control-rewind"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-5" ><a href="javascript:;" class="btn grey" id="btnRwd"><i class="icon icon-control-rewind"></i></a></div>
+        <div class="btn-group"><a href="javascript:;" class="btn grey" id="btnPauseRec"><i class="icon icon-control-pause"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+5"><a href="javascript:;" class="btn grey" id="btnFwd"><i class="icon icon-control-forward"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+10"><a href="javascript:;" class="btn grey" id="btnFFwd"><i class="icon icon-control-forward"></i></a></div>
       </div>
     </div>
     <div class="clear-f"></div>
@@ -190,5 +188,7 @@
 
 <script type="text/javascript">
   $(window.Evercam.Recordings.initializeTab);
-
+  $(function() {
+    $('.btn-group').tooltip();
+  });
 </script>

@@ -1274,6 +1274,21 @@ input:focus {
     width: 25px;
     height: 25px;
 }
+#recording-tab .btn {
+    padding: 9px 14px;
+}
+#btnFRwd i {
+ font-size: 14px !important;
+}
+#btnRwd i {
+    font-size: 12px !important;
+}
+#btnFwd i {
+    font-size: 12px !important;
+}
+#btnFFwd i {
+    font-size: 14px !important;
+}
 #recording-tab .table-condensed tbody {
     background-color:#fff;
     border: none;
@@ -1298,8 +1313,8 @@ input:focus {
     padding-right: 15px;
     float: left;
     width: 100%;
-
 }
+
 
 @media (min-width: 850px) {
     .left-column {
@@ -1474,12 +1489,18 @@ ul, menu, dir {
 
 .playback-info-bar{
     text-align: center;
-    margin-top: 6px;
-    margin-bottom: 10px;
-    padding: 5px 0px;
+    margin:4px 0px;
+    padding: 8px 0px;
     background-color: #f3f3f3;
+    position: relative;
 }
+.date-time {
+    position: absolute;
+    right:10px;
+}
+.frame {
 
+}
 .playback-datepicker{
     border:solid 1px #999999;
 }
@@ -1665,12 +1686,10 @@ ul, menu, dir {
     margin-top: 15px;
 }
 #signin .branding {
-    margin: 30px auto 30px;
-
+    margin: 40px auto 30px;
 
 }
 #signin .branding img {
-
     max-width: 200px;
 }
 #sign-in textarea, input {

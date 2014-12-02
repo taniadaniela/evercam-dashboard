@@ -243,7 +243,7 @@ SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").html("<b>Frame " + currFrame + " of " + totalSnaps + "</b> " + dt + " ")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  $("#share-url").val $("#tab-url").val() + "?dt=" + dt.replace(RegExp("/", "g"), "-").replace(" ", "T") + "Z#recording"
+  $("#share-url").val $("#tab-url").val() + "?date_time=" + dt.replace(RegExp("/", "g"), "-").replace(" ", "T") + "Z#recording"
   true
 
 UpdateSnapshotRec = (snapInfo) ->
@@ -258,17 +258,7 @@ ChangeFormatAndGetFormatted = (str) ->
   DateToFormattedStr dt
   true
 
-  getCGIParameter = (name) ->
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
-  regexS = "[\\?&]" + name + "=([^&#]*)"
-  regex = new RegExp(regexS)
-  results = regex.exec(window.location.href)
-  unless results?
-    ""
-  else
-    decodeURIComponent results[1].replace(/\+/g, " ")
-
-getCGIParameter = (name) ->
+getURLParameter = (name) ->
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
   regexS = "[\\?&]" + name + "=([^&#]*)"
   regex = new RegExp(regexS)
@@ -285,7 +275,7 @@ handleBodyLoadContent = ->
   cameraCurrentHour = currentDate.getHours()
   $("#hourCalandar td[class*='day']").removeClass("active")
 
-  hasDateTime = getCGIParameter('dt')
+  hasDateTime = getURLParameter('date_time')
   if hasDateTime isnt ""
     playFromDateTime = StringToDateTime hasDateTime.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
     currentDate = playFromDateTime
@@ -451,7 +441,8 @@ GetCameraInfo = (isShowLoader) ->
         frameDateTime = playFromDateTime
         snapshotTimeStamp = GetUTCDate(playFromDateTime)/1000
         SetPlayFromImage snapshotTimeStamp
-        playFromDateTime = null
+        if currentFrameNumber isnt 1
+          playFromDateTime = null
 
       SetInfoMessage(currentFrameNumber, shortDate(frameDateTime))
       loadImage(snapshotTimeStamp)
@@ -477,7 +468,7 @@ loadImage = (timestamp) ->
 
   data = {}
   data.with_data = true
-  data.range = 1
+  data.range = 10
   data.api_id = api_id
   data.api_key = api_key
 
@@ -487,6 +478,10 @@ loadImage = (timestamp) ->
   onSuccess = (response) ->
     if response.snapshots.length > 0
       $("#imgPlayback").attr("src", response.snapshots[0].data)
+      if playFromDateTime isnt null
+        SetPlayFromImage response.snapshots[0].created_at
+        SetInfoMessage(currentFrameNumber, shortDate(new Date(response.snapshots[0].created_at*1000)))
+        playFromDateTime = null
     HideLoader()
     true
 
@@ -798,7 +793,6 @@ SetPlayFromImage = (timestamp) ->
     if snapshotInfos[i].created_at is timestamp
       currentFrameNumber = i + 1
       snapshotInfoIdx = i
-      #SetInfoMessage1 currentFrameNumber, si.date, frameDt
       HideLoader()
       isFoundPlayFrom = false
       return

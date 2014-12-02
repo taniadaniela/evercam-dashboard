@@ -609,7 +609,7 @@ Google Maps
 }
 .camera-switch .fa-caret-down {
     margin-left: 6px;
-margin-top: -3px;
+    margin-top: -3px;
 }
 ul.scroll-menu {
     /*display: inherit !important;*/
@@ -670,7 +670,7 @@ ul.scroll-menu {
     opacity: 1;
 }
 #live img {
-max-width: 100%;
+    max-width: 100%;
 }
 .tint img {
     border: 1px solid #e5e5e5 !important;

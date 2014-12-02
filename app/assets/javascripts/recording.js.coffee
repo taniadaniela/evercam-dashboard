@@ -20,6 +20,8 @@ playDirection = 1
 playStep = 1
 CameraOffset = 0
 xhrRequestChangeMonth = null
+playFromDateTime = null
+isFoundPlayFrom = false
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -227,6 +229,8 @@ handleSlider = ->
   true
 
 showLoader = ->
+  if $("#imgPlayback").attr("src").indexOf('nosnapshots') != -1
+    $("#imgPlayback").attr("src","/assets/plain.png")
   $("#imgLoaderRec").width($('#imgPlayback').width())
   $("#imgLoaderRec").height($('#imgPlayback').height())
   $("#imgLoaderRec").css("top", $('#imgPlayback').css('top'))
@@ -239,6 +243,7 @@ SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").html("<b>Frame " + currFrame + " of " + totalSnaps + "</b> " + dt + " ")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
+  $("#share-url").val $("#tab-url").val() + "?dt=" + dt.replace(RegExp("/", "g"), "-").replace(" ", "T") + "Z#recording"
   true
 
 UpdateSnapshotRec = (snapInfo) ->
@@ -253,17 +258,44 @@ ChangeFormatAndGetFormatted = (str) ->
   DateToFormattedStr dt
   true
 
+  getCGIParameter = (name) ->
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+  regexS = "[\\?&]" + name + "=([^&#]*)"
+  regex = new RegExp(regexS)
+  results = regex.exec(window.location.href)
+  unless results?
+    ""
+  else
+    decodeURIComponent results[1].replace(/\+/g, " ")
+
+getCGIParameter = (name) ->
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+  regexS = "[\\?&]" + name + "=([^&#]*)"
+  regex = new RegExp(regexS)
+  results = regex.exec(window.location.href)
+  unless results?
+    return ""
+  else
+    return decodeURIComponent results[1].replace(/\+/g, " ")
+
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
   CameraOffset = parseInt(offset)/3600
   currentDate = getLocationBaseDateTime(offset)
   cameraCurrentHour = currentDate.getHours()
-
   $("#hourCalandar td[class*='day']").removeClass("active")
-  $("#tdI" + cameraCurrentHour + " a").addClass("active")
-  PreviousImageHour = "tdI" + cameraCurrentHour;
 
+  hasDateTime = getCGIParameter('dt')
+  if hasDateTime isnt ""
+    playFromDateTime = StringToDateTime hasDateTime.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
+    currentDate = playFromDateTime
+    cameraCurrentHour = currentDate.getHours()
+
+  $("#tdI" + cameraCurrentHour).addClass("active")
+  PreviousImageHour = "tdI" + cameraCurrentHour;
+  $("#ui_date_picker_inline").datepicker('update', currentDate)
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
+
   showLoader()
   HighlightCurrentMonth()
   BoldSnapshotHour(false)
@@ -314,6 +346,8 @@ HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
       for result in results.days
         if result == iDay
           calDay.addClass('has-snapshot')
+          if playFromDateTime isnt null && playFromDateTime.getDate() == iDay
+            calDay.addClass('active')
           break
   )
   true
@@ -360,6 +394,8 @@ BoldSnapshotHourSuccess = (result, context) ->
     if this.isCall
       GetCameraInfo true
     else
+      if playFromDateTime isnt null
+        lastBoldHour = cameraCurrentHour
       SetImageHour(lastBoldHour, "tdI" + lastBoldHour)
   else
     NoRecordingDayOrHour()
@@ -408,9 +444,17 @@ GetCameraInfo = (isShowLoader) ->
         sliderpercentage = 100
       $("#divSlider").width(sliderpercentage + "%")
       currentFrameNumber=1
+      frameDateTime = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
+      snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
-      SetInfoMessage(currentFrameNumber, shortDate(new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)))
-      loadImage(snapshotInfos[snapshotInfoIdx].created_at)
+      if playFromDateTime isnt null
+        frameDateTime = playFromDateTime
+        snapshotTimeStamp = GetUTCDate(playFromDateTime)/1000
+        SetPlayFromImage snapshotTimeStamp
+        playFromDateTime = null
+
+      SetInfoMessage(currentFrameNumber, shortDate(frameDateTime))
+      loadImage(snapshotTimeStamp)
     true
 
   settings =
@@ -459,9 +503,21 @@ loadImage = (timestamp) ->
   sendAJAXRequest(settings)
   true
 
+GetUTCDate = (date) ->
+  UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
+  return UtcDate
+
+StringToDateTime = (timestamp) ->
+  time = timestamp.substring(timestamp.indexOf(" "))
+  date = timestamp.substring(0, timestamp.indexOf(" "))
+  timearray = time.split(":")
+  datearray = date.split("/")
+  return new Date(datearray[2], datearray[1] - 1, datearray[0],timearray[0], timearray[1], timearray[2])
+
 shortDate = (date) ->
+  dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  return FormatNumTo2(date.getDate())+'/'+FormatNumTo2(date.getMonth()+1)+'/'+date.getFullYear()+' '+FormatNumTo2(hour)+':'+FormatNumTo2(date.getMinutes())+':'+FormatNumTo2(date.getSeconds())
+  return FormatNumTo2(dt.getDate())+'/'+FormatNumTo2(dt.getMonth()+1)+'/'+date.getFullYear()+' '+FormatNumTo2(hour)+':'+FormatNumTo2(date.getMinutes())+':'+FormatNumTo2(date.getSeconds())
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -736,51 +792,13 @@ DoNextImg = ->
   sendAJAXRequest(settings)
   return
 
-SetPlayFromImage = (playFromIndex) ->
-  #set play from image
-  if playFromTime isnt "" and isFoundPlayFrom
-    if playFromTime.length is 14
-      SelectSliderWithoutMilisec playFromTime
-    else
-      SelectSlider playFromTime
-  else if playFromTime isnt "" and isFoundPlayFrom
-    if playFromTime.length is 14
-      SelectSliderWithoutMilisec playFromTime
-    else
-      SelectSlider playFromTime
-  return
-
-SelectSlider = (fDt) ->
+SetPlayFromImage = (timestamp) ->
   i = 0
-
   while i < snapshotInfos.length
-    si = snapshotInfos[i]
-    frameDt = ChangeFormatAndGetFormatted(snapshotInfos[i].date)
-    if frameDt is fDt
+    if snapshotInfos[i].created_at is timestamp
       currentFrameNumber = i + 1
       snapshotInfoIdx = i
-      showLoader()
-      $("#img").attr "src", si.url
-      $("#hiddenimg").attr "src", si.url
-      SetInfoMessage1 currentFrameNumber, si.date, frameDt
-      HideLoader()
-      isFoundPlayFrom = false
-      return
-    i++
-  return
-
-SelectSliderWithoutMilisec = (fDt) ->
-  i = 0
-
-  while i < snapshotInfos.length
-    si = snapshotInfos[i]
-    if si.FDT is changedPlayFrom
-      currentFrameNumber = i + 1
-      snapshotInfoIdx = i
-      showLoader()
-      $("#img").attr "src", si.Url
-      $("#hiddenimg").attr "src", si.Url
-      SetInfoMessage1 currentFrameNumber, si.DT, si.FDT
+      #SetInfoMessage1 currentFrameNumber, si.date, frameDt
       HideLoader()
       isFoundPlayFrom = false
       return
@@ -850,7 +868,7 @@ handleMinSecDropDown = ->
 handleTabEvent = ->
   $("a[data-toggle=\"tab\"]").bind "click", ->
     tabName = $(this).html()
-    if tabName is "Snapshots"
+    if tabName is "Snapshots" && playFromDateTime is null
       GetCameraInfo false
 
   true

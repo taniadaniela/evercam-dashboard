@@ -1030,7 +1030,7 @@ td .share-camera {
     color:#414042;
 }
 .apps h4 {
-    margin-top: 8px;
+    margin:22px 0px 9px;
     font-family: 'proxima-nova-bold';
 }
 .apps {
@@ -1276,6 +1276,7 @@ input:focus {
 }
 #recording-tab .btn {
     padding: 9px 14px;
+    border:1px solid #ffffff;
 }
 #btnFRwd i, #btnFFwd i {
  font-size: 16px;

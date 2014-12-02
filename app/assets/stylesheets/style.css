@@ -599,8 +599,51 @@ Google Maps
 //SINGLE CAMERA PAGE
 /////////////////////*/
 
-.camera-title {
-
+.dropdown-toggle {
+    font-size: 18px;
+}
+.camera-switch a {
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+}
+.camera-switch .fa-caret-down {
+    margin-left: 6px;
+    margin-top: -3px;
+}
+ul.scroll-menu {
+    /*display: inherit !important;*/
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
+    -o-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    width: 100%;
+    height: auto;
+    min-width: 250px;
+    max-height: 600px;
+    margin: 0;
+    border-left: none;
+    border-right: none;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+@media screen and (min-width: 480px) {
+   /* .camera-switch {
+        display: none;
+    }*/
+    .online-status {
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .online-status {
+        margin-top: 5px;
+    }
 }
 
 /*LIVE*/
@@ -627,7 +670,7 @@ Google Maps
     opacity: 1;
 }
 #live img {
-max-width: 100%;
+    max-width: 100%;
 }
 .tint img {
     border: 1px solid #e5e5e5 !important;
@@ -1926,6 +1969,7 @@ li span {
 .sub-menu .fa-chain-broken {
     font-size: 14px !important;
 }
+
 /*/////////////////////
 //TABLE
 /////////////////////*/
@@ -2101,8 +2145,10 @@ table.table-clean thead th {
 }
 
 #camera-single .dropdown-menu li > a {
-    text-align: right;
-    padding: 6px 13px 6px 0px;
+    text-align: left;
+    padding: 7px 13px 6px 6px;
+    font-size: 16px;
+    font-family: 'proxima-nova-regular';
 }
 
 #camera-single .tabbable-custom > .nav-tabs > li > a {

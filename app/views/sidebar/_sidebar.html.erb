@@ -20,8 +20,7 @@
                   <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
                 <% end %>
                 <%= camera['name'] %>
-                <% if camera['is_online'] %>
-                <% else %>
+                <% unless camera['is_online'] %>
                   <i class="red fa fa-chain-broken"></i>
                 <% end %>
               </a>

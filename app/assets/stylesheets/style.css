@@ -2041,26 +2041,28 @@ table.table-clean thead th {
 
 #some-div:hover #some-element {
     opacity: 1;
-    -webkit-transition: opacity .3s ease-in-out;
-    -moz-transition: opacity .3s ease-in-out;
-    -ms-transition: opacity .3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
 }
 
 /* PASSWORD RESET */
-#pass-reset .branding .logo {
-    height: 70px;
-    display: block;
-    margin-top: 20px;
-}
-#pass-reset .branding .logo img  {
+#pass-reset .branding {
     max-width: 200px;
+    margin: 0 auto;
+}
+#pass-reset .branding .svg-logo {
+    height: 134px;
+    display: block;
+    max-width: 200px;
+    margin: 0 auto;
 }
 #pass-reset .panel {
-    padding: 20px 0px 30px 20px;
+    padding: 32px 0px 33px 20px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius:2px;
 }
-
+#pass-reset .input-icon > i {
+    margin: 8px 2px 4px 10px;
+}
 .hide {
     display: none;
 }

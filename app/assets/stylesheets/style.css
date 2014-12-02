@@ -611,6 +611,27 @@ Google Maps
     margin-left: 6px;
 margin-top: -3px;
 }
+ul.scroll-menu {
+    /*display: inherit !important;*/
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
+    -o-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    width: 100%;
+    height: auto;
+    min-width: 250px;
+    max-height: 600px;
+    margin: 0;
+    border-left: none;
+    border-right: none;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
 @media screen and (min-width: 480px) {
    /* .camera-switch {
         display: none;

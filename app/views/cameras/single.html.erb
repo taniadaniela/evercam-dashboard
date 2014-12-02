@@ -42,7 +42,7 @@
               <a class="dropdown-toggle" data-toggle="dropdown">
                 <h3 class="page-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h3>
               </a>
-              <ul class="dropdown-menu" role="menu">
+              <ul class="dropdown-menu scroll-menu" role="menu">
                 <% @cameras.each do |camera| %>
                   <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
                     <a href="/cameras/<%= camera['id'] %>">
@@ -52,8 +52,7 @@
                         <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
                       <% end %>
                       <%= camera['name'] %>
-                      <% if camera['is_online'] %>
-                      <% else %>
+                      <% unless camera['is_online'] %>
                         <i class="red fa fa-chain-broken"></i>
                       <% end %>
                     </a>

@@ -37,14 +37,14 @@
     <div class="row">
         <div class="camera-title">
           <div class="col-xs-8 col-md-8">
-            <h3 class="camera-name-title page-title"><%= @camera['name'] %><small>   <%= @camera['id'] %></small></h3>
             <!--MOBILE CAMERA SWITCH MENU -->
             <div class="btn-group camera-switch">
-              <a class="dropdown-toggle" data-toggle="dropdown"><%= @camera['name'] %> <i class="fa fa-angle-down"></i>
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                <h3 class="page-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h3>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <% @cameras.each do |camera| %>
-                  <li role="presentation" class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+                  <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
                     <a href="/cameras/<%= camera['id'] %>">
                       <% if camera['owner'] == current_user.username %>
                         <i class="icon icon-users" style="visibility: hidden;"></i>

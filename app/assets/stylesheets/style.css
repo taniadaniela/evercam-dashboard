@@ -599,25 +599,27 @@ Google Maps
 //SINGLE CAMERA PAGE
 /////////////////////*/
 
-.dropdown-toggle { font-size: 18px;
-
+.dropdown-toggle {
+    font-size: 18px;
+}
+.camera-switch a {
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+}
+.camera-switch .fa-caret-down {
+    margin-left: 6px;
+margin-top: -3px;
 }
 @media screen and (min-width: 480px) {
-    .camera-switch {
+   /* .camera-switch {
         display: none;
-    }
-    .camera-switch a {
-        cursor: pointer;
-        font-size: 18px;
-    }
+    }*/
     .online-status {
         margin-top: 10px;
     }
 }
 @media screen and (max-width: 480px) {
-    .camera-name-title {
-        display: none;
-    }
     .online-status {
         margin-top: 5px;
     }
@@ -1946,6 +1948,7 @@ li span {
 .sub-menu .fa-chain-broken {
     font-size: 14px !important;
 }
+
 /*/////////////////////
 //TABLE
 /////////////////////*/
@@ -2121,8 +2124,10 @@ table.table-clean thead th {
 }
 
 #camera-single .dropdown-menu li > a {
-    text-align: right;
-    padding: 6px 13px 6px 0px;
+    text-align: left;
+    padding: 7px 13px 6px 6px;
+    font-size: 16px;
+    font-family: 'proxima-nova-regular';
 }
 
 #camera-single .tabbable-custom > .nav-tabs > li > a {

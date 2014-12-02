@@ -280,10 +280,10 @@ handleBodyLoadContent = ->
     playFromDateTime = StringToDateTime hasDateTime.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
+    $("#ui_date_picker_inline").datepicker('update', currentDate)
 
   $("#tdI" + cameraCurrentHour).addClass("active")
   PreviousImageHour = "tdI" + cameraCurrentHour;
-  $("#ui_date_picker_inline").datepicker('update', currentDate)
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
 
   showLoader()

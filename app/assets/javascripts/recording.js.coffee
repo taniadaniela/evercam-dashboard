@@ -30,6 +30,10 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
+$ ->
+  $(".btn-group").tooltip()
+  return
+
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
   $("#ui_date_picker_inline table th[class*='prev']").bind "click", ->
@@ -236,7 +240,7 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<b>Frame " + currFrame + " of " + totalSnaps + "</b> " + dt + " ")
+  $("#divInfo").html("<span class='frame'>Frame " + "<b>" + currFrame + "</b>" + " of " + totalSnaps + "</span><span class='date-time'> " + dt + "</span> ")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   true
@@ -616,7 +620,7 @@ handlePlay = ->
     return
 
   $(".skipframe").bind "click", ->
-    if $(this).html() is "+Frame"
+    if $(this).html() is "+ Frame"
       SetSkipFrames 1, "n"
     else if $(this).html() is "+5"
       SetSkipFrames 5, "n"
@@ -624,7 +628,7 @@ handlePlay = ->
       SetSkipFrames 10, "n"
     else if $(this).html() is "+100"
       SetSkipFrames 100, "n"
-    else if $(this).html() is "-Frame"
+    else if $(this).html() is "- Frame"
       SetSkipFrames 1, "p"
     else if $(this).html() is "-5"
       SetSkipFrames 5, "p"

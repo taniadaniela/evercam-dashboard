@@ -1030,7 +1030,7 @@ td .share-camera {
     color:#414042;
 }
 .apps h4 {
-    margin-top: 8px;
+    margin:22px 0px 9px;
     font-family: 'proxima-nova-bold';
 }
 .apps {
@@ -1274,6 +1274,17 @@ input:focus {
     width: 25px;
     height: 25px;
 }
+#recording-tab .btn {
+    padding: 9px 14px;
+    border:1px solid #ffffff;
+}
+#btnFRwd i, #btnFFwd i {
+ font-size: 16px;
+}
+#btnRwd i, #btnFwd i {
+    font-size: 13px;
+}
+
 #recording-tab .table-condensed tbody {
     background-color:#fff;
     border: none;
@@ -1298,8 +1309,8 @@ input:focus {
     padding-right: 15px;
     float: left;
     width: 100%;
-
 }
+
 
 @media (min-width: 850px) {
     .left-column {
@@ -1468,18 +1479,25 @@ ul, menu, dir {
     height:1.12em;
 }
 
-.clear-f{clear: both;padding: 0px;margin: 0px;}
+.clear-f{
+    clear: both;padding: 0px;margin: 0px;
+}
 
-.margin-top-10{margin-top: 10px;}
+.margin-top-10{
+    margin-top: 10px;
+}
 
 .playback-info-bar{
     text-align: center;
-    margin-top: 6px;
-    margin-bottom: 10px;
-    padding: 5px 0px;
+    margin:4px 0px;
+    padding: 8px 0px;
     background-color: #f3f3f3;
+    position: relative;
 }
-
+.date-time {
+    position: absolute;
+    right:10px;
+}
 .playback-datepicker{
     border:solid 1px #999999;
 }
@@ -1489,7 +1507,9 @@ ul, menu, dir {
     text-align: center;
 }
 
-.width100{width: 100%;}
+.width100{
+    width: 100%;
+}
 
 .MDSlider-outer{
     background-color: #e2e2e2;
@@ -1665,12 +1685,10 @@ ul, menu, dir {
     margin-top: 15px;
 }
 #signin .branding {
-    margin: 30px auto 30px;
-
+    margin: 40px auto 30px;
 
 }
 #signin .branding img {
-
     max-width: 200px;
 }
 #sign-in textarea, input {
@@ -2041,26 +2059,29 @@ table.table-clean thead th {
 
 #some-div:hover #some-element {
     opacity: 1;
-    -webkit-transition: opacity .3s ease-in-out;
-    -moz-transition: opacity .3s ease-in-out;
-    -ms-transition: opacity .3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
 }
 
 /* PASSWORD RESET */
-#pass-reset .branding .logo {
-    height: 70px;
-    display: block;
-    margin-top: 20px;
-}
-#pass-reset .branding .logo img  {
+#pass-reset .branding {
     max-width: 200px;
+    margin: 0 auto;
+}
+#pass-reset .branding .svg-logo {
+    height: 134px;
+    display: block;
+    max-width: 200px;
+    margin: 0 auto;
 }
 #pass-reset .panel {
-    padding: 20px 0px 30px 20px;
+    padding: 32px 0px 33px 20px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius:2px;
 }
-
+#pass-reset .input-icon > i {
+    margin: 8px 2px 4px 10px;
+    font-style:normal;
+}
 .hide {
     display: none;
 }

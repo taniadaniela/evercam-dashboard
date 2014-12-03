@@ -33,14 +33,14 @@ sendAJAXRequest = (settings) ->
 
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
-  $("#ui_date_picker_inline table th[class*='prev']").bind "click", ->
+  $("#ui_date_picker_inline table th[class*='prev']").on "click", ->
     changeMonthFromArrow('p')
 
-  $("#ui_date_picker_inline table th[class*='next']").bind "click", ->
+  $("#ui_date_picker_inline table th[class*='next']").on "click", ->
     changeMonthFromArrow('n')
     return
 
-  $("#hourCalandar td[class*='day']").bind "click", ->
+  $("#hourCalandar td[class*='day']").on "click", ->
     SetImageHour $(this).html(), "tdI" + $(this).html()
     return
 
@@ -623,20 +623,17 @@ Pause = ->
   $("#divFrameMode").removeClass("hide").addClass("show")
   $("#divPlayMode").removeClass("show").addClass("hide")
   PauseAfterPlay = true
-  true
 
 HideLoader = ->
   $("#imgLoaderRec").hide();
-  true
 
 handleWindowResize = ->
-  $(window).bind "resize", ->
+  $(window).on "resize", ->
     totalWidth = $("#divSlider").width()
     $("#divPointer").width(totalWidth * currentFrameNumber / totalFrames)
-  true
 
 handlePlay = ->
-  $("#btnPlayRec").bind "click", ->
+  $("#btnPlayRec").on "click", ->
     return  if totalFrames is 0
 
     playDirection = 1
@@ -648,29 +645,23 @@ handlePlay = ->
       snapshotInfoIdx = 0
       currentFrameNumber = 1
     DoNextImg()
-    return
 
-  $("#btnPauseRec").bind "click", ->
+  $("#btnPauseRec").on "click", ->
     Pause()
-    return
 
-  $("#btnFRwd").bind "click", ->
+  $("#btnFRwd").on "click", ->
     SetPlaySpeed 10, -1
-    return
 
-  $("#btnRwd").bind "click", ->
+  $("#btnRwd").on "click", ->
     SetPlaySpeed 5, -1
-    return
 
-  $("#btnFFwd").bind "click", ->
+  $("#btnFFwd").on "click", ->
     SetPlaySpeed 10, 1
-    return
 
-  $("#btnFwd").bind "click", ->
+  $("#btnFwd").on "click", ->
     SetPlaySpeed 5, 1
-    return
 
-  $(".skipframe").bind "click", ->
+  $(".skipframe").on "click", ->
     if $(this).html() is "+Frame"
       SetSkipFrames 1, "n"
     else if $(this).html() is "+5"
@@ -686,7 +677,6 @@ handlePlay = ->
     else if $(this).html() is "-10"
       SetSkipFrames 10, "p"
     else SetSkipFrames 100, "p"  if $(this).html() is "-100"
-    return
 
   return
 
@@ -841,23 +831,23 @@ handleMinSecDropDown = ->
     option = $("<option>").val(FormatNumTo2(hour)).append(FormatNumTo2(hour))
     $("#ddlRecSeconds").append option
     hour++
-  $("#ddlRecMinutes").bind "change", ->
+  $("#ddlRecMinutes").on "change", ->
     SelectImagesByMinSec()
     return
 
-  $("#ddlRecSeconds").bind "change", ->
+  $("#ddlRecSeconds").on "change", ->
     SelectImagesByMinSec()
     return
 
   return
 
 handleTabEvent = ->
-  $("a[data-toggle=\"tab\"]").bind "click", ->
+  $("a[data-toggle=\"tab\"]").on "click", ->
     tabName = $(this).html()
     if tabName is "Snapshots" && playFromDateTime is null
       GetCameraInfo false
 
-  $("#share-url").bind "click", ->
+  $("#share-url").on "click", ->
     @select()
 
 initializeRecordingsTab = ->

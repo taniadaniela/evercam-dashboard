@@ -1278,6 +1278,9 @@ input:focus {
     padding: 9px 14px;
     border:1px solid #ffffff;
 }
+#recording-tab .btn-padding {
+    padding: 8px 14px;
+}
 #btnFRwd i, #btnFFwd i {
  font-size: 16px;
 }

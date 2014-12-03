@@ -20,6 +20,7 @@ playDirection = 1
 playStep = 1
 CameraOffset = 0
 xhrRequestChangeMonth = null
+playFromDateTime = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -36,15 +37,15 @@ $ ->
 
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
-  $("#ui_date_picker_inline table th[class*='prev']").bind "click", ->
+  $("#ui_date_picker_inline table th[class*='prev']").on "click", ->
     changeMonthFromArrow('p')
 
-  $("#ui_date_picker_inline table th[class*='next']").bind "click", ->
+  $("#ui_date_picker_inline table th[class*='next']").on "click", ->
     changeMonthFromArrow('n')
     return
 
-  $("#hourCalandar td[class*='day']").bind "click", ->
-    SetImageHour $(this).html(), "tdI" + $(this).html()
+  $("#hourCalandar td[class*='day']").on "click", ->
+    SetImageHour $(this).html(), "tdI#{$(this).html()}"
     return
 
   true
@@ -78,7 +79,7 @@ changeMonthFromArrow = (value) ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/'+ d.getFullYear() + "/" + day + '/days.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{day}/days.json"
 
   sendAJAXRequest(settings)
   if value =='n'
@@ -135,7 +136,7 @@ datePickerChange=(value)->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/'+ d.getFullYear() + "/" + (d.getMonth() + 1) + '/days.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
   snapshotInfos = null
@@ -189,12 +190,12 @@ handleSlider = ->
       x = sliderEndX - 80
     motionVal = ""
     frameNo = idx + 1
-    $("#divPopup").html("Frame " + frameNo + ", " + shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal)
+    $("#divPopup").html("Frame #{frameNo}, #{shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal}")
     $("#divPopup").show()
     $("#divPopup").offset({ top: ev.pageY + 20, left: x })
 
-    $("#divSlider").css('background-position', (ev.pageX - sliderStartX) + 'px 0px')
-    $("#divPointer").css('background-position', (ev.pageX - sliderStartX) + 'px 0px')
+    $("#divSlider").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
+    $("#divPointer").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
     true
 
   $("#divSlider").mousemove(onSliderMouseMove)
@@ -231,6 +232,8 @@ handleSlider = ->
   true
 
 showLoader = ->
+  if $("#imgPlayback").attr("src").indexOf('nosnapshots') != -1
+    $("#imgPlayback").attr("src","/assets/plain.png")
   $("#imgLoaderRec").width($('#imgPlayback').width())
   $("#imgLoaderRec").height($('#imgPlayback').height())
   $("#imgLoaderRec").css("top", $('#imgPlayback').css('top'))
@@ -240,9 +243,10 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<span class='frame'>Frame " + "<b>" + currFrame + "</b>" + " of " + totalSnaps + "</span><span class='date-time'> " + dt + "</span> ")
+  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
+  $("#share-url").val "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#recording"
   true
 
 UpdateSnapshotRec = (snapInfo) ->
@@ -251,23 +255,34 @@ UpdateSnapshotRec = (snapInfo) ->
   loadImage(snapInfo.created_at)
   true
 
-ChangeFormatAndGetFormatted = (str) ->
-  dtAr = str.split("/")
-  dt = new Date(dtAr[1] + "/" + dtAr[0] + "/" + dtAr[2])
-  DateToFormattedStr dt
-  true
+getURLParameter = (name) ->
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+  regexS = "[\\?&]" + name + "=([^&#]*)"
+  regex = new RegExp(regexS)
+  results = regex.exec(window.location.href)
+  unless results?
+    return ""
+  else
+    return decodeURIComponent results[1].replace(/\+/g, " ")
 
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
   CameraOffset = parseInt(offset)/3600
   currentDate = getLocationBaseDateTime(offset)
   cameraCurrentHour = currentDate.getHours()
-
   $("#hourCalandar td[class*='day']").removeClass("active")
-  $("#tdI" + cameraCurrentHour + " a").addClass("active")
-  PreviousImageHour = "tdI" + cameraCurrentHour;
 
+  hasDateTime = getURLParameter('date_time')
+  if hasDateTime isnt ""
+    playFromDateTime = StringToDateTime hasDateTime.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
+    currentDate = playFromDateTime
+    cameraCurrentHour = currentDate.getHours()
+    $("#ui_date_picker_inline").datepicker('update', currentDate)
+
+  $("#tdI#{cameraCurrentHour}").addClass("active")
+  PreviousImageHour = "tdI#{cameraCurrentHour}"
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
+
   showLoader()
   HighlightCurrentMonth()
   BoldSnapshotHour(false)
@@ -303,7 +318,7 @@ HighlightCurrentMonth = ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/'+ d.getFullYear() + "/" + (d.getMonth() + 1) + '/days.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
   true
@@ -318,6 +333,8 @@ HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
       for result in results.days
         if result == iDay
           calDay.addClass('has-snapshot')
+          if playFromDateTime isnt null && playFromDateTime.getDate() == iDay
+            calDay.addClass('active')
           break
   )
   true
@@ -346,7 +363,7 @@ BoldSnapshotHour = (callFromDt) ->
     context: { isCall: callFromDt }
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/'+ d.getFullYear() + "/" + (d.getMonth() + 1) + '/' + d.getDate()+ '/hours.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
 
   sendAJAXRequest(settings)
   true
@@ -356,7 +373,7 @@ BoldSnapshotHourSuccess = (result, context) ->
   hasRecords = false;
   for hour in result.hours
     hr = hour + CameraOffset
-    $("#tdI"+hr).addClass('has-snapshot')
+    $("#tdI#{hr}").addClass('has-snapshot')
     lastBoldHour = hr
     hasRecords = true
 
@@ -364,7 +381,9 @@ BoldSnapshotHourSuccess = (result, context) ->
     if this.isCall
       GetCameraInfo true
     else
-      SetImageHour(lastBoldHour, "tdI" + lastBoldHour)
+      if playFromDateTime isnt null
+        lastBoldHour = cameraCurrentHour
+      SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
   else
     NoRecordingDayOrHour()
   true
@@ -410,11 +429,20 @@ GetCameraInfo = (isShowLoader) ->
 
       if sliderpercentage > 100
         sliderpercentage = 100
-      $("#divSlider").width(sliderpercentage + "%")
+      $("#divSlider").width("#{sliderpercentage}%")
       currentFrameNumber=1
+      frameDateTime = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
+      snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
-      SetInfoMessage(currentFrameNumber, shortDate(new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)))
-      loadImage(snapshotInfos[snapshotInfoIdx].created_at)
+      if playFromDateTime isnt null
+        snapshotTimeStamp = GetUTCDate(playFromDateTime)/1000
+        snapshotTimeStamp = SetPlayFromImage snapshotTimeStamp
+        frameDateTime = new Date(snapshotTimeStamp*1000)
+        if currentFrameNumber isnt 1
+          playFromDateTime = null
+
+      SetInfoMessage(currentFrameNumber, shortDate(frameDateTime))
+      loadImage(snapshotTimeStamp)
     true
 
   settings =
@@ -425,7 +453,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/range.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/range.json"
 
   sendAJAXRequest(settings)
   true
@@ -458,14 +486,35 @@ loadImage = (timestamp) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/'+timestamp+'.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{timestamp}.json"
 
   sendAJAXRequest(settings)
   true
 
+SetPlayFromImage = (timestamp) ->
+  i = 0
+  while i < snapshotInfos.length
+    if snapshotInfos[i].created_at >= timestamp
+      currentFrameNumber = i + 1
+      snapshotInfoIdx = i
+      return snapshotInfos[i].created_at
+    i++
+
+GetUTCDate = (date) ->
+  UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
+  return UtcDate
+
+StringToDateTime = (timestamp) ->
+  time = timestamp.substring(timestamp.indexOf(" "))
+  date = timestamp.substring(0, timestamp.indexOf(" "))
+  timearray = time.split(":")
+  datearray = date.split("/")
+  return new Date(datearray[2], datearray[1] - 1, datearray[0],timearray[0], timearray[1], timearray[2])
+
 shortDate = (date) ->
+  dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  return FormatNumTo2(date.getDate())+'/'+FormatNumTo2(date.getMonth()+1)+'/'+date.getFullYear()+' '+FormatNumTo2(hour)+':'+FormatNumTo2(date.getMinutes())+':'+FormatNumTo2(date.getSeconds())
+  return "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -497,19 +546,19 @@ DateToFormattedStr = (d) ->
   hour = d.getHours()
   minute = d.getMinutes()
   second = d.getSeconds()
-  miliseconds = d.getMilliseconds() + ""
+  miliseconds = "#{d.getMilliseconds()}"
 
   if miliseconds.length == 2
-    miliseconds = '0' + miliseconds
+    miliseconds = "0#{miliseconds}"
   else if miliseconds.length == 1
-    miliseconds = '00' + miliseconds
+    miliseconds = "00#{miliseconds}"
   else if miliseconds.length == 0 || miliseconds == 0
     miliseconds = ''
-  return "" + FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds
+  return "#{FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds}"
 
 FormatNumTo2 = (n) ->
   if n < 10
-    return "0" + n
+    return "0#{n}"
   else
     return n
 
@@ -529,12 +578,12 @@ NoRecordingDayOrHour = ->
   true
 
 SetImageHour = (hr, id) ->
-  value = $("#" + id).html()
+  value = $("##{id}").html()
   $("#ddlRecMinutes").val(0)
   $("#ddlRecSeconds").val(0)
   cameraCurrentHour = hr
-  $("#" + PreviousImageHour).removeClass("active")
-  $("#" + id).addClass("active")
+  $("##{PreviousImageHour}").removeClass("active")
+  $("##{id}").addClass("active")
   PreviousImageHour = id
   snapshotInfos = null
   Pause()
@@ -545,7 +594,7 @@ SetImageHour = (hr, id) ->
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
 
-  if $("#" + id).hasClass('has-snapshot')
+  if $("##{id}").hasClass('has-snapshot')
     $("#divSliderBackground").width("100%")
     $("#divSliderMD").width("100%")
     $("#MDSliderItem").html("")
@@ -572,20 +621,17 @@ Pause = ->
   $("#divFrameMode").removeClass("hide").addClass("show")
   $("#divPlayMode").removeClass("show").addClass("hide")
   PauseAfterPlay = true
-  true
 
 HideLoader = ->
   $("#imgLoaderRec").hide();
-  true
 
 handleWindowResize = ->
-  $(window).bind "resize", ->
+  $(window).on "resize", ->
     totalWidth = $("#divSlider").width()
     $("#divPointer").width(totalWidth * currentFrameNumber / totalFrames)
-  true
 
 handlePlay = ->
-  $("#btnPlayRec").bind "click", ->
+  $("#btnPlayRec").on "click", ->
     return  if totalFrames is 0
 
     playDirection = 1
@@ -597,47 +643,32 @@ handlePlay = ->
       snapshotInfoIdx = 0
       currentFrameNumber = 1
     DoNextImg()
-    return
 
-  $("#btnPauseRec").bind "click", ->
+  $("#btnPauseRec").on "click", ->
     Pause()
-    return
 
-  $("#btnFRwd").bind "click", ->
+  $("#btnFRwd").on "click", ->
     SetPlaySpeed 10, -1
-    return
 
-  $("#btnRwd").bind "click", ->
+  $("#btnRwd").on "click", ->
     SetPlaySpeed 5, -1
-    return
 
-  $("#btnFFwd").bind "click", ->
+  $("#btnFFwd").on "click", ->
     SetPlaySpeed 10, 1
-    return
 
-  $("#btnFwd").bind "click", ->
+  $("#btnFwd").on "click", ->
     SetPlaySpeed 5, 1
-    return
 
-  $(".skipframe").bind "click", ->
-    if $(this).html() is "+ Frame"
-      SetSkipFrames 1, "n"
-    else if $(this).html() is "+5"
-      SetSkipFrames 5, "n"
-    else if $(this).html() is "+10"
-      SetSkipFrames 10, "n"
-    else if $(this).html() is "+100"
-      SetSkipFrames 100, "n"
-    else if $(this).html() is "- Frame"
-      SetSkipFrames 1, "p"
-    else if $(this).html() is "-5"
-      SetSkipFrames 5, "p"
-    else if $(this).html() is "-10"
-      SetSkipFrames 10, "p"
-    else SetSkipFrames 100, "p"  if $(this).html() is "-100"
-    return
-
-  return
+  $(".skipframe").on "click", ->
+    switch $(this).html()
+      when "+ Frame" then SetSkipFrames 1, "n"
+      when "+5" then SetSkipFrames 5, "n"
+      when "+10" then SetSkipFrames 10, "n"
+      when "+100" then SetSkipFrames 100, "n"
+      when "- Frame" then SetSkipFrames 1, "p"
+      when "-5" then SetSkipFrames 5, "p"
+      when "-10" then SetSkipFrames 10, "p"
+      when "-100" then SetSkipFrames 100, "p"
 
 SetSkipFrames = (num, direction) ->
   if direction is "p"
@@ -735,60 +766,9 @@ DoNextImg = ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: apiUrl + 'cameras/' + cameraId+'/snapshots/'+si.created_at+'.json'
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{si.created_at}.json"
 
   sendAJAXRequest(settings)
-  return
-
-SetPlayFromImage = (playFromIndex) ->
-  #set play from image
-  if playFromTime isnt "" and isFoundPlayFrom
-    if playFromTime.length is 14
-      SelectSliderWithoutMilisec playFromTime
-    else
-      SelectSlider playFromTime
-  else if playFromTime isnt "" and isFoundPlayFrom
-    if playFromTime.length is 14
-      SelectSliderWithoutMilisec playFromTime
-    else
-      SelectSlider playFromTime
-  return
-
-SelectSlider = (fDt) ->
-  i = 0
-
-  while i < snapshotInfos.length
-    si = snapshotInfos[i]
-    frameDt = ChangeFormatAndGetFormatted(snapshotInfos[i].date)
-    if frameDt is fDt
-      currentFrameNumber = i + 1
-      snapshotInfoIdx = i
-      showLoader()
-      $("#img").attr "src", si.url
-      $("#hiddenimg").attr "src", si.url
-      SetInfoMessage1 currentFrameNumber, si.date, frameDt
-      HideLoader()
-      isFoundPlayFrom = false
-      return
-    i++
-  return
-
-SelectSliderWithoutMilisec = (fDt) ->
-  i = 0
-
-  while i < snapshotInfos.length
-    si = snapshotInfos[i]
-    if si.FDT is changedPlayFrom
-      currentFrameNumber = i + 1
-      snapshotInfoIdx = i
-      showLoader()
-      $("#img").attr "src", si.Url
-      $("#hiddenimg").attr "src", si.Url
-      SetInfoMessage1 currentFrameNumber, si.DT, si.FDT
-      HideLoader()
-      isFoundPlayFrom = false
-      return
-    i++
   return
 
 SelectImagesByMinSec = ->
@@ -841,27 +821,28 @@ handleMinSecDropDown = ->
     option = $("<option>").val(FormatNumTo2(hour)).append(FormatNumTo2(hour))
     $("#ddlRecSeconds").append option
     hour++
-  $("#ddlRecMinutes").bind "change", ->
+  $("#ddlRecMinutes").on "change", ->
     SelectImagesByMinSec()
     return
 
-  $("#ddlRecSeconds").bind "change", ->
+  $("#ddlRecSeconds").on "change", ->
     SelectImagesByMinSec()
     return
 
   return
 
 handleTabEvent = ->
-  $("a[data-toggle=\"tab\"]").bind "click", ->
+  $("a[data-toggle=\"tab\"]").on "click", ->
     tabName = $(this).html()
-    if tabName is "Snapshots"
+    if tabName is "Snapshots" && playFromDateTime is null
       GetCameraInfo false
 
-  true
+  $("#share-url").on "click", ->
+    @select()
 
 initializeRecordingsTab = ->
   initDatePicker()
-  handleSlider()
+  #handleSlider()
   handleWindowResize()
   handleBodyLoadContent()
   handleMinSecDropDown()

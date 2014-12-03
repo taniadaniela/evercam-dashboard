@@ -1479,9 +1479,13 @@ ul, menu, dir {
     height:1.12em;
 }
 
-.clear-f{clear: both;padding: 0px;margin: 0px;}
+.clear-f{
+    clear: both;padding: 0px;margin: 0px;
+}
 
-.margin-top-10{margin-top: 10px;}
+.margin-top-10{
+    margin-top: 10px;
+}
 
 .playback-info-bar{
     text-align: center;
@@ -1494,9 +1498,6 @@ ul, menu, dir {
     position: absolute;
     right:10px;
 }
-.frame {
-
-}
 .playback-datepicker{
     border:solid 1px #999999;
 }
@@ -1506,7 +1507,9 @@ ul, menu, dir {
     text-align: center;
 }
 
-.width100{width: 100%;}
+.width100{
+    width: 100%;
+}
 
 .MDSlider-outer{
     background-color: #e2e2e2;

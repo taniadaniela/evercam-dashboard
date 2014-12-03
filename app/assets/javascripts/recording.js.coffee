@@ -30,6 +30,10 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
+$ ->
+  $(".btn-group").tooltip()
+  return
+    
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
   $("#ui_date_picker_inline table th[class*='prev']").bind "click", ->

@@ -662,23 +662,15 @@ handlePlay = ->
     SetPlaySpeed 5, 1
 
   $(".skipframe").on "click", ->
-    if $(this).html() is "+Frame"
-      SetSkipFrames 1, "n"
-    else if $(this).html() is "+5"
-      SetSkipFrames 5, "n"
-    else if $(this).html() is "+10"
-      SetSkipFrames 10, "n"
-    else if $(this).html() is "+100"
-      SetSkipFrames 100, "n"
-    else if $(this).html() is "-Frame"
-      SetSkipFrames 1, "p"
-    else if $(this).html() is "-5"
-      SetSkipFrames 5, "p"
-    else if $(this).html() is "-10"
-      SetSkipFrames 10, "p"
-    else SetSkipFrames 100, "p"  if $(this).html() is "-100"
-
-  return
+    switch $(this).html()
+      when "+Frame" then SetSkipFrames 1, "n"
+      when "+5" then SetSkipFrames 5, "n"
+      when "+10" then SetSkipFrames 10, "n"
+      when "+100" then SetSkipFrames 100, "n"
+      when "-Frame" then SetSkipFrames 1, "p"
+      when "-5" then SetSkipFrames 5, "p"
+      when "-10" then SetSkipFrames 10, "p"
+      when "-100" then SetSkipFrames 100, "p"
 
 SetSkipFrames = (num, direction) ->
   if direction is "p"

@@ -41,7 +41,7 @@ initDatePicker = ->
     return
 
   $("#hourCalandar td[class*='day']").on "click", ->
-    SetImageHour $(this).html(), "tdI#{ $(this).html() }"
+    SetImageHour $(this).html(), "tdI#{$(this).html()}"
     return
 
   true
@@ -75,7 +75,7 @@ changeMonthFromArrow = (value) ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/#{ d.getFullYear() }/#{ day }/days.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{day}/days.json"
 
   sendAJAXRequest(settings)
   if value =='n'
@@ -132,7 +132,7 @@ datePickerChange=(value)->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/#{ d.getFullYear() }/#{ (d.getMonth() + 1) }/days.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
   snapshotInfos = null
@@ -186,12 +186,12 @@ handleSlider = ->
       x = sliderEndX - 80
     motionVal = ""
     frameNo = idx + 1
-    $("#divPopup").html("Frame #{ frameNo }, #{ shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal }")
+    $("#divPopup").html("Frame #{frameNo}, #{shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal}")
     $("#divPopup").show()
     $("#divPopup").offset({ top: ev.pageY + 20, left: x })
 
-    $("#divSlider").css('background-position', "#{ (ev.pageX - sliderStartX) }px 0px")
-    $("#divPointer").css('background-position', "#{ (ev.pageX - sliderStartX) }px 0px")
+    $("#divSlider").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
+    $("#divPointer").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
     true
 
   $("#divSlider").mousemove(onSliderMouseMove)
@@ -239,10 +239,10 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<b>Frame #{ currFrame } of #{ totalSnaps }</b> #{ dt }")
+  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  $("#share-url").val "#{ $("#tab-url").val() }?date_time=#{ dt.replace(RegExp("/", "g"), "-").replace(" ", "T") }Z#recording"
+  $("#share-url").val "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#recording"
   true
 
 UpdateSnapshotRec = (snapInfo) ->
@@ -275,8 +275,8 @@ handleBodyLoadContent = ->
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
 
-  $("#tdI#{ cameraCurrentHour }").addClass("active")
-  PreviousImageHour = "tdI#{ cameraCurrentHour }"
+  $("#tdI#{cameraCurrentHour}").addClass("active")
+  PreviousImageHour = "tdI#{cameraCurrentHour}"
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
 
   showLoader()
@@ -314,7 +314,7 @@ HighlightCurrentMonth = ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/#{ d.getFullYear() }/#{ (d.getMonth() + 1) }/days.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
   true
@@ -359,7 +359,7 @@ BoldSnapshotHour = (callFromDt) ->
     context: { isCall: callFromDt }
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/#{ d.getFullYear() }/#{ (d.getMonth() + 1) }/#{ d.getDate() }/hours.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
 
   sendAJAXRequest(settings)
   true
@@ -369,7 +369,7 @@ BoldSnapshotHourSuccess = (result, context) ->
   hasRecords = false;
   for hour in result.hours
     hr = hour + CameraOffset
-    $("#tdI#{ hr }").addClass('has-snapshot')
+    $("#tdI#{hr}").addClass('has-snapshot')
     lastBoldHour = hr
     hasRecords = true
 
@@ -379,7 +379,7 @@ BoldSnapshotHourSuccess = (result, context) ->
     else
       if playFromDateTime isnt null
         lastBoldHour = cameraCurrentHour
-      SetImageHour(lastBoldHour, "tdI#{ lastBoldHour }")
+      SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
   else
     NoRecordingDayOrHour()
   true
@@ -425,7 +425,7 @@ GetCameraInfo = (isShowLoader) ->
 
       if sliderpercentage > 100
         sliderpercentage = 100
-      $("#divSlider").width("#{ sliderpercentage }%")
+      $("#divSlider").width("#{sliderpercentage}%")
       currentFrameNumber=1
       frameDateTime = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
@@ -449,7 +449,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/range.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/range.json"
 
   sendAJAXRequest(settings)
   true
@@ -482,7 +482,7 @@ loadImage = (timestamp) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/#{ timestamp }.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{timestamp}.json"
 
   sendAJAXRequest(settings)
   true
@@ -510,7 +510,7 @@ StringToDateTime = (timestamp) ->
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  return "#{ FormatNumTo2(dt.getDate()) }/#{ FormatNumTo2(dt.getMonth()+1) }/#{ date.getFullYear() } #{ FormatNumTo2(hour) }:#{ FormatNumTo2(date.getMinutes()) }:#{ FormatNumTo2(date.getSeconds()) }"
+  return "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -542,19 +542,19 @@ DateToFormattedStr = (d) ->
   hour = d.getHours()
   minute = d.getMinutes()
   second = d.getSeconds()
-  miliseconds = "#{ d.getMilliseconds() }"
+  miliseconds = "#{d.getMilliseconds()}"
 
   if miliseconds.length == 2
-    miliseconds = "0#{ miliseconds }"
+    miliseconds = "0#{miliseconds}"
   else if miliseconds.length == 1
-    miliseconds = "00#{ miliseconds }"
+    miliseconds = "00#{miliseconds}"
   else if miliseconds.length == 0 || miliseconds == 0
     miliseconds = ''
-  return "#{ FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds }"
+  return "#{FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds}"
 
 FormatNumTo2 = (n) ->
   if n < 10
-    return "0#{ n }"
+    return "0#{n}"
   else
     return n
 
@@ -574,12 +574,12 @@ NoRecordingDayOrHour = ->
   true
 
 SetImageHour = (hr, id) ->
-  value = $("##{ id }").html()
+  value = $("##{id}").html()
   $("#ddlRecMinutes").val(0)
   $("#ddlRecSeconds").val(0)
   cameraCurrentHour = hr
-  $("##{ PreviousImageHour }").removeClass("active")
-  $("##{ id }").addClass("active")
+  $("##{PreviousImageHour}").removeClass("active")
+  $("##{id}").addClass("active")
   PreviousImageHour = id
   snapshotInfos = null
   Pause()
@@ -590,7 +590,7 @@ SetImageHour = (hr, id) ->
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
 
-  if $("##{ id }").hasClass('has-snapshot')
+  if $("##{id}").hasClass('has-snapshot')
     $("#divSliderBackground").width("100%")
     $("#divSliderMD").width("100%")
     $("#MDSliderItem").html("")
@@ -762,7 +762,7 @@ DoNextImg = ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{ apiUrl }cameras/#{ cameraId }/snapshots/#{ si.created_at }.json"
+    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{si.created_at}.json"
 
   sendAJAXRequest(settings)
   return

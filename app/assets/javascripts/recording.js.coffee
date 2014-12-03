@@ -31,6 +31,10 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
+$ ->
+  $(".btn-group").tooltip()
+  return
+
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
   $("#ui_date_picker_inline table th[class*='prev']").on "click", ->
@@ -657,11 +661,11 @@ handlePlay = ->
 
   $(".skipframe").on "click", ->
     switch $(this).html()
-      when "+Frame" then SetSkipFrames 1, "n"
+      when "+ Frame" then SetSkipFrames 1, "n"
       when "+5" then SetSkipFrames 5, "n"
       when "+10" then SetSkipFrames 10, "n"
       when "+100" then SetSkipFrames 100, "n"
-      when "-Frame" then SetSkipFrames 1, "p"
+      when "- Frame" then SetSkipFrames 1, "p"
       when "-5" then SetSkipFrames 5, "p"
       when "-10" then SetSkipFrames 10, "p"
       when "-100" then SetSkipFrames 100, "p"
@@ -838,7 +842,7 @@ handleTabEvent = ->
 
 initializeRecordingsTab = ->
   initDatePicker()
-  handleSlider()
+  #handleSlider()
   handleWindowResize()
   handleBodyLoadContent()
   handleMinSecDropDown()

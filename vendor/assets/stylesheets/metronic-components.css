@@ -116,9 +116,9 @@ ul,
 code,
 pre,
 li {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
+    -webkit-border-radius: 1px !important;
+    -moz-border-radius: 1px !important;
+    border-radius: 1px !important;
 }
 
 .img-circle {
@@ -1260,10 +1260,10 @@ Dropdown Menu
     list-style: none;
     text-shadow: none;
     padding: 0px;
-    margin: 0px;
+    margin: -10px 0px 0px;
     background-color: #ffffff;
-    box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
-    border: 1px solid #efefef;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border: none;
     font-size: 14px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -2704,11 +2704,7 @@ Customized Bootstrap Pagination
 /***
 Customized Bootstrap Panels
 ***/
-.panel {
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-}
+
 .panel-group .panel {
     overflow: visible;
 }
@@ -5857,12 +5853,12 @@ Grey Default
 /* Button */
 .grey.btn {
     color: #333333;
-    background-color: #e5e5e5;
+    background-color: #f3f3f3;
     border-color: "";
 }
 .grey.btn:hover, .grey.btn:focus, .grey.btn:active, .grey.btn.active {
     color: #333333;
-    background-color: #d6d6d6;
+    background-color: #e5e5e5;
 }
 .open .grey.btn.dropdown-toggle {
     color: #333333;

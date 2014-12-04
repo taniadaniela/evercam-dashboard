@@ -2324,6 +2324,9 @@ Forms
 .input-small {
   width: 120px !important;
 }
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  cursor:default;
+}
 
 /* Form labels */
 label {
@@ -2696,7 +2699,7 @@ Nav
 }
 .logo-default img {
   max-width: 151px;
-  margin-top: 4px;
+  margin-top: 3px;
   float: left;
 }
 @media screen and (max-width: 480px){
@@ -3385,6 +3388,9 @@ Page content
 .tab-content {
   background: #fafafa;
   padding: 20px;
+}
+.portlet > .portlet-title > .caption {
+  margin-top: 3px;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border:none;

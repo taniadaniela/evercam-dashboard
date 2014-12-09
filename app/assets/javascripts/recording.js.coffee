@@ -31,10 +31,6 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
-$ ->
-  $(".btn-group").tooltip()
-  return
-
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
   $("#ui_date_picker_inline table th[class*='prev']").on "click", ->
@@ -246,7 +242,11 @@ SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  $("#share-url").val "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#recording"
+  url = "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#recording"
+  $("#share-url").val url
+
+  if $(".nav-tabs li.active a").html() is "Snapshots" && history.pushState
+    window.history.pushState({path:url},'',url);
   true
 
 UpdateSnapshotRec = (snapInfo) ->
@@ -282,6 +282,7 @@ handleBodyLoadContent = ->
   $("#tdI#{cameraCurrentHour}").addClass("active")
   PreviousImageHour = "tdI#{cameraCurrentHour}"
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
+  $(".btn-group").tooltip()
 
   showLoader()
   HighlightCurrentMonth()
@@ -602,6 +603,7 @@ SetImageHour = (hr, id) ->
     $("#btnCreateHourMovie").removeAttr('disabled')
     GetCameraInfo true
   else
+    xhrRequestChangeMonth.abort()
     $("#divRecent").show()
     $("#divInfo").fadeOut()
     $("#divSliderBackground").width("0%")
@@ -842,7 +844,7 @@ handleTabEvent = ->
 
 initializeRecordingsTab = ->
   initDatePicker()
-  #handleSlider()
+  handleSlider()
   handleWindowResize()
   handleBodyLoadContent()
   handleMinSecDropDown()

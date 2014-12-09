@@ -13,7 +13,7 @@ var Metronic = function () {
 
     var assetsPath = '../../assets/';
 
-    var globalImgPath = assetsPath + 'global/img/';
+    var globalImgPath = assetsPath + 'metronic/';
 
     // theme layout color set
 

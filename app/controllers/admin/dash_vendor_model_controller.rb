@@ -15,24 +15,19 @@ class Admin::DashVendorModelController < AdminController
     display_length = params[:length].to_i
     display_length = display_length < 0 ? total_records : display_length
     display_start = params[:start].to_i
-    sEcho = params[:draw].to_i
+    table_draw = params[:draw].to_i
 
     index_end = display_start + display_length
-    index_end = index_end > total_records ? total_records : index_end
-    records = {:data => [], :draw => sEcho, :recordsTotal => total_records, :recordsFiltered => total_records}
+    index_end = index_end > total_records ? total_records - 1 : index_end
+    records = {:data => [], :draw => table_draw, :recordsTotal => total_records, :recordsFiltered => total_records}
 
-    i = display_start
-    n = 0
-    while i < index_end
-      records[:data][n] = [dash_vendors_models[i].vendor.name,
-                           dash_vendors_models[i].name,
-                           dash_vendors_models[i].jpg_url,
-                           dash_vendors_models[i].h264_url,
-                           dash_vendors_models[i].mjpg_url,
-                           "<a href=\"models/#{dash_vendors_models[i].id}\" class=\"btn btn-xs default\"><i class=\"fa fa-search\"></i> View</a>"]
-      i +=1
-      n +=1
-    end
+    (display_start..index_end).each {|index|
+      records[:data][records[:data].count] = [dash_vendors_models[index].vendor.name,
+                                              dash_vendors_models[index].name,
+                                              dash_vendors_models[index].jpg_url,
+                                              dash_vendors_models[index].h264_url,
+                                              dash_vendors_models[index].mjpg_url,
+                                              "<a href='models/#{dash_vendors_models[index].id}' class='btn btn-xs default'><i class='fa fa-search'></i> View</a>"] }
 
     render json: records
   end

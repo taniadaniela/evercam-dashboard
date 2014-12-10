@@ -21,6 +21,7 @@
     font-style: normal;
 
 }
+
 /*/////////////////////
 //HEADER
 /////////////////////*/
@@ -1274,10 +1275,8 @@ input:focus {
 /*///////////////////////////
 // RECORDING - SNAPSHOT
 ///////////////////////////*/
-#recording {
-    /*max-height: 680px;
-    overflow-x: hidden;
-    overflow-y: hidden;*/
+#recording input {
+  font-size: 16px;
 }
 #recording .has-snapshot{
     color: #428bca;

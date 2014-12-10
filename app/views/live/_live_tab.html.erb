@@ -3,11 +3,17 @@
     <div>
       <div class="row">
         <div class="col-lg-8 col-md-12">
+
           <div id="fullscreen" class="html5-fullscreen-api">
-            <div class="fullscreen-expand"><i class="icon-size-fullscreen"></i></div>
             <img id="myImage" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+            <div class="live-options">
+
+                <a id="toggle"><i class="glyphicon glyphicon-fullscreen"></i></a>
+                <a href="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>"  onclick="window.open('<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>', 'newwindow', 'width=600, height=450'); return false;"><i class="glyphicon glyphicon-new-window" aria-hidden="true"></i></i></a>
+              </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -49,8 +55,9 @@
   }());
   <% end %>
 
-  $('#myImage').click(function () {
-    screenfull.toggle(this);
+
+  $('#toggle').click(function () {
+    screenfull.toggle($('#myImage')[0]);
   });
 
 

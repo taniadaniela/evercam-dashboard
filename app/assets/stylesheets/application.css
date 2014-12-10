@@ -13,6 +13,7 @@
  *= require bootstrap-theme
  *= require ladda-themeless-0.8.0.min.css
  *= require admin/fonts.css.scss
+ *= require admin/glyphicons.css
  *= require jquery.datetimepicker-2.2.5.min.css
  *= require metronic-components.css
  *= require metronic-layout.css

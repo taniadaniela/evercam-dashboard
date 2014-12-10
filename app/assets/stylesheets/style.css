@@ -691,26 +691,33 @@ ul.scroll-menu {
     margin: 0 auto;
 }
 #fullscreen {
-    cursor: pointer;
+    position: relative;
+}
+#fullscreen a {
+  color:#ffffff;
+  padding-right: 8px;
+}
+#myImage {
+  width: auto;
+  max-width: 100%;
+}
+.live-options {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  color: #FFFFFF;
+  opacity: 0;
+  -moz-transition: all .2s linear;
+  -webkit-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear;
+  z-index: 10000000000;
+}
+#fullscreen:hover .live-options {
+  opacity: 1;
 }
 
-.fullscreen-expand {
-    position: absolute;
-    top: 9px;
-    right: 23px;
-    color: #FFFFFF;
-    opacity: 0;
-    -moz-transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    transition: all .2s linear;
-}
-#fullscreen:hover .fullscreen-expand {
-    opacity: 1;
-}
-#live img {
-    max-width: 100%;
-}
+
 .tint img {
     border: 1px solid #e5e5e5 !important;
 }

@@ -418,12 +418,31 @@ padding-top: 35px;
     line-height: 250px;
     overflow: hidden;
     text-align: center;
-
 }
 .public-cam-box img {
     height:120%;
     margin-left: -15px;
+}
 
+#public-index .tabbable-line > .nav-tabs {
+  position: absolute;
+  top: 1px;
+  z-index: 100;
+  right: 0;
+}
+
+#public-index .tabbable-line > .nav-tabs > li {
+  background: rgba(0,0,0,0.1);
+}
+#public-index .tabbable-line > .nav-tabs > li.active {
+  border-bottom: none;
+}
+#public-index .nav-tabs > li.active > a {
+  background: rgba(0,0,0,0.2) !important;
+}
+#public-index .tabbable-line > .nav-tabs > li:hover {
+  border-bottom: none !important;
+  background: rgba(0,0,0,0.2);
 }
 
 .add-to-cams {

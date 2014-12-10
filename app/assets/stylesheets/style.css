@@ -444,7 +444,9 @@ padding-top: 35px;
   border-bottom: none !important;
   background: rgba(0,0,0,0.2);
 }
-
+#list {
+  margin-top: 20px;
+}
 .add-to-cams {
     position: absolute;
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
@@ -1927,7 +1929,10 @@ input:-webkit-autofill:focus {
 
     display:none;
 }
-
+.page-sidebar .page-sidebar-menu > li.active > a {
+  color: #ffffff;
+  font-size: 16px;
+}
 li .dev-menu-title:hover {
     background-color: #494D51;
     cursor: default !important;

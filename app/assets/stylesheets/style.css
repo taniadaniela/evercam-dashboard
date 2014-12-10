@@ -43,10 +43,6 @@
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle a {
     margin-top: 4px;
 }
-.page-header {
- z-index: 10000000 !important;
-}
-
 .nav-title a {
     text-decoration: none;
     color: #ffffff;

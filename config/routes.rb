@@ -27,8 +27,8 @@ EvercamDashboard::Application.routes.draw do
   post 'webhooks' => 'webhooks#create'
   delete 'webhooks/:id' => 'webhooks#delete'
 
-  get 'publiccam' => 'public#index'
-  get 'publiccam/:id' => 'public#single'
+  get 'public/cameras' => 'public#index'
+  get 'public/cameras/:id' => 'public#single'
 
   get 'locations' => 'locations#index'
 

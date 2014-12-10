@@ -3394,6 +3394,7 @@ Page content
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border:none;
   border-bottom:1px solid #ffffff;
+  background-color: #ffffff;
 }
 #camera-single .tabbable-custom > .nav-tabs > li > a {
   color:#444444;

@@ -6,6 +6,7 @@
           <div id="fullscreen" class="html5-fullscreen-api">
             <div class="fullscreen-expand"><i class="icon-size-fullscreen"></i></div>
             <img id="myImage" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+            <div class="btn-play-pause hide"><i class="icon-control-pause"></i></div>
           </div>
         </div>
       </div>
@@ -22,7 +23,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/1.0.4/screenfull.min.js"></script>
 <script type="text/javascript">
   <% if @camera['is_online'] %>
-  var int_time;
+  var int_time, is_pause = false;
   (function(){
     var el = document.getElementById('myImage');
     function loadImage () {
@@ -33,17 +34,32 @@
           el.parent.replaceChild(img, el)
         else
           el.src = src;
+        $(".btn-play-pause").removeClass("hide");
       }
       img.src = src;
     }
 
-    $('a[data-toggle="tab"]').bind("click",function(){
+    $('a[data-toggle="tab"]').on("click",function(){
       var tabName = $(this).html();
-      if (tabName == "Live View") {
+      if (!is_pause && tabName == "Live View") {
         int_time = setInterval(loadImage, 1000);
       }
       else {
         clearInterval(int_time);
+      }
+    });
+    $(".btn-play-pause").on("click",function(){
+      if(is_pause){
+        int_time = setInterval(loadImage, 1000);
+        is_pause = false;
+        $(this).children().removeClass("icon-control-play");
+        $(this).children().addClass("icon-control-pause");
+      }
+      else {
+        clearInterval(int_time);
+        is_pause = true;
+        $(this).children().removeClass("icon-control-pause");
+        $(this).children().addClass("icon-control-play");
       }
     });
   }());
@@ -59,6 +75,7 @@
     img = new Image();
     img.onerror = function() {
       oImg.src = sPathToDefaultImg;
+      $(".btn-play-pause").addClass("hide");
     };
     img.src = oImg.src;
   };

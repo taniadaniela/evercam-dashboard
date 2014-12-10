@@ -683,6 +683,20 @@ ul.scroll-menu {
     -o-transition: all .2s linear;
     transition: all .2s linear;
 }
+.btn-play-pause{
+    position: absolute;
+    bottom: 9px;
+    opacity: 1;
+    padding: 8px 10px;
+    background-color: #fff;
+    left: 24px;
+    font-size: 12px;
+    color: #333333;
+}
+.btn-play-pause:hover{
+    background-color: #E5E5E5;
+}
+
 #fullscreen:hover .fullscreen-expand {
     opacity: 1;
 }

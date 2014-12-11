@@ -684,7 +684,9 @@ ul.scroll-menu {
         margin-top: 5px;
     }
 }
-
+.fa-lg, .icon-lg {
+  font-size: 20px;
+}
 /*LIVE*/
 .demo-wrapper {
     width: 38%;

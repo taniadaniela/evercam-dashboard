@@ -45,14 +45,14 @@ fullscreenImage = ->
     screenfull.toggle this
   true
 
-validateImage = (oImg) ->
+validateImage = (image) ->
   img = new Image()
   img.onerror = ->
-    oImg.src = default_img
-    if oImg.id is "live-player-image"
+    image.src = default_img
+    if image.id is "live-player-image"
       $(".btn-live-player").addClass "hide"
       $(".refresh-live-snap").removeClass "hide"
-  img.src = oImg.src
+  img.src = image.src
   return
 
 initializeLiveTab = ->
@@ -61,10 +61,7 @@ initializeLiveTab = ->
   handleTabEvent()
   controlButtonEvents()
   fullscreenImage()
-
-  aImg = document.getElementsByTagName("IMG")
-  i = aImg.length
-  validateImage aImg[i]  while --i isnt -1
+  validateImage image for image in document.getElementsByTagName("IMG")
   true
 
 if !window.Evercam

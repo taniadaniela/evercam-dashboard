@@ -7,10 +7,9 @@
           <div id="fullscreen" class="html5-fullscreen-api">
             <img id="myImage" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
             <div class="live-options">
-
-                <a id="toggle"><i class="glyphicon glyphicon-fullscreen"></i></a>
-                <a href="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>"  onclick="window.open('<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>', 'newwindow', 'width=600, height=450'); return false;"><i class="glyphicon glyphicon-new-window" aria-hidden="true"></i></i></a>
-              </div>
+              <a id="toggle"><i class="fa fa-arrows-alt"></i></a>
+              <a href="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>"  onclick="window.open('<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>', 'newwindow', 'width=600, height=450'); return false;"><i class="fa fa-external-link" aria-hidden="true"></i></i></a>
+            </div>
           </div>
         </div>
 

@@ -2246,6 +2246,7 @@ a {
 }
 /* General utilities */
 .bold {
+  font-weight: normal;
   font-family: 'proxima-nova-bold';
 }
 b, strong {

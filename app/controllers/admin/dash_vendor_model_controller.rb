@@ -6,11 +6,11 @@ class Admin::DashVendorModelController < AdminController
   end
 
   def load_vendor_model
-    condition = "lower(name) like '%#{params[:vendor_model]}%' AND
-                lower(jpg_url) like '%#{params[:snapshot_url]}%' AND
-                lower(h264_url) like '%#{params[:h264_url]}%' AND
-                lower(mjpg_url) like '%#{params[:mjpg_url]}%'"
-    dash_vendors_models = DashVendorModel.includes(:vendor).where(condition)
+    condition = "lower(vendor_models.name) like lower('%#{params[:vendor_model]}%') AND
+                lower(jpg_url) like lower('%#{params[:snapshot_url]}%') AND
+                lower(h264_url) like lower('%#{params[:h264_url]}%') AND
+                lower(mjpg_url) like lower('%#{params[:mjpg_url]}%')"
+    dash_vendors_models = DashVendorModel.joins(:vendor).where(condition).where("lower(vendors.name) like lower('%#{params[:vendor]}%')")
     total_records = dash_vendors_models.count
     display_length = params[:length].to_i
     display_length = display_length < 0 ? total_records : display_length

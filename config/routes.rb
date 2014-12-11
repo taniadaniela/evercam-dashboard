@@ -27,8 +27,8 @@ EvercamDashboard::Application.routes.draw do
   post 'webhooks' => 'webhooks#create'
   delete 'webhooks/:id' => 'webhooks#delete'
 
-  get 'publiccam' => 'public#index'
-  get 'publiccam/:id' => 'public#single'
+  get 'public/cameras' => 'public#index'
+  get 'public/cameras/:id' => 'public#single'
 
   get 'locations' => 'locations#index'
 
@@ -58,7 +58,8 @@ EvercamDashboard::Application.routes.draw do
   get '/hikvision.local.storage' => 'widgets#hikvision_local_storage'
   get '/hikvision.private.widget' => 'widgets#hikvision_private_widget'
 
-  get '/add-android' => 'pages#add_android'
+  get '/live' => 'pages#live'
+  get '/live/:id' => 'pages#live'
   get '/location' => 'pages#location'
 
   post '/share/camera/:id' => 'sharing#update_camera'

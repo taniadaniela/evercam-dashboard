@@ -41,7 +41,7 @@
             </div>
 
             <div class="tab-pane <%= 'active' if cookies['public-style'] == 'list' %>" id="list">
-              <div class="col-md-12 margin-top-20">
+              <div class="col-md-12 margin-top-40">
                 <p id="city"></p>
                 <table id="public-list" class="table table-fixed flip-content" style="border-collapse:collapse;">
                   <thead>
@@ -70,7 +70,7 @@
                       </td>
                       <td><%= c['owner'] %></td>
                       <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></p></div></td>
-                      <td class="show-arrow text-success"><a href="/publiccam/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                      <td class="show-arrow text-success"><a href="/public/cameras/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
                       <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
 
@@ -154,8 +154,8 @@
     (function (marker) {
       // add click event
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent("<a href='/publiccam/<%= c['id'] %>'><%= preview(c, true) %></a>"+
-            '<h5><a href="/publiccam/<%= c['id'] %>"><%= c["name"] %></a></h5>');
+        infowindow.setContent("<a href='/public/cameras/<%= c['id'] %>'><%= preview(c, true) %></a>"+
+            '<h5><a href="/public/cameras/<%= c['id'] %>"><%= c["name"] %></a></h5>');
         infowindow.open(map, marker);
       });
     })(marker);

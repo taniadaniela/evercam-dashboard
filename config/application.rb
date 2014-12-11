@@ -68,6 +68,7 @@ module EvercamDashboard
                                  'jquery.datetimepicker-2.2.5.min.css',
                                  'layout.js',
                                  'jquery.uniform.min-v2.1.min.js',
+                                 'glyphicons.css',
                                  'metronic-layout.css',
                                  'metronic-components.css',
                                  'uniform.default.min.css',

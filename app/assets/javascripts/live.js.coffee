@@ -41,9 +41,10 @@ controlButtonEvents = ->
   true
 
 fullscreenImage = ->
-  $("#live-player-image").click ->
-    screenfull.toggle this
-  true
+  $("#toggle").click ->
+    screenfull.toggle $("#live-player-image")[0]
+  return
+
 
 validateImage = (image) ->
   img = new Image()

@@ -35,8 +35,19 @@ class PagesController < ApplicationController
   end
 
   def live
-    response.headers["X-Frame-Options"] = "ALLOWALL"
-    current_user
+    begin
+    api = get_evercam_api
+    @camera = Hashie::Mash.new(api.get_camera(params[:id], true))
+    end
+    rescue => error
+      puts error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
+                           error.backtrace.join("\n")
+      flash[:error] = "An error occurred fetching the details for your camera. "\
+                        "Please try again and, if the problem persists, contact "\
+                        "support."
+      redirect_to action: 'index'
   end
 
   def swagger

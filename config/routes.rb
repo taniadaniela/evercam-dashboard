@@ -59,6 +59,7 @@ EvercamDashboard::Application.routes.draw do
   get '/hikvision.private.widget' => 'widgets#hikvision_private_widget'
 
   get '/live' => 'pages#live'
+  get '/live/:id' => 'pages#live'
   get '/location' => 'pages#location'
 
   post '/share/camera/:id' => 'sharing#update_camera'

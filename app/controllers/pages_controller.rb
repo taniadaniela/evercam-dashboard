@@ -3,14 +3,10 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:swagger]
   include SessionsHelper
   include ApplicationHelper
-  layout "forswagger", only: [:swagger]
+  layout "bare-bones", only: [:swagger, :live]
 
   def dev
     load_user_cameras
-    current_user
-  end
-
-  def add_android
     current_user
   end
 
@@ -38,6 +34,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def live
+    response.headers["X-Frame-Options"] = "ALLOWALL"
+    current_user
+  end
 
   def swagger
     response.headers["X-Frame-Options"] = "ALLOWALL"

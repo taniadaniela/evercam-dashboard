@@ -683,20 +683,29 @@ ul.scroll-menu {
     -o-transition: all .2s linear;
     transition: all .2s linear;
 }
-.btn-play-pause{
+.btn-live-player{
     position: absolute;
-    bottom: 9px;
     opacity: 1;
     padding: 8px 10px;
     background-color: #fff;
-    left: 24px;
     font-size: 12px;
     color: #333333;
+    border:solid 1px #999999;
 }
-.btn-play-pause:hover{
+.play-pause{
+    bottom: 9px;
+    left: 24px;
+}
+.refresh-live-snap{
+    bottom: 9px;
+    left: 68px;
+}
+.btn-live-player:hover{
     background-color: #E5E5E5;
 }
-
+.refresh-camera{
+    cursor: pointer;
+}
 #fullscreen:hover .fullscreen-expand {
     opacity: 1;
 }

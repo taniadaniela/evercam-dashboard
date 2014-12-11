@@ -1,22 +1,70 @@
-onSetCameraAccessClicked = (event) ->
+default_img = "/assets/offline.svg"
+int_time = undefined
+is_pause = false
+image_placeholder = undefined
+
+loadImage = ->
+  img = new Image()
+  src = "#{$("#live-snapshot-url").val()}&rand=" + new Date().getTime()
+  img.onload = ->
+    unless not image_placeholder.parent
+      image_placeholder.parent.replaceChild img, image_placeholder
+    else
+      image_placeholder.src = src
+    $(".btn-live-player").removeClass "hide"
+  img.src = src
+  return
+
+handleTabEvent = ->
+  $('a[data-toggle="tab"]').on "click", ->
+    if window.Evercam.cameraIsOnline
+      tabName = $(this).html()
+      if not is_pause and tabName is "Live View"
+        int_time = setInterval(loadImage, 1000)
+      else
+        clearInterval int_time
+
+controlButtonEvents = ->
+  $(".play-pause").on "click", ->
+    if is_pause
+      int_time = setInterval(loadImage, 1000)
+      is_pause = false
+      $(this).children().removeClass "icon-control-play"
+      $(this).children().addClass "icon-control-pause"
+    else
+      clearInterval int_time
+      is_pause = true
+      $(this).children().removeClass "icon-control-pause"
+      $(this).children().addClass "icon-control-play"
+  $(".refresh-live-snap, .refresh-camera").on "click", ->
+    loadImage()
   true
 
+fullscreenImage = ->
+  $("#live-player-image").click ->
+    screenfull.toggle this
+  true
+
+validateImage = (oImg) ->
+  img = new Image()
+  img.onerror = ->
+    oImg.src = default_img
+    if oImg.id is "live-player-image"
+      $(".btn-live-player").addClass "hide"
+      $(".refresh-live-snap").removeClass "hide"
+  img.src = oImg.src
+  return
+
 initializeLiveTab = ->
-  $('#set_permissions_submit').click(onSetCameraAccessClicked)
-  $('img.snap').each ->
-    oldimg = $(this)
-    $("<img />").attr('src', $(this).attr('data-proxy')).load () ->
-      if not this.complete or this.naturalWidth is undefined or this.naturalWidth is 0
-        console.log('camera offline')
-      else
-        oldimg.replaceWith($(this))
+  image_placeholder = document.getElementById("live-player-image")
 
-  $('#live-refresh').click ->
-    $oldimg = $('.camera-preview img')
-    $("<img />").attr('src', $oldimg.attr('src')).load () ->
+  handleTabEvent()
+  controlButtonEvents()
+  fullscreenImage()
 
-        $oldimg.replaceWith($(this))
-    return false
+  aImg = document.getElementsByTagName("IMG")
+  i = aImg.length
+  validateImage aImg[i]  while --i isnt -1
   true
 
 if !window.Evercam

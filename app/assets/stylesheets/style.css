@@ -700,8 +700,7 @@ ul.scroll-menu {
   margin-right: -2px;
 }
 #live-player-image {
-  width: auto;
-  max-width: 100%;
+  width: 100%;
 }
 .live-options {
   position: absolute;

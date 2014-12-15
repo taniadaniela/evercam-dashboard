@@ -224,7 +224,12 @@
     }).on('change', function () {
       $('#camera-model' + previous).addClass('hidden');
       $('#camera-model' + this.value).removeClass('hidden');
+      $('#snapshot').val($('#camera-model' + this.value).find(":selected").attr('jpg-val'));
       previous = this.value;
+    });
+
+    $(".camera-model").on('change',function(){
+      $('#snapshot').val($(this).find(":selected").attr('jpg-val'));
     });
 
     // Javascript to enable link to tab

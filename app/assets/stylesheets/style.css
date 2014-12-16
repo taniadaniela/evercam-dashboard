@@ -2595,13 +2595,16 @@ background: #428BCA;
 
 .cbp-spmenu a {
   display: block;
-  color: #fff;
+  color: ##bdbdbd;
   font-size: 16px;
 }
 
 .cbp-spmenu a:hover {
-  background: #34393D;
+  background: #494d51;
   color: #ffffff;
+  text-decoration:none;
+}
+.cbp-spmenu a:focus {
   text-decoration:none;
 }
 

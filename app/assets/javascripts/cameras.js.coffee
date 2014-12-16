@@ -35,10 +35,16 @@ showHideLeftNav = ->
     disableOther "showLeft"
   true
 
+initNotification = ->
+  Notification.init(".bb-alert");
+  if notifyMessage
+    Notification.show notifyMessage
+
 initializeCameras = ->
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
+  initNotification()
   onLoadingError()
   refreshImages()
   showHideLeftNav()

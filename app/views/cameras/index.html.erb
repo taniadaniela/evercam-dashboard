@@ -98,11 +98,9 @@
 
 <%= javascript_include_tag "cameras" %>
 <script>
-  $(window.Evercam.Cameras.initializeCameras);
-  // Notifications
-  Notification.init(".bb-alert");
+  notifyMessage = '';
   <% if flash[:message] %>
-  Notification.show('<%= flash[:message] %>');
+    notifyMessage = '<%= flash[:message] %>';
   <% end %>
-
+  $(window.Evercam.Cameras.initializeCameras);
 </script>

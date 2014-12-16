@@ -172,9 +172,7 @@
 //ADD IP CAMERA PAGE
 /////////////////////*/
 #add-ip .form-actions {
-  margin-top: 20px;
-  border-top: 1px solid #f5f5f5;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
 }
 #add-ip .tab-content {
   padding: 20px 0px 0px 0px;
@@ -191,8 +189,10 @@
   user-select: none;
 }
 .settings {
-  border-top: 1px solid #e5e5e5;
   margin-bottom: 20px;
+}
+button#add-button {
+  margin-left: 9px;
 }
 .label {
   margin-top: 30px;
@@ -447,6 +447,9 @@ input:-webkit-autofill {
 #list {
   margin-top: 20px;
 }
+#public-single .icon-arrow-left {
+  margin-right: 8px;
+}
 .add-to-cams {
   position: absolute;
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
@@ -700,7 +703,7 @@ ul.scroll-menu {
   margin-right: -2px;
 }
 #live-player-image {
-  min-width: 100%;
+  width: 100%;
 }
 .live-options {
   position: absolute;
@@ -1736,6 +1739,11 @@ ul, menu, dir {
   display: none !important;
   visibility: none !important;
 }
+#intercom-launcher {
+  display: none !important;
+  visibility: none !important;
+}
+
 /*/////////////////////
 //SIGN IN FORM
 /////////////////////*/
@@ -2595,13 +2603,16 @@ background: #428BCA;
 
 .cbp-spmenu a {
   display: block;
-  color: #fff;
+  color: ##bdbdbd;
   font-size: 16px;
 }
 
 .cbp-spmenu a:hover {
-  background: #34393D;
+  background: #494d51;
   color: #ffffff;
+  text-decoration:none;
+}
+.cbp-spmenu a:focus {
   text-decoration:none;
 }
 
@@ -2747,7 +2758,10 @@ background: #428BCA;
     left: 190px;
   }
 }
-
+/*BOOTSTRAP STYLES OVERRIDES*/
+a:hover, a:focus {
+  text-decoration: none;
+}
 /*METRONIC LAYOUT STYLE OVERRIDES*/
 body {
   background-color: #f5f5f5 !important;
@@ -3470,4 +3484,7 @@ Page content
 /* MARGINS */
 .margin-top-40 {
   margin-top: 40px;
+}
+.margin-top-30 {
+  margin-top: 30px;
 }

@@ -98,28 +98,7 @@
 
 <%= javascript_include_tag "cameras" %>
 <script>
-  jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
-  });
-  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-      showLeft = document.getElementById( 'showLeft' )
-      body = document.body;
-
-  showLeft.onclick = function() {
-    classie.toggle( this, 'active' );
-    classie.toggle( menuLeft, 'cbp-spmenu-open' );
-    disableOther( 'showLeft' );
-  };
-
-
-  function disableOther( button ) {
-    if( button !== 'showLeft' ) {
-      classie.toggle( showLeft, 'disabled' );
-    }
-  }
-
+  $(window.Evercam.Cameras.initializeCameras);
   // Notifications
   Notification.init(".bb-alert");
   <% if flash[:message] %>

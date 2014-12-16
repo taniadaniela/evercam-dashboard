@@ -703,7 +703,7 @@ ul.scroll-menu {
   margin-right: -2px;
 }
 #live-player-image {
-  min-width: 100%;
+  width: 100%;
 }
 .live-options {
   position: absolute;
@@ -1743,6 +1743,7 @@ ul, menu, dir {
   display: none !important;
   visibility: none !important;
 }
+
 /*/////////////////////
 //SIGN IN FORM
 /////////////////////*/

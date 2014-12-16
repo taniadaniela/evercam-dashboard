@@ -447,6 +447,9 @@ input:-webkit-autofill {
 #list {
   margin-top: 20px;
 }
+#public-single .icon-arrow-left {
+  margin-right: 8px;
+}
 .add-to-cams {
   position: absolute;
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
@@ -1736,6 +1739,10 @@ ul, menu, dir {
   display: none !important;
   visibility: none !important;
 }
+#intercom-launcher {
+  display: none !important;
+  visibility: none !important;
+}
 /*/////////////////////
 //SIGN IN FORM
 /////////////////////*/
@@ -2750,7 +2757,10 @@ background: #428BCA;
     left: 190px;
   }
 }
-
+/*BOOTSTRAP STYLES OVERRIDES*/
+a:hover, a:focus {
+  text-decoration: none;
+}
 /*METRONIC LAYOUT STYLE OVERRIDES*/
 body {
   background-color: #f5f5f5 !important;

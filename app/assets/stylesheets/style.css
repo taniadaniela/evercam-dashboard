@@ -172,9 +172,7 @@
 //ADD IP CAMERA PAGE
 /////////////////////*/
 #add-ip .form-actions {
-  margin-top: 20px;
-  border-top: 1px solid #f5f5f5;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
 }
 #add-ip .tab-content {
   padding: 20px 0px 0px 0px;
@@ -191,8 +189,10 @@
   user-select: none;
 }
 .settings {
-  border-top: 1px solid #e5e5e5;
   margin-bottom: 20px;
+}
+button#add-button {
+  margin-left: 9px;
 }
 .label {
   margin-top: 30px;
@@ -3470,4 +3470,7 @@ Page content
 /* MARGINS */
 .margin-top-40 {
   margin-top: 40px;
+}
+.margin-top-30 {
+  margin-top: 30px;
 }

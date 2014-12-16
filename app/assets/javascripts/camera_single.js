@@ -7,13 +7,14 @@
 //= require logs
 //= require webhooks
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     Metronic.init(); // init metronic core components
     Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
+    QuickSidebar.init(); // init quick sidebar
+    handleScrollToEvents();
 });
 
-$(function () {
+function handleScrollToEvents() {
     // Javascript to enable link to tab
     var url = document.location.toString();
     if (url.match('#')) {
@@ -29,5 +30,4 @@ $(function () {
         window.location.hash = e.target.hash;
         scrollTo(0, 0);
     })
-
-});
+}

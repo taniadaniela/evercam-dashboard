@@ -37,11 +37,13 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="camera-name">Timezone:</label>
+                          <label class="control-label" for="camera-timezone">Timezone:</label>
                         </td>
-                        <td>
-                          <input id="camera-timezone" class="form-control makeEditable" type="text" value="<%= @camera['timezone'] %>" placeholder="" name="camera-timezone">
-                        </td>
+                        <select id="camera-timezone" name="camera-timezone" class="form-control makeEditable">
+                          <% Timezone::Zone.names.each do |timezone| %>
+                            <option value="<%= timezone %>" selected="selected"><%= timezone %></option>
+                          <% end %>
+                        </select>
                       </tr>
                     </table>
                   </div>

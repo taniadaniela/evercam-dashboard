@@ -2,11 +2,6 @@ showFeedback = (message) ->
   Notification.show(message)
   true
 
-onLoadingError = ->
-  $('img.live').on 'error', () ->
-    showFeedback("Error loading camera image. Camera might be offline.")
-  true
-
 refreshImages = ->
   $('img.snap').each ->
     oldimg = $(this)

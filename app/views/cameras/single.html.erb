@@ -94,6 +94,11 @@
         <li>
           <a data-toggle="tab" href="#recording">Snapshots</a>
         </li>
+        <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
+          <li>
+            <a data-toggle="tab" href="#streams">Streams</a>
+          </li>
+        <% end %>
         <% if has_edit_right %>
           <li>
             <a data-toggle="tab" href="#sharing">Sharing</a>
@@ -165,6 +170,11 @@
       <!--LIVE VIEW TAB PANE -->
       <div id="live" class="tab-pane">
         <%= render partial: "live/live_tab" %>
+      </div>
+
+      <!--LIVE VIEW TAB PANE -->
+      <div id="streams" class="tab-pane">
+        <%= render partial: "streams/streams_tab" %>
       </div>
 
       <!--SHARING TAB PANE -->

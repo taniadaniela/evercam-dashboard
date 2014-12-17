@@ -82,6 +82,7 @@ class CamerasController < ApplicationController
     begin
       settings = {:name => params['camera-name'],
                   :external_host => params['camera-url'],
+                  :timezone => params['camera-timezone'],
                   :internal_host => params['local-ip'],
                   :external_http_port => params['port'],
                   :internal_http_port => params['local-http'],

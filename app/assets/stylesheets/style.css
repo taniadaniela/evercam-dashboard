@@ -1743,6 +1743,10 @@ ul, menu, dir {
   display: none !important;
   visibility: none !important;
 }
+#intercom-container #intercom-launcher {
+  display: none !important;
+  visibility: none !important;
+}
 
 /*/////////////////////
 //SIGN IN FORM

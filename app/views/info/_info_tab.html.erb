@@ -35,6 +35,19 @@
                           <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" data-validation-allowing="-_ " data-validation="alphanumeric" placeholder="" name="camera-name">
                         </td>
                       </tr>
+                      <tr>
+                        <td>
+                          <label class="control-label" for="camera-timezone">Timezone:</label>
+                        </td>
+                        <td>
+                        <select id="camera-timezone" name="camera-timezone" class="form-control makeEditable">
+                          <% Timezone::Zone.names.each do |timezone| %>
+                            <option value="<%= timezone %>" selected="selected"><%= timezone %></option>
+                          <% end %>
+                            <option value="<%= @camera['timezone'] %>" selected="selected"><%= @camera['timezone'] %></option>
+                        </select>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>

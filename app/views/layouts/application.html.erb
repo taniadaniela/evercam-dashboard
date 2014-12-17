@@ -51,6 +51,9 @@
         <% if current_user.is_admin? %>
             <a href="/admin" target="_blank" title="Admin Dashboard"><i class="icon-logout fa-rotate-180"></i></a>
         <% end %>
+        <% if params[:action] == 'index' %>
+          <a class="refresh-images" title="Refresh Images"><i class="icon-refresh"></i></a>
+        <% end %>
       </div>
       <!-- BEGIN TOP NAVIGATION MENU -->
       <div class="top-menu">

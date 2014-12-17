@@ -11,9 +11,7 @@ refreshImages = ->
   $('img.snap').each ->
     oldimg = $(this)
     $("<img class='snap' />").attr({"data-proxy": $(this).attr('data-proxy'), "src": $(this).attr('data-proxy') + '&' + new Date().getTime()}).load () ->
-      if not this.complete or this.naturalWidth is undefined or this.naturalWidth is 0
-        showFeedback('Error loading camera image. Camera might be offline.')
-      else
+      if this.complete and this.naturalWidth isnt undefined and this.naturalWidth isnt 0
         oldimg.replaceWith($(this))
 
 onRefreshImage = ->

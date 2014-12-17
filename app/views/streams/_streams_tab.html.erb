@@ -1,4 +1,4 @@
-<script src="http://jwpsrv.com/library/kV1XdoU3EeSr_BLddj37mA.js"></script>
+<script src="//jwpsrv.com/library/kV1XdoU3EeSr_BLddj37mA.js"></script>
 
 <div class="row">
   <div class="col-xs-12 col-md-6">
@@ -7,7 +7,6 @@
     <!-- TODO: move this to a coffeescript file for the live view when streams tab gets merged with it -->
     <script type='text/javascript'>
       var url = '<%= @camera.deep_fetch(:proxy_url, :rtmp) {} %>';
-      console.log('rtmp:', url);
       jwplayer('jwplayer').setup({
         file: url,
         width: '100%',

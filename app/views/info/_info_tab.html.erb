@@ -100,12 +100,12 @@
                         </td>
                         <td>
                           <% vendors.each do |v| -%>
-                            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" ="" class="form-control camera-model  <% if v.exid != @camera['vendor_id'] %>hidden<% end %>">
+                            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model  <% if v.exid != @camera['vendor_id'] %>hidden<% end %>">
                             <% models(v.id).each_with_index  do |m, index| -%>
                               <% if index == 0 %>
-                                <option value="<%= m.exid -%>" ><%= m.name -%></option>
+                                <option jpg-val="<%= m.jpg_url -%>" value="<%= m.exid -%>" ><%= m.name -%></option>
                               <% else %>
-                                <option value="<%= m.exid -%>" <% if m.name == @camera["model_name"] %>selected="selected"<% end %> ><%= m.name -%></option>
+                                <option jpg-val="<%= m.jpg_url -%>" value="<%= m.exid -%>" <% if m.name == @camera["model_name"] %>selected="selected"<% end %> ><%= m.name -%></option>
                               <% end %>
                             <% end -%>
                             </select>
@@ -117,7 +117,7 @@
                           <label class="control-label" for="camera-username">Username:</label>
                         </td>
                         <td>
-                          <input id="camera-username" name="camera-username" placeholder="Not yet provided" class="form-control  makeEditable" ="" type="text"
+                          <input id="camera-username" name="camera-username" placeholder="Not yet provided" class="form-control  makeEditable" type="text"
                           value="<%= @camera['cam_username'] %>">
                         </td>
                       </tr>
@@ -126,7 +126,7 @@
                           <label class="control-label" for="camera-password">Password:</label>
                         </td>
                         <td>
-                          <input id="camera-password" name="camera-password" placeholder="Not yet provided" class="form-control " ="" type="text"
+                          <input id="camera-password" name="camera-password" placeholder="Not yet provided" class="form-control" type="text"
                           value="<%= @camera['cam_password'] %>">
                         </td>
                       </tr>
@@ -199,7 +199,7 @@
                           <label class="control-label" for="ext-rtsp-port">RTSP Port:</label>
                         </td>
                         <td>
-                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" ="" data-validation-regexp="^[0-9]{1,5}$"  data-validation-error-msg="The Port should be a 1-5 digit number."
+                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$"  data-validation-error-msg="The Port should be a 1-5 digit number."
                           value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
                         </td>
                       </tr>
@@ -736,130 +736,12 @@
   cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
   cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
   port = '<%= @camera.deep_fetch(:external, :http, :port) {} %>';
+  notifyMessage = '';
+  <% if flash[:message] %>
+    notifyMessage = '<%= flash[:message] %>';
+  <% end %>
 <% end %>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script type="text/javascript">
   $(window.Evercam.Info.initializeTab);
-
-  $(document).ready(function() {
-    if (cameraLong === '') {
-      $('#info-location').replaceWith("<p>Not set</p>");
-      return;
-    }
-  });
-
-  $.validate();
-  function initialize() {
-    if (cameraLong === '0') {
-      $('#co-ordinates').replaceWith("<p>The location is not set. Drag the marker to the location of your camera.</p>");
-    }
-
-    if (cameraLong != '0') {
-      $(".edit-location").click(function() {
-        $("#testies").toggle();
-      });
-    }
-
-    var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
-
-    if (cameraLong === '0') {
-
-      var mapOptions = {
-        zoom: 0,
-        minZoom: 2,
-        maxZoom: 17,
-        center: cameraLatlng
-      }
-
-    } else {
-
-      var mapOptions = {
-        zoom: 14,
-        minZoom: 2,
-        maxZoom: 17,
-        center: cameraLatlng
-      }
-    }
-
-    var map = new google.maps.Map(document.getElementById('map-info'), mapOptions);
-
-    var marker = new google.maps.Marker({
-      position: cameraLatlng,
-      map: map,
-      <% if has_edit_right %>
-      draggable:true,
-      <% else %>
-      draggable:false,
-      <% end %>
-      title: 'Camera Location'
-    });
-
-    var mapFirstClick = false;
-    $("#nav-tabs-2").click(function() {
-      mapFirstClick || setTimeout(function() {
-        google.maps.event.trigger(map, 'resize');
-        mapFirstClick = true;
-        map.setCenter(cameraLatlng);
-      }, 200);
-    });
-
-    // Register Custom "dragend" Event
-    google.maps.event.addListener(marker, 'dragend', function() {
-      $('#location-settings').css('display', 'block');
-    });
-
-    // Register Custom "dragend" Event
-    google.maps.event.addListener(marker, 'dragend', function() {
-
-      // Get the Current position, where the pointer was dropped
-      var point = marker.getPosition();
-      // Center the map at given point
-      map.panTo(point);
-      // Update the textbox
-      document.getElementById('cameraLats').value=point.lat();
-      document.getElementById('cameraLng').value=point.lng();
-      $(cameraLats).val(marker.getPosition().lat().toFixed(7));
-      $(cameraLng).val(marker.getPosition().lng().toFixed(7));
-    });
-
-  }
-  google.maps.event.addDomListener(window, 'load', initialize);
-
-  // Notifications
-  Notification.init(".bb-alert");
-  <% if flash[:message] %>
-  Notification.show('<%= flash[:message] %>');
-  <% end %>
-
-  function centerModal() {
-    $(this).css('display', 'block');
-    var $dialog = $(this).find(".modal-dialog");
-    var offset = ($(window).height() - $dialog.height()) / 2;
-    // Center modal vertically in window
-    $dialog.css("margin-top", offset);
-  }
-  $('.modal').on('show.bs.modal', centerModal);
-  $(window).on("resize", function () {
-    $('.modal:visible').each(centerModal);
-  });
-
-  $('.modal').on('hidden.bs.modal', function(){
-    $(this).find('form')[0].reset();
-  });
-
-    var sPathToDefaultImg = '/assets/offline.svg';
-    var fnValidateImage = function(oImg) {
-      img = new Image();
-      img.onerror = function() {
-        oImg.src = sPathToDefaultImg;
-      };
-      img.src = oImg.src;
-    };
-    var aImg = document.getElementsByTagName('IMG');
-    var i = aImg.length;
-    while (--i !== -1) {
-      fnValidateImage(aImg[i]);
-    }
-
-
 </script>

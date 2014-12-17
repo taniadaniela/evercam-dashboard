@@ -99,9 +99,9 @@
             <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
               <% models(v.id).each_with_index  do |m, index| -%>
                 <% if index == 0 %>
-                  <option selected="selected" value="<%= m.exid  -%>"><%= m.name -%></option>
+                  <option selected="selected" jpg-val="<%= m.jpg_url -%>" value="<%= m.exid  -%>"><%= m.name -%></option>
                 <% else %>
-                  <option value="<%= m.exid  -%>"><%= m.name -%></option>
+                  <option jpg-val="<%= m.jpg_url -%>" value="<%= m.exid  -%>"><%= m.name -%></option>
                 <% end %>
               <% end -%>
             </select>
@@ -360,7 +360,12 @@
     }).on('change', function () {
       $('#camera-model' + previous).addClass('hidden');
       $('#camera-model' + this.value).removeClass('hidden');
+      $('#snapshot').val($('#camera-model' + this.value).find(":selected").attr('jpg-val'));
       previous = this.value;
+    });
+
+    $(".camera-model").on('change',function(){
+      $('#snapshot').val($(this).find(":selected").attr('jpg-val'));
     });
 
     Metronic.init(); // init metronic core components

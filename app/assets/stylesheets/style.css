@@ -2303,7 +2303,17 @@ a:hover {
   color: #2a6496;
 }
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
-  color:#ffffff;
+  color: #ffffff;
+  position: relative;
+}
+.page-sidebar .page-sidebar-menu .sub-menu > li.active:before {
+  font-family: 'FontAwesome';
+  right: -1px;
+  content: "\f0d9";
+  color: #ffffff;
+  position: absolute;
+  font-size: 22px;
+  margin-top: -2px;
 }
 /***
 Customized Bootstrap Buttons

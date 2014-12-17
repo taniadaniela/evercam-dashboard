@@ -38,7 +38,6 @@ initializeCameras = ->
   Layout.init()
   QuickSidebar.init()
   initNotification()
-  onLoadingError()
   refreshImages()
   showHideLeftNav()
   onRefreshImage()

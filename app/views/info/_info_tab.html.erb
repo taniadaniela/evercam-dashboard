@@ -308,11 +308,13 @@
         <table class="table table-fixed table-borderless">
           <tr>
             <td class="col-lg-3">
-              ID:</td>
+              ID:
+            </td>
             <td class="col-lg-9">
-                  <span id="ec_cam_id">
-                    <%= @camera['id'] %>
-                  </span></td>
+              <span id="ec_cam_id">
+                <%= @camera['id'] %>
+              </span>
+            </td>
           </tr>
           <tr>
             <td class="col-lg-3">Name:</td>
@@ -326,16 +328,31 @@
               <% if @camera['owner'] == current_user.email %>
                 <small class="blue"> (you)</small>
               <% end %>
-              <%= @camera['owner'] %></td>
+              <%= @camera['owner'] %>
+            </td>
           </tr>
           <tr>
-            <td class="col-lg-3">Public:</td>
+
+
+            <td class="col-lg-3">Sharing:</td>
             <td class="col-lg-9">
-              <% if @camera['is_public'] %>
-                <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
-              <% else %>
-                <span>No</span>
-              <% end %>
+              Is Public:
+                <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+                 Yes
+                </span>
+                <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+                  No
+                </span>
+
+              <span class="margin-left-10">
+                Is Discoverable:
+                </span>
+                <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_discoverable'] %>">
+                 Yes
+                </span>
+                <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_discoverable'] %>">
+                  No
+                </span>
             </td>
           </tr>
           <tr>
@@ -612,21 +629,37 @@
         <section id="unseen">
           <table class="table table-borderless table-fixed">
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 <span class="title-label">Proxy URL's</span>
+              </td>
+              <td class="col-md-10">
+                <span id="private-short-link" class="proxy-info show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">Only available if the Camera is Public</span>
               </td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 JPEG:
               </td>
               <td>
-          <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
-              <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %></span>
-            <span id="private-short-link" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-              <%= "http://evr.cm/#{@camera['id']}.jpg" %>
-
-              </span>
+                <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+                  <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
+                </span>
+                <span id="private-short-link" class="show-on-private grey" style="<%= 'display: none;' if @camera['is_public'] %>">
+                  <%= "http://evr.cm/#{@camera['id']}.jpg" %>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-md-1">
+                Public:
+              </td>
+              <td>
+                <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+                  <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
+                </span>
+                <span id="private-short-link" class="show-on-private grey" style="<%= 'display: none;' if @camera['is_public'] %>">
+                  <%= "http://evr.cm/#{@camera['id']}.html" %>
+                </span>
               </td>
             </tr>
 
@@ -636,12 +669,13 @@
         <section id="unseen">
           <table class="table table-fixed table-borderless">
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 <span class="title-label">Dynamic DNS</span>
               </td>
+              <td class="col-md-10"></td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 JPEG:
               </td>
               <td>
@@ -660,12 +694,13 @@
 
           <table class="table table-fixed table-borderless">
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 <span class="title-label">Base URLs</span>
               </td>
+              <td class="col-md-10"></td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 Camera:
               </td>
               <td>
@@ -677,7 +712,7 @@
               </td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 JPEG:
               </td>
               <td>
@@ -689,7 +724,7 @@
               </td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 MJPEG
               </td>
               <td>
@@ -713,7 +748,7 @@
               </td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 Audio:
               </td>
               <td>
@@ -725,7 +760,7 @@
               </td>
             </tr>
             <tr>
-              <td class="col-lg-1">
+              <td class="col-md-1">
                 H264
               </td>
               <td>

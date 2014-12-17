@@ -883,7 +883,11 @@ ul.scroll-menu {
   font-size: 12px;
   text-transform: uppercase;
   color: #AAAAAA;
-
+}
+.proxy-info {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #428bca;
 }
 
 .table-fixed {
@@ -2299,6 +2303,9 @@ b, strong {
   font-family: 'proxima-nova-bold';
   font-weight: normal;
 }
+em {
+  font-family: 'Proxima-Nova-It';
+}
 a:hover {
   color: #2a6496;
 }
@@ -3501,4 +3508,7 @@ Page content
 }
 .margin-top-30 {
   margin-top: 30px;
+}
+.margin-left-10 {
+  margin-left: 10px;
 }

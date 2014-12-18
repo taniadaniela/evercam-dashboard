@@ -44,8 +44,9 @@
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle a {
   margin-top: 4px;
 }
-.page-header {
-  z-index: 10000000 !important;
+
+.page-header.navbar.navbar-fixed-top {
+  z-index: 100000 !important;
 }
 
 .nav-title a {
@@ -844,6 +845,9 @@ ul.scroll-menu {
   margin-bottom: 5px;
   border-bottom: 1px solid #ffffff;
 }
+.edit {
+  transition: all .2s linear;
+}
 #info .green {
   margin-top: 1px;
 }
@@ -857,9 +861,11 @@ ul.scroll-menu {
   line-height: 1.2 !Important;
   padding: 6px 2px !important;
 }
+
 #info .table {
   margin-bottom: 5px;
 }
+
 #info .help-block {
   font-size: 12px;
   background: none;
@@ -1283,7 +1289,7 @@ input:focus {
 .settings-id {
   width: 168px;
   padding-left: 10px;
-  margin-top: 6px;
+  margin-top: 3px;
 }
 #camera-settings .test-snapshot{
   float: left;
@@ -2259,7 +2265,7 @@ table.table-clean thead th {
 
 
 
-/*METRONIC-LAYOUT OVERRIDES */
+/*METRONIC-COMPONENT OVERRIDES */
 /* Set default body */
 body {
   color: black;
@@ -2322,6 +2328,7 @@ a:hover {
   font-size: 22px;
   margin-top: -2px;
 }
+
 /***
 Customized Bootstrap Buttons
 ***/
@@ -2332,6 +2339,11 @@ Customized Bootstrap Buttons
 /* Bootstrap buttons */
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
   background-color: #f0f0f0;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+  color: white !important;
+  background-color: #68a2d5;
+  border-color: #68a2d5;
 }
 .open .btn-default.dropdown-toggle {
   background-color: #f0f0f0;
@@ -3509,6 +3521,18 @@ Page content
 .margin-top-30 {
   margin-top: 30px;
 }
+.margin-top--20 {
+  margin-top: -20px;
+}
+
 .margin-left-10 {
   margin-left: 10px;
+}
+#settings-modal .table-borderless td.model-td {
+  padding-bottom: 10px !important;
+  padding-top: 4px !Important;
+}
+#settings-modal .table-borderless td.id-td {
+  padding-bottom: 10px !important;
+  padding-top: 4px !Important;
 }

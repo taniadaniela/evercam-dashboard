@@ -45,14 +45,10 @@
       </a>
       <!-- END RESPONSIVE MENU TOGGLER -->
       <div class="nav-title pull-left">
-        <a href="/"><h4>Dashboard</h4></a>
-        <a href="/cameras/new" title="Add Camera"><i class="icon-plus"></i></a>
-        <a href="/dev" title="API Docs"><i class="icon-briefcase"></i></a>
-        <% if current_user.is_admin? %>
-            <a href="/admin" target="_blank" title="Admin Dashboard"><i class="icon-logout fa-rotate-180"></i></a>
-        <% end %>
+        <a href="/cameras/new" data-toggle="tooltip" data-placement="bottom" title="Add a Camera" title="Add Camera"><i class="icon icon-plus"></i></a>
+        <a href="/dev" title="API Docs"><i class="icon icon-briefcase"></i></a>
         <% if params[:action] == 'index' %>
-          <a class="refresh-images" title="Refresh Images"><i class="icon-refresh"></i></a>
+          <a class="refresh-images" title="Refresh Images"><i class="icon icon-refresh"></i></a>
         <% end %>
       </div>
       <!-- BEGIN TOP NAVIGATION MENU -->

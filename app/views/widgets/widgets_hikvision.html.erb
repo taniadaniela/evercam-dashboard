@@ -174,7 +174,7 @@
   }
 
   function getReadableDateTime(widgetDateTime) {
-    return FormatNumTo2(widgetDateTime.getDate())+'-'+FormatNumTo2(widgetDateTime.getMonth())+'-'+
+    return FormatNumTo2(widgetDateTime.getDate())+'-'+FormatNumTo2(widgetDateTime.getMonth()+1)+'-'+
     widgetDateTime.getFullYear()+'T'+FormatNumTo2(widgetDateTime.getHours())+':'+FormatNumTo2(widgetDateTime.getMinutes())+':00Z';
   }
 

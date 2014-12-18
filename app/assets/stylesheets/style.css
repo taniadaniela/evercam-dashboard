@@ -955,6 +955,9 @@ ul.scroll-menu {
   width: 100%;
   height: auto;
 }
+.uppercase-title {
+  margin-top: 12px;
+}
 /*LOCATION */
 #location #map-canvas {
   max-height: 680px;

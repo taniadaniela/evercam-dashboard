@@ -53,10 +53,12 @@
   text-decoration: none;
   color: #ffffff;
   float: left;
-  margin-right: 15px;
+  margin-right: 10px;
 }
-.nav-title .icon-plus,.nav-title .icon-briefcase {
-  font-size: 16px;
+
+.nav-title .icon {
+  font-size: 19px;
+  margin: 2px 6px 0px;
 }
 /*/////////////////////
 //CAMERA INDEX PAGE
@@ -689,7 +691,7 @@ ul.scroll-menu {
   }
 }
 .fa-lg, .icon-lg {
-  font-size: 20px;
+  font-size: 20px !important;
 }
 /*LIVE*/
 .demo-wrapper {

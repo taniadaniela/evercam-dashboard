@@ -47,9 +47,9 @@ fullscreenImage = ->
   if screenfull.enabled
     document.addEventListener screenfull.raw.fullscreenchange, ->
       if screenfull.isFullscreen
-        $("#live-player-image").css('width','auto');
+        $("#live-player-image").css('width','auto')
       else
-        $("#live-player-image").css('width','100%');
+        $("#live-player-image").css('width','100%')
   return
 
 

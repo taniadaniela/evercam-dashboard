@@ -43,6 +43,13 @@ controlButtonEvents = ->
 fullscreenImage = ->
   $("#toggle").click ->
     screenfull.toggle $("#live-player-image")[0]
+
+  if screenfull.enabled
+    document.addEventListener screenfull.raw.fullscreenchange, ->
+      if screenfull.isFullscreen
+        $("#live-player-image").css('width','auto')
+      else
+        $("#live-player-image").css('width','100%')
   return
 
 

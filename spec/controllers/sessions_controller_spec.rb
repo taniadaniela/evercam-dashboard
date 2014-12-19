@@ -30,14 +30,14 @@ describe SessionsController do
 
   describe 'POST #create with wrong credentials' do
     it "rerenders signin" do
-      post :create, {session: {email: user.email, password: 'xxx'}}
+      post :create, {session: {login: user.email, password: 'xxx'}}
       expect(response).to render_template :new
     end
   end
 
   describe 'POST #create with correct credentials' do
     it "rerenders signin" do
-      post :create, {session: {email: user.email, password: 'password'}}
+      post :create, {session: {login: user.email, password: 'password'}}
       expect(response).to redirect_to :cameras_index
     end
   end

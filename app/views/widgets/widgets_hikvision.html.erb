@@ -128,6 +128,7 @@
   var previousDateTime = '';
   $(document).ready(function () {
     $('#widget-datetime').datetimepicker({
+      format: 'd-m-Y H:i',
       onClose: initLocalStorage
     });
     initLocalStorage();
@@ -149,8 +150,7 @@
     var stringDateTime = '';
 
     if($('#widget-datetime').val()){
-      var widgetDateTime = new Date($('#widget-datetime').val());
-      stringDateTime = getReadableDateTime(widgetDateTime);
+      stringDateTime = $('#widget-datetime').val().replace(" ", "T")+':00Z';
       if(previousDateTime == stringDateTime)
         return;
       previousDateTime = stringDateTime;
@@ -171,18 +171,6 @@
     LocalStorage.options.api_key = '<%= current_user.api_key -%>';
     LocalStorage.options.date_time = stringDateTime;
     LocalStorage.Load();
-  }
-
-  function getReadableDateTime(widgetDateTime) {
-    return FormatNumTo2(widgetDateTime.getDate())+'-'+FormatNumTo2(widgetDateTime.getMonth()+1)+'-'+
-    widgetDateTime.getFullYear()+'T'+FormatNumTo2(widgetDateTime.getHours())+':'+FormatNumTo2(widgetDateTime.getMinutes())+':00Z';
-  }
-
-  function FormatNumTo2 (num) {
-    if (num < 10)
-      return "0"+num;
-    else
-      return num;
   }
 
   function showNote(){

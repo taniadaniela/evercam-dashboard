@@ -18,8 +18,7 @@ class SessionsController < ApplicationController
 
   def create
     begin
-      address = params[:session][:email].downcase
-      @user   = User.where(Sequel.expr(email: address) | Sequel.expr(username: address)).first
+      @user   = User.by_login(params[:session][:login])
     rescue NoMethodError => error
       Rails.logger.error "Error caught fetching user details.\nCause: #{error}\n" + error.backtrace.join("\n")
     end

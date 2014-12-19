@@ -68,19 +68,28 @@
                       </div>
                     </div>
 
-                    <div class="form-group widget-input margin-top-20">
+                    <div class="form-group widget-input margin-top-10">
+                      <div class="my-row">
+                        <label class="col-md-5 control-label" for="widget-datetime">Date & Time</label>
+                      </div>
+                      <div class="input-group col-md-7">
+                        <input type="text" class="form-control" id="widget-datetime" readonly name="widget-datetime">
+                      </div>
+                    </div>
+
+                    <div class="form-group widget-input margin-top-10">
                       <div class="my-row">
                         <label class="col-md-5 control-label" for="widget-authenticate">Pre-Authenticate<span style="visibility: hidden;" class="true switch grey">*</span></label>
                       </div>
                       <div class="input-group col-md-7">
-                        <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required" onchange="admSelectCheck(this);">
+                        <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required">
                           <option class="" value="false">No</option>
                           <option class="" value="true">Yes</option>
                         </select>
                       </div>
                     </div>
 
-                    <div class="true switch help-block margin-top-20" style="visibility: hidden;">
+                    <div class="true switch help-block margin-top-10" style="visibility: hidden;">
                       * Warning. Choosing 'Yes' will include your API ID and Key. This should only be done on private sites. We recommend you do not choose this option for public sites.
                     </div>
                   </form>
@@ -90,7 +99,7 @@
                   <div class="row widget-code">
                     <div class="col-md-12">
                       <h5>Embed this code on your webpage:</h5>
-                      <textarea id="code" class="pretty-code col-md-12" type="text" readonly onclick="javascript:this.select();">
+                      <textarea id="code" class="pretty-code col-md-12" type="text" readonly>
                       </textarea>
                     </div>
                   </div>
@@ -116,11 +125,17 @@
 <!-- <div evercam="localstorage"></div> -->
 <script type="text/javascript" src="https://s3.amazonaws.com/cdn.evercam.io/js/localstorage/0.0.1/hikvision.local.storage.mini.js"></script>
 <script type="text/javascript">
+  var previousDateTime = '';
   $(document).ready(function () {
+    $('#widget-datetime').datetimepicker({
+      onClose: initLocalStorage
+    });
     initLocalStorage();
-
-    $("#widget-camera").bind("change", initLocalStorage);
-
+    $("#widget-camera").on("change", initLocalStorage);
+    $("#widget-authenticate").on("change", showNote);
+    $("#code").on("click", function(){
+      this.select();
+    });
   });
 
   function initLocalStorage() {
@@ -130,28 +145,52 @@
     var pre_auth = $('#widget-authenticate').val();
     var is_private = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
     var api_credentials = '';
+    var date_time = '';
+    var stringDateTime = '';
+
+    if($('#widget-datetime').val()){
+      var widgetDateTime = new Date($('#widget-datetime').val());
+      stringDateTime = getReadableDateTime(widgetDateTime);
+      if(previousDateTime == stringDateTime)
+        return;
+      previousDateTime = stringDateTime;
+      date_time = "&amp;date_time&#61;" + stringDateTime;
+    }
 
     if(pre_auth == 'true') {
       api_credentials = "&amp;api_id&#61;<%= current_user.api_id -%>&amp;api_key&#61;<%= current_user.api_key -%>";
     }
 
     var embedCode = '&lt;div evercam&#61;"localstorage"&gt;&lt;&#47;div&gt;'+
-        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + '"&gt;&lt;&#47;script&gt;';
+        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + date_time + '"&gt;&lt;&#47;script&gt;';
     $('#code').html(embedCode);
 
     $(".placeholder").empty();
     LocalStorage.options.cameraId = camera;
     LocalStorage.options.api_id = '<%= current_user.api_id -%>';
     LocalStorage.options.api_key = '<%= current_user.api_key -%>';
+    LocalStorage.options.date_time = stringDateTime;
     LocalStorage.Load();
   }
 
-  function admSelectCheck(nameSelect){
-    if(nameSelect.value){
+  function getReadableDateTime(widgetDateTime) {
+    return FormatNumTo2(widgetDateTime.getDate())+'-'+FormatNumTo2(widgetDateTime.getMonth()+1)+'-'+
+    widgetDateTime.getFullYear()+'T'+FormatNumTo2(widgetDateTime.getHours())+':'+FormatNumTo2(widgetDateTime.getMinutes())+':00Z';
+  }
+
+  function FormatNumTo2 (num) {
+    if (num < 10)
+      return "0"+num;
+    else
+      return num;
+  }
+
+  function showNote(){
+    if($(this).val()){
       var preElements = document.getElementsByClassName('switch');
       for(var i=0; i < preElements.length; i++){
         //if the class contains the selected value, then show it, else hide it
-        preElements[i].style.visibility = preElements[i].classList.contains(nameSelect.value)?'visible':'hidden';
+        preElements[i].style.visibility = preElements[i].classList.contains($(this).val())?'visible':'hidden';
       }
     }
     initLocalStorage();

@@ -14,10 +14,6 @@
     // Localize jQuery variable
     var jQuery,
         playbackUrl = 'http://playback.azurewebsites.net/home/doc/page/main.aspx';
-          /*cameraId: "",
-          token: "",
-          api_id: "",
-          api_key: ""*/
 
     function scriptLoadHandler() {
       // Restore $ and window.jQuery to their previous values and store the
@@ -36,13 +32,13 @@
             var iframe =
             jQuery("<iframe />")
             .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-            .attr({ "src": '<%= request.base_url %>/hikvision.private.widget?camera=<%= params[:camera] %>&token=<%= params[:token] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
+            .attr({ "src": '<%= request.base_url %>/hikvision.private.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>&token=<%= params[:token] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
             .appendTo("div[evercam='localstorage']");
         } else {
             var iframe =
             jQuery("<iframe />")
             .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-            .attr({ "src": playbackUrl + '?camera=<%= params[:camera] %>&token=<%= params[:token] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
+            .attr({ "src": playbackUrl + '?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>&token=<%= params[:token] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
             .appendTo("div[evercam='localstorage']");
         }
     };

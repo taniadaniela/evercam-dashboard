@@ -2226,12 +2226,14 @@ table.table-clean thead th {
 #hikvision-widget .placeholder {
   border:1px solid #f5f5f5;
 }
-#hikvision-widget .dropdown-spacing{
-    padding-left: 11px;
-    float: left;
+#hikvision-widget .dropdown-hours{
+    padding-left: 0px;
+}
+#hikvision-widget .dropdown-minutes{
+    padding-left: 7px;
 }
 #hikvision-widget .time-dropdown{
-    width: 50px;
+    width: 53px;
     padding: 6px 4px;
 }
 #hikvision-widget #code {

@@ -838,6 +838,10 @@ handleTabEvent = ->
     tabName = $(this).html()
     if tabName is "Snapshots" && playFromDateTime is null
       GetCameraInfo false
+    else
+      url = "#{$("#tab-url").val()}##{window.location.hash}"
+      if history.pushState
+        window.history.pushState({path:url},'',url);
 
   $("#share-url").on "click", ->
     @select()

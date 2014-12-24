@@ -59,7 +59,7 @@
                           <% @cameras.each do |camera| %>
                             <% has_edit_right = camera["rights"].split(",").include?("edit") %>
                             <% if camera['vendor_name'] == 'Hikvision Digital Technology' && has_edit_right %>
-                              <option class="" value="<%= camera['id'] %>">
+                              <option value="<%= camera['id'] %>">
                                 <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
                               </option>
                             <% end %>
@@ -70,10 +70,21 @@
 
                     <div class="form-group widget-input margin-top-10">
                       <div class="my-row">
-                        <label class="col-md-5 control-label" for="widget-datetime">Date & Time</label>
+                        <label class="col-md-5 control-label" for="widget-datetime">Date</label>
                       </div>
                       <div class="input-group col-md-7">
                         <input type="text" class="form-control" id="widget-datetime" readonly name="widget-datetime">
+                      </div>
+                    </div>
+
+                    <div class="form-group widget-input margin-top-10">
+                      <div class="my-row">
+                        <label class="col-md-5 control-label" for="widget-datetime">Time</label>
+                      </div>
+                      <div class="input-group col-md-7">
+                        <div class="col-md-4 dropdown-hours"><select id="widget-hour" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
+                        <div class="col-md-4 dropdown-minutes"><select id="widget-minutes" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
+                        <div class="col-md-4"><select id="widget-seconds" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
                       </div>
                     </div>
 
@@ -102,6 +113,9 @@
                       <textarea id="code" class="pretty-code col-md-12" type="text" readonly>
                       </textarea>
                     </div>
+                    <div class="col-md-12 margin-top-30">
+                      <input id="btn-load-widget" name="btn-load-widget" type="button" class="btn blue" value="Load Widget">
+                    </div>
                   </div>
 
                 </div>
@@ -125,19 +139,33 @@
 <!-- <div evercam="localstorage"></div> -->
 <script type="text/javascript" src="https://s3.amazonaws.com/cdn.evercam.io/js/localstorage/0.0.1/hikvision.local.storage.mini.js"></script>
 <script type="text/javascript">
-  var previousDateTime = '';
   $(document).ready(function () {
     $('#widget-datetime').datetimepicker({
-      format: 'd-m-Y H:i',
-      onClose: initLocalStorage
+      timepicker: false,
+      closeOnDateSelect: 0,
+      format: 'd-m-Y'
     });
     initLocalStorage();
-    $("#widget-camera").on("change", initLocalStorage);
+    $("#btn-load-widget").on("click", initLocalStorage);
     $("#widget-authenticate").on("change", showNote);
     $("#code").on("click", function(){
       this.select();
     });
+    for(var i=0;i<60;i++){
+      var option = '<option value="'+FormatNumTo2(i)+'">'+FormatNumTo2(i)+'</option>';
+      if(i < 24)
+        $("#widget-hour").append(option);
+      $("#widget-minutes").append(option);
+      $("#widget-seconds").append(option);
+    }
   });
+
+  function FormatNumTo2 (n) {
+    if (n < 10)
+      return "0"+n;
+    else
+      return n;
+  }
 
   function initLocalStorage() {
     var url = window.location.origin;
@@ -150,10 +178,7 @@
     var stringDateTime = '';
 
     if($('#widget-datetime').val()){
-      stringDateTime = $('#widget-datetime').val().replace(" ", "T")+':00Z';
-      if(previousDateTime == stringDateTime)
-        return;
-      previousDateTime = stringDateTime;
+      stringDateTime = $('#widget-datetime').val()+"T"+$('#widget-hour').val()+":"+$('#widget-minutes').val()+":"+$('#widget-seconds').val()+"Z";
       date_time = "&amp;date_time&#61;" + stringDateTime;
     }
 
@@ -181,6 +206,5 @@
         preElements[i].style.visibility = preElements[i].classList.contains($(this).val())?'visible':'hidden';
       }
     }
-    initLocalStorage();
   }
 </script>

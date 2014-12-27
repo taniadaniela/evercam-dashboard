@@ -1,0 +1,132 @@
+<div class="portlet solid bordered grey-cararra">
+  <div class="portlet-title">
+    <div class="caption">URLs</div>
+  </div>
+  <div class="portlet-body">
+    <section id="unseen">
+      <div class="uppercase-title">
+        <span class="title-label">Public Proxy URLs</span>
+        <span class="title-label margin-left-10">(Only available if the Camera is Public)</span>
+      </div>
+      <table class="table table-borderless table-fixed">
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            JPEG:
+          </td>
+          <td>
+            <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+              <%= link_to "http://evr.cm/#{@camera['id']}.jpg", "http://evr.cm/#{@camera['id']}.jpg", target: '_blank', :only_path => false %>
+            </span>
+            <span id="private-short-link" class="show-on-private grey" style="<%= 'display: none;' if @camera['is_public'] %>">
+              <%= "http://evr.cm/#{@camera['id']}.jpg" %>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <div class="uppercase-title"><span class="title-label">Private Proxy URLs</span></div>
+      <table class="table table-borderless table-fixed">
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            JPEG:
+          </td>
+          <td>
+            <span id="public-short-link">
+              <%= link_to "https://api.evercam.io/v1/cameras/#{@camera['id']}/snapshot.jpg", "https://api.evercam.io:443/v1/cameras/#{@camera['id']}/snapshot.jpg", target: '_blank', :only_path => false %>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section id="unseen">
+      <div class="uppercase-title">
+        <span class="title-label">Dynamic DNS</span>
+        <span class="title-label margin-left-10">(Only available if Camera is shared with Full Rights)</span>
+      </div>
+      <table class="table table-fixed table-borderless">
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            JPEG:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to(url, url, target: '_blank', :only_path => false, :class => 'td-fix') %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            MJPEG:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch(:dyndns, :http, :mjpg) {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to(url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            MPEG:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch(:dyndns, :rtsp, :mpeg) {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to(url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            Audio:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch(:dyndns, :rtsp, :audio) {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to(url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            H264:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch(:dyndns, :rtsp, :h264) {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to(url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="unseen">
+      <div class="uppercase-title"><span class="title-label">Base Camera URL</span></div>
+      <table class="table table-fixed table-borderless">
+        <tr>
+          <td class="col-md-2 col-xs-2">
+            Camera:
+          </td>
+          <td>
+            <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% else %>
+              <span class="grey">Not available</span>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+</div>

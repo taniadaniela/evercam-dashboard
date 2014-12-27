@@ -157,6 +157,7 @@ class CamerasController < ApplicationController
       else
         @owner = current_user
       end
+      @has_edit_rights = @camera["rights"].split(",").include?("edit")
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @webhooks = api.get_webhooks(params[:id])

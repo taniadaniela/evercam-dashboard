@@ -28,6 +28,7 @@
 //= require jquery.slimscroll.min.js
 //= require bootstrap-tabdrop.js
 //= require jwplayer.js
+//= require jquery-form-validator/form-validator/jquery.form-validator.js
 //= require metronic/respond.min.js
 //= require metronic/metronic.js
 //= require metronic/layout.js

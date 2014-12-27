@@ -5,7 +5,7 @@
 </div>
 
 <div class="page-container">
-  <%= render :partial => "sidebar/sidebar" %>
+  <%= render :partial => "shared/sidebar" %>
 
   <div class="page-content-wrapper">
     <div class="page-content" id="camera-single">
@@ -87,7 +87,7 @@
             </li>
 
             <li>
-              <a data-toggle="tab" href="#recording">Snapshots</a>
+              <a data-toggle="tab" href="#snapshots">Snapshots</a>
             </li>
 
             <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
@@ -103,7 +103,7 @@
             <% end %>
 
             <li>
-              <a data-toggle="tab" href="#explorer">API Explorer</a>
+              <a data-toggle="tab" href="#api_explorer">API Explorer</a>
             </li>
 
             <% if has_edit_right %>
@@ -117,12 +117,12 @@
             </li>
 
             <li>
-              <a data-toggle="tab" href="#webhook">Webhooks</a>
+              <a data-toggle="tab" href="#webhooks">Webhooks</a>
             </li>
 
             <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
               <li>
-                <a data-toggle="tab" href="#local">Local Storage</a>
+                <a data-toggle="tab" href="#local_storage">Local Storage</a>
               </li>
             <% end %>
 
@@ -159,43 +159,43 @@
 
           <div class="tab-content">
             <div id="info" class="tab-pane active">
-              <%= render partial: "info/info_tab" %>
+              <%= render partial: "cameras/single/info_tab" %>
             </div>
 
             <div id="live" class="tab-pane">
-              <%= render partial: "live/live_tab" %>
+              <%= render partial: "cameras/single/live_view_tab" %>
+            </div>
+
+            <div id="snapshots" class="tab-pane">
+              <%= render partial: "cameras/single/snapshots_navigator_tab" %>
             </div>
 
             <div id="streams" class="tab-pane">
-              <%= render partial: "streams/streams_tab" %>
+              <%= render partial: "cameras/single/streams_tab" %>
             </div>
 
             <div id="sharing" class="tab-pane">
-              <%= render partial: "sharing/sharing_tab" %>
+              <%= render partial: "cameras/single/sharing_tab" %>
             </div>
 
-            <div id="explorer" class="tab-pane">
-              <%= render partial: "explorer/explorer_tab" %>
+            <div id="api_explorer" class="tab-pane">
+              <%= render partial: "cameras/single/api_explorer_tab" %>
             </div>
 
             <div id="logs" class="tab-pane">
-              <%= render partial: "logs/logs_tab" %>
+              <%= render partial: "cameras/single/logs_tab" %>
             </div>
 
             <div id="apps" class="tab-pane">
-              <%= render partial: "apps/apps_tab" %>
+              <%= render partial: "cameras/single/apps_tab" %>
             </div>
 
-            <div id="recording" class="tab-pane">
-              <%= render partial: "recording/recording_tab" %>
+            <div id="webhooks" class="tab-pane">
+              <%= render partial: "cameras/single/webhooks_tab" %>
             </div>
 
-            <div id="webhook" class="tab-pane">
-              <%= render partial: "webhook/webhook_tab" %>
-            </div>
-
-            <div id="local" class="tab-pane">
-              <%= render partial: "local/local_tab" %>
+            <div id="local_storage" class="tab-pane">
+              <%= render partial: "cameras/single/local_storage_tab" %>
             </div>
           </div>
         </div>

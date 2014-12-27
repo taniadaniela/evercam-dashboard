@@ -1,10 +1,10 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
-#require "action_controller/railtie"
-#require "action_mailer/railtie"
-#require "sprockets/railtie"
-#require "rails/test_unit/railtie"
+require "action_controller/railtie"
+require "active_record/railtie"
+require "action_mailer/railtie"
+require "sprockets/railtie"
+require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -25,7 +25,6 @@ module EvercamDashboard
     # config.i18n.default_locale = :de
     GC::Profiler.enable
 
-    # Incorporate Bootstrap elements.
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/fonts"
     #config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
     #config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
@@ -92,16 +91,5 @@ module EvercamDashboard
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'
     end
-
   end
 end
-
-
-
-
-
-
-
-
-
-

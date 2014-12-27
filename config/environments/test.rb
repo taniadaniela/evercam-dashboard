@@ -16,7 +16,7 @@ EvercamDashboard::Application.configure do
   config.assets.enabled = true
   config.assets.debug = false
   config.assets.digest = true
-  config.serve_static_assets  = true
+  config.serve_static_files  = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.

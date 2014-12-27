@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-md-8">
     <p>Webhooks can be used to notify an external address whenever a camera goes online or offline.</p>
-    <p>For example, if we add <span style="color:#409b1c">http://example.com/payload</span> to the list of webhooks for the camera "<%= @camera.id %>", that address would receive a POST request with the following data when camera's status changed:</p>
+    <p>For example, if we add <span style="color:#409b1c">http://example.com/payload</span> to the list of webhooks for
+      the camera "<%= @camera.id %>", that address would receive a POST request with the following data when camera's
+      status changed:</p>
   </div>
   <div class="col-md-4">
 <pre>{
@@ -18,26 +20,27 @@
   <div class="col-md-12">
     <table class="table table-bordered-top table-hover table-full-width" id="webhook_list_table">
       <tbody>
-        <% if @webhooks %>
+      <% if @webhooks %>
         <% @webhooks.each do |webhook| %>
-        <tr webhook-id="<%= webhook['id'] %>">
-          <td class="col-lg-8">
-            <a href="<%= webhook['url'] %>"><%= webhook['url'] %></a>
-          </td>
-          <td class="col-lg-2">
-            <div class="form-group">
-            <span class="delete-webhook-control" camera_id="<%= @camera["id"] %>" webhook_id="<%= webhook['id'] %>"><span class="glyphicon glyphicon-remove"> </span>Remove</span>
-            </div>
-          </td>
-        </tr>
+          <tr webhook-id="<%= webhook['id'] %>">
+            <td class="col-lg-8">
+              <a href="<%= webhook['url'] %>"><%= webhook['url'] %></a>
+            </td>
+            <td class="col-lg-2">
+              <div class="form-group">
+                <span class="delete-webhook-control" camera_id="<%= @camera["id"] %>" webhook_id="<%= webhook['id'] %>">
+                  <i class="glyphicon glyphicon-remove"></i>
+                  Remove
+                </span>
+              </div>
+            </td>
+          </tr>
         <% end %>
-        <% end %>
+      <% end %>
       </tbody>
     </table>
   </div>
 </div>
-
-<!--ADD A WEBHOOK-->
 
 <div class="row form-horizontal margin-top-10">
   <div class="col-md-12">
@@ -61,7 +64,6 @@
     </div>
   </div>
 </div>
-
 
 <script type="text/javascript">
   $(window.Evercam.Webhook.initializeTab);

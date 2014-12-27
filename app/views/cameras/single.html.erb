@@ -3,41 +3,36 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
+
 <div class="page-container">
-  <!-- BEGIN SIDEBAR -->
   <%= render :partial => "sidebar/sidebar" %>
-  <!-- END SIDEBAR -->
 
   <div class="page-content-wrapper">
-  <div class="page-content" id="camera-single">
+    <div class="page-content" id="camera-single">
+      <div class="cbp-spmenu-push">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+          <h3>Menu</h3>
+          <ul>
+            <li>
+              <a href="/dev">API Docs</a>
+            </li>
+            <li>
+              <a class="dev-menu-title">
+                Widgets <span class="arrow"></span>
+              </a>
+              <ul class="sub-menu">
+                <li>
+                  <a href="/widgets-new">Live View Widget</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-    <!-- SLIDEY SIDEY MENU -->
-    <div class="cbp-spmenu-push">
-      <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-        <h3>Menu</h3>
-        <ul>
-          <li>
-            <a href="/dev">API Docs</a>
-          </li>
-          <li>
-            <a class="dev-menu-title">
-              Widgets <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="/widgets-new">Live View Widget</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <!-- END SLIDEY SIDEY MENU -->
-
-    <div class="row">
+      <div class="row">
         <div class="camera-title">
           <div class="col-xs-8 col-md-8">
-            <!--MOBILE CAMERA SWITCH MENU -->
             <div class="btn-group camera-switch">
               <a class="dropdown-toggle" data-toggle="dropdown">
                 <h3 class="page-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h3>
@@ -60,168 +55,157 @@
                 <% end %>
               </ul>
             </div>
-
           </div>
+
           <div class="col-xs-4 col-md-4 online-status">
             <div class="pull-right">
-            <% if @camera['is_online'] %>
+              <% if @camera['is_online'] %>
                 <h5 class="green">Online</h5>
-            <% else %>
+              <% else %>
                 <h5 class="red">Offline</h5>
-            <% end %>
+              <% end %>
             </div>
-            <% if @camera['owner'] == current_user.username %>
-            <% else %>
-            <div class="pull-right margin-right-10">
-              <h5><i class="icon icon-users"></i></h5>
-            </div>
-
+            <% unless @camera['owner'] == current_user.username %>
+              <div class="pull-right margin-right-10">
+                <h5><i class="icon icon-users"></i></h5>
+              </div>
             <% end %>
           </div>
         </div>
-    </div>
+      </div>
 
-  <div class="portlet-body">
-    <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
-    <div class="tabbable tabbable-custom">
-      <ul class="nav nav-tabs">
-        <li class="active">
-          <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
-        </li>
-        <li>
-          <a data-toggle="tab" href="#live">Live View</a>
-        </li>
-        <li>
-          <a data-toggle="tab" href="#recording">Snapshots</a>
-        </li>
-        <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
-          <li>
-            <a data-toggle="tab" href="#streams">Streams</a>
-          </li>
-        <% end %>
-        <% if has_edit_right %>
-          <li>
-            <a data-toggle="tab" href="#sharing">Sharing</a>
-          </li>
-        <% end %>
-        <li>
-          <a data-toggle="tab" href="#explorer">API Explorer</a>
-        </li>
-        <% if has_edit_right %>
-          <li>
-            <a data-toggle="tab" href="#logs">Logs</a>
-          </li>
-        <% end %>
-        <li>
-          <a data-toggle="tab" href="#apps">Apps</a>
-        </li>
-        <li>
-          <a data-toggle="tab" href="#webhook">Webhooks</a>
-        </li>
-        <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
-          <li>
-            <a data-toggle="tab" href="#local">Local Storage</a>
-          </li>
-        <% end %>
+      <div class="portlet-body">
+        <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+        <div class="tabbable tabbable-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
+            </li>
 
-          <li class="pull-right">
-            <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="fa fa-trash-o fa-lg"></span></a>
-          </li>
+            <li>
+              <a data-toggle="tab" href="#live">Live View</a>
+            </li>
 
-      </ul>
+            <li>
+              <a data-toggle="tab" href="#recording">Snapshots</a>
+            </li>
 
+            <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
+              <li>
+                <a data-toggle="tab" href="#streams">Streams</a>
+              </li>
+            <% end %>
 
-    <!--DELETE MODAL-->
+            <% if has_edit_right %>
+              <li>
+                <a data-toggle="tab" href="#sharing">Sharing</a>
+              </li>
+            <% end %>
 
-      <div id="deleteModal" class="modal fade">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="col-md-12 margin-top-10">
-                <% if @share.nil? %>
-                  <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
-                <% else %>
-                  <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
-                <% end %>
+            <li>
+              <a data-toggle="tab" href="#explorer">API Explorer</a>
+            </li>
+
+            <% if has_edit_right %>
+              <li>
+                <a data-toggle="tab" href="#logs">Logs</a>
+              </li>
+            <% end %>
+
+            <li>
+              <a data-toggle="tab" href="#apps">Apps</a>
+            </li>
+
+            <li>
+              <a data-toggle="tab" href="#webhook">Webhooks</a>
+            </li>
+
+            <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
+              <li>
+                <a data-toggle="tab" href="#local">Local Storage</a>
+              </li>
+            <% end %>
+
+            <li class="pull-right">
+              <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="fa fa-trash-o fa-lg"></span></a>
+            </li>
+          </ul>
+
+          <div id="deleteModal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="col-md-12 margin-top-10">
+                    <% if @share.nil? %>
+                      <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                    <% else %>
+                      <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-sm-8">
+                    <% if @share.nil? %>
+                      <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Delete</a>
+                    <% else %>
+                      <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Remove</a>
+                    <% end %>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <div class="col-sm-8">
-                <% if @share.nil? %>
-                  <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Delete</a>
-                <% else %>
-                  <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Remove</a>
-                <% end %>
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-              </div>
+          </div>
+
+          <div class="tab-content">
+            <div id="info" class="tab-pane active">
+              <%= render partial: "info/info_tab" %>
             </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
 
-    <!--END DELETE MODAL-->
+            <div id="live" class="tab-pane">
+              <%= render partial: "live/live_tab" %>
+            </div>
 
-    <div class="tab-content">
-      <!--INFO TAB PANE -->
-      <div id="info" class="tab-pane active">
-        <%= render partial: "info/info_tab" %>
+            <div id="streams" class="tab-pane">
+              <%= render partial: "streams/streams_tab" %>
+            </div>
+
+            <div id="sharing" class="tab-pane">
+              <%= render partial: "sharing/sharing_tab" %>
+            </div>
+
+            <div id="explorer" class="tab-pane">
+              <%= render partial: "explorer/explorer_tab" %>
+            </div>
+
+            <div id="logs" class="tab-pane">
+              <%= render partial: "logs/logs_tab" %>
+            </div>
+
+            <div id="apps" class="tab-pane">
+              <%= render partial: "apps/apps_tab" %>
+            </div>
+
+            <div id="recording" class="tab-pane">
+              <%= render partial: "recording/recording_tab" %>
+            </div>
+
+            <div id="webhook" class="tab-pane">
+              <%= render partial: "webhook/webhook_tab" %>
+            </div>
+
+            <div id="local" class="tab-pane">
+              <%= render partial: "local/local_tab" %>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!--LIVE VIEW TAB PANE -->
-      <div id="live" class="tab-pane">
-        <%= render partial: "live/live_tab" %>
-      </div>
-
-      <!--LIVE VIEW TAB PANE -->
-      <div id="streams" class="tab-pane">
-        <%= render partial: "streams/streams_tab" %>
-      </div>
-
-      <!--SHARING TAB PANE -->
-      <div id="sharing" class="tab-pane">
-        <%= render partial: "sharing/sharing_tab" %>
-      </div>
-
-      <!--EXPLORER TAB PANE -->
-      <div id="explorer" class="tab-pane">
-        <%= render partial: "explorer/explorer_tab" %>
-      </div><!--TAB PANE -->
-
-      <!--LOGS TAB PANE -->
-      <div id="logs" class="tab-pane">
-        <%= render partial: "logs/logs_tab" %>
-      </div><!--TAB PANE -->
-
-      <!--APPS TAB PANE -->
-      <div id="apps" class="tab-pane">
-          <%= render partial: "apps/apps_tab" %>
-      </div><!--TAB PANE -->
-
-      <!--Recording TAB PANE -->
-      <div id="recording" class="tab-pane">
-        <%= render partial: "recording/recording_tab" %>
-      </div><!--TAB PANE -->
-
-      <!--Webhook TAB PANE -->
-      <div id="webhook" class="tab-pane">
-        <%= render partial: "webhook/webhook_tab" %>
-      </div><!--TAB PANE -->
-
-        <!--Local TAB PANE -->
-        <div id="local" class="tab-pane">
-          <%= render partial: "local/local_tab" %>
-        </div><!--TAB PANE -->
-
-
-    </div><!--panel body-->
     </div>
-  </div><!--panel-->
-</div>
-</div>
+  </div>
 </div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-  var EVERCAMP_API = '<%= EVERCAM_API %>';
+  var EVERCAM_API = '<%= EVERCAM_API %>';
 </script>
-<%= javascript_include_tag "testsnapshot"%>
+<%= javascript_include_tag "testsnapshot" %>

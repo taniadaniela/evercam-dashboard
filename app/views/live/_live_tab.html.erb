@@ -6,10 +6,9 @@
           <img id="live-player-image" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
           <div class="live-options">
             <div class="live-option" id="toggle"><i class="icon-size-fullscreen"></i></div>
-            <div class="live-option"><a href="/live/<%= @camera['id'] %>?share=false"  onclick="window.open('/live/<%= @camera['id'] %>?share=false', 'newwindow', 'width=600, height=450'); return false;"><i class="icon-share-alt" aria-hidden="true"></i></a></div>
+            <div class="live-option"><a href="/live/<%= @camera['id'] %>"  onclick="window.open('/live/<%= @camera['id'] %>', 'newwindow', 'width=600, height=450'); return false;"><i class="icon-share-alt" aria-hidden="true"></i></a></div>
           </div>
           <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
-          <!--<div class="btn-live-player refresh-live-snap hide"><i class="icon-refresh"></i></div>-->
         </div>
       </div>
     </div>

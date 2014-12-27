@@ -8,18 +8,9 @@
 </div>
 
 <div class="page-container" id="public-index">
-  <!-- BEGIN SIDEBAR -->
   <%= render :partial => "sidebar/sidebar" %>
-  <!-- END SIDEBAR -->
   <div class="page-content-wrapper">
     <div class="page-content">
-
-
-      <!-- <div class="portlet-title">
-         <div class="caption">
-           <i class=​"icon-home">​</i>​Map View
-         </div>
-       </div>-->
       <div class="portlet-body">
         <div class="tabbable-line">
           <ul class="nav nav-tabs ">
@@ -31,10 +22,9 @@
               <a href="#list" data-toggle="tab">
                 <i class="icon-list"></i> List </a>
             </li>
-
           </ul>
-          <div class="tab-content">
 
+          <div class="tab-content">
             <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="map-view">
               <div id="map-canvas">
               </div>
@@ -74,37 +64,29 @@
                       <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
 
-
                     <div class="modal fade" id="<%= c["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="public-preview" id="<%= c["id"] %>"> <%= preview(c, true) %> </div>
                             <i data-dismiss="modal" class="icon-close modal-dismiss"></i>
                         </div>
-                        <!-- /.modal-content -->
                       </div>
-                      <!-- /.modal-dialog -->
                     </div>
                   <% end %>
                   </tbody>
                 </table>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
-
 </div>
 
 <%= javascript_include_tag "publiccam" %>
 
 <script>
-
   jQuery(document).ready(function() {
     Metronic.init(); // init metronic core components
     Layout.init(); // init current layout
@@ -118,12 +100,8 @@
   Notification.show('<%= flash[:error] %>');
   <% end %>
 
-  $(document).ready(function () {
-  });
-  // execute
   (function () {
-    // map options
-    var options = {
+    var mapOptions = {
       zoom: 4,
       minZoom: 3,
       maxZoom: 17,
@@ -132,14 +110,9 @@
       streetViewControl: false
     };
 
-
-    // init map
-    var map = new google.maps.Map(document.getElementById('map-canvas'), options);
-
-    // set multiple marker
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     <% @public_cameras.each do |c| %>
-    // init markers
 
     <% if c.deep_fetch(:location) {} != nil && c['is_online'] %>
 
@@ -161,21 +134,20 @@
     })(marker);
     <% end %>
     <% end %>
-
   })();
 
-  $(document).ready( function () {
-    $('#public-list').DataTable( {
-          "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
-          "aoColumnDefs": [
-        { 'bSortable': false, 'aTargets': [ 1, 4, 5, 6 ] }
+  $(document).ready(function () {
+    $('#public-list').DataTable({
+      "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
+      "aoColumnDefs": [
+        {'bSortable': false, 'aTargets': [1, 4, 5, 6]}
       ]
-      } );
-  } );
+    });
+  });
 
-  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-      showLeft = document.getElementById( 'showLeft' )
-  body = document.body;
+  var menuLeft = document.getElementById( 'cbp-spmenu-s1' );
+  var showLeft = document.getElementById( 'showLeft' );
+  var body = document.body;
 
   showLeft.onclick = function() {
     classie.toggle( this, 'active' );
@@ -183,14 +155,10 @@
     disableOther( 'showLeft' );
   };
 
-
   function disableOther( button ) {
     if( button !== 'showLeft' ) {
       classie.toggle( showLeft, 'disabled' );
     }
-
   }
 
 </script>
-
-

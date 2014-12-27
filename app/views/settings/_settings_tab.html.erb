@@ -1,226 +1,212 @@
 <form action="#" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
-
-<div class="row">
-<div class='col-lg-5 col-md-6 col-sm-6'>
-  <div class='portlet'>
-    <div class="portlet-title">
-      <div class="caption">
-        Settings<small>  <a href="#camera-settings" class="makeEditable"> edit</a></small>
+  <div class="row">
+    <div class='col-lg-5 col-md-6 col-sm-6'>
+      <div class='portlet'>
+        <div class="portlet-title">
+          <div class="caption">
+            Settings
+            <small><a href="#camera-settings" class="makeEditable"> edit</a></small>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <table class="table table-borderless">
+            <tr>
+              <td class="col-lg-1">
+                <label class="control-label">Evercam ID</label>
+              </td>
+              <td class="col-lg-2 settings">
+                <div class="settings-id" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div>
+                <input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="camera-name">Friendly Name</label>
+              </td>
+              <td>
+                <input id="camera-name" class="form-control readonly makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" readonly="readonly">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="camera-username">Camera Username</label>
+              </td>
+              <td>
+                <input id="camera-username" name="camera-username" placeholder="" class="form-control readonly makeEditable" readonly="readonly" type="text"
+                       value="<%= @camera['cam_username'] %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="camera-password">Camera Password</label>
+              </td>
+              <td>
+                <input id="camera-password" name="camera-password" placeholder="" class="form-control readonly makeEditable" readonly="readonly" type="text"
+                       value="<%= @camera['cam_password'] %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="camera-url">External IP (or URL) </label>
+              </td>
+              <td>
+                <div class="input-group">
+                  <span class="input-group-addon">http://</span>
+                  <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" readonly="readonly" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
+                         value="<%= @camera.deep_fetch(:external, :host) {} %>">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="port">External HTTP Port</label>
+              </td>
+              <td>
+                <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" readonly="readonly" data-validation-regexp="^[0-9]{2,5}$" data-validation-error-msg="The Port should be a 2-5 digit number."
+                       value="<%= @camera.deep_fetch(:external, :http, :port) {} %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="ext-rtsp-port">External RTSP Port</label>
+              </td>
+              <td>
+                <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" readonly="readonly" data-validation-regexp="^[0-9]{2,5}$" data-validation-error-msg="The Port should be a 2-5 digit number."
+                       value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="camera-vendor">Camera Vendor</label>
+              </td>
+              <td>
+                <select id="camera-vendor" name="camera-vendor" readonly="readonly" class="form-control makeEditable">
+                  <option selected="selected" value="">-- select model --</option>
+                  <% vendors.each_with_index do |v, index| -%>
+                    <option value="<%= v.exid -%>"
+                            <% if v.exid == @camera['vendor_id'] %>selected="selected"
+                            <% end %>>
+                      <%= v.name -%>
+                    </option>
+                  <% end %>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label">Camera Model</label>
+              </td>
+              <td>
+                <% vendors.each do |v| -%>
+                  <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" readonly="readonly" class="form-control camera-model
+                    <% if v.exid != @camera['vendor_id'] %>hidden
+                    <% end %>">
+                    <% models(v.id).each_with_index do |m, index| -%>
+                      <% if index == 0 %>
+                        <option value="<%= m.exid -%>"><%= m.name -%></option>
+                      <% else %>
+                        <option value="<%= m.exid -%>"
+                                <% if m.exid == @camera['id'] %>selected="selected"
+                                <% end %> ><%= m.name -%></option>
+                      <% end %>
+                    <% end -%>
+                  </select>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="local-ip">Local IP</label>
+              </td>
+              <td>
+                <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" readonly="readonly" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
+                       value="<%= @camera.deep_fetch(:internal, :host) {} %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="local-http">Local HTTP Port</label>
+              </td>
+              <td>
+                <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$" data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                       value="<%= @camera.deep_fetch(:internal, :http, :port) {} %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="local-rtsp">Local RTSP Port</label>
+              </td>
+              <td>
+                <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$" data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                       value="<%= @camera.deep_fetch(:internal, :rtsp, :port) {} %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="location-lat">Location Lat</label>
+              </td>
+              <td>
+                <input id="location-lat" name="location-lat" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$" data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                       value="<%= @camera.deep_fetch(:location, :lat) {} %>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label" for="location-lng">Locatin Lng</label>
+              </td>
+              <td>
+                <input id="location-lng" name="location-lng" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$" data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
+                       value="<%= @camera.deep_fetch(:location, :lng) {} %>">
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="portlet-body">
-  <table class="table table-borderless">
-
-    <tr>
-      <td class="col-lg-1">
-        <label class="control-label">Evercam ID</label>
-      </td>
-      <td class="col-lg-2 settings">
-        <div class="settings-id" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div><input type="hidden" name="camera-id" value="<%= @camera['id'] %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="camera-name">Friendly Name</label>
-      </td>
-      <td>
-        <input id="camera-name" class="form-control readonly makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can contain letters, numbers, spaces and hyphens." data-validation-allowing="-_ " data-validation="alphanumeric" required="" placeholder="" name="camera-name" readonly="readonly">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="camera-username">Camera Username</label>
-      </td>
-      <td>
-        <input id="camera-username" name="camera-username" placeholder="" class="form-control readonly makeEditable" readonly="readonly" type="text"
-               value="<%= @camera['cam_username'] %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="camera-password">Camera Password</label>
-      </td>
-      <td>
-        <input id="camera-password" name="camera-password" placeholder="" class="form-control readonly makeEditable" readonly="readonly" type="text"
-               value="<%= @camera['cam_password'] %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="camera-url">External IP (or URL) </label>
-      </td>
-      <td>
-        <div class="input-group">
-        <span class="input-group-addon">http://</span>
-        <input id="camera-url" name="camera-url" placeholder="149.237.192.68" class="camera-url form-control makeEditable" readonly="readonly" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP."
-               value="<%= @camera.deep_fetch(:external, :host) {} %>">
+    <div class="col-lg-5 col-md-4 col-sm-6 makeNonEditable">
+      <div>
+        <div class="test-img-settings"><img id="testimg" src="" class="text-center" width="100%"></div>
+        <div class="test-snapshot">
+          <a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="port">External HTTP Port</label>
-      </td>
-      <td>
-        <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" readonly="readonly" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
-               value="<%= @camera.deep_fetch(:external, :http, :port) {} %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="ext-rtsp-port">External RTSP Port</label>
-      </td>
-      <td>
-        <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" readonly="readonly" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number."
-               value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label class="control-label" for="camera-vendor">Camera Vendor</label>
-      </td>
-      <td>
-        <select id="camera-vendor" name="camera-vendor" readonly="readonly" class="form-control makeEditable">
-          <option selected="selected" value="">-- select model --</option>
-          <% vendors.each_with_index  do |v, index| -%>
-              <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor_id'] %>selected="selected"<% end %>>
-                <%= v.name -%>
-              </option>
-          <% end %>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label">Camera Model</label>
-      </td>
-      <td>
-        <% vendors.each do |v| -%>
-            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" readonly="readonly" class="form-control camera-model  <% if v.exid != @camera['vendor_id'] %>hidden<% end %>">
-              <% models(v.id).each_with_index  do |m, index| -%>
-                  <% if index == 0 %>
-                      <option value="<%= m.exid -%>" ><%= m.name -%></option>
-                  <% else %>
-                      <option value="<%= m.exid -%>" <% if m.exid == @camera['id'] %>selected="selected"<% end %> ><%= m.name -%></option>
-                  <% end %>
-              <% end -%>
-            </select>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="local-ip">Local IP</label>
-      </td>
-      <td>
-        <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" readonly="readonly" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$"  data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true"
-               value="<%= @camera.deep_fetch(:internal, :host) {} %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="local-http">Local HTTP Port</label>
-      </td>
-      <td>
-        <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
-               value="<%= @camera.deep_fetch(:internal, :http, :port) {}  %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="local-rtsp">Local RTSP Port</label>
-      </td>
-      <td>
-        <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
-               value="<%= @camera.deep_fetch(:internal, :rtsp, :port) {} %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="location-lat">Location Lat</label>
-      </td>
-      <td>
-        <input id="location-lat" name="location-lat" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
-               value="<%= @camera.deep_fetch(:location, :lat) {} %>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="control-label" for="location-lng">Locatin Lng</label>
-      </td>
-      <td>
-        <input id="location-lng" name="location-lng" placeholder="Not yet provided" class="form-control makeEditable" readonly="readonly" type="text" data-validation="custom" data-validation-regexp="^[0-9]{2,5}$"  data-validation-error-msg="The Port should be a 2-5 digit number." data-validation-optional="true"
-               value="<%= @camera.deep_fetch(:location, :lng) {} %>">
-      </td>
-    </tr>
-  </table>
+      </div>
+      <div class="snapshot-error text-center">
+        <span id="test-error" class="text-center"><%= flash[:message] %></span>
+      </div>
     </div>
   </div>
-</div>
-  <!-- SNAPSHOT-->
-  <div class="col-lg-5 col-md-4 col-sm-6 makeNonEditable">
-    <div>
-      <div class="test-img-settings"><img id="testimg" src="" class="text-center" width="100%"></div>
-      <div class="test-snapshot"><a href="#" id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a></div>
-    </div>
-    <div class="snapshot-error text-center">
-      <span id="test-error" class="text-center"><%= flash[:message] %></span>
-    </div>
 
-  </div>
-
-</div>
-
-
-
-<!-- SAVE AND DELETE BUTTONS -->
   <fieldset>
     <div class="row save-settings">
       <div class='col-lg-12'>
         <div class='pull-left form-group'>
           <label class="control-label" for="add-button"></label>
-          <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save Settings</button>
+          <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10">Save Settings
+          </button>
         </div>
         <%= button_tag "Cancel", type: :reset, :class => 'btn btn-default makeNonEditable' %>
         <div class="pull-right margin-right-20">
           <% if @share.nil? %>
-            <a id="delete-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" href=""><span class="glyphicon glyphicon-trash"></span>  Delete</a>
+            <a id="delete-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" href=""><span class="glyphicon glyphicon-trash"></span>
+              Delete</a>
           <% else %>
-            <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" href=""><span class="glyphicon glyphicon-trash"></span>  Remove</a>
+            <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" href=""><span class="glyphicon glyphicon-trash"></span>
+              Remove</a>
           <% end %>
         </div>
       </div>
     </div>
-
   </fieldset>
-
-  <!-- SUPPORT -->
- <!-- <fieldset>
-  <div class="row add-footer">
-    <div class='col-lg-10 support'>
-      <h5>Still Can't See Your Camera?</h5>
-      <p>If your still having trouble getting your camera connected you can reach out for some support.</p>
-      <ul>
-        <li>Visit our <a href="http://www.evercam.io/help" target="_blank">Help Pages</a></li>
-        <li>Or email us <a href="#" target="_blank">Support@evercam.io</a></li>
-      </ul>
-    </div>
-  </div>
-</fieldset>-->
-
 </form>
 
-
-<!--DELETE MODAL-->
 <div id="deleteModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
         <% if @share.nil? %>
-        <p class="text-left">Are You Sure You Want to <strong>Delete</strong> this Camera?</p>
+          <p class="text-left">Are You Sure You Want to <strong>Delete</strong> this Camera?</p>
         <% else %>
           <p class="text-left">Are You Sure You Want to <strong>Remove</strong> this Camera?</p>
         <% end %>
@@ -229,40 +215,33 @@
         <div class="col-sm-8">
           <% if @share.nil? %>
             <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-              <span class="glyphicon glyphicon-trash"></span>  Delete Camera</a>
+              <span class="glyphicon glyphicon-trash"></span> Delete Camera</a>
           <% else %>
             <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">
-              <span class="glyphicon glyphicon-trash"></span>  Remove</a>
+              <span class="glyphicon glyphicon-trash"></span> Remove</a>
           <% end %>
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!--END DELETE MODAL-->
 <script type="text/javascript">
-    $(window.Evercam.Settings.initializeTab);
-    $(function(){
-        // Make Input Fields Non Editable & Editable
-        $(".makeNonEditable").click(function(){
-            $('input:text').attr("readonly", "readonly");
-            $('select').attr("readonly", "readonly");
-        });
-        $(".makeEditable").click(function(){
-            $('input:text').removeAttr("readonly");
-            $('select').removeAttr("readonly");
-        });
-
-
-        // Notifications
-        Notification.init(".bb-alert");
-        <% if flash[:message] %>
-        Notification.show('<%= flash[:message] %>');
-        <% end %>
+  $(window.Evercam.Settings.initializeTab);
+  $(function () {
+    $(".makeNonEditable").click(function () {
+      $('input:text').attr("readonly", "readonly");
+      $('select').attr("readonly", "readonly");
+    });
+    $(".makeEditable").click(function () {
+      $('input:text').removeAttr("readonly");
+      $('select').removeAttr("readonly");
     });
 
-
+    Notification.init(".bb-alert");
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
+  });
 </script>

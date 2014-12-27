@@ -1,14 +1,14 @@
-<!-- Start Recording Portion -->
 <div id="recording-tab" class="row">
 
-  <!-- Left Portion -->
   <div class="left-column">
     <div class="snapshots">
       <div class="loader-bg" id="imgLoaderRec">
         <table cellspacing="0" cellpadding="6" border="0" width="100%" height="100%">
           <tr>
             <td width="35%">&nbsp;</td>
-            <td style="width:105px; height:66px;text-align: center;font-weight: bold;"><%=image_tag("loader3.gif", alt: "Loading")%>&nbsp;Loading Image</td>
+            <td style="width:105px; height:66px;text-align: center;font-weight: bold;"><%= image_tag("loader3.gif", alt: "Loading") %>&nbsp;Loading
+              Image
+            </td>
             <td width="35%">&nbsp;</td>
           </tr>
         </table>
@@ -65,11 +65,16 @@
     </div>
     <div id="divPlayMode" class="hide">
       <div class="playback-buttons-bar">
-        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-10" ><a class="btn btn-padding grey" id="btnFRwd"><i class="icon icon-control-rewind"></i></a></div>
-        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-5" ><a class="btn btn-padding grey" id="btnRwd"><i class="icon icon-control-rewind"></i></a></div>
-        <div class="btn-group"><a class="btn btn-padding grey" id="btnPauseRec"><i class="icon icon-control-pause"></i></a></div>
-        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+5"><a class="btn btn-padding grey" id="btnFwd"><i class="icon icon-control-forward"></i></a></div>
-        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+10"><a class="btn btn-padding grey" id="btnFFwd"><i class="icon icon-control-forward"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-10">
+          <a class="btn btn-padding grey" id="btnFRwd"><i class="icon icon-control-rewind"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-5">
+          <a class="btn btn-padding grey" id="btnRwd"><i class="icon icon-control-rewind"></i></a></div>
+        <div class="btn-group">
+          <a class="btn btn-padding grey" id="btnPauseRec"><i class="icon icon-control-pause"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+5">
+          <a class="btn btn-padding grey" id="btnFwd"><i class="icon icon-control-forward"></i></a></div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+10">
+          <a class="btn btn-padding grey" id="btnFFwd"><i class="icon icon-control-forward"></i></a></div>
       </div>
     </div>
     <div class="clear-f"></div>
@@ -79,18 +84,13 @@
     </div>
   </div>
 
-
-
-  <!-- Right Portion -->
   <div class="right-column">
     <div class="col-recording-right">
       <div class="portlet">
         <div id="ui_date_picker_inline" class="datepicker-bg"></div>
 
-
         <div class="datepicker datepicker-bg datepicker-inline show">
           <div class="datepicker-day show">
-
             <table id="hourCalandar" class="table-condensed width100">
               <thead>
               <tr>
@@ -152,8 +152,9 @@
           </div>
         </div>
         <div class="clear-f"></div>
-        <br />
-        <div >
+        <br/>
+
+        <div>
           <div id="LblRecordedStatus"><b>Status: </b>
             <% if @camera['is_online'] %>
               <span id="ltCameraStatus" class="green">Online</span>
@@ -162,14 +163,16 @@
             <% end %></div>
           <div id="divRetrycont"></div>
           <div class="hide"><b>Space used: </b><span id="ltSpace"></span></div>
-          <div class="hide" id="spnPlan"><b>Recording: </b><span id="ltDays"></span>&nbsp;<span id="divScheduleStatus"></span></div>
+          <div class="hide" id="spnPlan">
+            <b>Recording: </b>
+            <span id="ltDays"></span>
+            &nbsp;
+            <span id="divScheduleStatus"></span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- End right portion -->
-
-
   <div class="clear-f"></div>
 </div>
 
@@ -189,6 +192,7 @@
     <div class="clear-f"></div>
   </div>
 </div>
+
 <div id="divPopup" style=""></div>
 <input type="hidden" name="recording_tab_camera_id" id="recording_tab_camera_id" value="<%= @camera["id"] %>">
 <input type="hidden" name="recording_tab_api_id" id="recording_tab_api_id" value="<%= current_user.api_id %>">
@@ -198,5 +202,4 @@
 
 <script type="text/javascript">
   $(window.Evercam.Recordings.initializeTab);
-
 </script>

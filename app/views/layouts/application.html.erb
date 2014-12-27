@@ -5,45 +5,35 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="author" content="ThemeBucket">
   <title><%= yield(:title) %></title>
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABPVJREFUeNrsW01IFFEcf5tiaV8rUkpEaEinwo0gOgRtdCkIM/BQXVSqQxDhXiIqOlV006RbReulOnSo8NAlUujQzZUiKKSvQ6QRbh+imVTvN7yN3XXe/83778zu2O4fhlndnXnz+73/93sjREUqUtYSCXqA8f27ovIUl0dMHm3yiKrP0byfpuWRUucx9Xm4dWgkvegIkKCb5alDHl0KbCECIgblcV+S8S7UBEjg3Qp0PKAJGwYZkohkqAiQwDHbffJoLpLpQhMSkoj7JSVAqfqtAGfci0b0FGIaSwpU99ESghdq7FH1LMXTADkgZp09aM3GVlG1fIWoXtskqhubcr6bfZ5yzjPqbCFJqQk9gRKgQtoTW88OwMt37BS1m2Ni2Rbvl869GRczL1Li++NHzmePEWO3TeiMBAV+iZzh1Qc6xco9e52ZLlSgGVN3kl40w4oEGwJGvYAH8Poj3WJ1e2cgRg8iJvuviPnJTyQJkoCtvhHg1eYBGuBBQpDye/qH+HL9mmMahfqEiAfw3SrUkbO+pveMY+fFlM9SEwwk9JiSpoiHOD/qkrfngF93ud9xdKUQAwnwA1upPMGUB9wKM3gINK9WH1miRu01pLfxMIPPSOO5i5TfiSss1hrQRw3acPxkKMBnJgPPw8ES4Tg+ODuwzpXpZ0/F3Nvxf1kfBAmSbaKULx+OHqLCo6tDrNb8uMvk8bnAEb7cHhIJzpQ8w54bjvG0CyEYTpHAlDRqgPL8b6lB6g/blwEeQpYv/sWgBS35EcHNB3SQ6S0jw7MBn0l0Pp7tNWV7WvMkpMOLE9SqP/J62ywPwG3AZ5NAqLOgnpGQLpIAVfDEmDd3lanb/O4V/IKtFsBsiEmKKYxaDdDGfVR0tjY5ywDg5jhtpZaOJHGKgBjzpu4z+CIlChWYAqfhQkiMCoNtzJu6R4zDvIhRqNS0kM/aRmmANu9f2hKOrM+LVNGOOsoygcUkhkgVY2lAISlq0U2ANteoTTn830uFgAoBC1tI2qTmP5E0RUCqDCY9RSVCaSqrs40ESGO/PbwXag3IJ2BMVw7PT9jn9EtlOJoJn+mMsUyAAwQFVG348ocURcCw7ipUdR4XKBfUA35kdugQccpxF8nBWJX9x8Dr97OnNjXDBFxXMyM1NaJu23Y7LWhsciq6n69esp947ekLzrjo9uB+iEh/fs2xZr91aOSqKQ8Y1F2Nzg6nPEXLmjN7mHl0n7PbXLjP+oEb3Jb8AmxV+f+QGgBv1+t2NViHFnDs2gER8Z5PAGCTBO82FohZta+do1knpJbnRAHdusAToekOYfANN++yV4DhS74+uOeESLduEYiqk4dXjcF90Dv0oJnYc7h7gVlrCIDnCmxhJLvbk3GsIJS70oT7TFw6b4pUB912lWlXhyUJWBto1n2PxRGfvLJvgh0kmibsOwm+xbYYSlCDYYWHExZL1AjRYjHtD9D6guz4HIZFUkQozTqCq+17LYd7qPogs4JTak0gwKcVBl4/QK2jJUwOCCRw+vd+2T2xgpQw7SL1dZMUnCKSnqA3SWXCKYATnt+fTVJZJIRimxw07qsssZFLELHf321yioCSbpTEjMPWDcAz1Z7/GyU5JGSntYt+qyzHJ1CELMrN0i7pMjYfRUPQ4kpw3yIp+xcmKq/M+PlUZfvSlMY0yu+1OSJ0xkVIX5ysSEXKXP4KMAA0TEMOSBp2iAAAAABJRU5ErkJggg==">
 
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-  <script src="https://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
-
-
-
-
   <![endif]-->
 </head>
-<body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-fixed page-header-fixed-mobile page-footer-fixed1" data-no-turbolink>
-
+<body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-fixed page-header-fixed-mobile page-footer-fixed1">
 
 <% if signed_in? %>
   <div class="page-header navbar navbar-fixed-top">
     <div class="page-header-inner">
-      <!-- BEGIN LOGO -->
+
       <div class="page-logo">
-        <a class="logo-default" href="/"><img src="https://www.evercam.io/img/evercam-white.png"></a>
+        <a class="logo-default" href="/">
+          <img src="https://www.evercam.io/img/evercam-white.png">
+        </a>
 
         <div class="sidebar-toggler-wrapper">
-          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-          <div class="sidebar-toggler">
-          </div>
-          <!-- END SIDEBAR TOGGLER BUTTON -->
+          <div class="sidebar-toggler"></div>
         </div>
       </div>
-      <!-- END LOGO -->
-      <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-      <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-      </a>
-      <!-- END RESPONSIVE MENU TOGGLER -->
+
+      <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+
       <div class="nav-title pull-left">
         <a href="/cameras/new" data-toggle="tooltip" data-placement="bottom" title="Add a Camera" title="Add Camera"><i class="icon icon-plus"></i></a>
         <a href="/dev" title="API Docs"><i class="icon icon-briefcase"></i></a>
@@ -51,74 +41,57 @@
           <a class="refresh-images" title="Refresh Images"><i class="icon icon-refresh"></i></a>
         <% end %>
       </div>
-      <!-- BEGIN TOP NAVIGATION MENU -->
-      <div class="top-menu">
 
+      <div class="top-menu">
         <ul class="nav navbar-nav pull-right">
           <li class="dropdown dropdown-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <div class="avatar"><%= current_user.fullname[0,1] %></div>
+              <div class="avatar"><%= current_user.fullname[0, 1] %></div>
 					    <span class="username">
 				      	<%= current_user.fullname %>
                 <i class="fa fa-angle-down"></i>
               </span>
-
             </a>
+
             <ul class="dropdown-menu">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a></li>
+              <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+              </li>
               <li role="presentation"><a href="javascript:Intercom('show');">Support</a></li>
               <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
-
             </ul>
           </li>
 
         </ul>
       </div>
-      <!-- END TOP NAVIGATION MENU -->
-      </div>
+    </div>
 <% else %>
-  <!--<li><%= link_to "Sign in", signin_path, class: "" %></li>-->
+  <%= link_to "Sign in", signin_path, class: "" %>
 <% end %>
 
+</div>
 
-
-  </div>
-  <!-- END HEADER INNER -->
-
-  <!-- END HEADER -->
-        <%= yield %>
-
-
-<!--
-<div id="footer">
-
-    <div class="row">
-        <a href="http://www.evercam.io" target="_blank">© 2014 evercam.io</a>
-        <ul class="footer-nav pull-right">
-          <li><a href="http://www.evercam.io/connect" target="_blank">/connect</a></li>
-          <li><a href="http://www.evercam.io/develop" target="_blank">/develop</a></li>
-          <li><a href="http://www.evercam.io/apps" target="_blank">/apps</a></li>
-          <li><a href="http://www.evercam.io/blog" target="_blank">/blog</a></li>
-          <li><a href="http://www.evercam.io/contact" target="_blank">/contact</a></li>
-        </ul>
-
-    </div><!-- End Row
-
-</div><!-- End Footer Section -->
+<%= yield %>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
   ga('create', 'UA-48470473-1', 'auto', {'allowLinker': true});
   ga('require', 'linker');
-  ga('linker:autoLink', ['evercam.io', 'api.evercam.io'] );
+  ga('linker:autoLink', ['evercam.io', 'api.evercam.io']);
   ga('send', 'pageview');
 
-  $(function() {
-
+  $(function () {
 
     /*==Sidebar Toggle==*/
 
@@ -131,11 +104,7 @@
         $(".leftside-navigation").scrollTo("+=" + Math.abs(diff), 500);
     });
 
-
-
     $('.sidebar-toggle-box .glyphicon-list').click(function (e) {
-
-
 
       $('#sidebar').toggleClass('hide-left-bar');
       if ($('#sidebar').hasClass('hide-left-bar')) {
@@ -154,9 +123,8 @@
       if ($('.header').hasClass('merge-header')) {
         $('.header').removeClass('merge-header')
       }
-
-
     });
+
     $('.toggle-right-box .glyphicon-list').click(function (e) {
       $('#container').toggleClass('open-right-panel');
       $('.right-sidebar').toggleClass('open-right-bar');
@@ -176,10 +144,7 @@
       if ($('.header').hasClass('merge-header')) {
         $('.header').removeClass('merge-header')
       }
-
-
     });
-
 
     $('.panel .tools .fa').click(function () {
       var el = $(this).parents(".panel").children(".panel-body");
@@ -188,15 +153,13 @@
         el.slideUp(200);
       } else {
         $(this).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-        el.slideDown(200); }
+        el.slideDown(200);
+      }
     });
-
-
 
     $('.panel .tools .fa-times').click(function () {
       $(this).parents(".panel").parent().remove();
     });
-
   });
 
 </script>

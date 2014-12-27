@@ -1,106 +1,88 @@
-  <%= content_for(:title, "Evercam: Camera Dashboard") %>
-<!-- END HEADER -->
+<%= content_for(:title, "Evercam: Camera Dashboard") %>
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
 <div class="clearfix">
 </div>
-<!-- BEGIN CONTAINER -->
+
 <div class="page-container" id="camera-index">
-  <!-- BEGIN SIDEBAR -->
   <%= render :partial => "sidebar/sidebar" %>
-  <!-- END SIDEBAR -->
+  
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <div class="cbp-spmenu-push">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+          <h3>Menu</h3>
+          <ul>
+            <li>
+              <a href="/dev">API Docs</a>
+            </li>
+            <li>
+              <a class="dev-menu-title">
+                Widgets <span class="arrow"></span>
+              </a>
+              <ul class="sub-menu">
+                <li>
+                  <a href="/widgets-new">Live View Widget</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-<!-- BEGIN CONTENT -->
-<div class="page-content-wrapper">
-  <div class="page-content">
-
-    <!-- SLIDEY SIDEY MENU -->
-    <div class="cbp-spmenu-push">
-      <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-        <h3>Menu</h3>
-        <ul>
-          <li>
-            <a href="/dev">API Docs</a>
-          </li>
-          <li>
-            <a class="dev-menu-title">
-              Widgets <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="/widgets-new">Live View Widget</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <!-- END SLIDEY SIDEY MENU -->
-
-    <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-    <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">Modal title</h4>
-          </div>
-          <div class="modal-body">
-            Widget settings form goes here
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn blue">Save changes</button>
-            <button type="button" class="btn default" data-dismiss="modal">Close</button>
+      <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+              <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              Widget settings form goes here
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn blue">Save changes</button>
+              <button type="button" class="btn default" data-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
-        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
+      <div class="row">
+        <div class="col-md-12">
+          <% @cameras.each do |camera| %>
 
-    <!-- BEGIN PAGE CONTENT-->
-    <div class="row">
-      <div class="col-md-12">
-        <!--main content start-->
-        <% @cameras.each do |camera| %>
-
-          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
-            <a class="" href="/cameras/<%= camera['id'] %>?share=false">
-              <div class="snapshot">
-                <%= preview(camera) %>
-              </div>
-              <div class="camera-info">
-                <div class="camera-name">
-                  <%= camera['name'] %><% if camera['is_online'] %>
-                  <% else %>
-                    <i class="red fa fa-chain-broken"></i>
-                  <% end %>
-                  <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
+              <a class="" href="/cameras/<%= camera['id'] %>">
+                <div class="snapshot">
+                  <%= preview(camera) %>
                 </div>
-              </div>
-            </a>
-          </div>
+                <div class="camera-info">
+                  <div class="camera-name">
+                    <%= camera['name'] %>
+                    <% if camera['is_online'] %>
+                    <% else %>
+                      <i class="red fa fa-chain-broken"></i>
+                    <% end %>
+                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+                  </div>
+                </div>
+              </a>
+            </div>
 
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
-    <!-- END PAGE CONTENT-->
   </div>
 </div>
-<!-- END CONTENT -->
-
-</div>
-<!-- END CONTAINER -->
 
 <%= javascript_include_tag "cameras" %>
 <script>
   notifyMessage = '';
   <% if flash[:message] %>
-    notifyMessage = '<%= flash[:message] %>';
+  notifyMessage = '<%= flash[:message] %>';
   <% end %>
   $(window.Evercam.Cameras.initializeCameras);
 </script>

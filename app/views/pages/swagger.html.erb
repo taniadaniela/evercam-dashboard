@@ -1,12 +1,10 @@
 <div id='wrapper'>
-
   <div class='main'>
     <div id='content'>
       <div class='container'>
 
         <script type="text/javascript">
           $(function () {
-
             window.swaggerUi = new SwaggerUi({
               url: "<%= EVERCAM_API %>swagger.json",
               dom_id: "swagger-ui-container",
@@ -22,11 +20,8 @@
               },
               docExpansion: "list"
             });
-
             window.swaggerUi.load();
-
           });
-
         </script>
 
         <div id="swagger">
@@ -53,7 +48,6 @@
         <div class='clearfix'>
           &nbsp;
         </div>
-
 
       </div>
     </div>

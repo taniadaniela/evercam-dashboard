@@ -1,12 +1,9 @@
 <%= content_for(:title, "Evercam: Developer Dashboard") %>
 <div class="page-container" id="dev">
-  <!-- BEGIN SIDEBAR -->
   <%= render :partial => "sidebar/sidebar" %>
-  <!-- END SIDEBAR -->
+
   <div class="page-content-wrapper">
     <div class="page-content">
-
-      <!-- Slidey sidey -->
       <div class="cbp-spmenu-push">
         <nav class="cbp-spmenu cbp-spmenu-open cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
           <h3>Menu</h3>
@@ -26,78 +23,65 @@
           </ul>
         </nav>
       </div>
-      <!-- End SLIDEY SIDE MENU -->
 
+      <form role="form" id="apikeys" class="form-horizontal center-block">
+        <div class="col-md-3">
+          <strong>API ID</strong>
+          <%= current_user.api_id -%>
+        </div>
+        <div class="col-md-5">
+          <strong>API Key</strong>
+          <%= current_user.api_key -%>
+        </div>
+        <div class="col-md-4">
+          <strong>Demo Camera ID</strong>
+          <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
+        </div>
+      </form>
 
-        <!--main content start-->
+      <%= stylesheet_link_tag "swagger" %>
+      <%= javascript_include_tag "swagger" %>
+      <script type="text/javascript">
+        $(function () {
+          window.swaggerUi = new SwaggerUi({
+            url: "<%= EVERCAM_API %>swagger.json",
+            dom_id: "swagger-ui-container",
+            supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+            onComplete: function (swaggerApi, swaggerUi) {
+              window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
+              window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
+              $('pre code').each(function (i, e) {
+                hljs.highlightBlock(e)
+              });
+              $('#resources h2').each(function () {
+                $(this).next('ul').find('li:last').remove();
+              });
+              $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
+              $("a:contains('/public/nearest.jpg.json')").text('/public/nearest.jpg');
+            },
+            onFailure: function (data) {
+            },
+            docExpansion: "list"
+          });
+          window.swaggerUi.load();
+        });
+      </script>
 
-        <form role="form" id="apikeys" class="form-horizontal center-block">
-
-          <div class="col-md-3">
-            <strong>API ID</strong>
-            <%= current_user.api_id -%>
+      <div class="exp-swagger">
+        <div id="swagger">
+          <div id="swagger-ui-container" class="swagger-ui-wrap">
+            &nbsp;
           </div>
-          <div class="col-md-5">
-            <strong>API Key</strong>
-            <%= current_user.api_key -%>
-          </div>
-          <div class="col-md-4">
-            <strong>Demo Camera ID</strong>
-            <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
-          </div>
-
-        </form>
-
-
-            <%= stylesheet_link_tag "swagger"%>
-            <%= javascript_include_tag "swagger"%>
-            <script type="text/javascript">
-                $(function () {
-
-                    window.swaggerUi = new SwaggerUi({
-                        url: "<%= EVERCAM_API %>swagger.json",
-                        dom_id: "swagger-ui-container",
-                        supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-                        onComplete: function(swaggerApi, swaggerUi){
-                            window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
-                            window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
-                            $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-                            $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
-                            $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
-                            $("a:contains('/public/nearest.jpg.json')").text('/public/nearest.jpg');
-                        },
-                        onFailure: function(data) {
-                        },
-                        docExpansion: "list"
-                    });
-
-                    window.swaggerUi.load();
-
-                });
-            </script>
-
-
-
-            <div class="exp-swagger">
-              <div id="swagger">
-                <div id="swagger-ui-container" class="swagger-ui-wrap">
-                  &nbsp;
-                </div>
-              </div>
-            </div>
-
-
-
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
 
 <script>
-  jQuery(document).ready(function() {
+  jQuery(document).ready(function () {
     Metronic.init(); // init metronic core components
     Layout.init(); // init current layout
     QuickSidebar.init() // init quick sidebar
   });
-
 </script>

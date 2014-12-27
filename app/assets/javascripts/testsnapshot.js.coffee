@@ -63,7 +63,7 @@ $ ->
         clearInterval(interval)
     , 200);
 
-    $.getJSON(EVERCAMP_API + 'cameras/test.json?' + params.join('&'))
+    $.getJSON(EVERCAM_API + 'cameras/test.json?' + params.join('&'))
     .done((resp) ->
       console.log('success')
       if (resp.data.indexOf('data:text/html') == 0)

@@ -13,6 +13,10 @@ module ApplicationHelper
       .all
   end
 
+  def timezones
+    Timezone::Zone.names.to_a
+  end
+
   def is_active?(link_path)
     current_page?(link_path) ? "active" : ""
   end

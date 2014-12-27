@@ -167,35 +167,35 @@
             </div>
 
             <div id="snapshots" class="tab-pane">
-              <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+              <% #render partial: "cameras/single/snapshots_navigator_tab" %>
             </div>
 
             <div id="streams" class="tab-pane">
-              <%= render partial: "cameras/single/streams_tab" %>
+              <% #render partial: "cameras/single/streams_tab" %>
             </div>
 
             <div id="sharing" class="tab-pane">
-              <%= render partial: "cameras/single/sharing_tab" %>
+              <% #render partial: "cameras/single/sharing_tab" %>
             </div>
 
             <div id="api_explorer" class="tab-pane">
-              <%= render partial: "cameras/single/api_explorer_tab" %>
+              <% #render partial: "cameras/single/api_explorer_tab" %>
             </div>
 
             <div id="logs" class="tab-pane">
-              <%= render partial: "cameras/single/logs_tab" %>
+              <% #render partial: "cameras/single/logs_tab" %>
             </div>
 
             <div id="apps" class="tab-pane">
-              <%= render partial: "cameras/single/apps_tab" %>
+              <% #render partial: "cameras/single/apps_tab" %>
             </div>
 
             <div id="webhooks" class="tab-pane">
-              <%= render partial: "cameras/single/webhooks_tab" %>
+              <% #render partial: "cameras/single/webhooks_tab" %>
             </div>
 
             <div id="local_storage" class="tab-pane">
-              <%= render partial: "cameras/single/local_storage_tab" %>
+              <% #render partial: "cameras/single/local_storage_tab" %>
             </div>
           </div>
         </div>
@@ -206,6 +206,17 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script>
-  var EVERCAM_API = '<%= EVERCAM_API %>';
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.Camera = {
+    id: '<%= @camera['id'] %>',
+    is_online: <%= @camera['is_online'] %>
+  };
+  window.Evercam.User = {
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
 </script>
 <%= javascript_include_tag "testsnapshot" %>

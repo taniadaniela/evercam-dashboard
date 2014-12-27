@@ -1,4 +1,3 @@
-apiUrl = 'https://api.evercam.io/v1/'
 snapshotInfos = null
 totalFrames = 0
 snapshotInfoIdx = 0
@@ -75,7 +74,7 @@ changeMonthFromArrow = (value) ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{day}/days.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{day}/days.json"
 
   sendAJAXRequest(settings)
   if value =='n'
@@ -132,7 +131,7 @@ datePickerChange=(value)->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
   snapshotInfos = null
@@ -319,7 +318,7 @@ HighlightCurrentMonth = ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
   true
@@ -364,7 +363,7 @@ BoldSnapshotHour = (callFromDt) ->
     context: { isCall: callFromDt }
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
 
   sendAJAXRequest(settings)
   true
@@ -454,7 +453,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/range.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/range.json"
 
   sendAJAXRequest(settings)
   true
@@ -487,7 +486,7 @@ loadImage = (timestamp) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{timestamp}.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/#{timestamp}.json"
 
   sendAJAXRequest(settings)
   true
@@ -768,7 +767,7 @@ DoNextImg = ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{apiUrl}cameras/#{cameraId}/snapshots/#{si.created_at}.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/snapshots/#{si.created_at}.json"
 
   sendAJAXRequest(settings)
   return

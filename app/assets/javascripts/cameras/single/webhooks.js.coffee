@@ -89,14 +89,14 @@ onAddWebhookUserClicked = (event) ->
     else
       showError("Failed to add new webhook to the camera. The provided url is not valid.")
     true
-  createWebhook($('#sharing_tab_camera_id').val(), webhookUrl, onSuccess, onError)
+  createWebhook(Evercam.Camera.id, webhookUrl, onSuccess, onError)
   true
 
 createWebhook = (cameraID, url, onSuccess, onError) ->
   data =
     camera_id: cameraID
     url: url
-    user_id: window.Evercam.current_user
+    user_id: window.Evercam.User.username
 
   settings =
     cache: false
@@ -113,7 +113,7 @@ onPermissionsFocus = (event) ->
   $(this).parent().parent().parent().find("td:eq(2) button").fadeIn()
   true
 
-initializeWebhookTab = ->
+window.initializeWebhookTab = ->
   $('.delete-webhook-control').click(onDeleteWebhookClicked)
   $('#submit_webhook_button').click(onAddWebhookUserClicked)
   $('#newWebhookUrl').keypress (e)->
@@ -122,10 +122,3 @@ initializeWebhookTab = ->
   $('.reveal').focus(onPermissionsFocus);
   Notification.init(".bb-alert")
   true
-
-if !window.Evercam
-  window.Evercam = {}
-
-window.Evercam.Webhook =
-  initializeTab: initializeWebhookTab
-  createWebhook: createWebhook

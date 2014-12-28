@@ -61,7 +61,7 @@ validateImage = (image) ->
   img.src = image.src
   return
 
-initializeLiveTab = ->
+window.initializeLiveTab = ->
   image_placeholder = document.getElementById("live-player-image")
   validateImage image for image in document.getElementsByTagName("IMG")
   controlButtonEvents()
@@ -70,9 +70,3 @@ initializeLiveTab = ->
   $('a[data-toggle="tab"]').on "click", ->
     hash = this.href.substr(this.href.indexOf("#"));
     toggleRefresh(hash)
-
-if !window.Evercam
-  window.Evercam = {}
-
-window.Evercam.Live =
-  initializeTab: initializeLiveTab

@@ -1,5 +1,5 @@
 <%= content_for(:title, "Evercam: Camera View") %>
-<%= javascript_include_tag "camera_single" %>
+
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
@@ -214,8 +214,10 @@
     is_online: <%= @camera['is_online'] %>
   };
   window.Evercam.User = {
+    username: '<%= current_user.username %>',
     api_id: '<%= current_user.api_id %>',
     api_key: '<%= current_user.api_key %>'
   };
 </script>
-<%= javascript_include_tag "testsnapshot" %>
+
+<%= javascript_include_tag "cameras/single" %>

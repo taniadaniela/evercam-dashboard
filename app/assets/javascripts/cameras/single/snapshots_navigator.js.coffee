@@ -845,7 +845,7 @@ handleTabEvent = ->
   $("#share-url").on "click", ->
     @select()
 
-initializeRecordingsTab = ->
+window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
   handleWindowResize()
@@ -854,9 +854,3 @@ initializeRecordingsTab = ->
   handlePlay()
   handleTabEvent()
   true
-
-if !window.Evercam
-  window.Evercam = {}
-
-window.Evercam.Recordings =
-  initializeTab: initializeRecordingsTab

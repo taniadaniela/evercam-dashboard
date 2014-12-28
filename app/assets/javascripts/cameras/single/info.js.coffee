@@ -1,8 +1,5 @@
 previous = undefined
 
-onSetCameraAccessClicked = (event) ->
-	true
-
 showSharingTab = ->
   $('.nav-tabs a[href=#sharing]').tab('show');
   setTimeout(->
@@ -154,8 +151,7 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
-initializeInfoTab = ->
-  $('#set_permissions_submit').click(onSetCameraAccessClicked)
+window.initializeInfoTab = ->
   $('.open-sharing').click(showSharingTab)
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
   $('#submit_change_owner_button').click(onChangeOwnerSubmitClicked)
@@ -168,10 +164,3 @@ initializeInfoTab = ->
   handleModelEvents()
   initNotification()
   true
-
-if !window.Evercam
-   window.Evercam = {}
-
-window.Evercam.Info =
-   initializeTab: initializeInfoTab
-

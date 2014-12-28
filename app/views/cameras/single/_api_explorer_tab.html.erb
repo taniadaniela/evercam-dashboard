@@ -4,36 +4,6 @@
 <%= stylesheet_link_tag "swagger" %>
 <%= javascript_include_tag "swagger" %>
 
-<!-- TODO: move out inline js/css files -->
-<script type="text/javascript">
-  $(function () {
-
-    window.swaggerUi = new SwaggerUi({
-      url: "<%= EVERCAM_API %>swagger/cameras.json",
-      dom_id: "swagger-ui-container",
-      supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-      onComplete: function (swaggerApi, swaggerUi) {
-        var current_camera_id = $('#sharing_tab_camera_id').val();
-        window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
-        window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
-        $('pre code').each(function (i, e) {
-          hljs.highlightBlock(e)
-        });
-        $('#resources h2').each(function () {
-          $(this).next('ul').find('li:last').remove();
-        });
-        $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
-        $("input[name='id'].required.parameter").val(current_camera_id);
-      },
-      onFailure: function (data) {
-      },
-      docExpansion: "list"
-    });
-
-    window.swaggerUi.load();
-  });
-</script>
-
 <div id="exp-swagger">
   <div id="swagger">
     <div id="swagger-ui-container" class="swagger-ui-wrap">
@@ -41,7 +11,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  $(window.Evercam.Explorer.initializeTab);
-</script>

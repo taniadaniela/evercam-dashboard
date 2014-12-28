@@ -23,13 +23,7 @@ toggleAllTypeFilters = ->
   else
     $("input[name='type']").prop('checked', false);
 
-initializeLogsTab = ->
-  $('#apply-types').click(updateLogTypesFilter)
-  $('.datetimepicker').datetimepicker()
-  $('#all-types').click(toggleAllTypeFilters)
-  jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
-    return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
-  updateLogTypesFilter()
+initializeDataTable = ->
   table = $('#logs-table').DataTable({
     ajax: {
       url: $('#ajax-url').val(),
@@ -55,10 +49,12 @@ initializeLogsTab = ->
     iDisplayLength: 50,
     order: [[ 0, "desc" ]]
   })
-  true
 
-if !window.Evercam
-  window.Evercam = {}
-
-window.Evercam.Logs =
-  initializeTab: initializeLogsTab
+window.initializeLogsTab = ->
+  $('#apply-types').click(updateLogTypesFilter)
+  $('.datetimepicker').datetimepicker()
+  $('#all-types').click(toggleAllTypeFilters)
+  jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
+    return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
+  updateLogTypesFilter()
+  initializeDataTable()

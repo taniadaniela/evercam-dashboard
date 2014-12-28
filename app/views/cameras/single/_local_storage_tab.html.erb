@@ -5,13 +5,13 @@
   window.localwidgetLoaded = false;
 
   $(document).ready(function () {
-    if (window.location.hash === '#local' && !window.localwidgetLoaded) {
+    if (window.location.hash === '#local_storage' && !window.localwidgetLoaded) {
       initLocalStorage();
     }
   });
 
   $('.tabbable-custom').on('click', 'a[data-toggle="tab"]', function () {
-    if ($(this).attr('href') === '#local' && !window.localwidgetLoaded) {
+    if ($(this).attr('href') === '#local_storage' && !window.localwidgetLoaded) {
       initLocalStorage();
     }
   });

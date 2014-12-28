@@ -25,6 +25,3 @@
 <input type="hidden" id="live-snapshot-url" value="<%= EVERCAM_API %>cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%=  current_user.api_id %>&api_key=<%= current_user.api_key %>">
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/1.0.4/screenfull.min.js"></script>
-<script type="text/javascript">
-  $(window.Evercam.Live.initializeTab);
-</script>

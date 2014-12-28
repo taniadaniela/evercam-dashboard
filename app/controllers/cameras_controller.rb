@@ -129,7 +129,7 @@ class CamerasController < ApplicationController
                            error.backtrace.join("\n")
       flash[:error] = "An error occurred deleting your camera. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to action: 'single', id: params[:id], share: params[:share]
+      redirect_to action: 'single', id: params[:id]
     end
   end
 
@@ -145,16 +145,14 @@ class CamerasController < ApplicationController
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset
 
-      if params[:from].blank?
-        params[:from] = (Time.now - 24.hours)
-      end
+      params[:from] = (Time.now - 24.hours) if params[:from].blank?
       @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
         redirect_to action: 'index' if @share.nil?
-        @owner = User.where(:username => @camera['owner']).first
+        @owner_email = User.by_login(@camera['owner']).email
       else
-        @owner = current_user
+        @owner_email = current_user.email
       end
       @has_edit_rights = @camera["rights"].split(",").include?("edit")
       @camera_shares = api.get_camera_shares(params[:id])

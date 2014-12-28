@@ -23,7 +23,6 @@ gem 'puma_worker_killer', '~> 0.0.3'
 gem 'data_uri'
 gem 'geocoder'
 gem 'heroku_rails_deflate'
-gem 'hashie_rails'
 gem 'country_select',
   github: 'stefanpenner/country_select'
 gem 'devise'

@@ -211,7 +211,12 @@
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
   window.Evercam.Camera = {
     id: '<%= @camera['id'] %>',
-    is_online: <%= @camera['is_online'] %>
+    is_online: <%= @camera['is_online'] %>,
+    location: {
+      lat: '<%= @camera.deep_fetch('location', 'lat') {} %>',
+      lng: '<%= @camera.deep_fetch('location', 'lng') {} %>',
+    },
+    port: '<%= @camera.deep_fetch('external', 'http', 'port') {} %>'
   };
   window.Evercam.User = {
     username: '<%= current_user.username %>',

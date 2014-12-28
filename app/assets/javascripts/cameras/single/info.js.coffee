@@ -75,13 +75,13 @@ handleVendorModelEvents = ->
   true
 
 initializeMap = ->
-  $("#co-ordinates").replaceWith "<p>The location is not set. Drag the marker to the location of your camera.</p>"  if cameraLong is "0"
-  unless cameraLong is "0"
+  $("#co-ordinates").replaceWith "<p>The location is not set. Drag the marker to the location of your camera.</p>" if Evercam.Camera.location.lng  is "0"
+  unless Evercam.Camera.location.lng is "0"
     $(".edit-location").click ->
       $("#testies").toggle()
 
-  cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong)
-  if cameraLong is "0"
+  cameraLatlng = new google.maps.LatLng(Evercam.Camera.location.lat, Evercam.Camera.location.lng)
+  if Evercam.Camera.location.lng is "0"
     mapOptions =
       zoom: 0
       minZoom: 2
@@ -136,7 +136,7 @@ handleModelEvents = ->
     $(".modal:visible").each centerModal
 
   $(".modal").on "hidden.bs.modal", ->
-    $(this).find("form")[0].reset()
+    $(this).closest("form")[0].reset()
 
 centerModal = ->
   $(this).css "display", "block"
@@ -156,7 +156,7 @@ window.initializeInfoTab = ->
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
   $('#submit_change_owner_button').click(onChangeOwnerSubmitClicked)
 
-  if cameraLong is ""
+  if Evercam.Camera.location.lng is ""
     $("#info-location").replaceWith "<p>Not set</p>"
   $.validate()
   handleVendorModelEvents()

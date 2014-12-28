@@ -37,7 +37,7 @@ class PagesController < ApplicationController
   def live
     begin
     api = get_evercam_api
-    @camera = Hashie::Mash.new(api.get_camera(params[:id], true))
+    @camera = api.get_camera(params[:id], true)
     end
     rescue => error
       puts error

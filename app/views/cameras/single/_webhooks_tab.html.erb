@@ -2,15 +2,15 @@
   <div class="col-md-8">
     <p>Webhooks can be used to notify an external address whenever a camera goes online or offline.</p>
     <p>For example, if we add <span style="color:#409b1c">http://example.com/payload</span> to the list of webhooks for
-      the camera "<%= @camera.id %>", that address would receive a POST request with the following data when camera's
+      the camera "<%= @camera['id'] %>", that address would receive a POST request with the following data when camera's
       status changed:</p>
   </div>
   <div class="col-md-4">
 <pre>{
-  <span>"id"</span>: <span style="color:#409b1c">"<%= @camera.id %>"</span>,
-  <span>"last_polled_at"</span>: <span style="color:#409b1c">"<%= @camera.last_polled_at %> "</span>,
-  <span>"last_online_at"</span>: <span style="color:#409b1c">"<%= @camera.last_online_at %> "</span>,
-  <span>"is_online"</span>: <span style="color:#3b5bb5"><%= @camera.is_online %></span>
+  <span>"id"</span>: <span style="color:#409b1c">"<%= @camera['id'] %>"</span>,
+  <span>"last_polled_at"</span>: <span style="color:#409b1c">"<%= @camera['last_polled_at'] %> "</span>,
+  <span>"last_online_at"</span>: <span style="color:#409b1c">"<%= @camera['last_online_at'] %> "</span>,
+  <span>"is_online"</span>: <span style="color:#3b5bb5"><%= @camera['is_online'] %></span>
 }
 </pre>
   </div>
@@ -28,7 +28,7 @@
             </td>
             <td class="col-lg-2">
               <div class="form-group">
-                <span class="delete-webhook-control" camera_id="<%= @camera["id"] %>" webhook_id="<%= webhook['id'] %>">
+                <span class="delete-webhook-control" camera_id="<%= @camera['id'] %>" webhook_id="<%= webhook['id'] %>">
                   <i class="glyphicon glyphicon-remove"></i>
                   Remove
                 </span>

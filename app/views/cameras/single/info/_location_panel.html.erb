@@ -12,7 +12,7 @@
           <div id="map-info"></div>
           <div id="co-ordinates"><strong>Coordinates</strong>
             <br/>
-            <%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></div>
+            <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></div>
         </div>
         <div class="col-md-12">
           <p id="testies" style="display: none;" class="note note-info marker-info">
@@ -28,13 +28,13 @@
                     <tr>
                       <td class="col-md-4"><label class="control-label" for="location-lat">Latitude</label></td>
                       <td>
-                        <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lat) {} %>">
+                        <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lat') {} %>">
                       </td>
                     </tr>
                     <tr>
                       <td><label class="control-label" for="location-lng">Longitude</label></td>
                       <td>
-                        <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch(:location, :lng) {} %>">
+                        <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lng') {} %>">
                       </td>
                     </tr>
                   </table>

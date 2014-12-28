@@ -1,6 +1,6 @@
 # TODO: refactor this file
 
-validate_hostname= (str) ->
+validate_hostname = (str) ->
   ValidIpAddressRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
   ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/
   ValidIpAddressRegex.test(str) || ValidHostnameRegex.test(str)
@@ -57,7 +57,7 @@ $ ->
     l = Ladda.create(this);
     l.start();
     progress = 0;
-    interval = setInterval( ->
+    interval = setInterval(->
       progress = Math.min(progress + 0.025, 1);
       l.setProgress(progress);
       if (progress == 1)

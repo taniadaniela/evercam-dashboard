@@ -46,28 +46,28 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <% @public_cameras.each do |c| %>
+                  <% @public_cameras.each do |camera| %>
                     <tr>
-                      <td><%= c["name"] %></td>
-                      <td data-toggle="collapse" data-target="#<%= c["id"] %>" class="show-arrow">
-                        <a data-toggle="modal" href="#<%= c["id"] %>">Preview </a></td>
+                      <td><%= camera["name"] %></td>
+                      <td data-toggle="collapse" data-target="#<%= camera["id"] %>" class="show-arrow">
+                        <a data-toggle="modal" href="#<%= camera["id"] %>">Preview </a></td>
                       <td class="text-success">
-                        <% if c["is_online"] %>
+                        <% if camera["is_online"] %>
                           <span class="green">Online</span>
                         <% else %>
                           <span class="red">Offline</span>
                         <% end %>
                       </td>
-                      <td><%= c['owner'] %></td>
-                      <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></p></div></td>
-                      <td class="show-arrow text-success"><a href="/public/cameras/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
-                      <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
+                      <td><%= camera['owner'] %></td>
+                      <td><div id="camera-location"><%= camera.deep_fetch('location', 'lat') {} %>, <%= camera.deep_fetch('location', 'lng') {} %></p></div></td>
+                      <td class="show-arrow text-success"><a href="/public/cameras/<%= camera['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                      <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= camera["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
 
-                    <div class="modal fade" id="<%= c["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal fade" id="<%= camera["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
-                          <div class="public-preview" id="<%= c["id"] %>"> <%= preview(c, true) %> </div>
+                          <div class="public-preview" id="<%= camera["id"] %>"> <%= preview(camera, true) %> </div>
                             <i data-dismiss="modal" class="icon-close modal-dismiss"></i>
                         </div>
                       </div>
@@ -84,17 +84,31 @@
   </div>
 </div>
 
+<script>
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  if (!window.Evercam.Share) {
+    window.Evercam.Share = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+</script>
+
 <%= javascript_include_tag "publiccam" %>
+<%= javascript_include_tag "cameras/single/sharing" %>
 
 <script>
-  jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
+  $(document).ready(function() {
+    window.initializePublic();
+    Metronic.init();
+    Layout.init();
+    QuickSidebar.init();
   });
-
-  $(window.Evercam.Publiccam.initialize);
-
   Notification.init(".bb-alert");
   <% if flash[:error] %>
   Notification.show('<%= flash[:error] %>');
@@ -112,12 +126,12 @@
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-    <% @public_cameras.each do |c| %>
+    <% @public_cameras.each do |camera| %>
 
-    <% if c.deep_fetch(:location) {} != nil && c['is_online'] %>
+    <% if camera.deep_fetch('location') {} != nil && camera['is_online'] %>
 
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(<%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %>),
+      position: new google.maps.LatLng(<%= camera.deep_fetch('location', 'lat') {} %>, <%= camera.deep_fetch('location', 'lng') {} %>),
       map: map,
       title: 'Click Me '
     });
@@ -127,8 +141,8 @@
     (function (marker) {
       // add click event
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent("<a href='/public/cameras/<%= c['id'] %>'><%= preview(c, true) %></a>"+
-            '<h5><a href="/public/cameras/<%= c['id'] %>"><%= c["name"] %></a></h5>');
+        infowindow.setContent("<a href='/public/cameras/<%= camera['id'] %>'><%= preview(camera, true) %></a>"+
+            '<h5><a href="/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
         infowindow.open(map, marker);
       });
     })(marker);

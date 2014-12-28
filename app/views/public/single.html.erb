@@ -33,7 +33,7 @@
           <a href="/public/cameras/"><span class="icon-arrow-left"></span>Public Cameras</a>
         </div>
         <div class="pull-right col-xs-6 col-md-6">
-          <a href="#" class="pull-right" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras Shared With Me <i class="icon-plus"></i></a>
+          <a href="#" class="pull-right create-share-button" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras Shared With Me <i class="icon-plus"></i></a>
         </div>
       </div>
 
@@ -135,7 +135,7 @@
                               </div>
                               <div id="pub-location" class="col-md-6">
                                 Coordinates
-                                <p><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+                                <p><%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></p>
                               </div>
                             </div>
                           </div>​
@@ -153,27 +153,46 @@
   </div>
 </div>
 
-<%= javascript_include_tag "publiccam" %>
 <script>
-  cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
-  cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
-  $(window.Evercam.Publiccam.initialize);
-  jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
-  });
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.Camera = {
+    id: '<%= @camera['id'] %>',
+    is_online: <%= @camera['is_online'] %>,
+    location: {
+      lat: '<%= @camera.deep_fetch('location', 'lat') {} %>',
+      lng: '<%= @camera.deep_fetch('location', 'lng') {} %>',
+    },
+    port: '<%= @camera.deep_fetch('external', 'http', 'port') {} %>'
+  };
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+</script>
+
+<%= javascript_include_tag "publiccam" %>
+<%= javascript_include_tag "cameras/single/sharing" %>
+
+<script>
 
   $(document).ready(function() {
-    if (cameraLong === '0') {
+    window.initializePublic();
+    Metronic.init();
+    Layout.init();
+    QuickSidebar.init();
+
+    if (Evercam.Camera.location.lng === '0') {
       $('#pub-location').replaceWith("<p></p>");
       $('#map-public').replaceWith("<p>The location of this camera has not been set.</p>");
-      return;
     }
   });
 
   function initialize() {
-    var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
+    var cameraLatlng = new google.maps.LatLng(Evercam.Camera.location.lat, Evercam.Camera.location.lng);
     var mapOptions = {
       zoom: 12,
       center: cameraLatlng,
@@ -205,5 +224,4 @@
       classie.toggle( showLeft, 'disabled' );
     }
   }
-
 </script>

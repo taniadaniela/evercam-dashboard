@@ -48,7 +48,7 @@
             JPEG:
           </td>
           <td>
-            <% url = @camera.deep_fetch(:dyndns, :http, :jpg) {} %>
+            <% url = @camera.deep_fetch('dyndns', 'http', 'jpg') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
             <% else %>
@@ -61,7 +61,7 @@
             MJPEG:
           </td>
           <td>
-            <% url = @camera.deep_fetch(:dyndns, :http, :mjpg) {} %>
+            <% url = @camera.deep_fetch('dyndns', 'http', 'mjpg') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
             <% else %>
@@ -74,7 +74,7 @@
             MPEG:
           </td>
           <td>
-            <% url = @camera.deep_fetch(:dyndns, :rtsp, :mpeg) {} %>
+            <% url = @camera.deep_fetch('dyndns', 'rtsp', 'mpeg') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
             <% else %>
@@ -87,7 +87,7 @@
             Audio:
           </td>
           <td>
-            <% url = @camera.deep_fetch(:dyndns, :rtsp, :audio) {} %>
+            <% url = @camera.deep_fetch('dyndns', 'rtsp', 'audio') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
             <% else %>
@@ -100,7 +100,7 @@
             H264:
           </td>
           <td>
-            <% url = @camera.deep_fetch(:dyndns, :rtsp, :h264) {} %>
+            <% url = @camera.deep_fetch('dyndns', 'rtsp', 'h264') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
             <% else %>
@@ -119,7 +119,8 @@
             Camera:
           </td>
           <td>
-            <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
+            <% url = @camera.deep_fetch('external', 'http', 'camera') {} %>
+            <% if url.blank? %>
               <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
             <% else %>
               <span class="grey">Not available</span>

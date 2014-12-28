@@ -31,7 +31,7 @@
         <tr>
           <td>Camera Source:</td>
           <td>
-            <% if url = @camera.deep_fetch(:external, :http, :camera) {} %>
+            <% if url = @camera.deep_fetch('external', 'http', 'camera') {} %>
               <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
             <% else %>
               <span class="grey">Not available</span>

@@ -81,7 +81,7 @@
                       <tr>
                         <td><label class="control-label" for="snapshot">Snapshot URL:</label></td>
                         <td>
-                          <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-&=]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= @camera.deep_fetch(:external, :http, :jpg) { '' }.sub("http://#{@camera.deep_fetch(:external, :host) { '' }}", '').sub(":#{@camera.deep_fetch(:external, :http, :port) { '' }}", '') if @camera.deep_fetch(:external, :http, :jpg) { '' } %>">
+                          <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" data-validation="custom" data-validation-regexp="^/[a-zA-Z0-9._/-&=]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid URL" value="<%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %>">
                         </td>
                       </tr>
                     </table>
@@ -111,20 +111,20 @@
                         <td><label class="control-label" for="camera-url">IP (or URL):</label></td>
                         <td>
                           <div class="input-group"><span class="input-group-addon">http://</span>
-                            <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera.deep_fetch(:external, :host) {} %>">
+                            <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera.deep_fetch('external', 'host') {} %>">
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td><label class="control-label" for="port">HTTP Port:</label></td>
                         <td>
-                          <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch(:external, :http, :port) {} %>">
+                          <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'http', 'port') {} %>">
                         </td>
                       </tr>
                       <tr>
                         <td><label class="control-label" for="ext-rtsp-port">RTSP Port:</label></td>
                         <td>
-                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch(:external, :rtsp, :port) {} %>">
+                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">
                         </td>
                       </tr>
                       <tr>
@@ -133,29 +133,35 @@
                       <tr>
                         <td><label class="control-label" for="local-ip">IP (or URL):</label></td>
                         <td>
-                          <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{1,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true" value="<%= @camera.deep_fetch(:internal, :host) {} %>">
+                          <input id="local-ip" name="local-ip" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{1,100}$" data-validation-error-msg="This doesn't appear to be a valid IP or URL." data-validation-optional="true" value="<%= @camera.deep_fetch('internal', 'host') {} %>">
                         </td>
                       </tr>
                       <tr>
                         <td><label class="control-label" for="local-http">HTTP Port:</label></td>
                         <td>
-                          <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" max-length="5" value="<%= @camera.deep_fetch(:internal, :http, :port) {} %>">
+                          <input id="local-http" name="local-http" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" max-length="5" value="<%= @camera.deep_fetch('internal', 'http', 'port') {} %>">
                         </td>
                       </tr>
                       <tr>
                         <td><label class="control-label" for="local-rtsp">RTSP Port:</label></td>
                         <td>
-                          <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" value="<%= @camera.deep_fetch(:internal, :rtsp, :port) {} %>">
+                          <input id="local-rtsp" name="local-rtsp" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" value="<%= @camera.deep_fetch('internal', 'rtsp', 'port') {} %>">
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="camera-timezone">Timezone:</label></td>
-                        <td><select id="camera-timezone" name="camera-timezone" class="form-control makeEditable">
-                          <% timezones.each do |timezone| %>
-                            <option value="<%= timezone %>" selected="selected"><%= timezone %></option>
-                          <% end %>
-                          <option value="<%= @camera['timezone'] %>" selected="selected"><%= @camera['timezone'] %></option>
-                        </select></td>
+                        <td>
+                          <label class="control-label" for="camera-timezone">
+                            Timezone:
+                          </label>
+                        </td>
+                        <td>
+                          <select id="camera-timezone" name="camera-timezone" class="form-control makeEditable">
+                            <% timezones.each do |timezone| %>
+                              <option value="<%= timezone %>" selected="selected"><%= timezone %></option>
+                            <% end %>
+                            <option value="<%= @camera['timezone'] %>" selected="selected"><%= @camera['timezone'] %></option>
+                          </select>
+                        </td>
                       </tr>
                     </table>
                   </div>

@@ -149,12 +149,12 @@ class CamerasController < ApplicationController
       @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
-        redirect_to action: 'index' if @share.nil?
+        return redirect_to action: 'index' if @share.nil?
         @owner_email = User.by_login(@camera['owner']).email
       else
         @owner_email = current_user.email
       end
-      @has_edit_rights = @camera["rights"].split(",").include?("edit")
+      @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @webhooks = api.get_webhooks(params[:id])

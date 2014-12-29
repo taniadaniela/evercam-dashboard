@@ -85,12 +85,6 @@
 </div>
 
 <script>
-  if (!window.Evercam) {
-    window.Evercam = {};
-  }
-  if (!window.Evercam.Share) {
-    window.Evercam.Share = {};
-  }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
   window.Evercam.User = {
     username: '<%= current_user.username %>',
@@ -100,7 +94,6 @@
 </script>
 
 <%= javascript_include_tag "publiccam" %>
-<%= javascript_include_tag "cameras/single/sharing" %>
 
 <script>
   $(document).ready(function() {

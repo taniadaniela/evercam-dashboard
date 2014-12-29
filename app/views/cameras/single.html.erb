@@ -205,24 +205,29 @@
 </div>
 
 <script>
-  if (!window.Evercam) {
-    window.Evercam = {};
-  }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
   window.Evercam.Camera = {
     id: '<%= @camera['id'] %>',
     is_online: <%= @camera['is_online'] %>,
     location: {
       lat: '<%= @camera.deep_fetch('location', 'lat') {} %>',
-      lng: '<%= @camera.deep_fetch('location', 'lng') {} %>',
-    },
-    port: '<%= @camera.deep_fetch('external', 'http', 'port') {} %>'
+      lng: '<%= @camera.deep_fetch('location', 'lng') {} %>'
+    }
   };
   window.Evercam.User = {
     username: '<%= current_user.username %>',
     api_id: '<%= current_user.api_id %>',
     api_key: '<%= current_user.api_key %>'
   };
+
+  $(document).ready(function(){
+    window.initializeCameraSingle();
+  });
 </script>
 
-<%= javascript_include_tag "cameras/single" %>
+<%= javascript_tag do %>
+  notifyMessage = '';
+  <% if flash[:message] %>
+    notifyMessage = '<%= flash[:message] %>';
+  <% end %>
+<% end %>

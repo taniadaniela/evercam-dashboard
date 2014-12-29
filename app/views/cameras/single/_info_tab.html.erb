@@ -3,7 +3,7 @@
   <%= render partial: "cameras/single/info/settings_modal" %>
   <div class="row">
     <div class="col-md-6">
-      <%= render partial: "cameras/single/info/live_view_panel" %>
+      <%= render partial: "cameras/single/info/last_snapshot_panel" %>
       <%= render partial: "cameras/single/info/location_panel" %>
     </div>
     <div class="col-md-6">
@@ -15,12 +15,5 @@
     </div>
   </div>
 </form>
-
-<%= javascript_tag do %>
-  notifyMessage = '';
-  <% if flash[:message] %>
-    notifyMessage = '<%= flash[:message] %>';
-  <% end %>
-<% end %>
 
 <script src="//maps.google.com/maps/api/js?sensor=true"></script>

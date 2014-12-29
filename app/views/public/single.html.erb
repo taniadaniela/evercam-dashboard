@@ -47,7 +47,7 @@
                     <div class="portlet solid bordered grey-cararra">
                       <div class="portlet-title">
                         <div class="caption">
-                          Live View
+                          Last Snapshot
                         </div>
                       </div>
                       <div class="portlet-body">
@@ -154,9 +154,6 @@
 </div>
 
 <script>
-  if (!window.Evercam) {
-    window.Evercam = {};
-  }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
   window.Evercam.Camera = {
     id: '<%= @camera['id'] %>',
@@ -175,7 +172,6 @@
 </script>
 
 <%= javascript_include_tag "publiccam" %>
-<%= javascript_include_tag "cameras/single/sharing" %>
 
 <script>
 

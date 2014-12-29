@@ -338,7 +338,4 @@ window.initializeSharingTab = ->
     $(".modal:visible").each centerModal
   Notification.init(".bb-alert")
 
-if !window.Evercam.Share
-  window.Evercam.Share = {}
-
 window.Evercam.Share.createShare = createShare

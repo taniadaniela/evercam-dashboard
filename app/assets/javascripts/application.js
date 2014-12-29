@@ -16,7 +16,6 @@
 //= require spin-1.3.2.min
 //= require ladda-0.8.0.min
 //= require editable-1.5.1.min
-//= require alerts
 //= require bootbox-4.2.0
 //= require jquery.datetimepicker-2.2.5.min
 //= require moment.min
@@ -27,8 +26,11 @@
 //= require jquery.nicescroll.js
 //= require jquery.slimscroll.min.js
 //= require bootstrap-tabdrop.js
-//= require jwplayer.js
 //= require jquery-form-validator/form-validator/jquery.form-validator.js
+//=
+//= require alerts
+//= require cameras/single.js
+//=
 //= require metronic/respond.min.js
 //= require metronic/metronic.js
 //= require metronic/layout.js

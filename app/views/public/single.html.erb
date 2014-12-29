@@ -4,16 +4,19 @@
   <span></span>
 </div>
 <div class="page-container" id="public-single">
-  <!-- BEGIN SIDEBAR -->
-  <%= render :partial => "sidebar/sidebar" %>
-  <!-- END SIDEBAR -->
+  <%= render :partial => "shared/sidebar" %>
+
   <div class="page-content-wrapper">
     <div class="page-content">
 
       <div class="row">
         <div class="camera-title">
           <div class="col-xs-6 col-md-6">
-            <h3 class="page-title"><%= @camera['name'] %><small>   <%= @camera['id'] %></small></h3>
+            <h3 class="page-title"><%= @camera['name'] %>
+              <small>
+                <%= @camera['id'] %>
+              </small>
+            </h3>
           </div>
           <div id="status" class="col-md-6 col-sm-6">
             <% if @camera['is_online'] %>
@@ -30,7 +33,7 @@
           <a href="/public/cameras/"><span class="icon-arrow-left"></span>Public Cameras</a>
         </div>
         <div class="pull-right col-xs-6 col-md-6">
-          <a href="#" class="pull-right" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras Shared With Me <i class="icon-plus"></i></a>
+          <a href="#" class="pull-right create-share-button" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras Shared With Me <i class="icon-plus"></i></a>
         </div>
       </div>
 
@@ -44,26 +47,16 @@
                     <div class="portlet solid bordered grey-cararra">
                       <div class="portlet-title">
                         <div class="caption">
-                          Live View
+                          Last Snapshot
                         </div>
                       </div>
                       <div class="portlet-body">
                         <div class="info-preview">
                           <div class="camera-preview">
-                            <!--     <div>
-                                  <a href="#" id="info-refresh" class="refresh"><span class="glyphicon glyphicon-refresh">  </span>  Refresh</a>
-                                </div>-->
                             <% if @camera['is_online'] %>
                               <%= preview(@camera, true) %>
                             <% else %>
                               <div class="tint"><%= preview(@camera, true ) %></div>
-
-                              <!--<div class="offline-public">
-                                <div class="offline-text">
-                                  <p>This camera appears to be offline.</p>
-                                  <p>We are currently unable to fetch a snapshot.</p>
-                                </div>
-                              </div>-->
                             <% end %>
                           </div>
                         </div>​
@@ -124,7 +117,7 @@
                       </div>
                     </div>
                   </div>
-                </div><!-- end col-md-6-->
+                </div>
 
                   <div class="col-md-6">
                     <div id="public-info" class="portlet-body">
@@ -141,7 +134,8 @@
                                 <div id="map-public"></div>
                               </div>
                               <div id="pub-location" class="col-md-6">
-                                Coordinates<br /><p><%= @camera.deep_fetch(:location, :lat) {} %>, <%= @camera.deep_fetch(:location, :lng) {} %></p>
+                                Coordinates
+                                <p><%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></p>
                               </div>
                             </div>
                           </div>​
@@ -150,47 +144,57 @@
                     </div>
                   </div>
 
-              </div><!--row -->
-            </div><!--tab ccontent-->
-          </div><!--end tabbable custom-->
-        </div><!--portlet-->
-      </div><!--public-cam-single-->
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <input type="button" value="Click me..." onclick="alert(address);" />
+</div>
 
-  <%= javascript_tag do %>
-    cameraLong = '<%= @camera.deep_fetch(:location, :lng) {} %>';
-    cameraLat = '<%= @camera.deep_fetch(:location, :lat) {} %>';
-    <% end %><%= javascript_include_tag "publiccam" %>
 <script>
-  $(window.Evercam.Publiccam.initialize);
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.Camera = {
+    id: '<%= @camera['id'] %>',
+    is_online: <%= @camera['is_online'] %>,
+    location: {
+      lat: '<%= @camera.deep_fetch('location', 'lat') {} %>',
+      lng: '<%= @camera.deep_fetch('location', 'lng') {} %>',
+    },
+    port: '<%= @camera.deep_fetch('external', 'http', 'port') {} %>'
+  };
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+</script>
 
+<%= javascript_include_tag "publiccam" %>
 
-  jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
-  });
-
+<script>
 
   $(document).ready(function() {
-    if (cameraLong === '0') {
+    window.initializePublic();
+    Metronic.init();
+    Layout.init();
+    QuickSidebar.init();
+
+    if (Evercam.Camera.location.lng === '0') {
       $('#pub-location').replaceWith("<p></p>");
       $('#map-public').replaceWith("<p>The location of this camera has not been set.</p>");
-      return;
     }
   });
 
   function initialize() {
-    var cameraLatlng = new google.maps.LatLng(cameraLat, cameraLong);
+    var cameraLatlng = new google.maps.LatLng(Evercam.Camera.location.lat, Evercam.Camera.location.lng);
     var mapOptions = {
       zoom: 12,
       center: cameraLatlng,
       mapTypeControl: false,
       streetViewControl: false
-    }
+    };
     var map = new google.maps.Map(document.getElementById('map-public'), mapOptions);
 
     var marker = new google.maps.Marker({
@@ -198,11 +202,9 @@
       map: map,
       title: 'Camera Location'
     });
-
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
-/**/
   var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
       showLeft = document.getElementById( 'showLeft' )
   body = document.body;
@@ -213,13 +215,9 @@
     disableOther( 'showLeft' );
   };
 
-
   function disableOther( button ) {
     if( button !== 'showLeft' ) {
       classie.toggle( showLeft, 'disabled' );
     }
-
   }
-
-
 </script>

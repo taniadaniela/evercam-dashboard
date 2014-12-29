@@ -303,7 +303,6 @@
 <% if flash[:message] %>
   <%= flash[:message] %>
 <% end %>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 
 <script type="text/javascript">
   $(function(){
@@ -315,6 +314,4 @@
     Notification.show('<%= flash[:message] %>');
     <% end %>
   });
-
-
 </script>

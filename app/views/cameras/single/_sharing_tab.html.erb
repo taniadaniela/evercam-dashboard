@@ -1,0 +1,245 @@
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div class="col-md-12">
+          <div class="row"><h5>Visibility Options</h5></div>
+          <div class="form-group">
+            <div class="radio-list">
+              <label class="radio-inline">
+                <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
+                Public on the web
+                <small> - Is Public: [Yes] &amp; Discoverable: [Yes]</small>
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
+                Anyone with the link
+                <small> - Is Public: [Yes] &amp; Discoverable: [No]</small>
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
+                Specific people can access (listed emails)
+                <small> - Is Public: [No] &amp; Discoverable: [No]</small>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <input type="hidden" name="sharing_tab_camera_id" id="sharing_tab_camera_id" value="<%= @camera["id"] %>"></input>
+        <a href="#" type="button" data-dismiss="modal" id="set_permissions_submit" class="btn btn-primary">Save</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="change_owner" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Transfer Camera Ownership</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-left">
+          Enter the user name or email address of the Evercam user that you want to transfer ownership of this camera to
+          in the field below.
+        <p>
+          <strong>
+            Note that once you click submit you will no longer be the owner of the camera and may lose all rights to the
+            camera and associated artifacts.
+          </strong>
+        </p>
+        </p>
+        <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
+        <input type="text" id="new_owner_email" name="new_owner_email" placeholder="Enter New Owners Email Address">
+        <input type="hidden" id="change_owner_camera_id" name="camera-id" value="<%= @camera['id'] %>">
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="btn-toolbar pull-left">
+              <div class="btn-group">
+                <button type="button" id="submit_change_owner_button" class="btn btn-default btn-danger">Submit</button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="sharing-title">
+      <h5>Who has access: </h5>
+    </div>
+    <% styling = 'display: none;' %>
+    <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
+      <p>
+        <i class="fa fa-globe"></i>
+        This Camera is Public on the Web
+        <small> - Is Public: [Yes] &amp; Discoverable: [Yes]</small>
+        <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+      </p>
+    </div>
+    <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
+      <p>
+        <i class="fa fa-link"></i>
+        This camera can be accessed by anyone with the link
+        <small> - Is Public: [Yes] &amp; Discoverable: [No]</small>
+        <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+      </p>
+    </div>
+    <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
+      <p>
+        <i class="icon-users"></i>
+        Only specific people can access this camera
+        <small> - Is Public: [No] &amp; Discoverable: [No]</small>
+        <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+      </p>
+    </div>
+
+    <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
+      <tbody>
+      <tr>
+        <td>
+          <%= @owner_email %>
+          <% if @camera['owner'] == current_user.username %>
+            <small>(you)</small>
+          <% end %></td>
+        </td>
+        <td>Is Owner
+        <td></td>
+        <td>
+          <% if @camera['owner'] == current_user.username %>
+            <a href="#" id="transfer" data-toggle="modal" data-target="#change_owner" type="button" class="blue">
+              Transfer</a>
+          <% end %></td>
+        </td></td>
+      </tr>
+      <% if @camera_shares %>
+        <% @camera_shares.each do |share| %>
+          <% rights = share["rights"].split(",") %>
+          <tr share-id="<%= share["id"] %>">
+            <td class="col-lg-4">
+              <%= share["email"] %>
+              <% if share["email"] == current_user.email %>
+                <small class="blue"> (you)</small>
+              <% end %>
+            </td>
+            <td class="col-lg-2">
+              <div class="input-group">
+                <% if share["email"] == current_user.email %>
+                  <select class="form-control reveal disabled" disabled show-class="show-save">
+                <% else %>
+                  <select class="form-control reveal" show-class="show-save">
+                <% end %>
+                <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
+                <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
+                </select>
+              </div>
+            </td>
+            <td class="col-lg-2">
+              <button type="submit" class="save show-save btn btn-primary update-share-button">Save</button>
+            </td>
+            <td class="col-lg-2">
+              <div class="form-group">
+                <span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="glyphicon glyphicon-remove"></span>Remove</span>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      <% if @share_requests %>
+        <% @share_requests.each do |share_request| %>
+          <% rights = share_request["rights"].split(",") %>
+          <tr share-request-id="<%= share_request["id"] %>">
+            <td class="col-lg-4"><%= share_request["email"] %>
+              <small class="blue"> ...pending</small>
+            </td>
+            <td class="col-lg-2">
+              <div class="input-group">
+                <select class="form-control reveal" show-class="show-save">
+                  <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
+                  <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
+                </select>
+              </div>
+            </td>
+            <td class="col-lg-2">
+              <button type="submit" class="save show-save btn btn-primary update-share-request-button">Save</button>
+            </td>
+            <td class="col-lg-2">
+              <div class="form-group">
+                <span class="delete-share-request-control" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><span class="glyphicon glyphicon-remove"></span>Revoke</span>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row form-horizontal margin-top-10">
+  <div class="col-md-12">
+    <div class="add-user">
+      <table class="table table-borderless">
+        <tr>
+          <td class="col-lg-4">
+            <p class="share">Share camera with</p>
+
+            <div class="email-input">
+              <div class="input-group">
+                <input type="email" placeholder="Email address or Username" class="form-control" id="sharingUserEmail" name="sharingUserEmail">
+              </div>
+            </div>
+          </td>
+
+          <td class="col-lg-2">
+            <div class="input-group margin-left--10">
+              <select id="sharingPermissionLevel" class="form-control">
+                <option>Read Only</option>
+                <option>Full Rights</option>
+              </select>
+            </div>
+          </td>
+          <td class="col-lg-2">
+            <div class="form-group share-camera">
+              <button type="submit" class="btn btn-primary" id="submit_share_button">Share</button>
+            </div>
+          </td>
+          <td class="col-lg-2">
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="show-on-public row margin-top-30">
+  <div class="col-md-12 share-link">
+    <h5>Link to Share Camera</h5>
+  </div>
+  <div>
+    <div class="col-md-12">
+      <div id="public-short-page" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+        <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
+      </div>
+      <div id="private-short-page" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
+        <%= "http://evr.cm/#{@camera['id']}.html" %>
+      </div>
+    </div>
+  </div>
+</div>

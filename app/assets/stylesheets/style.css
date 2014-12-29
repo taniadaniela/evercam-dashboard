@@ -1308,59 +1308,13 @@ input:focus {
 #camera-settings #test {
   width:auto;
 }
-/*CAMERA PLAYER*/
-#player {
-  min-height: 500px;
-}
-.player-container {
-  width: 640px;
-  height: 380px;
-  background-color: #e5e5e5;
-}
-#playerjsuHWVtecUxm {
-  width: 640px;
-  height: 380px;
-  background-color: #e5e5e5;
-}
-#playerjsuHWVtecUxm1 {
-  width: 640px;
-  height: 380px;
-  background-color: #e5e5e5;
-}
-#camera-single li small {
-  color:#aaaaaa;
-}
-#local {
-  max-height: 616px;
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-.screen {
-  border: 1px solid #e5e5e5;
-  width: 565px;
-  height: 318px;
-  position: relative;
-  background-color: #f5f5f5;
-
-}
-.play {
-  width:auto;
-  position: absolute;
-  top: 50%;
-  margin-top: -20px;
-  left: 50%;
-  margin-left: -50px;
-}
-#player_wrapper {
-  border: 1px solid #f5f5f5;
-}
 /*///////////////////////////
 // RECORDING - SNAPSHOT
 ///////////////////////////*/
-#recording input {
+#snapshots input {
   font-size: 16px;
 }
-#recording .has-snapshot{
+#snapshots .has-snapshot{
   color: #428bca;
   font-family: proxima-nova-bold;
   font-weight: bold;

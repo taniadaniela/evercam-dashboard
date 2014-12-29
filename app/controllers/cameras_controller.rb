@@ -129,15 +129,14 @@ class CamerasController < ApplicationController
                            error.backtrace.join("\n")
       flash[:error] = "An error occurred deleting your camera. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to action: 'single', id: params[:id], share: params[:share]
+      redirect_to action: 'single', id: params[:id]
     end
   end
 
   def single
     begin
       api               = get_evercam_api
-      @camera           = Hashie::Mash.new(api.get_camera(params[:id], true))
-      @camera.extend Hashie::Extensions::DeepFetch
+      @camera           = api.get_camera(params[:id], true)
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
@@ -146,17 +145,16 @@ class CamerasController < ApplicationController
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset
 
-      if params[:from].blank?
-        params[:from] = (Time.now - 24.hours)
-      end
+      params[:from] = (Time.now - 24.hours) if params[:from].blank?
       @share            = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
-        redirect_to action: 'index' if @share.nil?
-        @owner = User.where(:username => @camera['owner']).first
+        return redirect_to action: 'index' if @share.nil?
+        @owner_email = User.by_login(@camera['owner']).email
       else
-        @owner = current_user
+        @owner_email = current_user.email
       end
+      @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @webhooks = api.get_webhooks(params[:id])

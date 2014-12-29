@@ -1,0 +1,118 @@
+<div class="page-sidebar-wrapper">
+  <div class="page-sidebar navbar-collapse collapse">
+    <ul class="page-sidebar-menu">
+      <li class="my-cameras <%= is_active?("/cameras/") %>">
+        <a href="/cameras">
+          <i class="icon-camera"></i>
+          <span class="title">My Cameras</span>
+        </a>
+      </li>
+      <li>
+        <ul class="sub-menu">
+          <% @cameras.each do |camera| %>
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+              <a href="/cameras/<%= camera['id'] %>">
+                <% if camera['owner'] == current_user.username %>
+                  <i class="icon icon-users" style="visibility: hidden;"></i>
+                <% else %>
+                  <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
+                <% end %>
+                <%= camera['name'] %>
+                <% unless camera['is_online'] %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="<%= is_active?("/public/cameras") %>">
+        <a href="/public/cameras">
+          <i class="icon-map"></i>
+          <span class="title">Public Cameras</span>
+        </a>
+      </li>
+      <li class="<%= is_active?("/cameras/new") %>">
+        <a href="/cameras/new">
+          <i class="icon-plus"></i>
+          <span class="title">Add Camera</span>
+        </a>
+      </li>
+      <li id="showLeft" class="<%= is_active?("/dev") %>">
+        <a>
+          <i class="icon-briefcase"></i>
+          <span class="title">Developer</span>
+        </a>
+        <ul id="mobile-dev-menu" class="sub-menu">
+          <li>
+            <a href="/dev">API Docs</a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              Widgets <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+              <li>
+                <a href="/widgets-new">Live View Widget</a>
+              </li>
+              <li>
+                <a href="/widgets-hikvision">Hikvision Widget</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="cbp-spmenu-push">
+  <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    <h3>Menu</h3>
+    <ul>
+      <li>
+        <a href="/dev">API Docs</a>
+      </li>
+
+      <div class="dev-menu-title">
+        Widgets
+      </div>
+
+      <li class="widgets-menu">
+        <a href="/widgets-new">Live View Widget</a>
+      </li>
+
+      <li class="widgets-menu">
+        <a href="/widgets-hikvision">Hikvision Widget</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<script>
+  jQuery(document).ready(function () {
+    Metronic.init(); // init metronic core components
+    Layout.init(); // init current layout
+    QuickSidebar.init() // init quick sidebar
+  });
+
+  var menuLeft = document.getElementById('cbp-spmenu-s1');
+  var showLeft = document.getElementById('showLeft');
+  var body = document.body;
+
+  showLeft.onclick = function () {
+    classie.toggle(this, 'active');
+    classie.toggle(menuLeft, 'cbp-spmenu-open');
+    disableOther('showLeft');
+  };
+
+  function disableOther(button) {
+    if (button !== 'showLeft') {
+      classie.toggle(showLeft, 'disabled');
+    }
+  }
+
+  $(function () {
+    $('.icon-users').tooltip();
+  });
+</script>

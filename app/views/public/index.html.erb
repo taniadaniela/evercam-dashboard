@@ -8,18 +8,9 @@
 </div>
 
 <div class="page-container" id="public-index">
-  <!-- BEGIN SIDEBAR -->
-  <%= render :partial => "sidebar/sidebar" %>
-  <!-- END SIDEBAR -->
+  <%= render :partial => "shared/sidebar" %>
   <div class="page-content-wrapper">
     <div class="page-content">
-
-
-      <!-- <div class="portlet-title">
-         <div class="caption">
-           <i class=​"icon-home">​</i>​Map View
-         </div>
-       </div>-->
       <div class="portlet-body">
         <div class="tabbable-line">
           <ul class="nav nav-tabs ">
@@ -31,10 +22,9 @@
               <a href="#list" data-toggle="tab">
                 <i class="icon-list"></i> List </a>
             </li>
-
           </ul>
-          <div class="tab-content">
 
+          <div class="tab-content">
             <div class="tab-pane <%= 'active' unless cookies['public-style'] == 'list' %>" id="map-view">
               <div id="map-canvas">
               </div>
@@ -56,74 +46,69 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <% @public_cameras.each do |c| %>
+                  <% @public_cameras.each do |camera| %>
                     <tr>
-                      <td><%= c["name"] %></td>
-                      <td data-toggle="collapse" data-target="#<%= c["id"] %>" class="show-arrow">
-                        <a data-toggle="modal" href="#<%= c["id"] %>">Preview </a></td>
+                      <td><%= camera["name"] %></td>
+                      <td data-toggle="collapse" data-target="#<%= camera["id"] %>" class="show-arrow">
+                        <a data-toggle="modal" href="#<%= camera["id"] %>">Preview </a></td>
                       <td class="text-success">
-                        <% if c["is_online"] %>
+                        <% if camera["is_online"] %>
                           <span class="green">Online</span>
                         <% else %>
                           <span class="red">Offline</span>
                         <% end %>
                       </td>
-                      <td><%= c['owner'] %></td>
-                      <td><div id="camera-location"><%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %></p></div></td>
-                      <td class="show-arrow text-success"><a href="/public/cameras/<%= c['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
-                      <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= c["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
+                      <td><%= camera['owner'] %></td>
+                      <td><div id="camera-location"><%= camera.deep_fetch('location', 'lat') {} %>, <%= camera.deep_fetch('location', 'lng') {} %></p></div></td>
+                      <td class="show-arrow text-success"><a href="/public/cameras/<%= camera['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                      <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= camera["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
 
-
-                    <div class="modal fade" id="<%= c["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal fade" id="<%= camera["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
-                          <div class="public-preview" id="<%= c["id"] %>"> <%= preview(c, true) %> </div>
+                          <div class="public-preview" id="<%= camera["id"] %>"> <%= preview(camera, true) %> </div>
                             <i data-dismiss="modal" class="icon-close modal-dismiss"></i>
                         </div>
-                        <!-- /.modal-content -->
                       </div>
-                      <!-- /.modal-dialog -->
                     </div>
                   <% end %>
                   </tbody>
                 </table>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
-
 </div>
+
+<script>
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+</script>
 
 <%= javascript_include_tag "publiccam" %>
 
 <script>
-
-  jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
+  $(document).ready(function() {
+    window.initializePublic();
+    Metronic.init();
+    Layout.init();
+    QuickSidebar.init();
   });
-
-  $(window.Evercam.Publiccam.initialize);
-
   Notification.init(".bb-alert");
   <% if flash[:error] %>
   Notification.show('<%= flash[:error] %>');
   <% end %>
 
-  $(document).ready(function () {
-  });
-  // execute
   (function () {
-    // map options
-    var options = {
+    var mapOptions = {
       zoom: 4,
       minZoom: 3,
       maxZoom: 17,
@@ -132,19 +117,14 @@
       streetViewControl: false
     };
 
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-    // init map
-    var map = new google.maps.Map(document.getElementById('map-canvas'), options);
+    <% @public_cameras.each do |camera| %>
 
-    // set multiple marker
-
-    <% @public_cameras.each do |c| %>
-    // init markers
-
-    <% if c.deep_fetch(:location) {} != nil && c['is_online'] %>
+    <% if camera.deep_fetch('location') {} != nil && camera['is_online'] %>
 
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(<%= c.deep_fetch(:location, :lat) {} %>, <%= c.deep_fetch(:location, :lng) {} %>),
+      position: new google.maps.LatLng(<%= camera.deep_fetch('location', 'lat') {} %>, <%= camera.deep_fetch('location', 'lng') {} %>),
       map: map,
       title: 'Click Me '
     });
@@ -154,28 +134,27 @@
     (function (marker) {
       // add click event
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent("<a href='/public/cameras/<%= c['id'] %>'><%= preview(c, true) %></a>"+
-            '<h5><a href="/public/cameras/<%= c['id'] %>"><%= c["name"] %></a></h5>');
+        infowindow.setContent("<a href='/public/cameras/<%= camera['id'] %>'><%= preview(camera, true) %></a>"+
+            '<h5><a href="/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
         infowindow.open(map, marker);
       });
     })(marker);
     <% end %>
     <% end %>
-
   })();
 
-  $(document).ready( function () {
-    $('#public-list').DataTable( {
-          "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
-          "aoColumnDefs": [
-        { 'bSortable': false, 'aTargets': [ 1, 4, 5, 6 ] }
+  $(document).ready(function () {
+    $('#public-list').DataTable({
+      "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
+      "aoColumnDefs": [
+        {'bSortable': false, 'aTargets': [1, 4, 5, 6]}
       ]
-      } );
-  } );
+    });
+  });
 
-  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-      showLeft = document.getElementById( 'showLeft' )
-  body = document.body;
+  var menuLeft = document.getElementById( 'cbp-spmenu-s1' );
+  var showLeft = document.getElementById( 'showLeft' );
+  var body = document.body;
 
   showLeft.onclick = function() {
     classie.toggle( this, 'active' );
@@ -183,14 +162,10 @@
     disableOther( 'showLeft' );
   };
 
-
   function disableOther( button ) {
     if( button !== 'showLeft' ) {
       classie.toggle( showLeft, 'disabled' );
     }
-
   }
 
 </script>
-
-

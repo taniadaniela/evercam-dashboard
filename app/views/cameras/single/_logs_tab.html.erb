@@ -1,0 +1,55 @@
+<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
+<script type="text/javascript" src="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+<div class="info-panel">
+  <div class="filter">
+    <div class="row mb15">
+      <div class="col-md-2"><h5>Filter by Events</h5></div>
+      <div class="form-group col-md-10" id="types">
+        <div class="checkbox-list">
+          <label class="checkbox-inline"><input id="all-types" value="" type="checkbox"/>All </label>
+          <% @types.each do |t| %>
+            <label class="checkbox-inline">
+              <input name="type" type="checkbox" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> checked<% end %> /><%= t.capitalize %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2"><h5>Date &amp; Time Range</h5></div>
+      <div class="col-md-3">
+        <label>From:</label>
+        <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%Y/%m/%d %H:%M') unless params[:from].blank? %>">
+      </div>
+      <div class="col-md-3">
+        <label>To:</label><input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%Y/%m/%d %H:%M') unless params[:to].blank? %>">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2">
+        <input id="current-page" type="hidden" value="<%= @page + 1 %>">
+        <input id="exid" type="hidden" value="<%= @camera['id'] %>">
+        <input id="base-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
+        <input id="ajax-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
+        <button id="apply-types" class="btn btn-primary">Show Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table id="logs-table" class="table table-logs table-striped table-bordered">
+        <thead>
+        <th class="col-md-4">Date &amp; Time</th>
+        <th class="col-md-4">Event</th>
+        <th class="col-md-4">User/Client</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>

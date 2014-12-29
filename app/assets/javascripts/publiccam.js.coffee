@@ -1,5 +1,4 @@
-//= require sharing
-//= require cameras
+#= require cameras.js.coffee
 
 showError = (message) ->
   Notification.show(message)
@@ -35,18 +34,9 @@ setGrid = ->
   $.removeCookie('public-style')
   $.cookie('public-style', 'grid', { expires: 365 })
 
-initialize = ->
+window.initializePublic = ->
   $(".create-share-button").click(onAddShareClicked)
   $('#grid-style').click(setGrid)
   $('#list-style').click(setList)
   Notification.init(".bb-alert")
   true
-
-if !window.Evercam
-  window.Evercam = {}
-
-window.Evercam.Publiccam =
-  initialize: initialize
-
-
-

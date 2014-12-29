@@ -20,10 +20,6 @@ class PublicController < ApplicationController
                                                   thumbnail: true,
                                                   limit: LIMIT)
       @public_cameras = output[:cameras]
-      @public_cameras.map! do |c|
-        c = Hashie::Mash.new(c)
-        c.extend Hashie::Extensions::DeepFetch
-      end
 
       @pages = output[:pages]
 
@@ -43,8 +39,8 @@ class PublicController < ApplicationController
     @camera  = nil
     @user    = current_user
     begin
-      @camera        = Hashie::Mash.new(get_evercam_api.get_camera(params[:id]))
-      @camera.extend Hashie::Extensions::DeepFetch
+      api = get_evercam_api
+      @camera = api.get_camera(params[:id])
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg"
       load_user_cameras
     rescue => error
@@ -53,7 +49,7 @@ class PublicController < ApplicationController
                          error.backtrace.join("\n")
       flash[:error] = "An error occurred fetching the camera details. Please try "\
                       "again and, if the problem persists, contact support."
-      redirect_to '/public/cameras'
+      # redirect_to '/public/cameras'
     end
   end
 

@@ -19,7 +19,7 @@ EvercamDashboard::Application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -38,10 +38,10 @@ EvercamDashboard::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
-  config.log_level = :info
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -71,7 +71,7 @@ EvercamDashboard::Application.configure do
   config.active_support.deprecation = :notify
 
   # Disable automatic flushing of the log to improve performance.
-  # config.autoflush_log = false
+  config.autoflush_log = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
@@ -79,8 +79,6 @@ EvercamDashboard::Application.configure do
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session',
                                          domain: '.evercam.io'}
-
-  config.force_ssl = true
 
   # Sendgrid email configuration.
   ActionMailer::Base.smtp_settings = {

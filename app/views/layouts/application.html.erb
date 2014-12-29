@@ -157,6 +157,10 @@
     });
   });
 
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
 </script>
 </body>
 </html>

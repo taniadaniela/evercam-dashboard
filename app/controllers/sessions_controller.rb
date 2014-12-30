@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   include SessionsHelper
 
   protect_from_forgery except: :destroy
-  after_action :allow_iframe, only: :widget_new
+  after_action :allow_iframe, all: :widget_new; :live_view_private_widget; :hikvision_private_widget; :snapshot_navigator_widget
 
   def new
     unless current_user.nil?

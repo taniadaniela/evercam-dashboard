@@ -57,6 +57,10 @@ EvercamDashboard::Application.routes.draw do
   get '/hikvision.local.storage' => 'widgets#hikvision_local_storage'
   get '/hikvision.private.widget' => 'widgets#hikvision_private_widget'
 
+  get '/widgets-snapshot-navigator' => 'widgets#widget_snapshot_navigator'
+  get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
+  get '/snapshot.navigator' => 'widgets#snapshot_navigator'
+
   get '/live' => 'pages#live'
   get '/live/:id' => 'pages#live'
   get '/location' => 'pages#location'

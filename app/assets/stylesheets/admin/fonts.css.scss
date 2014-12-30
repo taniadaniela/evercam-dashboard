@@ -6,8 +6,8 @@
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: font-url('fontawesome-webfont.eot?v=4.1.0');
-  src: font-url('fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), font-url('fontawesome-webfont.woff?v=4.1.0') format('woff'), font-url('fontawesome-webfont.ttf?v=4.1.0') format('truetype'), font-url('fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
+  src: asset-url('fontawesome-webfont.eot?v=4.1.0');
+  src: asset-url('fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), asset-url('fontawesome-webfont.woff?v=4.1.0') format('woff'), asset-url('fontawesome-webfont.ttf?v=4.1.0') format('truetype'), asset-url('fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -1569,11 +1569,11 @@
 @font-face {
   font-family: 'Simple-Line-Icons';
 
-  src:font-url('Simple-Line-Icons.eot');
-  src:font-url('Simple-Line-Icons.eot?#iefix') format('embedded-opentype'),
-    font-url('Simple-Line-Icons.woff') format('woff'),
-    font-url('Simple-Line-Icons.ttf') format('truetype'),
-    font-url('Simple-Line-Icons.svg#Simple-Line-Icons') format('svg');
+  src:asset-url('Simple-Line-Icons.eot');
+  src:asset-url('Simple-Line-Icons.eot?#iefix') format('embedded-opentype'),
+    asset-url('Simple-Line-Icons.woff') format('woff'),
+    asset-url('Simple-Line-Icons.ttf') format('truetype'),
+    asset-url('Simple-Line-Icons.svg#Simple-Line-Icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -1581,7 +1581,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'Simple-Line-Icons';
-    src: font-url('Simple-Line-Icons.svg#Simple-Line-Icons') format('svg');
+    src: asset-url('Simple-Line-Icons.svg#Simple-Line-Icons') format('svg');
   }
 }
 

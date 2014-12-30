@@ -210,8 +210,8 @@
     id: '<%= @camera['id'] %>',
     is_online: <%= @camera['is_online'] %>,
     location: {
-      lat: '<%= @camera.deep_fetch('location', 'lat') {} %>',
-      lng: '<%= @camera.deep_fetch('location', 'lng') {} %>'
+      lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
+      lng: <%= @camera.deep_fetch('location', 'lng') {} %>
     }
   };
   window.Evercam.User = {

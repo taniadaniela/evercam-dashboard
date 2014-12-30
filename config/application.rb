@@ -25,9 +25,14 @@ module EvercamDashboard
     # config.i18n.default_locale = :de
     GC::Profiler.enable
 
+    # Enable the asset pipeline
+    config.assets.enabled = true
+    config.assets.digest = true
+    config.assets.initialize_on_precompile = true
+
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/fonts"
-    #config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
-    #config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
+    config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
+    config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += ['glyphicons-halflings-regular.eot',
                                  'glyphicons-halflings-regular.svg',

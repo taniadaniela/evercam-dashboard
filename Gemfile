@@ -9,6 +9,9 @@ gem 'yui-compressor'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'fog',
+  require: 'fog/aws/storage'
+gem 'asset_sync'
 
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
 

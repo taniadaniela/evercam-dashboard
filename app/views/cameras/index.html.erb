@@ -78,11 +78,13 @@
   </div>
 </div>
 
-<%= javascript_include_tag "cameras" %>
 <script>
   notifyMessage = '';
   <% if flash[:message] %>
   notifyMessage = '<%= flash[:message] %>';
   <% end %>
-  $(window.Evercam.Cameras.initializeCameras);
+
+  $(document).ready(function(){
+    window.initializeCameraIndex();
+  });
 </script>

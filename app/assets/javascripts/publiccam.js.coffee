@@ -1,5 +1,3 @@
-#= require cameras.js.coffee
-
 showError = (message) ->
   Notification.show(message)
   true
@@ -39,4 +37,3 @@ window.initializePublic = ->
   $('#grid-style').click(setGrid)
   $('#list-style').click(setList)
   Notification.init(".bb-alert")
-  true

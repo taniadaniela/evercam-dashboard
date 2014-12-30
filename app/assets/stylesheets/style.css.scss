@@ -1,22 +1,21 @@
 @font-face {
   font-family: 'proxima-nova-regular';
-  src: font-url('proximanova-regular-webfont.eot');
-  src: font-url('proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  font-url('proximanova-regular-webfont.woff') format('woff'),
-  font-url('proximanova-regular-webfont.ttf') format('truetype'),
-  font-url('proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+  src: asset-url('proximanova-regular-webfont.eot');
+  src: asset-url('proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('proximanova-regular-webfont.woff') format('woff'),
+  asset-url('proximanova-regular-webfont.ttf') format('truetype'),
+  asset-url('proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'proxima-nova-bold';
-  src: font-url('proximanova-semibold-webfont.eot');
-  src: font-url('proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'),
-  font-url('proximanova-semibold-webfont.woff2') format('woff2'),
-  font-url('proximanova-semibold-webfont.woff') format('woff'),
-  font-url('proximanova-semibold-webfont.ttf') format('truetype'),
-  font-url('proximanova-semibold-webfont.svg#proxima_nova_rgbold') format('svg');
+  src: asset-url('proximanova-semibold-webfont.eot');
+  src: asset-url('proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('proximanova-semibold-webfont.woff') format('woff'),
+  asset-url('proximanova-semibold-webfont.ttf') format('truetype'),
+  asset-url('proximanova-semibold-webfont.svg#proxima_nova_rgbold') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -118,11 +117,11 @@
 }
 .camera-info {
   background-image: linear-gradient(
-          to top,
-          rgba(0, 0, 0, .85) 0%,
-          rgba(0, 0, 0, 0.15) 30%,
-          rgba(0, 0, 0, 0) 90%,
-          rgba(0, 0, 0, 0) 100%
+                  to top,
+                  rgba(0, 0, 0, .85) 0%,
+                  rgba(0, 0, 0, 0.15) 30%,
+                  rgba(0, 0, 0, 0) 90%,
+                  rgba(0, 0, 0, 0) 100%
   );
   padding: 10px 5px 10px;
   position: absolute;
@@ -1519,11 +1518,11 @@ ul, menu, dir {
   height:1.12em;
   cursor:pointer;
   margin-top:2px;
-  background:asset-url(sel.jpg) repeat-x -2px 0px;
+  background:asset-url('sel.jpg') repeat-x -2px 0px;
 }
 
 .playback-slider-inner{
-  background:#0000FE asset-url(bar.jpg) repeat-x -2px 0px;
+  background:#0000FE asset-url('bar.jpg') repeat-x -2px 0px;
   width:0px;
   height:1.12em;
   float:left;
@@ -1531,7 +1530,7 @@ ul, menu, dir {
 }
 
 .ui-slider-recordings{
-  background: asset-url(p1.gif);
+  background: asset-url('p1.gif');
   height:1.12em;
 }
 
@@ -1832,12 +1831,8 @@ ul, menu, dir {
 select {
   width: 100%;
 }
-@-moz-document asset-url-prefix() {
-
-  #country {
-    background-image: none;
-  }
-
+#country {
+  background-image: none;
 }
 /* Chrome fix for input colors */
 input:-webkit-autofill {
@@ -2180,17 +2175,17 @@ table.table-clean thead th {
   border:1px solid #f5f5f5;
 }
 #hikvision-widget .dropdown-hours{
-    padding-left: 0px;
+  padding-left: 0px;
 }
 #hikvision-widget .dropdown-minutes{
-    padding-left: 7px;
+  padding-left: 7px;
 }
 #hikvision-widget .time-dropdown{
-    width: 53px;
-    padding: 6px 4px;
+  width: 53px;
+  padding: 6px 4px;
 }
 #hikvision-widget #code {
-    min-height: 160px;
+  min-height: 160px;
 }
 .line-break{
   border-bottom: 1px solid #ffffff;
@@ -2601,13 +2596,13 @@ Custom tabs
   font-size: 1.9em;
   padding: 17px;
   margin: 0;
-  font-weight: 300
-background: #428BCA;
+  font-weight: 300;
+  background: #428BCA;
 }
 
 .cbp-spmenu a {
   display: block;
-  color: ##bdbdbd;
+  color: #bdbdbd;
   font-size: 16px;
 }
 

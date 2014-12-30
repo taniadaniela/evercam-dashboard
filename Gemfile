@@ -14,6 +14,10 @@ gem 'fog',
 gem 'asset_sync'
 
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
+gem 'rails-assets-videojs', '~> 4.11.3'
+gem 'rails-assets-datatables', '~> 1.10.4'
+gem 'rails-assets-datatables-plugins', '~> 1.0'
+gem 'rails-assets-screenfull', '~> 2.0'
 
 gem 'pg'
 gem 'sequel', '= 4.10.0'

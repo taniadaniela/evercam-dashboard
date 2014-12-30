@@ -1,14 +1,10 @@
-<!-- TODO: download these files to vendor directory so it gets precompiled with the rest of the assets -->
-<link href="//vjs.zencdn.net/4.10/video-js.css" rel="stylesheet">
-<script src="//vjs.zencdn.net/4.10/video.js"></script>
-
 <div class="row">
   <div class="col-xs-12 col-md-6">
     <video id="really-cool-video" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto" data-setup='{}'>
       <source src="<%= @camera.deep_fetch('proxy_url', 'rtmp') {} %>" type='rtmp/flv'>
     </video>
 
-    <!-- TODO: move these to it's appropriate css file -->
+    <!-- TODO: move this to appropriate css file -->
     <style>
       .video-js {
         padding-top: 56.25%;

@@ -9,8 +9,15 @@ gem 'yui-compressor'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'fog',
+  require: 'fog/aws/storage'
+gem 'asset_sync'
 
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
+gem 'rails-assets-videojs', '~> 4.11.3'
+gem 'rails-assets-datatables', '~> 1.10.4'
+gem 'rails-assets-datatables-plugins', '~> 1.0'
+gem 'rails-assets-screenfull', '~> 2.0'
 
 gem 'pg'
 gem 'sequel', '= 4.10.0'

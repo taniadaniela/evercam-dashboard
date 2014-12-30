@@ -17,7 +17,10 @@
  *= require jquery.datetimepicker-2.2.5.min.css
  *= require metronic-components.css
  *= require metronic-layout.css
- *= require style.css
+ *= require style
  *= require uniform.default.min.css
  *= require datepicker.css
+ *= require videojs
+ *= require datatables/jquery.dataTables.scss
+ *= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
  */

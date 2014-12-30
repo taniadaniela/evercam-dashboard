@@ -27,8 +27,13 @@
 //= require jquery.slimscroll.min.js
 //= require bootstrap-tabdrop.js
 //= require jquery-form-validator/form-validator/jquery.form-validator.js
+//= require videojs
+//= require screenfull
+//= require datatables
+//= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js
 //=
 //= require alerts
+//= require cameras.js
 //= require cameras/single.js
 //=
 //= require metronic/respond.min.js

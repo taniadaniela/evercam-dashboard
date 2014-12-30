@@ -1,5 +1,3 @@
-#= require cameras.js.coffee
-
 showError = (message) ->
   Notification.show(message)
   true
@@ -21,7 +19,10 @@ onAddShareClicked = (event) ->
     if data.success
       showFeedback("Successfully added to your shared cameras.")
     else
-      showError("Failed to add camera to your shared cameras.")
+      if data.code == "duplicate_share_error"
+        showError("You've already added this camera.")
+      else
+        showError("Failed to add camera to your shared cameras.")
     true
   window.Evercam.Share.createShare(cameraID, emailAddress, permissions, onSuccess, onError)
   true
@@ -39,4 +40,3 @@ window.initializePublic = ->
   $('#grid-style').click(setGrid)
   $('#list-style').click(setList)
   Notification.init(".bb-alert")
-  true

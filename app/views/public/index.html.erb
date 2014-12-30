@@ -1,8 +1,5 @@
 <%= content_for(:title, "Evercam: Public Cameras") %>
-<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
-<script type="text/javascript" src="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=TRUE"></script>
+
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
@@ -83,6 +80,8 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=TRUE"></script>
 
 <script>
   window.Evercam.API_URL = '<%= EVERCAM_API %>';

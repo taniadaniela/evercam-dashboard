@@ -33,7 +33,7 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
-initializeCameras = ->
+window.initializeCameraIndex = ->
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
@@ -41,10 +41,3 @@ initializeCameras = ->
   refreshImages()
   showHideLeftNav()
   onRefreshImage()
-  true
-
-if !window.Evercam
-  window.Evercam = {}
-
-window.Evercam.Cameras =
-  initializeCameras: initializeCameras

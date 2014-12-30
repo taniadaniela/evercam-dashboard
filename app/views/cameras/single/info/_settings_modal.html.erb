@@ -39,31 +39,14 @@
                         <td class="col-md-4"><label class="control-label" for="camera-vendor">Vendor:</label></td>
                         <td>
                           <select id="camera-vendor" name="camera-vendor" class="form-control makeEditable">
-                            <option selected="selected" value="">-- select model --</option>
-                            <% vendors.each_with_index do |v, index| -%>
-                              <option value="<%= v.exid -%>" <% if v.exid == @camera['vendor_id'] %> selected="selected" <% end %>>
-                                <%= v.name -%>
-                              </option>
-                            <% end %>
+                            <option value="">-- select model --</option>
                           </select>
                         </td>
                       </tr>
                       <tr>
                         <td class="model-td"><label class="control-label">Model:</label></td>
                         <td>
-                          <% vendors.each do |v| -%>
-                            <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model  <% if v.exid != @camera['vendor_id'] %>hidden  <% end %>">
-                              <% models(v.id).each_with_index do |m, index| -%>
-                                <% if index == 0 %>
-                                  <option jpg-val="<%= m.jpg_url -%>" value="<%= m.exid -%>"><%= m.name -%></option>
-                                <% else %>
-                                  <option jpg-val="<%= m.jpg_url -%>" value="<%= m.exid -%>" <% if m.name == @camera["model_name"] %>selected="selected" <% end %> >
-                                    <%= m.name -%>
-                                  </option>
-                                <% end %>
-                              <% end -%>
-                            </select>
-                          <% end %>
+                          <select id="camera-model" name="camera-model" class="form-control camera-model"></select>
                         </td>
                       </tr>
                       <tr>

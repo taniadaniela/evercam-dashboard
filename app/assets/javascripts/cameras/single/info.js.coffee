@@ -1,5 +1,14 @@
 previous = undefined
 
+sendAJAXRequest = (settings) ->
+  token = $('meta[name="csrf-token"]')
+  if token.size() > 0
+    headers =
+      "X-CSRF-Token": token.attr("content")
+    settings.headers = headers
+  xhrRequestChangeMonth = jQuery.ajax(settings)
+  true
+
 showSharingTab = ->
   $('.nav-tabs a[href=#sharing]').tab('show');
   setTimeout(->
@@ -62,16 +71,85 @@ showChangeOwnerDialog = (clear) ->
    true
 
 handleVendorModelEvents = ->
-  $("#camera-vendor").one("focus", ->
-    previous = @value
-  ).on "change", ->
-    $("#camera-model" + previous).addClass "hidden"
-    $("#camera-model" + @value).removeClass "hidden"
-    $("#snapshot").val $("#camera-model" + @value).find(":selected").attr("jpg-val")
-    previous = @value
+  $("#camera-vendor").on "change", ->
+    loadVendorModels($(this).val())
 
   $(".camera-model").on "change", ->
     $("#snapshot").val $(this).find(":selected").attr("jpg-val")
+  true
+
+loadVendorModels = (vendor_id) ->
+  $("#camera-model option").remove()
+  $("#camera-model").append('<option value="">Loading...</option>');
+  data = {}
+  data.vendor_id = vendor_id
+  data.limit = 400
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (result, status, jqXHR) ->
+    $("#camera-model option").remove()
+    if result.models.length == 0
+      $("#camera-model").append('<option value="">No Model Found</option>');
+      return
+
+    models = sortByKey(result.models, "name")
+    for model in models
+      selected = if model.name == Evercam.Camera.model_name then 'selected="selected"' else ''
+      jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
+      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+    $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.API_URL}models/search.json"
+
+  sendAJAXRequest(settings)
+  true
+
+sortByKey = (array, key) ->
+  array.sort (a, b) ->
+    x = a[key]
+    y = b[key]
+    (if (x < y) then -1 else ((if (x > y) then 1 else 0)))
+
+loadVendors = ->
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (result, status, jqXHR) ->
+    vendors = sortByKey(result.vendors, "name")
+    for vendor in vendors
+      selected = ''
+      if vendor.id == Evercam.Camera.vendor_id
+        selected = 'selected="selected"'
+        loadVendorModels(vendor.id)
+      $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.API_URL}vendors/search.json"
+
+  sendAJAXRequest(settings)
   true
 
 initializeMap = ->
@@ -139,6 +217,8 @@ handleModelEvents = ->
     $(this).closest("form")[0].reset()
 
 centerModal = ->
+  if $("#camera-vendor option").length == 1
+    loadVendors()
   $(this).css "display", "block"
   $dialog = $(this).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2

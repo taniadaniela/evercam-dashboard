@@ -1,9 +1,9 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :allow_iframe, all: :live_view_private_widget; :hikvision_private_widget; :snapshot_navigator_widget; :sessions
-  after_action :allow_iframe, all: :hikvision_private_widget; :live_view_private_widget; :snapshot_navigator_widget; :sessions
-  before_action :allow_iframe, all: :live_view_private_widget; :snapshot_navigator_widget; :sessions
-  before_filter :normal_cookies_for_ie_in_iframes!, only: :live_view_private_widget; :hikvision_private_widget; :snapshot_navigator_widget
+  before_filter :allow_iframe, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :sessions]
+  after_action :allow_iframe, only: [:hikvision_private_widget, :live_view_private_widget, :snapshot_navigator_widget, :sessions]
+  before_action :allow_iframe, only: [:live_view_private_widget, :snapshot_navigator_widget, :sessions]
+  before_filter :normal_cookies_for_ie_in_iframes!, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
   skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
   skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
   skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
@@ -16,7 +16,6 @@ class WidgetsController < ApplicationController
   end
 
   def widgets_new
-    current_user
     load_user_cameras
   end
 
@@ -41,7 +40,6 @@ class WidgetsController < ApplicationController
   end
 
   def widgets_hikvision
-    current_user
     load_user_cameras
   end
 
@@ -59,7 +57,6 @@ class WidgetsController < ApplicationController
   end
 
   def widget_snapshot_navigator
-    current_user
     load_user_cameras
   end
 
@@ -74,7 +71,7 @@ class WidgetsController < ApplicationController
       authenticate_user
 
       api               = get_evercam_api
-      @camera           = Hashie::Mash.new(api.get_camera(params[:camera], true))
+      @camera           = api.get_camera(params[:camera], true)
       @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
       time_zone         = TZInfo::Timezone.get(@camera['timezone'])
       current           = time_zone.current_period

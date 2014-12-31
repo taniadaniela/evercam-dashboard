@@ -7,7 +7,6 @@ class PagesController < ApplicationController
 
   def dev
     load_user_cameras
-    current_user
   end
 
   def location
@@ -52,6 +51,5 @@ class PagesController < ApplicationController
 
   def swagger
     response.headers["X-Frame-Options"] = "ALLOWALL"
-    current_user
   end
 end

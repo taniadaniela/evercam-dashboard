@@ -13,19 +13,22 @@ EvercamDashboard::Application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
-  root 'cameras#index'
+  root 'cameras#index', as: :root
 
-  get 'cameras/transfer' => 'cameras#transfer'
-  get 'cameras' => 'cameras#index', as: :cameras_index
-  get 'cameras/new' => 'cameras#new'
-  post 'cameras/new' => 'cameras#create'
-  get 'cameras/:id/jpg' => 'cameras#jpg'
-  get 'cameras/:id' => 'cameras#single', as: :cameras_single
-  post 'cameras/:id' => 'cameras#update'
-  delete 'cameras/:id' => 'cameras#delete'
+  scope :cameras do
+    get '/', to: redirect('/'), as: :cameras_index
+    get '/new' => 'cameras#new'
+    post '/new' => 'cameras#create'
+    get '/transfer' => 'cameras#transfer'
+    get '/:id' => 'cameras#single', as: :cameras_single
+    post '/:id' => 'cameras#update'
+    delete '/:id' => 'cameras#delete'
+  end
 
-  post 'webhooks' => 'webhooks#create'
-  delete 'webhooks/:id' => 'webhooks#delete'
+  scope :webhooks do
+    post '/' => 'webhooks#create'
+    delete '/:id' => 'webhooks#delete'
+  end
 
   get 'public/cameras' => 'public#index'
   get 'public/cameras/:id' => 'public#single'
@@ -35,18 +38,18 @@ EvercamDashboard::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
   get '/sessions', to: redirect('/')
-  match '/signup',  to: 'users#new',            via: 'get'
-  post '/signup',  to: 'users#create'
-  get '/reset',  to: 'users#password_reset_request'
-  post '/reset',  to: 'users#password_reset_request'
-  get '/newpassword',  to: 'users#password_update_form'
-  post '/newpassword',  to: 'users#password_update'
-  get '/users/:id/settings',  to: 'users#settings'
-  get '/confirm',  to: 'users#confirm'
-  post '/users/:id/settings',  to: 'users#settings_update'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/widget_signin',  to: 'sessions#widget_new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/signup', to: 'users#new', via: 'get'
+  post '/signup', to: 'users#create'
+  get '/reset', to: 'users#password_reset_request'
+  post '/reset', to: 'users#password_reset_request'
+  get '/newpassword', to: 'users#password_update_form'
+  post '/newpassword', to: 'users#password_update'
+  get '/users/:id/settings', to: 'users#settings'
+  get '/confirm', to: 'users#confirm'
+  post '/users/:id/settings', to: 'users#settings_update'
+  match '/signin', to: 'sessions#new', via: 'get'
+  match '/widget_signin', to: 'sessions#widget_new', via: 'get'
+  match '/signout', to: 'sessions#destroy', via: 'delete'
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
@@ -65,19 +68,21 @@ EvercamDashboard::Application.routes.draw do
   get '/live/:id' => 'pages#live'
   get '/location' => 'pages#location'
 
-  post '/share/camera/:id' => 'sharing#update_camera'
-  delete '/share' => 'sharing#delete'
-  delete '/share/request' => 'sharing#cancel_share_request'
-  post '/share' => 'sharing#create'
-  patch '/share/:id' => 'sharing#update_share'
-  patch '/share/request/:id' => 'sharing#update_share_request'
+  scope :share do
+    post '/' => 'sharing#create'
+    delete '/' => 'sharing#delete'
+    post '/camera/:id' => 'sharing#update_camera'
+    delete '/request' => 'sharing#cancel_share_request'
+    patch '/:id' => 'sharing#update_share'
+    patch '/request/:id' => 'sharing#update_share_request'
+  end
 
-  # Oauth2
-  get '/oauth2/error' => 'oauth2#error'
-  post '/oauth2/feedback' => 'oauth2#feedback'
-  get '/oauth2/authorize' => 'oauth2#authorize'
-  post '/oauth2/authorize' => 'oauth2#post_authorize'
-  get '/oauth2/tokeninfo' => 'oauth2#tokeninfo'
-  get '/oauth2/revoke' => 'oauth2#revoke'
-
+  scope :oauth2 do
+    get '/error' => 'oauth2#error'
+    post '/feedback' => 'oauth2#feedback'
+    get '/authorize' => 'oauth2#authorize'
+    post '/authorize' => 'oauth2#post_authorize'
+    get '/tokeninfo' => 'oauth2#tokeninfo'
+    get '/revoke' => 'oauth2#revoke'
+  end
 end

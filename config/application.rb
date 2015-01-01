@@ -51,8 +51,6 @@ module EvercamDashboard
                                  'Simple-Line-Icons.ttf',
                                  'Simple-Line-Icons.woff',
                                  'Simple-Line-Icons.dev.svg',
-                                 'spin-1.3.2.min.js',
-                                 'ladda-0.8.0.min.js',
                                  'swagger.js',
                                  'cameras.js',
                                  'widgets.js',
@@ -64,16 +62,8 @@ module EvercamDashboard
                                  'jquery.js',
                                  'swagger.css',
                                  'throbber.gif',
-                                 'ladda-themeless-0.8.0.min.css',
                                  'custom.js',
-                                 'bootbox-4.2.0.js',
-                                 'editable-1.5.1.min.js',
-                                 'moment.min.js',
-                                 'jquery.cookie.js',
-                                 'jquery.datetimepicker-2.2.5.min.js',
-                                 'jquery.datetimepicker-2.2.5.min.css',
                                  'layout.js',
-                                 'jquery.uniform.min-v2.1.min.js',
                                  'glyphicons.css',
                                  'metronic-layout.css',
                                  'metronic-components.css',
@@ -82,16 +72,12 @@ module EvercamDashboard
                                  'jquery.dcjqaccordion.2.7.js',
                                  'admin/admin.css',
                                  'admin/admin.js',
-                                 'jquery.slimscroll.min.js',
-                                 'bootstrap-tabdrop.js',
-                                 'jwplayer.js',
                                  'metronic/respond.min.js',
                                  'metronic/metronic.js',
                                  'metronic/layout.js',
                                  'metronic/quick-sidebar.js',
                                  'metronic/classie.js',
-                                 'metronic/modernizr.custom.js',
-                                 'jquery.nicescroll.js']
+                                 'metronic/modernizr.custom.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
 

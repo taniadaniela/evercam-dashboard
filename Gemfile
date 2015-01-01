@@ -29,7 +29,7 @@ gem 'rails-assets-bootbox', '~> 4.3.0'
 gem 'rails-assets-bootstrap-tabdrop', '~> 1.0.0'
 
 gem 'pg'
-gem 'sequel', '= 4.10.0'
+gem 'sequel'
 gem 'bcrypt', '~> 3.1.2'
 gem 'protected_attributes'
 gem 'rack-rewrite'

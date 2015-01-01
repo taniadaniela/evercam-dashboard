@@ -49,8 +49,8 @@ gem 'intercom-rails'
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.3.9'
+  gem 'evercam', '~> 0.2.4'
 end
-gem 'evercam', '~> 0.2.4'
 
 group :production do
   gem 'skylight'

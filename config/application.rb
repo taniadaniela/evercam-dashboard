@@ -35,9 +35,5 @@ module EvercamDashboard
     config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
-
-    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
-      r301      %r{io/v1/(.*)},    'https://api.evercam.io/v1/$1'
-    end
   end
 end

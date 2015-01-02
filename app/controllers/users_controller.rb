@@ -71,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def settings
-    load_user_cameras
+    @cameras = load_user_cameras
     @countries = Country.all
   end
 

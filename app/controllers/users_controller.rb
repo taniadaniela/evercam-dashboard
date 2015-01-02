@@ -127,7 +127,7 @@ class UsersController < ApplicationController
 
         user.update(reset_token: token, token_expires_at: expires)
 
-        UserMailer.password_reset(email, user, token).deliver
+        UserMailer.password_reset(email, user, token).deliver_now
         flash.now[:message] = "We’ve sent you an email with instructions for changing your password."
       else
         flash.now[:message] = "Email address not found."
@@ -179,6 +179,4 @@ class UsersController < ApplicationController
     end
     flash[:field_errors] = field_errors
   end
-
-
 end

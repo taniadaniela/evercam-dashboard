@@ -32,6 +32,7 @@ EvercamDashboard::Application.routes.draw do
 
   get 'public/cameras' => 'public#index'
   get 'public/cameras/:id' => 'public#single'
+  get 'publiccam/:id', to: redirect('public/cameras/%{id}')
 
   get 'locations' => 'locations#index'
 

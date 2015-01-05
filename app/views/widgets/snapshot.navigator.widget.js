@@ -31,13 +31,13 @@
             var iframe =
                 jQuery("<iframe />")
                     .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>', "frameborder": "0" })
+                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>', "frameborder": "0" })
                     .appendTo("div[evercam='snapshot-navigator']");
         } else {
             var iframe =
                 jQuery("<iframe />")
                     .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
+                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
                     .appendTo("div[evercam='snapshot-navigator']");
         }
     };

@@ -175,7 +175,7 @@ initializeMap = ->
   marker = new google.maps.Marker(
     position: cameraLatlng
     map: map
-    draggable: false
+    draggable: true
     title: "Camera Location"
   )
   mapFirstClick = false

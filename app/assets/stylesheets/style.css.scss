@@ -451,8 +451,9 @@ input:-webkit-autofill {
 #list {
   margin-top: 20px;
 }
-#public-single .icon-arrow-left {
-  margin-right: 8px;
+#public-single .fa-arrow-left {
+  margin-right: 6px;
+  font-size: 16px;
 }
 .add-to-cams {
   position: absolute;
@@ -483,9 +484,6 @@ input:-webkit-autofill {
   opacity:1;
   transition: visibility 0s linear 0.1s,opacity 0.3s linear;
 }
-.create-share-button {
-  margin-top: -14px;
-}
 .public-preview img {
   width: 100%;
 }
@@ -498,16 +496,12 @@ input:-webkit-autofill {
   top: -5px;
   color: #428bca;
 }
-#public-cam-single {
 
-}
-.glyphicon-arrow-left {
-  margin-right: 5px;
-}
 #public-info p {
   margin-top: 2px;
   color: #aaa;
 }
+
 /*MAP */
 #map-canvas{
   width: 100%;

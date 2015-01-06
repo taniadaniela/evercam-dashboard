@@ -38,6 +38,9 @@
   margin-right: 5px;
   text-transform: uppercase;
 }
+.nav-title a:hover {
+  color: #e5e5e5 !important;
+}
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle a {
   margin-top: 4px;
@@ -448,8 +451,9 @@ input:-webkit-autofill {
 #list {
   margin-top: 20px;
 }
-#public-single .icon-arrow-left {
-  margin-right: 8px;
+#public-single .fa-arrow-left {
+  margin-right: 6px;
+  font-size: 16px;
 }
 .add-to-cams {
   position: absolute;
@@ -480,9 +484,6 @@ input:-webkit-autofill {
   opacity:1;
   transition: visibility 0s linear 0.1s,opacity 0.3s linear;
 }
-.create-share-button {
-  margin-top: -14px;
-}
 .public-preview img {
   width: 100%;
 }
@@ -495,16 +496,12 @@ input:-webkit-autofill {
   top: -5px;
   color: #428bca;
 }
-#public-cam-single {
 
-}
-.glyphicon-arrow-left {
-  margin-right: 5px;
-}
 #public-info p {
   margin-top: 2px;
   color: #aaa;
 }
+
 /*MAP */
 #map-canvas{
   width: 100%;
@@ -1048,6 +1045,13 @@ ul.scroll-menu {
 .delete-share-control {
   cursor: pointer;
 }
+span.delete-share-control, span.delete-share-request-control {
+  color:#428bca;
+}
+span.delete-share-control:hover, span.delete-share-request-control:hover {
+  color:#2a6496;
+}
+
 #sharing .form-horizontal .control-label {
   text-align: left;
   margin-left: -10px;
@@ -1932,6 +1936,7 @@ input:-webkit-autofill:focus {
   bottom: 10px;
   z-index: 10000;
 }
+
 .page-sidebar-menu {
   z-index: 10000 !important;
 }
@@ -2805,7 +2810,13 @@ a:hover, a:focus {
 body {
   background-color: #f5f5f5 !important;
 }
-
+/*HEADER*/
+.nav > li > a:hover, .nav > li > a:focus {
+  background: none;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #494d51;
+}
 /***
 Nav
 ***/
@@ -3433,7 +3444,7 @@ Page sidebar
 }
 
 
-/* Page Sidebar */
+/* SIDEBAR */
 .page-sidebar-fixed .page-sidebar {
   top: 39px;
 }
@@ -3470,12 +3481,12 @@ Page sidebar
   position: relative;
   margin: 0;
   border: 0;
-  padding: 12px 9px;
+  padding: 9px 9px;
   text-decoration: none;
   font-size: 16px;
 }
 .page-sidebar .page-sidebar-menu>li>a, {
-  margin: 8px 0px 3px 0px;
+  margin: 4px 0px 3px 0px;
   padding-bottom: 8px;
 }
 .my-cameras {

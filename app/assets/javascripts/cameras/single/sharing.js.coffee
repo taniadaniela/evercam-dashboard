@@ -61,7 +61,7 @@ addSharingCameraRow = (details) ->
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "form-group"})
   span = $('<span>')
-  span.append($('<span>', {class: "glyphicon glyphicon-remove"}))
+  span.append($('<span>', {class: "remove"}))
   if details.type == "share"
     span.addClass("delete-share-control")
     span.append($(document.createTextNode("Remove")))

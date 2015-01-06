@@ -33,9 +33,9 @@
 
       <div class="nav-title pull-left">
         <a href="/cameras/new" data-toggle="tooltip" data-placement="bottom" title="Add a Camera" title="Add Camera"><i class="icon icon-plus"></i></a>
-        <a href="/dev" title="API Docs"><i class="icon icon-briefcase"></i></a>
+        <a href="/dev" data-toggle="tooltip" data-placement="bottom" title="Developer" title="API Docs"><i class="icon icon-briefcase"></i></a>
         <% if params[:action] == 'index' %>
-          <a class="refresh-images" title="Refresh Images"><i class="icon icon-refresh"></i></a>
+          <a data-toggle="tooltip" data-placement="bottom" title="Refresh Cameras" class="refresh-images" title="Refresh Images"><i class="icon icon-refresh"></i></a>
         <% end %>
       </div>
 
@@ -85,6 +85,10 @@
   ga('require', 'linker');
   ga('linker:autoLink', ['evercam.io', 'api.evercam.io']);
   ga('send', 'pageview');
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 
   $(function () {
 

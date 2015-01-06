@@ -2803,6 +2803,10 @@ a:hover, a:focus {
 body {
   background-color: #f5f5f5 !important;
 }
+/*HEADER*/
+.nav > li > a:hover, .nav > li > a:focus {
+  background: none;
+}
 .tooltip.bottom .tooltip-arrow {
   border-bottom-color: #494d51;
 }

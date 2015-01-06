@@ -1045,6 +1045,13 @@ ul.scroll-menu {
 .delete-share-control {
   cursor: pointer;
 }
+span.delete-share-control, span.delete-share-request-control {
+  color:#428bca;
+}
+span.delete-share-control:hover, span.delete-share-request-control:hover {
+  color:#2a6496;
+}
+
 #sharing .form-horizontal .control-label {
   text-align: left;
   margin-left: -10px;

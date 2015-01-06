@@ -29,7 +29,7 @@ addWebhookRow = (details) ->
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "form-group"})
   span = $('<span>')
-  span.append($('<span>', {class: "glyphicon glyphicon-remove"}))
+  span.append($('<span>', {class: "remove"}))
   span.addClass("delete-webhook-control")
   span.append($(document.createTextNode(" Remove")))
   span.click(onDeleteWebhookClicked)

@@ -1932,6 +1932,7 @@ input:-webkit-autofill:focus {
   bottom: 10px;
   z-index: 10000;
 }
+
 .page-sidebar-menu {
   z-index: 10000 !important;
 }
@@ -3433,7 +3434,7 @@ Page sidebar
 }
 
 
-/* Page Sidebar */
+/* SIDEBAR */
 .page-sidebar-fixed .page-sidebar {
   top: 39px;
 }
@@ -3470,12 +3471,12 @@ Page sidebar
   position: relative;
   margin: 0;
   border: 0;
-  padding: 12px 9px;
+  padding: 9px 9px;
   text-decoration: none;
   font-size: 16px;
 }
 .page-sidebar .page-sidebar-menu>li>a, {
-  margin: 8px 0px 3px 0px;
+  margin: 4px 0px 3px 0px;
   padding-bottom: 8px;
 }
 .my-cameras {

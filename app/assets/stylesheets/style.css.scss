@@ -1307,6 +1307,19 @@ input:focus {
   width:auto;
 }
 /*///////////////////////////
+// STREAMS
+///////////////////////////*/
+.vjs-default-skin .vjs-play-control {
+  height: 3em;
+}
+.vjs-default-skin .vjs-fullscreen-control {
+  height: 3em;
+  margin-right: 5px;
+}
+.vjs-default-skin .vjs-volume-control {
+  margin-right: 10px;
+}
+/*///////////////////////////
 // RECORDING - SNAPSHOT
 ///////////////////////////*/
 #snapshots input {

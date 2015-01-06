@@ -56,7 +56,7 @@ module EvercamDashboard
                                  'swagger.js',
                                  'cameras.js',
                                  'widgets.js',
-                                 'snapshot_navigator_widget.css',
+                                 'widget.css',
                                  'snapshot_navigator_widget.js',
                                  'camera_single.js',
                                  'publiccam.js',

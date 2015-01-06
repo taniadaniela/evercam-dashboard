@@ -42,3 +42,4 @@
 //= require metronic/quick-sidebar.js
 //= require metronic/classie.js
 //= require metronic/modernizr.custom.js
+//= require metronic/icheck.min.js

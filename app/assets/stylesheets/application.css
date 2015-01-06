@@ -23,4 +23,7 @@
  *= require videojs
  *= require datatables/jquery.dataTables.scss
  *= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+ *= require metronic/icheck/skins/all.css
+ *= require metronic/icheck/skins/flat/_all.css
+ *= require metronic/icheck/skins/flat/blue.css
  */

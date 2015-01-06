@@ -91,6 +91,7 @@ module EvercamDashboard
                                  'metronic/quick-sidebar.js',
                                  'metronic/classie.js',
                                  'metronic/modernizr.custom.js',
+                                 'metronic/icheck.min.js',
                                  'jquery.nicescroll.js']
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]

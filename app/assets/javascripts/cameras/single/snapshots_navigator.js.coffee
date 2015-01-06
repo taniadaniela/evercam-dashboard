@@ -241,7 +241,7 @@ SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#recording"
+  url = "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#snapshots"
   $("#share-url").val url
 
   if $(".nav-tabs li.active a").html() is "Snapshots" && history.pushState
@@ -835,10 +835,12 @@ handleMinSecDropDown = ->
 handleTabEvent = ->
   $("a[data-toggle=\"tab\"]").on "click", ->
     tabName = $(this).html()
+    tabhash = $(this).attr('href')
+
     if tabName is "Snapshots" && playFromDateTime is null
       GetCameraInfo false
     else
-      url = "#{$("#tab-url").val()}##{window.location.hash}"
+      url = "#{$("#tab-url").val()}#{tabhash}"
       if history.pushState
         window.history.pushState({path:url},'',url);
 

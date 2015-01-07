@@ -61,7 +61,9 @@
                         <div class='<%= field_errors["vendor"] ? ' has-error' : '' %>'>
                           <%= label_tag('camera-vendor', "Camera Vendor", class: "col-md-2 control-label") %>
                           <div class="col-md-3">
-                            <%= select_tag('camera-vendor', options_from_collection_for_select(vendors, "exid", "name"), class: "form-control", prompt: "Select Make", selected: @user[:vendor]) %>
+                            <select id="camera-vendor" name="camera-vendor" class="form-control">
+                              <option value="">-- Select Make --</option>
+                            </select>
                             <% if field_errors["vendor"] %>
                               <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
                             <% end %>
@@ -73,17 +75,9 @@
                           <div id="reveal" class="col-md-3">
                             <p class="help-block this form-error text-left" style="display: none;">Leave this as
                               'Default' if you're unsure</p>
-                            <% vendors.each do |v| -%>
-                              <select id="camera-model<%= v.exid -%>" name="camera-model<%= v.exid -%>" class="form-control camera-model hidden">
-                                <% models(v.id).each_with_index do |m, index| -%>
-                                  <% if index == 0 %>
-                                    <option selected="selected" jpg-val="<%= m.jpg_url -%>" value="<%= m.exid -%>"><%= m.name -%></option>
-                                  <% else %>
-                                    <option jpg-val="<%= m.jpg_url -%>" value="<%= m.exid -%>"><%= m.name -%></option>
-                                  <% end %>
-                                <% end -%>
-                              </select>
-                            <% end %>
+                            <select id="camera-model" name="camera-model" class="form-control camera-model">
+                              <option value="">-- Select Model --</option>
+                            </select>
                             <% if field_errors["model"] %>
                               <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
                             <% end %>
@@ -267,77 +261,22 @@
     </div>
   </div>
 
+  <%= javascript_tag do %>
+    notifyMessage = '';
+    <% if flash[:message] %>
+      notifyMessage = '<%= flash[:message] %>';
+    <% end %>
+  <% end %>
   <script>
-    function validate_hostname(str) {
-      var ValidIpAddressRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
-      var ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/;
-      return ValidIpAddressRegex.test(str) || ValidHostnameRegex.test(str);
-    }
-
-    $(document).ready(function () {
-      // TOGGLE ADD. SETTINGS
-      $(".settings").hide();
-      //toggle the componenet with class msg_body
-      $(".additional").click(function () {
-        $(this).next(".settings").slideToggle(500);
-      });
-
-      Notification.init(".bb-alert");
-      <% if flash[:message] %>
-      Notification.show('<%= flash[:message][0] %>');
-      <% end %>
-
-      var previous;
-      $('#camera-vendor').one('focus', function () {
-        previous = this.value;
-      }).on('change', function () {
-        $('#camera-model' + previous).addClass('hidden');
-        $('#camera-model' + this.value).removeClass('hidden');
-        $('#snapshot').val($('#camera-model' + this.value).find(":selected").attr('jpg-val'));
-        previous = this.value;
-      });
-
-      $(".camera-model").on('change', function () {
-        $('#snapshot').val($(this).find(":selected").attr('jpg-val'));
-      });
-
-      Metronic.init(); // init metronic core components
-      Layout.init(); // init current layout
-      QuickSidebar.init() // init quick sidebar
-
-      $.validate();
-    });
-
-    var menuLeft = document.getElementById('cbp-spmenu-s1'),
-      showLeft = document.getElementById('showLeft')
-    body = document.body;
-
-    showLeft.onclick = function () {
-      classie.toggle(this, 'active');
-      classie.toggle(menuLeft, 'cbp-spmenu-open');
-      disableOther('showLeft');
+    window.Evercam.API_URL = '<%= EVERCAM_API %>';
+    window.Evercam.User = {
+      username: '<%= current_user.username %>',
+      api_id: '<%= current_user.api_id %>',
+      api_key: '<%= current_user.api_key %>'
     };
 
-
-    function disableOther(button) {
-      if (button !== 'showLeft') {
-        classie.toggle(showLeft, 'disabled');
-      }
-
-    }
-    $("#hide").click(function () {
-      $("p").fadeOut();
+    $(document).ready(function(){
+      window.initializeAddCamera();
     });
-
-    $(document).ready(function () {
-      $("#reveal").click(function () {
-        $(".this").fadeIn();
-      });
-      $("#unreveal").click(function () {
-        $(".this").fadeOut();
-      });
-    });
-
-    var EVERCAM_API = '<%= EVERCAM_API %>';
   </script>
   <%= javascript_include_tag "cameras/single/testsnapshot" %>

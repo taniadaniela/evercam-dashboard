@@ -1727,15 +1727,19 @@ ul, menu, dir {
 /////////////////////*/
 #IntercomDefaultWidget {
   display: none !important;
-  visibility: none !important;
+  visibility: hidden !important;
 }
 #intercom-launcher {
   display: none !important;
-  visibility: none !important;
+  visibility: hidden !important;
 }
 #intercom-container #intercom-launcher {
   display: none !important;
-  visibility: none !important;
+  visibility: hidden !important;
+}
+#intercom-launcher {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 /*/////////////////////

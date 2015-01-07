@@ -64,7 +64,7 @@
                     <% if current_user.confirmed_at %>
                       Verified
                     <% else %>
-                      Not Verified
+                      Not Verified - <a href="/users/<%= current_user.username -%>/resend" class="resend-email">Resend Confirmation Email</a>
                     <% end %>
                   </div>
                 </div>
@@ -152,5 +152,8 @@
     $("#show").click(function () {
       $("p").fadeIn();
     });
+    /*$(".resend-email").on('click',function(){
+
+    });*/
   });
 </script>

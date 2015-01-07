@@ -33,4 +33,11 @@ class UserMailer < ActionMailer::Base
       @user     = user
       mail(to: email, subject: "Password reset requested for Evercam")
    end
+
+  def resend_confirmation_email(user, code)
+      @user    = user
+      @code    = code
+      mail(to: user.email, subject: "Evercam Confirmation")
+  end
+
 end

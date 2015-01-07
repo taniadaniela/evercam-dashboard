@@ -46,6 +46,7 @@ EvercamDashboard::Application.routes.draw do
   get '/newpassword', to: 'users#password_update_form'
   post '/newpassword', to: 'users#password_update'
   get '/users/:id/settings', to: 'users#settings'
+  get '/users/:id/resend', to: 'users#resend_confirmation_email'
   get '/confirm', to: 'users#confirm'
   post '/users/:id/settings', to: 'users#settings_update'
   match '/signin', to: 'sessions#new', via: 'get'

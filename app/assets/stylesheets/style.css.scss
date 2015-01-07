@@ -134,6 +134,14 @@
   height: 100%;
   width: 100%;
 }
+.offline-grey {
+  background: rgba(0, 0, 0, 0.65);
+}
+.offline-snapshot img {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
 .camera-name {
   position: absolute;
   bottom: 10px;
@@ -145,9 +153,7 @@
   visibility: visible;
   opacity: 1;
 }
-.snapshot {
 
-}
 .camera-index:nth-child(3n+1) {
   padding-right: 4px;
 }

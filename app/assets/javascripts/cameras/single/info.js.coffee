@@ -73,9 +73,6 @@ showChangeOwnerDialog = (clear) ->
 handleVendorModelEvents = ->
   $("#camera-vendor").on "change", ->
     loadVendorModels($(this).val())
-
-  $(".camera-model").on "change", ->
-    $("#snapshot").val $(this).find(":selected").attr("jpg-val")
   true
 
 loadVendorModels = (vendor_id) ->
@@ -101,7 +98,6 @@ loadVendorModels = (vendor_id) ->
       selected = if model.name == Evercam.Camera.model_name then 'selected="selected"' else ''
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
       $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
-    $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
 
   settings =
     cache: false

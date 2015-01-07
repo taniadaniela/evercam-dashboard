@@ -161,6 +161,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def resend_confirmation_email
+    user = User.where(Sequel.expr(username: params[:id])).first
+    unless user.nil?
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
+      UserMailer.resend_confirmation_email(user, code).deliver
+      flash[:message] = 'We’ve sent you a confirmation email with instructions.'
+    else
+      flash[:message] = t("errors.user_not_found_error")
+    end
+    redirect_to "/users/#{params[:id]}/settings"
+  end
+
   private
 
   def assess_field_errors(error)

@@ -26,7 +26,7 @@ class CamerasController < ApplicationController
       body[:cam_password] = params['camera-password'] unless params['camera-password'].blank?
       body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].blank?
       if body[:vendor]
-        body[:model] = params["camera-model#{body[:vendor]}"] unless params["camera-model"].blank?
+        body[:model] = params["camera-model"] unless params["camera-model"].blank?
       end
 
       body[:internal_http_port] = params['local-http'] unless params['local-http'].blank?

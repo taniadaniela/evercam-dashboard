@@ -35,6 +35,7 @@
 //= require alerts
 //= require cameras.js
 //= require cameras/single.js
+//= require cameras/add_camera.js
 //=
 //= require metronic/respond.min.js
 //= require metronic/metronic.js

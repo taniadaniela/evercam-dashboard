@@ -17,11 +17,6 @@
   <![endif]-->
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-fixed page-header-fixed-mobile page-footer-fixed1">
-   <div id="spinner"  class="sk-spinner sk-spinner-three-bounce">
-      <div class="sk-bounce1"></div>
-       <div class="sk-bounce2"></div>
-     <div class="sk-bounce3"></div>
-      </div>
 
 <% if signed_in? %>
   <div class="page-header navbar navbar-fixed-top">
@@ -40,7 +35,7 @@
         <a href="/cameras/new" data-toggle="tooltip" data-placement="bottom" title="Add a Camera" title="Add Camera"><i class="icon icon-plus"></i></a>
         <a href="/dev" data-toggle="tooltip" data-placement="bottom" title="Developer" title="Developer"><i class="icon icon-briefcase"></i></a>
         <% if params[:action] == 'index' %>
-          <a data-toggle="tooltip" data-placement="bottom" title="Developer" title="Refresh Cameras" class="refresh-images" title="Refresh Cameras"><i class="fa fa-refresh"></i></a>
+          <a data-toggle="tooltip" data-placement="bottom" title="Refresh Cameras" class="refresh-images" title="Refresh Cameras"><i class="icon icon-refresh"></i></a>
         <% end %>
       </div>
 
@@ -166,8 +161,6 @@
     $('[data-toggle="tooltip"]').tooltip()
     $('.dropdown-toggle').dropdown()
   })
-
-  $(window).load(function() { $("#spinner").fadeOut("slow"); })
 
   if (!window.Evercam) {
     window.Evercam = {};

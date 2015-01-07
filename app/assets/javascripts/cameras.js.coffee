@@ -14,6 +14,10 @@ onRefreshImage = ->
     refreshImages()
   true
 
+  $(window).load ->
+  $("#spinner").fadeOut "slow"
+  return
+
 disableOther = (button) ->
   classie.toggle showLeft, "disabled"  if button isnt "showLeft"
   return

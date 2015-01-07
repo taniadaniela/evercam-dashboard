@@ -10,6 +10,13 @@
     <div class="page-content" id="user-settings">
       <div class="row">
         <div class="col-md-6">
+          <% unless current_user.confirmed_at %>
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <p>It looks like your account has not been verified yet. <a href="/users/<%= current_user.username -%>/resend" class="resend-email"><br> Resend verification email.</a>
+              </p>
+            </div>
+          <% end %>
           <div class="portlet">
             <div class="portlet-title">
               <div class="caption">
@@ -55,18 +62,6 @@
                     <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
                   </div>
 
-                </div>
-
-                <div class="form-group">
-                  <label class="col-md-3 control-label">Account Status</label>
-
-                  <div class="col-md-9 account-status">
-                    <% if current_user.confirmed_at %>
-                      Verified
-                    <% else %>
-                      Not Verified - <a href="/users/<%= current_user.username -%>/resend" class="resend-email">Resend Confirmation Email</a>
-                    <% end %>
-                  </div>
                 </div>
 
                 <div class="form-group">

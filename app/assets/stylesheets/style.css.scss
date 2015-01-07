@@ -38,6 +38,9 @@
   margin-right: 5px;
   text-transform: uppercase;
 }
+.nav-title .icon-refresh {
+  font-weight:bold;
+}
 .nav-title a:hover {
   color: #e5e5e5 !important;
 }
@@ -64,52 +67,6 @@
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/
-
-.sk-spinner-three-bounce.sk-spinner {
-  margin: 0 auto;
-  width: 70px;
-  text-align: center;
-  position: fixed;
-  left: 0px;
-  top: 22px;
-  left: 50%;
-  z-index: 100000000;}
-.sk-spinner-three-bounce div {
-  width: 8px;
-  height: 8px;
-  background-color: #ffffff;
-  border-radius: 100% !important;
-  display: inline-block;
-  -webkit-animation: sk-threeBounceDelay 1.4s infinite ease-in-out;
-  animation: sk-threeBounceDelay 1.4s infinite ease-in-out;
-  /* Prevent first frame from flickering when animation starts */
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both; }
-.sk-spinner-three-bounce .sk-bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s; }
-.sk-spinner-three-bounce .sk-bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s; }
-
-@-webkit-keyframes sk-threeBounceDelay {
-  0%, 80%, 100% {
-    -webkit-transform: scale(0);
-    transform: scale(0); }
-
-  40% {
-    -webkit-transform: scale(1);
-    transform: scale(1); } }
-
-@keyframes sk-threeBounceDelay {
-  0%, 80%, 100% {
-    -webkit-transform: scale(0);
-    transform: scale(0); }
-
-  40% {
-    -webkit-transform: scale(1);
-    transform: scale(1); } }
-
 
 #camera-index .page-content-wrapper .page-content {
   padding:0;
@@ -508,6 +465,11 @@ input:-webkit-autofill {
   margin-right: 6px;
   font-size: 16px;
 }
+#public-single .fa-plus-circle {
+  margin-left: 12px;
+  font-size: 20px;
+}
+
 .add-to-cams {
   position: absolute;
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
@@ -2149,7 +2111,10 @@ table.table-clean thead th {
 #user-settings .form-horizontal .control-label {
   text-align: left;
 }
-
+.close {
+  text-indent: 0px;
+  height: 20px;
+}
 .cancel  {
   margin-left: 10px;
   float: left;
@@ -2164,10 +2129,6 @@ table.table-clean thead th {
 #user-settings .has-error .help-block {
   font-size: 12px;
   background-color: transparent;
-}
-
-#user-settings .account-status{
-  margin-top: 8px;
 }
 
 #some-element {
@@ -3593,6 +3554,12 @@ Page content
   font-family: "proxima-nova-regular","Open Sans",sans-serif;
 }
 .page-content {
+  background-color: #ffffff;
+}
+#camera-single {
+  background-color: #f1f1f1;
+}
+#add-ip {
   background-color: #f1f1f1;
 }
 .page-content-wrapper .page-content {
@@ -3650,3 +3617,4 @@ Page content
   padding-bottom: 10px !important;
   padding-top: 4px !Important;
 }
+

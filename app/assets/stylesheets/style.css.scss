@@ -1944,6 +1944,7 @@ input:-webkit-autofill:focus {
   background-color: #494d51 !important;
   color: #ffffff;
   opacity: 1 !Important;
+  font-family: 'proxima-nova-regular';
 }
 #sidebar .tooltip.top .tooltip-arrow {
   bottom: 0;
@@ -1951,6 +1952,9 @@ input:-webkit-autofill:focus {
   margin-left: -5px;
   border-width: 5px 5px 0;
   border-top-color: #fff !Important;
+}
+.tooltip.top .tooltip-arrow {
+border-top-color: #494d51 !important;
 }
 .sidebar-toggler-wrapper {
   width: 24px;

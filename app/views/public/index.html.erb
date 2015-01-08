@@ -39,7 +39,7 @@
                     <th class="col-md-2">Camera Owner</th>
                     <th class="col-md-3">Location</th>
                     <th class="col-md-1">Camera Page</th>
-                    <th class="col-md-2">Add to my Cameras</th>
+                    <th class="col-md-2">Add to Cameras</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -47,7 +47,7 @@
                     <tr>
                       <td><%= camera["name"] %></td>
                       <td data-toggle="collapse" data-target="#<%= camera["id"] %>" class="show-arrow">
-                        <a data-toggle="modal" href="#<%= camera["id"] %>">Preview </a></td>
+                        <a data-toggle="modal" href="#<%= camera["id"] %>">Quick Preview </a></td>
                       <td class="text-success">
                         <% if camera["is_online"] %>
                           <span class="green">Online</span>
@@ -57,7 +57,7 @@
                       </td>
                       <td><%= camera['owner'] %></td>
                       <td><div id="camera-location"><%= camera.deep_fetch('location', 'lat') {} %>, <%= camera.deep_fetch('location', 'lng') {} %></p></div></td>
-                      <td class="show-arrow text-success"><a href="/public/cameras/<%= camera['id'] %>">More info <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                      <td class="show-arrow text-success"><a href="/public/cameras/<%= camera['id'] %>">View <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
                       <td class="show-arrow"><a href="#" class="create-share-button" camera_id="<%= camera["id"] %>" email="<%= @user.email %>">Add <i id="hover-arrow" class="icon-plus"></i></a></td>
                     </tr>
 
@@ -135,6 +135,7 @@
       google.maps.event.addListener(marker, 'click', function () {
         infowindow.setContent("<a href='/public/cameras/<%= camera['id'] %>'><%= preview(camera, true) %></a>"+
             '<h5><a href="/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
+
         infowindow.open(map, marker);
       });
     })(marker);

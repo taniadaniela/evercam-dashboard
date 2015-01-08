@@ -46,8 +46,13 @@
                   <div id="public-info" class="portlet-body">
                     <div class="portlet solid bordered grey-cararra">
                       <div class="portlet-title">
-                        <div class="caption">
-                          Last Snapshot
+                        <div class="caption">Last Snapshot</div>
+                        <div id="status" class="pull-right">
+                          <% if @camera['is_online'] %>
+                            <h5 class="green pull-right">Online</h5>
+                          <% else %>
+                            <h5 class="red pull-right">Offline</h5>
+                          <% end %>
                         </div>
                       </div>
                       <div class="portlet-body">
@@ -76,36 +81,45 @@
                       <div class="portlet-body">
                         <table class="table table-fixed table-borderless">
                           <tr>
-                            <td class="col-md-2">Status:</td>
-                            <td class="col-md-8">
-                              <% if @camera['is_online'] %>
-                                <span class="green">Online</span>
-                              <% else %>
-                                <span class="red">Offline</span>
-                              <% end %>
+                            <td class="col-md-3">ID:</td>
+                            <td class="col-md-9">
+                              <span id="ec_cam_id">
+                                <%= @camera['id'] %>
+                              </span>
                             </td>
                           </tr>
                           <tr>
-                            <td>Owner:</td>
-                            <td><%= @camera['owner'] %></td>
+                            <td class="col-md-3">Name:</td>
+                            <td class="col-md-9">
+                              <%= @camera['name'] %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="col-lg-3">Owner:</td>
+                            <td class="col-lg-9">
+                              <% if @camera['owner'] == current_user.email %>
+                                <small class="blue"> (you)</small>
+                              <% end %>
+                              <%= @camera['owner'] %>
+                            </td>
                           </tr>
                           <tr>
                             <td>Vendor:</td>
                             <td>
-                              <% if @camera["vendor_name"] != nil %>
+                              <% if @camera["vendor_name"] != "" %>
                                 <%= @camera["vendor_name"] %>
                               <% else %>
-                                <span class="grey">Unknown</span>
+                                <span class="grey">Not specified</span>
                               <% end %>
                             </td>
                           </tr>
                           <tr>
                             <td>Model:</td>
                             <td>
-                              <% if @camera["model_name"] != nil %>
+                              <% if @camera["model_name"] != "" %>
                                 <%= @camera["model_name"] %>
                               <% else %>
-                                <span class="grey">Unknown</span>
+                                <span class="grey">Not Specified</span>
                               <% end %>
                             </td>
                           </tr>
@@ -116,34 +130,30 @@
                         </table>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                  <div class="col-md-6">
-                    <div id="public-info" class="portlet-body">
-                      <div class="portlet solid bordered grey-cararra">
-                        <div class="portlet-title">
-                          <div class="caption">
-                            Location
-                          </div>
+                  </div><!-- end public info -->
+                  <div class="portlet-body">
+                    <div class="portlet solid bordered grey-cararra">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          Location
                         </div>
-                        <div class="portlet-body">
-                          <div class="info-preview">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div id="map-public"></div>
-                              </div>
-                              <div id="pub-location" class="margin-top-10 col-md-12">
-                                Coordinates
-                                <p><%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></p>
-                              </div>
+                      </div>
+                      <div class="portlet-body">
+                        <div class="info-preview">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div id="map-public"></div>
                             </div>
-                          </div>​
-                        </div>
+                            <div id="pub-location" class="margin-top-10 col-md-12">
+                              Coordinates
+                              <p><%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></p>
+                            </div>
+                          </div>
+                        </div>​
                       </div>
                     </div>
                   </div>
-
+                </div>
               </div>
             </div>
           </div>

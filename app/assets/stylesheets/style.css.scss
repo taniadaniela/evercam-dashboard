@@ -19,7 +19,9 @@
   font-weight: normal;
   font-style: normal;
 }
-
+th {
+  font-weight: normal !important;
+}
 /*/////////////////////
 //HEADER
 /////////////////////*/
@@ -469,7 +471,9 @@ input:-webkit-autofill {
   margin-left: 12px;
   font-size: 20px;
 }
-
+#public-single .green {
+  margin-top: 2px;
+}
 .add-to-cams {
   position: absolute;
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
@@ -703,7 +707,8 @@ ul.scroll-menu {
 .fa-lg, .icon-lg {
   font-size: 20px !important;
 }
-/*LIVE*/
+/*DETAILS*/
+
 .demo-wrapper {
   width: 38%;
   margin: 0 auto;

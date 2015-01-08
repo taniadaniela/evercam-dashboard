@@ -148,6 +148,32 @@ loadVendors = ->
   sendAJAXRequest(settings)
   true
 
+saveMapLocation = ->
+  data = {}
+  data.location_lat = $("#cameraLats").val()
+  data.location_lng = $("#cameraLng").val()
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (result, status, jqXHR) ->
+    $("#location-settings").css "display", "none"
+    Notification.show "Camera location updated successfully"
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'PATCH'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}.json?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+  sendAJAXRequest(settings)
+  true
+
 initializeMap = ->
   $("#co-ordinates").replaceWith "<p>The location is not set. Drag the marker to the location of your camera.</p>" if Evercam.Camera.location.lng  is "0"
   unless Evercam.Camera.location.lng is "0"
@@ -239,4 +265,5 @@ window.initializeInfoTab = ->
   google.maps.event.addDomListener window, "load", initializeMap
   handleModelEvents()
   initNotification()
+  $("#save-map-location").on "click", saveMapLocation
   true

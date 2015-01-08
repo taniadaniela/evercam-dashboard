@@ -2144,8 +2144,22 @@ table.table-clean thead th {
 #some-div:hover #some-element {
   opacity: 1;
   transition: opacity .3s ease-in-out;
+  width: 200px;
+  overflow: auto;
+  margin-top: 5px;
 }
+#user-settings .form-control[readonly] {
+background-color:#ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  border:none;
 
+}
+#user-settings .form-control {
+  font-size: 16px;
+}
+.user-settings-portal {
+ max-width: 455px;
+}
 /* PASSWORD RESET */
 #pass-reset .branding {
   max-width: 200px;
@@ -2836,6 +2850,9 @@ a:hover, a:focus {
 /*METRONIC LAYOUT STYLE OVERRIDES*/
 body {
   background-color: #f5f5f5 !important;
+}
+.alert {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 /*HEADER*/
 .nav > li > a:hover, .nav > li > a:focus {

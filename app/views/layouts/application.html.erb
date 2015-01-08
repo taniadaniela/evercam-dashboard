@@ -35,7 +35,7 @@
         <a href="/cameras/new" data-toggle="tooltip" data-placement="bottom" title="Add a Camera" title="Add Camera"><i class="icon icon-plus"></i></a>
         <a href="/dev" data-toggle="tooltip" data-placement="bottom" title="Developer" title="Developer"><i class="icon icon-briefcase"></i></a>
         <% if params[:action] == 'index' %>
-          <a data-toggle="tooltip" data-placement="bottom" title="Developer" title="Refresh Cameras" class="refresh-images" title="Refresh Cameras"><i class="icon icon-refresh"></i></a>
+          <a data-toggle="tooltip" data-placement="bottom" title="Refresh Cameras" class="refresh-images" title="Refresh Cameras"><i class="icon icon-refresh"></i></a>
         <% end %>
       </div>
 
@@ -161,7 +161,6 @@
     $('[data-toggle="tooltip"]').tooltip()
     $('.dropdown-toggle').dropdown()
   })
-
 
   if (!window.Evercam) {
     window.Evercam = {};

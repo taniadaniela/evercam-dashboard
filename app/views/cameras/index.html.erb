@@ -55,14 +55,13 @@
 
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
               <a class="" href="/cameras/<%= camera['id'] %>">
-                <div class="snapshot">
+                <div class="snapshot<% unless camera['is_online'] %> offline-snapshot<% end %>">
                   <%= preview(camera) %>
                 </div>
-                <div class="camera-info">
+                <div class="camera-info<% unless camera['is_online'] %> offline-grey<% end %>">
                   <div class="camera-name">
                     <%= camera['name'] %>
-                    <% if camera['is_online'] %>
-                    <% else %>
+                    <% unless camera['is_online'] %>
                       <i class="red fa fa-chain-broken"></i>
                     <% end %>
                     <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
@@ -77,7 +76,6 @@
     </div>
   </div>
 </div>
-
 <script>
   notifyMessage = '';
   <% if flash[:message] %>
@@ -87,4 +85,5 @@
   $(document).ready(function(){
     window.initializeCameraIndex();
   });
+
 </script>

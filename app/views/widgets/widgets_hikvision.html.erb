@@ -39,7 +39,7 @@
       <div class="portlet light bg-inverse">
         <div class="portlet-title">
           <div class="caption">
-            <i class="icon-play"></i>Create a Hikvision Playback Widget
+            Create a Hikvision Playback Widget
           </div>
         </div>
 
@@ -55,7 +55,7 @@
                   <form id="widget-new" role="form" method="post" class="center-block">
                     <div class="widget-input form-group">
                       <div class="my-row">
-                        <label class="col-md-5 control-label" for="widget-camera">Select Camera</label>
+                        <label class="col-md-5 control-label" for="widget-camera">Camera</label>
                       </div>
                       <div class="input-group col-md-7">
                         <select id="widget-camera" name="widget-camera" class="form-control is-required">
@@ -85,9 +85,9 @@
                         <label class="col-md-5 control-label" for="widget-datetime">Time</label>
                       </div>
                       <div class="input-group col-md-7">
-                        <div class="col-md-4 dropdown-hours"><select id="widget-hour" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
-                        <div class="col-md-4 dropdown-minutes"><select id="widget-minutes" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
-                        <div class="col-md-4"><select id="widget-seconds" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
+                        <div class="col-md-4 dropdown-padding-left"><select id="widget-hour" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
+                        <div class="col-md-4 dropdown-padding-left"><select id="widget-minutes" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
+                        <div class="col-md-4 dropdown-padding-left"><select id="widget-seconds" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
                       </div>
                     </div>
 
@@ -150,6 +150,7 @@
     });
     initLocalStorage();
     $("#btn-load-widget").on("click", initLocalStorage);
+    $("#widget-camera").on("change", initLocalStorage);
     $("#widget-authenticate").on("change", showNote);
     $("#code").on("click", function(){
       this.select();
@@ -208,6 +209,7 @@
         //if the class contains the selected value, then show it, else hide it
         preElements[i].style.visibility = preElements[i].classList.contains($(this).val())?'visible':'hidden';
       }
+      initLocalStorage()
     }
   }
 </script>

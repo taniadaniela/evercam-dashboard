@@ -9,25 +9,41 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap-3.2.0.css.scss
+ *= require bootstrap-3.2.0
  *= require bootstrap-theme
- *= require ladda-themeless-0.8.0.min.css
- *= require admin/fonts.css.scss
- *= require admin/glyphicons.css
- *= require jquery.datetimepicker-2.2.5.min.css
- *= require metronic-components.css
- *= require metronic-layout.css
+
+ *= require admin/fonts
+ *= require admin/glyphicons
+
+ *= require metronic-components
+ *= require metronic-layout
  *= require style
+
+ *= require cameras/cameras
+ *= require cameras/single
+ *= require cameras/add_camera
+
+ *= require public/public_index
+ *= require public/public_single
+
+ *= require widgets/hikvision/hikvision_widget
+ *= require widgets/snapshot_navigator/snapshot_navigator_widget
+ *= require widgets/widget.css
+
+ *= require users/settings
+ *= require users/sessions
+ *= require users/password_reset
+
+ *= require api_docs
+
+ *= require ladda-themeless-0.8.0.min.css
+ *= require jquery.datetimepicker-2.2.5.min.css
  *= require uniform.default.min.css
  *= require datepicker.css
  *= require videojs
- *= require datatables/jquery.dataTables.scss
+ *= require datatables/jquery.dataTables
  *= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
  *= require metronic/icheck/skins/all.css
  *= require metronic/icheck/skins/flat/_all.css
  *= require metronic/icheck/skins/flat/blue.css
-
- *= require cameras/cameras.css.scss
- *= require cameras/single.css.scss
- *= require cameras/add-camera.css.scss
  */

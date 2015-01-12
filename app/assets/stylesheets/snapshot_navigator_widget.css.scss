@@ -46,7 +46,7 @@ th {
     width: 25px;
     height: 25px;
 }
-#recording-tab .row{
+#recording-tab.row{
   margin-right: 0px;
 }
 #recording-tab .btn {
@@ -54,7 +54,7 @@ th {
     border:1px solid #ffffff;
 }
 #recording-tab .btn-padding {
-    padding: 11px 14px;
+    padding: 11.5px 14px;
 }
 #btnFRwd i, #btnFFwd i {
     font-size: 16px;

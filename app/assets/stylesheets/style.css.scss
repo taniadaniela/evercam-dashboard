@@ -2229,25 +2229,25 @@ background-color:#ffffff;
   width: 100%;
   font-size:12px;
 }
-
 #hikvision-widget .placeholder {
-  border:1px solid #f5f5f5;
+
 }
-#hikvision-widget .dropdown-hours{
+#hikvision-widget .dropdown-padding-left{
   padding-left: 0px;
-}
-#hikvision-widget .dropdown-minutes{
-  padding-left: 7px;
+  padding-right: 1px;
 }
 #hikvision-widget .time-dropdown{
-  width: 53px;
-  padding: 6px 4px;
+  min-width: 40px;
+  padding: 0px 4px;
 }
 #hikvision-widget #code {
   min-height: 160px;
 }
+#hikvision-widget h5 {
+  margin-top: 0px;
+}
 .line-break{
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #eee;
   margin-bottom: 15px;
   margin-top: 15px;
 }
@@ -2263,20 +2263,21 @@ background-color:#ffffff;
 }
 
 #snapshot-widgets .placeholder {
-  border:1px solid #f5f5f5;
+
 }
-#snapshot-widgets .dropdown-hours{
+#snapshot-widgets .dropdown-padding-left{
   padding-left: 0px;
-}
-#snapshot-widgets .dropdown-minutes{
-  padding-left: 7px;
+  padding-right: 1px;
 }
 #snapshot-widgets .time-dropdown{
-  width: 53px;
+  min-width: 40px;
   padding: 6px 4px;
 }
 #snapshot-widgets #code {
   min-height: 160px;
+}
+#snapshot-widgets h5 {
+  margin-top: 0px;
 }
 
 /*!

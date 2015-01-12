@@ -24,6 +24,11 @@ handleScrollToEvents = ->
     window.location.hash = e.target.hash
     scrollTo 0, 0
 
+initializeiCheck = ->
+  $("input[type=radio], input[type=checkbox]").iCheck
+    checkboxClass: "icheckbox_flat-blue"
+    radioClass: "iradio_flat-blue"
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -39,3 +44,4 @@ window.initializeCameraSingle = ->
   QuickSidebar.init()
   handleScrollToEvents()
   initializeTabs()
+  initializeiCheck()

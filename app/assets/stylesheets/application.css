@@ -11,10 +11,10 @@
  *= require_self
  *= require bootstrap-3.2.0.css.scss
  *= require bootstrap-theme
- *= require ladda-themeless-0.8.0.min.css
+ *= require ladda
  *= require admin/fonts.css.scss
  *= require admin/glyphicons.css
- *= require jquery.datetimepicker-2.2.5.min.css
+ *= require datetimepicker
  *= require metronic-components.css
  *= require metronic-layout.css
  *= require style
@@ -23,7 +23,11 @@
  *= require videojs
  *= require datatables/jquery.dataTables.scss
  *= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
- *= require metronic/icheck/skins/all.css
- *= require metronic/icheck/skins/flat/_all.css
- *= require metronic/icheck/skins/flat/blue.css
+
+ *= require iCheck/skins/minimal/_all.scss
+ *= require iCheck/skins/square/_all.css
+ *= require iCheck/skins/flat/_all.css
+ *= require iCheck/skins/line/_all.css
+ *= require iCheck/skins/polaris/polaris.css
+ *= require iCheck/skins/futurico/futurico.css
  */

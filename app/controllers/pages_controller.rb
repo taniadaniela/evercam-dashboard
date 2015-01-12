@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   layout "bare-bones", only: [:swagger, :live]
 
   def dev
-    load_user_cameras
+    @cameras = load_user_cameras
   end
 
   def location

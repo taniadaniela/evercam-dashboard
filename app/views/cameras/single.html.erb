@@ -1,202 +1,174 @@
 <%= content_for(:title, "Evercam: Camera View") %>
 
-<div class="bb-alert alert alert-info" style="display:none;">
-  <span></span>
-</div>
+<div class="page-content-wrapper">
+  <div class="page-content" id="camera-single">
 
-<div class="page-container">
-  <%= render :partial => "shared/sidebar" %>
-
-  <div class="page-content-wrapper">
-    <div class="page-content" id="camera-single">
-      <div class="cbp-spmenu-push">
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-          <h3>Menu</h3>
-          <ul>
-            <li>
-              <a href="/dev">API Docs</a>
-            </li>
-            <li>
-              <a class="dev-menu-title">
-                Widgets <span class="arrow"></span>
-              </a>
-              <ul class="sub-menu">
-                <li>
-                  <a href="/widgets-new">Live View Widget</a>
+    <div class="row">
+      <div class="camera-title">
+        <div class="col-xs-8 col-md-8">
+          <div class="btn-group camera-switch">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <h3 class="page-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h3>
+            </a>
+            <ul class="dropdown-menu scroll-menu" role="menu">
+              <% @cameras.each do |camera| %>
+                <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+                  <a href="/cameras/<%= camera['id'] %>">
+                    <% if camera['owner'] == current_user.username %>
+                      <i class="icon icon-users" style="visibility: hidden;"></i>
+                    <% else %>
+                      <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
+                    <% end %>
+                    <%= camera['name'] %>
+                    <% unless camera['is_online'] %>
+                      <i class="red fa fa-chain-broken"></i>
+                    <% end %>
+                  </a>
                 </li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="row">
-        <div class="camera-title">
-          <div class="col-xs-8 col-md-8">
-            <div class="btn-group camera-switch">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                <h3 class="page-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h3>
-              </a>
-              <ul class="dropdown-menu scroll-menu" role="menu">
-                <% @cameras.each do |camera| %>
-                  <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-                    <a href="/cameras/<%= camera['id'] %>">
-                      <% if camera['owner'] == current_user.username %>
-                        <i class="icon icon-users" style="visibility: hidden;"></i>
-                      <% else %>
-                        <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
-                      <% end %>
-                      <%= camera['name'] %>
-                      <% unless camera['is_online'] %>
-                        <i class="red fa fa-chain-broken"></i>
-                      <% end %>
-                    </a>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-xs-4 col-md-4 online-status">
-            <div class="pull-right">
-              <% if @camera['is_online'] %>
-                <h5 class="green">Online</h5>
-              <% else %>
-                <h5 class="red">Offline</h5>
               <% end %>
-            </div>
-            <% unless @camera['owner'] == current_user.username %>
-              <div class="pull-right margin-right-10">
-                <h5><i class="icon icon-users"></i></h5>
-              </div>
-            <% end %>
+            </ul>
           </div>
         </div>
+
+        <div class="col-xs-4 col-md-4 online-status">
+          <div class="pull-right">
+            <% if @camera['is_online'] %>
+              <h5 class="green">Online</h5>
+            <% else %>
+              <h5 class="red">Offline</h5>
+            <% end %>
+          </div>
+          <% unless @camera['owner'] == current_user.username %>
+            <div class="pull-right margin-right-10">
+              <h5><i class="icon icon-users"></i></h5>
+            </div>
+          <% end %>
+        </div>
       </div>
+    </div>
 
-      <div class="portlet-body">
-        <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
-        <div class="tabbable tabbable-custom">
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
-            </li>
+    <div class="portlet-body">
+      <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+      <div class="tabbable tabbable-custom">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
+          </li>
 
+          <li>
+            <a data-toggle="tab" href="#live">Live View</a>
+          </li>
+
+          <li>
+            <a data-toggle="tab" href="#snapshots">Snapshots</a>
+          </li>
+
+          <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
             <li>
-              <a data-toggle="tab" href="#live">Live View</a>
+              <a data-toggle="tab" href="#streams">Streams</a>
             </li>
+          <% end %>
 
+          <% if has_edit_right %>
             <li>
-              <a data-toggle="tab" href="#snapshots">Snapshots</a>
+              <a data-toggle="tab" href="#sharing">Sharing</a>
             </li>
+          <% end %>
 
-            <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
-              <li>
-                <a data-toggle="tab" href="#streams">Streams</a>
-              </li>
-            <% end %>
+          <li>
+            <a data-toggle="tab" href="#api_explorer">API Explorer</a>
+          </li>
 
-            <% if has_edit_right %>
-              <li>
-                <a data-toggle="tab" href="#sharing">Sharing</a>
-              </li>
-            <% end %>
-
+          <% if has_edit_right %>
             <li>
-              <a data-toggle="tab" href="#api_explorer">API Explorer</a>
+              <a data-toggle="tab" href="#logs">Logs</a>
             </li>
+          <% end %>
 
-            <% if has_edit_right %>
-              <li>
-                <a data-toggle="tab" href="#logs">Logs</a>
-              </li>
-            <% end %>
+          <li>
+            <a data-toggle="tab" href="#apps">Apps</a>
+          </li>
 
+          <li>
+            <a data-toggle="tab" href="#webhooks">Webhooks</a>
+          </li>
+
+          <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
             <li>
-              <a data-toggle="tab" href="#apps">Apps</a>
+              <a data-toggle="tab" href="#local_storage">Local Storage</a>
             </li>
+          <% end %>
 
-            <li>
-              <a data-toggle="tab" href="#webhooks">Webhooks</a>
-            </li>
+          <li class="pull-right">
+            <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="fa fa-trash-o fa-lg"></span></a>
+          </li>
+        </ul>
 
-            <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
-              <li>
-                <a data-toggle="tab" href="#local_storage">Local Storage</a>
-              </li>
-            <% end %>
-
-            <li class="pull-right">
-              <a id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="" href=""><span class="fa fa-trash-o fa-lg"></span></a>
-            </li>
-          </ul>
-
-          <div id="deleteModal" class="modal fade">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="col-md-12 margin-top-10">
-                    <% if @share.nil? %>
-                      <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
-                    <% else %>
-                      <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
-                    <% end %>
-                  </div>
+        <div id="deleteModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="col-md-12 margin-top-10">
+                  <% if @share.nil? %>
+                    <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                  <% else %>
+                    <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                  <% end %>
                 </div>
-                <div class="modal-footer">
-                  <div class="col-sm-8">
-                    <% if @share.nil? %>
-                      <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Delete</a>
-                    <% else %>
-                      <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Remove</a>
-                    <% end %>
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                  </div>
+              </div>
+              <div class="modal-footer">
+                <div class="col-sm-8">
+                  <% if @share.nil? %>
+                    <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Delete</a>
+                  <% else %>
+                    <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Remove</a>
+                  <% end %>
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="tab-content">
-            <div id="info" class="tab-pane active">
-              <%= render partial: "cameras/single/info_tab" %>
-            </div>
+        <div class="tab-content">
+          <div id="info" class="tab-pane active">
+            <%= render partial: "cameras/single/info_tab" %>
+          </div>
 
-            <div id="live" class="tab-pane">
-              <%= render partial: "cameras/single/live_view_tab" %>
-            </div>
+          <div id="live" class="tab-pane">
+            <%= render partial: "cameras/single/live_view_tab" %>
+          </div>
 
-            <div id="snapshots" class="tab-pane">
-              <%= render partial: "cameras/single/snapshots_navigator_tab" %>
-            </div>
+          <div id="snapshots" class="tab-pane">
+            <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+          </div>
 
-            <div id="streams" class="tab-pane">
-              <%= render partial: "cameras/single/streams_tab" %>
-            </div>
+          <div id="streams" class="tab-pane">
+            <%= render partial: "cameras/single/streams_tab" %>
+          </div>
 
-            <div id="sharing" class="tab-pane">
-              <%= render partial: "cameras/single/sharing_tab" %>
-            </div>
+          <div id="sharing" class="tab-pane">
+            <%= render partial: "cameras/single/sharing_tab" %>
+          </div>
 
-            <div id="api_explorer" class="tab-pane">
-              <%= render partial: "cameras/single/api_explorer_tab" %>
-            </div>
+          <div id="api_explorer" class="tab-pane">
+            <%= render partial: "cameras/single/api_explorer_tab" %>
+          </div>
 
-            <div id="logs" class="tab-pane">
-              <%= render partial: "cameras/single/logs_tab" %>
-            </div>
+          <div id="logs" class="tab-pane">
+            <%= render partial: "cameras/single/logs_tab" %>
+          </div>
 
-            <div id="apps" class="tab-pane">
-              <%= render partial: "cameras/single/apps_tab" %>
-            </div>
+          <div id="apps" class="tab-pane">
+            <%= render partial: "cameras/single/apps_tab" %>
+          </div>
 
-            <div id="webhooks" class="tab-pane">
-              <%= render partial: "cameras/single/webhooks_tab" %>
-            </div>
+          <div id="webhooks" class="tab-pane">
+            <%= render partial: "cameras/single/webhooks_tab" %>
+          </div>
 
-            <div id="local_storage" class="tab-pane">
-              <%= render partial: "cameras/single/local_storage_tab" %>
-            </div>
+          <div id="local_storage" class="tab-pane">
+            <%= render partial: "cameras/single/local_storage_tab" %>
           </div>
         </div>
       </div>
@@ -222,14 +194,7 @@
     api_key: '<%= current_user.api_key %>'
   };
 
-  $(document).ready(function(){
+  $(document).ready(function () {
     window.initializeCameraSingle();
   });
 </script>
-
-<%= javascript_tag do %>
-  notifyMessage = '';
-  <% if flash[:message] %>
-    notifyMessage = '<%= flash[:message] %>';
-  <% end %>
-<% end %>

@@ -1,155 +1,153 @@
 <%= content_for(:title, "Evercam: Public Camera") %>
 <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-<div class="bb-alert alert alert-info" style="display:none;">
-  <span></span>
-</div>
-<div class="page-container" id="public-single">
-  <%= render :partial => "shared/sidebar" %>
 
-  <div class="page-content-wrapper">
-    <div class="page-content">
+<div class="page-content-wrapper">
+  <div class="page-content" id="public-single">
 
-      <div class="row">
-        <div class="camera-title">
-          <div class="col-xs-6 col-md-6">
-            <h3 class="page-title"><%= @camera['name'] %>
-              <small>
-                <%= @camera['id'] %>
-              </small>
-            </h3>
-          </div>
-          <div id="status" class="col-md-6 col-sm-6">
-            <% if @camera['is_online'] %>
-              <h5 class="green pull-right"><i class="fa fa-check"></i>Online</h5>
-            <% else %>
-              <h5 class="red pull-right">Offline</h5>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-      <div class="row margin-bottom-15">
+    <div class="row">
+      <div class="camera-title">
         <div class="col-xs-6 col-md-6">
-          <a href="/public/cameras/"><span class="fa fa-arrow-left"></span> Public Cameras</a>
+          <h3 class="page-title"><%= @camera['name'] %>
+            <small>
+              <%= @camera['id'] %>
+            </small>
+          </h3>
         </div>
-        <div class="pull-right col-xs-6 col-md-6">
-          <a href="#" class="pull-right create-share-button" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add to Cameras<i class="fa fa-plus-circle"></i></a>
+        <div id="status" class="col-md-6 col-sm-6">
+          <% if @camera['is_online'] %>
+            <h5 class="green pull-right"><i class="fa fa-check"></i>Online</h5>
+          <% else %>
+            <h5 class="red pull-right">Offline</h5>
+          <% end %>
         </div>
       </div>
+    </div>
 
-      <div id="public-cam-single">
-        <div class="portlet">
-          <div class="tabbable tabbable-custom">
-            <div class="tab-content">
-              <div class="row">
-                <div class="col-md-6">
-                  <div id="public-info" class="portlet-body">
-                    <div class="portlet solid bordered grey-cararra">
-                      <div class="portlet-title">
-                        <div class="caption">Last Snapshot</div>
-                        <div id="status" class="pull-right">
+    <div class="row margin-bottom-15">
+      <div class="col-xs-6 col-md-6">
+        <a href="/public/cameras/"><span class="fa fa-arrow-left"></span> Public Cameras</a>
+      </div>
+      <div class="pull-right col-xs-6 col-md-6">
+        <a href="#" class="pull-right create-share-button" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add
+          to Cameras<i class="fa fa-plus-circle"></i></a>
+      </div>
+    </div>
+
+    <div id="public-cam-single">
+      <div class="portlet">
+        <div class="tabbable tabbable-custom">
+          <div class="tab-content">
+            <div class="row">
+              <div class="col-md-6">
+                <div id="public-info" class="portlet-body">
+                  <div class="portlet solid bordered grey-cararra">
+                    <div class="portlet-title">
+                      <div class="caption">Last Snapshot</div>
+                      <div id="status" class="pull-right">
+                        <% if @camera['is_online'] %>
+                          <h5 class="green pull-right">Online</h5>
+                        <% else %>
+                          <h5 class="red pull-right">Offline</h5>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="portlet-body">
+                      <div class="info-preview">
+                        <div class="camera-preview">
                           <% if @camera['is_online'] %>
-                            <h5 class="green pull-right">Online</h5>
+                            <%= preview(@camera, true) %>
                           <% else %>
-                            <h5 class="red pull-right">Offline</h5>
+                            <div class="tint"><%= preview(@camera, true) %></div>
                           <% end %>
                         </div>
                       </div>
-                      <div class="portlet-body">
-                        <div class="info-preview">
-                          <div class="camera-preview">
-                            <% if @camera['is_online'] %>
-                              <%= preview(@camera, true) %>
-                            <% else %>
-                              <div class="tint"><%= preview(@camera, true ) %></div>
-                            <% end %>
-                          </div>
-                        </div>​
+                      ​
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div id="public-info" class="portlet-body">
+                  <div class="portlet solid bordered grey-cararra">
+                    <div class="portlet-title">
+                      <div class="caption">
+                        Camera Details
                       </div>
+                    </div>
+                    <div class="portlet-body">
+                      <table class="table table-fixed table-borderless">
+                        <tr>
+                          <td class="col-md-3">ID:</td>
+                          <td class="col-md-9">
+                              <span id="ec_cam_id">
+                                <%= @camera['id'] %>
+                              </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-3">Name:</td>
+                          <td class="col-md-9">
+                            <%= @camera['name'] %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-lg-3">Owner:</td>
+                          <td class="col-lg-9">
+                            <% if @camera['owner'] == current_user.email %>
+                              <small class="blue"> (you)</small>
+                            <% end %>
+                            <%= @camera['owner'] %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Vendor:</td>
+                          <td>
+                            <% if @camera["vendor_name"] != "" %>
+                              <%= @camera["vendor_name"] %>
+                            <% else %>
+                              <span class="grey">Not specified</span>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Model:</td>
+                          <td>
+                            <% if @camera["model_name"] != "" %>
+                              <%= @camera["model_name"] %>
+                            <% else %>
+                              <span class="grey">Not Specified</span>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Date Added:</td>
+                          <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
+                        </tr>
+                      </table>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-6">
-                  <div id="public-info" class="portlet-body">
-                    <div class="portlet solid bordered grey-cararra">
-                      <div class="portlet-title">
-                        <div class="caption">
-                          Camera Details
-                        </div>
-                      </div>
-                      <div class="portlet-body">
-                        <table class="table table-fixed table-borderless">
-                          <tr>
-                            <td class="col-md-3">ID:</td>
-                            <td class="col-md-9">
-                              <span id="ec_cam_id">
-                                <%= @camera['id'] %>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-3">Name:</td>
-                            <td class="col-md-9">
-                              <%= @camera['name'] %>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="col-lg-3">Owner:</td>
-                            <td class="col-lg-9">
-                              <% if @camera['owner'] == current_user.email %>
-                                <small class="blue"> (you)</small>
-                              <% end %>
-                              <%= @camera['owner'] %>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Vendor:</td>
-                            <td>
-                              <% if @camera["vendor_name"] != "" %>
-                                <%= @camera["vendor_name"] %>
-                              <% else %>
-                                <span class="grey">Not specified</span>
-                              <% end %>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Model:</td>
-                            <td>
-                              <% if @camera["model_name"] != "" %>
-                                <%= @camera["model_name"] %>
-                              <% else %>
-                                <span class="grey">Not Specified</span>
-                              <% end %>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Date Added:</td>
-                            <td><%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %></td>
-                          </tr>
-                        </table>
+                <div class="portlet-body">
+                  <div class="portlet solid bordered grey-cararra">
+                    <div class="portlet-title">
+                      <div class="caption">
+                        Location
                       </div>
                     </div>
-                  </div><!-- end public info -->
-                  <div class="portlet-body">
-                    <div class="portlet solid bordered grey-cararra">
-                      <div class="portlet-title">
-                        <div class="caption">
-                          Location
-                        </div>
-                      </div>
-                      <div class="portlet-body">
-                        <div class="info-preview">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div id="map-public"></div>
-                            </div>
-                            <div id="pub-location" class="margin-top-10 col-md-12">
-                              Coordinates
-                              <p><%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></p>
-                            </div>
+                    <div class="portlet-body">
+                      <div class="info-preview">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div id="map-public"></div>
                           </div>
-                        </div>​
+                          <div id="pub-location" class="margin-top-10 col-md-12">
+                            Coordinates
+                            <p><%= @camera.deep_fetch('location', 'lat') {} %>
+                              , <%= @camera.deep_fetch('location', 'lng') {} %></p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -185,7 +183,7 @@
 
 <script>
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     window.initializePublic();
     Metronic.init();
     Layout.init();
@@ -214,20 +212,4 @@
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);
-
-  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-      showLeft = document.getElementById( 'showLeft' )
-  body = document.body;
-
-  showLeft.onclick = function() {
-    classie.toggle( this, 'active' );
-    classie.toggle( menuLeft, 'cbp-spmenu-open' );
-    disableOther( 'showLeft' );
-  };
-
-  function disableOther( button ) {
-    if( button !== 'showLeft' ) {
-      classie.toggle( showLeft, 'disabled' );
-    }
-  }
 </script>

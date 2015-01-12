@@ -70,7 +70,7 @@ th {
 //CAMERA INDEX PAGE
 /////////////////////*/
 
-#camera-index .page-content-wrapper .page-content {
+#camera-index {
   padding:0;
 }
 .margin-top-3 {
@@ -107,7 +107,7 @@ th {
   height: 100%;
 }
 
-#camera-index .page-content{
+#camera-index{
   overflow-y:hidden !important;
   overflow-x:hidden !important;
 }
@@ -422,7 +422,7 @@ input:-webkit-autofill {
 // PUBLIC CAMS
 ///////////////////////////*/
 
-#public-index .tab-content {
+#public-index {
   padding-top: 0px;
   margin-top: 0px;
   background-color: #ffffff;
@@ -590,7 +590,7 @@ div.dataTables_filter input {
   user-select: none;
 }
 
-#public-index .page-content-wrapper .page-content {
+#public-index, #public-index .tab-content{
   padding: 0;
 }
 a[href^="http://maps.google.com/maps"]{display:none !important}
@@ -3641,3 +3641,6 @@ Page content
   padding-top: 4px !Important;
 }
 
+.page-sidebar .page-sidebar-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a {
+  font-size: 16px;
+}

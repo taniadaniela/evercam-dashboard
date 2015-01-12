@@ -34,6 +34,6 @@ EvercamDashboard::Application.configure do
   config.action_mailer.file_settings = { :location => Rails.root.join('log/mails') }
 
   # Evercam API settings. Use "EVERCAM_LOCAL=true bundle exec rails server" to test
-  # against a locally running version of rack.apps.
+  # against a locally running version of evercam-api.
   config.evercam_api = {host: 'localhost', port: 9292, scheme: 'http'} if ENV['EVERCAM_LOCAL']
 end

@@ -19,7 +19,7 @@ gem 'rails-assets-datatables', '~> 1.10.4'
 gem 'rails-assets-datatables-plugins', '~> 1.0'
 gem 'rails-assets-screenfull', '~> 2.0'
 gem 'rails-assets-moment', '~> 2.8'
-gem 'rails-assets-ladda', '~> 0.9.4'
+gem 'rails-assets-ladda', '~> 0.8.0'
 gem 'rails-assets-jquery-cookie', '~> 1.4.1'
 gem 'rails-assets-jquery.nicescroll', '~> 3.5.6'
 gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'
@@ -62,7 +62,6 @@ end
 group :development do
   gem 'quiet_assets'
   gem 'spring'
-  gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'jazz_hands',
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'

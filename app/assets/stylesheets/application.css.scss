@@ -1,0 +1,42 @@
+/*
+ *= require_self
+*/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "admin/fonts.css.scss";
+@import "admin/glyphicons.css";
+
+@import "metronic-components.css";
+@import "metronic-layout.css";
+@import "style.css.scss";
+
+@import "cameras/cameras.css.scss";
+@import "cameras/single/*";
+@import "cameras/add_camera";
+
+@import "public/index.css.scss";
+@import "public/single.css.scss";
+
+@import "widgets/local_storage";
+@import "widgets/snapshot_navigator_widget";
+@import "widgets/widget.css";
+
+@import "users/settings";
+@import "users/sessions";
+@import "users/password_reset";
+
+@import "api_docs";
+
+@import "ladda-themeless-0.8.0.min.css";
+@import "jquery.datetimepicker-2.2.5.min.css";
+@import "uniform.default.min.css";
+@import "datepicker.css";
+@import "videojs";
+@import "datatables/jquery.dataTables";
+@import "datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss";
+@import "metronic/icheck/skins/all.css";
+@import "metronic/icheck/skins/flat/_all.css";
+@import "metronic/icheck/skins/flat/blue.css";
+

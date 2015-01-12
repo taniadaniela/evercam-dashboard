@@ -13,6 +13,9 @@ gem 'fog',
   require: 'fog/aws/storage'
 gem 'asset_sync'
 
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
+
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
 gem 'rails-assets-videojs', '~> 4.11.3'
 gem 'rails-assets-datatables', '~> 1.10.4'

@@ -1,0 +1,235 @@
+// Place all the styles related to the new camera controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#add-ip .form-actions {
+  padding-bottom: 15px;
+}
+#add-ip .tab-content {
+  padding: 20px 0px 0px 0px;
+}
+.additional {
+  margin-bottom: -1px;
+  margin-left: 5px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.settings {
+  margin-bottom: 20px;
+}
+button#add-button {
+  margin-left: 9px;
+}
+.label {
+  margin-top: 30px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 25px;
+}
+.info-sm {
+  position: relative;
+  right: 0;
+  top: 33px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.test-snapshot {
+  margin:8px 0 4px;
+}
+
+#add-test .test-snapshot {
+  margin-top: -4px;
+}
+
+#add-test {
+  position: absolute;
+  margin-left: -128px;
+}
+.test-img-holder {
+  width: 200px;
+  height: 200px;
+  border:1px solid #e5e5e5;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  #add-test {
+    position: static ;
+    margin-left: 0px;
+  }
+}
+#test-error {
+  margin-top: 5px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.testimg-add {
+  height: 100%;
+  width:auto;
+}
+#test {
+  margin: 0 auto;
+  width: 100%;
+  display: block;
+  margin: 0;
+
+}
+.this {
+  margin-top: -25px !important;
+  background-color: #ffffff;
+  padding: 4px;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #f5f5f5 inset;
+}
+.help {
+  padding: 0px 15px;
+  color: #428bca;
+  border-left: 2px solid #428bca;
+  margin-left: 15px;
+  margin-top: 12px;
+}
+.help-sm {
+  padding: 0px;
+  color: #666666;
+  border-left: 2px solid #428bca;
+  padding-left: 12px;
+  margin-bottom: 20px;
+}
+.help-block {
+  font-size: 11px;
+  width:110%;
+  margin-bottom: 0;
+
+  margin-top: 2px;
+  color:#aaa;
+}
+
+#add-ip .help {
+  padding: 0px 1px;
+  color: #aaa;
+  border-left: none;
+  margin-left: 0;
+}
+#add-ip .help-sm {
+  padding: 0px;
+  padding-left: 0px;
+  margin-bottom: 20px;
+}
+#add-ip .help-block {
+  font-size: 12px;
+  width:110%;
+  margin-bottom: 0;
+  position: absolute;
+}
+.has-error .help-block {
+  background-color: #fff;
+}
+#camera-port .help-block {
+  padding-top: 35px;
+}
+#port .help-block {
+  margin-top: 20px !important;
+}
+.box {
+  font-size: 11px;
+  width: 110%;
+  margin-bottom: 0;
+  margin-top: 2px;
+  color:#aaaaaa;
+  transition: all 2s linear;
+  display: block;
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+}
+
+
+.media .test-snapshot a {
+  color:#ffffff;
+  font-weight: 600;
+}
+.add-row {
+  /*border-top: 1px solid #F5F5F5;*/
+  padding: 13px 0 10px;
+}
+.add-row-bottom {
+  padding: 15px 0;
+  /*border-top: 1px solid #F5F5F5;*/
+}
+
+/*#settings .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+    opacity: 1;
+    border: none;
+    cursor: pointer;
+    /*border-left: 1px solid #aaa !important;
+    border-bottom: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;
+    border-radius: 0px !Important;
+    color:#428bca;
+}
+.form-control[disabled]:focus, .form-control[readonly]:focus, fieldset[disabled]:focus .form-control:focus {
+    box-shadow: none;
+    cursor:pointer;
+}*/
+
+.model {
+  min-width: 259px;
+}
+.add-row .form-group {
+  margin-bottom: 0px;
+}
+.vertical-align {
+  display: inline-block;
+  margin-left: -26px;
+
+}
+
+.glyphicon-arrow-right {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#ext-ip .form-error {
+  /*temp-fix*/
+}
+#ext-ip .help-block {
+  position: absolute;
+  top: 34px;
+  right: -22px;
+}
+.snap-end {
+  min-width:173px;
+}
+.prepend-2 {
+  margin-left: -16px;
+  margin-top: 6px;
+  font-family: 'proxima-nova-bold';
+  position: absolute;
+}
+.prepend-1 {
+  margin-left: -26px;
+  margin-top: 6px;
+  font-family: 'proxima-nova-bold';
+  position: absolute;
+}

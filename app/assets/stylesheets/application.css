@@ -26,4 +26,8 @@
  *= require metronic/icheck/skins/all.css
  *= require metronic/icheck/skins/flat/_all.css
  *= require metronic/icheck/skins/flat/blue.css
+
+ *= require cameras/cameras.css.scss
+ *= require cameras/single.css.scss
+ *= require cameras/add-camera.css.scss
  */

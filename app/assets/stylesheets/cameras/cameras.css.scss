@@ -1,0 +1,174 @@
+// Place all the styles related to the cameras controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*/////////////////////
+//CAMERA INDEX PAGE
+/////////////////////*/
+
+#camera-index .page-content-wrapper .page-content {
+  padding:0;
+}
+.margin-top-3 {
+  margin-top: 3px;
+}
+#my-cameras .panel-body, #my-shared-cameras .panel-body {
+  padding: 0px 0 4px 0;
+  margin-left: -10px;
+}
+.camera-index {
+  overflow: hidden;
+  height: 412px;
+  margin-top: 4px;
+  padding-left: 5px;
+  padding-right: 0px;
+
+}
+@media screen and (max-width: 1600px) {
+  .camera-index {
+    height: 300px;
+  }
+}
+.link {
+  z-index: 100000;
+  height: 300px;
+}
+.snapshot {
+  position:relative;
+  height: 100%;
+  text-align: center;
+}
+.snapshot img {
+  height: 100%;
+}
+
+#camera-index .page-content{
+  overflow-y:hidden !important;
+  overflow-x:hidden !important;
+}
+
+#camera-index a:hover {
+  color:#fff;
+  text-decoration: none;
+}
+.camera-name a {
+  color:#aaa;
+  transition:all 0s linear 0.2s,all 0.3s linear;
+}
+.camera-index:hover .camera-name a {
+  color:#fff;
+  opacity: 1;
+}
+.camera-info {
+  background-image: linear-gradient(
+                  to top,
+                  rgba(0, 0, 0, .85) 0%,
+                  rgba(0, 0, 0, 0.15) 30%,
+                  rgba(0, 0, 0, 0) 90%,
+                  rgba(0, 0, 0, 0) 100%
+  );
+  padding: 10px 5px 10px;
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+  pointer-events:none;
+  height: 100%;
+  width: 100%;
+}
+.offline-grey {
+  background: rgba(0, 0, 0, 0.65);
+}
+.offline-snapshot img {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.camera-name {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-weight:300;
+  color:#f5f5f5;
+}
+.camera-index:hover #cam-refresh {
+  visibility: visible;
+  opacity: 1;
+}
+
+.camera-index:nth-child(3n+1) {
+  padding-right: 8px;
+}
+#cam-refresh {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  color: #AAAAAA;
+  margin-left: 5px;
+  transition:visibility 0s linear 0.1s,opacity 0.4s linear;
+}
+#cam-refresh:hover {
+  color: #428BCA;
+}
+
+.grey {
+  color:#aaa;
+}
+
+.blue {
+  color:#428bca;
+}
+
+
+/*/////////////////////
+//GLOBAL SINGLE CAMERA PAGE
+/////////////////////*/
+
+.dropdown-toggle {
+  font-size: 18px;
+}
+.camera-switch a {
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: none;
+}
+.camera-switch .fa-caret-down {
+  margin-left: 6px;
+  margin-top: -3px;
+}
+ul.scroll-menu {
+  /*display: inherit !important;*/
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  width: 100%;
+  height: auto;
+  min-width: 250px;
+  max-height: 600px;
+  margin: 0;
+  border-left: none;
+  border-right: none;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+@media screen and (min-width: 480px) {
+  /* .camera-switch {
+       display: none;
+   }*/
+  .online-status {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .online-status {
+    margin-top: 5px;
+  }
+}
+.fa-lg, .icon-lg {
+  font-size: 20px !important;
+}

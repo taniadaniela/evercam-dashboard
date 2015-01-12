@@ -1,3 +1,75 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* USER SETTINGS */
+#user-settings .form-horizontal .control-label {
+  text-align: left;
+}
+.close {
+  text-indent: 0px;
+  height: 20px;
+}
+.cancel  {
+  margin-left: 10px;
+  float: left;
+}
+#user-settings .help-inline .input-inline:hover {
+  display: block;
+}
+#user-settings .blue.btn {
+  float: left;
+}
+
+#user-settings .has-error .help-block {
+  font-size: 12px;
+  background-color: transparent;
+}
+
+#some-element {
+  opacity: 0;
+  position: absolute;
+}
+
+#some-div:hover #some-element {
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+  width: 200px;
+  overflow: auto;
+  margin-top: 5px;
+}
+#user-settings .form-control[readonly] {
+  background-color:#ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  border:none;
+
+}
+#user-settings .form-control {
+  font-size: 16px;
+}
+.user-settings-portal {
+  max-width: 455px;
+}
+/* PASSWORD RESET */
+#pass-reset .branding {
+  max-width: 200px;
+  margin: 0 auto;
+}
+#pass-reset .branding .svg-logo {
+  height: 134px;
+  display: block;
+  max-width: 200px;
+  margin: 0 auto;
+}
+#pass-reset .panel {
+  padding: 32px 0px 33px 20px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius:2px;
+}
+#pass-reset .input-icon > i {
+  margin: 8px 2px 4px 10px;
+  font-style:normal;
+}
+.hide {
+  display: none;
+}

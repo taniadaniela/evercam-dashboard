@@ -1,0 +1,137 @@
+// Place all the styles related to the sharing controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*SHARING*/
+#sharing a {
+  text-decoration: none;
+}
+#transfer {
+  display: block;
+  padding:8px 0 4px;
+}
+#sharing_list_table {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#change_owner input {
+  width: 300px;
+  margin: 10px 0 0;
+}
+.note-link {
+  font-size: 12px;
+  border-left: 2px solid #428bca;
+  padding: 3px 8px;
+  background-color: #f9f9f9;
+  clear:both;
+  float: left;
+  margin-top: 8px;
+}
+#sharing .radio-inline + .radio-inline {
+  margin-left: 0;
+}
+#sharing .radio-inline{
+  padding-left: 0;
+}
+#sharing div.radio {
+  margin-top: 5px;
+}
+.table-bordered-top {
+  border-bottom:1px solid #e5e5e5;
+}
+#sharing .table > tbody > tr > td {
+  vertical-align: middle;
+}
+#sharing small {
+  color:#a0a0a0;
+}
+.sharing {
+  margin-top: -9px;
+}
+.modal-footer {
+  text-align: left;
+}
+.delete-share-control {
+  cursor: pointer;
+}
+span.delete-share-control, span.delete-share-request-control {
+  color:#428bca;
+}
+span.delete-share-control:hover, span.delete-share-request-control:hover {
+  color:#2a6496;
+}
+
+#sharing .form-horizontal .control-label {
+  text-align: left;
+  margin-left: -10px;
+  padding-right: 0px;
+}
+#sharing .form-group {
+  margin-bottom: 0;
+}
+.glyphicon-remove {
+  margin-right: 5px;
+}
+.delete-share-request-control {
+  margin-top: 4px;
+  cursor: pointer;
+}
+#sharing .radio input[type="radio"] {
+  width: 20px;
+}
+#sharing .radio {
+  min-height:24px;
+}
+.share-section {
+  margin-bottom: 15px;
+}
+#sharingUserEmail {
+  width:100%;
+  min-width: 220px;
+  margin-top: 1px;
+  background-color: #fff;
+}
+.email-input {
+  float: left;
+}
+.glyphicon-remove {
+  cursor: pointer;
+}
+
+#sharing .note.note-info {
+  margin-top: -20px;
+}
+.modal-body {
+  overflow: auto;
+}
+.sharing-title {
+  border-bottom: 1px solid #e5e5e5;
+}
+.desc {
+  padding: 18px 5px 10px;
+  background-color: #f9f9f9;
+}
+#sharing i {
+  margin-right: 4px;
+}
+.change {
+  margin-left: 30px;
+}
+
+
+td .share-camera {
+  padding-left: 5px;
+}
+.add-user  {
+  background-color: #f9f9f9;
+}
+.share {
+  font-family: 'proxima-nova-bold';
+  float: left;
+  margin: 0px;
+  margin-right: 15px;
+}

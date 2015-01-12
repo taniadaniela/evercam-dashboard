@@ -32,21 +32,4 @@ class ApplicationController < ActionController::Base
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
     end
   end
-
-  def get_evercam_api
-    configuration = Rails.application.config
-    parameters    = {logger: Rails.logger}
-    if current_user
-      parameters = parameters.merge(api_id: current_user.api_id,
-                                    api_key: current_user.api_key)
-    end
-    settings      = {}
-    begin
-      settings = (configuration.evercam_api || {})
-    rescue => error
-      # Deliberately ignored.
-    end
-    parameters    = parameters.merge(settings) if !settings.empty?
-    Evercam::API.new(parameters)
-  end
 end

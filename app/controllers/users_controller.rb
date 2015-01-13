@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
 
-  layout "bare-bones"
+  layout "bare-bones", except: [:settings]
 
   include SessionsHelper
   include ApplicationHelper

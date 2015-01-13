@@ -6,17 +6,21 @@
 //= require videojs
 //= require datatables/jquery.dataTables
 //= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+//= require metronic/metronic-components.css
+//= require metronic/metronic-layout.css
 //= require metronic/icheck/skins/all.css
 //= require metronic/icheck/skins/flat/_all.css
 //= require metronic/icheck/skins/flat/blue.css
 //= require_self
 
-@import "admin/fonts";
-@import "admin/glyphicons.css";
+@import "base";
+@import "partials";
+@import "fonts";
+@import "glyphicons";
 
-@import "metronic/metronic-components.css";
-@import "metronic/metronic-layout.css";
 @import "style";
+@import "metronic_component_child";
+@import "metronic_layout_child";
 
 @import "cameras/cameras";
 @import "cameras/single";

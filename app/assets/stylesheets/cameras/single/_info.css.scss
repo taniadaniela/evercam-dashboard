@@ -22,13 +22,14 @@
 
 #info .portlet.solid.bordered > .portlet-title {
   margin-bottom: 5px;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid $white;
 }
 .edit {
   transition: all .2s linear;
 }
 #info .green {
-  margin-top: 1px;
+  margin-top: 3px;
+  color:#2ecc71;
 }
 #info .portlet.solid {
   overflow-x: hidden;
@@ -72,7 +73,7 @@
 .proxy-info {
   font-size: 12px;
   text-transform: uppercase;
-  color: #428bca;
+  color: $main-color;
 }
 
 .table-fixed {
@@ -83,10 +84,10 @@
   margin-top: -6px;
   font-size: 12px;
   color: black !important;
-  background-color: #f5f5f5;
-  border-top: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
+  background-color: $main-grey;
+  border-top: 1px solid $white;
+  border-left: 1px solid $white;
+  border-right: 1px solid $white;
 }
 .margin-bottom-0 {
   margin-bottom: 0px; /*temp fix*/
@@ -119,7 +120,7 @@
   padding: 2px 2px !important;
 }
 .modal-content {
-  background-color: #e5e5e5;
+  background-color: $main-grey;
 }
 #settings-modal-1 .has-error .help-block {
   background-color: transparent;
@@ -148,9 +149,9 @@
 
 .info-location p {
   background-color: #eef7fb;
-  border-color: #428bca;
+  border-color: $main-color;
   padding: 15px 30px 15px 15px;
-  border-left: 5px solid #428bca;
+  border-left: 5px solid $main-color;
 }
 #location-settings {
   margin-right: 0px;
@@ -170,7 +171,7 @@
   box-shadow: none;
 }
 #camera-settings .input-group-addon {
-  background-color: #fff;
+  background-color: $white;
   border: none;
   padding: 6px 8px 6px 10px;
 }
@@ -185,7 +186,7 @@
   margin-bottom: 0px;
 }
 .test-img-settings {
-  background-color: #ffffff;
+  background-color: $white;
   height:165px;
   overflow: hidden;
   width: 100%;

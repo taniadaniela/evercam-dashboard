@@ -7,7 +7,7 @@
 }
 #apps a {
   text-decoration: none;
-  color:#414042;
+  color:$secondary-color;
 }
 .apps h4 {
   margin:22px 0px 9px;
@@ -84,7 +84,7 @@
   text-align: center;
 }
 .app-info {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $main-grey;
   margin-bottom: 25px;
   padding-bottom: 10px;
 }

@@ -10,7 +10,7 @@
   position: relative;
 }
 #fullscreen a {
-  color:#ffffff;
+  color:$white;
   margin-right: -2px;
 }
 #live-player-image {
@@ -20,7 +20,7 @@
   position: absolute;
   top: 16px;
   right: 10px;
-  color: #FFFFFF;
+  color: $white;
   opacity: 0;
   transition: all .2s linear;
   z-index: 10000000000;
@@ -69,7 +69,7 @@
 }
 
 .tint img {
-  border: 1px solid #e5e5e5 !important;
+  border: 1px solid $main-grey !important;
 }
 #live .panel-body {
   padding: 0px;
@@ -87,7 +87,7 @@
 .panel {
   margin-bottom: 20px;
   background: none;
-  background-color: #fff;
+  background-color: $white;
   box-shadow:none;
   border: none;
 }

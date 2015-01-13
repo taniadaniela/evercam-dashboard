@@ -210,9 +210,9 @@ th {
 #snapshot-widgets .dropdown-minutes{
   padding-left: 7px;
 }
-#snapshot-widgets .time-dropdown{
-  width: 53px;
-  padding: 6px 4px;
+#snapshot-widgets .dropdown-padding-left{
+  padding-left: 0px;
+  padding-right: 1px;
 }
 #snapshot-widgets #code {
   min-height: 160px;

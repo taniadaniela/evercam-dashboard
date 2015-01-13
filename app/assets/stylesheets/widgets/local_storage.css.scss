@@ -21,12 +21,12 @@
 #hikvision-widget .dropdown-minutes{
   padding-left: 7px;
 }
-#hikvision-widget .time-dropdown{
-  width: 53px;
-  padding: 6px 4px;
-}
 #hikvision-widget #code {
   min-height: 160px;
+}
+#hikvision-widget .dropdown-padding-left{
+  padding-left: 0px;
+  padding-right: 1px;
 }
 .line-break{
   border-bottom: 1px solid #ffffff;

@@ -82,7 +82,7 @@ class CamerasController < ApplicationController
     begin
       settings = {:name => params['camera-name'],
                   :external_host => params['camera-url'],
-                  :timezone => params['camera-timezone'],
+                  :timezone => params['camera-timezone'].blank? ? 'Etc/UTC' : ActiveSupport::TimeZone.new(params['camera-timezone']).tzinfo.name,
                   :internal_host => params['local-ip'],
                   :external_http_port => params['port'],
                   :internal_http_port => params['local-http'],
@@ -96,8 +96,7 @@ class CamerasController < ApplicationController
                   :cam_username => params['camera-username'],
                   :cam_password => params['camera-password']}
 
-      api = get_evercam_api
-      api.update_camera(params['camera-id'], settings)
+      get_evercam_api.update_camera(params['camera-id'], settings)
       flash[:message] = 'Settings updated successfully'
       redirect_to "/cameras/#{params['camera-id']}#info"
     rescue => error
@@ -140,7 +139,7 @@ class CamerasController < ApplicationController
       @page             = (params[:page].to_i - 1) || 0
       @types            = ['created', 'accessed', 'viewed', 'edited', 'captured',
                            'shared', 'stopped sharing', 'online', 'offline']
-      @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
+      @camera['timezone'] = 'Etc/UTC' unless @camera['timezone']
       time_zone         = TZInfo::Timezone.get(@camera['timezone'])
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset

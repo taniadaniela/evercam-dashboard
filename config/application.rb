@@ -28,7 +28,6 @@ module EvercamDashboard
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.digest = true
     config.assets.initialize_on_precompile = true
 
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/fonts"

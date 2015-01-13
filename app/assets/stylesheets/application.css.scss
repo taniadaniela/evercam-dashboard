@@ -1,41 +1,36 @@
-/*
- *= require_self
+//= require bootstrap
+//= require ladda-themeless-0.8.0.min.css
+//= require jquery.datetimepicker-2.2.5.min.css
+//= require uniform.default.min.css
+//= require datepicker.css
+//= require videojs
+//= require datatables/jquery.dataTables
+//= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+//= require metronic/icheck/skins/all.css
+//= require metronic/icheck/skins/flat/_all.css
+//= require metronic/icheck/skins/flat/blue.css
+//= require_self
 
- *= require admin/fonts.css.scss
- *= require admin/glyphicons.css
+@import "admin/fonts";
+@import "admin/glyphicons.css";
 
- *= require metronic/metronic-components.css
- *= require metronic/metronic-layout.css
- *= require style.css.scss
+@import "metronic/metronic-components.css";
+@import "metronic/metronic-layout.css";
+@import "style";
 
- *= require cameras/cameras.css.scss
- *= require cameras/single.css.scss
- *= require cameras/add_camera
+@import "cameras/cameras";
+@import "cameras/single";
+@import "cameras/add_camera";
 
- *= require public/index.css.scss
- *= require public/single.css.scss
+@import "public/index";
+@import "public/single";
 
- *= require widgets/local_storage
- *= require widgets/snapshot_navigator_widget
- *= require widgets/widget.css.scss
+@import "widgets/local_storage";
+@import "widgets/snapshot_navigator_widget";
+@import "widgets/widget";
 
- *= require users/settings
- *= require users/sessions
- *= require users/password_reset
+@import "users/settings";
+@import "users/sessions";
+@import "users/password_reset";
 
- *= require api_docs
-
- *= require ladda-themeless-0.8.0.min.css
- *= require jquery.datetimepicker-2.2.5.min.css
- *= require uniform.default.min.css
- *= require datepicker.css
- *= require videojs
- *= require datatables/jquery.dataTables
- *= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
- *= require metronic/icheck/skins/all.css
- *= require metronic/icheck/skins/flat/_all.css
- *= require metronic/icheck/skins/flat/blue.css
-*/
-
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import "api_docs";

@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
 //= require bootstrap
 //= require spin-1.3.2.min
 //= require ladda-0.8.0.min

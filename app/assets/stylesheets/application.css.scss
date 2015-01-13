@@ -1,42 +1,41 @@
 /*
  *= require_self
+
+ *= require admin/fonts.css.scss
+ *= require admin/glyphicons.css
+
+ *= require metronic-components.css
+ *= require metronic-layout.css
+ *= require style.css.scss
+
+ *= require cameras/cameras.css.scss
+ *= require cameras/single/*
+ *= require cameras/add_camera
+
+ *= require public/index.css.scss
+ *= require public/single.css.scss
+
+ *= require widgets/local_storage
+ *= require widgets/snapshot_navigator_widget
+ *= require widgets/widget.css.scss
+
+ *= require users/settings
+ *= require users/sessions
+ *= require users/password_reset
+
+ *= require api_docs
+
+ *= require ladda-themeless-0.8.0.min.css
+ *= require jquery.datetimepicker-2.2.5.min.css
+ *= require uniform.default.min.css
+ *= require datepicker.css
+ *= require videojs
+ *= require datatables/jquery.dataTables
+ *= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+ *= require metronic/icheck/skins/all.css
+ *= require metronic/icheck/skins/flat/_all.css
+ *= require metronic/icheck/skins/flat/blue.css
 */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
-@import "admin/fonts.css.scss";
-@import "admin/glyphicons.css";
-
-@import "metronic-components.css";
-@import "metronic-layout.css";
-@import "style.css.scss";
-
-@import "cameras/cameras.css.scss";
-@import "cameras/single/*";
-@import "cameras/add_camera";
-
-@import "public/index.css.scss";
-@import "public/single.css.scss";
-
-@import "widgets/local_storage";
-@import "widgets/snapshot_navigator_widget";
-@import "widgets/widget.css";
-
-@import "users/settings";
-@import "users/sessions";
-@import "users/password_reset";
-
-@import "api_docs";
-
-@import "ladda-themeless-0.8.0.min.css";
-@import "jquery.datetimepicker-2.2.5.min.css";
-@import "uniform.default.min.css";
-@import "datepicker.css";
-@import "videojs";
-@import "datatables/jquery.dataTables";
-@import "datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss";
-@import "metronic/icheck/skins/all.css";
-@import "metronic/icheck/skins/flat/_all.css";
-@import "metronic/icheck/skins/flat/blue.css";
-

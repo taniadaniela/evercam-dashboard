@@ -3,17 +3,15 @@ showFeedback = (message) ->
   true
 
 refreshImages = ->
-  clearPreviousTime = undefined
   $('img.snap').each ->
     oldimg = $(this)
     $("<img class='snap' />").attr({"data-proxy": $(this).attr('data-proxy'), "src": $(this).attr('data-proxy') + '&' + new Date().getTime()}).load () ->
       if this.complete and this.naturalWidth isnt undefined and this.naturalWidth isnt 0
         oldimg.replaceWith($(this))
-        clearTimeout clearPreviousTime
         clearPreviousTime = setTimeout (->
           $(".refresh-images i").removeClass "rotate-refresh-icon"
-          return
         ), 4000
+        clearTimeout clearPreviousTime
 
 onRefreshImage = ->
   $(".refresh-images").on 'click', () ->

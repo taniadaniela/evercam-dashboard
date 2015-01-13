@@ -2,7 +2,7 @@
 //= require ladda
 //= require datetimepicker
 //= require uniform.default.min.css
-//= require datepicker
+//= require bootstrap-datepicker
 //= require videojs
 //= require datatables/jquery.dataTables
 //= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
@@ -22,8 +22,10 @@
 @import "glyphicons";
 
 @import "style";
+
 @import "metronic_component_child";
 @import "metronic_layout_child";
+@import "datepicker_overrides";
 
 @import "cameras/cameras";
 @import "cameras/single";

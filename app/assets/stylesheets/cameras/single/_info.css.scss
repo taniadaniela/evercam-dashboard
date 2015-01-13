@@ -1,0 +1,217 @@
+// Place all the styles related to the live controller here.
+
+.tint {
+  width: 100%;
+}
+.tint img {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  filter: grayscale(100%);
+  width:100%;
+  min-width: 500px;
+}
+.tint img:hover {
+  -webkit-filter: grayscale(10%);
+  -moz-filter: grayscale(10%);
+  filter: grayscale(10%);
+  -moz-transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+#info .portlet.solid.bordered > .portlet-title {
+  margin-bottom: 5px;
+  border-bottom: 1px solid $white;
+}
+.edit {
+  transition: all .2s linear;
+}
+#info .green {
+  margin-top: 3px;
+  color:#2ecc71;
+}
+#info .portlet.solid {
+  overflow-x: hidden;
+}
+.margin-bottom-5 {
+  margin-bottom: 5px;
+}
+#info .table-borderless td {
+  line-height: 1.2 !Important;
+  padding: 6px 2px !important;
+}
+
+#info .table {
+  margin-bottom: 5px;
+}
+
+#info .help-block {
+  font-size: 12px;
+  background: none;
+}
+.info-preview {
+  width:100%;
+  overflow: hidden;
+}
+.info-preview img {
+  width: 100%;
+  min-width: 169px;
+  max-width: 100%;
+}
+.capture {
+  max-width: 450px;
+}
+#deleteModal .modal-footer {
+  padding: 0px 14px 25px;
+}
+.title-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #AAAAAA;
+}
+.proxy-info {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: $main-color;
+}
+
+.table-fixed {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.edit {
+  margin-top: -6px;
+  font-size: 12px;
+  color: black !important;
+  background-color: $main-grey;
+  border-top: 1px solid $white;
+  border-left: 1px solid $white;
+  border-right: 1px solid $white;
+}
+.margin-bottom-0 {
+  margin-bottom: 0px; /*temp fix*/
+}
+.margin-top-0 {
+  margin-bottom: 0px; /*temp fix*/
+}
+#map-info {
+  width: 102%;
+  height: 250px;
+}
+.dark-grey {
+  color:#777777;
+  font: 400 14px 'Open Sans', Arial, sans-serif;
+}
+.first-row {
+  max-width:200px;
+  min-width:200px;
+}
+#info .table>tbody>tr>td {
+  padding: 1px 2px;
+}
+#info .table>thead>tr>th {
+  padding: 0px 0 4px;
+}
+#settings-modal .portlet, #settings-modal-1 .portlet {
+  margin-bottom: 0px;
+}
+#settings-modal .table-borderless td, #settings-modal-1 .table-borderless td  {
+  padding: 2px 2px !important;
+}
+.modal-content {
+  background-color: $main-grey;
+}
+#settings-modal-1 .has-error .help-block {
+  background-color: transparent;
+}
+#settings-modal-1 .control-label {
+  margin-top: 8px;
+}
+#info-preview {
+  border: none;
+  width: 100%;
+  height: auto;
+}
+.uppercase-title {
+  margin-top: 12px;
+}
+/*LOCATION */
+#location #map-canvas {
+  max-height: 680px;
+}
+#location p {
+  margin-bottom: 0px;
+}
+#co-ordinates {
+  margin-top: 5px;
+}
+
+.info-location p {
+  background-color: #eef7fb;
+  border-color: $main-color;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid $main-color;
+}
+#location-settings {
+  margin-right: 0px;
+}
+#location-settings .table {
+  margin-bottom: 10px;
+}
+.center-image {
+  text-align: center;
+  height: 100%;
+}
+
+/*CAMERA SETTINGS*/
+
+#camera-settings .form-control {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#camera-settings .input-group-addon {
+  background-color: $white;
+  border: none;
+  padding: 6px 8px 6px 10px;
+}
+#camera-settings .table > tbody > tr > td {
+  padding: 4px 0px;
+}
+
+.save-settings {
+  margin-top: 20px;
+}
+.save-settings .form-group {
+  margin-bottom: 0px;
+}
+.test-img-settings {
+  background-color: $white;
+  height:165px;
+  overflow: hidden;
+  width: 100%;
+}
+#testimg {
+  height: auto;
+  width:100%;
+}
+.radio label {
+  float:left;
+}
+.settings-id {
+  width: 168px;
+  padding-left: 10px;
+  margin-top: 3px;
+}
+#camera-settings .test-snapshot{
+  float: left;
+}
+#camera-settings #test-error {
+  float: left;
+  clear: both;
+  text-align: left;
+  margin-top: 8px;
+}
+#camera-settings #test {
+  width:auto;
+}

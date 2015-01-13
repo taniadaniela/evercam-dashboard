@@ -27,6 +27,10 @@ EvercamDashboard::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.assets.digest = false
+  config.assets.serve_static_files = false
+  config.assets.cache_store = :null_store
+
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session'}
 

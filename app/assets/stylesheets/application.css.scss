@@ -1,0 +1,43 @@
+//= require bootstrap
+//= require ladda
+//= require datetimepicker
+//= require uniform.default.min.css
+//= require datepicker
+//= require videojs
+//= require datatables/jquery.dataTables
+//= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+//= require metronic/metronic-components.css
+//= require metronic/metronic-layout.css
+//= require iCheck/skins/minimal/_all.scss
+//= require iCheck/skins/square/_all.css
+//= require iCheck/skins/flat/_all.css
+//= require iCheck/skins/line/_all.css
+//= require iCheck/skins/polaris/polaris.css
+//= require iCheck/skins/futurico/futurico.css
+//= require_self
+
+@import "base";
+@import "partials";
+@import "fonts";
+@import "glyphicons";
+
+@import "style";
+@import "metronic_component_child";
+@import "metronic_layout_child";
+
+@import "cameras/cameras";
+@import "cameras/single";
+@import "cameras/add_camera";
+
+@import "public/index";
+@import "public/single";
+
+@import "widgets/local_storage";
+@import "widgets/snapshot_navigator_widget";
+@import "widgets/widget";
+
+@import "users/settings";
+@import "users/sessions";
+@import "users/password_reset";
+
+@import "api_docs";

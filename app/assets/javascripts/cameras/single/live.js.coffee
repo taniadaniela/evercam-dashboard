@@ -14,7 +14,6 @@ loadImage = ->
       image_placeholder.src = src
     $(".btn-live-player").removeClass "hide"
   img.src = src
-  return
 
 toggleRefresh = (hash) ->
   if window.Evercam.Camera.is_online
@@ -37,7 +36,6 @@ controlButtonEvents = ->
       $(this).children().addClass "icon-control-play"
   $(".refresh-live-snap, .refresh-camera").on "click", ->
     loadImage()
-  true
 
 fullscreenImage = ->
   $("#toggle").click ->
@@ -49,21 +47,9 @@ fullscreenImage = ->
         $("#live-player-image").css('width','auto')
       else
         $("#live-player-image").css('width','100%')
-  return
-
-validateImage = (image) ->
-  img = new Image()
-  img.onerror = ->
-    image.src = default_img
-    if image.id is "live-player-image"
-      $(".btn-live-player").addClass "hide"
-      $(".refresh-live-snap").removeClass "hide"
-  img.src = image.src
-  return
 
 window.initializeLiveTab = ->
   image_placeholder = document.getElementById("live-player-image")
-  validateImage image for image in document.getElementsByTagName("IMG")
   controlButtonEvents()
   fullscreenImage()
   toggleRefresh(window.location.hash)

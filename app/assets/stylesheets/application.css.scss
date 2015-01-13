@@ -4,12 +4,12 @@
  *= require admin/fonts.css.scss
  *= require admin/glyphicons.css
 
- *= require metronic-components.css
- *= require metronic-layout.css
+ *= require metronic/metronic-components.css
+ *= require metronic/metronic-layout.css
  *= require style.css.scss
 
  *= require cameras/cameras.css.scss
- *= require cameras/single/*
+ *= require cameras/single.css.scss
  *= require cameras/add_camera
 
  *= require public/index.css.scss

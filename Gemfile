@@ -5,6 +5,7 @@ ruby '2.2.0'
 gem 'rails', '~> 4.2.0'
 
 gem 'sass-rails', '~> 4.0.0'
+gem 'yui-compressor'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
@@ -12,6 +13,7 @@ gem 'fog',
   require: 'fog/aws/storage'
 gem 'asset_sync'
 
+gem 'rails-assets-bootstrap', '~> 3.3.1'
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
 gem 'rails-assets-videojs', '~> 4.11.3'
 gem 'rails-assets-datatables', '~> 1.10.4'

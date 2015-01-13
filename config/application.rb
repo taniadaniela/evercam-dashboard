@@ -36,5 +36,6 @@ module EvercamDashboard
     config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
+    config.assets.precompile += ['widget.css']
   end
 end

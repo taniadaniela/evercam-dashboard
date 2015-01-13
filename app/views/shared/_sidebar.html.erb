@@ -38,7 +38,7 @@
           <span class="title">Add Camera</span>
         </a>
       </li>
-      <li id="showLeft" class="<%= is_active?("/dev") %>">
+      <li class="<%= is_active?("/dev") %> toggle-sidebar">
         <a>
           <i class="icon-briefcase"></i>
           <span class="title">Developer</span>
@@ -96,29 +96,9 @@
 </div>
 
 <script>
-  jQuery(document).ready(function () {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
-  });
-
-  var menuLeft = document.getElementById('cbp-spmenu-s1');
-  var showLeft = document.getElementById('showLeft');
-  var body = document.body;
-
-  showLeft.onclick = function () {
-    classie.toggle(this, 'active');
-    classie.toggle(menuLeft, 'cbp-spmenu-open');
-    disableOther('showLeft');
-  };
-
-  function disableOther(button) {
-    if (button !== 'showLeft') {
-      classie.toggle(showLeft, 'disabled');
-    }
-  }
-
-  $(function () {
-    $('.icon-users').tooltip();
+  $(document).ready(function () {
+    Metronic.init();
+    Layout.init();
+    QuickSidebar.init();
   });
 </script>

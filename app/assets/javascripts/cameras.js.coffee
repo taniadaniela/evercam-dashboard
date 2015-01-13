@@ -20,20 +20,6 @@ onRefreshImage = ->
     refreshImages()
   true
 
-disableOther = (button) ->
-  classie.toggle showLeft, "disabled"  if button isnt "showLeft"
-  return
-
-showHideLeftNav = ->
-  menuLeft = document.getElementById("cbp-spmenu-s1")
-  showLeft = document.getElementById("showLeft")
-  body = document.body
-  showLeft.onclick = ->
-    classie.toggle this, "active"
-    classie.toggle menuLeft, "cbp-spmenu-open"
-    disableOther "showLeft"
-  true
-
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
@@ -45,5 +31,4 @@ window.initializeCameraIndex = ->
   QuickSidebar.init()
   initNotification()
   refreshImages()
-  showHideLeftNav()
   onRefreshImage()

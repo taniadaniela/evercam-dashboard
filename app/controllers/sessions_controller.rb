@@ -1,24 +1,22 @@
 class SessionsController < ApplicationController
   include SessionsHelper
 
+  skip_before_filter :authenticate_user!
   protect_from_forgery except: :destroy
   after_action :allow_iframe, only: [:widget_new, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
+  layout "bare-bones"
 
   def new
-    unless current_user.nil?
-      redirect_to :cameras_index
-    end
+    redirect_to :cameras_index unless current_user.nil?
   end
 
   def widget_new
-    unless current_user.nil?
-      redirect_to :cameras_index
-    end
+    redirect_to :cameras_index unless current_user.nil?
   end
 
   def create
     begin
-      @user   = User.by_login(params[:session][:login])
+      @user = User.by_login(params[:session][:login])
     rescue NoMethodError => error
       Rails.logger.error "Error caught fetching user details.\nCause: #{error}\n" + error.backtrace.join("\n")
     end
@@ -33,7 +31,7 @@ class SessionsController < ApplicationController
       else
         Rails.logger.debug "Redirecting to the cameras index action."
         redirect_to :cameras_index
-     end
+      end
     else
       Rails.logger.warn "Invalid user name and/or password specified."
       flash.now[:error] = 'Invalid login/password combination' # Not quite right!

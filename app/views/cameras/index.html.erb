@@ -1,89 +1,59 @@
 <%= content_for(:title, "Evercam: Camera Dashboard") %>
-<div class="bb-alert alert alert-info" style="display:none;">
-  <span></span>
-</div>
-<div class="clearfix">
-</div>
 
-<div class="page-container" id="camera-index">
-  <%= render :partial => "shared/sidebar" %>
-  
-  <div class="page-content-wrapper">
-    <div class="page-content">
-      <div class="cbp-spmenu-push">
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-          <h3>Menu</h3>
-          <ul>
-            <li>
-              <a href="/dev">API Docs</a>
-            </li>
-            <li>
-              <a class="dev-menu-title">
-                Widgets <span class="arrow"></span>
-              </a>
-              <ul class="sub-menu">
-                <li>
-                  <a href="/widgets-new">Live View Widget</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
+<div class="page-content-wrapper">
+  <div class="page-content" id="camera-index">
 
-      <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-              <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-              Widget settings form goes here
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn blue">Save changes</button>
-              <button type="button" class="btn default" data-dismiss="modal">Close</button>
-            </div>
+    <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            Widget settings form goes here
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn blue">Save changes</button>
+            <button type="button" class="btn default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <% @cameras.each do |camera| %>
+    <div class="row">
+      <div class="col-md-12">
+        <% @cameras.each do |camera| %>
 
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
-              <a class="" href="/cameras/<%= camera['id'] %>">
-                <div class="snapshot<% unless camera['is_online'] %> offline-snapshot<% end %>">
-                  <%= preview(camera) %>
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
+            <a class="" href="/cameras/<%= camera['id'] %>">
+              <div class="snapshot
+                <% unless camera['is_online'] %> offline-snapshot
+                <% end %>">
+                <%= preview(camera) %>
+              </div>
+              <div class="camera-info
+                <% unless camera['is_online'] %> offline-grey
+                <% end %>">
+                <div class="camera-name">
+                  <%= camera['name'] %>
+                  <% unless camera['is_online'] %>
+                    <i class="red fa fa-chain-broken"></i>
+                  <% end %>
+                  <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
                 </div>
-                <div class="camera-info<% unless camera['is_online'] %> offline-grey<% end %>">
-                  <div class="camera-name">
-                    <%= camera['name'] %>
-                    <% unless camera['is_online'] %>
-                      <i class="red fa fa-chain-broken"></i>
-                    <% end %>
-                    <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-                  </div>
-                </div>
-              </a>
-            </div>
+              </div>
+            </a>
+          </div>
 
-          <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-<script>
-  notifyMessage = '';
-  <% if flash[:message] %>
-  notifyMessage = '<%= flash[:message] %>';
-  <% end %>
 
-  $(document).ready(function(){
+<script>
+  $(document).ready(function () {
     window.initializeCameraIndex();
   });
-
 </script>

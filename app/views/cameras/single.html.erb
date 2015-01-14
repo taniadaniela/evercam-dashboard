@@ -63,7 +63,7 @@
             <a data-toggle="tab" href="#snapshots">Snapshots</a>
           </li>
 
-          <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
+          <% unless @camera.fetch('proxy_url', {}).fetch('rtmp', {}).blank? %>
             <li>
               <a data-toggle="tab" href="#streams">Streams</a>
             </li>

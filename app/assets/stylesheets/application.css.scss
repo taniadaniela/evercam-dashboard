@@ -16,29 +16,24 @@
 //= require iCheck/skins/futurico/futurico.css
 //= require_self
 
-//utils
+
 @import "utils/variables";
 
-//base
 @import "base/fonts";
 @import "base/glyphicons";
 
-//layout
 @import "layout/_header";
 @import "layout/_sidebar";
 
-//components
 @import "components/_alerts";
 @import "components/_tables";
 
 @import "style";
 
-//vendor-overrides
 @import "vendor-overrides/metronic_component_child";
 @import "vendor-overrides/metronic_layout_child";
 @import "vendor-overrides/datepicker_overrides";
 
-//views
 @import "views/cameras/cameras";
 @import "views/cameras/single";
 @import "views/cameras/add_camera";

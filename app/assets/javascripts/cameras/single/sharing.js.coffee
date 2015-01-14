@@ -16,7 +16,7 @@ sendAJAXRequest = (settings) ->
   true
 
 addSharingCameraRow = (details) ->
-  row = $('<tr>')
+  row = $('<tr id="row-share-'+details['share_id']+'">')
   if details.type == "share_request"
     row.attr("share-request-id", details['share_id'])
   else
@@ -60,20 +60,39 @@ addSharingCameraRow = (details) ->
 
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "form-group"})
-  span = $('<span>')
+  divPopup =$('<div>', {class: "popbox"})
+  span = $('<span>', {class: "open"})
   span.append($('<span>', {class: "remove"}))
   if details.type == "share"
-    span.addClass("delete-share-control")
     span.append($(document.createTextNode("Remove")))
-    span.click(onDeleteShareClicked)
-    span.attr("share_id", details["share_id"])
+    divPopup.append(span)
+    divCollapsePopup = $('<div>', {class: "collapse-popup"})
+    divBox2 = $('<div>', {class: "box"})
+    divBox2.append($('<div>', {class: "arrow"}))
+    divBox2.append($('<div>', {class: "arrow-border"}))
+    divMessage = $('<div>', {class: "margin-bottom-10"})
+    divMessage.append($(document.createTextNode("Are you sure to delete this share?")))
+    divBox2.append(divMessage)
+    divButtons = $('<div>', {class: "margin-bottom-10"})
+    inputDelete = $('<input type="button" value="DELETE">')
+    inputDelete.addClass("button raised grey delete-btn delete-share")
+    inputDelete.attr("camera_id", details["camera_id"])
+    inputDelete.attr("share_id", details["share_id"])
+    inputDelete.click(onDeleteShareClicked)
+    divButtons.append(inputDelete)
+    divButtons.append('<div class="button delete-btn closepopup raised grey"><div class="text-center" fit>CANCEL</div><paper-ripple fit></paper-ripple></div>')
+    divBox2.append(divButtons)
+    divCollapsePopup.append(divBox2)
+    divPopup.append(divCollapsePopup)
+    div.append(divPopup)
   else
     span.addClass("delete-share-request-control")
     span.append($(document.createTextNode("Revoke")))
     span.click(onDeleteShareRequestClicked)
     span.attr("email", details["email"])
-  span.attr("camera_id", details["camera_id"])
-  div.append(span)
+    span.attr("camera_id", details["camera_id"])
+    div.append(span)
+
   cell.append(div)
   row.append(cell)
 
@@ -81,6 +100,7 @@ addSharingCameraRow = (details) ->
   $('#sharing_list_table tbody').append(row)
   row.find('.save').hide()
   row.fadeIn()
+  $(".popbox").popbox()
   true
 
 onSetCameraAccessClicked = (event) ->
@@ -137,7 +157,7 @@ onSetCameraAccessClicked = (event) ->
 onDeleteShareClicked = (event) ->
   event.preventDefault()
   control = $(event.currentTarget)
-  row = control.parent().parent().parent()
+  row = $("#row-share-#{control.attr("share_id")}") #control.parent().parent().parent()
   data =
     camera_id: control.attr("camera_id")
     share_id: control.attr("share_id")
@@ -323,9 +343,25 @@ centerModal = ->
   # Center modal vertically in window
   $dialog.css "margin-top", offset
 
+  initializePopup = ->
+  $(".popbox2").popbox
+    open: ".open2"
+    box: ".box2"
+    arrow: ".arrow2"
+    arrow_border: ".arrow-border2"
+    close: ".closepopup2"
+
+initializePopup = ->
+  $(".popbox2").popbox
+    open: ".open2"
+    box: ".box2"
+    arrow: ".arrow2"
+    arrow_border: ".arrow-border2"
+    close: ".closepopup2"
+
 window.initializeSharingTab = ->
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
-  $('.delete-share-control').click(onDeleteShareClicked)
+  $('.delete-share').click(onDeleteShareClicked)
   $('.delete-share-request-control').click(onDeleteShareRequestClicked)
   $('#submit_share_button').click(onAddSharingUserClicked)
   $('.update-share-button').click(onSaveShareClicked)
@@ -333,6 +369,7 @@ window.initializeSharingTab = ->
   $('.save').hide()
   $('.reveal').focus(onPermissionsFocus);
   $("input[name$='sharingOptionRadios']").click(onSharingOptionsClicked);
+  initializePopup()
   $(".modal").on "show.bs.modal", centerModal
   $(window).on "resize", ->
     $(".modal:visible").each centerModal

@@ -172,3 +172,26 @@ ul.scroll-menu {
 .fa-lg, .icon-lg {
   font-size: 20px !important;
 }
+
+/*/////////////////////
+//Rotate Refresh icon
+////////////////////*/
+.rotate-refresh-icon {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+}
+@-webkit-keyframes rotate {
+  from {-webkit-transform: rotate(360deg);}
+  to {-webkit-transform: rotate(0deg);}
+}
+
+@-moz-keyframes rotate {
+  from {-moz-transform: rotate(360deg);}
+  to {-moz-transform: rotate(0deg);}
+}

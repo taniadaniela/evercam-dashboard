@@ -168,7 +168,7 @@ class UsersController < ApplicationController
     user = User.where(Sequel.expr(username: params[:id])).first
     unless user.nil?
       code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
-      UserMailer.resend_confirmation_email(user, code).deliver
+      UserMailer.resend_confirmation_email(user, code).deliver_now
       flash[:message] = 'We’ve sent you a confirmation email with instructions.'
     else
       flash[:message] = t("errors.user_not_found_error")

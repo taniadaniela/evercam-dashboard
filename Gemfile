@@ -52,7 +52,7 @@ gem 'intercom-rails'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.9'
+  gem 'evercam_models', '~> 0.3.10'
   gem 'evercam', '~> 0.2.4'
 end
 

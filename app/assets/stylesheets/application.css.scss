@@ -27,19 +27,19 @@
 @import "metronic_layout_child";
 @import "datepicker_overrides";
 
-@import "cameras/cameras";
-@import "cameras/single";
-@import "cameras/add_camera";
+@import "views/cameras/cameras";
+@import "views/cameras/single";
+@import "views/cameras/add_camera";
 
-@import "public/index";
-@import "public/single";
+@import "views/public/index";
+@import "views/public/single";
 
-@import "widgets/local_storage";
-@import "widgets/snapshot_navigator_widget";
-@import "widgets/widget";
+@import "views/widgets/local_storage";
+@import "views/widgets/snapshot_navigator_widget";
+@import "views/widgets/widget";
 
-@import "users/settings";
-@import "users/sessions";
-@import "users/password_reset";
+@import "views/users/settings";
+@import "views/users/sessions";
+@import "views/users/password_reset";
 
-@import "api_docs";
+@import "views/api_docs";

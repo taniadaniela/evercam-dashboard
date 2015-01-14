@@ -157,7 +157,7 @@ onSetCameraAccessClicked = (event) ->
 onDeleteShareClicked = (event) ->
   event.preventDefault()
   control = $(event.currentTarget)
-  row = $("#row-share-#{control.attr("share_id")}") #control.parent().parent().parent()
+  row = $("#row-share-#{control.attr("share_id")}")
   data =
     camera_id: control.attr("camera_id")
     share_id: control.attr("share_id")
@@ -342,14 +342,6 @@ centerModal = ->
   offset = ($(window).height() - $dialog.height()) / 2
   # Center modal vertically in window
   $dialog.css "margin-top", offset
-
-  initializePopup = ->
-  $(".popbox2").popbox
-    open: ".open2"
-    box: ".box2"
-    arrow: ".arrow2"
-    arrow_border: ".arrow-border2"
-    close: ".closepopup2"
 
 initializePopup = ->
   $(".popbox2").popbox

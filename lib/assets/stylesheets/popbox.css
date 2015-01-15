@@ -14,7 +14,7 @@
     color:#2a6496;
 }
 
-.box {
+.box-new {
     display: none;
     background: #FFF;
     border-radius: 2px;
@@ -162,7 +162,7 @@
 .button.grey {
     background-color: #eee;
 }
-.box2 input, .box input {
+.box2 input, .box-new input {
     padding:1px;
 }
 .closepopup2{

@@ -3,10 +3,11 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:swagger]
   include SessionsHelper
   include ApplicationHelper
-  layout "bare-bones", only: [:swagger, :live]
+  layout "bare-bones", only: :live
+  layout "swagger", only: :swagger
 
   def dev
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, false)
   end
 
   def location

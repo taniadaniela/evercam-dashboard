@@ -28,7 +28,6 @@ module EvercamDashboard
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.digest = true
     config.assets.initialize_on_precompile = true
 
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/fonts"
@@ -36,5 +35,10 @@ module EvercamDashboard
     config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
+    config.assets.precompile += %w[
+      admin/admin.css
+      views/widgets/widget.css
+      swagger.css
+    ]
   end
 end

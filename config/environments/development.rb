@@ -27,6 +27,10 @@ EvercamDashboard::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.assets.digest = false
+  config.assets.serve_static_files = false
+  config.assets.cache_store = :null_store
+
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session'}
 
@@ -34,6 +38,6 @@ EvercamDashboard::Application.configure do
   config.action_mailer.file_settings = { :location => Rails.root.join('log/mails') }
 
   # Evercam API settings. Use "EVERCAM_LOCAL=true bundle exec rails server" to test
-  # against a locally running version of rack.apps.
+  # against a locally running version of evercam-api.
   config.evercam_api = {host: 'localhost', port: 9292, scheme: 'http'} if ENV['EVERCAM_LOCAL']
 end

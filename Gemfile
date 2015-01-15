@@ -12,19 +12,22 @@ gem 'jquery-rails'
 gem 'fog',
   require: 'fog/aws/storage'
 gem 'asset_sync'
+gem 'autoprefixer-rails'
 
+gem 'rails-assets-bootstrap', '~> 3.3.1'
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
 gem 'rails-assets-videojs', '~> 4.11.3'
 gem 'rails-assets-datatables', '~> 1.10.4'
 gem 'rails-assets-datatables-plugins', '~> 1.0'
 gem 'rails-assets-screenfull', '~> 2.0'
 gem 'rails-assets-moment', '~> 2.8'
-gem 'rails-assets-ladda', '~> 0.9.4'
+gem 'rails-assets-ladda', '~> 0.8.0'
 gem 'rails-assets-jquery-cookie', '~> 1.4.1'
 gem 'rails-assets-jquery.nicescroll', '~> 3.5.6'
 gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'
 gem 'rails-assets-jquery.uniform', '~> 2.1.2'
 gem 'rails-assets-datetimepicker', '~> 2.4.1'
+gem 'rails-assets-bootstrap-datepicker', '~> 1.3.1'
 gem 'rails-assets-bootbox', '~> 4.3.0'
 gem 'rails-assets-bootstrap-tabdrop', '~> 1.0.0'
 gem 'rails-assets-iCheck', '~> 1.0.2'
@@ -49,7 +52,7 @@ gem 'intercom-rails'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.9'
+  gem 'evercam_models', '~> 0.3.10'
   gem 'evercam', '~> 0.2.4'
 end
 
@@ -62,7 +65,6 @@ end
 group :development do
   gem 'quiet_assets'
   gem 'spring'
-  gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'jazz_hands',
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'

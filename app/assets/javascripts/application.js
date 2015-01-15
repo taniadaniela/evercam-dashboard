@@ -11,7 +11,8 @@
 //= require jquery.slimscroll
 //= require jquery-form-validator/form-validator/jquery.form-validator.js
 //= require moment
-//= require ladda
+//= require ladda/spin.min.js
+//= require ladda/ladda.min.js
 //= require bootbox
 //= require videojs
 //= require screenfull
@@ -23,6 +24,7 @@
 //=
 //= require alerts
 //= require layout
+//= require sidebar
 //= require cameras.js
 //= require cameras/single.js
 //= require cameras/add_camera.js

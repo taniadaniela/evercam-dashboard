@@ -91,18 +91,6 @@ validate_hostname = (str) ->
   ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/
   ValidIpAddressRegex.test(str) or ValidHostnameRegex.test(str)
 
-disableOther = (button) ->
-  classie.toggle showLeft, "disabled"  if button isnt "showLeft"
-
-onSideBarShowHide = ->
-  menuLeft = document.getElementById("cbp-spmenu-s1")
-  showLeft = document.getElementById("showLeft")
-  body = document.body
-  showLeft.onclick = ->
-    classie.toggle this, "active"
-    classie.toggle menuLeft, "cbp-spmenu-open"
-    disableOther "showLeft"
-
 handleVendorModelEvents = ->
   $("#camera-vendor").on "change", ->
     loadVendorModels($(this).val())
@@ -131,7 +119,6 @@ window.initializeAddCamera = ->
   QuickSidebar.init()
   onLoadPage()
   $.validate()
-  onSideBarShowHide()
   handleVendorModelEvents()
   initNotification()
   loadVendors()

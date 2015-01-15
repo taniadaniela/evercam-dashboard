@@ -11,7 +11,7 @@ class PublicController < ApplicationController
     @cameras = []
     @public_cameras = []
     begin
-      @cameras = load_user_cameras
+      @cameras = load_user_cameras(true, false)
 
       @page    = (params[:page].to_i - 1) || 0
       @page = 0 if @page < 0
@@ -42,14 +42,14 @@ class PublicController < ApplicationController
       api = get_evercam_api
       @camera = api.get_camera(params[:id])
       @camera['jpg'] = "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg"
-      @cameras = load_user_cameras
+      @cameras = load_user_cameras(true, false)
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching the details for a public cameras.\nCause: #{error}\n" +
                          error.backtrace.join("\n")
       flash[:error] = "An error occurred fetching the camera details. Please try "\
                       "again and, if the problem persists, contact support."
-      # redirect_to '/public/cameras'
+      redirect_to '/public/cameras'
     end
   end
 

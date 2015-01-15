@@ -1,0 +1,50 @@
+//= require bootstrap
+//= require ladda
+//= require datetimepicker
+//= require uniform.default.min.css
+//= require bootstrap-datepicker
+//= require videojs
+//= require datatables/jquery.dataTables
+//= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+//= require metronic/metronic-components.css
+//= require metronic/metronic-layout.css
+//= require iCheck/skins/minimal/_all.scss
+//= require iCheck/skins/square/_all.css
+//= require iCheck/skins/flat/_all.css
+//= require iCheck/skins/line/_all.css
+//= require iCheck/skins/polaris/polaris.css
+//= require iCheck/skins/futurico/futurico.css
+//= require popbox.css
+//= require_self
+
+
+@import "utils/variables";
+
+@import "base/fonts";
+@import "base/glyphicons";
+
+@import "layout/_header";
+@import "layout/_sidebar";
+
+@import "components/_alerts";
+@import "components/_tables";
+
+@import "style";
+
+@import "vendor-overrides/metronic_component_child";
+@import "vendor-overrides/metronic_layout_child";
+@import "vendor-overrides/datepicker_overrides";
+
+@import "views/cameras/cameras";
+@import "views/cameras/single";
+@import "views/cameras/add_camera";
+@import "views/public/index";
+@import "views/public/single";
+@import "views/widgets/local_storage";
+@import "views/widgets/snapshot_navigator_widget";
+@import "views/widgets/widget";
+@import "views/users/settings";
+@import "views/users/sessions";
+@import "views/users/password_reset";
+@import "views/api_docs";
+

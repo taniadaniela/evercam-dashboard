@@ -1,0 +1,16 @@
+<head lang="en">
+  <title>Evercam: Snapshot Navigator Widget</title>
+  <%= stylesheet_link_tag "views/widgets/widget" %>
+  <%= javascript_include_tag "snapshot_navigator_widget" %>
+</head>
+<body class="body-transparent">
+<div id="recording">
+  <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+</div>
+<script>
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  $(document).ready(function () {
+    window.initializeRecordingsTab();
+  });
+</script>
+</body>

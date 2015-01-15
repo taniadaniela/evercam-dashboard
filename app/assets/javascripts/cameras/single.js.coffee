@@ -29,6 +29,10 @@ initializeiCheck = ->
     checkboxClass: "icheckbox_flat-blue"
     radioClass: "iradio_flat-blue"
 
+initializeDropdowns = ->
+  $("[data-toggle=\"tooltip\"]").tooltip()
+  $(".dropdown-toggle").dropdown()
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -45,3 +49,4 @@ window.initializeCameraSingle = ->
   handleScrollToEvents()
   initializeTabs()
   initializeiCheck()
+  initializeDropdowns()

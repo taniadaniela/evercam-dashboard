@@ -1,0 +1,98 @@
+// Place all the styles related to the live controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.demo-wrapper {
+  width: 38%;
+  margin: 0 auto;
+}
+#fullscreen {
+  position: relative;
+}
+#fullscreen a {
+  color:$white;
+  margin-right: -2px;
+}
+#live-player-image {
+  width: 100%;
+}
+.live-options {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  color: $white;
+  opacity: 0;
+  transition: all .2s linear;
+  z-index: 10000000000;
+}
+.live-option {
+  float: left;
+  background: rgba(0, 0, 0, .65);
+  padding: 10px 11px 7px 12px;
+  border-radius: 50% !Important;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: all .2s linear;
+}
+.live-option:hover {
+  background: #68a2d5;
+}
+#fullscreen:hover .live-options, #fullscreen:hover .btn-live-player {
+  opacity: 1;
+}
+
+.btn-live-player {
+  position: absolute;
+  opacity: 0;
+  padding: 10px 12px 8px;
+  background: rgba(0,0,0,0.7);
+  font-size: 12px;
+  color: #ffffff;
+  border-radius: 50% !important;
+  transition: all .2s linear;
+  top: 50%;
+  left: 50%;
+  margin-left: -18px;
+  margin-top: -5px;
+  cursor: pointer;
+}
+.btn-live-player:hover {
+  background: #68a2d5;
+}
+
+.refresh-live-snap{
+  bottom: 9px;
+  left: 68px;
+}
+.refresh-camera{
+  cursor: pointer;
+}
+
+.tint img {
+  border: 1px solid $main-grey !important;
+}
+#live .panel-body {
+  padding: 0px;
+}
+.tab-content h4 {
+  font-family: 'proxima-nova-bold';
+  margin-bottom: 0px;
+}
+.camera-preview {
+  position: relative;
+}
+#live .panel {
+  width: auto;
+}
+.panel {
+  margin-bottom: 20px;
+  background: none;
+  background-color: $white;
+  box-shadow:none;
+  border: none;
+}
+#live .btn {
+  padding: 14px 18px;
+  margin-top: 1px;
+  margin-left: 10px;
+}

@@ -67,7 +67,7 @@ addSharingCameraRow = (details) ->
     span.append($(document.createTextNode("Remove")))
     divPopup.append(span)
     divCollapsePopup = $('<div>', {class: "collapse-popup"})
-    divBox2 = $('<div>', {class: "box"})
+    divBox2 = $('<div>', {class: "box-new"})
     divBox2.append($('<div>', {class: "arrow"}))
     divBox2.append($('<div>', {class: "arrow-border"}))
     divMessage = $('<div>', {class: "margin-bottom-10"})

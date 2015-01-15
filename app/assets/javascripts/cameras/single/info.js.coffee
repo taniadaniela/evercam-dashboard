@@ -158,6 +158,7 @@ saveMapLocation = ->
 
   onSuccess = (result, status, jqXHR) ->
     $("#location-settings").css "display", "none"
+    $("#coordinates-value").text("#{$('#cameraLats').val()}, #{$('#cameraLng').val()}")
     Notification.show "Camera location updated successfully"
     true
 

@@ -12,7 +12,9 @@
           <div id="map-info"></div>
           <div id="co-ordinates"><strong>Coordinates</strong>
             <br/>
-            <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></div>
+            <span id="coordinates-value">
+              <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></div>
+          </span>
         </div>
         <div class="col-md-12">
           <p id="testies" style="display: none;" class="note note-info marker-info">

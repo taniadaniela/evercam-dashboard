@@ -3,8 +3,6 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:swagger]
   include SessionsHelper
   include ApplicationHelper
-  layout "bare-bones", only: :live
-  layout "swagger", only: :swagger
 
   def dev
     @cameras = load_user_cameras(true, false)
@@ -35,9 +33,10 @@ class PagesController < ApplicationController
   end
 
   def live
+    render layout: "bare-bones"
     begin
-    api = get_evercam_api
-    @camera = api.get_camera(params[:id], true)
+      api = get_evercam_api
+      @camera = api.get_camera(params[:id], true)
     end
     rescue => error
       puts error
@@ -47,10 +46,11 @@ class PagesController < ApplicationController
       flash[:error] = "An error occurred fetching the details for your camera. "\
                         "Please try again and, if the problem persists, contact "\
                         "support."
-      redirect_to action: 'index'
+      redirect_to '/'
   end
 
   def swagger
+    render layout: "swagger"
     response.headers["X-Frame-Options"] = "ALLOWALL"
   end
 end

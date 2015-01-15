@@ -4,6 +4,7 @@ class Oauth2Controller < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include Oauth2Helper
+  layout "bare-bones"
 
   # The fall back error page when a redirect is not possible.
   def error

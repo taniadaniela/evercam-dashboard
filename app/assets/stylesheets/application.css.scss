@@ -16,30 +16,34 @@
 //= require iCheck/skins/futurico/futurico.css
 //= require_self
 
-@import "base";
-@import "partials";
-@import "fonts";
-@import "glyphicons";
+
+@import "utils/variables";
+
+@import "base/fonts";
+@import "base/glyphicons";
+
+@import "layout/_header";
+@import "layout/_sidebar";
+
+@import "components/_alerts";
+@import "components/_tables";
 
 @import "style";
 
-@import "metronic_component_child";
-@import "metronic_layout_child";
-@import "datepicker_overrides";
+@import "vendor-overrides/metronic_component_child";
+@import "vendor-overrides/metronic_layout_child";
+@import "vendor-overrides/datepicker_overrides";
 
-@import "cameras/cameras";
-@import "cameras/single";
-@import "cameras/add_camera";
+@import "views/cameras/cameras";
+@import "views/cameras/single";
+@import "views/cameras/add_camera";
+@import "views/public/index";
+@import "views/public/single";
+@import "views/widgets/local_storage";
+@import "views/widgets/snapshot_navigator_widget";
+@import "views/widgets/widget";
+@import "views/users/settings";
+@import "views/users/sessions";
+@import "views/users/password_reset";
+@import "views/api_docs";
 
-@import "public/index";
-@import "public/single";
-
-@import "widgets/local_storage";
-@import "widgets/snapshot_navigator_widget";
-@import "widgets/widget";
-
-@import "users/settings";
-@import "users/sessions";
-@import "users/password_reset";
-
-@import "api_docs";

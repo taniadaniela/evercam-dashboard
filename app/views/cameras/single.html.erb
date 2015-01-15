@@ -63,7 +63,7 @@
             <a data-toggle="tab" href="#snapshots">Snapshots</a>
           </li>
 
-          <% unless @camera.fetch('external', {}).fetch('rtsp', {}).fetch('h264', {}).blank? %>
+          <% unless @camera.fetch('proxy_url', {}).fetch('rtmp', {}).blank? %>
             <li>
               <a data-toggle="tab" href="#streams">Streams</a>
             </li>
@@ -143,21 +143,27 @@
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
 
-          <div id="streams" class="tab-pane">
-            <%= render partial: "cameras/single/streams_tab" %>
-          </div>
+          <% unless @camera.fetch('proxy_url', {}).fetch('rtmp', {}).blank? %>
+            <div id="streams" class="tab-pane">
+              <%= render partial: "cameras/single/streams_tab" %>
+            </div>
+          <% end %>
 
-          <div id="sharing" class="tab-pane">
-            <%= render partial: "cameras/single/sharing_tab" %>
-          </div>
+          <% if has_edit_right %>
+            <div id="sharing" class="tab-pane">
+              <%= render partial: "cameras/single/sharing_tab" %>
+            </div>
+          <% end %>
 
           <div id="api_explorer" class="tab-pane">
             <%= render partial: "cameras/single/api_explorer_tab" %>
           </div>
 
-          <div id="logs" class="tab-pane">
-            <%= render partial: "cameras/single/logs_tab" %>
-          </div>
+          <% if has_edit_right %>
+            <div id="logs" class="tab-pane">
+              <%= render partial: "cameras/single/logs_tab" %>
+            </div>
+          <% end %>
 
           <div id="apps" class="tab-pane">
             <%= render partial: "cameras/single/apps_tab" %>
@@ -166,10 +172,11 @@
           <div id="webhooks" class="tab-pane">
             <%= render partial: "cameras/single/webhooks_tab" %>
           </div>
-
-          <div id="local_storage" class="tab-pane">
-            <%= render partial: "cameras/single/local_storage_tab" %>
-          </div>
+          <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
+            <div id="local_storage" class="tab-pane">
+              <%= render partial: "cameras/single/local_storage_tab" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ class WidgetsController < ApplicationController
   end
 
   def widgets_new
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, false)
   end
 
   def live_view_widget
@@ -40,7 +40,7 @@ class WidgetsController < ApplicationController
   end
 
   def widgets_hikvision
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, false)
   end
 
   def hikvision_local_storage
@@ -57,7 +57,7 @@ class WidgetsController < ApplicationController
   end
 
   def widget_snapshot_navigator
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, false)
   end
 
   def snapshot_navigator

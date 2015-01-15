@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   layout "swagger", only: :swagger
 
   def dev
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, false)
   end
 
   def location

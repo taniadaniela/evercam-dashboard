@@ -131,7 +131,7 @@
       <% if @camera_shares %>
         <% @camera_shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
-          <tr share-id="<%= share["id"] %>">
+          <tr id="row-share-<%= share["id"] %>" share-id="<%= share["id"] %>">
             <td class="col-lg-4">
               <%= share["email"] %>
               <% if share["email"] == current_user.email %>
@@ -155,7 +155,20 @@
             </td>
             <td class="col-lg-2">
               <div class="form-group">
-                <a></a><span class="delete-share-control" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>"><span class="remove"></span>Remove</span>
+                <div class="popbox2">
+                  <span class="open2"><span class="remove"></span>Remove</span>
+                  <div class="collapse-popup">
+                    <div class="box2">
+                      <div class="arrow2"></div>
+                      <div class="arrow-border2"></div>
+                      <div class="margin-bottom-10">Are you sure to delete this share?</div>
+                      <div class="margin-bottom-10">
+                        <input class="button raised grey delete-btn delete-share" type="button" value="DELETE" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>" />
+                        <div class="button delete-btn closepopup2 raised grey"><div class="text-center" fit>CANCEL</div><paper-ripple fit></paper-ripple></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </td>
           </tr>

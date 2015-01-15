@@ -20,6 +20,7 @@
 //= require datatables
 //= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js
 //= require iCheck
+//= require popbox.js
 //=
 //= require alerts
 //= require layout

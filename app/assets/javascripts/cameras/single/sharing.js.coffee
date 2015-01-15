@@ -107,6 +107,7 @@ onSetCameraAccessClicked = (event) ->
   event.preventDefault()
   selected = $('input[name=sharingOptionRadios]:checked').val()
   button = $('#set_permissions_submit')
+  divText = $('#Sharespublic_discoverable')
   cameraId = Evercam.Camera.id
 
   data = {}
@@ -116,16 +117,19 @@ onSetCameraAccessClicked = (event) ->
       data.discoverable = true
       $('.show-on-public').show()
       $('.show-on-private').hide()
+      divText = $('#Sharespublic_discoverable')
     when "public_undiscoverable"
       data.public = true
       data.discoverable = false
       $('.show-on-public').show()
       $('.show-on-private').hide()
+      divText = $('#Sharespublic_undiscoverable')
     else
       data.public = false
       data.discoverable = false
       $('.show-on-public').hide()
       $('.show-on-private').show()
+      divText = $('#Sharesprivate')
 
   onError = (jqXHR, status, error) ->
     showError("Update of camera permissions failed. Please contact support.")
@@ -135,6 +139,8 @@ onSetCameraAccessClicked = (event) ->
   onSuccess = (data, status, jqXHR) ->
     if data.success
       showFeedback("Camera permissions successfully updated.")
+      $('.desc').hide()
+      divText.show()
     else
       showError("Update of camera permissions failed. Please contact support.")
     button.removeAttr('disabled')

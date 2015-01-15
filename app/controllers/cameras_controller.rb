@@ -6,12 +6,12 @@ class CamerasController < ApplicationController
   include ApplicationHelper
 
   def index
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, true)
     # GC.start
   end
 
   def new
-    @cameras = load_user_cameras
+    @cameras = load_user_cameras(true, false)
     @user = (flash[:user] || {})
   end
 
@@ -157,7 +157,7 @@ class CamerasController < ApplicationController
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @webhooks = api.get_webhooks(params[:id])
-      @cameras = load_user_cameras
+      @cameras = load_user_cameras(true, false)
     rescue => error
       puts error
       env["airbrake.error_id"] = notify_airbrake(error)

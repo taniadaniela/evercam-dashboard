@@ -10,6 +10,11 @@
   font-family: $bold-family;
   margin-top: 17px;
 }
+@media (max-width: 980px) {
+  .dashboard-title {
+    display: none;
+  }
+}
 
 .nav-title .icon-refresh {
   font-weight:bold;

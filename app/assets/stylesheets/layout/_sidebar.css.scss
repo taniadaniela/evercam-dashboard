@@ -90,7 +90,17 @@ li span {
 .menu-title a:hover {
   color:$main-grey;
 }
-
+@media (max-width: 980px) {
+.menu-title {
+  text-transform: capitalize;
+  padding-left: 23px;
+  color:$main-grey;
+  font-size: 16px;
+  margin: 16px 0 7px;
+  padding-bottom: 10px;
+  box-shadow:0 1px 0 rgba(0, 0, 0, 0.1);
+}
+}
 .dev-menu-title {
   text-transform: uppercase;
   padding-left: 15px;

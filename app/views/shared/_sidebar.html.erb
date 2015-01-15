@@ -1,22 +1,39 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
     <ul class="page-sidebar-menu">
-      <li class="my-cameras <%= is_active?("/cameras/") %>">
+
+          <li class="dropdown dropdown-user">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+              <div class="avatar"><%= current_user.fullname[0, 1] %></div>
+					    <span class="username">
+				      	<%= current_user.fullname %>
+                <i class="fa fa-angle-down"></i>
+              </span>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+              </li>
+              <li role="presentation"><a href="javascript:Intercom('show');">Support</a></li>
+              <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+            </ul>
+          </li>
+
+     <!-- <li class="my-cameras <%= is_active?("/cameras/") %>">
         <a href="/cameras">
           <i class="icon-camera"></i>
-          <span class="title">My Cameras</span>
+          <span>My Cameras</span>
         </a>
-      </li>
+      </li>-->
+      <div class="menu-title">
+      My Cameras
+     </div>
       <li>
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
               <a href="/cameras/<%= camera['id'] %>">
-                <% if camera['owner'] == current_user.username %>
-                  <i class="icon icon-users" style="visibility: hidden;"></i>
-                <% else %>
-                  <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
-                <% end %>
                 <%= camera['name'] %>
                 <% unless camera['is_online'] %>
                   <i class="red fa fa-chain-broken"></i>

@@ -1,3 +1,23 @@
+.page-header a {
+  color:$white;
+}
+.page-header a:hover {
+  color:$white;
+}
+.dashboard-title {
+  color: $white;
+  font-size: 17px;
+  font-family: $bold-family;
+  margin-top: 17px;
+}
+
+.nav-title .icon-refresh {
+  font-weight:bold;
+}
+.nav-title a:hover {
+  color: $main-grey !important;
+}
+
 #sidebar {
   position: fixed !important;
   overflow-y: scroll !Important;

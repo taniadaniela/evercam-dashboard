@@ -62,7 +62,25 @@ a:hover {
   font-size: 22px;
   margin-top: -2px;
 }
-
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  list-style: none;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px 0px 0px 13px;
+  background-color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-family: $regular-family;
+  border-radius: 1px !Important;
+  width: 208px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
 /***
 Customized Bootstrap Buttons
 ***/

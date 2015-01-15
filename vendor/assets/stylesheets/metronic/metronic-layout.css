@@ -957,6 +957,9 @@ Page sidebar
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.last > a {
   border-bottom-color: transparent !important;
 }
+.page-sidebar .page-sidebar-menu > li > a {
+  margin:4px 0px 3px 13px !important;
+}
 .page-sidebar .page-sidebar-menu > li > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
   display: block;

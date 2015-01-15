@@ -20,24 +20,16 @@
             </ul>
           </li>
 
-     <!-- <li class="my-cameras <%= is_active?("/cameras/") %>">
-        <a href="/cameras">
-          <i class="icon-camera"></i>
-          <span>My Cameras</span>
-        </a>
-      </li>-->
       <div class="menu-title">
-      My Cameras
+      <a href="/">My Cameras</a>
+        <a href="/cameras/new" data-toggle="tooltip" class="pull-right" data-placement="bottom" title="Add a Camera"><i class="icon icon-plus"></i></a>
      </div>
       <li>
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
-            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
               <a href="/cameras/<%= camera['id'] %>">
                 <%= camera['name'] %>
-                <% unless camera['is_online'] %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
               </a>
             </li>
           <% end %>
@@ -45,19 +37,12 @@
       </li>
       <li class="<%= is_active?("/public/cameras") %>">
         <a href="/public/cameras">
-          <i class="icon-map"></i>
           <span class="title">Public Cameras</span>
-        </a>
-      </li>
-      <li class="<%= is_active?("/cameras/new") %>">
-        <a href="/cameras/new">
-          <i class="icon-plus"></i>
-          <span class="title">Add Camera</span>
         </a>
       </li>
       <li class="<%= is_active?("/dev") %> toggle-sidebar">
         <a>
-          <i class="icon-briefcase"></i>
+
           <span class="title">Developer</span>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
@@ -99,14 +84,14 @@
       </div>
 
       <li class="widgets-menu">
-        <a href="/widgets-new">Live View Widget</a>
+        <a href="/widgets-new">Live View</a>
       </li>
 
       <li class="widgets-menu">
-        <a href="/widgets-hikvision">Hikvision Widget</a>
+        <a href="/widgets-hikvision">Local Storage</a>
       </li>
       <li class="widgets-menu">
-        <a href="/widgets-snapshot-navigator">Snapshot Navigator Widget</a>
+        <a href="/widgets-snapshot-navigator">Snapshot Navigator</a>
       </li>
     </ul>
   </nav>

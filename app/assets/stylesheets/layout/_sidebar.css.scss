@@ -5,6 +5,12 @@
   bottom: 10px;
   z-index: 10000;
 }
+i.icon.icon-plus {
+  color: white;
+  margin-top: -4px;
+  padding-right: 13px;
+  font-size: 20px;
+}
 .avatar {
   background-color: $evercam-red;
   border-radius: 50% !important;
@@ -19,9 +25,11 @@
   margin-top: -1px;
   margin-right: 7px;
   text-transform: uppercase;
-  margin-left: 13px;
+  margin-left: 0px;
 }
-
+.sidebar-offline a {
+ color: lighten($evercam-red, 10%) !important;
+}
 .page-sidebar-menu {
   z-index: 10000 !important;
 }
@@ -76,6 +84,13 @@ li span {
   font-size: 12px;
   margin: 15px 0 5px;
 }
+.menu-title a {
+  color:$main-grey;
+}
+.menu-title a:hover {
+  color:$main-grey;
+}
+
 .dev-menu-title {
   text-transform: uppercase;
   padding-left: 15px;
@@ -110,4 +125,30 @@ li span {
 }
 .merge-left {
   margin-left:0px !important;
+}
+
+/*SUB MENU */
+.page-sidebar .page-sidebar-menu .sub-menu {
+  margin: 0px 0px 0px 0px;
+  padding-bottom: 8px;
+}
+@media (max-width: 480px) {
+  .page-sidebar .page-sidebar-menu .sub-menu {
+    display: none !important;
+  }
+}
+.sub-menu-item a {
+  border: none !important;
+  color: #bdbdbd;
+  padding: 3px 5px 2px 23px !important;
+}
+.sub-menu .icon-users {
+  position: relative;
+  left: -9px;
+  font-size: 12px !important;
+  padding-bottom: 5px;
+  float: left;
+}
+.sub-menu .fa-chain-broken {
+  font-size: 12px !important;
 }

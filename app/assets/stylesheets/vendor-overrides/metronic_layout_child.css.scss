@@ -652,31 +652,6 @@ Page sidebar
 .my-cameras {
   box-shadow: none !important;
 }
-/*SUB MENU */
-.page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 8px 0px 0px 0px;
-  padding-bottom: 8px;
-}
-@media (max-width: 480px) {
-  .page-sidebar .page-sidebar-menu .sub-menu {
-    display: none !important;
-  }
-}
-.sub-menu-item a {
-  border: none !important;
-  color: #bdbdbd;
-  padding: 3px 5px 2px 23px !important;
-}
-.sub-menu .icon-users {
-  position: relative;
-  left: -9px;
-  font-size: 12px !important;
-  padding-bottom: 5px;
-  float: left;
-}
-.sub-menu .fa-chain-broken {
-  font-size: 12px !important;
-}
 
 /***
 Page content

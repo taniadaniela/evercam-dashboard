@@ -66,9 +66,7 @@ EvercamDashboard::Application.routes.draw do
   get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
   get '/snapshot.navigator' => 'widgets#snapshot_navigator'
 
-  get '/live' => 'pages#live'
   get '/live/:id' => 'pages#live'
-  get '/location' => 'pages#location'
 
   scope :share do
     post '/' => 'sharing#create'

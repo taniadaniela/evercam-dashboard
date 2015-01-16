@@ -114,7 +114,7 @@ Page Header
 
 @media only screen and (max-width: 990px) {
   .page-header.navbar .menu-toggler.responsive-toggler {
-    margin-top:28px;
+    margin-top:23px;
   }
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li > a:hover {
@@ -366,8 +366,12 @@ Page sidebar
 
 @media only screen and (max-width: 990px) {
   .page-header.navbar .menu-toggler.responsive-toggler {
-    margin-top:28px;
+    margin-top:23px;
   }
+  .page-sidebar.navbar-collapse.in {
+    margin: 75px 0 0 0;
+  }
+
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li > a:hover {
   background-image: none;
@@ -586,7 +590,7 @@ Page sidebar
 @media (max-width: 992px) {
   /* Page container */
   .page-header-fixed.page-header-fixed-mobile .page-container {
-    margin-top: 55px !important;
+    margin-top: -20px !important;
   }
   .page-header.navbar .page-logo {
     background-color: lighten($secondary-color, 5%);
@@ -604,6 +608,7 @@ Page sidebar
 /* SIDEBAR */
 .page-sidebar-fixed .page-sidebar {
   top: 0px;
+  padding-bottom: 55px;
 }
 .page-sidebar .page-sidebar-menu > li.open > a {
   font-size: $body-main;
@@ -681,6 +686,11 @@ Page content
   min-height: 600px;
   padding: 20px 20px 10px 20px;
   overflow: auto;
+}
+@media (max-width: 991px) {
+  .page-content-wrapper .page-content {
+  margin: 55px 0 0 0 !important;
+  }
 }
 .tabbable-custom>.tab-content {
   background-color: #fff;

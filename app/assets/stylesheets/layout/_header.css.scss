@@ -1,4 +1,12 @@
 /*section - header */
+.evercam-e-header {
+  margin: 13px 5px 0px 3px;
+  float: left;
+}
+.evercam-e-header img {
+  max-height: 30px;
+}
+
 #camera-single {
   padding: 0px 20px 10px 20px;
 }
@@ -113,8 +121,12 @@ li span {
   margin: 15px 0 5px;
 
 }
+
 @media (max-width: 980px) {
   .sidebar-toggler-wrapper {
+    display: none;
+  }
+  .page-header {
     display: none;
   }
 }
@@ -140,4 +152,15 @@ li span {
 }
 .merge-left {
   margin-left:0px !important;
+}
+.page-header {
+  display: none;
+}
+@media (max-width: 980px) {
+  .sidebar-toggler-wrapper {
+    display: none;
+  }
+  .page-header {
+    display: block;
+  }
 }

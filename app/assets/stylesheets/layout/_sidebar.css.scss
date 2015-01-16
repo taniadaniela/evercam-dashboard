@@ -1,11 +1,11 @@
 .sidebar-header {
 
 }
-.evercam-e {
+.evercam-e-sidebar {
   margin: 12px 5px 0px 19px;
   float: left;
 }
-.evercam-e img {
+.evercam-e-sidebar img {
   max-height: 21px;
 }
 .dashboard-title a {
@@ -56,8 +56,8 @@ i.icon.icon-plus {
   text-align: center;
   min-width: 21px;
   float: left;
-  margin-top: -1px;
-  margin-right: 7px;
+  margin-top: 3px;
+  margin-right: 0px;
   text-transform: uppercase;
   margin-left: 0px;
 }
@@ -195,4 +195,12 @@ li span {
 }
 .sub-menu .fa-chain-broken {
   font-size: 12px !important;
+}
+@media (max-width: 980px) {
+  .desktop-user {
+    display: none !Important;
+  }
+  .evercam-e-sidebar {
+    display: none;
+  }
 }

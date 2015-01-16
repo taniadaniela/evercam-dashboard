@@ -1,0 +1,31 @@
+<div class="page-header navbar navbar-fixed-top">
+  <div class="page-header-inner">
+
+      <div class="sidebar-toggler-wrapper">
+        <div class="sidebar-toggler"></div>
+      </div>
+
+    <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'pull-left evercam-e-header' %>
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+
+   <div class="top-menu">
+      <ul class="nav navbar-nav pull-right">
+        <li class="dropdown dropdown-user">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+            <div class="avatar"><%= current_user.fullname[0, 1] %></div>
+					    <span class="username">
+                <i class="fa fa-angle-down"></i>
+              </span>
+          </a>
+          <ul class="dropdown-menu">
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+            </li>
+            <li role="presentation"><a href="javascript:Intercom('show');">Support</a></li>
+            <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

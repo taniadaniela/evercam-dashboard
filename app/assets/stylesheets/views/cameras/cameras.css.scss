@@ -20,6 +20,15 @@
   float: none;
   margin: 0em;
 }
+@media (max-width: 730px) {
+  .center-tabs .nav-tabs {
+    height: 90px;
+  }
+  .nav > li > a {
+    padding: 10px 10px;
+  }
+}
+
 .nav-tabs,
 .nav-pills {
   margin-bottom: 5px;

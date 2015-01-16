@@ -6,7 +6,7 @@
     <ul class="page-sidebar-menu">
       <li>
           <div>
-            <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'evercam-e' %>
+            <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'evercam-e-sidebar' %>
           </div>
           <div class="dashboard-title">
             <a href="/">Dashboard</a>
@@ -15,7 +15,7 @@
             <div class="sidebar-toggler"></div>
           </div>
       </li>
-          <li class="dropdown dropdown-user">
+          <li class="desktop-user dropdown dropdown-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					    <span class="username">
 				      	<%= current_user.firstname %>'s Cameras

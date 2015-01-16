@@ -176,6 +176,14 @@ li span {
   margin: 7px 0px 0px 0px;
   padding-bottom: 8px;
 }
+@media (max-width: 990px) {
+  .page-sidebar .page-sidebar-menu .sub-menu {
+    display: none !important;
+  }
+  .mobile-hide {
+    display: none;
+  }
+}
 @media (max-width: 480px) {
   .page-sidebar .page-sidebar-menu .sub-menu {
     display: none !important;

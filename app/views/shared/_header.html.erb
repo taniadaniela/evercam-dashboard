@@ -1,14 +1,39 @@
 <div class="page-header navbar navbar-fixed-top">
   <div class="page-header-inner">
 
-      <div class="sidebar-toggler-wrapper">
-        <div class="sidebar-toggler"></div>
-      </div>
-
     <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'pull-left evercam-e-header' %>
-    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+
+    <% if params[:controller ] == 'cameras' and params[:action] == 'single' %>
+    <div class="btn-group camera-switch">
+     <a class="dropdown-toggle" data-toggle="dropdown">
+          <h5 class="mobile-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h5>
+        </a>
+        <ul class="dropdown-menu scroll-menu" role="menu">
+          <% @cameras.each do |camera| %>
+            <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+              <a href="/cameras/<%= camera['id'] %>">
+                <% if camera['owner'] == current_user.username %>
+                  <i class="icon icon-users" style="visibility: hidden;"></i>
+                <% else %>
+                  <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
+                <% end %>
+                <%= camera['name'] %>
+                <% unless camera['is_online'] %>
+                  <i class="red fa fa-chain-broken"></i>
+                <% end %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+    </div>
+    <% end %>
 
    <div class="top-menu">
+     <div class="header-add-camera pull-left">
+       <a href="/cameras/new">
+         <i class="icon-plus"></i>
+       </a>
+     </div>
       <ul class="nav navbar-nav pull-right">
         <li class="dropdown dropdown-user">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

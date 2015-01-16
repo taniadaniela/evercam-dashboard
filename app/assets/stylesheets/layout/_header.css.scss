@@ -44,6 +44,15 @@ margin-top: 3px;
   max-height: 50px;
   min-height: 50px;
 }
+@media (max-width: 980px) {
+  #camera-single .section-header {
+  display: none;
+  }
+}
+h5.mobile-title {
+  padding-top: 10px;
+  margin-left: 14px;
+}
 .section-header .page-title {
   font-size: 22px;
   margin: 2px 0 10px 0;
@@ -146,7 +155,13 @@ li span {
   padding: 7px 15px;
   color: #bdbdbd;
 }
-
+.header-add-camera {
+  margin-top: 15px;
+  margin-right: 10px;
+}
+.header-add-camera i.icon-plus {
+  font-size: 22px;
+}
 .hide-left-bar {
   margin-left:-236px !important;
 }

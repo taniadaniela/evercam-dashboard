@@ -4,32 +4,12 @@
 
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
     <ul class="page-sidebar-menu">
-      <li>
-          <div>
-            <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'evercam-e-sidebar' %>
-          </div>
-          <div class="dashboard-title">
-            <a href="/">Dashboard</a>
-          </div>
-          <div class="sidebar-toggler-wrapper">
-            <div class="sidebar-toggler"></div>
-          </div>
-      </li>
-          <li class="desktop-user dropdown dropdown-user">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+          <li class="desktop-user">
+            <a href="/" class="">
 					    <span class="username">
 				      	<%= current_user.firstname %>'s Cameras
-                <i class="fa fa-angle-down"></i>
               </span>
             </a>
-
-            <ul class="dropdown-menu">
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
-              </li>
-              <li role="presentation"><a href="javascript:Intercom('show');">Support</a></li>
-              <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
-            </ul>
           </li>
 
       <li>
@@ -53,9 +33,9 @@
           <span class="title">Public Cameras</span>
         </a>
       </li>
+
       <li class="<%= is_active?("/dev") %> toggle-sidebar">
         <a>
-
           <span class="title">Developer</span>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
@@ -80,7 +60,14 @@
           </li>
         </ul>
       </li>
+        <li>
+          <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+        </li>
+        <li><a href="javascript:Intercom('show');">Support</a></li>
+        <li><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+
     </ul>
+
   </div>
 </div>
 

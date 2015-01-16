@@ -610,15 +610,17 @@ Page sidebar
   top: 0px;
   padding-bottom: 55px;
 }
+
 .page-sidebar .page-sidebar-menu > li.open > a {
   font-size: $body-main;
 }
 @media (max-width: 480px) {
   .page-sidebar-fixed .page-sidebar {
     top: 0px;
+    padding-bottom: 0px;
   }
   .page-header-fixed.page-header-fixed-mobile .page-sidebar, .page-header-fixed.page-header-fixed-mobile .page-sidebar.in {
-    margin:0px !important;
+    margin:75px 0 0 !important;
   }
 }
 .page-sidebar {

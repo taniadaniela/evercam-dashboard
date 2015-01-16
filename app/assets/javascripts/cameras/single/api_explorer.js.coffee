@@ -8,6 +8,9 @@ initializeSwagger = ->
       "put"
       "delete"
     ]
+    docExpansion: "list"
+    sorter: "alpha"
+
     onComplete: (swaggerApi, swaggerUi) ->
       window.authorizations.add "api_id", new ApiKeyAuthorization("api_id", "#{Evercam.User.api_id}", "query")
       window.authorizations.add "api_key", new ApiKeyAuthorization("api_key", "#{Evercam.User.api_key}", "query")
@@ -19,10 +22,6 @@ initializeSwagger = ->
 
       $("a:contains('/cameras/{id}/snapshot.jpg.json')").text "/cameras/{id}/snapshot.jpg"
       $("input[name='id'].required.parameter").val Evercam.Camera.id
-
-    onFailure: (data) ->
-
-    docExpansion: "list"
 
   window.swaggerUi.load()
 

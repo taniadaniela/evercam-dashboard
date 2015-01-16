@@ -206,6 +206,7 @@ th {
 #snapshot-widgets .dropdown-padding-left{
   padding-left: 0px;
   padding-right: 1px;
+  float: left;
 }
 #snapshot-widgets #code {
   min-height: 160px;
@@ -213,6 +214,11 @@ th {
 #snapshot-widgets .time-dropdown{
   min-width: 40px;
   padding: 6px 4px;
+}
+@media (max-width: 780px) {
+  #snapshot-widgets .time-dropdown{
+    min-width: 82px;
+  }
 }
 #snapshot-widgets #code {
   min-height: 160px;

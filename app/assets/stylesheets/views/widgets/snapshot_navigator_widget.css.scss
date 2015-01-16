@@ -110,9 +110,6 @@ th {
         margin-bottom: 20px;
     }
     .right-column {
-        width: 208px;
-        padding-left: 0px;
-        padding-right: 0px;
         float: left;
     }
 }
@@ -363,9 +360,10 @@ ul, menu, dir {
 }
 @media (max-width: 845px) {
     .datepicker-bg {
-        background-color: #fff;
-        width: 210px;
-        margin: 0 auto;
+      background-color: #fff;
+      float: left;
+      margin: 0 auto;
+      margin-right: 15px;
     }
 }
 

@@ -80,9 +80,6 @@
                     <textarea id="code" class="pretty-code col-md-12" type="text" readonly>
                     </textarea>
                   </div>
-                  <div class="col-md-12 margin-top-30">
-                    <input id="btn-load-widget" name="btn-load-widget" type="button" class="btn blue" value="Load Widget">
-                  </div>
                 </div>
               </div>
 
@@ -101,16 +98,22 @@
 </div>
 
 <script type="text/javascript">
+  var lastSelectedDate, iframeWindow;
   $(document).ready(function () {
     $('#widget-datetime').datetimepicker({
       timepicker: false,
       closeOnDateSelect: 0,
+      onChangeDateTime: function(dp, $input){
+        if($input.val() != lastSelectedDate) {
+          lastSelectedDate = $input.val();
+          initLocalStorage();
+        }
+      },
       format: 'd-m-Y'
     });
 
     initLocalStorage();
-    $("#btn-load-widget").on("click", initLocalStorage);
-    $("#widget-camera").on("change", initLocalStorage);
+    $("#widget-camera, #widget-hour, #widget-minutes, #widget-seconds").on("change", initLocalStorage);
     $("#widget-authenticate").on("change", showNote);
     $("#code").on("click", function(){
       this.select();
@@ -158,9 +161,18 @@
     $(".placeholder").empty();
     var iframe =
         jQuery("<iframe />")
-            .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-            .attr({ "src": '/snapshot.navigator.widget?camera=' + camera + date_time, "frameborder": "0" })
+            .css({ "overflow": "hidden", "width": "100%", "height": "640px" })
+            .attr({ "src": '/snapshot.navigator.widget?camera=' + camera + date_time, "frameborder": "0", scrolling: "no", onload: 'javascript:resizeIframe(this);' })
             .appendTo(".placeholder");
+  }
+  $(window).resize(function(){
+    if(!iframeWindow)
+      return;
+    resizeIframe(iframeWindow);
+  });
+  function resizeIframe(iframeControl) {
+    iframeWindow = iframeControl;
+    iframeControl.style.height = iframeControl.contentWindow.document.body.scrollHeight + 'px';
   }
 
   function showNote(){

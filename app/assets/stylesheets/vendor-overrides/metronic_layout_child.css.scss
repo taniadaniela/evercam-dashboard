@@ -578,7 +578,7 @@ Page sidebar
   font-weight: normal;
 }
 .page-header-fixed .page-container {
-  margin-top: 55px;
+  margin-top: 0px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
   padding: 14px 0px 0 0;
@@ -603,7 +603,7 @@ Page sidebar
 
 /* SIDEBAR */
 .page-sidebar-fixed .page-sidebar {
-  top: 27px;
+  top: 0px;
 }
 .page-sidebar .page-sidebar-menu > li.open > a {
   font-size: $body-main;
@@ -619,7 +619,7 @@ Page sidebar
 .page-sidebar {
   background-color: $secondary-color;
   z-index:1000001;
-  margin-top: 28px;
+  margin-top: 0px;
 }
 .page-sidebar-fixed .page-sidebar
 .page-sidebar .page-sidebar-menu>li>a:hover {

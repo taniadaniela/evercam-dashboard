@@ -1,7 +1,23 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
-    <ul class="page-sidebar-menu">
 
+
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+    <ul class="page-sidebar-menu">
+      <li>
+          <div>
+            <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'evercam-e' %>
+          </div>
+          <div class="dashboard-title">
+            <a href="/">Dashboard</a>
+            <% if params[:action] == 'index' %>
+              <a data-toggle="tooltip" data-placement="bottom" title="Refresh Cameras" class="refresh-images pull-right" title="Refresh Cameras"><i class="icon icon-refresh"></i></a>
+            <% end %>
+          </div>
+          <div class="sidebar-toggler-wrapper">
+            <div class="sidebar-toggler"></div>
+          </div>
+      </li>
           <li class="dropdown dropdown-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
               <div class="avatar"><%= current_user.fullname[0, 1] %></div>
@@ -22,7 +38,9 @@
 
       <div class="menu-title">
       <a href="/">My Cameras</a>
-        <a href="/cameras/new" data-toggle="tooltip" class="pull-right" data-placement="bottom" title="Add a Camera"><i class="icon icon-plus"></i></a>
+        <a href="/cameras/new" data-toggle="tooltip" class="pull-right" data-placement="bottom" title="Add a Camera">
+          <i class="icon icon-plus"></i>
+        </a>
      </div>
       <li>
         <ul class="sub-menu">

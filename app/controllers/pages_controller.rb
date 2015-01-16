@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_filter :authenticate_user!
   skip_before_action :authenticate_user!, only: [:swagger]
+  skip_after_filter :intercom_rails_auto_include, only: [:live]
   include SessionsHelper
   include ApplicationHelper
 

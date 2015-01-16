@@ -1,46 +1,41 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
+
+
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
     <ul class="page-sidebar-menu">
-      <li class="my-cameras <%= is_active?("/cameras/") %>">
-        <a href="/cameras">
-          <i class="icon-camera"></i>
-          <span class="title">My Cameras</span>
-        </a>
-      </li>
+          <li class="desktop-user">
+            <a href="/" class="">
+					    <span class="username">
+				      	<%= current_user.firstname %>'s Cameras
+              </span>
+            </a>
+          </li>
+
       <li>
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
-            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
               <a href="/cameras/<%= camera['id'] %>">
-                <% if camera['owner'] == current_user.username %>
-                  <i class="icon icon-users" style="visibility: hidden;"></i>
-                <% else %>
-                  <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
-                <% end %>
                 <%= camera['name'] %>
-                <% unless camera['is_online'] %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
               </a>
             </li>
           <% end %>
         </ul>
       </li>
+      <li class="<%= is_active?("/cameras/new") %>">
+        <a href="/cameras/new">
+          <span class="title">Add a Camera</span>
+        </a>
+      </li>
       <li class="<%= is_active?("/public/cameras") %>">
         <a href="/public/cameras">
-          <i class="icon-map"></i>
           <span class="title">Public Cameras</span>
         </a>
       </li>
-      <li class="<%= is_active?("/cameras/new") %>">
-        <a href="/cameras/new">
-          <i class="icon-plus"></i>
-          <span class="title">Add Camera</span>
-        </a>
-      </li>
+
       <li class="<%= is_active?("/dev") %> toggle-sidebar">
         <a>
-          <i class="icon-briefcase"></i>
           <span class="title">Developer</span>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
@@ -65,13 +60,20 @@
           </li>
         </ul>
       </li>
+        <li>
+          <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+        </li>
+        <li><a href="javascript:Intercom('show');">Support</a></li>
+        <li><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+
     </ul>
+
   </div>
 </div>
 
 <div class="cbp-spmenu-push">
   <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-    <h3>Menu</h3>
+
     <ul>
       <li>
         <a href="/dev">API Docs</a>
@@ -82,14 +84,14 @@
       </div>
 
       <li class="widgets-menu">
-        <a href="/widgets-new">Live View Widget</a>
+        <a href="/widgets-new">Live View</a>
       </li>
 
       <li class="widgets-menu">
-        <a href="/widgets-hikvision">Hikvision Widget</a>
+        <a href="/widgets-hikvision">Local Storage</a>
       </li>
       <li class="widgets-menu">
-        <a href="/widgets-snapshot-navigator">Snapshot Navigator Widget</a>
+        <a href="/widgets-snapshot-navigator">Snapshot Navigator</a>
       </li>
     </ul>
   </nav>

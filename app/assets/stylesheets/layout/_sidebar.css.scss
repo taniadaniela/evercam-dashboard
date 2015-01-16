@@ -1,3 +1,37 @@
+.sidebar-header {
+
+}
+.evercam-e-sidebar {
+  margin: 12px 5px 0px 19px;
+  float: left;
+}
+.evercam-e-sidebar img {
+  max-height: 21px;
+}
+.dashboard-title a {
+  color: $white;
+}
+.dashboard-title a:hover {
+  color: $white;
+}
+.dashboard-title {
+  font-size: 16px;
+  font-family: $regular-family;
+  padding-top: 14px;
+  padding-bottom: 12px;
+}
+@media (max-width: 980px) {
+  .dashboard-title {
+    display: none;
+  }
+}
+.refresh-images {
+  padding-right: 12px;
+}
+.refresh-images i.icon.icon-refresh {
+  font-size: 19px;
+  color: $white;
+}
 #sidebar {
   position: fixed !important;
   overflow-y: scroll !Important;
@@ -5,7 +39,31 @@
   bottom: 10px;
   z-index: 10000;
 }
-
+i.icon.icon-plus {
+  color: white;
+  margin-top: -4px;
+  padding-right: 13px;
+  font-size: 20px;
+}
+.avatar {
+  background-color: $evercam-red;
+  border-radius: 50% !important;
+  color: white;
+  font-family: "proxima-nova-bold", "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  height: 21px;
+  padding: 1px 3px 0px 3px;
+  text-align: center;
+  min-width: 21px;
+  float: left;
+  margin-top: 3px;
+  margin-right: 0px;
+  text-transform: uppercase;
+  margin-left: 0px;
+}
+.sidebar-offline a {
+ color: lighten($evercam-red, 10%) !important;
+}
 .page-sidebar-menu {
   z-index: 10000 !important;
 }
@@ -53,13 +111,36 @@ ul .widgets-menu {
 li span {
   margin-top: 5px;
 }
+.menu-title {
+  text-transform: uppercase;
+  padding-left: 23px;
+  color:$main-grey;
+  font-size: 12px;
+  margin: 15px 0 5px;
+}
+.menu-title a {
+  color:$main-grey;
+}
+.menu-title a:hover {
+  color:$main-grey;
+}
+@media (max-width: 980px) {
+.menu-title {
+  text-transform: capitalize;
+  padding-left: 23px;
+  color:$main-grey;
+  font-size: 16px;
+  margin: 16px 0 7px;
+  padding-bottom: 10px;
+  box-shadow:0 1px 0 rgba(0, 0, 0, 0.1);
+}
+}
 .dev-menu-title {
   text-transform: uppercase;
   padding-left: 15px;
   color:$main-grey;
   font-size: 12px;
   margin: 15px 0 5px;
-
 }
 @media (max-width: 980px) {
   .sidebar-toggler-wrapper {
@@ -88,4 +169,46 @@ li span {
 }
 .merge-left {
   margin-left:0px !important;
+}
+
+/*SUB MENU */
+.page-sidebar .page-sidebar-menu .sub-menu {
+  margin: 7px 0px 0px 0px;
+  padding-bottom: 8px;
+}
+@media (max-width: 990px) {
+  .page-sidebar .page-sidebar-menu .sub-menu {
+    display: none !important;
+  }
+  .mobile-hide {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .page-sidebar .page-sidebar-menu .sub-menu {
+    display: none !important;
+  }
+}
+.sub-menu-item a {
+  border: none !important;
+  color: #bdbdbd;
+  padding: 3px 5px 2px 23px !important;
+}
+.sub-menu .icon-users {
+  position: relative;
+  left: -9px;
+  font-size: 12px !important;
+  padding-bottom: 5px;
+  float: left;
+}
+.sub-menu .fa-chain-broken {
+  font-size: 12px !important;
+}
+@media (max-width: 980px) {
+  .desktop-user {
+    display: none !Important;
+  }
+  .evercam-e-sidebar {
+    display: none;
+  }
 }

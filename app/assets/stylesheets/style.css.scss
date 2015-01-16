@@ -26,31 +26,6 @@ th {
 /*/////////////////////
 //HEADER
 /////////////////////*/
-.avatar {
-  background: #ffffff;
-  border-radius: 1px !important;
-  color: $main-color;
-  font-family: $regular-family;
-  font-size: 16px;
-  height: 25px;
-  padding: 4px 3px 4px 4px;
-  text-align: center;
-  min-width: 25px;
-  float: left;
-  margin-top: 1px;
-  margin-right: 5px;
-  text-transform: uppercase;
-}
-.nav-title .icon-refresh {
-  font-weight:bold;
-}
-.nav-title a:hover {
-  color: $main-grey !important;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle a {
-  margin-top: 4px;
-}
 
 .page-header.navbar.navbar-fixed-top {
   z-index: 100000 !important;
@@ -243,7 +218,7 @@ th {
 
 /* adjust as needed so the tab text displays */
 .tabdrop{
-  width: 120px;
+  width: 180px;
 }
 
 /* hide any icons found in tabs not on first line */
@@ -298,10 +273,11 @@ th {
 .cbp-spmenu h3 {
   color: #afdefa;
   font-size: 1.9em;
-  padding: 17px;
+  padding: 0px;
   margin: 0;
   font-weight: 300;
   background: $main-color;
+  margin-top: 22px;
 }
 
 .cbp-spmenu a {

@@ -1,6 +1,3 @@
-// Place all the styles related to the settings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 #settings-modal .table-borderless td.model-td {
   padding-bottom: 10px !important;
   padding-top: 4px !Important;
@@ -8,4 +5,26 @@
 #settings-modal .table-borderless td.id-td {
   padding-bottom: 10px !important;
   padding-top: 4px !Important;
+}
+
+/* settings-tab */
+.list-group-lg>.list-group-item {
+  padding-bottom: 30px;
+  padding-top: 30px;
+  border-bottom: 1px solid #e5e5e5;
+  overflow: auto;
+}
+.list-group-item:last-child {
+  border-bottom: none;
+}
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: 0px;
+  background-color: #fff;
+  border: none;
+}
+.list-group-item:first-child {
+  padding-top: 10px;
 }

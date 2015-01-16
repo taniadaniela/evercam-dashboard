@@ -1386,9 +1386,7 @@ jQuery Slimscroll
 .portlet-body .slimScrollBar {
   margin-right: 0px;
 }
-.slimScrollBar {
-  display: none !Important;
-}
+
 /***
 jQuery Sparkline
 ***/

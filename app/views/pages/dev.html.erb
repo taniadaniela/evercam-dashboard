@@ -26,6 +26,8 @@
           url: "<%= EVERCAM_API %>swagger.json",
           dom_id: "swagger-ui-container",
           supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+          docExpansion: "list",
+          sorter: "alpha",
           onComplete: function (swaggerApi, swaggerUi) {
             window.authorizations.add("api_id", new ApiKeyAuthorization("api_id", "<%= current_user.api_id unless current_user.nil? %>", "query"));
             window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
@@ -37,10 +39,7 @@
             });
             $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
             $("a:contains('/public/nearest.jpg.json')").text('/public/nearest.jpg');
-          },
-          onFailure: function (data) {
-          },
-          docExpansion: "list"
+          }
         });
         window.swaggerUi.load();
       });
@@ -55,11 +54,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  jQuery(document).ready(function () {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    QuickSidebar.init() // init quick sidebar
-  });
-</script>

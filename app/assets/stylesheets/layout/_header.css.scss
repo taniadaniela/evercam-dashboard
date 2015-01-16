@@ -1,11 +1,48 @@
+/*section - header */
+#camera-single {
+  padding: 0px 20px 10px 20px;
+}
 .page-header a {
   color:$white;
 }
 .page-header a:hover {
   color:$white;
 }
-
-
+.cameras-back {
+  margin-top:0px;
+}
+.cameras-back a {
+  color:#333333;
+}
+.camera-status {
+margin-top: 3px;
+}
+.section-header i.fa.fa-angle-left {
+  font-size: 20px;
+  font-weight:bold;
+  margin-top: 2px;
+  margin-right: 10px;
+}
+.section-header i.icon.icon-users {
+  margin-top: 4px;
+}
+.section-header {
+  background: $white;
+  border: 1px solid #E7E7EC !important;
+  overflow: hidden;
+  margin-left: -6px;
+  margin-right: -6px;
+  padding: 10px 0px;
+  max-height: 50px;
+  min-height: 50px;
+}
+.section-header .page-title {
+  font-size: 22px;
+  margin: 2px 0 10px 0;
+}
+.section-header .online-status {
+  margin-top: 4px;
+}
 .nav-title .icon-refresh {
   font-weight:bold;
 }

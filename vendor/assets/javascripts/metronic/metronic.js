@@ -334,7 +334,7 @@ var Metronic = function () {
             //UI Component handlers            
             handleUniform(); // hanfle custom radio & checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents 
+            handleScrollers(); // handles slim scrolling contents
             handleFancybox() // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -352,7 +352,7 @@ var Metronic = function () {
 
         //main function to initiate core javascript after ajax complete
         initAjax: function () {
-            handleScrollers(); // handles slim scrolling contents 
+            handleScrollers(); // handles slim scrolling contents
             handleSelect2(); // handle custom Select2 dropdowns
             handleDropdowns(); // handle dropdowns
             handleTooltips(); // handle bootstrap tooltips
@@ -426,8 +426,8 @@ var Metronic = function () {
             $(el).each(function () {
                 if ($(this).attr("data-initialized") === "1") { // destroy existing instance before updating the height
                     $(this).removeAttr("data-initialized");
-                    $(this).removeAttr("style"); 
- 
+                    $(this).removeAttr("style");
+
                     var attrList = {};
 
                     // store the custom attribures so later we will reassign.
@@ -450,14 +450,14 @@ var Metronic = function () {
                     $(this).slimScroll({
                         wrapperClass: ($(this).attr("data-wrapper-class")  ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
                         destroy: true
-                    });  
+                    });
 
-                    var the = $(this);            
-                    
+                    var the = $(this);
+
                     // reassign custom attributes
                     $.each(attrList, function (key, value) {
                         the.attr(key, value);
-                    });      
+                    });
                 }
             });
         },

@@ -10,9 +10,6 @@
           </div>
           <div class="dashboard-title">
             <a href="/">Dashboard</a>
-            <% if params[:action] == 'index' %>
-              <a data-toggle="tooltip" data-placement="bottom" title="Refresh Cameras" class="refresh-images pull-right" title="Refresh Cameras"><i class="icon icon-refresh"></i></a>
-            <% end %>
           </div>
           <div class="sidebar-toggler-wrapper">
             <div class="sidebar-toggler"></div>
@@ -20,9 +17,8 @@
       </li>
           <li class="dropdown dropdown-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <div class="avatar"><%= current_user.fullname[0, 1] %></div>
 					    <span class="username">
-				      	<%= current_user.fullname %>
+				      	<%= current_user.firstname %>'s Cameras
                 <i class="fa fa-angle-down"></i>
               </span>
             </a>
@@ -36,12 +32,6 @@
             </ul>
           </li>
 
-      <div class="menu-title">
-      <a href="/">My Cameras</a>
-        <a href="/cameras/new" data-toggle="tooltip" class="pull-right" data-placement="bottom" title="Add a Camera">
-          <i class="icon icon-plus"></i>
-        </a>
-     </div>
       <li>
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
@@ -52,6 +42,11 @@
             </li>
           <% end %>
         </ul>
+      </li>
+      <li class="<%= is_active?("/cameras/new") %>">
+        <a href="/cameras/new">
+          <span class="title">Add a Camera</span>
+        </a>
       </li>
       <li class="<%= is_active?("/public/cameras") %>">
         <a href="/public/cameras">
@@ -91,7 +86,7 @@
 
 <div class="cbp-spmenu-push">
   <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-    <h3>Menu</h3>
+
     <ul>
       <li>
         <a href="/dev">API Docs</a>

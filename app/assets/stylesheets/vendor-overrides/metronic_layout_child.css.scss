@@ -670,7 +670,7 @@ Page content
   background-color: #ffffff;
 }
 #camera-single {
-  background-color: $secondary-grey;
+  background-color: $white;
 }
 #add-ip {
   background-color: $secondary-grey;
@@ -697,14 +697,20 @@ Page content
   background: #fafafa;
   padding: 20px;
 }
+
+.portlet.solid > .portlet-title {
+  border-bottom: 1px solid $main-grey;
+}
 .portlet > .portlet-title > .caption {
   margin-top: 3px;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border:none;
-  border-bottom:1px solid $white;
-  background-color: $white;
+  border-bottom:1px solid $main-color;
+  background-color: transparent;
+  color:$main-color;
 }
+
 #camera-single .tabbable-custom > .nav-tabs > li > a {
   color:#444444;
 }

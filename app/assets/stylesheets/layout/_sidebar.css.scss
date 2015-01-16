@@ -2,11 +2,11 @@
 
 }
 .evercam-e {
-  margin: 5px 10px 0px 19px;
+  margin: 12px 5px 0px 19px;
   float: left;
 }
 .evercam-e img {
-  max-height: 40px;
+  max-height: 21px;
 }
 .dashboard-title a {
   color: $white;
@@ -15,8 +15,8 @@
   color: $white;
 }
 .dashboard-title {
-  font-size: 17px;
-  font-family: $bold-family;
+  font-size: 16px;
+  font-family: $regular-family;
   padding-top: 14px;
   padding-bottom: 12px;
 }
@@ -173,7 +173,7 @@ li span {
 
 /*SUB MENU */
 .page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 0px 0px 0px 0px;
+  margin: 7px 0px 0px 0px;
   padding-bottom: 8px;
 }
 @media (max-width: 480px) {

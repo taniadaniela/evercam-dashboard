@@ -5,7 +5,42 @@
 /*/////////////////////
 //CAMERA INDEX PAGE
 /////////////////////*/
+.camera-title {
+  text-align: center;
+}
+.center-tabs {
+  margin: 0 auto;
+}
+.center-tabs .nav-tabs {
+  height: 44px;
+  text-align: center;
+}
+.center-tabs .nav-tabs li {
+  display: inline-block;
+  float: none;
+  margin: 0em;
+}
+.nav-tabs,
+.nav-pills {
+  margin-bottom: 5px;
+  margin-top: 8px;
+}
+.nav-tabs {
+border-bottom: 1px solid #e5e5e5;
+}
+.nav-tabs li a {
+  color: #333333;
+}
+.nav-tabs li a:hover, .nav-tabs li a:active  {
+  color: $main-color;
+}
+.nav-tabs > li > a:hover {
+  border:1px solid transparent;
+}
 
+.tabbable-custom > .tab-content {
+  border: none;
+}
 #camera-index{
   padding:0;
 }
@@ -159,9 +194,6 @@ ul.scroll-menu {
   /* .camera-switch {
        display: none;
    }*/
-  .online-status {
-    margin-top: 10px;
-  }
 }
 @media screen and (max-width: 480px) {
   .online-status {
@@ -194,3 +226,5 @@ ul.scroll-menu {
   from {-moz-transform: rotate(360deg);}
   to {-moz-transform: rotate(0deg);}
 }
+
+body    {overflow-y:scroll;}

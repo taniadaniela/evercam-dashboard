@@ -31,6 +31,7 @@ gem 'rails-assets-bootstrap-datepicker', '~> 1.3.1'
 gem 'rails-assets-bootbox', '~> 4.3.0'
 gem 'rails-assets-bootstrap-tabdrop', '~> 1.0.0'
 gem 'rails-assets-iCheck', '~> 1.0.2'
+gem 'rails-assets-jquery.browser', '~> 0.0.7'
 
 gem 'pg'
 gem 'sequel'

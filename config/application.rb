@@ -38,6 +38,7 @@ module EvercamDashboard
     config.assets.precompile += %w[
       admin/admin.css
       views/widgets/widget.css
+      swagger.js
       swagger.css
     ]
   end

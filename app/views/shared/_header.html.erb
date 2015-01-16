@@ -13,7 +13,7 @@
     <div class="nav-title pull-left">
       <a href="/cameras/new" data-toggle="tooltip" data-placement="bottom" title="Add a Camera" title="Add Camera"><i class="icon icon-plus"></i></a>
       <a href="/dev" data-toggle="tooltip" data-placement="bottom" title="Developer" title="Developer" class="toggle-sidebar"><i class="icon icon-briefcase"></i></a>
-      <% if params[:action] == 'index' %>
+      <% if params[:action] == 'index' && params[:controller] != 'public' %>
         <a data-toggle="tooltip" data-placement="bottom" title="Refresh Cameras" class="refresh-images" title="Refresh Cameras"><i class="icon icon-refresh"></i></a>
       <% end %>
     </div>

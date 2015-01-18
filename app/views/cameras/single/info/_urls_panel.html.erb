@@ -44,7 +44,7 @@
           </td>
           <td>
             <span id="public-short-link">
-              <%= link_to "https://api.evercam.io/v1/cameras/#{@camera['id']}/snapshot.jpg", "https://api.evercam.io:443/v1/cameras/#{@camera['id']}/snapshot.jpg", target: '_blank', :only_path => false %>
+              <%= link_to "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg", "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg", target: '_blank', :only_path => false %>
             </span>
           </td>
         </tr>

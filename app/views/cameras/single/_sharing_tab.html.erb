@@ -56,14 +56,16 @@
         <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
         <div class="row">
           <div class="col-md-8">
-          <% if @camera_shares %>
-            <% @camera_shares.each do |share| %>
+
               <select class="form-control">
                 <option value="one">Select a new owner...</option>
-                <option id="new_owner_email" name="new_owner_email" value="<%= @owner_email %>"><%= share["email"] %></option>
+                <% if @camera_shares %>
+                  <% @camera_shares.each do |share| %>
+                   <option id="new_owner_email" name="new_owner_email" value="<%= @owner_email %>"><%= share["email"] %></option>
+                  <% end %>
+                <% end %>
               </select>
-            <% end %>
-          <% end %>
+
           </div>
         </div>
       </div>

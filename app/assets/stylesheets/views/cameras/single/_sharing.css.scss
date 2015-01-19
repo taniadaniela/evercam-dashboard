@@ -49,11 +49,9 @@ input#new_owner_email {
 }
 #sharing .radio-inline{
   padding-left: 0;
-  height: 30px;
+  height: 36px;
 }
-#change_owner2 .input-group {
-  margin-left: -17px;
-}
+
 .table-bordered-top {
   border-bottom:1px solid $main-grey;
 }
@@ -87,6 +85,11 @@ span.delete-share-control:hover, span.delete-share-request-control:hover {
 #sharing .form-group {
   margin-bottom: 0;
 }
+#myModal .form-group {
+  margin-left: -16px;
+  margin-top: 10px;
+}
+
 .glyphicon-remove {
   margin-right: 5px;
 }

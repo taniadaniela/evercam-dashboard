@@ -1,43 +1,4 @@
-<div id="change_owner" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4>Transfer Camera Ownership</h4>
-      </div>
-      <div class="modal-body">
-        <p class="text-left">
-          Enter the user name or email address of the Evercam user that you want to transfer ownership of this camera to
-          in the field below.
-        <p>
-          <strong>
-            Note that once you click submit you will no longer be the owner of the camera and may lose all rights to the
-            camera and associated artifacts.
-          </strong>
-        </p>
-        </p>
-        <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
-        <input type="text" id="new_owner_email" name="new_owner_email" placeholder="Enter New Owners Email Address">
-        <input type="hidden" id="change_owner_camera_id" name="camera-id" value="<%= @camera['id'] %>">
-        <br/>
-      </div>
-      <div class="modal-footer">
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="btn-toolbar pull-left">
-              <div class="btn-group">
-                <button type="button" id="submit_change_owner_button" class="btn btn-danger">Submit</button>
-              </div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <div class="row">
   <div class="col-md-12">
@@ -46,14 +7,14 @@
        <div class="panel-section">
           <div class="panel-description col-md-4">
             <% if @share.nil? %>
-              <h5>Delete Camera</h5>
+              <h5 class="red">Delete Camera</h5>
               <p class="grey">This will delete the camera from Evercam and everything associated with it.</p>
             <% else %>
               <h5>Remove Camera</h5>
               <p class="grey">This will remove the camera from your dashboard. It will not delete it as user <span class="bold"><%= @camera['owner'] %></span> owns the camera.</p>
             <% end %>
           </div>
-          <div class="panel-content col-md-8">
+          <div class="panel-content col-md-8 margin-top-10">
             <button id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" role="button" data-size="xl" data-style="expand-left">
               <% if @share.nil? %>Delete<% else %>Remove<% end %>
             </button>
@@ -61,7 +22,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-body">
-                    <div class="col-md-12 margin-top-10">
+                    <div class="col-md-12">
                       <% if @share.nil? %>
                         <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
                       <% else %>
@@ -89,18 +50,34 @@
       <li class="list-group-item">
         <div class="col-md-4">
           <h5>Transfer Ownership</h5>
-          <p class="grey">Transfer Ownership of camera to another Evercam user.</p>
+          <p class="grey">You can transfer ownership to a user who you are already sharing the camera with.</p>
         </div>
         <div class="col-md-8">
-          <button id="transfer" data-toggle="modal" data-target="#change_owner" class="btn btn-primary" role="button" data-size="xl">
-            Transfer
-          </button>
+          <% if @camera_shares %>
+            <% @camera_shares.each do |share| %>
+            <div class="row">
+              <div class="col-md-6">
+                <select class="form-control">
+                  <option value="one">Select a new owner...</option>
+                  <option id="new_owner_email" name="new_owner_email" value="<%= @owner_email %>"><%= share["email"] %></option>
+                </select>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+
+            <div class="row margin-top-10">
+              <div class="col-md-6">
+                <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
+                <button type="button" id="submit_change_owner_button" class="btn btn-default">Transfer</button>
+              </div>
+            </div>
         </div>
-      </li>
+    </li>
       <% end %>
       <li class="list-group-item">
         <div class="col-md-4">
-          Notifications
+          <h5>Notifications</h5>
           <p class="grey">Coming soon...</p>
         </div>
         <div class="col-md-8">

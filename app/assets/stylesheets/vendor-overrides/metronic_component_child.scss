@@ -9,6 +9,9 @@ body {
   font-size: 16px;
   direction: ltr;
 }
+input, select, button {
+  border-radius: 2px !important;
+}
 /***
 General typography
 ***/

@@ -37,13 +37,52 @@
     </div>
   </div>
 </div>
-
+<div id="change_owner2" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Transfer Camera Ownership</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-left">
+          Enter the user name or email address of the Evercam user that you want to transfer ownership of this camera to
+          in the field below.
+        <p>
+          <strong>
+            Note that once you click submit you will no longer be the owner of the camera and may lose all rights to the
+            camera and associated artifacts.
+          </strong>
+        </p>
+        </p>
+        <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
+        <input type="text" id="new_owner_email" name="new_owner_email" placeholder="Enter New Owners Email Address">
+        <input type="hidden" id="change_owner_camera_id" name="camera-id" value="<%= @camera['id'] %>">
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="btn-toolbar pull-left">
+              <div class="btn-group">
+                <button type="button" id="submit_change_owner_button" class="btn btn-danger">Submit</button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="row">
   <div class="col-md-12">
     <div class="sharing-title">
-      <h5>Who has access: </h5>
+      <span class="bold">Who has access: </span>
     </div>
     <% styling = 'display: none;' %>
     <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
@@ -65,7 +104,7 @@
     <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
       <p>
         <i class="icon-users"></i>
-        Only specific people can access this camera
+        Only specific users (listed below) can access this camera
         <small> - Is Public: [No] &amp; Discoverable: [No]</small>
         <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
       </p>
@@ -74,18 +113,19 @@
     <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
       <tbody>
       <tr>
-        <td>
+        <td class="owner-email">
           <%= @owner_email %>
           <% if @camera['owner'] == current_user.username %>
             <small>(you)</small>
           <% end %></td>
         </td>
-        <td>Is Owner
+        <td class="is-owner">Is Owner</td>
         <td></td>
         <td>
           <% if @camera['owner'] == current_user.username %>
-            <a href="#settings">
-              Transfer</a>
+            <a href="#" id="transfer" data-toggle="modal" data-target="#change_owner2">
+              Transfer
+            </a>
           <% end %></td>
         </td></td>
       </tr>
@@ -169,11 +209,14 @@
 
 <div class="row form-horizontal margin-top-10">
   <div class="col-md-12">
+    <div class="sharing-title">
+      <span class="bold">Share Camera with:</span>
+    </div>
     <div class="add-user">
       <table class="table table-borderless">
         <tr>
           <td class="col-lg-4">
-            <p class="share">Share camera with</p>
+
 
             <div class="email-input">
               <div class="input-group">

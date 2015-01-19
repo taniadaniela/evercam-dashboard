@@ -25,18 +25,18 @@
       </li>
       <li class="<%= is_active?("/cameras/new") %>">
         <a href="/cameras/new">
-          <span class="title">Add a Camera</span>
+          <span class="title">Add a Camera</span><i class="icon-plus pull-right"></i>
         </a>
       </li>
       <li class="<%= is_active?("/public/cameras") %>">
         <a href="/public/cameras">
-          <span class="title">Public Cameras</span>
+          <span class="title">Public Cameras</span><i class="icon-pointer pull-right"></i>
         </a>
       </li>
 
       <li class="<%= is_active?("/dev") %> toggle-sidebar">
         <a>
-          <span class="title">Developer</span>
+          <span class="title">Developer</span><i class="icon-wrench pull-right"></i>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
           <li>
@@ -61,10 +61,18 @@
         </ul>
       </li>
         <li>
-          <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+          <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">
+            <span class="title">User Settings</span><i class="icon-settings pull-right"></i>
+          </a>
         </li>
-        <li><a href="javascript:Intercom('show');">Support</a></li>
-        <li><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+        <li>
+          <a href="javascript:Intercom('show');">
+            <span class="title">Support</span><i class="icon-support pull-right"></i>
+          </a>
+
+        </li>
+        <li>
+          <%= link_to "Sign Out", signout_path, method: "delete", class: "" %></li>
 
     </ul>
 

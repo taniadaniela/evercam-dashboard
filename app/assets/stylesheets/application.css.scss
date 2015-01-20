@@ -24,6 +24,10 @@
 @import "base/fonts";
 @import "base/glyphicons";
 
+@import "vendor-overrides/metronic_component_child";
+@import "vendor-overrides/metronic_layout_child";
+@import "vendor-overrides/datepicker_overrides";
+
 @import "layout/_header";
 @import "layout/_sidebar";
 
@@ -33,10 +37,6 @@
 @import "components/_forms";
 
 @import "style";
-
-@import "vendor-overrides/metronic_component_child";
-@import "vendor-overrides/metronic_layout_child";
-@import "vendor-overrides/datepicker_overrides";
 
 @import "views/cameras/cameras";
 @import "views/cameras/single";

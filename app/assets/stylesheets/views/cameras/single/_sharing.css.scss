@@ -60,10 +60,10 @@
 .delete-share-control {
   cursor: pointer;
 }
-span.delete-share-control, span.delete-share-request-control {
+span.delete-share-control, span.delete-share-request-control, span.resend-share-request {
   color:$main-color;
 }
-span.delete-share-control:hover, span.delete-share-request-control:hover {
+span.delete-share-control:hover, span.delete-share-request-control:hover, span.resend-share-request:hover {
   color:#2a6496;
 }
 
@@ -78,7 +78,7 @@ span.delete-share-control:hover, span.delete-share-request-control:hover {
 .glyphicon-remove {
   margin-right: 5px;
 }
-.delete-share-request-control {
+.delete-share-request-control, .resend-share-request {
   margin-top: 4px;
   cursor: pointer;
 }

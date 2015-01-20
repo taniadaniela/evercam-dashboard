@@ -8,9 +8,12 @@
 }
 
 /* settings-tab */
+.list-group-item h5 {
+  margin-top: 0px;
+}
 .list-group-lg>.list-group-item {
   padding-bottom: 30px;
-  padding-top: 30px;
+  padding-top: 35px;
   border-bottom: 1px solid #e5e5e5;
   overflow: auto;
 }

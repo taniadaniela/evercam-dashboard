@@ -1,5 +1,26 @@
-.sidebar-header {
-
+.logo {
+  float: left;
+}
+.desktop-user img {
+  max-width: 20px;
+  margin-top: 9px;
+  margin-left: 21px;
+  margin-right: 9px;
+}
+.page-sidebar i.icon-login {
+  color: #ececec;
+  font-size: 16px;
+  position: relative;
+  left: 19px;
+  top: 8px;
+  float: left;
+  margin-right: 28px;
+}
+.support {
+  padding-left: 4px;
+}
+.signout {
+  padding-left: 10px;
 }
 .evercam-e-sidebar {
   margin: 12px 5px 0px 19px;

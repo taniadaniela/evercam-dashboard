@@ -20,9 +20,20 @@
   -ms-user-select: none;
   user-select: none;
 }
+#sharing_list_table .form-control {
+  border: none;
+  color:$main-color;
+  background-color: $white;
+  font-size: 15px;
+}
+
 #change_owner input {
   width: 300px;
   margin: 10px 0 0;
+}
+input#new_owner_email {
+  min-width: 250px;
+  font-size: 15px;
 }
 .note-link {
   font-size: 12px;
@@ -38,10 +49,9 @@
 }
 #sharing .radio-inline{
   padding-left: 0;
+  height: 36px;
 }
-#sharing div.radio {
-  margin-top: 5px;
-}
+
 .table-bordered-top {
   border-bottom:1px solid $main-grey;
 }
@@ -75,6 +85,11 @@ span.delete-share-control:hover, span.delete-share-request-control:hover {
 #sharing .form-group {
   margin-bottom: 0;
 }
+#myModal .form-group {
+  margin-left: -16px;
+  margin-top: 10px;
+}
+
 .glyphicon-remove {
   margin-right: 5px;
 }
@@ -110,12 +125,9 @@ span.delete-share-control:hover, span.delete-share-request-control:hover {
 .modal-body {
   overflow: auto;
 }
-.sharing-title {
-  border-bottom: 1px solid $main-grey;
-}
+
 .desc {
   padding: 18px 5px 10px;
-  background-color: $secondary-grey;
 }
 #sharing i {
   margin-right: 4px;
@@ -123,8 +135,12 @@ span.delete-share-control:hover, span.delete-share-request-control:hover {
 .change {
   margin-left: 30px;
 }
-
-
+td.owner-email {
+  height: 51px;
+}
+td.is-owner {
+ padding-left: 16px !important;
+}
 td .share-camera {
   padding-left: 5px;
 }

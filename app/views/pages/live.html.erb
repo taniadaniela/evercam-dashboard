@@ -1,2 +1,2 @@
 <div id='ec-container' style='width: 100%'></div>
-<script src='/live.view.widget.js?refresh=1&camera=<%= @camera['id'] %>&private=<%= @camera["is_public"] ? 'false' : 'true' %>' async></script>
+<script src='/live.view.widget.js?refresh=1&camera=<%= @camera['id'] %>&private=<%= (!@camera["is_public"]).to_s %>' async></script>

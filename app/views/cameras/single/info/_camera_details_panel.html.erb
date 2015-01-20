@@ -147,7 +147,7 @@
       <% end %>
       <tr>
         <td class="col-md-3">Timezone</td>
-        <td class="col-md-9"><%= ActiveSupport::TimeZone.new(@camera['timezone']) %></td>
+        <td class="col-md-9"><%= ActiveSupport::TimeZone.new(ActiveSupport::TimeZone::MAPPING.key(@camera['timezone'])) %></td>
       </tr>
       </table>
       </div>

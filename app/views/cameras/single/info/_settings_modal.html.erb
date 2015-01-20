@@ -130,8 +130,11 @@
                         </td>
                         <td>
                           <select id="camera-timezone" name="camera-timezone" class="form-control makeEditable">
-                            <option><%= ActiveSupport::TimeZone.new(@camera['timezone']) %></option>
-                            <%= time_zone_options_for_select(selected = ActiveSupport::TimeZone.new(@camera['timezone']).name, priority_zones = nil, model = ::ActiveSupport::TimeZone) %>
+                            <% ActiveSupport::TimeZone.all.each do |time_zone| %>
+                              <option value="<%= time_zone.tzinfo.name %>" <%= "selected" if time_zone.tzinfo.name == @camera['timezone'] %>>
+                                <%= time_zone %>
+                              </option>
+                            <% end %>
                           </select>
                         </td>
                       </tr>

@@ -55,11 +55,11 @@
         <div class="col-md-8">
             <div class="row">
               <div class="col-md-6">
-                <select class="form-control">
+                <select id="settings_new_owner_email" name="settings_new_owner_email" class="form-control">
                   <option value="one">Select a new owner...</option>
                   <% if @camera_shares %>
                     <% @camera_shares.each do |share| %>
-                  <option id="new_owner_email" name="new_owner_email" value="<%= @owner_email %>"><%= share["email"] %></option>
+                      <option value="<%= share["email"] %>"><%= share["email"] %></option>
                     <% end %>
                   <% end %>
                 </select>
@@ -69,7 +69,7 @@
             <div class="row margin-top-10">
               <div class="col-md-6">
                 <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
-                <button type="button" id="submit_change_owner_button" class="btn btn-default">Transfer</button>
+                <button type="button" id="submit_change_owner_button" camera_id="<%= @camera["id"] %>" data-model="setting" class="btn btn-default change_camera_ownership">Transfer</button>
               </div>
             </div>
         </div>

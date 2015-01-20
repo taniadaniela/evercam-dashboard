@@ -32,6 +32,9 @@ onChangeOwnerSubmitClicked = (event) ->
    event.preventDefault()
    field  = $('#new_owner_email')
    camera_id = $(this).attr("camera_id")
+   current_tab = $(this).attr("data-model")
+   if current_tab is "setting"
+     field  = $('#settings_new_owner_email')
    if field.val() != ''
       dialog = $('#change_owner_dialog')
       dialog.modal('hide')
@@ -46,8 +49,11 @@ onChangeOwnerSubmitClicked = (event) ->
             location = window.location
             location.assign(location.protocol + "//" + location.host)
          else
-            setChangeOwnerDialogError(data.message)
-            showChangeOwnerDialog(false)            
+           if current_tab is "setting"
+              Notification.show data.message
+           else
+              setChangeOwnerDialogError(data.message)
+              showChangeOwnerDialog(false)
          true
       data =
          camera_id: camera_id
@@ -258,7 +264,7 @@ initNotification = ->
 window.initializeInfoTab = ->
   $('.open-sharing').click(showSharingTab)
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
-  $('#submit_change_owner_button').click(onChangeOwnerSubmitClicked)
+  $('.change_camera_ownership').click(onChangeOwnerSubmitClicked)
 
   if Evercam.Camera.location.lng is ""
     $("#info-location").replaceWith "<p>Not set</p>"

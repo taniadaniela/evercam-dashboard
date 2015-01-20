@@ -31,6 +31,7 @@ setChangeOwnerDialogError = (message) ->
 onChangeOwnerSubmitClicked = (event) ->
    event.preventDefault()
    field  = $('#new_owner_email')
+   camera_id = $(this).attr("camera_id")
    if field.val() != ''
       dialog = $('#change_owner_dialog')
       dialog.modal('hide')
@@ -49,7 +50,7 @@ onChangeOwnerSubmitClicked = (event) ->
             showChangeOwnerDialog(false)            
          true
       data =
-         camera_id: $('#change_owner_camera_id').val()
+         camera_id: camera_id
          email: field.val()
       settings =
          cache: false

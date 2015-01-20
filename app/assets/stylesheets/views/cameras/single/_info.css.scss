@@ -24,9 +24,7 @@
   margin-bottom: 5px;
   border-bottom: 1px solid $white;
 }
-.edit {
-  transition: all .2s linear;
-}
+
 #info .green {
   margin-top: 3px;
   color:#2ecc71;
@@ -82,15 +80,7 @@
   table-layout: fixed;
   word-wrap: break-word;
 }
-.edit {
-  margin-top: -5px;
-  font-size: 12px;
-  color: black !important;
-  background-color: $main-grey;
-  border-top: 1px solid $white;
-  border-left: 1px solid $white;
-  border-right: 1px solid $white;
-}
+
 .margin-bottom-0 {
   margin-bottom: 0px; /*temp fix*/
 }

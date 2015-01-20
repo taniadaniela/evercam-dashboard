@@ -105,31 +105,6 @@
             </li>
           </ul>
         </div>
-        <div id="deleteModal" class="modal fade">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="col-md-12 margin-top-10">
-                  <% if @share.nil? %>
-                    <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
-                  <% else %>
-                    <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
-                  <% end %>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <div class="col-sm-8">
-                  <% if @share.nil? %>
-                    <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Delete</a>
-                  <% else %>
-                    <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Remove</a>
-                  <% end %>
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div class="tab-content">
           <div id="info" class="tab-pane active">

@@ -4,13 +4,13 @@
 
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
     <ul class="page-sidebar-menu">
-          <li class="desktop-user">
-            <a href="/" class="">
+      <li class="desktop-user">
+        <a href="/" class="">
 					    <span class="username">
 				      	<%= current_user.firstname %>'s Cameras
               </span>
-            </a>
-          </li>
+        </a>
+      </li>
 
       <li>
         <ul class="sub-menu">
@@ -25,18 +25,21 @@
       </li>
       <li class="<%= is_active?("/cameras/new") %>">
         <a href="/cameras/new">
-          <span class="title">Add a Camera</span><i class="icon-plus pull-right"></i>
+          <i class="icon-plus"></i>
+          <span class="title">Add a Camera</span>
         </a>
       </li>
       <li class="<%= is_active?("/public/cameras") %>">
         <a href="/public/cameras">
-          <span class="title">Public Cameras</span><i class="icon-pointer pull-right"></i>
+          <i class="icon-pointer"></i>
+          <span class="title">Public Cameras</span>
         </a>
       </li>
 
       <li class="<%= is_active?("/dev") %> toggle-sidebar">
         <a>
-          <span class="title">Developer</span><i class="icon-wrench pull-right"></i>
+          <i class="icon-briefcase"></i>
+          <span class="title">Developer</span>
         </a>
         <ul id="mobile-dev-menu" class="sub-menu">
           <li>
@@ -60,19 +63,21 @@
           </li>
         </ul>
       </li>
-        <li>
-          <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">
-            <span class="title">User Settings</span><i class="icon-settings pull-right"></i>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:Intercom('show');">
-            <span class="title">Support</span><i class="icon-support pull-right"></i>
-          </a>
+      <li>
+        <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">
+          <i class="icon-settings"></i>
+          <span class="title">User Settings</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:Intercom('show');">
+          <i class="icon-support"></i><span class="support title">Support</span>
+        </a>
 
-        </li>
-        <li>
-          <%= link_to "Sign Out", signout_path, method: "delete", class: "" %></li>
+      </li>
+      <li>
+        <i class="icon-login"></i><%= link_to "Sign Out", signout_path, method: "delete", class: "signout" %>
+      </li>
 
     </ul>
 

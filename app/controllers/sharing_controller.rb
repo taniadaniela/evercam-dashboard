@@ -65,19 +65,12 @@ class SharingController < ApplicationController
 
    def resend_share_request
      result = {success: true}
-     @snapshot = nil
      begin
        api = get_evercam_api
        camera_id = params[:camera_id]
        user = User.where(Sequel.expr(username: params[:user_name])).first
        @camera = api.get_camera(camera_id, true)
-       if @camera["is_online"]
-         response = api.get_latest_snapshot(camera_id, true)
-         unless response.nil? && response['data'].nil?
-           @snapshot = URI::Data.new(response['data'])
-         end
-       end
-       UserMailer.sign_up_to_share_email(params[:email], "#{@camera["name"]}(#{camera_id})", user, params[:share_request_id], nil).deliver_now
+       UserMailer.sign_up_to_share_email(params[:email], "#{@camera["name"]}(#{camera_id})", user, params[:share_request_id], @camera['thumbnail']).deliver_now
      rescue => error
        env["airbrake.error_id"] = notify_airbrake(error)
        Rails.logger.warn "Exception caught resending camera share request.\n"\

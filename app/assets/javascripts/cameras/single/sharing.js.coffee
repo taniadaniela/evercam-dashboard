@@ -109,7 +109,7 @@ addSharingCameraRow = (details) ->
     inputDelete = $('<input type="button" value="REVOKE">')
     inputDelete.addClass("button raised grey delete-btn delete-share-request-control")
     inputDelete.attr("camera_id", details["camera_id"])
-    inputDelete.attr("share_id", details["share_id"])
+    inputDelete.attr("share_request_id", details["share_id"])
     inputDelete.attr("email", details["email"])
     inputDelete.click(onDeleteShareRequestClicked)
     divButtons.append(inputDelete)
@@ -230,6 +230,7 @@ onDeleteShareClicked = (event) ->
       onComplete = ->
         row.remove()
       row.fadeOut(onComplete)
+      showError("Camera share deleted successfully.")
     else
       showError("Delete of camera shared failed. Please contact support.")
     true
@@ -260,6 +261,7 @@ onDeleteShareRequestClicked = (event) ->
       onComplete = ->
         row.remove()
       row.fadeOut(onComplete)
+      showError("Camera share request deleted successfully.")
     else
       showError("Delete of share request failed. Please contact support.")
     true

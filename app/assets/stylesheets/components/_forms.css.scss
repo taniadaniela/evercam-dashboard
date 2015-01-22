@@ -1,0 +1,13 @@
+.form-control[disabled] {
+  background-color: $white;
+  border:none;
+  background-image: none !Important;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}
+.form-control[disabled] select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}

@@ -3,7 +3,7 @@
     <div class="portlet-title">
       <div class="caption">Location</div>
       <% if @has_edit_rights %>
-        <div class="pull-right edit btn btn-primary edit-location" id='edit-location'><i class="fa fa-pencil"></i></div>
+        <div class="btn btn-edit edit-location" id='edit-location'><i class="fa fa-pencil"></i></div>
       <% end %>
     </div>
     <div class="portlet-body">
@@ -23,7 +23,7 @@
 
           <div id="location-settings" class="row" style="display: none;">
             <div>
-              <div class="col-md-8 margin-top-20">
+              <div class="col-md-8 margin-top-10">
                 <% if @has_edit_rights %>
                   <span><strong>New location</strong></span>
                   <table class="table table-fixed table-borderless">
@@ -40,7 +40,7 @@
                       </td>
                     </tr>
                   </table>
-                  <div class="save-settings">
+                  <div class="col-md-offset-4 save-settings">
                     <div class='pull-left form-group'><label class="control-label" for="add-button"></label>
                       <a id="save-map-location" class="btn btn-primary margin-right-10">Save</a>
                     </div>

@@ -4,17 +4,17 @@
 .desktop-user img {
   max-width: 20px;
   margin-top: 9px;
-  margin-left: 21px;
+  margin-left: 13px;
   margin-right: 9px;
 }
 .page-sidebar i.icon-login {
   color: #ececec;
   font-size: 16px;
   position: relative;
-  left: 19px;
+  left: 12px;
   top: 8px;
   float: left;
-  margin-right: 28px;
+  margin-right: 22px;
 }
 .support {
   padding-left: 4px;
@@ -83,7 +83,9 @@ i.icon.icon-plus {
   margin-left: 0px;
 }
 .sidebar-offline a {
- color: lighten($evercam-red, 10%) !important;
+  color: lighten($evercam-red, 5%) !important;
+  opacity: .60;
+  text-decoration: line-through !important;
 }
 .page-sidebar-menu {
   z-index: 10000 !important;
@@ -191,11 +193,14 @@ li span {
 .merge-left {
   margin-left:0px !important;
 }
-
+.page-sidebar .page-sidebar-menu>li>a {
+  padding: 9px 0px;
+}
 /*SUB MENU */
 .page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 7px 0px 0px 0px;
+  margin: -14px 0 0 19px;
   padding-bottom: 8px;
+  padding-top: 19px;
 }
 @media (max-width: 990px) {
   .page-sidebar .page-sidebar-menu .sub-menu {
@@ -233,3 +238,4 @@ li span {
     display: none;
   }
 }
+

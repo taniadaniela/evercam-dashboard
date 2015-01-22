@@ -71,7 +71,7 @@ addSharingCameraRow = (details) ->
     divBox2.append($('<div>', {class: "arrow"}))
     divBox2.append($('<div>', {class: "arrow-border"}))
     divMessage = $('<div>', {class: "margin-bottom-10"})
-    divMessage.append($(document.createTextNode("Are you sure to delete this share?")))
+    divMessage.append($(document.createTextNode("Are you sure you want to delete this share?")))
     divBox2.append(divMessage)
     divButtons = $('<div>', {class: "margin-bottom-10"})
     inputDelete = $('<input type="button" value="DELETE">')

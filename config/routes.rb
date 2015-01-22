@@ -73,6 +73,7 @@ EvercamDashboard::Application.routes.draw do
     delete '/' => 'sharing#delete'
     post '/camera/:id' => 'sharing#update_camera'
     delete '/request' => 'sharing#cancel_share_request'
+    post '/request/resend' => 'sharing#resend_share_request'
     patch '/:id' => 'sharing#update_share'
     patch '/request/:id' => 'sharing#update_share_request'
   end

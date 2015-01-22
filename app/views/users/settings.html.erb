@@ -1,97 +1,104 @@
 <% provide(:title, "Evercam: User Settings") %>
+<div id="user-settings">
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <div class="row">
 
-<div class="page-content-wrapper">
-  <div class="page-content" id="user-settings">
-    <div class="row">
-      <div class="col-md-5 user-settings-portal">
-        <div class="portlet">
-          <div class="portlet-title">
-            <div class="caption">
-              User Settings
+        <div class="section-header">
+         <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <div class="col-xs-12 col-md-4 col-lg-3">
+              <h3 class="page-title">User Settings</h3>
+              <div id="show" class="btn btn-edit makeEditable"><i class="fa fa-pencil"></i></div>
             </div>
-            <div id="show" class="pull-right edit btn btn-primary makeEditable"><i class="fa fa-pencil"></i></div>
           </div>
+         </div>
+        </div>
 
-          <div class="portlet-body form">
-            <form id="userProfile" role="form" method="post" class="form-horizontal">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+        <div class="col-md-5 user-settings-portal">
+          <div class="portlet">
 
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="user-username">Username</label>
+            <div class="portlet-body form">
+              <form id="userProfile" role="form" method="post" class="form-horizontal">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
-                <div class="col-md-7" id="some-div">
-                  <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" readonly="readonly" disabled placeholder="">
-                <span id="some-element" class="help-inline">
-											Username can't be changed.</span>
-                </div>
-              </div>
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="user-username">Username</label>
 
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="user-firstname">First Name</label>
-
-                <div class="col-md-6">
-                  <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control input-medium" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="user-lastname">Last Name</label>
-
-                <div class="col-md-6">
-                  <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control input-medium" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="email">Email</label>
-
-                <div class="col-md-7">
-                  <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
-                </div>
-
-              </div>
-
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="country">Country</label>
-
-                <div class="col-md-6">
-                  <select id="country" readonly="readonly" name="country" class="input-medium form-control is-required">
-                    <% @countries.each do |c| %>
-                      <option value="<%= c.iso3166_a2 -%>"
-                              <% if c == current_user.country %>selected="selected"
-                              <% end %>>
-                        <%= c.name -%>
-                      </option>
-                    <% end %>
-                  </select>
-                </div>
-              </div>
-
-              <div class="margin-top-20">
-                <div class="row">
-                  <div class="col-lg-offset-4 col-md-12">
-                    <p style="display: none;">
-                      <input type="submit" id="hide" class="btn blue" value="Update" name="Save"/>
-                      <input type="reset" id="hide-2" class="makeNonEditable btn btn-default cancel" value="Cancel" name="Reset"/>
-                    </p>
+                  <div class="col-md-7" id="username-show">
+                    <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" readonly="readonly" disabled placeholder="">
+                  <span id="username" class="help-inline">
+                        Username can't be changed.</span>
                   </div>
                 </div>
-                <div class="col-md-3"></div>
-              </div>
 
-            </form>
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="user-firstname">First Name</label>
+
+                  <div class="col-md-6">
+                    <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control input-medium" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="user-lastname">Last Name</label>
+
+                  <div class="col-md-6">
+                    <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control input-medium" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="email">Email</label>
+
+                  <div class="col-md-7">
+                    <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium input-inline" id="email" name="email" placeholder="Enter email">
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="country">Country</label>
+
+                  <div class="col-md-6">
+                    <select id="country" disabled="disabled" name="country" class="input-medium form-control is-required">
+                      <% @countries.each do |c| %>
+                        <option value="<%= c.iso3166_a2 -%>"
+                                <% if c == current_user.country %>selected="selected"
+                                <% end %>>
+                          <%= c.name -%>
+                        </option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="margin-top-20">
+                  <div class="row">
+                    <div class="col-lg-offset-4 col-md-12">
+                      <p style="display: none;">
+                        <input type="submit" id="hide" class="btn blue" value="Update" name="Save"/>
+                        <input type="reset" id="hide-2" class="makeNonEditable btn btn-default cancel" value="Cancel" name="Reset"/>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-3"></div>
+                </div>
+
+              </form>
+            </div>
           </div>
+          <% unless current_user.confirmed_at %>
+            <div class="alert alert-dismissible fade in" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <span>
+                  It looks like your account has not been verified yet. <a href="/users/<%= current_user.username -%>/resend" class="resend-email"><br>
+                  Resend verification email.</a>
+                </span>
+            </div>
+          <% end %>
         </div>
-        <% unless current_user.confirmed_at %>
-          <div class="alert alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-              <span>
-                It looks like your account has not been verified yet. <a href="/users/<%= current_user.username -%>/resend" class="resend-email"><br>
-                Resend verification email.</a>
-              </span>
-          </div>
-        <% end %>
       </div>
     </div>
   </div>
@@ -111,12 +118,13 @@
 
   $(".makeNonEditable").click(function () {
     $('input:text').attr("readonly", "readonly");
-    $('select').attr("readonly", "readonly");
+    $('select').attr("disabled", "disabled");
   });
   $(".makeEditable").click(function () {
     $('input:text').removeAttr("readonly");
-    $('select').removeAttr("readonly");
+    $('select').removeAttr("disabled");
   });
+
 
   $(document).ready(function () {
     $("#hide").click(function () {

@@ -86,12 +86,38 @@ addSharingCameraRow = (details) ->
     divPopup.append(divCollapsePopup)
     div.append(divPopup)
   else
-    span.addClass("delete-share-request-control")
     span.append($(document.createTextNode("Revoke")))
-    span.click(onDeleteShareRequestClicked)
-    span.attr("email", details["email"])
-    span.attr("camera_id", details["camera_id"])
-    div.append(span)
+    divPopup.append(span)
+    spanLinkSeperator = $('<span>')
+    spanLinkSeperator.append($(document.createTextNode(" | ")))
+    divPopup.append(spanLinkSeperator)
+    spanResend = $('<span>', {class: "resend-share-request"})
+    spanResend.append($(document.createTextNode("Resend")))
+    spanResend.attr("camera_id", details["camera_id"])
+    spanResend.attr("share_id", details["share_id"])
+    spanResend.attr("email", details["email"])
+    spanResend.click(resendCameraShareRequest)
+    divPopup.append(spanResend)
+    divCollapsePopup = $('<div>', {class: "collapse-popup"})
+    divBox2 = $('<div>', {class: "box-new"})
+    divBox2.append($('<div>', {class: "arrow"}))
+    divBox2.append($('<div>', {class: "arrow-border"}))
+    divMessage = $('<div>', {class: "margin-bottom-10"})
+    divMessage.append($(document.createTextNode("Are you sure to revoke this share?")))
+    divBox2.append(divMessage)
+    divButtons = $('<div>', {class: "margin-bottom-10"})
+    inputDelete = $('<input type="button" value="REVOKE">')
+    inputDelete.addClass("button raised grey delete-btn delete-share-request-control")
+    inputDelete.attr("camera_id", details["camera_id"])
+    inputDelete.attr("share_request_id", details["share_id"])
+    inputDelete.attr("email", details["email"])
+    inputDelete.click(onDeleteShareRequestClicked)
+    divButtons.append(inputDelete)
+    divButtons.append('<div class="button delete-btn closepopup raised grey"><div class="text-center" fit>CANCEL</div><paper-ripple fit></paper-ripple></div>')
+    divBox2.append(divButtons)
+    divCollapsePopup.append(divBox2)
+    divPopup.append(divCollapsePopup)
+    div.append(divPopup)
 
   cell.append(div)
   row.append(cell)
@@ -101,6 +127,35 @@ addSharingCameraRow = (details) ->
   row.find('.save').hide()
   row.fadeIn()
   $(".popbox").popbox()
+  true
+
+resendCameraShareRequest = ->
+  control = $(this)
+  data =
+    camera_id: control.attr("camera_id")
+    email: control.attr("email")
+    share_request_id: control.attr("share_request_id")
+    user_name: $("#user_name").val()
+
+  onError = (jqXHR, status, error) ->
+    showError("Failed to resend camera share request.")
+    true
+  onSuccess = (data, status, jqXHR) ->
+    if data.success
+      showFeedback("A notification email has been sent to the specified email address.")
+    else
+      showFeedback(data.message)
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'POST'
+    url: '/share/request/resend'
+  sendAJAXRequest(settings)
   true
 
 onSetCameraAccessClicked = (event) ->
@@ -175,6 +230,7 @@ onDeleteShareClicked = (event) ->
       onComplete = ->
         row.remove()
       row.fadeOut(onComplete)
+      showError("Camera share deleted successfully.")
     else
       showError("Delete of camera shared failed. Please contact support.")
     true
@@ -193,7 +249,7 @@ onDeleteShareClicked = (event) ->
 onDeleteShareRequestClicked = (event) ->
   event.preventDefault()
   control = $(event.currentTarget)
-  row = control.parent().parent().parent()
+  row = $("#row-share-#{control.attr("share_request_id")}")
   data =
     camera_id: control.attr("camera_id")
     email: control.attr("email")
@@ -205,6 +261,7 @@ onDeleteShareRequestClicked = (event) ->
       onComplete = ->
         row.remove()
       row.fadeOut(onComplete)
+      showError("Camera share request deleted successfully.")
     else
       showError("Delete of share request failed. Please contact support.")
     true
@@ -364,6 +421,7 @@ window.initializeSharingTab = ->
   $('#submit_share_button').click(onAddSharingUserClicked)
   $('.update-share-button').click(onSaveShareClicked)
   $('.update-share-request-button').click(onSaveShareRequestClicked)
+  $('.resend-share-request').click(resendCameraShareRequest)
   $('.save').hide()
   $('.reveal').focus(onPermissionsFocus);
   $("input[name$='sharingOptionRadios']").click(onSharingOptionsClicked);

@@ -19,25 +19,36 @@
             <div id="deleteModal" class="modal fade">
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <div class="modal-body">
-                    <div class="col-md-12">
-                      <% if @share.nil? %>
-                        <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
-                      <% else %>
-                        <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
-                      <% end %>
+                  <form action="" method="post">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                    <div class="modal-body">
+                      <div class="col-md-12">
+                        <% if @share.nil? %>
+                          <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                        <% else %>
+                          <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                        <% end %>
+                      </div>
+                      <div class="col-md-12">
+                        <p>Enter your Account password to confirm you want to permanently <% if @share.nil? %>delete<% else %>remove<% end %> this camera</p>
+                        <input id="user-password" name="user-password" type="password" class="form-control">
+                      </div>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <div class="col-sm-8">
-                      <% if @share.nil? %>
-                        <a id="delete-camera-confirm" href="<%= url_for(action: 'delete', id: @camera['id'], share: false) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Delete</a>
-                      <% else %>
-                        <a href="<%= url_for(action: 'delete', id: @camera['id'], share_id: @share['id'], share: true) %>" class="btn btn-danger pull-left" rel="nofollow" role="button" data-method="delete">Remove</a>
-                      <% end %>
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <div class="modal-footer">
+                      <div class="col-sm-8 margin-top-10">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="hidden" id="id" name="id" value="<%= @camera['id'] %>"/>
+                        <% if @share.nil? %>
+                          <input type="hidden" id="share" name="share" value="false"/>
+                        <% else %>
+                          <input type="hidden" id="share_id" name="share_id" value="<%= @share['id'] %>"/>
+                          <input type="hidden" id="share" name="share" value="true"/>
+                        <% end %>
+                        <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left"><% if @share.nil? %>Delete<% else %>Remove<% end %></button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>

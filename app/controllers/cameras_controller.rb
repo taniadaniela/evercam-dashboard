@@ -113,8 +113,8 @@ class CamerasController < ApplicationController
   def delete
     begin
       api = get_evercam_api
-      @user = User.by_login(current_user.username)
-      if !@user.nil? and @user.password == params['user-password']
+      user = User.by_login(current_user.username)
+      if !user.nil? and user.password == params['user-password']
         if [true, "true"].include?(params[:share])
           Rails.logger.debug "Deleting share for camera id '#{params[:id]}'."
           api.delete_camera_share(params[:id], params[:share_id])

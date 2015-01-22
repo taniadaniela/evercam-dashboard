@@ -75,7 +75,7 @@ addSharingCameraRow = (details) ->
     divBox2.append(divMessage)
     divButtons = $('<div>', {class: "margin-bottom-10"})
     inputDelete = $('<input type="button" value="DELETE">')
-    inputDelete.addClass("button btn btn-primary delete-btn delete-share")
+    inputDelete.addClass("button raised grey delete-btn delete-share")
     inputDelete.attr("camera_id", details["camera_id"])
     inputDelete.attr("share_id", details["share_id"])
     inputDelete.click(onDeleteShareClicked)

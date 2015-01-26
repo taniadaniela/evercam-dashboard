@@ -58,6 +58,7 @@
                           <select id="camera-vendor" name="camera-vendor" class="form-control">
                             <option value="">-- Select Make --</option>
                           </select>
+                          <input type="hidden" id="last-selected-vendor" value="<%= @user['camera-vendor'] %>">
                           <% if field_errors["vendor"] %>
                             <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
                           <% end %>
@@ -72,6 +73,7 @@
                           <select id="camera-model" name="camera-model" class="form-control camera-model">
                             <option value="">-- Select Model --</option>
                           </select>
+                          <input type="hidden" id="last-selected-model" value="<%= @user['camera-model'] %>">
                           <% if field_errors["model"] %>
                             <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
                           <% end %>

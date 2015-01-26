@@ -19,6 +19,7 @@ EvercamDashboard::Application.routes.draw do
     get '/', to: redirect('/'), as: :cameras_index
     get '/new' => 'cameras#new'
     post '/new' => 'cameras#create'
+    get '/:id/clone' => 'cameras#new'
     get '/transfer' => 'cameras#transfer'
     get '/:id' => 'cameras#single', as: :cameras_single
     post '/:id' => 'cameras#update'

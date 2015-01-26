@@ -55,6 +55,18 @@
           </div>
        </div>
       </li>
+      <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+      <% if has_edit_right || @camera['owner'] == current_user.username %>
+        <li class="list-group-item">
+          <div class="col-md-4">
+            <h5>Clone Camera</h5>
+            <p class="grey">You can clone this camera's settings here.</p>
+          </div>
+          <div class="panel-content col-md-8 margin-top-10">
+            <a href="/cameras/<%= @camera['id'] %>/clone" class="btn btn-danger">Clone</a>
+          </div>
+        </li>
+      <% end %>
       <% if @camera['owner'] == current_user.username %>
       <li class="list-group-item">
         <div class="col-md-4">
@@ -82,7 +94,7 @@
               </div>
             </div>
         </div>
-    </li>
+      </li>
       <% end %>
       <li class="list-group-item">
         <div class="col-md-4">

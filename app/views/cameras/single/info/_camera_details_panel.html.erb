@@ -29,7 +29,7 @@
           <% if @camera['vendor_name'] != "" %>
             <%= @camera['vendor_name'] %>
           <% else %>
-            <span class="grey">Not specified</span>
+            <span class="grey">Not set</span>
           <% end %>
         </td>
       </tr>
@@ -39,7 +39,7 @@
           <% if @camera['model_name'] != "" %>
             <%= @camera['model_name'] %>
           <% else %>
-            <span class="grey">Not specified</span>
+            <span class="grey">Not set</span>
           <% end %>
         </td>
       </tr>
@@ -50,7 +50,7 @@
             <% if @camera['cam_username'] != "" %>
               <%= @camera['cam_username'] %>
             <% else %>
-              <span class="grey">Not specified</span>
+              <span class="grey">Not set</span>
             <% end %>
           </td>
         </tr>
@@ -60,7 +60,7 @@
             <% if @camera['cam_password'] != "" %>
               <%= @camera['cam_password'] %>
             <% else %>
-              <span class="grey">Not specified</span>
+              <span class="grey">Not set</span>
             <% end %>
           </td>
         </tr>
@@ -78,7 +78,7 @@
             <td class="col-md-9">
               <% port = @camera.deep_fetch('external', 'host') {} %>
               <% if port.blank? %>
-                <span class="grey">Not specified</span>
+                <span class="grey">Not set</span>
               <% else %>
                 <%= @camera.deep_fetch('external', 'host') {} %>
               <% end %>
@@ -89,7 +89,7 @@
             <td>
               <% port = @camera.deep_fetch('external', 'http', 'port') {} %>
               <% if port.blank? %>
-                <span class="grey">Not specified</span>
+                <span class="grey">Not set</span>
               <% else %>
                 <%= @camera.deep_fetch('external', 'http', 'port') {} %>
               <% end %>
@@ -100,7 +100,7 @@
             <td>
               <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
               <% if port.blank? %>
-                <span class="grey">Not specified</span>
+                <span class="grey">Not set</span>
               <% else %>
                 <%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>
               <% end %>
@@ -116,7 +116,7 @@
             <td class="col-md-9">
               <% port = @camera.deep_fetch('internal', 'host') {} %>
               <% if port.blank? %>
-                <span class="grey">Not specified</span>
+                <span class="grey">Not set</span>
               <% else %>
               <%= @camera.deep_fetch('internal', 'host') {} %>
               <% end %>
@@ -127,7 +127,7 @@
             <td>
               <% port = @camera.deep_fetch('internal', 'http', 'port') {} %>
               <% if port.blank? %>
-                <span class="grey">Not specified</span>
+                <span class="grey">Not set</span>
               <% else %>
               <%= @camera.deep_fetch('internal', 'http', 'port') {} %>
               <% end %>
@@ -138,7 +138,7 @@
             <td>
               <% port = @camera.deep_fetch('internal', 'rtsp', 'port') {} %>
               <% if port.blank? %>
-                <span class="grey">Not specified</span>
+                <span class="grey">Not set</span>
               <% else %>
                 <%= @camera.deep_fetch('internal', 'rtsp', 'port') {} %>
               <% end %>

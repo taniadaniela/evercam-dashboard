@@ -48,11 +48,20 @@ fullscreenImage = ->
       else
         $("#live-player-image").css('width','100%')
 
+openPopout = ->
+  $("#link-popout").on "click", ->
+    $("<img/>").attr("src", image_placeholder.src).load( ->
+      window.open("/live/#{Evercam.Camera.id}", "_blank", "width=#{@width}, height=#{@height}, scrollbars=0")
+    ).error ->
+      window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
+  true
+
 window.initializeLiveTab = ->
   image_placeholder = document.getElementById("live-player-image")
   controlButtonEvents()
   fullscreenImage()
   toggleRefresh(window.location.hash)
+  openPopout()
   $('a[data-toggle="tab"]').on "click", ->
     hash = this.href.substr(this.href.indexOf("#"));
     toggleRefresh(hash)

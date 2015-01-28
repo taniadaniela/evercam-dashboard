@@ -35,11 +35,14 @@ loadVendorModels = (vendor_id) ->
 
     models = sortByKey(result.models, "name")
     for model in models
+      selected = if model.id is $("#last-selected-model").val() then 'selected="selected"' else ''
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
       if jpg_url is "unknown"
         jpg_url = ""
-      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}'>#{model.name}</option>")
-    $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
+      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+    if $("#last-selected-model").val() is ''
+      $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
+    $("#last-selected-model").val('')
 
   settings =
     cache: false
@@ -71,7 +74,12 @@ loadVendors = ->
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
     for vendor in vendors
-      $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
+      selected = ''
+      if vendor.id is $("#last-selected-vendor").val()
+        selected = 'selected="selected"'
+        loadVendorModels(vendor.id)
+        $("#last-selected-vendor").val('')
+      $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
 
   settings =
     cache: false

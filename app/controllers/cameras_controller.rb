@@ -13,6 +13,27 @@ class CamerasController < ApplicationController
   def new
     @cameras = load_user_cameras(true, false)
     @user = (flash[:user] || {})
+
+    if @user == {} && params[:id]
+      camera = get_evercam_api.get_camera(params[:id], false)
+      @user['camera-name'] = camera['name']
+      @user['camera-id'] = camera['id']
+      @user['camera-username'] = camera['cam_username']
+      @user['camera-password'] = camera['cam_password']
+      @user['camera-url'] = camera.deep_fetch('external', 'host')
+      @user['port'] = camera.deep_fetch('external', 'http', 'port') {}
+      @user['ext-rtsp-port'] = camera.deep_fetch('external', 'rtsp', 'port') {}
+      @user['camera-vendor'] = camera['vendor_id']
+      @user['camera-model'] = camera['model_id']
+      @user['local-ip'] = camera.deep_fetch('internal', 'host') {}
+      @user['local-http'] = camera.deep_fetch('internal', 'http', 'port') {}
+      @user['local-rtsp'] = camera.deep_fetch('internal', 'rtsp', 'port') {}
+      if camera.deep_fetch('external', 'http', 'jpg') { '' }
+        @user['snapshot'] = camera.deep_fetch('external', 'http', 'jpg') { '' }.
+            sub("http://#{camera.deep_fetch('external', 'host') { '' }}", '').
+            sub(":#{camera.deep_fetch('external', 'http', 'port') { '' }}", '')
+      end
+    end
   end
 
   def create

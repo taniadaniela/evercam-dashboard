@@ -6,15 +6,13 @@
     url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/snapshot.jpg',
     container,
     refresh = 1000*<%= params[:refresh] %>,
-    priv = <%= params[:private] %>,
-    iframeStyle = "width: 100%;min-height:450px; height:100%;",
-    imgStyle = "width: 100%;";
+    priv = <%= params[:private] %>;
 
   function updateImage() {
     if (refresh > 0) {
       window.ec_watcher = setTimeout(updateImage, refresh);
     }
-    jQuery("<img style='" + imgStyle + "'/>").attr('src', url + '?' + new Date().getTime())
+    jQuery("<img style='width: 100%;'/>").attr('src', url + '?' + new Date().getTime())
       .load(function() {
         if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
           console.log('broken image!');
@@ -41,7 +39,8 @@
       /******* Load HTML *******/
       container = $('#ec-container');
       if (priv) {
-        container.html('<iframe id="ec-frame" style="' + iframeStyle + '" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>" frameborder="0" scrolling="no"/>');
+        var window_height = $(window).height();
+        container.html('<iframe id="ec-frame" style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>" frameborder="0" scrolling="no"/>');
         $('#ec-frame').load(function() {
           console.log($('#ec-frame').attr('src'));
         });

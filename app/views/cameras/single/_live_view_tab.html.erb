@@ -22,4 +22,4 @@
     </div>
   </div>
 <% end %>
-<input type="hidden" id="live-snapshot-url" value="<%= EVERCAM_API %>cameras/<%= @camera["id"] %>/snapshot.jpg?api_id=<%=  current_user.api_id %>&api_key=<%= current_user.api_key %>">
+<input type="hidden" id="live-snapshot-url" value="<%= EVERCAM_API %>cameras/<%= @camera["id"] %>/live/snapshot.jpg?api_id=<%=  current_user.api_id %>&api_key=<%= current_user.api_key %>">

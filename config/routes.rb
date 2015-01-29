@@ -75,8 +75,8 @@ EvercamDashboard::Application.routes.draw do
     post '/camera/:id' => 'sharing#update_camera'
     delete '/request' => 'sharing#cancel_share_request'
     post '/request/resend' => 'sharing#resend_share_request'
+    patch '/request' => 'sharing#update_share_request'
     patch '/:id' => 'sharing#update_share'
-    patch '/request/:id' => 'sharing#update_share_request'
   end
 
   scope :oauth2 do

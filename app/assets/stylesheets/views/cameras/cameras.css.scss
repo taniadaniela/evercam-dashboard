@@ -13,12 +13,11 @@
 }
 .center-tabs .nav-tabs {
   height: 44px;
+  padding-left:40px;
   text-align: center;
 }
 .center-tabs .nav-tabs li {
-  display: inline-block;
-  float: none;
-  margin: 0em;
+
 }
 @media (max-width: 730px) {
   .center-tabs .nav-tabs {
@@ -28,7 +27,9 @@
     padding: 10px 10px;
   }
 }
-
+.dropdown-menu{
+  width: auto;
+}
 .nav-tabs,
 .nav-pills {
   margin-bottom: 5px;

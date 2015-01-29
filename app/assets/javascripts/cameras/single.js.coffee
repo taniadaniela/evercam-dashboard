@@ -17,7 +17,7 @@ handleScrollToEvents = ->
       scrollTo 0, 0
       return
     ), 10
-  #this.$(".nav-tabs").tabdrop "layout" //commented out until resolved 19/01/15
+  $(".nav-tabs").tabdrop "layout"
 
   # Change hash for page-reload
   $(".nav-tabs a").on "shown.bs.tab", (e) ->

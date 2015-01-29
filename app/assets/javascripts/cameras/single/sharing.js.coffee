@@ -94,7 +94,7 @@ addSharingCameraRow = (details) ->
     spanResend = $('<span>', {class: "resend-share-request"})
     spanResend.append($(document.createTextNode("Resend")))
     spanResend.attr("camera_id", details["camera_id"])
-    spanResend.attr("share_id", details["share_id"])
+    spanResend.attr("share_request_id", details["share_id"])
     spanResend.attr("email", details["email"])
     spanResend.click(resendCameraShareRequest)
     divPopup.append(spanResend)

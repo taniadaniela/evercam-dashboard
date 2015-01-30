@@ -66,17 +66,20 @@
   bottom: 0;
   width: 100%;
   height: auto;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.75);
   border: 0px;
   color: #fff;
   padding: 11px;
   transition:all 0.4s ease;
 }
+
 .live-options:hover + #snapshot-notes {
-  opacity: .85;
+  opacity: .75;
   transition:all 0.4s ease;
 }
-
+.live-option .icon-info {
+ font-size: 22px;
+}
 @media (min-width: 850px) {
   .left-column {
     width: 67%;

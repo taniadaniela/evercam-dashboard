@@ -129,7 +129,7 @@ GEM
     erubis (2.7.0)
     ethon (0.7.2)
       ffi (>= 1.3.0)
-    evercam (0.3.pre.alpha)
+    evercam (0.3.pre.alpha2)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
       typhoeus (~> 0.6)
@@ -491,7 +491,7 @@ DEPENDENCIES
   data_uri
   database_cleaner
   devise
-  evercam (~> 0.3.pre.alpha)
+  evercam (~> 0.3.pre.alpha2)
   evercam_misc (~> 0.0)
   evercam_models (~> 0.3.10)
   factory_girl

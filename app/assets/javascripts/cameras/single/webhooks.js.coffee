@@ -1,10 +1,8 @@
 showError = (message) ->
   Notification.show(message)
-  true
 
 showFeedback = (message) ->
   Notification.show(message)
-  true
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -12,8 +10,7 @@ sendAJAXRequest = (settings) ->
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  jQuery.ajax(settings)
-  true
+  $.ajax(settings)
 
 addWebhookRow = (details) ->
   row = $('<tr>')
@@ -42,24 +39,21 @@ addWebhookRow = (details) ->
   row.hide()
   $('#webhook_list_table tbody').append(row)
   row.fadeIn()
-  true
 
 onDeleteWebhookClicked = (event) ->
   event.preventDefault()
   control = $(event.currentTarget)
-  row = control.parent().parent().parent()
+  row = control.closest('tr')
   data =
-    camera_id: control.attr("camera_id")
-    webhook_id: control.attr("webhook_id")
+    camera_id: Evercam.Camera.id
+    webhook_id: row.attr('webhook-id')
   onError = (jqXHR, status, error) ->
     showError("Deleting webhook failed. Please contact support.")
-    false
   onSuccess = (data, status, jqXHR) ->
     control.off()
     onComplete = ->
       row.remove()
     row.fadeOut('slow', onComplete)
-    true
 
   settings =
     cache: false
@@ -68,9 +62,12 @@ onDeleteWebhookClicked = (event) ->
     error: onError
     success: onSuccess
     type: 'DELETE'
-    url: '/webhooks/' + row.attr("webhook-id")
+    url: "/cameras/#{Evercam.Camera.id}/webhooks"
+#    url: "/cameras/#{window.Evercam.Camera.id}/webhooks/#{row.attr('webhook-id')}"
+  console.log data
+  console.log settings
+  console.log settings.url
   sendAJAXRequest(settings)
-  true
 
 onAddWebhookUserClicked = (event) ->
   event.preventDefault()
@@ -89,12 +86,11 @@ onAddWebhookUserClicked = (event) ->
     else
       showError("Failed to add new webhook to the camera. The provided url is not valid.")
     true
-  createWebhook(Evercam.Camera.id, webhookUrl, onSuccess, onError)
-  true
+  createWebhook(webhookUrl, onSuccess, onError)
 
-createWebhook = (cameraID, url, onSuccess, onError) ->
+createWebhook = (url, onSuccess, onError) ->
   data =
-    camera_id: cameraID
+    camera_id: Evercam.Camera.id
     url: url
     user_id: window.Evercam.User.username
 
@@ -105,13 +101,11 @@ createWebhook = (cameraID, url, onSuccess, onError) ->
     error: onError
     success: onSuccess
     type: 'POST'
-    url: "/webhooks"
+    url: "/cameras/#{Evercam.Camera.id}/webhooks"
   sendAJAXRequest(settings)
-  true
 
 onPermissionsFocus = (event) ->
   $(this).parent().parent().parent().find("td:eq(2) button").fadeIn()
-  true
 
 window.initializeWebhookTab = ->
   $('.delete-webhook-control').click(onDeleteWebhookClicked)
@@ -121,4 +115,3 @@ window.initializeWebhookTab = ->
   $('.save').hide()
   $('.reveal').focus(onPermissionsFocus);
   Notification.init(".bb-alert")
-  true

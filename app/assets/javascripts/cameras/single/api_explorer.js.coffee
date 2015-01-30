@@ -20,7 +20,7 @@ initializeSwagger = ->
       $("#resources h2").each ->
         $(this).next("ul").find("li:last").remove()
 
-      $("a:contains('/cameras/{id}/live/snapshot.jpg.json')").text "/cameras/{id}/live/snapshot.jpg"
+      $("a:contains('/cameras/{id}/live/snapshot.json')").text "/cameras/{id}/live/snapshot"
       $("input[name='id'].required.parameter").val Evercam.Camera.id
 
   window.swaggerUi.load()

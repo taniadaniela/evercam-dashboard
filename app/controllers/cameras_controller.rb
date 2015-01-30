@@ -138,7 +138,7 @@ class CamerasController < ApplicationController
       if !user.nil? and user.password == params['user-password']
         if [true, "true"].include?(params[:share])
           Rails.logger.debug "Deleting share for camera id '#{params[:id]}'."
-          api.delete_camera_share(params[:id], params[:share_id])
+          api.delete_camera_share(params[:id], current_user.email)
         else
           Rails.logger.debug "Deleting camera id '#{params[:id]}'."
           api.delete_camera(params[:id])

@@ -33,6 +33,17 @@ initializeDropdowns = ->
   $("[data-toggle=\"tooltip\"]").tooltip()
   $(".dropdown-toggle").dropdown()
 
+cameraDeleteConfirm = ->
+  $("#delete-camera").on "click", ->
+    if $("#camera_specified_id") && $("#camera_specified_id").val() is ''
+      $("#delete-camera-error").text("Please enter camera id to confirm delete camera.")
+      $("#delete-camera-error").show()
+      setTimeout (->
+        $("#delete-camera-error").hide()
+      ), 6000
+      return false
+    return true
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -50,3 +61,4 @@ window.initializeCameraSingle = ->
   initializeTabs()
   initializeiCheck()
   initializeDropdowns()
+  cameraDeleteConfirm()

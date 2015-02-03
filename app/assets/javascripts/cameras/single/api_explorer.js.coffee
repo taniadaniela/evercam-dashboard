@@ -25,7 +25,7 @@ initializeSwagger = ->
 
   window.swaggerUi.load()
 
-initializePortRemover() = ->
+initializePortRemover = ->
   $(document).on 'DOMSubtreeModified', '.response .request_url', ->
     $('pre:contains(":443/v1/")').each ->
       $(this).text $(this).text().replace(':443', '')

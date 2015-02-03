@@ -3,7 +3,7 @@
   "use strict";
 // Localize jQuery variable
   var jQuery,
-    url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/snapshot.jpg',
+    url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot',
     container,
     refresh = 1000*<%= params[:refresh] %>,
     priv = <%= params[:private] %>;

@@ -17,9 +17,16 @@
                 $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
                 $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
                 $("a:contains('/cameras/{id}/live/snapshot.json')").text('/cameras/{id}/live/snapshot');
+
               }
             });
             window.swaggerUi.load();
+          });
+
+          $(document).on("DOMSubtreeModified", ".response .request_url", function(){
+            $("pre:contains(':443/v1/')").each(function () {
+              $(this).text($(this).text().replace(':443', ''));
+            });
           });
         </script>
 

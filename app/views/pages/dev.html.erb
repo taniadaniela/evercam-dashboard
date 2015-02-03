@@ -41,6 +41,12 @@
         });
         window.swaggerUi.load();
       });
+
+      $(document).on("DOMSubtreeModified", ".response .request_url", function(){
+        $("pre:contains(':443/v1/')").each(function () {
+          $(this).text($(this).text().replace(':443', ''));
+        });
+      });
     </script>
 
     <div class="exp-swagger">

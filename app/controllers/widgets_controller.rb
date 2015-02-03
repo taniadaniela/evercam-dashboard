@@ -21,7 +21,7 @@ class WidgetsController < ApplicationController
 
   def live_view_widget
     respond_to do |format|
-      format.js { render :file => "widgets/live.view.widget.js", :mime_type => Mime::Type.lookup('text/javascript')}
+      format.js { render :file => "widgets/live.view.widget.js.erb", :mime_type => Mime::Type.lookup('text/javascript')}
     end
   end
 
@@ -62,7 +62,7 @@ class WidgetsController < ApplicationController
 
   def snapshot_navigator
     respond_to do |format|
-      format.js { render :file => "widgets/snapshot.navigator.widget.js", :mime_type => Mime::Type.lookup('text/javascript')}
+      format.js { render :file => "widgets/snapshot.navigator.widget.js.erb", :mime_type => Mime::Type.lookup('text/javascript')}
     end
   end
 

@@ -54,7 +54,7 @@ gem 'intercom-rails'
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.3.10'
-  gem 'evercam', '~> 0.3-alpha2'
+  gem 'evercam', :git => "git://github.com/evercam/evercam-ruby.git", :branch => "naming"
 end
 
 group :production do

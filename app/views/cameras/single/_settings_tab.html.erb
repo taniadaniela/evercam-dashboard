@@ -29,10 +29,13 @@
                           <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
                         <% end %>
                       </div>
+                      <% if @share.nil? %>
                       <div class="col-md-12">
-                        <p>Enter your Account password to confirm you want to permanently <% if @share.nil? %>delete<% else %>remove<% end %> this camera</p>
-                        <input id="user-password" name="user-password" type="password" class="form-control">
+                        <p>Enter camera id to confirm you want to permanently delete this camera</p>
+                        <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
+                        <p id="delete-camera-error" class="alert alert-danger margin-top-10" style="display: none;"></p>
                       </div>
+                      <% end %>
                     </div>
                     <div class="modal-footer">
                       <div class="col-sm-8 margin-top-10">
@@ -44,8 +47,8 @@
                           <input type="hidden" id="share_id" name="share_id" value="<%= @share['id'] %>"/>
                           <input type="hidden" id="share" name="share" value="true"/>
                         <% end %>
-                        <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left"><% if @share.nil? %>Delete<% else %>Remove<% end %></button>
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left"><% if @share.nil? %>Delete<% else %>Yes<% end %></button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><% if @share.nil? %>Cancel<% else %>No<% end %></button>
                       </div>
                     </div>
                   </form>

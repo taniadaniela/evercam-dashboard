@@ -134,21 +134,21 @@ class CamerasController < ApplicationController
   def delete
     begin
       api = get_evercam_api
-      user = User.by_login(current_user.username)
-      if !user.nil? and user.password == params['user-password']
-        if [true, "true"].include?(params[:share])
-          Rails.logger.debug "Deleting share for camera id '#{params[:id]}'."
-          api.delete_camera_share(params[:id], params[:share_id])
-        else
-          Rails.logger.debug "Deleting camera id '#{params[:id]}'."
-          api.delete_camera(params[:id])
-        end
+      if [true, "true"].include?(params[:share])
+        api.delete_camera_share(params[:id], params[:share_id])
         flash[:message] = "Camera deleted successfully."
         redirect_to '/'
       else
-        flash[:message] = "Invalid password specified."
-        redirect_to action: 'single', id: params[:id]
+        if params[:camera_specified_id] && params[:camera_specified_id] == params[:id]
+          api.delete_camera(params[:id])
+          flash[:message] = "Camera deleted successfully."
+          redirect_to '/'
+        else
+          flash[:message] = "Invalid camera id specified."
+          redirect_to action: 'single', id: params[:id]
+        end
       end
+
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting camera.\nCause: #{error}\n" +

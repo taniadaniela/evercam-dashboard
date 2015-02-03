@@ -36,7 +36,7 @@ class WebhooksController < ApplicationController
     begin
       raise "No webhook id specified in request." if params['id'].blank?
       api = get_evercam_api
-      response = api.delete_webhook(params[:id])
+      response = api.delete_webhook(params[:camera_id], params[:webhook_id])
 
       render json: response
       return

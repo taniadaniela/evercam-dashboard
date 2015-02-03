@@ -141,7 +141,7 @@
       <% if @camera_shares %>
         <% @camera_shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
-          <tr id="row-share-<%= share["id"] %>" share-id="<%= share["id"] %>">
+          <tr id="row-share-<%= share["id"] %>" share-email="<%= share["email"] %>">
             <td class="col-lg-4">
               <%= share["email"] %>
               <% if share["email"] == current_user.email %>
@@ -188,7 +188,7 @@
       <% if @share_requests %>
         <% @share_requests.each do |share_request| %>
           <% rights = share_request["rights"].split(",") %>
-          <tr id="row-share-<%= share_request["id"] %>" share-request-id="<%= share_request["id"] %>">
+          <tr id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
             <td class="col-lg-4"><%= share_request["email"] %>
               <small class="blue"> ...pending</small>
             </td>

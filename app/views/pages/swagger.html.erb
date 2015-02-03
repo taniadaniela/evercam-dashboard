@@ -16,7 +16,7 @@
                 window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", "<%= current_user.api_key unless current_user.nil? %>", "query"));
                 $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
                 $('#resources h2').each( function() { $(this).next('ul').find('li:last').remove(); } );
-                $("a:contains('/cameras/{id}/snapshot.jpg.json')").text('/cameras/{id}/snapshot.jpg');
+                $("a:contains('/cameras/{id}/live/snapshot.json')").text('/cameras/{id}/live/snapshot');
               }
             });
             window.swaggerUi.load();

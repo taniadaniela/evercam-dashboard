@@ -135,7 +135,7 @@ class CamerasController < ApplicationController
     begin
       api = get_evercam_api
       if [true, "true"].include?(params[:share])
-        api.delete_camera_share(params[:id], params[:share_id])
+        api.delete_camera_share(params[:id], current_user.email)
         flash[:message] = "Camera deleted successfully."
         redirect_to '/'
       else

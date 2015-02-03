@@ -5,7 +5,7 @@ image_placeholder = undefined
 
 loadImage = ->
   img = new Image()
-  live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+  live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
   src = "#{$("#live-snapshot-url").val()}&rand=" + new Date().getTime()
   img.onload = ->
     unless not image_placeholder.parent

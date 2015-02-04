@@ -49,12 +49,13 @@
               <%= f.label :username %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control" %>
+              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "data-validation" => "alphanumeric", "data-validation-error-msg" => "Only letters &amp; numbers allowed. No spaces." %>
               <% if field_errors.include?("username") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
               <% end %>
             </div>
           </div>
+
 
           <div class="row text-center">
             <div class="col-sm-3">
@@ -122,4 +123,5 @@
       $("." + $(this).attr("data-hide")).hide();
     });
   });
+  $.validate()
 </script>

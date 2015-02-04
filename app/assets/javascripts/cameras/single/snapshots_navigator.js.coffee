@@ -253,6 +253,7 @@ SetInfoMessage = (currFrame, dt) ->
 
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
+  $("#snapshot-notes-text").text(snapInfo.notes)
   SetInfoMessage currentFrameNumber, shortDate(new Date(snapInfo.created_at*1000))
   loadImage(snapInfo.created_at)
   true
@@ -444,6 +445,7 @@ GetCameraInfo = (isShowLoader) ->
         if currentFrameNumber isnt 1
           playFromDateTime = null
 
+      $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
       SetInfoMessage(currentFrameNumber, shortDate(frameDateTime))
       loadImage(snapshotTimeStamp)
     true

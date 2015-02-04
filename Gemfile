@@ -13,6 +13,8 @@ gem 'fog',
   require: 'fog/aws/storage'
 gem 'asset_sync'
 gem 'autoprefixer-rails'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
 
 gem 'rails-assets-bootstrap', '~> 3.3.1'
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'

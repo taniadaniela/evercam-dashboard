@@ -8,7 +8,6 @@ class ChargesController < ApplicationController
   end
 
   def create
-    require 'pry'; binding.pry
     @cameras = load_user_cameras(true, true)
 
     @email = current_user.email

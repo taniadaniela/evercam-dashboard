@@ -8,8 +8,7 @@
 
             <div class="row">
               <div class="col-md-6">
-
-                  <p class="margin-top-10 margin-bottom-10">Annual - €199.00</p>
+                <p class="margin-top-10 margin-bottom-10">Annual - €199.00</p>
                 <%= form_tag charges_path do %>
                   <input type="hidden" name="amount" value="19500"/>
                   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -18,21 +17,17 @@
                           data-amount="19900"
                           data-currency="eur"></script>
                 <% end %>
-
-
               </div>
               <div class="col-md-6">
-
-                  <p class="margin-top-10 margin-bottom-10">Monthly - €25.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="2500"/>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Evercam Bundle Silver (Monthly)"
-                            data-amount="2500"
-                            data-currency="eur"></script>
-                  <% end %>
-
+                <p class="margin-top-10 margin-bottom-10">Monthly - €25.00</p>
+                <%= form_tag charges_path do %>
+                  <input type="hidden" name="amount" value="2500"/>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-description="Evercam Bundle Silver (Monthly)"
+                          data-amount="2500"
+                          data-currency="eur"></script>
+                <% end %>
               </div>
             </div>
           </div>
@@ -47,30 +42,26 @@
 
             <div class="row">
               <div class="col-md-6">
-
-                  <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="9900"/>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Evercam Bundle Silver (Monthly)"
-                            data-amount="9900"
-                            data-currency="eur"></script>
-                  <% end %>
-
+                <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
+                <%= form_tag charges_path do %>
+                  <input type="hidden" name="amount" value="9900"/>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-description="Evercam Bundle Silver (Monthly)"
+                          data-amount="9900"
+                          data-currency="eur"></script>
+                <% end %>
               </div>
               <div class="col-md-6">
-
-                  <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="1000"/>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Snapmail (Monthly)"
-                            data-amount="1000"
-                            data-currency="eur"></script>
-                  <% end %>
-
+                <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
+                <%= form_tag charges_path do %>
+                  <input type="hidden" name="amount" value="1000"/>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-description="Snapmail (Monthly)"
+                          data-amount="1000"
+                          data-currency="eur"></script>
+                <% end %>
               </div>
             </div>
           </div>
@@ -86,35 +77,30 @@
 
             <div class="row">
               <div class="col-md-6">
-
-                  <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="9900"/>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Evercam Bundle Silver (Monthly)"
-                            data-amount="9900"
-                            data-currency="eur"></script>
-                  <% end %>
-
+                <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
+                <%= form_tag charges_path do %>
+                  <input type="hidden" name="amount" value="9900"/>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-description="Evercam Bundle Silver (Monthly)"
+                          data-amount="9900"
+                          data-currency="eur"></script>
+                <% end %>
               </div>
               <div class="col-md-6">
-
-                  <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="1000"/>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Snapmail (Monthly)"
-                            data-amount="1000"
-                            data-currency="eur"></script>
-                  <% end %>
-
+                <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
+                <%= form_tag charges_path do %>
+                  <input type="hidden" name="amount" value="1000"/>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-description="Snapmail (Monthly)"
+                          data-amount="1000"
+                          data-currency="eur"></script>
+                <% end %>
               </div>
             </div>
           </div>
           <div class="panel-content col-md-8">
-
           </div>
         </div>
       </li>

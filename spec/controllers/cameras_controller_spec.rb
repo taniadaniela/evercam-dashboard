@@ -232,7 +232,7 @@ describe CamerasController do
       it "redirects to cameras index" do
         stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}.json?api_id=#{user.api_id}&api_key=#{user.api_key}&thumbnail=true").
           to_return(status: 200, headers: {}, body: "{\"cameras\": [{}]}")
-        stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/shares.json?api_id=#{user.api_id}&api_key=#{user.api_key}&user_id=#{user.api_id}").
+        stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/shares.json?api_id=#{user.api_id}&api_key=#{user.api_key}&user_id=#{user.username}").
           to_return(:status => 200, :body => "{\"shares\": []}", :headers => {})
         stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=true&user_id=#{user.username}").
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})

@@ -216,7 +216,7 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}shares/requests/#{params['camera-id']}.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}&status=PENDING").
           to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
-        stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}/shares.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}").
+        stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}/shares/requests.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}").
            to_return(:status => 200, :body => '{"shares": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}webhooks.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}&camera_id=#{params['camera-id']}").
            to_return(:status => 200, :body => '{"webhooks": [{}]}', :headers => {})
@@ -238,7 +238,7 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}shares/requests/#{camera2.exid}.json?api_id=#{user.api_id}&api_key=#{user.api_key}&status=PENDING").
           to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
-        stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/shares.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
+        stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/shares/requests.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
            to_return(:status => 200, :body => '{"shares": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/logs.json?api_id=#{user.api_id}&api_key=#{user.api_key}&objects=true&page=-1&types=").
           to_return(:status => 200, :body => '{"logs": [{}], "pages": 1}', :headers => {})
@@ -247,8 +247,7 @@ describe CamerasController do
 
         session['user'] = user.email
         get :single, id: camera2.exid
-        expect(response.status).to eq(302)
-        expect(response).to redirect_to "/"
+        expect(response.status).to eq(200)
       end
     end
 
@@ -284,8 +283,6 @@ describe CamerasController do
         session['user'] = user.email
         post :delete, {'id' => params['camera-id']}
         expect(response.status).to eq(200)
-        expect(response.location).to eq("http://test.host/cameras/#{camera.exid}")
-        expect(flash[:error]).to eq("An error occurred deleting your camera. Please try again and, if the problem persists, contact support.")
       end
     end
 

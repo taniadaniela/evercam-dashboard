@@ -247,7 +247,7 @@ describe CamerasController do
 
         session['user'] = user.email
         get :single, id: camera2.exid
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(302)
       end
     end
 

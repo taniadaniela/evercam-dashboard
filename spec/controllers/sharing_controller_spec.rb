@@ -321,7 +321,7 @@ describe SharingController do
 
       it 'returns success if it gets a positive response from the API call' do
          stub_request(:delete, "#{EVERCAM_API}cameras/#{camera.exid}/shares/requests.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=#{CGI.escape(pending_share_request.email)}").
-            with(:headers => {'User-Agent'=>'Faraday v0.9.0'}).
+            with(:headers => {'User-Agent'=>'Faraday v0.9.1'}).
             to_return(:status => 200, :body => "", :headers => {})
 
          delete :cancel_share_request, parameters.merge(credentials), {user: owner.email}

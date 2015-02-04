@@ -13,6 +13,8 @@ EvercamDashboard::Application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
+  resources :charges
+
   root to: redirect('/cameras'), as: :root
 
   get '/cameras' => 'cameras#index', as: :cameras_index

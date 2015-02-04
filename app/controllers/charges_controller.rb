@@ -8,10 +8,13 @@ class ChargesController < ApplicationController
   end
 
   def create
-    @amount = 500 # €5
+    @cameras = load_user_cameras(true, true)
+
+    @email = current_user.email
+    @amount = 1000 # €10
 
     customer = Stripe::Customer.create(
-      :email => 'example@stripe.com',
+      :email => @email,
       :card  => params[:stripeToken]
     )
 
@@ -26,4 +29,5 @@ class ChargesController < ApplicationController
     flash[:error] = e.message
     redirect_to charges_path
   end
+
 end

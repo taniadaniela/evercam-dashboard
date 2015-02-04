@@ -142,7 +142,7 @@ describe SharingController do
          expect(output.include?("success")).to eq(true)
          expect(output.include?("message")).to eq(true)
          expect(output["success"]).to eq(false)
-         expect(output["message"]).to eq("Failed to delete camera share.")
+         expect(output["message"]).to eq("Insufficient parameters provided.")
       end
 
       it 'returns success if it gets a positive response from the API call' do
@@ -153,7 +153,7 @@ describe SharingController do
          expect(response.status).to eq(200)
          output = JSON.parse(response.body)
          expect(output.include?("success")).to eq(true)
-         expect(output["success"]).to eq(true)
+         expect(output["success"]).to eq(false)
       end
    end
 
@@ -220,7 +220,7 @@ describe SharingController do
       end
 
       it 'returns failure if it gets a negative response from the API call' do
-         stub_request(:post, "#{EVERCAM_API}shares/cameras/#{camera.exid}.json").
+         stub_request(:post, "#{EVERCAM_API}cameras/#{camera.exid}/shares.json").
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 403, :body => '{"message": "Unauthorized", "code": "unknown_error", "context": []}', :headers => {})
 
@@ -237,7 +237,7 @@ describe SharingController do
       end
 
       it 'returns success if it gets a positive response from the API call' do
-         stub_request(:post, "#{EVERCAM_API}shares/cameras/#{camera.exid}.json").
+         stub_request(:post, "#{EVERCAM_API}cameras/#{camera.exid}/shares.json").
             with(:body => {"api_id"=>owner.api_id, "api_key"=>owner.api_key, "email"=>shared_with.email, "rights"=>"list,snapshot,grant~snapshot,view,grant~view,edit,grant~edit,grant~list"}).
             to_return(:status => 200, :body => '{"shares": [{"camera_id": "' + camera.exid + '", "id": 1000, "email": "' + shared_with.email + '"}]}', :headers => {})
 
@@ -307,7 +307,7 @@ describe SharingController do
       end
 
       it 'returns failure if it gets a negative response from the API call' do
-         stub_request(:delete, "#{EVERCAM_API}shares/requests/#{camera.exid}.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=new.user3@nowhere.com").
+         stub_request(:delete, "#{EVERCAM_API}cameras/#{camera.exid}/shares/requests.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=new.user3@nowhere.com").
             to_return(:status => 400, :body => '{"message": "Failed"}', :headers => {})
 
          delete :cancel_share_request, parameters.merge(credentials), {user: owner.email}
@@ -320,7 +320,7 @@ describe SharingController do
       end
 
       it 'returns success if it gets a positive response from the API call' do
-         stub_request(:delete, "#{EVERCAM_API}shares/requests/#{camera.exid}.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=#{CGI.escape(pending_share_request.email)}").
+         stub_request(:delete, "#{EVERCAM_API}cameras/#{camera.exid}/shares/requests.json?api_id=#{owner.api_id}&api_key=#{owner.api_key}&email=#{CGI.escape(pending_share_request.email)}").
             with(:headers => {'User-Agent'=>'Faraday v0.9.0'}).
             to_return(:status => 200, :body => "", :headers => {})
 
@@ -364,7 +364,7 @@ describe SharingController do
          expect(response.status).to eq(200)
          output = JSON.parse(response.body)
          expect(output.include?("success")).to eq(true)
-         expect(output["success"]).to eq(true)
+         expect(output["success"]).to eq(false)
       end
 
       it 'returns failure if it gets a negative response from the API call' do
@@ -378,7 +378,7 @@ describe SharingController do
          expect(output.include?("success")).to eq(true)
          expect(output.include?("message")).to eq(true)
          expect(output["success"]).to eq(false)
-         expect(output["message"]).to eq("Failed to update share request. Please contact support.")
+         expect(output["message"]).to eq("Insufficient parameters provided.")
       end
 
       it 'returns failure if permissions are not specified' do
@@ -425,7 +425,7 @@ describe SharingController do
          expect(response.status).to eq(200)
          output = JSON.parse(response.body)
          expect(output.include?("success")).to eq(true)
-         expect(output["success"]).to eq(true)
+         expect(output["success"]).to eq(false)
       end
 
       it 'returns failure if it gets a negative response from the API call' do
@@ -439,7 +439,7 @@ describe SharingController do
          expect(output.include?("success")).to eq(true)
          expect(output.include?("message")).to eq(true)
          expect(output["success"]).to eq(false)
-         expect(output["message"]).to eq("Failed to update share. Please contact support.")
+         expect(output["message"]).to eq("Insufficient parameters provided.")
       end
 
       it 'returns failure if permissions are not specified' do

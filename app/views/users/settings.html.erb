@@ -1,0 +1,80 @@
+<% provide(:title, "Evercam: User Settings") %>
+<div id="user-settings">
+  <div class="page-content-wrapper">
+    <div class="page-content" id="camera-single">
+      <div class="row">
+        <div class="section-header">
+          <div class="camera-title">
+            <div class="col-xs-12 col-md-12">
+              Manage Account
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body">
+
+        <div class="account tabbable tabbable-custom">
+          <div class="center-tabs">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a id="nav-tabs-2" data-toggle="tab" href="#account"><i class="icon icon-user"></i>Account</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#billing"><i class="icon icon-credit-card"></i>Billing</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-content">
+            <div id="account" class="tab-pane active">
+              <%= render partial: "users/settings/account_tab" %>
+            </div>
+            <div id="billing" class="tab-pane">
+              <%= render partial: "users/settings/billing_tab" %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $.validate();
+    Metronic.init();
+    Layout.init();
+    QuickSidebar.init()
+    Notification.init(".bb-alert");
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
+  });
+
+  $(".makeNonEditable").click(function () {
+    $('input:text').attr("readonly", "readonly");
+    $('select').attr("disabled", "disabled");
+  });
+  $(".makeEditable").click(function () {
+    $('input:text').removeAttr("readonly");
+    $('select').removeAttr("disabled");
+  });
+
+
+  $(document).ready(function () {
+    $("#hide").click(function () {
+      $("p").fadeOut();
+    });
+    $("#hide-2").click(function () {
+      $("p").fadeOut();
+    });
+    $("#show").click(function () {
+      $("p").fadeIn();
+    });
+    /*$(".resend-email").on('click',function(){
+
+     });*/
+  });
+</script>

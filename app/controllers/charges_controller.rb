@@ -11,7 +11,7 @@ class ChargesController < ApplicationController
     @cameras = load_user_cameras(true, true)
 
     @email = current_user.email
-    @amount = 1000 # €10
+    @amount = params[:amount]
 
     customer = Stripe::Customer.create(
       :email => @email,

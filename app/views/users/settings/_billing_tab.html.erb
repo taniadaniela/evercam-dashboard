@@ -8,49 +8,33 @@
 
             <div class="row">
               <div class="col-md-6">
-                <div class="margin-top-15">
-                <%= form_tag charges_path do %>
 
+                  <p class="margin-top-10 margin-bottom-10">Annual - €199.00</p>
+                <%= form_tag charges_path do %>
+                  <input type="hidden" name="amount" value="19500"/>
                   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                           data-description="Evercam Bundle Silver (Annual)"
                           data-amount="19500"></script>
                 <% end %>
-                </div>
-                <p class="margin-top-10 margin-bottom-10">Annual - €199.00</p>
+
+
               </div>
               <div class="col-md-6">
-                <div class="margin-top-15">
-                  <%= form_tag charges_path do %>
 
+                  <p class="margin-top-10 margin-bottom-10">Monthly - €25.00</p>
+                  <%= form_tag charges_path do %>
+                    <input type="hidden" name="amount" value="2500"/>
                     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                             data-description="Evercam Bundle Silver (Monthly)"
                             data-amount="2500"></script>
                   <% end %>
-                </div>
-                <p class="margin-top-10 margin-bottom-10">Monthly - €25.00</p>
+
               </div>
             </div>
           </div>
           <div class="panel-content col-md-8">
-            <p class="">Our Silver bundle entitles you to:</p>
-            <div class="list">
-              <ul class="">
-                <li>
-                  Live Streaming
-                </li>
-                <li>
-                  Recording for up to 5 cameras
-                </li>
-                <li>
-                  Our Snapmail app
-                </li>
-                <li>
-                  Our Timelapse app
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </li>
@@ -61,28 +45,28 @@
 
             <div class="row">
               <div class="col-md-6">
-                <div class="margin-top-15">
-                  <%= form_tag charges_path do %>
 
+                  <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
+                  <%= form_tag charges_path do %>
+                    <input type="hidden" name="amount" value="9900"/>
                     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                             data-description="Evercam Bundle Silver (Monthly)"
                             data-amount="9900"></script>
                   <% end %>
-                </div>
-                <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
+
               </div>
               <div class="col-md-6">
-                <div class="margin-top-15">
+               
+                  <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
                   <%= form_tag charges_path do %>
-
+                    <input type="hidden" name="amount" value="1000"/>
                     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                             data-description="Snapmail (Monthly)"
                             data-amount="1000"></script>
                   <% end %>
-                </div>
-                <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
+
               </div>
             </div>
           </div>
@@ -98,28 +82,28 @@
 
             <div class="row">
               <div class="col-md-6">
-                <div class="margin-top-15">
-                  <%= form_tag charges_path do %>
 
+                  <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
+                  <%= form_tag charges_path do %>
+                    <input type="hidden" name="amount" value="9900"/>
                     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Timelapse (Annual)"
+                            data-description="Evercam Bundle Silver (Monthly)"
                             data-amount="9900"></script>
                   <% end %>
-                </div>
-                <p class="margin-top-10 margin-bottom-10">Annual - €99.00</p>
+
               </div>
               <div class="col-md-6">
-                <div class="margin-top-15">
-                  <%= form_tag charges_path do %>
 
+                  <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
+                  <%= form_tag charges_path do %>
+                    <input type="hidden" name="amount" value="1000"/>
                     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Timelapse (Annual)"
+                            data-description="Snapmail (Monthly)"
                             data-amount="1000"></script>
                   <% end %>
-                </div>
-                <p class="margin-top-10 margin-bottom-10">Montly - €10.00</p>
+
               </div>
             </div>
           </div>
@@ -128,6 +112,7 @@
           </div>
         </div>
       </li>
+
 
     </ul>
   </div>

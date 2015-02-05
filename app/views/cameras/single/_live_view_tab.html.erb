@@ -1,9 +1,9 @@
 <% if @camera['is_online'] %>
   <div class="camera-preview">
-    <% no_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}).blank? %>
+    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) %>
     <div class="row">
       <div id="live-view-placeholder" class="col-lg-8 col-md-12">
-        <div id="fullscreen" class="html5-fullscreen-api <% if no_stream %>active<% else %>inactive<% end %>">
+        <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
           <img id="live-player-image" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/live/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
           <div class="live-options">
             <div class="live-option" id="toggle"><i class="icon-size-fullscreen"></i></div>
@@ -11,10 +11,10 @@
           </div>
           <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
         </div>
-        <% unless no_stream %>
+        <% unless rtmp_stream.blank? %>
           <div id="streams" class="active">
             <video id="really-cool-video" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto" data-setup='{}'>
-              <source src="<%= @camera.deep_fetch('proxy_url', 'rtmp') {} %>" type='rtmp/flv'>
+              <source src="<%= rtmp_stream %>" type='rtmp/flv'>
             </video>
           </div>
           <div class="pull-right margin-top-10">
@@ -23,8 +23,8 @@
                 <td>Feed:&nbsp;</td>
                 <td>
                   <select id="select-stream-type" class="form-control">
-                    <option <% if no_stream %>selected="selected"<% end %> value="jpeg">JPEG</option>
-                    <option <% unless no_stream %>selected="selected"<% end %> value="rtmp">RTMP</option>
+                    <option value="jpeg">JPEG</option>
+                    <option selected="selected" value="rtmp">RTMP</option>
                   </select>
                 </td>
               </tr>

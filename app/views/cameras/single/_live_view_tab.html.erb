@@ -12,15 +12,24 @@
           <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
         </div>
         <% unless no_stream %>
-        <div id="streams" class="active">
-          <video id="really-cool-video" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto" data-setup='{}'>
-            <source src="<%= @camera.deep_fetch('proxy_url', 'rtmp') {} %>" type='rtmp/flv'>
-          </video>
-        </div>
-          <select id="select-stream-type" class="form-control margin-top-10">
-            <option <% if no_stream %>selected="selected"<% end %> value="jpeg">JPEG</option>
-            <option <% unless no_stream %>selected="selected"<% end %> value="rtmp">RTMP</option>
-          </select>
+          <div id="streams" class="active">
+            <video id="really-cool-video" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto" data-setup='{}'>
+              <source src="<%= @camera.deep_fetch('proxy_url', 'rtmp') {} %>" type='rtmp/flv'>
+            </video>
+          </div>
+          <div class="pull-right margin-top-10">
+            <table>
+              <tr>
+                <td>Feed:&nbsp;</td>
+                <td>
+                  <select id="select-stream-type" class="form-control">
+                    <option <% if no_stream %>selected="selected"<% end %> value="jpeg">JPEG</option>
+                    <option <% unless no_stream %>selected="selected"<% end %> value="rtmp">RTMP</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
         <% end %>
       </div>
     </div>

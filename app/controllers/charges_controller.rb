@@ -13,10 +13,23 @@ class ChargesController < ApplicationController
     @email = current_user.email
     @amount = params[:amount]
 
-    customer = Stripe::Customer.create(
-      :email => @email,
-      :card  => params[:stripeToken]
-    )
+    token = params[:token]
+
+    if token.blank?
+
+      customer = Stripe::Customer.create(
+        :email => @email,
+        :card  => params[:stripeToken]
+      )
+
+      current_user.billing_id = customer.id
+      current_user.save
+
+    else
+
+      customer = Stripe::Customer.retrieve(token)
+
+    end
 
     charge = Stripe::Charge.create(
       :customer    => customer.id,

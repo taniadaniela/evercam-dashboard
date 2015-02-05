@@ -9,6 +9,12 @@
               Manage Account
             </div>
 
+              <% if @customer.nil? %>
+                No info
+              <% else %>
+
+            <%= @customer.id %>
+              <% end %>
           </div>
         </div>
       </div>

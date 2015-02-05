@@ -102,7 +102,7 @@ describe UsersController do
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}").
           to_return(:status => 200, :body => "", :headers => {})
 
-        stub_request(:get, "#{EVERCAM_API}users/#{user.username}/cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=false").
+        stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=false&user_id=#{user.username}").
           to_return(status: 200, headers: {}, body: "{\"cameras\": []}")
 
         session['user'] = user.email

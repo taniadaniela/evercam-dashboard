@@ -133,30 +133,26 @@ class CamerasController < ApplicationController
 
   def delete
     begin
+      result = {success: true}
       api = get_evercam_api
       if [true, "true"].include?(params[:share])
         api.delete_camera_share(params[:id], current_user.email)
-        flash[:message] = "Camera deleted successfully."
-        redirect_to '/'
       else
         if params[:camera_specified_id] && params[:camera_specified_id] == params[:id]
           api.delete_camera(params[:id])
-          flash[:message] = "Camera deleted successfully."
-          redirect_to '/'
         else
-          flash[:message] = "Invalid camera id specified."
-          redirect_to action: 'single', id: params[:id]
+          result  = {success: false, message: "Invalid camera id specified."}
         end
       end
-
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting camera.\nCause: #{error}\n" +
                            error.backtrace.join("\n")
-      flash[:error] = "An error occurred deleting your camera. Please try again "\
+      message = "An error occurred deleting your camera. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to action: 'single', id: params[:id]
+      result  = {success: false, message: message}
     end
+    render json: result
   end
 
   def single

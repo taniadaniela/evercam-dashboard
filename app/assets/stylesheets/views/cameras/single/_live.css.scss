@@ -96,3 +96,9 @@
   margin-top: 1px;
   margin-left: 10px;
 }
+#live-view-placeholder .active{
+  display: block;
+}
+#live-view-placeholder .inactive{
+  display: none;
+}

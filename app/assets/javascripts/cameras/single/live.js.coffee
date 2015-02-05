@@ -2,6 +2,7 @@ default_img = "/assets/offline.svg"
 int_time = undefined
 refresh_paused = false
 image_placeholder = undefined
+has_stream = false
 
 loadImage = ->
   img = new Image()
@@ -17,7 +18,7 @@ loadImage = ->
 
 toggleRefresh = (hash) ->
   if window.Evercam.Camera.is_online
-    if not refresh_paused and hash is "#live"
+    if not refresh_paused and hash is "#live" and !has_stream
       int_time = setInterval(loadImage, 1000)
     else
       clearInterval int_time
@@ -56,12 +57,28 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
   true
 
+handleChangeStream = ->
+  $("#select-stream-type").on "change", ->
+    switch $(this).val()
+      when 'jpeg'
+        $("#streams").removeClass("active").addClass "inactive"
+        $("#fullscreen").removeClass("inactive").addClass "active"
+        has_stream = false
+        toggleRefresh('#live')
+      when 'rtmp'
+        $("#fullscreen").removeClass("active").addClass "inactive"
+        $("#streams").removeClass("inactive").addClass "active"
+        has_stream = true
+  true
+
 window.initializeLiveTab = ->
   image_placeholder = document.getElementById("live-player-image")
   controlButtonEvents()
   fullscreenImage()
   toggleRefresh(window.location.hash)
   openPopout()
+  handleChangeStream()
+  has_stream = $("#fullscreen").hasClass("inactive")
   $('a[data-toggle="tab"]').on "click", ->
     hash = this.href.substr(this.href.indexOf("#"));
     toggleRefresh(hash)

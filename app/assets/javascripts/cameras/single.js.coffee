@@ -8,6 +8,15 @@
 #= require cameras/single/webhooks.js.coffee
 #= require cameras/single/testsnapshot.js.coffee
 
+sendAJAXRequest = (settings) ->
+  token = $('meta[name="csrf-token"]')
+  if token.size() > 0
+    headers =
+      "X-CSRF-Token": token.attr("content")
+    settings.headers = headers
+  xhrRequestChangeMonth = jQuery.ajax(settings)
+  true
+
 handleScrollToEvents = ->
   # Javascript to enable link to tab
   url = document.location.toString()
@@ -33,16 +42,51 @@ initializeDropdowns = ->
   $("[data-toggle=\"tooltip\"]").tooltip()
   $(".dropdown-toggle").dropdown()
 
-cameraDeleteConfirm = ->
+onCameraDeleteError = (jqXHR, status, error) ->
+  Notification.show "An error occurred removing your camera. Please try again and, if the problem persists, contact support."
+  true
+
+onCameraDeleteSuccess = (data, status, jqXHR) ->
+  if data.success
+    Notification.show "Camera deleted successfully."
+    window.location = '/'
+  else
+    Notification.show data.message
+  true
+
+handleCameraDelete = ->
   $("#delete-camera").on "click", ->
     if $("#camera_specified_id") && $("#camera_specified_id").val() is ''
-      $("#delete-camera-error").text("Please enter camera id to confirm delete camera.")
-      $("#delete-camera-error").show()
-      setTimeout (->
-        $("#delete-camera-error").hide()
-      ), 6000
-      return false
-    return true
+      Notification.show "Please enter camera id to confirm delete camera."
+      return
+
+    data =
+      share: $("#share").val()
+      camera_specified_id: $("#camera_specified_id").val()
+
+    settings =
+      cache: false
+      data: data
+      error: onCameraDeleteError
+      success: onCameraDeleteSuccess
+      url: "/cameras/#{$("#id").val()}"
+      type: 'DELETE'
+    jQuery.ajax(settings)
+
+  $("#remove-camera").on "click", ->
+    data =
+      share: $("#share").val()
+      share_id: $("#share_id").val()
+
+    settings =
+      cache: false
+      data: data
+      error: onCameraDeleteError
+      success: onCameraDeleteSuccess
+      url: "/cameras/#{$("#id").val()}"
+      type: 'DELETE'
+    jQuery.ajax(settings)
+
 
 initializeTabs = ->
   window.initializeInfoTab()
@@ -61,4 +105,4 @@ window.initializeCameraSingle = ->
   initializeTabs()
   initializeiCheck()
   initializeDropdowns()
-  cameraDeleteConfirm()
+  handleCameraDelete()

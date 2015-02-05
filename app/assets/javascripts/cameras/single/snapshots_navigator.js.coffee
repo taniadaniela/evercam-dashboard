@@ -245,7 +245,6 @@ SetInfoMessage = (currFrame, dt) ->
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#snapshots"
-  $("#share-url").val url
 
   if $(".nav-tabs li.active a").html() is "Snapshots" && history.pushState
     window.history.pushState({path:url},'',url);
@@ -848,9 +847,6 @@ handleTabEvent = ->
       url = "#{$("#tab-url").val()}#{tabhash}"
       if history.pushState
         window.history.pushState({path:url},'',url);
-
-  $("#share-url").on "click", ->
-    @select()
 
 window.initializeRecordingsTab = ->
   initDatePicker()

@@ -1,15 +1,13 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
-
-
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
     <ul class="page-sidebar-menu">
       <li class="desktop-user">
-        <%= image_tag("evercam-e.svg", :class => "logo") %>
-        <a href="/" class="">
-					    <span class="username">
-				      	<%= current_user.firstname %>'s Cameras
-              </span>
+        <%= image_tag("evercam-e.svg", class: "logo") %>
+        <a href="/v1/cameras">
+          <span class="username">
+          <%= current_user.firstname %>'s Cameras
+          </span>
         </a>
       </li>
 
@@ -17,27 +15,29 @@
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-              <a href="/cameras/<%= camera['id'] %>">
+              <a href="/v1/cameras/<%= camera['id'] %>">
                 <%= camera['name'] %>
               </a>
             </li>
           <% end %>
         </ul>
       </li>
-      <li class="<%= is_active?("/cameras/new") %>">
+
+      <li class="<%= is_active?('/cameras/new') %>">
         <a href="/cameras/new">
           <i class="icon-plus"></i>
           <span class="title">Add a Camera</span>
         </a>
       </li>
-      <li class="<%= is_active?("/public/cameras") %>">
-        <a href="/public/cameras">
+
+      <li class="<%= is_active?('/public/cameras') %>">
+        <a href="/v1/public/cameras">
           <i class="icon-pointer"></i>
           <span class="title">Public Cameras</span>
         </a>
       </li>
 
-      <li class="<%= is_active?("/dev") %> toggle-sidebar">
+      <li class="<%= is_active?('/dev') %> toggle-sidebar">
         <a>
           <i class="icon-briefcase"></i>
           <span class="title">Developer</span>
@@ -64,38 +64,38 @@
           </li>
         </ul>
       </li>
+
       <li>
-        <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">
+        <a role="menuitem" tabindex="-1" href="/v1/users/<%= current_user.username %>/settings">
           <i class="icon-settings"></i>
           <span class="title">User Settings</span>
         </a>
       </li>
+
       <li>
         <a href="javascript:Intercom('show');">
           <i class="icon-support"></i><span class="support title">Support</span>
         </a>
-
       </li>
+
       <li>
-        <i class="icon-login"></i><%= link_to "Sign Out", signout_path, method: "delete", class: "signout" %>
+        <i class="icon-login"></i>
+        <%= link_to "Sign Out", signout_path, method: "delete", class: "signout" %>
       </li>
-
     </ul>
-
   </div>
 </div>
 
 <div class="cbp-spmenu-push">
   <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-
     <ul>
       <li>
         <a href="/dev">API Docs</a>
       </li>
 
-      <div class="dev-menu-title">
+      <li class="dev-menu-title">
         Widgets
-      </div>
+      </li>
 
       <li class="widgets-menu">
         <a href="/widgets-new">Live View</a>
@@ -104,17 +104,10 @@
       <li class="widgets-menu">
         <a href="/widgets-hikvision">Local Storage</a>
       </li>
+
       <li class="widgets-menu">
         <a href="/widgets-snapshot-navigator">Snapshot Navigator</a>
       </li>
     </ul>
   </nav>
 </div>
-
-<script>
-  $(document).ready(function () {
-    Metronic.init();
-    Layout.init();
-    QuickSidebar.init();
-  });
-</script>

@@ -15,22 +15,24 @@ EvercamDashboard::Application.routes.draw do
 
   resources :charges
 
-  root to: redirect('/cameras'), as: :root
+  root to: redirect('/v1/cameras'), as: :root
 
-  get '/cameras' => 'cameras#index', as: :cameras_index
+  get '/v1/cameras' => 'cameras#index', as: :cameras_index
   get '/cameras/new' => 'cameras#new'
   get '/cameras/:id/clone' => 'cameras#new'
   post '/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
-  get '/cameras/:id' => 'cameras#single', as: :cameras_single
+  get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   post '/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
 
   post '/cameras/:id/webhooks' => 'webhooks#create'
   delete '/cameras/:id/webhooks' => 'webhooks#delete'
 
-  get 'public/cameras' => 'public#index'
-  get 'public/cameras/:id' => 'public#single'
+  get '/v1/public/cameras' => 'public#index'
+  get '/v1/public/cameras/:id' => 'public#single'
+
+  #TODO: remove this after Node.js snapshot servers are taken down
   get 'publiccam/:id', to: redirect('public/cameras/%{id}')
 
   get 'locations' => 'locations#index'
@@ -44,7 +46,7 @@ EvercamDashboard::Application.routes.draw do
   post '/reset', to: 'users#password_reset_request'
   get '/newpassword', to: 'users#password_update_form'
   post '/newpassword', to: 'users#password_update'
-  get '/users/:id/settings', to: 'users#settings'
+  get '/v1/users/:id/settings', to: 'users#settings'
   get '/users/:id/resend', to: 'users#resend_confirmation_email'
   get '/confirm', to: 'users#confirm'
   post '/users/:id/settings', to: 'users#settings_update'

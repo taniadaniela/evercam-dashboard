@@ -23,35 +23,27 @@
 
     <% @cameras.each do |camera| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
-        <a class="" href="/cameras/<%= camera['id'] %>">
-          <div class="snapshot
-            <% unless camera['is_online'] %> offline-snapshot
-            <% end %>">
-            <%= preview(camera) %>
-          </div>
-          <div class="camera-info
-            <% unless camera['is_online'] %> offline-grey
-            <% end %>">
+        <a class="" href="/v1/cameras/<%= camera['id'] %>">
+          <div class="snapshot <% unless camera['is_online'] %> offline-snapshot <% end %>"> <%= preview(camera) %> </div>
+          <div class="camera-info <% unless camera['is_online'] %> offline-grey <% end %>">
             <div class="camera-name">
               <%= camera['name'] %>
               <% unless camera['is_online'] %>
                 <i class="red fa fa-chain-broken"></i>
               <% end %>
-              <a href="#" id="cam-refresh" class="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
             </div>
           </div>
         </a>
       </div>
     <% end %>
-      <a class="add-camera-index" href="/cameras/new">
-        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 add-camera-outer">
-          <div class="add-camera-info">
-            <span class="add-camera-icon">+</span>
-            <p class="add-camera">Add a Camera</p>
-          </div>
+    <a class="add-camera-index" href="/cameras/new">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 add-camera-outer">
+        <div class="add-camera-info">
+          <span class="add-camera-icon">+</span>
+          <p class="add-camera">Add a Camera</p>
         </div>
-      </a>
-
+      </div>
+    </a>
   </div>
 </div>
 

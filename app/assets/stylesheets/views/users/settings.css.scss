@@ -2,7 +2,6 @@
   h4 {
    font-size: 18px;
    font-family: $regular-family;
-    margin-bottom: 20px;
   }
   .form-group {
     margin-bottom: 8px;
@@ -26,10 +25,15 @@
     margin-top: 0px;
   }
   .list-group-lg > .list-group-item {
-    border-bottom: none;
+  }
+  .panel-title {
+    padding-left: 30px;
   }
 }
 
+.panel-section {
+ margin: 15px 0;
+}
 .account .icon {
   font-size: 16px;
   margin-right: 8px;
@@ -39,7 +43,6 @@
   margin-left: 250px;
   margin-top: 15px;
 }
-
 
 .close {
   text-indent: 0px;

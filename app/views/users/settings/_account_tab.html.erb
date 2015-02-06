@@ -3,26 +3,23 @@
     <ul class="list-group list-group-lg">
       <li class="list-group-item">
         <div class="panel-section">
-          <div class="panel-description col-md-4">
 
-            <h5>Profile</h5>
-            <div><span class="grey">This will delete the camera from Evercam and everything associated with it.</span></div>
-            <button id="show" class="margin-top-15 btn btn-primary makeEditable">Edit</button>
-
-          </div>
 
           <div class="user-settings-portal panel-content col-md-8">
             <div class="portlet">
-
               <div class="portlet-body form">
+                <button id="show" class="btn btn-primary hide-btn pull-right makeEditable"><i class="icon-pencil"></i></button>
                 <form id="userProfile" role="form" method="post" class="">
                   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-
                   <div class="form-group">
                     <label class="grey bold" for="user-username">Username <span id="username"> cannot be changed.</span></label>
                     <div id="username-show">
                       <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" readonly="readonly" disabled placeholder="">
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="bold grey" for="email">Email</label>
+                    <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium" id="email" name="email" placeholder="Enter email">
                   </div>
                   <div class="row">
                     <div class="col-md-3">
@@ -38,10 +35,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="bold grey" for="email">Email</label>
-                    <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium" id="email" name="email" placeholder="Enter email">
-                  </div>
+
 
                   <div class="form-group">
                     <label class="bold grey" for="country">Country</label>
@@ -70,7 +64,7 @@
 
                 </form>
                 <% unless current_user.confirmed_at %>
-                  <div class="alert alert-info alert-dismissible fade in margin-top-10" role="alert">
+                  <div class="alert alert-info alert-dismissible fade in margin-top-20" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <span>

@@ -26,6 +26,8 @@ EvercamDashboard::Application.routes.draw do
   post '/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
 
+  get '/v1/cameras/:id/*subpath' => 'cameras#single'
+
   post '/cameras/:id/webhooks' => 'webhooks#create'
   delete '/cameras/:id/webhooks' => 'webhooks#delete'
 
@@ -46,7 +48,7 @@ EvercamDashboard::Application.routes.draw do
   post '/reset', to: 'users#password_reset_request'
   get '/newpassword', to: 'users#password_update_form'
   post '/newpassword', to: 'users#password_update'
-  get '/v1/users/:id/settings', to: 'users#settings'
+  get '/v1/users/:id', to: 'users#settings'
   get '/users/:id/resend', to: 'users#resend_confirmation_email'
   get '/confirm', to: 'users#confirm'
   post '/users/:id/settings', to: 'users#settings_update'

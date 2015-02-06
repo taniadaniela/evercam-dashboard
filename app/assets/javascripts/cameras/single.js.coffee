@@ -17,22 +17,6 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
-handleScrollToEvents = ->
-  # Javascript to enable link to tab
-  url = document.location.toString()
-  if url.match("#")
-    $(".nav-tabs a[href=#" + url.split("#")[1] + "]").tab "show"
-    setTimeout (->
-      scrollTo 0, 0
-      return
-    ), 10
-  $(".nav-tabs").tabdrop "layout"
-
-  # Change hash for page-reload
-  $(".nav-tabs a").on "shown.bs.tab", (e) ->
-    window.location.hash = e.target.hash
-    scrollTo 0, 0
-
 initializeiCheck = ->
   $("input[type=radio], input[type=checkbox]").iCheck
     checkboxClass: "icheckbox_flat-blue"
@@ -87,6 +71,21 @@ handleCameraDelete = ->
       type: 'DELETE'
     jQuery.ajax(settings)
 
+switchToTab = ->
+  tab = window.Evercam.request.subpath.split('/')[0]
+  $(".nav-tab-#{tab}").tab('show')
+
+handleTabClick = ->
+  $('.nav-tabs a').on 'click', ->
+    clicked_path = $(this).attr('data-target').replace('#', '')
+    window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath}/#{clicked_path}" );
+
+handleBackForwardButton = ->
+  window.addEventListener 'popstate', (e) ->
+    tab = document.location.pathname
+      .replace(window.Evercam.request.rootpath, '')
+      .replace('/', '')
+    $(".nav-tab-#{tab}").tab('show')
 
 initializeTabs = ->
   window.initializeInfoTab()
@@ -98,10 +97,12 @@ initializeTabs = ->
   window.initializeExplorerTab()
 
 window.initializeCameraSingle = ->
+  switchToTab()
+  handleTabClick()
+  handleBackForwardButton()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
-  handleScrollToEvents()
   initializeTabs()
   initializeiCheck()
   initializeDropdowns()

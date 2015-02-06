@@ -855,5 +855,4 @@ window.initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
-  handleTabEvent()
-  true
+#  handleTabEvent()

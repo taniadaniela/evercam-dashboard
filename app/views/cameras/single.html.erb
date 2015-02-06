@@ -6,31 +6,6 @@
       <div class="section-header">
         <div class="camera-title">
           <div class="col-xs-12 col-md-12">
-
-
-            <div class="btn-group camera-switch">
-              <h3 class="page-title"><%= @camera['name'] %></h3>
-                <!--<a class="dropdown-toggle" data-toggle="dropdown">
-                <h3 class="page-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h3>
-              </a>
-              <ul class="dropdown-menu scroll-menu" role="menu">
-                <% @cameras.each do |camera| %>
-                  <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-                    <a href="/cameras/<%= camera['id'] %>">
-                      <% if camera['owner'] == current_user.username %>
-                        <i class="icon icon-users" style="visibility: hidden;"></i>
-                      <% else %>
-                        <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
-                      <% end %>
-                      <%= camera['name'] %>
-                      <% unless camera['is_online'] %>
-                        <i class="red fa fa-chain-broken"></i>
-                      <% end %>
-                    </a>
-                  </li>
-                <% end %>
-              </ul>-->
-            </div>
             <div class="pull-right camera-status">
               <% if @camera['is_online'] %>
                 <div class="green">Online</div>
@@ -44,7 +19,6 @@
               </div>
             <% end %>
           </div>
-
         </div>
       </div>
     </div>
@@ -54,54 +28,54 @@
         <div class="center-tabs">
           <ul class="nav nav-tabs">
             <li class="active">
-              <a id="nav-tabs-2" data-toggle="tab" href="#info">Details</a>
+              <a id="nav-tabs-2" data-toggle="tab" data-target="#details" class="nav-tab-details">Details</a>
             </li>
 
             <li>
-              <a data-toggle="tab" href="#live">Live View</a>
+              <a data-toggle="tab" data-target="#live" class="nav-tab-live">Live View</a>
             </li>
 
             <li>
-              <a data-toggle="tab" href="#snapshots">Snapshots</a>
-            </li>
-
-            <% if has_edit_right %>
-              <li>
-                <a data-toggle="tab" href="#sharing">Sharing</a>
-              </li>
-            <% end %>
-
-            <li>
-              <a data-toggle="tab" href="#api_explorer">API Explorer</a>
+              <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings">Snapshots</a>
             </li>
 
             <% if has_edit_right %>
               <li>
-                <a data-toggle="tab" href="#logs">Logs</a>
+                <a data-toggle="tab" data-target="#shares" class="nav-tab-shares">Sharing</a>
               </li>
             <% end %>
 
             <li>
-              <a data-toggle="tab" href="#apps">Apps</a>
+              <a data-toggle="tab" data-target="#api-explorer" class="nav-tab-api-explorer">API Explorer</a>
+            </li>
+
+            <% if has_edit_right %>
+              <li>
+                <a data-toggle="tab" data-target="#logs" class="nav-tab-logs">Logs</a>
+              </li>
+            <% end %>
+
+            <li>
+              <a data-toggle="tab" data-target="#apps" class="nav-tab-apps">Apps</a>
             </li>
 
             <li>
-              <a data-toggle="tab" href="#webhooks">Webhooks</a>
+              <a data-toggle="tab" data-target="#webhooks" class="nav-tab-webhooks">Webhooks</a>
             </li>
 
             <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
               <li>
-                <a data-toggle="tab" href="#local_storage">Local Storage</a>
+                <a data-toggle="tab" data-target="#local-storage" class="nav-tab-local-storage">Local Storage</a>
               </li>
             <% end %>
             <li>
-              <a data-toggle="tab" href="#settings">Settings</a>
+              <a data-toggle="tab" data-target="#settings" class="nav-tab-settings">Settings</a>
             </li>
           </ul>
         </div>
 
         <div class="tab-content">
-          <div id="info" class="tab-pane active">
+          <div id="details" class="tab-pane active">
             <%= render partial: "cameras/single/info_tab" %>
           </div>
 
@@ -109,17 +83,17 @@
             <%= render partial: "cameras/single/live_view_tab" %>
           </div>
 
-          <div id="snapshots" class="tab-pane">
+          <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
 
           <% if has_edit_right %>
-            <div id="sharing" class="tab-pane">
+            <div id="shares" class="tab-pane">
               <%= render partial: "cameras/single/sharing_tab" %>
             </div>
           <% end %>
 
-          <div id="api_explorer" class="tab-pane">
+          <div id="api-explorer" class="tab-pane">
             <%= render partial: "cameras/single/api_explorer_tab" %>
           </div>
 
@@ -136,16 +110,16 @@
           <div id="webhooks" class="tab-pane">
             <%= render partial: "cameras/single/webhooks_tab" %>
           </div>
+
           <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
-            <div id="local_storage" class="tab-pane">
+            <div id="local-storage" class="tab-pane">
               <%= render partial: "cameras/single/local_storage_tab" %>
             </div>
           <% end %>
 
-            <div id="settings" class="tab-pane">
-              <%= render partial: "cameras/single/settings_tab" %>
-            </div>
-
+          <div id="settings" class="tab-pane">
+            <%= render partial: "cameras/single/settings_tab" %>
+          </div>
         </div>
       </div>
     </div>
@@ -168,6 +142,12 @@
     username: '<%= current_user.username %>',
     api_id: '<%= current_user.api_id %>',
     api_key: '<%= current_user.api_key %>'
+  };
+  window.Evercam.request = {
+    url: '<%= request.url %>',
+    path: '<%= request.path %>',
+    subpath: '<%= params['subpath'] %>',
+    rootpath: '<%= request.path.sub("#{params['subpath']}", '').chomp('/') %>'
   };
 
   $(document).ready(function () {

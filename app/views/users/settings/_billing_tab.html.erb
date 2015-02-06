@@ -4,17 +4,18 @@
       <li class="list-group-item">
         <div class="panel-section">
           <div class="panel-description col-md-4">
-            <h5>Billing Information</h5>
+            <h3>Billing Information</h3>
             <% if @customer.nil? %>
-              This account does not have a credit card.
+            <p>This account does not have a credit card.</p>
             <% else %>
-
               <div class="row">
                 <div class="col-md-12">
-                  This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong>
+                  <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
+                </div>
+                <div class="col-md-12">
+                  <p>Expires: <strong><%= @customer['cards']['data'].first['exp_month'] %>-<%= @customer['cards']['data'].first['exp_year'] %></strong></p>
                 </div>
               </div>
-
             <% end %>
           </div>
         </div>
@@ -22,11 +23,31 @@
       <li class="list-group-item">
         <div class="panel-section">
           <div class="panel-description col-md-4">
+            <h3>Current Subscriptions</h3>
+              <div class="row">
+                <div class="col-md-12">
+                  Number of subscriptions: <strong><%= @customer['subscriptions']['total_count'] %></strong>
+                </div>
+              </div>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="panel-section">
+          <div class="panel-description col-md-4">
+            <h3>Purchase New Subscriptions</h3>
+
+
+
+
+
             <h5>Evercam Bundle Silver</h5>
 
             <div class="row">
               <div class="col-md-6">
-                <p class="margin-top-10 margin-bottom-10">Annual - €199.00</p>
+                <%= @silver_annual_plan.name %>
+                <%= @silver_annual_plan.amount %>
+
                 <%= form_tag charges_path do %>
                   <input type="hidden" name="amount" value="19500"/>
                   <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
@@ -38,7 +59,8 @@
                 <% end %>
               </div>
               <div class="col-md-6">
-                <p class="margin-top-10 margin-bottom-10">Monthly - €25.00</p>
+                <%= @silver_monthly_plan.name %>
+                <%= @silver_monthly_plan.amount %>
                 <%= form_tag charges_path do %>
                   <input type="hidden" name="amount" value="2500"/>
                   <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>

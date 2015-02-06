@@ -85,6 +85,10 @@ class UsersController < ApplicationController
 
     end
 
+    @silver_annual_plan = Stripe::Plan.retrieve("silver-annual")
+    @silver_monthly_plan = Stripe::Plan.retrieve("silver-monthly")
+
+
   end
 
   def settings_update

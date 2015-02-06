@@ -6,8 +6,21 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     if current_user.nil?
-      session[:redirect_url] = request.original_url
-      redirect_to signin_path
+      user = nil
+      original_url = request.original_url
+      if params.has_key?(:api_id) and params.has_key?(:api_key)
+        user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+        #TODO: replace this with a more robust solution
+        original_url = original_url.gsub(/api_id=[a-zA-Z0-9]+&/, '').gsub(/api_key=[a-zA-Z0-9]+&?/, '')
+      end
+
+      if user.nil?
+        session[:redirect_url] = original_url
+        redirect_to signin_path
+      else
+        sign_in user
+        redirect_to original_url
+      end
     end
   end
 

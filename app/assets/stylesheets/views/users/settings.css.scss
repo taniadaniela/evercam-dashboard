@@ -1,15 +1,8 @@
-.account .icon {
-  font-size: 16px;
-  margin-right: 8px;
-  height: 0;
-}
-.payment-confirmation {
-  margin-left: 250px;
-  margin-top: 15px;
-}
-#user-settings {
-  .page-content-wrapper .page-content {
-    padding: 0px 20px 10px 20px;
+#manage-account {
+  h4 {
+   font-size: 18px;
+   font-family: $regular-family;
+    margin-bottom: 20px;
   }
   .form-group {
     margin-bottom: 8px;
@@ -25,8 +18,6 @@
   .form-control[disabled] {
     padding:0;
   }
-}
-#billing {
   .list {
     padding-left: 25px;
     margin-bottom: 10px;
@@ -38,6 +29,18 @@
     border-bottom: none;
   }
 }
+
+.account .icon {
+  font-size: 16px;
+  margin-right: 8px;
+  height: 0;
+}
+.payment-confirmation {
+  margin-left: 250px;
+  margin-top: 15px;
+}
+
+
 .close {
   text-indent: 0px;
   height: 20px;

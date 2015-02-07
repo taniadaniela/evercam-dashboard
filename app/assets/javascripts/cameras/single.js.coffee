@@ -7,16 +7,16 @@
 #= require cameras/single/logs.js.coffee
 #= require cameras/single/webhooks.js.coffee
 #= require cameras/single/local_storage.js.coffee
+#= require cameras/single/settings.js.coffee
 #= require cameras/single/testsnapshot.js.coffee
 
-sendAJAXRequest = (settings) ->
+window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  xhrRequestChangeMonth = jQuery.ajax(settings)
-  true
+  xhrRequestChangeMonth = $.ajax(settings)
 
 initializeiCheck = ->
   $("input[type=radio], input[type=checkbox]").iCheck
@@ -26,51 +26,6 @@ initializeiCheck = ->
 initializeDropdowns = ->
   $("[data-toggle=\"tooltip\"]").tooltip()
   $(".dropdown-toggle").dropdown()
-
-onCameraDeleteError = (jqXHR, status, error) ->
-  Notification.show "An error occurred removing your camera. Please try again and, if the problem persists, contact support."
-  true
-
-onCameraDeleteSuccess = (data, status, jqXHR) ->
-  if data.success
-    Notification.show "Camera deleted successfully."
-    window.location = '/'
-  else
-    Notification.show data.message
-  true
-
-handleCameraDelete = ->
-  $("#delete-camera").on "click", ->
-    if $("#camera_specified_id") && $("#camera_specified_id").val() is ''
-      Notification.show "Please enter camera id to confirm delete camera."
-      return
-
-    data =
-      share: $("#share").val()
-      camera_specified_id: $("#camera_specified_id").val()
-
-    settings =
-      cache: false
-      data: data
-      error: onCameraDeleteError
-      success: onCameraDeleteSuccess
-      url: "/cameras/#{$("#id").val()}"
-      type: 'DELETE'
-    jQuery.ajax(settings)
-
-  $("#remove-camera").on "click", ->
-    data =
-      share: $("#share").val()
-      share_id: $("#share_id").val()
-
-    settings =
-      cache: false
-      data: data
-      error: onCameraDeleteError
-      success: onCameraDeleteSuccess
-      url: "/cameras/#{$("#id").val()}"
-      type: 'DELETE'
-    jQuery.ajax(settings)
 
 switchToTab = ->
   $(".nav-tab-#{Evercam.request.tabpath}").tab('show')
@@ -97,6 +52,7 @@ initializeTabs = ->
   window.initializeWebhookTab()
   window.initializeExplorerTab()
   window.initializeLocalStorageTab()
+  window.initializeSettingsTab()
 
 window.initializeCameraSingle = ->
   initializeTabs()
@@ -105,7 +61,6 @@ window.initializeCameraSingle = ->
   handleBackForwardButton()
   initializeiCheck()
   initializeDropdowns()
-  handleCameraDelete()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()

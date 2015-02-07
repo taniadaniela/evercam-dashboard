@@ -18,12 +18,12 @@ EvercamDashboard::Application.routes.draw do
   root to: redirect('/v1/cameras'), as: :root
 
   get '/v1/cameras' => 'cameras#index', as: :cameras_index
-  get '/cameras/new' => 'cameras#new'
+  get '/cameras/new' => 'cameras#new', as: :cameras_new
   get '/cameras/:id/clone' => 'cameras#new'
   post '/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
-  post '/cameras/:id' => 'cameras#update'
+  post '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'

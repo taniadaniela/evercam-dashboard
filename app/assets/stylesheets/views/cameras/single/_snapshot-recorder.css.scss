@@ -1,13 +1,7 @@
-// Place all the styles related to the live snapshot-recorder here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-/*///////////////////////////
-// RECORDING - SNAPSHOT
-///////////////////////////*/
-#snapshots input {
+#recordings input {
   font-size: 16px;
 }
-#snapshots .has-snapshot{
+#recordings .has-snapshot{
   color: #428bca;
   font-family: proxima-nova-bold;
   font-weight: bold;

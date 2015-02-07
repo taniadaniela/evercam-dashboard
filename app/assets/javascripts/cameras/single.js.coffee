@@ -78,7 +78,8 @@ switchToTab = ->
 handleTabClick = ->
   $('.nav-tabs a').on 'click', ->
     clicked_path = $(this).attr('data-target').replace('#', '')
-    window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath}/#{clicked_path}" );
+    if window.history and window.history.pushState
+      window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath}/#{clicked_path}" );
 
 handleBackForwardButton = ->
   window.addEventListener 'popstate', (e) ->

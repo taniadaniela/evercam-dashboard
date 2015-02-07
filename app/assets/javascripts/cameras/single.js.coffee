@@ -6,6 +6,7 @@
 #= require cameras/single/api_explorer.js.coffee
 #= require cameras/single/logs.js.coffee
 #= require cameras/single/webhooks.js.coffee
+#= require cameras/single/local_storage.js.coffee
 #= require cameras/single/testsnapshot.js.coffee
 
 sendAJAXRequest = (settings) ->
@@ -72,8 +73,7 @@ handleCameraDelete = ->
     jQuery.ajax(settings)
 
 switchToTab = ->
-  tab = window.Evercam.request.subpath.split('/')[0]
-  $(".nav-tab-#{tab}").tab('show')
+  $(".nav-tab-#{Evercam.request.tabpath}").tab('show')
 
 handleTabClick = ->
   $('.nav-tabs a').on 'click', ->
@@ -96,15 +96,16 @@ initializeTabs = ->
   window.initializeSharingTab()
   window.initializeWebhookTab()
   window.initializeExplorerTab()
+  window.initializeLocalStorageTab()
 
 window.initializeCameraSingle = ->
-  switchToTab()
-  handleTabClick()
-  handleBackForwardButton()
-  Metronic.init()
-  Layout.init()
-  QuickSidebar.init()
   initializeTabs()
+  handleTabClick()
+  switchToTab()
+  handleBackForwardButton()
   initializeiCheck()
   initializeDropdowns()
   handleCameraDelete()
+  Metronic.init()
+  Layout.init()
+  QuickSidebar.init()

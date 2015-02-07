@@ -143,11 +143,13 @@
     api_id: '<%= current_user.api_id %>',
     api_key: '<%= current_user.api_key %>'
   };
+  <% params_subpath = params.fetch('subpath', '') %>
   window.Evercam.request = {
     url: '<%= request.url %>',
     path: '<%= request.path %>',
-    subpath: '<%= params['subpath'] %>',
-    rootpath: '<%= request.path.sub("#{params['subpath']}", '').chomp('/') %>'
+    subpath: '<%= params_subpath %>',
+    tabpath: '<%= params_subpath.split('/').first %>',
+    rootpath: '<%= request.path.sub(params_subpath, '').chomp('/') %>'
   };
 
   $(document).ready(function () {

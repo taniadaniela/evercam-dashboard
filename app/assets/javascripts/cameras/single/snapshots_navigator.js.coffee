@@ -783,7 +783,7 @@ handleMinSecDropDown = ->
     SelectImagesByMinSec()
 
 handleTabOpen = ->
-  $('.nav-tab-recordings').on 'shown.bs.tab', ->
+  $('.nav-tab-recordings').on 'show.bs.tab', ->
     GetCameraInfo false
 
 window.initializeRecordingsTab = ->

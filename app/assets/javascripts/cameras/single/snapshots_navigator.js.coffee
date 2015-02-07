@@ -223,7 +223,7 @@ SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z"
+  url = "#{Evercam.request.subpath}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z"
 
   if $(".nav-tabs li.active a").html() is "Snapshots" && history.pushState
     window.history.pushState({path:url},'',url);
@@ -233,7 +233,6 @@ UpdateSnapshotRec = (snapInfo) ->
   $("#snapshot-notes-text").text(snapInfo.notes)
   SetInfoMessage currentFrameNumber, shortDate(new Date(snapInfo.created_at*1000))
   loadImage(snapInfo.created_at)
-  true
 
 getURLParameter = (name) ->
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")

@@ -24,22 +24,23 @@
   <%= yield %>
 </div>
 
-
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
 
 <%= render 'shared/google_analytics' %>
 <script>
-  notifyMessage = '';
-  <% if flash[:message] %>
-    notifyMessage = '<%= flash[:message] %>';
-  <% end %>
+  notifyMessage = '<%= flash[:message] %>';
 
   if (!window.Evercam) {
     window.Evercam = {};
   }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
 
   Metronic.init();
   Layout.init();

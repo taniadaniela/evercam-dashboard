@@ -31,17 +31,19 @@ class UsersController < ApplicationController
       if user.nil?
         raise "No user details specified in request."
       end
-      output = get_evercam_api.create_user(user['firstname'],
-                                           user['lastname'],
-                                           user['username'],
-                                           user['email'],
-                                           user['password'],
-                                           user['country'],
-                                           params[:key])
+      get_evercam_api.create_user(
+        user['firstname'],
+        user['lastname'],
+        user['username'],
+        user['email'],
+        user['password'],
+        user['country'],
+        params[:key]
+      )
 
       user = User.where(email: user[:email].downcase).first
       sign_in user
-      redirect_to "/"
+      redirect_to cameras_index_path
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       if error.kind_of?(Evercam::EvercamError)
@@ -70,7 +72,7 @@ class UsersController < ApplicationController
         flash[:notice] = 'Activation code is incorrect'
       end
     end
-    redirect_to '/signin'
+    redirect_to signin_path
   end
 
   def settings
@@ -160,7 +162,7 @@ class UsersController < ApplicationController
       user.password = params[:password]
       user.save
       sign_in user
-      redirect_to "/", message: 'Your password has been changed'
+      redirect_to cameras_index_path, message: 'Your password has been changed'
     end
   end
 

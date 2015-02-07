@@ -7,11 +7,11 @@ class SessionsController < ApplicationController
   layout "bare-bones"
 
   def new
-    redirect_to :cameras_index unless current_user.nil?
+    redirect_to cameras_index_path unless current_user.nil?
   end
 
   def widget_new
-    redirect_to :cameras_index unless current_user.nil?
+    redirect_to cameras_index_path unless current_user.nil?
   end
 
   def create
@@ -30,17 +30,17 @@ class SessionsController < ApplicationController
         redirect_to "#{url}#{params[:session][:anchor]}"
       else
         Rails.logger.debug "Redirecting to the cameras index action."
-        redirect_to :cameras_index
+        redirect_to cameras_index_path
       end
     else
       Rails.logger.warn "Invalid user name and/or password specified."
-      flash.now[:error] = 'Invalid login/password combination' # Not quite right!
+      flash.now[:error] = 'Invalid login/password combination'
       render 'new'
     end
   end
 
   def destroy
     sign_out
-    redirect_to '/signin'
+    redirect_to signin_path
   end
 end

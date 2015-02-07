@@ -24,7 +24,7 @@ class WebhooksController < ApplicationController
                             "contact support."]
       end
       Rails.logger.error "Exception caught in create webhook request.\nCause: #{error}\n" +
-                             error.backtrace.join("\n")
+          error.backtrace.join("\n")
       result[:success] = false
       result[:message] = error.message
       result[:code] = error.code
@@ -39,14 +39,13 @@ class WebhooksController < ApplicationController
       response = api.delete_webhook(params[:camera_id], params[:webhook_id])
 
       render json: response
-      return
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting webhook.\nCause: #{error}\n" +
-                             error.backtrace.join("\n")
+          error.backtrace.join("\n")
       flash[:error] = "An error occurred deleting your webhook. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to '/'
+      redirect_to cameras_index_path
     end
   end
 

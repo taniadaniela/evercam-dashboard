@@ -39,11 +39,11 @@
                 <tbody>
                 <% @public_cameras.each do |camera| %>
                   <tr>
-                    <td><%= camera["name"] %></td>
-                    <td data-toggle="collapse" data-target="#<%= camera["id"] %>" class="show-arrow">
-                      <a data-toggle="modal" href="#<%= camera["id"] %>">Quick Preview </a></td>
+                    <td><%= camera['name'] %></td>
+                    <td data-toggle="collapse" data-target="#<%= camera['id'] %>" class="show-arrow">
+                      <a data-toggle="modal" href="#<%= camera['id'] %>">Quick Preview </a></td>
                     <td class="text-success">
-                      <% if camera["is_online"] %>
+                      <% if camera['is_online'] %>
                         <span class="green">Online</span>
                       <% else %>
                         <span class="red">Offline</span>
@@ -51,20 +51,26 @@
                     </td>
                     <td><%= camera['owner'] %></td>
                     <td>
-                      <div id="camera-location"><%= camera.deep_fetch('location', 'lat') {} %>
-                        , <%= camera.deep_fetch('location', 'lng') {} %></p></div>
+                      <div id="camera-location">
+                        <p>
+                          <%= camera.deep_fetch('location', 'lat') { '' }.to_s[0..7] %>, <br/>
+                          <%= camera.deep_fetch('location', 'lng') { '' }.to_s[0..7] %>
+                        </p>
+                      </div>
                     </td>
                     <td class="show-arrow text-success"><a href="/public/cameras/<%= camera['id'] %>">View
                       <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
                     <td class="show-arrow">
-                      <a href="#" class="create-share-button" camera_id="<%= camera["id"] %>" email="<%= @user.email %>">Add
-                        <i id="hover-arrow" class="icon-plus"></i></a></td>
+                      <a href="" class="create-share-button" camera_id="<%= camera['id'] %>" email="<%= @user.email %>">
+                        Add <i id="hover-arrow" class="icon-plus"></i>
+                      </a>
+                    </td>
                   </tr>
 
-                  <div class="modal fade" id="<%= camera["id"] %>" tabindex="-1" role="basic" aria-hidden="true">
+                  <div class="modal fade" id="<%= camera['id'] %>" tabindex="-1" role="basic" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
-                        <div class="public-preview" id="<%= camera["id"] %>"> <%= preview(camera, true) %> </div>
+                        <div class="public-preview" id="<%= camera['id'] %>"> <%= preview(camera, true) %> </div>
                         <i data-dismiss="modal" class="icon-close modal-dismiss"></i>
                       </div>
                     </div>
@@ -132,8 +138,8 @@
     (function (marker) {
       // add click event
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent("<a href='/public/cameras/<%= camera['id'] %>'><%= preview(camera, true) %></a>" +
-        '<h5><a href="/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
+        infowindow.setContent("<a href='/v1/public/cameras/<%= camera['id'] %>'><%= preview(camera, true) %></a>" +
+        '<h5><a href="/v1/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
 
         infowindow.open(map, marker);
       });

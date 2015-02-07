@@ -23,7 +23,7 @@
 
     <% @cameras.each do |camera| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
-        <a class="" href="/v1/cameras/<%= camera['id'] %>">
+        <%= link_to cameras_single_path(camera['id']) do %>
           <div class="snapshot <% unless camera['is_online'] %> offline-snapshot <% end %>"> <%= preview(camera) %> </div>
           <div class="camera-info <% unless camera['is_online'] %> offline-grey <% end %>">
             <div class="camera-name">
@@ -33,17 +33,17 @@
               <% end %>
             </div>
           </div>
-        </a>
+        <% end %>
       </div>
     <% end %>
-    <a class="add-camera-index" href="/cameras/new">
+    <%= link_to cameras_new_path, class: 'add-camera-index' do %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 add-camera-outer">
         <div class="add-camera-info">
           <span class="add-camera-icon">+</span>
           <p class="add-camera">Add a Camera</p>
         </div>
       </div>
-    </a>
+    <% end %>
   </div>
 </div>
 

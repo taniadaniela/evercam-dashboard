@@ -28,7 +28,7 @@
         <div class="center-tabs">
           <ul class="nav nav-tabs">
             <li class="active">
-              <a id="nav-tabs-2" data-toggle="tab" data-target="#details" class="nav-tab-details">Details</a>
+              <a id="nav-tabs-2" data-toggle="tab" data-target="#details" class="nav-tab-details nav-tab-">Details</a>
             </li>
 
             <li>
@@ -127,7 +127,6 @@
 </div>
 
 <script>
-  window.Evercam.API_URL = '<%= EVERCAM_API %>';
   window.Evercam.Camera = {
     id: '<%= @camera['id'] %>',
     is_online: <%= @camera['is_online'] %>,
@@ -137,11 +136,6 @@
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>
     }
-  };
-  window.Evercam.User = {
-    username: '<%= current_user.username %>',
-    api_id: '<%= current_user.api_id %>',
-    api_key: '<%= current_user.api_key %>'
   };
   <% params_subpath = params.fetch('subpath', '') %>
   window.Evercam.request = {

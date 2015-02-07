@@ -25,7 +25,10 @@
 
     <div class="row margin-bottom-15">
       <div class="col-xs-6 col-md-6">
-        <a href="/public/cameras/"><span class="fa fa-arrow-left"></span> Public Cameras</a>
+        <%= link_to public_cameras_index_path do %>
+          <span class="fa fa-arrow-left"></span>
+          Public Cameras
+        <% end %>
       </div>
       <div class="pull-right col-xs-6 col-md-6">
         <a href="#" class="pull-right create-share-button" camera_id="<%= @camera["id"] %>" email="<%= @user.email %>">Add
@@ -144,8 +147,10 @@
                           </div>
                           <div id="pub-location" class="margin-top-10 col-md-12">
                             Coordinates
-                            <p><%= @camera.deep_fetch('location', 'lat') {} %>
-                              , <%= @camera.deep_fetch('location', 'lng') {} %></p>
+                            <p>
+                              <%= @camera.deep_fetch('location', 'lat') {} %>
+                              , <%= @camera.deep_fetch('location', 'lng') {} %>
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -162,7 +167,6 @@
 </div>
 
 <script>
-  window.Evercam.API_URL = '<%= EVERCAM_API %>';
   window.Evercam.Camera = {
     id: '<%= @camera['id'] %>',
     is_online: <%= @camera['is_online'] %>,
@@ -171,11 +175,6 @@
       lng: '<%= @camera.deep_fetch('location', 'lng') {} %>',
     },
     port: '<%= @camera.deep_fetch('external', 'http', 'port') {} %>'
-  };
-  window.Evercam.User = {
-    username: '<%= current_user.username %>',
-    api_id: '<%= current_user.api_id %>',
-    api_key: '<%= current_user.api_key %>'
   };
 </script>
 

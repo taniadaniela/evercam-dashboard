@@ -18,7 +18,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 gem 'rails-assets-bootstrap', '~> 3.3.1'
 gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
-gem 'rails-assets-videojs', '~> 4.11.3'
+gem 'rails-assets-videojs', '~> 4.11.4'
 gem 'rails-assets-datatables', '~> 1.10.4'
 gem 'rails-assets-datatables-plugins', '~> 1.0'
 gem 'rails-assets-screenfull', '~> 2.0'

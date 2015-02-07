@@ -18,23 +18,25 @@ module ApplicationHelper
   end
 
   def is_active?(link_path)
-    current_page?(link_path) ? "active" : ""
+    current_page?(link_path) ? 'active' : ''
   end
 
   def get_evercam_api
     configuration = Rails.application.config
-    parameters    = {logger: Rails.logger}
+    parameters = {logger: Rails.logger}
     if current_user
-      parameters = parameters.merge(api_id: current_user.api_id,
-                                    api_key: current_user.api_key)
+      parameters = parameters.merge(
+        api_id: current_user.api_id,
+        api_key: current_user.api_key
+      )
     end
-    settings      = {}
+    settings = {}
     begin
       settings = (configuration.evercam_api || {})
-    rescue => error
+    rescue => _error
       # Deliberately ignored.
     end
-    parameters    = parameters.merge(settings) if !settings.empty?
+    parameters = parameters.merge(settings) if !settings.empty?
     Evercam::API.new(parameters)
   end
 end

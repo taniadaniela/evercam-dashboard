@@ -3,45 +3,39 @@
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
     <ul class="page-sidebar-menu">
       <li class="desktop-user">
-        <%= image_tag("evercam-e.svg", class: "logo") %>
-        <a href="/v1/cameras">
+        <%= image_tag('evercam-e.svg', class: 'logo') %>
+        <%= link_to cameras_index_path do %>
           <span class="username">
-          <%= current_user.firstname %>'s Cameras
+            <%= current_user.firstname %>'s Cameras
           </span>
-        </a>
+        <% end %>
       </li>
 
       <li>
         <ul class="sub-menu">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-              <a href="/v1/cameras/<%= camera['id'] %>">
-                <%= camera['name'] %>
-              </a>
+              <%= link_to camera['name'], cameras_single_path(camera['id']) %>
             </li>
           <% end %>
         </ul>
       </li>
 
       <li class="<%= is_active?('/cameras/new') %>">
-        <a href="/cameras/new">
+        <%= link_to cameras_new_path do %>
           <i class="icon-plus"></i>
           <span class="title">Add a Camera</span>
-        </a>
+        <% end %>
       </li>
 
       <li class="<%= is_active?('/public/cameras') %>">
-        <a href="/v1/public/cameras">
+        <%= link_to public_cameras_index_path do %>
           <i class="icon-pointer"></i>
           <span class="title">Public Cameras</span>
-        </a>
+        <% end %>
       </li>
 
       <li class="<%= is_active?('/dev') %> toggle-sidebar">
-        <a>
-          <i class="icon-briefcase"></i>
-          <span class="title">Developer</span>
-        </a>
         <ul id="mobile-dev-menu" class="sub-menu">
           <li>
             <a href="/dev">API Docs</a>
@@ -66,10 +60,10 @@
       </li>
 
       <li>
-        <a role="menuitem" tabindex="-1" href="/v1/users/<%= current_user.username %>">
+        <%= link_to user_path(current_user.username), role: 'menuitem' do %>
           <i class="icon-settings"></i>
           <span class="title">User Settings</span>
-        </a>
+        <% end %>
       </li>
 
       <li>
@@ -80,7 +74,7 @@
 
       <li>
         <i class="icon-login"></i>
-        <%= link_to "Sign Out", signout_path, method: "delete", class: "signout" %>
+        <%= link_to 'Sign Out', signout_path, method: 'delete', class: 'signout' %>
       </li>
     </ul>
   </div>

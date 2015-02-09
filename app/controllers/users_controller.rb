@@ -83,8 +83,7 @@ class UsersController < ApplicationController
     unless current_user.billing_id.blank?
 
       @customer = Stripe::Customer.retrieve(current_user.billing_id)
-      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all(:limit => 3)
-
+      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
 
     end
 

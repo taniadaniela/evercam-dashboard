@@ -2,87 +2,155 @@
   <div class="col-md-12">
     <ul class="list-group list-group-lg">
       <li class="list-group-item">
-        <div class="panel-section row">
-          <div class="row">
-            <div class="panel-description col-md-4">
-              <div class="panel-title row">
-                <h4 class="margin-bottom-10">Billing Information</h4>
-              </div>
-              <% if @customer.nil? %>
-                <p>You have not registered a credit card with us.</p>
-
-              <% else %>
-                <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
-              <% end %>
-            </div>
-
+        <div class="panel-description col-md-4">
+          <div class="panel-title row">
+            <h4 class="margin-bottom-10">Billing Information</h4>
           </div>
+          <% if @customer.nil? %>
+            <p>You have not registered a credit card.</p>
+          <% else %>
+            <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
+          <% end %>
         </div>
-      </li>
 
-      <li class="list-group-item">
-        <div class="panel-section row">
-          <div class="row">
-            <div class="panel-description col-md-4">
-              <div class="panel-title row">
-                <h4 class="margin-bottom-10">Active Licences</h4>
-              </div>
-              <% if @customer.nil? %>
-                <p>You are not subscribed to any plans.</p>
-              <% else %>
-                <p>You have <strong><%= @subscriptions.count %></strong> active licence(s).</p>
-              <% end %>
-            </div>
-
+        <div class="panel-description col-md-8">
+          <div class="panel-title row">
+            <h4 class="margin-bottom-10">Active Licences</h4>
           </div>
+          <% if @customer.nil? %>
+            <p>You are not subscribed to any plans.</p>
+          <% else %>
+            <p>You have <strong><%= @subscriptions.count %></strong> active licence(s).</p>
+            <div class="table-responsive">
+              <table class="table">
+                <tr>
+                 <th>Order Date</th>
+                  <th>Licence</th>
+                  <th>Status</th>
+                  <th>Interval</th>
+                  <th>Amount</th>
+                </tr>
+                <% @subscriptions.each do |subscriptions| %>
+                <tr>
+                  <td>
+                    <%= subscriptions['plan']['created'] %>
+                  </td>
+                  <td>
+                  <%= subscriptions['plan']['name'] %>
+                  </td>
+                  <td>
+                    <%= subscriptions['status'] %>
+                  </td>
+                  <td>
+                    <%= subscriptions['plan']['interval'] %>ly
+                  </td>
+                  <td>
+                   €<%= subscriptions['plan']['amount'] / 100 %>.00
+                  </td>
+                </tr>
+                <% end %>
+              </table>
+            </div>
+          <% end %>
         </div>
+
+
       </li>
 
       <li class="list-group-item">
         <div class="panel-title row">
           <h4>Buy a Licence</h4>
         </div>
-        <div class="row">
-          <div class="panel-section row">
-            <div class="panel-description col-md-4 margin-bottom-20">
-              <p>Evercam Silver Bundle</p>
-              <%= form_tag charges_path do %>
-                <input type="hidden" name="amount" value="19500"/>
-                <input type="hidden" name="plan" value="silver-annual"/>
-                <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                data-image="/assets/evercam-e.svg"
-                data-name="Evercam Bundle Silver"
-                data-description="Silver Licence (€199.00 per year)"
-                data-panel-label="Subscribe"
-                data-label="Annual - €199.00"
-                data-plan="silver-annual"
-                data-allow-remember-me="false">
-                </script>
-              <% end %>
 
-              <%= form_tag charges_path do %>
-                <input type="hidden" name="amount" value="2500"/>
-                <input type="hidden" name="plan" value="silver-monthly"/>
-                <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                data-image="/assets/evercam-e.svg"
-                data-name="Evercam Bundle Silver"
-                data-description="Silver Licence €25.00 per month"
-                data-panel-label="Subscribe"
-                data-label="Monthly - €25.00"
-                data-plan="silver-monthly"
-                data-allow-remember-me="false">
-                </script>
-              <% end %>
+          <div class="panel-section">
+            <div class="row">
+              <div class="panel-description col-md-4 margin-bottom-20">
+                <p>Evercam Silver Bundle</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <%= form_tag charges_path do %>
+                      <input type="hidden" name="plan" value="silver-annual"/>
+                      <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                      <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-name="Silver Bundle"
+                      data-description="Silver Licence (€199.00 per year)"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €199.00"
+                      data-plan="silver-annual"
+                      data-allow-remember-me="false">
+                      </script>
+                    <% end %>
+                  </div>
+                  <div class="col-md-6">
+                    <%= form_tag charges_path do %>
+                      <input type="hidden" name="amount" value="2500"/>
+                      <input type="hidden" name="plan" value="silver-monthly"/>
+                      <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                      <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-name="Silver Bundle"
+                      data-description="Silver Licence €25.00 per month"
+                      data-panel-label="Subscribe"
+                      data-label="Monthly - €25.00"
+                      data-plan="silver-monthly"
+                      data-allow-remember-me="false">
+                      </script>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="panel-description col-md-4 margin-bottom-20">
+                <p>Snapmail</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <%= form_tag charges_path do %>
+                      <input type="hidden" name="amount" value="9900"/>
+                      <input type="hidden" name="plan" value="snapmail-annual"/>
+                      <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                      <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-name="Snapmail Annual"
+                      data-description="€99.00 per year"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €99.00"
+                      data-plan="snapmail-annual"
+                      data-allow-remember-me="false">
+                      </script>
+                    <% end %>
+                  </div>
+                  <div class="col-md-6">
+                    <%= form_tag charges_path do %>
+                      <input type="hidden" name="amount" value="1000"/>
+                      <input type="hidden" name="plan" value="snapmail-monthly"/>
+                      <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                      <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-name="Snapmail Monthly"
+                      data-description="€10.00 per month"
+                      data-panel-label="Subscribe"
+                      data-label="Monthly - €10.00"
+                      data-plan="snapmail-monthly"
+                      data-allow-remember-me="false">
+                      </script>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-        </div>
+
       </li>
 
 

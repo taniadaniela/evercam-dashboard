@@ -12,7 +12,6 @@ class ChargesController < ApplicationController
     @cameras = load_user_cameras(true, true)
 
     @email = current_user.email
-    @amount = params[:amount]
     @plan = params[:plan]
 
     token = params[:token]

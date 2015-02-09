@@ -78,16 +78,18 @@ class UsersController < ApplicationController
     @countries = Country.all
 
     @customer = nil
+    @subscriptions = nil
 
     unless current_user.billing_id.blank?
 
       @customer = Stripe::Customer.retrieve(current_user.billing_id)
+      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all(:limit => 3)
+
 
     end
 
-    @silver_annual_plan = Stripe::Plan.retrieve("silver-annual")
-    @silver_monthly_plan = Stripe::Plan.retrieve("silver-monthly")
-
+      @silver_annual_plan = Stripe::Plan.retrieve("silver-annual")
+      @silver_monthly_plan = Stripe::Plan.retrieve("silver-monthly")
 
   end
 

@@ -6,10 +6,8 @@
           <div class="row">
             <div class="panel-description col-md-4">
               <div class="panel-title row">
-                <h4>Billing Information</h4>
+                <h4 class="margin-bottom-10">Billing Information</h4>
               </div>
-            </div>
-            <div class="panel-content col-md-8">
               <% if @customer.nil? %>
                 <p>You have not registered a credit card with us.</p>
 
@@ -17,6 +15,7 @@
                 <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
               <% end %>
             </div>
+
           </div>
         </div>
       </li>
@@ -26,12 +25,12 @@
           <div class="row">
             <div class="panel-description col-md-4">
               <div class="panel-title row">
-                <h4 class="margin-bottom-10">Subscriptions</h4>
+                <h4 class="margin-bottom-10">Active Licences</h4>
               </div>
               <% if @customer.nil? %>
-                <p class="grey">You are not subscribed to any plans.</p>
+                <p>You are not subscribed to any plans.</p>
               <% else %>
-                <p class="grey">You are currently subscribed to <strong><%= @subscriptions.count %></strong> plan.</p>
+                <p>You have <strong><%= @subscriptions.count %></strong> active licence(s).</p>
               <% end %>
             </div>
 
@@ -40,95 +39,46 @@
       </li>
 
       <li class="list-group-item">
-        <div class="panel-title margin-bottom-10 row">
-          <h4>Plans</h4>
+        <div class="panel-title row">
+          <h4>Buy a Licence</h4>
         </div>
         <div class="row">
           <div class="panel-section row">
             <div class="panel-description col-md-4 margin-bottom-20">
-              <h5>Gold</h5>
-              <p class="grey">The Evercam Silver Bundle entitles you to almost everything</p>
-            </div>
-            <div class="panel-content col-md-8">
-              <div class="row">
-                <div class="col-md-4">
-                  <p class="margin-bottom-10">Annual - €199.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="19500"/>
-                    <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                    <script
-                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                    data-name="Demo SaaS Site"
-                    data-description="Pro Subscription (€199.00 per yr)"
-                    data-panel-label="Subscribe"
-                    data-label="Subscribe"
-                    data-plan="silver-annual"
-                    data-allow-remember-me="false">
-                    </script>
-                  <% end %>
-                </div>
-                <div class="col-md-4">
-                  <p class="margin-bottom-10">Monthly - €25.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="2500"/>
-                    <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                    <script
-                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="pk_test_1MCYLYHQDa4DwnBoKd5CqoaP"
-                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                    data-name="Demo SaaS Site"
-                    data-description="Pro Subscription ($29 per month)"
-                    data-panel-label="Subscribe"
-                    data-label="Subscribe"
-                    data-plan="silver-annual"
-                    data-allow-remember-me="false">
-                    </script>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel-section row">
-            <div class="panel-description col-md-4 margin-bottom-20">
-              <h5>Silver</h5>
-              <p class="grey">The Evercam Silver Bundle entitles you to everything</p>
-            </div>
-            <div class="panel-content col-md-8">
-              <div class="row">
-                <div class="col-md-4">
-                  <p class="margin-bottom-10">Annual - €199.00</p>
-                  <%= form_tag charges_path do %>
-                  <input type="hidden" name="amount" value="19900"/>
-                  <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                  <script
-                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                  data-name="Demo SaaS Site"
-                  data-description="Pro Subscription ($29 per month)"
-                  data-panel-label="Subscribe"
-                  data-label="Subscribe"
-                  data-amount="19900"
-                  data-currency="eur"
-                  data-allow-remember-me="false">
-                  </script>
-                  <% end %>
-                </div>
-                <div class="col-md-4">
-                  <p class="margin-bottom-10">Monthly - €25.00</p>
-                  <%= form_tag charges_path do %>
-                    <input type="hidden" name="amount" value="2500"/>
-                    <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-description="Evercam Bundle Silver (Monthly)"
-                            data-amount="2500"
-                            data-currency="eur"></script>
-                  <% end %>
-                </div>
-              </div>
+              <p>Evercam Silver Bundle</p>
+              <%= form_tag charges_path do %>
+                <input type="hidden" name="amount" value="19500"/>
+                <input type="hidden" name="plan" value="silver-annual"/>
+                <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-image="/assets/evercam-e.svg"
+                data-name="Evercam Bundle Silver"
+                data-description="Silver Licence (€199.00 per year)"
+                data-panel-label="Subscribe"
+                data-label="Annual - €199.00"
+                data-plan="silver-annual"
+                data-allow-remember-me="false">
+                </script>
+              <% end %>
+
+              <%= form_tag charges_path do %>
+                <input type="hidden" name="amount" value="2500"/>
+                <input type="hidden" name="plan" value="silver-monthly"/>
+                <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-image="/assets/evercam-e.svg"
+                data-name="Evercam Bundle Silver"
+                data-description="Silver Licence €25.00 per month"
+                data-panel-label="Subscribe"
+                data-label="Monthly - €25.00"
+                data-plan="silver-monthly"
+                data-allow-remember-me="false">
+                </script>
+              <% end %>
             </div>
           </div>
 

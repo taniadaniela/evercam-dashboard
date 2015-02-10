@@ -36,8 +36,23 @@
   .panel-title {
     padding-left: 15px;
   }
-}
 
+}
+.custom-amount {
+  padding: 4px 6px;
+}
+input.custom-amount {
+  max-width: 141px;
+  margin-left: -1px;
+  border-bottom-left-radius: 0px !Important;
+  border-top-left-radius: 0px !important;
+}
+span.input-group-addon .custom {
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 2px !important;
+}
 .panel-section {
  margin: 15px 0;
 }

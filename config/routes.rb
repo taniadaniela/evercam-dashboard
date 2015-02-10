@@ -14,8 +14,9 @@ EvercamDashboard::Application.routes.draw do
   end
 
   resources :charges
-  post '/users/:id/settings' => 'charges#subscription_update'
-  post '/users/:id/settings' => 'charges#card_update'
+  post '/users/:id/settings/charge' => 'charges#create'
+  post '/users/:id/settings/subscription' => 'charges#subscription_create'
+  patch '/users/:id/settings/subscription' => 'charges#subscription_update'
 
   root to: redirect('/cameras'), as: :root
 

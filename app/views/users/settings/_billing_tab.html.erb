@@ -1,22 +1,20 @@
-<div class="row" id="billing">
+<div id="billing">
   <div class="col-md-12">
-    <ul class="list-group list-group-lg">
-      <li class="list-group-item">
-        <div class="row margin-bottom-20">
+
+        <div class="row margin-bottom-30">
           <div class="panel-description col-md-12">
             <div class="panel-title row">
               <h4 class="margin-bottom-10">Billing Information</h4>
             </div>
-
             <% if @customer.nil? %>
               <p>You have not registered a credit card.</p>
             <% else %>
               <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
             <% end %>
-
           </div>
         </div>
-        <div class="row">
+
+        <div class="row margin-bottom-20">
           <div class="panel-description col-md-8">
             <div class="panel-title row">
               <h4 class="margin-bottom-10">Active Licences</h4>
@@ -56,8 +54,9 @@
                       €<%= subscription['plan']['amount'] / 100 %>.00
                     </td>
                     <td>
-                    <form role="form" method="post" id="subscription_update"class="">
-                      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+                      <form method='patch' action="/users/<%= current_user.username -%>/settings/subscription">
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                       <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
                       <input type="hidden" value="<%= subscription['id'] %>" name="subscription_id"/>
                       <input type="submit" class="non-button" value="Cancel" name="subscription_update"/>
@@ -73,9 +72,6 @@
         </div>
 
 
-
-
-        <div class="panel-section">
           <div class="row">
             <div class="panel-description col-md-4 margin-bottom-20">
               <div class="panel-title row margin-bottom-20">
@@ -84,7 +80,8 @@
               <p>Evercam Silver Bundle</p>
               <div class="row">
                 <div class="col-md-6">
-                  <%= form_tag charges_path do %>
+                  <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                     <input type="hidden" name="plan" value="silver-annual"/>
                     <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
                     <!-- input name= value="{amount}" would pass to the charges_controller -->
@@ -101,10 +98,11 @@
                     data-plan="silver-annual"
                     data-allow-remember-me="false">
                     </script>
-                  <% end %>
+                  </form>
                 </div>
                 <div class="col-md-6">
-                  <%= form_tag charges_path do %>
+                  <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                     <input type="hidden" name="amount" value="2500"/>
                     <input type="hidden" name="plan" value="silver-monthly"/>
                     <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
@@ -121,17 +119,18 @@
                     data-plan="silver-monthly"
                     data-allow-remember-me="false">
                     </script>
-                  <% end %>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row margin-bottom-20">
             <div class="panel-description col-md-4 margin-bottom-20">
               <p>Snapmail</p>
               <div class="row">
                 <div class="col-md-6">
-                  <%= form_tag charges_path do %>
+                  <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                     <input type="hidden" name="amount" value="9900"/>
                     <input type="hidden" name="plan" value="snapmail-annual"/>
                     <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
@@ -148,10 +147,11 @@
                     data-plan="snapmail-annual"
                     data-allow-remember-me="false">
                     </script>
-                  <% end %>
+                  </form>
                 </div>
                 <div class="col-md-6">
-                  <%= form_tag charges_path do %>
+                  <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                     <input type="hidden" name="amount" value="1000"/>
                     <input type="hidden" name="plan" value="snapmail-monthly"/>
                     <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
@@ -168,17 +168,52 @@
                     data-plan="snapmail-monthly"
                     data-allow-remember-me="false">
                     </script>
-                  <% end %>
+                  </form>
                 </div>
               </div>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="panel-description col-md-4 margin-top-15 margin-bottom-20">
+            <div class="panel-title row margin-bottom-20">
+              <h4>Custom Amount</h4>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <form method='POST' action="/users/<%= current_user.username -%>/settings/charge">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                  <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span class="input-group-addon custom">€</span>
+                        <input type="number" name="amount" class="custom-amount" value=""/>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Custom Amount"
+                      data-description=""
+                      data-panel-label="Pay"
+                      data-label="Pay"
+                      data-amount=""
+                      data-allow-remember-me="false">
+                      </script>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
             </div>
           </div>
         </div>
 
 
-      </li>
-
-
-    </ul>
   </div>
 </div>

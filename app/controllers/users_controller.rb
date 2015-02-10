@@ -76,9 +76,6 @@ class UsersController < ApplicationController
   def settings
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
-
-    @customer = nil
-    @subscriptions = nil
     unless current_user.billing_id.blank?
       @customer = Stripe::Customer.retrieve(current_user.billing_id)
       @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all

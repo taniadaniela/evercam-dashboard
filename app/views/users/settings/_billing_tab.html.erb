@@ -80,18 +80,17 @@
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="plan" value="silver-annual"/>
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-image="/assets/evercam-e.svg"
-              data-email="<%= current_user.email -%>"
-              data-currency="eur"
-              data-name="Silver Bundle"
-              data-description="Silver Licence (€199.00 per year)"
-              data-panel-label="Subscribe"
-              data-label="Annual - €199.00"
-              data-plan="silver-annual"
-              data-allow-remember-me="false">
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Silver Bundle"
+                      data-description="Silver Licence (€199.00 per year)"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €199.00"
+                      data-plan="silver-annual"
+                      data-allow-remember-me="false">
               </script>
             </form>
           </div>
@@ -101,18 +100,17 @@
               <input type="hidden" name="amount" value="2500"/>
               <input type="hidden" name="plan" value="silver-monthly"/>
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-image="/assets/evercam-e.svg"
-              data-email="<%= current_user.email -%>"
-              data-currency="eur"
-              data-name="Silver Bundle"
-              data-description="Silver Licence €25.00 per month"
-              data-panel-label="Subscribe"
-              data-label="Monthly - €25.00"
-              data-plan="silver-monthly"
-              data-allow-remember-me="false">
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Silver Bundle"
+                      data-description="Silver Licence €25.00 per month"
+                      data-panel-label="Subscribe"
+                      data-label="Monthly - €25.00"
+                      data-plan="silver-monthly"
+                      data-allow-remember-me="false">
               </script>
             </form>
           </div>
@@ -129,18 +127,17 @@
               <input type="hidden" name="amount" value="9900"/>
               <input type="hidden" name="plan" value="snapmail-annual"/>
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-image="/assets/evercam-e.svg"
-              data-email="<%= current_user.email -%>"
-              data-currency="eur"
-              data-name="Snapmail Annual"
-              data-description="€99.00 per year"
-              data-panel-label="Subscribe"
-              data-label="Annual - €99.00"
-              data-plan="snapmail-annual"
-              data-allow-remember-me="false">
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Snapmail Annual"
+                      data-description="€99.00 per year"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €99.00"
+                      data-plan="snapmail-annual"
+                      data-allow-remember-me="false">
               </script>
             </form>
           </div>
@@ -150,18 +147,17 @@
               <input type="hidden" name="amount" value="1000"/>
               <input type="hidden" name="plan" value="snapmail-monthly"/>
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-image="/assets/evercam-e.svg"
-              data-email="<%= current_user.email -%>"
-              data-currency="eur"
-              data-name="Snapmail Monthly"
-              data-description="€10.00 per month"
-              data-panel-label="Subscribe"
-              data-label="Monthly - €10.00"
-              data-plan="snapmail-monthly"
-              data-allow-remember-me="false">
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Snapmail Monthly"
+                      data-description="€10.00 per month"
+                      data-panel-label="Subscribe"
+                      data-label="Monthly - €10.00"
+                      data-plan="snapmail-monthly"
+                      data-allow-remember-me="false">
               </script>
             </form>
           </div>
@@ -186,18 +182,17 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <script
-                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                  data-image="/assets/evercam-e.svg"
-                  data-email="<%= current_user.email -%>"
-                  data-currency="eur"
-                  data-name="Custom Amount"
-                  data-description=""
-                  data-panel-label="Pay"
-                  data-label="Pay"
-                  data-amount=""
-                  data-allow-remember-me="false">
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-image="/assets/evercam-e.svg"
+                          data-email="<%= current_user.email -%>"
+                          data-currency="eur"
+                          data-name="Custom Amount"
+                          data-description=""
+                          data-panel-label="Pay"
+                          data-label="Pay"
+                          data-amount=""
+                          data-allow-remember-me="false">
                   </script>
                 </div>
               </div>

@@ -81,7 +81,6 @@ changeMonthFromArrow = (value) ->
   snapshotInfos = null
   snapshotInfoIdx = 1
   currentFrameNumber = 0
-  true
 
 datePickerSelect = (value)->
   dt = value.date
@@ -223,10 +222,10 @@ SetInfoMessage = (currFrame, dt) ->
   $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{Evercam.request.subpath}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z"
+  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z"
 
-  if $(".nav-tabs li.active a").html() is "Snapshots" && history.pushState
-    window.history.pushState({path:url},'',url);
+  if $(".nav-tabs li.active a").html() is "Snapshots" && history.replaceState
+    window.history.replaceState({path:url},'',url);
 
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
@@ -234,15 +233,19 @@ UpdateSnapshotRec = (snapInfo) ->
   SetInfoMessage currentFrameNumber, shortDate(new Date(snapInfo.created_at*1000))
   loadImage(snapInfo.created_at)
 
-getURLParameter = (name) ->
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
-  regexS = "[\\?&]" + name + "=([^&#]*)"
-  regex = new RegExp(regexS)
-  results = regex.exec(window.location.href)
-  unless results?
-    return ""
+getTimestampFromUrl = ->
+  timestamp = window.Evercam.request.subpath.
+    replace(RegExp("recordings", "g"), "").
+    replace(RegExp("snapshots", "g"), "").
+    replace(RegExp("/", "g"), "")
+  if isValidDateTime(timestamp)
+    return timestamp
   else
-    return decodeURIComponent results[1].replace(/\+/g, " ")
+    return ""
+
+isValidDateTime = (timestamp) ->
+  #TODO: change all timestamps to ISO 8601 (YYYY-MM-DDTHH:mm:ss.SSZ)
+  moment(timestamp, "DD-MM-YYYYTHH:mm:ssZ", true).isValid()
 
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
@@ -251,9 +254,9 @@ handleBodyLoadContent = ->
   cameraCurrentHour = currentDate.getHours()
   $("#hourCalandar td[class*='day']").removeClass("active")
 
-  hasDateTime = getURLParameter('date_time')
-  if hasDateTime isnt ""
-    playFromDateTime = StringToDateTime hasDateTime.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
+  timestamp = getTimestampFromUrl()
+  if timestamp isnt ""
+    playFromDateTime = StringToDateTime timestamp.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -540,7 +543,6 @@ NoRecordingDayOrHour = ->
   HideLoader()
 
   totalFrames = 0;
-  true
 
 SetImageHour = (hr, id) ->
   value = $("##{id}").html()
@@ -781,10 +783,6 @@ handleMinSecDropDown = ->
   $("#ddlRecSeconds").on "change", ->
     SelectImagesByMinSec()
 
-handleTabOpen = ->
-  $('.nav-tab-recordings').on 'show.bs.tab', ->
-    GetCameraInfo false
-
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -792,4 +790,3 @@ window.initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
-  handleTabOpen()

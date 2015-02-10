@@ -40,7 +40,7 @@ handleBackForwardButton = ->
   window.addEventListener 'popstate', (e) ->
     tab = document.location.pathname
       .replace(window.Evercam.request.rootpath, '')
-      .replace('/', '')
+      .split('/')[1]
     $(".nav-tab-#{tab}").tab('show')
 
 initializeTabs = ->

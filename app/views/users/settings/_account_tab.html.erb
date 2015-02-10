@@ -3,23 +3,25 @@
     <ul class="list-group list-group-lg">
       <li class="list-group-item">
         <div class="panel-section">
+
           <div class="panel-description col-md-4">
-
             <h5>Profile</h5>
-            <div><span class="grey">This will delete the camera from Evercam and everything associated with it.</span></div>
-            <button id="show" class="margin-top-15 btn btn-primary makeEditable">Edit</button>
 
+            <button id="show" class="margin-top-15 btn btn-primary makeEditable">Edit</button>
           </div>
 
           <div class="user-settings-portal panel-content col-md-8">
             <div class="portlet">
 
               <div class="portlet-body form">
-                <form id="userProfile" role="form" method="post" class="">
+                <form id="userProfile" role="form" method="post">
                   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
                   <div class="form-group">
-                    <label class="grey bold" for="user-username">Username <span id="username"> cannot be changed.</span></label>
+                    <label class="grey bold" for="user-username">
+                      Username <span id="username"> cannot be changed.</span>
+                    </label>
+
                     <div id="username-show">
                       <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" readonly="readonly" disabled placeholder="">
                     </div>
@@ -47,9 +49,7 @@
                     <label class="bold grey" for="country">Country</label>
                     <select id="country" disabled="disabled" name="country" class="input-medium form-control is-required">
                       <% @countries.each do |c| %>
-                        <option value="<%= c.iso3166_a2 -%>"
-                                <% if c == current_user.country %>selected="selected"
-                                <% end %>>
+                        <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
                           <%= c.name -%>
                         </option>
                       <% end %>
@@ -72,20 +72,19 @@
                 <% unless current_user.confirmed_at %>
                   <div class="alert alert-info alert-dismissible fade in margin-top-10" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                        <span>
-                          It looks like your account has not been verified yet. <a href="/users/<%= current_user.username -%>/resend" class="resend-email"><br>
-                          Resend verification email.</a>
-                        </span>
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <span>
+                      It looks like your account has not been verified yet.
+                      <%= link_to 'Resend verification email.', user_email_resend_path(current_user.username), class: 'resend-email' %>
+                    </span>
                   </div>
                 <% end %>
               </div>
             </div>
-
           </div>
         </div>
       </li>
-
     </ul>
   </div>
 </div>

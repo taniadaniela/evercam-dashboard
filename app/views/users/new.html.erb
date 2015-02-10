@@ -7,16 +7,16 @@
         <span></span>
       </div>
       <div class="branding margin-bottom-50">
-        <a class="sign-in-logo" href="/">
-          <img src="https://www.evercam.io/img/logo.png">
-        </a>
+        <%= link_to root_path, class: 'sign-in-logo' do %>
+          <%= image_tag("evercam_logo.svg", :class => "svg-logo", alt: "Evercam.io") %>
+        <% end %>
       </div>
     </div>
 
     <div id="registration" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
       <div class="col-sm-10 col-sm-offset-1 row">
         <h3 class="text-center">Create a free Account</h3>
-        <%= form_for(:user, url: '/signup') do |f| %>
+        <%= form_for(:user, url: signup_path) do |f| %>
           <% field_errors = (flash[:field_errors] || {}) %>
 
           <div class="row text-center">
@@ -49,13 +49,12 @@
               <%= f.label :username %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "data-validation" => "alphanumeric", "data-validation-error-msg" => "Only letters &amp; numbers allowed. No spaces." %>
+              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w-]+$', "data-validation-error-msg" => "Only letters, numbers, dashes & underscores allowed." %>
               <% if field_errors.include?("username") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
               <% end %>
             </div>
           </div>
-
 
           <div class="row text-center">
             <div class="col-sm-3">
@@ -105,7 +104,7 @@
           </div>
 
           <% if @share_request %>
-            <input type="hidden" name="key" id="key" value="<%= @share_request.key %>"></input>
+            <input type="hidden" name="key" id="key" value="<%= @share_request.key %>"/>
           <% end %>
         <% end %>
       </div>

@@ -1,4 +1,4 @@
-EvercamDashboard::Application.routes.draw do
+Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'dashboard#index'
@@ -19,10 +19,10 @@ EvercamDashboard::Application.routes.draw do
 
   get '/v1/cameras' => 'cameras#index', as: :cameras_index
   get '/v1/cameras/new' => 'cameras#new', as: :cameras_new
-  get '/cameras/:id/clone' => 'cameras#new'
-  post '/cameras/new' => 'cameras#create'
+  post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
+  get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
   post '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
 
@@ -35,26 +35,25 @@ EvercamDashboard::Application.routes.draw do
   get '/v1/public/cameras/:id' => 'public#single', as: :public_cameras_single
 
   #TODO: remove this after Node.js snapshot servers are taken down
-  get 'publiccam/:id', to: redirect('public/cameras/%{id}')
-
-  get 'locations' => 'locations#index'
+  get 'publiccam/:id' => redirect('public/cameras/%{id}')
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
-  get '/sessions', to: redirect('/')
-  match '/signup', to: 'users#new', via: 'get'
-  post '/signup', to: 'users#create'
-  get '/reset', to: 'users#password_reset_request'
-  post '/reset', to: 'users#password_reset_request'
-  get '/newpassword', to: 'users#password_update_form'
-  post '/newpassword', to: 'users#password_update'
-  get '/v1/users/:id', to: 'users#settings', as: :user
-  get '/users/:id/resend', to: 'users#resend_confirmation_email'
-  get '/confirm', to: 'users#confirm'
-  post '/users/:id/settings', to: 'users#settings_update'
-  match '/signin', to: 'sessions#new', via: 'get', as: :signin
-  match '/widget_signin', to: 'sessions#widget_new', via: 'get', as: :widget_signin
-  match '/signout', to: 'sessions#destroy', via: 'delete'
+  get '/sessions' => redirect('/')
+
+  get '/v1/users/signup' => 'users#new', as: :signup
+  post '/v1/users/signup' => 'users#create'
+  get '/v1/users/password-reset' => 'users#password_reset_request', as: :password_reset
+  post '/v1/users/password-reset' => 'users#password_reset_request'
+  get '/v1/users/password-new' => 'users#password_update_form', as: :password_new
+  post '/v1/users/password-new' => 'users#password_update'
+  get '/v1/users/:id/resend' => 'users#resend_confirmation_email', as: :user_email_resend
+  get '/confirm' => 'users#confirm'
+  get '/v1/users/signin' => 'sessions#new', as: :signin
+  get '/widget_signin' => 'sessions#widget_new', as: :widget_signin
+  delete '/v1/users/signout' => 'sessions#destroy', as: :signout
+  get '/v1/users/:id' => 'users#settings', as: :user
+  post '/v1/users/:id' => 'users#settings_update'
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
@@ -85,4 +84,6 @@ EvercamDashboard::Application.routes.draw do
   post '/oauth2/authorize' => 'oauth2#post_authorize'
   get '/oauth2/tokeninfo' => 'oauth2#tokeninfo'
   get '/oauth2/revoke' => 'oauth2#revoke'
+
+  get '*path' => redirect('/') unless Rails.env.development?
 end

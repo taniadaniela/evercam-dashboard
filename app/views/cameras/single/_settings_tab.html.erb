@@ -62,7 +62,9 @@
             <p class="grey">You can clone this camera's settings here.</p>
           </div>
           <div class="panel-content col-md-8 margin-top-10">
-            <a href="/cameras/<%= @camera['id'] %>/clone" class="btn btn-danger">Clone</a>
+            <%= link_to cameras_clone_path(@camera['id']), class: 'btn btn-danger' do %>
+              Clone
+            <% end %>
           </div>
         </li>
       <% end %>

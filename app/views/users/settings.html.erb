@@ -46,7 +46,7 @@
     $.validate();
     Metronic.init();
     Layout.init();
-    QuickSidebar.init()
+    QuickSidebar.init();
     Notification.init(".bb-alert");
     <% if flash[:message] %>
     Notification.show('<%= flash[:message] %>');
@@ -62,7 +62,6 @@
     $('select').removeAttr("disabled");
   });
 
-
   $(document).ready(function () {
     $("#hide").click(function () {
       $("p").fadeOut();
@@ -73,8 +72,5 @@
     $("#show").click(function () {
       $("p").fadeIn();
     });
-    /*$(".resend-email").on('click',function(){
-
-     });*/
   });
 </script>

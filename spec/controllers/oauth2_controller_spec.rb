@@ -111,7 +111,7 @@ describe Oauth2Controller do
 
           expect(response.status).to eq(302)
           uri    = URI.parse(response.location)
-          expect(uri.path).to eq('/signin')
+          expect(uri.path).to eq(signin_path)
         end
       end
 
@@ -684,6 +684,4 @@ describe Oauth2Controller do
       end
     end
   end
-
 end
-

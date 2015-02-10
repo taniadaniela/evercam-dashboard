@@ -33,7 +33,7 @@ GIT
       countries (~> 0.9, >= 0.9.3)
 
 GIT
-  remote: https://github.com/stripe/stripe-ruby
+  remote: git://github.com/stripe/stripe-ruby.git
   revision: 085ad6cfb303f9e470d161f1b62370e746702432
   specs:
     stripe (1.18.0)
@@ -151,7 +151,7 @@ GEM
     evercam_misc (0.0.9)
       3scale_client (~> 2.3)
       dotenv (~> 0.10)
-    evercam_models (0.3.10)
+    evercam_models (0.3.11)
       activesupport (~> 4.1)
       bcrypt (~> 3.1)
       dotenv (~> 0.10)
@@ -512,7 +512,7 @@ DEPENDENCIES
   devise
   evercam!
   evercam_misc (~> 0.0)
-  evercam_models (~> 0.3.10)
+  evercam_models (~> 0.3.11)
   factory_girl
   fog
   geocoder

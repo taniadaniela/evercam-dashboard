@@ -58,10 +58,13 @@
                         </p>
                       </div>
                     </td>
-                    <td class="show-arrow text-success"><a href="/public/cameras/<%= camera['id'] %>">View
-                      <i id="hover-arrow" class="icon-arrow-right"></i></a></td>
+                    <td class="show-arrow text-success">
+                      <%= link_to public_cameras_single_path(camera['id']) do %>
+                        View <i id="hover-arrow" class="icon-arrow-right"></i>
+                      <% end %>
+                    </td>
                     <td class="show-arrow">
-                      <a href="" class="create-share-button" camera_id="<%= camera['id'] %>" email="<%= @user.email %>">
+                      <a class="create-share-button" camera_id="<%= camera['id'] %>" email="<%= @user.email %>">
                         Add <i id="hover-arrow" class="icon-plus"></i>
                       </a>
                     </td>

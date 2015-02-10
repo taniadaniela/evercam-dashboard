@@ -18,7 +18,7 @@
             </div>
             <% unless @camera['owner'] == current_user.username %>
               <div class="pull-right margin-right-10">
-                <i class="icon icon-users"></i>
+                <i class="icon icon-users" data-original-title="This camera was shared with you" data-placement="left" data-toggle="tooltip"></i>
               </div>
             <% end %>
           </div>

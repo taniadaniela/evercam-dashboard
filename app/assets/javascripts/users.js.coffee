@@ -37,4 +37,3 @@ window.Evercam.Users =
 
 jQuery ->
 $('div').tooltip();
-

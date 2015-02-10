@@ -21,10 +21,13 @@
               <h4 class="margin-bottom-10">Active Licences</h4>
             </div>
             <% if @customer.nil? %>
-              <p>You are not subscribed to any plans.</p>
+              <p>You do not have any active licences</p>
             <% else %>
-              <p>You have <strong><%= @subscriptions.count %></strong> active licence(s).</p>
-              <div class="table-responsive">
+              <% if @subscriptions.count == 0 %>
+                <p>You do not have any active licences</p>
+              <% else %>
+                <p>You have <strong><%= @subscriptions.count %></strong> active licence<% unless @subscriptions.count > 0 %>s<% end %>.</p>
+              <div class="table-responsive margin-top-15">
                 <table class="table">
                   <tr>
                     <th>Order Date</th>
@@ -32,43 +35,51 @@
                     <th>Status</th>
                     <th>Interval</th>
                     <th>Amount</th>
+                    <th>Cancel</th>
                   </tr>
-                  <% @subscriptions.each do |subscriptions| %>
-                    <tr>
-                      <td>
-                        <%= subscriptions['plan']['created'] %>
-                      </td>
-                      <td>
-                        <%= subscriptions['plan']['name'] %>
-                      </td>
-                      <td>
-                        <%= subscriptions['status'] %>
-                      </td>
-                      <td>
-                        <%= subscriptions['plan']['interval'] %>ly
-                      </td>
-                      <td>
-                        €<%= subscriptions['plan']['amount'] / 100 %>.00
-                      </td>
-                    </tr>
-                  <% end %>
+                  <% @subscriptions.each do |subscription| %>
+                  <tr>
+                    <td>
+                      <%= subscription['plan']['created'] %>
+                    </td>
+                    <td>
+                      <%= subscription['plan']['name'] %>
+                    </td>
+                    <td>
+                      <%= subscription['status'] %>
+                    </td>
+                    <td>
+                      <%= subscription['plan']['interval'] %>ly
+                    </td>
+                    <td>
+                      €<%= subscription['plan']['amount'] / 100 %>.00
+                    </td>
+                    <td>
+                    <form role="form" method="post" class="">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                      <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+                      <input type="hidden" value="<%= subscription['id'] %>" name="subscription_id"/>
+                      <input type="submit" class="non-button" value="Cancel" name="update"/>
+                    </form>
+                    </td>
+                  </tr>
+                <% end %>
                 </table>
               </div>
+              <% end %>
             <% end %>
           </div>
         </div>
 
 
-      </li>
 
-      <li class="list-group-item">
-        <div class="panel-title row">
-          <h4>Buy a Licence</h4>
-        </div>
 
         <div class="panel-section">
           <div class="row">
             <div class="panel-description col-md-4 margin-bottom-20">
+              <div class="panel-title row margin-bottom-20">
+                <h4>Buy a Licence</h4>
+              </div>
               <p>Evercam Silver Bundle</p>
               <div class="row">
                 <div class="col-md-6">
@@ -81,6 +92,7 @@
                     data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                     data-image="/assets/evercam-e.svg"
                     data-email="<%= current_user.email -%>"
+                    data-currency="eur"
                     data-name="Silver Bundle"
                     data-description="Silver Licence (€199.00 per year)"
                     data-panel-label="Subscribe"
@@ -100,6 +112,7 @@
                     data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                     data-image="/assets/evercam-e.svg"
                     data-email="<%= current_user.email -%>"
+                    data-currency="eur"
                     data-name="Silver Bundle"
                     data-description="Silver Licence €25.00 per month"
                     data-panel-label="Subscribe"
@@ -126,6 +139,7 @@
                     data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                     data-image="/assets/evercam-e.svg"
                     data-email="<%= current_user.email -%>"
+                    data-currency="eur"
                     data-name="Snapmail Annual"
                     data-description="€99.00 per year"
                     data-panel-label="Subscribe"
@@ -145,6 +159,7 @@
                     data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                     data-image="/assets/evercam-e.svg"
                     data-email="<%= current_user.email -%>"
+                    data-currency="eur"
                     data-name="Snapmail Monthly"
                     data-description="€10.00 per month"
                     data-panel-label="Subscribe"

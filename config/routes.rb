@@ -14,7 +14,7 @@ EvercamDashboard::Application.routes.draw do
   end
 
   resources :charges
-
+  post '/users/:id/settings' => 'charges#update'
   root to: redirect('/cameras'), as: :root
 
   get '/cameras' => 'cameras#index', as: :cameras_index

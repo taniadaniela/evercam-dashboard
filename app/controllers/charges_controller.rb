@@ -44,5 +44,19 @@ class ChargesController < ApplicationController
     redirect_to charges_path
   end
 
+  def update
+    token = params[:token]
+    subscription_id = params[:subscription_id]
+
+    customer = Stripe::Customer.retrieve(token)
+    customer.subscriptions.retrieve(subscription_id).delete
+
+    current_user.billing_id = customer.id
+    current_user.save
+
+    redirect_to(:back)
+    flash[:message] = "Subscription "
+  end
+
 end
 

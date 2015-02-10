@@ -44,7 +44,7 @@ class ChargesController < ApplicationController
     redirect_to charges_path
   end
 
-  def update
+  def subscription_update
     token = params[:token]
     subscription_id = params[:subscription_id]
 
@@ -55,8 +55,10 @@ class ChargesController < ApplicationController
     current_user.save
 
     redirect_to(:back)
-    flash[:message] = "Subscription "
+    flash[:message] = "Subscription successfully cancelled"
   end
+
+
 
 end
 

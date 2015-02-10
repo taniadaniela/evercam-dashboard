@@ -18,5 +18,5 @@
   color: #428bca;
 }
 .non-button:hover {
-
+  color: lighten( $main-color, 15% );
 }

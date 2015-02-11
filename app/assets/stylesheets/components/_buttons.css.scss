@@ -10,3 +10,13 @@
   transition: all .2s linear;
   color: $main-color;
 }
+
+.non-button {
+  background-color: #ffffff !Important;
+  border: none !Important;
+  padding: 0 !Important;
+  color: #428bca;
+}
+.non-button:hover {
+  color: lighten( $main-color, 15% );
+}

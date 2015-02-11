@@ -89,19 +89,10 @@ class UsersController < ApplicationController
   def settings
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
-
-    @customer = nil
-
     unless current_user.billing_id.blank?
-
       @customer = Stripe::Customer.retrieve(current_user.billing_id)
-
+      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
     end
-
-    @silver_annual_plan = Stripe::Plan.retrieve("silver-annual")
-    @silver_monthly_plan = Stripe::Plan.retrieve("silver-monthly")
-
-
   end
 
   def settings_update

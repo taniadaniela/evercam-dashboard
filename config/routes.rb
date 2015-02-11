@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
 
   resources :charges
+  post '/users/:id/settings/charge' => 'charges#create'
+  post '/users/:id/settings/subscription' => 'charges#subscription_create'
+  get '/users/:id/settings/subscription' => 'charges#subscription_update'
 
   root to: redirect('/v1/cameras'), as: :root
 

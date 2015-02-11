@@ -11,6 +11,7 @@ FactoryGirl.define do
       api_key SecureRandom.hex(10)
       created_at Time.now - 86400
       updated_at Time.now - 86400
+      billing_id (:billing_id)
       country do
          country = Country.where(iso3166_a2: 'ie').first
          country || create(:ireland)

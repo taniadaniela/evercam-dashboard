@@ -1,7 +1,7 @@
 <div class="page-header navbar navbar-fixed-top">
   <div class="page-header-inner">
 
-    <%= link_to image_tag("evercam-e.svg", alt: "Evercam logo"), root_path, class: 'pull-left evercam-e-header' %>
+    <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
 
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="btn-group camera-switch">
@@ -11,7 +11,7 @@
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>
             <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-              <a href="/cameras/<%= camera['id'] %>">
+              <%= cameras_single_path(camera['id']) do %>
                 <% if camera['owner'] == current_user.username %>
                   <i class="icon icon-users" style="visibility: hidden;"></i>
                 <% else %>
@@ -21,7 +21,7 @@
                 <% unless camera['is_online'] %>
                   <i class="red fa fa-chain-broken"></i>
                 <% end %>
-              </a>
+              <% end %>
             </li>
           <% end %>
         </ul>
@@ -30,24 +30,28 @@
 
     <div class="top-menu">
       <div class="header-add-camera pull-left">
-        <a href="/cameras/new">
+        <%= link_to cameras_new_path do %>
           <i class="icon-plus"></i>
-        </a>
+        <% end %>
       </div>
       <ul class="nav navbar-nav pull-right">
         <li class="dropdown dropdown-user">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
             <div class="avatar"><%= current_user.fullname[0, 1] %></div>
-					    <span class="username">
-                <i class="fa fa-angle-down"></i>
-              </span>
+            <span class="username">
+              <i class="fa fa-angle-down"></i>
+            </span>
           </a>
           <ul class="dropdown-menu">
             <li role="presentation">
-              <a role="menuitem" tabindex="-1" href="/users/<%= current_user.username %>/settings">User Settings</a>
+              <%= link_to 'User Settings', user_path(current_user.username) %>
             </li>
-            <li role="presentation"><a href="javascript:Intercom('show');">Support</a></li>
-            <li role="presentation"><%= link_to "Sign out", signout_path, method: "delete", class: "" %></li>
+            <li role="presentation">
+              <a href="javascript:Intercom('show');">Support</a>
+            </li>
+            <li role="presentation">
+              <%= link_to 'Sign out', signout_path, method: 'delete' %>
+            </li>
           </ul>
         </li>
       </ul>

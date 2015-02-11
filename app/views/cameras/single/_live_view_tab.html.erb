@@ -12,8 +12,8 @@
           <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
         </div>
         <% unless rtmp_stream.blank? %>
-          <div id="streams" class="active">
-            <video id="really-cool-video" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto" data-setup='{}'>
+          <div id="camera-rtmp-stream" class="active">
+            <video id="camera-rtmp-player" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto">
               <source src="<%= rtmp_stream %>" type='rtmp/flv'>
             </video>
           </div>
@@ -43,4 +43,3 @@
     </div>
   </div>
 <% end %>
-<input type="hidden" id="live-snapshot-url" value="<%= EVERCAM_API %>cameras/<%= @camera["id"] %>/live/snapshot.jpg?api_id=<%=  current_user.api_id %>&api_key=<%= current_user.api_key %>">

@@ -21,7 +21,7 @@ class PagesController < ApplicationController
       flash[:error] = "An error occurred fetching the details for your camera. "\
                         "Please try again and, if the problem persists, contact "\
                         "support."
-      redirect_to '/'
+      redirect_to cameras_index_path
     end
     render layout: "bare-bones"
   end

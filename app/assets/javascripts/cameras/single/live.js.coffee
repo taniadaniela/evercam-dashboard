@@ -2,12 +2,11 @@ default_img = "/assets/offline.svg"
 int_time = undefined
 refresh_paused = false
 image_placeholder = undefined
-has_stream = false
 
 loadImage = ->
   img = new Image()
   live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-  src = "#{$("#live-snapshot-url").val()}&rand=" + new Date().getTime()
+  src = "#{live_snapshot_url}&rand=" + new Date().getTime()
   img.onload = ->
     unless not image_placeholder.parent
       image_placeholder.parent.replaceChild img, image_placeholder
@@ -15,13 +14,6 @@ loadImage = ->
       image_placeholder.src = src
     $(".btn-live-player").removeClass "hide"
   img.src = src
-
-toggleRefresh = (hash) ->
-  if window.Evercam.Camera.is_online
-    if not refresh_paused and hash is "#live" and !has_stream
-      int_time = setInterval(loadImage, 1000)
-    else
-      clearInterval int_time
 
 controlButtonEvents = ->
   $(".play-pause").on "click", ->
@@ -55,30 +47,47 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=#{@width}, height=#{@height}, scrollbars=0")
     ).error ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
-  true
+
+initializePlayer = ->
+  window.vjs_player = videojs 'camera-rtmp-player', {}
+
+destroyPlayer = ->
+  unless $('#camera-rtmp-stream').html() == ''
+    window.vjs_player.dispose()
+    $("#camera-rtmp-stream").html('')
 
 handleChangeStream = ->
   $("#select-stream-type").on "change", ->
     switch $(this).val()
       when 'jpeg'
+        destroyPlayer()
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
-        has_stream = false
-        toggleRefresh('#live')
+        int_time = setInterval(loadImage, 1000)
       when 'rtmp'
+        $("#camera-rtmp-stream").html(rtmp_player_html)
+        initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
-        has_stream = true
-  true
+        clearInterval int_time
+
+handleTabOpen = ->
+  $('.nav-tab-live').on 'show.bs.tab', ->
+    if $('#select-stream-type').length
+      $("#select-stream-type").trigger "change"
+    else
+      int_time = setInterval(loadImage, 1000)
+  $('.nav-tab-live').on 'hide.bs.tab', ->
+    clearInterval int_time
+    if $('#select-stream-type').length
+      destroyPlayer()
 
 window.initializeLiveTab = ->
+  window.rtmp_player_html = $('#camera-rtmp-stream').html()
+  window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
   controlButtonEvents()
   fullscreenImage()
-  toggleRefresh(window.location.hash)
   openPopout()
   handleChangeStream()
-  has_stream = $("#fullscreen").hasClass("inactive")
-  $('a[data-toggle="tab"]').on "click", ->
-    hash = this.href.substr(this.href.indexOf("#"));
-    toggleRefresh(hash)
+  handleTabOpen()

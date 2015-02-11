@@ -96,9 +96,7 @@ class WidgetsController < ApplicationController
     end
     if current_user.nil? and widget_user.nil?
       session[:redirect_url] = request.original_url
-      redirect_to '/widget_signin'
-      return
+      redirect_to widget_signin_path
     end
   end
-
 end

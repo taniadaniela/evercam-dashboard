@@ -1,16 +1,15 @@
-// Place all the styles related to the live snapshot-recorder here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-/*///////////////////////////
-// RECORDING - SNAPSHOT
-///////////////////////////*/
-#snapshots input {
-  font-size: 16px;
-}
-#snapshots .has-snapshot{
-  color: #428bca;
-  font-family: proxima-nova-bold;
-  font-weight: bold;
+#snapshots {
+  input {
+    font-size: 16px;
+  }
+  .has-snapshot{
+    color: #428bca;
+    font-family: proxima-nova-bold;
+    font-weight: bold;
+  }
+  #imgPlayback {
+    border: none;
+  }
 }
 #recording-tab .table-condensed > tbody > tr > td {
   padding: 0px;
@@ -43,10 +42,7 @@
   background-color: #f6f6f6;
   border: 1px solid #e5e5e5;
 }
-#imgPlayback {
-  border: 1px solid #efefef;
 
-}
 .left-column {
   width: 100%;
   float: left;
@@ -73,13 +69,36 @@
   transition:all 0.4s ease;
 }
 
-.live-options:hover + #snapshot-notes {
+.snapshot-info:hover + #snapshot-notes {
   opacity: .75;
   transition:all 0.4s ease;
 }
-.live-option .icon-info {
+.snapshot-info-i .icon-info {
  font-size: 22px;
 }
+.snapshot-info {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  color: $white;
+  opacity: 0;
+  transition: all .2s linear;
+  z-index: 10000000000;
+}
+.snapshot-info-i {
+  float: left;
+  background: rgba(0, 0, 0, .65);
+  padding: 7px 8px 4px 9px;
+  border-radius: 50% !Important;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: all .2s linear;
+}
+
+#fullscreen:hover .snapshot-info, #fullscreen:hover .btn-live-player {
+  opacity: 1;
+}
+
 @media (min-width: 850px) {
   .left-column {
     width: 67%;
@@ -94,7 +113,6 @@
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
-
   /* Rules below not implemented in browsers yet */
   -o-user-select: none;
   user-select: none;

@@ -2,34 +2,41 @@ require 'spec_helper'
 
 describe UsersController do
 
-  let!(:user) {create(:active_user)}
+  let!(:user) { create(:active_user) }
   let(:params) {
-    {user: {
+    {
+      user: {
         firstname: user.firstname,
         lastname: user.lastname,
         username: user.username,
         email: user.email,
         password: 'password'
-        },
-      country: 'ie'}
+      },
+      country: 'ie'
+    }
   }
   let(:patch_params) {
-    {id: user.username,
-     'user-firstname' => 'Aaaddd',
-     'user-lastname' => 'Bbbeeee',
-     email: "#{user.username}2@evercam.io",
-     password: 'asdf',
-     country: 'pl'}
+    {
+      id: user.username,
+      'user-firstname' => 'Aaaddd',
+      'user-lastname' => 'Bbbeeee',
+      email: "#{user.username}2@evercam.io",
+      password: 'asdf',
+      country: 'pl'
+    }
   }
   let(:new_user_params) {
     id = SecureRandom.hex(8)
-    {user: {firstname: 'Joe',
-            lastname: 'Bloggs',
-            username: id,
-            email: "#{id}@nowhere.com",
-            country: 'ie',
-            password: 'password'},
-      }
+    {
+      user: {
+        firstname: 'Joe',
+        lastname: 'Bloggs',
+        username: id,
+        email: "#{id}@nowhere.com",
+        country: 'ie',
+        password: 'password'
+      },
+    }
   }
 
   describe 'GET #new' do
@@ -46,14 +53,14 @@ describe UsersController do
       get :confirm, {:u => user.username, :c => code}
       expect(response.status).to eq(302)
       expect(flash[:notice]).to eq('Successfully activated your account')
-      expect(response).to redirect_to '/signin'
+      expect(response).to redirect_to signin_path
     end
 
     it "fails to confirm if parameters are incorrect" do
       get :confirm, {:u => user.username, :c => '123'}
       expect(response.status).to eq(302)
       expect(flash[:notice]).to eq('Activation code is incorrect')
-      expect(response).to redirect_to '/signin'
+      expect(response).to redirect_to signin_path
     end
   end
 
@@ -74,25 +81,24 @@ describe UsersController do
       stub_request(:post, "#{EVERCAM_API}users.json").
         with(:body => "country=ie&email=#{CGI.escape(new_user_params[:user][:email])}&firstname=Joe&lastname=Bloggs&password=password&username=#{new_user_params[:user][:username]}").
         to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
-      #stub_request(:post, "#{EVERCAM_API}users").to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
       post :create, new_user_params
       expect(response.status).to eq(302)
-      expect(response).to redirect_to "/"
+      expect(response).to redirect_to cameras_index_path
     end
   end
 
   describe 'GET #settings' do
     it "redirects to signup" do
       get :settings, {id: 'tester'}
-      expect(response).to redirect_to('/signin')
+      expect(response).to redirect_to signin_path
     end
   end
 
   describe 'POST #settings' do
     it "redirects to signup" do
       post :settings_update, {id: 'tester'}
-      expect(response).to redirect_to('/signin')
+      expect(response).to redirect_to signin_path
     end
   end
 
@@ -121,7 +127,7 @@ describe UsersController do
         session['user'] = user.email
         post :settings_update, {id: user.username, 'user-firstname' => ''}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to "/users/#{user.username}/settings"
+        expect(response).to redirect_to user_path
         expect(flash[:message]).to eq("An error occurred updating your details. Please try again and, if the problem persists, contact support.")
       end
     end
@@ -131,7 +137,7 @@ describe UsersController do
         session['user'] = params[:user][:email]
         post :settings_update, {id: 'tester'}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to '/signin'
+        expect(response).to redirect_to signin_path
       end
     end
 
@@ -144,7 +150,7 @@ describe UsersController do
         session['user'] = params[:user][:email]
         post :settings_update, patch_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/users/#{user.username}/settings")
+        expect(response).to redirect_to user_path
         expect(flash[:message]).to eq('Settings updated successfully')
       end
     end
@@ -212,12 +218,10 @@ describe UsersController do
         db_user = User.first
         post :password_update, {token: db_user.reset_token, username: db_user.email, password: 'test'}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/")
+        expect(response).to redirect_to cameras_index_path
         db_user.reload
         expect(db_user.password).to eq('test')
       end
     end
-
   end
-
 end

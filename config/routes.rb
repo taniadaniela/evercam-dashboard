@@ -1,4 +1,4 @@
-EvercamDashboard::Application.routes.draw do
+Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'dashboard#index'
@@ -14,43 +14,49 @@ EvercamDashboard::Application.routes.draw do
   end
 
   resources :charges
+  post '/users/:id/settings/charge' => 'charges#create'
+  post '/users/:id/settings/subscription' => 'charges#subscription_create'
+  get '/users/:id/settings/subscription' => 'charges#subscription_update'
 
-  root to: redirect('/cameras'), as: :root
+  root to: redirect('/v1/cameras'), as: :root
 
-  get '/cameras' => 'cameras#index', as: :cameras_index
-  get '/cameras/new' => 'cameras#new'
-  get '/cameras/:id/clone' => 'cameras#new'
-  post '/cameras/new' => 'cameras#create'
+  get '/v1/cameras' => 'cameras#index', as: :cameras_index
+  get '/v1/cameras/new' => 'cameras#new', as: :cameras_new
+  post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
-  get '/cameras/:id' => 'cameras#single', as: :cameras_single
-  post '/cameras/:id' => 'cameras#update'
+  get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
+  get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
+  post '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
+
+  get '/v1/cameras/:id/*subpath' => 'cameras#single'
 
   post '/cameras/:id/webhooks' => 'webhooks#create'
   delete '/cameras/:id/webhooks' => 'webhooks#delete'
 
-  get 'public/cameras' => 'public#index'
-  get 'public/cameras/:id' => 'public#single'
-  get 'publiccam/:id', to: redirect('public/cameras/%{id}')
+  get '/v1/public/cameras' => 'public#index', as: :public_cameras_index
+  get '/v1/public/cameras/:id' => 'public#single', as: :public_cameras_single
 
-  get 'locations' => 'locations#index'
+  #TODO: remove this after Node.js snapshot servers are taken down
+  get 'publiccam/:id' => redirect('public/cameras/%{id}')
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
-  get '/sessions', to: redirect('/')
-  match '/signup', to: 'users#new', via: 'get'
-  post '/signup', to: 'users#create'
-  get '/reset', to: 'users#password_reset_request'
-  post '/reset', to: 'users#password_reset_request'
-  get '/newpassword', to: 'users#password_update_form'
-  post '/newpassword', to: 'users#password_update'
-  get '/users/:id/settings', to: 'users#settings'
-  get '/users/:id/resend', to: 'users#resend_confirmation_email'
-  get '/confirm', to: 'users#confirm'
-  post '/users/:id/settings', to: 'users#settings_update'
-  match '/signin', to: 'sessions#new', via: 'get'
-  match '/widget_signin', to: 'sessions#widget_new', via: 'get'
-  match '/signout', to: 'sessions#destroy', via: 'delete'
+  get '/sessions' => redirect('/')
+
+  get '/v1/users/signup' => 'users#new', as: :signup
+  post '/v1/users/signup' => 'users#create'
+  get '/v1/users/password-reset' => 'users#password_reset_request', as: :password_reset
+  post '/v1/users/password-reset' => 'users#password_reset_request'
+  get '/v1/users/password-new' => 'users#password_update_form', as: :password_new
+  post '/v1/users/password-new' => 'users#password_update'
+  get '/v1/users/:id/resend' => 'users#resend_confirmation_email', as: :user_email_resend
+  get '/confirm' => 'users#confirm'
+  get '/v1/users/signin' => 'sessions#new', as: :signin
+  get '/widget_signin' => 'sessions#widget_new', as: :widget_signin
+  delete '/v1/users/signout' => 'sessions#destroy', as: :signout
+  get '/v1/users/:id' => 'users#settings', as: :user
+  post '/v1/users/:id' => 'users#settings_update'
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
@@ -81,4 +87,6 @@ EvercamDashboard::Application.routes.draw do
   post '/oauth2/authorize' => 'oauth2#post_authorize'
   get '/oauth2/tokeninfo' => 'oauth2#tokeninfo'
   get '/oauth2/revoke' => 'oauth2#revoke'
+
+  get '*path' => redirect('/') unless Rails.env.development?
 end

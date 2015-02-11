@@ -5,7 +5,7 @@
         <div class="portlet">
           <div class="portlet-body form">
             <button id="show" class="btn btn-primary hide-btn pull-right makeEditable"><i class="icon-pencil"></i></button>
-            <form id="userProfile" role="form" method="post" class="">
+            <form id="userProfile" role="form" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <div class="form-group">
                 <label class="grey bold" for="user-username">Username <span id="username"> cannot be changed.</span></label>
@@ -35,9 +35,7 @@
                 <label class="bold grey" for="country">Country</label>
                 <select id="country" disabled="disabled" name="country" class="input-medium form-control is-required">
                   <% @countries.each do |c| %>
-                    <option value="<%= c.iso3166_a2 -%>"
-                            <% if c == current_user.country %>selected="selected"
-                            <% end %>>
+                    <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
                       <%= c.name -%>
                     </option>
                   <% end %>
@@ -60,8 +58,8 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                     <span>
-                      It looks like your account has not been verified yet. <a href="/users/<%= current_user.username -%>/resend" class="resend-email"><br>
-                      Resend verification email.</a>
+                      It looks like your account has not been verified yet.
+                      <%= link_to 'Resend verification email.', user_email_resend_path(current_user.username), class: 'resend-email' %>
                     </span>
               </div>
             <% end %>

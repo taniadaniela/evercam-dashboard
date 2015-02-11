@@ -27,8 +27,7 @@ sendAJAXRequest = (settings) ->
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  xhrRequestChangeMonth = jQuery.ajax(settings)
-  true
+  xhrRequestChangeMonth = $.ajax(settings)
 
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
@@ -37,13 +36,9 @@ initDatePicker = ->
 
   $("#ui_date_picker_inline table th[class*='next']").on "click", ->
     changeMonthFromArrow('n')
-    return
 
   $("#hourCalandar td[class*='day']").on "click", ->
     SetImageHour $(this).html(), "tdI#{$(this).html()}"
-    return
-
-  true
 
 changeMonthFromArrow = (value) ->
   xhrRequestChangeMonth.abort()
@@ -51,21 +46,19 @@ changeMonthFromArrow = (value) ->
   d = $("#ui_date_picker_inline").datepicker('getDate');
   day = d.getMonth()
   year = d.getFullYear()
-  if value =='n'
+  if value is 'n'
     day = day + 2
-  if(day is 13)
+  if day is 13
     day = 1
     year++
-  if(day is 0)
+  if day is 0
     day = 12
     year--
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
     false
 
@@ -88,7 +81,6 @@ changeMonthFromArrow = (value) ->
   snapshotInfos = null
   snapshotInfoIdx = 1
   currentFrameNumber = 0
-  true
 
 datePickerSelect = (value)->
   dt = value.date
@@ -112,17 +104,14 @@ datePickerSelect = (value)->
     NoRecordingDayOrHour()
 
   ClearCalanderTimeOut = setTimeout(ResetDays, 100);
-  true
 
 datePickerChange=(value)->
   d = value.date
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
     false
 
@@ -140,16 +129,13 @@ datePickerChange=(value)->
   snapshotInfos = null
   snapshotInfoIdx = 1
   currentFrameNumber = 0
-  true
 
 clearHourCalander = ->
   $("#hourCalandar td[class*='day']").removeClass("active")
   calDays = $("#hourCalandar td[class*='day']")
-  calDays.each(->
+  calDays.each ->
     calDay = $(this)
     calDay.removeClass('has-snapshot')
-  )
-  true
 
 ResetDays = ->
   clearTimeout ClearCalanderTimeOut
@@ -165,8 +151,6 @@ ResetDays = ->
           calDay.addClass('has-snapshot')
           break
         j++
-      return
-  return
 
 handleSlider = ->
   onSliderMouseMove = (ev) ->
@@ -194,7 +178,6 @@ handleSlider = ->
 
     $("#divSlider").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
     $("#divPointer").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
-    true
 
   $("#divSlider").mousemove(onSliderMouseMove)
 
@@ -202,7 +185,6 @@ handleSlider = ->
     $("#divPopup").hide()
     $("#divSlider").css('background-position', '-3px 0px')
     $("#divPointer").css('background-position', '-3px 0px')
-    true
 
   $("#divSlider").mouseout(onSliderMouseOut)
 
@@ -223,11 +205,8 @@ handleSlider = ->
     snapshotInfoIdx = nextFrameNum
     currentFrameNumber = snapshotInfoIdx + 1
     UpdateSnapshotRec(snapshotInfos[nextFrameNum])
-    true
 
   $("#divSlider").click(onSliderClick)
-
-  true
 
 showLoader = ->
   if $("#imgPlayback").attr("src").indexOf('nosnapshots') != -1
@@ -237,35 +216,35 @@ showLoader = ->
   $("#imgLoaderRec").css("top", $('#imgPlayback').css('top'))
   $("#imgLoaderRec").css("left", $('#imgPlayback').css('left'))
   $("#imgLoaderRec").show()
-  true
 
-SetInfoMessage = (currFrame, dt) ->
+SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
+  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{shortDate(date_time)}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{$("#tab-url").val()}?date_time=#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z#snapshots"
+  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
 
-  if $(".nav-tabs li.active a").html() is "Snapshots" && history.pushState
-    window.history.pushState({path:url},'',url);
-  true
+  if $(".nav-tabs li.active a").html() is "Snapshots" && history.replaceState
+    window.history.replaceState({}, '', url);
 
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
   $("#snapshot-notes-text").text(snapInfo.notes)
-  SetInfoMessage currentFrameNumber, shortDate(new Date(snapInfo.created_at*1000))
+  SetInfoMessage currentFrameNumber, new Date(snapInfo.created_at*1000)
   loadImage(snapInfo.created_at)
-  true
 
-getURLParameter = (name) ->
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
-  regexS = "[\\?&]" + name + "=([^&#]*)"
-  regex = new RegExp(regexS)
-  results = regex.exec(window.location.href)
-  unless results?
-    return ""
+getTimestampFromUrl = ->
+  timestamp = window.Evercam.request.subpath.
+    replace(RegExp("recordings", "g"), "").
+    replace(RegExp("snapshots", "g"), "").
+    replace(RegExp("/", "g"), "")
+  if isValidDateTime(timestamp)
+    return timestamp
   else
-    return decodeURIComponent results[1].replace(/\+/g, " ")
+    return ""
+
+isValidDateTime = (timestamp) ->
+  moment(timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid()
 
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
@@ -274,9 +253,9 @@ handleBodyLoadContent = ->
   cameraCurrentHour = currentDate.getHours()
   $("#hourCalandar td[class*='day']").removeClass("active")
 
-  hasDateTime = getURLParameter('date_time')
-  if hasDateTime isnt ""
-    playFromDateTime = StringToDateTime hasDateTime.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
+  timestamp = getTimestampFromUrl()
+  if timestamp isnt ""
+    playFromDateTime = new Date(moment.utc(timestamp).format('YYYY-MM-DD HH:mm:ss'))
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -289,7 +268,6 @@ handleBodyLoadContent = ->
   showLoader()
   HighlightCurrentMonth()
   BoldSnapshotHour(false)
-  true
 
 getLocationBaseDateTime = (offset) ->
   #create Date object for current location
@@ -303,13 +281,11 @@ getLocationBaseDateTime = (offset) ->
 
 HighlightCurrentMonth = ->
   d = $("#ui_date_picker_inline").datepicker('getDate');
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
     false
 
@@ -324,12 +300,11 @@ HighlightCurrentMonth = ->
     url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
 
   sendAJAXRequest(settings)
-  true
 
 HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
   calDays = $("#ui_date_picker_inline table td[class*='day']")
   BoldDays = results.days
-  calDays.each(->
+  calDays.each ->
     calDay = $(this)
     if !calDay.hasClass('old') && !calDay.hasClass('new')
       iDay = parseInt(calDay.text())
@@ -339,21 +314,17 @@ HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
           if playFromDateTime isnt null && playFromDateTime.getDate() == iDay
             calDay.addClass('active')
           break
-  )
-  true
 
 BoldSnapshotHour = (callFromDt) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
   d = $("#ui_date_picker_inline").datepicker('getDate');
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
     false
 
@@ -369,7 +340,6 @@ BoldSnapshotHour = (callFromDt) ->
     url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
 
   sendAJAXRequest(settings)
-  true
 
 BoldSnapshotHourSuccess = (result, context) ->
   lastBoldHour = 0;
@@ -389,7 +359,6 @@ BoldSnapshotHourSuccess = (result, context) ->
       SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
   else
     NoRecordingDayOrHour()
-  true
 
 GetCameraInfo = (isShowLoader) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
@@ -400,17 +369,15 @@ GetCameraInfo = (isShowLoader) ->
   fromDT = GetFromDT()/1000
   toDT = GetToDT()/1000
 
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
   data.from = fromDT
   data.to = toDT
   data.limit = limit
   data.page = 1
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
     false
   onSuccess = (response) ->
@@ -445,7 +412,7 @@ GetCameraInfo = (isShowLoader) ->
           playFromDateTime = null
 
       $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
-      SetInfoMessage(currentFrameNumber, shortDate(frameDateTime))
+      SetInfoMessage(currentFrameNumber, frameDateTime)
       loadImage(snapshotTimeStamp)
     true
 
@@ -460,18 +427,15 @@ GetCameraInfo = (isShowLoader) ->
     url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots.json"
 
   sendAJAXRequest(settings)
-  true
 
 loadImage = (timestamp) ->
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
   data.with_data = true
   data.range = 1
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
     false
@@ -493,7 +457,6 @@ loadImage = (timestamp) ->
     url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{timestamp}.json"
 
   sendAJAXRequest(settings)
-  true
 
 SetPlayFromImage = (timestamp) ->
   i = 0
@@ -507,13 +470,6 @@ SetPlayFromImage = (timestamp) ->
 GetUTCDate = (date) ->
   UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
   return UtcDate
-
-StringToDateTime = (timestamp) ->
-  time = timestamp.substring(timestamp.indexOf(" "))
-  date = timestamp.substring(0, timestamp.indexOf(" "))
-  timearray = time.split(":")
-  datearray = date.split("/")
-  return new Date(datearray[2], datearray[1] - 1, datearray[0],timearray[0], timearray[1], timearray[2])
 
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
@@ -542,24 +498,6 @@ StripLeadingZeros = (input) ->
   else
     return input
 
-DateToFormattedStr = (d) ->
-  if d == null then return ""
-  year = d.getFullYear()
-  month = d.getMonth() + 1
-  day = d.getDate()
-  hour = d.getHours()
-  minute = d.getMinutes()
-  second = d.getSeconds()
-  miliseconds = "#{d.getMilliseconds()}"
-
-  if miliseconds.length == 2
-    miliseconds = "0#{miliseconds}"
-  else if miliseconds.length == 1
-    miliseconds = "00#{miliseconds}"
-  else if miliseconds.length == 0 || miliseconds == 0
-    miliseconds = ''
-  return "#{FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds}"
-
 FormatNumTo2 = (n) ->
   if n < 10
     return "0#{n}"
@@ -579,7 +517,6 @@ NoRecordingDayOrHour = ->
   HideLoader()
 
   totalFrames = 0;
-  true
 
 SetImageHour = (hr, id) ->
   value = $("##{id}").html()
@@ -701,7 +638,6 @@ SetSkipFrames = (num, direction) ->
 SetPlaySpeed = (step, direction) ->
   playDirection = direction
   playStep = step
-  return
 
 DoNextImg = ->
   return  if totalFrames is 0
@@ -709,17 +645,14 @@ DoNextImg = ->
     Pause()
     currentFrameNumber = snapshotInfos.length
     snapshotInfoIdx = snapshotInfos.length - 1
-    return
   si = snapshotInfos[snapshotInfoIdx]
-  cameraId = $('#recording_tab_camera_id').val()
-  api_id = $('#recording_tab_api_id').val()
-  api_key = $('#recording_tab_api_key').val()
+  cameraId = Evercam.Camera.id
 
   data = {}
   data.with_data = true
   data.range = 1
-  data.api_id = api_id
-  data.api_key = api_key
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
     if playDirection is 1 and playStep is 1
@@ -741,7 +674,7 @@ DoNextImg = ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
-      SetInfoMessage currentFrameNumber, shortDate(new Date(si.created_at*1000))
+      SetInfoMessage currentFrameNumber, new Date(si.created_at*1000)
     $("#imgPlayback").attr("src", response.snapshots[0].data)
 
     if playDirection is 1 and playStep is 1
@@ -761,8 +694,6 @@ DoNextImg = ->
 
     window.setTimeout DoNextImg, playInterval  if isPlaying
 
-    true
-
   settings =
     cache: false
     data: data
@@ -774,7 +705,6 @@ DoNextImg = ->
     url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{si.created_at}.json"
 
   sendAJAXRequest(settings)
-  return
 
 SelectImagesByMinSec = ->
   min = FormatNumTo2($("#ddlRecMinutes").val())
@@ -792,7 +722,6 @@ SelectImagesByMinSec = ->
           currentFrameNumber = i + 1
           snapshotInfoIdx = i
           UpdateSnapshotRec si
-          return
         else if sDt[2] > sec
           currentFrameNumber = i
           snapshotInfoIdx = i - 1
@@ -800,7 +729,6 @@ SelectImagesByMinSec = ->
           sDt = si.date.substring(si.date.indexOf(" ") + 1).split(":")
           $("#ddlRecSeconds").val sDt[2]
           UpdateSnapshotRec si
-          return
       else if sDt[1] > min
         currentFrameNumber = i
         snapshotInfoIdx = i - 1
@@ -808,14 +736,11 @@ SelectImagesByMinSec = ->
         sDt = si.date.substring(si.date.indexOf(" ") + 1).split(":")
         $("#ddlRecSeconds").val sDt[2]
         UpdateSnapshotRec si
-        return
       i++
   else
     currentFrameNumber = snapshotInfos.length + 1
     snapshotInfoIdx = snapshotInfos.length
-
     UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
-  return
 
 handleMinSecDropDown = ->
   hour = 1
@@ -828,25 +753,9 @@ handleMinSecDropDown = ->
     hour++
   $("#ddlRecMinutes").on "change", ->
     SelectImagesByMinSec()
-    return
 
   $("#ddlRecSeconds").on "change", ->
     SelectImagesByMinSec()
-    return
-
-  return
-
-handleTabEvent = ->
-  $("a[data-toggle=\"tab\"]").on "click", ->
-    tabName = $(this).html()
-    tabhash = $(this).attr('href')
-
-    if tabName is "Snapshots" && playFromDateTime is null
-      GetCameraInfo false
-    else
-      url = "#{$("#tab-url").val()}#{tabhash}"
-      if history.pushState
-        window.history.pushState({path:url},'',url);
 
 window.initializeRecordingsTab = ->
   initDatePicker()
@@ -855,5 +764,3 @@ window.initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
-  handleTabEvent()
-  true

@@ -8,9 +8,11 @@ class SharingController < ApplicationController
     result = {success: true}
     if params[:id] && !params[:public].nil? && !params[:discoverable].nil?
       begin
-        values = {id: params[:id],
+        values = {
+          id: params[:id],
           is_public: params[:public],
-          discoverable: (params[:discoverable] == "true")}
+          discoverable: (params[:discoverable] == "true")
+        }
         api = get_evercam_api
         api.update_camera(params[:id], values)
       rescue => error

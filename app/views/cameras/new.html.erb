@@ -26,10 +26,9 @@
 
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1_1">
-          <%= form_tag('/cameras/new', method: 'post', class: "form-horizontal has-validation-callback") do %>
+          <%= form_tag(cameras_new_path, method: 'post', class: 'form-horizontal has-validation-callback', autocomplete: 'off', role: 'form') do %>
             <% field_errors = (flash[:field_errors] || {}) %>
             <div class="col-md-12">
-              <form class="form-horizontal" autocomplete="off" role="form">
                 <!-- A workaround for chrome autofill entering camera user & pass autocomplete="off" no longer obeyed -->
                 <input style="display:none" type="text" name="fakeusernameremembered"/>
                 <input style="display:none" type="password" name="fakepasswordremembered"/>
@@ -243,7 +242,6 @@
                   </div>
                 </div>
           <% end %>
-          </form>
 
           </div>
         </div>
@@ -265,22 +263,10 @@
     </div>
   </div>
 </div>
-  <%= javascript_tag do %>
-    notifyMessage = '';
-    <% if flash[:message] %>
-      notifyMessage = '<%= flash[:message] %>';
-    <% end %>
-  <% end %>
-  <script>
-    window.Evercam.API_URL = '<%= EVERCAM_API %>';
-    window.Evercam.User = {
-      username: '<%= current_user.username %>',
-      api_id: '<%= current_user.api_id %>',
-      api_key: '<%= current_user.api_key %>'
-    };
+<script>
+  $(document).ready(function () {
+    window.initializeAddCamera();
+  });
+</script>
 
-    $(document).ready(function () {
-      window.initializeAddCamera();
-    });
-  </script>
 <%= javascript_include_tag "cameras/single/testsnapshot" %>

@@ -1,12 +1,7 @@
-// Place all the styles related to the sharing controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-/*SHARING*/
-#sharing a {
+#shares a {
   text-decoration: none;
 }
-#sharing h5 {
+#shares h5 {
   margin-top: 0px;
 }
 #transfer {
@@ -44,10 +39,10 @@ input#new_owner_email {
   float: left;
   margin-top: 8px;
 }
-#sharing .radio-inline + .radio-inline {
+#shares .radio-inline + .radio-inline {
   margin-left: 0;
 }
-#sharing .radio-inline{
+#shares .radio-inline{
   padding-left: 0;
   height: 36px;
 }
@@ -55,10 +50,10 @@ input#new_owner_email {
 .table-bordered-top {
   border-bottom:1px solid $main-grey;
 }
-#sharing .table > tbody > tr > td {
+#shares .table > tbody > tr > td {
   vertical-align: middle;
 }
-#sharing small {
+#shares small {
   color:#a0a0a0;
 }
 .sharing {
@@ -77,12 +72,12 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
   color:#2a6496;
 }
 
-#sharing .form-horizontal .control-label {
+#shares .form-horizontal .control-label {
   text-align: left;
   margin-left: -10px;
   padding-right: 0px;
 }
-#sharing .form-group {
+#shares .form-group {
   margin-bottom: 0;
 }
 #myModal .form-group {
@@ -97,10 +92,10 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
   margin-top: 4px;
   cursor: pointer;
 }
-#sharing .radio input[type="radio"] {
+#shares .radio input[type="radio"] {
   width: 20px;
 }
-#sharing .radio {
+#shares .radio {
   min-height:24px;
 }
 .share-section {
@@ -119,7 +114,7 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
   cursor: pointer;
 }
 
-#sharing .note.note-info {
+#shares .note.note-info {
   margin-top: -20px;
 }
 .modal-body {
@@ -129,7 +124,7 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
 .desc {
   padding: 18px 5px 10px;
 }
-#sharing i {
+#shares i {
   margin-right: 4px;
 }
 .change {

@@ -20,16 +20,16 @@
   transition: all .1s linear;
 }
 
-#info .portlet.solid.bordered > .portlet-title {
+#details .portlet.solid.bordered > .portlet-title {
   margin-bottom: 5px;
   border-bottom: 1px solid $white;
 }
 
-#info .green {
+#details .green {
   margin-top: 3px;
   color:#2ecc71;
 }
-#info .portlet.solid {
+#details .portlet.solid {
   overflow-x: hidden;
   background-color: $white;
   padding: 0px;
@@ -37,16 +37,16 @@
 .margin-bottom-5 {
   margin-bottom: 5px;
 }
-#info .table-borderless td {
+#details .table-borderless td {
   line-height: 1.2 !Important;
   padding: 6px 2px !important;
 }
 
-#info .table {
+#details .table {
   margin-bottom: 5px;
 }
 
-#info .help-block {
+#details .help-block {
   font-size: 12px;
   background: none;
 }
@@ -98,10 +98,10 @@
   max-width:200px;
   min-width:200px;
 }
-#info .table>tbody>tr>td {
+#details .table>tbody>tr>td {
   padding: 1px 2px;
 }
-#info .table>thead>tr>th {
+#details .table>thead>tr>th {
   padding: 0px 0 4px;
 }
 #settings-modal .portlet, #settings-modal-1 .portlet {
@@ -117,7 +117,7 @@
 #settings-modal-1 .control-label {
   margin-top: 8px;
 }
-#info-preview {
+#details {
   border: none;
   width: 100%;
   height: auto;

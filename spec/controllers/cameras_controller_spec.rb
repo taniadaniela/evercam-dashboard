@@ -48,21 +48,21 @@ describe CamerasController do
   describe 'GET #index without auth' do
     it "redirects to signup" do
       get :index
-      expect(response).to redirect_to('/signin')
+      expect(response).to redirect_to signin_path
     end
   end
 
   describe 'GET #new without auth' do
     it "redirects to signup" do
       get :new
-      expect(response).to redirect_to('/signin')
+      expect(response).to redirect_to signin_path
     end
   end
 
   describe 'POST #new without auth' do
     it "redirects to signup" do
       post :new
-      expect(response).to redirect_to('/signin')
+      expect(response).to redirect_to signin_path
     end
   end
 
@@ -104,7 +104,7 @@ describe CamerasController do
         session['user'] = user.email
         post :create, params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/cameras/#{params['camera-id']}")
+        expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
     end
 
@@ -141,7 +141,7 @@ describe CamerasController do
         session['user'] = user.email
         post :create, full_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/cameras/#{params['camera-id']}")
+        expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
     end
 
@@ -156,7 +156,7 @@ describe CamerasController do
         session['user'] = user.email
         post :create, full_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/cameras/#{params['camera-id']}")
+        expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
     end
 
@@ -165,7 +165,7 @@ describe CamerasController do
         session['user'] = user.email
         post :create, {}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/cameras/new")
+        expect(response).to redirect_to cameras_new_path
       end
     end
 
@@ -177,7 +177,7 @@ describe CamerasController do
         session['user'] = user.email
         post :update, patch_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to "/cameras/#{camera.exid}#info"
+        expect(response).to redirect_to cameras_single_path(camera.exid)
         expect(flash[:message]).to eq('Settings updated successfully')
         camera.reload
         expect(camera.is_public?).to eq(false)
@@ -198,12 +198,11 @@ describe CamerasController do
         session['user'] = user.email
         post :update, {'id' => camera.exid, 'camera-id' => camera.exid}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to("/cameras/#{camera.exid}")
+        expect(response).to redirect_to cameras_single_path(camera.exid)
         expect(flash[:message]).to eq("An error occurred updating the details for your camera. Please try again and, if this problem persists, contact support.")
       end
     end
-
-
+    
     describe 'GET #single' do
       it "renders the :single" do
         stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}&include_shared=true&thumbnail=false&user_id=#{camera.owner.username}").
@@ -262,7 +261,6 @@ describe CamerasController do
       end
     end
 
-
     describe 'POST #delete with invalid parameters' do
       it "redirects to the index page" do
         stub_request(:delete, "#{EVERCAM_API}cameras/#{camera.exid}.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
@@ -283,6 +281,5 @@ describe CamerasController do
         expect(response.status).to eq(200)
       end
     end
-
   end
 end

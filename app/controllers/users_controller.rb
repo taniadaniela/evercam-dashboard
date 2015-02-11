@@ -16,14 +16,15 @@ class UsersController < ApplicationController
       sign_out
     end
     unless current_user.nil?
-      redirect_to :cameras_index
-      return
+      return redirect_to cameras_index_path
     end
-    @countries     = Country.all
+    @countries = Country.all
     @share_request = nil
     if params[:key]
-      @share_request = CameraShareRequest.where(status: CameraShareRequest::PENDING,
-                                                key: params[:key]).first
+      @share_request = CameraShareRequest.where(
+        status: CameraShareRequest::PENDING,
+        key: params[:key]
+      ).first
       unless @share_request.nil?
         user = User.where(email: @share_request.email.downcase).first
         unless user.blank?
@@ -41,29 +42,31 @@ class UsersController < ApplicationController
       if user.nil?
         raise "No user details specified in request."
       end
-      output = get_evercam_api.create_user(user['firstname'],
-                                           user['lastname'],
-                                           user['username'],
-                                           user['email'],
-                                           user['password'],
-                                           user['country'],
-                                           params[:key])
+      get_evercam_api.create_user(
+        user['firstname'],
+        user['lastname'],
+        user['username'],
+        user['email'],
+        user['password'],
+        user['country'],
+        params[:key]
+      )
 
       user = User.where(email: user[:email].downcase).first
       sign_in user
-      redirect_to "/"
+      redirect_to cameras_index_path
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       if error.kind_of?(Evercam::EvercamError)
-         flash[:message] = [t("errors.#{error.code}")] unless error.code.nil?
-         assess_field_errors(error)
+        flash[:message] = t("errors.#{error.code}") unless error.code.nil?
+        assess_field_errors(error)
       else
-         flash[:message] = ["An error occurred creating your account. Please check "\
+        flash[:message] = "An error occurred creating your account. Please check "\
                             "the details and try again. If the problem persists, "\
-                            "contact support."]
+                            "contact support."
       end
       Rails.logger.error "Exception caught in create user request.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+          error.backtrace.join("\n")
       render action: 'new', user: user
     end
   end
@@ -80,25 +83,16 @@ class UsersController < ApplicationController
         flash[:notice] = 'Activation code is incorrect'
       end
     end
-    redirect_to '/signin'
+    redirect_to signin_path
   end
 
   def settings
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
-
-    @customer = nil
-
     unless current_user.billing_id.blank?
-
       @customer = Stripe::Customer.retrieve(current_user.billing_id)
-
+      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
     end
-
-    @silver_annual_plan = Stripe::Plan.retrieve("silver-annual")
-    @silver_monthly_plan = Stripe::Plan.retrieve("silver-monthly")
-
-
   end
 
   def settings_update
@@ -106,20 +100,20 @@ class UsersController < ApplicationController
       parameters = {}
       parameters[:firstname] = params['user-firstname'] if params.include?('user-firstname')
       parameters[:lastname] = params['user-lastname'] if params.include?('user-lastname')
-      parameters[:country]  = params['country'] if params.include?('country')
+      parameters[:country] = params['country'] if params.include?('country')
       if params.include?('email')
         parameters[:email] = params['email'] unless params['email'] == current_user.email
       end
       if !parameters.empty?
-         get_evercam_api.update_user(current_user.username, parameters)
-         session[:user] = User.by_login(current_user.username).email
-         refresh_user
-       end
+        get_evercam_api.update_user(current_user.username, parameters)
+        session[:user] = User.by_login(current_user.username).email
+        refresh_user
+      end
       flash[:message] = 'Settings updated successfully'
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+          error.backtrace.join("\n")
       if error.kind_of?(Evercam::EvercamError)
         if error.code
           flash[:message] = t("errors.#{error.code}")
@@ -129,7 +123,7 @@ class UsersController < ApplicationController
           "again and, if the problem persists, contact support."
         end
       else
-      flash[:message] = "An error occurred updating your details. Please try "\
+        flash[:message] = "An error occurred updating your details. Please try "\
                         "again and, if the problem persists, contact support."
       end
     end
@@ -183,7 +177,7 @@ class UsersController < ApplicationController
       user.password = params[:password]
       user.save
       sign_in user
-      redirect_to "/", message: 'Your password has been changed'
+      redirect_to cameras_index_path, message: 'Your password has been changed'
     end
   end
 
@@ -196,7 +190,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = t("errors.user_not_found_error")
     end
-    redirect_to "/users/#{params[:id]}/settings"
+    redirect_to user_path(user.username)
   end
 
   private

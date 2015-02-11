@@ -1,22 +1,44 @@
 <%= content_for(:title, "Evercam: Developer Dashboard") %>
 
-<div class="page-content-wrapper">
-  <div class="page-content" id="dev">
+<div class="page-content-wrapper" id="dev">
+  <div class="page-content">
+    <div class="row">
+      <div class="section-header">
+        <div class="camera-title">
+          Developer Docs
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 margin-bottom--20 table-responsive table-borderless table-fixed">
+      <table class="table">
+        <tr>
+          <td class="col-md-2">
+            <strong>API ID</strong>
+          </td>
+          <td>
+            <input readonly value="<%= current_user.api_id -%>">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>API Key</strong>
+          </td>
+          <td>
+            <input readonly value="<%= current_user.api_key -%>">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Demo Camera ID</strong>
+          </td>
+          <td>
+            <input readonly value="<%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>">
+          </td>
+        </tr>
+      </table>
+    </div>
 
-    <form role="form" id="apikeys" class="form-horizontal center-block">
-      <div class="col-md-3">
-        <strong>API ID</strong>
-        <%= current_user.api_id -%>
-      </div>
-      <div class="col-md-5">
-        <strong>API Key</strong>
-        <%= current_user.api_key -%>
-      </div>
-      <div class="col-md-4">
-        <strong>Demo Camera ID</strong>
-        <%= current_user.cameras.first.exid unless current_user.cameras.first.nil? %>
-      </div>
-    </form>
+
 
     <%= stylesheet_link_tag "swagger" %>
     <%= javascript_include_tag "swagger" %>

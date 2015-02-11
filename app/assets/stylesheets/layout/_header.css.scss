@@ -35,14 +35,13 @@ margin-top: 3px;
   margin-top: 4px;
 }
 .section-header {
-  background: $white;
-  border: 1px solid #E7E7EC !important;
+  background: $secondary-grey;
+  border-bottom: 1px solid #E7E7EC !important;
   overflow: hidden;
-  margin-left: -6px;
-  margin-right: -6px;
+  margin: 0px -6px 5px;
   padding: 10px 0px;
-  max-height: 44px;
-  min-height: 44px;
+  max-height: 45px;
+  min-height: 45px;
 }
 @media (max-width: 980px) {
   #camera-single .section-header {

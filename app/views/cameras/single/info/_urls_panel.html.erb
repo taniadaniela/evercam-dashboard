@@ -138,9 +138,9 @@
           <td>
             <% url = @camera.deep_fetch('external', 'http', 'camera') {} %>
             <% if url.blank? %>
-              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
-            <% else %>
               <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
             <% end %>
           </td>
         </tr>

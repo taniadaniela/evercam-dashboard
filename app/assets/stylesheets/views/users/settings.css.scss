@@ -3,7 +3,7 @@
    font-size: 18px;
    font-family: $regular-family;
     margin-top: 0px;
-    color: $main-color;
+    color: $dark-grey;
   }
   .form-group {
     margin-bottom: 8px;
@@ -92,6 +92,12 @@ span.input-group-addon .custom {
   opacity: 1;
   transition: opacity .2s ease-in-out;
 }
+#show {
+  position: absolute;
+  margin-top: 12px;
+
+}
+
 #user-settings .form-control[readonly] {
   background-color:#ffffff;
   border-bottom: 1px solid #e5e5e5;

@@ -1,38 +1,37 @@
-<div class="row" id="user-settings">
-  <div class="col-md-12">
-    <div class="panel-section row">
-      <div class="user-settings-portal panel-content col-md-8">
+<div id="user-settings">
+
+      <div class="user-settings-portal col-md-8">
         <div class="portlet">
           <div class="portlet-body form">
-            <button id="show" class="btn btn-primary hide-btn pull-right makeEditable"><i class="icon-pencil"></i></button>
+
             <form id="userProfile" role="form" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <div class="form-group">
-                <label class="grey bold" for="user-username">Username <span id="username"> cannot be changed.</span></label>
+                <label class="grey" for="user-username">Username <span id="username"> cannot be changed.</span></label>
                 <div id="username-show">
                   <input type="text" value="<%= current_user.username -%>" class="form-control input-medium input-inline" id="user-username" name="user-username" readonly="readonly" disabled placeholder="">
                 </div>
               </div>
               <div class="form-group">
-                <label class="bold grey" for="email">Email</label>
+                <label class="grey" for="email">Email</label>
                 <input data-validation="email" type="text" readonly="readonly" value="<%= current_user.email -%>" class="form-control input-medium" id="email" name="email" placeholder="Enter email">
               </div>
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="bold grey" for="user-firstname">First Name</label>
+                    <label class="grey" for="user-firstname">First Name</label>
                     <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control input-medium input-short" id="user-firstname" name="user-firstname" placeholder="Enter firstname">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="bold grey" for="user-lastname">Last Name</label>
+                    <label class="grey" for="user-lastname">Last Name</label>
                     <input data-validation-error-msg="Cannot be blank" readonly="readonly" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control input-medium input-short" id="user-lastname" name="user-lastname" placeholder="Enter lastname">
                   </div>
                 </div>
               </div>
               <div class="form-group">
-                <label class="bold grey" for="country">Country</label>
+                <label class="grey" for="country">Country</label>
                 <select id="country" disabled="disabled" name="country" class="input-medium form-control is-required">
                   <% @countries.each do |c| %>
                     <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
@@ -41,6 +40,7 @@
                   <% end %>
                 </select>
               </div>
+              <div id="show" class="btn btn-edit hide-btn makeEditable">edit</div>
               <div class="margin-top-20">
                 <div class="row">
                   <div class="col-md-12">
@@ -66,6 +66,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+
+
 </div>

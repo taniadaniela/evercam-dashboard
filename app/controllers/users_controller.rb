@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       unless @share_request.nil?
         user = User.where(email: @share_request.email.downcase).first
         unless user.blank?
-          flash[:error] = "You already register with this email #{@share_request.email.downcase} address."
+          flash[:error] = "You've already registered with this email #{@share_request.email.downcase} address."
           redirect_to '/signin'
         end
       end

@@ -5,3 +5,9 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+@mixin center-align {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

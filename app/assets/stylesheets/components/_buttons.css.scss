@@ -7,6 +7,11 @@
   border: 1px solid $main-color;
   padding: 6px 14px;
 }
+.portlet .btn-edit {
+  padding: 2px 12px;
+  margin-left: 15px;
+  font-size: 14px !important;
+}
 .btn-edit:hover {
   transition: all .2s linear;
   color: $main-color;

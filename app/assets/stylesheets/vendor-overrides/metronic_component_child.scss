@@ -9,9 +9,10 @@ body {
   font-size: 16px;
   direction: ltr;
 }
-input, select, button {
-  border-radius: 2px !important;
+input, select, button, p {
+  border-radius: $border-radius !important;
 }
+
 /***
 General typography
 ***/
@@ -244,7 +245,12 @@ label {
 .has-error .form-control-feedback {
   color: #a94442;
 }
-
+.note.note-info {
+  border: 1px solid $main-color;
+  background-color: $white;
+  color:$main-color;
+  padding: 10px 10px 10px 10px;
+}
 /***
 Input icons
 ***/

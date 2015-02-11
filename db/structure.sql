@@ -524,7 +524,8 @@ CREATE TABLE users (
     token_expires_at timestamp without time zone,
     api_id text,
     api_key text,
-    is_admin boolean DEFAULT false NOT NULL
+    is_admin boolean DEFAULT false NOT NULL,
+    billing_id text
 );
 
 

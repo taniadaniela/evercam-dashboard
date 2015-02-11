@@ -12,6 +12,9 @@ class UsersController < ApplicationController
   include ApplicationHelper
 
   def new
+    if params[:key] && current_user
+      sign_out
+    end
     unless current_user.nil?
       redirect_to :cameras_index
       return
@@ -21,6 +24,13 @@ class UsersController < ApplicationController
     if params[:key]
       @share_request = CameraShareRequest.where(status: CameraShareRequest::PENDING,
                                                 key: params[:key]).first
+      unless @share_request.nil?
+        user = User.where(email: @share_request.email.downcase).first
+        unless user.blank?
+          flash[:error] = "You've already registered with this email #{@share_request.email.downcase} address."
+          redirect_to '/signin'
+        end
+      end
     end
     params[:country] = request.location.country_code.downcase if request.location
   end

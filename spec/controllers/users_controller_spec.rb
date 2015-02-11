@@ -9,7 +9,6 @@ describe UsersController do
         lastname: user.lastname,
         username: user.username,
         email: user.email,
-        billing_id: user.billing_id,
         password: 'password'
         },
       country: 'ie'}

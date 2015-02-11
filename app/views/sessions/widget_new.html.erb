@@ -17,7 +17,7 @@
           <%= f.label :email %> / <%= f.label :username %>
           <div class="input-icon right">
             <i class="icon-user"></i>
-            <%= f.text_field :email, value: params.fetch(session, {})[:email] %>
+            <%= f.text_field :login, value: params.fetch(session, {})[:login] %>
           </div>
         </div>
 

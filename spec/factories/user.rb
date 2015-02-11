@@ -9,7 +9,6 @@ FactoryGirl.define do
       sequence(:email) {|n| "user#{n}@nowhere.com"}
       sequence(:api_id) {|n| "#{n}" }
       api_key SecureRandom.hex(10)
-      billing_id "Billing Id"
       created_at Time.now - 86400
       updated_at Time.now - 86400
       country do

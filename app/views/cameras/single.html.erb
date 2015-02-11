@@ -141,6 +141,8 @@
     }
   };
   <% params_subpath = params.fetch('subpath', '') %>
+  <% params_format = params.fetch('format', '') %>
+  <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>
   window.Evercam.request = {
     url: '<%= request.url %>',
     path: '<%= request.path %>',

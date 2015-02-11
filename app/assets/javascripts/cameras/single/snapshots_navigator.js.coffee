@@ -27,7 +27,7 @@ sendAJAXRequest = (settings) ->
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  xhrRequestChangeMonth = jQuery.ajax(settings)
+  xhrRequestChangeMonth = $.ajax(settings)
 
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
@@ -217,20 +217,20 @@ showLoader = ->
   $("#imgLoaderRec").css("left", $('#imgPlayback').css('left'))
   $("#imgLoaderRec").show()
 
-SetInfoMessage = (currFrame, dt) ->
+SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{dt}")
+  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{shortDate(date_time)}")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{dt.replace(RegExp("/", "g"), "-").replace(" ", "T")}Z"
+  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Snapshots" && history.replaceState
-    window.history.replaceState({path:url},'',url);
+    window.history.replaceState({}, '', url);
 
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
   $("#snapshot-notes-text").text(snapInfo.notes)
-  SetInfoMessage currentFrameNumber, shortDate(new Date(snapInfo.created_at*1000))
+  SetInfoMessage currentFrameNumber, new Date(snapInfo.created_at*1000)
   loadImage(snapInfo.created_at)
 
 getTimestampFromUrl = ->
@@ -244,8 +244,7 @@ getTimestampFromUrl = ->
     return ""
 
 isValidDateTime = (timestamp) ->
-  #TODO: change all timestamps to ISO 8601 (YYYY-MM-DDTHH:mm:ss.SSZ)
-  moment(timestamp, "DD-MM-YYYYTHH:mm:ssZ", true).isValid()
+  moment(timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid()
 
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
@@ -256,7 +255,7 @@ handleBodyLoadContent = ->
 
   timestamp = getTimestampFromUrl()
   if timestamp isnt ""
-    playFromDateTime = StringToDateTime timestamp.replace(RegExp("-", "g"), "/").replace('T',' ').replace('Z', '')
+    playFromDateTime = new Date(moment.utc(timestamp).format('YYYY-MM-DD HH:mm:ss'))
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -413,7 +412,7 @@ GetCameraInfo = (isShowLoader) ->
           playFromDateTime = null
 
       $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
-      SetInfoMessage(currentFrameNumber, shortDate(frameDateTime))
+      SetInfoMessage(currentFrameNumber, frameDateTime)
       loadImage(snapshotTimeStamp)
     true
 
@@ -472,13 +471,6 @@ GetUTCDate = (date) ->
   UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
   return UtcDate
 
-StringToDateTime = (timestamp) ->
-  time = timestamp.substring(timestamp.indexOf(" "))
-  date = timestamp.substring(0, timestamp.indexOf(" "))
-  timearray = time.split(":")
-  datearray = date.split("/")
-  return new Date(datearray[2], datearray[1] - 1, datearray[0],timearray[0], timearray[1], timearray[2])
-
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
@@ -505,24 +497,6 @@ StripLeadingZeros = (input) ->
     return input.substr(1)
   else
     return input
-
-DateToFormattedStr = (d) ->
-  if d == null then return ""
-  year = d.getFullYear()
-  month = d.getMonth() + 1
-  day = d.getDate()
-  hour = d.getHours()
-  minute = d.getMinutes()
-  second = d.getSeconds()
-  miliseconds = "#{d.getMilliseconds()}"
-
-  if miliseconds.length == 2
-    miliseconds = "0#{miliseconds}"
-  else if miliseconds.length == 1
-    miliseconds = "00#{miliseconds}"
-  else if miliseconds.length == 0 || miliseconds == 0
-    miliseconds = ''
-  return "#{FormatNumTo2(year) + FormatNumTo2(month) + FormatNumTo2(day) + FormatNumTo2(hour) + FormatNumTo2(minute) + FormatNumTo2(second) + miliseconds}"
 
 FormatNumTo2 = (n) ->
   if n < 10
@@ -700,7 +674,7 @@ DoNextImg = ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
-      SetInfoMessage currentFrameNumber, shortDate(new Date(si.created_at*1000))
+      SetInfoMessage currentFrameNumber, new Date(si.created_at*1000)
     $("#imgPlayback").attr("src", response.snapshots[0].data)
 
     if playDirection is 1 and playStep is 1

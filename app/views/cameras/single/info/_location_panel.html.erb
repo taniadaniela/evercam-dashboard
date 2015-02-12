@@ -10,15 +10,14 @@
       <div class="row">
         <div class="col-md-12">
           <div id="map-info">
-            <div id="co-ordinates"><strong>Coordinates</strong>
-              <br/>
-            <span id="coordinates-value">
-              <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %>
-            </span>
-            </div>
           </div>
         </div>
         <div class="col-md-12">
+          <div id="co-ordinates"><strong>Coordinates:</strong>
+            <span id="coordinates-value">
+              <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %>
+            </span>
+          </div>
           <p id="testies" style="display: none;" class="note note-info marker-info margin-top-10">
             Drag the marker to re-locate the camera
           </p>

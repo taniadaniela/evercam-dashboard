@@ -47,8 +47,11 @@
             JPEG:
           </td>
           <td>
-            <span id="public-short-link">
-              <%= link_to "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg", "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg", target: '_blank', :only_path => false %>
+            <span id="public-short-link" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
+                <%= link_to "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg", "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg", target: '_blank', :only_path => false %>
+            </span>
+            <span id="private-short-link" class="show-on-private grey" style="<%= 'display: none;' if @camera['is_public'] %>">
+              <%= "#{EVERCAM_API}cameras/#{@camera['id']}/snapshot.jpg" %>
             </span>
           </td>
         </tr>

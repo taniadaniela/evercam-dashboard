@@ -9,51 +9,42 @@
     <div class="portlet-body">
       <div class="row">
         <div class="col-md-12">
-          <div id="map-info"></div>
-          <div id="co-ordinates"><strong>Coordinates</strong>
-            <br/>
+          <div id="map-info">
+            <div id="co-ordinates"><strong>Coordinates</strong>
+              <br/>
             <span id="coordinates-value">
-              <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %></div>
-          </span>
+              <%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %>
+            </span>
+            </div>
+          </div>
         </div>
         <div class="col-md-12">
           <p id="testies" style="display: none;" class="note note-info marker-info margin-top-10">
             Drag the marker to re-locate the camera
           </p>
-
-          <div id="location-settings" class="row" style="display: none;">
-            <div>
-              <div class="col-md-8 margin-top-10">
-                <% if @has_edit_rights %>
-                  <span><strong>New location</strong></span>
-                  <table class="table table-fixed table-borderless">
-                    <tr>
-                      <td class="col-md-4"><label class="control-label" for="location-lat">Latitude</label></td>
-                      <td>
-                        <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lat') {} %>">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><label class="control-label" for="location-lng">Longitude</label></td>
-                      <td>
-                        <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lng') {} %>">
-                      </td>
-                    </tr>
-                  </table>
-                  <div class="col-md-offset-4 save-settings">
-                    <div class='pull-left form-group'><label class="control-label" for="add-button"></label>
-                      <a id="save-map-location" class="btn btn-primary margin-right-10">Save</a>
-                    </div>
-                  </div>
-                <% else %>
-                  <p class="note note-info">You do not have permission to save edits to the camera location</p>
-                <% end %>
-              </div>
-            </div>
+          <div id="location-settings" class="margin-top-10" style="display: none;">
+            <% if @has_edit_rights %>
+              <table class="table table-fixed table-borderless">
+                <tr>
+                  <td class="col-md-3">
+                    <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lat') {} %>">
+                    <span class="help-block">Latitude</span>
+                  </td>
+                  <td class="col-md-3">
+                    <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lng') {} %>">
+                    <span class="help-block">Longitude</span>
+                  </td>
+                  <td class="col-md-3">
+                    <a id="save-map-location" class="btn btn-primary margin-right-10">Save</a>
+                  </td>
+                </tr>
+              </table>
+            <% else %>
+              <p class="note note-info">You do not have permission to save edits to the camera location</p>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

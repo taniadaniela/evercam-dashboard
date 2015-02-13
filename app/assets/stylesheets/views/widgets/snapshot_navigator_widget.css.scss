@@ -52,7 +52,7 @@ th {
 }
 #recording-tab .btn {
     padding: 9px 14px;
-    border:1px solid #ffffff;
+    border:none;
 }
 @media (max-width: 480px) {
   #recording-tab .btn {
@@ -412,4 +412,38 @@ ul, menu, dir {
 .day{
     font-size: 12px;
 }
-/*End Recording tab stylesheet*/
+
+#recording-tab {
+  #imgPlayback {
+    border: none;
+  }
+  .playback-slider-outer {
+    margin-top: 0px;
+  }
+  .playback-buttons-bar {
+    background-color: #f5f5f5;
+  }
+  .snapshot-date {
+    position: absolute;
+    right: 10px;
+  }
+}
+
+
+#snapshot-notes-text {
+  padding-left: 10px;
+  position: absolute;
+  margin-top: -30px;
+}
+@media (max-width: 480px) {
+  #snapshot-notes-text {
+    margin-top: -58px;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    color: #fff;
+    padding: 2px 9px;
+  }
+  .mobile-hide {
+    display: none;
+  }
+}

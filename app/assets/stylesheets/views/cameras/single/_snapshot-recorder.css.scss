@@ -4,25 +4,24 @@
     margin-right: -20px;
   }
 }
-#recording-tab {
 
+#recording-tab {
   #imgPlayback {
     border: none;
   }
-}
-#recording-tab {
   .playback-slider-outer {
     margin-top: 0px;
   }
   .playback-buttons-bar {
     background-color: #f5f5f5;
   }
+  .snapshot-date {
+    position: absolute;
+    right: 10px;
+  }
 }
 
-.snapshot-date {
-  position: absolute;
-  right: 10px;
-}
+
 #snapshot-notes-text {
   padding-left: 10px;
   position: absolute;
@@ -44,7 +43,7 @@
 td.active.day.has-snapshot {
   text-shadow: none;
 }
-#recording-tab {
+#recording-tab,  {
   input {
     font-size: 16px;
   }

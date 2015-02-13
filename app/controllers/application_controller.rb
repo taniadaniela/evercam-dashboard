@@ -6,8 +6,20 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     if current_user.nil?
-      session[:redirect_url] = request.original_url
-      redirect_to signin_path
+      user = nil
+      redirect_url = request.original_url
+      if params.has_key?(:api_id) and params.has_key?(:api_key)
+        user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
+        redirect_url = remove_param_credentials(redirect_url)
+      end
+
+      if user.nil?
+        session[:redirect_url] = redirect_url
+        redirect_to signin_path
+      else
+        sign_in user
+        redirect_to redirect_url
+      end
     end
   end
 
@@ -31,5 +43,16 @@ class ApplicationController < ActionController::Base
     rescue => error
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
     end
+  end
+
+  def remove_param_credentials(original_url)
+    require 'uri'
+
+    uri = URI original_url
+    params = Rack::Utils.parse_query uri.query
+    params.delete('api_id')
+    params.delete('api_key')
+    uri.query = params.to_param
+    uri.to_s
   end
 end

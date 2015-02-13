@@ -29,7 +29,7 @@ class UsersController < ApplicationController
         user = User.where(email: @share_request.email.downcase).first
         unless user.blank?
           flash[:error] = "You've already registered with this email #{@share_request.email.downcase} address."
-          redirect_to '/signin'
+          redirect_to signin_path
         end
       end
     end

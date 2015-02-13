@@ -35,6 +35,7 @@ handleTabClick = ->
     clicked_path = $(this).attr('data-target').replace('#', '')
     if window.history and window.history.pushState
       window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath}/#{clicked_path}" );
+  $(".nav-tabs").tabdrop "layout"
 
 handleBackForwardButton = ->
   window.addEventListener 'popstate', (e) ->

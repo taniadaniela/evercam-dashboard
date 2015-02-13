@@ -13,15 +13,12 @@
   margin: 0 auto;
 }
 .center-tabs .nav-tabs {
-  height: 44px;
+  height: 43px;
   text-align: center;
 }
 
 
 @media (max-width: 730px) {
-  .center-tabs .nav-tabs {
-    height: 90px;
-  }
   .nav > li > a {
     padding: 10px 10px;
   }

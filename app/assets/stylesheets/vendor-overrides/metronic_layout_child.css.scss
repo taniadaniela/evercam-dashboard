@@ -348,7 +348,11 @@ Page sidebar
 .page-header.navbar .top-menu .navbar-nav {
   margin-right: 20px;
 }
-
+@media (max-width: 480px) {
+  .page-header.navbar .top-menu .navbar-nav {
+    margin-right: 5px;
+  }
+}
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu {
   min-width: 160px;
   max-width: 300px;
@@ -406,6 +410,11 @@ Page sidebar
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
   height:55px;
+}
+@media (max-width: 480px) {
+  .page-header.navbar .top-menu .navbar-nav > li.dropdown {
+  padding: 0px 0px;
+  }
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li a {
   background-color: #ffffff;
@@ -704,6 +713,16 @@ Page content
   overflow: auto;
   margin-right: -20px;
   margin-left: -20px;
+}
+@media (max-width: 480px) {
+  .tabbable-custom > .tab-content {
+    margin-right: 0px;
+    margin-left: 0px;
+    padding-top: 0px;
+  }
+  .page-content-wrapper .page-content {
+    padding: 20px 0px 10px 0px !important;
+  }
 }
 .tab-content {
   background: #fafafa;

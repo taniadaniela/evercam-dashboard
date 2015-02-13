@@ -239,3 +239,24 @@ li span {
   }
 }
 
+.dropdown-menu {
+  background: lighten($secondary-color, 5%);
+}
+
+.dropdown-menu li > a {
+  line-height: 21px;
+  color:$white;
+}
+
+.dropdown-toggle {
+  font-size: 18px;
+}
+.camera-switch a {
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+}
+.camera-switch .fa-caret-down {
+  margin-left: 6px;
+  margin-top: -3px;
+}

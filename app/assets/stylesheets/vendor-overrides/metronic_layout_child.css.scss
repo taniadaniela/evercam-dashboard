@@ -50,7 +50,7 @@ Page Header
 .page-header.navbar {
   height: 55px;
   min-height: 46px;
-  background: lighten($secondary-color, 5%);
+  background: $secondary-color;
 }
 .page-header.navbar .page-logo {
   height: 55px;

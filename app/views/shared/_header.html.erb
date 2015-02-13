@@ -10,18 +10,8 @@
         </a>
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>
-            <li role="presentation" class="dropdown-sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %>">
-              <%= cameras_single_path(camera['id']) do %>
-                <% if camera['owner'] == current_user.username %>
-                  <i class="icon icon-users" style="visibility: hidden;"></i>
-                <% else %>
-                  <i data-toggle="tooltip" data-placement="top" title="SHARED CAMERA" class="icon icon-users"></i>
-                <% end %>
-                <%= camera['name'] %>
-                <% unless camera['is_online'] %>
-                  <i class="red fa fa-chain-broken"></i>
-                <% end %>
-              <% end %>
+            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+              <%= link_to camera['name'], cameras_single_path(camera['id']) %>
             </li>
           <% end %>
         </ul>

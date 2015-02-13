@@ -102,3 +102,9 @@
 #live-view-placeholder .inactive{
   display: none;
 }
+@media (max-width: 480px) {
+  #live {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}

@@ -238,7 +238,7 @@ li span {
     display: none;
   }
 }
-
+.camera-switch {
 .dropdown-menu {
   background: lighten($secondary-color, 5%);
 }
@@ -247,7 +247,7 @@ li span {
   line-height: 21px;
   color:$white;
 }
-
+}
 .dropdown-toggle {
   font-size: 18px;
 }

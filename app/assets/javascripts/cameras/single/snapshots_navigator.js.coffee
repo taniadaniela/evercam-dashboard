@@ -219,7 +219,7 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<b>Frame #{currFrame} of #{totalSnaps}</b> #{shortDate(date_time)}")
+  $("#divInfo").html("<span class='snapshot-frame'>Frame #{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"

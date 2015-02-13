@@ -131,9 +131,7 @@
     z-index: 1000;
     display: none;
 }
-.delete-btn {
-    margin:10px 15px 10px 0px;
-}
+
 .button {
     display: inline-block;
     position: relative;
@@ -146,10 +144,6 @@
     color: #646464;
 }
 
-.button > paper-ripple {
-    border-radius: 2px;
-    overflow: hidden;
-}
 .button.raised {
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.2s;
@@ -161,32 +155,4 @@
 }
 .button.grey {
     background-color: #eee;
-}
-.box2 input, .box-new input {
-    padding:1px;
-}
-.closepopup2{
-    text-decoration:none;
-    color:#2c3e50;
-    margin-top: -4px !important;
-}
-.closepopup2:hover{
-    text-decoration:none;
-    color:#2c3e50;
-            
-}
-.closepopup2:active{
-    text-decoration:none;
-    color:#2c3e50;
-            
-}
-.closepopup2:visited{
-    text-decoration:none;
-    color:#2c3e50;
-            
-}
-.closepopup2:link{
-    text-decoration:none;
-    font-size:14px;
-    color:#2c3e50;
 }

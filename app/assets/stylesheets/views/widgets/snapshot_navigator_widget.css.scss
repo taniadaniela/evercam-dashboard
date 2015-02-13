@@ -48,13 +48,19 @@ th {
 }
 #recording-tab.row{
   margin-right: 0px;
+  margin-left: 0px;
 }
 #recording-tab .btn {
     padding: 9px 14px;
-    border:1px solid #ffffff;
+    border:none;
+}
+@media (max-width: 480px) {
+  #recording-tab .btn {
+    padding: 9px 5px;
+  }
 }
 #recording-tab .btn-padding {
-    padding: 10.5px 14px;
+    padding: 9px 14px;
 }
 #btnFRwd i, #btnFFwd i {
     font-size: 16px;
@@ -111,6 +117,18 @@ th {
     .right-column {
         float: left;
     }
+}
+@media (max-width: 480px) {
+  .left-column {
+    width: 100%;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 10px;
+  }
+  .right-column {
+    float: left;
+  }
 }
 
 .snapshots {
@@ -365,7 +383,12 @@ ul, menu, dir {
       margin-right: 15px;
     }
 }
+@media (max-width: 480px) {
+  .datepicker-inline {
+    display: block;
 
+  }
+}
 .datepicker{
     border: 1px solid #efefef;
     font-size: 12px;
@@ -389,4 +412,38 @@ ul, menu, dir {
 .day{
     font-size: 12px;
 }
-/*End Recording tab stylesheet*/
+
+#recording-tab {
+  #imgPlayback {
+    border: none;
+  }
+  .playback-slider-outer {
+    margin-top: 0px;
+  }
+  .playback-buttons-bar {
+    background-color: #f5f5f5;
+  }
+  .snapshot-date {
+    position: absolute;
+    right: 10px;
+  }
+}
+
+
+#snapshot-notes-text {
+  padding-left: 10px;
+  position: absolute;
+  margin-top: -30px;
+}
+@media (max-width: 480px) {
+  #snapshot-notes-text {
+    margin-top: -58px;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    color: #fff;
+    padding: 2px 9px;
+  }
+  .mobile-hide {
+    display: none;
+  }
+}

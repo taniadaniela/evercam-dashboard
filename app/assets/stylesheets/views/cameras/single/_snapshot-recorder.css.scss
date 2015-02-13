@@ -1,4 +1,42 @@
-#snapshots {
+#recording-tab {
+  #imgPlayback {
+    border: none;
+  }
+  .playback-slider-outer {
+    margin-top: 0px;
+  }
+  .playback-buttons-bar {
+    background-color: #f5f5f5;
+  }
+  .snapshot-date {
+    position: absolute;
+    right: 10px;
+  }
+}
+
+
+#snapshot-notes-text {
+  padding-left: 10px;
+  position: absolute;
+  margin-top: -27px;
+}
+@media (max-width: 480px) {
+  #snapshot-notes-text {
+    margin-top: -58px;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    color: #fff;
+    padding: 2px 9px;
+  }
+  .mobile-hide {
+    display: none;
+  }
+}
+
+td.active.day.has-snapshot {
+  text-shadow: none;
+}
+#recording-tab,  {
   input {
     font-size: 16px;
   }
@@ -7,24 +45,30 @@
     font-family: proxima-nova-bold;
     font-weight: bold;
   }
-  #imgPlayback {
+  .table-condensed > tbody > tr > td {
+    padding: 0px;
+  }
+  .datepicker td {
+    width: 25px;
+    height: 25px;
+  }
+  .btn {
+    padding: 9px 14px;
+    border:none !important;
+  }
+  .btn-padding-tab {
+    padding: 9px 14px !important;
+  }
+  .table-condensed tbody {
+    background-color:#fff;
     border: none;
   }
+  thead {
+    background-color: #f6f6f6;
+    border: 1px solid #e5e5e5;
+  }
 }
-#recording-tab .table-condensed > tbody > tr > td {
-  padding: 0px;
-}
-#recording-tab .datepicker td {
-  width: 25px;
-  height: 25px;
-}
-#recording-tab .btn {
-  padding: 9px 14px;
-  border:1px solid #ffffff;
-}
-#recording-tab .btn-padding-tab {
-  padding: 9px 14px !important;
-}
+
 #btnFRwd i, #btnFFwd i {
   font-size: 16px;
 }
@@ -33,14 +77,6 @@
 }
 #btnPlayRec {
   padding-top: 2px;
-}
-#recording-tab .table-condensed tbody {
-  background-color:#fff;
-  border: none;
-}
-#recording-tab thead {
-  background-color: #f6f6f6;
-  border: 1px solid #e5e5e5;
 }
 
 .left-column {
@@ -212,12 +248,16 @@
   margin-top: 10px;
 }
 
-.playback-info-bar{
-  text-align: center;
-  margin:4px 0px;
-  padding: 8px 0px;
-  background-color: #f3f3f3;
-  position: relative;
+#recordings .playback-info-bar {
+  margin: 0px 0px 0px !important;
+  padding: 7px 10px 4px;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+@media (max-width: 480px) {
+  #recordings .playback-info-bar {
+    text-align: left;
+  }
 }
 .date-time {
   position: absolute;
@@ -334,5 +374,9 @@
 .snapshots:hover .snapshot-sidebar {
   opacity: 1;
 }
-
-/*End Recording tab stylesheet*/
+@media (max-width: 480px) {
+  #recordings {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}

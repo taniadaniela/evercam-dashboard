@@ -7,7 +7,7 @@ METRONIC COMPONENTS
 /***
 General reset
 ***/
-/* Reset rounded corners for all elements */
+/* Reset rounded corners for all elements
 div,
 input,
 select,
@@ -29,7 +29,7 @@ li {
 -moz-border-radius: 0 !important;
 border-radius: 0 !important;
 }
-
+ */
 /* except below bootstrap elements */
 .img-circle {
 border-radius: 50% !important;

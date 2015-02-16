@@ -4,7 +4,7 @@
     <div class="row">
       <div id="live-view-placeholder" class="col-lg-8 col-md-12">
         <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
-          <img id="live-player-image" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/live/snapshot.jpg?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+          <img id="live-player-image" src="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/live/snapshot?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
           <div class="live-options">
             <div class="live-option" id="toggle"><i class="icon-size-fullscreen"></i></div>
             <div class="live-option"><a id="link-popout"><i class="icon-share-alt" aria-hidden="true"></i></a></div>
@@ -13,7 +13,7 @@
         </div>
         <% unless rtmp_stream.blank? %>
           <div id="camera-rtmp-stream" class="active">
-            <video id="camera-rtmp-player" class="video-js vjs-default-skin" autoplay controls preload="auto" width="auto" height="auto">
+            <video id="camera-rtmp-player" class="video-js vjs-default-skin" poster="<%= EVERCAM_API %>cameras/<%= @camera['id'] %>/live/snapshot?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" autoplay controls preload="auto" width="auto" height="auto">
               <source src="<%= rtmp_stream %>" type='rtmp/flv'>
             </video>
           </div>

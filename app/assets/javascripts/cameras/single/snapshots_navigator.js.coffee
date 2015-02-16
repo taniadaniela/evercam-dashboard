@@ -219,7 +219,7 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
-  $("#divInfo").html("<span class='snapshot-frame'>Frame #{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
+  $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
@@ -756,6 +756,10 @@ handleMinSecDropDown = ->
 
   $("#ddlRecSeconds").on "change", ->
     SelectImagesByMinSec()
+
+  $('#show-info').click ->
+    $('#snapshot-notes-text').toggle()
+  return
 
 window.initializeRecordingsTab = ->
   initDatePicker()

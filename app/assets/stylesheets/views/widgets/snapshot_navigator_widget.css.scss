@@ -438,6 +438,9 @@ ul, menu, dir {
 }
 
 #recording-tab {
+  .grey.btn:hover {
+    background-color: #f5f5f5;
+  }
   #imgPlayback {
     border: none;
   }

@@ -61,9 +61,9 @@
             <p class="callout" style="color:#428bca; line-height: 1.6; background: #f5f5f5;  margin: 0 0 15px; padding: 15px;">
               <a style="color:#428bca; text-decoration:none;" href="https://dashboard.evercam.io/v1/users/signup?key=<%= @key %>">https://dashboard.evercam.io/v1/users/signup?key=<%= @key %></a>
             </p><!-- /Callout Panel -->
-            <% if @add_snap %>
+            <% unless @snapshot.blank? %>
             <br>
-            <%= image_tag attachments['snapshot.jpg'].url, alt: 'Camera Preview', :style => "max-width: 550px; display:block; margin:0 auto;" -%>
+            <%= image_tag @snapshot, alt: 'Camera Preview', :style => "max-width: 550px; display:block; margin:0 auto;" -%>
             <% end %>
             <br>
             <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">Your Evercam account will give you access to this camera and a whole world of possibilities for cameras!</p>

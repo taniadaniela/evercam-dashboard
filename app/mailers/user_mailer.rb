@@ -7,11 +7,7 @@ class UserMailer < ActionMailer::Base
       @camera_id = camera_id
       @user      = user
       @key       = key
-      @add_snap = false
-      unless snapshot.nil?
-        attachments.inline['snapshot.jpg'] = snapshot
-        @add_snap = true
-      end
+      @snapshot  = snapshot
       mail(to: email, subject: "#{user.username} has shared a camera with you")
    end
 

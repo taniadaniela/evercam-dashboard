@@ -44,6 +44,11 @@ handleBackForwardButton = ->
       .split('/')[1]
     $(".nav-tab-#{tab}").tab('show')
 
+handlePusherEventSingle = ->
+  channel = Evercam.Pusher.subscribe(Evercam.Camera.id)
+  channel.bind 'camera_changed', (data) ->
+    $('#camera-single .camera-title').load "#{Evercam.request.rootpath} #camera-single .camera-title > *"
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -60,6 +65,7 @@ window.initializeCameraSingle = ->
   handleTabClick()
   switchToTab()
   handleBackForwardButton()
+  handlePusherEventSingle()
   initializeiCheck()
   initializeDropdowns()
   Metronic.init()

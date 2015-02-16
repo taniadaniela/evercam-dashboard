@@ -32,6 +32,7 @@ gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'
 gem 'rails-assets-jquery.uniform', '~> 2.1.2'
 gem 'rails-assets-ladda', '~> 0.8.0'
 gem 'rails-assets-moment', '~> 2.8'
+gem 'rails-assets-pusher', '~> 2.2.3'
 gem 'rails-assets-screenfull', '~> 2.0'
 gem 'rails-assets-videojs', '~> 4.11.4'
 
@@ -52,6 +53,7 @@ gem 'ie_iframe_cookies'
 gem 'heroku-api'
 gem 'airbrake'
 gem 'intercom-rails'
+gem 'pusher'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'

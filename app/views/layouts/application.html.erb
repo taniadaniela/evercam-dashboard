@@ -42,6 +42,19 @@
     api_key: '<%= current_user.api_key %>'
   };
 
+  <% params_subpath = params.fetch('subpath', '') %>
+  <% params_format = params.fetch('format', '') %>
+  <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>
+  window.Evercam.request = {
+    url: '<%= request.url %>',
+    path: '<%= request.path %>',
+    subpath: '<%= params_subpath %>',
+    tabpath: '<%= params_subpath.split('/').first %>',
+    rootpath: '<%= request.path.sub(params_subpath, '').chomp('/') %>'
+  };
+
+  window.Evercam.Pusher = new Pusher('<%= ENV['PUSHER_KEY'] %>');
+
   Metronic.init();
   Layout.init();
   QuickSidebar.init();

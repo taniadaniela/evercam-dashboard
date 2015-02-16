@@ -53,12 +53,14 @@ th {
 #recording-tab .btn {
     padding: 9px 14px;
     border:none;
+    width: 45px;
 }
 
 @media (max-width: 480px) {
   #recording-tab .btn {
     padding: 9px 5px;
     font-size: 13px;
+    width: 41px;
   }
 }
 #recording-tab .btn-padding {
@@ -276,11 +278,11 @@ ul, menu, dir {
     height:1.12em;
     cursor:pointer;
     margin-top:2px;
-    background:asset-url('sel.jpg') repeat-x -2px 0px;
+    background:#8cbae3 repeat-x -2px 0px;
 }
 
 .playback-slider-inner{
-    background:#0000FE asset-url('bar.jpg') repeat-x -2px 0px;
+    background:#458cc7 repeat-x -2px 0px;
     width:0px;
     height:1.12em;
     float:left;

@@ -487,9 +487,11 @@ ul, menu, dir {
 #snapshot-notes-text {
   padding-left: 10px;
   position: absolute;
-  margin-top: -30px;
-  transition: all 1s ease-in-out;
+  margin-top: 8px;
+  display: block;
+  z-index: 10;
 }
+
 @media (max-width: 480px) {
   #snapshot-notes-text {
     margin-top: -26px;
@@ -497,8 +499,9 @@ ul, menu, dir {
     width: 100%;
     color: #fff;
     padding: 4px 8px;
+    transition: all 1s ease-in-out;
   }
   .mobile-hide {
-    display: none;
+    display: none ;
   }
 }

@@ -47,7 +47,23 @@ handleBackForwardButton = ->
 handlePusherEventSingle = ->
   channel = Evercam.Pusher.subscribe(Evercam.Camera.id)
   channel.bind 'camera_changed', (data) ->
-    $('#camera-single .camera-title').load "#{Evercam.request.rootpath} #camera-single .camera-title > *"
+    $('#settings-modal').modal('hide')
+    updateCameraSinglePage()
+
+updateCameraSinglePage = ->
+  $.ajax(Evercam.request.rootpath).done (data) ->
+    elements = [
+      '#camera-single .camera-title'
+      '#details .info-preview'
+      '#camera-details-panel'
+      '#general-info-panel'
+      '#urls-panel'
+      '#settings-modal .modal-body'
+    ]
+    updateElement(data, elem) for elem in elements
+
+updateElement = (page, elem)->
+  $(elem).html $(page).find("#{elem} > *")
 
 initializeTabs = ->
   window.initializeInfoTab()

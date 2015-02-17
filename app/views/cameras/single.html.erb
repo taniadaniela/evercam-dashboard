@@ -4,25 +4,7 @@
   <div class="page-content" id="camera-single">
     <div class="row">
       <div class="section-header">
-        <div class="camera-title">
-          <div class="col-xs-12 col-md-12">
-            <div class="btn-group camera-switch">
-              <h3 class="page-title"><%= @camera['name'] %></h3>
-            </div>
-            <div class="pull-right camera-status">
-              <% if @camera['is_online'] %>
-                <div class="green">Online</div>
-              <% else %>
-                <div class="red">Offline</div>
-              <% end %>
-            </div>
-            <% unless @camera['owner'] == current_user.username %>
-              <div class="pull-right margin-right-10">
-                <i class="icon icon-users" data-original-title="This camera was shared with you" data-placement="left" data-toggle="tooltip"></i>
-              </div>
-            <% end %>
-          </div>
-        </div>
+        <%= render partial: "cameras/single/header" %>
       </div>
     </div>
     <div class="portlet-body">
@@ -139,16 +121,6 @@
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>
     }
-  };
-  <% params_subpath = params.fetch('subpath', '') %>
-  <% params_format = params.fetch('format', '') %>
-  <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>
-  window.Evercam.request = {
-    url: '<%= request.url %>',
-    path: '<%= request.path %>',
-    subpath: '<%= params_subpath %>',
-    tabpath: '<%= params_subpath.split('/').first %>',
-    rootpath: '<%= request.path.sub(params_subpath, '').chomp('/') %>'
   };
 
   $(document).ready(function () {

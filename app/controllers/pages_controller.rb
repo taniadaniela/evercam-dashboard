@@ -32,13 +32,13 @@ class PagesController < ApplicationController
   end
 
   def log_and_redirect
-    log.warn "Old Endpoint Requested: '#{request.original_url}'"
+    Rails.logger.warn "Old Endpoint Requested: '#{request.original_url}'"
     if current_user
-      log.warn "Requester is an User. It's username is '#{current_user.username}' and email is '#{current_user.email}'."
+      Rails.logger.warn  "Requester is an User. It's username is '#{current_user.username}' and email is '#{current_user.email}'."
     else
-      log.warn "Requester is anonymous."
+      Rails.logger.warn  "Requester is anonymous."
     end
-    log.warn "Request Parameters: #{params.to_hash.inspect}"
+    Rails.logger.warn  "Request Parameters: #{params.to_hash.inspect}"
 
     redirect_to root_path
   end

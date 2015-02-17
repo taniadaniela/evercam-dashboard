@@ -3,7 +3,6 @@
    font-size: 18px;
    font-family: $regular-family;
     margin-top: 0px;
-    color: $dark-grey;
   }
   .form-group {
     margin-bottom: 8px;
@@ -36,7 +35,9 @@
   .panel-title {
     padding-left: 15px;
   }
-
+}
+#account {
+  min-height: 400px;
 }
 .custom-amount {
   padding: 4px 6px;
@@ -109,4 +110,9 @@ span.input-group-addon .custom {
 }
 .user-settings-portal {
   max-width: 465px;
+}
+.application {
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
 }

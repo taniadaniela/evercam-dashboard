@@ -603,11 +603,11 @@ handlePlay = ->
 
   $(".skipframe").on "click", ->
     switch $(this).html()
-      when "+ Frame" then SetSkipFrames 1, "n"
+      when "+1" then SetSkipFrames 1, "n"
       when "+5" then SetSkipFrames 5, "n"
       when "+10" then SetSkipFrames 10, "n"
       when "+100" then SetSkipFrames 100, "n"
-      when "- Frame" then SetSkipFrames 1, "p"
+      when "-1" then SetSkipFrames 1, "p"
       when "-5" then SetSkipFrames 5, "p"
       when "-10" then SetSkipFrames 10, "p"
       when "-100" then SetSkipFrames 100, "p"

@@ -30,4 +30,16 @@ class PagesController < ApplicationController
     response.headers["X-Frame-Options"] = "ALLOWALL"
     render layout: "swagger"
   end
+
+  def log_and_redirect
+    log.warn "Old Endpoint Requested: '#{request.original_url}'"
+    if current_user
+      log.warn "Requester is an User. It's username is '#{current_user.username}' and email is '#{current_user.email}'."
+    else
+      log.warn "Requester is anonymous."
+    end
+    log.warn "Request Parameters: #{params.to_hash.inspect}"
+
+    redirect_to root_path
+  end
 end

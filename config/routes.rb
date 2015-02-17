@@ -88,5 +88,5 @@ Rails.application.routes.draw do
   get '/oauth2/tokeninfo' => 'oauth2#tokeninfo'
   get '/oauth2/revoke' => 'oauth2#revoke'
 
-  get '*path' => redirect('/') unless Rails.env.development?
+  get '*path' => 'pages#log_and_redirect'
 end

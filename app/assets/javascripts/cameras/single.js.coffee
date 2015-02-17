@@ -47,24 +47,33 @@ handleBackForwardButton = ->
 handlePusherEventSingle = ->
   channel = Evercam.Pusher.subscribe(Evercam.Camera.id)
   channel.bind 'camera_changed', (data) ->
-    $('#settings-modal').modal('hide')
     updateCameraSinglePage()
 
 updateCameraSinglePage = ->
   $.ajax(Evercam.request.rootpath).done (data) ->
     elements = [
       '#camera-single .camera-title'
-      '#details .info-preview'
-      '#camera-details-panel'
-      '#general-info-panel'
-      '#urls-panel'
-      '#settings-modal .modal-body'
+      #'#details .info-preview'
+      #'#camera-details-panel'
+      #'#general-info-panel'
+      #'#urls-panel'
+      #'#settings-modal .modal-body'
     ]
     updateElement(data, elem) for elem in elements
 
 updateElement = (page, elem)->
   $(elem).html $(page).find("#{elem} > *")
 
+handleCameraModalSubmit = ->
+  $('#settings-modal').on 'click', '#add-button', ->
+    $('#settings-modal').modal('hide')
+
+handlePageLoad = ->
+  setTimeout (->
+    updateCameraSinglePage()
+    $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *'
+  ), 2000
+    
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -82,6 +91,10 @@ window.initializeCameraSingle = ->
   switchToTab()
   handleBackForwardButton()
   handlePusherEventSingle()
+  # temporarily disabled
+  #handleCameraModalSubmit()
+  # temporarily added
+  handlePageLoad()
   initializeiCheck()
   initializeDropdowns()
   Metronic.init()

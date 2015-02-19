@@ -33,30 +33,15 @@ initializeDataTable = ->
     dataTable:
       'bStateSave': true
       'lengthMenu': [
-        [
-          25
-          50
-          100
-          200
-          -1
-        ]
-        [
-          25
-          50
-          100
-          200
-          'All'
-        ]
+        [ 25, 50, 100, 200, -1 ]
+        [ 25, 50, 100, 200, 'All' ]
       ]
       'pageLength': 50
       'ajax':
         'method': 'GET'
         'headers': headers
         'url': 'models/load.vendor.model'
-      'order': [ [
-                   0
-                   'asc'
-                 ] ]
+      'order': [ [ 0, 'asc' ] ]
       initComplete: ->
         $('#vendor-model-list-row').removeClass 'hide'
         return

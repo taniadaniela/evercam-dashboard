@@ -21,5 +21,16 @@
     <%= render 'admin/shared/sidebar' %>
     <%= yield %>
   </div>
+<script>
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+</script>
 </body>
 </html>

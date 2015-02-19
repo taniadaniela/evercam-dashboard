@@ -1,3 +1,6 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
   <div class="page-content">
@@ -6,7 +9,10 @@
       <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-          Evercam Vendors & Models
+          Evercam Vendors & Models&nbsp;
+          <div href="#" class="btn btn-edit" data-toggle="modal" data-target="#add-vendor-modal">
+            add
+          </div>
         </h3>
         <ul class="page-breadcrumb breadcrumb">
           <li>
@@ -22,50 +28,92 @@
       </div>
     </div>
     <!-- END PAGE HEADER-->
+    <!-- modal -->
+    <div id="add-vendor-modal" class="modal fade">
+      <div class="modal-dialog" style="width:500px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="caption">Add a Model</div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <table class="table table-fixed table-borderless">
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Id:</label></td>
+                  <td><input type="text" id="model-id" name="model-id" placeholder="Unique identifier for the model" class="form-control"/></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Vendor:</label></td>
+                  <td><select id="vendor" name="vendor" class="form-control is-required"><option value="">Select Vendor</option></select></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Name:</label></td>
+                  <td><input type="text" id="name" name="name" placeholder="Name of the model" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">JPG Url:</label></td>
+                  <td><input type="text" id="jpg-url" name="jpg-url" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">MJPG Url:</label></td>
+                  <td><input type="text" id="mjpg-url" name="mjpg" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">MPEG4 Url:</label></td>
+                  <td><input type="text" id="mpeg4-url" name="mpeg4-url" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Mobile Url:</label></td>
+                  <td><input type="text" id="mobile-url" name="mobile-url" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">H264 Url:</label></td>
+                  <td><input type="text" id="h264-url" name="h264-url" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Low Resulation Url:</label></td>
+                  <td><input type="text" id="lowres-url" name="lowres-url" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Default Username:</label></td>
+                  <td><input type="text" id="default-username" name="default-username" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td class="col-md-5"><label class="control-label">Default Password:</label></td>
+                  <td><input type="text" id="default-password" name="default-password" class="form-control" /></td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <div class="alert alert-danger model-alert" style="display:none;">
 
-    <!-- BEGIN PAGE SUMMARY -->
-    <div class="row">
-      <div class="col-md-9"></div>
-      <div class="col-md-3">
-        <div class="portlet sale-summary">
-          <div class="portlet-title">
-            <div class="caption">
-              Summary
-            </div>
-            <div class="tools">
-              <a class="reload" href="javascript:;">
-              </a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
             </div>
           </div>
-          <div class="portlet-body">
-            <ul class="list-unstyled">
-              <li>
-                <span class="sale-info">
-                  Total Vendors
-                  <i class="fa fa-img-up"></i>
-                </span>
-                <span class="sale-num">
-                  <%= @total_vendors %>
-                </span>
-              </li>
-              <li>
-                <span class="sale-info">
-                  Total Cameras
-                  <i class="fa fa-img-down"></i>
-                </span>
-                <span class="sale-num">
-                  <%= @total_cameras %>
-                </span>
-              </li>
-            </ul>
-          </div>
+
+          <fieldset>
+            <div class="modal-footer">
+              <button type="submit" id="save-model" name="save-model" class="push btn btn-primary">Save</button>
+              <button type="button" id="close-dialog" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>
-    <!-- END PAGE SUMMARY -->
+    <!-- /.modal -->
+
     <!-- BEGIN PAGE CONTENT-->
     <div id="vendor-model-list-row" class="row hide1">
+      <input type="hidden" id="total_vendors" value="<%= @total_vendors %>"/>
+      <input type="hidden" id="total_cameras" value="<%= @total_cameras %>"/>
       <div class="col-md-12 table-container">
+        <div class="table-actions-wrapper">
+          <span></span>
+          Search: <input type="text" placeholder="Vendor/Model" class="table-group-action-input form-control input-inline input-small input-sm"/>
+        </div>
         <table class="table table-striped table-bordered table-hover" id="datatable_vendor_models">
           <thead>
           <tr role="row" class="heading">
@@ -74,30 +122,6 @@
             <th width="20%" name="order_snapshot_url" class="sorting">Snapshot</th>
             <th width="20%" name="order_h264_url" class="sorting">H264</th>
             <th width="20%" name="order_mjpg_url" class="sorting">MJPG</th>
-            <th width="10%" name="order_thumbnail" class="sorting">Actions</th>
-          </tr>
-          <tr role="row" class="filter">
-            <td>
-              <input type="text" class="form-control form-filter input-sm" name="vendor">
-            </td>
-            <td>
-              <input type="text" class="form-control form-filter input-sm" name="vendor_model">
-            </td>
-            <td>
-              <input type="text" class="form-control form-filter input-sm" name="snapshot_url">
-            </td>
-            <td>
-              <input type="text" class="form-control form-filter input-sm" name="h264_url"/>
-            </td>
-            <td>
-              <input type="text" class="form-control form-filter input-sm" name="mjpg_url"/>
-            </td>
-            <td>
-              <div class="margin-bottom-5">
-                <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i> Search</button>
-              </div>
-              <button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i> Reset</button>
-            </td>
           </tr>
           </thead>
           <tbody>
@@ -112,57 +136,7 @@
 <!-- END CONTENT -->
 
 <script>
-  var vendor_models_table = new Datatable();
-
-  var headers, token;
-
-  token = $('meta[name="csrf-token"]');
-
-  if (token.size() > 0) {
-    headers = {
-      "X-CSRF-Token": token.attr("content")
-    };
-  }
-  vendor_models_table.init({
-    src: $("#datatable_vendor_models"),
-    onSuccess: function (grid) {
-      // execute some code after table records loaded
-    },
-    onError: function (grid) {
-      // execute some code on network or other general error
-    },
-    onDataLoad: function(grid) {
-      // execute some code on ajax data load
-    },
-    loadingMessage: 'Loading...',
-    dataTable: { //http://datatables.net/usage/options
-      "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
-      "lengthMenu": [
-        [25, 50, 100, 200, -1],
-        [25, 50, 100, 200, "All"]
-      ],
-      "pageLength": 50,
-      "ajax": {
-        "method": "GET",
-        "headers": headers,
-        "url": "models/load.vendor.model"
-      },
-      "order": [
-        [0, "asc"]
-      ],
-      initComplete: function(){
-        $("#vendor-model-list-row").removeClass('hide');
-      }
-    }
+  $(document).ready(function () {
+    window.initializeVendorModel();
   });
-
-  /*$("#datatable_vendor_models").dataTable({
-      aaSorting: [0, "asc"],
-      aLengthMenu: [
-          [25, 50, 100, 200, -1],
-          [25, 50, 100, 200, "All"]
-      ],
-      iDisplayLength: 50
-  });
-  $("#divRow").removeClass('hide');*/
 </script>

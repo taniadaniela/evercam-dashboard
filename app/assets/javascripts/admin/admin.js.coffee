@@ -20,11 +20,14 @@
 #= require metronic/layout.js
 #= require metronic/quick-sidebar.js
 #= require alerts.js
+#= require evercam.js.coffee
+#= require admin/vendor_model.js
 
 $ ->
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
+  Notification.init(".bb-alert");
   $(".table-datatable").dataTable
     aaSorting: [1, "asc"]
     aLengthMenu: [

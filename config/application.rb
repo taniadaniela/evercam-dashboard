@@ -37,6 +37,7 @@ module EvercamDashboard
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
     config.assets.precompile += %w[
       snapshot_navigator_widget.js
+      admin/admin.js
       admin/admin.css
       views/widgets/widget.css
       swagger.js

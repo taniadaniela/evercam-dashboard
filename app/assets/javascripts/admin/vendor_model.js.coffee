@@ -137,14 +137,14 @@ handleAddNewModel = ->
     data.id = $("#model-id").val()
     data.vendor_id = $("#vendor").val()
     data.name = $("#name").val()
-    data.jpg_url = $("#jpg-url").val()
-    data.mjpg_url = $("#mjpg-url").val()
-    data.mpeg4_url = $("#mpeg4-url").val()
-    data.mobile_url = $("#mobile-url").val()
-    data.h264_url = $("#h264-url").val()
-    data.lowres_url = $("#lowres-url").val()
-    data.default_username = $("#default-username").val()
-    data.default_password = $("#default-password").val()
+    data.jpg_url = $("#jpg-url").val() unless $("#jpg-url").val() is ''
+    data.mjpg_url = $("#mjpg-url").val() unless $("#mjpg-url").val() is ''
+    data.mpeg4_url = $("#mpeg4-url").val() unless $("#mpeg4-url").val() is ''
+    data.mobile_url = $("#mobile-url").val() unless $("#mobile-url").val() is ''
+    data.h264_url = $("#h264-url").val() unless $("#h264-url").val() is ''
+    data.lowres_url = $("#lowres-url").val() unless $("#lowres-url").val() is ''
+    data.default_username = $("#default-username").val() unless $("#default-username").val() is ''
+    data.default_password = $("#default-password").val() unless $("#default-password").val() is ''
 
     onError = (jqXHR, status, error) ->
       $(".model-alert").html(jqXHR.responseJSON.message)
@@ -163,9 +163,9 @@ handleAddNewModel = ->
       dataType: 'json'
       error: onError
       success: onSuccess
-      contentType: "application/json; charset=utf-8"
+      contentType: "application/x-www-form-urlencoded"
       type: 'POST'
-      url: "#{Evercam.API_URL}models?api_id#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      url: "#{Evercam.API_URL}models?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     sendAJAXRequest(settings)
 

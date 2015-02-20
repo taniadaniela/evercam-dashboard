@@ -192,15 +192,15 @@ div.radio{
   font-size: 18px;
   font-weight: 400;
 }
-#add-vendor-modal .table-borderless > tbody > tr > td{
+#add-vendor-modal .table-borderless > tbody > tr > td, #add-vendor .table-borderless > tbody > tr > td{
   border-top: 0px;
   padding: 2px;
   line-height: 1.42857;
   vertical-align: top;
 }
-#add-vendor-modal .alert{
+#add-vendor-modal .alert, #add-vendor .alert{
   padding: 7px 10px;
 }
-#add-vendor-modal .form-group .table .alert{
+#add-vendor-modal .form-group .table .alert, #add-vendor .form-group .table .alert{
   margin-bottom: 0px;
 }

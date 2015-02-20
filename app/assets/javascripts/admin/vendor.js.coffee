@@ -7,7 +7,6 @@ sendAJAXRequest = (settings) ->
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
   xhrRequestChangeMonth = jQuery.ajax(settings)
-  true
 
 initializeDataTable = ->
   headers = undefined

@@ -37,7 +37,7 @@
   function main() {
     jQuery(document).ready(function($) {
       /******* Load HTML *******/
-      container = $('#ec-container');
+      container = $('#ec-container-<%= params[:camera]%>');
       if (priv) {
         var window_height = $(window).height();
         container.html('<iframe id="ec-frame" style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>" frameborder="0" scrolling="no"/>');

@@ -139,9 +139,8 @@ th {
 #live-widget .control-label {
   margin-top: 8px;
 }
-#ec-container {
+[id^=ec-container-] {
   height: 194%;
-
 }
 .preview {
   border:1px solid #f5f5f5;

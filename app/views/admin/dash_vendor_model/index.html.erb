@@ -19,7 +19,7 @@
           </li>
           <li>
             <div href="#" class="btn btn-edit" data-toggle="modal" data-target="#add-vendor-modal">
-              add
+              Add Model
             </div>
           </li>
         </ul>
@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                   <td class="col-md-5"><label class="control-label">Vendor:</label></td>
-                  <td><select id="vendor" name="vendor" class="form-control is-required"><option value="">Select Vendor</option></select></td>
+                  <td><select id="vendor" name="vendor" class="form-control is-required"></select></td>
                 </tr>
                 <tr>
                   <td class="col-md-5"><label class="control-label">Name:</label></td>
@@ -70,7 +70,7 @@
                   <td><input type="text" id="h264-url" name="h264-url" class="form-control" /></td>
                 </tr>
                 <tr>
-                  <td class="col-md-5"><label class="control-label">Low Resulation Url:</label></td>
+                  <td class="col-md-5"><label class="control-label">Low Res Url:</label></td>
                   <td><input type="text" id="lowres-url" name="lowres-url" class="form-control" /></td>
                 </tr>
                 <tr>
@@ -105,9 +105,25 @@
     <!-- /.modal -->
 
     <!-- BEGIN PAGE CONTENT-->
-    <div id="vendor-model-list-row" class="row hide1">
+    <div id="vendor-model-list-row" class="row">
       <input type="hidden" id="total_vendors" value="<%= @total_vendors %>"/>
       <input type="hidden" id="total_cameras" value="<%= @total_cameras %>"/>
+      <ul id="columns-vis" class="nav navbar-nav" style="display:none">
+        <li class="dropdown">
+          <a id="columns-toggle" class="dropdown-toggle" data-toggle="dropdown" title="Select columns" href="#">Columns <span class="caret"></span></a>
+          <ul id="columns-list" class="dropdown-menu">
+            <li><input type="checkbox" class="columns-visible" data-column="0" checked="true" /> Model ID</li>
+            <li><input type="checkbox" class="columns-visible" data-column="2" checked="true" /> Vendor</li>
+            <li><input type="checkbox" class="columns-visible" data-column="3" checked="true" /> Model</li>
+            <li><input type="checkbox" class="columns-visible" data-column="4" checked="true" /> Snapshot</li>
+            <li><input type="checkbox" class="columns-visible" data-column="5" checked="true" /> H264</li>
+            <li><input type="checkbox" class="columns-visible" data-column="6" checked="true" /> MJPG</li>
+            <li><input type="checkbox" class="columns-visible" data-column="7" checked="true" /> MPEG4</li>
+            <li><input type="checkbox" class="columns-visible" data-column="8" checked="true" /> Mobile</li>
+            <li><input type="checkbox" class="columns-visible" data-column="9" checked="true" /> Low Res</li>
+          </ul>
+        </li>
+      </ul>
       <div class="col-md-12 table-container">
         <div class="table-actions-wrapper">
           <span></span>
@@ -116,11 +132,17 @@
         <table class="table table-striped table-bordered table-hover" id="datatable_vendor_models">
           <thead>
           <tr role="row" class="heading">
+            <th width="10%" name="order_model_id" class="sorting">Model ID</th>
             <th width="15%" name="order_vendor" class="sorting">Vendor</th>
             <th width="15%" name="order_model" class="sorting">Model</th>
             <th width="20%" name="order_snapshot_url" class="sorting">Snapshot</th>
             <th width="20%" name="order_h264_url" class="sorting">H264</th>
             <th width="20%" name="order_mjpg_url" class="sorting">MJPG</th>
+            <th width="20%" name="order_mpeg_url" class="sorting">MPEG4</th>
+            <th width="20%" name="order_mobile_url" class="sorting">Mobile</th>
+            <th width="20%" name="order_lowres_url" class="sorting">Low Res</th>
+            <th width="20%" name="order_lowres_url" class="sorting">Username</th>
+            <th width="20%" name="order_lowres_url" class="sorting">Password</th>
           </tr>
           </thead>
           <tbody>

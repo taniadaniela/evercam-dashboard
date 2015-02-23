@@ -20,12 +20,18 @@ class Admin::DashVendorModelController < AdminController
     records = {:data => [], :draw => table_draw, :recordsTotal => total_records, :recordsFiltered => total_records}
 
     (display_start..index_end).each do |index|
-      records[:data][records[:data].count] = [dash_vendors_models[index].vendor.name,
-                                              dash_vendors_models[index].name,
-                                              dash_vendors_models[index].jpg_url,
-                                              dash_vendors_models[index].h264_url,
-                                              dash_vendors_models[index].mjpg_url,
-                                              "<a href='models/#{dash_vendors_models[index].id}' class='btn btn-xs default'><i class='fa fa-search'></i> View</a>"]
+      records[:data][records[:data].count] = [
+        dash_vendors_models[index].exid,
+        dash_vendors_models[index].vendor.name,
+        dash_vendors_models[index].name,
+        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['jpg'] ? dash_vendors_models[index].config['snapshots']['jpg'] : '',
+        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['h264'] ? dash_vendors_models[index].config['snapshots']['h264'] : '',
+        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['mjpg'] ? dash_vendors_models[index].config['snapshots']['mjpg'] : '',
+        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['mpeg4'] ? dash_vendors_models[index].config['snapshots']['mpeg4'] : '',
+        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['mobile'] ? dash_vendors_models[index].config['snapshots']['mobile'] : '',
+        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['lowres'] ? dash_vendors_models[index].config['snapshots']['lowres'] : '',
+        dash_vendors_models[index].config['auth'] && dash_vendors_models[index].config['auth']['basic'] ? dash_vendors_models[index].config['auth']['basic']['username'] : '',
+      dash_vendors_models[index].config['auth'] && dash_vendors_models[index].config['auth']['basic'] ? dash_vendors_models[index].config['auth']['basic']['password'] : '']
     end
 
     render json: records

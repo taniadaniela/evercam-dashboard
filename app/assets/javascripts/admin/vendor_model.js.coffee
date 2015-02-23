@@ -54,6 +54,12 @@ initializeDataTable = ->
       vendor_models_table.getDataTable().ajax.reload()
       vendor_models_table.clearAjaxParams()
     return
+  $('#columns-vis').on 'change', (e) ->
+    e.preventDefault()
+    # Get the column API object
+    column = vendor_models_table.column($(this).attr('data-column'))
+    # Toggle the visibility
+    column.visible !column.visible()
 
 numberWithCommas = (x) ->
   x.toString().replace /\B(?=(\d{3})+(?!\d))/g, ','
@@ -73,7 +79,8 @@ loadVendors = ->
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
     for vendor in vendors
-      $("#vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
+      selected = if vendor.id is 'other' then 'selected="selected"' else ''
+      $("#vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
 
   settings =
     cache: false
@@ -90,7 +97,7 @@ loadVendors = ->
 
 clearForm = ->
   $("#model-id").val('')
-  $("#vendor").val('')
+  $("#vendor").val('other')
   $("#name").val('')
   $("#jpg-url").val('')
   $("#mjpg-url").val('')
@@ -100,6 +107,7 @@ clearForm = ->
   $("#lowres-url").val('')
   $("#default-username").val('')
   $("#default-password").val('')
+  $(".model-alert").slideUp()
 
 handleAddNewModel = ->
   $("#save-model").on 'click', ->
@@ -154,7 +162,12 @@ handleAddNewModel = ->
 
     sendAJAXRequest(settings)
 
+onModelClose = ->
+  $(".modal").on "hide.bs.modal", ->
+    clearForm()
+
 window.initializeVendorModel = ->
   initializeDataTable()
   loadVendors()
   handleAddNewModel()
+  onModelClose()

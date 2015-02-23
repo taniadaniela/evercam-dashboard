@@ -24,14 +24,14 @@ class Admin::DashVendorModelController < AdminController
         dash_vendors_models[index].exid,
         dash_vendors_models[index].vendor.name,
         dash_vendors_models[index].name,
-        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['jpg'] ? dash_vendors_models[index].config['snapshots']['jpg'] : '',
-        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['h264'] ? dash_vendors_models[index].config['snapshots']['h264'] : '',
-        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['mjpg'] ? dash_vendors_models[index].config['snapshots']['mjpg'] : '',
-        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['mpeg4'] ? dash_vendors_models[index].config['snapshots']['mpeg4'] : '',
-        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['mobile'] ? dash_vendors_models[index].config['snapshots']['mobile'] : '',
-        dash_vendors_models[index].config['snapshots'] && dash_vendors_models[index].config['snapshots']['lowres'] ? dash_vendors_models[index].config['snapshots']['lowres'] : '',
-        dash_vendors_models[index].config['auth'] && dash_vendors_models[index].config['auth']['basic'] ? dash_vendors_models[index].config['auth']['basic']['username'] : '',
-      dash_vendors_models[index].config['auth'] && dash_vendors_models[index].config['auth']['basic'] ? dash_vendors_models[index].config['auth']['basic']['password'] : '']
+        dash_vendors_models[index].config.deep_fetch('snapshots', 'jpg') { '' },
+        dash_vendors_models[index].config.deep_fetch('snapshots', 'h264') { '' },
+        dash_vendors_models[index].config.deep_fetch('snapshots', 'mjpg') { '' },
+        dash_vendors_models[index].config.deep_fetch('snapshots', 'mpeg4') { '' },
+        dash_vendors_models[index].config.deep_fetch('snapshots', 'mobile') { '' },
+        dash_vendors_models[index].config.deep_fetch('snapshots', 'lowres') { '' },
+        dash_vendors_models[index].config.deep_fetch('auth', 'basic', 'username') { '' },
+      dash_vendors_models[index].config.deep_fetch('auth', 'basic', 'password') { '' }]
     end
 
     render json: records

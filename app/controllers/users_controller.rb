@@ -32,7 +32,9 @@ class UsersController < ApplicationController
         end
       end
     end
-    params[:country] = request.location.country_code if request.location
+    if request.location
+      params[:user] = { 'country'=> request.location.country_code }
+    end
   end
 
   def create

@@ -6,3 +6,21 @@
 @import "single/_sharing.css.scss";
 @import "single/_snapshot-recorder.css.scss";
 @import "single/_streams.css.scss";
+
+.icon-align-justify {
+  background-position:-336px -48px;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  background-image: asset-url('glyphicons-halflings.png');
+  background-repeat:no-repeat;
+  display:inline-block;
+  height:14px;
+  line-height:14px;
+  margin-top:1px;
+  vertical-align:text-top;
+  width:14px;
+}
+#ul-nav-tab .caret{
+  display: none;
+}

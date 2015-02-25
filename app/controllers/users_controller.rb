@@ -18,7 +18,6 @@ class UsersController < ApplicationController
     unless current_user.nil?
       return redirect_to cameras_index_path
     end
-    @countries = Country.all
     @share_request = nil
     if params[:key]
       @share_request = CameraShareRequest.where(
@@ -33,7 +32,9 @@ class UsersController < ApplicationController
         end
       end
     end
-    params[:country] = request.location.country_code.downcase if request.location
+    if request.location
+      params[:user] = { 'country'=> request.location.country_code }
+    end
   end
 
   def create

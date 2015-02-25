@@ -12,4 +12,6 @@ handleSidebarToggle = ->
 
 $ ->
   handleSidebarToggle()
+
+$(window).load ->
   handlePusherEventUser()

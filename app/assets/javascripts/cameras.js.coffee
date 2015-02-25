@@ -22,7 +22,8 @@ onRefreshImage = ->
 handlePusherEventIndex = ->
   channel = Evercam.Pusher.subscribe(Evercam.User.username)
   channel.bind 'user_cameras_changed', (data) ->
-    $('#camera-index.page-content').load "#{Evercam.request.rootpath} #camera-index.page-content > *"
+    $('#camera-index.page-content').load "#{Evercam.request.rootpath} #camera-index.page-content > *", ->
+      window.refreshThumbnails()
 
 initNotification = ->
   Notification.init(".bb-alert");

@@ -73,7 +73,9 @@
                   <div class="modal fade" id="<%= camera['id'] %>" tabindex="-1" role="basic" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
-                        <div class="public-preview" id="<%= camera['id'] %>"> <%= preview(camera, true) %> </div>
+                        <div class="public-preview" id="<%= camera['id'] %>">
+                          <img class='snap' src='<%= camera['thumbnail'] %>'>
+                        </div>
                         <i data-dismiss="modal" class="icon-close modal-dismiss"></i>
                       </div>
                     </div>
@@ -141,7 +143,7 @@
     (function (marker) {
       // add click event
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent("<a href='/v1/public/cameras/<%= camera['id'] %>'><%= preview(camera, true) %></a>" +
+        infowindow.setContent("<a href='/v1/public/cameras/<%= camera['id'] %>'><img class='snap' src='<%= camera['thumbnail'] %>'></a>" +
         '<h5><a href="/v1/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
 
         infowindow.open(map, marker);

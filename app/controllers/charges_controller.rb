@@ -37,7 +37,7 @@ class ChargesController < ApplicationController
   end
 
   def subscription_create
-    @cameras = load_user_cameras(true, true)
+    @cameras = load_user_cameras(true, false)
     @email = current_user.email
     @plan = params[:plan]
     token = params[:token]

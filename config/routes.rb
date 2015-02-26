@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  
+
+  resources :stripe_customers
+
   namespace :admin do
     get '/' => 'dashboard#index'
     get '/map' => 'dashboard#map'
@@ -14,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :charges
+  resources :stripe_customers, only: [:new, :create]
   post '/users/:id/settings/charge' => 'charges#create'
   post '/users/:id/settings/subscription' => 'charges#subscription_create'
   get '/users/:id/settings/subscription' => 'charges#subscription_update'
@@ -41,7 +46,7 @@ Rails.application.routes.draw do
   get 'publiccam/:id' => redirect('public/cameras/%{id}')
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :edit]
   get '/sessions' => redirect('/')
 
   get '/v1/users/signup' => 'users#new', as: :signup

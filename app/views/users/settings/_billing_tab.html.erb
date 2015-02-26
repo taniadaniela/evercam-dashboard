@@ -7,7 +7,18 @@
           <h4 class="margin-bottom-10">Billing Information</h4>
         </div>
         <% if @customer.nil? %>
-          <p>You have not registered a credit card.</p>
+          <form action="/stripe_customers" method="POST">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
+              data-image="/assets/evercam-e.svg"
+              data-email="<%= current_user.email -%>"
+              data-name="Stripe.com"
+              data-description="Add New Credit Card"
+              data-label="Add New Credit Card">
+            </script>
+          </form>
         <% else %>
           <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
         <% end %>

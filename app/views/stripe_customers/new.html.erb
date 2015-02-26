@@ -1,0 +1,52 @@
+<%= form_for :stripe_customer, url: new_stripe_customer_path, :html => { :id => 'new_stripe_customer' } do |f| %>
+
+  <div class="field">
+    <%= label_tag :card_number, "Credit Card Number" %>
+    <%= text_field_tag :card_number, nil, name: nil %>
+  </div>
+  <div class="field">
+    <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+    <%= text_field_tag :card_code, nil, name: nil %>
+  </div>
+  <div class="field">
+    <%= label_tag :card_month, "Card Expiration" %>
+    <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add Card" %>
+  </div>
+
+<% end %>
+
+ <script src="https://checkout.stripe.com/checkout.js"></script>
+
+          
+
+          <script>
+            var handler = StripeCheckout.configure({
+              key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+              image: "/assets/evercam-e.svg",
+              token: function(token) {
+                // Use the token to create the charge with a server-side script.
+                // You can access the token ID with `token.id`
+
+              }
+            });
+
+            $(window).on('load', function(e) {
+              // Open Checkout with further options
+              alert('<%= doSomething %>');
+              handler.open({
+                name: 'Evercam',
+                description: 'Add a Card',
+              });
+              e.preventDefault();
+            });
+
+            // Close Checkout on page navigation
+            $(window).on('popstate', function() {
+              handler.close();
+            });
+          </script>
+

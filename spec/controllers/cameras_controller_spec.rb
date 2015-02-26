@@ -69,7 +69,7 @@ describe CamerasController do
   context 'with auth' do
     describe 'GET #index' do
       it "renders the :index" do
-        stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=true&user_id=#{user.username}").
+        stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=false&user_id=#{user.username}").
           to_return(status: 200, headers: {}, body: "{\"cameras\": []}")
 
         stub_request(:get, "#{EVERCAM_API}shares/users/#{user.username}?api_id=#{user.api_id}&api_key=#{user.api_key}").

@@ -72,6 +72,9 @@ Rails.application.routes.draw do
   get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
   get '/snapshot.navigator' => 'widgets#snapshot_navigator'
 
+  get '/widgets/add-camera' => 'widgets#widget_add_camera'
+  get '/widgets/add/camera' => 'widgets#add_public_camera'
+
   get '/live/:id' => 'pages#live'
 
   post '/share' => 'sharing#create'

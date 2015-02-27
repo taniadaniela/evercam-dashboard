@@ -5,7 +5,7 @@ class WidgetsController < ApplicationController
   before_action :allow_iframe, only: [:live_view_private_widget, :snapshot_navigator_widget, :sessions]
   before_filter :normal_cookies_for_ie_in_iframes!, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
   skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
-  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
+  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_public_camera]
   skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
 
   include SessionsHelper
@@ -84,6 +84,14 @@ class WidgetsController < ApplicationController
                              error.backtrace.join("\n")
       flash[:message] = error.message
     end
+  end
+
+  def widget_add_camera
+    @cameras = load_user_cameras(true, false)
+  end
+
+  def add_public_camera
+    render :layout => false
   end
 
   private

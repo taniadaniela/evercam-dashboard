@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <%= stylesheet_link_tag "views/widgets/add_camera", media: "all" %>
+    <%= javascript_include_tag "widgets/add_camera" %>
+</head>
+<body>
+<div class="portlet-body">
+    <div class="col-md-12">
+        <div class="center-tabs">
+            <ul class="nav-steps">
+                <li class="active">
+                    Step 1<br>Camera Details
+                </li>
+                <li>
+                    Step 2<br>Camera Info
+                </li>
+                <li>
+                    Step 3<br>Create Your Account
+                </li>
+            </ul>
+        </div>
+
+        <div class="page-content" style="background-color: #ffffff">
+            <div class="margin-top-20">
+                <div id="camera-details" class="active">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="col-md-4">Thumbnail</div>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <label class="grey control-label">Camera Vendor</label>
+                                    <select id="camera-vendor" class="form-control"><option>Unknown</option></select>
+                                </div>
+                                <div class="input-group">
+                                    <label class="grey control-label">Camera Model</label>
+                                    <select id="camera-model" class="form-control"><option>Unknown</option></select>
+                                </div>
+                                <br /><br />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="col-md-1 control-label" style="margin-top: 5px">http://</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input id="camera-url" class="form-control" placeholder="External IP/URL"/>
+                                    <a class="help-font-size">What is this?</a>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <span class="prepend prepend-2">:</span>
+                                    <input id="camera-port" class="form-control" placeholder="Port"/>
+                                    <a class="help-font-size">?</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="prepend prepend-2">/</span>
+                                    <input id="camera-snapshot-url" class="form-control" placeholder="Snapshot URL"/>
+                                    <a class="help-font-size">What is this?</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 margin-top-10">
+                            <label class="col-md-1 control-label"></label>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <label><input id="required-authentication" type="checkbox" class="" /> Required Authentication
+                                    </label>
+                                </div>
+                                <div id="authentication" class="hide">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input id="camera-username" class="form-control" placeholder="Camera Username"/>
+                                            <span class="help-font-size"><span class="help-text">Use default:</span> root</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input id="camera-password" class="form-control" placeholder="Camera Username"/>
+                                            <span class="help-font-size"><span class="help-text">Use default:</span> pass</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <div class="info-header">External IP / URL</div>
+                            <div class="info-text">Help text Help text Help text Help text Help text</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="camera-info" class="hide">
+
+                </div>
+
+                <div id="user-create" class="hide">
+                    Tab 3
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

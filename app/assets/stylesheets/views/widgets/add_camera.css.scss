@@ -1,0 +1,53 @@
+//= require bootstrap
+//= require ladda
+//= require uniform.default.min.css
+//= require metronic/metronic-components.css
+//= require metronic/metronic-layout.css
+@import "base/fonts";
+@import "base/glyphicons";
+
+body{
+  background-color: #e5e5e5;
+}
+.nav-steps{
+  width: 100%;
+  background-color: #f5f5f5;
+}
+.nav-steps li{
+  list-style: none;
+  display: inline-block;
+  min-width: 170px;
+  text-align: center;
+  border-bottom: 4px solid #becdd9;
+}
+.nav-steps li.active{
+  border-bottom: 4px solid #428bca;
+}
+.page-content{
+  background-color: #fff;
+}
+.help-font-size{
+  font-size: 11px;
+}
+.help-text{
+  color: #428bca;
+}
+.info-box{
+  background-color: #f5f5f5;
+  padding: 15px;
+  height: 100%;
+  min-height: 300px;
+}
+.info-header{
+  font-weight: 600;
+}
+.info-text{
+  margin-top: 10px;
+  font-size: 14px;
+}
+.prepend-2 {
+  font-family: "proxima-nova-bold";
+  margin-left: -16px;
+  margin-top: 6px;
+  position: absolute;
+}

@@ -1,0 +1,99 @@
+<%= content_for(:title, "Evercam: Snapshot Navigator Widget") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content" id="snapshot-widgets">
+    <div class="row">
+      <div class="section-header">
+        <div class="camera-title">
+          <div class="col-xs-12 col-md-12">
+            Create a Snapshot Navigator Widget
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="portlet-body margin-top-30">
+      <div class="row">
+        <div id="snapshot-widget" class="widget-config">
+
+          <div class="col-md-12">
+            <div class="row widget-code">
+              <div class="col-md-12">
+                <h5>Embed this code on your webpage:</h5>
+                <textarea id="code" class="pretty-code col-md-12" type="text" readonly>
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="clear-f"></div>
+
+          <div class="col-md-12">
+            <div class="line-break"></div>
+            <div class="placeholder"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var lastSelectedDate, iframeWindow;
+  $(document).ready(function () {
+    initLocalStorage();
+    $("#code").on("click", function(){
+      this.select();
+    });
+  });
+
+  function FormatNumTo2 (n) {
+    if (n < 10) {
+      return "0" + n;
+    }
+    else {
+      return n;
+    }
+  }
+
+  function initLocalStorage() {
+    var url = window.location.origin;
+    var camera = $("#widget-camera").val();
+    var camera_name = $('#widget-camera option:selected').text()
+    var pre_auth = $('#widget-authenticate').val();
+    var is_private = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
+    var api_credentials = '';
+    var date_time = '';
+    var stringDateTime = '';
+
+    var embedCode = '&lt;div evercam&#61;"snapshot-navigator"&gt;&lt;&#47;div&gt;'+
+        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;snapshot.navigator.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + date_time + '"&gt;&lt;&#47;script&gt;';
+    $('#code').html(embedCode);
+
+    $(".placeholder").empty();
+    /*var iframe =
+        jQuery("<iframe />")
+            .css({ "overflow": "hidden", "width": "100%", "height": "640px" })
+            .attr({ "src": '/snapshot.navigator.widget?camera=' + camera + date_time, "frameborder": "0", scrolling: "no", onload: 'javascript:resizeIframe(this);' })
+            .appendTo(".placeholder");*/
+  }
+  $(window).resize(function(){
+    if(!iframeWindow)
+      return;
+    resizeIframe(iframeWindow);
+  });
+  function resizeIframe(iframeControl) {
+    iframeWindow = iframeControl;
+    iframeControl.style.height = iframeControl.contentWindow.document.body.scrollHeight + 'px';
+  }
+
+  function showNote(){
+    if($(this).val()){
+      var preElements = document.getElementsByClassName('switch');
+      for(var i=0; i < preElements.length; i++){
+        //if the class contains the selected value, then show it, else hide it
+        preElements[i].style.visibility = preElements[i].classList.contains($(this).val())?'visible':'hidden';
+      }
+      initLocalStorage()
+    }
+  }
+</script>

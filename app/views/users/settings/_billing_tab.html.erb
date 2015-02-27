@@ -164,6 +164,55 @@
         </div>
       </div>
     </div>
+
+    <div class="row margin-bottom-20">
+      <div class="panel-description col-md-4 margin-bottom-20">
+        <p>7 Days Recording</p>
+        <div class="row">
+          <div class="col-md-6">
+            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <input type="hidden" name="amount" value="1000"/>
+              <input type="hidden" name="plan" value="7-day-recording-monthly"/>
+              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="7 Days Recording Monthly"
+                      data-description="€10.00 per month"
+                      data-panel-label="Subscribe"
+                      data-label="Monthly - €10.00"
+                      data-plan="7-day-recording-monthly"
+                      data-allow-remember-me="false">
+              </script>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <input type="hidden" name="amount" value="100000"/>
+              <input type="hidden" name="plan" value="7-day-recording-annual"/>
+              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="/assets/evercam-e.svg"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Snapmail Monthly"
+                      data-description="€100.00 per year"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €100.00"
+                      data-plan="7-day-recording-annual"
+                      data-allow-remember-me="false">
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="panel-description col-md-4 margin-top-15 margin-bottom-20">
         <div class="panel-title row margin-bottom-20">
@@ -199,7 +248,11 @@
             </form>
           </div>
         </div>
+
+
       </div>
+
+
     </div>
 
   </div>

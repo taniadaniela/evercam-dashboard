@@ -14,21 +14,40 @@ class StripeCustomersController < ApplicationController
         email: email,
         source: token
       )
-    # logger.debug response
     stripe_customer_id = response.id
-
     unless current_user.billing_id
       current_user.billing_id = stripe_customer_id
       current_user.save
     end
-    redirect_to :users
+    flash[:message] = "Card Successfully Added"
+    redirect_to :user
+  end
+
+  # Update Card
+  def update
+    render layout: false
+    token = params[:stripeToken]
+    Rails.logger.warn "What is going on"
+    # email = current_user.email
+    # cu = retrieve_stripe_customer
+    # cu.card = token
+    # cu.save
+    redirect_to '/'
+  end
+
+  # Delete customer on Stripe
+  def destroy
+    cu = Stripe::Customer.retrieve(current_user.billing_id)
+    logger.debug cu
+    # response = cu.default_source.delete
+    # Rails.logger response
+    redirect_to '/'
   end
 
   private
 
-  def associate_stripe_and_evercam_emails
-    
+  def retrieve_stripe_customer
+    stripe_customer_id = current_user.billing_id
+    Stripe::Customer.retrieve(stripe_customer_id)
   end
-
-
 end

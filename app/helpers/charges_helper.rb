@@ -1,6 +1,5 @@
 module ChargesHelper
-
-  def doSomething
-    'String'
+  def stripe_customer?
+    current_user.billing_id.present?
   end
 end

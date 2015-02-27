@@ -7,6 +7,7 @@
           <h4 class="margin-bottom-10">Billing Information</h4>
         </div>
         <% if @customer.nil? %>
+          <p>You currently have no credit card associated with this account.</p>
           <form action="/stripe_customers" method="POST">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
             <script
@@ -21,9 +22,33 @@
           </form>
         <% else %>
           <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
+            <div>
+          
+              <form action="/stripe_customers" method="PUT">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
+                data-image="/assets/evercam-e.svg"
+                data-email="<%= current_user.email -%>"
+                data-name="Stripe.com"
+                data-description="Update Credit Card"
+                data-label="Update Credit Card">
+              </script>
+            </form>
+          </div>
+
+          <div>
+            <%= form_for :stripe_customer, url: '/stripe_customers', confirm: 'Are you sure you wish to delete this card?', method: :delete do |f| %>
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <%= f.submit 'Delete Credit Card', :class => 'stripe-button-el' %>
+            <% end %>
+          </div>
+
         <% end %>
       </div>
     </div>
+
     <div class="row margin-bottom-20">
       <div class="panel-description col-md-8">
         <div class="panel-title row">
@@ -72,13 +97,16 @@
                   </form>
                 </td>
               </tr>
-            <% end %>
+            <% end %> 
             </table>
           </div>
           <% end %>
         <% end %>
       </div>
     </div>
+
+
+
     <div class="row">
       <div class="panel-description col-md-4 margin-bottom-20">
         <div class="panel-title row margin-bottom-20">

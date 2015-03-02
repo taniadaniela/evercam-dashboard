@@ -9,7 +9,6 @@ class CreditCardsController < ApplicationController
     customer = retrieve_stripe_customer
     card = customer.cards.create(:card => params[:stripeToken])
     begin
-      customer.save
       customer.default_card = card.id
       customer.save
       flash[:message] = 'You card was successfully added.'

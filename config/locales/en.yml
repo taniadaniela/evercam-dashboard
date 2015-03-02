@@ -45,3 +45,6 @@ en:
     currency:
       format:
         unit: "€"
+  time:
+    formats:
+      dmy: '%d.%m.%Y'    

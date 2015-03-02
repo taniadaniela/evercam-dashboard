@@ -40,6 +40,8 @@ module ApplicationHelper
     Evercam::API.new(parameters)
   end
 
-  
-
+  def format_time stamp
+    t = Time.at(stamp)
+    t.to_formatted_s(:long) 
+  end
 end

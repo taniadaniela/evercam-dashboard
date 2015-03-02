@@ -88,7 +88,7 @@
             </tr>
             <% @subscriptions.each do |s| %>
               <tr>
-                <td><%= s.plan.created -%></td>
+                <td><%= format_time(s.plan.created) -%></td>
                 <td><%= s.plan.name -%></td>
                 <td><%= s.status.capitalize -%></td>
                 <td><%= s.plan.interval.capitalize -%></td>
@@ -101,6 +101,11 @@
                 </td>
               </tr>
             <% end -%>
+            <td><strong>Total</strong></td>
+            <% 3.times do -%>
+              <%= content_tag(:td, "") %>
+            <% end -%>
+            <td><%= total_subscriptions_amount -%></td>
           </table>
         <% end -%>
       </div>

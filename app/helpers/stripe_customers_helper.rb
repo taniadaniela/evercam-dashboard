@@ -7,8 +7,8 @@ module StripeCustomersHelper
     @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
   end
 
-  def retrieve_stripe_subscriptions billing_id
-    Stripe::Customer.retrieve(billing_id).subscriptions.all
+  def retrieve_stripe_subscriptions
+    @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
   end
 
   def has_subscriptions?
@@ -40,5 +40,12 @@ module StripeCustomersHelper
 
   def stripe_customer_without_subscriptions?
     is_stripe_customer? and !has_subscriptions?
+  end
+
+  def total_subscriptions_amount
+    @subscriptions ||= Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+    amounts = @subscriptions.map { |s| s.plan.amount }
+    total = amounts.inject(0) {|sum, i|  sum + i }
+    number_to_currency(total / 100)
   end
 end

@@ -5,15 +5,10 @@ class SubscriptionsController < ApplicationController
   include StripeCustomersHelper
   require "stripe"
 
-  def new
-  end
-
   def create
-    plan_id = params[:plan_id]
-    plan_name = params[:plan_name]
     stripe_customer = retrieve_stripe_customer
-    stripe_customer.subscription.create(:plan => plan)
-    flash[:message] = "You have successfuly created a new #{plan_name} subscription."
+    stripe_customer.subscription.create(:plan => params[:plan_id])
+    flash[:message] = "You have successfuly created a new #{params[:plan_name]} subscription."
     redirect_to user_path(current_user.username)
   end
 

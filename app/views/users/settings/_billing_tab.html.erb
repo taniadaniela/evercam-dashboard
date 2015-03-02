@@ -79,7 +79,7 @@
         <% if stripe_customer_with_subscriptions? -%>
           <table class="table table-striped">
             <tr>
-              <th>Order Date</th>
+              <th>Plan Expires</th>
               <th>Plan</th>
               <th>Status</th>
               <th>Interval</th>
@@ -88,7 +88,7 @@
             </tr>
             <% @subscriptions.each do |s| %>
               <tr>
-                <td><%= format_time(s.plan.created) -%></td>
+                <td><%= format_time(s.current_period_end) -%></td>
                 <td><%= s.plan.name -%></td>
                 <td><%= s.status.capitalize -%></td>
                 <td><%= s.plan.interval.capitalize -%></td>
@@ -110,8 +110,6 @@
         <% end -%>
       </div>
     </div>
-
-
 
     <div class="row">
       <div class="panel-description col-md-4 margin-bottom-20">
@@ -246,6 +244,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>

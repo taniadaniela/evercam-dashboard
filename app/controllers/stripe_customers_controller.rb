@@ -2,11 +2,9 @@ class StripeCustomersController < ApplicationController
   before_filter :authenticate_user!
   include SessionsHelper
   include ApplicationHelper
+  include StripeCustomersHelper
   require "stripe"
 
-  # No new action, as form is created by Stripe.js, which returns the token used by stripe_customers#create
-
-  # Create Customer via Stripe
   def create
     token = params[:stripeToken]
     email = current_user.email
@@ -20,34 +18,23 @@ class StripeCustomersController < ApplicationController
       current_user.save
     end
     flash[:message] = "Card Successfully Added"
-    redirect_to :user
+    redirect_to user_path(current_user.username)
   end
 
-  # Update Card
   def update
-    render layout: false
-    token = params[:stripeToken]
-    Rails.logger.warn "What is going on"
-    # email = current_user.email
-    # cu = retrieve_stripe_customer
-    # cu.card = token
-    # cu.save
-    redirect_to '/'
+    customer = retrieve_stripe_customer
+    if(params.has_key?(:default_source))
+      customer.default_source = params[:card_id]
+    end
+    customer.save
+    redirect_to user_path(current_user.username)
   end
 
-  # Delete customer on Stripe
   def destroy
-    cu = Stripe::Customer.retrieve(current_user.billing_id)
-    logger.debug cu
-    # response = cu.default_source.delete
-    # Rails.logger response
-    redirect_to '/'
-  end
-
-  private
-
-  def retrieve_stripe_customer
-    stripe_customer_id = current_user.billing_id
-    Stripe::Customer.retrieve(stripe_customer_id)
+    customer = retrieve_stripe_customer
+    default_card = customer.default_source
+    customer.sources.retrieve(default_card).delete
+    customer.retrieve_stripe_customer
+    redirect_to user_path(current_user.username)
   end
 end

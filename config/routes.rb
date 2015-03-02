@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   end
 
   # These routes are for managing customer cards on Stripe
-  resources :stripe_customers, only: [:create]
-  put  'stripe_customers' => 'stripe_customers#update'
-  delete 'stripe_customers' => 'stripe_customers#destroy'
+  resources :stripe_customers, only: [:create, :update]
+  resources :credit_cards, only: [:create, :destroy]
+  resources :subscriptions, only: [:destroy]
 
   resources :charges
   post '/users/:id/settings/charge' => 'charges#create'

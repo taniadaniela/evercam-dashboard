@@ -1,0 +1,11 @@
+<p>List Subscriptions</p>
+
+<p>List Credit Cards</p>
+
+
+
+  <%= @subscriptions.each do |subscription| %>
+    <%= div_for(subscription) do %>
+      <%= render subscription.plan.created %>
+      <% end %>
+    <% end %>

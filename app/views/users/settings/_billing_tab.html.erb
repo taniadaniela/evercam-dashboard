@@ -6,25 +6,10 @@
         <div class="panel-title row">
           <h4 class="margin-bottom-10">Billing Information</h4>
         </div>
-        <% if @customer.nil? %>
-          <p>You currently have no credit card associated with this account.</p>
-          <form action="/stripe_customers" method="POST">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-            <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
-              data-image="/assets/evercam-e.svg"
-              data-email="<%= current_user.email -%>"
-              data-name="Stripe.com"
-              data-description="Add New Credit Card"
-              data-label="Add New Credit Card">
-            </script>
-          </form>
-        <% else %>
-          <p>This account is billed to: <strong><%= @customer['cards']['data'].first['brand'] %>-<%= @customer['cards']['data'].first['last4'] %></strong></p>
-            <div>
-          
-              <form action="/stripe_customers" method="PUT">
+          <!-- New Stripe customer -->
+          <% unless is_stripe_customer? %>
+            <p>You have not yet associated a credit card with this account.</p>
+            <form action="/stripe_customers" method="POST">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -32,76 +17,92 @@
                 data-image="/assets/evercam-e.svg"
                 data-email="<%= current_user.email -%>"
                 data-name="Stripe.com"
-                data-description="Update Credit Card"
-                data-label="Update Credit Card">
+                data-description="Add Credit Card"
+                data-label="Add Credit Card">
               </script>
             </form>
-          </div>
+          <% end %>
 
-          <div>
-            <%= form_for :stripe_customer, url: '/stripe_customers', confirm: 'Are you sure you wish to delete this card?', method: :delete do |f| %>
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <%= f.submit 'Delete Credit Card', :class => 'stripe-button-el' %>
-            <% end %>
-          </div>
+          <!-- View Credit Cards -->
+          <% if has_credit_cards? %>
+            <table class="table table-striped">
+              <tr>
+                <th>Provider</th>
+                <th>Card Number</th>
+                <th>Expiry</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              <% @credit_cards.each do |card| -%>
+              <tr>
+                <td><%=  card.brand -%></td>
+                <td><%= card.last4 -%></td>
+                <td><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
+                <td><%= default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></td>
+                <td><%= button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %></td>
+              </tr>    
+              <% end -%>
+            </table>
+          <% end %>
 
-        <% end %>
+          <!-- Add credit card for existing Stripe customer -->
+          <% if stripe_customer_without_current_cards? %>
+            <p>You have no current cards associated with this account.</p>
+          <% end %>
+          <% if is_stripe_customer? %>
+            <div>
+              <form action="/credit_cards" method="POST">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                <script
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
+                  data-image="/assets/evercam-e.svg"
+                  data-email="<%= current_user.email -%>"
+                  data-name="Stripe.com"
+                  data-description="Add New Credit Card"
+                  data-label="Add New Credit Card">
+                </script>
+              </form>
+            </div>
+          <% end %>
+          <br>
       </div>
     </div>
 
     <div class="row margin-bottom-20">
-      <div class="panel-description col-md-8">
-        <div class="panel-title row">
-          <h4 class="margin-bottom-10">Active Licences</h4>
-        </div>
-        <% if @customer.nil? %>
-          <p>You do not have any active licences</p>
-        <% else %>
-          <% if @subscriptions.count == 0 %>
-            <p>You do not have any active licences</p>
-          <% else %>
-            <p>You have <strong><%= @subscriptions.count %></strong> active licence<% unless @subscriptions.count > 0 %>s<% end %>.</p>
-          <div class="table-responsive margin-top-15">
-            <table class="table">
-              <tr>
-                <th>Order Date</th>
-                <th>Licence</th>
-                <th>Status</th>
-                <th>Interval</th>
-                <th>Amount</th>
-                <th>Cancel</th>
-              </tr>
-            <% @subscriptions.each do |subscription| %>
-              <tr>
-                <td>
-                  <%= subscription['plan']['created'] %>
-                </td>
-                <td>
-                  <%= subscription['plan']['name'] %>
-                </td>
-                <td>
-                  <%= subscription['status'] %>
-                </td>
-                <td>
-                  <%= subscription['plan']['interval'] %>ly
-                </td>
-                <td>
-                  €<%= subscription['plan']['amount'] / 100 %>.00
-                </td>
-                <td>
-                  <form method='patch' action="/users/<%= current_user.username -%>/settings/subscription">
-                    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-                    <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-                    <input type="hidden" value="<%= subscription['id'] %>" name="subscription_id"/>
-                    <input type="submit" class="non-button" value="Cancel" name="subscription_update"/>
-                  </form>
-                </td>
-              </tr>
-            <% end %> 
-            </table>
-          </div>
-          <% end %>
+      <div class="panel-description col-md-12">
+        <h4 class="margin-bottom-10">Subscriptions</h4>
+        <% if stripe_customer_without_subscriptions? %>
+          <p>You have no current subscriptions.</p>
         <% end %>
+        <!-- Subscriptions table -->
+        <% if stripe_customer_with_subscriptions? -%>
+          <table class="table table-striped">
+            <tr>
+              <th>Order Date</th>
+              <th>Plan</th>
+              <th>Status</th>
+              <th>Interval</th>
+              <th>Amount</th>
+              <th>Cancel</th>
+            </tr>
+            <% @subscriptions.each do |s| %>
+              <tr>
+                <td><%= s.plan.created -%></td>
+                <td><%= s.plan.name -%></td>
+                <td><%= s.status.capitalize -%></td>
+                <td><%= s.plan.interval.capitalize -%></td>
+                <td><%= number_to_currency(s.plan.amount) -%></td>
+                <td>
+                  <%= button_to 'Cancel Subscription',
+                        subscription_path({:subscription_id => s.id, :plan_name => s.plan.name}),
+                        method: :delete,
+                        confirm: 'Are you sure you wish to delete this subscription?' -%>
+                </td>
+              </tr>
+            <% end -%>
+          </table>
+        <% end -%>
       </div>
     </div>
 

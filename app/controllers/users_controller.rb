@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
   include SessionsHelper
   include ApplicationHelper
+  include StripeCustomersHelper
+  require "stripe"
 
   def new
     if params[:key] && current_user
@@ -86,12 +88,22 @@ class UsersController < ApplicationController
     redirect_to signin_path
   end
 
+  # def settings
+  #   @cameras = load_user_cameras(true, false)
+  #   @countries = Country.all
+  #   unless current_user.billing_id.blank?
+  #     @customer = Stripe::Customer.retrieve(current_user.billing_id)
+  #     @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+  #   end
+  # end
+
+  # 
   def settings
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
     unless current_user.billing_id.blank?
-      @customer = Stripe::Customer.retrieve(current_user.billing_id)
-      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+      @credit_cards = retrieve_credit_cards
+      @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions(current_user.billing_id) : nil
     end
   end
 

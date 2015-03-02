@@ -41,3 +41,7 @@ en:
     username_field_invalid: Usernames must contain at least 3 alphabetic or underscore characters.
     user_not_found_error: Unable to locate your user details in the system. Please refresh your view and try again.
     vendor_not_found_error: Unable to locate details for the specified vendor in the system. Please refresh your view and try again.
+  number:
+    currency:
+      format:
+        unit: "€"

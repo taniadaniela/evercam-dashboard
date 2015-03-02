@@ -39,4 +39,7 @@ module ApplicationHelper
     parameters = parameters.merge(settings) if !settings.empty?
     Evercam::API.new(parameters)
   end
+
+  
+
 end

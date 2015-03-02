@@ -36,7 +36,7 @@
               <% @credit_cards.each do |card| -%>
               <tr>
                 <td><%=  card.brand -%></td>
-                <td><%= card.last4 -%></td>
+                <td>Ending in ... <%= card.last4 -%></td>
                 <td><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
                 <td><%= default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></td>
                 <td><%= button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %></td>
@@ -92,7 +92,7 @@
                 <td><%= s.plan.name -%></td>
                 <td><%= s.status.capitalize -%></td>
                 <td><%= s.plan.interval.capitalize -%></td>
-                <td><%= number_to_currency(s.plan.amount) -%></td>
+                <td><%= number_to_currency(s.plan.amount / 100 ) -%></td>
                 <td>
                   <%= button_to 'Cancel Subscription',
                         subscription_path({:subscription_id => s.id, :plan_name => s.plan.name}),

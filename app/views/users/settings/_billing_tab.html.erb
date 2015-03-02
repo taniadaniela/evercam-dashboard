@@ -7,7 +7,7 @@
           <h4 class="margin-bottom-10">Billing Information</h4>
         </div>
           <!-- New Stripe customer -->
-          <% if is_stripe_customer? %>
+          <% unless is_stripe_customer? %>
             <p>You have not yet associated a credit card with this account.</p>
             <form action="/stripe_customers" method="POST">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>

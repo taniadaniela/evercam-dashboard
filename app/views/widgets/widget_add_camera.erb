@@ -1,4 +1,4 @@
-<%= content_for(:title, "Evercam: Snapshot Navigator Widget") %>
+<%= content_for(:title, "Evercam: Add Camera Widget") %>
 
 <div class="page-content-wrapper">
   <div class="page-content" id="snapshot-widgets">
@@ -6,7 +6,7 @@
       <div class="section-header">
         <div class="camera-title">
           <div class="col-xs-12 col-md-12">
-            Create a Snapshot Navigator Widget
+            Create a Camera Widget
           </div>
         </div>
       </div>
@@ -65,8 +65,8 @@
     var date_time = '';
     var stringDateTime = '';
 
-    var embedCode = '&lt;div evercam&#61;"snapshot-navigator"&gt;&lt;&#47;div&gt;'+
-        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;snapshot.navigator.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + date_time + '"&gt;&lt;&#47;script&gt;';
+    var embedCode = '&lt;div evercam&#61;"add-camera-public"&gt;&lt;&#47;div&gt;'+
+        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;widgets/add.camera.js"&gt;&lt;&#47;script&gt;';
     $('#code').html(embedCode);
 
     $(".placeholder").empty();

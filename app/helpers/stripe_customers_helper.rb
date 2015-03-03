@@ -48,4 +48,8 @@ module StripeCustomersHelper
     total = amounts.inject(0) {|sum, i|  sum + i }
     number_to_currency(total / 100)
   end
+
+  def stripe_plans
+    @stripe_plans ||= Stripe::Plan.all
+  end
 end

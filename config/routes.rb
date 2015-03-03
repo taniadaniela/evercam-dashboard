@@ -14,13 +14,17 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
+  # These routes are for managing customer cards on Stripe
+  resources :stripe_customers, only: [:create, :update]
+  resources :credit_cards, only: [:create, :destroy]
+  resources :subscriptions, only: [:destroy]
+
   resources :charges
   post '/users/:id/settings/charge' => 'charges#create'
   post '/users/:id/settings/subscription' => 'charges#subscription_create'
   get '/users/:id/settings/subscription' => 'charges#subscription_update'
 
   root to: redirect('/v1/cameras'), as: :root
-
   get '/v1/cameras' => 'cameras#index', as: :cameras_index
   get '/v1/cameras/new' => 'cameras#new', as: :cameras_new
   post '/v1/cameras/new' => 'cameras#create'
@@ -42,7 +46,7 @@ Rails.application.routes.draw do
   get 'publiccam/:id' => redirect('public/cameras/%{id}')
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :edit]
   get '/sessions' => redirect('/')
 
   get '/v1/users/signup' => 'users#new', as: :signup

@@ -8,6 +8,8 @@
 
 body{
   background-color: #e5e5e5;
+  padding: 0px;
+  margin: 0px;
 }
 .center-tabs{
   text-align: center;
@@ -25,12 +27,14 @@ body{
   min-width: 170px;
   text-align: center;
   border-bottom: 6px solid #becdd9;
+  cursor: pointer;
 }
 .nav-steps li.active{
   border-bottom: 6px solid #428bca;
 }
 .page-content{
   background-color: #fff;
+  margin-top: 3px
 }
 .help-font-size{
   font-size: 11px;
@@ -131,4 +135,13 @@ input.form-control{
 }
 .table > tbody > tr > td{
   border-top: none;
+}
+.margin-top-5 {
+  margin-top: 5px;
+}
+#user-create, #camera-info, #continue-step2{
+  display: none;
+}
+.control-label{
+  text-align: left !important;
 }

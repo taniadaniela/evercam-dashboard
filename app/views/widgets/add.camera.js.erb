@@ -1,11 +1,11 @@
 /*!
- * Snapshot Navigator JavaScript v0.0.1
+ * Add Camera JavaScript v0.0.1
  * http://www.evercam.io/
  *
- * Copyright 2014 Evercam.io
+ * Copyright 2015 Evercam.io
  * Released
  *
- * Date: 2014-11-19
+ * Date: 2015-03-02
  */
 (function(window) {
 
@@ -19,16 +19,15 @@
     // new jQuery in our local jQuery variable
     jQuery = window.jQuery.noConflict(true);
     // Call our main function
-    initSnapshotNavigator();
+    initAddCamera();
   }
 
-  function initSnapshotNavigator() {
-
-      var iframe =
-          jQuery("<iframe />")
-              .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-              .attr({ "src": '<%= request.base_url %>/widgets/cameras/add', "frameborder": "0" })
-              .appendTo("div[evercam='add-camera-public']");
+  function initAddCamera() {
+    var iframe =
+      jQuery("<iframe />")
+        .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "400px" })
+        .attr({ "src": '<%= request.base_url %>/widgets/cameras/public/add', "frameborder": "0" })
+        .appendTo("div[evercam='add-camera-public']");
   }
 
   /* Load jQuery if not present */
@@ -36,10 +35,10 @@
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type", "text/javascript");
     script_tag.setAttribute("src",
-        "https://code.jquery.com/jquery-2.1.1.min.js");
+        "https://code.jquery.com/jquery-2.1.3.min.js");
 
     if (script_tag.readyState) {
-      script_tag.onreadystatechange = function () { // For old versions of IE
+      script_tag.onreadystatechange = function () {
         if (this.readyState === 'complete' || this.readyState === 'loaded') {
           scriptLoadHandler();
         }
@@ -53,7 +52,7 @@
   } else {
     // The jQuery version on the window is the one we want to use
     jQuery = window.jQuery;
-    initSnapshotNavigator();
+    initAddCamera();
   }
 
 }(window));

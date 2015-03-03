@@ -3,7 +3,8 @@
 #= require bootstrap
 
 Evercam_API_URL = 'https://api.evercam.io/v1/'
-#Evercam_API_URL = 'http://localhost:9292/v1/'
+API_ID = ''
+API_Key = ''
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -103,8 +104,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-url").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
+    $(".info-box .info-text").text("Please valid camera public IP or dydns domain.")
   $(".external-url").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
+    $(".info-box .info-text").text("Please valid camera public IP or dydns domain.")
 
   $("#camera-port").on 'keyup', (e) ->
     if validateInt($(this).val())
@@ -114,6 +117,7 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-port").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL PORT")
+    $(".info-box .info-text").text("Default external port is 80.")
   $(".port").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL PORT")
     $(".info-box .info-text").text("Default external port is 80.")
@@ -123,8 +127,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-snapshot-url").on 'focus', (e) ->
     $(".info-box .info-header").text("SNAPSHOT URL")
+    $(".info-box .info-text").text("Please choose camera Vendor/Model to auto detect camera snapshot URL. If snapshot URL not found after select Vendor/Model you enter URL manual.")
   $(".snapshot-url").on 'click', ->
     $(".info-box .info-header").text("SNAPSHOT URL")
+    $(".info-box .info-text").text("Please choose camera Vendor/Model to auto detect camera snapshot URL. If snapshot URL not found after select Vendor/Model you enter URL manual.")
 
   $("#camera-name").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
@@ -137,6 +143,8 @@ handleInputEvents = ->
     else
       $(this).removeClass("valid").addClass("invalid")
   $("#user-password").on 'keyup', (e) ->
+    $(this).removeClass("invalid").addClass("valid")
+  $("#username").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
   $(".default-username").on 'click', ->
     $("#camera-username").val('root')
@@ -185,13 +193,11 @@ testSnapshot = ->
 
     onError = (jqXHR, status, error) ->
       $(".snapshot-msg").html(jqXHR.responseJSON.message)
-      #$(".snapshot-msg").removeClass('msg-success').addClass('msg-error')
       $(".snapshot-msg").show()
 
     onSuccess = (result, status, jqXHR) ->
       if result.status is 'ok'
         $("#testimg").attr('src', result.data)
-        #$(".snapshot-msg").removeClass('msg-error').addClass('msg-success')
         $(".snapshot-msg").hide()
         $("#test-snapshot").hide()
         $("#continue-step2").show()
@@ -210,11 +216,7 @@ testSnapshot = ->
 
 handleContinueBtn = ->
   $("#continue-step2").on 'click', ->
-    $(".nav-steps li").removeClass('active')
-    $("#camera-details").fadeOut(300, ->
-      $("#camera-info").fadeIn(300)
-    )
-    $("#li-camera-info").addClass('active')
+    switchTab("camera-details", "camera-info")
 
   $("#continue-step3").on 'click', ->
     if $("#camera-name").val() is ''
@@ -224,38 +226,54 @@ handleContinueBtn = ->
       $("#camera-id").removeClass("valid").addClass("invalid")
       return
     $("#camera-name").removeClass("invalid").addClass("valid")
-    $(".nav-steps li").removeClass('active')
-    $("#camera-info").fadeOut(300, ->
-      $("#user-create").fadeIn(300)
-    )
-    $("#li-user-create").addClass('active')
+    switchTab("camera-info", "user-create")
 
 autoCreateCameraId = ->
   $("#camera-name").on 'keyup', ->
     $("#camera-id").val $(this).val().replace(RegExp(" ", "g"), "-").toLowerCase()
 
-handleUserFormEvents = ->
+hasCameraInfo = ->
+  if $("#camera-url").val() is '' && $("#camera-snapshot-url").val() is ''
+    $("#camera-url").removeClass("valid").addClass("invalid")
+    $("#camera-snapshot-url").removeClass("valid").addClass("invalid")
+    switchTab("user-create", "camera-details")
+    return false
+  if $("#camera-name").val() is '' && $("#camera-id").val() is ''
+    $("#camera-name").removeClass("valid").addClass("invalid")
+    $("#camera-id").removeClass("valid").addClass("invalid")
+    switchTab("user-create", "camera-info")
+    return false
+  true
+
+createUserAccount = ->
   $("#create-account").on 'click', ->
+    if $("#username").val() is ''
+      $("#username").removeClass("valid").addClass("invalid")
+      return
     if $("#user-email").val() is '' || !validateEmail($("#user-email").val())
       $("#user-email").removeClass("valid").addClass("invalid")
       return
     if $("#user-password").val() is ''
       $("#user-password").removeClass("valid").addClass("invalid")
       return
+    if !hasCameraInfo()
+      return
 
-    email = $("#user-email").val()
-    username = email.substring(0,email.indexOf('@'))
+    if API_ID isnt '' && API_Key isnt ''
+      createCamera(API_ID, API_Key)
+      return
+
     data = {}
-    data.firstname = username
-    data.lastname = username
-    data.username = username
+    data.firstname = $("#username").val()
+    data.lastname = $("#username").val()
+    data.username = $("#username").val()
     data.country = 'IR'
-    data.email = email
+    data.email = $("#user-email").val()
     data.password = $("#user-password").val()
 
     onError = (jqXHR, status, error) ->
       $("#message-user-create").text(jqXHR.responseJSON.message)
-      $("#message-user-create").show()
+      $("#message-user-create").removeClass("hide")
 
     onSuccess = (result, status, jqXHR) ->
       getAPICredentials()
@@ -277,9 +295,11 @@ getAPICredentials = ->
   data.password = $("#user-password").val()
 
   onError = (jqXHR, status, error) ->
-    #console.log(jqXHR.responseJSON.message)
+    false
 
   onSuccess = (result, status, jqXHR) ->
+    API_ID = result.api_id
+    API_Key = result.api_key
     createCamera(result.api_id, result.api_key)
 
   settings =
@@ -308,12 +328,18 @@ createCamera = (api_id, api_key) ->
   data.jpg_url = $("#camera-snapshot-url").val()
 
   onError = (jqXHR, status, error) ->
-    $("#message-user-create").text(jqXHR.responseJSON.message)
-    $("#message-user-create").show()
+    $("#message-camera-info").text(jqXHR.responseJSON.message)
+    $("#message-camera-info").removeClass("hide")
+    $("#message-user-create").addClass("hide")
 
   onSuccess = (result, status, jqXHR) ->
-    #console.log result
     clearForm()
+
+  onDuplicateError = (xhr) ->
+    switchTab("user-create", "camera-info")
+    $("#message-camera-info").text(xhr.responseText.message)
+    $("#message-camera-info").removeClass("hide")
+    $("#message-user-create").addClass("hide")
 
   settings =
     cache: false
@@ -321,6 +347,7 @@ createCamera = (api_id, api_key) ->
     dataType: 'json'
     error: onError
     success: onSuccess
+    statusCode: {409: onDuplicateError },
     contentType: "application/x-www-form-urlencoded"
     type: 'POST'
     url: "#{Evercam_API_URL}cameras?api_id=#{api_id}&api_key=#{api_key}"
@@ -329,28 +356,54 @@ createCamera = (api_id, api_key) ->
 
 clearForm = ->
   $("#camera-id").val('')
+  $("#camera-id").removeClass('valid').removeClass("invalid")
   $("#camera-name").val('')
+  $("#camera-name").removeClass('valid').removeClass("invalid")
   $("#user-email").val('')
+  $("#user-email").removeClass('valid').removeClass("invalid")
+  $("#username").val('')
+  $("#username").removeClass('valid').removeClass("invalid")
   $("#user-password").val('')
+  $("#user-password").removeClass('valid').removeClass("invalid")
   $("#camera-username").val('')
   $("#camera-password").val('')
   $("#camera-port").val('')
+  $("#camera-port").removeClass('valid').removeClass("invalid")
   $("#camera-url").val('')
+  $("#camera-url").removeClass('valid').removeClass("invalid")
   $("#camera-snapshot-url").val('')
+  $("#camera-snapshot-url").removeClass('valid').removeClass("invalid")
   $("#camera-vendor").val('')
   $("#camera-model option").remove()
   $("#camera-model").append('<option value="">Unknown</option>');
-  $(".nav-steps li").removeClass('active')
-  $("#user-create").fadeOut(300, ->
-    $("#camera-details").fadeIn(300)
-  )
-  $("#li-camera-details").addClass('active')
+  switchTab("user-create", "camera-details")
   $("#required-authentication").removeAttr("checked")
   $("#authentication").addClass("hide")
+  $("#message-camera-info").addClass("hide")
+  $("#message-user-create").addClass("hide")
   $("#testimg").attr('src', '')
   $(".snapshot-msg").hide()
   $("#test-snapshot").show()
   $("#continue-step2").hide()
+  API_ID = ''
+  API_Key = ''
+
+onClickTabs = ->
+  $(".nav-steps li").on 'click', ->
+    previousTab = $(".nav-steps li.active").attr("href")
+    $(".nav-steps li").removeClass('active')
+    currentTab = $(this).attr("href")
+    $(this).addClass('active')
+    $("#{previousTab}").fadeOut(300, ->
+      $("#{currentTab}").fadeIn(300)
+    )
+
+switchTab = (hideTab, showTab) ->
+  $(".nav-steps li").removeClass('active')
+  $("##{hideTab}").fadeOut(300, ->
+    $("##{showTab}").fadeIn(300)
+  )
+  $("#li-#{showTab}").addClass('active')
 
 $ ->
   useAuthentication()
@@ -359,5 +412,5 @@ $ ->
   handleInputEvents()
   testSnapshot()
   handleContinueBtn()
-  #autoCreateCameraId()
-  handleUserFormEvents()
+  createUserAccount()
+  onClickTabs()

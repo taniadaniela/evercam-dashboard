@@ -72,9 +72,13 @@ Rails.application.routes.draw do
   get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
   get '/snapshot.navigator' => 'widgets#snapshot_navigator'
 
-  get '/widgets/cameras/add' => 'widgets#widget_add_camera', as: :widget_cameras_add
-  get '/widgets/cameras/public/add' => 'widgets#add_public_camera'
-  get '/widgets/add.camera' => 'widgets#add_camera'
+  namespace :widgets do
+    resources :widget_cameras_add, path: :widget_cameras_add
+    get '/cameras/add' => 'widget_cameras_add#widget_add_camera', as: :widget_camera_add
+    get '/cameras/public/add' => 'widget_cameras_add#add_public_camera'
+    get '/add.camera' => 'widget_cameras_add#add_camera'
+  end
+
 
   get '/live/:id' => 'pages#live'
 

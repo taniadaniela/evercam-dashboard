@@ -5,6 +5,7 @@
 Evercam_API_URL = 'https://api.evercam.io/v1/'
 API_ID = ''
 API_Key = ''
+iframeWindow = undefined
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -405,7 +406,33 @@ switchTab = (hideTab, showTab) ->
   )
   $("#li-#{showTab}").addClass('active')
 
-$ ->
+initAddCamera = ->
+  url = window.location.origin
+  embedCode = '&lt;div evercam&#61;"add-camera-public"&gt;&lt;&#47;div&gt;' + '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;widgets/add.camera.js"&gt;&lt;&#47;script&gt;'
+  $('#code').html embedCode
+  $('.placeholder').empty()
+  iframe = jQuery('<iframe />').css(
+    'overflow': 'hidden'
+    'width': '100%'
+    'height': '420px').attr(
+    'src': '/widgets/cameras/public/add'
+    'frameborder': '0'
+    scrolling: 'no').appendTo('.placeholder')
+  return
+
+resizeIframe = (iframeControl) ->
+  iframeWindow = iframeControl
+  iframeControl.style.height = iframeControl.contentWindow.document.body.scrollHeight + 'px'
+  return
+
+handleWindowResize = ->
+  $(window).resize ->
+  if !iframeWindow
+    return
+  resizeIframe iframeWindow
+  return
+
+window.initializeAddCameraPublic = ->
   useAuthentication()
   loadVendors()
   handleVendorModelEvents()
@@ -414,3 +441,9 @@ $ ->
   handleContinueBtn()
   createUserAccount()
   onClickTabs()
+
+window.initializeAddCamera = ->
+  initAddCamera();
+  $("#code").on "click", ->
+    this.select();
+  handleWindowResize()

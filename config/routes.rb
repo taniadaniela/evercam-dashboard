@@ -65,16 +65,20 @@ Rails.application.routes.draw do
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
-  get '/widgets-new' => 'widgets#widgets_new'
+  get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view
   get '/live.view.widget' => 'widgets#live_view_widget'
   get '/live.view.private.widget' => 'widgets#live_view_private_widget'
-  get '/widgets-hikvision' => 'widgets#widgets_hikvision'
+  get '/widgets-hikvision' => 'widgets#widgets_hikvision', as: :widget_hikvision
   get '/hikvision.local.storage' => 'widgets#hikvision_local_storage'
   get '/hikvision.private.widget' => 'widgets#hikvision_private_widget'
 
-  get '/widgets-snapshot-navigator' => 'widgets#widget_snapshot_navigator'
+  get '/widgets-snapshot-navigator' => 'widgets#widget_snapshot_navigator', as: :widget_snapshot_navigator
   get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
   get '/snapshot.navigator' => 'widgets#snapshot_navigator'
+
+  get '/widgets/cameras/add' => 'widgets#widget_add_camera', as: :widget_cameras_add
+  get '/widgets/cameras/public/add' => 'widgets#add_public_camera'
+  get '/widgets/add.camera' => 'widgets#add_camera'
 
   get '/live/:id' => 'pages#live'
 

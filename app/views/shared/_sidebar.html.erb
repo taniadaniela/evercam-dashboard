@@ -50,13 +50,16 @@
             </a>
             <ul class="sub-menu">
               <li>
-                <a href="/widgets-new">Live View Widget</a>
+                <a href="<%= widget_live_view_path %>">Live View Widget</a>
               </li>
               <li>
-                <a href="/widgets-hikvision">Hikvision Widget</a>
+                <a href="<%= widget_hikvision_path %>">Hikvision Widget</a>
               </li>
               <li>
-                <a href="/widgets-snapshot-navigator">Snapshot Navigator Widget</a>
+                <a href="<%= widget_snapshot_navigator_path %>">Snapshot Navigator Widget</a>
+              </li>
+              <li>
+                <a href="<%= widget_cameras_add_path %>">Add Camera Widget</a>
               </li>
             </ul>
           </li>
@@ -96,15 +99,18 @@
       </li>
 
       <li class="widgets-menu">
-        <a href="/widgets-new">Live View</a>
+        <a href="<%= widget_live_view_path %>">Live View</a>
       </li>
 
       <li class="widgets-menu">
-        <a href="/widgets-hikvision">Local Storage</a>
+        <a href="<%= widget_hikvision_path %>">Local Storage</a>
       </li>
 
       <li class="widgets-menu">
-        <a href="/widgets-snapshot-navigator">Snapshot Navigator</a>
+        <a href="<%= widget_snapshot_navigator_path %>">Snapshot Navigator</a>
+      </li>
+      <li>
+        <a href="<%= widget_cameras_add_path %>">Add Camera</a>
       </li>
     </ul>
   </nav>

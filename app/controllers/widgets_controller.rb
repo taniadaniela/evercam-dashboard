@@ -1,12 +1,12 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :allow_iframe, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :sessions]
-  after_action :allow_iframe, only: [:hikvision_private_widget, :live_view_private_widget, :snapshot_navigator_widget, :sessions]
-  before_action :allow_iframe, only: [:live_view_private_widget, :snapshot_navigator_widget, :sessions]
+  before_filter :allow_iframe, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :sessions, :add_public_camera]
+  after_action :allow_iframe, only: [:hikvision_private_widget, :live_view_private_widget, :snapshot_navigator_widget, :sessions, :add_public_camera]
+  before_action :allow_iframe, only: [:live_view_private_widget, :snapshot_navigator_widget, :sessions, :add_public_camera]
   before_filter :normal_cookies_for_ie_in_iframes!, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
-  skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
-  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
-  skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
+  skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_camera]
+  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_public_camera, :add_camera]
+  skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_camera]
 
   include SessionsHelper
   include ApplicationHelper
@@ -83,6 +83,20 @@ class WidgetsController < ApplicationController
       Rails.logger.error "Exception caught in snapshot navigator.\nCause: #{error}\n" +
                              error.backtrace.join("\n")
       flash[:message] = error.message
+    end
+  end
+
+  def widget_add_camera
+    @cameras = load_user_cameras(true, false)
+  end
+
+  def add_public_camera
+    render :layout => false
+  end
+
+  def add_camera
+    respond_to do |format|
+      format.js { render :file => "widgets/add.camera.js.erb", :mime_type => Mime::Type.lookup('text/javascript')}
     end
   end
 

@@ -40,7 +40,9 @@ module EvercamDashboard
       admin/admin.js
       admin/admin.css
       views/widgets/widget.css
+      views/widgets/add_camera.css
       widgets.js
+      widgets/add_camera.js
       swagger.js
       swagger.css
     ]

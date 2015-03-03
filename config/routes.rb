@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :dash_cameras, path: :cameras
     resources :dash_users, path: :users
     resources :dash_vendor_model, path: :models
+    resources :dash_vendors, path: :vendors
     get '/users/:id/impersonate' => 'dash_users#impersonate', as: :impersonate
     put '/users/:id' => 'dash_users#update'
     put '/models/:id' => 'dash_vendor_model#update'

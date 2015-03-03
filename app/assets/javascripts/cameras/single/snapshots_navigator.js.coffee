@@ -224,7 +224,7 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
 
-  if $(".nav-tabs li.active a").html() is "Snapshots" && history.replaceState
+  if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
     window.history.replaceState({}, '', url);
 
 UpdateSnapshotRec = (snapInfo) ->
@@ -255,7 +255,7 @@ handleBodyLoadContent = ->
 
   timestamp = getTimestampFromUrl()
   if timestamp isnt ""
-    playFromDateTime = new Date(moment.utc(timestamp).format('YYYY-MM-DD HH:mm:ss'))
+    playFromDateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY HH:mm:ss'))
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -761,6 +761,12 @@ handleMinSecDropDown = ->
     $('#snapshot-notes-text').toggle()
   return
 
+handleTabOpen = ->
+  $('.nav-tab-recordings').on 'show.bs.tab', ->
+    showLoader()
+    HighlightCurrentMonth()
+    BoldSnapshotHour(false)
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -768,3 +774,4 @@ window.initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
+  handleTabOpen()

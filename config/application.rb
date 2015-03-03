@@ -40,6 +40,7 @@ module EvercamDashboard
       admin/admin.js
       admin/admin.css
       views/widgets/widget.css
+      widgets.js
       swagger.js
       swagger.css
     ]

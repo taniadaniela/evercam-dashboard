@@ -22,6 +22,7 @@
 #= require alerts.js
 #= require evercam.js.coffee
 #= require admin/vendor_model.js
+#= require admin/vendor.js
 
 $ ->
   Metronic.init()

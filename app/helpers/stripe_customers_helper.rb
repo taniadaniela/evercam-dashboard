@@ -26,9 +26,11 @@ module StripeCustomersHelper
   end
 
   def has_credit_cards?
-    unless current_user.billing_id.nil?
+    if is_stripe_customer?
       stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
       stripe_customer.default_source.present?
+    else
+      false
     end
   end
 

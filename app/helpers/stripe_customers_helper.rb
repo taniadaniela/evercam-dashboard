@@ -32,12 +32,6 @@ module StripeCustomersHelper
     else
       false
     end
-<<<<<<< Updated upstream
-    stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
-    stripe_customer.default_source.present?
-=======
-    user_account_error
->>>>>>> Stashed changes
   end
 
   def stripe_customer_without_current_cards?

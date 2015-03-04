@@ -111,6 +111,7 @@
       </div>
     </div>
 
+    <!-- Select Stripe Plans -->
     <div class="row margin-bottom-20">
       <div class="panel-description col-md-12">
         <h4 class="margin-bottom-10">Plans</h4>
@@ -119,8 +120,14 @@
             <tr>
               <%= content_tag(:td, plan.name) -%>
               <%= content_tag(:td, plan.amount) -%>
+              <%= content_tag(:td) do %>
+                <%= form_tag('/line_items', method: :post) do -%>
+                  <%= select_tag "quantity", options_for_select((1..10).to_a) -%>
+                  <%= submit_tag("Add to Cart") -%>
+                <% end %>
+              <% end %>
             </tr>
-          <% end -%>
+          <% end %>
         </table>
 
       </div>

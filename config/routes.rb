@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :stripe_customers, only: [:create, :update]
   resources :credit_cards, only: [:create, :destroy]
   resources :subscriptions, only: [:destroy]
+  resources :line_items, only: [:index, :create, :destroy]
 
   resources :charges
   post '/users/:id/settings/charge' => 'charges#create'

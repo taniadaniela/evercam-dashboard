@@ -3,6 +3,7 @@
 #= require bootstrap
 
 Evercam_API_URL = 'https://api.evercam.io/v1/'
+Dasboard_URL = 'https://dash.evercam.io'
 API_ID = ''
 API_Key = ''
 iframeWindow = undefined
@@ -257,7 +258,7 @@ autoLogInDashboard = () ->
   onError = (jqXHR, status, error) ->
     false
   onSuccess = (result, status, jqXHR) ->
-    parent.location.href = "#{window.location.origin}"
+    parent.location.href = "#{Dasboard_URL}"
     true
 
   settings =
@@ -268,7 +269,7 @@ autoLogInDashboard = () ->
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
     type: 'POST'
-    url: "#{window.location.origin}/sessions"
+    url: "#{Dasboard_URL}/sessions"
 
   jQuery.ajax(settings)
 

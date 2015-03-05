@@ -20,6 +20,9 @@
                 <a id="nav-tabs-2" data-toggle="tab" href="#account"><i class="icon icon-user"></i>Account</a>
               </li>
               <li>
+                <a data-toggle="tab" href="#password"><i class="icon icon-key"></i>Password</a>
+              </li>
+              <li>
                 <a data-toggle="tab" href="#applications"><i class="icon icon-settings"></i>Applications</a>
               </li>
               <li>
@@ -32,6 +35,9 @@
           <div class="tab-content">
             <div id="account" class="tab-pane active">
               <%= render partial: "users/settings/account_tab" %>
+            </div>
+            <div id="password" class="tab-pane">
+              <%= render partial: "users/settings/password_tab" %>
             </div>
             <div id="applications" class="tab-pane">
               <%= render partial: "users/settings/applications_tab" %>
@@ -59,11 +65,11 @@
   });
 
   $(".makeNonEditable").click(function () {
-    $('input:text').attr("readonly", "readonly");
+    $('#userProfile input:text').attr("readonly", "readonly");
     $('select').attr("disabled", "disabled");
   });
   $(".makeEditable").click(function () {
-    $('input:text').removeAttr("readonly");
+    $('#userProfile input:text').removeAttr("readonly");
     $('select').removeAttr("disabled");
   });
 

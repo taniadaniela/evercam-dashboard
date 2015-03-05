@@ -134,6 +134,24 @@ class UsersController < ApplicationController
     redirect_to action: 'settings'
   end
 
+  def change_password
+    begin
+      user = User.by_login(params[:id])
+    rescue NoMethodError => error
+      Rails.logger.error "Error caught fetching user details.\nCause: #{error}\n" + error.backtrace.join("\n")
+    end
+
+    if !user.nil? and user.password == params['current-password']
+      user.update(password: params['new-password'])
+      user.save
+      flash[:message] = 'Password updated successfully'
+    else
+      flash[:message] = 'Invalid Current Password'
+    end
+
+    redirect_to :action => 'settings', :anchor => 'password'
+  end
+
   def password_reset_request
     email = params[:email]
     unless email.nil?

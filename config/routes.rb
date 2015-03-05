@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   delete '/v1/users/signout' => 'sessions#destroy', as: :signout
   get '/v1/users/:id' => 'users#settings', as: :user
   post '/v1/users/:id' => 'users#settings_update'
+  put '/v1/users/:id/password/change' => 'users#change_password'
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'

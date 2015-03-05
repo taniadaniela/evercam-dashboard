@@ -115,21 +115,24 @@
     <div class="row margin-bottom-20">
       <div class="panel-description col-md-12">
         <h4 class="margin-bottom-10">Plans</h4>
-        <table class"table table-striped margin-top-20">
-          <% stripe_plans.each do |plan| -%>
-            <tr>
-              <%= content_tag(:td, plan.name) -%>
-              <%= content_tag(:td, plan.amount) -%>
-              <%= content_tag(:td) do %>
-                <%= form_tag('/line_items', method: :post) do -%>
-                  <%= select_tag "quantity", options_for_select((1..10).to_a) -%>
-                  <%= submit_tag("Add to Cart") -%>
-                <% end %>
+        <%= form_tag('/line_items', method: :post) do -%>
+          <%= content_tag(:table, class: "table table-striped margin-top-20" ) do %>
+            <%= content_tag(:tr) do %>
+              <%= content_tag(:td, "Plan Name") -%>
+              <%= content_tag(:td, "Plan Amount") -%>
+              <%= content_tag(:td, "Quantity") -%>
+              <%= content_tag(:td, "Add") -%>
+            <% end %>
+            <% stripe_plans.each do |plan| -%>
+              <%= content_tag(:tr) do %>
+                <%= content_tag(:td, plan.name) -%>
+                <%= content_tag(:td, number_to_currency(plan.amount)) -%>
+                <td><%= select_tag "quantity", options_for_select((1..10).to_a) -%></td>
+                <td><%= submit_tag("Add to Cart") -%></td>
               <% end %>
-            </tr>
+            <% end %>
           <% end %>
-        </table>
-
+        <% end %>
       </div>
     </div>
 

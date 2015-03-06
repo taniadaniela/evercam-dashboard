@@ -31,6 +31,9 @@
           <div class="form-group">
             <label class="grey" for="country">Country</label>
             <select id="country" disabled="disabled" name="country" class="input-medium form-control is-required">
+              <% if current_user.country.blank? %>
+                <option value="">Not Specified</option>
+              <% end %>
               <% @countries.each do |c| %>
                 <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
                   <%= c.name -%>

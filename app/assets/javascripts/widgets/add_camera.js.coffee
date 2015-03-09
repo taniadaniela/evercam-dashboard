@@ -3,6 +3,7 @@
 #= require bootstrap
 
 Evercam_API_URL = 'https://api.evercam.io/v1/'
+Dasboard_URL = 'https://dash.evercam.io'
 API_ID = ''
 API_Key = ''
 iframeWindow = undefined
@@ -246,6 +247,32 @@ hasCameraInfo = ->
     return false
   true
 
+autoLogInDashboard = () ->
+  data = {
+    'session[login]': $("#username").val()
+    'session[password]': $("#user-password").val()
+    'session[widget]': 'login-from-widget'
+    'authenticity_token': $("#authenticity_token").val()
+  }
+
+  onError = (jqXHR, status, error) ->
+    false
+  onSuccess = (result, status, jqXHR) ->
+    parent.location.href = "#{Dasboard_URL}"
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'POST'
+    url: "#{Dasboard_URL}/sessions"
+
+  jQuery.ajax(settings)
+
 createUserAccount = ->
   $("#create-account").on 'click', ->
     if $("#username").val() is ''
@@ -334,7 +361,7 @@ createCamera = (api_id, api_key) ->
     $("#message-user-create").addClass("hide")
 
   onSuccess = (result, status, jqXHR) ->
-    clearForm()
+    autoLogInDashboard()
 
   onDuplicateError = (xhr) ->
     switchTab("user-create", "camera-info")

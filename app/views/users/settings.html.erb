@@ -51,37 +51,12 @@
     </div>
   </div>
 </div>
-
+<%= javascript_include_tag "user_account" %>
 <script>
   $(document).ready(function () {
-    $.validate();
-    Metronic.init();
-    Layout.init();
-    QuickSidebar.init();
-    Notification.init(".bb-alert");
+    window.initializeUserAccount();
     <% if flash[:message] %>
     Notification.show('<%= flash[:message] %>');
     <% end %>
-  });
-
-  $(".makeNonEditable").click(function () {
-    $('#userProfile input:text').attr("readonly", "readonly");
-    $('select').attr("disabled", "disabled");
-  });
-  $(".makeEditable").click(function () {
-    $('#userProfile input:text').removeAttr("readonly");
-    $('select').removeAttr("disabled");
-  });
-
-  $(document).ready(function () {
-    $("#hide").click(function () {
-      $(".hide-p").fadeOut();
-    });
-    $("#hide-2").click(function () {
-      $(".hide-p").fadeOut();
-    });
-    $("#show").click(function () {
-      $(".hide-p").fadeIn();
-    });
   });
 </script>

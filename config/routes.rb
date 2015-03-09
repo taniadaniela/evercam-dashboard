@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:destroy]
   resources :line_items, only: [:index, :create, :destroy]
 
+  mount StripeEvent::Engine => '/stripe-events'
+
   resources :charges
   post '/users/:id/settings/charge' => 'charges#create'
   post '/users/:id/settings/subscription' => 'charges#subscription_create'

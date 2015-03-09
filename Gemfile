@@ -16,7 +16,6 @@ gem 'autoprefixer-rails'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
-gem 'stripe-ruby-mock'
 
 gem 'rails-assets-bootbox', '~> 4.3.0'
 gem 'rails-assets-bootstrap', '~> 3.3.1'

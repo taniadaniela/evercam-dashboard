@@ -76,6 +76,7 @@ describe UsersController do
     it "signs in and redirects to cameras index" do
       stub_request(:post, "#{EVERCAM_API}users.json").
         with(:body => {"email"=>"#{CGI.escape(new_user_params[:user][:email])}", "firstname"=>"Joe", "lastname"=>"Bloggs", "password"=>"password", "username"=>"#{new_user_params[:user][:username]}"}).
+        with(:headers => {'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Faraday v0.9.1'})
         to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
       stub_request(:post, "#{EVERCAM_API}users.json").

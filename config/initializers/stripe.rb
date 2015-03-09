@@ -5,17 +5,19 @@ Rails.configuration.stripe = {
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
-# Added for stripe-events
+Rails.logger.info("I'm outside the subscriber block")
+
+#Subscriber Block
 StripeEvent.configure do |events|
-  events.subscribe 'charge.failed' do |event|
+  events.subscribe 'invoiceitem.created' do |event|
     # Define subscriber behavior based on the event object
     event.class       #=> Stripe::Event
     event.type        #=> "charge.failed"
     event.data.object #=> #<Stripe::Charge:0x3fcb34c115f8>
+    Rails.logger.info("Logging the #{event.class}")
   end
 
   events.all do |event|
     # Handle all event types - logging, etc.
-    Rails.logger.info "Logger"
   end
 end

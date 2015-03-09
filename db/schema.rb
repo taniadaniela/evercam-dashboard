@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -49,6 +50,14 @@ ActiveRecord::Schema.define() do
   add_index "access_tokens", ["client_id"], name: "ix_access_tokens_grantee_id", using: :btree
   add_index "access_tokens", ["request"], name: "ux_access_tokens_request", unique: true, using: :btree
   add_index "access_tokens", ["user_id"], name: "ix_access_tokens_grantor_id", using: :btree
+
+  create_table "billing", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "timelapse"
+    t.integer  "snapmail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "camera_activities", id: false, force: :cascade do |t|
     t.integer  "id",              default: "nextval('camera_activities_id_seq'::regclass)", null: false
@@ -205,6 +214,7 @@ ActiveRecord::Schema.define() do
   add_foreign_key "access_tokens", "clients", name: "fk_access_tokens_grantee_id", on_delete: :cascade
   add_foreign_key "access_tokens", "users", column: "grantor_id", name: "access_tokens_grantor_id_fkey", on_delete: :cascade
   add_foreign_key "access_tokens", "users", name: "fk_access_tokens_grantor_id", on_delete: :cascade
+  add_foreign_key "billing", "users", name: "billing_user_id_fkey", on_delete: :cascade
   add_foreign_key "camera_activities", "access_tokens", name: "camera_activities_access_token_id_fkey", on_delete: :cascade
   add_foreign_key "camera_activities", "cameras", name: "camera_activities_camera_id_fkey", on_delete: :cascade
   add_foreign_key "camera_endpoints", "cameras", name: "camera_endpoints_camera_id_fkey", on_delete: :cascade

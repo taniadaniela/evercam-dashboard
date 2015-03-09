@@ -52,6 +52,7 @@ class UsersController < ApplicationController
         user['username'],
         user['email'],
         user['password'],
+        user['country'],
         params[:key]
       )
 

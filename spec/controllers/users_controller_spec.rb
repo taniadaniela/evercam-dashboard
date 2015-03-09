@@ -78,6 +78,10 @@ describe UsersController do
         with(:body => {"country"=>"", "email"=>"#{CGI.escape(new_user_params[:user][:email])}", "firstname"=>"Joe", "lastname"=>"Bloggs", "password"=>"password", "username"=>"#{new_user_params[:user][:username]}"}).
         to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
+      stub_request(:post, "#{EVERCAM_API}users.json").
+        with(:body => "country=ie&email=#{CGI.escape(new_user_params[:user][:email])}&firstname=Joe&lastname=Bloggs&password=password&username=#{new_user_params[:user][:username]}").
+        to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
+
       post :create, new_user_params
       expect(response.status).to eq(302)
       expect(response).to redirect_to cameras_index_path

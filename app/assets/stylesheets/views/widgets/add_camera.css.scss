@@ -7,67 +7,99 @@
 @import "base/glyphicons";
 
 body{
+  font-family: 'proxima-nova-regular';
   background-color: #e5e5e5;
   padding: 0px;
   margin: 0px;
+  font-size: 15px;
+
+}
+label {
+  font-size: 16px;
+}
+#add-camera-widget {
+  min-height: 392px;
+  padding:24px 13px 0px;
+}
+#camera-info {
+margin-top: 26px;
+}
+#user-create {
+  margin-top:26px;
+}
+.control-label {
+  margin-top: 0px;
 }
 .center-tabs{
   text-align: center;
 }
 .nav-steps{
   width: 100%;
-  background-color: #f5f5f5;
-  height: 40px;
+  background-color: #ffffff;
+  height: 55px;
   margin-bottom: 5px;
 }
 .nav-steps li{
-  height: 45px;
+  height: 59px;
   list-style: none;
   display: inline-block;
-  min-width: 170px;
+  min-width: 240px;
   text-align: center;
-  border-bottom: 6px solid #becdd9;
+  border-bottom: 5px solid #becdd9;
   cursor: pointer;
+  padding-top: 13px;
+  line-height: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 .nav-steps li.active{
-  border-bottom: 6px solid #428bca;
+  border-bottom: 5px solid #428bca;
+  font-family: 'proxima-nova-bold';
 }
 .page-content{
   background-color: #fff;
   margin-top: 3px
 }
 .help-font-size{
-  font-size: 11px;
+  font-size: 13px;
 }
 .help-text{
   color: #428bca;
 }
 .info-box{
   background-color: #f5f5f5;
-  padding: 15px;
+  padding: 20px;
   height: 100%;
-  min-height: 300px;
+  min-height: 320px;
+  margin-top: 5px;
 }
 .info-header{
-  font-weight: 600;
+  font-family: "proxima-nova-bold";
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 .info-text{
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 16px;
+  color: #bbbbbb;
 }
-.prepend-2 {
-  font-family: "proxima-nova-bold";
-  margin-left: -16px;
-  margin-top: 6px;
-  position: absolute;
-}
+
 .clear-f{
   clear: both;
   padding: 0px;
 }
 .padding-top-20{
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
+}
+
+.form-control {
+  font-size: 16px;
+  padding: 6px 0px;
+}
+.form-control:focus {
+  border-color:#428bca;
 }
 input.form-control{
   border: none;
@@ -78,8 +110,15 @@ input.form-control{
 .form-control[readonly]{
   background-color: #ffffff !important;
 }
+.form-control:focus label {
+  color:#428bca;
+}
+
 .valid{
   border-bottom-color: #008000 !important;
+}
+.valid label {
+  color:#008000 !Important;
 }
 .invalid{
   border-bottom-color: #ff0000 !important;
@@ -90,6 +129,7 @@ input.form-control{
   overflow: hidden;
   width: 100%;
   max-width: 300px;
+
 }
 #testimg{
   height: auto;
@@ -102,25 +142,27 @@ input.form-control{
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
-  max-width: 300px;
+  max-width: 249px;
   border: 1px solid #e7e7e7;
   background-color: #ffffff;
   font-size: 14px;
-  border-radius: 2px;
-  -moz-border-radius: 2px;
+  text-transform: uppercase;
+  border-radius: 3px;
   cursor: pointer;
+  letter-spacing: 0.05em;
+  font-family: 'proxima-nova-bold';
+
+}
+.test-snapshot {
+  .btn-test-snap {
+    max-width: 300px;
+  }
 }
 .snapshot-msg{
-  /*padding-top: 10px;
-  padding-bottom: 10px;
+  color: #e74c3c;
+  margin-top: 15px;
+  margin-bottom: 2px;
   text-align: center;
-  max-width: 300px;
-  font-size: 14px;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  color: #ffffff;
-  position: absolute;
-  display: none;*/
 }
 .msg-error{
   background-color: #ff0000;
@@ -145,3 +187,164 @@ input.form-control{
 .input-group{
   text-align: left !important;
 }
+.camera-url {
+  .col-md-4 {
+   padding: 0px 3px 0px 10px;
+  }
+  .col-md-2 {
+    padding: 0px 3px 0px 10px;
+  }
+  .col-md-5 {
+    padding: 0px 3px 0px 10px;
+  }
+  .prepend-2 {
+    font-family: "proxima-nova-bold";
+    margin-left: -8px;
+    margin-top: 6px;
+    position: absolute;
+  }
+}
+.authentication {
+  .input-group label {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color:#aaaaaa;
+  }
+  input {
+    margin-right: 5px;
+  }
+}
+#authentication {
+  margin-left: 10px;
+}
+* { box-sizing:border-box; }
+
+
+.group {
+  position: relative;
+}
+
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0px !important;
+  border-bottom: 2px solid #757575 !important;
+}
+
+.material input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  -webkit-appearance: none;
+  display: block;
+  background: #ffffff;
+  color: #636363;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #757575;
+}
+
+.material input:focus { outline: none; }
+
+
+/* Label */
+label.static  {
+  position: absolute;
+  top: -18px;
+  color: #999;
+  font-size: 12px;
+  font-weight: 300;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.material label {
+  color: #999;
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  top: 5px;
+  transition: all 0.2s ease;
+}
+
+
+/* active */
+
+.material input:focus ~ label, .material input.used ~ label {
+  top: -20px;
+  transform: scale(.80);
+  /* font-size: 14px; */
+  color: #428bca;
+}
+.material input {
+  padding: 10px 10px 10px 5px;
+}
+
+/* Underline */
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.bar:before, .bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #428bca;
+  transition: all 0.2s ease;
+}
+
+.bar:before { left: 50%; }
+
+.bar:after { right: 50%; }
+
+
+/* active */
+
+.material input:focus ~ .bar:before, .material input:focus ~ .bar:after { width: 50%; }
+
+
+/* Highlight */
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
+/* active */
+
+.material input:focus ~ .highlight {
+  animation: inputHighlighter 0.3s ease;
+}
+
+
+/* Animations */
+
+@keyframes inputHighlighter {
+  from { background: #428bca; }
+  to 	{ width: 0; background: transparent; }
+}
+
+

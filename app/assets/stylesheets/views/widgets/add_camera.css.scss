@@ -22,14 +22,14 @@ label {
   padding:24px 13px 0px;
 }
 #camera-info {
-  margin-top: 26px;
+  margin-top: 20px;
   margin-bottom: -26px;
   .input-group {
     min-width: 265px;
   }
 }
 #user-create {
-  margin-top:20px;
+  margin-top:15px;
   .input-group {
     min-width: 265px;
   }
@@ -115,7 +115,7 @@ label {
 }
 input.form-control{
   border: none;
-  border-bottom: 2px solid #333333;
+  border-bottom: 2px solid #aaaaaa;
   border-radius: 0px;
   -moz-border-radius: 0px;
 }
@@ -127,10 +127,10 @@ input.form-control{
 }
 
 .valid{
-  border-bottom-color: #008000 !important;
+  border-bottom-color: #5ab57a !important;
 }
 .valid label {
-  color:#008000 !Important;
+  color:#5ab57a !Important;
 }
 .invalid{
   border-bottom-color: #ff0000 !important;
@@ -151,32 +151,24 @@ input.form-control{
   margin-top: 10px;
 }
 .btn{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 100%;
   text-align: center;
-  border: 1px solid #e7e7e7;
+  border: 1px solid #428bca;
   background-color: #ffffff;
-  font-size: 14px;
+  font-size: 13px;
   text-transform: uppercase;
-  border-radius: 3px;
   cursor: pointer;
   letter-spacing: 0.05em;
   font-family: 'proxima-nova-bold';
+  padding: 13px;
+  color: #428bca;
+  width:100%;
+  border-radius: 3px
 }
-.btn-test-snap{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-align: center;
-  max-width: 265px;
-  border: 1px solid #e7e7e7;
-  background-color: #ffffff;
-  font-size: 14px;
-  text-transform: uppercase;
-  border-radius: 3px;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  font-family: 'proxima-nova-bold';
+.btn:hover {
+  color: #428bca;
+}
+#create-account {
+  margin-top: 40px;
 }
 .test-snapshot {
   .btn-test-snap {
@@ -187,21 +179,25 @@ input.form-control{
   margin-top: 15px;
   margin-bottom: 2px;
   text-align: center;
-  padding: 5px 0;
+  padding: 10px 0;
   position: relative;
   top: 70px;
 }
 .msg-error{
-  background-color: #f2dede;
-  border: 1px solid #ebccd1;
-  color: #a94442;
+  background-color: #ffffff;
+  border: 1px solid #db4a39;
+  color: #db4a39;
+  margin-top: 66px;
+  border-radius: 2px;
 }
 .msg-success{
-  background-color: #d9edf7;
-  border: 1px solid #428bca;
-  color: #31708f;
-  top: -100px;
+  background-color: #5ab57a;
+  color: white;
+  top: -150px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
+
 .form-center{
   clear: both;
   display: inline-block;
@@ -287,7 +283,7 @@ select {
   border-left: none !important;
   border-right: none !important;
   border-radius: 0px !important;
-  border-bottom: 2px solid #757575 !important;
+  border-bottom: 2px solid #aaaaaa !important;
 }
 
 .form-group {
@@ -437,7 +433,7 @@ label {
 }
 .form-bar:before, .form-bar:after 	{
   content: '';
-  height: 1px;
+  height: 3px;
   width: 0;
   bottom: 0;
   position: absolute;
@@ -467,7 +463,6 @@ label {
   pointer-events: none;
   opacity: 0.4;
 }
-
 /* active state */
 .form-control:focus ~ .form-highlight {
   -webkit-animation: inputHighlighter 0.3s ease;
@@ -475,23 +470,7 @@ label {
   animation: inputHighlighter 0.3s ease;
 }
 
-/* -- highlighter animation --------------------------- */
-@-webkit-keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to { width:0; background:transparent; }
-}
-@-moz-keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to { width:0; background:transparent; }
-}
-@keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to { width:0; background:transparent; }
-}
-
-
 /*-- Checkbox --------------------------- */
-
 .form-group.checkbox {
   margin: 0px;
 }
@@ -515,8 +494,8 @@ label {
 
 .checkbox .chk-span {
   top: 0;
-  border: 1px solid #5a5a5a;
-  color: #1d1d1d;
+  border: 1px solid #aaaaaa;
+  color: #aaaaaa;
   cursor: pointer;
   display: inline-block;
   float: left;
@@ -534,8 +513,8 @@ label {
 
 .checkbox .chk-span.checked {
   top: -2px;
-  border-left: 2px solid #03a9f4;
-  border-bottom: 4px solid #03a9f4;
+  border-left: 2px solid #428bca;
+  border-bottom: 4px solid #428bca;
   border-top: 1px solid rgba(0,0,0,0);
   border-right: 1px solid rgba(0,0,0,0);
   -webkit-transform: rotate(-45deg) scaleY(0.5);
@@ -547,20 +526,20 @@ label {
 
 // Checkbox colors
 .checkbox .chk-span.checked {
-  border-left-color: #03a9f4;
-  border-bottom-color: #03a9f4;
+  border-left-color: #428bca;
+  border-bottom-color: #428bca;
 }
 
 // focus state
 .checkbox input[type='checkbox']:focus ~ label {
 
-  color: #03a9f4;
+  color: #428bca;
 
   .chk-span {
-    border-color: #03a9f4;
+    border-color: #428bca;
     &.checked {
-      border-left-color: #03a9f4;
-      border-bottom-color: #03a9f4;
+      border-left-color: #428bca;
+      border-bottom-color: #428bca;
       border-top: 1px solid rgba(0, 0, 0, 0);
       border-right: 1px solid rgba(0, 0, 0, 0);
     }

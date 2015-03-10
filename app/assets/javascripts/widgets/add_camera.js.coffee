@@ -117,10 +117,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-url").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("This is where you will put the public URL or IP address of your camera. ")
+    $(".info-box .info-text").text("Put the public URL or IP address of your camera. You will need to have setup port forwarding for your camera.")
   $(".external-url").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("This is where you will put the public URL or IP address of your camera.")
+    $(".info-box .info-text").text("Put the public URL or IP address of your camera.")
 
   $("#camera-port").on 'keyup', (e) ->
     if validateInt($(this).val())
@@ -130,10 +130,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-port").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("The default external port is 80.")
+    $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
   $(".port").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("The default external port is 80.")
+    $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
 
   $("#camera-snapshot-url").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
@@ -212,7 +212,7 @@ testSnapshot = ->
     onSuccess = (result, status, jqXHR) ->
       if result.status is 'ok'
         $("#testimg").attr('src', result.data)
-        $(".snapshot-msg").html("Got snapshot")
+        $(".snapshot-msg").html("We got a snapshot!")
         $(".snapshot-msg").removeClass("msg-error").addClass("msg-success")
         $(".snapshot-msg").show()
         $("#test-snapshot").hide()

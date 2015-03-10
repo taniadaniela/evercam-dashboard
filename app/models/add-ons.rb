@@ -1,13 +1,13 @@
 class AddOn
   # Prices of Add-ons
-  @@snapchat_price = 10.00
-  @@timelapse_price = 30.00
+  @@snapchat_price = 1000
+  @@timelapse_price = 3000
 
-  def snapchat_price
+  def self.snapchat_price
     @@snapchat_price
   end
 
-  def timelapse_price
+  def self.timelapse_price
     @@timelapse_price
   end
 end

@@ -78,13 +78,13 @@
                 <div class="col-md-6">
                   <div class="input-group">
                     <input id="camera-username" class="form-control" placeholder="Camera Username"/>
-                    <span class="help-font-size"><a class="help-font-size default-username">Use default:</a> root</span>
+                    <span class="help-font-size"><a class="help-font-size default-username">Use default:</a> <span id="default-username">root</span></span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="input-group">
                     <input id="camera-password" class="form-control" placeholder="Camera Username"/>
-                    <span class="help-font-size"><a class="help-font-size default-password">Use default:</a> pass</span>
+                    <span class="help-font-size"><a class="help-font-size default-password">Use default:</a> <span id="default-password">pass</span></span>
                   </div>
                 </div>
               </div>
@@ -101,11 +101,11 @@
             <div class="info-box test-image hide">
               <div class="test-img-settings">
                 <img id="testimg" src="" class="text-center">
+                <div class="snapshot-msg"></div>
               </div>
               <div class="test-snapshot">
                 <div id="test-snapshot" class="btn-test-snap">Check for Snapshot</div>
                 <div id="continue-step2" class="btn-test-snap">Continue &gt;</div>
-                <div class="snapshot-msg"></div>
               </div>
             </div>
           </div>

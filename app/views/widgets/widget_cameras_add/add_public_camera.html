@@ -13,188 +13,153 @@
 </head>
 <body>
 <div class="portlet-body">
+  <div class="center-tabs">
+    <ul class="nav-steps">
+      <li id="li-camera-details" class="active" href="#camera-details">
+        Step 1<br>Connect Camera
+      </li>
+      <li id="li-camera-info" href="#camera-info">
+        Step 2<br>Name your Camera
+      </li>
+      <li id="li-user-create" href="#user-create">
+        Step 3<br>Create Your Account
+      </li>
+    </ul>
+  </div>
 
-    <div class="center-tabs">
-      <ul class="nav-steps">
-        <li id="li-camera-details" class="active" href="#camera-details">
-          Step 1<br>Camera Details
-        </li>
-        <li id="li-camera-info" href="#camera-info">
-          Step 2<br>Camera Info
-        </li>
-        <li id="li-user-create" href="#user-create">
-          Step 3<br>Create Your Account
-        </li>
-      </ul>
-    </div>
+  <div class="page-content">
 
-    <div class="page-content">
-      <div id="add-camera-widget" class="padding-top-20">
-        <div id="camera-details" class="active">
-
-          <div class="col-md-8">
-            <div class="material row">
-              <div class="col-md-6">
-                <div class="material input-group col-md-12">
-                  <label class="grey control-label">Camera Vendor</label>
-                  <select id="camera-vendor" class="form-control"><option value="">Unknown</option></select>
-
-                </div>
-                <div class="material input-group col-md-12 margin-top-10">
-                  <label class="grey control-label">Camera Model</label>
-                  <select id="camera-model" class="form-control"><option>Unknown</option></select>
-
-                </div>
-                <br /><br />
+    <div id="add-camera-widget" class="padding-top-20">
+      <div id="camera-details" class="active">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Camera Vendor</label>
+                <select id="camera-vendor" class="form-control"><option value="">Unknown</option></select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Camera Model</label>
+                <select id="camera-model" class="form-control"><option>Unknown</option></select>
               </div>
             </div>
-
-            <div class="camera-url row">
-              <label class="col-md-1 control-label http margin-top-5">http://</label>
-              <div class="material col-md-4 group">
-                <input id="camera-url" class="form-control"/><span class="highlight"></span><span class="bar"></span>
-                <label>External IP/URL</label>
+          </div>
+          <div class="camera-url row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <span class="prepend prepend-3">http://</span>
+                <input id="camera-url" class="form-control" required/>
+                <span class="form-highlight"></span><span class="form-bar"></span>
+                <label class="float-label">External IP/URL</label>
                 <a class="help-font-size external-url">What is this?</a>
               </div>
-              <div class="material col-md-2 group">
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
                 <span class="prepend prepend-2">:</span>
-                <input id="camera-port" class="form-control"/><span class="highlight"></span><span class="bar"></span>
-                <label>Port</label>
+                <input id="camera-port" class="form-control" required/>
+                <span class="form-highlight"></span><span class="form-bar"></span>
+                <label class="float-label">Port</label>
                 <a class="help-font-size port">?</a>
               </div>
-              <div class="material col-md-5 group">
+            </div>
+            <div class="col-md-5">
+              <div class="form-group">
                 <span class="prepend prepend-2">/</span>
-                <input id="camera-snapshot-url" class="form-control"/><span class="highlight"></span><span class="bar"></span>
-                <label>Snapshot URL</label>
+                <input id="camera-snapshot-url" class="form-control" required/>
+                <span class="form-highlight"></span><span class="form-bar"></span>
+                <label class="float-label">Snapshot URL</label>
                 <a class="help-font-size snapshot-url">What is this?</a>
               </div>
             </div>
-
-            <div class="authentication col-md-offset-1 margin-top-20">
-              <div class="input-group">
-                <label><input id="required-authentication" type="checkbox" /> Requires Authentication</label>
-              </div>
-              <div id="authentication" class="row hide">
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <input id="camera-username" class="form-control" placeholder="Camera Username"/>
-                    <span class="help-font-size"><a class="help-font-size default-username">Use default:</a> <span id="default-username">root</span></span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <input id="camera-password" class="form-control" placeholder="Camera Username"/>
-                    <span class="help-font-size"><a class="help-font-size default-password">Use default:</a> <span id="default-password">pass</span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
-          <div class="col-md-4">
-            <div class="info-box help-texts">
-              <div class="info-header">Choose your vendor &amp; model</div>
-              <div class="info-text">
-                <p>If you dont know the Vendor and Model of the camera you can leave it as unknown.</p><p> If you know the Vendor but not the model - use the default option.</p> From the Vendor &amp; Model we will try to work out the Snapshot URL ending.
-              </div>
+          <div class="authentication">
+            <div class="form-group checkbox">
+              <input type="checkbox" id="required-authentication" />
+              <label for="required-authentication">Requires Authentication</label>
             </div>
-            <div class="info-box test-image hide">
-              <div class="test-img-settings">
-                <img id="testimg" src="" class="text-center">
-                <div class="snapshot-msg"></div>
-              </div>
-              <div class="test-snapshot">
-                <div id="test-snapshot" class="btn-test-snap">Check for Snapshot</div>
-                <div id="continue-step2" class="btn-test-snap">Continue &gt;</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div id="camera-info">
-
-          <table class="table">
-            <tr>
-              <td align="center">
+            <div id="authentication" class="row hide">
+              <div class="col-md-6">
                 <div class="input-group">
-                  <label class="grey control-label">Camera Name</label>
-                  <input id="camera-name" class="form-control"/>
+                  <input id="camera-username" class="form-control" placeholder="Camera Username"/>
+                  <span class="help-font-size"><a class="help-font-size default-username">Use default:</a> <span id="default-username">root</span></span>
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
+              </div>
+              <div class="col-md-6">
                 <div class="input-group">
-                  <label class="grey control-label">Camera ID</label>
-                  <input id="camera-id" class="form-control"/>
+                  <input id="camera-password" class="form-control" placeholder="Camera Password"/>
+                  <span class="help-font-size"><a class="help-font-size default-password">Use default:</a> pass</span>
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <div id="continue-step3" class="btn-test-snap margin-top-20">Continue &gt;</div>
-                <div id="message-camera-info" class="hide"></div>
-              </td>
-            </tr>
-          </table>
-
-        </div>
-
-        <div id="user-create">
-          <div class="col-md-12">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-            <table class="table">
-              <tr>
-                <td align="center">
-                  <div class="input-group col-md-3">
-                    <label class="grey control-label">Username</label>
-                    <input id="username" class="form-control"/>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td align="center">
-                  <div class="input-group col-md-3">
-                    <label class="grey control-label">Email</label>
-                    <input id="user-email" class="form-control"/>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td align="center">
-                  <div class="input-group col-md-3">
-                    <label class="grey control-label">Password</label>
-                    <input id="user-password" class="form-control" type="password"/>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td align="center">
-                  <div id="create-account" class="btn-test-snap margin-top-20">Create Account</div>
-                  <div id="message-user-create" class="hide"></div>
-                </td>
-              </tr>
-            </table>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="clear-f"></div>
+        <div class="col-md-4">
+          <div class="info-box help-texts">
+            <div class="info-header">Choose your vendor &amp; model</div>
+            <div class="info-text">
+              <p>If you dont know the Vendor and Model of the camera you can leave it as unknown.</p><p> If you know the Vendor but not the model - use the default option.</p> From the Vendor &amp; Model we will try to work out the Snapshot URL ending.
+            </div>
+          </div>
+          <div class="info-box test-image hide">
+            <div class="test-img-settings">
+              <img id="testimg" src="" class="text-center">
+              <div class="snapshot-msg"></div>
+            </div>
+            <div class="test-snapshot">
+              <div id="test-snapshot" class="btn">Check for Snapshot</div>
+              <div id="continue-step2" class="btn">Next Step: Name your Camera</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="camera-info">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="form-group">
+            <input id="camera-name" class="form-control" required/>
+            <span class="form-highlight"></span><span class="form-bar"></span>
+            <label class="float-label">Name your Camera...</label>
+          </div>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+          <div id="continue-step3" class="btn margin-top-20">Next Step: Create Account</div>
+          <div id="message-camera-info" class="hide"></div>
+        </div>
+      </div>
+      <div id="user-create">
+        <div class="col-md-12">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          <div class="col-md-4 col-md-offset-4">
+            <div class="form-group">
+              <input id="username" class="form-control" required/>
+              <span class="form-highlight"></span><span class="form-bar"></span>
+              <label class="float-label">Username</label>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-offset-4">
+            <div class="form-group">
+              <input id="user-email" class="form-control" required/>
+              <span class="form-highlight"></span><span class="form-bar"></span>
+              <label class="float-label">Email</label>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-offset-4">
+            <div class="form-group">
+              <input id="user-password" class="form-control" type="password" required/>
+              <span class="form-highlight"></span><span class="form-bar"></span>
+              <label class="float-label">Password</label>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-offset-4">
+            <div id="create-account" class="btn">Create Account</div>
+            <div id="message-user-create" class="hide"></div>
+          </div>
+        </div>
       </div>
       <div class="clear-f"></div>
     </div>
-
+    <div class="clear-f"></div>
+  </div>
 </div>
-<script type="text/javascript">
-  $(window, document, undefined).ready(function() {
-
-      $('input').blur(function() {
-      var $this = $(this);
-      if ($this.val())
-        $this.addClass('used');
-      else
-        $this.removeClass('used');
-    });
-  });
-</script>
 </body>
 </html>

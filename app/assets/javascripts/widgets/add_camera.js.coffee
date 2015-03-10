@@ -117,10 +117,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-url").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("This is where you will put the public URL or IP address of your camera. ")
+    $(".info-box .info-text").text("Put the public URL or IP address of your camera. You will need to have setup port forwarding for your camera.")
   $(".external-url").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("This is where you will put the public URL or IP address of your camera.")
+    $(".info-box .info-text").text("Put the public URL or IP address of your camera.")
 
   $("#camera-port").on 'keyup', (e) ->
     if validateInt($(this).val())
@@ -130,10 +130,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-port").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("The default external port is 80.")
+    $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
   $(".port").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("The default external port is 80.")
+    $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
 
   $("#camera-snapshot-url").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
@@ -212,7 +212,7 @@ testSnapshot = ->
     onSuccess = (result, status, jqXHR) ->
       if result.status is 'ok'
         $("#testimg").attr('src', result.data)
-        $(".snapshot-msg").html("Got snapshot")
+        $(".snapshot-msg").html("We got a snapshot!")
         $(".snapshot-msg").removeClass("msg-error").addClass("msg-success")
         $(".snapshot-msg").show()
         $("#test-snapshot").hide()
@@ -491,3 +491,67 @@ window.initializeAddCamera = ->
   $("#code").on "click", ->
     this.select();
   handleWindowResize()
+
+$(window, document, undefined).ready ->
+  wskCheckbox = do ->
+    wskCheckboxes = []
+    SPACE_KEY = 32
+
+    addEventHandler = (elem, eventType, handler) ->
+      if elem.addEventListener
+        elem.addEventListener eventType, handler, false
+      else if elem.attachEvent
+        elem.attachEvent 'on' + eventType, handler
+      return
+
+    clickHandler = (e) ->
+      e.stopPropagation()
+      if @className.indexOf('checked') < 0
+        @className += ' checked'
+      else
+        @className = 'chk-span'
+      return
+
+    keyHandler = (e) ->
+      e.stopPropagation()
+      if e.keyCode == SPACE_KEY
+        clickHandler.call this, e
+        # Also update the checkbox state.
+        cbox = document.getElementById(@parentNode.getAttribute('for'))
+        cbox.checked = !cbox.checked
+      return
+
+    clickHandlerLabel = (e) ->
+      id = @getAttribute('for')
+      i = wskCheckboxes.length
+      while i--
+        if wskCheckboxes[i].id == id
+          if wskCheckboxes[i].checkbox.className.indexOf('checked') < 0
+            wskCheckboxes[i].checkbox.className += ' checked'
+          else
+            wskCheckboxes[i].checkbox.className = 'chk-span'
+          break
+      return
+
+    findCheckBoxes = ->
+      labels = document.getElementsByTagName('label')
+      i = labels.length
+      while i--
+        posCheckbox = document.getElementById(labels[i].getAttribute('for'))
+        if posCheckbox != null and posCheckbox.type == 'checkbox'
+          text = labels[i].innerText
+          span = document.createElement('span')
+          span.className = 'chk-span'
+          span.tabIndex = i
+          labels[i].insertBefore span, labels[i].firstChild
+          addEventHandler span, 'click', clickHandler
+          addEventHandler span, 'keyup', keyHandler
+          addEventHandler labels[i], 'click', clickHandlerLabel
+          wskCheckboxes.push
+            'checkbox': span
+            'id': labels[i].getAttribute('for')
+      return
+
+    { init: findCheckBoxes }
+  wskCheckbox.init()
+  return

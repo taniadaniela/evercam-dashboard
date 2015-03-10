@@ -7,6 +7,7 @@ Dasboard_URL = 'https://dash.evercam.io'
 API_ID = ''
 API_Key = ''
 iframeWindow = undefined
+gotSnapshot = false
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -22,8 +23,13 @@ loadVendors = ->
 
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
+    $("#camera-vendor option").remove()
     for vendor in vendors
-      $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
+      if vendor.name.toLowerCase().indexOf('default') isnt -1
+        $("#camera-vendor").prepend("<option value='#{vendor.id}'>#{vendor.name}</option>")
+        $("#camera-vendor").prepend('<option selected="selected" value="">Unknown</option>');
+      else
+        $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
 
   settings =
     cache: false
@@ -59,10 +65,16 @@ loadVendorModels = (vendor_id) ->
 
     models = sortByKey(result.models, "name")
     for model in models
-      jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
-      if jpg_url is "unknown"
-        jpg_url = ""
-      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}'>#{model.name}</option>")
+      jpg_url = if model.defaults.snapshots and model.defaults.snapshots isnt "unknown" then model.defaults.snapshots.jpg else ''
+#      if jpg_url is "unknown"
+#        jpg_url = ""
+      if model.name.toLowerCase().indexOf('default') isnt -1
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' selected='selected' value='#{model.id}'>#{model.name}</option>")
+        if model.defaults.auth != null and model.defaults.auth != undefined
+          $("#default-username").text(model.defaults.auth.basic.username)
+          $("#default-password").text(model.defaults.auth.basic.username)
+      else
+        $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}'>#{model.name}</option>")
     if $("#camera-model").find(":selected").attr("jpg-val") isnt 'Unknown'
       $("#camera-snapshot-url").val $("#camera-model").find(":selected").attr("jpg-val")
       $("#camera-snapshot-url").removeClass("invalid").addClass("valid")
@@ -86,7 +98,6 @@ handleVendorModelEvents = ->
 
   $("#camera-model").on "change", ->
     snapshot_url = $(this).find(":selected").attr("jpg-val")
-    console.log snapshot_url
     if snapshot_url isnt 'Unknown'
       $("#camera-snapshot-url").val $(this).find(":selected").attr("jpg-val")
 
@@ -195,14 +206,18 @@ testSnapshot = ->
 
     onError = (jqXHR, status, error) ->
       $(".snapshot-msg").html(jqXHR.responseJSON.message)
+      $(".snapshot-msg").removeClass("msg-success").addClass("msg-error")
       $(".snapshot-msg").show()
 
     onSuccess = (result, status, jqXHR) ->
       if result.status is 'ok'
         $("#testimg").attr('src', result.data)
-        $(".snapshot-msg").hide()
+        $(".snapshot-msg").html("Got snapshot")
+        $(".snapshot-msg").removeClass("msg-error").addClass("msg-success")
+        $(".snapshot-msg").show()
         $("#test-snapshot").hide()
         $("#continue-step2").show()
+        gotSnapshot = true
 
     settings =
       cache: false
@@ -361,7 +376,7 @@ createCamera = (api_id, api_key) ->
     $("#message-user-create").addClass("hide")
 
   onSuccess = (result, status, jqXHR) ->
-    autoLogInDashboard()
+    parent.location.href = "#{Dasboard_URL}/v1/cameras?api_id=#{api_id}&api_key=#{api_key}"
 
   onDuplicateError = (xhr) ->
     switchTab("user-create", "camera-info")
@@ -418,6 +433,8 @@ clearForm = ->
 
 onClickTabs = ->
   $(".nav-steps li").on 'click', ->
+    if !gotSnapshot
+      return
     previousTab = $(".nav-steps li.active").attr("href")
     $(".nav-steps li").removeClass('active')
     currentTab = $(this).attr("href")

@@ -3,7 +3,7 @@ onCameraDeleteError = (jqXHR, status, error) ->
 
 onCameraDeleteSuccess = (data, status, jqXHR) ->
   if data.success
-    Notification.show "Camera deleted successfully."
+    Notification.show "Camera #{this} successfully."
     window.location = '/'
   else
     Notification.show data.message
@@ -23,6 +23,7 @@ handleCameraDelete = ->
       data: data
       error: onCameraDeleteError
       success: onCameraDeleteSuccess
+      context: 'deleted'
       url: "/cameras/#{$("#id").val()}"
       type: 'DELETE'
     $.ajax(settings)
@@ -37,6 +38,7 @@ handleCameraDelete = ->
       data: data
       error: onCameraDeleteError
       success: onCameraDeleteSuccess
+      context: 'removed'
       url: "/cameras/#{$("#id").val()}"
       type: 'DELETE'
     $.ajax(settings)

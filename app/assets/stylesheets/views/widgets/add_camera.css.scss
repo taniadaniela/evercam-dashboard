@@ -184,16 +184,23 @@ input.form-control{
   }
 }
 .snapshot-msg{
-  color: #e74c3c;
   margin-top: 15px;
   margin-bottom: 2px;
   text-align: center;
+  padding: 5px 0;
+  position: relative;
+  top: 70px;
 }
 .msg-error{
-  background-color: #ff0000;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  color: #a94442;
 }
 .msg-success{
-  background-color: #008000;
+  background-color: #d9edf7;
+  border: 1px solid #428bca;
+  color: #31708f;
+  top: -100px;
 }
 .form-center{
   clear: both;

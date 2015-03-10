@@ -220,7 +220,7 @@
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="/assets/evercam-e.svg"
+                      data-image="<%= asset_path('evercam-e.svg') -%>"
                       data-email="<%= current_user.email -%>"
                       data-currency="eur"
                       data-name="7 Days Recording Monthly"
@@ -240,7 +240,7 @@
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="/assets/evercam-e.svg"
+                      data-image="<%= asset_path('evercam-e.svg') -%>"
                       data-email="<%= current_user.email -%>"
                       data-currency="eur"
                       data-name="Snapmail Monthly"

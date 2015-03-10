@@ -106,10 +106,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-url").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("Please valid camera public IP or dydns domain.")
+    $(".info-box .info-text").text("This is where you will put the public URL or IP address of your camera. ")
   $(".external-url").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("Please valid camera public IP or dydns domain.")
+    $(".info-box .info-text").text("This is where you will put the public URL or IP address of your camera.")
 
   $("#camera-port").on 'keyup', (e) ->
     if validateInt($(this).val())
@@ -119,20 +119,20 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-port").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("Default external port is 80.")
+    $(".info-box .info-text").text("The default external port is 80.")
   $(".port").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("Default external port is 80.")
+    $(".info-box .info-text").text("The default external port is 80.")
 
   $("#camera-snapshot-url").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
     validAllInformation()
   $("#camera-snapshot-url").on 'focus', (e) ->
     $(".info-box .info-header").text("SNAPSHOT URL")
-    $(".info-box .info-text").text("Please choose camera Vendor/Model to auto detect camera snapshot URL. If snapshot URL not found after select Vendor/Model you enter URL manual.")
+    $(".info-box .info-text").text("If you know your Camera Vendor & Model we can work this out for you. You can also enter it manually for your camera.")
   $(".snapshot-url").on 'click', ->
     $(".info-box .info-header").text("SNAPSHOT URL")
-    $(".info-box .info-text").text("Please choose camera Vendor/Model to auto detect camera snapshot URL. If snapshot URL not found after select Vendor/Model you enter URL manual.")
+    $(".info-box .info-text").text("If you know your Camera Vendor & Model we can work this out for you. You can also enter it manually for your camera.")
 
   $("#camera-name").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")

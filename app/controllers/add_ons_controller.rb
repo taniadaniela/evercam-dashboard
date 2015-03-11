@@ -1,0 +1,4 @@
+class AddOnsController < ApplicationController
+
+
+end

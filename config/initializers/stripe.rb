@@ -8,7 +8,6 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 # Stripe Events Handler
 StripeEvent.configure do |events|
   events.subscribe 'invoice.created' do |event|
-    # Rails.logger.info("Logging the #{event.id}")
     invoice = StripeInvoice.new(event.id)
     invoice.process_invoice_items
   end

@@ -30,7 +30,7 @@ loadVendors = ->
     for vendor in vendors
       if vendor.name.toLowerCase().indexOf('default') isnt -1
         $("#camera-vendor").prepend("<option value='#{vendor.id}'>#{vendor.name}</option>")
-        $("#camera-vendor").prepend('<option selected="selected" value="">Unknown</option>');
+        $("#camera-vendor").prepend('<option selected="selected" value="">Unknown / not specified</option>');
       else
         $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
 
@@ -454,7 +454,7 @@ clearForm = ->
   $("#camera-snapshot-url").removeClass('valid').removeClass("invalid")
   $("#camera-vendor").val('')
   $("#camera-model option").remove()
-  $("#camera-model").append('<option value="">Unknown</option>');
+  $("#camera-model").append('<option value="">Unknown / Not specified</option>');
   switchTab("user-create", "camera-details")
   $("#required-authentication").removeAttr("checked")
   $("#authentication").addClass("hide")

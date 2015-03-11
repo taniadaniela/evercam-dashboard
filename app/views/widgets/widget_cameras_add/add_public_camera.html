@@ -36,11 +36,13 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">Camera Vendor</label>
-                <select id="camera-vendor" class="form-control"><option value="">Unknown</option></select>
+                <div class="dropdown"><select id="camera-vendor" class="form-control"><option value="">Unknown / not specified</option></select></div>
               </div>
               <div class="form-group">
                 <label class="control-label">Camera Model</label>
-                <select id="camera-model" class="form-control"><option>Unknown</option></select>
+                <div class="dropdown">
+                  <select id="camera-model" class="form-control"><option>Unknown / not specified</option></select>
+                </div>
               </div>
             </div>
           </div>
@@ -107,7 +109,7 @@
               <div class="snapshot-msg"></div>
             </div>
             <div class="test-snapshot">
-              <a id="test-snapshot" class="btn ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Check for Snapshot</span></a>
+              <a id="test-snapshot" class="btn ladda-button" role="button" data-style="expand-right"><span class="ladda-label">Check for Snapshot</span></a>
               <div id="continue-step2" class="btn">Next Step: Name your Camera</div>
             </div>
           </div>

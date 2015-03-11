@@ -262,18 +262,35 @@ input.form-control{
 .left {
   padding-left: 10px;
 }
+
 select {
   min-width: 210px;
+  appearance: none;
+  -moz-appearance: none;
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   -moz-appearance: none;
   text-indent: 0.01px;
+  background: transparent;
   text-overflow: '';
   border-top: none !important;
   border-left: none !important;
   border-right: none !important;
   border-radius: 0px !important;
   border-bottom: 2px solid #aaaaaa !important;
+}
+.dropdown:after {
+  background: transparent;
+  color: #a0a0a0;
+  content: "\f078";
+  font-family: FontAwesome;
+  font-size: 12px;
+  padding: 8px 0px;
+  position: absolute;
+  right: -11px;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
 }
 .form-group {
   position: relative;

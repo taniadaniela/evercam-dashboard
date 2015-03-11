@@ -116,3 +116,11 @@ span.input-group-addon .custom {
   margin-bottom: 30px;
   padding-bottom: 20px;
 }
+.border-red{
+  border: 1px solid #ff0000 !important;
+}
+.error-msg-color{
+  font-size: 12px;
+  color: #a94442;
+  display: none;
+}

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: 028d78cff30fd787704f3a7dd63a467b50f615bf
+  revision: d88804f806f8aac79313197228a93208c16b4b36
   branch: naming
   specs:
     evercam (0.3.pre.alpha2)

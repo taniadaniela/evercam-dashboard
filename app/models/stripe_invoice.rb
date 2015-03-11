@@ -7,64 +7,78 @@ class StripeInvoice
   end
 
   def process_invoice_items
-    if valid_event_data? and user_has_add_ons? and valid_user_billing?
-      @event = valid_event_data?
-      @user_add_ons = valid_user_billing?
-      add_snapchat_invoice_items if number_of_snapchats > 0
-      add_timelapse_invoice_items if number_of_timelapses? > 0
-    end  
+    if valid_event_data? and user_billing?
+      if user_has_snapmails?
+        add_snapmail_invoice_items
+      end
+      if user_has_timelapses?
+        add_timelapse_invoice_items
+      end
+    end 
   end
 
   private
 
   def valid_event_data?
-    Stripe::Event.retrieve(@event_id)
+    @event = Stripe::Event.retrieve(@event_id)
   rescue Stripe::InvalidRequestError => e
     Rails.logger.info e
     return false
   end
 
-  def user_has_add_ons?
-    number_of_snapchats > 0 or number_of_timelapses? > 0
-  end
-
-  def valid_user_billing?
-    Billing.where(:user_id => user_id).first
-  rescue
-    return false
+  def user_billing?
+    @billing = Billing.where(:user_id => user_id).first
+    return @billing.nil? ? false : @billing
   end
 
   def user_id
-    User.find(:billing_id => stripe_customer_id)
+    User.find(:billing_id => stripe_customer_id).id 
+    rescue
+    nil     
   end
 
   def stripe_customer_id
     @event.data.object.customer
+  rescue
+    nil
   end
 
-  def number_of_snapchats
-    @snapchats = @user_add_ons.snapchats.present? ? @user_add_ons.snapchats : 0
+  def user_has_snapmails?
+    number_of_snapmails > 0
+  end
+
+  def user_has_timelapses?
+   number_of_timelapses > 0
+  end
+
+  def number_of_snapmails
+    @snapmails = @billing.snapmail.present? ? @billing.snapmail : 0
   end
 
   def number_of_timelapses
-    @timelapses = @user_add_ons.timelapses.present? ? @user_add_ons.timelapses : 0
+    @timelapses = @billing.timelapse.present? ? @billing.timelapse : 0
   end
 
-  def add_snapchat_invoice_items
-    add_invoice_item(AddOn.snapchat_price, 'Snapchat', number_of_snapchats)
+  def add_snapmail_invoice_items
+    # add_invoice_item(AddOn.snapmail_price, 'Snapmail', @snapmails)
+    add_invoice_item(1000, 'Snapmail', @snapmails)
   end
 
   def add_timelapse_invoice_items
-    add_invoice_item(AddOn.timelapse_price, 'Timelapse', number_of_timelapse)
+    # add_invoice_item(AddOn.timelapse_price, 'Timelapse', @timelapses)
+    add_invoice_item(3000, 'Timelapse', @timelapses)
   end
 
   def add_invoice_item(add_on_amount, add_on_description, add_on_quantity)
+    Rails.logger.info("Logging: About to invoice Stripe")
     Stripe::InvoiceItem.create(
       :customer => stripe_customer_id,
-      :amount => add_on_amount
+      :amount => add_on_amount * add_on_quantity,
       :currency => "eur",
-      :description => "#{add_on_description} x #{add_on_quantity}")
+      :description => "#{add_on_description} x #{add_on_quantity}"
+      )
+    Rails.logger.info("Logging: Invoiced Stripe")
   rescue Stripe::InvalidRequestError => e
-    Rails.logger.info e
+    Rails.logger.info("Logging: Failed to invoice Stripe#{e}")
   end 
 end

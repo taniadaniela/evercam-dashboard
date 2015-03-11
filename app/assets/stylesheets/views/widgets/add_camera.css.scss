@@ -31,9 +31,7 @@ body{
     min-width: 265px;
   }
 }
-.authentication {
-  margin-left: 40px;
-}
+
 .control-label {
   margin-top: 0px;
 }
@@ -59,6 +57,20 @@ body{
   line-height: 18px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+@media (max-width: 991px) {
+  .nav-steps li{
+    min-width: 32%;
+    font-size: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .nav-steps{
+    height: 42px;
+  }
+  .nav-steps li{
+    height: 47px;
+  }
 }
 .nav-steps li.active{
   border-bottom: 5px solid #428bca;
@@ -233,6 +245,7 @@ input.form-control{
   }
 }
 .authentication {
+  margin-left: 40px;
   .input-group label {
     cursor: pointer;
     -webkit-touch-callout: none;
@@ -245,6 +258,11 @@ input.form-control{
   }
   input {
     margin-right: 5px;
+  }
+}
+@media (max-width: 480px) {
+  .authentication {
+    margin-left: 10px;
   }
 }
 #authentication {
@@ -532,3 +550,8 @@ label {
   box-shadow: none;
 }
 
+@media (max-width: 480px) {
+  .mobile-hide {
+    display: none;
+  }
+}

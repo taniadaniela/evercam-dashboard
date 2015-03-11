@@ -55,4 +55,8 @@ class ApplicationController < ActionController::Base
     uri.query = params.to_param
     uri.to_s
   end
+
+  def is_stripe_customer?
+    current_user.billing_id.present?
+  end
 end

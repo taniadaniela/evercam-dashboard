@@ -25,6 +25,9 @@
               <li>
                 <a data-toggle="tab" href="#billing"><i class="icon icon-credit-card"></i>Billing</a>
               </li>
+              <li>
+                <a data-toggle="tab" href="#subscriptions"><i class="icon icon-credit-card"></i>Subscriptions</a>
+              </li>
 
             </ul>
           </div>
@@ -38,6 +41,9 @@
             </div>
             <div id="billing" class="tab-pane">
               <%= render partial: "users/settings/billing_tab" %>
+            </div>
+            <div id="subscriptions" class="tab-pane">
+              <%= render partial: "users/settings/subscriptions_tab" %>
             </div>
           </div>
         </div>

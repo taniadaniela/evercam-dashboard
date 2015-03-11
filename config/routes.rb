@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :credit_cards, only: [:create, :destroy]
   resources :subscriptions, only: [:destroy]
   resources :line_items, only: [:index, :create, :destroy]
+  resources :add_ons, only: [:index]
 
   mount StripeEvent::Engine => '/stripe-events'
 

@@ -1,6 +1,8 @@
 #= require jquery
 #= require jquery_ujs
 #= require bootstrap
+#= require ladda/spin.min.js
+#= require ladda/ladda.min.js
 
 Evercam_API_URL = 'https://api.evercam.io/v1/'
 Dasboard_URL = 'https://dash.evercam.io'
@@ -8,6 +10,7 @@ API_ID = ''
 API_Key = ''
 iframeWindow = undefined
 gotSnapshot = false
+loader = null
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -65,18 +68,18 @@ loadVendorModels = (vendor_id) ->
 
     models = sortByKey(result.models, "name")
     for model in models
-      jpg_url = if model.defaults.snapshots and model.defaults.snapshots isnt "unknown" then model.defaults.snapshots.jpg else ''
-#      if jpg_url is "unknown"
-#        jpg_url = ""
+      jpg_url = if model.defaults.snapshots and model.defaults.snapshots.jpg.toLowerCase() isnt "unknown" then model.defaults.snapshots.jpg else ''
+      default_username = if model.defaults.auth != null and model.defaults.auth != undefined then model.defaults.auth.basic.username else ''
+      default_password = if model.defaults.auth != null and model.defaults.auth != undefined then model.defaults.auth.basic.password else ''
       if model.name.toLowerCase().indexOf('default') isnt -1
-        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' selected='selected' value='#{model.id}'>#{model.name}</option>")
-        if model.defaults.auth != null and model.defaults.auth != undefined
-          $("#default-username").text(model.defaults.auth.basic.username)
-          $("#default-password").text(model.defaults.auth.basic.username)
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' selected='selected' value='#{model.id}'>#{model.name}</option>")
       else
-        $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}'>#{model.name}</option>")
+        $("#camera-model").append("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' value='#{model.id}'>#{model.name}</option>")
     if $("#camera-model").find(":selected").attr("jpg-val") isnt 'Unknown'
-      $("#camera-snapshot-url").val $("#camera-model").find(":selected").attr("jpg-val")
+      selected_option = $("#camera-model").find(":selected")
+      $("#camera-snapshot-url").val selected_option.attr("jpg-val")
+      $("#default-username").text(selected_option.attr("username-val"))
+      $("#default-password").text(selected_option.attr("password-val"))
       $("#camera-snapshot-url").removeClass("invalid").addClass("valid")
 
   settings =
@@ -97,7 +100,10 @@ handleVendorModelEvents = ->
     loadVendorModels($(this).val())
 
   $("#camera-model").on "change", ->
-    snapshot_url = $(this).find(":selected").attr("jpg-val")
+    selected_option = $(this).find(":selected")
+    snapshot_url = selected_option.attr("jpg-val")
+    $("#default-username").text(selected_option.attr("username-val"))
+    $("#default-password").text(selected_option.attr("password-val"))
     if snapshot_url isnt 'Unknown'
       $("#camera-snapshot-url").val $(this).find(":selected").attr("jpg-val")
 
@@ -136,8 +142,12 @@ handleInputEvents = ->
     $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
 
   $("#camera-snapshot-url").on 'keyup', (e) ->
-    $(this).removeClass("invalid").addClass("valid")
+    if $(this).val() is ''
+      $(this).removeClass("valid").addClass("invalid")
+    else
+      $(this).removeClass("invalid").addClass("valid")
     validAllInformation()
+
   $("#camera-snapshot-url").on 'focus', (e) ->
     $(".info-box .info-header").text("SNAPSHOT URL")
     $(".info-box .info-text").text("If you know your Camera Vendor & Model we can work this out for you. You can also enter it manually for your camera.")
@@ -160,9 +170,9 @@ handleInputEvents = ->
   $("#username").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
   $(".default-username").on 'click', ->
-    $("#camera-username").val('root')
+    $("#camera-username").val($("#default-username").text())
   $(".default-password").on 'click', ->
-    $("#camera-password").val('pass')
+    $("#camera-password").val($("#default-password").text())
 
 validate_hostname = (str) ->
   ValidIpAddressRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
@@ -197,6 +207,7 @@ validAllInformation = ->
 
 testSnapshot = ->
   $("#test-snapshot").on 'click', ->
+    initLadda(this)
     port = $("#camera-port").val() unless $("#camera-port").val() is ''
     data = {}
     data.external_url = "http://#{$('#camera-url').val()}:#{port}"
@@ -208,6 +219,8 @@ testSnapshot = ->
       $(".snapshot-msg").html(jqXHR.responseJSON.message)
       $(".snapshot-msg").removeClass("msg-success").addClass("msg-error")
       $(".snapshot-msg").show()
+      if loader isnt null
+        loader.stop()
 
     onSuccess = (result, status, jqXHR) ->
       if result.status is 'ok'
@@ -218,6 +231,8 @@ testSnapshot = ->
         $("#test-snapshot").hide()
         $("#continue-step2").show()
         gotSnapshot = true
+        if loader isnt null
+          loader.stop()
 
     settings =
       cache: false
@@ -288,6 +303,18 @@ autoLogInDashboard = () ->
 
   jQuery.ajax(settings)
 
+initLadda = (control_id) ->
+  loader = Ladda.create(control_id)
+  loader.start()
+  progress = 0
+  interval = setInterval(->
+    progress = Math.min(progress + 0.025, 1)
+    loader.setProgress(progress)
+    if (progress == 1)
+      loader.stop()
+      clearInterval(interval)
+  , 200)
+
 createUserAccount = ->
   $("#create-account").on 'click', ->
     if $("#username").val() is ''
@@ -302,6 +329,7 @@ createUserAccount = ->
     if !hasCameraInfo()
       return
 
+    initLadda(this)
     if API_ID isnt '' && API_Key isnt ''
       createCamera(API_ID, API_Key)
       return
@@ -317,6 +345,8 @@ createUserAccount = ->
     onError = (jqXHR, status, error) ->
       $("#message-user-create").text(jqXHR.responseJSON.message)
       $("#message-user-create").removeClass("hide")
+      if loader isnt null
+        loader.stop()
 
     onSuccess = (result, status, jqXHR) ->
       getAPICredentials()
@@ -338,6 +368,8 @@ getAPICredentials = ->
   data.password = $("#user-password").val()
 
   onError = (jqXHR, status, error) ->
+    if loader isnt null
+      loader.stop()
     false
 
   onSuccess = (result, status, jqXHR) ->
@@ -359,7 +391,6 @@ getAPICredentials = ->
 
 createCamera = (api_id, api_key) ->
   data = {}
-  data.id = $("#camera-id").val()
   data.name = $("#camera-name").val()
   data.vendor = $("#camera-vendor").val()
   data.model = $('#camera-model').val()
@@ -374,6 +405,9 @@ createCamera = (api_id, api_key) ->
     $("#message-camera-info").text(jqXHR.responseJSON.message)
     $("#message-camera-info").removeClass("hide")
     $("#message-user-create").addClass("hide")
+    switchTab("user-create", "camera-info")
+    if loader isnt null
+      loader.stop()
 
   onSuccess = (result, status, jqXHR) ->
     parent.location.href = "#{Dasboard_URL}/v1/cameras?api_id=#{api_id}&api_key=#{api_key}"
@@ -383,6 +417,8 @@ createCamera = (api_id, api_key) ->
     $("#message-camera-info").text(xhr.responseText.message)
     $("#message-camera-info").removeClass("hide")
     $("#message-user-create").addClass("hide")
+    if loader isnt null
+      loader.stop()
 
   settings =
     cache: false
@@ -390,7 +426,7 @@ createCamera = (api_id, api_key) ->
     dataType: 'json'
     error: onError
     success: onSuccess
-    statusCode: {409: onDuplicateError },
+    statusCode: {409: onDuplicateError, 400: onDuplicateError },
     contentType: "application/x-www-form-urlencoded"
     type: 'POST'
     url: "#{Evercam_API_URL}cameras?api_id=#{api_id}&api_key=#{api_key}"

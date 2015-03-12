@@ -1,6 +1,5 @@
 <section>
-  <h3>Current Plan</h3>
-  <% @subscriptions.each do |subscription| %>
-    <p>You are on the <%= subscription.plan.name %> plan.</p>
-    <% end %>
+  <p>Current Plan</p>
+  <p>
+    <%= @current_plan.plan.name %></p>
 </section>

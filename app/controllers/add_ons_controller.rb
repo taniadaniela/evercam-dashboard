@@ -20,5 +20,10 @@ class AddOnsController < ApplicationController
     
   end
 
+  private
 
+  def user_add_ons?
+    @user_add_ons = Billing.where(:user_id => current_user.id)
+    return @user_add_ons.nil? ? false : @user_add_ons
+  end
 end 

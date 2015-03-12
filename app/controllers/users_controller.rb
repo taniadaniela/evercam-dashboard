@@ -2,10 +2,11 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :owns_data!
   before_action :retrieve_stripe_customer
-  before_action :user_add_ons?
+  before_filter :retrieve_stripe_subscriptions
+  before_filter :retrieve_snapmails
+  before_filter :retrieve_timelapses
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
-  skip_before_action :user_add_ons?, only: [:new, :create]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
   layout "bare-bones", except: [:settings]
@@ -218,17 +219,12 @@ class UsersController < ApplicationController
     flash[:field_errors] = field_errors
   end
 
-  def retrieve_stripe_customer
-    if is_stripe_customer?
-      @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
-    else
-      return false
-    end
-  end
-
-  def user_add_ons?
-    @user_add_ons = Billing.where(:user_id => current_user.id)
-    return @user_add_ons.nil? ? false : @user_add_ons
-  end
+  # def retrieve_stripe_customer
+  #   if is_stripe_customer?
+  #     @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
+  #   else
+  #     return false
+  #   end
+  # end
 
 end

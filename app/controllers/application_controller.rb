@@ -56,7 +56,41 @@ class ApplicationController < ActionController::Base
     uri.to_s
   end
 
+  # Added before_action to decouple @cameras from users controller
+  def ensure_cameras_loaded
+    @cameras = load_user_cameras(true, false)
+  end
+
   def is_stripe_customer?
     current_user.billing_id.present?
+  end
+  helper_method :is_stripe_customer
+
+  def retrieve_stripe_subscriptions
+    logger.info("Logging subss")
+    if is_stripe_customer?
+      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+    end
+  end
+
+  # This method should be amended once a user can have only one plan
+  def retrieve_current_plan
+    @current_plan = @subscriptions.first
+  end
+
+  def retrieve_snapmails
+    @add_ons ||= retrieve_add_ons
+    Rails.logger.info("Logging #{@add_ons}")
+    @snapmails = @add_ons.snapmail.present? ? @add_ons.snapmail : 0
+  end
+
+  def retrieve_timelapses
+    @add_ons ||= retrieve_add_ons
+    @timelapses = @add_ons.timelapse.present? ? @add_ons.timelapse : 0
+  end
+
+  def retrieve_add_ons
+    add_ons = Billing.where(:user_id => current_user.id).first
+    return add_ons.nil? ? false : add_ons
   end
 end

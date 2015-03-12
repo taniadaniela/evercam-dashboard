@@ -23,6 +23,7 @@
 
 @import "base/fonts";
 @import "base/glyphicons";
+@import "base/_base-variables.css.scss";
 
 @import "vendor-overrides/metronic_component_child";
 @import "vendor-overrides/metronic_layout_child";
@@ -50,4 +51,6 @@
 @import "views/users/sessions";
 @import "views/users/password_reset";
 @import "views/api_docs";
+
+@import "subscriptions";
 

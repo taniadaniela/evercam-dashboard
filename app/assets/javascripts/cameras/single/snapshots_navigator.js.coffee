@@ -460,12 +460,15 @@ loadImage = (timestamp) ->
 
 SetPlayFromImage = (timestamp) ->
   i = 0
-  while i < snapshotInfos.length
-    if snapshotInfos[i].created_at >= timestamp
+  for snapshot in snapshotInfos
+    if snapshot.created_at >= timestamp
       currentFrameNumber = i + 1
       snapshotInfoIdx = i
-      return snapshotInfos[i].created_at
+      return snapshot.created_at
     i++
+  currentFrameNumber = snapshotInfos.length
+  snapshotInfoIdx = snapshotInfos.length - 1
+  return snapshotInfos[snapshotInfoIdx].created_at
 
 GetUTCDate = (date) ->
   UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
@@ -774,4 +777,3 @@ window.initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
-  handleTabOpen()

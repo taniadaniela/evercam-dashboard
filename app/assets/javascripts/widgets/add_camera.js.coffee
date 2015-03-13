@@ -49,9 +49,10 @@ loadVendors = ->
 
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
-  $("#camera-model").append('<option value="">Loading...</option>');
   if vendor_id is ""
+    $("#camera-model").append('<option value="">Unknown / not specified</option>');
     return
+  $("#camera-model").append('<option value="">Loading...</option>');
 
   data = {}
   data.vendor_id = vendor_id
@@ -392,8 +393,8 @@ getAPICredentials = ->
 createCamera = (api_id, api_key) ->
   data = {}
   data.name = $("#camera-name").val()
-  data.vendor = $("#camera-vendor").val()
-  data.model = $('#camera-model').val()
+  data.vendor = $("#camera-vendor").val() unless $("#camera-vendor").val() is ''
+  data.model = $('#camera-model').val() unless $("#camera-model").val() is ''
   data.is_public = false
   data.cam_username = $("#camera-username").val() unless $("#camera-username").val() is ''
   data.cam_password = $("#camera-password").val() unless $("#camera-password").val() is ''

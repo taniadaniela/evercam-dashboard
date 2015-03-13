@@ -55,10 +55,10 @@ class CamerasController < ApplicationController
 
       api = get_evercam_api
       api.create_camera(
-        params['camera-id'],
         params['camera-name'],
         false,
-        body
+        body,
+        params['camera-id']
       )
       redirect_to cameras_single_path(params['camera-id'])
     rescue => error

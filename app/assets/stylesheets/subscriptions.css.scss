@@ -1,9 +1,14 @@
-// Place all the styles related to the Subscriptions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-.plans {
-  .plans-comparison {
-    background-color: $light-blue;
+.subscriptions {
+  .plans {
+    .plans-comparison {
+      background-color: $light-blue;
+    }
+  }
+  .basket {
+    li {
+      display: inline;
+      list-style-type: none;
+      padding-right: 20px;
+    }
   }
 }

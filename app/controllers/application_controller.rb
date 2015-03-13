@@ -73,9 +73,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # This method should be amended once a user can have only one plan
+  # Delete once replaced
   def retrieve_current_plan
     @current_plan = @subscriptions.first
+  end
+
+  def ensure_plan_set
+    @current_plan ||= set_user_plan
+  end
+
+  def set_user_plan
+    if is_stripe_customer?
+      @current_plan_id = Stripe::Customer.retrieve(current_user.billing_id).subscription.first
+    else
+     @current_plan_id = "evercam_free"
+   end
   end
 
   def retrieve_snapmails

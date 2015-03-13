@@ -1,15 +1,34 @@
-<div class="page-content-wrapper">
+<div class="subscriptions page-content-wrapper">
   <div class="page-content">
-    <%= render partial: "users/section_header", locals: {section_header_title: "Subscriptions"} %>
+    <%= render partial: "users/section_header", locals: { section_header_title: "Subscriptions" } %>
     <div class="portlet-body">
-      <div id="subscription">
+      <div class="plans">
         <div class="row">
           <div class="col-md-2">
+            <h3>Plans</h3>
             <%= render "current_plan" %>
-            <%= render "current_add_ons" %>
           </div>
           <div class="col-md-10">
             <%= render "plans_comparison" %>
+            <%= render "basket_items" %>
+            <%= render "basket_subtotal" %>
+          </div>
+        </div>
+      </div>
+      <div class="add-ons">
+        <div class="row">
+          <div class="col-md-2">
+            <h3>Add-ons</h3>
+            <%= render "current_add_ons" %>
+          </div>
+          <div class="col-md-10">
+            <%= render "add_ons_select" %>
+            <%= render "basket_items" %>
+            <%= render "basket_subtotal" %>
+            <%= render "basket_total" %>
+            <section>
+              <%= button_to "Checkout", "google.com" %>
+            </section>
           </div>
         </div>
       </div>

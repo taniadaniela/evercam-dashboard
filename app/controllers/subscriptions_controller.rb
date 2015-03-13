@@ -14,6 +14,12 @@ class SubscriptionsController < ApplicationController
   def index
 
   end
+
+  def new
+    # @selected_plan = params
+    render layout: false
+  end
+
   def create
     stripe_customer = retrieve_stripe_customer
     stripe_customer.subscription.create(:plan => params[:plan_id])
@@ -31,7 +37,4 @@ class SubscriptionsController < ApplicationController
     flash[:message] = "You have successfuly deleted your #{params[:plan_name]} subscription."
     redirect_to user_path(current_user.username)
   end
-
-
-  
 end

@@ -1,12 +1,16 @@
 #= require jquery
 #= require jquery_ujs
 #= require bootstrap
+#= require ladda/spin.min.js
+#= require ladda/ladda.min.js
 
 Evercam_API_URL = 'https://api.evercam.io/v1/'
 Dasboard_URL = 'https://dash.evercam.io'
 API_ID = ''
 API_Key = ''
 iframeWindow = undefined
+gotSnapshot = false
+loader = null
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -22,8 +26,13 @@ loadVendors = ->
 
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
+    $("#camera-vendor option").remove()
     for vendor in vendors
-      $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
+      if vendor.name.toLowerCase().indexOf('default') isnt -1
+        $("#camera-vendor").prepend("<option value='#{vendor.id}'>#{vendor.name}</option>")
+        $("#camera-vendor").prepend('<option selected="selected" value="">Unknown / not specified</option>');
+      else
+        $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
 
   settings =
     cache: false
@@ -59,12 +68,18 @@ loadVendorModels = (vendor_id) ->
 
     models = sortByKey(result.models, "name")
     for model in models
-      jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
-      if jpg_url is "unknown"
-        jpg_url = ""
-      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}'>#{model.name}</option>")
+      jpg_url = if model.defaults.snapshots and model.defaults.snapshots.jpg.toLowerCase() isnt "unknown" then model.defaults.snapshots.jpg else ''
+      default_username = if model.defaults.auth != null and model.defaults.auth != undefined then model.defaults.auth.basic.username else ''
+      default_password = if model.defaults.auth != null and model.defaults.auth != undefined then model.defaults.auth.basic.password else ''
+      if model.name.toLowerCase().indexOf('default') isnt -1
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' selected='selected' value='#{model.id}'>#{model.name}</option>")
+      else
+        $("#camera-model").append("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' value='#{model.id}'>#{model.name}</option>")
     if $("#camera-model").find(":selected").attr("jpg-val") isnt 'Unknown'
-      $("#camera-snapshot-url").val $("#camera-model").find(":selected").attr("jpg-val")
+      selected_option = $("#camera-model").find(":selected")
+      $("#camera-snapshot-url").val selected_option.attr("jpg-val")
+      $("#default-username").text(selected_option.attr("username-val"))
+      $("#default-password").text(selected_option.attr("password-val"))
       $("#camera-snapshot-url").removeClass("invalid").addClass("valid")
 
   settings =
@@ -85,8 +100,10 @@ handleVendorModelEvents = ->
     loadVendorModels($(this).val())
 
   $("#camera-model").on "change", ->
-    snapshot_url = $(this).find(":selected").attr("jpg-val")
-    console.log snapshot_url
+    selected_option = $(this).find(":selected")
+    snapshot_url = selected_option.attr("jpg-val")
+    $("#default-username").text(selected_option.attr("username-val"))
+    $("#default-password").text(selected_option.attr("password-val"))
     if snapshot_url isnt 'Unknown'
       $("#camera-snapshot-url").val $(this).find(":selected").attr("jpg-val")
 
@@ -106,10 +123,10 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-url").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("Please valid camera public IP or dydns domain.")
+    $(".info-box .info-text").text("Put the public URL or IP address of your camera. You will need to have setup port forwarding for your camera.")
   $(".external-url").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL IP / URL")
-    $(".info-box .info-text").text("Please valid camera public IP or dydns domain.")
+    $(".info-box .info-text").text("Put the public URL or IP address of your camera.")
 
   $("#camera-port").on 'keyup', (e) ->
     if validateInt($(this).val())
@@ -119,20 +136,24 @@ handleInputEvents = ->
     validAllInformation()
   $("#camera-port").on 'focus', (e) ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("Default external port is 80.")
+    $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
   $(".port").on 'click', ->
     $(".info-box .info-header").text("EXTERNAL PORT")
-    $(".info-box .info-text").text("Default external port is 80.")
+    $(".info-box .info-text").text("The port should be a 2-5 digit number. The default external port is 80.")
 
   $("#camera-snapshot-url").on 'keyup', (e) ->
-    $(this).removeClass("invalid").addClass("valid")
+    if $(this).val() is ''
+      $(this).removeClass("valid").addClass("invalid")
+    else
+      $(this).removeClass("invalid").addClass("valid")
     validAllInformation()
+
   $("#camera-snapshot-url").on 'focus', (e) ->
     $(".info-box .info-header").text("SNAPSHOT URL")
-    $(".info-box .info-text").text("Please choose camera Vendor/Model to auto detect camera snapshot URL. If snapshot URL not found after select Vendor/Model you enter URL manual.")
+    $(".info-box .info-text").text("If you know your Camera Vendor & Model we can work this out for you. You can also enter it manually for your camera.")
   $(".snapshot-url").on 'click', ->
     $(".info-box .info-header").text("SNAPSHOT URL")
-    $(".info-box .info-text").text("Please choose camera Vendor/Model to auto detect camera snapshot URL. If snapshot URL not found after select Vendor/Model you enter URL manual.")
+    $(".info-box .info-text").text("If you know your Camera Vendor & Model we can work this out for you. You can also enter it manually for your camera.")
 
   $("#camera-name").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
@@ -149,9 +170,9 @@ handleInputEvents = ->
   $("#username").on 'keyup', (e) ->
     $(this).removeClass("invalid").addClass("valid")
   $(".default-username").on 'click', ->
-    $("#camera-username").val('root')
+    $("#camera-username").val($("#default-username").text())
   $(".default-password").on 'click', ->
-    $("#camera-password").val('pass')
+    $("#camera-password").val($("#default-password").text())
 
 validate_hostname = (str) ->
   ValidIpAddressRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
@@ -186,6 +207,7 @@ validAllInformation = ->
 
 testSnapshot = ->
   $("#test-snapshot").on 'click', ->
+    initLadda(this)
     port = $("#camera-port").val() unless $("#camera-port").val() is ''
     data = {}
     data.external_url = "http://#{$('#camera-url').val()}:#{port}"
@@ -195,14 +217,22 @@ testSnapshot = ->
 
     onError = (jqXHR, status, error) ->
       $(".snapshot-msg").html(jqXHR.responseJSON.message)
+      $(".snapshot-msg").removeClass("msg-success").addClass("msg-error")
       $(".snapshot-msg").show()
+      if loader isnt null
+        loader.stop()
 
     onSuccess = (result, status, jqXHR) ->
       if result.status is 'ok'
         $("#testimg").attr('src', result.data)
-        $(".snapshot-msg").hide()
+        $(".snapshot-msg").html("We got a snapshot!")
+        $(".snapshot-msg").removeClass("msg-error").addClass("msg-success")
+        $(".snapshot-msg").show()
         $("#test-snapshot").hide()
         $("#continue-step2").show()
+        gotSnapshot = true
+        if loader isnt null
+          loader.stop()
 
     settings =
       cache: false
@@ -273,6 +303,18 @@ autoLogInDashboard = () ->
 
   jQuery.ajax(settings)
 
+initLadda = (control_id) ->
+  loader = Ladda.create(control_id)
+  loader.start()
+  progress = 0
+  interval = setInterval(->
+    progress = Math.min(progress + 0.025, 1)
+    loader.setProgress(progress)
+    if (progress == 1)
+      loader.stop()
+      clearInterval(interval)
+  , 200)
+
 createUserAccount = ->
   $("#create-account").on 'click', ->
     if $("#username").val() is ''
@@ -287,6 +329,7 @@ createUserAccount = ->
     if !hasCameraInfo()
       return
 
+    initLadda(this)
     if API_ID isnt '' && API_Key isnt ''
       createCamera(API_ID, API_Key)
       return
@@ -302,6 +345,8 @@ createUserAccount = ->
     onError = (jqXHR, status, error) ->
       $("#message-user-create").text(jqXHR.responseJSON.message)
       $("#message-user-create").removeClass("hide")
+      if loader isnt null
+        loader.stop()
 
     onSuccess = (result, status, jqXHR) ->
       getAPICredentials()
@@ -323,6 +368,8 @@ getAPICredentials = ->
   data.password = $("#user-password").val()
 
   onError = (jqXHR, status, error) ->
+    if loader isnt null
+      loader.stop()
     false
 
   onSuccess = (result, status, jqXHR) ->
@@ -344,7 +391,6 @@ getAPICredentials = ->
 
 createCamera = (api_id, api_key) ->
   data = {}
-  data.id = $("#camera-id").val()
   data.name = $("#camera-name").val()
   data.vendor = $("#camera-vendor").val()
   data.model = $('#camera-model').val()
@@ -359,15 +405,20 @@ createCamera = (api_id, api_key) ->
     $("#message-camera-info").text(jqXHR.responseJSON.message)
     $("#message-camera-info").removeClass("hide")
     $("#message-user-create").addClass("hide")
+    switchTab("user-create", "camera-info")
+    if loader isnt null
+      loader.stop()
 
   onSuccess = (result, status, jqXHR) ->
-    autoLogInDashboard()
+    parent.location.href = "#{Dasboard_URL}/v1/cameras?api_id=#{api_id}&api_key=#{api_key}"
 
   onDuplicateError = (xhr) ->
     switchTab("user-create", "camera-info")
     $("#message-camera-info").text(xhr.responseText.message)
     $("#message-camera-info").removeClass("hide")
     $("#message-user-create").addClass("hide")
+    if loader isnt null
+      loader.stop()
 
   settings =
     cache: false
@@ -375,7 +426,7 @@ createCamera = (api_id, api_key) ->
     dataType: 'json'
     error: onError
     success: onSuccess
-    statusCode: {409: onDuplicateError },
+    statusCode: {409: onDuplicateError, 400: onDuplicateError },
     contentType: "application/x-www-form-urlencoded"
     type: 'POST'
     url: "#{Evercam_API_URL}cameras?api_id=#{api_id}&api_key=#{api_key}"
@@ -403,7 +454,7 @@ clearForm = ->
   $("#camera-snapshot-url").removeClass('valid').removeClass("invalid")
   $("#camera-vendor").val('')
   $("#camera-model option").remove()
-  $("#camera-model").append('<option value="">Unknown</option>');
+  $("#camera-model").append('<option value="">Unknown / Not specified</option>');
   switchTab("user-create", "camera-details")
   $("#required-authentication").removeAttr("checked")
   $("#authentication").addClass("hide")
@@ -418,6 +469,8 @@ clearForm = ->
 
 onClickTabs = ->
   $(".nav-steps li").on 'click', ->
+    if !gotSnapshot
+      return
     previousTab = $(".nav-steps li.active").attr("href")
     $(".nav-steps li").removeClass('active')
     currentTab = $(this).attr("href")
@@ -474,3 +527,67 @@ window.initializeAddCamera = ->
   $("#code").on "click", ->
     this.select();
   handleWindowResize()
+
+$(window, document, undefined).ready ->
+  wskCheckbox = do ->
+    wskCheckboxes = []
+    SPACE_KEY = 32
+
+    addEventHandler = (elem, eventType, handler) ->
+      if elem.addEventListener
+        elem.addEventListener eventType, handler, false
+      else if elem.attachEvent
+        elem.attachEvent 'on' + eventType, handler
+      return
+
+    clickHandler = (e) ->
+      e.stopPropagation()
+      if @className.indexOf('checked') < 0
+        @className += ' checked'
+      else
+        @className = 'chk-span'
+      return
+
+    keyHandler = (e) ->
+      e.stopPropagation()
+      if e.keyCode == SPACE_KEY
+        clickHandler.call this, e
+        # Also update the checkbox state.
+        cbox = document.getElementById(@parentNode.getAttribute('for'))
+        cbox.checked = !cbox.checked
+      return
+
+    clickHandlerLabel = (e) ->
+      id = @getAttribute('for')
+      i = wskCheckboxes.length
+      while i--
+        if wskCheckboxes[i].id == id
+          if wskCheckboxes[i].checkbox.className.indexOf('checked') < 0
+            wskCheckboxes[i].checkbox.className += ' checked'
+          else
+            wskCheckboxes[i].checkbox.className = 'chk-span'
+          break
+      return
+
+    findCheckBoxes = ->
+      labels = document.getElementsByTagName('label')
+      i = labels.length
+      while i--
+        posCheckbox = document.getElementById(labels[i].getAttribute('for'))
+        if posCheckbox != null and posCheckbox.type == 'checkbox'
+          text = labels[i].innerText
+          span = document.createElement('span')
+          span.className = 'chk-span'
+          span.tabIndex = i
+          labels[i].insertBefore span, labels[i].firstChild
+          addEventHandler span, 'click', clickHandler
+          addEventHandler span, 'keyup', keyHandler
+          addEventHandler labels[i], 'click', clickHandlerLabel
+          wskCheckboxes.push
+            'checkbox': span
+            'id': labels[i].getAttribute('for')
+      return
+
+    { init: findCheckBoxes }
+  wskCheckbox.init()
+  return

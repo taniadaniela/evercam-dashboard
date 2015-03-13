@@ -78,7 +78,7 @@ loadVendorModels = (vendor_id) ->
         $("#camera-model").append("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' value='#{model.id}'>#{model.name}</option>")
     if $("#camera-model").find(":selected").attr("jpg-val") isnt 'Unknown'
       selected_option = $("#camera-model").find(":selected")
-      $("#camera-snapshot-url").val selected_option.attr("jpg-val")
+      cleanAndSetJpegUrl selected_option.attr("jpg-val")
       $("#default-username").text(selected_option.attr("username-val"))
       $("#default-password").text(selected_option.attr("password-val"))
       $("#camera-snapshot-url").removeClass("invalid").addClass("valid")
@@ -106,7 +106,12 @@ handleVendorModelEvents = ->
     $("#default-username").text(selected_option.attr("username-val"))
     $("#default-password").text(selected_option.attr("password-val"))
     if snapshot_url isnt 'Unknown'
-      $("#camera-snapshot-url").val $(this).find(":selected").attr("jpg-val")
+      cleanAndSetJpegUrl snapshot_url
+
+cleanAndSetJpegUrl = (jpeg_url) ->
+  if jpeg_url.indexOf('/') == 0
+    jpeg_url = jpeg_url.substr(1)
+  $("#camera-snapshot-url").val jpeg_url
 
 useAuthentication = ->
   $("#required-authentication").on 'click', ->

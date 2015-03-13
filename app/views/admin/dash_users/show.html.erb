@@ -31,7 +31,7 @@
                 <td>
                   <select id="country_id" name="country_id" class="form-control is-required">
                     <% @countries.each do |c| %>
-                      <option value="<%= c.id -%>" <% if c.name == @dash_user.dash_country.name %>selected="selected"<% end %>>
+                      <option value="<%= c.id -%>" <% if !@dash_user.dash_country.blank? &&c.name == @dash_user.dash_country.name %>selected="selected"<% end %>>
                         <%= c.name -%>
                       </option>
                     <% end %>
@@ -119,7 +119,7 @@
                     <h1><%= @dash_user.fullname %></h1>
                     <p></p>
                     <ul class="list-inline">
-                      <li><i class="fa fa-map-marker"></i> <%= @dash_user.dash_country.name %></li>
+                      <li><i class="fa fa-map-marker"></i> <%= @dash_user.dash_country.name unless @dash_user.dash_country.blank? %></li>
                       <li><i class="fa fa-calendar"></i> Registered on <%= @dash_user.created_at.strftime("%d/%m/%y") %></li>
                     </ul>
                   </div><!--end col-md-8-->
@@ -192,7 +192,7 @@
                         </tr>
                         <tr>
                           <td>Country</td>
-                          <td><%= @dash_user.dash_country.name %></td>
+                          <td><%= @dash_user.dash_country.name unless @dash_user.dash_country.blank? %></td>
                         </tr>
                         <tr>
                           <td>Email</td>

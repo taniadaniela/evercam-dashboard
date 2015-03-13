@@ -344,7 +344,6 @@ createUserAccount = ->
     data.firstname = $("#username").val()
     data.lastname = $("#username").val()
     data.username = $("#username").val()
-    data.country = 'IR'
     data.email = $("#user-email").val()
     data.password = $("#user-password").val()
 

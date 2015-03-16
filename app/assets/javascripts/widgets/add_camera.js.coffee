@@ -26,13 +26,8 @@ loadVendors = ->
 
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
-    $("#camera-vendor option").remove()
     for vendor in vendors
-      if vendor.name.toLowerCase().indexOf('default') isnt -1
-        $("#camera-vendor").prepend("<option value='#{vendor.id}'>#{vendor.name}</option>")
-        $("#camera-vendor").prepend('<option selected="selected" value="">Unknown / not specified</option>');
-      else
-        $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
+      $("#camera-vendor").append("<option value='#{vendor.id}'>#{vendor.name}</option>")
 
   settings =
     cache: false
@@ -51,7 +46,10 @@ loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
   if vendor_id is ""
     $("#camera-model").append('<option value="">Unknown / not specified</option>');
+    $("#camera-snapshot-url").val('')
+    $("#camera-model").addClass('hide')
     return
+  $("#camera-model").removeClass('hide')
   $("#camera-model").append('<option value="">Loading...</option>');
 
   data = {}

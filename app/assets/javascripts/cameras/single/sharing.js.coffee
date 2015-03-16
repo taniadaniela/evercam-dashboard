@@ -252,7 +252,6 @@ onDeleteShareRequestClicked = (event) ->
   event.preventDefault()
   control = $(event.currentTarget)
   row = control.closest('tr')
-  console.log row
   data =
     camera_id: control.attr("camera_id")
     email: row.attr("share-request-email")
@@ -321,7 +320,6 @@ onAddSharingUserClicked = (event) ->
   true
 
 onSaveShareClicked = (event) ->
-  console.log 'share'
   event.preventDefault()
   button = $(this)
   row = button.closest('tr')
@@ -352,17 +350,14 @@ onSaveShareClicked = (event) ->
   true
 
 onSaveShareRequestClicked = (event) ->
-  console.log 'request'
   event.preventDefault()
   button = $(this)
   row = button.closest('tr')
-  console.log row
   control = row.find('select')
   data =
     permissions: control.val()
     camera_id: Evercam.Camera.id
     email: row.attr('share-request-email')
-  console.log data
   onError = (jqXHR, status, error) ->
     showError("Update of share request failed. Please contact support.")
     false

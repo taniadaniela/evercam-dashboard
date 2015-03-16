@@ -98,6 +98,7 @@ class SharingController < ApplicationController
         result[:type] = share["type"]
         result[:permissions] = params[:permissions]
         result[:email] = share["email"]
+        result[:user_id] = share["user_id"]
       rescue => error
         env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught creating camera share.\n"\

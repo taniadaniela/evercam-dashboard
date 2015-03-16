@@ -35,7 +35,8 @@
   cursor: pointer;
   transition: all .2s linear;
 }
-.camera-preview {
+
+#live .camera-preview {
   height: 80vh;
   max-width:100%;
 }

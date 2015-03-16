@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :set_cache_buster
 
   def authenticate_user!
-    if current_user.nil?
+    if current_user.nil? or (params.has_key?(:api_id) and params.has_key?(:api_key))
       user = nil
       redirect_url = request.original_url
       if params.has_key?(:api_id) and params.has_key?(:api_key)

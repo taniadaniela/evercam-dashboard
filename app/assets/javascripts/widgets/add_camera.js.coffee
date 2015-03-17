@@ -47,9 +47,7 @@ loadVendorModels = (vendor_id) ->
   if vendor_id is ""
     $("#camera-model").append('<option value="">Unknown / not specified</option>');
     $("#camera-snapshot-url").val('')
-    $("#camera-model").addClass('hide')
     return
-  $("#camera-model").removeClass('hide')
   $("#camera-model").append('<option value="">Loading...</option>');
 
   data = {}

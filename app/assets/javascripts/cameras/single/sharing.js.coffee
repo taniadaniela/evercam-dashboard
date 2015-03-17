@@ -327,7 +327,7 @@ onSaveShareClicked = (event) ->
   data =
     permissions: control.val()
     camera_id: Evercam.Camera.id
-    email: row.attr('share-email')
+    email: row.attr('share-username')
   onError = (jqXHR, status, error) ->
     showError("Update of share failed. Please contact support.")
     false

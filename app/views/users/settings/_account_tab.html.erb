@@ -44,7 +44,6 @@
         <div class="margin-top-40 row">
           <div class="col-md-12">
           <input type="submit" class="btn blue" value="Update" name="Save"/>
-          <input type="reset" class="btn btn-default cancel" value="Cancel" name="Reset"/>
           </div>
         </div>
       </form>
@@ -58,6 +57,26 @@
               </span>
         </div>
       <% end %>
+    </div>
+    <p class="delete margin-top-40" data-toggle="modal" data-target="#delete-account">Close this account</p>
+  </div>
+</div>
+
+<div class="modal fade" id="delete-account" tabindex="-1" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Delete your Account (<%= current_user.email -%>) </h5>
+      </div>
+      <div class="modal-body">
+        <p class="text-left">Closing your account is irreversible. Enter your Evercam password to confirm you want to permanently close this account</p>
+        <input data-validation="current-password" data-validation-error-msg="Cannot be blank" required="true" type="password" class="form-control" id="current-password" name="current-password" required>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="share" name="share" value="false"/>
+        <button id="close-account" name="close-account" class="btn btn-danger pull-left">Close Account</button>
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+      </div>
     </div>
   </div>
 </div>

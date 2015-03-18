@@ -1,4 +1,4 @@
-input {font-size: 14px}
+#user-settings {
 .form-control[disabled] {
   background-color: $white;
   border:none;
@@ -39,7 +39,7 @@ input {font-size: 14px}
   padding: 0;
   background-color: transparent;
   box-shadow: none;
-  border-bottom: 1px solid #757575;
+  border-bottom: 1px solid #aaaaaa;
 }
 .input-group .form-control {
   position: relative;
@@ -260,4 +260,5 @@ label {
   .mobile-hide {
     display: none;
   }
+}
 }

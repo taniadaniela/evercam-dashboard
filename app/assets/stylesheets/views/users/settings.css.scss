@@ -1,6 +1,6 @@
 #user-settings {
  input, .form-group {
-   max-width: 250px;
+   max-width: 265px;
  }
 }
 .profile {
@@ -118,8 +118,6 @@ span.input-group-addon .custom {
   background-color: transparent;
 }
 
-
-
 #user-settings .form-control[readonly] {
   background-color:#ffffff;
   border-bottom: 1px solid #e5e5e5;
@@ -146,4 +144,14 @@ span.input-group-addon .custom {
   color: #a94442;
   display: none;
 }
+.delete:hover {
+  color:$evercam-red;
+
+}
+.delete {
+  color:$grey;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 

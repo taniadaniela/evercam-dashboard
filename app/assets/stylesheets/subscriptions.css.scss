@@ -1,14 +1,19 @@
 .subscriptions {
   .plans {
     .plans-comparison {
-      background-color: $light-blue;
+      ul {
+        background-color: $lighter-grey;
+      }
+      li {
+        list-style-type: none;
+        line-height: 2em;
+        text-align: center;
+      }
     }
-  }
-  .basket {
-    li {
-      display: inline;
-      list-style-type: none;
-      padding-right: 20px;
+    .plans-select {
+      p {
+        text-align: center;
+      }
     }
   }
 }

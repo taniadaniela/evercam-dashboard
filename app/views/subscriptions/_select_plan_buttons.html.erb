@@ -1,0 +1,27 @@
+"<section class="plans-select">
+  <div class="row">
+  <div class="col-md-4">
+    <%= button_to 'Free', line_items_path(type: 'plan', product_id: 'evercam_free'), class: 'btn btn-default'  %>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-xs-6">
+        <%= button_to 'Pro Monthly', line_items_path(type: 'plan', product_id: 'evercam_pro'), remote: true, class: 'btn btn-default'  %>
+      </div>
+      <div class="col-xs-6">
+        <button class="btn btn-default">Pro Annual</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-xs-6">
+        <button class="btn btn-default">Pro Plus Monthly</button>
+      </div>
+      <div class="col-xs-6">
+        <button class="btn btn-default">Pro Plus Annual</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

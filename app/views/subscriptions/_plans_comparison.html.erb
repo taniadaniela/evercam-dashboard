@@ -1,13 +1,55 @@
 <section class="plans-comparison">
   <div class="row">
-    <div class="col-md-6">
-        <h3>Free</h3>
-        <p>Information About the Free Plan</p>
-        <%= button_to "Free", new_subscription_path, params: { plan_name: "free", plan_id: "free-plan" } %>
+    <div class="col-md-4">
+      <ul>
+        <li> <h3>Free Plan</h3>
+        </li>
+        <li>
+          <%= number_to_currency(@prices.evercam_free) %></li>
+          <li>Up to <strong>5</strong> Private Cams</li>
+        <li><strong>Unlimited</strong> Public Cams</li>
+        <li><strong>Unlimited</strong> Shares</li>
+        <li><strong>&lt; 10</strong> hours Storage</li>
+        <li><strong>Unlimited</strong> Storage</li>
+      </ul>
     </div>
-    <div class="col-md-6">
-      <h3>Free</h3>
-      <p>Information About the Free Plan</p>
+    <div class="col-md-4">
+      <ul>
+        <li> <h3>Pro Plan</h3>
+        </li>
+        <li><strong>
+          <%= number_to_currency(@prices.evercam_pro) %>
+        </strong>
+          &#47;
+          <strong>
+          <%= number_to_currency(@prices.evercam_pro_annual) %>
+        </strong></li>
+        <li><strong>Unlimited</strong></li>
+        <li><strong>Unlimited</strong> Public Cams</li>
+        <li><strong>Unlimited</strong> Share</li>
+        <li><strong>&lt; 30</strong> hours Storage</li>
+        <li><strong>Unlimited</strong> Storage</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul>
+        <li>
+          <h3>Pro Plan Plus</h3>
+        </li>
+        <li>
+          <strong>
+            <%= number_to_currency(@prices.evercam_pro_plus) %>
+          </strong>
+          &#47;
+          <strong>
+            <%= number_to_currency(@prices.evercam_pro_plus_annual) %></li>
+        </strong>
+          <li><strong>Unlimited</strong> Private Cams</li>
+        <li><strong>Unlimited</strong> Public Cams</li>
+        <li><strong>Unlimited</strong> Share</li>
+        <li><strong>&lt; 90</strong> hours Storage</li>
+        <li><strong>Unlimited</strong> Storage</li>
+      </ul>
     </div>
   </div>
 </section>

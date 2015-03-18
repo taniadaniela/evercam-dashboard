@@ -61,6 +61,10 @@ class ApplicationController < ActionController::Base
     @cameras = load_user_cameras(true, false)
   end
 
+  def set_prices
+    @prices = Prices.new
+  end
+
   def is_stripe_customer?
     current_user.billing_id.present?
   end
@@ -93,12 +97,10 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_snapmails add_ons
-    # @add_ons ||= retrieve_add_ons
     @snapmails = add_ons.snapmail.present? ? add_ons.snapmail : 0
   end
 
   def retrieve_timelapses add_ons
-    # @add_ons ||= retrieve_add_ons
     @timelapses = add_ons.timelapse.present? ? add_ons.timelapse : 0
   end
 end

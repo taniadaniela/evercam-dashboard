@@ -1,11 +1,12 @@
 class LineItem
-  attr_reader :plan_id, :plan_name, :price, :duration, :quantity
-
-  def initialize(plan_id, plan_name, price, duration, quantity)
-    @plan_id = plan_id
-    @plan_name = plan_name
-    @price = price
-    @duration = duration
-    @quantity = quantity
+  attr_reader :type, :product_id, :quantity, :duration, :name, :price
+  
+  def initialize(params)
+    @type = params[:type]
+    @product_id = params[:product_id]
+    @quantity = params[:quantity] ? params[:quantity] : 0
+    @duration = params[:duration]
+    @name = params[:name]
+    @price = params[:price]
   end
 end

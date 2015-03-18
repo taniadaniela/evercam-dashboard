@@ -1,20 +1,22 @@
 class LineItemsController < ApplicationController
-  before_action :ensure_cart_exists
-  # Line items will be objects, with object_ids
-  # We will store the id in a hash in the sessions array
+  include SessionsHelper
+  include ApplicationHelper
+  include CurrentCart
+  before_action :set_cart
+
   def index
     @line_items = session[:cart]
   end  
 
   def create
-    @line_item = LineItem.new(params[:plan_id],
-                               params[:plan_name],
-                               params[:price],
-                               params[:duration],
-                               params[:quantity])
-    @line_item.id = @line_item.object_id
+    product_params = build_line_item_params(params)
+    @line_item = LineItem.new(product_params)
+    logger.info("Logging line item #{@line_item.type}")
+
+    # if @line_item.type.eql?('plan')
+    #   remove_existing_plan
+    # end
     session[:cart].push(@line_item)
-    redirect_to user_path(current_user.username)
   end
 
   def destroy
@@ -24,8 +26,15 @@ class LineItemsController < ApplicationController
 
   private
 
-  def ensure_cart_exists
-    session.push(Array(:cart) unless session.include?(:cart)
+  def build_line_item_params params
+    p = ProductSelector.new(params[:product_id])
+    p.product_params
+  end
+
+  def remove_existing_plan
+    sessions[:cart].find do |item|
+      item.type == 'plan'
+    end
   end
 
   def purge_cart

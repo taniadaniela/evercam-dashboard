@@ -4,31 +4,22 @@
     <div class="portlet-body">
       <div class="plans">
         <div class="row">
-          <div class="col-md-2">
-            <h3>Plans</h3>
-            <%= render "current_plan" %>
-          </div>
           <div class="col-md-10">
             <%= render "plans_comparison" %>
-            <%= render "basket_items" %>
-            <%= render "basket_subtotal" %>
+            <%= render "select_plan_buttons" %>
           </div>
-        </div>
-      </div>
-      <div class="add-ons">
-        <div class="row">
           <div class="col-md-2">
-            <h3>Add-ons</h3>
-            <%= render "current_add_ons" %>
-          </div>
-          <div class="col-md-10">
-            <%= render "add_ons_select" %>
-            <%= render "basket_items" %>
-            <%= render "basket_subtotal" %>
-            <%= render "basket_total" %>
-            <section>
-              <%= button_to "Checkout", "google.com" %>
-            </section>
+            <h3>Cart</h3>
+            <ul>
+              <% unless session[:cart].empty? %>
+                <% session[:cart].each do |item| %>
+                  <li><%= item.type %></li>
+                  <li><%= item.product_id %></li>
+                  <li><%= item.quantity %></li>
+                  <% end %>
+                <% end %>
+            </ul>
+            
           </div>
         </div>
       </div>

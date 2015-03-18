@@ -1,11 +1,10 @@
 class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_plan_set
   before_filter :set_prices
   before_filter :ensure_cameras_loaded
   before_filter :retrieve_stripe_subscriptions
   before_filter :retrieve_add_ons
-    include CurrentCart
+  include CurrentCart
   before_filter :set_cart
   include SessionsHelper
   include ApplicationHelper

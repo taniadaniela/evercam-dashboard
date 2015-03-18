@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!, :set_cache_buster
+  before_filter :authenticate_user!, :set_cache_buster, :ensure_plan_set
 
   def authenticate_user!
     if current_user.nil?
@@ -67,6 +67,8 @@ class ApplicationController < ActionController::Base
 
   def is_stripe_customer?
     current_user.billing_id.present?
+  rescue
+    return false
   end
   helper_method :is_stripe_customer
 

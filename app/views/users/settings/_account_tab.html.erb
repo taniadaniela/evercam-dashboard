@@ -1,6 +1,5 @@
 <div id="user-settings">
   <div class="user-settings-portal col-sm-6 col-md-4 col-lg-4">
-
     <div class="profile">
       <%= image_tag avatar_url, class: 'gravatar pull-left' %>
       <div class="username">
@@ -8,71 +7,57 @@
       </div>
       <p class="small grey">Manage your avatar with <a href="https://en.gravatar.com/" target="_blank">Gravatar</a> </p>
     </div>
-
-
-      <div class="portlet-body form">
-        <form id="userProfile" role="form" method="post">
-          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-
-          <div class="form-group">
-            <input data-validation="email" type="text" value="<%= current_user.email -%>" class="form-control" id="email" name="email" required>
-            <span class="form-highlight"></span>
-            <span class="form-bar"></span>
-            <label class="float-label" for="email">Email</label>
+    <div class="portlet-body form">
+      <form id="userProfile" role="form" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+        <div class="form-group">
+          <input data-validation="email" type="text" value="<%= current_user.email -%>" class="form-control" id="email" name="email" required>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="email">Email</label>
+        </div>
+        <div class="form-group">
+          <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control" id="user-firstname" name="user-firstname" required>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="user-firstname">First Name</label>
+        </div>
+        <div class="form-group">
+          <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control" id="user-lastname" name="user-lastname" required>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="user-lastname">Last Name</label>
+        </div>
+        <div class="form-group">
+          <label class="grey" for="country">Country</label>
+          <select id="country" name="country" class="form-control">
+            <% if current_user.country.blank? %>
+              <option value="">Not Specified</option>
+            <% end %>
+            <% @countries.each do |c| %>
+              <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
+                <%= c.name -%>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        <div class="margin-top-40 row">
+          <div class="col-md-12">
+          <input type="submit" class="btn blue" value="Update" name="Save"/>
+          <input type="reset" class="btn btn-default cancel" value="Cancel" name="Reset"/>
           </div>
-
-
-
-              <div class="form-group">
-                <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control" id="user-firstname" name="user-firstname" required>
-                <span class="form-highlight"></span>
-                <span class="form-bar"></span>
-                <label class="float-label" for="user-firstname">First Name</label>
-              </div>
-
-              <div class="form-group">
-
-                <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control" id="user-lastname" name="user-lastname" required>
-                <span class="form-highlight"></span>
-                <span class="form-bar"></span>
-                <label class="float-label" for="user-lastname">Last Name</label>
-              </div>
-
-
-          <div class="form-group">
-            <label class="grey" for="country">Country</label>
-            <select id="country" name="country" class="form-control">
-              <% if current_user.country.blank? %>
-                <option value="">Not Specified</option>
-              <% end %>
-              <% @countries.each do |c| %>
-                <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
-                  <%= c.name -%>
-                </option>
-              <% end %>
-            </select>
-          </div>
-
-          <div class="margin-top-40 row">
-            <div class="col-md-12">
-            <input type="submit" class="btn blue" value="Update" name="Save"/>
-            <input type="reset" class="btn btn-default cancel" value="Cancel" name="Reset"/>
-            </div>
-          </div>
-
-        </form>
-
-        <% unless current_user.confirmed_at %>
-          <div class="alert alert-info alert-dismissible fade in margin-top-40" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-                <span>
-                  It looks like your account has not been verified yet.
-                  <%= link_to 'Resend verification email.', user_email_resend_path(current_user.username), class: 'resend-email' %>
-                </span>
-          </div>
-        <% end %>
-      </div>
-
+        </div>
+      </form>
+      <% unless current_user.confirmed_at %>
+        <div class="alert alert-info alert-dismissible fade in margin-top-40" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+              <span>
+                It looks like your account has not been verified yet.
+                <%= link_to 'Resend verification email.', user_email_resend_path(current_user.username), class: 'resend-email' %>
+              </span>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

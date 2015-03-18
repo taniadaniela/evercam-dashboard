@@ -53,20 +53,17 @@
             </select>
           </div>
 
-          <div class="margin-top-20">
-            <div class="row">
-              <div class="col-md-12">
-                <p class="hide-p">
-                  <input type="submit" id="hide" class="btn blue" value="Update Account" name="Save"/>
-                  <input type="reset" id="hide-2" class="makeNonEditable btn btn-default cancel" value="Cancel" name="Reset"/>
-                </p>
-              </div>
+          <div class="margin-top-40 row">
+            <div class="col-md-12">
+            <input type="submit" class="btn blue" value="Update" name="Save"/>
+            <input type="reset" class="btn btn-default cancel" value="Cancel" name="Reset"/>
             </div>
-            <div class="col-md-3"></div>
           </div>
+
         </form>
+
         <% unless current_user.confirmed_at %>
-          <div class="alert alert-info alert-dismissible fade in margin-top-20" role="alert">
+          <div class="alert alert-info alert-dismissible fade in margin-top-40" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
                 <span>

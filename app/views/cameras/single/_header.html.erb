@@ -1,5 +1,9 @@
 <div class="camera-title">
   <div class="col-xs-12 col-md-12">
+    <%= link_to public_cameras_index_path do %>
+      <span class="fa fa-arrow-left"></span>
+      Public Cameras
+    <% end %>
     <div class="btn-group camera-switch">
       <h3 class="page-title"><%= @camera['name'] %></h3>
     </div>

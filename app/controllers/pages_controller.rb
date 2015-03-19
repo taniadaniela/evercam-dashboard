@@ -31,6 +31,11 @@ class PagesController < ApplicationController
     render layout: "swagger"
   end
 
+  def support
+    @cameras = load_user_cameras(true, false)
+    render layout: "application"
+  end
+
   def log_and_redirect
     Rails.logger.warn "Old Endpoint Requested: '#{request.original_url}'"
     if current_user

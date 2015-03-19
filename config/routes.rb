@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
+  get '/support' => 'pages#support'
   get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view
   get '/live.view.widget' => 'widgets#live_view_widget'
   get '/live.view.private.widget' => 'widgets#live_view_private_widget'

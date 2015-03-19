@@ -1,6 +1,7 @@
 @import "single/_apps.css.scss";
 @import "single/_explorer.css.scss";
 @import "single/_info.css.scss";
+@import "single/_logs.css.scss";
 @import "single/_live.css.scss";
 @import "single/_settings.css.scss";
 @import "single/_sharing.css.scss";
@@ -20,4 +21,7 @@
 }
 #ul-nav-tab .caret{
   display: none;
+}
+.nav-tabs, .nav-pills {
+  margin-bottom: 0px;
 }

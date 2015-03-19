@@ -1,12 +1,42 @@
+#user-settings {
+ input, .form-group {
+   max-width: 265px;
+ }
+}
+.profile {
+  padding: 10px 0px 30px;
+}
+.username {
+  margin-bottom: 2px;
+}
+
 #manage-account {
+  .has-error .form-control {
+    background-color: #ffffff;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+  }
   h4 {
-   font-size: 18px;
-   font-family: $regular-family;
+    font-size: 18px;
+    font-family: $bold-family;
     margin-top: 0px;
+    color: #515254;
+    margin-bottom: 15px;
   }
-  .form-group {
-    margin-bottom: 8px;
+  .gravatar {
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-top: -4px;
   }
+  img.gravatar {
+   max-width: 50px;
+  }
+  .control-label {
+    margin-top:-1px;
+    text-align: left;
+  }
+
   label {
     margin-bottom: 0px;
   }
@@ -29,11 +59,13 @@
     margin-top: 0px;
   }
   .list-group-lg > .list-group-item {
-
     border-bottom: 1px solid #f5f5f5;
   }
   .panel-title {
     padding-left: 15px;
+  }
+  .cancel {
+    margin-left: 10px;
   }
 }
 #account {
@@ -72,7 +104,7 @@ span.input-group-addon .custom {
   height: 20px;
 }
 .cancel  {
-  margin-left: 10px;
+  margin-right: 10px;
   float: left;
 }
 #user-settings .help-inline .input-inline:hover {
@@ -86,19 +118,6 @@ span.input-group-addon .custom {
   background-color: transparent;
 }
 
-#username {
-  opacity: 0;
-}
-.form-group:hover #username {
-  opacity: 1;
-  transition: opacity .2s ease-in-out;
-}
-#show {
-  position: absolute;
-  margin-top: 12px;
-
-}
-
 #user-settings .form-control[readonly] {
   background-color:#ffffff;
   border-bottom: 1px solid #e5e5e5;
@@ -109,7 +128,8 @@ span.input-group-addon .custom {
   font-size: 16px;
 }
 .user-settings-portal {
-  max-width: 465px;
+  min-height: 340px;
+  margin-bottom: 40px;
 }
 .application {
   border-bottom: 1px solid #f5f5f5;
@@ -124,3 +144,14 @@ span.input-group-addon .custom {
   color: #a94442;
   display: none;
 }
+.delete:hover {
+  color:$evercam-red;
+
+}
+.delete {
+  color:$grey;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+

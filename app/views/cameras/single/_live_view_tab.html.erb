@@ -2,9 +2,8 @@
   <div class="camera-preview">
     <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) %>
 
-    <div id="live-view-placeholder" class="col-lg-12 col-md-12">
+    <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
-
         <div class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
@@ -13,9 +12,6 @@
           </div>
           <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
         </div>
-
-
-
       </div>
       <% unless rtmp_stream.blank? %>
         <div id="camera-rtmp-stream" class="active">

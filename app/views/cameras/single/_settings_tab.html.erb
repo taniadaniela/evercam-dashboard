@@ -59,10 +59,10 @@
         <li class="list-group-item">
           <div class="col-md-4">
             <h5>Clone Camera</h5>
-            <p class="grey">You can clone this camera's settings here.</p>
+            <p class="grey">Add a new camera with the settings from this camera.</p>
           </div>
           <div class="panel-content col-md-8 margin-top-10">
-            <%= link_to cameras_clone_path(@camera['id']), class: 'btn btn-danger' do %>
+            <%= link_to cameras_clone_path(@camera['id']), class: 'btn btn-default' do %>
               Clone
             <% end %>
           </div>

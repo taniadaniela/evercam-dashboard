@@ -38,3 +38,4 @@ window.initializeUserAccount = ->
   handleEditable()
   showHideMessage()
   handlePasswordChange()
+

@@ -1,7 +1,3 @@
-// Place all the styles related to the live controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .demo-wrapper {
   width: 38%;
   margin: 0 auto;
@@ -35,7 +31,7 @@
   cursor: pointer;
   transition: all .2s linear;
 }
-.camera-preview {
+#live .camera-preview {
   height: 80vh;
   max-width:100%;
 }
@@ -53,7 +49,6 @@
 #fullscreen:hover .live-options, #fullscreen:hover .btn-live-player {
   opacity: 1;
 }
-
 .btn-live-player {
   position: absolute;
   opacity: 0;
@@ -72,7 +67,6 @@
 .btn-live-player:hover {
   background: #68a2d5;
 }
-
 .refresh-live-snap{
   bottom: 9px;
   left: 68px;
@@ -80,7 +74,6 @@
 .refresh-camera{
   cursor: pointer;
 }
-
 .tint img {
   border: 1px solid $main-grey !important;
 }

@@ -249,7 +249,7 @@ isValidDateTime = (timestamp) ->
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
   CameraOffset = parseInt(offset)/3600
-  currentDate = getLocationBaseDateTime(offset)
+  currentDate = new Date($("#camera_selected_time").val())
   cameraCurrentHour = currentDate.getHours()
   $("#hourCalandar td[class*='day']").removeClass("active")
 
@@ -345,9 +345,9 @@ BoldSnapshotHourSuccess = (result, context) ->
   lastBoldHour = 0;
   hasRecords = false;
   for hour in result.hours
-    hr = hour + CameraOffset
-    $("#tdI#{hr}").addClass('has-snapshot')
-    lastBoldHour = hr
+    #hr = hour + CameraOffset
+    $("#tdI#{hour}").addClass('has-snapshot')
+    lastBoldHour = hour
     hasRecords = true
 
   if hasRecords
@@ -766,9 +766,14 @@ handleMinSecDropDown = ->
 
 handleTabOpen = ->
   $('.nav-tab-recordings').on 'show.bs.tab', ->
-    showLoader()
-    HighlightCurrentMonth()
-    BoldSnapshotHour(false)
+    #showLoader()
+    #HighlightCurrentMonth()
+    #BoldSnapshotHour(false)
+    if snapshotInfos isnt null
+      date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
+      url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
+      if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
+        window.history.replaceState({}, '', url);
 
 window.initializeRecordingsTab = ->
   initDatePicker()

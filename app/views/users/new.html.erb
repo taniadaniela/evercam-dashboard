@@ -24,7 +24,7 @@
               <%= f.label :firstname, 'First Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
-              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control" %>
+              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "First names can consist of alphabetical characters and spaces only" %>
               <% if field_errors.include?("firstname") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["firstname"] %></span>
               <% end %>
@@ -36,11 +36,10 @@
               <%= f.label :lastname, 'Last Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
-              <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control" %>
+              <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "Last names can consist of alphabetical characters and spaces only" %>
               <% if field_errors.include?("lastname") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["lastname"] %></span>
               <% end %>
-              <!-- Plan to join First and Last Name to one Input -->
             </div>
           </div>
 

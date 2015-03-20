@@ -7,13 +7,11 @@
         <div class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
-            <a id="live-player-image-download" href="<%= @camera['thumbnail_url'] %>" download="<%= @camera['thumbnail_url'] %>" title="<%= @camera['name'] %>"><div class="live-option"><span class="glyphicon glyphicon-floppy-disk"></span></div></a>
+            <a href="<%= @camera['thumbnail_url'] %>" download="<%= @camera['thumbnail_url'] %>" title="<%= @camera['name'] %>"><div class="live-option"><span class="glyphicon glyphicon-floppy-disk"></span></div></a>
             <div class="live-option" id="toggle"><span class="glyphicon glyphicon-fullscreen"></span></div>
-            <div class="live-option"><a id="link-popout"><span class="glyphicon glyphicon-new-window
-" aria-hidden="true"></span></a></div>
+            <div class="live-option"><a id="link-popout"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></div>
           </div>
-          <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause
-"></i></div>
+          <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
         </div>
       </div>
       <% unless rtmp_stream.blank? %>

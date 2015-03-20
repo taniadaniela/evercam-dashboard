@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
-   default from: "support@evercam.io"
+  default from: "support@evercam.io"
+  default to: "support@evercam.io"
 
    # This method dispatches an email whenever a user chooses to share a camera
    # with a user that doesn't currently possess an Evercam account.
@@ -34,6 +35,12 @@ class UserMailer < ActionMailer::Base
       @user    = user
       @code    = code
       mail(to: user.email, subject: "Evercam Confirmation")
+  end
+
+  def new_message(message)
+    @message = message
+
+    mail subject: "Message from #{message.name}"
   end
 
 end

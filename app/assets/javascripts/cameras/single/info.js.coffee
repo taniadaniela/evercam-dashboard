@@ -236,6 +236,7 @@ initializeMap = ->
     # Update the textbox
     document.getElementById("cameraLats").value = point.lat()
     document.getElementById("cameraLng").value = point.lng()
+    document.getElementById("camera_Lats_Lng").value = "#{point.lat()}, #{point.lng()}"
     $(cameraLats).val marker.getPosition().lat().toFixed(7)
     $(cameraLng).val marker.getPosition().lng().toFixed(7)
 

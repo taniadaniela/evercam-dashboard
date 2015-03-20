@@ -21,15 +21,13 @@
           </div>
           <div id="search-coordinates" class="location-search margin-top-10" style="display: none;">
             <% if @has_edit_rights %>
+              <input id="cameraLng" name="cameraLng" type="hidden" value="<%= @camera.deep_fetch('location', 'lng') {} %>">
+              <input id="cameraLats" name="cameraLat" type="hidden" value="<%= @camera.deep_fetch('location', 'lat') {} %>">
               <table class="coordinates table table-fixed table-borderless">
                 <tr>
-                  <td class="col-md-3">
-                    <input id="cameraLats" name="cameraLat" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lat') {} %>">
-                    <span class="help-block">Latitude</span>
-                  </td>
-                  <td class="col-md-3">
-                    <input id="cameraLng" name="cameraLng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lng') {} %>">
-                    <span class="help-block">Longitude</span>
+                  <td class="col-md-6">
+                    <input id="camera_Lats_Lng" class="form-control makeEditable" type="text" value="<%= @camera.deep_fetch('location', 'lat') {} %>, <%= @camera.deep_fetch('location', 'lng') {} %>">
+                    <span class="help-block">Latitude, Longitude</span>
                   </td>
                   <td class="col-md-3">
                     <a id="save-map-location" class="btn btn-primary margin-right-10">Look's good!</a>

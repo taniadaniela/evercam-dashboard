@@ -1,3 +1,8 @@
+# This model should be removed as the prices should be availle as part of a hash of product data which comes from 
+# either
+# A single set of calls to Stripe from the application controller
+# or a Product class file which contains the various data
+# This is unsatisfactory, but details of add-ons will can't be easily stored on Stripe as they are not plans
 class Prices
   attr_reader :evercam_free,
               :evercam_free_annual,

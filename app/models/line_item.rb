@@ -4,7 +4,7 @@ class LineItem
   def initialize(params)
     @type = params[:type]
     @product_id = params[:product_id]
-    @quantity = params[:quantity] ? params[:quantity] : 0
+    @quantity = params[:quantity] ? params[:quantity] : 1
     @duration = params[:duration]
     @name = params[:name]
     @price = params[:price]

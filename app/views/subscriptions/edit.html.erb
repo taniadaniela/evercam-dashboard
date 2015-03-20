@@ -10,15 +10,7 @@
           </div>
           <div class="col-md-2">
             <h3>Cart</h3>
-            <ul>
-              <% unless session[:cart].empty? %>
-                <% session[:cart].each do |item| %>
-                  <li><%= item.type %></li>
-                  <li><%= item.product_id %></li>
-                  <li><%= item.quantity %></li>
-                  <% end %>
-                <% end %>
-            </ul>
+            <%= render "cart" %>
             
           </div>
         </div>

@@ -1,28 +1,29 @@
+# Creates the line_items from the product_id passed from the views
+# Have before actions to set cart and plan here nfor now, I assumed I could set these once in the application controller but they were not always being loaded
 class LineItemsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
-  before_action :set_cart
-  # before_action :purge_plan_from_cart, only: [:create]
+  before_action :set_cart, :ensure_plan_set
+  before_action :purge_plan_from_cart, only: [:create]
 
   def index
     @line_items = session[:cart]
   end  
 
+  def show
+  end
+  
   def create
-    purge_plan_from_cart
-    logger.info("Logging cart #{session[:cart]}")
     product_params = build_line_item_params(params)
     @line_item = LineItem.new(product_params)
-    if plan_change?(@line_item.product_id)
+    if plan_changed?(@line_item.product_id)
       session[:cart].push(@line_item)
     end
-    redirect_to :back
   end
 
   def destroy
     session[:cart].delete(params[:line_item_id])
-    purge_cart
   end
 
   private
@@ -32,7 +33,7 @@ class LineItemsController < ApplicationController
     p.product_params
   end
 
-  def plan_change? plan
+  def plan_changed? plan
     if @current_plan.plan.id.eql?(plan)
       return false
     else
@@ -42,9 +43,5 @@ class LineItemsController < ApplicationController
 
   def purge_plan_from_cart
     session[:cart].delete_if {|item| item.type.eql?('plan') }
-  end
-
-  def purge_cart
-    session.delete(:cart)
   end
 end

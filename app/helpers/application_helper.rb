@@ -44,4 +44,8 @@ module ApplicationHelper
     t = Time.at(stamp)
     t.to_formatted_s(:long) 
   end
+
+  def cents_to_currency amount
+    number_to_currency(amount / 100)
+  end
 end

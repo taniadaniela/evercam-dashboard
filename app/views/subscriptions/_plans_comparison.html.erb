@@ -5,7 +5,7 @@
         <li> <h3>Free Plan</h3>
         </li>
         <li>
-          <%= number_to_currency(@prices.evercam_free) %></li>
+          <%= cents_to_currency(@prices.evercam_free) %></li>
           <li>Up to <strong>5</strong> Private Cams</li>
         <li><strong>Unlimited</strong> Public Cams</li>
         <li><strong>Unlimited</strong> Shares</li>
@@ -18,11 +18,11 @@
         <li> <h3>Pro Plan</h3>
         </li>
         <li><strong>
-          <%= number_to_currency(@prices.evercam_pro) %>
+          <%= cents_to_currency(@prices.evercam_pro) %>
         </strong>
           &#47;
           <strong>
-          <%= number_to_currency(@prices.evercam_pro_annual) %>
+          <%= cents_to_currency(@prices.evercam_pro_annual) %>
         </strong></li>
         <li><strong>Unlimited</strong></li>
         <li><strong>Unlimited</strong> Public Cams</li>
@@ -38,11 +38,11 @@
         </li>
         <li>
           <strong>
-            <%= number_to_currency(@prices.evercam_pro_plus) %>
+            <%= cents_to_currency(@prices.evercam_pro_plus) %>
           </strong>
           &#47;
           <strong>
-            <%= number_to_currency(@prices.evercam_pro_plus_annual) %></li>
+            <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
         </strong>
           <li><strong>Unlimited</strong> Private Cams</li>
         <li><strong>Unlimited</strong> Public Cams</li>

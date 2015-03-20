@@ -72,6 +72,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :is_stripe_customer
 
+  # Started to move some methods from helper to application controller because helpers should not make calls to db/API calls
   def retrieve_stripe_subscriptions
     if is_stripe_customer?
       @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all

@@ -217,13 +217,4 @@ class UsersController < ApplicationController
     end
     flash[:field_errors] = field_errors
   end
-
-  # def retrieve_stripe_customer
-  #   if is_stripe_customer?
-  #     @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
-  #   else
-  #     return false
-  #   end
-  # end
-
 end

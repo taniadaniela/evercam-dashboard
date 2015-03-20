@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_stripe_customer?
-    defined? current_user.billing_id
+    current_user.billing_id.present?
   rescue
     return false
   end
@@ -95,15 +95,21 @@ class ApplicationController < ActionController::Base
   def retrieve_add_ons
     add_ons = Billing.where(:user_id => current_user.id).first
     add_ons = add_ons.nil? ? false : add_ons
-    retrieve_timelapses add_ons
-    retrieve_snapmails add_ons
+    unless add_ons.eql? false
+      retrieve_timelapses add_ons
+      retrieve_snapmails add_ons
+    end
   end
 
   def retrieve_snapmails add_ons
     @snapmails = add_ons.snapmail.present? ? add_ons.snapmail : 0
+  rescue
+    @snapmails = 0
   end
 
   def retrieve_timelapses add_ons
     @timelapses = add_ons.timelapse.present? ? add_ons.timelapse : 0
+  rescue
+    @timelapses = 0
   end
 end

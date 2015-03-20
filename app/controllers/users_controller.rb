@@ -3,8 +3,7 @@ class UsersController < ApplicationController
   before_filter :owns_data!
   before_action :retrieve_stripe_customer
   before_filter :retrieve_stripe_subscriptions
-  before_filter :retrieve_snapmails
-  before_filter :retrieve_timelapses
+  before_filter :retrieve_add_ons, except: [:new, :create]
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,

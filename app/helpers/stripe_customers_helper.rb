@@ -1,14 +1,22 @@
 module StripeCustomersHelper
-  def is_stripe_customer?
-    current_user.billing_id.present?
-  end
+  # def is_stripe_customer?
+  #   if defined? current_user.billing_id
+  #     return false
+  #   else
+  #     return true
+  #   end
+  # end
 
   def retrieve_stripe_customer
     @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
+  rescue
+    false
   end
 
   def retrieve_stripe_subscriptions
     @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+  rescue
+    false
   end
 
   def has_subscriptions?

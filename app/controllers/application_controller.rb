@@ -66,11 +66,11 @@ class ApplicationController < ActionController::Base
   end
 
   def is_stripe_customer?
-    current_user.billing_id.present?
+    defined? current_user.billing_id
   rescue
     return false
   end
-  helper_method :is_stripe_customer
+  helper_method :is_stripe_customer?
 
   # Started to move some methods from helper to application controller because helpers should not make calls to db/API calls
   def retrieve_stripe_subscriptions

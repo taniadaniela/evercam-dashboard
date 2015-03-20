@@ -198,3 +198,54 @@
 #camera-settings #test {
   width:auto;
 }
+
+.controls {
+  margin-top: 6px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 36px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#search-location {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+  position: absolute;
+  z-index: 10000;
+}
+
+#search-location:focus {
+  border-color: #4d90fe;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+table.coordinates {
+  position: absolute;
+  top: 0;
+  margin-left: -2px;
+}
+p#search-notes {
+  margin-top: 50px !important;
+}
+.location-search {
+ transition:0.3s;
+}

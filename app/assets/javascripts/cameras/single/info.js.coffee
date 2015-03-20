@@ -164,7 +164,7 @@ saveMapLocation = ->
     false
 
   onSuccess = (result, status, jqXHR) ->
-    $("#location-settings").css "display", "none"
+    $(".location-search ").css "display", "none"
     $("#coordinates-value").text("#{$('#cameraLats').val()}, #{$('#cameraLng').val()}")
     Notification.show "Camera location updated successfully"
     true
@@ -186,7 +186,10 @@ initializeMap = ->
   $("#co-ordinates").replaceWith "<p>The location is not set. Drag the marker to the location of your camera.</p>" if Evercam.Camera.location.lng  is "0"
   unless Evercam.Camera.location.lng is "0"
     $(".edit-location").click ->
-      $("#testies").toggle()
+      $("#save-map-location").click ->
+      $("#search-location").toggle()
+      $("#search-coordinates").toggle()
+      $("#search-notes").toggle()
 
   cameraLatlng = new google.maps.LatLng(Evercam.Camera.location.lat, Evercam.Camera.location.lng)
   if Evercam.Camera.location.lng is "0"

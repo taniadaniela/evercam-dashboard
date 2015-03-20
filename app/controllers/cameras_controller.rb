@@ -164,6 +164,7 @@ class CamerasController < ApplicationController
       @types = ['created', 'accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline']
       @camera['timezone'] = 'Etc/UTC' unless @camera['timezone']
+      @selected_date = Time.new.in_time_zone(@camera['timezone']).strftime("%m/%d/%Y")
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset

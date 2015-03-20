@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!, :set_cache_buster, :ensure_plan_set
+  before_filter :ensure_plan_set
+  prepend_before_filter :authenticate_user!, :set_cache_buster, :ensure_plan_set
 
   def authenticate_user!
     if current_user.nil?
@@ -86,7 +87,7 @@ class ApplicationController < ActionController::Base
   # User will be on a non Stripe free plan unless they purchase an add on and will then be moved onto the free plan on Stripe which has the same details as below
   def set_user_plan
     if is_stripe_customer?
-      @current_plan = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.first
+      @current_plan = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.first.plan
     else
      @current_plan = { id: "evercam-free", name: "Evercam Free", amount: 0 }
    end

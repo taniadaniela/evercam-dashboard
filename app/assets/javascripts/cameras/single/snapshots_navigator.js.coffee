@@ -152,6 +152,18 @@ ResetDays = ->
           break
         j++
 
+selectCurrentDay = ->
+  $(".datepicker-days table td[class*='day']").removeClass('active')
+  dt = $("#ui_date_picker_inline").datepicker('getDate')
+  calDays = $(".datepicker-days table td[class*='day']")
+  calDays.each (idx, el) ->
+    calDay = $(this)
+    if !calDay.hasClass('old') && !calDay.hasClass('new')
+      iDay = parseInt(calDay.text())
+      if dt.getDate() is iDay
+        calDay.addClass('active')
+        return
+
 handleSlider = ->
   onSliderMouseMove = (ev) ->
     if snapshotInfos == null || snapshotInfos.length == 0 then return
@@ -222,7 +234,7 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
+  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{getSnapshotDate(date_time).toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
     window.history.replaceState({}, '', url);
@@ -263,6 +275,7 @@ handleBodyLoadContent = ->
   $("#tdI#{cameraCurrentHour}").addClass("active")
   PreviousImageHour = "tdI#{cameraCurrentHour}"
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
+  selectCurrentDay()
   $(".btn-group").tooltip()
 
   showLoader()
@@ -461,7 +474,8 @@ loadImage = (timestamp) ->
 SetPlayFromImage = (timestamp) ->
   i = 0
   for snapshot in snapshotInfos
-    if snapshot.created_at >= timestamp
+    snapshot_timestamp = GetUTCDate(new Date(getSnapshotDate(new Date(snapshot.created_at*1000)).format('MM/DD/YYYY HH:mm:ss')))/1000
+    if snapshot_timestamp >= timestamp
       currentFrameNumber = i + 1
       snapshotInfoIdx = i
       return snapshot.created_at
@@ -478,6 +492,11 @@ shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
   return "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
+
+getSnapshotDate = (date) ->
+  dt = $("#ui_date_picker_inline").datepicker('getDate')
+  hour = parseInt(cameraCurrentHour)
+  return moment.utc([dt.getFullYear(), dt.getMonth(), dt.getDate(), hour, date.getMinutes(), date.getSeconds(), date.getMilliseconds()])
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -771,8 +790,8 @@ handleTabOpen = ->
     #BoldSnapshotHour(false)
     if snapshotInfos isnt null
       date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
-      url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
-      if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
+      url = "#{Evercam.request.rootpath}/recordings/snapshots/#{getSnapshotDate(date_time).toISOString()}"
+      if history.replaceState
         window.history.replaceState({}, '', url);
 
 window.initializeRecordingsTab = ->
@@ -782,3 +801,4 @@ window.initializeRecordingsTab = ->
   handleBodyLoadContent()
   handleMinSecDropDown()
   handlePlay()
+  handleTabOpen()

@@ -1,1 +1,2 @@
-$(".cart").append("<%= render 'subscriptions/cart' %>");
+// $(".cart").append("Hi");
+$(".cart").html("<%= escape_javascript(render :partial => 'subscriptions/cart') %>");

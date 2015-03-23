@@ -82,7 +82,6 @@ class ApplicationController < ActionController::Base
 
   def ensure_plan_set
     @current_plan ||= set_user_plan
-    logger.info "Logging #{@current_plan}"
   end
 
   # User will be on a non Stripe free plan unless they purchase an add on and will then be moved onto the free plan on Stripe which has the same details as below

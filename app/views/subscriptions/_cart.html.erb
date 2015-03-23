@@ -5,7 +5,6 @@
         <li><%= item.name %></li>
         <li><%= item.quantity %></li>
         <li><%= cents_to_currency item.price %></li>
-        <li>ID: <%= item.id %></li>
         <li><%= button_to 'Remove', line_item_path(item.id), method: :delete, remote: true %></li>
         <% end %>
       <% end %>

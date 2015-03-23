@@ -92,7 +92,7 @@
                 <td><%= s.plan.name -%></td>
                 <td><%= s.status.capitalize -%></td>
                 <td><%= s.plan.interval.capitalize -%></td>
-                <td><%= number_to_currency(s.plan.amount / 100 ) -%></td>
+                <td><%= cents_to_currency(s.plan.amount) -%></td>
                 <td>
                   <%= button_to 'Cancel Subscription',
                         subscription_path({:subscription_id => s.id, :plan_name => s.plan.name}),

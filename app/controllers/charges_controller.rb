@@ -1,39 +1,24 @@
 class ChargesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :ensure_card_exists
   include SessionsHelper
   include ApplicationHelper
 
+  # Billing ID  should be set and saved to the DB when a card is added.
+  # Charges controller should redirect if no card is on file
+  # Use remote: :true on posts to this controller
   def create
-    @email = current_user.email
-    @amount = params[:amount].to_i * 100
-    token = params[:token]
-    if token.blank?
-      customer = Stripe::Customer.create(
-      :email => @email,
-      :card  => params[:stripeToken],
-    )
-      charge = Stripe::Charge.create(
+    customer = StripeCustomer.new
+    description = generate_description
+    charge = Stripe::Charge.create(
         :customer    => customer.id,
-        :amount => @amount,
-        :description => 'Custom Amount',
+        :amount => params[:amount],
+        :description => description,
         :currency    => 'eur'
       )
-      current_user.billing_id = customer.id
-      current_user.save
-    else
-      customer = Stripe::Customer.retrieve(token)
-      customer.charges.create(
-        :customer    => customer.id,
-        :amount => @amount,
-        :currency    => 'eur'
-      )
-    end
-    redirect_to(:back)
-    flash[:message] = "Your Payment was successful"
-
+    flash[:message] = 'Your Payment was successful'
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    redirect_to(:back)
   end
 
   def subscription_create
@@ -73,5 +58,20 @@ class ChargesController < ApplicationController
     flash[:message] = "Your Subscription has been cancelled"
   end
 
+  private
+
+  def ensure_card_exists
+    customer = StripeCustomer.new
+    unless customer.valid_card?
+      flash[:message] = 'Please add a valid credit card'
+      redirect_to edit_subscriptions_path
+    end
+  end
+
+  def generate_description
+    # Concatenate names of items, passed to the controller
+    # dummy string for now
+    'Charge Description'
+  end
 end
 

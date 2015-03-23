@@ -14,14 +14,12 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
-  # namespace :v1 do
-  #   resources :subscriptions, only: [:new, :edit, :destroy]
-  # end
-
   get '/v1/subscriptions/upgrade' => 'subscriptions#edit', as: :edit_subscriptions
   delete '/v1/subscriptions' => 'subscriptions#destroy'
 
-  get '/v1/checkout' => 'checkouts#new', as: :new_checkouts
+  get '/v1/checkout' => 'checkouts#new', as: :new_checkout
+
+  post 'v1/charges' => 'charges#create', as: :new_charge
 
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]

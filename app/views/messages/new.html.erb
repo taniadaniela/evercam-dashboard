@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="margin-top-20 ">
-      <%= form_for @message, url: contact_path do |message_form| %>
+      <%= form_for @message, url: support_path do |message_form| %>
         <fieldset>
           <div class="form-group">
             <%= message_form.text_field :name, value: current_user.fullname %>

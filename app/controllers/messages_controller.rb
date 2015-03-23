@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
   def new
     @cameras = load_user_cameras(true, false)
     @message = Message.new
+    render layout: "application"
   end
 
   def create
@@ -15,7 +16,7 @@ class MessagesController < ApplicationController
 
     if @message.valid?
       MessageMailer.new_message(@message).deliver
-      redirect_to contact_path
+      redirect_to support_path
       flash[:message] = "Sent successfully."
     else
       flash[:notice] = "An error occurred while sending this message."

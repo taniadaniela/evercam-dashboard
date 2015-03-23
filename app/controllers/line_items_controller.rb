@@ -16,14 +16,17 @@ class LineItemsController < ApplicationController
   
   def create
     product_params = build_line_item_params(params)
-    @line_item = LineItem.new(product_params)
+    @line_item = LineItem.new(product_params) 
     if plan_changed?(@line_item.product_id)
       session[:cart].push(@line_item)
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def destroy
-    session[:cart].delete(params[:line_item_id])
+    session[:cart].delete_if {|item| item.id.eql?(params[:id]) }
   end
 
   private
@@ -34,11 +37,7 @@ class LineItemsController < ApplicationController
   end
 
   def plan_changed? plan
-    if @current_plan.plan.id.eql?(plan)
-      return false
-    else
-      return true
-    end
+    @current_plan[:id].eql?(plan) ? false : true
   end
 
   def purge_plan_from_cart

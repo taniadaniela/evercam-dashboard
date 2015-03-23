@@ -37,10 +37,4 @@ class UserMailer < ActionMailer::Base
       mail(to: user.email, subject: "Evercam Confirmation")
   end
 
-  def new_message(message)
-    @message = message
-
-    mail subject: "Message from #{message.name}"
-  end
-
 end

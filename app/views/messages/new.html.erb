@@ -1,21 +1,34 @@
-<%= form_for @message, url: contact_path do |message_form| %>
-  <fieldset>
-    <div class="field">
-      <%= message_form.text_field :name, placeholder: "Name" %>
-    </div>
+<%= content_for(:title, "Evercam: Support") %>
 
-    <div class="field">
-      <%= message_form.email_field :email, placeholder: "Email"%>
+<div class="page-content-wrapper" id="support">
+  <div class="page-content">
+    <div class="row">
+      <div class="section-header">
+        <div class="camera-title">
+          Support
+        </div>
+      </div>
     </div>
+    <div class="margin-top-20 ">
+      <%= form_for @message, url: contact_path do |message_form| %>
+        <fieldset>
+          <div class="form-group">
+            <%= message_form.text_field :name, value: current_user.fullname %>
+          </div>
+          <div class="form-group">
+            <%= message_form.email_field :email, value: current_user.email %>
+          </div>
+          <div class="form-group">
+            <%= message_form.text_area :content, placeholder: "Message"%>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="form-group">
+            <%= message_form.submit "Send" %>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-    <div class="field">
-      <%= message_form.text_area :content, placeholder: "Message"%>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="field">
-      <%= message_form.submit "Send" %>
-    </div>
-  </fieldset>
-<% end %>

@@ -262,3 +262,11 @@ label {
   }
 }
 }
+#support input, textarea {
+  width: 300px;
+}
+#support textarea {
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+}

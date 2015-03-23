@@ -7,10 +7,10 @@
         <div class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
-            <div class="live-option" id="toggle"><i class="icon-size-fullscreen"></i></div>
-            <div class="live-option"><a id="link-popout"><i class="icon-share-alt" aria-hidden="true"></i></a></div>
+            <div class="live-option" id="toggle"><span class="glyphicon glyphicon-fullscreen"></span></div>
+            <div class="live-option"><a id="link-popout"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></div>
           </div>
-          <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
+          <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
         </div>
       </div>
       <% unless rtmp_stream.blank? %>

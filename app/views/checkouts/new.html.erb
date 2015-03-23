@@ -1,1 +1,17 @@
-Checkout
+<div class="checkout page-content-wrapper">
+  <div class="page-content">
+    <%= render partial: "users/section_header", locals: { section_header_title: "Checkout" } %>
+    <div class="portlet-body">
+      <div class="plans">
+        <div class="row">
+          <div>
+            <h3>Cart</h3>
+            <%= render "subscriptions/cart" %>
+            <li>Total <%= cents_to_currency(@total) %></li>
+            <%= button_to "Pay Now", new_charge_path  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,10 @@ class StripeCustomer
     @stripe_customer.default_source.present?
   end
 
+  def has_active_subscription?
+    @stripe_customer.subscriptions.total_count > 0
+  end
+
   def stripe_subscriptions
     @subscriptions = Stripe::Customer.retrieve(@stripe_customer).subscriptions.all
   rescue

@@ -8,8 +8,8 @@ class ChargesController < ApplicationController
   # Charges controller should redirect if no card is on file
   # Use remote: :true on posts to this controller
   def create
-    logger.info("Logging billing id #{current_user.billing_id}")
     customer = StripeCustomer.new current_user.billing_id
+    customer.create_subscription unless customer.has_active_subscription?
     description = generate_description
     charge = Stripe::Charge.create(
         :customer    => current_user.billing_id,

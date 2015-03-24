@@ -44,6 +44,7 @@ loadVendors = ->
 
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
+  $("#camera-model").prop("disabled", true)
   if vendor_id is ""
     $("#camera-model").append('<option value="">Unknown / not specified</option>');
     $("#camera-snapshot-url").val('')
@@ -72,6 +73,7 @@ loadVendorModels = (vendor_id) ->
         $("#camera-model").prepend("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' selected='selected' value='#{model.id}'>#{model.name}</option>")
       else
         $("#camera-model").append("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' value='#{model.id}'>#{model.name}</option>")
+    $("#camera-model").removeAttr("disabled")
     if $("#camera-model").find(":selected").attr("jpg-val") isnt 'Unknown'
       selected_option = $("#camera-model").find(":selected")
       cleanAndSetJpegUrl selected_option.attr("jpg-val")

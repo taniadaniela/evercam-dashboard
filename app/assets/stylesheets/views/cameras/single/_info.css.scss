@@ -48,6 +48,7 @@
 .info-preview {
   width:100%;
   overflow: hidden;
+  margin-bottom: 5px;
 }
 .info-preview img {
   width: 100%;
@@ -237,7 +238,7 @@
   font-size: 13px;
   font-weight: 300;
 }
-table.coordinates {
+.coordinates {
   position: absolute;
   top: 0;
   margin-left: -2px;
@@ -250,4 +251,11 @@ p#search-notes {
 }
 #map-info{
   display: none;
+}
+#coordinates-value .btn-edit {
+  margin-top: 2px;
+  float: right;
+}
+#save-map-location {
+  float: right;
 }

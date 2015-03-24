@@ -24,11 +24,6 @@
   margin-bottom: 5px;
   border-bottom: 1px solid $white;
 }
-
-#details .green {
-  margin-top: 3px;
-  color:#2ecc71;
-}
 #details .portlet.solid {
   overflow-x: hidden;
   background-color: $white;
@@ -197,4 +192,9 @@
 }
 #camera-settings #test {
   width:auto;
+}
+#camera-single {
+  td:first-child {
+    color: #666666;
+  }
 }

@@ -13,14 +13,12 @@
         <div class="center-tabs">
           <ul id="ul-nav-tab" class="nav nav-tabs">
 
-            <li class="active">
+            <li>
               <a data-toggle="tab" data-target="#live" class="nav-tab-live">Live View</a>
             </li>
-
             <li>
-              <a id="nav-tabs-2" data-toggle="tab" data-target="#details" class="nav-tab-details nav-tab-">Details</a>
+              <a id="maps-tab-fix" data-toggle="tab" data-target="#details" class="nav-tab-details nav-tab-">Details</a>
             </li>
-
             <li>
               <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings">Recordings</a>
             </li>
@@ -59,10 +57,11 @@
           </ul>
         </div>
         <div class="tab-content">
-          <div id="live" class="tab-pane">
+
+          <div id="live" class="tab-pane active">
             <%= render partial: "cameras/single/live_view_tab" %>
           </div>
-          <div id="details" class="tab-pane active">
+          <div id="details" class="tab-pane">
             <%= render partial: "cameras/single/info_tab" %>
           </div>
           <div id="recordings" class="tab-pane">

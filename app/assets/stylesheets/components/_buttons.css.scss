@@ -11,9 +11,11 @@
   padding: 6px 14px;
 }
 .portlet .btn-edit {
-  padding: 2px 12px;
-  margin-left: 15px;
-  font-size: 14px !important;
+  font-family: $bold-family;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  margin-left: 25px;
+  font-size: 11px !important;
 }
 .btn-edit:hover {
   transition: all .2s linear;
@@ -28,4 +30,17 @@
 }
 .non-button:hover {
   color: lighten( $main-color, 15% );
+}
+.delete:hover {
+  color:$evercam-red;
+  text-decoration: underline;
+}
+.action:hover {
+  color:$main-color;
+  text-decoration: underline;
+}
+.delete, .action {
+  color:$grey;
+  text-decoration: underline;
+  cursor: pointer;
 }

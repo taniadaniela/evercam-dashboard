@@ -2,9 +2,9 @@
   <div class="portlet solid">
     <div class="portlet-title">
       <div class="caption">Location</div>
-      <% if @has_edit_rights %>
-        <div class="btn btn-edit edit-location" id='edit-location'>edit</div>
-      <% end %>
+
+        <div <% unless @has_edit_rights %> style="display: none;" <% end %>class="btn btn-edit edit-location" id='edit-location'>edit</div>
+
     </div>
     <% lats = @camera.deep_fetch('location', 'lat') {} %>
     <% lng = @camera.deep_fetch('location', 'lng') {} %>

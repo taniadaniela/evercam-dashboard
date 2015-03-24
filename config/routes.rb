@@ -14,8 +14,9 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
+  get 'v1/subscriptions/new'=> 'subscriptions#new', as: :new_subscription
   get '/v1/subscriptions/upgrade' => 'subscriptions#edit', as: :edit_subscriptions
-  delete '/v1/subscriptions' => 'subscriptions#destroy'
+  delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
 
   get '/v1/checkout' => 'checkouts#new', as: :new_checkout
 

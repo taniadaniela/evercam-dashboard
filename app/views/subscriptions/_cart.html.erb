@@ -7,6 +7,7 @@
         <li><%= cents_to_currency item.price %></li>
         <li><%= button_to 'Remove', line_item_path(item.id), method: :delete, remote: true %></li>
         <% end %>
+        <li>Sub Total: </li>
       <% end %>
   </ul>
-</section>
+</section>w

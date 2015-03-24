@@ -1,20 +1,22 @@
-# Prefer that API calls are contained here
+# Prefer that API calls are contained 
+# For performance, when adding methods try avoid making a new API call to Stripe if the data you want is already contained in @stripe_customer
 class StripeCustomer
-  def initialize
+  def initialize billing_id
+    @billing_id = billing_id
     @stripe_customer = retrieve_stripe_customer
-    logger.info("Logging Stripe Customer #{@stripe_customer}")
+    Rails.logger.info("Logging Stripe Customer #{@stripe_customer}")
   end
 
   def retrieve_stripe_customer
-    Stripe::Customer.retrieve(current_user.billing_id)
-  rescue
+    Stripe::Customer.retrieve(@billing_id)
+  rescue Stripe::InvalidRequestError => e
+    Rails.logger.info e
     nil
   end
 
   def valid_card?
     @stripe_customer.default_source.present?
   end
-
 
   def stripe_subscriptions
     @subscriptions = Stripe::Customer.retrieve(@stripe_customer).subscriptions.all

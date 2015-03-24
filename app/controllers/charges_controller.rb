@@ -8,10 +8,11 @@ class ChargesController < ApplicationController
   # Charges controller should redirect if no card is on file
   # Use remote: :true on posts to this controller
   def create
-    customer = StripeCustomer.new
+    logger.info("Logging billing id #{current_user.billing_id}")
+    customer = StripeCustomer.new current_user.billing_id
     description = generate_description
     charge = Stripe::Charge.create(
-        :customer    => customer.id,
+        :customer    => current_user.billing_id,
         :amount => params[:amount],
         :description => description,
         :currency    => 'eur'
@@ -61,11 +62,11 @@ class ChargesController < ApplicationController
   private
 
   def ensure_card_exists
-    customer = StripeCustomer.new
-    unless customer.valid_card?
-      flash[:message] = 'Please add a valid credit card'
-      redirect_to edit_subscriptions_path
-    end
+    # customer = StripeCustomer.new current_user.billing_id
+    # unless customer.valid_card?
+    #   flash[:message] = 'Please add a valid credit card'
+    #   redirect_to edit_subscriptions_path
+    # end
   end
 
   def generate_description

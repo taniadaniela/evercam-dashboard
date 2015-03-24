@@ -16,7 +16,7 @@ class CheckoutsController < ApplicationController
 
   def redirect_when_cart_empty
     if session[:cart].empty?
-      redirect_to edit_subscriptions_path
+      redirect_to edit_subscription_path
     end
   end
 end

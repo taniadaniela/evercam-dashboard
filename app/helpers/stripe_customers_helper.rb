@@ -1,12 +1,5 @@
+# Refactoring this gradually into the StripeCustomer class: prefer not to include helpers which call an API or the db
 module StripeCustomersHelper
-  # def is_stripe_customer?
-  #   if defined? current_user.billing_id
-  #     return false
-  #   else
-  #     return true
-  #   end
-  # end
-
   def retrieve_stripe_customer
     @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
   rescue

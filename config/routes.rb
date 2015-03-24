@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get 'v1/subscriptions/new'=> 'subscriptions#new', as: :new_subscription
   get '/v1/subscriptions/upgrade' => 'subscriptions#edit_subscription', as: :edit_subscription
+  get '/v1/subscriptions/upgrade-add-ons' => 'subscriptions#edit_add_ons', as: :edit_add_ons
   delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
 
   get '/v1/checkout' => 'checkouts#new', as: :new_checkout

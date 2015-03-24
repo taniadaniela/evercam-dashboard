@@ -13,23 +13,29 @@ class ProductSelector
     @evercam_pro_annual = { product_id: 'evercam_pro_annual', type: 'plan', name: 'Evercam Pro Annual', price: 14900, duration: 'annual' }
     @evercam_pro_plus = { product_id: 'evercam_pro_plus', type: 'plan', name: 'Evercam Pro Plus', price: 1999, duration: 'monthly' }
     @evercam_pro_plus_annual = { product_id: 'evercam_pro_plus_annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 17900, duration: 'annual' }
+    @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 999, duration: 'monthly' }
+    @snapmail_annual = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 9900, duration: 'annual' }
   end
 
   # Used by the line_items_controller to have the necessary data to calculate a total, and display other data.
   def product_params
     case @product_id
-    when "evercam_free"
-      @evercam_free
-    when "evercam_free_annual"
-      @evercam_free_annual
-    when "evercam_pro"
-      @evercam_pro
-    when "evercam_pro_annual"
-      @evercam_pro_annual
-    when "evercam_pro_plus"
-      @evercam_pro_plus
-    when "evercam_pro_plus_annual"
-      @evercam_pro_plus_annual
+      when "evercam_free"
+        @evercam_free
+      when "evercam_free_annual"
+        @evercam_free_annual
+      when "evercam_pro"
+        @evercam_pro
+      when "evercam_pro_annual"
+        @evercam_pro_annual
+      when "evercam_pro_plus"
+        @evercam_pro_plus
+      when "evercam_pro_plus_annual"
+        @evercam_pro_plus_annual
+      when "snapmail"
+        @snapmail
+      when "snapmail_annual"
+        @snapmail_annual
     end
   end
 end

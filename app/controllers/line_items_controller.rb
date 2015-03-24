@@ -5,8 +5,7 @@ class LineItemsController < ApplicationController
   include ApplicationHelper
   include CurrentCart
   before_action :set_cart, :ensure_plan_set
-  before_action :purge_plan_from_cart, only: [:create]
-
+  
   def index
     @line_items = session[:cart]
   end  
@@ -18,6 +17,7 @@ class LineItemsController < ApplicationController
     product_params = build_line_item_params(params)
     @line_item = LineItem.new(product_params)
     if @line_item.type.eql?('plan')
+      purge_plan_from_cart
       create_plan_line_item
     elsif @line_item.type.eql?('add_on')
       create_add_on_line_item
@@ -91,20 +91,20 @@ class LineItemsController < ApplicationController
 
   def line_item_duration
     if session[:cart].empty?
-      @current_plan.duration
+      @current_plan.interval
     elsif plan = session[:cart].find(:type => 'plan').first
       plan.duration
     else
-      @current_plan.duration
+      @current_plan.interval
     end
   end
 
   # New sign up user defaults to evercam-free (monthly)
   def current_annual_subscription?
-    @current_plan.duration.eql? 'annual'
+    @current_plan.interval.eql? 'year'
   end
 
-  def current_monthly_subscription
-    
+  def current_monthly_subscription?
+    @current_plan.interval.eql? 'month'
   end
 end

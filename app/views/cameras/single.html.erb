@@ -12,18 +12,16 @@
       <div class="tabbable tabbable-custom">
         <div class="center-tabs">
           <ul id="ul-nav-tab" class="nav nav-tabs">
-            <li class="active">
-              <a id="nav-tabs-2" data-toggle="tab" data-target="#details" class="nav-tab-details nav-tab-">Details</a>
-            </li>
 
             <li>
               <a data-toggle="tab" data-target="#live" class="nav-tab-live">Live View</a>
             </li>
-
+            <li>
+              <a id="maps-tab-fix" data-toggle="tab" data-target="#details" class="nav-tab-details nav-tab-">Details</a>
+            </li>
             <li>
               <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings">Recordings</a>
             </li>
-
             <% if has_edit_right %>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares">Sharing</a>
@@ -58,50 +56,41 @@
             </li>
           </ul>
         </div>
-
         <div class="tab-content">
-          <div id="details" class="tab-pane active">
-            <%= render partial: "cameras/single/info_tab" %>
-          </div>
 
-          <div id="live" class="tab-pane">
+          <div id="live" class="tab-pane active">
             <%= render partial: "cameras/single/live_view_tab" %>
           </div>
-
+          <div id="details" class="tab-pane">
+            <%= render partial: "cameras/single/info_tab" %>
+          </div>
           <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
-
           <% if has_edit_right %>
             <div id="shares" class="tab-pane">
               <%= render partial: "cameras/single/sharing_tab" %>
             </div>
           <% end %>
-
           <div id="api-explorer" class="tab-pane">
             <%= render partial: "cameras/single/api_explorer_tab" %>
           </div>
-
           <% if has_edit_right %>
             <div id="logs" class="tab-pane">
               <%= render partial: "cameras/single/logs_tab" %>
             </div>
           <% end %>
-
           <div id="apps" class="tab-pane">
             <%= render partial: "cameras/single/apps_tab" %>
           </div>
-
           <div id="webhooks" class="tab-pane">
             <%= render partial: "cameras/single/webhooks_tab" %>
           </div>
-
           <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
             <div id="local-storage" class="tab-pane">
               <%= render partial: "cameras/single/local_storage_tab" %>
             </div>
           <% end %>
-
           <div id="settings" class="tab-pane">
             <%= render partial: "cameras/single/settings_tab" %>
           </div>

@@ -218,7 +218,7 @@ initializeMap = ->
     title: "Camera Location"
   )
   mapFirstClick = false
-  $("#nav-tabs-2").click ->
+  $("#maps-tab-fix").click ->
     mapFirstClick or setTimeout(->
       google.maps.event.trigger map, "resize"
       mapFirstClick = true

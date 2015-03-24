@@ -3,15 +3,15 @@
   <%= render partial: "cameras/single/info/settings_modal" %>
   <div class="row">
     <div class="col-md-6">
-      <%= render partial: "cameras/single/info/last_snapshot_panel" %>
-      <%= render partial: "cameras/single/info/location_panel" %>
+      <%= render partial: "cameras/single/info/camera_details_panel" %>
+      <% if @has_edit_rights %>
+        <%= render partial: "cameras/single/info/connection_info_panel" %>
+      <% end %>
+      <%= render partial: "cameras/single/info/urls_panel" %>
     </div>
     <div class="col-md-6">
-      <%= render partial: "cameras/single/info/camera_details_panel" %>
-      <%= render partial: "cameras/single/info/general_info_panel" %>
-    </div>
-    <div class="col-md-12">
-      <%= render partial: "cameras/single/info/urls_panel" %>
+      <%= render partial: "cameras/single/info/location_panel" %>
+      <%= render partial: "cameras/single/info/last_snapshot_panel" %>
     </div>
   </div>
 </form>

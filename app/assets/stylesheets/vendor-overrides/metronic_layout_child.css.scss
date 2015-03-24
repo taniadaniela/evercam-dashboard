@@ -733,6 +733,8 @@ Page content
   border-bottom: 0px solid $main-grey;
 }
 .portlet > .portlet-title > .caption {
+  font-family: $bold-family;
+  font-size: 16px;
   margin-top: 5px;
   margin-bottom: 6px;
 }

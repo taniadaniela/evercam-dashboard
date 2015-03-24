@@ -178,7 +178,7 @@ div.dataTables_filter input {
 a[href^="http://maps.google.com/maps"]{display:none !important}
 
 .gmnoprint a, .gmnoprint span {
-  display:none;
+  display:none !important;
 }
 .gmnoprint div {
   background:none !important;

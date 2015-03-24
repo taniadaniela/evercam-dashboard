@@ -70,6 +70,7 @@ class LineItemsController < ApplicationController
       false
     else
       true
+    end
   end
 
   def plan_changed? plan

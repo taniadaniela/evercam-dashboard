@@ -4,11 +4,11 @@
     <div class="portlet-body">
       <div class="plans">
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-12">
             <%= render "plans_comparison" %>
             <%= render "select_plan_buttons" %>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-4 col-md-offset-8">
             <h3>Cart</h3>
             <%= render "cart" %>
             <%= link_to "Checkout", new_checkout_path %>

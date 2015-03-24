@@ -27,7 +27,11 @@ class SubscriptionsController < ApplicationController
     redirect_to user_path(current_user.username)
   end
 
-  def edit
+  def edit_subscription
+
+  end
+
+  def edit_add_ons
 
   end
 

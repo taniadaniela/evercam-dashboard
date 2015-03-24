@@ -7,14 +7,14 @@ class ProductSelector
 
   def initialize product_id
     @product_id = product_id
-    @evercam_free = { product_id: 'evercam_free', type: 'plan', name: 'Evercam Free', price: 0, duration: 'monthly' }
-    @evercam_free_annual = { product_id: 'evercam_free_annual', type: 'plan', name: 'Evercam Free Annual', price: 0, duration: 'annual' }
-    @evercam_pro = { product_id: 'evercam_pro', type: 'plan', name: 'Evercam Pro', price: 999, duration: 'monthly' }
-    @evercam_pro_annual = { product_id: 'evercam_pro_annual', type: 'plan', name: 'Evercam Pro Annual', price: 14900, duration: 'annual' }
-    @evercam_pro_plus = { product_id: 'evercam_pro_plus', type: 'plan', name: 'Evercam Pro Plus', price: 1999, duration: 'monthly' }
-    @evercam_pro_plus_annual = { product_id: 'evercam_pro_plus_annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 17900, duration: 'annual' }
-    @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 999, duration: 'monthly' }
-    @snapmail_annual = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 9900, duration: 'annual' }
+    @evercam_free = { product_id: 'evercam_free', type: 'plan', name: 'Evercam Free', price: 0, interval: 'month' }
+    @evercam_free_annual = { product_id: 'evercam_free_annual', type: 'plan', name: 'Evercam Free Annual', price: 0, interval: 'year' }
+    @evercam_pro = { product_id: 'evercam_pro', type: 'plan', name: 'Evercam Pro', price: 999, interval: 'month' }
+    @evercam_pro_annual = { product_id: 'evercam_pro_annual', type: 'plan', name: 'Evercam Pro Annual', price: 14900, interval: 'year' }
+    @evercam_pro_plus = { product_id: 'evercam_pro_plus', type: 'plan', name: 'Evercam Pro Plus', price: 1999, interval: 'month' }
+    @evercam_pro_plus_annual = { product_id: 'evercam_pro_plus_annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 17900, interval: 'year' }
+    @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 999, interval: 'month' }
+    @snapmail_annual = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 9900, interval: 'year' }
   end
 
   # Used by the line_items_controller to have the necessary data to calculate a total, and display other data.

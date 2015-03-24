@@ -5,13 +5,10 @@ class LineItemsController < ApplicationController
   include ApplicationHelper
   include CurrentCart
   before_action :set_cart, :ensure_plan_set
-  
+
   def index
     @line_items = session[:cart]
   end  
-
-  def show
-  end
   
   def create
     product_params = build_line_item_params(params)
@@ -56,16 +53,16 @@ class LineItemsController < ApplicationController
   end
 
   def valid_add_on_duration?
-    if annual_plan_in_cart? && @line_item.duration.eql?('monthly')
+    if annual_plan_in_cart? && @line_item.interval.eql?('monthly')
       flash[:error] = "Monthly add-ons cannot be added to an annual plan."
       false
-    elsif current_annual_subscription? && @line_item.duration.eql?('monthly')
+    elsif current_annual_subscription? && @line_item.interval.eql?('monthly')
       flash[:error] = "Monthly add-ons cannot be added to an annual plan."
       false
-    elsif monthly_plan_in_cart? && @line_item.duration.eql?('annual')
+    elsif monthly_plan_in_cart? && @line_item.interval.eql?('annual')
       flash[:error] = "Annual add-ons cannot be added to an monthly plan."
       false
-    elsif current_monthly_subscription? && @line_item.duration.eql?('annual')
+    elsif current_monthly_subscription? && @line_item.interval.eql?('annual')
       flash[:error] = "Annual add-ons cannot be added to an monthly plan."
       false
     else
@@ -82,18 +79,18 @@ class LineItemsController < ApplicationController
   end
 
   def annual_plan_in_cart?
-    line_item_duration.eql?('annual') ? true : false
+    line_item_duration.eql?('year') ? true : false
   end
 
   def monthly_plan_in_cart?
-    line_item_duration.eql?('monthly') ? true : false
+    line_item_duration.eql?('month') ? true : false
   end
 
   def line_item_duration
     if session[:cart].empty?
       @current_plan.interval
     elsif plan = session[:cart].find(:type => 'plan').first
-      plan.duration
+      plan.interval
     else
       @current_plan.interval
     end

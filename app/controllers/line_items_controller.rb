@@ -44,7 +44,7 @@ class LineItemsController < ApplicationController
   end
 
   def create_add_on_line_item
-    if valid_add_on_duration?
+    if can_add_add_on_to_cart?
       session[:cart].push(@line_item)
       respond_to do |format|
         format.js
@@ -68,6 +68,18 @@ class LineItemsController < ApplicationController
     else
       true
     end
+  end
+
+  def plan_in_cart?
+    true
+  end
+
+  def existing_subscription?
+    true
+  end
+
+  def can_add_add_on_to_cart?
+    (valid_add_on_duration? && (plan_in_cart? || existing_subscription?)) ? true : false
   end
 
   def plan_changed? plan

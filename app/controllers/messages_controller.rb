@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
 
     if @message.valid?
       MessageMailer.new_message(@message).deliver
-      redirect_to support_path
+      redirect_to feedback_path
       flash[:message] = "Sent successfully."
     else
       flash[:notice] = "An error occurred while sending this message."

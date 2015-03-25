@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
-  get 'support', to: 'messages#new', as: 'support'
-  post 'support', to: 'messages#create'
+  get 'feedback', to: 'messages#new', as: 'feedback'
+  post 'feedback', to: 'messages#create'
 
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]

@@ -2,6 +2,7 @@ require 'data_uri'
 
 class CamerasController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :ensure_cameras_loaded
   include SessionsHelper
   include ApplicationHelper
 

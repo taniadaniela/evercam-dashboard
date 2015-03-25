@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :ensure_plan_set, :ensure_cameras_loaded
+  before_filter :ensure_plan_set
+  # before_filter :ensure_cameras_loaded
   prepend_before_filter :authenticate_user!, :set_cache_buster,
 
   def authenticate_user!
@@ -60,7 +61,9 @@ class ApplicationController < ActionController::Base
 
   # Added before_action to decouple @cameras from users controller
   def ensure_cameras_loaded
-    load_user_cameras(true, false)
+    if @cameras.nil?
+      load_user_cameras(true, false)
+    end
   end
 
   def set_prices

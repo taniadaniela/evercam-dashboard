@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :owns_data!
+  before_filter :owns_data!, :ensure_cameras_loaded
   before_action :retrieve_stripe_customer
   before_filter :retrieve_stripe_subscriptions
   before_filter :retrieve_add_ons, except: [:new, :create]

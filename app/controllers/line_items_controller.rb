@@ -21,7 +21,6 @@ class LineItemsController < ApplicationController
     else
       raise('Could not select')
     end
-    redirect_to edit_subscription_path
   end
 
   def destroy
@@ -41,6 +40,7 @@ class LineItemsController < ApplicationController
       respond_to do |format|
         format.js
       end
+    else flash.now[:message] = "You are already on the #{@line_item.name} plan."
     end
   end
 

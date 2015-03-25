@@ -6,18 +6,13 @@ class ChargesController < ApplicationController
 
   # Billing ID  should be set and saved to the DB when a card is added.
   # Charges controller should redirect if no card is on file
-  # Use remote: :true on posts to this controller
-
   def new
-      # Work out what needs to be charged and then call the create method to make the API call
       stripe_customer = StripeCustomer.new current_user.billing_id
       logger.info("Logging from new#{stripe_customer.current_plan}")
       charge = Charge.new
-      # if stripe_customer.has_active_subscription? && !stripe_customer.change_of_plan?
-        # charge.calculate_add_ons_charge
-        logger.info("Logging add_ons charge #{charge.calculate_add_ons_charge}")
-      # end
-      render layout: false
+      if stripe_customer.has_active_subscription? && !stripe_customer.change_of_plan?
+        charge.calculate_add_ons_charge
+      end
   end
 
   def create

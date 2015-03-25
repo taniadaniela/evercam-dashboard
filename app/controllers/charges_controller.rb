@@ -11,16 +11,9 @@ class ChargesController < ApplicationController
   # so a user should never call 
   def new
       customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
-      calc = ChargeCalculator.new
       customer.create_subscription unless customer.has_active_subscription?
       customer.change_subscription if customer.change_of_plan?
-      customer.create_charge(amount, description) if 
-
-        amount = calc.add_ons_charge(add_ons_in_cart)
-        description = calc.charge_description(add_ons_in_cart)
-        logger.info("Logging amount #{amount} and #{description}")
-        customer.create_charge(amount, description)
-      end
+      customer.create_charge(add_ons_charge, charge_description) if add_ons_in_cart?
   end
 
   def create
@@ -87,5 +80,18 @@ class ChargesController < ApplicationController
       redirect_to edit_subscription_path
     end
   end
+
+  def add_ons_charge
+      amounts = add_ons_in_cart.map { |item| item.price }
+      amounts.inject(0) {|sum, i|  sum + i }
+  end
+
+  def charge_description
+    description = 'Description: '
+    add_ons_in_cart.each do |item|
+        description.push(item.name + '\n')
+      end
+    description
+  end 
 end
 

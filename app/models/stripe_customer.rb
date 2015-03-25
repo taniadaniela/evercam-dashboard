@@ -32,6 +32,13 @@ class StripeCustomer
     @stripe_customer.subscriptions.total_count > 0
   end
 
+  def create_subscription
+    stripe_customer.subscription.create(:plan => plan_in_cart.id)
+  end
+
+  def change_subscription
+  end
+
   def create_charge(amount, description)
     Stripe::Charge.create(
       :customer    => @stripe_customer.id,

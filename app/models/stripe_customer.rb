@@ -36,7 +36,11 @@ class StripeCustomer
     stripe_customer.subscription.create(:plan => plan_in_cart.id)
   end
 
-  def change_subscription
+  def change_plan
+    customer = Stripe::Customer.retrieve("cus_5q8uUVGQ5YZ5Jq")
+    subscription = @stripe_customer.subscriptions.retrieve(current_plan.id)
+    subscription.plan = plan_in_cart
+    subscription.save
   end
 
   def create_charge(amount, description)

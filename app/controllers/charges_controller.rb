@@ -1,27 +1,30 @@
 class ChargesController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :ensure_plan_in_cart_or_existing_subscriber
   prepend_before_filter :ensure_card_exists
   include SessionsHelper
   include ApplicationHelper
+  include CurrentCart
 
   # Billing ID  should be set and saved to the DB when a card is added.
   # Charges controller should redirect if no card is on file
   # Checkout and and add-ons view should redirect to plan select if no plan in cart and not a subscriber,
   # so a user should never call 
   def new
-      stripe_customer = StripeCustomer.new current_user.billing_id
+      customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
       calc = ChargeCalculator.new
-      if !stripe_customer.has_active_subscription? && !stripe_customer.change_of_plan?
+      customer.create_subscription unless customer.has_active_subscription?
+      customer.change_subscription if customer.change_of_plan?
+      customer.create_charge(amount, description) if 
+
         amount = calc.add_ons_charge(add_ons_in_cart)
-        desciption = calc.charge_description(add_ons_in_cart)
+        description = calc.charge_description(add_ons_in_cart)
         logger.info("Logging amount #{amount} and #{description}")
-        stripe_customer.create_charge(amount, description)
+        customer.create_charge(amount, description)
       end
   end
 
   def create
-    customer = StripeCustomer.new current_user.billing_id
+    customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
     customer.create_subscription() unless customer.has_active_subscription?
     description = generate_description
     charge = Stripe::Charge.create(
@@ -79,17 +82,10 @@ class ChargesController < ApplicationController
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
-    stripe_customer = StripeCustomer.new current_user.billing_id
-    unless !stripe_customer.has_active_subscription? || plan_in_cart?
+    customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
+    unless !customer.has_active_subscription? || plan_in_cart?
       redirect_to edit_subscription_path
     end
   end
-
-  def add_ons_in_cart
-    cart = session[:cart]
-    cart.delete_if {|item| item.type.eql?('plan') }
-    cart
-  end
-
 end
 

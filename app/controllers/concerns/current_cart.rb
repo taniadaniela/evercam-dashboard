@@ -22,11 +22,21 @@ module CurrentCart
     nil
   end
 
-  def add_ons_total_cost
-
+  def add_ons_in_cart?
+    session[:cart].find(:type => 'add_on').first
+  rescue
+    nil
   end
 
-  def plan_cost
-      
+  def add_ons_in_cart
+    cart = session[:cart]
+    cart.delete_if { |item| item.type.eql?('plan') }
+    cart
+  end
+
+  def add_ons_total_cost
+  end
+
+  def plan_cost  
   end
 end

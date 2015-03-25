@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get '/v1/checkout' => 'checkouts#new', as: :new_checkout
 
+
+  get 'v1/charges' => 'charges#new'
   post 'v1/charges' => 'charges#create', as: :new_charge
 
   # These routes are for managing customer cards on Stripe

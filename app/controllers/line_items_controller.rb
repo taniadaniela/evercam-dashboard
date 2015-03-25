@@ -21,6 +21,7 @@ class LineItemsController < ApplicationController
     else
       raise('Could not select')
     end
+    redirect_to edit_subscription_path
   end
 
   def destroy
@@ -53,17 +54,17 @@ class LineItemsController < ApplicationController
   end
 
   def valid_add_on_duration?
-    if annual_plan_in_cart? && @line_item.interval.eql?('monthly')
-      flash[:error] = "Monthly add-ons cannot be added to an annual plan."
+    if annual_plan_in_cart? && @line_item.interval.eql?('month')
+      flash.now[:message] = "Monthly add-ons cannot be added to an annual plan."
       false
-    elsif current_annual_subscription? && @line_item.interval.eql?('monthly')
-      flash[:error] = "Monthly add-ons cannot be added to an annual plan."
+    elsif current_annual_subscription? && @line_item.interval.eql?('month')
+      flash.now[:message] = "Monthly add-ons cannot be added to an annual plan."
       false
-    elsif monthly_plan_in_cart? && @line_item.interval.eql?('annual')
-      flash[:error] = "Annual add-ons cannot be added to an monthly plan."
+    elsif monthly_plan_in_cart? && @line_item.interval.eql?('year')
+      flash.now[:message] = "Annual add-ons cannot be added to an monthly plan."
       false
-    elsif current_monthly_subscription? && @line_item.interval.eql?('annual')
-      flash[:error] = "Annual add-ons cannot be added to an monthly plan."
+    elsif current_monthly_subscription? && @line_item.interval.eql?('year')
+      flash.now[:message] = "Annual add-ons cannot be added to an monthly plan."
       false
     else
       true

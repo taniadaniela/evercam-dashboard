@@ -14,12 +14,42 @@ class StripeCustomer
     nil
   end
 
+  def change_of_plan?
+    current_plan.id.eql?(plan_in_cart.id) ? false : true
+  end
+
+  def current_plan
+    @stripe_customer.subscriptions.first.plan
+  end
+
+  def plan_in_cart
+    session[:cart].find(:type => 'plan').first
+  rescue
+    nil
+  end
+
   def valid_card?
     @stripe_customer.default_source.present?
   end
 
   def has_active_subscription?
     @stripe_customer.subscriptions.total_count > 0
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def create_subscription
+
   end
 
   def stripe_subscriptions

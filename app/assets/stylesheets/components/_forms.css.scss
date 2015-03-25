@@ -1,4 +1,4 @@
-#user-settings, #support {
+#user-settings, #feedback {
 .form-control[disabled] {
   background-color: $white;
   border:none;
@@ -262,11 +262,10 @@ label {
   }
 }
 }
-#support input, textarea {
-  width: 300px;
+
+#feedback {
+  textarea {
+    min-height: 150px;
+  }
 }
-#support textarea {
-  border: 1px solid #e5e5e5;
-  border-radius: 2px;
-  background-color: #f5f5f5;
-}
+

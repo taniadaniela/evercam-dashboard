@@ -1,6 +1,6 @@
 <%= content_for(:title, "Evercam: Support") %>
 
-<div class="page-content-wrapper" id="support">
+<div class="page-content-wrapper" id="feedback">
   <div class="page-content">
     <div class="row">
       <div class="section-header">
@@ -9,28 +9,30 @@
         </div>
       </div>
     </div>
-    <div class="margin-top-20 ">
+    <div class="margin-top-20 row">
+      <div class="col-sm-6 col-md-4 col-lg-4">
       <%= form_for @message, url: support_path do |message_form| %>
         <fieldset>
           <div class="form-group">
             <label>Your Name</label>
-            <%= message_form.text_field :name, value: current_user.fullname %>
+            <%= message_form.text_field :name, class: 'form-control', value: current_user.fullname %>
           </div>
           <div class="form-group">
             <label>Your Email</label>
-            <%= message_form.email_field :email, value: current_user.email %>
+            <%= message_form.email_field :email, class: 'form-control', value: current_user.email %>
           </div>
           <div class="form-group">
             <label>Your feedback</label>
-            <%= message_form.text_area :content, placeholder: "You can be as honest as"%>
+            <%= message_form.text_area :content, rows: '3', class: 'form-control', placeholder: "..and don't be afraid to be honest"%>
           </div>
         </fieldset>
         <fieldset>
           <div class="form-group">
-            <%= message_form.submit "Send" %>
+            <%= message_form.submit "Send", class: 'btn btn-primary' %>
           </div>
         </fieldset>
       <% end %>
+      </div>
     </div>
   </div>
 </div>

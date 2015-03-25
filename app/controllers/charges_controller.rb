@@ -1,17 +1,22 @@
 class ChargesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_card_exists
+  before_filter :ensure_plan_in_cart_or_existing_subscriber
+  prepend_before_filter :ensure_card_exists
   include SessionsHelper
   include ApplicationHelper
 
   # Billing ID  should be set and saved to the DB when a card is added.
   # Charges controller should redirect if no card is on file
+  # Checkout and and add-ons view should redirect to plan select if no plan in cart and not a subscriber,
+  # so a user should never call 
   def new
       stripe_customer = StripeCustomer.new current_user.billing_id
-      logger.info("Logging from new#{stripe_customer.current_plan}")
-      charge = Charge.new
-      if stripe_customer.has_active_subscription? && !stripe_customer.change_of_plan?
-        charge.calculate_add_ons_charge
+      calc = ChargeCalculator.new
+      if !stripe_customer.has_active_subscription? && !stripe_customer.change_of_plan?
+        amount = calc.add_ons_charge(add_ons_in_cart)
+        desciption = calc.charge_description(add_ons_in_cart)
+        logger.info("Logging amount #{amount} and #{description}")
+        stripe_customer.create_charge(amount, description)
       end
   end
 
@@ -70,17 +75,21 @@ class ChargesController < ApplicationController
   private
 
   def ensure_card_exists
-    # customer = StripeCustomer.new current_user.billing_id
-    # unless customer.valid_card?
-    #   flash[:message] = 'Please add a valid credit card'
-    #   redirect_to edit_subscription_path
-    # end
+
   end
 
-  def generate_description
-    # Concatenate names of items, passed to the controller
-    # dummy string for now
-    'Charge Description'
+  def ensure_plan_in_cart_or_existing_subscriber
+    stripe_customer = StripeCustomer.new current_user.billing_id
+    unless !stripe_customer.has_active_subscription? || plan_in_cart?
+      redirect_to edit_subscription_path
+    end
   end
+
+  def add_ons_in_cart
+    cart = session[:cart]
+    cart.delete_if {|item| item.type.eql?('plan') }
+    cart
+  end
+
 end
 

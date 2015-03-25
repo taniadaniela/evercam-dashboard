@@ -1,10 +1,10 @@
 # Prefer that API calls are contained 
 # For performance, when adding methods try avoid making a new API call to Stripe if the data you want is already contained in @stripe_customer
 class StripeCustomer
-  def initialize billing_id
+  def initialize billing_id, plan_in_cart
+    @plan_in_cart = plan_in_cart
     @billing_id = billing_id
     @stripe_customer = retrieve_stripe_customer
-    Rails.logger.info("Logging Stripe Customer #{@stripe_customer}")
   end
 
   def retrieve_stripe_customer
@@ -15,17 +15,13 @@ class StripeCustomer
   end
 
   def change_of_plan?
-    current_plan.id.eql?(plan_in_cart.id) ? false : true
+    current_plan.id.eql?(@plan_in_cart.id) ? false : true
+  rescue
+    true
   end
 
   def current_plan
     @stripe_customer.subscriptions.first.plan
-  end
-
-  def plan_in_cart
-    session[:cart].find(:type => 'plan').first
-  rescue
-    nil
   end
 
   def valid_card?
@@ -36,7 +32,14 @@ class StripeCustomer
     @stripe_customer.subscriptions.total_count > 0
   end
 
-
+  def create_charge(amount, description)
+    Stripe::Charge.create(
+      :customer    => @stripe_customer.id,
+      :amount => amount,
+      :description => description,
+      :currency    => 'eur'
+    )
+  end
 
 
 

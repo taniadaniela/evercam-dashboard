@@ -4,7 +4,7 @@ class LineItemsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
-  before_action :set_cart, :ensure_plan_set
+  before_action :set_cart, :set_user_plan
 
   def index
     @line_items = session[:cart]
@@ -69,10 +69,6 @@ class LineItemsController < ApplicationController
     else
       true
     end
-  end
-
-  def plan_in_cart?
-    true
   end
 
   def existing_subscription?

@@ -124,7 +124,7 @@
                         <%= label_tag('snapshot', "Snapshot URL Ending*", class: "grey control-label") %>
                         <div class="snap-end">
                           <span class="prepend prepend-2">/</span>
-                          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain eg.data-externe/webcam/webcam.jpg", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.?=", "data-validation-error-msg" => "") %>
+                          <%= text_field_tag("snapshot", @user['snapshot'], "placeholder" => "snapshot.jpg", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain eg.data-externe/webcam/webcam.jpg", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "") %>
                         </div>
                       </div>
                     </div>

@@ -71,6 +71,7 @@ loadVendorModels = (vendor_id) ->
       default_password = if model.defaults.auth != null and model.defaults.auth != undefined then model.defaults.auth.basic.password else ''
       if model.name.toLowerCase().indexOf('default') isnt -1
         $("#camera-model").prepend("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' selected='selected' value='#{model.id}'>#{model.name}</option>")
+        hasModelImage($("#camera-vendor").val(), model.id)
       else
         $("#camera-model").append("<option jpg-val='#{jpg_url}' username-val='#{default_username}' password-val='#{default_password}' value='#{model.id}'>#{model.name}</option>")
     $("#camera-model").removeAttr("disabled")
@@ -93,13 +94,26 @@ loadVendorModels = (vendor_id) ->
 
   jQuery.ajax(settings)
   true
+hasModelImage = (vendor_id, model_id) ->
+  img = new Image()
+  image_url = "http://evercam-public-assets.s3.amazonaws.com/#{vendor_id}/#{model_id}/thumbnail.jpg"
+  img.onload = ->
+    $("#model-image").attr("src", image_url)
+  img.onerror = ->
+    $("#model-image").attr("src", "/assets/default_thumbnail.jpg")
+  img.src = image_url
+
 
 handleVendorModelEvents = ->
   $("#camera-vendor").on "change", ->
+    $('#vemdor-image').attr
+      'src': "http://evercam-public-assets.s3.amazonaws.com/#{$(this).val()}/logo.jpg"
+      'alt': $(this).val()
     loadVendorModels($(this).val())
 
   $("#camera-model").on "change", ->
     selected_option = $(this).find(":selected")
+    hasModelImage($("#camera-vendor").val(), $(this).val())
     snapshot_url = selected_option.attr("jpg-val")
     $("#default-username").text(selected_option.attr("username-val"))
     $("#default-password").text(selected_option.attr("password-val"))

@@ -22,6 +22,10 @@ module CurrentCart
     nil
   end
 
+  def purge_plan_from_cart
+    session[:cart].delete_if {|item| item.type.eql?('plan') }
+  end
+
   def add_ons_in_cart?
     session[:cart].find(:type => 'add_on').first
   rescue

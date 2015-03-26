@@ -5,15 +5,27 @@ class ChargesController < ApplicationController
   include ApplicationHelper
   include CurrentCart
 
-  # Charges controller should redirect if no card is on file
-  # Checkout and and add-ons view should redirect to plan select if no plan in cart and not a subscriber,
-  # so a user should never call 
+  # Stripe will handle change plan 
   def create
     customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
-    customer.create_subscription unless customer.has_active_subscription?
+    unless customer.has_active_subscription?
+      begin
+        customer.create_subscription
+        purge_plan_from_cart
+      rescue
+        flash[:error] = "Something went wrong."
+      end
+    end
+    # if add_ons_in_cart?
+
+
     # customer.change_plan if customer.change_of_plan?
+
+
+    # redirect_to my_account_path, notice: I18n.t('subscriptions.flashes.update.success')
+    
     # customer.create_charge(add_ons_charge, charge_description) if add_ons_in_cart?
-    render 'subscriptions/receipt'
+    redirect_to subscriptions_path
   end
 
   def subscription_create
@@ -44,13 +56,17 @@ class ChargesController < ApplicationController
 
   def subscription_update
     # token = params[:token]
-    # subscription_id = params[:subscription_id]
+    # subscription_id = params[:subsscription_id]
     # customer = Stripe::Customer.retrieve(token)
     # customer.subscriptions.retrieve(subscription_id).delete
     # current_user.billing_id = customer.id
     # current_user.save
     # redirect_to(:back)
     # flash[:message] = "Your Subscription has been cancelled"
+  end
+
+  def receipt
+
   end
 
   private
@@ -60,7 +76,7 @@ class ChargesController < ApplicationController
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
-    customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
+    customer = StripeCustomer.new(current_user.billing_id)
     unless customer.has_active_subscription? || plan_in_cart?
       redirect_to edit_subscription_path
     end

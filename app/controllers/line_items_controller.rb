@@ -20,7 +20,6 @@ class LineItemsController < ApplicationController
     @current_subscription = current_subscription
     product_params = build_line_item_params(params)
     @line_item = LineItem.new(product_params)
-    logger.info("Logging create_add_on #{@line_item.interval}")
     if can_add_to_cart?
       save_to_cart
     else
@@ -35,12 +34,8 @@ class LineItemsController < ApplicationController
   private
 
   def build_line_item_params params
-    p = ProductSelector.new(params[:product_id])
-    p.product_params
-  end
-
-  def purge_plan_from_cart
-    session[:cart].delete_if {|item| item.type.eql?('plan') }
+    selector = ProductSelector.new(params[:product_id])
+    selector.product_params
   end
 
   def change_of_plan?

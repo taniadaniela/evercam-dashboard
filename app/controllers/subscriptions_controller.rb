@@ -9,10 +9,11 @@ class SubscriptionsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include StripeCustomersHelper
+  include SubscriptionsHelper
   require "stripe"
 
   def index
-
+    current_subscription
   end
 
   def new
@@ -28,11 +29,11 @@ class SubscriptionsController < ApplicationController
   end
 
   def edit_subscription
-
+    current_subscription
   end
 
   def edit_add_ons
-
+    current_subscription
   end
 
   def destroy
@@ -40,5 +41,15 @@ class SubscriptionsController < ApplicationController
     stripe_customer.subscriptions.retrieve(params[:subscription_id]).delete
     flash[:message] = "You have successfuly deleted your #{params[:plan_name]} subscription."
     redirect_to user_path(current_user.username)
+  end
+
+  private
+
+  def current_subscription
+    @current_subscription = false
+    if current_user.billing_id.present?
+      customer = StripeCustomer.new(current_user.billing_id)
+      @current_subscription = customer.current_plan ? customer.current_plan : false
+    end
   end
 end

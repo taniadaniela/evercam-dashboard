@@ -22,6 +22,8 @@ class StripeCustomer
 
   def current_plan
     @stripe_customer.subscriptions.first.plan
+  rescue
+    false
   end
 
   def valid_card?

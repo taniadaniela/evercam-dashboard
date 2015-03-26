@@ -35,6 +35,8 @@ gem 'rails-assets-moment', '~> 2.8'
 gem 'rails-assets-pusher', '~> 2.2.3'
 gem 'rails-assets-screenfull', '~> 2.0'
 gem 'rails-assets-videojs', '~> 4.11.4'
+gem 'rubysl-open-uri'
+
 
 gem 'pg'
 gem 'sequel'

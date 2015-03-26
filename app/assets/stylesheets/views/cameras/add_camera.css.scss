@@ -15,9 +15,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-.settings {
-  margin-bottom: 20px;
-}
 button#add-button {
   margin-left: 9px;
 }
@@ -50,19 +47,14 @@ button#add-button {
   margin-top: -4px;
 }
 
-#add-test {
-  position: absolute;
-  margin-left: -128px;
-}
 .test-img-holder {
-  width: 200px;
-  height: 200px;
+  height: 222px;
   border:1px solid #e5e5e5;
   overflow: hidden;
 }
 @media (max-width: 767px) {
   #add-test {
-    position: static ;
+    position: static;
     margin-left: 0px;
   }
 }
@@ -219,12 +211,21 @@ input:-webkit-autofill {
 .prepend-2 {
   margin-left: -16px;
   margin-top: 6px;
-  font-family: 'proxima-nova-bold';
   position: absolute;
 }
 .prepend-1 {
   margin-left: -26px;
   margin-top: 6px;
-  font-family: 'proxima-nova-bold';
   position: absolute;
+}
+
+#add-ip {
+  .prepend-3 {
+    margin-top: 6px;
+    position: absolute;
+    font-size: 16px;
+  }
+  input#camera-url, input#local-ip {
+    padding-left: 40px;
+  }
 }

@@ -21,6 +21,7 @@ class Admin::DashVendorModelController < AdminController
 
     (display_start..index_end).each do |index|
       records[:data][records[:data].count] = [
+        dash_vendors_models[index].vendor.exid,
         dash_vendors_models[index].exid,
         dash_vendors_models[index].vendor.name,
         dash_vendors_models[index].name,
@@ -31,7 +32,7 @@ class Admin::DashVendorModelController < AdminController
         dash_vendors_models[index].config.deep_fetch('snapshots', 'mobile') { '' },
         dash_vendors_models[index].config.deep_fetch('snapshots', 'lowres') { '' },
         dash_vendors_models[index].config.deep_fetch('auth', 'basic', 'username') { '' },
-      dash_vendors_models[index].config.deep_fetch('auth', 'basic', 'password') { '' }]
+        dash_vendors_models[index].config.deep_fetch('auth', 'basic', 'password') { '' }]
     end
 
     render json: records

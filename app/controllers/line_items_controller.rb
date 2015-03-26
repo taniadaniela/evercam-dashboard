@@ -80,6 +80,7 @@ class LineItemsController < ApplicationController
   end
 
   def plan_changed? plan
+    logger.info("Logging curent plan #{@current_plan}")
     @current_plan[:id].eql?(plan) ? false : true
   end
 

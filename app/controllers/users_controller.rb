@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :retrieve_stripe_customer
   before_filter :retrieve_stripe_subscriptions
   before_filter :retrieve_add_ons, except: [:new, :create]
-  before_filter :set_user_plan
+  # before_filter :set_user_plan
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
@@ -95,6 +95,7 @@ class UsersController < ApplicationController
  
   def settings
     # @cameras = load_user_cameras(true, false)
+    @subscription = current_subscription
     @countries = Country.all
     unless current_user.billing_id.blank?
       @credit_cards = retrieve_credit_cards

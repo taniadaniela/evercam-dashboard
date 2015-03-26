@@ -1,27 +1,27 @@
-"<section class="plans-select">
+<section class="plans-select">
   <div class="row">
-  <div class="col-md-4">
-    <%= button_to 'Free', line_items_path(type: 'plan', product_id: 'evercam-free'), remote: true, class: 'btn btn-default'  %>
-  </div>
-  <div class="col-md-4">
-    <div class="row">
-      <div class="col-xs-6">
-        <%= button_to 'Pro Monthly', line_items_path(type: 'plan', product_id: 'evercam-pro'), remote: true, class: 'btn btn-default'  %>
+    <div class="col-md-4">
+      <%= button_to 'Free', line_item_subscription_path(type: 'plan', product_id: 'evercam-free'), remote: true, class: 'btn btn-default'  %>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-xs-6">
+          <%= button_to 'Pro Monthly', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro'), remote: true, class: 'btn btn-default'  %>
+        </div>
+        <div class="col-xs-6">
+          <%= button_to 'Pro Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-annual'), remote: true, class: 'btn btn-default'  %>
+        </div>
       </div>
-      <div class="col-xs-6">
-        <%= button_to 'Pro Annual', line_items_path(type: 'plan', product_id: 'evercam-pro-annual'), remote: true, class: 'btn btn-default'  %>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-xs-6">
+          <%= button_to 'Pro Plus Monthly', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus'), remote: true, class: 'btn btn-default'  %>
+        </div>
+        <div class="col-xs-6">
+          <%= button_to 'Pro Plus Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus-annual'), remote: true, class: 'btn btn-default'  %>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="row">
-      <div class="col-xs-6">
-        <%= button_to 'Pro Plus Monthly', line_items_path(type: 'plan', product_id: 'evercam-pro-plus'), remote: true, class: 'btn btn-default'  %>
-      </div>
-      <div class="col-xs-6">
-        <%= button_to 'Pro Plus Annual', line_items_path(type: 'plan', product_id: 'evercam-pro-plus-annual'), remote: true, class: 'btn btn-default'  %>
-      </div>
-    </div>
-  </div>
-</div>
 </section>

@@ -1,25 +1,30 @@
-# Creates the line_items from the product_id passed from the views
-# Have before actions to set cart and plan here nfor now, I assumed I could set these once in the application controller but they were not always being loaded
 class LineItemsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
-  before_action :set_cart, :set_user_plan
-
-  def index
-    @line_items = session[:cart]
-  end  
+  before_action :set_cart
   
-  def create
+  def create_subscription
+    @current_subscription = current_subscription
     product_params = build_line_item_params(params)
     @line_item = LineItem.new(product_params)
-    if @line_item.type.eql?('plan')
-      purge_plan_from_cart
-      create_plan_line_item
-    elsif @line_item.type.eql?('add_on')
-      create_add_on_line_item
+    purge_plan_from_cart
+    if change_of_plan?
+      save_to_cart
     else
-      raise('Could not select')
+      flash.now[:message] = "You are already on the #{@line_item.name} plan."
+    end
+  end
+
+  def create_add_on
+    @current_subscription = current_subscription
+    product_params = build_line_item_params(params)
+    @line_item = LineItem.new(product_params)
+    logger.info("Logging create_add_on #{@line_item.interval}")
+    if can_add_to_cart?
+      save_to_cart
+    else
+      flash.now[:message] = "Can not add this item."
     end
   end
 
@@ -34,84 +39,40 @@ class LineItemsController < ApplicationController
     p.product_params
   end
 
-  def create_plan_line_item
-    if plan_changed?(@line_item.product_id)
-      session[:cart].push(@line_item)
-      respond_to do |format|
-        format.js
-      end
-    else flash.now[:message] = "You are already on the #{@line_item.name} plan."
-    end
+  def purge_plan_from_cart
+    session[:cart].delete_if {|item| item.type.eql?('plan') }
   end
 
-  def create_add_on_line_item
-    if can_add_add_on_to_cart?
-      session[:cart].push(@line_item)
-      respond_to do |format|
-        format.js
-      end
-    end
-  end
-
-  def valid_add_on_duration?
-    if annual_plan_in_cart? && @line_item.interval.eql?('month')
-      flash.now[:message] = "Monthly add-ons cannot be added to an annual plan."
-      false
-    elsif current_annual_subscription? && @line_item.interval.eql?('month')
-      flash.now[:message] = "Monthly add-ons cannot be added to an annual plan."
-      false
-    elsif monthly_plan_in_cart? && @line_item.interval.eql?('year')
-      flash.now[:message] = "Annual add-ons cannot be added to an monthly plan."
-      false
-    elsif current_monthly_subscription? && @line_item.interval.eql?('year')
-      flash.now[:message] = "Annual add-ons cannot be added to an monthly plan."
-      false
+  def change_of_plan?
+    if defined? @current.subscription.id
+      !@current_subscription.id.eql?(@line_item.product_id)
     else
       true
     end
   end
 
+  def save_to_cart
+    session[:cart].push(@line_item)
+      respond_to do |format|
+        format.js
+      end
+  end
+
+  def can_add_to_cart?
+    (plan_in_cart? || existing_subscription?) && valid_duration? ? true : false
+  end
+
   def existing_subscription?
-    true
+    @current_subscription
   end
 
-  def can_add_add_on_to_cart?
-    (valid_add_on_duration? && (plan_in_cart? || existing_subscription?)) ? true : false
-  end
-
-  def plan_changed? plan
-    logger.info("Logging curent plan #{@current_plan}")
-    @current_plan[:id].eql?(plan) ? false : true
-  end
-
-  def purge_plan_from_cart
-    session[:cart].delete_if {|item| item.type.eql?('plan') }
-  end
-
-  def annual_plan_in_cart?
-    line_item_duration.eql?('year') ? true : false
-  end
-
-  def monthly_plan_in_cart?
-    line_item_duration.eql?('month') ? true : false
-  end
-
-  def line_item_duration
-    if session[:cart].empty?
-      @current_plan.interval
-    elsif plan = session[:cart].find(:type => 'plan').first
-      plan.interval
+  def valid_duration?
+    if plan_in_cart?
+      plan_in_cart.interval.eql?(@line_item.interval)
+    elsif @current_subscription.interval.eql?(@line_item.interval)
+      true
     else
-      @current_plan.interval
+      false
     end
-  end
-
-  # New sign up user defaults to evercam-free (monthly)
-  def current_annual_subscription?
-    @current_plan.interval.eql? 'year'
-  end
-
-  def current_monthly_subscription?
-    @current_plan.interval.eql? 'month'
   end
 end

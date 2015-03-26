@@ -1,4 +1,7 @@
 .subscriptions {
+  .navigation {
+    background-color: $lighter-grey;
+  }
   .plans {
     .plans-comparison {
       ul {
@@ -13,6 +16,9 @@
     .plans-select {
       p {
         text-align: center;
+      }
+      .btn {
+        width: 100%;
       }
     }
   }

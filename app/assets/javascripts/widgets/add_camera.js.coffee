@@ -96,6 +96,7 @@ loadVendorModels = (vendor_id) ->
 
   jQuery.ajax(settings)
   true
+
 hasModelImage = (vendor_id, model_id) ->
   img = new Image()
   image_url = "http://evercam-public-assets.s3.amazonaws.com/#{vendor_id}/#{model_id}/thumbnail.jpg"
@@ -104,7 +105,6 @@ hasModelImage = (vendor_id, model_id) ->
   img.onerror = ->
     $("#model-image").attr("src", "/assets/plain.png")
   img.src = image_url
-
 
 handleVendorModelEvents = ->
   $("#camera-vendor").on "change", ->
@@ -264,8 +264,8 @@ testSnapshot = ->
       dataType: 'json'
       error: onError
       success: onSuccess
-      contentType: "application/json; charset=utf-8"
-      type: 'GET'
+      contentType: "application/x-www-form-urlencoded"
+      type: 'POST'
       url: "#{Evercam_API_URL}cameras/test"
 
     jQuery.ajax(settings)

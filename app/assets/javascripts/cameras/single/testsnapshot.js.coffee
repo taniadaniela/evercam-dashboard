@@ -36,14 +36,17 @@ $ ->
     # Validate port
     if(port != '' && (!intRegex.test(port) || port > 65535))
       showFeedback("Port value is incorrect")
+      return
     else if (port != '')
       port = ':' + port
 
     # Validate host
     if (ext_url == '' || !validate_hostname(ext_url))
       showFeedback("External IP Address (or URL) is incorrect")
+      return
     else if (ext_url.indexOf('192.168') == 0 || ext_url.indexOf('127.0.0') == 0 || ext_url.indexOf('10.') == 0)
       showFeedback("This is the Internal IP. Please use the External IP.")
+      return
 
     params = ['external_url=http://' + ext_url + port,
               'jpg_url=/' + jpg_url,
@@ -61,20 +64,34 @@ $ ->
         clearInterval(interval)
     , 200)
 
-    $.getJSON(window.Evercam.API_URL + 'cameras/test.json?' + params.join('&'))
-    .done((resp) ->
-      console.log('success')
-      if (resp.data.indexOf('data:text/html') == 0)
-        showFeedback("We got a response, but it's not an image")
-      else
-        showFeedback("We got a snapshot")
-        $('#testimg').attr('src', resp.data)
-    )
-    .fail((resp) ->
-      $('#test-error').text(resp.responseJSON.message)
-      console.log('error')
-    )
-    .always(() ->
+    #send request for test snapshot
+    data = {}
+    data.external_url = "http://#{ext_url}#{port}"
+    data.jpg_url = jpg_url
+    data.cam_username = $("#camera-username").val() unless $("#camera-username").val() is ''
+    data.cam_password = $("#camera-password").val() unless $("#camera-password").val() is ''
+
+    onError = (jqXHR, status, error) ->
+      $('#test-error').text(jqXHR.responseJSON.message)
       loader.stop()
-      clearInterval(interval)
-    )
+
+    onSuccess = (result, status, jqXHR) ->
+      if result.status is 'ok'
+        if (result.data.indexOf('data:text/html') == 0)
+          showFeedback("We got a response, but it's not an image")
+        else
+          showFeedback("We got a snapshot")
+          $('#testimg').attr('src', result.data)
+      loader.stop()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/x-www-form-urlencoded"
+      type: 'POST'
+      url: "#{window.Evercam.API_URL}cameras/test"
+
+    jQuery.ajax(settings)

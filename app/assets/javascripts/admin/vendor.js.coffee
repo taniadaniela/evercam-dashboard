@@ -1,4 +1,5 @@
 vendor_table = null
+method = 'POST'
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -23,9 +24,10 @@ initializeDataTable = ->
         console.log(xhr.responseJSON.message)
     },
     columns: [
-      {data: "id", width: '20%', type: 'string' },
+      {data: "id", width: '20%', 'render': showLogo },
+      {data: "id", width: '20%', 'render': editVendor },
       {data: "name", width: '20%'},
-      {data: "known_macs", width: '60%', 'render': showMacs }
+      {data: "known_macs", width: '40%', 'render': showMacs }
     ],
     iDisplayLength: 50
     aLengthMenu: [
@@ -34,6 +36,19 @@ initializeDataTable = ->
     ]
     aaSorting: [1, "asc"]
   })
+
+editVendor = (id, type, row) ->
+  return "<a style='cursor:pointer;' class='edit-vandor' val-id='#{row.id}' val-name='#{row.name}' val-macs='#{row.known_macs}'>#{row.id}</a>"
+
+showLogo = (id, type, row) ->
+  img = new Image()
+  image_url = "http://evercam-public-assets.s3.amazonaws.com/#{id}/logo.jpg"
+  img.onload = ->
+
+  img.onerror = ->
+    $("#image-#{row.id}").remove()
+  img.src = image_url
+  return "<img id='image-#{row.id}' style='width:100%;' src='#{image_url}'/>"
 
 showMacs = (macs, type, row) ->
   known_macs = "#{macs}"
@@ -44,6 +59,8 @@ clearForm = ->
   $("#name").val('')
   $("#known-macs").val('')
   $(".vendor-alert").slideUp()
+  $("#add-vendor div.caption").text("Add a Vendor");
+  method = 'POST'
 
 handleAddNewModel = ->
   $("#save-vendor").on 'click', ->
@@ -59,7 +76,6 @@ handleAddNewModel = ->
     $(".vendor-alert").slideUp()
 
     data = {}
-    data.id = $("#vendor-id").val()
     data.name = $("#name").val()
     data.macs = $("#known-macs").val() unless $("#known-macs").val() is ''
 
@@ -69,10 +85,16 @@ handleAddNewModel = ->
       false
 
     onSuccess = (result, status, jqXHR) ->
-      vendor_models_table.getDataTable().ajax.reload()
+      vendor_table.ajax.reload()
       $('#add-vendor').modal('hide')
+      method = 'POST'
       clearForm()
       true
+    vendor_id = ''
+    if method is 'POST'
+      data.id = $("#vendor-id").val()
+    else
+      vendor_id = "/#{$("#vendor-id").val()}"
 
     settings =
       cache: false
@@ -81,14 +103,22 @@ handleAddNewModel = ->
       error: onError
       success: onSuccess
       contentType: "application/x-www-form-urlencoded"
-      type: 'POST'
-      url: "#{Evercam.API_URL}vendors?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      type: method
+      url: "#{Evercam.API_URL}vendors#{vendor_id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     sendAJAXRequest(settings)
 
 onModelClose = ->
   $(".modal").on "hide.bs.modal", ->
     clearForm()
+
+$(".edit-vandor").live 'click', ->
+  $("#vendor-id").val($(this).attr("val-id"))
+  $("#name").val($(this).attr("val-name"))
+  $("#known-macs").val($(this).attr("val-macs"))
+  method = 'PATCH'
+  $('#add-vendor').modal('show')
+  $("#add-vendor div.caption").text("Edit Vendor");
 
 window.initializeVendors = ->
   initializeDataTable()

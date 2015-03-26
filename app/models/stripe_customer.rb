@@ -26,6 +26,10 @@ class StripeCustomer
     false
   end
 
+  def subscription_id
+    @stripe_customer.subscriptions.first.id
+  end
+
   def valid_card?
     @stripe_customer.default_source.present?
   end
@@ -39,8 +43,8 @@ class StripeCustomer
   end
 
   def change_plan
-    subscription = @stripe_customer.subscriptions.retrieve(current_plan.id)
-    subscription.plan = @plan_in_cart
+    subscription = @stripe_customer.subscriptions.retrieve(subscription_id)
+    subscription.plan = @plan_in_cart.product_id
     subscription.save
   end
 

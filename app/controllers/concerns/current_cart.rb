@@ -13,11 +13,11 @@ module CurrentCart
   end 
 
   def plan_in_cart?
-    session[:cart].find(type: 'plan') ? true : false
+    session[:cart].detect {|i| i[:type].eql?('plan') } ? true : false
   end
 
   def plan_in_cart
-    session[:cart].find(:type => 'plan').first
+    session[:cart].detect {|i| i[:type].eql?('plan') } 
   rescue
     nil
   end

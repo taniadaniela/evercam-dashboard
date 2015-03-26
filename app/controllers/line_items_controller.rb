@@ -39,7 +39,7 @@ class LineItemsController < ApplicationController
   end
 
   def change_of_plan?
-    if defined? @current.subscription.id
+    if defined? @current_subscription.id
       !@current_subscription.id.eql?(@line_item.product_id)
     else
       true

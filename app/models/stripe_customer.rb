@@ -1,7 +1,7 @@
-# Prefer that API calls are contained 
-# For performance, when adding methods try avoid making a new API call to Stripe if the data you want is already contained in @stripe_customer
+# For performance, when adding methods try avoid making a new API call to Stripe
+# if the data you want is already contained in @stripe_customer
 class StripeCustomer
-  def initialize billing_id, plan_in_cart
+  def initialize billing_id, plan_in_cart=nil
     @plan_in_cart = plan_in_cart
     @billing_id = billing_id
     @stripe_customer = retrieve_stripe_customer
@@ -15,9 +15,9 @@ class StripeCustomer
   end
 
   def change_of_plan?
-    current_plan.id.eql?(@plan_in_cart.id) ? false : true
+    current_plan.id.eql?(@plan_in_cart.product_id) ? false : true
   rescue
-    true
+    false
   end
 
   def current_plan
@@ -33,13 +33,12 @@ class StripeCustomer
   end
 
   def create_subscription
-    stripe_customer.subscription.create(:plan => plan_in_cart.id)
+    @stripe_customer.subscriptions.create(:plan => @plan_in_cart.product_id)
   end
 
   def change_plan
-    customer = Stripe::Customer.retrieve("cus_5q8uUVGQ5YZ5Jq")
     subscription = @stripe_customer.subscriptions.retrieve(current_plan.id)
-    subscription.plan = plan_in_cart
+    subscription.plan = @plan_in_cart
     subscription.save
   end
 
@@ -62,9 +61,7 @@ class StripeCustomer
 
 
 
-  def create_subscription
 
-  end
 
   def stripe_subscriptions
     @subscriptions = Stripe::Customer.retrieve(@stripe_customer).subscriptions.all
@@ -105,9 +102,4 @@ class StripeCustomer
     total = amounts.inject(0) {|sum, i|  sum + i }
     number_to_currency(total / 100)
   end
-
-  def stripe_plans
-    @stripe_plans ||= Stripe::Plan.all
-  end
-
 end

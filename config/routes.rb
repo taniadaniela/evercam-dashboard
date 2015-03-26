@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
+  get 'v1/subscription'=> 'subscriptions#index', as: :subscriptions
   get 'v1/subscriptions/new'=> 'subscriptions#new', as: :new_subscription
   get '/v1/subscriptions/upgrade' => 'subscriptions#edit_subscription', as: :edit_subscription
   get '/v1/subscriptions/upgrade-add-ons' => 'subscriptions#edit_add_ons', as: :edit_add_ons

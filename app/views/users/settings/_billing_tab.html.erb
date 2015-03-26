@@ -6,6 +6,9 @@
         <div class="panel-title row">
           <h4 class="margin-bottom-10">Billing Information</h4>
         </div>
+
+        <%= render partial: 'shared/stripe' %>
+        
           <!-- New Stripe customer -->
           <% unless is_stripe_customer? %>
             <p>You have not yet associated a credit card with this account.</p>

@@ -3,6 +3,7 @@
     <%= render partial: "users/section_header", locals: { section_header_title: "Current Subscription" } %>
     <div class="portlet-body">
       <div class="add-ons">
+      <%= render 'navigation' %>
         <div class="row">
           <div class="col-md-12">
             <% if has_subscription? %>

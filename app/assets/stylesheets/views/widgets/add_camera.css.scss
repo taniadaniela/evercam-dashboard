@@ -92,6 +92,26 @@ body{
 .help-text{
   color: #428bca;
 }
+.image-placeholder{
+  border: 1px solid #e5e5e5;
+  max-height: 137px;
+  padding: 5px;
+  text-align: center;
+  background-image: url(/assets/camera.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+#model-image {
+  max-width: 100%;
+  height: 129px;
+}
+#vemdor-image{
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  max-width: 100%;
+  height: 22px;
+}
 .info-box{
   background-color: #f5f5f5;
   padding: 20px;

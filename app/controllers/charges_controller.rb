@@ -57,13 +57,12 @@ class ChargesController < ApplicationController
     description = ''
     add_ons_in_cart.each_with_index do |item, index|
         description.concat(item.name)
-        unless index.eql?(item.length - 1)
+        unless index.eql?(add_ons_in_cart.length - 1)
           description.concat(', ')
         else
           description.concat('.')
         end
       end
-    logger.info("Logging description #{description}")
     description
   end 
 end

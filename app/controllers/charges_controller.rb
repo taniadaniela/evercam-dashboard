@@ -30,7 +30,7 @@ class ChargesController < ApplicationController
     purge_plan_from_cart
     flash[:message] = "Plan created."
   rescue
-    redirect_to subscriptions_path, flash: {error: "Something went wrong."}
+    flash[:error] = "Something went wrong."
   end
 
   def change_plan
@@ -38,14 +38,14 @@ class ChargesController < ApplicationController
     purge_plan_from_cart
     flash[:message] = "Plan Changed."
   rescue
-    redirect_to subscriptions_path, flash: {error: "Something went wrong."}
+    flash[:error] = "Something went wrong."
   end
 
   def create_charge
     @customer.create_charge(add_ons_charge, charge_description)
     empty_cart
   rescue
-    redirect_to subscriptions_path, flash: {error: "Something went wrong."}
+    flash[:error] = "Something went wrong."
   end
 
   def add_ons_charge
@@ -54,11 +54,17 @@ class ChargesController < ApplicationController
   end
 
   def charge_description
-    # description = 'Description: '
-    # add_ons_in_cart.each do |item|
-    #     description.push(item.name + '\n')
-    #   end
-    # description
+    description = ''
+    add_ons_in_cart.each_with_index do |item, index|
+        description.concat(item.name)
+        unless index.eql?(item.length - 1)
+          description.concat(', ')
+        else
+          description.concat('.')
+        end
+      end
+    logger.info("Logging description #{description}")
+    description
   end 
 end
 

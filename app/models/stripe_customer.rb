@@ -69,12 +69,7 @@ class StripeCustomer
 
 
 
-  def stripe_subscriptions
-    @subscriptions = Stripe::Customer.retrieve(@stripe_customer).subscriptions.all
-  rescue
-    false
-  end
-
+  
   def default_card?(card_id)
     @stripe_customer.default_source.eql?(card_id)
   end

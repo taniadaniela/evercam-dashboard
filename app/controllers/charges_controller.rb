@@ -16,11 +16,14 @@ class ChargesController < ApplicationController
   private
 
   def ensure_card_exists
+    @customer = StripeCustomer.new(current_user.billing_id)
+    unless @customer.valid_card?
+      redirect_to edit_subscription_path, flash: {message: "You must add a card."}
+    end
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
-    customer = StripeCustomer.new(current_user.billing_id)
-    unless customer.has_active_subscription? || plan_in_cart?
+    unless @customer.has_active_subscription? || plan_in_cart?
       redirect_to edit_subscription_path, flash: {message: "You must add a plan."}
     end
   end

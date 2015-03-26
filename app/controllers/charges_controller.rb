@@ -43,6 +43,9 @@ class ChargesController < ApplicationController
 
   def create_charge
     @customer.create_charge(add_ons_charge, charge_description)
+    empty_cart
+  rescue
+    redirect_to subscriptions_path, flash: {error: "Something went wrong."}
   end
 
   def add_ons_charge
@@ -56,7 +59,6 @@ class ChargesController < ApplicationController
     #     description.push(item.name + '\n')
     #   end
     # description
-    'Description'
   end 
 end
 

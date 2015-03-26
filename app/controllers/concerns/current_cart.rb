@@ -13,11 +13,11 @@ module CurrentCart
   end 
 
   def plan_in_cart?
-    session[:cart].detect {|i| i[:type].eql?('plan') } ? true : false
+    session[:cart].detect {|i| i.type.eql?('plan') } ? true : false
   end
 
   def plan_in_cart
-    session[:cart].detect {|i| i[:type].eql?('plan') } 
+    session[:cart].detect {|i| i.type.eql?('plan') } 
   rescue
     nil
   end
@@ -27,7 +27,7 @@ module CurrentCart
   end
 
   def add_ons_in_cart?
-    session[:cart].find(:type => 'add_on').first
+    session[:cart].detect {|i| i.type.eql?('add_on') } ? true : false
   rescue
     nil
   end
@@ -36,6 +36,10 @@ module CurrentCart
     cart = session[:cart]
     cart.delete_if { |item| item.type.eql?('plan') }
     cart
+  end
+
+  def empty_cart
+    session.delete(:cart)
   end
 
   def add_ons_total_cost

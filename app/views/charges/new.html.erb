@@ -9,6 +9,7 @@
             <h3>Cart</h3>
             <%= render "subscriptions/cart" %>
             <li>Total <%= cents_to_currency(@total) %></li>
+            <li>Total <%= cents_to_currency(@add_on_charge) %></li>
             <%= button_to "Pay Now", new_charge_path({ amount: @total }) %>
           </div>
         </div>

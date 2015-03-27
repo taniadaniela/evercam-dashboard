@@ -1,30 +1,44 @@
 class ChargesController < ApplicationController
   before_filter :ensure_plan_in_cart_or_existing_subscriber
-  prepend_before_filter :ensure_card_exists
+  before_filter :redirect_when_cart_empty, only: :new
+  prepend_before_filter :ensure_card_exists, :ensure_cameras_loaded
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
+
+  # This is the checkout
+  def new
+    @customer = retrieve_stripe_customer
+    @total = pro_rated_add_on_charge
+    @add_on_charge = pro_rated_add_on_charge
+  end
 
   def create
     @customer = retrieve_stripe_customer
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
-    redirect_to subscriptions_path, flash: {message: "Success."}
+    redirect_to subscriptions_path, flash: { message: "Success." }
   end
 
   private
 
+  def redirect_when_cart_empty
+    if session[:cart].empty?
+      redirect_to edit_subscription_path, flash: {message: "You have nothing to checkout."}
+    end
+  end
+
   def ensure_card_exists
     @customer = StripeCustomer.new(current_user.billing_id)
     unless @customer.valid_card?
-      redirect_to edit_subscription_path, flash: {message: "You must add a card."}
+      redirect_to edit_subscription_path, flash: { message: "You must add a card." }
     end
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
     unless @customer.has_active_subscription? || plan_in_cart?
-      redirect_to edit_subscription_path, flash: {message: "You must add a plan."}
+      redirect_to edit_subscription_path, flash: { message: "You must add a plan." }
     end
   end
 
@@ -49,19 +63,25 @@ class ChargesController < ApplicationController
   end
 
   def create_charge
-    customer = retrieve_stripe_customer
-    if (Time.now.getutc - customer.current_plan.created) >= 86400
-      add_ons_charge = pro_rata_charge
-    end
-    customer.create_charge(add_ons_charge, charge_description)
+    @customer = retrieve_stripe_customer
+    @customer.create_charge(pro_rated_add_on_charge, charge_description)
     empty_cart
   rescue
     flash[:error] = "Something went wrong."
   end
 
-  def pro_rata_charge
-    
+  def pro_rata_percentage
+    if (Time.now.getutc.to_i - @customer.current_plan.created) >= 600
+      month_period = @customer.current_subscription.current_period_end - @customer.current_subscription.current_period_start
+      add_on_period = @customer.current_subscription.current_period_end - Time.now.getutc.to_i
+      ((add_on_period.to_f / month_period.to_f) * 100)
+    else
+      100
+    end
+  end
 
+  def pro_rated_add_on_charge
+    ((add_ons_charge / 100) * pro_rata_percentage).to_i
   end
 
   def add_ons_charge

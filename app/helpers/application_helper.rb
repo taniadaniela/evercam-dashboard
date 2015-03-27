@@ -45,7 +45,8 @@ module ApplicationHelper
     t.to_formatted_s(:long) 
   end
 
+  # Bug here is rounding amounts, and not showing the cents correctly
   def cents_to_currency amount
-    number_to_currency(amount / 100)
+    number_to_currency(amount / 100, :precision => 2)
   end
 end

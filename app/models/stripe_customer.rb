@@ -26,6 +26,10 @@ class StripeCustomer
     false
   end
 
+  def current_subscription
+    @stripe_customer.subscriptions.first
+  end
+
   def subscription_id
     @stripe_customer.subscriptions.first.id
   end

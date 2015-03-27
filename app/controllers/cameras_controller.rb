@@ -2,7 +2,6 @@ class CamerasController < ApplicationController
   before_filter :authenticate_user!
   include SessionsHelper
   include ApplicationHelper
-  require("open-uri")
 
   def index
     @cameras = load_user_cameras(true, false) 
@@ -11,8 +10,7 @@ class CamerasController < ApplicationController
   def new
     @cameras = load_user_cameras(true, false)
     @user = (flash[:user] || {})
-
-    @ip = open("http://api.ipify.org").read
+    @ip = request.remote_ip
 
     if @user == {} && params[:id]
       camera = get_evercam_api.get_camera(params[:id], false)

@@ -49,7 +49,7 @@ loadVendorModels = (vendor_id) ->
     $("#camera-model").append('<option value="">Unknown / not specified</option>');
     $("#camera-snapshot-url").val('')
     $("#vemdor-image").attr("src", "/assets/plain.png")
-    $("#model-image").css('visibility','hidden')
+    $("#model-image").attr("src", "/assets/plain.png")
     return
   $("#camera-model").append('<option value="">Loading...</option>');
 
@@ -102,9 +102,8 @@ hasModelImage = (vendor_id, model_id) ->
   image_url = "http://evercam-public-assets.s3.amazonaws.com/#{vendor_id}/#{model_id}/thumbnail.jpg"
   img.onload = ->
     $("#model-image").attr("src", image_url)
-    $("#model-image").css('visibility','visible')
   img.onerror = ->
-    $("#model-image").css('visibility','hidden')
+    $("#model-image").attr("src", "/assets/plain.png")
   img.src = image_url
 
 handleVendorModelEvents = ->

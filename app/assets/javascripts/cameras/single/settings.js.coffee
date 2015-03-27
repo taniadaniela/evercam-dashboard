@@ -9,7 +9,8 @@ onCameraDeleteSuccess = (data, status, jqXHR) ->
     Notification.show data.message
 
 handleCameraDelete = ->
-  $("#delete-camera").on "click", ->
+  $("#delete-camera").on "click", (event) ->
+    event.preventDefault()
     if $("#camera_specified_id") && $("#camera_specified_id").val() is ''
       Notification.show "Please enter camera id to confirm delete camera."
       return
@@ -28,7 +29,8 @@ handleCameraDelete = ->
       type: 'DELETE'
     $.ajax(settings)
 
-  $("#remove-camera").on "click", ->
+  $("#remove-camera").on "click", (event) ->
+    event.preventDefault()
     data =
       share: $("#share").val()
       share_id: $("#share_id").val()

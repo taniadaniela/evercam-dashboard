@@ -18,7 +18,7 @@ $ ->
     $('#port-web').val(a.port)
     $('#snapshot-web').val(a.pathname)
 
-  $('#test').click (event) ->
+  $('#test').on 'click', (event) ->
     event.preventDefault()
     intRegex = /^\d+$/
     port = $('#port').val()

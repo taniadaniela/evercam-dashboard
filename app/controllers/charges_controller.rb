@@ -6,7 +6,7 @@ class ChargesController < ApplicationController
   include CurrentCart
 
   def create
-    @customer = StripeCustomer.new(current_user.billing_id, plan_in_cart)
+    @customer = retrieve_stripe_customer
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
@@ -28,6 +28,10 @@ class ChargesController < ApplicationController
     end
   end
 
+  def retrieve_stripe_customer
+    StripeCustomer.new(current_user.billing_id, plan_in_cart)
+  end
+
   def create_subscription
     @customer.create_subscription
     purge_plan_from_cart
@@ -45,10 +49,19 @@ class ChargesController < ApplicationController
   end
 
   def create_charge
-    @customer.create_charge(add_ons_charge, charge_description)
+    customer = retrieve_stripe_customer
+    if (Time.now.getutc - customer.current_plan.created) >= 86400
+      add_ons_charge = pro_rata_charge
+    end
+    customer.create_charge(add_ons_charge, charge_description)
     empty_cart
   rescue
     flash[:error] = "Something went wrong."
+  end
+
+  def pro_rata_charge
+    
+
   end
 
   def add_ons_charge

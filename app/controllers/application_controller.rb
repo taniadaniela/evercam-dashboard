@@ -82,16 +82,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # User will be on a non Stripe free plan unless they purchase an add on and will then be moved onto the free plan on Stripe which has the same details as below
-  # def set_user_plan
-  #     @current_plan = Stripe::Customer.retrieve(current_user.billing_id).subscriptions
-  #     logger.info("Logging set user plan #{@current_plan}")
-  #     @current_plan = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.first.plan
-  #   rescue
-  #     @current_plan = { id: "evercam-free", name: "Evercam Free", amount: 0 }
-  # end
-
-  # Replacing the above with the below to resuse the StripeCustomer model 26 march 2015
   def current_subscription
     if current_user.billing_id.present?
       customer = StripeCustomer.new(current_user.billing_id)

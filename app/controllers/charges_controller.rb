@@ -6,11 +6,12 @@ class ChargesController < ApplicationController
   include ApplicationHelper
   include CurrentCart
 
-  # This is the checkout
+  # This is the view checkout action
   def new
     @customer = retrieve_stripe_customer
-    @total = pro_rated_add_on_charge
-    @add_on_charge = pro_rated_add_on_charge
+    @total_charge = total_charge
+    @pro_rated_add_ons_charge = pro_rated_add_ons_charge
+    @add_ons_charge = add_ons_charge
   end
 
   def create
@@ -62,9 +63,10 @@ class ChargesController < ApplicationController
     flash[:error] = "Something went wrong."
   end
 
+  # Make a new call to Stripe to refresh the subscription data
   def create_charge
     @customer = retrieve_stripe_customer
-    @customer.create_charge(pro_rated_add_on_charge, charge_description)
+    @customer.create_charge(pro_rated_add_ons_charge, charge_description)
     empty_cart
   rescue
     flash[:error] = "Something went wrong."
@@ -80,13 +82,22 @@ class ChargesController < ApplicationController
     end
   end
 
-  def pro_rated_add_on_charge
-    ((add_ons_charge / 100) * pro_rata_percentage).to_i
+  def pro_rated_add_ons_charge
+    if add_ons_in_cart?
+      ((add_ons_charge / 100) * pro_rata_percentage).to_i
+    else
+      nil
+    end
   end
 
   def add_ons_charge
     amounts = add_ons_in_cart.map { |item| item.price }
     amounts.inject(0) {|sum, i|  sum + i }
+  end
+
+  # For an accurate subtotal of a mid term change, this method should also query Stripe for the pro rata change if the user switches plans.
+  def total_charge
+    total = pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : 0
   end
 
   def charge_description

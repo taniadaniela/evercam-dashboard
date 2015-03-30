@@ -87,7 +87,6 @@ Rails.application.routes.draw do
     get '/add.camera' => 'widget_cameras_add#add_camera'
   end
 
-
   get '/live/:id' => 'pages#live'
 
   post '/share' => 'sharing#create'

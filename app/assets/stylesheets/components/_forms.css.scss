@@ -33,13 +33,12 @@
   width: 100%;
   border: none;
   border-radius: 0 !important;
-
   font-size: 16px;
   font-weight: 300;
   padding: 0;
   background-color: transparent;
   box-shadow: none;
-  border-bottom: 2px solid #aaaaaa;
+  border-bottom: 1px solid #aaaaaa;
 }
 .input-group .form-control {
   position: relative;
@@ -269,7 +268,7 @@ select{
   border-left: none !important;
   border-right: none !important;
   border-radius: 0px !important;
-  border-bottom: 2px solid #aaaaaa !important;
+  border-bottom: 1px solid #aaaaaa !important;
 }
 .dropdown:after{
   background: transparent;

@@ -33,6 +33,8 @@ controlButtonEvents = ->
 fullscreenImage = ->
   $("#toggle").click ->
     screenfull.toggle $("#live-player-image")[0]
+  $("#live-player-image").dblclick ->
+    screenfull.toggle $(this)[0]
 
   if screenfull.enabled
     document.addEventListener screenfull.raw.fullscreenchange, ->

@@ -37,6 +37,9 @@ th {
 #recording input {
     font-size: 16px;
 }
+#recording td:first-child{
+  color: #666666;
+}
 #recording .has-snapshot{
     color: #428bca;
     font-family: "proxima-nova-bold";

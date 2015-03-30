@@ -76,6 +76,7 @@ class WidgetsController < ApplicationController
       time_zone         = TZInfo::Timezone.get(@camera['timezone'])
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset
+      @selected_date    = Time.new.in_time_zone(@camera['timezone']).strftime("%m/%d/%Y")
 
       render :layout => false
     rescue => error

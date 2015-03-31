@@ -38,7 +38,7 @@
               <input type="hidden" id="share" name="share" value="true"/>
               <button id="remove-camera" name="remove-camera" class="btn btn-danger pull-left">Yes</button>
             <% end %>
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><% if @share.nil? %>Cancel<% else %>No<% end %></button>
+            <input type="button" class="btn btn-default pull-left" value="<% if @share.nil? %>Cancel<% else %>No<% end %>" data-dismiss="modal" />
           </div>
         </div>
       </div>

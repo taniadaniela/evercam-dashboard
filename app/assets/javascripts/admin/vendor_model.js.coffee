@@ -34,8 +34,8 @@ initializeDataTable = ->
     dataTable:
       'bStateSave': true
       'lengthMenu': [
-        [ 25, 50, 100, 200, -1 ]
-        [ 25, 50, 100, 200, 'All' ]
+        [ 25, 50, 100, 150 ]
+        [ 25, 50, 100, 150 ]
       ]
       'pageLength': 50
       'ajax':
@@ -63,11 +63,10 @@ initializeDataTable = ->
   vendor_models_table.getTableWrapper().on 'keyup', '.table-group-action-input', (e) ->
     e.preventDefault()
     action = $('.table-group-action-input', vendor_models_table.getTableWrapper())
-    if action.val() != ''
-      vendor_models_table.setAjaxParam 'vendor', action.val()
-      vendor_models_table.setAjaxParam 'vendor_model', action.val()
-      vendor_models_table.getDataTable().ajax.reload()
-      vendor_models_table.clearAjaxParams()
+    vendor_models_table.setAjaxParam 'vendor', action.val()
+    vendor_models_table.setAjaxParam 'vendor_model', action.val()
+    vendor_models_table.getDataTable().ajax.reload()
+    vendor_models_table.clearAjaxParams()
     return
   $('#columns-vis').on 'change', (e) ->
     e.preventDefault()
@@ -107,8 +106,11 @@ loadVendors = ->
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
     for vendor in vendors
-      selected = if vendor.id is 'other' then 'selected="selected"' else ''
-      $("#vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
+      if vendor.id is 'other'
+        selected = 'selected="selected"'
+        $("#vendor").prepend("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
+      else
+        $("#vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
 
   settings =
     cache: false
@@ -125,6 +127,7 @@ loadVendors = ->
 
 clearForm = ->
   $("#model-id").val('')
+  $("#model-id").removeAttr("disabled")
   $("#vendor").val('other')
   $("#name").val('')
   $("#jpg-url").val('')
@@ -135,6 +138,9 @@ clearForm = ->
   $("#lowres-url").val('')
   $("#default-username").val('')
   $("#default-password").val('')
+  $(".thumbnail-img").hide()
+  $(".thumbnail-img").attr("src","")
+  $(".center-thumbnail").css("min-height", "160px")
   $(".model-alert").slideUp()
   $("#add-vendor-modal div.caption").text("Add a Model");
   method = 'POST'
@@ -202,6 +208,7 @@ onModelClose = ->
 
 $(".edit-model").live 'click', ->
   $("#model-id").val($(this).attr("val-model-id"))
+  $("#model-id").attr("disabled", true)
   $("#vendor").val($(this).attr("val-vendor-id"))
   $("#name").val($(this).attr("val-model-name"))
   $("#jpg-url").val($(this).attr("val-jpg"))
@@ -212,6 +219,9 @@ $(".edit-model").live 'click', ->
   $("#lowres-url").val($(this).attr("val-lowres"))
   $("#default-username").val($(this).attr("val-username"))
   $("#default-password").val($(this).attr("val-password"))
+  $(".thumbnail-img").attr("src", "http://evercam-public-assets.s3.amazonaws.com/#{$(this).attr("val-vendor-id")}/#{$(this).attr("val-model-id")}/thumbnail.jpg")
+  $(".thumbnail-img").show()
+  $(".center-thumbnail").css("min-height", "30px")
   $('#add-vendor-modal').modal('show')
   $("#add-vendor-modal div.caption").text("Edit Model");
   method = 'PATCH'

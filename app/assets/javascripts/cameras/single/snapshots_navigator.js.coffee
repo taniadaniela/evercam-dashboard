@@ -282,6 +282,17 @@ handleBodyLoadContent = ->
   HighlightCurrentMonth()
   BoldSnapshotHour(false)
 
+fullscreenImage = ->
+  $("#imgPlayback").dblclick ->
+    screenfull.toggle $(this)[0]
+
+  if screenfull.enabled
+    document.addEventListener screenfull.raw.fullscreenchange, ->
+      if screenfull.isFullscreen
+        $("#imgPlayback").css('width','auto')
+      else
+        $("#imgPlayback").css('width','100%')
+
 getLocationBaseDateTime = (offset) ->
   #create Date object for current location
   d = new Date()
@@ -802,3 +813,4 @@ window.initializeRecordingsTab = ->
   handleMinSecDropDown()
   handlePlay()
   handleTabOpen()
+  fullscreenImage()

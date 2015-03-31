@@ -218,3 +218,20 @@ div.radio {
 .iradio_flat-blue{
   width:21px;
 }
+.thumbnail-settings {
+  background-color: white;
+  overflow: hidden;
+  width: 100%;
+}
+.center-thumbnail {
+  height: 100%;
+  min-height: 130px;
+  text-align: center;
+  background-image: asset-url('camera.svg');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.thumbnail-img {
+  height: auto;
+  width: 100%;
+}

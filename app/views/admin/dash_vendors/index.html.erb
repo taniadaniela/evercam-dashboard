@@ -29,35 +29,45 @@
     <!-- END PAGE HEADER-->
     <!-- modal -->
     <div id="add-vendor" class="modal fade">
-      <div class="modal-dialog" style="width:500px;">
+      <div class="modal-dialog" style="width:600px;">
         <div class="modal-content">
           <div class="modal-header">
             <div class="caption">Add a Vendor</div>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <table class="table table-fixed table-borderless">
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Vendor ID:</label></td>
-                  <td><input type="text" id="vendor-id" name="vendor-id" placeholder="Unique identifier for the vendor" class="form-control"/></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Name:</label></td>
-                  <td><input type="text" id="name" name="name" placeholder="Name of the vendor" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Known Macs:</label></td>
-                  <td><input type="text" id="known-macs" name="known-macs" placeholder="Comma separated list of MAC's " class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <div class="alert alert-danger vendor-alert" style="display:none;">
+              <div class="row">
+                <div class="col-md-8">
+                  <table class="table table-fixed table-borderless">
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Vendor ID:</label></td>
+                      <td><input type="text" id="vendor-id" name="vendor-id" placeholder="Unique identifier for the vendor" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Name:</label></td>
+                      <td><input type="text" id="name" name="name" placeholder="Name of the vendor" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Known Macs:</label></td>
+                      <td><input type="text" id="known-macs" name="known-macs" placeholder="Comma separated list of MAC's " class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <div class="alert alert-danger vendor-alert" style="display:none;">
 
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <div class="thumbnail-settings">
+                    <div class="center-thumbnail">
+                      <img src="" class="thumbnail-img" style="display: none;">
                     </div>
-                  </td>
-                </tr>
-              </table>
-
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

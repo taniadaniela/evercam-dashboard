@@ -56,8 +56,12 @@ showMacs = (macs, type, row) ->
 
 clearForm = ->
   $("#vendor-id").val('')
+  $("#vendor-id").removeAttr("disabled")
   $("#name").val('')
   $("#known-macs").val('')
+  $(".thumbnail-img").hide()
+  $(".thumbnail-img").attr("src","camera.svg")
+  $(".center-thumbnail").css("min-height", "160px")
   $(".vendor-alert").slideUp()
   $("#add-vendor div.caption").text("Add a Vendor");
   method = 'POST'
@@ -114,8 +118,12 @@ onModelClose = ->
 
 $(".edit-vandor").live 'click', ->
   $("#vendor-id").val($(this).attr("val-id"))
+  $("#vendor-id").attr("disabled", true)
   $("#name").val($(this).attr("val-name"))
   $("#known-macs").val($(this).attr("val-macs"))
+  $(".thumbnail-img").attr("src", "http://evercam-public-assets.s3.amazonaws.com/#{$(this).attr("val-id")}/logo.jpg")
+  $(".center-thumbnail").css("min-height", "30px")
+  $(".thumbnail-img").show()
   method = 'PATCH'
   $('#add-vendor').modal('show')
   $("#add-vendor div.caption").text("Edit Vendor");

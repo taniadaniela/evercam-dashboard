@@ -29,67 +29,77 @@
     <!-- END PAGE HEADER-->
     <!-- modal -->
     <div id="add-vendor-modal" class="modal fade">
-      <div class="modal-dialog" style="width:500px;">
+      <div class="modal-dialog" style="width:600px;">
         <div class="modal-content">
           <div class="modal-header">
             <div class="caption">Add a Model</div>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <table class="table table-fixed table-borderless">
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Id:</label></td>
-                  <td><input type="text" id="model-id" name="model-id" placeholder="Unique identifier for the model" class="form-control"/></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Vendor:</label></td>
-                  <td><select id="vendor" name="vendor" class="form-control is-required"></select></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Name:</label></td>
-                  <td><input type="text" id="name" name="name" placeholder="Name of the model" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">JPG Url:</label></td>
-                  <td><input type="text" id="jpg-url" name="jpg-url" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">MJPG Url:</label></td>
-                  <td><input type="text" id="mjpg-url" name="mjpg" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">MPEG4 Url:</label></td>
-                  <td><input type="text" id="mpeg4-url" name="mpeg4-url" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Mobile Url:</label></td>
-                  <td><input type="text" id="mobile-url" name="mobile-url" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">H264 Url:</label></td>
-                  <td><input type="text" id="h264-url" name="h264-url" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Low Res Url:</label></td>
-                  <td><input type="text" id="lowres-url" name="lowres-url" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Default Username:</label></td>
-                  <td><input type="text" id="default-username" name="default-username" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td class="col-md-5"><label class="control-label">Default Password:</label></td>
-                  <td><input type="text" id="default-password" name="default-password" class="form-control" /></td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <div class="alert alert-danger model-alert" style="display:none;">
+              <div class="row">
+                <div class="col-md-8">
+                  <table class="table table-fixed table-borderless">
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Id:</label></td>
+                      <td><input type="text" id="model-id" name="model-id" placeholder="Unique identifier for the model" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Vendor:</label></td>
+                      <td><select id="vendor" name="vendor" class="form-control is-required"></select></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Name:</label></td>
+                      <td><input type="text" id="name" name="name" placeholder="Name of the model" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">JPG Url:</label></td>
+                      <td><input type="text" id="jpg-url" name="jpg-url" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">MJPG Url:</label></td>
+                      <td><input type="text" id="mjpg-url" name="mjpg" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">MPEG4 Url:</label></td>
+                      <td><input type="text" id="mpeg4-url" name="mpeg4-url" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Mobile Url:</label></td>
+                      <td><input type="text" id="mobile-url" name="mobile-url" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">H264 Url:</label></td>
+                      <td><input type="text" id="h264-url" name="h264-url" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Low Res Url:</label></td>
+                      <td><input type="text" id="lowres-url" name="lowres-url" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Default Username:</label></td>
+                      <td><input type="text" id="default-username" name="default-username" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-5"><label class="control-label">Default Password:</label></td>
+                      <td><input type="text" id="default-password" name="default-password" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <div class="alert alert-danger model-alert" style="display:none;">
 
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <div class="thumbnail-settings">
+                    <div class="center-thumbnail">
+                      <img src="" class="thumbnail-img" style="display: none;">
                     </div>
-                  </td>
-                </tr>
-              </table>
-
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

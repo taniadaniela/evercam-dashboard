@@ -78,16 +78,22 @@ handleTabOpen = ->
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
     else
-      int_time = setInterval(loadImage, 1000)
+      checkCameraOnline()
+
   $('.nav-tab-live').on 'hide.bs.tab', ->
     clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
+
   if $(".nav-tabs li.active a").attr("data-target") is "#live"
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
     else
-      int_time = setInterval(loadImage, 1000)
+      checkCameraOnline()
+
+checkCameraOnline = ->
+  if Evercam.Camera.is_online
+    int_time = setInterval(loadImage, 1000)
 
 window.initializeLiveTab = ->
   window.rtmp_player_html = $('#camera-rtmp-stream').html()

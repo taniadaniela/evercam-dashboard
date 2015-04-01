@@ -69,7 +69,7 @@
       <tr>
         <td>Last Online</td>
         <td>
-          <%= Time.at(@camera['last_online_at']).to_formatted_s(:long_ordinal) %>
+          <%= Time.at(@camera['last_online_at']).to_formatted_s(:long_ordinal) if @camera['last_online_at'] %>
         </td>
       </tr>
       <% end %>

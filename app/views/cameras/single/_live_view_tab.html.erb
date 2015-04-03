@@ -1,6 +1,7 @@
 <% if @camera['is_online'] %>
   <div class="camera-preview">
-    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) %>
+    <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
+    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present?  %>
 
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">

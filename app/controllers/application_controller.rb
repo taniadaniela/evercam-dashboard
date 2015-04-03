@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
       api.get_user_cameras(current_user.username, shared, thumbnail) if @cameras.blank?
     rescue => error
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
+      []
     end
   end
 

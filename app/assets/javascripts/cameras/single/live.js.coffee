@@ -95,6 +95,10 @@ checkCameraOnline = ->
   if Evercam.Camera.is_online
     int_time = setInterval(loadImage, 1000)
 
+saveImage = ->
+  $('#save-live-snapshot').on 'click', ->
+    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}_live_image")
+
 window.initializeLiveTab = ->
   window.rtmp_player_html = $('#camera-rtmp-stream').html()
   window.vjs_player = {}
@@ -104,3 +108,4 @@ window.initializeLiveTab = ->
   openPopout()
   handleChangeStream()
   handleTabOpen()
+  saveImage()

@@ -9,6 +9,7 @@
 #= require cameras/single/local_storage.js.coffee
 #= require cameras/single/settings.js.coffee
 #= require cameras/single/testsnapshot.js.coffee
+#= require saveimage.js
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -100,3 +101,4 @@ window.initializeCameraSingle = ->
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
+  SaveImage.init()

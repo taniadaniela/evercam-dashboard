@@ -418,6 +418,7 @@ createCamera = (api_id, api_key) ->
   data.vendor = $("#camera-vendor").val() unless $("#camera-vendor").val() is ''
   data.model = $('#camera-model').val() unless $("#camera-model").val() is ''
   data.is_public = false
+  data.is_online = true
   data.cam_username = $("#camera-username").val() unless $("#camera-username").val() is ''
   data.cam_password = $("#camera-password").val() unless $("#camera-password").val() is ''
   data.external_host = $("#camera-url").val()

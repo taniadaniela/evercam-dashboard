@@ -24,7 +24,7 @@
               <%= f.label :firstname, 'First Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
-              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "First names can consist of alphabetical characters and spaces only" %>
+              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "First names can consist of alphabetical characters and spaces only" %>
               <% if field_errors.include?("firstname") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["firstname"] %></span>
               <% end %>
@@ -36,7 +36,7 @@
               <%= f.label :lastname, 'Last Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
-              <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "Last names can consist of alphabetical characters and spaces only" %>
+              <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "Last names can consist of alphabetical characters and spaces only" %>
               <% if field_errors.include?("lastname") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["lastname"] %></span>
               <% end %>
@@ -48,7 +48,7 @@
               <%= f.label :username %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w-]+$', "data-validation-error-msg" => "Only lower case letters, numbers, dashes & underscores allowed." %>
+              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w-]+$', "data-validation-error-msg" => "Only lower case letters, numbers, dashes & underscores allowed." %>
               <% if field_errors.include?("username") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
               <% end %>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
               <% if @share_request.nil? %>
-                <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control" %>
+                <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "data-validation" => "email", "required" => "" %>
               <% else %>
                 <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control" %>
               <% end %>
@@ -76,7 +76,7 @@
               <%= f.label :password %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("password") ? " has-error" : "" %>">
-              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control", "required" => "" %>
               <% if field_errors.include?("password") %>
                 <span class="help-block form-error arrow_box text-left"><%= field_errors["password"] %></span>
               <% end %>

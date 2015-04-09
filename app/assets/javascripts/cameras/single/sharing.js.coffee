@@ -214,6 +214,12 @@ onSetCameraAccessClicked = (event) ->
   sendAJAXRequest(settings)
   true
 
+getTransferFromUrl = ->
+  is_transfer = window.Evercam.request.subpath.
+  replace(RegExp("shares", "g"), "").
+  replace(RegExp("/", "g"), "")
+  if is_transfer is 'transfer'
+    $('#change_owner2').modal('show')
 
 onDeleteShareClicked = (event) ->
   event.preventDefault()
@@ -434,5 +440,6 @@ window.initializeSharingTab = ->
   $(window).on "resize", ->
     $(".modal:visible").each centerModal
   Notification.init(".bb-alert")
+  getTransferFromUrl()
 
 window.Evercam.Share.createShare = createShare

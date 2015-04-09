@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
 
-  layout "bare-bones", except: [:settings]
+  layout "bare-bones", except: [:settings, :delete]
 
   include SessionsHelper
   include ApplicationHelper
@@ -95,6 +95,20 @@ class UsersController < ApplicationController
     unless current_user.billing_id.blank?
       @credit_cards = retrieve_credit_cards
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+    end
+  end
+
+  def delete
+    begin
+      get_evercam_api.delete_user(params['id'])
+      redirect_to cameras_single_path
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught deleting user.\nCause: #{error}\n" +
+                           error.backtrace.join("\n")
+      flash[:message] = "An error occurred deleting user. Please try again "\
+                      "and, if the problem persists, contact support."
+      redirect_to user_path
     end
   end
 

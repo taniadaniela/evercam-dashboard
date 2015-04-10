@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get '/cameras/transfer' => 'cameras#transfer'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
+  get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found
   post '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
 

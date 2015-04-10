@@ -24,8 +24,8 @@ var Layout = function () {
             }
         } else {
             if (body.hasClass('page-sidebar-fixed')) {
-                height = _calculateFixedSidebarViewportHeight();
-                if (body.hasClass('page-footer-fixed') === false) {
+                height = Metronic.getViewPort().height; //_calculateFixedSidebarViewportHeight();
+                if (!body.hasClass('page-footer-fixed')) {
                     height = height - $('.page-footer').outerHeight();
                 }
             } else {

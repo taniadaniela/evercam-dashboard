@@ -21,6 +21,7 @@ addSharingCameraRow = (details) ->
     row.attr("share-request-email", details['email'])
   else
     row.attr("share-username", details['user_id'])
+    $("#new_owner_email").append("<option value='#{details['user_id']}'>#{details['user_id']}</option>")
 
   cell = $('<td>', {class: "col-lg-4"})
   cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))

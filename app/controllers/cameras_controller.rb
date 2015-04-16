@@ -26,6 +26,10 @@ class CamerasController < ApplicationController
       @user['local-ip'] = camera.deep_fetch('internal', 'host') {}
       @user['local-http'] = camera.deep_fetch('internal', 'http', 'port') {}
       @user['local-rtsp'] = camera.deep_fetch('internal', 'rtsp', 'port') {}
+      if camera.deep_fetch('location') { '' }
+        @user['camera-lat'] = camera.deep_fetch('location', 'lat') {}
+        @user['camera-lng'] = camera.deep_fetch('location', 'lng') {}
+      end
       if camera.deep_fetch('external', 'http', 'jpg') { '' }
         @user['snapshot'] = camera.deep_fetch('external', 'http', 'jpg') { '' }.
           sub("http://#{camera.deep_fetch('external', 'host') { '' }}", '').
@@ -51,6 +55,8 @@ class CamerasController < ApplicationController
       body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].blank?
       body[:external_rtsp_port] = params['ext-rtsp-port'] unless params['ext-rtsp-port'].blank?
       body[:internal_host] = params['local-ip'] unless params['local-ip'].blank?
+      body[:location_lat] = params['camera-lat'] unless params['camera-lat'].blank?
+      body[:location_lng] = params['camera-lng'] unless params['camera-lng'].blank?
       body[:is_online] = true
 
       api = get_evercam_api

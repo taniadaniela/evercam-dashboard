@@ -30,6 +30,8 @@
             <!-- A workaround for chrome autofill entering camera user & pass autocomplete="off" no longer obeyed -->
             <input style="display:none" type="text" name="fakeusernameremembered"/>
             <input style="display:none" type="password" name="fakepasswordremembered"/>
+            <%= hidden_field_tag('camera-lat', @user['camera-lat']) %>
+            <%= hidden_field_tag('camera-lng', @user['camera-lng']) %>
             <div class="col-sm-8">
               <div class="row">
                 <div class='col-sm-12'>

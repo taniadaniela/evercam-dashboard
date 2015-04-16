@@ -191,11 +191,27 @@ class CamerasController < ApplicationController
       @webhooks = api.get_webhooks(params[:id])
       @cameras = load_user_cameras(true, false)
     rescue => error
-      puts error
-      env["airbrake.error_id"] = notify_airbrake(error)
-      Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
-          error.backtrace.join("\n")
-      flash[:error] = "An error occurred fetching the details for your camera. "\
+      if error.status_code.equal?(404)
+        redirect_to cameras_not_found_path
+      else
+        env["airbrake.error_id"] = notify_airbrake(error)
+        Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
+                             error.backtrace.join("\n")
+        flash[:error] = "An error occurred fetching the details for your camera. "\
+                      "Please try again and, if the problem persists, contact "\
+                      "support."
+        redirect_to cameras_index_path
+      end
+    end
+  end
+
+  def camera_not_found
+    begin
+      @cameras = load_user_cameras(true, false)
+    rescue => error
+      Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}\n" +
+                           error.backtrace.join("\n")
+      flash[:error] = "An error occurred fetching user cameras. "\
                       "Please try again and, if the problem persists, contact "\
                       "support."
       redirect_to cameras_index_path

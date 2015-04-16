@@ -145,4 +145,24 @@ span.input-group-addon .custom {
   display: none;
 }
 
-
+#delete-account{
+  .camera-row{
+    margin-bottom: 5px;
+  }
+  .camera-row-label{
+    position: relative;
+    font-size: 15px;
+    color: #000000;
+    top: 3px;
+  }
+  .transfer-span{
+    margin-left: 10px;
+  }
+  .transfer-link{
+    text-decoration: underline;
+    top: 3px;
+  }
+  div.checker span{
+    width: 21px;
+  }
+}

@@ -58,10 +58,12 @@
         </div>
       <% end %>
     </div>
-    <p class="delete margin-top-40" data-toggle="modal" data-target="#delete-account">Close this account</p>
+    <p class="delete margin-top-40" data-toggle="modal" data-target="#delete-account">Delete this account</p>
   </div>
 </div>
 
+<form role="form" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 <div class="modal fade" id="delete-account" tabindex="-1" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -69,14 +71,26 @@
         <h5>Delete your Account (<%= current_user.email -%>) </h5>
       </div>
       <div class="modal-body">
-        <p class="text-left">Closing your account is irreversible. Enter your Evercam password to confirm you want to permanently close this account</p>
-        <input data-validation="current-password" data-validation-error-msg="Cannot be blank" required="true" type="password" class="form-control" id="current-password" name="current-password" required>
+        <p class="text-left">You must Delete or Transfer the cameras you own before Deleting your account. Check the box to confirm you would like to Delete the camera</p>
+        <div class="">
+          <% @cameras.each do |camera| %>
+            <% if camera['owned'] %>
+              <div class="camera-row">
+                <input id="chk-camera-<%= camera['id'] %>" class="camera-delete" type="checkbox" value="<%= camera['id'] %>"> <label for="chk-camera-<%= camera['id'] %>" class="camera-row-label"><%= camera['name'] %></label>
+                <span class="transfer-span"><%= link_to 'Transfer camera', "#{cameras_single_path(camera['id'])}/shares/transfer", class: 'transfer-link' %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <p class="text-left margin-top-20">Type 'Delete' to confirm you would like delete your account and any cameras you currently own.</p>
+        <input data-validation-error-msg="Cannot be blank" required="true" type="text" class="form-control" id="delete-camera" name="delete-camera" required>
       </div>
       <div class="modal-footer">
-        <input type="hidden" id="share" name="share" value="false"/>
-        <button id="close-account" name="close-account" class="btn btn-danger pull-left">Close Account</button>
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" id="close-account" name="close-account" class="btn btn-danger pull-left" value="Delete Account">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
+</form>

@@ -29,6 +29,28 @@ handlePasswordChange = ->
     $('#password_again').removeClass 'border-red'
     true
 
+initializeiCheck = ->
+  $("input[type=radio], input[type=checkbox]").iCheck
+    checkboxClass: "icheckbox_flat-blue"
+    radioClass: "iradio_flat-blue"
+
+onDeleteClick = ->
+  $("#close-account").on 'click', ->
+    is_checked = true
+    $(".camera-delete").each ->
+      if !$(this).is(":checked")
+        is_checked = false
+        return
+    if !is_checked
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.show "Please tick the box(es) to confirm you would like to delete each of your cameras"
+      return false
+    if $("#delete-camera").val().toLowerCase() isnt 'delete'
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.show "Please type 'Delete' to confirm delete your account"
+      return false
+    return true
+
 window.initializeUserAccount = ->
   $.validate()
   Metronic.init()
@@ -38,6 +60,8 @@ window.initializeUserAccount = ->
   handleEditable()
   showHideMessage()
   handlePasswordChange()
+  initializeiCheck()
+  onDeleteClick()
 
 initialize = ->
   markers = []

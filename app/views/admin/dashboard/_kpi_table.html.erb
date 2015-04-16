@@ -56,5 +56,25 @@
       </td>
     <% end %>
   </tr>
+  <tr>
+    <td>
+      New Users
+    </td>
+    <% 11.downto(0) do |i| %>
+      <td>
+        <%= DashUser.where(created_at: i.month.ago.beginning_of_month..i.month.ago.end_of_month).count %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>
+      Total Users
+    </td>
+    <% 11.downto(0) do |i| %>
+      <td>
+        <%= DashUser.where(created_at: DashCamera.select(:created_at).order(:created_at).first.created_at..i.months.ago.end_of_month).count %>
+      </td>
+    <% end %>
+  </tr>
   </tbody>
 </table>

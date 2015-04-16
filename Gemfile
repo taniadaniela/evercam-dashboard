@@ -52,7 +52,6 @@ gem 'devise'
 gem 'ie_iframe_cookies'
 gem 'heroku-api'
 gem 'airbrake'
-gem 'intercom-rails'
 gem 'pusher'
 
 group :evercam do

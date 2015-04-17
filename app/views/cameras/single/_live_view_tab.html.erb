@@ -11,7 +11,10 @@
             <div class="live-option" id="toggle"><span class="glyphicon glyphicon-fullscreen"></span></div>
             <div class="live-option"><a id="link-popout"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></div>
           </div>
-          <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
+          <div class="play-options">
+            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
+            <div id="save-live-snapshot" class="btn-live-player save-live hide"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+          </div>
         </div>
       </div>
       <% unless rtmp_stream.blank? %>

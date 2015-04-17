@@ -37,9 +37,6 @@ th {
 #recording input {
     font-size: 16px;
 }
-#recording td:first-child{
-  color: #666666;
-}
 #recording .has-snapshot{
     color: #428bca;
     font-family: "proxima-nova-bold";
@@ -60,6 +57,34 @@ th {
     padding: 9px 14px;
     border:none;
     width: 45px;
+}
+
+#fullscreen:hover .play-options {
+  opacity: 1;
+}
+.play-options{
+  position: absolute;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transition: all .2s linear;
+  z-index: 10000000000;
+  margin-left: -18px;
+  margin-top: -5px;
+}
+.btn-live-player {
+  float: left;
+  padding: 10px 12px 8px;
+  background: rgba(0,0,0,0.7);
+  font-size: 12px;
+  color: #ffffff;
+  border-radius: 50% !important;
+  transition: all .2s linear;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.btn-live-player:hover {
+  background: #68a2d5;
 }
 
 @media (max-width: 480px) {

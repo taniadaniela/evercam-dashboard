@@ -231,6 +231,7 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
+  $("#snapshot-notes-text").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -466,6 +467,7 @@ loadImage = (timestamp) ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
+      $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
     true
@@ -579,6 +581,7 @@ SetImageHour = (hr, id) ->
     xhrRequestChangeMonth.abort()
     $("#divRecent").show()
     $("#divInfo").fadeOut()
+    $("#snapshot-notes-text").hide()
     $("#divSliderBackground").width("0%")
     $("#txtCurrentUrl").val("")
     $("#divSliderMD").width("100%")
@@ -589,6 +592,7 @@ SetImageHour = (hr, id) ->
     $("#divNoMd").show()
     $("#divNoMd").text('No motion detected')
     HideLoader()
+    $("#snapshot-tab-save").hide()
   true
 
 Pause = ->
@@ -805,6 +809,10 @@ handleTabOpen = ->
       if history.replaceState
         window.history.replaceState({}, '', url);
 
+saveImage = ->
+  $('#save-recording-image').on 'click', ->
+    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}_recorded_image")
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -814,3 +822,4 @@ window.initializeRecordingsTab = ->
   handlePlay()
   handleTabOpen()
   fullscreenImage()
+  saveImage()

@@ -37,9 +37,6 @@ th {
 #recording input {
     font-size: 16px;
 }
-#recording td:first-child{
-  color: #666666;
-}
 #recording .has-snapshot{
     color: #428bca;
     font-family: "proxima-nova-bold";
@@ -138,6 +135,8 @@ th {
   }
   .right-column {
     float: left;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }
 
@@ -403,7 +402,7 @@ ul, menu, dir {
 
 .datepicker-bg{
     background-color: #fff;
-    width: 210px;
+    width: 220px;
 }
 @media (max-width: 845px) {
     .datepicker-bg {
@@ -477,7 +476,10 @@ ul, menu, dir {
       margin: 0 auto;
       right: 0;
       left: 0;
-      width: 222px;
+      width: 99%;
+    }
+    .table-condensed{
+      width: 100%;
     }
     .datepicker.datepicker-bg.datepicker-inline.show {
     margin-top: 222px;
@@ -489,6 +491,7 @@ ul, menu, dir {
       text-align: center;
       right: 0;
       left: 0;
+      display: none;
     }
   }
 }

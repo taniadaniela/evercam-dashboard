@@ -81,6 +81,9 @@ loadVendors = ->
         $("#last-selected-vendor").val('')
       $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
 
+mixpanelTrack = ->
+  mixpanel.track_forms '#create-a-camera', 'Created A Camera'
+
   settings =
     cache: false
     data: data
@@ -130,3 +133,4 @@ window.initializeAddCamera = ->
   handleVendorModelEvents()
   initNotification()
   loadVendors()
+

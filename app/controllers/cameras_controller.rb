@@ -1,5 +1,3 @@
-require 'data_uri'
-
 class CamerasController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_cameras_loaded
@@ -13,6 +11,7 @@ class CamerasController < ApplicationController
   def new
     @cameras = load_user_cameras(true, false)
     @user = (flash[:user] || {})
+    @ip = request.remote_ip
 
     if @user == {} && params[:id]
       camera = get_evercam_api.get_camera(params[:id], false)
@@ -28,6 +27,10 @@ class CamerasController < ApplicationController
       @user['local-ip'] = camera.deep_fetch('internal', 'host') {}
       @user['local-http'] = camera.deep_fetch('internal', 'http', 'port') {}
       @user['local-rtsp'] = camera.deep_fetch('internal', 'rtsp', 'port') {}
+      if camera.deep_fetch('location') { '' }
+        @user['camera-lat'] = camera.deep_fetch('location', 'lat') {}
+        @user['camera-lng'] = camera.deep_fetch('location', 'lng') {}
+      end
       if camera.deep_fetch('external', 'http', 'jpg') { '' }
         @user['snapshot'] = camera.deep_fetch('external', 'http', 'jpg') { '' }.
           sub("http://#{camera.deep_fetch('external', 'host') { '' }}", '').
@@ -37,8 +40,9 @@ class CamerasController < ApplicationController
   end
 
   def create
+    camera_id = params['camera-id'].squish if params['camera-id'].present?
     begin
-      raise "No camera id specified in request." if params['camera-id'].blank?
+      raise "No camera id specified in request." if camera_id.blank?
       raise "No camera name specified in request." if params['camera-name'].blank?
 
       body = {external_host: params['camera-url'], jpg_url: params['snapshot']}
@@ -52,21 +56,23 @@ class CamerasController < ApplicationController
       body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].blank?
       body[:external_rtsp_port] = params['ext-rtsp-port'] unless params['ext-rtsp-port'].blank?
       body[:internal_host] = params['local-ip'] unless params['local-ip'].blank?
+      body[:location_lat] = params['camera-lat'] unless params['camera-lat'].blank?
+      body[:location_lng] = params['camera-lng'] unless params['camera-lng'].blank?
       body[:is_online] = true
 
       api = get_evercam_api
       api.create_camera(
-        params['camera-id'],
         params['camera-name'],
         false,
-        body
+        body,
+        camera_id
       )
-      redirect_to cameras_single_path(params['camera-id'])
+      redirect_to cameras_single_path(camera_id)
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       flash[:user] = {
         'camera-name' => params['camera-name'],
-        'camera-id' => params['camera-id'],
+        'camera-id' => camera_id,
         'camera-username' => params['camera-username'],
         'camera-password' => params['camera-password'],
         'camera-url' => params['camera-url'],
@@ -93,7 +99,7 @@ class CamerasController < ApplicationController
     end
     begin
       # Storing snapshot is not essential, so don't show any errors to user
-      api.store_snapshot(params['camera-id'], 'Initial snapshot')
+      api.store_snapshot(camera_id, 'Initial snapshot')
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
     end
@@ -121,7 +127,7 @@ class CamerasController < ApplicationController
 
       get_evercam_api.update_camera(params['camera-id'], settings)
       flash[:message] = 'Settings updated successfully'
-      redirect_to cameras_single_path(params['camera-id'])
+      redirect_to "#{cameras_single_path(params['camera-id'])}/details"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +
@@ -129,7 +135,7 @@ class CamerasController < ApplicationController
       flash[:message] = "An error occurred updating the details for your camera. "\
                         "Please try again and, if this problem persists, contact "\
                         "support."
-      redirect_to cameras_single_path(params['camera-id'])
+      redirect_to "#{cameras_single_path(params['camera-id'])}/details"
     end
   end
 
@@ -164,7 +170,9 @@ class CamerasController < ApplicationController
       @page = (params[:page].to_i - 1) || 0
       @types = ['created', 'accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline']
+      @camera['is_online'] = false if @camera['is_online'].blank?
       @camera['timezone'] = 'Etc/UTC' unless @camera['timezone']
+      @selected_date = Time.new.in_time_zone(@camera['timezone']).strftime("%m/%d/%Y")
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset
@@ -174,9 +182,9 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
         return redirect_to cameras_index_path if @share.nil?
-        @owner_email = User.by_login(@camera['owner']).email
+        @owner_email = User.by_login(@camera['owner']).username
       else
-        @owner_email = current_user.email
+        @owner_email = current_user.username
       end
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])
@@ -184,11 +192,27 @@ class CamerasController < ApplicationController
       @webhooks = api.get_webhooks(params[:id])
       @cameras = load_user_cameras(true, false)
     rescue => error
-      puts error
-      env["airbrake.error_id"] = notify_airbrake(error)
-      Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
-          error.backtrace.join("\n")
-      flash[:error] = "An error occurred fetching the details for your camera. "\
+      if error.status_code.equal?(404)
+        redirect_to cameras_not_found_path
+      else
+        env["airbrake.error_id"] = notify_airbrake(error)
+        Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
+                             error.backtrace.join("\n")
+        flash[:error] = "An error occurred fetching the details for your camera. "\
+                      "Please try again and, if the problem persists, contact "\
+                      "support."
+        redirect_to cameras_index_path
+      end
+    end
+  end
+
+  def camera_not_found
+    begin
+      @cameras = load_user_cameras(true, false)
+    rescue => error
+      Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}\n" +
+                           error.backtrace.join("\n")
+      flash[:error] = "An error occurred fetching user cameras. "\
                       "Please try again and, if the problem persists, contact "\
                       "support."
       redirect_to cameras_index_path

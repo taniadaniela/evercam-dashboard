@@ -96,7 +96,7 @@
                       <tr>
                         <td><label class="control-label" for="ext-rtsp-port">RTSP Port:</label></td>
                         <td>
-                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">
+                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">
                         </td>
                       </tr>
                       <tr>

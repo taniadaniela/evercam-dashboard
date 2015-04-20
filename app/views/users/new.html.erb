@@ -24,7 +24,7 @@
               <%= f.label :firstname, 'First Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
-              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control" %>
+              <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "First names can consist of alphabetical characters and spaces only" %>
               <% if field_errors.include?("firstname") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["firstname"] %></span>
               <% end %>
@@ -36,11 +36,10 @@
               <%= f.label :lastname, 'Last Name' %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
-              <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control" %>
+              <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z\s]*$', "data-validation-error-msg" => "Last names can consist of alphabetical characters and spaces only" %>
               <% if field_errors.include?("lastname") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["lastname"] %></span>
               <% end %>
-              <!-- Plan to join First and Last Name to one Input -->
             </div>
           </div>
 
@@ -49,21 +48,9 @@
               <%= f.label :username %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w-]+$', "data-validation-error-msg" => "Only letters, numbers, dashes & underscores allowed." %>
+              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w-]+$', "data-validation-error-msg" => "Only lower case letters, numbers, dashes & underscores allowed." %>
               <% if field_errors.include?("username") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="row text-center">
-            <div class="col-sm-3">
-              <%= f.label :country %>
-            </div>
-            <div class="col-sm-9 form-group<%= field_errors.include?("country") ? " has-error" : "" %>">
-              <%= f.country_select :country, selected: params.fetch('user', {})[:country] %>
-              <% if field_errors.include?("country") %>
-                <span class="help-block arrow_box form-error text-left"><%= field_errors["country"] %></span>
               <% end %>
             </div>
           </div>
@@ -74,7 +61,7 @@
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
               <% if @share_request.nil? %>
-                <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control" %>
+                <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "data-validation" => "email", "required" => "" %>
               <% else %>
                 <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control" %>
               <% end %>
@@ -89,17 +76,17 @@
               <%= f.label :password %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("password") ? " has-error" : "" %>">
-              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control", "required" => "" %>
               <% if field_errors.include?("password") %>
                 <span class="help-block form-error arrow_box text-left"><%= field_errors["password"] %></span>
               <% end %>
             </div>
           </div>
-          <div class="text-center create">
+          <div class="text-center margin-top-20">
             <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
           </div>
           <div class="row text-center">
-            <p class="col-md-12 use">Signing up signifies that you've read and agree to our
+            <p class="col-md-12 grey use">Signing up signifies that you've read and agree to our
               <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
           </div>
 
@@ -110,7 +97,7 @@
       </div>
     </div>
 
-    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 row text-center create">
+    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 row text-center grey margin-top-20">
       <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
     </div>
   </div>

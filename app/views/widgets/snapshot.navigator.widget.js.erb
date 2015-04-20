@@ -31,13 +31,13 @@
             var iframe =
                 jQuery("<iframe />")
                     .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>', "frameborder": "0" })
+                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>', "allowFullScreen": true, "frameborder": "0" })
                     .appendTo("div[evercam='snapshot-navigator']");
         } else {
             var iframe =
                 jQuery("<iframe />")
                     .css({ "overflow-y": "hidden", "overflow-x": "scroll", "width": "100%", "height": "640px" })
-                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "frameborder": "0" })
+                    .attr({ "src": '<%= request.base_url %>/snapshot.navigator.widget?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>', "allowFullScreen": true, "frameborder": "0" })
                     .appendTo("div[evercam='snapshot-navigator']");
         }
     }
@@ -47,7 +47,7 @@
         var script_tag = document.createElement('script');
         script_tag.setAttribute("type", "text/javascript");
         script_tag.setAttribute("src",
-            "https://code.jquery.com/jquery-2.1.1.min.js");
+            "https://code.jquery.com/jquery-2.1.3.min.js");
 
         if (script_tag.readyState) {
             script_tag.onreadystatechange = function () { // For old versions of IE

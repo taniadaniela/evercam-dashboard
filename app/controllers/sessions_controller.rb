@@ -23,14 +23,18 @@ class SessionsController < ApplicationController
 
     if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
-      if session[:redirect_url]
-        url = session[:redirect_url]
-        Rails.logger.debug "Redirecting to #{url}."
-        session[:redirect_url] = nil
-        redirect_to "#{url}#{params[:session][:anchor]}"
+      if params[:session][:widget].blank?
+        if session[:redirect_url]
+          url = session[:redirect_url]
+          Rails.logger.debug "Redirecting to #{url}."
+          session[:redirect_url] = nil
+          redirect_to "#{url}#{params[:session][:anchor]}"
+        else
+          Rails.logger.debug "Redirecting to the cameras index action."
+          redirect_to cameras_index_path
+        end
       else
-        Rails.logger.debug "Redirecting to the cameras index action."
-        redirect_to cameras_index_path
+        render json: {success: true}
       end
     else
       Rails.logger.warn "Invalid user name and/or password specified."

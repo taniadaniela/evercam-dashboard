@@ -1,4 +1,5 @@
 previous = undefined
+map_loaded = false
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -157,6 +158,27 @@ loadVendors = ->
 
 saveMapLocation = ->
   data = {}
+  
+  locs = $("#camera_Lats_Lng").val().split(/(?:,| )+/) 
+  if locs.length == 2
+    ilat = parseFloat(locs[0], 10)
+    ilng = parseFloat(locs[1], 10)
+    
+    if isNaN(ilat) || isNaN(ilng)
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.show "Invalid latitude or longitude value"
+      return
+    else
+      $("#cameraLats").val(ilat)
+      $("#cameraLng").val(ilng)
+  
+  else
+    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+    Notification.show "Invalid latitude or longitude value"
+    return
+
+  $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+  
   data.location_lat = $("#cameraLats").val()
   data.location_lng = $("#cameraLng").val()
 
@@ -164,7 +186,13 @@ saveMapLocation = ->
     false
 
   onSuccess = (result, status, jqXHR) ->
-    $("#location-settings").css "display", "none"
+    $("#static-map").attr('src',"https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=780x350&maptype=roadmap&markers=label:C|#{$('#cameraLats').val()},%20#{$('#cameraLng').val()}")
+    $("#static-map").toggle()
+    $("#map-info").toggle()
+    $("#search-location").toggle()
+    $("#search-coordinates").toggle()
+    $("#search-notes").toggle()
+
     $("#coordinates-value").text("#{$('#cameraLats').val()}, #{$('#cameraLng').val()}")
     Notification.show "Camera location updated successfully"
     true
@@ -183,10 +211,11 @@ saveMapLocation = ->
   true
 
 initializeMap = ->
+  if map_loaded
+    return
+  map_loaded = true
+  markers = []
   $("#co-ordinates").replaceWith "<p>The location is not set. Drag the marker to the location of your camera.</p>" if Evercam.Camera.location.lng  is "0"
-  unless Evercam.Camera.location.lng is "0"
-    $(".edit-location").click ->
-      $("#testies").toggle()
 
   cameraLatlng = new google.maps.LatLng(Evercam.Camera.location.lat, Evercam.Camera.location.lng)
   if Evercam.Camera.location.lng is "0"
@@ -202,6 +231,7 @@ initializeMap = ->
       maxZoom: 17
       center: cameraLatlng
   map = new google.maps.Map(document.getElementById("map-info"), mapOptions)
+
   marker = new google.maps.Marker(
     position: cameraLatlng
     map: map
@@ -209,7 +239,7 @@ initializeMap = ->
     title: "Camera Location"
   )
   mapFirstClick = false
-  $("#nav-tabs-2").click ->
+  $("#maps-tab-fix").click ->
     mapFirstClick or setTimeout(->
       google.maps.event.trigger map, "resize"
       mapFirstClick = true
@@ -231,10 +261,61 @@ initializeMap = ->
     map.panTo point
 
     # Update the textbox
-    document.getElementById("cameraLats").value = point.lat()
-    document.getElementById("cameraLng").value = point.lng()
-    $(cameraLats).val marker.getPosition().lat().toFixed(7)
-    $(cameraLng).val marker.getPosition().lng().toFixed(7)
+    setLatsLngVal(marker.getPosition().lat().toFixed(7),marker.getPosition().lng().toFixed(7))
+
+  # Create the search box and link it to the UI element.
+  search_input = document.getElementById('search-location')
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push search_input
+  searchBox = new (google.maps.places.SearchBox)(search_input)
+
+  # [START region_getplaces]
+  # Listen for the event fired when the user selects an item from the
+  # pick list. Retrieve the matching places for that item.
+  google.maps.event.addListener searchBox, 'places_changed', ->
+    places = searchBox.getPlaces()
+    if places.length == 0
+      return
+
+    #for marker in markers
+    #  marker.setMap null
+    # For each place, get the icon, place name, and location.
+    markers = []
+    bounds = new (google.maps.LatLngBounds)
+    for place in places
+      # Create a marker for each place.
+      marker = new (google.maps.Marker)(
+        map: map
+        title: place.name
+        draggable: true
+        position: place.geometry.location)
+
+      markers.push marker
+      setLatsLngVal(marker.getPosition().lat().toFixed(7),marker.getPosition().lng().toFixed(7))
+      bounds.extend place.geometry.location
+
+      # Register Custom "dragend" Event
+      google.maps.event.addListener marker, "dragend", ->
+        # Get the Current position, where the pointer was dropped
+        point = marker.getPosition()
+        # Center the map at given point
+        map.panTo point
+        # Update the textbox
+        setLatsLngVal(marker.getPosition().lat().toFixed(7),marker.getPosition().lng().toFixed(7))
+    map.fitBounds bounds
+    map.setZoom(14)
+    return
+  # [END region_getplaces]
+  # Bias the SearchBox results towards places that are within the bounds of the
+  # current map's viewport.
+  google.maps.event.addListener map, 'bounds_changed', ->
+    bounds = map.getBounds()
+    searchBox.setBounds bounds
+    return
+
+  setLatsLngVal = (lat, lng) ->
+    document.getElementById("camera_Lats_Lng").value = "#{lat}, #{lng}"
+    $(cameraLats).val lat
+    $(cameraLng).val lng
 
   return
 
@@ -261,6 +342,19 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
+handleMapEvents = ->
+  $('#search-location').keydown (event) ->
+    if event.which == 13
+      event.preventDefault()
+  unless Evercam.Camera.location.lng is "0"
+    $(".edit-location").click ->
+      $("#static-map").toggle()
+      $("#map-info").toggle()
+      #$("#save-map-location").click ->
+      $("#search-location").toggle()
+      $("#search-coordinates").toggle()
+      $("#search-notes").toggle()
+
 window.initializeInfoTab = ->
   $('.open-sharing').click(showSharingTab)
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
@@ -270,8 +364,8 @@ window.initializeInfoTab = ->
     $("#info-location").replaceWith "<p>Not set</p>"
   $.validate()
   handleVendorModelEvents()
-  google.maps.event.addDomListener window, "load", initializeMap
+  google.maps.event.addDomListener document.getElementById("edit-location"), "click", initializeMap
   handleModelEvents()
   initNotification()
   $("#save-map-location").on "click", saveMapLocation
-  true
+  handleMapEvents()

@@ -1,12 +1,11 @@
 class WidgetsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :allow_iframe, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :sessions, :add_public_camera]
-  after_action :allow_iframe, only: [:hikvision_private_widget, :live_view_private_widget, :snapshot_navigator_widget, :sessions, :add_public_camera]
-  before_action :allow_iframe, only: [:live_view_private_widget, :snapshot_navigator_widget, :sessions, :add_public_camera]
+  before_filter :allow_iframe, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :sessions]
+  after_action :allow_iframe, only: [:hikvision_private_widget, :live_view_private_widget, :snapshot_navigator_widget, :sessions]
+  before_action :allow_iframe, only: [:live_view_private_widget, :snapshot_navigator_widget, :sessions]
   before_filter :normal_cookies_for_ie_in_iframes!, only: [:live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
-  skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_camera]
-  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_public_camera, :add_camera]
-  skip_after_filter :intercom_rails_auto_include, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget, :add_camera]
+  skip_before_action :verify_authenticity_token, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
+  skip_before_action :authenticate_user!, only: [:live_view_widget, :hikvision_local_storage, :snapshot_navigator, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
 
   include SessionsHelper
   include ApplicationHelper
@@ -76,6 +75,7 @@ class WidgetsController < ApplicationController
       time_zone         = TZInfo::Timezone.get(@camera['timezone'])
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset
+      @selected_date    = Time.new.in_time_zone(@camera['timezone']).strftime("%m/%d/%Y")
 
       render :layout => false
     rescue => error
@@ -88,16 +88,6 @@ class WidgetsController < ApplicationController
 
   def widget_add_camera
     @cameras = load_user_cameras(true, false)
-  end
-
-  def add_public_camera
-    render :layout => false
-  end
-
-  def add_camera
-    respond_to do |format|
-      format.js { render :file => "widgets/add.camera.js.erb", :mime_type => Mime::Type.lookup('text/javascript')}
-    end
   end
 
   private

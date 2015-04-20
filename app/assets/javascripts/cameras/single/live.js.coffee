@@ -33,6 +33,8 @@ controlButtonEvents = ->
 fullscreenImage = ->
   $("#toggle").click ->
     screenfull.toggle $("#live-player-image")[0]
+  $("#live-player-image").dblclick ->
+    screenfull.toggle $(this)[0]
 
   if screenfull.enabled
     document.addEventListener screenfull.raw.fullscreenchange, ->
@@ -76,11 +78,26 @@ handleTabOpen = ->
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
     else
-      int_time = setInterval(loadImage, 1000)
+      checkCameraOnline()
+
   $('.nav-tab-live').on 'hide.bs.tab', ->
     clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
+
+  if $(".nav-tabs li.active a").attr("data-target") is "#live"
+    if $('#select-stream-type').length
+      $("#select-stream-type").trigger "change"
+    else
+      checkCameraOnline()
+
+checkCameraOnline = ->
+  if Evercam.Camera.is_online
+    int_time = setInterval(loadImage, 1000)
+
+saveImage = ->
+  $('#save-live-snapshot').on 'click', ->
+    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}_live_image")
 
 window.initializeLiveTab = ->
   window.rtmp_player_html = $('#camera-rtmp-stream').html()
@@ -91,3 +108,4 @@ window.initializeLiveTab = ->
   openPopout()
   handleChangeStream()
   handleTabOpen()
+  saveImage()

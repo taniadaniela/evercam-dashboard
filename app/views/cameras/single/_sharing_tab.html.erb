@@ -61,7 +61,7 @@
                 <option value="one">Select a new owner...</option>
                 <% if @camera_shares %>
                   <% @camera_shares.each do |share| %>
-                   <option value="<%= share["email"] %>"><%= share["email"] %></option>
+                   <option value="<%= share["user_id"] %>"><%= share["user_id"] %></option>
                   <% end %>
                 <% end %>
               </select>
@@ -141,16 +141,16 @@
       <% if @camera_shares %>
         <% @camera_shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
-          <tr id="row-share-<%= share["id"] %>" share-email="<%= share["email"] %>">
+          <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>">
             <td class="col-lg-4">
-              <%= share["email"] %>
-              <% if share["email"] == current_user.email %>
+              <%= share["user_id"] %>
+              <% if share["user_id"] == current_user.username %>
                 <small class="blue"> (you)</small>
               <% end %>
             </td>
             <td class="col-lg-2">
               <div class="input-group">
-                <% if share["email"] == current_user.email %>
+                <% if share["user_id"] == current_user.username %>
                   <select class="form-control reveal disabled" disabled show-class="show-save">
                 <% else %>
                   <select class="form-control reveal" show-class="show-save">

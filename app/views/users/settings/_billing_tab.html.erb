@@ -1,3 +1,4 @@
+<%= javascript_include_tag "https://js.stripe.com/v2/stripe.js" %>
 <div id="billing">
   <div class="col-md-12">
 
@@ -223,7 +224,7 @@
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="/assets/evercam-e.svg"
+                      data-image="<%= asset_path('evercam-e.svg') -%>"
                       data-email="<%= current_user.email -%>"
                       data-currency="eur"
                       data-name="7 Days Recording Monthly"
@@ -243,7 +244,7 @@
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="/assets/evercam-e.svg"
+                      data-image="<%= asset_path('evercam-e.svg') -%>"
                       data-email="<%= current_user.email -%>"
                       data-currency="eur"
                       data-name="Snapmail Monthly"
@@ -273,7 +274,7 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <span class="input-group-addon custom">€</span>
-                    <input type="number" placeholder="120.00" name="amount" class="custom-amount" value=""/ >
+                    <input type="number" placeholder="120.00" name="amount" class="custom-amount" value=""/>
                   </div>
                 </div>
                 <div class="col-md-6">

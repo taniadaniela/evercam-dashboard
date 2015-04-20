@@ -10,22 +10,28 @@
   <div class="portlet-body col-md-12">
     <table class="table table-fixed table-borderless">
       <tr>
-        <td class="col-md-3">ID:</td>
-        <td class="col-md-9">
+        <td class="col-md-2">ID:</td>
+        <td class="col-md-10">
           <span id="ec_cam_id">
             <%= @camera['id'] %>
           </span>
         </td>
       </tr>
       <tr>
-        <td class="col-md-3">Name:</td>
-        <td class="col-md-9">
+        <td>Name:</td>
+        <td>
           <%= @camera['name'] %>
         </td>
       </tr>
       <tr>
-        <td class="col-md-3">Vendor:</td>
-        <td class="col-md-9">
+        <td>Owner:</td>
+        <td>
+          <%= @camera['owner'] %>
+        </td>
+      </tr>
+      <tr>
+        <td>Vendor:</td>
+        <td>
           <% if @camera['vendor_name'] != "" %>
             <%= @camera['vendor_name'] %>
           <% else %>
@@ -43,111 +49,33 @@
           <% end %>
         </td>
       </tr>
-      <% if @has_edit_rights %>
-        <tr>
-          <td>Username:</td>
-          <td>
-            <% if @camera['cam_username'] != "" %>
-              <%= @camera['cam_username'] %>
-            <% else %>
-              <span class="grey">Not set</span>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td>Password:</td>
-          <td>
-            <% if @camera['cam_password'] != "" %>
-              <%= @camera['cam_password'] %>
-            <% else %>
-              <span class="grey">Not set</span>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td>Snapshot URL:</td>
-          <td><%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %></td>
-        </tr>
-        </table>
-        <div class="row">
-          <div class="col-md-3"><span class="title-label">External Ports</span></div>
-        </div>
-        <table class="table table-fixed table-borderless">
-          <tr>
-            <td class="col-md-3">IP (or URL):</td>
-            <td class="col-md-9">
-              <% port = @camera.deep_fetch('external', 'host') {} %>
-              <% if port.blank? %>
-                <span class="grey">Not set</span>
-              <% else %>
-                <%= @camera.deep_fetch('external', 'host') {} %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>HTTP Port:</td>
-            <td>
-              <% port = @camera.deep_fetch('external', 'http', 'port') {} %>
-              <% if port.blank? %>
-                <span class="grey">Not set</span>
-              <% else %>
-                <%= @camera.deep_fetch('external', 'http', 'port') {} %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>RTSP Port:</td>
-            <td>
-              <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
-              <% if port.blank? %>
-                <span class="grey">Not set</span>
-              <% else %>
-                <%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
-        <div class="row">
-          <div class="col-md-3"><span class="title-label">Internal Ports</span></div>
-        </div>
-        <table class="table table-fixed table-borderless">
-          <tr>
-            <td class="col-md-3">IP (or URL):</td>
-            <td class="col-md-9">
-              <% port = @camera.deep_fetch('internal', 'host') {} %>
-              <% if port.blank? %>
-                <span class="grey">Not set</span>
-              <% else %>
-              <%= @camera.deep_fetch('internal', 'host') {} %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>HTTP Port:</td>
-            <td>
-              <% port = @camera.deep_fetch('internal', 'http', 'port') {} %>
-              <% if port.blank? %>
-                <span class="grey">Not set</span>
-              <% else %>
-              <%= @camera.deep_fetch('internal', 'http', 'port') {} %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>RTSP Port:</td>
-            <td>
-              <% port = @camera.deep_fetch('internal', 'rtsp', 'port') {} %>
-              <% if port.blank? %>
-                <span class="grey">Not set</span>
-              <% else %>
-                <%= @camera.deep_fetch('internal', 'rtsp', 'port') {} %>
-              <% end %>
-            </td>
-          </tr>
+      <tr>
+        <td>Created:</td>
+        <td>
+          <%= Time.at(@camera['created_at']).to_formatted_s(:long_ordinal) %>
+        </td>
+      </tr>
+      <tr>
+        <td>Status:</td>
+        <td>
+          <% if @camera['is_online'] %>
+            <div class="green">Online</div>
+          <% else %>
+            <div class="red">Offline</div>
+          <% end %>
+        </td>
+      </tr>
+      <% unless @camera['is_online'] %>
+      <tr>
+        <td>Last Online</td>
+        <td>
+          <%= Time.at(@camera['last_online_at']).to_formatted_s(:long_ordinal) if @camera['last_online_at'] %>
+        </td>
+      </tr>
       <% end %>
       <tr>
-        <td class="col-md-3">Timezone</td>
-        <td class="col-md-9">
+        <td>Timezone</td>
+        <td>
           <% camera_timezone = ActiveSupport::TimeZone::MAPPING.key(@camera['timezone']) %>
           <% if camera_timezone.blank? %>
             <%= ActiveSupport::TimeZone.new(@camera['timezone']) %>
@@ -156,6 +84,16 @@
           <% end %>
         </td>
       </tr>
-      </table>
-      </div>
+      <tr>
+        <td>Sharing:</td>
+        <td>Is Public:
+          <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">[Yes]</span>
+          <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">[No]</span>
+          <span>& Is Discoverable:</span>
+          <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_discoverable'] %>">[Yes]</span>
+          <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_discoverable'] %>">[No]</span>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

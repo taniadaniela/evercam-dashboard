@@ -94,7 +94,7 @@
                             </tr>
                             <tr>
                               <td>Last Polled</td>
-                              <td><%= @dash_camera.last_polled_at.strftime("%d/%m/%y") %></td>
+                              <td><%= @dash_camera.last_polled_at.strftime("%d/%m/%y") if @dash_camera.last_polled_at %></td>
                             </tr>
                           </tbody>
                         </table>

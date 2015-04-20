@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: 028d78cff30fd787704f3a7dd63a467b50f615bf
+  revision: 8ac52de7c4f53326c820344b03163fd386870a38
   branch: naming
   specs:
-    evercam (0.3.pre.alpha2)
+    evercam (0.3.pre.alpha3)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
       typhoeus (~> 0.6)
@@ -273,8 +273,6 @@ GEM
     i18n (0.7.0)
     ie_iframe_cookies (0.1.6)
     inflecto (0.0.2)
-    intercom-rails (0.2.24)
-      activesupport (> 3.0)
     ipaddress (0.8.0)
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
@@ -530,7 +528,6 @@ DEPENDENCIES
   heroku-api
   heroku_rails_deflate
   ie_iframe_cookies
-  intercom-rails
   jazz_hands!
   jquery-rails
   launchy

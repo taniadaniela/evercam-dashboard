@@ -177,7 +177,7 @@ describe CamerasController do
         session['user'] = user.email
         post :update, patch_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to cameras_single_path(camera.exid)
+        expect(response).to redirect_to "#{cameras_single_path(camera.exid)}/details"
         expect(flash[:message]).to eq('Settings updated successfully')
         camera.reload
         expect(camera.is_public?).to eq(false)
@@ -198,7 +198,7 @@ describe CamerasController do
         session['user'] = user.email
         post :update, {'id' => camera.exid, 'camera-id' => camera.exid}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to cameras_single_path(camera.exid)
+        expect(response).to redirect_to "#{cameras_single_path(camera.exid)}/details"
         expect(flash[:message]).to eq("An error occurred updating the details for your camera. Please try again and, if this problem persists, contact support.")
       end
     end

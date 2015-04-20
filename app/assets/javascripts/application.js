@@ -27,9 +27,11 @@
 //= require layout
 //= require sidebar
 //= require helpers
+//= require forms
 //= require cameras.js
 //= require cameras/single.js
 //= require cameras/add_camera.js
+//= require user_account.js
 //=
 //= require metronic/respond.min.js
 //= require metronic/metronic.js

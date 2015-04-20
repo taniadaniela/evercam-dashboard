@@ -9,7 +9,7 @@ class UsersController < ApplicationController
                      :password_reset_request, :password_update, :password_update_form]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
-  layout "bare-bones", except: [:settings]
+  layout "bare-bones", except: [:settings, :delete]
 
   include SessionsHelper
   include ApplicationHelper
@@ -55,7 +55,6 @@ class UsersController < ApplicationController
         user['username'],
         user['email'],
         user['password'],
-        user['country'],
         params[:key]
       )
 
@@ -103,6 +102,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete
+    begin
+      get_evercam_api.delete_user(params['id'])
+      redirect_to cameras_single_path
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.error "Exception caught deleting user.\nCause: #{error}\n" +
+                           error.backtrace.join("\n")
+      flash[:message] = "An error occurred deleting user. Please try again "\
+                      "and, if the problem persists, contact support."
+      redirect_to user_path
+    end
+  end
+
   def settings_update
     begin
       parameters = {}
@@ -136,6 +149,24 @@ class UsersController < ApplicationController
       end
     end
     redirect_to action: 'settings'
+  end
+
+  def change_password
+    begin
+      user = User.by_login(params[:id])
+    rescue NoMethodError => error
+      Rails.logger.error "Error caught fetching user details.\nCause: #{error}\n" + error.backtrace.join("\n")
+    end
+
+    if !user.nil? and user.password == params['current-password']
+      user.update(password: params['new-password'])
+      user.save
+      flash[:message] = 'Password updated successfully'
+    else
+      flash[:message] = 'Invalid Current Password'
+    end
+
+    redirect_to :action => 'settings', :anchor => 'password'
   end
 
   def password_reset_request

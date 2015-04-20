@@ -1,16 +1,12 @@
-// Place all the styles related to the live controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-#logs .checkbox-inline {
-  padding-left: 0;
+#logs {
+  .checkbox-inline {
+    padding-left: 0 !important;
+  }
 }
 #apply-types {
   margin: 20px 0px;
 }
-.glyphicon-cog {
-  font-size: 16px;
-}
+
 .checkbox-inline input[type="checkbox"] {
   float: left;
   margin-top: 4px;

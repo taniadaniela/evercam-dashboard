@@ -197,7 +197,7 @@
                   <tr>
                     <td><%= link_to dash_user.fullname, admin_dash_user_path(dash_user) %></td>
                     <td><%= dash_user.email %></td>
-                    <td><%= dash_user.dash_country.name %></td>
+                    <td><%= dash_user.dash_country.name unless dash_user.dash_country.blank? %></td>
                     <td><%= dash_user.created_at.strftime("%d/%m/%y") %></td>
                   </tr>
                   <% end %>

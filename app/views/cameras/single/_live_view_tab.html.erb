@@ -1,38 +1,44 @@
 <% if @camera['is_online'] %>
   <div class="camera-preview">
-    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) %>
-    <div class="row">
-      <div id="live-view-placeholder" class="col-lg-8 col-md-12">
-        <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
+    <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
+    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present?  %>
+
+    <div id="live-view-placeholder">
+      <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
+        <div class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
-            <div class="live-option" id="toggle"><i class="icon-size-fullscreen"></i></div>
-            <div class="live-option"><a id="link-popout"><i class="icon-share-alt" aria-hidden="true"></i></a></div>
+            <div class="live-option" id="toggle"><span class="glyphicon glyphicon-fullscreen"></span></div>
+            <div class="live-option"><a id="link-popout"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></div>
           </div>
-          <div class="btn-live-player play-pause hide"><i class="icon-control-pause"></i></div>
+          <div class="play-options">
+            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
+            <div id="save-live-snapshot" class="btn-live-player save-live hide"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+          </div>
         </div>
-        <% unless rtmp_stream.blank? %>
-          <div id="camera-rtmp-stream" class="active">
-            <video id="camera-rtmp-player" class="video-js vjs-default-skin" poster="<%= @camera['thumbnail_url'] %>" autoplay controls preload="auto" width="auto" height="auto">
-              <source src="<%= rtmp_stream %>" type='rtmp/flv'>
-            </video>
-          </div>
-          <div class="pull-right margin-top-10">
-            <table>
-              <tr>
-                <td>Feed:&nbsp;</td>
-                <td>
-                  <select id="select-stream-type" class="form-control">
-                    <option value="jpeg">JPEG</option>
-                    <option selected="selected" value="rtmp">RTMP</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </div>
-        <% end %>
       </div>
+      <% unless rtmp_stream.blank? %>
+        <div id="camera-rtmp-stream" class="active">
+          <video id="camera-rtmp-player" class="video-js vjs-default-skin" poster="<%= @camera['thumbnail_url'] %>" autoplay controls preload="auto" width="auto" height="auto">
+            <source src="<%= rtmp_stream %>" type='rtmp/flv'>
+          </video>
+        </div>
+        <div class="pull-right margin-top-10">
+          <table>
+            <tr>
+              <td>Feed:&nbsp;</td>
+              <td>
+                <select id="select-stream-type" class="form-control">
+                  <option value="jpeg">JPEG</option>
+                  <option selected="selected" value="rtmp">RTMP</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+      <% end %>
     </div>
+
   </div>
 <% else %>
   <div class="row">

@@ -24,11 +24,6 @@
   margin-bottom: 5px;
   border-bottom: 1px solid $white;
 }
-
-#details .green {
-  margin-top: 3px;
-  color:#2ecc71;
-}
 #details .portlet.solid {
   overflow-x: hidden;
   background-color: $white;
@@ -53,6 +48,7 @@
 .info-preview {
   width:100%;
   overflow: hidden;
+  margin-bottom: 5px;
 }
 .info-preview img {
   width: 100%;
@@ -197,4 +193,70 @@
 }
 #camera-settings #test {
   width:auto;
+}
+
+#details {
+  td:first-child {
+    color: #666666;
+  }
+}
+.controls {
+  margin-top: 6px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 36px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#search-location {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+  position: absolute;
+  z-index: 10000;
+}
+
+#search-location:focus {
+  border-color: #4d90fe;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+.coordinates {
+  position: absolute;
+  top: 0;
+  margin-left: -2px;
+}
+p#search-notes {
+  margin-top: 42px !important;
+}
+.location-search {
+ transition:0.3s;
+}
+#map-info{
+  display: none;
+}
+#coordinates-value .btn-edit {
+  margin-top: 2px;
+  float: right;
+}
+#save-map-location {
+  float: right;
+  margin-right: 26px !important;
 }

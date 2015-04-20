@@ -19,6 +19,8 @@
 #= require metronic/datatable.js
 #= require metronic/layout.js
 #= require metronic/quick-sidebar.js
+#= require iCheck
+#= require metronic/icheck.min.js
 #= require alerts.js
 #= require evercam.js.coffee
 #= require admin/vendor_model.js
@@ -40,6 +42,9 @@ $ ->
       type: "date-uk"
       targets: 'datatable-date'
     ]
+  $("input[type=radio], input[type=checkbox]").iCheck
+    checkboxClass: "icheckbox_flat-blue"
+    radioClass: "iradio_flat-blue"
 
 
 $.extend $.fn.dataTableExt.oSort,

@@ -59,7 +59,7 @@
                 <a href="<%= widget_snapshot_navigator_path %>">Snapshot Navigator Widget</a>
               </li>
               <li>
-                <a href="<%= widget_cameras_add_path %>">Add Camera Widget</a>
+                <a href="<%= widgets_widget_camera_add_path %>">Add Camera Widget</a>
               </li>
             </ul>
           </li>
@@ -81,9 +81,8 @@
       </li>
 
       <li>
-        <a href="javascript:Intercom('show');">
-          <i class="icon-support"></i><span class="support title">Support</span>
-        </a>
+        <i class="icon-speech"></i>
+        <%= link_to 'Feedback', feedback_path %>
       </li>
 
       <li>
@@ -117,7 +116,7 @@
         <a href="<%= widget_snapshot_navigator_path %>">Snapshot Navigator</a>
       </li>
       <li>
-        <a href="<%= widget_cameras_add_path %>">Add Camera</a>
+        <a href="<%= widgets_widget_camera_add_path %>">Add Camera</a>
       </li>
     </ul>
   </nav>

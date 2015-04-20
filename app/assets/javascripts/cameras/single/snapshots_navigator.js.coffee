@@ -152,6 +152,18 @@ ResetDays = ->
           break
         j++
 
+selectCurrentDay = ->
+  $(".datepicker-days table td[class*='day']").removeClass('active')
+  dt = $("#ui_date_picker_inline").datepicker('getDate')
+  calDays = $(".datepicker-days table td[class*='day']")
+  calDays.each (idx, el) ->
+    calDay = $(this)
+    if !calDay.hasClass('old') && !calDay.hasClass('new')
+      iDay = parseInt(calDay.text())
+      if dt.getDate() is iDay
+        calDay.addClass('active')
+        return
+
 handleSlider = ->
   onSliderMouseMove = (ev) ->
     if snapshotInfos == null || snapshotInfos.length == 0 then return
@@ -219,10 +231,11 @@ showLoader = ->
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
+  $("#snapshot-notes-text").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{date_time.toISOString()}"
+  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{getSnapshotDate(date_time).toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
     window.history.replaceState({}, '', url);
@@ -249,7 +262,7 @@ isValidDateTime = (timestamp) ->
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
   CameraOffset = parseInt(offset)/3600
-  currentDate = getLocationBaseDateTime(offset)
+  currentDate = new Date($("#camera_selected_time").val())
   cameraCurrentHour = currentDate.getHours()
   $("#hourCalandar td[class*='day']").removeClass("active")
 
@@ -263,11 +276,23 @@ handleBodyLoadContent = ->
   $("#tdI#{cameraCurrentHour}").addClass("active")
   PreviousImageHour = "tdI#{cameraCurrentHour}"
   $("#ui_date_picker_inline").datepicker('setDate', currentDate)
+  selectCurrentDay()
   $(".btn-group").tooltip()
 
   showLoader()
   HighlightCurrentMonth()
   BoldSnapshotHour(false)
+
+fullscreenImage = ->
+  $("#imgPlayback").dblclick ->
+    screenfull.toggle $(this)[0]
+
+  if screenfull.enabled
+    document.addEventListener screenfull.raw.fullscreenchange, ->
+      if screenfull.isFullscreen
+        $("#imgPlayback").css('width','auto')
+      else
+        $("#imgPlayback").css('width','100%')
 
 getLocationBaseDateTime = (offset) ->
   #create Date object for current location
@@ -345,9 +370,9 @@ BoldSnapshotHourSuccess = (result, context) ->
   lastBoldHour = 0;
   hasRecords = false;
   for hour in result.hours
-    hr = hour + CameraOffset
-    $("#tdI#{hr}").addClass('has-snapshot')
-    lastBoldHour = hr
+    #hr = hour + CameraOffset
+    $("#tdI#{hour}").addClass('has-snapshot')
+    lastBoldHour = hour
     hasRecords = true
 
   if hasRecords
@@ -442,6 +467,7 @@ loadImage = (timestamp) ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
+      $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
     true
@@ -460,12 +486,16 @@ loadImage = (timestamp) ->
 
 SetPlayFromImage = (timestamp) ->
   i = 0
-  while i < snapshotInfos.length
-    if snapshotInfos[i].created_at >= timestamp
+  for snapshot in snapshotInfos
+    snapshot_timestamp = GetUTCDate(new Date(getSnapshotDate(new Date(snapshot.created_at*1000)).format('MM/DD/YYYY HH:mm:ss')))/1000
+    if snapshot_timestamp >= timestamp
       currentFrameNumber = i + 1
       snapshotInfoIdx = i
-      return snapshotInfos[i].created_at
+      return snapshot.created_at
     i++
+  currentFrameNumber = snapshotInfos.length
+  snapshotInfoIdx = snapshotInfos.length - 1
+  return snapshotInfos[snapshotInfoIdx].created_at
 
 GetUTCDate = (date) ->
   UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
@@ -475,6 +505,11 @@ shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
   return "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
+
+getSnapshotDate = (date) ->
+  dt = $("#ui_date_picker_inline").datepicker('getDate')
+  hour = parseInt(cameraCurrentHour)
+  return moment.utc([dt.getFullYear(), dt.getMonth(), dt.getDate(), hour, date.getMinutes(), date.getSeconds(), date.getMilliseconds()])
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -546,6 +581,7 @@ SetImageHour = (hr, id) ->
     xhrRequestChangeMonth.abort()
     $("#divRecent").show()
     $("#divInfo").fadeOut()
+    $("#snapshot-notes-text").hide()
     $("#divSliderBackground").width("0%")
     $("#txtCurrentUrl").val("")
     $("#divSliderMD").width("100%")
@@ -556,6 +592,7 @@ SetImageHour = (hr, id) ->
     $("#divNoMd").show()
     $("#divNoMd").text('No motion detected')
     HideLoader()
+    $("#snapshot-tab-save").hide()
   true
 
 Pause = ->
@@ -763,9 +800,18 @@ handleMinSecDropDown = ->
 
 handleTabOpen = ->
   $('.nav-tab-recordings').on 'show.bs.tab', ->
-    showLoader()
-    HighlightCurrentMonth()
-    BoldSnapshotHour(false)
+    #showLoader()
+    #HighlightCurrentMonth()
+    #BoldSnapshotHour(false)
+    if snapshotInfos isnt null
+      date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
+      url = "#{Evercam.request.rootpath}/recordings/snapshots/#{getSnapshotDate(date_time).toISOString()}"
+      if history.replaceState
+        window.history.replaceState({}, '', url);
+
+saveImage = ->
+  $('#save-recording-image').on 'click', ->
+    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}_recorded_image")
 
 window.initializeRecordingsTab = ->
   initDatePicker()
@@ -775,3 +821,5 @@ window.initializeRecordingsTab = ->
   handleMinSecDropDown()
   handlePlay()
   handleTabOpen()
+  fullscreenImage()
+  saveImage()

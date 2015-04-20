@@ -20,10 +20,11 @@ addSharingCameraRow = (details) ->
   if details.type == "share_request"
     row.attr("share-request-email", details['email'])
   else
-    row.attr("share-email", details['email'])
+    row.attr("share-username", details['user_id'])
+    $("#new_owner_email").append("<option value='#{details['user_id']}'>#{details['user_id']}</option>")
 
   cell = $('<td>', {class: "col-lg-4"})
-  cell.append(document.createTextNode(" " + details['email']))
+  cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
   if details.type == "share_request"
     suffix = $('<small>', {class: "blue"})
     suffix.text(" ...pending")
@@ -71,16 +72,16 @@ addSharingCameraRow = (details) ->
     divBox2.append($('<div>', {class: "arrow"}))
     divBox2.append($('<div>', {class: "arrow-border"}))
     divMessage = $('<div>', {class: "margin-bottom-10"})
-    divMessage.append($(document.createTextNode("Are you sure you want to delete this share?")))
+    divMessage.append($(document.createTextNode("Are you sure?")))
     divBox2.append(divMessage)
     divButtons = $('<div>', {class: "margin-bottom-10"})
-    inputDelete = $('<input type="button" value="DELETE">')
-    inputDelete.addClass("button raised grey delete-btn delete-share")
+    inputDelete = $('<input type="button" value="Yes, Remove">')
+    inputDelete.addClass("btn btn-primary delete-btn delete-share")
     inputDelete.attr("camera_id", details["camera_id"])
     inputDelete.attr("share_id", details["share_id"])
     inputDelete.click(onDeleteShareClicked)
     divButtons.append(inputDelete)
-    divButtons.append('<div class="button delete-btn closepopup raised grey"><div class="text-center" fit>CANCEL</div><paper-ripple fit></paper-ripple></div>')
+    divButtons.append('<div class="btn delete-btn closepopup grey"><div class="text-center" fit>CANCEL</div></div>')
     divBox2.append(divButtons)
     divCollapsePopup.append(divBox2)
     divPopup.append(divCollapsePopup)
@@ -103,17 +104,17 @@ addSharingCameraRow = (details) ->
     divBox2.append($('<div>', {class: "arrow"}))
     divBox2.append($('<div>', {class: "arrow-border"}))
     divMessage = $('<div>', {class: "margin-bottom-10"})
-    divMessage.append($(document.createTextNode("Are you sure to revoke this share?")))
+    divMessage.append($(document.createTextNode("Are you sure?")))
     divBox2.append(divMessage)
     divButtons = $('<div>', {class: "margin-bottom-10"})
-    inputDelete = $('<input type="button" value="REVOKE">')
-    inputDelete.addClass("button raised grey delete-btn delete-share-request-control")
+    inputDelete = $('<input type="button" value="Yes, Revoke">')
+    inputDelete.addClass("btn btn-primary delete-btn delete-share-request-control")
     inputDelete.attr("camera_id", details["camera_id"])
     inputDelete.attr("share_request_id", details["share_id"])
     inputDelete.attr("email", details["email"])
     inputDelete.click(onDeleteShareRequestClicked)
     divButtons.append(inputDelete)
-    divButtons.append('<div class="button delete-btn closepopup raised grey"><div class="text-center" fit>CANCEL</div><paper-ripple fit></paper-ripple></div>')
+    divButtons.append('<div class="btn delete-btn closepopup grey"><div class="text-center" fit>CANCEL</div></div>')
     divBox2.append(divButtons)
     divCollapsePopup.append(divBox2)
     divPopup.append(divCollapsePopup)
@@ -214,6 +215,12 @@ onSetCameraAccessClicked = (event) ->
   sendAJAXRequest(settings)
   true
 
+getTransferFromUrl = ->
+  is_transfer = window.Evercam.request.subpath.
+  replace(RegExp("shares", "g"), "").
+  replace(RegExp("/", "g"), "")
+  if is_transfer is 'transfer'
+    $('#change_owner2').modal('show')
 
 onDeleteShareClicked = (event) ->
   event.preventDefault()
@@ -221,7 +228,7 @@ onDeleteShareClicked = (event) ->
   row = control.closest('tr')
   data =
     camera_id: control.attr("camera_id")
-    email: row.attr('share-email')
+    email: row.attr('share-username')
   onError = (jqXHR, status, error) ->
     showError("Delete of camera shared failed. Please contact support.")
     false
@@ -231,6 +238,8 @@ onDeleteShareClicked = (event) ->
         row.remove()
       row.fadeOut(onComplete)
       showError("Camera share deleted successfully.")
+      if $("#user_name").val() is row.attr('share-username')
+        window.location = '/'
     else
       showError("Delete of camera shared failed. Please contact support.")
     true
@@ -250,7 +259,6 @@ onDeleteShareRequestClicked = (event) ->
   event.preventDefault()
   control = $(event.currentTarget)
   row = control.closest('tr')
-  console.log row
   data =
     camera_id: control.attr("camera_id")
     email: row.attr("share-request-email")
@@ -319,7 +327,6 @@ onAddSharingUserClicked = (event) ->
   true
 
 onSaveShareClicked = (event) ->
-  console.log 'share'
   event.preventDefault()
   button = $(this)
   row = button.closest('tr')
@@ -327,7 +334,7 @@ onSaveShareClicked = (event) ->
   data =
     permissions: control.val()
     camera_id: Evercam.Camera.id
-    email: row.attr('share-email')
+    email: row.attr('share-username')
   onError = (jqXHR, status, error) ->
     showError("Update of share failed. Please contact support.")
     false
@@ -350,17 +357,14 @@ onSaveShareClicked = (event) ->
   true
 
 onSaveShareRequestClicked = (event) ->
-  console.log 'request'
   event.preventDefault()
   button = $(this)
   row = button.closest('tr')
-  console.log row
   control = row.find('select')
   data =
     permissions: control.val()
     camera_id: Evercam.Camera.id
     email: row.attr('share-request-email')
-  console.log data
   onError = (jqXHR, status, error) ->
     showError("Update of share request failed. Please contact support.")
     false
@@ -437,5 +441,6 @@ window.initializeSharingTab = ->
   $(window).on "resize", ->
     $(".modal:visible").each centerModal
   Notification.init(".bb-alert")
+  getTransferFromUrl()
 
 window.Evercam.Share.createShare = createShare

@@ -15,6 +15,13 @@
 //= require metronic/profile.css
 //= require metronic/default.css
 //= require metronic/custom.css
+
+//= require iCheck/skins/minimal/_all.scss
+//= require iCheck/skins/square/_all.css
+//= require iCheck/skins/flat/_all.css
+//= require iCheck/skins/line/_all.css
+//= require iCheck/skins/polaris/polaris.css
+//= require iCheck/skins/futurico/futurico.css
 //= require_self
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
@@ -204,4 +211,27 @@ div.radio{
 }
 #add-vendor-modal .form-group .table .alert, #add-vendor .form-group .table .alert{
   margin-bottom: 0px;
+}
+div.radio {
+  margin-right: 5px;
+}
+.iradio_flat-blue{
+  width:21px;
+}
+.thumbnail-settings {
+  background-color: white;
+  overflow: hidden;
+  width: 100%;
+}
+.center-thumbnail {
+  height: 100%;
+  min-height: 130px;
+  text-align: center;
+  background-image: asset-url('camera.svg');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.thumbnail-img {
+  height: auto;
+  width: 100%;
 }

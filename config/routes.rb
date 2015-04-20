@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   get 'v1/charges' => 'charges#new', as: :new_checkout
   post 'v1/charges' => 'charges#create', as: :new_charge
 
+  get 'feedback', to: 'messages#new', as: 'feedback'
+  post 'feedback', to: 'messages#create'
+
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]
   resources :credit_cards, only: [:create, :destroy]
@@ -47,6 +50,7 @@ Rails.application.routes.draw do
   get '/cameras/transfer' => 'cameras#transfer'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
+  get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found
   post '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
 
@@ -77,7 +81,9 @@ Rails.application.routes.draw do
   get '/widget_signin' => 'sessions#widget_new', as: :widget_signin
   delete '/v1/users/signout' => 'sessions#destroy', as: :signout
   get '/v1/users/:id' => 'users#settings', as: :user
+  delete '/v1/users/:id' => 'users#delete'
   post '/v1/users/:id' => 'users#settings_update'
+  put '/v1/users/:id/password/change' => 'users#change_password', as: :user_change_password
 
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
@@ -92,9 +98,12 @@ Rails.application.routes.draw do
   get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
   get '/snapshot.navigator' => 'widgets#snapshot_navigator'
 
-  get '/widgets/cameras/add' => 'widgets#widget_add_camera', as: :widget_cameras_add
-  get '/widgets/cameras/public/add' => 'widgets#add_public_camera'
-  get '/widgets/add.camera' => 'widgets#add_camera'
+  namespace :widgets do
+    resources :widget_cameras_add, path: :widget_cameras_add
+    get '/cameras/add' => 'widget_cameras_add#widget_add_camera', as: :widget_camera_add
+    get '/cameras/public/add' => 'widget_cameras_add#add_public_camera'
+    get '/add.camera' => 'widget_cameras_add#add_camera'
+  end
 
   get '/live/:id' => 'pages#live'
 

@@ -59,6 +59,34 @@ th {
     width: 45px;
 }
 
+#fullscreen:hover .play-options {
+  opacity: 1;
+}
+.play-options{
+  position: absolute;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transition: all .2s linear;
+  z-index: 10000000000;
+  margin-left: -18px;
+  margin-top: -5px;
+}
+.btn-live-player {
+  float: left;
+  padding: 10px 12px 8px;
+  background: rgba(0,0,0,0.7);
+  font-size: 12px;
+  color: #ffffff;
+  border-radius: 50% !important;
+  transition: all .2s linear;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.btn-live-player:hover {
+  background: #68a2d5;
+}
+
 @media (max-width: 480px) {
   #recording-tab .btn {
     padding: 9px 5px;
@@ -135,6 +163,8 @@ th {
   }
   .right-column {
     float: left;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }
 
@@ -400,7 +430,7 @@ ul, menu, dir {
 
 .datepicker-bg{
     background-color: #fff;
-    width: 210px;
+    width: 220px;
 }
 @media (max-width: 845px) {
     .datepicker-bg {
@@ -474,7 +504,10 @@ ul, menu, dir {
       margin: 0 auto;
       right: 0;
       left: 0;
-      width: 222px;
+      width: 99%;
+    }
+    .table-condensed{
+      width: 100%;
     }
     .datepicker.datepicker-bg.datepicker-inline.show {
     margin-top: 222px;
@@ -486,6 +519,7 @@ ul, menu, dir {
       text-align: center;
       right: 0;
       left: 0;
+      display: none;
     }
   }
 }

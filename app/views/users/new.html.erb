@@ -1,5 +1,7 @@
 <% provide(:title, "Create New Account") %>
-
+<script type="text/javascript">
+  mixpanel.track_forms("#create-account", "Created Account");
+</script>
 <section id="new-account" class="site-min-height">
   <div class="container section" id="new-account">
     <div id="signin" class="col-md-12 text-center">
@@ -12,11 +14,10 @@
         <% end %>
       </div>
     </div>
-
     <div id="registration" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
       <div class="col-sm-10 col-sm-offset-1 row">
         <h3 class="text-center">Create a free Account</h3>
-        <%= form_for(:user, url: signup_path) do |f| %>
+        <%= form_for(:user, url: signup_path, :html => { :id => "create-account" } ) do |f| %>
           <% field_errors = (flash[:field_errors] || {}) %>
 
           <div class="row text-center">

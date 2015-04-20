@@ -1,5 +1,9 @@
 <%= content_for(:title, "Evercam: Add Camera") %>
+<script type="text/javascript">
+  mixpanel.track_forms("#create-a-camera", "Created A Camera");
+</script>
 <div id="add-ip"/>
+
 <div class="page-content-wrapper">
   <div class="page-content">
     <div class="row">
@@ -25,9 +29,9 @@
       </div>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1_1">
-          <%= form_tag(cameras_new_path, method: 'post', class: 'has-validation-callback', autocomplete: 'off', role: 'form') do %>
+          <%= form_tag(cameras_new_path, method: 'post', id: 'create-a-camera', class: 'has-validation-callback', autocomplete: 'off', role: 'form') do %>
             <% field_errors = (flash[:field_errors] || {}) %>
-            <!-- A workaround for chrome autofill entering camera user & pass autocomplete="off" no longer obeyed -->
+            <!-- Workaround for Chrome autofill entering camera user & pass. (autocomplete="off" is no longer obeyed) -->
             <input style="display:none" type="text" name="fakeusernameremembered"/>
             <input style="display:none" type="password" name="fakepasswordremembered"/>
             <%= hidden_field_tag('camera-lat', @user['camera-lat']) %>

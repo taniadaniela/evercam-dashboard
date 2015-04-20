@@ -2,30 +2,36 @@
   .navigation {
     background-color: $lighter-grey;
   }
+
   .plans {
     .plans-comparison {
       ul {
         background-color: $lighter-grey;
       }
+
       li {
         list-style-type: none;
         line-height: 2em;
         text-align: center;
       }
     }
+
     .plans-select {
       p {
         text-align: center;
       }
+
       .btn {
         width: 100%;
       }
     }
   }
+
   .cart {
     ul {
       background-color: $lighter-grey;
     }
+    
     li {
       list-style-type: none;
       line-height: 1.5em;

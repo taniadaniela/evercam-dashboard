@@ -445,7 +445,6 @@ describe Oauth2Controller do
       end
 
       context 'when 3Scale returns a negative response' do
-        pending
         before(:each) do
           client0.update(callback_uris: ['http://www.google.com/blah'])
           stub_request(:get, "http://su1.3scale.net/transactions/authrep.xml?%5Busage%5D%5Bhits%5D=1&app_id=client0&app_key=client0_secret&provider_key=b25bc9166b8805fc26a96f1130578d2b").
@@ -466,7 +465,6 @@ describe Oauth2Controller do
       end
 
       context 'when 3Scale returns a positive response' do
-        pending
         before(:each) do
           client0.update(callback_uris: ['http://www.google.com/blah'])
           stub_request(:get, "http://su1.3scale.net/transactions/authrep.xml?%5Busage%5D%5Bhits%5D=1&app_id=client0&app_key=client0_secret&provider_key=b25bc9166b8805fc26a96f1130578d2b").
@@ -548,7 +546,6 @@ describe Oauth2Controller do
       end
 
       context 'for valid requests' do
-        pending
         before(:each) do
           client0.update(callback_uris: ['http://www.google.com/blah'])
           stub_request(:get, "http://su1.3scale.net/transactions/authrep.xml?%5Busage%5D%5Bhits%5D=1&app_id=client0&app_key=client0_secret&provider_key=b25bc9166b8805fc26a96f1130578d2b").

@@ -1,5 +1,11 @@
 <%= content_for(:title, "Evercam: Camera Dashboard") %>
-
+<script>mixpanel.identify(<%= current_user.id %>),
+mixpanel.people.set({
+  "$first_name": "<%= current_user.firstname %>",
+  "$last_name": "<%= current_user.lastname %>",
+  "$created": "<%= current_user.created_at %>",
+  "$email": "<%= current_user.email %>"
+});</script>
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-index">
 

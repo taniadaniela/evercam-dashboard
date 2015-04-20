@@ -21,7 +21,6 @@ $(".nav-tabs a").on "shown.bs.tab", (e) ->
   window.location.hash = e.target.hash
   scrollTo 0, 0
 
-
 initialize = ->
   Notification.init(".bb-alert")
   true

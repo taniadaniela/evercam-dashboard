@@ -1,5 +1,7 @@
 <% provide(:title, "Sign in") %>
-
+<script type="text/javascript">
+  mixpanel.track_forms("#sign-in", "Sign In");
+</script>
 <section id="sign-in-section" class="site-min-height">
   <div class="container section">
     <div id="signin" class="col-md-12 text-center">
@@ -16,7 +18,7 @@
     <div id="sign-in" class="col-md-4 col-md-offset-4">
       <h3 class="text-center">Sign in</h3>
 
-      <%= form_for(:session, url: sessions_path) do |f| %>
+      <%= form_for(:session, url: sessions_path, :html => { :id => "sign-in" }) do |f| %>
 
         <div class="grey col-md-8 col-md-offset-2 text-center">
           <%= f.label :email %> or <%= f.label :username %>

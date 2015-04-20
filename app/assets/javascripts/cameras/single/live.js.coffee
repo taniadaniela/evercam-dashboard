@@ -97,7 +97,7 @@ checkCameraOnline = ->
 
 saveImage = ->
   $('#save-live-snapshot').on 'click', ->
-    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}_live_image")
+    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
 
 window.initializeLiveTab = ->
   window.rtmp_player_html = $('#camera-rtmp-stream').html()

@@ -63,10 +63,6 @@ window.initializeUserAccount = ->
   initializeiCheck()
   onDeleteClick()
 
-mixpanelTrack = ->
-  mixpanel.track_forms '#create-account', 'Created Account'
-  mixpanel.track_forms '#sign-in', 'Sign In'
-
 initialize = ->
   markers = []
   map = new (google.maps.Map)(document.getElementById('map-canvas'), mapTypeId: google.maps.MapTypeId.ROADMAP)

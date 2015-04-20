@@ -93,7 +93,7 @@ class UsersController < ApplicationController
   end
  
   def settings
-    # @cameras = load_user_cameras(true, false)
+    @cameras = load_user_cameras(true, false)
     @subscription = current_subscription
     @countries = Country.all
     unless current_user.billing_id.blank?

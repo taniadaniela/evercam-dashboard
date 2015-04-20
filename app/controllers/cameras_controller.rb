@@ -5,7 +5,7 @@ class CamerasController < ApplicationController
   include ApplicationHelper
 
   def index
-    # @cameras = load_user_cameras(true, false) 
+    @cameras = load_user_cameras(true, false)
   end
 
   def new

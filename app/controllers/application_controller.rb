@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   def load_user_cameras(shared, thumbnail)
     api = get_evercam_api
     begin
-      @cameras = api.get_user_cameras(current_user.username, shared, thumbnail) if @cameras.blank?
+      api.get_user_cameras(current_user.username, shared, thumbnail) if @cameras.blank?
     rescue => error
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
       []

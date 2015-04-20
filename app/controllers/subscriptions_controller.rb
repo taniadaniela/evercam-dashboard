@@ -13,10 +13,12 @@ class SubscriptionsController < ApplicationController
   require "stripe"
 
   def index
+    @cameras = load_user_cameras(true, false)
     @subscription = current_subscription
   end
 
   def new
+    @cameras = load_user_cameras(true, false)
     # @selected_plan = params
     render layout: false
   end
@@ -29,10 +31,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def edit_subscription
+    @cameras = load_user_cameras(true, false)
     @subscription = current_subscription
   end
 
   def edit_add_ons
+    @cameras = load_user_cameras(true, false)
     @subscription = current_subscription
   end
 

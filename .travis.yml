@@ -22,6 +22,8 @@ script:
 - RAILS_ENV=test bundle exec rspec --pattern 'c*/*_spec.rb,h*/*_spec.rb'
 
 env:
+  matrix:
+  - DATABASE_URL="postgres://localhost/evercam_tst"
   global:
   - secure: eDG0eEdm2HjiEKA4WZukbYvTn3kYlM+0SsZmOU0yE/6qV8tNO9erqaI0Wyz0E3i5Lhis2wKLucF4GVl8/QLxXYVTqRfW13YfLtIBoqMrUVKZaM9Lw2DRbwRb/CcKcCeuaV2dCkaB0WGvlcybNX8DXVdzP7MXSdWVJ8oW4UFzscI=
   - secure: bHbxbeB5q+q+cCXDzHzx33W4vfkte/ihcKjlKUn+ukHyBcrcMeZkvc3EpxznqAmiPC6sWV+NvMQ7JyAUbdI1L6I5Mw26UOmPMzeDDdK3EhoTtKItRKxHOCrVa7uv+ShWgGdLWeStQwrROv+95oruQ2VNsge0DRjQ5Ge1+YbY8Rg=

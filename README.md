@@ -1,5 +1,8 @@
 == README
 
+[![Dependency Status](https://gemnasium.com/evercam/evercam-dashboard.svg)](https://gemnasium.com/evercam/evercam-dashboard)
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

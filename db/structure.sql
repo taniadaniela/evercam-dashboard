@@ -269,7 +269,7 @@ CREATE SEQUENCE sq_streams
 
 CREATE EXTENSION postgis
   SCHEMA public
-  VERSION "2.1.4";
+  VERSION "2.1.3";
 
 
 --

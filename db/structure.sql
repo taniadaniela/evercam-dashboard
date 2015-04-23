@@ -263,6 +263,14 @@ CREATE SEQUENCE sq_streams
     NO MAXVALUE
     CACHE 1;
 
+--
+-- Name: postgis; Type: EXTENSION; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE EXTENSION postgis
+  SCHEMA public
+  VERSION "2.1.4";
+
 
 --
 -- Name: cameras; Type: TABLE; Schema: public; Owner: -; Tablespace: 

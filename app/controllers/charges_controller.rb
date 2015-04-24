@@ -1,77 +1,116 @@
 class ChargesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :ensure_plan_in_cart_or_existing_subscriber
+  before_filter :redirect_when_cart_empty, only: :new
+  prepend_before_filter :ensure_card_exists, :ensure_cameras_loaded
   include SessionsHelper
   include ApplicationHelper
+  include CurrentCart
+
+  # This is the view checkout action
+  def new
+    @customer = retrieve_stripe_customer
+    @total_charge = total_charge
+    @pro_rated_add_ons_charge = pro_rated_add_ons_charge
+    @add_ons_charge = add_ons_charge
+  end
 
   def create
-    @email = current_user.email
-    @amount = params[:amount].to_i * 100
-    token = params[:token]
-    if token.blank?
-      customer = Stripe::Customer.create(
-      :email => @email,
-      :card  => params[:stripeToken],
-    )
-      charge = Stripe::Charge.create(
-        :customer    => customer.id,
-        :amount => @amount,
-        :description => 'Custom Amount',
-        :currency    => 'eur'
-      )
-      current_user.billing_id = customer.id
-      current_user.save
-    else
-      customer = Stripe::Customer.retrieve(token)
-      customer.charges.create(
-        :customer    => customer.id,
-        :amount => @amount,
-        :currency    => 'eur'
-      )
+    @customer = retrieve_stripe_customer
+    create_subscription unless @customer.has_active_subscription?
+    change_plan if @customer.change_of_plan?
+    create_charge if add_ons_in_cart?
+    redirect_to subscriptions_path, flash: { message: "Success." }
+  end
+
+  private
+
+  def redirect_when_cart_empty
+    if session[:cart].empty?
+      redirect_to edit_subscription_path, flash: {message: "You have nothing to checkout."}
     end
-    redirect_to(:back)
-    flash[:message] = "Your Payment was successful"
-
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to(:back)
   end
 
-  def subscription_create
-    @cameras = load_user_cameras(true, false)
-    @email = current_user.email
-    @plan = params[:plan]
-    token = params[:token]
-    if token.blank?
-      customer = Stripe::Customer.create(
-        :email => @email,
-        :card  => params[:stripeToken],
-        :plan => @plan
-      )
-      current_user.billing_id = customer.id
-      current_user.save
-    else
-      customer = Stripe::Customer.retrieve(token)
-      customer.subscriptions.create(
-       :plan => @plan
-      )
+  def ensure_card_exists
+    @customer = StripeCustomer.new(current_user.billing_id)
+    unless @customer.valid_card?
+      redirect_to edit_subscription_path, flash: { message: "You must add a card." }
     end
-    redirect_to(:back)
-    flash[:message] = "Your Subscription was successful"
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to(:back)
   end
 
-  def subscription_update
-    token = params[:token]
-    subscription_id = params[:subscription_id]
-    customer = Stripe::Customer.retrieve(token)
-    customer.subscriptions.retrieve(subscription_id).delete
-    current_user.billing_id = customer.id
-    current_user.save
-    redirect_to(:back)
-    flash[:message] = "Your Subscription has been cancelled"
+  def ensure_plan_in_cart_or_existing_subscriber
+    unless @customer.has_active_subscription? || plan_in_cart?
+      redirect_to edit_subscription_path, flash: { message: "You must add a plan." }
+    end
   end
 
+  def retrieve_stripe_customer
+    StripeCustomer.new(current_user.billing_id, plan_in_cart)
+  end
+
+  def create_subscription
+    @customer.create_subscription
+    purge_plan_from_cart
+    flash[:message] = "Plan created."
+  rescue
+    flash[:error] = "Something went wrong."
+  end
+
+  def change_plan
+    @customer.change_plan 
+    purge_plan_from_cart
+    flash[:message] = "Plan Changed."
+  rescue
+    flash[:error] = "Something went wrong."
+  end
+
+  # Make a new call to Stripe to refresh the subscription data
+  def create_charge
+    @customer = retrieve_stripe_customer
+    @customer.create_charge(pro_rated_add_ons_charge, charge_description)
+    empty_cart
+  rescue
+    flash[:error] = "Something went wrong."
+  end
+
+  def pro_rata_percentage
+    if (Time.now.getutc.to_i - @customer.current_plan.created) >= 600
+      month_period = @customer.current_subscription.current_period_end - @customer.current_subscription.current_period_start
+      add_on_period = @customer.current_subscription.current_period_end - Time.now.getutc.to_i
+      ((add_on_period.to_f / month_period.to_f) * 100)
+    else
+      100
+    end
+  end
+
+  def pro_rated_add_ons_charge
+    if add_ons_in_cart?
+      ((add_ons_charge / 100) * pro_rata_percentage).to_i
+    else
+      nil
+    end
+  end
+
+  def add_ons_charge
+    amounts = add_ons_in_cart.map { |item| item.price }
+    amounts.inject(0) {|sum, i|  sum + i }
+  end
+
+  # For an accurate subtotal of a mid term change, this method should also query Stripe for the pro rata change if the user switches plans.
+  def total_charge
+    total = pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : 0
+  end
+
+  def charge_description
+    description = ''
+    add_ons_in_cart.each_with_index do |item, index|
+        description.concat(item.name)
+        unless index.eql?(add_ons_in_cart.length - 1)
+          description.concat(', ')
+        else
+          description.concat('.')
+        end
+      end
+    description
+  end 
 end
 

@@ -14,13 +14,29 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
+  get 'v1/subscription' => 'subscriptions#index', as: :subscriptions
+  get 'v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
+  get '/v1/subscriptions/upgrade' => 'subscriptions#edit_subscription', as: :edit_subscription
+  get '/v1/subscriptions/upgrade-add-ons' => 'subscriptions#edit_add_ons', as: :edit_add_ons
+  delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
+
+  get 'v1/charges' => 'charges#new', as: :new_checkout
+  post 'v1/charges' => 'charges#create', as: :new_charge
+
   get 'feedback', to: 'messages#new', as: 'feedback'
   post 'feedback', to: 'messages#create'
 
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]
   resources :credit_cards, only: [:create, :destroy]
-  resources :subscriptions, only: [:destroy]
+
+  resources :line_items, only: [:destroy]
+  post 'line_items/create_subscription' => 'line_items#create_subscription', as: :line_item_subscription
+  post 'line_items/create_add_on' => 'line_items#create_add_on', as: :line_item_add_on
+
+  # resources :add_ons, only: [:index]
+
+  mount StripeEvent::Engine => '/stripe-events'
 
   resources :charges
   post '/users/:id/settings/charge' => 'charges#create'

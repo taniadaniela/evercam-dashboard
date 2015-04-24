@@ -1,14 +1,15 @@
+# Refactoring this gradually into the StripeCustomer class: prefer not to include helpers which call an API or the db
 module StripeCustomersHelper
-  def is_stripe_customer?
-    current_user.billing_id.present?
-  end
-
   def retrieve_stripe_customer
     @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
+  rescue
+    false
   end
 
   def retrieve_stripe_subscriptions
     @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+  rescue
+    false
   end
 
   def has_subscriptions?
@@ -51,5 +52,9 @@ module StripeCustomersHelper
     amounts = @subscriptions.map { |s| s.plan.amount }
     total = amounts.inject(0) {|sum, i|  sum + i }
     number_to_currency(total / 100)
+  end
+
+  def stripe_plans
+    @stripe_plans ||= Stripe::Plan.all
   end
 end

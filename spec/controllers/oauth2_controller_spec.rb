@@ -160,7 +160,7 @@ describe Oauth2Controller do
           uri = URI.parse(response.location)
           expect(uri.host).to eq('www.google.com')
           map = URI.decode_www_form(uri.query).inject({}) {|t,a| t[a[0]] = a[1]; t}
-          expect(map.include?("code")).to eq(true)
+          expect(map.include?("code")).to eq(false)
         end
       end
 

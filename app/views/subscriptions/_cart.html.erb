@@ -1,0 +1,15 @@
+<section class="cart">
+  <ul>
+    <% unless cart_empty? %>
+      <% session[:cart].each do |item| %>
+        <li><%= item.name %></li>
+        <li><%= item.quantity %></li>
+        <li><%= cents_to_currency item.price %></li>
+        <li><%= button_to 'Remove', line_item_path(item.id), method: :delete, remote: true %></li>
+      <% end %>
+      <p>Sub Total: <%= 5 %></p>
+    <% else %>
+      <p>Your cart is empty.</p>
+    <% end %>
+  </ul>
+</section>

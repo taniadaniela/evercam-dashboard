@@ -1,6 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] = 'test'
-ENV["DATABASE_URL"] = 'postgres://localhost/evercam_tst'
+ENV["DATABASE_URL"] = "postgres://localhost/evercam_tst"
 ENV["RACK_ENV"]  = ENV["RAILS_ENV"]
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -66,7 +66,7 @@ RSpec.configure do |config|
 
   # Configure database cleaner.
   config.before(:suite) do
-    WebMock.disable_net_connect!(:allow_localhost => true)
+    WebMock.allow_net_connect!
     DatabaseCleaner[:sequel].strategy = :truncation, {except: %w[spatial_ref_sys]}
     DatabaseCleaner[:sequel].clean_with(:truncation, except: %w[spatial_ref_sys])
   end

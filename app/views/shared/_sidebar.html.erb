@@ -74,6 +74,13 @@
       </li>
 
       <li>
+        <%= link_to subscriptions_path, role: 'menuitem' do %>
+          <i class="icon-user"></i>
+          <span class="title">Subscription</span>
+        <% end %>
+      </li>
+
+      <li>
         <i class="icon-speech"></i>
         <%= link_to 'Feedback', feedback_path %>
       </li>

@@ -1,10 +1,11 @@
 class CamerasController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :ensure_cameras_loaded
   include SessionsHelper
   include ApplicationHelper
 
   def index
-    @cameras = load_user_cameras(true, false) 
+    @cameras = load_user_cameras(true, false)
   end
 
   def new

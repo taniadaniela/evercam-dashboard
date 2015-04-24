@@ -40,3 +40,5 @@
 //= require metronic/classie.js
 //= require metronic/modernizr.custom.js
 //= require metronic/icheck.min.js
+//=
+//= require subscriptions.js

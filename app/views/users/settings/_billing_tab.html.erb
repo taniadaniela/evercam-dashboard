@@ -7,6 +7,9 @@
         <div class="panel-title row">
           <h4 class="margin-bottom-10">Billing Information</h4>
         </div>
+
+        <%= render partial: 'shared/stripe' %>
+        
           <!-- New Stripe customer -->
           <% unless is_stripe_customer? %>
             <p>You have not yet associated a credit card with this account.</p>
@@ -78,7 +81,7 @@
         <% end %>
         <!-- Subscriptions table -->
         <% if stripe_customer_with_subscriptions? -%>
-          <table class="table table-striped">
+          <table class="table table-striped margin-top-20">
             <tr>
               <th>Plan Expires</th>
               <th>Plan</th>
@@ -93,7 +96,7 @@
                 <td><%= s.plan.name -%></td>
                 <td><%= s.status.capitalize -%></td>
                 <td><%= s.plan.interval.capitalize -%></td>
-                <td><%= number_to_currency(s.plan.amount / 100 ) -%></td>
+                <td><%= cents_to_currency(s.plan.amount) -%></td>
                 <td>
                   <%= button_to 'Cancel Subscription',
                         subscription_path({:subscription_id => s.id, :plan_name => s.plan.name}),

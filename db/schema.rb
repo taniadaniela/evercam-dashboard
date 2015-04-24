@@ -50,6 +50,14 @@ ActiveRecord::Schema.define() do
   add_index "access_tokens", ["request"], name: "ux_access_tokens_request", unique: true, using: :btree
   add_index "access_tokens", ["user_id"], name: "ix_access_tokens_grantor_id", using: :btree
 
+  create_table "billing", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "timelapse"
+    t.integer  "snapmail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "camera_activities", id: false, force: :cascade do |t|
     t.integer  "id",              default: "nextval('camera_activities_id_seq'::regclass)", null: false
     t.integer  "camera_id",                                                                 null: false
@@ -198,6 +206,7 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "billing", "users", name: "billing_user_id_fkey", on_delete: :cascade
   add_foreign_key "access_rights", "access_tokens", column: "token_id", name: "access_rights_token_id_fkey", on_delete: :cascade
   add_foreign_key "access_rights", "cameras", name: "access_rights_camera_id_fkey", on_delete: :cascade
   add_foreign_key "access_rights", "users", column: "account_id", name: "access_rights_account_id_fkey", on_delete: :cascade

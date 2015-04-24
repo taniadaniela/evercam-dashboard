@@ -10,10 +10,7 @@
 #camera-single {
   padding: 0px 20px 10px 20px;
 }
-.page-header a {
-  color:$white;
-}
-.page-header a:hover {
+.page-header a ,.page-header a:hover {
   color:$white;
 }
 .page-header {
@@ -158,8 +155,8 @@ li span {
   color: #bdbdbd;
 }
 .header-add-camera {
-  margin-top: 17px;
   margin-right: 15px;
+  margin-top: 17px;
 }
 .header-add-camera i.icon-plus {
   font-size: 28px;

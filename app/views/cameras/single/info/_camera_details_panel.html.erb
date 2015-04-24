@@ -90,8 +90,8 @@
           <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">[Yes]</span>
           <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">[No]</span>
           <span>& Is Discoverable:</span>
-          <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_discoverable'] %>">[Yes]</span>
-          <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_discoverable'] %>">[No]</span>
+          <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['discoverable'] %>">[Yes]</span>
+          <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['discoverable'] %>">[No]</span>
         </td>
       </tr>
     </table>

@@ -135,7 +135,6 @@ li span {
   color:$main-grey;
   font-size: 12px;
   margin: 15px 0 5px;
-
 }
 
 @media (max-width: 980px) {
@@ -154,7 +153,6 @@ li span {
 #offline-menu {
   float: right;
 }
-
 .page-sidebar .page-sidebar-menu .sub-menu-item a {
   padding: 7px 15px;
   color: #bdbdbd;
@@ -175,13 +173,11 @@ li span {
 .page-header {
   display: none;
 }
-
 @media (max-width: 980px) {
   .page-header {
     display: block;
   }
 }
-
 #support {
   .camera-title {
     text-align: left;

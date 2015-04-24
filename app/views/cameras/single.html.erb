@@ -50,7 +50,7 @@
                 <a data-toggle="tab" data-target="#local-storage" class="nav-tab-local-storage">Local Storage</a>
               </li>
             <% end %>
-            <% if @share.nil? && @camera['is_public'] && @camera['discoverable'] %>
+            <% if @share.nil? && @camera["is_public"] && @camera["discoverable"] %>
               <div class="pull-right add-to-share">
                 <a data-target="#" id="add-to-cameras" class="create-share-button"><i class="fa fa-plus-circle"></i> Add to my cameras</a>
               </div>

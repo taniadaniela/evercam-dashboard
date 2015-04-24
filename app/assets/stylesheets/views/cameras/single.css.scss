@@ -39,11 +39,13 @@
     line-height: 1.5em;
   }
 }
-#ul-nav-tab .add-to-share{
+#ul-nav-tab .add-to-share {
   margin-top: 10px;
 }
+
 @media (max-width: 480px) {
-  #ul-nav-tab .add-to-share{
+  #ul-nav-tab .add-to-share {
     display: none;
   }
 }
+

@@ -10,12 +10,19 @@
 #camera-single {
   padding: 0px 20px 10px 20px;
 }
-.page-header a {
-  color:$white;
-}
+.page-header a,
 .page-header a:hover {
   color:$white;
 }
+.page-header .fa,
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > i {
+  font-size: 23px;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > i {
+  margin-top: 7px;
+}
+
 .cameras-back {
   margin-top:0px;
 }
@@ -125,7 +132,6 @@ li span {
   color:$main-grey;
   font-size: 12px;
   margin: 15px 0 5px;
-
 }
 
 @media (max-width: 980px) {
@@ -144,14 +150,13 @@ li span {
 #offline-menu {
   float: right;
 }
-
 .page-sidebar .page-sidebar-menu .sub-menu-item a {
   padding: 7px 15px;
   color: #bdbdbd;
 }
 .header-add-camera {
-  margin-top: 13px;
-  margin-right: 10px;
+  margin-right: 15px;
+  margin-top: 17px;
 }
 .header-add-camera i.icon-plus {
   font-size: 28px;
@@ -165,13 +170,11 @@ li span {
 .page-header {
   display: none;
 }
-
 @media (max-width: 980px) {
   .page-header {
     display: block;
   }
 }
-
 #support {
   .camera-title {
     text-align: left;

@@ -21,23 +21,20 @@
     <div class="top-menu">
       <div class="header-add-camera pull-left">
         <%= link_to cameras_new_path do %>
-          <i class="icon-plus"></i>
+          <i class="fa fa-plus"></i>
         <% end %>
       </div>
       <ul class="nav navbar-nav pull-right">
         <li class="dropdown dropdown-user">
           <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-            <div class="avatar"><%= current_user.fullname[0, 1] %></div>
-            <span class="username">
-              <i class="fa fa-angle-down"></i>
-            </span>
+            <i class="fa fa-ellipsis-v"></i>
           </a>
           <ul class="dropdown-menu">
             <li role="presentation">
-              <%= link_to 'User Settings', user_path(current_user.username) %>
+              <%= link_to 'Account', user_path(current_user.username) %>
             </li>
             <li role="presentation">
-              <a href="javascript:Intercom('show');">Support</a>
+              <%= link_to 'Feedback', feedback_path %>
             </li>
             <li role="presentation">
               <%= link_to 'Sign out', signout_path, method: 'delete' %>

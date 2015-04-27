@@ -1,4 +1,7 @@
 <div class="subscriptions page-content-wrapper">
+  <div class="bb-alert alert alert-info" style="display:none;">
+    <span></span>
+  </div>
   <div class="page-content">
     <%= render partial: "users/section_header", locals: { section_header_title: "Subscriptions" } %>
     <div class="portlet-body">
@@ -22,3 +25,9 @@
     </div>
   </div>
 </div>
+<script>
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
+</script>

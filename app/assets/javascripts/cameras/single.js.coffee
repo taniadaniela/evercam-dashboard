@@ -74,6 +74,48 @@ handlePageLoad = ->
     updateCameraSinglePage()
     $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *'
   ), 2000
+
+addToMyCameras = ->
+  $('#add-to-cameras').on 'click', ->
+    data =
+      camera_id: Evercam.Camera.id
+      email: Evercam.User.username
+      permissions: "minimal"
+
+    onError = (jqXHR, status, error) ->
+      Notification.show("Failed to add camera.")
+      false
+    onSuccess = (data, status, jqXHR) ->
+      if data.success
+        Notification.show("Camera successfully added.")
+        window.location = "/v1/cameras/#{Evercam.Camera.id}"
+      else
+        message = "Adding a camera share failed."
+        switch data.code
+          when "camera_not_found_error"
+            message = "Unable to locate details for the camera in the system. Please refresh your view and try again."
+          when "duplicate_share_error"
+            message = "The camera has already been shared with the specified user."
+          when "duplicate_share_request_error"
+            message = "A share request for that email address already exists for this camera."
+          when "share_grantor_not_found_error"
+            message = "Unable to locate details for the user granting the share in the system."
+          when "invalid_parameters"
+            message = "Invalid rights specified for share creation request."
+          else
+            message = data.message
+        Notification.show(message)
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'POST'
+      url: '/share'
+    sendAJAXRequest(settings)
     
 initializeTabs = ->
   window.initializeInfoTab()
@@ -98,6 +140,7 @@ window.initializeCameraSingle = ->
   handlePageLoad()
   initializeiCheck()
   initializeDropdowns()
+  addToMyCameras()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()

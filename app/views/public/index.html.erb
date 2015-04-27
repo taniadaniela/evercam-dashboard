@@ -59,7 +59,7 @@
                       </div>
                     </td>
                     <td class="show-arrow text-success">
-                      <%= link_to public_cameras_single_path(camera['id']) do %>
+                      <%= link_to cameras_single_path(camera['id']) do %>
                         View <i id="hover-arrow" class="icon-arrow-right"></i>
                       <% end %>
                     </td>
@@ -143,8 +143,8 @@
     (function (marker) {
       // add click event
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent("<a href='/v1/public/cameras/<%= camera['id'] %>'><img class='snap' src='<%= camera['thumbnail'] %>'></a>" +
-        '<h5><a href="/v1/public/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
+        infowindow.setContent("<a href='/v1/cameras/<%= camera['id'] %>'><img class='snap' src='<%= camera['thumbnail'] %>'></a>" +
+        '<h5><a href="/v1/cameras/<%= camera['id'] %>"><%= camera["name"] %></a></h5>');
 
         infowindow.open(map, marker);
       });

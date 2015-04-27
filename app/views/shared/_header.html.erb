@@ -4,7 +4,7 @@
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">
-          <h5 class="camera-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h5>
+          <p class="camera-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></p>
         </a>
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>

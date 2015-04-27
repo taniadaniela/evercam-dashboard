@@ -14,6 +14,9 @@
 .evercam-e-sidebar img {
   max-height: 21px;
 }
+.page-sidebar .page-sidebar-menu .sub-menu li > a {
+  font-size: 15px;
+}
 
 .page-sidebar .page-sidebar-menu .sub-menu-item a {
   padding: 7px 15px;
@@ -21,7 +24,7 @@
 }
 .page-sidebar .page-sidebar-menu > li > a {
   color: $secondary-color;
-  font-size: $body-main;
+  font-size: 15px;
   padding: 8px 4px 4px;
  font-family: $bold-family;
 }

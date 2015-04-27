@@ -1,16 +1,12 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
-    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+
     <ul class="page-sidebar-menu">
-      <li class="desktop-user">
-        <%= image_tag('evercam-e.svg', class: 'logo') %>
+      <li class="cameras-sidebar">
         <%= link_to cameras_index_path do %>
-          <span class="username">
-            <%= current_user.firstname %>'s Cameras
-          </span>
+          <i class="fa fa-camera"></i> Cameras
         <% end %>
       </li>
-
       <li>
         <ul class="sub-menu sidebar-cameras-list">
           <% @cameras.each do |camera| %>
@@ -20,104 +16,8 @@
           <% end %>
         </ul>
       </li>
-
-      <li class="<%= is_active?('/cameras/new') %>">
-        <%= link_to cameras_new_path do %>
-          <i class="icon-plus"></i>
-          <span class="title">Add a Camera</span>
-        <% end %>
-      </li>
-
-      <li class="<%= is_active?('/public/cameras') %>">
-        <%= link_to public_cameras_index_path do %>
-          <i class="icon-pointer"></i>
-          <span class="title">Public Cameras</span>
-        <% end %>
-      </li>
-
-      <li class="<%= is_active?('/dev') %> toggle-sidebar">
-        <a>
-          <i class="icon-briefcase"></i>
-          <span class="title">Developer</span>
-        </a>
-        <ul id="mobile-dev-menu" class="sub-menu">
-          <li>
-            <a href="/dev">API Docs</a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              Widgets <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="<%= widget_live_view_path %>">Live View Widget</a>
-              </li>
-              <li>
-                <a href="<%= widget_hikvision_path %>">Hikvision Widget</a>
-              </li>
-              <li>
-                <a href="<%= widget_snapshot_navigator_path %>">Snapshot Navigator Widget</a>
-              </li>
-              <li>
-                <a href="<%= widgets_widget_camera_add_path %>">Add Camera Widget</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        <%= link_to user_path(current_user.username), role: 'menuitem' do %>
-          <i class="icon-user"></i>
-          <span class="title">Account</span>
-        <% end %>
-      </li>
-
-      <!--<li>
-        <%# link_to subscriptions_path, role: 'menuitem' do %>
-          <i class="icon-user"></i>
-          <span class="title">Subscription</span>
-        <%# end %>
-      </li>-->
-
-      <li>
-        <i class="icon-speech"></i>
-        <%= link_to 'Feedback', feedback_path %>
-      </li>
-
-      <li>
-        <i class="icon-login"></i>
-        <%= link_to 'Sign Out', signout_path, method: 'delete', class: 'signout' %>
-      </li>
     </ul>
   </div>
 </div>
 
-<div class="cbp-spmenu-push">
-  <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-    <ul>
-      <li>
-        <a href="/dev">API Docs</a>
-      </li>
 
-      <li class="dev-menu-title">
-        Widgets
-      </li>
-
-      <li class="widgets-menu">
-        <a href="<%= widget_live_view_path %>">Live View</a>
-      </li>
-
-      <li class="widgets-menu">
-        <a href="<%= widget_hikvision_path %>">Local Storage</a>
-      </li>
-
-      <li class="widgets-menu">
-        <a href="<%= widget_snapshot_navigator_path %>">Snapshot Navigator</a>
-      </li>
-      <li>
-        <a href="<%= widgets_widget_camera_add_path %>">Add Camera</a>
-      </li>
-    </ul>
-  </nav>
-</div>

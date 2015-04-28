@@ -1,13 +1,15 @@
 <section class="cart">
   <ul>
     <% unless cart_empty? %>
+      <% sub_totle = 0 %>
       <% session[:cart].each do |item| %>
         <li><%= item.name %></li>
         <li><%= item.quantity %></li>
         <li><%= cents_to_currency item.price %></li>
+        <% sub_totle = sub_totle + item.price %>
         <li><%= button_to 'Remove', line_item_path(item.id), method: :delete, remote: true %></li>
       <% end %>
-      <p>Sub Total: <%= 5 %></p>
+      <p>Sub Total: <%= cents_to_currency sub_totle %></p>
     <% else %>
       <p>Your cart is empty.</p>
     <% end %>

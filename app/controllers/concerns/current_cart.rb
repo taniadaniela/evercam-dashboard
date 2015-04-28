@@ -34,8 +34,13 @@ module CurrentCart
 
   def add_ons_in_cart
     cart = session[:cart]
-    cart.delete_if { |item| item.type.eql?('plan') }
-    cart
+    add_ons = Array.new
+    cart.each_with_index do |item, index|
+      if item.type.eql?('add_on')
+        add_ons.push(item)
+      end
+    end
+    add_ons
   end
 
   def empty_cart

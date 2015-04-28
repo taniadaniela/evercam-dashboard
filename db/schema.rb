@@ -51,11 +51,11 @@ ActiveRecord::Schema.define() do
   add_index "access_tokens", ["user_id"], name: "ix_access_tokens_grantor_id", using: :btree
 
   create_table "billing", force: :cascade do |t|
-    t.integer  "user_id",    null: false
+    t.integer  "user_id",    default: "nextval('billing_id_seq'::regclass)", null: false
     t.integer  "timelapse"
     t.integer  "snapmail"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                default: "now()",null: false
+    t.datetime "updated_at",                                default: "now()",null: false
   end
 
   create_table "camera_activities", id: false, force: :cascade do |t|

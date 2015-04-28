@@ -16,38 +16,39 @@
       </div>
     <% end %>
     <div class="top-menu pull-right">
-      <div class="header-add-camera pull-left">
-        <%= link_to cameras_new_path do %>
-          <i class="fa fa-plus"></i>
-        <% end %>
-      </div>
-      <ul class="nav navbar-nav pull-right">
-        <li class="dropdown dropdown-user">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-            <i class="fa fa-ellipsis-v"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <li role="presentation">
-              <%= link_to 'Public Cameras', public_cameras_index_path %>
+          <ul class="nav navbar-nav">
+            <li>
+              <%= link_to cameras_new_path do %>
+                <i class="fa fa-plus"></i>
+              <% end %>
             </li>
-            <li role="presentation">
-              <%= link_to 'Account', user_path(current_user.username) %>
-            </li>
-            <li role="presentation">
-              <%= link_to 'Billing' %>
-            </li>
-            <li role="presentation">
-              <%= link_to 'Developer', dev_path %>
-            </li>
-            <li role="presentation">
-              <%= link_to 'Feedback', feedback_path %>
-            </li>
-            <li role="presentation">
-              <%= link_to 'Sign out', signout_path, method: 'delete' %>
+            <li class="dropdown dropdown-user">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="fa fa-ellipsis-v"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li role="presentation">
+                  <%= link_to 'Public Cameras', public_cameras_index_path %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Account', user_path(current_user.username) %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Billing' %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Developer', dev_path %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Feedback', feedback_path %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Sign out', signout_path, method: 'delete' %>
+                </li>
+              </ul>
             </li>
           </ul>
-        </li>
-      </ul>
+
     </div>
 
   </div>

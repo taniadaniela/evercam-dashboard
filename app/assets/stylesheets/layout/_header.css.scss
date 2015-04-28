@@ -7,7 +7,10 @@
 .page-header-fixed .page-container {
   margin-top: 32px;
 }
-
+.navbar-nav > li > a {
+  padding-top: 40px;
+  padding-bottom: 0px;
+}
 @media (max-width: 992px) {
   /* Page container */
   .page-header-fixed.page-header-fixed-mobile .page-container {
@@ -21,11 +24,11 @@
   /* 480px */
   /* Fixed header for mobile */
   .page-header-fixed.page-header-fixed-mobile .page-header.navbar {
-    height: 40px;
+    height: 32px;
   }
 }
 .evercam-e-header {
-  margin:2px 14px 2px;
+  margin:4px 14px 2px;
 }
 .evercam-e-header img {
   max-height: 24px;
@@ -56,7 +59,11 @@
 .camera-switch .fa-caret-down {
   margin-left: 6px;
 }
-
+@media (min-width: @screen-md) {
+  .camera-switch .fa-caret-down {
+    margin-left: 6px;
+  }
+}
 
 .page-header a,
 .page-header a:hover {
@@ -65,9 +72,6 @@
 .page-header .fa,
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > i {
   font-size: 23px;
-}
-.page-header.navbar .top-menu {
-  margin-top: -41px;
 }
 
 .cameras-back {

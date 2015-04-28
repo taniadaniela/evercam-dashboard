@@ -33,23 +33,37 @@
 .evercam-e-header {
   margin:5px 14px 2px;
 }
+@media (max-width: 992px) {
+  .evercam-e-header {
+    margin:5px 0px 2px;
+  }
+}
 .evercam-e-header img {
   max-height: 24px;
 }
-
 .dropdown-menu {
   background: lighten($secondary-color, 5%);
-  left:-154px;
+  left:-140px;
+}
+@media (max-width: 767px) {
+  .navbar-nav .open .dropdown-menu, .dropdown-menu {
+    background: lighten($secondary-color, 5%);
+    left:-154px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a {
+    padding:6px 13px 6px 13px;
+  }
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background:none;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu {
-  margin-top: -5px;
+  margin-top: -22px;
   padding: 10px 0px;
+  border:none;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:after {
-  border-bottom:6px solid lighten($secondary-color, 5%);
+  border-bottom:6px solid transparent;
   border-right:6px solid transparent;
   border-left:6px solid transparent;
 }
@@ -59,10 +73,12 @@
 }
 .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
   background-color:lighten($secondary-color, 10%);
+  color: #f5f5f5;
 }
 .dropdown-menu li > a {
   padding: 6px 13px 6px 13px;
   text-align:right;
+  color:#f5f5f5;
 }
 .dropdown-toggle {
   font-size: 18px;
@@ -74,12 +90,24 @@
   right: 50%;
   margin-right: -116px;
   text-align: center;
-  padding-top: 7px;
+  padding-top: 5px;
+  .sub-menu-item a {
+    padding:4px 14px 4px 0px !important;
+  }
 }
-.camera-switch a {
-  cursor: pointer;
-  font-size: 16px;
-  text-decoration: none;
+.page-header.navbar .top-menu .navbar-nav {
+  margin-right: 15px;
+}
+@media (max-width: 992px) {
+  .camera-switch {
+    padding-top: 3px;
+  }
+  .top-menu .nav > li > a {
+    padding:6px 5px;
+  }
+  .page-header.navbar .top-menu .navbar-nav {
+    margin-right:3px;
+  }
 }
 
 .camera-switch .fa-caret-down {
@@ -99,9 +127,7 @@
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > i {
   font-size: 23px;
 }
-.page-header.navbar .top-menu .navbar-nav {
-  margin-right: 15px;
-}
+
 .cameras-back {
   margin-top:0px;
 }
@@ -223,12 +249,8 @@ h5.camera-title {
 .section-header .online-status {
   margin-top: 4px;
 }
-#support {
-  .camera-title {
-    text-align: left;
-    padding-left: 20px;
-  }
-  .page-title {
-    padding: 1px 5px;
-  }
+ul.scroll-menu {
+  left: -24px;
+  padding: 10px 0px;
+  margin-top: -7px;
 }

@@ -2,11 +2,7 @@
 
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-single">
-    <div class="row">
-      <div class="section-header">
-        <%= render partial: "cameras/single/header" %>
-      </div>
-    </div>
+
     <div class="portlet-body">
       <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
       <div class="tabbable tabbable-custom">

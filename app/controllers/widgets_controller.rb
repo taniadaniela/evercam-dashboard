@@ -16,6 +16,7 @@ class WidgetsController < ApplicationController
 
   def widgets_new
     @cameras = load_user_cameras(true, false)
+    render layout: "dev"
   end
 
   def live_view_widget
@@ -36,16 +37,19 @@ class WidgetsController < ApplicationController
       @unathorized = error.status_code == 403
       @not_exist = error.status_code == 404
     end
+    render layout: "dev"
   end
 
   def widgets_hikvision
     @cameras = load_user_cameras(true, false)
+    render layout: "dev"
   end
 
   def hikvision_local_storage
     respond_to do |format|
       format.js { render :file => "widgets/hikvision.local.storage.js", :mime_type => Mime::Type.lookup('text/javascript')}
     end
+    render layout: "dev"
   end
 
   def hikvision_private_widget
@@ -57,6 +61,7 @@ class WidgetsController < ApplicationController
 
   def widget_snapshot_navigator
     @cameras = load_user_cameras(true, false)
+    render layout: "dev"
   end
 
   def snapshot_navigator
@@ -88,6 +93,7 @@ class WidgetsController < ApplicationController
 
   def widget_add_camera
     @cameras = load_user_cameras(true, false)
+    render layout: "dev"
   end
 
   private

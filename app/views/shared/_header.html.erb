@@ -1,12 +1,10 @@
 <div class="page-header navbar navbar-fixed-top">
   <div class="page-header-inner">
-
     <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
-
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
-      <div class="btn-group camera-switch">
+      <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">
-          <h5 class="mobile-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></h5>
+          <p class="camera-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></p>
         </a>
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>
@@ -17,31 +15,41 @@
         </ul>
       </div>
     <% end %>
-
-    <div class="top-menu">
-      <div class="header-add-camera pull-left">
-        <%= link_to cameras_new_path do %>
-          <i class="fa fa-plus"></i>
-        <% end %>
-      </div>
-      <ul class="nav navbar-nav pull-right">
-        <li class="dropdown dropdown-user">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-            <i class="fa fa-ellipsis-v"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <li role="presentation">
-              <%= link_to 'Account', user_path(current_user.username) %>
+    <div class="top-menu pull-right">
+          <ul class="nav navbar-nav">
+            <li>
+              <%= link_to cameras_new_path do %>
+                <i class="fa fa-plus"></i>
+              <% end %>
             </li>
-            <li role="presentation">
-              <%= link_to 'Feedback', feedback_path %>
-            </li>
-            <li role="presentation">
-              <%= link_to 'Sign out', signout_path, method: 'delete' %>
+            <li class="dropdown dropdown-user">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="fa fa-ellipsis-v"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li role="presentation">
+                  <%= link_to 'Public Cameras', public_cameras_index_path %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Account', user_path(current_user.username) %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Billing' %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Developer', dev_path %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Feedback', feedback_path %>
+                </li>
+                <li role="presentation">
+                  <%= link_to 'Sign out', signout_path, method: 'delete' %>
+                </li>
+              </ul>
             </li>
           </ul>
-        </li>
-      </ul>
+
     </div>
+
   </div>
 </div>

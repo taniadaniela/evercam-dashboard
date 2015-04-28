@@ -23,7 +23,6 @@
 
 @import "base/fonts";
 @import "base/glyphicons";
-@import "base/base-variables";
 
 @import "vendor-overrides/metronic_component_child";
 @import "vendor-overrides/metronic_layout_child";
@@ -31,6 +30,7 @@
 
 @import "layout/_header";
 @import "layout/_sidebar";
+@import "layout/_page";
 
 @import "components/_alerts";
 @import "components/_tables";

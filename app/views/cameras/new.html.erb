@@ -8,13 +8,6 @@
 </script>
 <div class="page-content-wrapper">
   <div class="page-content">
-    <div class="row">
-      <div class="section-header">
-        <div class="camera-title">
-          Add a Camera
-        </div>
-      </div>
-    </div>
     <div class="tabbable tabbable-custom">
       <div class="center-tabs">
         <ul class="nav nav-tabs">
@@ -38,6 +31,7 @@
             <input style="display:none" type="password" name="fakepasswordremembered"/>
             <%= hidden_field_tag('camera-lat', @user['camera-lat']) %>
             <%= hidden_field_tag('camera-lng', @user['camera-lng']) %>
+
             <div class="col-sm-8">
               <div class="row">
                 <div class='col-sm-12'>
@@ -244,6 +238,7 @@
                 </div>
               </div>
             </div>
+
           <% end %>
         </div>
         <div class="tab-pane" id="tab_1_2">

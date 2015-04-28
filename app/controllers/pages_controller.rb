@@ -6,6 +6,7 @@ class PagesController < ApplicationController
 
   def dev
     @cameras = load_user_cameras(true, false)
+    render layout: "dev"
   end
 
   def live

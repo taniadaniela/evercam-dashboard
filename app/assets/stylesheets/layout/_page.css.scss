@@ -1,5 +1,5 @@
 .page-content-wrapper .page-content {
-  padding: 0px 0px 0px 0px;
+  padding: 1px 0px 0px 0px;
   margin-left: 210px;
 }
 @media (max-width: 991px) {
@@ -25,7 +25,7 @@
     padding-top: 0px;
   }
   .page-content-wrapper .page-content {
-    padding: 20px 0px 10px 0px !important;
+    padding: 0px 0px 10px 0px !important;
   }
 }
 .tab-content {
@@ -44,9 +44,9 @@
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border:none;
-  border-bottom:1px solid $main-color;
+  border-bottom:1px solid $secondary-color;
   background-color: transparent;
-  color:$main-color;
+  font-family: $bold-family;
 }
 
 #camera-single .tabbable-custom > .nav-tabs > li > a {

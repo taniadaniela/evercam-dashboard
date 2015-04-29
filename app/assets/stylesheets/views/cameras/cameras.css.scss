@@ -145,33 +145,7 @@ border-bottom: 1px solid #e5e5e5;
 .camera-index:nth-child(3n+1) {
   padding-right: 8px;
 }
-#cam-refresh {
-  display: none;
-  visibility: hidden;
-  opacity: 0;
-  color: #AAAAAA;
-  margin-left: 5px;
-  transition:visibility 0s linear 0.1s,opacity 0.4s linear;
-}
-#cam-refresh:hover {
-  color: #428BCA;
-}
-
-.grey {
-  color:$dark-grey;
-}
-
-.blue {
-  color:#428bca;
-}
-
-
-/*/////////////////////
-//GLOBAL SINGLE CAMERA PAGE
-/////////////////////*/
-
 ul.scroll-menu {
-  /*display: inherit !important;*/
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -190,24 +164,12 @@ ul.scroll-menu {
   -ms-border-radius: 0 !important;
   -o-border-radius: 0 !important;
   border-radius: 0 !important;
-}
-@media screen and (min-width: 480px) {
-  /* .camera-switch {
-       display: none;
-   }*/
-}
-@media screen and (max-width: 480px) {
-  .online-status {
-    margin-top: 5px;
-  }
-}
-.fa-lg, .icon-lg {
-  font-size: 20px !important;
+  margin-top: -7px;
+  left: -24px;
+  padding: 10px 0px;
 }
 
-/*/////////////////////
-//Rotate Refresh icon
-////////////////////*/
+
 .rotate-refresh-icon {
   -webkit-animation-name: rotate;
   -webkit-animation-duration: 1s;

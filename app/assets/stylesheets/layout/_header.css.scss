@@ -62,7 +62,7 @@
   padding: 10px 0px;
   border:none;
 }
-.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:after {
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:after, .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:before {
   border-bottom:6px solid transparent;
   border-right:6px solid transparent;
   border-left:6px solid transparent;
@@ -250,7 +250,7 @@ h5.camera-title {
   margin-top: 4px;
 }
 ul.scroll-menu {
-  left: -24px;
-  padding: 10px 0px;
-  margin-top: -7px;
+
+
+
 }

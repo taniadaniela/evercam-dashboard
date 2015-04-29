@@ -229,3 +229,8 @@ input:-webkit-autofill {
     padding-left: 40px;
   }
 }
+
+.add-camera-page .open > a, .add-camera-page .open > a:hover, .add-camera-page .open > a:focus {
+  background-color: transparent;
+  border-color: transparent;
+}

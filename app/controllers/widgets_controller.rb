@@ -37,7 +37,6 @@ class WidgetsController < ApplicationController
       @unathorized = error.status_code == 403
       @not_exist = error.status_code == 404
     end
-    render layout: "dev"
   end
 
   def widgets_hikvision
@@ -49,7 +48,6 @@ class WidgetsController < ApplicationController
     respond_to do |format|
       format.js { render :file => "widgets/hikvision.local.storage.js", :mime_type => Mime::Type.lookup('text/javascript')}
     end
-    render layout: "dev"
   end
 
   def hikvision_private_widget

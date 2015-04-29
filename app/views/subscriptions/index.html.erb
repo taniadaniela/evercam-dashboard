@@ -19,3 +19,9 @@
     </div>
   </div>
 </div>
+<script>
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
+</script>

@@ -28,12 +28,11 @@
       }
     }
   }
-
+  .cart-container {
+    background-color: $lighter-grey;
+    padding: 0px 10px 10px;
+  }
   .cart {
-    ul {
-      background-color: $lighter-grey;
-    }
-
     li {
       line-height: 1.5em;
       list-style-type: none;

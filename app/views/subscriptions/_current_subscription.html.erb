@@ -4,18 +4,5 @@
   <p>Current Plan: <%= @subscription.name %>
 <% else %>
   <p>You are currently on the Evercam Free plan.</p>
-  <%= render 'plans_comparison' %>
-<div class="temp">
-      <div class="col-md-4">
-        <div class="btn btn-default">Current Plan</div>
-      </div>
-      <div class="col-md-4">
-        <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
-      </div>
-      <div class="col-md-4">
-        <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
-      </div>
-</div>
-
 <% end %>
 </section>

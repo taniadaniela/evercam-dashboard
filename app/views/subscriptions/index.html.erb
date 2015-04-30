@@ -7,7 +7,18 @@
         <%= render 'add_card' %>
 
         <%= render 'current_subscription' %>
-
+        <%= render 'plans_comparison' %>
+        <div class="temp">
+          <div class="col-md-4">
+            <div class="btn btn-default">Current Plan</div>
+          </div>
+          <div class="col-md-4">
+            <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
+          </div>
+          <div class="col-md-4">
+            <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
+          </div>
+        </div>
         <%= render 'current_add_ons' %>
       </div>
     </div>

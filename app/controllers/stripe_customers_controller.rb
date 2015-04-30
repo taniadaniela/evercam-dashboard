@@ -13,8 +13,8 @@ class StripeCustomersController < ApplicationController
         source: token
       )
     stripe_customer_id = response.id
-    unless current_user.billing_id
-      current_user.billing_id = stripe_customer_id
+    unless current_user.stripe_customer_id
+      current_user.stripe_customer_id = stripe_customer_id
       current_user.save
     end
     flash[:message] = "Card Successfully Added"

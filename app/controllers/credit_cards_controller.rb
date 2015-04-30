@@ -34,7 +34,7 @@ class CreditCardsController < ApplicationController
   private
 
   def billing_id
-    current_user.billing_id
+    current_user.stripe_customer_id
   end
 end
 

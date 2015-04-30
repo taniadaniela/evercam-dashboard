@@ -32,7 +32,7 @@ class ChargesController < ApplicationController
   end
 
   def ensure_card_exists
-    @customer = StripeCustomer.new(current_user.billing_id)
+    @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
       redirect_to edit_subscription_path, flash: { message: "You must add a card." }
     end
@@ -45,7 +45,7 @@ class ChargesController < ApplicationController
   end
 
   def retrieve_stripe_customer
-    StripeCustomer.new(current_user.billing_id, plan_in_cart)
+    StripeCustomer.new(current_user.stripe_customer_id, plan_in_cart)
   end
 
   def create_subscription

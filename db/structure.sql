@@ -84,20 +84,6 @@ CREATE TABLE access_tokens (
 
 
 --
--- Name: billing; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE billing (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    timelapse integer,
-    snapmail integer,
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL
-);
-
-
---
 -- Name: billing_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -114,6 +100,20 @@ CREATE SEQUENCE billing_id_seq
 --
 
 ALTER SEQUENCE billing_id_seq OWNED BY billing.id;
+
+
+--
+-- Name: billing; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE billing (
+    id integer DEFAULT nextval('billing_id_seq'::regclass) NOT NULL,
+    user_id integer NOT NULL,
+    timelapse integer,
+    snapmail integer,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL
+);
 
 
 --
@@ -473,7 +473,7 @@ CREATE TABLE users (
     api_id text,
     api_key text,
     is_admin boolean DEFAULT false NOT NULL,
-    billing_id text
+    stripe_customer_id text
 );
 
 

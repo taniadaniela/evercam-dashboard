@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   resources :charges
   post '/users/:id/settings/charge' => 'charges#create'
-  post '/users/:id/settings/subscription' => 'charges#subscription_create'
+  post '/users/:id/settings/subscription' => 'charges#create_subscription'
   get '/users/:id/settings/subscription' => 'charges#subscription_update'
 
   root to: redirect('/v1/cameras'), as: :root

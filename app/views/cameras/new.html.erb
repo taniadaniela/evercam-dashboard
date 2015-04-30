@@ -7,7 +7,7 @@
   <div class="page-content">
     <div class="tabbable tabbable-custom">
       <div class="center-tabs">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs add-camera-page">
           <li class="active">
             <a href="#tab_1_1" data-toggle="tab">
               Add IP Camera </a>
@@ -17,7 +17,22 @@
               Add Android Camera
             </a>
           </li>
+          <li class="pull-right">
+            <a class="cameras-dropdown-toggle" data-toggle="dropdown">
+              <% if params[:id].present? %><%=params[:id] %><% else %>Copy from<% end %> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu scroll-menu" role="menu">
+              <% @cameras.each do |camera| %>
+                <% if camera["rights"].split(",").include?("edit") %>
+                  <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+                    <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          </li>
         </ul>
+
       </div>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1_1">

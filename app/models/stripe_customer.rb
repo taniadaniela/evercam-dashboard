@@ -35,7 +35,9 @@ class StripeCustomer
   end
 
   def valid_card?
-    @stripe_customer.default_source.present?
+    if @stripe_customer
+      @stripe_customer.default_source.present?
+    end
   end
 
   def has_active_subscription?

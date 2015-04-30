@@ -31,7 +31,7 @@ class StripeInvoice
   end
 
   def user_id
-    User.find(:billing_id => stripe_customer_id).id 
+    User.find(:stripe_customer_id => stripe_customer_id).id
     rescue
     nil     
   end

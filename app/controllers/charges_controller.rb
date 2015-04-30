@@ -1,7 +1,7 @@
 class ChargesController < ApplicationController
   before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
-  prepend_before_filter :ensure_card_exists, :ensure_cameras_loaded
+  prepend_before_filter :ensure_card_exists
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
@@ -12,6 +12,7 @@ class ChargesController < ApplicationController
     @total_charge = total_charge
     @pro_rated_add_ons_charge = pro_rated_add_ons_charge
     @add_ons_charge = add_ons_charge
+    @cameras = load_user_cameras(true, false)
   end
 
   def create
@@ -19,7 +20,7 @@ class ChargesController < ApplicationController
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
-    redirect_to subscriptions_path, flash: { message: "Success." }
+    redirect_to subscriptions_path, flash: { message: "Success" }
   end
 
   private
@@ -31,7 +32,7 @@ class ChargesController < ApplicationController
   end
 
   def ensure_card_exists
-    @customer = StripeCustomer.new(current_user.billing_id)
+    @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
       redirect_to edit_subscription_path, flash: { message: "You must add a card." }
     end
@@ -44,7 +45,7 @@ class ChargesController < ApplicationController
   end
 
   def retrieve_stripe_customer
-    StripeCustomer.new(current_user.billing_id, plan_in_cart)
+    StripeCustomer.new(current_user.stripe_customer_id, plan_in_cart)
   end
 
   def create_subscription
@@ -73,7 +74,7 @@ class ChargesController < ApplicationController
   end
 
   def pro_rata_percentage
-    if (Time.now.getutc.to_i - @customer.current_plan.created) >= 600
+    if @customer.current_plan && (Time.now.getutc.to_i - @customer.current_plan.created) >= 600
       month_period = @customer.current_subscription.current_period_end - @customer.current_subscription.current_period_start
       add_on_period = @customer.current_subscription.current_period_end - Time.now.getutc.to_i
       ((add_on_period.to_f / month_period.to_f) * 100)

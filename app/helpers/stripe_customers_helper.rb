@@ -1,34 +1,34 @@
 # Refactoring this gradually into the StripeCustomer class: prefer not to include helpers which call an API or the db
 module StripeCustomersHelper
   def retrieve_stripe_customer
-    @stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
+    @stripe_customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
   rescue
     false
   end
 
   def retrieve_stripe_subscriptions
-    @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+    @subscriptions = Stripe::Customer.retrieve(current_user.stripe_customer_id).subscriptions.all
   rescue
     false
   end
 
   def has_subscriptions?
-    @stripe_customer ||= Stripe::Customer.retrieve(current_user.billing_id)
+    @stripe_customer ||= Stripe::Customer.retrieve(current_user.stripe_customer_id)
     @stripe_customer.subscriptions.total_count > 0
   end
 
   def default_card? card_id
-    stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
+    stripe_customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
     stripe_customer.default_source.eql?(card_id)
   end
 
   def retrieve_credit_cards
-    Stripe::Customer.retrieve(current_user.billing_id).sources.all(:object => "card")
+    Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.all(:object => "card")
   end
 
   def has_credit_cards?
     if is_stripe_customer?
-      stripe_customer = Stripe::Customer.retrieve(current_user.billing_id)
+      stripe_customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
       stripe_customer.default_source.present?
     else
       false
@@ -48,7 +48,7 @@ module StripeCustomersHelper
   end
 
   def total_subscriptions_amount
-    @subscriptions ||= Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+    @subscriptions ||= Stripe::Customer.retrieve(current_user.stripe_customer_id).subscriptions.all
     amounts = @subscriptions.map { |s| s.plan.amount }
     total = amounts.inject(0) {|sum, i|  sum + i }
     number_to_currency(total / 100)

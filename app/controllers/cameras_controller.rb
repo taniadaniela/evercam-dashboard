@@ -192,7 +192,7 @@ class CamerasController < ApplicationController
       @webhooks = api.get_webhooks(params[:id])
       @cameras = load_user_cameras(true, false)
     rescue => error
-      if error.status_code.equal?(404)
+      if error.try(:status_code).present? && error.status_code.equal?(404)
         redirect_to cameras_not_found_path
       else
         env["airbrake.error_id"] = notify_airbrake(error)

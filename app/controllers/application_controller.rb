@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_stripe_customer?
-    current_user.billing_id.present?
+    current_user.stripe_customer_id.present?
   rescue
     return false
   end
@@ -79,13 +79,13 @@ class ApplicationController < ActionController::Base
   # helpers should not make calls to db/API calls
   def retrieve_stripe_subscriptions
     if is_stripe_customer?
-      @subscriptions = Stripe::Customer.retrieve(current_user.billing_id).subscriptions.all
+      @subscriptions = Stripe::Customer.retrieve(current_user.stripe_customer_id).subscriptions.all
     end
   end
 
   def current_subscription
-    if current_user.billing_id.present?
-      customer = StripeCustomer.new(current_user.billing_id)
+    if current_user.stripe_customer_id.present?
+      customer = StripeCustomer.new(current_user.stripe_customer_id)
       subscription = customer.current_plan ? customer.current_plan : false
     else
       false

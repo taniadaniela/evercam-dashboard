@@ -127,7 +127,7 @@
             <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="plan" value="silver-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-image="<%= asset_path('evercam-e.svg') -%>"
@@ -147,7 +147,7 @@
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="amount" value="2500"/>
               <input type="hidden" name="plan" value="silver-monthly"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-image="<%= asset_path('evercam-e.svg') -%>"
@@ -174,7 +174,7 @@
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="amount" value="9900"/>
               <input type="hidden" name="plan" value="snapmail-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-image="<%= asset_path('evercam-e.svg') -%>"
@@ -194,7 +194,7 @@
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="amount" value="1000"/>
               <input type="hidden" name="plan" value="snapmail-monthly"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-image="<%= asset_path('evercam-e.svg') -%>"
@@ -222,7 +222,7 @@
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="amount" value="1000"/>
               <input type="hidden" name="plan" value="7-day-recording-monthly"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-image="<%= asset_path('evercam-e.svg') -%>"
@@ -242,7 +242,7 @@
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="amount" value="100000"/>
               <input type="hidden" name="plan" value="7-day-recording-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-image="<%= asset_path('evercam-e.svg') -%>"
@@ -270,7 +270,7 @@
           <div class="col-md-12">
             <form method='POST' action="/users/<%= current_user.username -%>/settings/charge">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
               <div class="row">
                 <div class="col-md-4">
                   <div class="input-group">

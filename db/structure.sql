@@ -473,7 +473,7 @@ CREATE TABLE users (
     api_id text,
     api_key text,
     is_admin boolean DEFAULT false NOT NULL,
-    billing_id text
+    stripe_customer_id text
 );
 
 

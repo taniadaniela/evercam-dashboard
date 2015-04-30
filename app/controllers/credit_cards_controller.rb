@@ -3,6 +3,7 @@ class CreditCardsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include StripeCustomersHelper
+  include SubscriptionsHelper
   require "stripe"
 
   def create

@@ -1,8 +1,10 @@
 .subscriptions {
-  .navigation {
-    background-color: $lighter-grey;
+  section {
+    margin-top: 40px;
   }
-
+  .temp {
+    height: 40px;
+  }
   .plans {
     .plans-comparison {
       ul {

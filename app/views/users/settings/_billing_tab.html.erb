@@ -126,25 +126,6 @@
           <div class="col-md-6">
             <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="plan" value="silver-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="Silver Bundle"
-                      data-description="Silver Licence (€199.00 per year)"
-                      data-panel-label="Subscribe"
-                      data-label="Annual - €199.00"
-                      data-plan="silver-annual"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
               <input type="hidden" name="amount" value="2500"/>
               <input type="hidden" name="plan" value="silver-monthly"/>
               <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
@@ -162,6 +143,25 @@
               </script>
             </form>
           </div>
+          <div class="col-md-6">
+            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <input type="hidden" name="plan" value="silver-annual"/>
+              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="<%= asset_path('evercam-e.svg') -%>"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Silver Bundle"
+                      data-description="Silver Licence (€199.00 per year)"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €199.00"
+                      data-plan="silver-annual"
+                      data-allow-remember-me="false">
+              </script>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -169,26 +169,6 @@
       <div class="panel-description col-md-4 margin-bottom-20">
         <p>Snapmail</p>
         <div class="row">
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="9900"/>
-              <input type="hidden" name="plan" value="snapmail-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="Snapmail Annual"
-                      data-description="€99.00 per year"
-                      data-panel-label="Subscribe"
-                      data-label="Annual - €99.00"
-                      data-plan="snapmail-annual"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
           <div class="col-md-6">
             <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
@@ -205,6 +185,26 @@
                       data-panel-label="Subscribe"
                       data-label="Monthly - €10.00"
                       data-plan="snapmail-monthly"
+                      data-allow-remember-me="false">
+              </script>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <input type="hidden" name="amount" value="9900"/>
+              <input type="hidden" name="plan" value="snapmail-annual"/>
+              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-image="<%= asset_path('evercam-e.svg') -%>"
+                      data-email="<%= current_user.email -%>"
+                      data-currency="eur"
+                      data-name="Snapmail Annual"
+                      data-description="€99.00 per year"
+                      data-panel-label="Subscribe"
+                      data-label="Annual - €99.00"
+                      data-plan="snapmail-annual"
                       data-allow-remember-me="false">
               </script>
             </form>
@@ -260,48 +260,7 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="panel-description col-md-4 margin-top-15 margin-bottom-20">
-        <div class="panel-title row margin-bottom-20">
-          <h4>Custom Amount</h4>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/charge">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="token" value="<%= current_user.billing_id %>"/>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <span class="input-group-addon custom">€</span>
-                    <input type="number" placeholder="120.00" name="amount" class="custom-amount" value=""/>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                          data-image="<%= asset_path('evercam-e.svg') -%>"
-                          data-email="<%= current_user.email -%>"
-                          data-currency="eur"
-                          data-name="Custom Amount"
-                          data-description=""
-                          data-panel-label="Pay"
-                          data-label="Pay"
-                          data-amount=""
-                          data-allow-remember-me="false">
-                  </script>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-
-      </div>
-
-
-    </div>
+    
   </div>
 </div>
 </div>

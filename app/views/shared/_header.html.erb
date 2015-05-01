@@ -4,7 +4,13 @@
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">
-          <p class="camera-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></p>
+        <% if @camera['is_online'] %>
+          <span class="green-bg status-circle"></span>
+        <% else %>
+          <span class="red-bg status-circle"></span>
+        <% end %>
+          <span class="camera-name"><%= @camera['name'] %></span>
+          <span class="camera-caret"><i class="fa fa-caret-down"></i></span>
         </a>
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>
@@ -15,7 +21,7 @@
         </ul>
       </div>
     <% end %>
-    <div class="top-menu pull-right">
+    <div class="top-menu">
           <ul class="nav navbar-nav">
             <li>
               <%= link_to cameras_new_path do %>

@@ -52,9 +52,7 @@
 .top-menu .dropdown-menu {
   left:-140px;
 }
-.camera-switch .dropdown-menu {
-  margin-top: -7px;
-}
+
 @media (max-width: 767px) {
   .navbar .navbar-nav .open .dropdown-menu {
     background: lighten($secondary-color, 5%);
@@ -212,7 +210,6 @@
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
-
   display:none;
 }
 
@@ -244,11 +241,4 @@ li span {
   padding: 10px 0px 14px 3px;
   z-index: 10000;
   cursor: pointer;
-}
-
-
-ul.scroll-menu {
-  left: -24px;
-  padding: 10px 0px;
-  margin-top: -7px;
 }

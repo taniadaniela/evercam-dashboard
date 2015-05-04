@@ -93,23 +93,18 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_add_ons
-    add_ons = Billing.where(:user_id => current_user.id).first
+    add_ons = AddOns.where(:user_id => current_user.id)
     add_ons = add_ons.nil? ? false : add_ons
-    unless add_ons.eql? false
-      retrieve_timelapses add_ons
-      retrieve_snapmails add_ons
+    @snapmails = 0
+    @timelapses = 0
+    add_ons.each do |add_on|
+      if add_on.add_ons_name.downcase == AddOns.snapmail
+        @snapmails += 1
+      end
+      if add_on.add_ons_name.downcase == AddOns.timelapse
+        @timelapses += 1
+      end
     end
   end
 
-  def retrieve_snapmails add_ons
-    @snapmails = add_ons.snapmail.present? ? add_ons.snapmail : 0
-  rescue
-    @snapmails = 0
-  end
-
-  def retrieve_timelapses add_ons
-    @timelapses = add_ons.timelapse.present? ? add_ons.timelapse : 0
-  rescue
-    @timelapses = 0
-  end
 end

@@ -68,12 +68,13 @@ class ChargesController < ApplicationController
   def create_charge
     @customer = retrieve_stripe_customer
     @customer.create_charge(pro_rated_add_ons_charge, charge_description)
+    insert_add_ons
     empty_cart
   rescue
     flash[:error] = "Something went wrong."
   end
 
-  def pro_rata_percentage
+  def pro_rate_percentage
     if @customer.current_plan && (Time.now.getutc.to_i - @customer.current_plan.created) >= 600
       month_period = @customer.current_subscription.current_period_end - @customer.current_subscription.current_period_start
       add_on_period = @customer.current_subscription.current_period_end - Time.now.getutc.to_i
@@ -85,7 +86,7 @@ class ChargesController < ApplicationController
 
   def pro_rated_add_ons_charge
     if add_ons_in_cart?
-      ((add_ons_charge / 100) * pro_rata_percentage).to_i
+      ((add_ons_charge / 100) * pro_rate_percentage).to_i
     else
       nil
     end
@@ -112,6 +113,34 @@ class ChargesController < ApplicationController
         end
       end
     description
-  end 
+  end
+
+  private
+
+  def insert_add_ons
+    add_ons_in_cart.each_with_index do |item, index|
+      begin
+        AddOns.create(:user_id => current_user.id,
+                      :add_ons_name => item.name,
+                      :period => item.interval,
+                      :add_ons_start_date => DateTime.now(),
+                      :add_ons_end_date => calculateadd_ons_end_date(item),
+                      :status => true,
+                      :price => item.price)
+      rescue => error
+        @er = error
+        pry
+      end
+    end
+  end
+
+  def calculateadd_ons_end_date add_on
+    if add_on.interval.equal?('month')
+      DateTime.now()+30.days
+    else
+      DateTime.now()+1.year
+    end
+  end
+
 end
 

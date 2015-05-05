@@ -9,40 +9,36 @@
     height: 40px;
   }
 
-    .plans-comparison {
-      ul {
-        background-color: $secondary-grey;
+.plans-comparison {
 
-      }
-
-      li {
-        line-height: 2em;
-        list-style-type: none;
-        text-align: center;
-      }
-      .list-group {
-        margin-bottom: 0px;
-        padding: 20px 0px 10px;
-        border-top-left-radius:2px;
-        border-top-right-radius:2px;
-        border-top: 1px solid #e5e5e5;
-        border-left: 1px solid #e5e5e5;
-        border-right: 1px solid #e5e5e5;
-      }
-    }
+  li {
+    line-height: 2em;
+    list-style-type: none;
+    text-align: center;
+  }
+  .list-group {
+    margin-bottom: 0px;
+    padding: 20px 0px 10px;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    border-top: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+  }
+}
 
 
-    .plans-select {
-      p {
-        text-align: center;
-      }
+.plans-select {
+  p {
+    text-align: center;
+  }
 
-      .btn {
-        min-width: 150px;
-      }
-    }
+  .btn {
+    min-width: 150px;
+  }
+}
 .plan-button {
-  background-color: $secondary-grey;
+  
   padding: 10px 10px 20px;
   margin: 0 auto;
   text-align: center;

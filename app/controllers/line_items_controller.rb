@@ -54,7 +54,7 @@ class LineItemsController < ApplicationController
   end
 
   def can_add_to_cart?
-    (plan_in_cart? || existing_subscription?) && valid_duration? ? true : false
+    (plan_in_cart? || existing_subscription?) ? true : false #&& valid_duration?
   end
 
   def existing_subscription?

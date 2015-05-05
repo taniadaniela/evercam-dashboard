@@ -93,11 +93,11 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_add_ons
-    add_ons = AddOns.where(:user_id => current_user.id)
-    add_ons = add_ons.nil? ? false : add_ons
+    @add_ons = AddOns.where(:user_id => current_user.id)
+    @add_ons = @add_ons.nil? ? false : @add_ons
     @snapmails = 0
     @timelapses = 0
-    add_ons.each do |add_on|
+    @add_ons.each do |add_on|
       if add_on.add_ons_name.downcase == AddOns.snapmail
         @snapmails += 1
       end

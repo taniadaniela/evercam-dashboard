@@ -45,4 +45,21 @@ class SubscriptionsController < ApplicationController
     flash[:message] = "You have successfuly deleted your #{params[:plan_name]} subscription."
     redirect_to user_path(current_user.username)
   end
+
+  def delete_add_ons
+    begin
+      if params[:id].present?
+        add_on = AddOns.find(params[:id])
+        flash[:message] = "You have successfuly deleted your '#{add_on.add_ons_name}' add-on."
+        add_on.delete()
+      else
+        flash[:message] = "Invalid add-ons id specified."
+      end
+    rescue => error
+      flash[:message] = "An error occurred while deleting add-ons. "\
+                      "Please try again and, if the problem persists, contact "\
+                      "support."
+    end
+    redirect_to subscriptions_path
+  end
 end

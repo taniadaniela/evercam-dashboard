@@ -3,3 +3,24 @@
   <p>You have <%= @snapmails %> Snapmails add-on</p>
   <p>You have <%= @timelapses %> Timelapses add-on.</p>
 </section>
+<div class="row">
+  <!-- Add-ons list -->
+  <table class="table table-striped margin-top-20">
+    <tr>
+      <th>Add-on</th>
+      <th>Period</th>
+      <th>Expiry</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <% @add_ons.each do |add_on| -%>
+      <tr>
+        <td><%=  add_on.add_ons_name -%></td>
+        <td><%= add_on.period -%></td>
+        <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+        <td><%= add_on.status ? 'Active' : 'Expired' %></td>
+        <td><%= button_to 'Delete', delete_add_ons_path(add_on.id), method: :delete, class: 'delete-add-ons' %></td>
+      </tr>
+    <% end -%>
+  </table>
+</div>

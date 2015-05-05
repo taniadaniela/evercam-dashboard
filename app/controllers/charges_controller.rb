@@ -135,7 +135,7 @@ class ChargesController < ApplicationController
   end
 
   def calculateadd_ons_end_date add_on
-    if add_on.interval.equal?('month')
+    if add_on.interval.eql?('month')
       DateTime.now()+30.days
     else
       DateTime.now()+1.year

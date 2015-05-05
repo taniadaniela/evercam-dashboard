@@ -41,8 +41,8 @@
                   <td><%=  card.brand -%></td>
                   <td>Ending in ... <%= card.last4 -%></td>
                   <td><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
-                  <%# default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %>
-                  <%# button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %>
+                  <% default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %>
+                  <% button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %>
                 </tr>
                 <% end -%>
               </table>

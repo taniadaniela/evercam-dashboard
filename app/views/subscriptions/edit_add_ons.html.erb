@@ -1,12 +1,11 @@
 <div class="subscriptions page-content-wrapper">
   <div class="page-content">
-    <%= render partial: "users/section_header", locals: { section_header_title: "Add-ons" } %>
     <div class="portlet-body">
       <div class="add-ons">
       <%= render 'navigation' %>
-        <div class="row">
+
           <div class="col-md-12">
-          <%= render 'current_subscription' %>
+
           <%= render "current_add_ons" %>
             <h2>Select Add-ons</h2>
           <%= render "add_ons_select" %>
@@ -15,7 +14,7 @@
             <%= render "cart" %>
             <%= link_to "Checkout", new_checkout_path %>
           </div>
-        </div>
+
       </div>
     </div>
   </div>

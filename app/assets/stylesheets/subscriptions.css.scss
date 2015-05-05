@@ -1,14 +1,18 @@
 .subscriptions {
-  section {
-    margin-top: 40px;
+  .header {
+    margin:40px 0px 40px;
+  }
+  h4 {
+    font-family: $bold-family;
   }
   .temp {
     height: 40px;
   }
-  .plans {
+
     .plans-comparison {
       ul {
-        background-color: $lighter-grey;
+        background-color: $secondary-grey;
+
       }
 
       li {
@@ -16,7 +20,17 @@
         list-style-type: none;
         text-align: center;
       }
+      .list-group {
+        margin-bottom: 0px;
+        padding: 20px 0px 10px;
+        border-top-left-radius:2px;
+        border-top-right-radius:2px;
+        border-top: 1px solid #e5e5e5;
+        border-left: 1px solid #e5e5e5;
+        border-right: 1px solid #e5e5e5;
+      }
     }
+
 
     .plans-select {
       p {
@@ -24,11 +38,22 @@
       }
 
       .btn {
-        width: 100%;
+        min-width: 150px;
       }
     }
-  }
-  .cart-container {
+.plan-button {
+  background-color: $secondary-grey;
+  padding: 10px 10px 20px;
+  margin: 0 auto;
+  text-align: center;
+  border-bottom-left-radius:2px;
+  border-bottom-right-radius:2px;
+  border-bottom: 1px solid #e5e5e5;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  overflow: auto;
+}
+.cart-container {
     background-color: $lighter-grey;
     padding: 0px 10px 10px;
   }

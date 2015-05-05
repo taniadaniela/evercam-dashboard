@@ -3,13 +3,15 @@
     <span></span>
   </div>
   <div class="page-content">
-    <%= render partial: "users/section_header", locals: { section_header_title: "Upgrade Plan" } %>
     <div class="portlet-body">
       <div class="plans">
       <%= render 'navigation' %>
-        <div class="row">
+
           <div class="col-md-12">
-            <%= render 'current_subscription' %>
+            <div class="header">
+            <h3>Upgrade or Downgrade your plan at any time</h3>
+            <p>Use Evercam for free or upgrade for extra features</p>
+            </div>
             <%= render "plans_comparison" %>
             <%= render "select_plan_buttons" %>
           </div>
@@ -18,7 +20,7 @@
             <div><%= link_to "Get Add-ons", edit_add_ons_path %></div>
             <div> <%= link_to "Checkout", new_checkout_path %></div>
           </div>
-        </div>
+
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <h3>Cards</h3>
 <!-- New Stripe customer -->
 <% unless is_stripe_customer? %>
-  <p>You have not yet associated a credit card with this account.</p>
+  <p>You don't have any cards added.</p>
   <form action="<%= stripe_customers_path -%>" method="POST">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
     <script
@@ -20,6 +20,7 @@
 
 <!-- View Credit Cards -->
 <% if has_credit_cards? %>
+
   <table class="table table-striped margin-top-20">
     <tr>
       <th>Provider</th>
@@ -40,6 +41,9 @@
   </table>
 <% end %>
 
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Add
+  </button>
 <!-- Add credit card for existing Stripe customer -->
 <% if stripe_customer_without_current_cards? %>
   <p>You have no current cards associated with this account.</p>

@@ -1,3 +1,6 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
 <div class="subscriptions page-content-wrapper">
   <div class="page-content">
     <%= render partial: "users/section_header", locals: { section_header_title: "Billing" } %>
@@ -25,7 +28,7 @@
   </div>
 </div>
 <script>
-  Notification.init(".bb-alert");
+  window.initializeSubscription();
   <% if flash[:message] %>
   Notification.show('<%= flash[:message] %>');
   <% end %>

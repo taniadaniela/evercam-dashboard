@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/v1/subscriptions/upgrade-add-ons' => 'subscriptions#edit_add_ons', as: :edit_add_ons
   delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
 
+  delete 'v1/add-ons/:id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
+
   get 'v1/charges' => 'charges#new', as: :new_checkout
   post 'v1/charges' => 'charges#create', as: :new_charge
 

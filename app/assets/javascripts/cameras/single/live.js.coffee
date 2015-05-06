@@ -3,6 +3,14 @@ int_time = undefined
 refresh_paused = false
 image_placeholder = undefined
 
+sendAJAXRequest = (settings) ->
+  token = $('meta[name="csrf-token"]')
+  if token.size() > 0
+    headers =
+      "X-CSRF-Token": token.attr("content")
+    settings.headers = headers
+  xhrRequestChangeMonth = $.ajax(settings)
+
 loadImage = ->
   img = new Image()
   live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
@@ -97,7 +105,33 @@ checkCameraOnline = ->
 
 saveImage = ->
   $('#save-live-snapshot').on 'click', ->
-    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
+    clearInterval int_time
+    refresh_paused = true
+    data = {}
+    data.with_data = true
+    data.api_id = Evercam.User.api_id
+    data.api_key = Evercam.User.api_key
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (response) ->
+      int_time = setInterval(loadImage, 1000)
+      refresh_paused = false
+      SaveImage.save(response.snapshots[0].data, "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'GET'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/latest"
+    sendAJAXRequest(settings)
+
 
 window.initializeLiveTab = ->
   window.rtmp_player_html = $('#camera-rtmp-stream').html()

@@ -43,6 +43,7 @@ module EvercamDashboard
       views/widgets/add_camera.css
       widgets.js
       widgets/add_camera.js
+      widgets/localstorage_widget.js
       swagger.js
       swagger.css
     ]

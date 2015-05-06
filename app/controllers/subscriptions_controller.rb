@@ -17,7 +17,7 @@ class SubscriptionsController < ApplicationController
   def index
     @cameras = load_user_cameras(true, false)
     @subscription = current_subscription
-    unless current_user.billing_id.blank?
+    unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
     end

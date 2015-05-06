@@ -106,76 +106,9 @@
   </div>
 </div>
 
-<script type="text/javascript" src="https://s3.amazonaws.com/cdn.evercam.io/js/localstorage/0.0.1/hikvision.local.storage.mini.js"></script>
+<%= javascript_include_tag "widgets/localstorage_widget" %>
 <script type="text/javascript">
   $(document).ready(function () {
-    $('#widget-datetime').datetimepicker({
-      timepicker: false,
-      closeOnDateSelect: 0,
-      format: 'd-m-Y'
-    });
-    initLocalStorage();
-    $("#btn-load-widget").on("click", initLocalStorage);
-    $("#widget-camera").on("change", initLocalStorage);
-    $("#widget-authenticate").on("change", showNote);
-    $("#code").on("click", function(){
-      this.select();
-    });
-    for(var i=0;i<60;i++){
-      var option = '<option value="'+FormatNumTo2(i)+'">'+FormatNumTo2(i)+'</option>';
-      if(i < 24)
-        $("#widget-hour").append(option);
-      $("#widget-minutes").append(option);
-      $("#widget-seconds").append(option);
-    }
+    window.initializeLocalStoragewidget();
   });
-
-  function FormatNumTo2 (n) {
-    if (n < 10)
-      return "0"+n;
-    else
-      return n;
-  }
-
-  function initLocalStorage() {
-    var url = window.location.origin;
-    var camera = $("#widget-camera").val();
-    var camera_name = $('#widget-camera option:selected').text()
-    var pre_auth = $('#widget-authenticate').val();
-    var is_private = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
-    var api_credentials = '';
-    var date_time = '';
-    var stringDateTime = '';
-
-    if($('#widget-datetime').val()){
-      stringDateTime = $('#widget-datetime').val()+"T"+$('#widget-hour').val()+":"+$('#widget-minutes').val()+":"+$('#widget-seconds').val()+"Z";
-      date_time = "&amp;date_time&#61;" + stringDateTime;
-    }
-
-    if(pre_auth == 'true') {
-      api_credentials = "&amp;api_id&#61;<%= current_user.api_id -%>&amp;api_key&#61;<%= current_user.api_key -%>";
-    }
-
-    var embedCode = '&lt;div evercam&#61;"localstorage"&gt;&lt;&#47;div&gt;'+
-        '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;hikvision.local.storage.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + date_time + '"&gt;&lt;&#47;script&gt;';
-    $('#code').html(embedCode);
-
-    $(".placeholder").empty();
-    LocalStorage.options.cameraId = camera;
-    LocalStorage.options.api_id = '<%= current_user.api_id -%>';
-    LocalStorage.options.api_key = '<%= current_user.api_key -%>';
-    LocalStorage.options.date_time = stringDateTime;
-    LocalStorage.Load();
-  }
-
-  function showNote(){
-    if($(this).val()){
-      var preElements = document.getElementsByClassName('switch');
-      for(var i=0; i < preElements.length; i++){
-        //if the class contains the selected value, then show it, else hide it
-        preElements[i].style.visibility = preElements[i].classList.contains($(this).val())?'visible':'hidden';
-      }
-      initLocalStorage()
-    }
-  }
 </script>

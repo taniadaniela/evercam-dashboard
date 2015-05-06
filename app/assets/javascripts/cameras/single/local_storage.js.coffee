@@ -1,11 +1,15 @@
 window.localwidgetLoaded = false
+playbackUrl = 'http://playback.azurewebsites.net/home/doc/page/main.aspx'
 
 initLocalStorage = ->
   window.localwidgetLoaded = true
-  LocalStorage.options.cameraId = Evercam.Camera.id
-  LocalStorage.options.api_id = Evercam.User.api_id
-  LocalStorage.options.api_key = Evercam.User.api_key
-  LocalStorage.Load()
+  iframe = jQuery('<iframe />').css(
+    'overflow-y': 'hidden'
+    'overflow-x': 'scroll'
+    'width': '100%'
+    'height': '640px').attr(
+    'src': playbackUrl + "?camera=#{Evercam.Camera.id}&api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    'frameborder': '0').appendTo('div[evercam=\'localstorage\']')
 
 handleTabOpen = ->
   $('.nav-tab-local-storage').on 'show.bs.tab', ->

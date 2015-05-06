@@ -5,17 +5,12 @@
   <div class="page-content">
     <%# render partial: "users/section_header", locals: { section_header_title: "Billing" } %>
     <div class="portlet-body">
-      <div class="col-md-12">
+
         <%= render 'navigation' %>
 
-        <div class="row">
           <div class="col-md-12">
             <h3>Overview</h3>
-
-
-               <p>Your Plan: <strong><%= render 'current_subscription' %></strong></p>
-
-
+              <p>Your Plan: <strong><%= render 'current_subscription' %></strong></p>
               <p>
                 <% if has_credit_cards? %>
                 Billed to <strong>Mastercard</strong> <i>ending in</i> <strong>4242</strong> - <a href="#">Manage Cards</a>
@@ -23,39 +18,37 @@
                   <a href="#">Add a Card</a>
                 <% end -%>
               </p>
-
-
-
           </div>
           <div class="col-md-12">
             <h3>Plans</h3>
-          <%= render 'plans_comparison' %>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="plan-button">
-                <div class="btn btn-default">Current Plan</div>
+            <%= render 'plans_comparison' %>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="plan-button">
+                  <div class="btn btn-default">Current Plan</div>
+                </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="plan-button">
-              <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
+              <div class="col-md-4">
+                <div class="plan-button">
+                <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
+                </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="plan-button">
-              <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
+              <div class="col-md-4">
+                <div class="plan-button">
+                <%= link_to 'Upgrade', edit_subscription_path, class: 'btn btn-primary' %>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-
-
-
+      <div class="col-md-12">
+        <h3>Add Ons</h3>
+      <%= render 'current_add_ons' %>
       </div>
-    </div>
+
   </div>
 </div>
+</div>
+
 <script>
   window.initializeSubscription();
   <% if flash[:message] %>

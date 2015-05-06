@@ -4,16 +4,16 @@
       <div class="add-ons">
       <%= render 'navigation' %>
 
-          <div class="col-md-12">
+        <div class="col-md-12">
+        <%= render "current_add_ons" %>
+          <h3>Select Add-ons</h3>
+        <%= render "add_ons_select" %>
+        </div>
 
-          <%= render "current_add_ons" %>
-            <h2>Select Add-ons</h2>
-          <%= render "add_ons_select" %>
-          </div>
-          <div class="col-md-4 col-md-offset-8 cart-container">
-            <%= render "cart" %>
-            <%= link_to "Checkout", new_checkout_path %>
-          </div>
+        <div class="col-md-4 col-md-offset-8 checkout-container">
+          <%= render "cart" %>
+          <%= link_to "Checkout", new_checkout_path, class: 'pull-right btn btn-primary' %>
+        </div>
 
       </div>
     </div>

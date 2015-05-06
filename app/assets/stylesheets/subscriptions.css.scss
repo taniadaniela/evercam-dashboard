@@ -1,6 +1,9 @@
 .subscriptions {
+  .page-content {
+    overflow: auto;
+  }
   .header {
-    margin:40px 0px 40px;
+    margin:0px 0px 40px;
   }
   h4 {
     font-family: $bold-family;
@@ -8,7 +11,38 @@
   .temp {
     height: 40px;
   }
+  .plans-select {
+    margin-bottom: 25px;
+  }
+  .checkout-container {
+    margin-top: 45px;
+  }
+  .cart {
+    margin-top: 30px;
+    padding: 0px 5px 20px;
+    z-index: 10000;
+    text-align: right;
+  }
+  .table > tbody > tr > td {
+    border-top:none;
+    padding: 8px 0px 8px 8px;
+  }
+  .table {
+    margin-bottom: 0px;
+  }
+ .sub-total {
+    padding-right: 15px !important;
+  }
 
+  .sub-container {
+    padding-top: 15px;
+    border-top: 1px solid #f5f5f5;
+    margin-top: 10px;
+  }
+  .checkout-button {
+    overflow: auto;
+    padding-bottom: 25px;
+  }
 .plans-comparison {
 
   li {
@@ -25,6 +59,10 @@
     border-left: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
   }
+  form.button_to {
+    width: 50%;
+    float: left;
+  }
 }
 
 
@@ -38,7 +76,7 @@
   }
 }
 .plan-button {
-  
+
   padding: 10px 10px 20px;
   margin: 0 auto;
   text-align: center;
@@ -50,7 +88,6 @@
   overflow: auto;
 }
 .cart-container {
-    background-color: $lighter-grey;
     padding: 0px 10px 10px;
   }
   .cart {

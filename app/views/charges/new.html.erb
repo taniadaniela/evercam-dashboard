@@ -4,8 +4,7 @@
     <div class="portlet-body">
       <div class="plans">
       <%= render 'subscriptions/navigation' %>
-        <div class="row">
-          <div>
+
             <h3>Cart</h3>
             <%= render "subscriptions/cart" %>
             <li>Total <%= cents_to_currency(@total_charge) %></li>
@@ -15,8 +14,7 @@
             <% end %>
             <%= button_to "Pay Now", new_charge_path({ amount: @total_charge }) %>
           </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>

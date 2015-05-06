@@ -1,18 +1,28 @@
 <section class="cart">
   <h3>Cart</h3>
-  <ul>
+
     <% unless cart_empty? %>
       <% sub_totle = 0 %>
-      <% session[:cart].each do |item| %>
-        <li><%= item.name %></li>
-        <li><%= item.quantity %></li>
-        <li><%= cents_to_currency item.price %></li>
-        <% sub_totle = sub_totle + item.price %>
-        <li><%= button_to 'Remove', line_item_path(item.id), method: :delete, remote: true %></li>
+    <table class="table">
+         <% session[:cart].each do |item| %>
+        <tr>
+            <td class="col-md-2"><%= link_to 'remove', line_item_path(item.id), method: :delete, remote: true, class: 'remove' %></td>
+            <td class="col-md-4"><%= item.name %></td>
+            <td class="col-md-2"><%= item.quantity %></td>
+            <td class="col-md-2"><%= cents_to_currency item.price %></td>
+        </tr>
+      <% sub_totle = sub_totle + item.price %>
+
       <% end %>
-      <p>Sub Total: <%= cents_to_currency sub_totle %></p>
+    </table>
+        <div class="sub-container">
+          <p><span class="sub-total">Sub Total:  </span>
+          <span class="pull-right"> <%= cents_to_currency sub_totle %></span>
+          </p>
+        </div>
+
     <% else %>
       <p>Your cart is empty.</p>
     <% end %>
-  </ul>
+
 </section>

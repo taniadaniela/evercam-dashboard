@@ -6,21 +6,27 @@
     <div class="portlet-body">
       <div class="plans">
       <%= render 'navigation' %>
-
-          <div class="col-md-12">
-            <div class="header">
-            <h3>Upgrade or Downgrade your plan at any time</h3>
-            <p>Use Evercam for free or upgrade for extra features</p>
+        <div class="col-md-12">
+          <div class="header">
+          <h3>Upgrade or Downgrade your plan at any time</h3>
+          <p>Use Evercam for free or upgrade for extra features</p>
+          </div>
+          <%= render "plans_comparison" %>
+          <%= render "select_plan_buttons" %>
+        </div>
+        <div class="col-md-4 col-md-offset-8">
+          <div class="row">
+            <div class="col-md-12">
+              <%= link_to "Get Add-ons", edit_add_ons_path, class: 'pull-right btn btn-primary' %>
             </div>
-            <%= render "plans_comparison" %>
-            <%= render "select_plan_buttons" %>
           </div>
-          <div class="col-md-4 col-md-offset-8">
+          <div class="checkout-container">
             <%= render "cart" %>
-            <div><%= link_to "Get Add-ons", edit_add_ons_path %></div>
-            <div> <%= link_to "Checkout", new_checkout_path %></div>
+            <div class="checkout-button">
+            <%= link_to "Checkout", new_checkout_path, class: 'pull-right btn btn-primary' %>
+            </div>
           </div>
-
+        </div>
       </div>
     </div>
   </div>

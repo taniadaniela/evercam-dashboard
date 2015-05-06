@@ -1,5 +1,23 @@
-<section>
-  <p>Current Add-ons:</p>
-  <p>You have <%= @snapmails %> Snapmails add-on</p>
-  <p>You have <%= @timelapses %> Timelapses add-on.</p>
-</section>
+<% if @add_ons.present? %>
+<!-- Add-ons list -->
+<table class="table margin-top-20">
+  <tr>
+    <th>Add-on</th>
+    <th>Period</th>
+    <th>Expiry</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <% @add_ons.each do |add_on| -%>
+    <tr>
+      <td><%=  add_on.add_ons_name -%></td>
+      <td><%= add_on.period -%></td>
+      <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+      <td><%= add_on.status ? 'Active' : 'Expired' %></td>
+      <td><%= link_to 'Cancel', delete_add_ons_path(add_on.id), method: :delete, class: 'delete-add-ons' %></td>
+    </tr>
+  <% end -%>
+</table>
+<% else %>
+  <p class="margin-bottom-25">You currently have no add ons</p>
+<% end %>

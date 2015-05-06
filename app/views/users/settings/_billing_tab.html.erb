@@ -1,62 +1,18 @@
-<%= javascript_include_tag "https://js.stripe.com/v2/stripe.js" %>
 <div id="billing">
-<div class="row">
-  <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row margin-bottom-30">
+        <div class="panel-description col-md-12">
+          <div class="panel-title row">
+            <h4 class="margin-bottom-10">Billing Information</h4>
+          </div>
 
-    <div class="row margin-bottom-30">
-      <div class="panel-description col-md-12">
-        <div class="panel-title row">
-          <h4 class="margin-bottom-10">Billing Information</h4>
-        </div>
+          <%= render partial: 'shared/stripe' %>
 
-        <%= render partial: 'shared/stripe' %>
-        
-          <!-- New Stripe customer -->
-          <% unless is_stripe_customer? %>
-            <p>You have not yet associated a credit card with this account.</p>
-            <form action="<%= stripe_customers_path -%>" method="POST">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
-                data-image="<%= asset_path('evercam-e.svg') -%>"
-                data-email="<%= current_user.email -%>"
-                data-name="Stripe.com"
-                data-description="Add Credit Card"
-                data-label="Add Credit Card">
-              </script>
-            </form>
-          <% end %>
-
-          <!-- View Credit Cards -->
-          <% if has_credit_cards? %>
-            <table class="table table-striped margin-top-20">
-              <tr>
-                <th>Provider</th>
-                <th>Card Number</th>
-                <th>Expiry</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <% @credit_cards.each do |card| -%>
-              <tr>
-                <td><%=  card.brand -%></td>
-                <td>Ending in ... <%= card.last4 -%></td>
-                <td><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
-                <td><%= default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></td>
-                <td><%= button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %></td>
-              </tr>    
-              <% end -%>
-            </table>
-          <% end %>
-
-          <!-- Add credit card for existing Stripe customer -->
-          <% if stripe_customer_without_current_cards? %>
-            <p>You have no current cards associated with this account.</p>
-          <% end %>
-          <% if is_stripe_customer? %>
-            <div>
-              <form action="<%= credit_cards_path -%>" method="POST">
+            <!-- New Stripe customer -->
+            <% unless is_stripe_customer? %>
+              <p>You have not yet associated a credit card with this account.</p>
+              <form action="<%= stripe_customers_path -%>" method="POST">
                 <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                 <script
                   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -64,203 +20,98 @@
                   data-image="<%= asset_path('evercam-e.svg') -%>"
                   data-email="<%= current_user.email -%>"
                   data-name="Stripe.com"
-                  data-description="Add New Credit Card"
-                  data-label="Add New Credit Card">
+                  data-description="Add Credit Card"
+                  data-label="Add Credit Card">
                 </script>
               </form>
-            </div>
+            <% end %>
+
+            <!-- View Credit Cards -->
+            <% if has_credit_cards? %>
+              <table class="table table-striped margin-top-20">
+                <tr>
+                  <th>Provider</th>
+                  <th>Card Number</th>
+                  <th>Expiry</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <% @credit_cards.each do |card| -%>
+                <tr>
+                  <td><%=  card.brand -%></td>
+                  <td>Ending in ... <%= card.last4 -%></td>
+                  <td><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
+                  <% default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %>
+                  <% button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %>
+                </tr>
+                <% end -%>
+              </table>
+            <% end %>
+            <!-- Add credit card for existing Stripe customer -->
+            <% if stripe_customer_without_current_cards? %>
+              <p>You have no current cards associated with this account.</p>
+            <% end %>
+            <% if is_stripe_customer? %>
+              <div>
+                <form action="<%= credit_cards_path -%>" method="POST">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
+                    data-image="<%= asset_path('evercam-e.svg') -%>"
+                    data-email="<%= current_user.email -%>"
+                    data-name="Stripe.com"
+                    data-description="Add New Credit Card"
+                    data-label="Add New Credit Card">
+                  </script>
+                </form>
+              </div>
+            <% end %>
+            <br>
+        </div>
+      </div>
+
+      <div class="row margin-bottom-20">
+        <div class="panel-description col-md-12">
+          <h4 class="margin-bottom-10">Subscriptions</h4>
+          <% if stripe_customer_without_subscriptions? %>
+            <p>You have no current subscriptions.</p>
           <% end %>
-          <br>
-      </div>
-    </div>
-
-    <div class="row margin-bottom-20">
-      <div class="panel-description col-md-12">
-        <h4 class="margin-bottom-10">Subscriptions</h4>
-        <% if stripe_customer_without_subscriptions? %>
-          <p>You have no current subscriptions.</p>
-        <% end %>
-        <!-- Subscriptions table -->
-        <% if stripe_customer_with_subscriptions? -%>
-          <table class="table table-striped margin-top-20">
-            <tr>
-              <th>Plan Expires</th>
-              <th>Plan</th>
-              <th>Status</th>
-              <th>Interval</th>
-              <th>Amount</th>
-              <th>Cancel</th>
-            </tr>
-            <% @subscriptions.each do |s| %>
+          <!-- Subscriptions table -->
+          <% if stripe_customer_with_subscriptions? -%>
+            <table class="table table-striped margin-top-20">
               <tr>
-                <td><%= format_time(s.current_period_end) -%></td>
-                <td><%= s.plan.name -%></td>
-                <td><%= s.status.capitalize -%></td>
-                <td><%= s.plan.interval.capitalize -%></td>
-                <td><%= cents_to_currency(s.plan.amount) -%></td>
-                <td>
-                  <%= button_to 'Cancel Subscription',
-                        subscription_path({:subscription_id => s.id, :plan_name => s.plan.name}),
-                        method: :delete,
-                        confirm: 'Are you sure you wish to delete this subscription?' -%>
-                </td>
+                <th>Plan Expires</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Interval</th>
+                <th>Amount</th>
+                <th>Cancel</th>
               </tr>
-            <% end -%>
-            <td><strong>Total</strong></td>
-            <% 3.times do -%>
-              <%= content_tag(:td, "") %>
-            <% end -%>
-            <td><%= total_subscriptions_amount -%></td>
-          </table>
-        <% end -%>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="panel-description col-md-4 margin-bottom-20">
-        <div class="panel-title row margin-bottom-20">
-          <h4>Buy a Licence</h4>
-        </div>
-        <p>Evercam Silver Bundle</p>
-        <div class="row">
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="2500"/>
-              <input type="hidden" name="plan" value="silver-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="Silver Bundle"
-                      data-description="Silver Licence €25.00 per month"
-                      data-panel-label="Subscribe"
-                      data-label="Monthly - €25.00"
-                      data-plan="silver-monthly"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="19000"/>
-              <input type="hidden" name="plan" value="silver-monthly"/>
-              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="Silver Bundle"
-                      data-description="Silver Licence (€199.00 per year)"
-                      data-panel-label="Subscribe"
-                      data-label="Annual - €199.00"
-                      data-plan="silver-annual"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row margin-bottom-20">
-      <div class="panel-description col-md-4 margin-bottom-20">
-        <p>Snapmail</p>
-        <div class="row">
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="1000"/>
-              <input type="hidden" name="plan" value="snapmail-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="Snapmail Monthly"
-                      data-description="€10.00 per month"
-                      data-panel-label="Subscribe"
-                      data-label="Monthly - €10.00"
-                      data-plan="snapmail-monthly"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="9900"/>
-              <input type="hidden" name="plan" value="snapmail-monthly"/>
-              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="Snapmail Annual"
-                      data-description="€99.00 per year"
-                      data-panel-label="Subscribe"
-                      data-label="Annual - €99.00"
-                      data-plan="snapmail-annual"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row margin-bottom-20">
-      <div class="panel-description col-md-4 margin-bottom-20">
-        <p>7 Days Recording</p>
-        <div class="row">
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="1000"/>
-              <input type="hidden" name="plan" value="7-day-recording-monthly"/>
-              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="7 Days Recording Monthly"
-                      data-description="€10.00 per month"
-                      data-panel-label="Subscribe"
-                      data-label="Monthly - €10.00"
-                      data-plan="7-day-recording-monthly"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <form method='POST' action="/users/<%= current_user.username -%>/settings/subscription">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <input type="hidden" name="amount" value="100000"/>
-              <input type="hidden" name="plan" value="7-day-recording-annual"/>
-              <input type="hidden" name="token" value="<%= current_user.stripe_customer_id %>"/>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-image="<%= asset_path('evercam-e.svg') -%>"
-                      data-email="<%= current_user.email -%>"
-                      data-currency="eur"
-                      data-name="7 Days Recording Annual"
-                      data-description="€100.00 per year"
-                      data-panel-label="Subscribe"
-                      data-label="Annual - €100.00"
-                      data-plan="7-day-recording-annual"
-                      data-allow-remember-me="false">
-              </script>
-            </form>
-          </div>
+              <% @subscriptions.each do |s| %>
+                <tr>
+                  <td><%= format_time(s.current_period_end) -%></td>
+                  <td><%= s.plan.name -%></td>
+                  <td><%= s.status.capitalize -%></td>
+                  <td><%= s.plan.interval.capitalize -%></td>
+                  <td><%= cents_to_currency(s.plan.amount) -%></td>
+                  <td>
+                    <%= button_to 'Cancel Subscription',
+                          subscription_path({:subscription_id => s.id, :plan_name => s.plan.name}),
+                          method: :delete,
+                          confirm: 'Are you sure you wish to delete this subscription?' -%>
+                  </td>
+                </tr>
+              <% end -%>
+              <td><strong>Total</strong></td>
+              <% 3.times do -%>
+                <%= content_tag(:td, "") %>
+              <% end -%>
+              <td><%= total_subscriptions_amount -%></td>
+            </table>
+          <% end -%>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

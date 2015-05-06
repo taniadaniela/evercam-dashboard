@@ -1,0 +1,67 @@
+<%= render partial: 'shared/stripe' %>
+<section>
+<h3>Cards</h3>
+<!-- New Stripe customer -->
+<% unless is_stripe_customer? %>
+  <p>You don't have any cards added.</p>
+  <form action="<%= stripe_customers_path -%>" method="POST">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
+    data-image="<%= asset_path('evercam-e.svg') -%>"
+    data-email="<%= current_user.email -%>"
+    data-name="Stripe.com"
+    data-description="Add Credit Card"
+    data-label="Add Credit Card">
+    </script>
+  </form>
+<% end %>
+
+<!-- View Credit Cards -->
+<% if has_credit_cards? %>
+
+  <table class="table table-striped margin-top-20">
+    <tr>
+      <th>Provider</th>
+      <th>Card Number</th>
+      <th>Expiry</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <% @credit_cards.each do |card| -%>
+      <tr>
+        <td><%=  card.brand -%></td>
+        <td>Ending in ... <%= card.last4 -%></td>
+        <td><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
+        <%# default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %>
+        <%# button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %>
+      </tr>
+    <% end -%>
+  </table>
+<% end %>
+
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Add
+  </button>
+<!-- Add credit card for existing Stripe customer -->
+<% if stripe_customer_without_current_cards? %>
+  <p>You have no current cards associated with this account.</p>
+<% end %>
+<% if is_stripe_customer? %>
+  <div>
+    <form action="<%= credit_cards_path -%>" method="POST">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+      <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
+      data-image="<%= asset_path('evercam-e.svg') -%>"
+      data-email="<%= current_user.email -%>"
+      data-name="Stripe.com"
+      data-description="Add New Credit Card"
+      data-label="Add New Credit Card">
+      </script>
+    </form>
+  </div>
+<% end %>
+</section>

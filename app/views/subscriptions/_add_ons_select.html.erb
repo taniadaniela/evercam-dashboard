@@ -1,17 +1,15 @@
-<div class="row">
-  <div class="col-md-8">
-    <table class="table">
-      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-        <th>Add-on</th>
-        <th>Monthly Price</th>
-        <th>Annual Price</th>
-      </tr>
-      <tr>
-        <td>Snapmail</td>
-        <td>€9.99 <%= button_to 'Add', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'btn btn-default'  %></td>
-        <td>€99.00 <%= button_to 'Add', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'btn btn-default'  %></td>
-      </tr>
-    </table>
-
+<div class="plans-comparison margin-top-20">
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li><h4>Snapmail</h4></li>
+        <li><p>Schedule email notifications from your camera</p></li>
+      </ul>
+      <div class="plan-button">
+        <%= button_to 'Add Monthly', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'btn btn-primary'  %>
+        <%= button_to 'Add Annual', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'btn btn-primary'  %>
+      </div>
+    </div>
   </div>
 </div>
+

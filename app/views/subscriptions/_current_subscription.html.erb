@@ -1,5 +1,5 @@
 <% if has_subscription? %>
-  <p>Current Plan: <%= @subscription.name %>
+  <%= @subscription.name %>
 <% else %>
-  <p>You are not currently subscribed to any plan.</p>
+  Evercam Free plan
 <% end %>

@@ -84,10 +84,10 @@ CREATE TABLE access_tokens (
 
 
 --
--- Name: billing_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: add_ons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE billing_id_seq
+CREATE SEQUENCE add_ons_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -96,21 +96,25 @@ CREATE SEQUENCE billing_id_seq
 
 
 --
--- Name: billing_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: add_ons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE billing_id_seq OWNED BY billing.id;
+ALTER SEQUENCE add_ons_id_seq OWNED BY add_ons.id;
 
 
 --
--- Name: billing; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: add_ons; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
-CREATE TABLE billing (
-    id integer DEFAULT nextval('billing_id_seq'::regclass) NOT NULL,
+CREATE TABLE add_ons (
+    id integer DEFAULT nextval('add_ons_id_seq'::regclass) NOT NULL,
     user_id integer NOT NULL,
-    timelapse integer,
-    snapmail integer,
+    add_ons_name text NOT NULL,
+    period text NOT NULL,
+    add_ons_start_date timestamp with time zone NOT NULL,
+    add_ons_end_date timestamp with time zone NOT NULL,
+    status boolean NOT NULL,
+    price double precision NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
@@ -554,7 +558,7 @@ ALTER TABLE ONLY access_rights ALTER COLUMN id SET DEFAULT nextval('access_right
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY billing ALTER COLUMN id SET DEFAULT nextval('billing_id_seq'::regclass);
+ALTER TABLE ONLY add_ons ALTER COLUMN id SET DEFAULT nextval('add_ons_id_seq'::regclass);
 
 
 --
@@ -608,11 +612,11 @@ ALTER TABLE ONLY access_rights
 
 
 --
--- Name: billing_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: add_ons_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
-ALTER TABLE ONLY billing
-    ADD CONSTRAINT billing_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY add_ons
+    ADD CONSTRAINT add_ons_pkey PRIMARY KEY (id);
 
 
 --
@@ -941,11 +945,11 @@ ALTER TABLE ONLY access_tokens
 
 
 --
--- Name: billing_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: add_ons_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY billing
-    ADD CONSTRAINT billing_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY add_ons
+    ADD CONSTRAINT add_ons_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --

@@ -4,7 +4,13 @@
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">
-          <p class="camera-title"><%= @camera['name'] %> <i class="fa fa-caret-down"></i></p>
+        <% if @camera['is_online'] %>
+          <span class="green-bg status-circle"></span>
+        <% else %>
+          <span class="red-bg status-circle"></span>
+        <% end %>
+          <span class="camera-name"><%= @camera['name'] %></span>
+          <span class="camera-caret"><i class="fa fa-caret-down"></i></span>
         </a>
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>
@@ -15,41 +21,52 @@
         </ul>
       </div>
     <% end %>
-    <div class="top-menu pull-right">
-           <ul class="nav navbar-nav">
-            <li>
+    <div class="top-menu">
+      <ul class="nav navbar-nav">
+        <li class="dropdown dropdown-user">
+          <a class="" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+            <i class="fa fa-plus"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation">
               <%= link_to cameras_new_path do %>
-                <i class="fa fa-plus"></i>
+                Add IP Camera
               <% end %>
             </li>
-            <li class="dropdown dropdown-user">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <i class="fa fa-ellipsis-v"></i>
-              </a>
-              <ul class="dropdown-menu">
-                <li role="presentation">
-                  <%= link_to 'Public Cameras', public_cameras_index_path %>
-                </li>
-                <li role="presentation">
-                  <%= link_to 'Account', user_path(current_user.username) %>
-                </li>
-                <li role="presentation">
-                  <%= link_to 'Billing' %>
-                </li>
-                <li role="presentation">
-                  <%= link_to 'Developer', dev_path %>
-                </li>
-                <li role="presentation">
-                  <%= link_to 'Feedback', feedback_path %>
-                </li>
-                <li role="presentation">
-                  <%= link_to 'Sign out', signout_path, method: 'delete' %>
-                </li>
-              </ul>
+            <li role="presentation">
+              <a href="/cameras/new#tab_1_2">Add Android Camera</a>
+            </li>
+            <li role="presentation">
+              <a href="#" class="grey">Add NVR</a>
             </li>
           </ul>
-
+        </li>
+        <li class="dropdown dropdown-user">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+            <i class="fa fa-ellipsis-v"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li role="presentation">
+              <%= link_to 'Public Cameras', public_cameras_index_path %>
+            </li>
+            <li role="presentation">
+              <%= link_to 'Account', user_path(current_user.username) %>
+            </li>
+            <li role="presentation">
+              <%= link_to 'Billing' %>
+            </li>
+            <li role="presentation">
+              <%= link_to 'Developer', dev_path %>
+            </li>
+            <li role="presentation">
+              <%= link_to 'Feedback', feedback_path %>
+            </li>
+            <li role="presentation">
+              <%= link_to 'Sign out', signout_path, method: 'delete' %>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
-
   </div>
 </div>

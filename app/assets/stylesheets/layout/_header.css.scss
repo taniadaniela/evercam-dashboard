@@ -13,6 +13,11 @@
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
   padding-top: 7px;
 }
+.top-menu {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 
 @media (max-width: 992px) {
   /* Page container */
@@ -41,14 +46,16 @@
 .evercam-e-header img {
   max-height: 24px;
 }
-.dropdown-menu {
+.navbar .dropdown-menu {
   background: lighten($secondary-color, 5%);
+}
+.top-menu .dropdown-menu {
   left:-140px;
 }
+
 @media (max-width: 767px) {
-  .navbar-nav .open .dropdown-menu, .dropdown-menu {
+  .navbar .navbar-nav .open .dropdown-menu {
     background: lighten($secondary-color, 5%);
-    left:-154px;
   }
   .navbar-nav .open .dropdown-menu > li > a {
     padding:6px 13px 6px 13px;
@@ -71,7 +78,7 @@
   line-height: 21px;
   color:$white;
 }
-.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+.navbar .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
   background-color:lighten($secondary-color, 10%);
   color: #f5f5f5;
 }
@@ -84,19 +91,29 @@
   font-size: 18px;
 }
 .camera-switch {
-  display: block;
-  width: 233px;
-  position: absolute;
-  right: 50%;
-  margin-right: -116px;
+  margin: 0 auto;
+  max-width: 250px;
   text-align: center;
-  padding-top: 5px;
+  height: 32px;
+  padding-top: 4px;
   .sub-menu-item a {
     padding:4px 14px 4px 0px !important;
   }
-}
-.page-header.navbar .top-menu .navbar-nav {
-  margin-right: 15px;
+  .status-circle {
+    padding: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .camera-name {
+    padding-top:3px;
+  }
+  .camera-switch .fa-caret-down {
+    margin-left: 6px;
+  }
+  .camera-caret {
+    padding-left: 9px;
+  }
 }
 @media (max-width: 992px) {
   .camera-switch {
@@ -109,16 +126,25 @@
     margin-right:3px;
   }
 }
-
-.camera-switch .fa-caret-down {
-  margin-left: 6px;
+.green-bg {
+  background-color: $green;
 }
+.red-bg {
+  background-color: $evercam-red;
+}
+.page-header.navbar .top-menu .navbar-nav {
+  margin-right: 15px;
+}
+
+
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .camera-switch .fa-caret-down {
-    display: none;
+  display: none;
   }
 }
+
+
 .page-header a,
 .page-header a:hover {
   color:$white;
@@ -144,8 +170,6 @@
   max-height: 40px;
   min-height: 40px;
 }
-
-
 
 #sidebar {
   position: fixed !important;
@@ -184,7 +208,6 @@
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
-
   display:none;
 }
 
@@ -217,6 +240,7 @@ li span {
   z-index: 10000;
   cursor: pointer;
 }
+
 #main-content {
   position: relative !important;
 }
@@ -249,8 +273,7 @@ h5.camera-title {
 .section-header .online-status {
   margin-top: 4px;
 }
-ul.scroll-menu {
 
-
-
+a.grey {
+  color: #777 !important;
 }

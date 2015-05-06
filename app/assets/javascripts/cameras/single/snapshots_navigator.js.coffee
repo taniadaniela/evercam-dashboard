@@ -812,7 +812,7 @@ handleTabOpen = ->
 saveImage = ->
   $('#save-recording-image').on 'click', ->
     date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
-    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}")
+    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg")
 
 window.initializeRecordingsTab = ->
   initDatePicker()

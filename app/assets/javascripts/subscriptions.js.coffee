@@ -4,7 +4,7 @@
 
 showConfirmation = ->
   $('.delete-add-ons').on 'click', ->
-    confirm('Are you sure you wish to delete this add-on?')
+    confirm('Are you sure you wish to cancel this add-on?')
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")

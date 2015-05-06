@@ -40,9 +40,13 @@
               </div>
             </div>
           </div>
-      <div class="col-md-12">
-        <h3>Add Ons</h3>
-      <%= render 'current_add_ons' %>
+      <div class="col-md-12 add-ons">
+
+        <h3>Your Add Ons</h3>
+          <%= render 'current_add_ons' %>
+        <% unless @add_ons.present? %>
+          <%= link_to 'Get some Add-ons', edit_add_ons_path %>
+        <% end %>
       </div>
 
   </div>

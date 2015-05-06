@@ -1,3 +1,4 @@
+<% if @add_ons.present? %>
 <!-- Add-ons list -->
 <table class="table table-striped margin-top-20">
   <tr>
@@ -17,3 +18,6 @@
     </tr>
   <% end -%>
 </table>
+<% else %>
+  <p class="margin-bottom-25">You currently have no add ons</p>
+<% end %>

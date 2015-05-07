@@ -1,4 +1,4 @@
-playbackUrl = 'http://playback.azurewebsites.net/home/doc/page/main.aspx'
+playbackUrl = 'https://playback.azurewebsites.net/home/doc/page/main.aspx'
 
 initEvents = ->
   $('#widget-datetime').datetimepicker

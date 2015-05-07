@@ -1,5 +1,5 @@
 window.localwidgetLoaded = false
-playbackUrl = 'http://playback.azurewebsites.net/home/doc/page/main.aspx'
+playbackUrl = 'https://playback.azurewebsites.net/home/doc/page/main.aspx'
 
 initLocalStorage = ->
   window.localwidgetLoaded = true

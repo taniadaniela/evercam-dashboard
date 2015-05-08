@@ -5,52 +5,58 @@
   <div class="page-content">
     <%# render partial: "users/section_header", locals: { section_header_title: "Billing" } %>
     <div class="portlet-body">
-
         <%= render 'navigation' %>
-
           <div class="col-md-12">
             <h3>Cards</h3>
             <%= render partial: 'shared/stripe' %>
              <!-- New Stripe customer -->
-             <% unless is_stripe_customer? %>
-               <p>You have not yet associated a credit card with this account.</p>
-              <%= render 'add_card' %>
-             <% end %>
+
               <% if has_credit_cards? %>
-              <p class="margin-top-15">Your Card(s):</p>
+                <p class="margin-top-15">Your Card(s):</p>
               <% @credit_cards.each do |card| -%>
                 <p><strong><%=  card.brand -%></strong> expires <strong><%= card.exp_month -%>&#47;<%= card.exp_year %></strong> ending in ..<strong><%= card.last4 -%></strong></p>
               <% end -%>
                 <a class="" data-toggle="modal" data-target="#myModal">
                   Manage Cards
                 </a>
+              <% else %>
+                <p>You have not yet associated a credit card with this account.</p>
+                <%= render 'add_card' %>
               <% end %>
-              <% if stripe_customer_without_current_cards? %>
-                You have no current cards associated with this account.
-              <%= render 'add_card' %>
-              <% end %>
+
 
           </div>
-
-
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Manage Cards</h4>
-            </div>
-            <div class="modal-body">
-              <%= render 'add_card' %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Manage Cards</h4>
+                </div>
+                <div class="modal-body">
+                  <table>
+                  <% @credit_cards.each do |card| -%>
+                    <tr>
+                      <td class="col-md-1"><%=  card.brand -%></td>
+                      <td class="col-md-1">Expires<%= card.exp_month -%>&#47;<%= card.exp_year %></td>
+                      <td class="col-md-2">Ending in ... <%= card.last4 -%></td>
+                      <%# default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %>
+                      <%# button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %>
+                    </tr>
+                  <% end -%>
+                  </table>
+                  <div class="margin-top-20">
+                    <%= render 'add_card' %>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">Done</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
       <div class="margin-top-30 col-md-12">
         <h3>Plans</h3>

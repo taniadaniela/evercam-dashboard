@@ -19,37 +19,11 @@
   .plans-select {
     margin-bottom: 25px;
   }
-  .checkout-container {
-    margin-top: 45px;
-  }
-  .cart {
-    margin-top: 30px;
-    padding: 0px 5px 20px;
-    z-index: 10000;
-    text-align: right;
-  }
-  .table > tbody > tr > td {
-    border-top:none;
-    padding: 8px 0px 8px 8px;
-  }
   .table {
     margin-bottom: 0px;
   }
- .sub-total {
-    padding-right: 15px !important;
-  }
 
-  .sub-container {
-    padding-top: 15px;
-    border-top: 1px solid #f5f5f5;
-    margin-top: 10px;
-  }
-  .checkout-button {
-    overflow: auto;
-    padding-bottom: 25px;
-  }
 .plans-comparison {
-
   li {
     line-height: 2em;
     list-style-type: none;
@@ -81,7 +55,6 @@
   }
 }
 .plan-button {
-
   padding: 10px 10px 30px;
   margin: 0 auto;
   text-align: center;
@@ -101,4 +74,26 @@
       list-style-type: none;
     }
   }
+}
+.checkout {
+  .sub-container {
+    margin-top: 10px;
+    padding-right: 8px;
+  }
+}
+.checkout-container {
+  margin-top: 30px;
+}
+.cart {
+  margin-top: 20px;
+  padding: 0px 5px 20px;
+  z-index: 10000;
+}
+.sub-total {
+  padding-right: 15px !important;
+}
+
+.table > tbody > tr > th {
+  border-top:none;
+  padding: 8px 0px 8px 8px;
 }

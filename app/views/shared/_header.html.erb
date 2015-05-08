@@ -53,7 +53,7 @@
               <%= link_to 'Account', user_path(current_user.username) %>
             </li>
             <li role="presentation">
-              <%= link_to 'Billing' %>
+              <%= link_to 'Billing', billing_path(current_user.username) %>
             </li>
             <li role="presentation">
               <%= link_to 'Developer', dev_path %>

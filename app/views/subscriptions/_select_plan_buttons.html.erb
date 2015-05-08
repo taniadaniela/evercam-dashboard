@@ -2,26 +2,30 @@
   <div class="row">
     <div class="col-md-4">
       <div class="plan-button">
-      <%= button_to 'Free', line_item_subscription_path(type: 'plan', product_id: 'evercam-free'), remote: true, class: 'btn btn-default'  %>
+      <%= button_to 'Free', line_item_subscription_path(type: 'plan', product_id: 'evercam-free'), disabled: @subscription[:id].eql?('evercam-free'), remote: true, class: 'btn btn-default'  %>
       </div>
     </div>
     <div class="col-md-4">
       <div class="plan-button">
         <div class="col-xs-6">
-          <%= button_to 'Pro Monthly', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro'), remote: true, class: 'btn btn-primary'  %>
+          <%= button_to 'Pro Monthly', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro'), disabled: @subscription[:id].eql?('evercam-pro'), remote: true, class: 'btn btn-primary'  %>
         </div>
         <div class="col-xs-6">
-          <%= button_to 'Pro Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-annual'), remote: true, class: 'btn btn-primary'  %>
+          <%= button_to 'Pro Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-annual'), disabled: @subscription[:id].eql?('evercam-pro-annual'), remote: true, class: 'btn btn-primary'  %>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="plan-button">
         <div class="col-xs-6">
-          <%= button_to 'Pro Plus Monthly', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus'), remote: true, class: 'btn btn-primary'  %>
+          <%= button_to 'Pro Plus Monthly', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus'), disabled: @subscription[:id].eql?('evercam-pro-plus'), remote: true, class: 'btn btn-primary'  %>
         </div>
         <div class="col-xs-6">
-          <%= button_to 'Pro Plus Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus-annual'), remote: true, class: 'btn btn-primary'  %>
+          <% if @subscription[:id].eql?('evercam-pro-plus-annual') %>
+            <%= button_to @subscription[:id].eql?('evercam-pro-plus-annual') ? 'Your Plan' : 'Pro Plus Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus-annual'), disabled: @subscription[:id].eql?('evercam-pro-plus-annual'), remote: true, class: 'btn btn-primary'  %>
+          <% else %>
+            <%= button_to @subscription[:id].eql?('evercam-pro-plus-annual') ? 'Your Plan' : 'Pro Plus Annual', line_item_subscription_path(type: 'plan', product_id: 'evercam-pro-plus-annual'), disabled: @subscription[:id].eql?('evercam-pro-plus-annual'), remote: true, class: 'btn btn-primary'  %>
+          <% end %>
         </div>
       </div>
     </div>

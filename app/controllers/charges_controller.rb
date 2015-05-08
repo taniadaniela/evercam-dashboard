@@ -13,6 +13,7 @@ class ChargesController < ApplicationController
     @pro_rated_add_ons_charge = pro_rated_add_ons_charge
     @add_ons_charge = add_ons_charge
     @cameras = load_user_cameras(true, false)
+    @card = retrieve_credit_cards[:data][0]
   end
 
   def create
@@ -24,6 +25,10 @@ class ChargesController < ApplicationController
   end
 
   private
+
+  def retrieve_credit_cards
+    Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.all(:object => "card")
+  end
 
   def redirect_when_cart_empty
     if session[:cart].empty?
@@ -99,7 +104,7 @@ class ChargesController < ApplicationController
 
   # For an accurate subtotal of a mid term change, this method should also query Stripe for the pro rata change if the user switches plans.
   def total_charge
-    total = pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : 0
+    total = pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : calculate_total
   end
 
   def charge_description

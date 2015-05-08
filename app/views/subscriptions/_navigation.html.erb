@@ -1,9 +1,9 @@
 <div class="navigation">
 
     <ul class="nav nav-tabs">
-      <li><%= link_to 'Billing', subscriptions_path %></li>
-      <li><%= link_to 'Plans', edit_subscription_path %></li>
-      <li><%= link_to 'Add-ons', edit_add_ons_path %></li>
+      <li><%= link_to 'Billing', billing_path(current_user.username) %></li>
+      <li><%= link_to 'Plans', plans_path(current_user.username) %></li>
+      <li><%= link_to 'Add-ons', add_ons_path(current_user.username) %></li>
       <!--<li><%# link_to 'Checkout', new_checkout_path %></li>-->
     </ul>
 

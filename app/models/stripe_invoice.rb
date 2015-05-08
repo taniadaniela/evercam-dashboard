@@ -1,4 +1,4 @@
-# The invoice class should only invoked in response to webhooks. For midterm add-ons, and add ons created at the time of new subscription, use the charges controller. 
+# The invoice class should only invoked in response to webhooks. For midterm add-ons, and add ons created at the time of new subscription, use the payments controller.
 
 class StripeInvoice
   def initialize(stripe_event_id)

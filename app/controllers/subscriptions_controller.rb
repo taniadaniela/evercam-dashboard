@@ -66,6 +66,6 @@ class SubscriptionsController < ApplicationController
                       "Please try again and, if the problem persists, contact "\
                       "support."
     end
-    redirect_to subscriptions_path
+    redirect_to billing_path(current_user.username)
   end
 end

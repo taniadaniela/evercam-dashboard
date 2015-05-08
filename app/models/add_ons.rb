@@ -1,5 +1,5 @@
 class AddOns < ActiveRecord::Base
-  attr_protected :charges
+  attr_protected :payments
   self.table_name = 'add_ons'
   self.inheritance_column = 'ruby_type'
   self.primary_key = 'id'

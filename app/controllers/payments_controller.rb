@@ -1,4 +1,4 @@
-class ChargesController < ApplicationController
+class PaymentsController < ApplicationController
   before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists
@@ -21,7 +21,7 @@ class ChargesController < ApplicationController
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
-    redirect_to subscriptions_path, flash: { message: "Success" }
+    redirect_to billing_path(current_user.username), flash: { message: "Success" }
   end
 
   private

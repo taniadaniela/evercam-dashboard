@@ -22,8 +22,8 @@ Rails.application.routes.draw do
 
   delete 'v1/add-ons/:id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 
-  get 'v1/charges' => 'charges#new', as: :new_checkout
-  post 'v1/charges' => 'charges#create', as: :new_charge
+  get 'v1/payments' => 'payments#new', as: :new_checkout
+  post 'v1/payments' => 'payments#create', as: :new_charge
 
   get 'feedback', to: 'messages#new', as: 'feedback'
   post 'feedback', to: 'messages#create'
@@ -40,10 +40,10 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine => '/stripe-events'
 
-  resources :charges
-  post '/users/:id/settings/charge' => 'charges#create'
-  post '/users/:id/settings/subscription' => 'charges#create_subscription'
-  get '/users/:id/settings/subscription' => 'charges#subscription_update'
+  resources :payments
+  post '/users/:id/settings/charge' => 'payments#create'
+  post '/users/:id/settings/subscription' => 'payments#create_subscription'
+  get '/users/:id/settings/subscription' => 'payments#subscription_update'
 
   root to: redirect('/v1/cameras'), as: :root
   get '/v1/cameras' => 'cameras#index', as: :cameras_index

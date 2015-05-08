@@ -1,28 +1,48 @@
 <section class="cart">
-  <h3>Cart</h3>
 
-    <% unless cart_empty? %>
+      <% unless cart_empty? %>
       <% sub_totle = 0 %>
     <table class="table">
-         <% session[:cart].each do |item| %>
-        <tr>
-            <td class="col-md-2"><%= link_to 'remove', line_item_path(item.id), method: :delete, remote: true, class: 'remove' %></td>
-            <td class="col-md-4"><%= item.name %></td>
-            <td class="col-md-2"><%= item.quantity %></td>
-            <td class="col-md-2"><%= cents_to_currency item.price %></td>
-        </tr>
-      <% sub_totle = sub_totle + item.price %>
+      <tr>
+        <th class="col-md-2">
+          Product
+        </th>
+        <th class="col-md-2">
+          Qty.
+        </th>
+        <th class="col-md-2 text-right">
+          Price
+        </th>
 
+      </tr>
+    <% session[:cart].each do |item| %>
+      <tr>
+
+        <td class="col-md-4"><%= item.name %> <small><%= link_to 'Remove', line_item_path(item.id), method: :delete, remote: true, class: 'padding-left-10' %></small></td>
+        <td class="col-md-2"><%= item.quantity %></td>
+        <td class="col-md-2 text-right"><%= cents_to_currency item.price %> </td>
+
+      </tr>
+      <% sub_totle = sub_totle + item.price %>
       <% end %>
     </table>
-        <div class="sub-container">
-          <p><span class="sub-total">Sub Total:  </span>
-          <span class="pull-right"> <%= cents_to_currency sub_totle %></span>
+        <div class="sub-container text-right">
+          <!--<li>Total <%# cents_to_currency(@total_charge) %></li>-->
+          <% if add_ons_in_cart? %>
+            <!--<li>Add-ons Subtotal to Renewal: <%# cents_to_currency(@pro_rated_add_ons_charge) %></li>-->
+            <p>
+              <span class="sub-total">Add-ons Total: </span>
+              <span class="pull-right"><%= cents_to_currency(@add_ons_charge) %></span>
+            </p>
+          <% end %>
+          <p>
+            <span class="sub-total">Total:  </span>
+            <span class="pull-right"> <%= cents_to_currency sub_totle %></span>
           </p>
         </div>
 
-    <% else %>
-      <p>Your cart is empty.</p>
-    <% end %>
+      <% else %>
+        <p class="text-right">Your cart is empty.</p>
+      <% end %>
 
 </section>

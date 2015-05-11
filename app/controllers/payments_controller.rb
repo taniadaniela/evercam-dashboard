@@ -131,7 +131,7 @@ class PaymentsController < ApplicationController
 
   # For an accurate subtotal of a mid term change, this method should also query Stripe for the pro rata change if the user switches plans.
   def total_charge
-    total = pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : calculate_total
+    pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : calculate_total
   end
 
   def charge_description

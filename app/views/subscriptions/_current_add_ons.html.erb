@@ -18,8 +18,7 @@
     </tr>
   <% end -%>
 </table>
-  <%= link_to 'Get more Add-ons', edit_add_ons_path, class: 'margin-top-20' %>
+  <%= link_to 'Get more Add-ons', add_ons_path(current_user.username), class: 'margin-top-20' %>
 <% else %>
-  <p>You have no adds ons</p>
-  <%= link_to 'Browse Add-ons', edit_add_ons_path, class: 'btn btn-primary margin-top-20' %>
+  <%= link_to 'Browse Add-ons', add_ons_path(current_user.username), class: 'btn btn-primary margin-top-20' %>
 <% end %>

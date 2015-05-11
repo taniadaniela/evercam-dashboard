@@ -1,4 +1,4 @@
-class ChargesController < ApplicationController
+class PaymentsController < ApplicationController
   before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists
@@ -13,6 +13,7 @@ class ChargesController < ApplicationController
     @pro_rated_add_ons_charge = pro_rated_add_ons_charge
     @add_ons_charge = add_ons_charge
     @cameras = load_user_cameras(true, false)
+    @card = retrieve_credit_cards[:data][0]
   end
 
   def create
@@ -20,10 +21,37 @@ class ChargesController < ApplicationController
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
-    redirect_to subscriptions_path, flash: { message: "Success" }
+    redirect_to billing_path(current_user.username), flash: { message: "Success" }
+  end
+
+  def upgrade_downgrade_plan
+    result = {success: true}
+    begin
+      product_params = build_line_item_params(params)
+      @line_item = LineItem.new(product_params)
+      @customer = retrieve_stripe_customer_without_cart(@line_item)
+      @customer.change_plan
+
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
+      result[:success] = false
+      result[:message] = "Failed to upgrade/downgrade plan."
+    end
+    render json: result
   end
 
   private
+
+  def build_line_item_params params
+    selector = ProductSelector.new(params[:plan_id])
+    selector.product_params
+  end
+
+  def retrieve_credit_cards
+    Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.all(:object => "card")
+  end
 
   def redirect_when_cart_empty
     if session[:cart].empty?
@@ -46,6 +74,10 @@ class ChargesController < ApplicationController
 
   def retrieve_stripe_customer
     StripeCustomer.new(current_user.stripe_customer_id, plan_in_cart)
+  end
+
+  def retrieve_stripe_customer_without_cart(product)
+    StripeCustomer.new(current_user.stripe_customer_id, product)
   end
 
   def create_subscription
@@ -99,7 +131,7 @@ class ChargesController < ApplicationController
 
   # For an accurate subtotal of a mid term change, this method should also query Stripe for the pro rata change if the user switches plans.
   def total_charge
-    total = pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : 0
+    pro_rated_add_ons_charge.present? ? pro_rated_add_ons_charge : calculate_total
   end
 
   def charge_description

@@ -1,7 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_prices
-  before_filter :ensure_cameras_loaded
   before_action :retrieve_stripe_customer
   before_filter :retrieve_stripe_subscriptions
   before_filter :retrieve_add_ons
@@ -67,6 +66,6 @@ class SubscriptionsController < ApplicationController
                       "Please try again and, if the problem persists, contact "\
                       "support."
     end
-    redirect_to subscriptions_path
+    redirect_to billing_path(current_user.username)
   end
 end

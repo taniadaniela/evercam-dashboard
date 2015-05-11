@@ -14,16 +14,17 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
-  get 'v1/subscription' => 'subscriptions#index', as: :subscriptions
-  get 'v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
-  get '/v1/subscriptions/upgrade' => 'subscriptions#edit_subscription', as: :edit_subscription
-  get '/v1/subscriptions/upgrade-add-ons' => 'subscriptions#edit_add_ons', as: :edit_add_ons
+  get '/v1/users/:id/billing' => 'subscriptions#index', as: :billing
+  get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
+  get '/v1/users/:id/billing/plans' => 'subscriptions#edit_subscription', as: :plans
+  get '/v1/users/:id/billing/add-ons' => 'subscriptions#edit_add_ons', as: :add_ons
   delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
 
   delete 'v1/add-ons/:id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 
-  get 'v1/charges' => 'charges#new', as: :new_checkout
-  post 'v1/charges' => 'charges#create', as: :new_charge
+  get 'v1/payments' => 'payments#new', as: :new_checkout
+  post 'v1/payments' => 'payments#create', as: :new_charge
+  post '/v1/users/:id/billing/plans/change' => 'payments#upgrade_downgrade_plan'
 
   get 'feedback', to: 'messages#new', as: 'feedback'
   post 'feedback', to: 'messages#create'
@@ -40,10 +41,10 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine => '/stripe-events'
 
-  resources :charges
-  post '/users/:id/settings/charge' => 'charges#create'
-  post '/users/:id/settings/subscription' => 'charges#create_subscription'
-  get '/users/:id/settings/subscription' => 'charges#subscription_update'
+  resources :payments
+  post '/users/:id/settings/charge' => 'payments#create'
+  post '/users/:id/settings/subscription' => 'payments#create_subscription'
+  get '/users/:id/settings/subscription' => 'payments#subscription_update'
 
   root to: redirect('/v1/cameras'), as: :root
   get '/v1/cameras' => 'cameras#index', as: :cameras_index

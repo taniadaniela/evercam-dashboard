@@ -24,7 +24,30 @@ class PaymentsController < ApplicationController
     redirect_to billing_path(current_user.username), flash: { message: "Success" }
   end
 
+  def upgrade_downgrade_plan
+    result = {success: true}
+    begin
+      product_params = build_line_item_params(params)
+      @line_item = LineItem.new(product_params)
+      @customer = retrieve_stripe_customer_without_cart(@line_item)
+      @customer.change_plan
+
+    rescue => error
+      env["airbrake.error_id"] = notify_airbrake(error)
+      Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\
+                              "Cause: #{error}\n" + error.backtrace.join("\n")
+      result[:success] = false
+      result[:message] = "Failed to upgrade/downgrade plan."
+    end
+    render json: result
+  end
+
   private
+
+  def build_line_item_params params
+    selector = ProductSelector.new(params[:plan_id])
+    selector.product_params
+  end
 
   def retrieve_credit_cards
     Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.all(:object => "card")
@@ -51,6 +74,10 @@ class PaymentsController < ApplicationController
 
   def retrieve_stripe_customer
     StripeCustomer.new(current_user.stripe_customer_id, plan_in_cart)
+  end
+
+  def retrieve_stripe_customer_without_cart(product)
+    StripeCustomer.new(current_user.stripe_customer_id, product)
   end
 
   def create_subscription

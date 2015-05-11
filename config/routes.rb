@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
   end
 
-  get 'v1/users/:id/billing' => 'subscriptions#index', as: :billing
-  get 'v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
+  get '/v1/users/:id/billing' => 'subscriptions#index', as: :billing
+  get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
   get '/v1/users/:id/billing/plans' => 'subscriptions#edit_subscription', as: :plans
   get '/v1/users/:id/billing/add-ons' => 'subscriptions#edit_add_ons', as: :add_ons
   delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   get 'v1/payments' => 'payments#new', as: :new_checkout
   post 'v1/payments' => 'payments#create', as: :new_charge
+  post '/v1/users/:id/billing/plans/change' => 'payments#upgrade_downgrade_plan'
 
   get 'feedback', to: 'messages#new', as: 'feedback'
   post 'feedback', to: 'messages#create'

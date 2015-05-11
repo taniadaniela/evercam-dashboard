@@ -55,20 +55,20 @@ class PaymentsController < ApplicationController
 
   def redirect_when_cart_empty
     if session[:cart].empty?
-      redirect_to edit_subscription_path, flash: {message: "You have nothing to checkout."}
+      redirect_to billing_path(current_user.username), flash: {message: "You have nothing to checkout."}
     end
   end
 
   def ensure_card_exists
     @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
-      redirect_to edit_subscription_path, flash: { message: "You must add a card." }
+      redirect_to billing_path(current_user.username), flash: { message: "You must add a card." }
     end
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
     unless @customer.has_active_subscription? || plan_in_cart?
-      redirect_to edit_subscription_path, flash: { message: "You must add a plan." }
+      redirect_to plans_path(current_user.username), flash: { message: "You must add a plan." }
     end
   end
 

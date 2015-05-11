@@ -5,65 +5,83 @@
   <div class="page-content">
     <%# render partial: "users/section_header", locals: { section_header_title: "Billing" } %>
     <div class="portlet-body">
-
         <%= render 'navigation' %>
-
           <div class="col-md-12">
             <h3>Cards</h3>
             <%= render partial: 'shared/stripe' %>
-             <p class="margin-top-15">Your Card(s):</p>
-               <!-- New Stripe customer -->
-               <% unless is_stripe_customer? %>
-                 <p>You have not yet associated a credit card with this account.</p>
-               <% end %>
+             <!-- New Stripe customer -->
 
-                <% if has_credit_cards? %>
-                <% @credit_cards.each do |card| -%>
-                  <p><strong><%=  card.brand -%></strong> expires <strong><%= card.exp_month -%>&#47;<%= card.exp_year %></strong> ending in ..<strong><%= card.last4 -%></strong></p>
-                <% end -%>
-                <% end %>
-                <% if stripe_customer_without_current_cards? %>
-                  You have no current cards associated with this account.
-                <% end %>
-              <div class="margin-top-15">
-                <form action="<%= stripe_customers_path -%>" method="POST">
-                  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-                  <script
-                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="<%= Rails.configuration.stripe[:publishable_key] -%>"
-                  data-image="<%= asset_path('evercam-e.svg') -%>"
-                  data-email="<%= current_user.email -%>"
-                  data-name="Stripe.com"
-                  data-description="Add Credit Card"
-                  data-label="Add a Credit Card">
-                  </script>
-                </form>
-              </div>
+              <% if has_credit_cards? %>
+                <p class="margin-top-15">Your Card(s):</p>
+              <% @credit_cards.each do |card| -%>
+                <p><strong><%=  card.brand -%></strong> expires <strong><%= card.exp_month -%>&#47;<%= card.exp_year %></strong> ending in ..<strong><%= card.last4 -%></strong></p>
+              <% end -%>
+                <a class="" data-toggle="modal" data-target="#myModal">
+                  Manage Cards
+                </a>
+              <% else %>
+                <p>You have not yet associated a credit card with this account.</p>
+                <%= render 'add_card' %>
+              <% end %>
+
+
           </div>
-          <div class="margin-top-30 col-md-12">
-            <h3>Plans</h3>
-            <p>Current Plan: <strong><%= render 'current_subscription' %></strong></p>
-            <%= render 'plans_comparison' %>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="plan-button">
-                  <div class="btn btn-primary">Select</div>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Manage Cards</h4>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="plan-button">
-                <%= link_to 'Select', plans_path(current_user.username), class: 'btn btn-primary' %>
+
+                <div class="modal-body">
+                  <table>
+                  <% @credit_cards.each do |card| -%>
+                    <tr>
+                      <td class="col-md-1"><%=  card.brand -%></td>
+                      <td class="col-md-1">Expires<%= card.exp_month -%>&#47;<%= card.exp_year %></td>
+                      <td class="col-md-2">Ending in ... <%= card.last4 -%></td>
+                      <%# default_card?(card.id) ? 'Default Card' : (button_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %>
+                      <%# button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?' %>
+                    </tr>
+                  <% end -%>
+                  </table>
+                  <div class="margin-top-20">
+                    <%= render 'add_card' %>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="plan-button">
-                <%= link_to 'Select', plans_path(current_user.username), class: 'btn btn-primary' %>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">Done</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
           </div>
-      <div class="col-md-12 margin-top-30 margin-bottom-30">
 
+      <div class="margin-top-30 col-md-12">
+        <h3>Plans</h3>
+        <p>Current Plan: <strong><%= render 'current_subscription' %></strong></p>
+        <%= render 'plans_comparison' %>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="plan-button">
+              <div class="btn btn-primary">Select</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="plan-button">
+            <%= link_to 'Select', edit_subscription_path, class: 'btn btn-primary' %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="plan-button">
+            <%= link_to 'Select', edit_subscription_path, class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 margin-top-30 margin-bottom-30">
         <h3>Your Add Ons</h3>
           <%= render 'current_add_ons' %>
         <% unless @add_ons.present? %>
@@ -71,7 +89,6 @@
         <% end %>
         <%= link_to 'Get Add-ons', add_ons_path(current_user.username), class: 'margin-top-20' %>
       </div>
-
   </div>
 </div>
 </div>

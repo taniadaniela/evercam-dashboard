@@ -18,9 +18,9 @@ class Prices
     @evercam_free = 0
     @evercam_free_annual = 0
     @evercam_pro = 999
-    @evercam_pro_annual = 9900
-    @evercam_pro_plus = 1499
-    @evercam_pro_plus_annual = 14900
+    @evercam_pro_annual = 14900
+    @evercam_pro_plus = 1999
+    @evercam_pro_plus_annual = 17900
     @snapmail = 999
     @snapmail_annual = 14900
     @timelapse = 1999

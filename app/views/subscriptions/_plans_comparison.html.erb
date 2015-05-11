@@ -1,54 +1,120 @@
-<div class="plans-comparison">
-  <div class="row">
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class=""> <h4>Free Plan</h4>
-        </li>
-        <li class="">
-          <%= cents_to_currency(@prices.evercam_free) %></li>
-        <li class="">Up to <strong>5</strong> Private Cams</li>
-        <li class=""><strong>Unlimited</strong> Public Cams</li>
-        <li class=""><strong>Unlimited</strong> Shares</li>
-        <li class=""><strong>&lt; 10</strong> hours Storage</li>
 
-      </ul>
-    </div>
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class=""> <h4>Pro Plan</h4>
-        </li>
-        <li class=""><strong>
-          <%= cents_to_currency(@prices.evercam_pro) %>
-        </strong>
-          &#47;
-          <strong>
-            <%= cents_to_currency(@prices.evercam_pro_annual) %>
-          </strong></li>
-        <li class=""><strong>Unlimited</strong></li>
-        <li class=""><strong>Unlimited</strong> Public Cams</li>
-        <li class=""><strong>Unlimited</strong> Share</li>
-        <li class=""><strong>&lt; 30</strong> hours Storage</li>
 
-      </ul>
+  <div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="annual">
+      <div class="plans-comparison">
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-group">
+              <li class=""> <h4>Free Plan</h4>
+              </li>
+              <li class="">
+                <%= cents_to_currency(@prices.evercam_free) %></li>
+              <li class="">Up to <strong>5</strong> Private Cams</li>
+              <li class=""><strong>Unlimited</strong> Public Cams</li>
+              <li class=""><strong>Unlimited</strong> Shares</li>
+              <li class=""><strong>&lt; 10</strong> hours Storage</li>
+
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-group">
+              <li class=""> <h4>Annual Pro Plan</h4>
+              </li>
+              <li class=""><strong>
+                <%= cents_to_currency(@prices.evercam_pro) %>
+              </strong>
+                &#47;
+                <strong>
+                  <%= cents_to_currency(@prices.evercam_pro_annual) %>
+                </strong></li>
+              <li class=""><strong>Unlimited</strong></li>
+              <li class=""><strong>Unlimited</strong> Public Cams</li>
+              <li class=""><strong>Unlimited</strong> Share</li>
+              <li class=""><strong>&lt; 30</strong> hours Storage</li>
+
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-group">
+              <li class="">
+                <h4>Annual Pro Plan Plus</h4>
+              </li>
+              <li class="">
+                <strong>
+                  <%= cents_to_currency(@prices.evercam_pro_plus) %>
+                </strong>
+                &#47;
+                <strong>
+                <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
+              </strong>
+              <li class=""><strong>Unlimited</strong> Private Cams</li>
+              <li class=""><strong>Unlimited</strong> Public Cams</li>
+              <li class=""><strong>Unlimited</strong> Share</li>
+              <li class=""><strong>&lt; 90</strong> hours Storage</li>
+            </ul>
+          </div>
+        </div>
+        <%= render "select_plan_buttons_annual" %>
+      </div>
+
     </div>
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class="">
-          <h4>Pro Plan Plus</h4>
-        </li>
-        <li class="">
-          <strong>
-            <%= cents_to_currency(@prices.evercam_pro_plus) %>
-          </strong>
-          &#47;
-          <strong>
-          <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
-        </strong>
-        <li class=""><strong>Unlimited</strong> Private Cams</li>
-        <li class=""><strong>Unlimited</strong> Public Cams</li>
-        <li class=""><strong>Unlimited</strong> Share</li>
-        <li class=""><strong>&lt; 90</strong> hours Storage</li>
-      </ul>
+    <div class="tab-pane" id="monthly">
+      <div class="plans-comparison">
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-group">
+              <li class=""> <h4>Free Plan</h4>
+              </li>
+              <li class="">
+                <%= cents_to_currency(@prices.evercam_free) %></li>
+              <li class="">Up to <strong>5</strong> Private Cams</li>
+              <li class=""><strong>Unlimited</strong> Public Cams</li>
+              <li class=""><strong>Unlimited</strong> Shares</li>
+              <li class=""><strong>&lt; 10</strong> hours Storage</li>
+
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-group">
+              <li class=""> <h4>Monthly Pro Plan</h4>
+              </li>
+              <li class=""><strong>
+                <%= cents_to_currency(@prices.evercam_pro) %>
+              </strong>
+                &#47;
+                <strong>
+                  <%= cents_to_currency(@prices.evercam_pro_annual) %>
+                </strong></li>
+              <li class=""><strong>Unlimited</strong></li>
+              <li class=""><strong>Unlimited</strong> Public Cams</li>
+              <li class=""><strong>Unlimited</strong> Share</li>
+              <li class=""><strong>&lt; 30</strong> hours Storage</li>
+
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-group">
+              <li class="">
+                <h4>Monthly Pro Plan Plus</h4>
+              </li>
+              <li class="">
+                <strong>
+                  <%= cents_to_currency(@prices.evercam_pro_plus) %>
+                </strong>
+                &#47;
+                <strong>
+                <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
+              </strong>
+              <li class=""><strong>Unlimited</strong> Private Cams</li>
+              <li class=""><strong>Unlimited</strong> Public Cams</li>
+              <li class=""><strong>Unlimited</strong> Share</li>
+              <li class=""><strong>&lt; 90</strong> hours Storage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <%= render "select_plan_buttons_monthly" %>
     </div>
+
   </div>
-</div>

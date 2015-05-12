@@ -1,54 +1,149 @@
-<div class="plans-comparison">
-  <div class="row">
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class=""> <h4>Free Plan</h4>
-        </li>
-        <li class="">
-          <%= cents_to_currency(@prices.evercam_free) %></li>
-        <li class="">Up to <strong>5</strong> Private Cams</li>
-        <li class=""><strong>Unlimited</strong> Public Cams</li>
-        <li class=""><strong>Unlimited</strong> Shares</li>
-        <li class=""><strong>&lt; 10</strong> hours Storage</li>
+<div id="my-tab-content" class="tab-content">
+  <div class="tab-pane active" id="annual">
+    <div class="plans-comparison">
+      <div class="row">
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class=""> <h4>Free Plan</h4>
+            </li>
+            <li class="">
+              <%= cents_to_currency(@prices.evercam_free) %></li>
+            <li class="">Up to <strong>5</strong> Private Cams</li>
+            <li class=""><strong>Unlimited</strong> Public Cams</li>
+            <li class=""><strong>Unlimited</strong> Shares</li>
+            <li class=""><strong>&lt; 10</strong> hours Storage</li>
 
-      </ul>
-    </div>
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class=""> <h4>Pro Plan</h4>
-        </li>
-        <li class=""><strong>
-          <%= cents_to_currency(@prices.evercam_pro) %>
-        </strong>
-          &#47;
-          <strong>
-            <%= cents_to_currency(@prices.evercam_pro_annual) %>
-          </strong></li>
-        <li class=""><strong>Unlimited</strong></li>
-        <li class=""><strong>Unlimited</strong> Public Cams</li>
-        <li class=""><strong>Unlimited</strong> Share</li>
-        <li class=""><strong>&lt; 30</strong> hours Storage</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class=""> <h4>Annual Pro Plan</h4>
+            </li>
+            <li class=""><strong>
+              <%= cents_to_currency(@prices.evercam_pro) %>
+            </strong>
+              &#47;
+              <strong>
+                <%= cents_to_currency(@prices.evercam_pro_annual) %>
+              </strong></li>
+            <li class=""><strong>Unlimited</strong></li>
+            <li class=""><strong>Unlimited</strong> Public Cams</li>
+            <li class=""><strong>Unlimited</strong> Share</li>
+            <li class=""><strong>&lt; 30</strong> hours Storage</li>
 
-      </ul>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class="">
+              <h4>Annual Pro Plan Plus</h4>
+            </li>
+            <li class="">
+              <strong>
+                <%= cacents_to_currency(@prices.evercam_pro_plus) %>
+              </strong>
+              &#47;
+              <strong>
+              <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
+            </strong>
+            <li class=""><strong>Unlimited</strong> Private Cams</li>
+            <li class=""><strong>Unlimited</strong> Public Cams</li>
+            <li class=""><strong>Unlimited</strong> Share</li>
+            <li class=""><strong>&lt; 90</strong> hours Storage</li>
+          </ul>
+        </div>
+      </div>
+      <%= render "select_plan_buttons_annual" %>
     </div>
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class="">
-          <h4>Pro Plan Plus</h4>
-        </li>
-        <li class="">
-          <strong>
-            <%= cents_to_currency(@prices.evercam_pro_plus) %>
-          </strong>
-          &#47;
-          <strong>
-          <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
-        </strong>
-        <li class=""><strong>Unlimited</strong> Private Cams</li>
-        <li class=""><strong>Unlimited</strong> Public Cams</li>
-        <li class=""><strong>Unlimited</strong> Share</li>
-        <li class=""><strong>&lt; 90</strong> hours Storage</li>
-      </ul>
+
+  </div>
+  <div class="tab-pane" id="monthly">
+    <div class="plans-comparison">
+      <div class="row">
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class=""> <h4>Free Plan</h4>
+            </li>
+            <li class="">
+              <%= cents_to_currency(@prices.evercam_free) %></li>
+            <li class="">Up to <strong>5</strong> Private Cams</li>
+            <li class=""><strong>Unlimited</strong> Public Cams</li>
+            <li class=""><strong>Unlimited</strong> Shares</li>
+            <li class=""><strong>&lt; 10</strong> hours Storage</li>
+
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class=""> <h4>Monthly Pro Plan</h4>
+            </li>
+            <li class=""><strong>
+              <%= cents_to_currency(@prices.evercam_pro) %>
+            </strong>
+              &#47;
+              <strong>
+                <%= cents_to_currency(@prices.evercam_pro_annual) %>
+              </strong></li>
+            <li class=""><strong>Unlimited</strong></li>
+            <li class=""><strong>Unlimited</strong> Public Cams</li>
+            <li class=""><strong>Unlimited</strong> Share</li>
+            <li class=""><strong>&lt; 30</strong> hours Storage</li>
+
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class="">
+              <h4>Monthly Pro Plan Plus</h4>
+            </li>
+            <li class="">
+              <strong>
+                <%= cents_to_currency(@prices.evercam_pro_plus) %>
+              </strong>
+              &#47;
+              <strong>
+              <%= cents_to_currency(@prices.evercam_pro_plus_annual) %></li>
+            </strong>
+            <li class=""><strong>Unlimited</strong> Private Cams</li>
+            <li class=""><strong>Unlimited</strong> Public Cams</li>
+            <li class=""><strong>Unlimited</strong> Share</li>
+            <li class=""><strong>&lt; 90</strong> hours Storage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <%= render "select_plan_buttons_monthly" %>
+  </div>
+  <div id="upgradeDwongradeModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="col-md-12">
+            <p class="text-left change-plan-desc" id="plan-descprition"></p>
+            <div id="confirm-upgrading" style="display: none;">
+              <p class="text-left change-plan-desc">One moment while we are upgrade your account</p>
+              <br>
+              <p class="text-left">We're just confirming your payment.</p>
+            </div>
+
+            <div id="section-downgrade" style="display: none;">
+              <p class="text-left downgrade-note">Feel free to upgrade again any time, we'll credit you for
+                any time you have used on you current plan and put that towards your next invoice.
+              </p>
+              <p>If you're sure you want to proceed, type 'downgrade' in the field below.</p>
+              <input id="downgrade-plan" name="downgrade-plan" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="col-sm-8 margin-top-10">
+            <input type="hidden" id="change-plan-id">
+            <input type="hidden" id="change-plan-action">
+            <input id="btn-change-plan" type="button" class="btn btn-danger pull-left" value="Upgrade my plan">
+            <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

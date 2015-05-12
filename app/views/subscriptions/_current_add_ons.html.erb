@@ -1,6 +1,6 @@
 <% if @add_ons.present? %>
 <!-- Add-ons list -->
-<table class="table margin-top-20">
+<table class="table">
   <tr>
     <th>Add-on</th>
     <th>Period</th>
@@ -18,7 +18,7 @@
     </tr>
   <% end -%>
 </table>
-  <%= link_to 'Get more Add-ons', add_ons_path(current_user.username), class: 'margin-top-20' %>
+  <%= link_to 'Get more Add-ons', add_ons_path(current_user.username) %>
 <% else %>
-  <%= link_to 'Browse Add-ons', add_ons_path(current_user.username), class: 'btn btn-primary margin-top-20' %>
+  <%= link_to 'Browse Add-ons', add_ons_path(current_user.username) %>
 <% end %>

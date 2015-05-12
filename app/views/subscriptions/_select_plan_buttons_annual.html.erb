@@ -29,7 +29,7 @@
             <input class="btn btn-default change-plan" disabled type="button" value="Your Plan">
           <% else %>
             <input class="btn btn-default change-plan" data-price="<%= cents_to_currency(@prices.evercam_free) %>"
-                   data-toggle="modal" data-target="#upgradeDwongradeModal" type="button" value="Downgrade"
+                   data-toggle="modal" data-target="#upgradeDwongradeModalAnnual" type="button" value="Downgrade"
                    data-period="monthly" data-plan="evercam free" data-plan-id="evercam-free">
           <% end %>
         </div>
@@ -48,7 +48,7 @@
                                   end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('evercam-pro-annual') %>
-                   data-price="<%= cents_to_currency(@prices.evercam_pro_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
+                   data-price="<%= cents_to_currency(@prices.evercam_pro_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModalAnnual"
                    type="button" data-period="annual" data-plan-id="evercam-pro-annual" data-plan="evercam pro" value="<%= evercam_pro_annual %>">
           </div>
         </div>
@@ -60,12 +60,48 @@
             <% if @subscription[:id].eql?('evercam-pro-plus-annual') %>
               <input class="btn btn-primary" disabled type="button" value="Your Plan">
             <% else %>
-              <input class="btn btn-primary change-plan" type="button" value="Upgrade" data-toggle="modal" data-target="#upgradeDwongradeModal"
+              <input class="btn btn-primary change-plan" type="button" value="Upgrade" data-toggle="modal" data-target="#upgradeDwongradeModalAnnual"
                      data-period="annual" data-plan="evercam pro plus" data-plan-id="evercam-pro-plus-annual" data-price="<%= cents_to_currency(@prices.evercam_pro_plus_annual) %>">
             <% end %>
           </div>
         </div>
       </div>
+<<<<<<< Updated upstream
+=======
+
+      <div id="upgradeDwongradeModalAnnual" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="col-md-12">
+                <p class="text-left change-plan-desc" id="plan-descprition"></p>
+                <div id="confirm-upgrading" style="display: none;">
+                  <p class="text-left change-plan-desc">One moment while we are upgrade your account</p>
+                  <br>
+                  <p class="text-left">We're just confirming your payment.</p>
+                </div>
+
+                <div id="section-downgrade" style="display: none;">
+                  <p class="text-left downgrade-note">Feel free to upgrade again any time, we'll credit you for
+                    any time you have used on you current plan and put that towards your next invoice.
+                  </p>
+                  <p>If you're sure you want to proceed, type 'downgrade' in the field below.</p>
+                  <input id="downgrade-plan" name="downgrade-plan" type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="col-sm-8 margin-top-10">
+                <input type="hidden" id="change-plan-id">
+                <input type="hidden" id="change-plan-action">
+                <input id="btn-change-plan" type="button" class="btn btn-danger pull-left" value="Upgrade my plan">
+                <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+>>>>>>> Stashed changes
     <% end %>
   </div>
 </div>

@@ -38,15 +38,17 @@
         <div class="plan-button">
 
           <div class="col-xs-12">
-            <% evercam_pro_annual = case @subscription[:id]
-                                      when "evercam-free","evercam-pro"
-                                        "Upgrade"
-                                      when "evercam-pro-plus-annual","evercam-pro-plus"
-                                        "Downgrade"
-                                      when "evercam-pro-annual"
-                                        "Your Plan"
-                                    end
-            %>
+<% evercam_pro_annual = case @subscription[:id]
+                      when "evercam-free"
+                        "Upgrade"
+                      when "evercam-pro-plus-annual","evercam-pro-plus"
+                        "Downgrade"
+                      when "evercam-pro"
+                        "Switch to Annual"
+                      when "evercam-pro-annual"
+                        "Your Plan"
+                    end
+%>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('evercam-pro-annual') %>
                    data-price="<%= cents_to_currency(@prices.evercam_pro_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
                    type="button" data-period="annual" data-plan-id="evercam-pro-annual" data-plan="evercam pro" value="<%= evercam_pro_annual %>">

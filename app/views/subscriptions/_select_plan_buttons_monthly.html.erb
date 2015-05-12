@@ -44,8 +44,10 @@
             <% evercam_pro = case @subscription[:id]
                                when "evercam-free"
                                  "Upgrade"
-                               when "evercam-pro-annual","evercam-pro-plus-annual","evercam-pro-plus"
+                               when "evercam-pro-plus-annual","evercam-pro-plus"
                                  "Downgrade"
+                               when "evercam-pro-annual"
+                                 "Switch to Monthly"
                                when "evercam-pro"
                                  "Your Plan"
                              end
@@ -64,7 +66,7 @@
                                     when "evercam-free","evercam-pro","evercam-pro-annual"
                                       "Upgrade"
                                     when "evercam-pro-plus-annual"
-                                      "Downgrade"
+                                      "Switch to Monthly"
                                     when "evercam-pro-plus"
                                       "Your Plan"
                                   end

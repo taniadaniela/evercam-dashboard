@@ -15,7 +15,10 @@
     border-top:none;
     border-bottom: 1px solid $lighter-grey;
   }
-
+  .nav-plans {
+   max-width: 250px;
+    margin:0 auto;
+  }
   .temp {
     height: 40px;
   }
@@ -78,7 +81,6 @@
     }
   }
 }
-
 
 .margin-left2 {
   margin-left: 2px;

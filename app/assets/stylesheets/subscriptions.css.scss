@@ -113,12 +113,12 @@
 }
 
 .delete-credit-card {
-  color: #428bca;
+  color: $main-color;
   text-shadow: none;
-  background-color: #ffffff;
+  background-color: $white;
   border: 0 none;
 }
 
 .delete-credit-card:hover {
-  color: #2a6496;
+  color: $dark-blue;
 }

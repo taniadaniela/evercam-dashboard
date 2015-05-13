@@ -112,3 +112,13 @@
   padding: 8px 0px 8px 8px;
 }
 
+.delete-credit-card {
+  color: $main-color;
+  text-shadow: none;
+  background-color: $white;
+  border: 0 none;
+}
+
+.delete-credit-card:hover {
+  color: $dark-blue;
+}

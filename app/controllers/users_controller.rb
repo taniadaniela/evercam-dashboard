@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :owns_data!, :ensure_cameras_loaded
-  before_action :retrieve_stripe_customer
-  before_filter :retrieve_stripe_subscriptions
-  before_filter :retrieve_add_ons, except: [:new, :create, :confirm, :password_reset_request, :password_update, :password_update_form]
-  # before_filter :set_user_plan
+  before_filter :owns_data!
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,

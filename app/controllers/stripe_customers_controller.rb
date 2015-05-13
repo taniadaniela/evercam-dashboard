@@ -18,7 +18,7 @@ class StripeCustomersController < ApplicationController
       current_user.save
     end
     flash[:message] = "Card Successfully Added"
-    redirect_to user_path(current_user.username)
+    redirect_to billing_path(current_user.username)
   end
 
   def update
@@ -27,7 +27,7 @@ class StripeCustomersController < ApplicationController
       customer.default_source = params[:card_id]
     end
     customer.save
-    redirect_to user_path(current_user.username)
+    redirect_to billing_path(current_user.username)
   end
 
   def destroy
@@ -35,6 +35,6 @@ class StripeCustomersController < ApplicationController
     default_card = customer.default_source
     customer.sources.retrieve(default_card).delete
     customer.retrieve_stripe_customer
-    redirect_to user_path(current_user.username)
+    redirect_to billing_path(current_user.username)
   end
 end

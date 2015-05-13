@@ -1,9 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_prices
-  before_action :retrieve_stripe_customer
-  before_filter :retrieve_stripe_subscriptions
-  before_filter :retrieve_add_ons
+  before_filter :owns_data!
 
   include CurrentCart
   before_filter :set_cart
@@ -16,6 +13,7 @@ class SubscriptionsController < ApplicationController
   def index
     @cameras = load_user_cameras(true, false)
     @subscription = current_subscription
+    retrieve_add_ons
     unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
@@ -24,7 +22,6 @@ class SubscriptionsController < ApplicationController
 
   def new
     @cameras = load_user_cameras(true, false)
-    # @selected_plan = params
     render layout: false
   end
 
@@ -37,6 +34,7 @@ class SubscriptionsController < ApplicationController
 
   def edit_subscription
     @cameras = load_user_cameras(true, false)
+    set_prices
     @subscription = current_subscription
   end
 

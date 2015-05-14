@@ -18,7 +18,7 @@ class StripeCustomersController < ApplicationController
       current_user.save
     end
     flash[:message] = "Card Successfully Added"
-    redirect_to billing_path(current_user.username)
+    redirect_to plans_path(current_user.username)
   end
 
   def update

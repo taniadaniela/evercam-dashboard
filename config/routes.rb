@@ -18,9 +18,9 @@ Rails.application.routes.draw do
   get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
   get '/v1/users/:id/billing/plans' => 'subscriptions#edit_subscription', as: :plans
   get '/v1/users/:id/billing/add-ons' => 'subscriptions#edit_add_ons', as: :add_ons
-  delete '/v1/subscriptions' => 'subscriptions#destroy', as: :subscription
+  delete '/v1/users/:id/billing' => 'subscriptions#destroy', as: :subscription
 
-  delete 'v1/add-ons/:id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
+  delete 'v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 
   get 'v1/payments' => 'payments#new', as: :new_checkout
   post 'v1/payments' => 'payments#create', as: :new_charge

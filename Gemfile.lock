@@ -153,7 +153,7 @@ GEM
     evercam_misc (0.0.9)
       3scale_client (~> 2.3)
       dotenv (~> 0.10)
-    evercam_models (0.3.11)
+    evercam_models (0.3.12)
       activesupport (~> 4.1)
       bcrypt (~> 3.1)
       dotenv (~> 0.10)
@@ -260,7 +260,7 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
-    hashie (3.3.2)
+    hashie (3.4.1)
     heroku-api (0.3.19)
       excon (~> 0.38)
       multi_json (~> 1.8)
@@ -525,7 +525,7 @@ DEPENDENCIES
   devise
   evercam!
   evercam_misc (~> 0.0)
-  evercam_models (~> 0.3.11)
+  evercam_models (~> 0.3.12)
   factory_girl
   fog
   geocoder

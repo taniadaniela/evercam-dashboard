@@ -14,7 +14,7 @@
       <td><%= add_on.period -%></td>
       <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
       <td><%= add_on.status ? 'Active' : 'Expired' %></td>
-      <td><%= link_to 'Cancel', delete_add_ons_path(add_on.id), method: :delete, class: 'delete-add-ons' %></td>
+      <td><%= link_to 'Cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></td>
     </tr>
   <% end -%>
 </table>

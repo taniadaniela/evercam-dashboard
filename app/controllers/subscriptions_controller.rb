@@ -52,8 +52,8 @@ class SubscriptionsController < ApplicationController
 
   def delete_add_ons
     begin
-      if params[:id].present?
-        add_on = AddOns.find(params[:id])
+      if params[:add_ons_id].present?
+        add_on = AddOns.find(id: params[:add_ons_id])
         flash[:message] = "You have successfuly deleted your '#{add_on.add_ons_name}' add-on."
         add_on.delete()
       else

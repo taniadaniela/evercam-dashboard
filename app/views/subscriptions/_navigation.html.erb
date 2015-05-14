@@ -1,8 +1,22 @@
 <div class="navigation">
   <ul class="nav nav-tabs">
-    <li><%= link_to 'Billing', billing_path(current_user.username) %></li>
-    <li><%= link_to 'Plans', plans_path(current_user.username) %></li>
-    <li><%= link_to 'Add-ons', add_ons_path(current_user.username) %></li>
-    <!--<li><%# link_to 'Checkout', new_checkout_path %></li>-->
+    <% billing_tab = request.path.sub('/','').split('/').last %>
+    <% if billing_tab.eql?("billing") %>
+      <li class="active"><a>Billing</a></li>
+    <% else %>
+      <li><%= link_to 'Billing', billing_path(current_user.username) %></li>
+    <% end %>
+
+    <% if billing_tab.eql?("plans") %>
+      <li class="active"><a>Plans</a></li>
+    <% else %>
+      <li><%= link_to 'Plans', plans_path(current_user.username) %></li>
+    <% end %>
+
+    <% if billing_tab.eql?("add-ons") %>
+      <li class="active"><a>Add-ons</a></li>
+    <% else %>
+      <li><%= link_to 'Add-ons', add_ons_path(current_user.username) %></li>
+    <% end %>
   </ul>
 </div>

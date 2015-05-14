@@ -7,6 +7,7 @@
   }
   .tab-content {
     background: #ffffff;
+    padding: 30px 0 0;
   }
   h4 {
     font-family: $bold-family;
@@ -28,7 +29,17 @@
   .table {
     margin-bottom: 0px;
   }
-
+  .note p {
+    font-size: $body-main;
+  }
+  .note  {
+    max-width: 300px;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    border-radius: 2px;
+    padding: 20px;
+  }
 .plans-comparison {
   li {
     line-height: 2em;
@@ -43,10 +54,6 @@
     border-top: 1px solid #e5e5e5;
     border-left: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
-  }
-  form.button_to {
-    width: 50%;
-    float: left;
   }
 }
 
@@ -102,7 +109,7 @@
 }
 .cart {
   margin-top: 20px;
-  padding: 0px 5px 20px;
+  padding: 0px 0px 20px;
   z-index: 10000;
 }
 .sub-total {
@@ -123,4 +130,19 @@
 
 .delete-credit-card:hover {
   color: $dark-blue;
+}
+
+.stripe-button-el, .stripe-button-el span {
+  background: $main-color !important;
+  text-shadow: none !Important;
+  box-shadow: none !Important;
+  background-image: linear-gradient(#428bca,#428bca) !Important;
+  font-family: $regular-family !important;
+  font-weight: normal !important;
+}
+.add-ons {
+  form.button_to {
+    width: 50% !important;
+    float: left;
+  }
 }

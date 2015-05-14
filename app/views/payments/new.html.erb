@@ -4,13 +4,13 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="col-md-12">
-            <p class="text-left">Confirming you would like to pay
-              <strong><%= cents_to_currency(@total_charge) %></strong> from <%= @card.brand %>?</p>
+            <p class="text-left margin-top-10">
+              <strong><%= cents_to_currency(@total_charge) %></strong> will be charged from your <%= @card.brand %> card ending in <%= @card.last4 %></p>
           </div>
         </div>
         <div class="modal-footer">
-          <div class="col-sm-8 margin-top-10">
-            <%= button_to "Pay Now", new_charge_path({ amount: @total_charge }), class: 'btn btn-danger pull-left' %>&nbsp;
+          <div class="col-sm-8">
+            <%= button_to "Pay Now", new_charge_path({ amount: @total_charge }), class: 'btn btn-primary pull-left' %>&nbsp;
             <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
           </div>
         </div>
@@ -21,19 +21,22 @@
 
 
   <div class="page-content">
-    <%= render partial: "users/section_header", locals: { section_header_title: "Checkout" } %>
-    <div class="portlet-body">
+
       <div class="plans">
         <%= render 'subscriptions/navigation' %>
-        <h3>Cart</h3>
-        <%= render "subscriptions/cart" %>
-        <li>Total <%= cents_to_currency(@total_charge) %></li>
-        <% if add_ons_in_cart? %>
-          <li>Add-ons Subtotal to Renewal: <%= cents_to_currency(@pro_rated_add_ons_charge) %></li>
-          <li>Add-ons per month: <%= cents_to_currency(@add_ons_charge) %></li>
-        <% end %>
-        <a class="btn btn-primary" data-toggle="modal" data-target="#payNowModal">Pay Now</a>
+        <div class="col-md-6">
+          <h3>Checkout</h3>
+
+            <%= render "subscriptions/cart" %>
+            <!--Total <%# cents_to_currency(@total_charge) %>-->
+            <% if add_ons_in_cart? %>
+              <li>Add-ons Subtotal to Renewal: <%= cents_to_currency(@pro_rated_add_ons_charge) %></li>
+              <li>Add-ons per month: <%= cents_to_currency(@add_ons_charge) %></li>
+            <% end %>
+            <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#payNowModal">Pay Now</a>
+
+        </div>
       </div>
-    </div>
+
   </div>
 </div>

@@ -3,38 +3,45 @@
     <span></span>
   </div>
   <div class="page-content">
-    <div class="portlet-body">
-      <div class="plans">
-      <%= render 'navigation' %>
-        <div class="col-md-12">
-          <div class="header">
-          <h3>Upgrade or Downgrade your plan at any time</h3>
-          <p>Use Evercam for free or upgrade for extra features</p>
-          </div>
-          <div id="content">
-          <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="green"> (Save 20%)</span></a></li>
-            <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
-
-          </ul>
-          <%= render "plans_comparison" %>
-          </div>
+    <%= render 'navigation' %>
+    <div class="col-md-12">
+      <div class="header">
+      <h3>Upgrade or Downgrade your plan at any time</h3>
+      <p>Use Evercam for free or upgrade for extra features</p>
+      <% unless has_credit_cards? %>
+        <div class="note note-info">
+          <p>You will need to add a credit card before changing your plan</p>
+          <%= render 'add_card' %>
         </div>
-        <div class="col-md-4 col-md-offset-8">
-          <div class="row">
-            <div class="col-md-12">
-              <%= link_to "Get Add-ons", add_ons_path(current_user.username), class: 'pull-right btn btn-primary' %>
-            </div>
-          </div>
-          <div class="checkout-container">
-            <%= render "cart" %>
-            <div class="checkout-button">
-            <%= link_to "Checkout", new_checkout_path, class: 'pull-right btn btn-primary' %>
-            </div>
-          </div>
+      <% end %>
+      </div>
+      <div id="content">
+      <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="green"> (Save 20%)</span></a></li>
+        <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
+
+      </ul>
+      <%= render "plans_comparison" %>
+      </div>
+    </div>
+  <% unless is_stripe_customer? %>
+      <div class="col-md-4 pull-right">
+      <%= render "cart" %>
+      </div>
+    <div class="col-md-4 col-md-offset-8">
+      <div class="row">
+        <div class="col-md-12">
+          <%= link_to "Get Add-ons", add_ons_path(current_user.username), class: 'pull-right btn btn-primary' %>
+        </div>
+      </div>
+      <p class="text-right margin-top-10">or</p>
+      <div class="row">
+        <div class="col-md-12 margin-bottom-30">
+          <%= link_to "Checkout", new_checkout_path, class: 'col-md-5 pull-right btn btn-primary' %>
         </div>
       </div>
     </div>
+  <% end %>
   </div>
 </div>
 <script>

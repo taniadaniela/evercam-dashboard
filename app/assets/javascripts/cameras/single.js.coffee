@@ -10,6 +10,7 @@
 #= require cameras/single/settings.js.coffee
 #= require cameras/single/testsnapshot.js.coffee
 #= require saveimage.js
+#= require proxy.js
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')

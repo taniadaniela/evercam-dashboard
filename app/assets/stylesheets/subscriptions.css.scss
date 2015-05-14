@@ -23,8 +23,8 @@
   }
 
   .nav-plans {
-    max-width: 250px;
     margin:0 auto;
+    max-width: 250px;
   }
 
   .temp {
@@ -44,15 +44,16 @@
   }
 
   .note  {
+    border-radius: 2px;
     max-width: 300px;
+    padding: 20px;
     position: absolute;
     right: 15px;
     top: 20px;
-    border-radius: 2px;
-    padding: 20px;
   }
 
   .plans-comparison {
+
     li {
       line-height: 2em;
       list-style-type: none;
@@ -60,13 +61,13 @@
     }
 
     .list-group {
-      margin-bottom: 0px;
-      padding: 20px 0px 10px;
-      border-top-left-radius:2px;
-      border-top-right-radius:2px;
-      border-top: 1px solid $main-grey;
       border-left: 1px solid $main-grey;
       border-right: 1px solid $main-grey;
+      border-top: 1px solid $main-grey;
+      border-top-left-radius:2px;
+      border-top-right-radius:2px;
+      margin-bottom: 0;
+      padding: 20px 0px 10px;
     }
   }
 
@@ -81,15 +82,15 @@
   }
 
   .plan-button {
-    padding: 10px 10px 30px;
-    margin: 0 auto;
-    text-align: center;
+    border-bottom: 1px solid $main-grey;
     border-bottom-left-radius:2px;
     border-bottom-right-radius:2px;
-    border-bottom: 1px solid $main-grey;
     border-left: 1px solid $main-grey;
     border-right: 1px solid $main-grey;
+    margin: 0 auto;
     overflow: auto;
+    padding: 10px 10px 30px;
+    text-align: center;
   }
   .cart-container {
     padding: 0px 10px 10px;
@@ -160,7 +161,7 @@
 }
 
 .add-ons {
-  
+
   form.button_to {
     float: left;
     width: 50% !important;

@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :owns_data!
-
+  layout "user-account"
   include CurrentCart
   before_filter :set_cart
   include SessionsHelper

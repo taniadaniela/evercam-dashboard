@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
-    redirect_to billing_path(current_user.username), flash: { message: "We've successfully made those changes your account!" }
+    redirect_to billing_path(current_user.username), flash: { message: "We've successfully made those changes to your account!" }
   end
 
   def upgrade_downgrade_plan

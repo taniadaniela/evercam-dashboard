@@ -24,24 +24,24 @@
       <%= render "plans_comparison" %>
       </div>
     </div>
-  <% unless is_stripe_customer? %>
+    <% if !is_stripe_customer? || !@subscription %>
       <div class="col-md-4 pull-right">
-      <%= render "cart" %>
+        <%= render "cart" %>
       </div>
-    <div class="col-md-4 col-md-offset-8">
-      <div class="row">
-        <div class="col-md-12">
-          <%= link_to "Get Add-ons", add_ons_path(current_user.username), class: 'pull-right btn btn-primary' %>
+      <div class="col-md-4 col-md-offset-8">
+        <div class="row">
+          <div class="col-md-12">
+            <%= link_to "Get Add-ons", add_ons_path(current_user.username), class: 'pull-right btn btn-primary' %>
+          </div>
+        </div>
+        <p class="text-right margin-top-10">or</p>
+        <div class="row">
+          <div class="col-md-12 margin-bottom-30">
+            <%= link_to "Checkout", new_checkout_path, class: 'col-md-5 pull-right btn btn-primary' %>
+          </div>
         </div>
       </div>
-      <p class="text-right margin-top-10">or</p>
-      <div class="row">
-        <div class="col-md-12 margin-bottom-30">
-          <%= link_to "Checkout", new_checkout_path, class: 'col-md-5 pull-right btn btn-primary' %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
   </div>
 </div>
 <script>

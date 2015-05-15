@@ -2,9 +2,9 @@
   <ul class="nav nav-tabs">
     <% billing_tab = request.path.sub('/','').split('/').last %>
     <% if billing_tab.eql?("billing") %>
-      <li class="active"><a>Billing</a></li>
+      <li class="active"><a>Overview</a></li>
     <% else %>
-      <li><%= link_to 'Billing', billing_path(current_user.username) %></li>
+      <li><%= link_to 'Overview', billing_path(current_user.username) %></li>
     <% end %>
 
     <% if billing_tab.eql?("plans") %>

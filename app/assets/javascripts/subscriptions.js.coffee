@@ -20,20 +20,26 @@ onUpgradeDownGrade = ->
     clearModal()
     plan_control = $(this)
     plan_change_to =  plan_control.val()
+    has_credit_card = $("#has-credit-card").val()
     $("#change-plan-id").val(plan_control.attr('data-plan-id'))
     $(".modal").on "show.bs.modal", ->
-      if plan_change_to is "Upgrade"
-        $("#section-downgrade").hide()
-        $("#change-plan-action").val("upgrade")
-        $("#btn-change-plan").val("Upgrade my plan")
-        $("#plan-descprition").html("The total #{plan_control.attr('data-period')} cost for you to upgrade " +
-          "to the #{plan_control.attr('data-plan')} would be #{plan_control.attr('data-price')} per #{plan_control.attr('data-period')}")
+      if has_credit_card is "false"
+        $("#plan-descprition").html('You will need to add a credit card before changing your plan.')
+        $("#change-plan-action").val("")
+        $("#btn-change-plan").val($(".stripe-button-el span").text())
       else
-        $("#change-plan-action").val("downgrade")
-        $("#btn-change-plan").val("Downgrade my plan")
-        $("#plan-descprition").html("Downgrading to the #{plan_control.attr('data-plan')} plan will change your " +
-          "#{plan_control.attr('data-period')} cost to #{plan_control.attr('data-price')}")
-        $("#section-downgrade").show()
+        if plan_change_to is "Upgrade"
+          $("#section-downgrade").hide()
+          $("#change-plan-action").val("upgrade")
+          $("#btn-change-plan").val("Upgrade my plan")
+          $("#plan-descprition").html("The total #{plan_control.attr('data-period')} cost for you to upgrade " +
+            "to the #{plan_control.attr('data-plan')} would be #{plan_control.attr('data-price')} per #{plan_control.attr('data-period')}")
+        else
+          $("#change-plan-action").val("downgrade")
+          $("#btn-change-plan").val("Downgrade my plan")
+          $("#plan-descprition").html("Downgrading to the #{plan_control.attr('data-plan')} plan will change your " +
+            "#{plan_control.attr('data-period')} cost to #{plan_control.attr('data-price')}")
+          $("#section-downgrade").show()
       centerModal(this)
     true
 
@@ -48,6 +54,10 @@ clearModal = ->
 
 changePlan = ->
   $("#btn-change-plan").on 'click', ->
+    if $("#has-credit-card").val() is "false"
+      $(".stripe-button-el").click()
+      $('.modal').modal('hide')
+      return
     action = $("#change-plan-action").val()
 
     if action is "downgrade" && $("#downgrade-plan").val() is ''

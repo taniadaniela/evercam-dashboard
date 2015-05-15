@@ -7,12 +7,6 @@
     <div class="col-md-12">
 
 
-      <% unless has_credit_cards? %>
-        <div class="note note-info">
-          <p>You will need to add a credit card before changing your plan</p>
-          <%= render 'add_card' %>
-        </div>
-      <% end %>
 
       <div id="content">
       <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
@@ -41,6 +35,14 @@
         </div>
       </div>
     <% end %>
+
+
+    <%# unless has_credit_cards? %>
+      <!--div class="note note-info">
+        <p>You will need to add a credit card before changing your plan</p>
+        <%# render 'add_card' %>
+      </div>-->
+    <%# end %>
   </div>
 </div>
 <script>

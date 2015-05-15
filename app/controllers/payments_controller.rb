@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
     create_subscription unless @customer.has_active_subscription?
     change_plan if @customer.change_of_plan?
     create_charge if add_ons_in_cart?
-    redirect_to billing_path(current_user.username), flash: { message: "Your payment made successfully." }
+    redirect_to billing_path(current_user.username), flash: { message: "We've successfully made those changes to your account!" }
   end
 
   def upgrade_downgrade_plan
@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
       Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
       result[:success] = false
-      result[:message] = "Failed to upgrade/downgrade plan."
+      result[:message] = "Somethings gone wrong. We failed to change your plan."
     end
     render json: result
   end
@@ -62,13 +62,13 @@ class PaymentsController < ApplicationController
   def ensure_card_exists
     @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
-      redirect_to plans_path(current_user.username), flash: { message: "You must add a card." }
+      redirect_to plans_path(current_user.username), flash: { message: "You need to add a card first!" }
     end
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
     unless @customer.has_active_subscription? || plan_in_cart?
-      redirect_to plans_path(current_user.username), flash: { message: "You must add a plan." }
+      redirect_to plans_path(current_user.username), flash: { message: "You must select a plan." }
     end
   end
 

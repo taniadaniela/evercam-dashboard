@@ -23,7 +23,7 @@
   }
 
   .nav-plans {
-    margin:0 auto;
+    margin: 25px auto 0;
     max-width: 250px;
   }
 
@@ -54,6 +54,15 @@
 
   .plans-comparison {
 
+    h4 {
+      color: $main-color;
+    }
+
+    h3 {
+      margin-top: 5px;
+      margin-bottom: 25px;
+    }
+
     li {
       line-height: 2em;
       list-style-type: none;
@@ -67,7 +76,7 @@
       border-top-left-radius:2px;
       border-top-right-radius:2px;
       margin-bottom: 0;
-      padding: 20px 0px 10px;
+      padding: 20px 0px;
     }
   }
 
@@ -166,4 +175,8 @@
     float: left;
     width: 50% !important;
   }
+}
+
+.line-through {
+  text-decoration: line-through;
 }

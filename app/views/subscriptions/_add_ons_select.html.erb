@@ -3,11 +3,22 @@
     <div class="col-md-4">
       <ul class="list-group">
         <li><h4>Snapmail</h4></li>
+
         <li><p>Schedule email notifications from your camera</p></li>
       </ul>
       <div class="plan-button">
         <%= button_to 'Add Monthly', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'btn btn-primary'  %>
         <%= button_to 'Add Annual', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'btn btn-primary'  %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li><h4>Timelapse</h4></li>
+        <li><p>Create and share timelapses from your camera.</p></li>
+      </ul>
+      <div class="plan-button">
+        <%= button_to 'Add Monthly', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), remote: true, class: 'btn btn-primary'  %>
+        <%= button_to 'Add Annual', line_item_add_on_path(type: 'add_on', product_id: 'timelapse-annual'), remote: true, class: 'btn btn-primary'  %>
       </div>
     </div>
   </div>

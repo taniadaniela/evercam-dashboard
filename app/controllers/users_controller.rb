@@ -96,6 +96,7 @@ class UsersController < ApplicationController
       @credit_cards = retrieve_credit_cards
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
     end
+    render layout: "user-account"
   end
 
   def delete
@@ -110,6 +111,7 @@ class UsersController < ApplicationController
                       "and, if the problem persists, contact support."
       redirect_to user_path
     end
+    render layout: "user-account"
   end
 
   def settings_update

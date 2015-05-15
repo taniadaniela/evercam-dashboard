@@ -177,3 +177,7 @@ li span {
     display: none;
   }
 }
+
+li.inactive a {
+  color:$light-grey !important;
+}

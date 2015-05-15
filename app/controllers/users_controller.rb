@@ -96,6 +96,7 @@ class UsersController < ApplicationController
       @credit_cards = retrieve_credit_cards
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
     end
+    render layout: "user-account"
   end
 
   def delete

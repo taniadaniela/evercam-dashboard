@@ -1,0 +1,19 @@
+<div class="page-sidebar-wrapper">
+  <div class="page-sidebar navbar-collapse collapse">
+    <ul class="page-sidebar-menu">
+      <li class="cameras-sidebar">
+        <%= link_to cameras_index_path do %>
+          <i class="fa fa-camera"></i> Cameras
+        <% end %>
+      </li>
+      <li>
+        <%= link_to 'Account', user_path(current_user.username) %>
+      </li>
+      <li>
+        <%= link_to 'Billing', billing_path(current_user.username) %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+

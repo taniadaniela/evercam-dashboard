@@ -4,42 +4,31 @@
       <div class="row">
         <div class="col-md-4">
           <ul class="list-group">
-            <li> <h4>Free</h4>
-            </li>
-            <li>
-              <%= cents_to_currency(@prices.evercam_free) %></li>
+            <li><h4>Free</h4></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_free) %></strong></h3></li>
             <li>Up to <strong>5</strong> Private Cams</li>
-            <li><strong>Unlimited</strong> Public Cams</li>
-            <li><strong>Unlimited</strong> Shares</li>
-            <li><strong>&lt; 10</strong> hours Storage</li>
-
+            <li><strong>Unlimited</strong> Public Cameras</li>
+            <li><span class="line-through">Motion Detection</span></li>
+            <li><strong>&lt; 10</strong> days Recording</li>
           </ul>
         </div>
         <div class="col-md-4">
           <ul class="list-group">
-            <li> <h4>Annual Pro</h4>
-            </li>
-            <li>
-              <strong><%= cents_to_currency(@prices.evercam_pro_annual) %></strong>
-            </li>
-            <li><strong>Unlimited</strong></li>
-            <li><strong>Unlimited</strong> Public Cams</li>
-            <li><strong>Unlimited</strong> Share</li>
-            <li><strong>&lt; 30</strong> hours Storage</li>
-
+            <li><h4>Pro</h4></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_annual) %></strong></h3></li>
+            <li>Up to <strong>15</strong> Private Cameras</li>
+            <li><strong>Unlimited</strong> Public Cameras</li>
+            <li>Motion Detection</li>
+            <li><strong>&lt; 30</strong> days Recording</li>
           </ul>
         </div>
         <div class="col-md-4">
           <ul class="list-group">
-            <li>
-              <h4>Annual Pro Plus</h4>
-            </li>
-            <li>
-              <strong><%= cents_to_currency(@prices.evercam_pro_plus_annual) %></strong>
-            </li>
+            <li><h4>Pro Plus</h4></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus_annual) %></strong></h3></li>
             <li><strong>Unlimited</strong> Private Cams</li>
             <li><strong>Unlimited</strong> Public Cams</li>
-            <li><strong>Unlimited</strong> Share</li>
+            <li>Motion Detection</li>
             <li><strong>&lt; 90</strong> hours Storage</li>
           </ul>
         </div>
@@ -53,44 +42,31 @@
       <div class="row">
         <div class="col-md-4">
           <ul class="list-group">
-            <li> <h4>Free Plan</h4>
-            </li>
-            <li>
-              <%= cents_to_currency(@prices.evercam_free) %></li>
+            <li><h4>Free</h4></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_free) %></strong></h3></li>
             <li>Up to <strong>5</strong> Private Cams</li>
-            <li><strong>Unlimited</strong> Public Cams</li>
-            <li><strong>Unlimited</strong> Shares</li>
-            <li><strong>&lt; 10</strong> hours Storage</li>
-
+            <li><strong>Unlimited</strong> Public Cameras</li>
+            <li><span class="line-through">Motion Detection</span></li>
+            <li><strong>&lt; 10</strong> days Recording</li>
           </ul>
         </div>
         <div class="col-md-4">
           <ul class="list-group">
-            <li> <h4>Monthly Pro Plan</h4>
-            </li>
-            <li>
-              <strong><%= cents_to_currency(@prices.evercam_pro) %></strong>
-            </li>
-            <li><strong>Unlimited</strong></li>
-            <li><strong>Unlimited</strong> Public Cams</li>
-            <li><strong>Unlimited</strong> Share</li>
-            <li><strong>&lt; 30</strong> hours Storage</li>
-
+            <li><h4>Pro</h4></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro) %></strong></h3></li>
+            <li>Up to <strong>15</strong> Private Cameras</li>
+            <li><strong>Unlimited</strong> Public Cameras</li>
+            <li>Motion Detection</li>
+            <li><strong>&lt; 30</strong> days Recording</li>
           </ul>
         </div>
         <div class="col-md-4">
           <ul class="list-group">
-            <li>
-              <h4>Monthly Pro Plan Plus</h4>
-            </li>
-            <li>
-              <strong>
-                <%= cents_to_currency(@prices.evercam_pro_plus) %>
-              </strong>
-            </li>
+            <li><h4>Pro Plus</h4></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus) %></strong></h3></li>
             <li><strong>Unlimited</strong> Private Cams</li>
             <li><strong>Unlimited</strong> Public Cams</li>
-            <li><strong>Unlimited</strong> Share</li>
+            <li>Motion Detection</li>
             <li><strong>&lt; 90</strong> hours Storage</li>
           </ul>
         </div>
@@ -105,14 +81,14 @@
           <div class="col-md-12">
             <p class="text-left change-plan-desc" id="plan-descprition"></p>
             <div id="confirm-upgrading" style="display: none;">
-              <p class="text-left change-plan-desc">One moment while we upgrade your account</p>
+              <p class="text-left change-plan-desc">One moment while we upgrade your account...</p>
               <br>
               <p class="text-left">We're just confirming your payment.</p>
             </div>
 
             <div id="section-downgrade" style="display: none;">
               <p class="text-left downgrade-note">Feel free to upgrade again any time, we'll credit you for
-                any time you have used on you current plan and put that towards your next invoice.
+                any time you haven't used on you current plan and put that towards your next invoice.
               </p>
               <p>If you're sure you want to proceed, type '<strong>downgrade</strong>' in the field below.</p>
               <input id="downgrade-plan" name="downgrade-plan" type="text" class="form-control">

@@ -5,19 +5,18 @@
   <div class="page-content">
     <%= render 'navigation' %>
     <div class="col-md-12">
-      <div class="header">
-      <h3>Upgrade or Downgrade your plan at any time</h3>
-      <p>Use Evercam for free or upgrade for extra features</p>
+
+
       <% unless has_credit_cards? %>
         <div class="note note-info">
           <p>You will need to add a credit card before changing your plan</p>
           <%= render 'add_card' %>
         </div>
       <% end %>
-      </div>
+
       <div id="content">
       <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="green"> (Save 20%)</span></a></li>
+        <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
         <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
 
       </ul>

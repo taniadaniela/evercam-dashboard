@@ -48,6 +48,7 @@ gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
 gem 'geocoder'
+gem 'georuby', '= 2.3.0'
 gem 'heroku_rails_deflate'
 gem 'country_select',
   github: 'stefanpenner/country_select'
@@ -59,7 +60,7 @@ gem 'pusher'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.12'
+  gem 'evercam_models', '~> 0.3.13'
   gem 'evercam',
     github: 'evercam/evercam-ruby',
     branch: 'naming'

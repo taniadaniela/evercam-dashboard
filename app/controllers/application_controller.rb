@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_add_ons
-    @add_ons = AddOns.where(:user_id => current_user.id)
+    @add_ons = AddOn.where(:user_id => current_user.id)
     @add_ons = @add_ons.nil? ? false : @add_ons
   end
 

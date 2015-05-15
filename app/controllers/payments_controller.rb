@@ -89,7 +89,7 @@ class PaymentsController < ApplicationController
   end
 
   def change_plan
-    @customer.change_plan 
+    @customer.change_plan
     purge_plan_from_cart
     flash[:message] = "Plan Changed."
   rescue
@@ -152,7 +152,7 @@ class PaymentsController < ApplicationController
   def insert_add_ons
     add_ons_in_cart.each_with_index do |item, index|
       begin
-        AddOns.create(:user_id => current_user.id,
+        AddOn.create(:user_id => current_user.id,
                       :add_ons_name => item.name,
                       :period => item.interval,
                       :add_ons_start_date => DateTime.now(),
@@ -161,7 +161,6 @@ class PaymentsController < ApplicationController
                       :price => item.price)
       rescue => error
         @er = error
-        pry
       end
     end
   end

@@ -13,7 +13,7 @@ class StripeInvoice
       if user_has_timelapses?
         add_timelapse_invoice_items
       end
-    end 
+    end
   end
 
   private
@@ -33,7 +33,7 @@ class StripeInvoice
   def user_id
     User.find(:stripe_customer_id => stripe_customer_id).id
     rescue
-    nil     
+    nil
   end
 
   def stripe_customer_id
@@ -59,11 +59,11 @@ class StripeInvoice
   end
 
   def add_snapmail_invoice_items
-    add_invoice_item(AddOns.snapmail_price, 'Snapmail', @snapmails)
+    add_invoice_item(AddOn.snapmail_price, 'Snapmail', @snapmails)
   end
 
   def add_timelapse_invoice_items
-    add_invoice_item(AddOns.timelapse_price, 'Timelapse', @timelapses)
+    add_invoice_item(AddOn.timelapse_price, 'Timelapse', @timelapses)
   end
 
   def add_invoice_item(add_on_amount, add_on_description, add_on_quantity)
@@ -75,5 +75,5 @@ class StripeInvoice
       )
   rescue Stripe::InvalidRequestError => e
     Rails.logger.info e
-  end 
+  end
 end

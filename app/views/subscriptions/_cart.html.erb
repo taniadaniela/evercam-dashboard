@@ -1,4 +1,5 @@
 <section class="cart">
+
   <% unless cart_empty? %>
     <% sub_totle = 0 %>
     <% add_ons_total = 0 %>
@@ -17,8 +18,8 @@
       </tr>
       <% session[:cart].each do |item| %>
         <tr>
-          <td class="col-md-4"><%= item.name %> <small><%= link_to 'Remove', line_item_path(item.id), method: :delete, remote: true, class: 'padding-left-10' %></small></td>
-          <td class="col-md-2"><%= item.quantity %></td>
+          <td class="col-md-4"><%= item.name %> </td>
+          <td class="col-md-2"><%= item.quantity %> <small><%= link_to 'remove', line_item_path(item.id), method: :delete, remote: true, class: 'padding-left-10' %></small></td>
           <td class="col-md-2 text-right"><%= cents_to_currency item.price %> </td>
         </tr>
         <% add_ons_total = add_ons_total + item.price if item.type.eql?("add_on") %>
@@ -34,10 +35,12 @@
           </p>
         <% end %>
         <p>
-          <span class="sub-total">Total:  </span>
-          <span class="pull-right"> <%= cents_to_currency sub_totle %></span>
+          <span class="bold sub-total">Total:  </span>
+          <span class="bold pull-right"> <%= cents_to_currency sub_totle %></span>
         </p>
       </div>
-
+  <% else %>
+  <p>Your cart is empty</p>
   <% end %>
+
 </section>

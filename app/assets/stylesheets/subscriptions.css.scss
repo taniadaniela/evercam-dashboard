@@ -180,3 +180,31 @@
 .line-through {
   text-decoration: line-through;
 }
+
+.invoice {
+
+  .head-text {
+    margin-bottom: 5px;
+  }
+
+  .footer-text {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .address {
+    border: solid 1px $grey;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .address-title {
+    padding: 5px 10px;
+    border-bottom: solid 1px $grey;
+  }
+
+  .address-text {
+    padding: 4px 10px;
+  }
+
+}

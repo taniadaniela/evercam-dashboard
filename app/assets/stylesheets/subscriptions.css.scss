@@ -1,42 +1,56 @@
 .subscriptions {
 
+  h3 {
+    margin: 45px 0px 15px;
+  }
+
   .page-content {
     overflow: auto;
+    padding: 0 0 60px;
+    background-color: $secondary-grey;
   }
 
   .header {
     margin:0px 0px 40px;
   }
 
+  .card {
+    box-shadow: $box-shadow;
+    border-radius:$border-radius;
+    padding: 20px;
+    background-color: #ffffff;
+    overflow: auto;
+  }
+
   .tab-content {
     background: #ffffff;
-    padding: 30px 0 0;
   }
 
   h4 {
     font-family: $bold-family;
   }
-
   .table > tbody > tr > th {
     border-top:none;
     border-bottom: 1px solid $lighter-grey;
+    padding: 8px 0px 8px;
+  }
+  .table > tbody > tr > td {
+    border-bottom: 1px solid $lighter-grey;
+    padding: 8px 0px 8px;
   }
 
   .nav-plans {
-    margin: 25px auto 0;
+    margin: 0px auto 10px;
     max-width: 250px;
+    padding-top: 15px;
   }
 
   .temp {
     height: 40px;
   }
 
-  .plans-select {
-    margin-bottom: 25px;
-  }
-
   .table {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
   }
 
   .note p {
@@ -70,9 +84,9 @@
     }
 
     .list-group {
-      border-left: 1px solid $main-grey;
-      border-right: 1px solid $main-grey;
-      border-top: 1px solid $main-grey;
+      border-left: 1px solid $secondary-grey;
+      border-right: 1px solid $secondary-grey;
+      border-top: 1px solid $secondary-grey;
       border-top-left-radius:2px;
       border-top-right-radius:2px;
       margin-bottom: 0;
@@ -91,11 +105,11 @@
   }
 
   .plan-button {
-    border-bottom: 1px solid $main-grey;
+    border-bottom: 1px solid $secondary-grey;
     border-bottom-left-radius:2px;
     border-bottom-right-radius:2px;
-    border-left: 1px solid $main-grey;
-    border-right: 1px solid $main-grey;
+    border-left: 1px solid $secondary-grey;
+    border-right: 1px solid $secondary-grey;
     margin: 0 auto;
     overflow: auto;
     padding: 10px 10px 30px;
@@ -167,14 +181,6 @@
   background-image: linear-gradient($main-color,$main-color) !Important;
   font-family: $regular-family !important;
   font-weight: normal !important;
-}
-
-.add-ons {
-
-  form.button_to {
-    float: left;
-    width: 50% !important;
-  }
 }
 
 .line-through {

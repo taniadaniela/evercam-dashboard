@@ -14,18 +14,15 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    begin
-      if params[:invoice_id]
-        @invoice = retrieve_customer_invoice(params[:invoice_id])
-        @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
-        if !@invoice || !@invoice_lines
-          redirect_to invoices_path(current_user.username)
-        end
-      else
+    if params[:invoice_id]
+      @invoice = retrieve_customer_invoice(params[:invoice_id])
+      @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
+      if !@invoice || !@invoice_lines
         redirect_to invoices_path(current_user.username)
       end
-    rescue => error
+    else
       redirect_to invoices_path(current_user.username)
     end
   end
+
 end

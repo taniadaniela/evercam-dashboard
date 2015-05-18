@@ -61,9 +61,7 @@
     border-radius: 2px;
     max-width: 300px;
     padding: 20px;
-    position: absolute;
-    right: 15px;
-    top: 20px;
+    margin-right: 10px;
   }
 
   .plans-comparison {
@@ -149,7 +147,6 @@
 }
 
 .cart {
-  margin-top: 20px;
   padding: 0px 0px 20px;
   z-index: 10000;
 }

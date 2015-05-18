@@ -28,24 +28,28 @@
             <div class="col-md-6">
               <%= render "cart" %>
             </div>
+            <% unless has_credit_cards? %>
+              <div class="pull-right note note-info">
+                <p>You will need to add a credit card before proceeding to the checkout.</p>
+                <%= render 'add_card' %>
+              </div>
+            <% end %>
           </div>
 
           <div class="row">
             <div class="col-md-6 margin-bottom-30">
               <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary' %>
             </div>
+
           </div>
+
+
 
 
       </div>
     </div>
 
-    <% unless has_credit_cards? %>
-      <div class="note note-info">
-        <p>You will need to add a credit card before changing your plan</p>
-        <%= render 'add_card' %>
-      </div>
-    <% end %>
+
   </div>
 </div>
 <script>

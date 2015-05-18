@@ -44,6 +44,7 @@ module EvercamDashboard
       widgets.js
       widgets/add_camera.js
       widgets/localstorage_widget.js
+      jquery.js
       phoenix.js
       swagger.js
       swagger.css

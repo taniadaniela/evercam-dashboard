@@ -249,6 +249,15 @@
   font-size: 1.25em;
 }
 
+.cart-count {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  font-size: 14px;
+  color: #428bca;
+  font-family: $bold-family;
+}
+
 .checkout__icon {
   display: block;
   margin: 0 auto;

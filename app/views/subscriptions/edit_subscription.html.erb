@@ -7,13 +7,29 @@
 
     <div id="content">
       <div class="col-md-12">
-        <h3>Choose your plan</h3>
+        <div class="checkout">
+          <a class="checkout__button" href="#"><!-- Fallback location -->
+							<span class="checkout__text">
+							  <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
+							</span>
+          </a>
+          <div class="checkout__order">
+            <div class="checkout__order-inner">
+              <a class="checkout__cancel"><i class="fa-2 fa fa-times"></i></a>
+              <%= render "cart" %>
+              <button class="checkout__option checkout__option--silent checkout__cancel">Close</button>
+              <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary' %>
+            </div>
+          </div>
+        </div>
+
+        <h3>Choose a plan</h3>
         <div class="card">
-        <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
-          <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
-          <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
-        </ul>
-        <%= render "plans_comparison" %>
+          <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
+            <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
+          </ul>
+          <%= render "plans_comparison" %>
         </div>
         <div class="add-ons margin-top-30">
           <h3>Get Add-ons</h3>
@@ -22,40 +38,33 @@
           </div>
         </div>
 
-        <h3>Review your Order</h3>
-        <div class="card">
-          <div class="row">
-            <div class="col-md-6">
-              <%= render "cart" %>
-            </div>
-            <% unless has_credit_cards? %>
-              <div class="pull-right note note-info">
-                <p>You will need to add a credit card before proceeding to the checkout.</p>
-                <%= render 'add_card' %>
-              </div>
-            <% end %>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 margin-bottom-30">
-              <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary' %>
-            </div>
-
-          </div>
-
-
-
-
       </div>
+
+
     </div>
-
-
   </div>
-</div>
-<script>
-  window.initializeChangePlan()
-  Notification.init(".bb-alert");
-  <% if flash[:message] %>
-  Notification.show('<%= flash[:message] %>');
-  <% end %>
-</script>
+  <script>
+    window.initializeChangePlan()
+    Notification.init(".bb-alert");
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
+
+    (function() {
+      [].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+        var openCtrl = el.querySelector( '.checkout__button' ),
+            closeCtrls = el.querySelectorAll( '.checkout__cancel' );
+
+        openCtrl.addEventListener( 'click', function(ev) {
+          ev.preventDefault();
+          classie.add( el, 'checkout--active' );
+        } );
+
+        [].slice.call( closeCtrls ).forEach( function( ctrl ) {
+          ctrl.addEventListener( 'click', function() {
+            classie.remove( el, 'checkout--active' );
+          } );
+        } );
+      } );
+    })();
+  </script>

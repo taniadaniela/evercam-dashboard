@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   get "/v1/users/:id/billing/invoices" => "invoices#index", as: :invoices
   get "/v1/users/:id/billing/invoices/:invoice_id" => "invoices#show", as: :invoice_show
+  get "/v1/users/:id/billing/invoices/:invoice_id/send" => "invoices#send_customer_invoice_email", as: :send_invoic_email
+
 
   delete 'v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 

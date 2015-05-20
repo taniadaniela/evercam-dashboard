@@ -143,10 +143,6 @@
     }
   }
 
-  .add-on-price {
-    color: $grey;
-  }
-
   h3.add-on-price-header {
     margin: -4px 0px 0px;
   }
@@ -167,9 +163,16 @@
   .add-to-cart-link {
     color:$main-color;
     float: left;
-    padding: 0 15px 0 0;
+    padding: 0 10px 0 0;
     background: none;
     border: none;
+    font-size: 15px;
+  }
+
+  .add-on-price {
+    color: $grey;
+    font-size: $body-main;
+    font-family: $bold-family;
   }
 }
 

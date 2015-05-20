@@ -12,6 +12,23 @@ module StripeCustomersHelper
     false
   end
 
+  def retrieve_customer_billing_history
+    Stripe::Charge.all(:customer => current_user.stripe_customer_id, :limit => 300)
+  rescue
+    false
+  end
+
+  def retrieve_customer_plan(invoice_id)
+    invoice_items = Stripe::Invoice.retrieve(invoice_id).lines.all
+    @description = ""
+    invoice_items.each do |item|
+      @description = item.description.blank? ? item.plan.id : item.description
+    end
+    @description
+  rescue
+    ""
+  end
+
   def has_subscriptions?
     @stripe_customer ||= Stripe::Customer.retrieve(current_user.stripe_customer_id)
     @stripe_customer.subscriptions.total_count > 0

@@ -13,5 +13,10 @@
       <li><%= link_to 'Plans & Add-ons', plans_path(current_user.username) %></li>
     <% end %>
 
+    <% if billing_tab.eql?("history") %>
+      <li class="active"><a>History</a></li>
+    <% else %>
+      <li><%= link_to 'History', billing_history_path(current_user.username) %></li>
+    <% end %>
   </ul>
 </div>

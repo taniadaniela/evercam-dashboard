@@ -1,0 +1,42 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
+<div class="subscriptions page-content-wrapper">
+  <div class="page-content">
+    <div class="portlet-body">
+      <%= render 'subscriptions/navigation' %>
+      <div class="col-md-12 margin-top-20">
+        <% if !@billing_history %>
+          <p>There is no history.</p>
+        <% else %>
+          <table style="width:100%;" class="table table-full-width">
+            <tr>
+              <th class="col-md-3">Customer</th>
+              <th class="col-md-3">Description</th>
+              <th class="col-md-2">Date</th>
+              <th class="col-md-2">Total</th>
+              <th class="col-md-2">Status</th>
+            </tr>
+            <% @billing_history.each do |item| %>
+              <tr>
+                <td><%= link_to item.source.name, billing_path(current_user.username)%></td>
+                <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
+                <td><%= Time.at(item[:created]).strftime("%d %b %Y %I:%M:%S %P") %></td>
+                <td><%= cents_to_currency item[:amount] %></td>
+                <td><%= item[:paid] ? "Paid" : "Pending" %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    Notification.init(".bb-alert")
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
+  });
+</script>

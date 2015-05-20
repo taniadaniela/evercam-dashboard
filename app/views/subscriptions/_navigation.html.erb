@@ -18,6 +18,7 @@
       <li class="active"><a>History</a></li>
     <% else %>
       <li><%= link_to 'History', billing_history_path(current_user.username) %></li>
+    <% end %>
 
     <% if billing_tab.eql?("invoices") %>
       <li class="active"><a>Invoices</a></li>

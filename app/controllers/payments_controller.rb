@@ -55,7 +55,7 @@ class PaymentsController < ApplicationController
 
   def redirect_when_cart_empty
     if session[:cart].empty?
-      redirect_to billing_path(current_user.username), flash: {message: "You have nothing to checkout."}
+      redirect_to plans_path(current_user.username), flash: {message: "You have nothing to checkout."}
     end
   end
 

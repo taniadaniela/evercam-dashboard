@@ -4,51 +4,68 @@
   </div>
   <div class="page-content">
     <%= render 'navigation' %>
-    <div class="col-md-12">
 
+    <div id="content">
+      <div class="col-md-12">
+        <div class="checkout">
+          <a class="checkout__button" href="#"><!-- Fallback location -->
+	            <span class="cart-count">0</span>
+              <span class="checkout__text">
+							  <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
+							</span>
+          </a>
+          <div class="checkout__order">
+            <div class="checkout__order-inner">
+              <a class="checkout__cancel"><i class="fa-2 fa fa-times"></i></a>
+              <%= render "cart" %>
+              <button class="checkout__option checkout__option--silent checkout__cancel">Close</button>
+              <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary' %>
+            </div>
+          </div>
+        </div>
 
+        <h3>Choose a plan</h3>
+        <div class="card">
+          <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
+            <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
+          </ul>
+          <%= render "plans_comparison" %>
+        </div>
+        <div class="add-ons margin-top-30">
+          <h3>Get Add-ons</h3>
+          <div class="card">
+            <%= render "add_ons_select" %>
+          </div>
+        </div>
 
-      <div id="content">
-      <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
-        <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
-
-      </ul>
-      <%= render "plans_comparison" %>
       </div>
+
+
     </div>
-    <% if !is_stripe_customer? || !@subscription %>
-      <div class="col-md-4 pull-right">
-        <%= render "cart" %>
-      </div>
-      <div class="col-md-4 col-md-offset-8">
-        <div class="row">
-          <div class="col-md-12">
-            <%= link_to "Get Add-ons", add_ons_path(current_user.username), class: 'pull-right btn btn-primary' %>
-          </div>
-        </div>
-        <p class="text-right margin-top-10">or</p>
-        <div class="row">
-          <div class="col-md-12 margin-bottom-30">
-            <%= link_to "Checkout", new_checkout_path, class: 'col-md-5 pull-right btn btn-primary' %>
-          </div>
-        </div>
-      </div>
+  </div>
+  <script>
+    window.initializeChangePlan()
+    Notification.init(".bb-alert");
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
     <% end %>
 
+    (function() {
+      [].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+        var openCtrl = el.querySelector( '.checkout__button' ),
+            closeCtrls = el.querySelectorAll( '.checkout__cancel' );
 
-    <%# unless has_credit_cards? %>
-      <!--div class="note note-info">
-        <p>You will need to add a credit card before changing your plan</p>
-        <%# render 'add_card' %>
-      </div>-->
-    <%# end %>
-  </div>
-</div>
-<script>
-  window.initializeChangePlan()
-  Notification.init(".bb-alert");
-  <% if flash[:message] %>
-  Notification.show('<%= flash[:message] %>');
-  <% end %>
-</script>
+        openCtrl.addEventListener( 'click', function(ev) {
+          ev.preventDefault();
+          classie.add( el, 'checkout--active' );
+        } );
+
+        [].slice.call( closeCtrls ).forEach( function( ctrl ) {
+          ctrl.addEventListener( 'click', function() {
+            classie.remove( el, 'checkout--active' );
+          } );
+        } );
+      } );
+    })();
+  </script>

@@ -1,26 +1,62 @@
-<div class="plans-comparison margin-top-20">
-  <div class="row">
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li><h4>Snapmail</h4></li>
+<ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+  <li class="active"><a href="#add-on-annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
+  <li><a href="#add-on-monthly" data-toggle="tab">Monthly</a></li>
+</ul>
 
-        <li><p>Schedule email notifications from your camera</p></li>
-      </ul>
-      <div class="plan-button">
-        <%= button_to 'Add Monthly', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'btn btn-primary'  %>
-        <%= button_to 'Add Annual', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'btn btn-primary'  %>
+<div id="my-tab-content" class="tab-content">
+  <div class="tab-pane active" id="add-on-annual">
+    <div class="plans-comparison">
+      <div class="row">
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li><h4>Snapmail</h4></li>
+            <li><h3><strong>€99.00</strong></h3></li>
+            <li><p>Schedule email notifications from your camera</p></li>
+          </ul>
+          <div class="plan-button">
+            <%= button_to 'Get Snapmail', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'btn btn-primary'  %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li><h4>Timelapse</h4></li>
+            <li><h3><strong>€99.00</strong></h3></li>
+            <li><p>Create and share timelapses from your camera.</p></li>
+          </ul>
+          <div class="plan-button">
+            <%= button_to 'Get Timelapse', line_item_add_on_path(type: 'add_on', product_id: 'timelapse-annual'), remote: true, class: 'btn btn-primary'  %>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li><h4>Timelapse</h4></li>
-        <li><p>Create and share timelapses from your camera.</p></li>
-      </ul>
-      <div class="plan-button">
-        <%= button_to 'Add Monthly', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), remote: true, class: 'btn btn-primary'  %>
-        <%= button_to 'Add Annual', line_item_add_on_path(type: 'add_on', product_id: 'timelapse-annual'), remote: true, class: 'btn btn-primary'  %>
+  </div>
+  <div class="tab-pane" id="add-on-monthly">
+    <div class="plans-comparison">
+      <div class="row">
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li><h4>Snapmail</h4></li>
+            <li><h3><strong>€9.00</strong></h3></li>
+            <li><p>Schedule email notifications from your camera.</p></li>
+          </ul>
+          <div class="plan-button">
+            <%= button_to 'Get Snapmail', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'btn btn-primary'  %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li><h4>Timelapse</h4></li>
+            <li><h3><strong>€9.00</strong></h3></li>
+            <li><p>Create and share timelapses from your camera.</p></li>
+          </ul>
+          <div class="plan-button">
+            <%= button_to 'Get Timelapse', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), remote: true, class: 'btn btn-primary'  %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
 

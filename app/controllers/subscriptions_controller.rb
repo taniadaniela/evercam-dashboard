@@ -12,6 +12,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     @cameras = load_user_cameras(true, false)
+    set_prices
     @subscription = current_subscription
     retrieve_add_ons
     unless current_user.stripe_customer_id.blank?

@@ -157,7 +157,7 @@ GEM
     evercam_misc (0.0.9)
       3scale_client (~> 2.3)
       dotenv (~> 0.10)
-    evercam_models (0.3.13)
+    evercam_models (0.3.14)
       activesupport (~> 4.1)
       bcrypt (~> 3.1)
       dotenv (~> 0.10)
@@ -490,7 +490,7 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
-    timezone (0.3.9)
+    timezone (0.3.10)
     typhoeus (0.7.0)
       ethon (>= 0.7.1)
     tzinfo (1.2.2)
@@ -529,7 +529,7 @@ DEPENDENCIES
   devise
   evercam!
   evercam_misc (~> 0.0)
-  evercam_models (~> 0.3.13)
+  evercam_models (~> 0.3.14)
   factory_girl
   fog
   geocoder

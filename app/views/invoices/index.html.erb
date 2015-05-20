@@ -12,7 +12,6 @@
         <% else %>
           <table style="width:100%;" class="table table-full-width">
             <tr>
-              <th class="col-md-4">Invoice ID</th>
               <th class="col-md-2">Date</th>
               <th class="col-md-2">Total</th>
               <th class="col-md-2">Status</th>
@@ -20,9 +19,7 @@
             </tr>
             <% @invoices.each do |invoice| %>
               <tr>
-                <td><%= link_to invoice[:id], invoice_show_path(current_user.username, invoice[:id])%></td>
-                <td><%= Time.at(invoice[:date]).strftime("%d %B %Y") %></td>
-
+                <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
                 <td><%= cents_to_currency(invoice[:total]) %></td>
                 <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
                 <td>

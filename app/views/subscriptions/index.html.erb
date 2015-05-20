@@ -47,13 +47,12 @@
       </div>
     <div class="col-md-12">
       <h3>Recent Invoices</h3>
-      <div class="card">
+      <div class="invoices card">
         <% if !@invoices %>
           <p>You have no invoices.</p>
         <% else %>
           <table style="width:100%;" class="table table-full-width">
             <tr>
-              <th class="col-md-4">Invoice ID</th>
               <th class="col-md-2">Date</th>
               <th class="col-md-2">Total</th>
               <th class="col-md-2">Status</th>
@@ -61,14 +60,12 @@
             </tr>
             <% @invoices.first(4).each do |invoice| %>
               <tr>
-                <td><%= link_to invoice[:id], invoice_show_path(current_user.username, invoice[:id])%></td>
-                <td><%= Time.at(invoice[:date]).strftime("%d %B %Y") %></td>
-
+                <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
                 <td><%= cents_to_currency(invoice[:total]) %></td>
                 <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
                 <td>
-                  <a>PDF</a>&nbsp;&nbsp;
-                  <%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%>
+                  <span class="download-pdf"><a>PDF</a><i class="fa fa-file-pdf-o"></i></span>
+                  <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
                 </td>
               </tr>
             <% end %>

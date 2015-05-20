@@ -45,6 +45,38 @@
           <%= render 'current_add_ons' %>
         </div>
       </div>
+    <div class="col-md-12">
+      <h3>Recent Invoices</h3>
+      <div class="card">
+        <% if !@invoices %>
+          <p>You have no invoices.</p>
+        <% else %>
+          <table style="width:100%;" class="table table-full-width">
+            <tr>
+              <th class="col-md-4">Invoice ID</th>
+              <th class="col-md-2">Date</th>
+              <th class="col-md-2">Total</th>
+              <th class="col-md-2">Status</th>
+              <th class="col-md-2">Action</th>
+            </tr>
+            <% @invoices.first(4).each do |invoice| %>
+              <tr>
+                <td><%= link_to invoice[:id], invoice_show_path(current_user.username, invoice[:id])%></td>
+                <td><%= Time.at(invoice[:date]).strftime("%d %B %Y") %></td>
+
+                <td><%= cents_to_currency(invoice[:total]) %></td>
+                <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
+                <td>
+                  <a>PDF</a>&nbsp;&nbsp;
+                  <%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+          <%= link_to 'View all invoices', invoices_path(current_user.username) %>
+        <% end %>
+      </div>
+    </div>
 
   </div>
 </div>

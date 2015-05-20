@@ -6,13 +6,14 @@
     <div class="portlet-body">
       <%= render 'subscriptions/navigation' %>
       <div class="col-md-12 margin-top-20">
+        <div class="card">
         <% if !@invoices %>
-          <p>There is no invoice.</p>
+          <p>You have no invoices.</p>
         <% else %>
           <table style="width:100%;" class="table table-full-width">
             <tr>
               <th class="col-md-4">Invoice ID</th>
-              <th class="col-md-2">Invoice Date</th>
+              <th class="col-md-2">Date</th>
               <th class="col-md-2">Total</th>
               <th class="col-md-2">Status</th>
               <th class="col-md-2">Action</th>
@@ -21,7 +22,8 @@
               <tr>
                 <td><%= link_to invoice[:id], invoice_show_path(current_user.username, invoice[:id])%></td>
                 <td><%= Time.at(invoice[:date]).strftime("%d %B %Y") %></td>
-                <td><%= invoice[:total] %></td>
+
+                <td><%= cents_to_currency(invoice[:total]) %></td>
                 <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
                 <td>
                   <a>PDF</a>&nbsp;&nbsp;
@@ -31,6 +33,7 @@
             <% end %>
           </table>
         <% end %>
+        </div>
       </div>
     </div>
   </div>

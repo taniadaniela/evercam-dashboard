@@ -3,58 +3,65 @@
     <div class="portlet-body">
       <%= render 'subscriptions/navigation' %>
       <div class="invoice col-md-12">
-        <div class="col-md-12">
-          <div class="text-right">
-            <h3>INVOICE</h3>
-            <div class="head-text">Invoice ID <%= @invoice[:id] %></div>
-            <div class="head-text">Date <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %></div>
-            <div class="head-text">Period <%= Time.at(@invoice[:period_start]).strftime("%B %d, %Y") %> to <%= Time.at(@invoice[:period_end]).strftime("%B %d, %Y") %></div>
-          </div>
-        </div>
+        <div class="card">
+          <div class="col-md-12">
 
-        <div class="col-md-12 margin-top-30">
-          <div class="col-md-4 address">
-            <div class="address-title">From: Evercam.io</div>
-            <div class="address-text">Wayra Ireland</div>
-            <div class="address-text">29 Sir John Rogerson's Quay</div>
-            <div class="address-text">Dublin, Ireland</div>
+            <div class="invoice-header text-right">
+              <h3 class="invoice-title">Invoice</h3>
+              <div class="invoice-status"><%= @invoice[:paid] ? "Paid" : "Pending" %></div>
+              <div class="head-text"><strong>Invoice ID:</strong> <%= @invoice[:id] %></div>
+              <div class="head-text"><strong>Date:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %></div>
+              <div class="head-text"><strong>Period:</strong> <%= Time.at(@invoice[:period_start]).strftime("%B %d, %Y") %> <span class="grey">to</span> <%= Time.at(@invoice[:period_end]).strftime("%B %d, %Y") %></div>
+            </div>
           </div>
 
-          <div class="col-md-4 pull-right address">
-            <div class="address-title">To: azhar.malik@evercam.io</div>
-            <div class="address-text">Pakistan</div>
+          <div class="col-md-12 margin-top-30">
+            <div class="col-md-4 address">
+              <div class="address-title"><strong>From:</strong> Evercam.io</div>
+              <div class="address-text">Wayra Ireland</div>
+              <div class="address-text">29 Sir John Rogerson's Quay</div>
+              <div class="address-text">Dublin, Ireland</div>
+            </div>
+
+            <div class="col-md-4 pull-right address text-right">
+              <div class="address-title"><strong>To:</strong> azhar.malik@evercam.io</div>
+              <div class="address-text">Pakistan</div>
+            </div>
           </div>
-        </div>
 
-        <div class="col-md-12 margin-top-30">
-          <table class="table">
-            <tr>
-              <th class="col-md-2">
-                Product
-              </th>
-              <th class="col-md-2">
-                Qty.
-              </th>
-              <th class="col-md-2 text-right">
-                Price
-              </th>
-
-            </tr>
-            <% @invoice_lines.each do |item| %>
+          <div class="col-md-12 margin-top-30">
+            <table class="table">
               <tr>
-                <td class="col-md-4"><%= item.description.blank? ? item.plan.id : item.description%></td>
-                <td class="col-md-2"><%= item.quantity %></td>
-                <td class="col-md-2 text-right"><%= cents_to_currency item.amount %> </td>
-              </tr>
-            <% end %>
-          </table>
-        </div>
+                <th class="col-md-2">
+                  Product
+                </th>
+                <th class="col-md-2">
+                  Qty.
+                </th>
+                <th class="col-md-2 text-right">
+                  Price
+                </th>
 
-        <div class="col-md-12 text-right footer-text pull-right margin-top-30">
-          <div class="col-md-10">Sub Total:</div>
-          <div class="col-md-2"><%= cents_to_currency(@invoice[:subtotal]) %></div>
-          <div class="col-md-10">Total:</div>
-          <div class="col-md-2"><%= cents_to_currency(@invoice[:total]) %></div>
+              </tr>
+              <% @invoice_lines.each do |item| %>
+                <tr>
+                  <td class="col-md-4"><%= item.description.blank? ? item.plan.id : item.description%></td>
+                  <td class="col-md-2"><%= item.quantity %></td>
+                  <td class="col-md-2 text-right"><%= cents_to_currency item.amount %> </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+          <div class="col-md-12 text-right footer-text pull-right">
+            <div class="row invoice-total">
+              <div class="col-md-10">Sub Total:</div>
+              <div class="col-md-2"><%= cents_to_currency(@invoice[:subtotal]) %></div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">Total:</div>
+              <div class="col-md-2"><%= cents_to_currency(@invoice[:total]) %></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

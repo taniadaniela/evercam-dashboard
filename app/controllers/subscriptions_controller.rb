@@ -37,6 +37,7 @@ class SubscriptionsController < ApplicationController
     @cameras = load_user_cameras(true, false)
     set_prices
     @subscription = current_subscription
+    @cart_count = cart_count
   end
 
   def edit_add_ons

@@ -584,3 +584,18 @@
   }
 
 }
+.invoices {
+
+  .download-pdf {
+    color:$main-color;
+    margin-right: 30px;
+  }
+
+  .send-email {
+    color:$main-color;
+  }
+
+  .fa {
+    margin-left: 10px;
+  }
+}

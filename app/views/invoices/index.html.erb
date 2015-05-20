@@ -1,7 +1,7 @@
 <div class="bb-alert alert alert-info" style="display:none;">
   <span></span>
 </div>
-<div class="subscriptions page-content-wrapper">
+<div class="subscriptions invoices page-content-wrapper">
   <div class="page-content">
     <div class="portlet-body">
       <%= render 'subscriptions/navigation' %>
@@ -26,8 +26,8 @@
                 <td><%= cents_to_currency(invoice[:total]) %></td>
                 <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
                 <td>
-                  <a>PDF</a>&nbsp;&nbsp;
-                  <%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%>
+                  <span class="download-pdf"><a>PDF</a><i class="fa fa-file-pdf-o"></i></span>
+                  <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
                 </td>
               </tr>
             <% end %>

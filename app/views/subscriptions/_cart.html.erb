@@ -23,7 +23,6 @@
         <% sub_totle = sub_totle + item.price %>
       <% end %>
     </table>
-    <input type="hidden" id="cart-total" value="<%= session[:cart].count %>">
     <div class="sub-container text-right">
       <% if add_ons_in_cart? %>
         <!--<li>Add-ons Subtotal to Renewal: <%# cents_to_currency(@pro_rated_add_ons_charge) %></li>-->
@@ -40,5 +39,5 @@
   <% else %>
     <p>Your cart is empty</p>
   <% end %>
-
+  <input type="hidden" id="cart-total" value="<%= session[:cart].count %>">
 </section>

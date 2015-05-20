@@ -15,6 +15,8 @@ class ProductSelector
     @evercam_pro_plus_annual = { product_id: 'evercam-pro-plus-annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 17900, interval: 'year' }
     @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 999, interval: 'month' }
     @snapmail_annual = { product_id: 'snapmail-annual', type: 'add_on', name: 'Snapmail', price: 14900, interval: 'year' }
+    @timelapse = { product_id: 'timelapse', type: 'add_on', name: 'Timelapse', price: 999, interval: 'month' }
+    @timelapse_annual = { product_id: 'timelapse-annual', type: 'add_on', name: 'Timelapse', price: 14900, interval: 'year' }
   end
 
   # Used by the line_items_controller to have the necessary data to calculate a total, and display other data.
@@ -36,6 +38,10 @@ class ProductSelector
         @snapmail
       when "snapmail-annual"
         @snapmail_annual
+      when "timelapse"
+        @timelapse
+      when "timelapse-annual"
+        @timelapse_annual
     end
   end
 end

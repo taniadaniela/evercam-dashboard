@@ -28,6 +28,10 @@ class SubscriptionsController < ApplicationController
     render layout: false
   end
 
+  def billing_history
+    @billing_history = retrieve_customer_billing_history
+  end
+
   def create
     stripe_customer = retrieve_stripe_customer
     stripe_customer.subscription.create(:plan => params[:plan_id])

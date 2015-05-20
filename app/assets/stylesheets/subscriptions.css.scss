@@ -492,3 +492,31 @@
     transform: translate3d(-100%, 0, 0);
   }
 }
+
+.invoice {
+
+  .head-text {
+    margin-bottom: 5px;
+  }
+
+  .footer-text {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .address {
+    border: solid 1px $grey;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .address-title {
+    border-bottom: solid 1px $grey;
+    padding: 5px 10px;
+  }
+
+  .address-text {
+    padding: 4px 10px;
+  }
+
+}

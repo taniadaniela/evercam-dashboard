@@ -1,0 +1,45 @@
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
+<div class="subscriptions page-content-wrapper">
+  <div class="page-content">
+    <div class="portlet-body">
+      <%= render 'subscriptions/navigation' %>
+      <div class="col-md-12 margin-top-20">
+        <% if !@invoices %>
+          <p>There is no invoice.</p>
+        <% else %>
+          <table style="width:100%;" class="table table-full-width">
+            <tr>
+              <th class="col-md-4">Invoice ID</th>
+              <th class="col-md-2">Invoice Date</th>
+              <th class="col-md-2">Total</th>
+              <th class="col-md-2">Status</th>
+              <th class="col-md-2">Action</th>
+            </tr>
+            <% @invoices.each do |invoice| %>
+              <tr>
+                <td><%= link_to invoice[:id], invoice_show_path(current_user.username, invoice[:id])%></td>
+                <td><%= Time.at(invoice[:date]).strftime("%d %B %Y") %></td>
+                <td><%= invoice[:total] %></td>
+                <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
+                <td>
+                  <a>PDF</a>&nbsp;&nbsp;
+                  <%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    Notification.init(".bb-alert")
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
+  });
+</script>

@@ -1,7 +1,7 @@
 .subscriptions {
 
   h3 {
-    margin: 45px 0px 15px;
+    margin: 35px 0px 15px;
   }
 
   .page-content {
@@ -29,15 +29,32 @@
   h4 {
     font-family: $bold-family;
   }
+
   .table > tbody > tr > th {
     border-top:none;
     border-bottom: 1px solid $lighter-grey;
     padding: 8px 0px 8px;
   }
+
+  .table > tbody > tr > th {
+    color: $grey;
+  }
+
   .table > tbody > tr > td {
-    border-bottom: 1px solid $lighter-grey;
+    border-top:none;
+    padding: 8px 0px 0px 0px;
+  }
+
+  .table > tbody > tr > td {
+    border-top: 1px solid $lighter-grey;
+    border-bottom: none;
     padding: 8px 0px 8px;
   }
+
+  .table > tbody > tr > td.cont {
+    border-top:none !important;
+  }
+
   .checkout .table > tbody > tr > td {
     padding: 0px 0px 0px;
   }
@@ -125,6 +142,38 @@
       list-style-type: none;
     }
   }
+
+  h3.add-on-price-header {
+    margin: -4px 0px 0px;
+  }
+
+  .add-on-price-header {
+    font-family: $bold-family;
+    color: $secondary-color;
+    margin-top: -10px;
+    position: absolute;
+    margin-left: 13px;
+  }
+
+  .add-on-price-term {
+    font-size: 14px;
+    color:$grey;
+  }
+
+  .add-to-cart-link {
+    color:$main-color;
+    float: left;
+    padding: 0 10px 0 0;
+    background: none;
+    border: none;
+    font-size: 15px;
+  }
+
+  .add-on-price {
+    color: $grey;
+    font-size: $body-main;
+    font-family: $bold-family;
+  }
 }
 
 .margin-left2 {
@@ -156,10 +205,7 @@
   padding-right: 15px !important;
 }
 
-.table > tbody > tr > th, .table > tbody > tr > td {
-  border-top:none;
-  padding: 8px 0px 0px 0px;
-}
+
 
 .delete-credit-card {
   color: $main-color;

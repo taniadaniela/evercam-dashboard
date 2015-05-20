@@ -1,4 +1,4 @@
-<div class="checkout page-content-wrapper">
+<div class="checkout-page page-content-wrapper">
   <div id="payNowModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -23,6 +23,7 @@
         <ul class="nav nav-tabs">
           <li><%= link_to 'Overview', billing_path(current_user.username) %></li>
           <li><%= link_to 'Plans & Add-ons', plans_path(current_user.username) %></li>
+          <li><%= link_to 'Invoices', invoices_path(current_user.username) %></li>
           <li class="active"><a>Checkout</a></li>
         </ul>
       </div>

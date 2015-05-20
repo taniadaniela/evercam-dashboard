@@ -83,7 +83,7 @@ changePlan = ->
 
     onSuccess = (result, status, jqXHR) ->
       if result.success
-        Notification.show "Your account is successfully #{action}d."
+        Notification.show "Your account has been successfully #{action}d."
         window.location = 'plans'
       else
         Notification.show "Failed to #{action} plan."

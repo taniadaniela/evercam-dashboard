@@ -39,5 +39,5 @@
   <% else %>
     <p>Your cart is empty</p>
   <% end %>
-
+  <input type="hidden" id="cart-total" value="<%= session[:cart].count %>">
 </section>

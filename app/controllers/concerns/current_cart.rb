@@ -32,6 +32,10 @@ module CurrentCart
     nil
   end
 
+  def cart_count
+    session[:cart].count
+  end
+
   def add_ons_in_cart
     cart = session[:cart]
     add_ons = Array.new

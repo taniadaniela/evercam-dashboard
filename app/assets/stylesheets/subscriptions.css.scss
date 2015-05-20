@@ -540,29 +540,62 @@
 }
 
 .invoice {
+  margin-top: 15px;
+
+  .invoice-header {
+    margin-bottom: 60px;
+  }
+
+  h3.invoice-title {
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  .invoice-status {
+    color:$green;
+    text-transform: uppercase;
+    font-family: $bold-family;
+    margin-bottom: 45px;
+  }
 
   .head-text {
     margin-bottom: 5px;
   }
 
+  .table {
+    margin-top: 40px;
+  }
+
   .footer-text {
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-family: $bold-family;
+    margin: 30px 0px;
+  }
+
+  .invoice-total {
+    margin-bottom: 10px;
   }
 
   .address {
-    border: solid 1px $grey;
     padding-left: 0;
     padding-right: 0;
   }
 
-  .address-title {
-    border-bottom: solid 1px $grey;
-    padding: 5px 10px;
-  }
-
   .address-text {
-    padding: 4px 10px;
+    padding: 4px 0px;
   }
 
+}
+.invoices {
+
+  .download-pdf {
+    color:$main-color;
+    margin-right: 30px;
+  }
+
+  .send-email {
+    color:$main-color;
+  }
+
+  .fa {
+    margin-left: 10px;
+  }
 }

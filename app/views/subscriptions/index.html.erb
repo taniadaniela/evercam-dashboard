@@ -58,11 +58,17 @@
               <th class="col-md-2">Status</th>
               <th class="col-md-2">Action</th>
             </tr>
-            <% @invoices.first(4).each do |invoice| %>
+            <% @invoices.each do |invoice| %>
               <tr>
                 <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
                 <td><%= cents_to_currency(invoice[:total]) %></td>
-                <td><%= invoice[:paid] ? "Paid" : "Pending" %></td>
+                <td>
+                  <% if invoice[:paid] %>
+                    <span class="green">Paid</span>
+                  <% else %>
+                    <span class='green'>Pending</span>
+                  <% end %>
+                </td>
                 <td>
                   <span class="download-pdf"><a>PDF</a><i class="fa fa-file-pdf-o"></i></span>
                   <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>

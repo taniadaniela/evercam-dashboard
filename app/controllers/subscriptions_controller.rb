@@ -15,7 +15,7 @@ class SubscriptionsController < ApplicationController
     @cameras = load_user_cameras(true, false)
     set_prices
     @subscription = current_subscription
-    @invoices = retrieve_customer_invoices
+    @invoices = retrieve_recent_customer_invoices(4)
     retrieve_add_ons
     unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards

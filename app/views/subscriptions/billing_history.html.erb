@@ -7,27 +7,7 @@
       <%= render 'subscriptions/navigation' %>
       <div class="col-md-12 margin-top-20">
         <div class="card">
-        <% if !@billing_history %>
-          <p>There is no history.</p>
-        <% else %>
-          <table style="width:100%;" class="table table-full-width">
-            <tr>
-              <th class="col-md-2">Date</th>
-              <th class="col-md-3">Description</th>
-
-              <th class="col-md-2">Amount</th>
-              <th class="col-md-2">Action</th>
-            </tr>
-            <% @billing_history.each do |item| %>
-              <tr>
-                <td><%= Time.at(item[:created]).strftime("%d %b %Y %I:%M:%S %P") %></td>
-                <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
-                <td><%= cents_to_currency item[:amount] %></td>
-                <td><%= item[:paid] ? "Paid" : "Pending" %></td>
-              </tr>
-            <% end %>
-          </table>
-        <% end %>
+          <%= render 'billing_history' %>
         </div>
       </div>
     </div>

@@ -1,0 +1,25 @@
+<% if !@billing_history %>
+  <p>You have no billing history.</p>
+<% else %>
+  <table style="width:100%;" class="table table-full-width">
+    <tr>
+      <th class="col-md-2">Date</th>
+      <th class="col-md-3">Description</th>
+
+      <th class="col-md-2">Amount</th>
+      <th class="col-md-2">Action</th>
+    </tr>
+    <% @billing_history.each do |item| %>
+      <tr>
+        <td>
+          <span data-toggle="tooltip" data-placement="top" title="<%= Time.at(item[:created]).strftime("%I:%M%P") %>">
+            <%= Time.at(item[:created]).strftime("%d %b %Y") %>
+          </span>
+        </td>
+        <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
+        <td><%= cents_to_currency item[:amount] %></td>
+        <td><%= item[:paid] ? "Payment" : "Payment Pending" %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

@@ -46,7 +46,35 @@
         </div>
       </div>
     <div class="col-md-12">
-      <h3>Recent Invoices</h3>
+      <h3>Recent History</h3>
+      <div class="card">
+        <% if !@billing_history %>
+          <p>You have no billing history.</p>
+        <% else %>
+          <table style="width:100%;" class="table table-full-width">
+            <tr>
+              <th class="col-md-2">Date</th>
+              <th class="col-md-3">Description</th>
+              <th class="col-md-2">Amount</th>
+              <th class="col-md-2">Action</th>
+            </tr>
+            <% @billing_history.first(5).each do |item| %>
+              <tr>
+                <td>
+                  <span data-toggle="tooltip" data-placement="top" title="<%= Time.at(item[:created]).strftime("%I:%M%P") %>">
+                    <%= Time.at(item[:created]).strftime("%d %b %Y") %>
+                  </span>
+                </td>
+                <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
+                <td><%= cents_to_currency item[:amount] %></td>
+                <td><%= item[:paid] ? "Payment" : "Payment Pending" %></td>
+              </tr>
+            <% end %>
+          </table>
+          <%= link_to 'View all history', billing_history_path(current_user.username) %>
+        <% end %>
+      </div>
+      <h3>Invoices</h3>
       <div class="invoices card">
         <% if !@invoices %>
           <p>You have no invoices.</p>
@@ -73,6 +101,7 @@
           <%= link_to 'View all invoices', invoices_path(current_user.username) %>
         <% end %>
       </div>
+
     </div>
 
   </div>

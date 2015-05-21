@@ -15,9 +15,9 @@
     <% end %>
 
     <% if billing_tab.eql?("history") %>
-      <li class="active"><a>History</a></li>
+      <li class="active"><a>Payment History</a></li>
     <% else %>
-      <li><%= link_to 'History', billing_history_path(current_user.username) %></li>
+      <li><%= link_to 'Payment History', billing_history_path(current_user.username) %></li>
     <% end %>
 
     <% if billing_tab.eql?("invoices") %>

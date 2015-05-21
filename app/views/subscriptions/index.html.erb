@@ -46,7 +46,7 @@
         </div>
       </div>
     <div class="col-md-12">
-      <h3>Recent History</h3>
+      <h3>Payment History</h3>
       <div class="card">
         <% if !@billing_history %>
           <p>You have no billing history.</p>
@@ -71,7 +71,7 @@
               </tr>
             <% end %>
           </table>
-          <%= link_to 'View all history', billing_history_path(current_user.username) %>
+          <%= link_to 'View all payments', billing_history_path(current_user.username) %>
         <% end %>
       </div>
       <h3>Invoices</h3>

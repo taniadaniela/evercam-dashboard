@@ -10,7 +10,7 @@ class LineItemsController < ApplicationController
     @line_item = LineItem.new(product_params)
     purge_plan_from_cart
     if change_of_plan?
-      flash.now[:message] = "Plan #{@line_item.nam} added to cart."
+      flash.now[:message] = "Plan #{@line_item.name} added to cart."
       save_to_cart
     else
       flash.now[:message] = "You are already on the #{@line_item.name} plan."

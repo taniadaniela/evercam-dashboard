@@ -45,4 +45,20 @@ class InvoicesController < ApplicationController
     redirect_to invoices_path(current_user.username)
   end
 
+  def create_pdf
+    begin
+      @invoice = retrieve_customer_invoice(params[:invoice_id])
+      @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
+
+      @html = render_to_string(:action => :create_pdf, :layout => "mailer.html.erb")
+      pdf = WickedPdf.new.pdf_from_string(@html)
+      send_data(pdf,
+                :filename    => "#{@invoice[:id]}.pdf",
+                :disposition => 'attachment')
+    rescue => error
+      flash[:message] = "There problem to create invoice pdf, please try again."
+    end
+
+  end
+
 end

@@ -57,6 +57,8 @@ gem 'ie_iframe_cookies'
 gem 'heroku-api'
 gem 'airbrake'
 gem 'pusher'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'

@@ -19,6 +19,16 @@ module StripeInvoicesHelper
     false
   end
 
+  def retrieve_customer_next_charge
+    if is_stripe_customer?
+      Stripe::Invoice.upcoming(:customer => current_user.stripe_customer_id)
+    else
+      false
+    end
+  rescue
+    false
+  end
+
   def retrieve_customer_invoice(invoice_id)
     Stripe::Invoice.retrieve(invoice_id)
   rescue

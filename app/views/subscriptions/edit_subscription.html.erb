@@ -23,7 +23,12 @@
             </div>
           </div>
         </div>
-
+        <% unless has_credit_cards? %>
+          <div class="add-card-warning">
+            <p>You will need to add a card before changing your plan or getting add-ons.</p>
+            <%= render 'add_card' %>
+          </div>
+        <% end %>
         <h3>Choose a plan</h3>
         <div class="card">
           <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">

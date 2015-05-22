@@ -64,12 +64,12 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
 
 initializePlayer = ->
-  window.vjs_player = videojs 'camera-rtmp-player', {}
+  window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls"]}
 
 destroyPlayer = ->
-  unless $('#camera-rtmp-stream').html() == ''
+  unless $('#camera-video-stream').html() == ''
     window.vjs_player.dispose()
-    $("#camera-rtmp-stream").html('')
+    $("#camera-video-stream").html('')
 
 handleChangeStream = ->
   $("#select-stream-type").on "change", ->
@@ -79,8 +79,8 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         int_time = setInterval(loadImage, 1000)
-      when 'rtmp'
-        $("#camera-rtmp-stream").html(rtmp_player_html)
+      when 'video'
+        $("#camera-video-stream").html(video_player_html)
         initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
@@ -139,7 +139,7 @@ saveImage = ->
 
 
 window.initializeLiveTab = ->
-  window.rtmp_player_html = $('#camera-rtmp-stream').html()
+  window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
   controlButtonEvents()

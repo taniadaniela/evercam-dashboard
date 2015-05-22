@@ -5,6 +5,7 @@ class PaymentsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
+  include StripeCustomersHelper
 
   # This is the view checkout action
   def new
@@ -47,10 +48,6 @@ class PaymentsController < ApplicationController
   def build_line_item_params params
     selector = ProductSelector.new(params[:plan_id])
     selector.product_params
-  end
-
-  def retrieve_credit_cards
-    Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.all(:object => "card")
   end
 
   def redirect_when_cart_empty

@@ -10,6 +10,7 @@ class LineItemsController < ApplicationController
     @line_item = LineItem.new(product_params)
     purge_plan_from_cart
     if change_of_plan?
+      flash.now[:message] = "Plan #{@line_item.name} added to cart."
       save_to_cart
     else
       flash.now[:message] = "You are already on the #{@line_item.name} plan."
@@ -21,6 +22,7 @@ class LineItemsController < ApplicationController
     product_params = build_line_item_params(params)
     @line_item = LineItem.new(product_params)
     if can_add_to_cart?
+      flash.now[:message] = "Add-on #{@line_item.name} added to cart."
       save_to_cart
     else
       flash.now[:message] = "Can not add this item."
@@ -28,6 +30,7 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
+    flash.now[:message] = "Product removed from cart."
     session[:cart].delete_if {|item| item.id.eql?(params[:id]) }
   end
 

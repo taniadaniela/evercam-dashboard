@@ -100,6 +100,7 @@ changePlan = ->
 
     sendAJAXRequest(settings)
 
+
 centerModal = (model) ->
   $(model).css "display", "block"
   $dialog = $(model).find(".modal-dialog")
@@ -114,3 +115,7 @@ window.initializeSubscription = ->
 window.initializeChangePlan = ->
   onUpgradeDownGrade()
   changePlan()
+
+$ ->
+  $('[data-toggle="tooltip"]').tooltip()
+  return

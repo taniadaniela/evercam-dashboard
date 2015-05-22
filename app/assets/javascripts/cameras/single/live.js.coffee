@@ -64,7 +64,7 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
 
 initializePlayer = ->
-  window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls"]}
+  window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
 
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''

@@ -5,13 +5,13 @@
   <div class="page-content">
     <%# render partial: "users/section_header", locals: { section_header_title: "Billing" } %>
 
-    <%= render 'navigation' %>
+
     <div class="checkout">
       <a class="checkout__button" href="#"><!-- Fallback location -->
         <span class="cart-count"><%= @cart_count %></span>
-            <span class="checkout__text">
-              <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
-            </span>
+        <span class="checkout__text">
+          <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
+        </span>
       </a>
       <div class="checkout__order">
         <div class="checkout__order-inner">
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-      <div class="col-md-12">
+      <div class="col-md-12 margin-top-20">
         <h3>Cards</h3>
         <div class="card">
           <%= render partial: 'shared/stripe' %>
@@ -108,7 +108,6 @@
           </table>
         <% end %>
       </div>
-
     </div>
 
   </div>

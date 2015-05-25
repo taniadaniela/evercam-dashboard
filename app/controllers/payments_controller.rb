@@ -2,6 +2,7 @@ class PaymentsController < ApplicationController
   before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists
+  layout "user-account"
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart

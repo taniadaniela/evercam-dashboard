@@ -8,11 +8,5 @@
       <li><%= link_to 'Overview', billing_path(current_user.username) %></li>
     <% end %>
 
-    <% if billing_tab.eql?("plans") %>
-      <li class="active"><a>Plans & Add-ons</a></li>
-    <% else %>
-      <li><%= link_to 'Plans & Add-ons', plans_path(current_user.username) %></li>
-    <% end %>
-
   </ul>
 </div>

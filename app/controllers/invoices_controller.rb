@@ -55,7 +55,8 @@ class InvoicesController < ApplicationController
         :filename    => "#{@invoice[:id]}.pdf",
         :disposition => "attachment")
     rescue => _error
-      flash[:message] = "There problem to create invoice pdf, please try again."
+      flash[:message] = "Exception caught in create invoice pdf, Cause: #{_error.message}"
+      redirect_to invoices_path(current_user.username)
     end
   end
 end

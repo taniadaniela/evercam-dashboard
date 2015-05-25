@@ -14,10 +14,13 @@ class CreditCardsController < ApplicationController
       customer.default_card = card.id
       customer.save
       flash[:message] = 'Your card was successfully added.'
-      redirect_to billing_path(current_user.username)
     rescue Stripe::CardError => error
       flash[:error] = error.message
+    end
+    if cart_empty?
       redirect_to billing_path(current_user.username)
+    else
+      redirect_to plans_path(current_user.username)
     end
   end
 

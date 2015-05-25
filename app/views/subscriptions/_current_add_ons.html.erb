@@ -2,21 +2,23 @@
 <!-- Add-ons list -->
 <table class="table margin-bottom-15">
   <tr>
-    <th>Add-on</th>
-    <th>Expires</th>
-    <th>Status</th>
-    <th>Action</th>
+    <th class="col-md-2">Your Current Add-ons</th>
+    <th class="col-md-4"></th>
+    <th class="col-md-2">Next charge</th>
+
+    <th class="col-md-2">Status</th>
   </tr>
   <% @add_ons.each do |add_on| -%>
     <tr>
       <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+      <td></td>
       <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
-      <td><%= add_on.status ? 'Active' : 'Expired' %></td>
-      <td><%= link_to 'Cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></td>
+
+      <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
     </tr>
   <% end -%>
 </table>
-  <%= link_to 'Get more Add-ons', plans_path(current_user.username) %>
+
 <% else %>
-  <%= link_to 'Browse Add-ons', plans_path(current_user.username) %>
+
 <% end %>

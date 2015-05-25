@@ -2,6 +2,7 @@ class PaymentsController < ApplicationController
   before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists
+  layout "user-account"
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
@@ -52,20 +53,20 @@ class PaymentsController < ApplicationController
 
   def redirect_when_cart_empty
     if session[:cart].empty?
-      redirect_to plans_path(current_user.username), flash: {message: "You have nothing to checkout."}
+      redirect_to billing_path(current_user.username), flash: {message: "You have nothing to checkout"}
     end
   end
 
   def ensure_card_exists
     @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
-      redirect_to plans_path(current_user.username), flash: { message: "You need to add a card first!" }
+      redirect_to billing_path(current_user.username), flash: { message: "You need to add a card first!" }
     end
   end
 
   def ensure_plan_in_cart_or_existing_subscriber
     unless @customer.has_active_subscription? || plan_in_cart?
-      redirect_to plans_path(current_user.username), flash: { message: "You must select a plan." }
+      redirect_to billing_path(current_user.username), flash: { message: "You must select a plan" }
     end
   end
 

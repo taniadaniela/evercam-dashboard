@@ -14,17 +14,5 @@
       <li><%= link_to 'Plans & Add-ons', plans_path(current_user.username) %></li>
     <% end %>
 
-    <% if billing_tab.eql?("history") %>
-      <li class="active"><a>Payment History</a></li>
-    <% else %>
-      <li><%= link_to 'Payment History', billing_history_path(current_user.username) %></li>
-    <% end %>
-
-    <% if billing_tab.eql?("invoices") %>
-      <li class="active"><a>Invoices</a></li>
-    <% else %>
-      <li><%= link_to 'Invoices', invoices_path(current_user.username) %></li>
-    <% end %>
-
   </ul>
 </div>

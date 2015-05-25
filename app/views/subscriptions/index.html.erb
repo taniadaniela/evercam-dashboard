@@ -5,7 +5,23 @@
   <div class="page-content">
     <%# render partial: "users/section_header", locals: { section_header_title: "Billing" } %>
 
-      <%= render 'navigation' %>
+    <%= render 'navigation' %>
+    <div class="checkout">
+      <a class="checkout__button" href="#"><!-- Fallback location -->
+        <span class="cart-count"><%= @cart_count %></span>
+            <span class="checkout__text">
+              <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
+            </span>
+      </a>
+      <div class="checkout__order">
+        <div class="checkout__order-inner">
+          <a class="checkout__cancel"><i class="fa-2 fa fa-times"></i></a>
+          <%= render "cart" %>
+          <button class="checkout__option checkout__option--silent checkout__cancel">Close</button>
+          <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary add-card-to-continue' %>
+        </div>
+      </div>
+    </div>
       <div class="col-md-12">
         <h3>Cards</h3>
         <div class="card">
@@ -28,59 +44,41 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-12">
         <h3>Plan</h3>
         <div class="card">
-          <p>Your on the <strong><%= render 'current_subscription' %></strong> plan</p>
+          <p>You're on the <strong><%= render 'current_subscription' %></strong> plan</p>
           <% unless !@next_charge %>
             <p>Your Next Charge <strong><%= cents_to_currency @next_charge[:total] %></strong> on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %></p>
           <% end %>
-          <%= link_to 'Change your Plan', plans_path(current_user.username) %>
+          <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
+            <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
+          </ul>
+          <%= render "plans_comparison" %>
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-12">
         <h3>Add-ons</h3>
         <div class="card">
           <% unless @add_ons.present? %>
-            <p>You have no add-ons</p>
+            <p>No add-ons</p>
           <% end %>
           <%= render 'current_add_ons' %>
+          <%= render "add_ons_select" %>
         </div>
       </div>
+
     <div class="col-md-12">
       <h3>Payment History</h3>
       <div class="card">
-        <% if !@billing_history %>
-          <p>You have no billing history.</p>
-        <% else %>
-          <table style="width:100%;" class="table table-full-width">
-            <tr>
-              <th class="col-md-2">Date</th>
-              <th class="col-md-3">Description</th>
-              <th class="col-md-2">Amount</th>
-              <th class="col-md-2">Action</th>
-            </tr>
-            <% @billing_history.first(5).each do |item| %>
-              <tr>
-                <td>
-                  <span data-toggle="tooltip" data-placement="top" title="<%= Time.at(item[:created]).strftime("%I:%M%P") %>">
-                    <%= Time.at(item[:created]).strftime("%d %b %Y") %>
-                  </span>
-                </td>
-                <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
-                <td><%= cents_to_currency item[:amount] %></td>
-                <td><%= item[:paid] ? "Payment" : "Payment Pending" %></td>
-              </tr>
-            <% end %>
-          </table>
-          <%= link_to 'View all payments', billing_history_path(current_user.username) %>
-        <% end %>
+        <%= render 'billing_history' %>
       </div>
       <h3>Invoices</h3>
       <div class="invoices card">
         <% if !@invoices %>
-          <p>You have no invoices.</p>
+          <p>No invoices</p>
         <% else %>
           <table style="width:100%;" class="table table-full-width">
             <tr>
@@ -121,4 +119,21 @@
   <% if flash[:message] %>
   Notification.show('<%= flash[:message] %>');
   <% end %>
+  (function() {
+    [].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+      var openCtrl = el.querySelector( '.checkout__button' ),
+          closeCtrls = el.querySelectorAll( '.checkout__cancel' );
+
+      openCtrl.addEventListener( 'click', function(ev) {
+        ev.preventDefault();
+        classie.add( el, 'checkout--active' );
+      } );
+
+      [].slice.call( closeCtrls ).forEach( function( ctrl ) {
+        ctrl.addEventListener( 'click', function() {
+          classie.remove( el, 'checkout--active' );
+        } );
+      } );
+    } );
+  })();
 </script>

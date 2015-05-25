@@ -46,6 +46,7 @@ class InvoicesController < ApplicationController
   end
 
   def create_pdf
+    begin
       @invoice = retrieve_customer_invoice(params[:invoice_id])
       @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
       @html = render_to_string(:action => :create_pdf, :layout => "mailer.html.erb")
@@ -53,7 +54,8 @@ class InvoicesController < ApplicationController
       send_data(pdf,
         :filename    => "#{@invoice[:id]}.pdf",
         :disposition => "attachment")
-    rescue
+    rescue => _error
       flash[:message] = "There problem to create invoice pdf, please try again."
+    end
   end
 end

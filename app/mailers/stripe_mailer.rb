@@ -3,8 +3,9 @@ class StripeMailer < ActionMailer::Base
   default to: "support@evercam.io"
 
   def send_customer_invoice(invoice, invoice_lines, user_email)
-    @invoice    = invoice
+    @invoice          = invoice
     @invoice_lines    = invoice_lines
+    @to_user_email    = user_email
     mail(to: user_email, subject: "Payment Invoice")
   end
 

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get "/v1/users/:id/billing/invoices" => "invoices#index", as: :invoices
   get "/v1/users/:id/billing/invoices/:invoice_id" => "invoices#show", as: :invoice_show
+  get "/v1/users/:id/billing/invoices/:invoice_id/pdf" => "invoices#create_pdf", as: :create_invoice_pdf
   get "/v1/users/:id/billing/invoices/:invoice_id/send" => "invoices#send_customer_invoice_email", as: :send_invoic_email
 
 

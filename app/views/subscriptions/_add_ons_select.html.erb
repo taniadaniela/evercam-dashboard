@@ -4,84 +4,82 @@
     <th>Add-on</th>
     <th>Description</th>
     <th class="col-md-2">
-      <h3 class="add-on-price-header">€9.00 <span class="add-on-price-term">Monthly</span></h3>
+      Monthly
     </th>
     <th class="col-md-2">
-      <h3 class="add-on-price-header">€99.00 <span class="add-on-price-term">Annual</span></h3>
+      Annual
     </th>
   </tr>
   <tr>
     <td><strong>Snapmail</strong></td>
     <td>Schedule email notifications from your camera <a href=""></a></td>
     <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'add-to-cart-link' %>
+      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'add-to-cart-link' %>
+      <i class="fa fa-plus blue"></i>
     </td>
     <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <i class="fa fa-plus blue"></i>
     </td>
   </tr>
   <tr>
     <td><strong>Timelapse</strong></td>
     <td>Create and share timelapses from your camera</td>
     <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), remote: true, class: 'add-to-cart-link' %>
+      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), remote: true, class: 'add-to-cart-link' %>
+      <i class="fa fa-plus blue"></i>
     </td>
     <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'timelapse-annual'), remote: true, class: 'add-to-cart-link'  %>
-    </td>
-  </tr>
-  <tr>
-    <td><strong>Remote Recording</strong></td>
-    <td>7 days recording</td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording'), remote: true, class: 'add-to-cart-link' %>
-      <span class="add-on-price"> €5.00</span>
-    </td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <span class="add-on-price"> €50.00</span>
-    </td>
-  </tr>
-  <tr>
-    <td class="cont"></td>
-    <td>30 days recording</td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording'), remote: true, class: 'add-to-cart-link' %>
-    </td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
-    </td>
-  </tr>
-  <tr>
-    <td class="cont"></td>
-    <td>90 days recording</td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording'), remote: true, class: 'add-to-cart-link' %>
-      <span class="add-on-price"> €14.00</span>
-    </td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <span class="add-on-price"> €149.00</span>
-    </td>
-  </tr>
-  <tr>
-    <td class="cont"></td>
-    <td>Other</td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'add-to-cart-link' %>
-    </td>
-    <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'snapmail_annual'), remote: true, class: 'add-to-cart-link'  %>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'timelapse-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <i class="fa fa-plus blue"></i>
     </td>
   </tr>
   <tr>
     <td><strong>ReStreaming</strong></td>
     <td>ReStream your camera on any web page with our embed code</td>
     <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'restream'), remote: true, class: 'add-to-cart-link' %>
+      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: 'restream'), remote: true, class: 'add-to-cart-link' %>
+      <i class="fa fa-plus blue"></i>
     </td>
     <td>
-      <%= button_to 'Add to cart', line_item_add_on_path(type: 'add_on', product_id: 'restream-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'restream-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <i class="fa fa-plus blue"></i>
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Remote Recording</strong></td>
+    <td>7 days recording</td>
+    <td>
+      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording'), remote: true, class: 'add-to-cart-link' %>
+      <i class="fa fa-plus blue"></i>
+    </td>
+    <td>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <i class="fa fa-plus blue"></i>
+    </td>
+  </tr>
+  <tr>
+    <td class="cont"></td>
+    <td>30 days recording</td>
+    <td>
+      <%= button_to '€20', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording'), remote: true, class: 'add-to-cart-link' %>
+      <i class="fa fa-plus blue"></i>
+    </td>
+    <td>
+      <%= button_to '€200', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <i class="fa fa-plus blue"></i>
+    </td>
+  </tr>
+  <tr>
+    <td class="cont"></td>
+    <td>90 days recording</td>
+    <td>
+      <%= button_to '€30', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording'), remote: true, class: 'add-to-cart-link' %>
+      <i class="fa fa-plus blue"></i>
+    </td>
+    <td>
+      <%= button_to '€250', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
+      <i class="fa fa-plus blue"></i>
     </td>
   </tr>
 </table>

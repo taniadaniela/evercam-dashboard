@@ -17,6 +17,7 @@ class SubscriptionsController < ApplicationController
     @subscription = current_subscription
     @billing_history = retrieve_customer_billing_history
     @invoices = retrieve_recent_customer_invoices(4)
+    @next_charge = retrieve_customer_next_charge
     retrieve_add_ons
     unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards

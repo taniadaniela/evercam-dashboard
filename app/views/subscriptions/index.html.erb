@@ -32,6 +32,9 @@
         <h3>Plan</h3>
         <div class="card">
           <p>Your on the <strong><%= render 'current_subscription' %></strong> plan</p>
+          <% unless !@next_charge %>
+            <p>Your Next Charge <strong><%= cents_to_currency @next_charge[:total] %></strong> on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %></p>
+          <% end %>
           <%= link_to 'Change your Plan', plans_path(current_user.username) %>
         </div>
       </div>

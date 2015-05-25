@@ -43,14 +43,7 @@ Rails.application.routes.draw do
   post 'line_items/create_subscription' => 'line_items#create_subscription', as: :line_item_subscription
   post 'line_items/create_add_on' => 'line_items#create_add_on', as: :line_item_add_on
 
-  # resources :add_ons, only: [:index]
-
   mount StripeEvent::Engine => '/stripe-events'
-
-  resources :payments
-  post '/users/:id/settings/charge' => 'payments#create'
-  post '/users/:id/settings/subscription' => 'payments#create_subscription'
-  get '/users/:id/settings/subscription' => 'payments#subscription_update'
 
   root to: redirect('/v1/cameras'), as: :root
   get '/v1/cameras' => 'cameras#index', as: :cameras_index

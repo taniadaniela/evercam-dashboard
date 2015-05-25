@@ -19,12 +19,12 @@
               <a class="checkout__cancel"><i class="fa-2 fa fa-times"></i></a>
               <%= render "cart" %>
               <button class="checkout__option checkout__option--silent checkout__cancel">Close</button>
-              <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary' %>
+              <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary add-card-to-continue' %>
             </div>
           </div>
         </div>
         <% unless has_credit_cards? %>
-          <div class="add-card-warning">
+          <div class="add-card-warning hide">
             <p>You will need to add a card before changing your plan or getting add-ons.</p>
             <%= render 'add_card' %>
           </div>

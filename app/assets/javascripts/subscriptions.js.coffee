@@ -15,6 +15,18 @@ showConfirmation = ->
   $('.delete-add-ons').on 'click', ->
     confirm('Are you sure you wish to cancel this add-on?')
 
+onCheckoutConfirmCard = ->
+  $(".add-card-to-continue").on 'click', ->
+    has_credit_card = $("#has-credit-card").val()
+    if has_credit_card is "false"
+      $("#plan-descprition").html('You will need to add a credit card before changing your plan.')
+      $("#change-plan-action").val("")
+      $("#btn-change-plan").val($(".stripe-button-el span").text())
+      $('.modal').modal('show')
+      $(".modal").on "show.bs.modal", ->
+        centerModal(this)
+      return false
+
 onUpgradeDownGrade = ->
   $('.change-plan').on 'click', ->
     clearModal()
@@ -114,6 +126,7 @@ window.initializeSubscription = ->
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()
+  onCheckoutConfirmCard()
   changePlan()
 
 $ ->

@@ -18,8 +18,6 @@ class StripeCustomersController < ApplicationController
       current_user.save
     end
     flash[:message] = "Card Successfully Added"
-    redirect_to plans_path(current_user.username)
-    render layout: "dev"
   end
 
   def update

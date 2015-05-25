@@ -6,6 +6,7 @@
           <ul class="list-group">
             <li><h4>Free</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_free) %></strong></h3></li>
+            <li><small class="grey">per month</small></li>
             <li>Up to <strong>5</strong> Private Cams</li>
             <li><strong>Unlimited</strong> Public Cameras</li>
             <li><span class="line-through">Motion Detection</span></li>
@@ -15,7 +16,8 @@
         <div class="col-md-4">
           <ul class="list-group">
             <li><h4>Pro</h4></li>
-            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_annual) %></strong></h3></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_annual / 12) %></strong></h3></li>
+            <li><small class="grey">per month</small></li>
             <li>Up to <strong>15</strong> Private Cameras</li>
             <li><strong>Unlimited</strong> Public Cameras</li>
             <li>Motion Detection</li>
@@ -25,7 +27,8 @@
         <div class="col-md-4">
           <ul class="list-group">
             <li><h4>Pro Plus</h4></li>
-            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus_annual) %></strong></h3></li>
+            <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus_annual / 12) %></strong></h3></li>
+            <li><small class="grey">per month</small></li>
             <li><strong>Unlimited</strong> Private Cams</li>
             <li><strong>Unlimited</strong> Public Cams</li>
             <li>Motion Detection</li>
@@ -43,6 +46,7 @@
           <ul class="list-group">
             <li><h4>Free</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_free) %></strong></h3></li>
+            <li><small class="grey">per month</small></li>
             <li>Up to <strong>5</strong> Private Cams</li>
             <li><strong>Unlimited</strong> Public Cameras</li>
             <li><span class="line-through">Motion Detection</span></li>
@@ -53,6 +57,7 @@
           <ul class="list-group">
             <li><h4>Pro</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro) %></strong></h3></li>
+            <li><small class="grey">per month</small></li>
             <li>Up to <strong>15</strong> Private Cameras</li>
             <li><strong>Unlimited</strong> Public Cameras</li>
             <li>Motion Detection</li>
@@ -63,6 +68,7 @@
           <ul class="list-group">
             <li><h4>Pro Plus</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus) %></strong></h3></li>
+            <li><small class="grey">per month</small></li>
             <li><strong>Unlimited</strong> Private Cams</li>
             <li><strong>Unlimited</strong> Public Cams</li>
             <li>Motion Detection</li>

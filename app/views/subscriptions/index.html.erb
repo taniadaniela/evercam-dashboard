@@ -47,9 +47,9 @@
       <div class="col-md-12">
         <h3>Plan</h3>
         <div class="card">
-          <p>You're on the <strong><%= render 'current_subscription' %></strong> plan</p>
+          <p>You're on the <strong><%= render 'current_subscription' %></strong> plan.</p>
           <% unless !@next_charge %>
-            <p>Your Next Charge <strong><%= cents_to_currency @next_charge[:total] %></strong> on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %></p>
+            <p>Your next charge of <strong><%= cents_to_currency @next_charge[:total] %></strong> is on <%= Time.at(@next_charge[:date]).strftime("%d %b") %>.</p>
           <% end %>
           <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
@@ -63,9 +63,10 @@
         <h3>Add-ons</h3>
         <div class="card">
           <% unless @add_ons.present? %>
-            <p>No add-ons</p>
+            <p>You have no add-ons</p>
           <% end %>
           <%= render 'current_add_ons' %>
+          &nbsp;&nbsp;
           <%= render "add_ons_select" %>
         </div>
       </div>
@@ -83,14 +84,13 @@
           <table style="width:100%;" class="table table-full-width">
             <tr>
               <th class="col-md-2">Date</th>
+              <th class="col-md-4">Status</th>
               <th class="col-md-2">Total</th>
-              <th class="col-md-2">Status</th>
               <th class="col-md-2">Action</th>
             </tr>
             <% @invoices.each do |invoice| %>
               <tr>
                 <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
-                <td><%= cents_to_currency(invoice[:total]) %></td>
                 <td>
                   <% if invoice[:paid] %>
                     <span class="green">Paid</span>
@@ -98,6 +98,7 @@
                     <span class='green'>Pending</span>
                   <% end %>
                 </td>
+                <td><%= cents_to_currency(invoice[:total]) %></td>
                 <td>
                   <span class="download-pdf"><%= link_to "PDF", create_invoice_pdf_path(current_user.username, invoice[:id])%><i class="fa fa-file-pdf-o"></i></span>
                   <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
@@ -105,7 +106,6 @@
               </tr>
             <% end %>
           </table>
-          <%= link_to 'View all invoices', invoices_path(current_user.username) %>
         <% end %>
       </div>
 

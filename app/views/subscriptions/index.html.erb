@@ -22,60 +22,59 @@
         </div>
       </div>
     </div>
-      <div class="col-md-12 margin-top-20">
-        <h3>Cards</h3>
-        <div class="card">
-          <%= render partial: 'shared/stripe' %>
-
-          <% if has_credit_cards? %>
-            <% @credit_cards.each do |card| -%>
-            <p><i class="fa fa-credit-card"></i>
-              <strong> <%= card.brand -%></strong> exp. <strong><%= card.exp_month -%>&#47;<%= card.exp_year %></strong> ending in <strong>..<%= card.last4 -%></strong>
-              <i><%= default_card?(card.id) ? ' - default card' : (link_to '', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></i></p>
-            <% end -%>
-            <a class="" data-toggle="modal" data-target="#myModal">
-              Manage Cards
-            </a>
-            <%= render 'manage_cards' %>
-          <% else %>
-            <p>You have no card added</p>
-            <%= render 'add_card' %>
-          <% end %>
-        </div>
+    <div class="col-md-12 margin-top-20">
+      <h3>Cards</h3>
+      <div class="card">
+        <%= render partial: 'shared/stripe' %>
+        <% if has_credit_cards? %>
+          <% @credit_cards.each do |card| -%>
+          <p><i class="fa fa-credit-card"></i>
+            <strong> <%= card.brand -%></strong> exp. <strong><%= card.exp_month -%>&#47;<%= card.exp_year %></strong> ending in <strong>..<%= card.last4 -%></strong>
+            <i><%= default_card?(card.id) ? ' - default card' : (link_to '', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></i></p>
+          <% end -%>
+          <a class="" data-toggle="modal" data-target="#myModal">
+            Manage Cards
+          </a>
+          <%= render 'manage_cards' %>
+        <% else %>
+          <p>You have no card added</p>
+          <%= render 'add_card' %>
+        <% end %>
       </div>
-
-      <div class="col-md-12">
-        <h3>Plan</h3>
-        <div class="card">
-          <p>You're on the <strong><%= render 'current_subscription' %></strong> plan.</p>
-          <% unless !@next_charge %>
-            <p>Your next charge of <strong><%= cents_to_currency @next_charge[:total] %></strong> is on <%= Time.at(@next_charge[:date]).strftime("%d %b") %>.</p>
-          <% end %>
-          <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 20%)</span></a></li>
-            <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
-          </ul>
-          <%= render "plans_comparison" %>
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <h3>Add-ons</h3>
-        <div class="card">
-          <% unless @add_ons.present? %>
-            <p>You have no add-ons</p>
-          <% end %>
-          <%= render 'current_add_ons' %>
-          &nbsp;&nbsp;
-          <%= render "add_ons_select" %>
-        </div>
-      </div>
+    </div>
 
     <div class="col-md-12">
+      <h3>Plan</h3>
+      <div class="card">
+        <p>You're on the <strong><%= render 'current_subscription' %></strong> plan.</p>
+        <% unless !@next_charge %>
+          <p>Your next charge of <strong><%= cents_to_currency @next_charge[:total] %></strong> is on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %>.</p>
+        <% end %>
+        <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+          <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 10%)</span></a></li>
+          <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
+        </ul>
+        <%= render "plans_comparison" %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <h3>Add-ons</h3>
+      <div class="card">
+        <% unless @add_ons.present? %>
+          <p>You have no add-ons</p>
+        <% end %>
+        <%= render 'current_add_ons' %>
+      </div>
+    </div>
+
+    <div class="col-md-7">
       <h3>Payment History</h3>
       <div class="card">
         <%= render 'billing_history' %>
       </div>
+    </div>
+    <div class="col-md-5">
       <h3>Invoices</h3>
       <div class="invoices card">
         <% if !@invoices %>
@@ -83,25 +82,24 @@
         <% else %>
           <table style="width:100%;" class="table table-full-width">
             <tr>
-              <th class="col-md-2">Date</th>
-              <th class="col-md-4">Status</th>
-              <th class="col-md-2">Total</th>
-              <th class="col-md-2">Action</th>
+              <th>Date</th>
+              <th></th>
+              <th class="text-right">Total</th>
             </tr>
             <% @invoices.each do |invoice| %>
               <tr>
                 <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
                 <td>
-                  <% if invoice[:paid] %>
-                    <span class="green">Paid</span>
-                  <% else %>
-                    <span class='green'>Pending</span>
-                  <% end %>
+                <span class="download-pdf"><%= link_to "PDF", create_invoice_pdf_path(current_user.username, invoice[:id])%><i class="fa fa-file-pdf-o"></i></span>
+                <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
                 </td>
-                <td><%= cents_to_currency(invoice[:total]) %></td>
-                <td>
-                  <span class="download-pdf"><%= link_to "PDF", create_invoice_pdf_path(current_user.username, invoice[:id])%><i class="fa fa-file-pdf-o"></i></span>
-                  <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
+                <td class="text-right">
+                  <% if invoice[:paid] %>
+                    <small class="green">Paid</small>
+                  <% else %>
+                    <small class='red'>Pending</small>
+                  <% end %>
+                  <%= cents_to_currency(invoice[:total]) %>
                 </td>
               </tr>
             <% end %>

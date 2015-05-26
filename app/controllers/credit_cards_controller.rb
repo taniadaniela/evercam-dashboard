@@ -17,11 +17,7 @@ class CreditCardsController < ApplicationController
     rescue Stripe::CardError => error
       flash[:error] = error.message
     end
-    if cart_empty?
-      redirect_to billing_path(current_user.username)
-    else
-      redirect_to plans_path(current_user.username)
-    end
+    redirect_to billing_path(current_user.username)
   end
 
   def destroy

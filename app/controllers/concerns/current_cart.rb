@@ -10,7 +10,7 @@ module CurrentCart
   def calculate_total
     amounts = session[:cart].map { |item| item.price }
     @total = amounts.inject(0) {|sum, i|  sum + i }
-  end 
+  end
 
   def plan_in_cart?
     session[:cart].detect {|i| i.type.eql?('plan') } ? true : false
@@ -55,5 +55,9 @@ module CurrentCart
   end
 
   def plan_cost  
+    plan = session[:cart].detect {|i| i.type.eql?('plan') }
+    @plan_total = plan.price
+  rescue
+    0
   end
 end

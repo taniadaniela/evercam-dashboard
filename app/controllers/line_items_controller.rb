@@ -25,7 +25,7 @@ class LineItemsController < ApplicationController
       flash.now[:message] = "Add-on #{@line_item.name} added to cart."
       save_to_cart
     else
-      flash.now[:message] = "Can not add this item."
+      flash.now[:message] = "You must have plan to buy add-ons."
     end
   end
 

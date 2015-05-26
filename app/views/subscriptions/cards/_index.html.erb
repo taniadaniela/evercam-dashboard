@@ -1,0 +1,14 @@
+<% if has_credit_cards? %>
+  <% @credit_cards.each do |card| -%>
+    <p><i class="fa fa-credit-card"></i>
+      <strong> <%= card.brand -%></strong> exp. <strong><%= card.exp_month -%>&#47;<%= card.exp_year %></strong> ending in <strong>..<%= card.last4 -%></strong>
+      <i><%= default_card?(card.id) ? ' - default card' : (link_to '', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></i></p>
+  <% end -%>
+  <a class="" data-toggle="modal" data-target="#myModal">
+    Manage Cards
+  </a>
+  <%= render 'manage_cards' %>
+<% else %>
+  <p>No card added</p>
+  <%= render 'add_card' %>
+<% end %>

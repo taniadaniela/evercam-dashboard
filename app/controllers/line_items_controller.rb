@@ -24,6 +24,7 @@ class LineItemsController < ApplicationController
     if can_add_to_cart?
       if valid_duration?
         flash.now[:message] = "Add-on #{@line_item.name} added to cart."
+        @added_to_cart = true
         save_to_cart
       else
         flash.now[:message] = "Add-on and plan must be same period (monthly or annual)."

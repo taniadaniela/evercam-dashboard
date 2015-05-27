@@ -2,7 +2,7 @@
   <div class="row">
     <% if !@subscription %>
       <div class="col-md-4">
-        <div class="plan-button <%= "highlight-plan-button2" unless has_subscription? %>">
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
           <%= button_to 'Current Plan', line_item_subscription_path(type: 'plan', product_id: 'evercam-free'), remote: true, class: 'disabled btn btn-default'  %>
         </div>
       </div>

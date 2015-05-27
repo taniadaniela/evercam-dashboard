@@ -5,7 +5,12 @@
   }
 
   .nav-tabs {
-   margin-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: none;
+  }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border: 1px solid $light-grey;
+    border-radius: 30px;
   }
 
   .page-content {
@@ -110,20 +115,8 @@
       border-right: 1px solid $main-color;
       border-top: 1px solid $main-color;
     }
-
-    .highlight-plan-button {
-      border-left: 1px solid $main-color;
-      border-right: 1px solid $main-color;
-      border-bottom: 1px solid $main-color;
-    }
+    
   }
-
-  .plan-button.highlight-plan-button2 {
-    border-left: 1px solid $main-color !important;
-    border-right: 1px solid $main-color !important;
-    border-bottom: 1px solid $main-color !important;
-  }
-
 
   .plans-select {
     p {
@@ -145,6 +138,12 @@
     overflow: auto;
     padding: 10px 10px 30px;
     text-align: center;
+  }
+
+  .plan-button.highlight-plan-button {
+    border-left: 1px solid $main-color;
+    border-right: 1px solid $main-color;
+    border-bottom: 1px solid $main-color;
   }
   .cart-container {
     padding: 0px 10px 10px;
@@ -599,4 +598,3 @@
 i.blue {
   color: $main-color;
 }
-

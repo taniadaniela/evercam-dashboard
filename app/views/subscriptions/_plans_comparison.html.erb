@@ -1,5 +1,5 @@
 <ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
-  <li class="active"><a href="#annual" data-toggle="tab">Annual <span class="small green"> (Save 10%)</span></a></li>
+  <li class="active"><a href="#annual" data-toggle="tab">Annual</a></li>
   <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
 </ul>
 <div id="my-tab-content" class="tab-content">
@@ -28,7 +28,7 @@
             <li><strong>&lt; 30</strong> days Recording</li>
           </ul>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 plan-hover">
           <ul class="list-group <%= "current-plan-highlight" if has_subscription? && @subscription[:id].eql?('evercam-pro-plus-annual') %>">
             <li><h4>Pro Plus</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus_annual / 12) %></strong></h3></li>

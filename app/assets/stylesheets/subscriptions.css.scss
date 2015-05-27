@@ -53,6 +53,7 @@
   .table > tbody > tr > td {
     border-top:none;
     padding: 8px 0px 0px 0px;
+    vertical-align: middle;
   }
 
   .table > tbody > tr > td {
@@ -70,8 +71,8 @@
   }
 
   .nav-plans {
-    margin: 0px auto 10px;
-    max-width: 236px;
+    margin: 13px auto 10px;
+    max-width: 272px;
   }
 
   .table {
@@ -136,8 +137,14 @@
     border-right: 1px solid $secondary-grey;
     margin: 0 auto;
     overflow: auto;
-    padding: 10px 10px 30px;
+    padding: 10px 10px 40px;
     text-align: center;
+  }
+
+  .plan-button .disabled {
+    border: 1px solid $main-color;
+    color: $main-color;
+    opacity: 1;
   }
 
   .plan-button.highlight-plan-button {
@@ -181,6 +188,7 @@
   margin-right: 5px;
   padding: 5px 10px;
   width: 42px;
+  text-align: center;
 }
 
 .create-add-ons {

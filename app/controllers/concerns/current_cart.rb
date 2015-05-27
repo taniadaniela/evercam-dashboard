@@ -26,6 +26,10 @@ module CurrentCart
     session[:cart].delete_if {|item| item.type.eql?('plan') }
   end
 
+  def purge_add_ons_from_cart
+    session[:cart].delete_if {|item| item.type.eql?('add_on') }
+  end
+
   def add_ons_in_cart?
     session[:cart].detect {|i| i.type.eql?('add_on') } ? true : false
   rescue

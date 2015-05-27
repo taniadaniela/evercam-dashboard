@@ -1,111 +1,86 @@
-<% if @add_ons.present? %>
-<!-- Add-ons list -->
-<table class="table margin-bottom-15">
-  <tr>
-    <th class="col-md-2">Your Current Add-ons</th>
-    <th class="col-md-4"></th>
-    <th class="col-md-2">Next charge</th>
-
-    <th class="col-md-2">Status</th>
-  </tr>
-  <% @add_ons.each do |add_on| -%>
-    <tr>
-      <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
-      <td></td>
-      <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
-
-      <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
-    </tr>
-  <% end -%>
-</table>
-
-<% else %>
-You have no add ons
-<% end %>
-
-
-
 <table class="table margin-bottom-15">
   <tr>
     <th class="col-md-2">Available Add-ons</th>
     <th class="col-md-4">Description</th>
-    <th class="col-md-2">
-      Monthly
-    </th>
-    <th class="col-md-2">
-      Annual
-    </th>
+    <th class="col-md-1 text-center">Qty.</th>
+    <th class="col-md-2 text-center">Change</th>
   </tr>
   <tr>
     <td><strong>Snapmail</strong></td>
     <td>Schedule email notifications from your camera <a href=""></a></td>
-    <td>
-      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), remote: true, class: 'add-to-cart-link' %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <%= @snapmail %>
     </td>
-    <td>
-      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'snapmail-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <i class="fa fa-minus blue"></i>
+      <input id="add-snapmail-qty" type="text" value="0" class="add-on-text">
+      <i data-val="add-snapmail" class="fa fa-plus blue create-add-ons"></i>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'snapmail'), form_class: "hide", remote: true, id: 'add-snapmail', class: 'add-to-cart-link'  %>
     </td>
   </tr>
   <tr>
     <td><strong>Timelapse</strong></td>
     <td>Create and share timelapses from your camera</td>
-    <td>
-      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), remote: true, class: 'add-to-cart-link' %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <%= @timelapse %>
     </td>
-    <td>
-      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'timelapse-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <i class="fa fa-minus blue"></i>
+      <input id="add-timelapse-qty" type="text" value="0" class="add-on-text">
+      <i data-val="add-timelapse" class="fa fa-plus blue create-add-ons"></i>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'timelapse'), form_class: "hide", remote: true, id: 'add-timelapse', class: 'add-to-cart-link' %>
     </td>
   </tr>
   <tr>
     <td><strong>ReStreaming</strong></td>
     <td>ReStream your camera on any web page with our embed code</td>
-    <td>
-      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: 'restream'), remote: true, class: 'add-to-cart-link' %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <%= @restream %>
     </td>
-    <td>
-      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'restream-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <i class="fa fa-minus blue"></i>
+      <input id="add-restream-qty" type="text" value="0" class="add-on-text">
+      <i data-val="add-restream" class="fa fa-plus blue create-add-ons"></i>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: 'restream'), form_class: "hide", remote: true, id: 'add-restream', class: 'add-to-cart-link' %>
     </td>
   </tr>
   <tr>
     <td><strong>Remote Recording</strong></td>
     <td>7 days recording</td>
-    <td>
-      <%= button_to '€10', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording'), remote: true, class: 'add-to-cart-link' %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <%= @seven_days_recording %>
     </td>
-    <td>
-      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <i class="fa fa-minus blue"></i>
+      <input id="add-7-days-recording-qty" type="text" value="0" class="add-on-text">
+      <i data-val="add-7-days-recording" class="fa fa-plus blue create-add-ons"></i>
+      <%= button_to '€100', line_item_add_on_path(type: 'add_on', product_id: '7-days-recording'), form_class: "hide", id: 'add-7-days-recording', remote: true, class: 'add-to-cart-link' %>
     </td>
   </tr>
   <tr>
     <td class="cont"></td>
     <td>30 days recording</td>
-    <td>
-      <%= button_to '€20', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording'), remote: true, class: 'add-to-cart-link' %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <%= @thirty_days_recording %>
     </td>
-    <td>
-      <%= button_to '€200', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <i class="fa fa-minus blue"></i>
+      <input id="add-30-days-recording-qty" type="text" value="0" class="add-on-text">
+      <i data-val="add-30-days-recording" class="fa fa-plus blue create-add-ons"></i>
+      <%= button_to '€200', line_item_add_on_path(type: 'add_on', product_id: '30-days-recording'), form_class: "hide", id: 'add-30-days-recording', remote: true, class: 'add-to-cart-link' %>
     </td>
   </tr>
   <tr>
     <td class="cont"></td>
     <td>90 days recording</td>
-    <td>
-      <%= button_to '€30', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording'), remote: true, class: 'add-to-cart-link' %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <%= @ninety_days_recording %>
     </td>
-    <td>
-      <%= button_to '€250', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording-annual'), remote: true, class: 'add-to-cart-link'  %>
-      <i class="fa fa-plus blue"></i>
+    <td class="text-center">
+      <i class="fa fa-minus blue"></i>
+      <input id="add-90-days-recording-qty" type="text" value="0" class="add-on-text">
+      <i data-val="add-90-days-recording" class="fa fa-plus blue create-add-ons"></i>
+      <%= button_to '€250', line_item_add_on_path(type: 'add_on', product_id: '90-days-recording'), form_class: "hide", id: 'add-90-days-recording', remote: true, class: 'add-to-cart-link' %>
     </td>
   </tr>
 </table>

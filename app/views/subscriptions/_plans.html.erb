@@ -1,5 +1,14 @@
 <div class="card">
-  <p>You're on the <strong><%= @current_plan[:name] %></strong> plan.</p>
+  <p>You're on the
+    <strong>
+    <% if has_subscription? %>
+      <%= @subscription.name %>
+    <% else %>
+      Evercam Free
+    <% end %>
+   </strong>
+    plan.
+  </p>
   <% unless !@next_charge %>
     <p>Your next charge of <strong><%= cents_to_currency @next_charge[:total] %></strong> is on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %>.</p>
   <% end %>

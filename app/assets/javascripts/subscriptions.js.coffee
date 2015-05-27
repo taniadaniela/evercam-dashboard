@@ -15,8 +15,15 @@ createAddOns = ->
   $(".create-add-ons").on 'click', ->
     control_id = $(this).attr("data-val")
     $("##{control_id}").click()
+
+  $(".remove-add-on").on 'click', ->
+    control_id = $(this).attr("data-val")
     quantity = $("##{control_id}-qty").val()
-    $("##{control_id}-qty").val(quantity++)
+    if quantity is "0"
+      alert 'no item in cart'
+      return false
+    else
+      return true
 
 showConfirmation = ->
   $('.delete-add-ons').on 'click', ->

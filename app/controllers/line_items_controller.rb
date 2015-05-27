@@ -36,7 +36,15 @@ class LineItemsController < ApplicationController
 
   def destroy
     flash.now[:message] = "Product removed from cart."
-    session[:cart].delete_if {|item| item.id.eql?(params[:id]) }
+    product_id = params[:id]
+    if params[:type].eql?("add-on")
+      session[:cart].each do |item|
+        if item.product_id.eql?(params[:id]) || item.product_id.eql?("#{params[:id]}-annual")
+          product_id = item.id
+        end
+      end
+    end
+    session[:cart].delete_if {|item| item.id.eql?(product_id) }
     purge_add_ons_from_cart unless can_add_to_cart?
   end
 

@@ -15,7 +15,7 @@ class ProductSelector
     @evercam_pro_annual = { product_id: 'evercam-pro-annual', type: 'plan', name: 'Evercam Pro Annual', price: 96000, interval: 'year' }
 
     @evercam_pro_plus = { product_id: 'evercam-pro-plus', type: 'plan', name: 'Evercam Pro Plus Monthly', price: 2000, interval: 'month' }
-    @evercam_pro_plus_annual = { product_id: 'evercam-pro-plus-annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 20000, interval: 'year' }
+    @evercam_pro_plus_annual = { product_id: 'evercam-pro-plus-annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 192000, interval: 'year' }
 
     @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 1000, interval: 'month' }
     @snapmail_annual = { product_id: 'snapmail-annual', type: 'add_on', name: 'Snapmail', price: 10000, interval: 'year' }
@@ -30,7 +30,7 @@ class ProductSelector
     @thirty_days_recording_annual = { product_id: '30-days-recording-annual', type: 'add_on', name: '30 Days Recording Annual', price: 20000, interval: 'year' }
 
     @ninety_days_recording = { product_id: '90-days-recording', type: 'add_on', name: '90 Days Recording', price: 3000, interval: 'month' }
-    @ninety_days_recording_annual = { product_id: '90-days-recording-annual', type: 'add_on', name: '90 Days Recording Annual', price: 25000, interval: 'year' }
+    @ninety_days_recording_annual = { product_id: '90-days-recording-annual', type: 'add_on', name: '90 Days Recording Annual', price: 30000, interval: 'year' }
 
     @restream = { product_id: 'restream', type: 'add_on', name: 'Restream', price: 1000, interval: 'month' }
     @restream_annual = { product_id: 'restream-annual', type: 'add_on', name: 'Restream Annual', price: 10000, interval: 'year' }

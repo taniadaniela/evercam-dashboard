@@ -1,3 +1,7 @@
 $(".cart").html("<%= escape_javascript(render :partial => 'subscriptions/cart') %>");
 $(".cart-count").text($("#cart-total").val());
 Notification.show("<%= flash.now[:message] %>");
+<% if @added_to_cart %>
+  var qty = parseInt($("#add-<%= params["product_id"] %>-qty").val());
+  $("#add-<%= params["product_id"] %>-qty").val(qty+1);
+<% end %>

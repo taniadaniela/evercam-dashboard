@@ -19,11 +19,16 @@ class LineItemsController < ApplicationController
 
   def create_add_on
     @current_subscription = current_subscription
-    product_params = build_line_item_params(params)
+    product_params = build_line_item_params_add_on(params)
     @line_item = LineItem.new(product_params)
     if can_add_to_cart?
-      flash.now[:message] = "Add-on #{@line_item.name} added to cart."
-      save_to_cart
+      if valid_duration?
+        flash.now[:message] = "Add-on #{@line_item.name} added to cart."
+        @added_to_cart = true
+        save_to_cart
+      else
+        flash.now[:message] = "Add-on and plan must be same period (monthly or annual)."
+      end
     else
       flash.now[:message] = "You must have plan to buy add-ons."
     end
@@ -31,13 +36,33 @@ class LineItemsController < ApplicationController
 
   def destroy
     flash.now[:message] = "Product removed from cart."
-    session[:cart].delete_if {|item| item.id.eql?(params[:id]) }
+    product_id = params[:id]
+    if params[:type].eql?("add-on")
+      session[:cart].each do |item|
+        if item.product_id.eql?(params[:id]) || item.product_id.eql?("#{params[:id]}-annual")
+          product_id = item.id
+        end
+      end
+    end
+    session[:cart].delete_if {|item| item.id.eql?(product_id) }
+    purge_add_ons_from_cart unless can_add_to_cart?
   end
 
   private
 
   def build_line_item_params params
     selector = ProductSelector.new(params[:product_id])
+    selector.product_params
+  end
+
+  def build_line_item_params_add_on params
+    product_id = params[:product_id]
+    if plan_in_cart? && plan_in_cart.interval.eql?("year")
+      product_id = "#{params[:product_id]}-annual"
+    elsif @current_subscription && @current_subscription.interval.eql?("year")
+      product_id = "#{params[:product_id]}-annual"
+    end
+    selector = ProductSelector.new(product_id)
     selector.product_params
   end
 
@@ -57,7 +82,7 @@ class LineItemsController < ApplicationController
   end
 
   def can_add_to_cart?
-    (plan_in_cart? || existing_subscription?) ? true : false #&& valid_duration?
+    (plan_in_cart? || existing_subscription?) ? true : false
   end
 
   def existing_subscription?

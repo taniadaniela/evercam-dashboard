@@ -11,6 +11,20 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
+createAddOns = ->
+  $(".create-add-ons").on 'click', ->
+    control_id = $(this).attr("data-val")
+    $("##{control_id}").click()
+
+  $(".remove-add-on").on 'click', ->
+    control_id = $(this).attr("data-val")
+    quantity = $("##{control_id}-qty").val()
+    if quantity is "0"
+      alert 'no item in cart'
+      return false
+    else
+      return true
+
 showConfirmation = ->
   $('.delete-add-ons').on 'click', ->
     confirm('Are you sure you wish to cancel this add-on?')
@@ -122,11 +136,16 @@ centerModal = (model) ->
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
   showConfirmation()
+  onUpgradeDownGrade()
+  onCheckoutConfirmCard()
+  createAddOns()
+  changePlan()
 
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()
   onCheckoutConfirmCard()
+  createAddOns()
   changePlan()
 
 $ ->

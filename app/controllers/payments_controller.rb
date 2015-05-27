@@ -151,6 +151,7 @@ class PaymentsController < ApplicationController
     add_ons_in_cart.each_with_index do |item, index|
       begin
         AddOn.create(:user_id => current_user.id,
+                     :exid => item.product_id,
                       :add_ons_name => item.name,
                       :period => item.interval,
                       :add_ons_start_date => DateTime.now(),

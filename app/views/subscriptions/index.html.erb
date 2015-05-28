@@ -10,28 +10,32 @@
     <div class="col-md-12 margin-top-20">
       <h3>Cards</h3>
       <div class="card">
-        <table>
-          <% if has_credit_cards? %>
-            <tr>
-              <th class="col-md-1">Issuer</th>
-              <th class="col-md-1">Expires</th>
-              <th class="col-md-2">Ends in</th>
-              <th class="col-md-2"></th>
-              <th class="col-md-2"></th>
-            </tr>
-            <% @credit_cards.each do |card| -%>
-              <tr>
-                <td class="col-md-1"><%=  card.brand -%></td>
-                <td class="col-md-1"><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
-                <td class="col-md-2"><%= card.last4 -%></td>
-                <td class="col-md-2"><%= default_card?(card.id) ? 'Default Card' : (link_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></td>
-                <td class="col-md-2">
-                  <%= button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?', class: 'delete-credit-card' %>
-                </td>
-              </tr>
-            <% end -%>
-          <% end %>
-        </table>
+        <div class="row">
+          <div class="col-md-8">
+            <table class="table table-full-width">
+              <% if has_credit_cards? %>
+                <tr>
+                  <th class="col-md-1">Issuer</th>
+                  <th class="col-md-1">Expires</th>
+                  <th class="col-md-1">Ending in</th>
+                  <th class="col-md-1"></th>
+                  <th class="col-md-1"></th>
+                </tr>
+                <% @credit_cards.each do |card| -%>
+                  <tr>
+                    <td class="col-md-1"><%=  card.brand -%></td>
+                    <td class="col-md-1"><%= card.exp_month -%>&#47;<%= card.exp_year %></td>
+                    <td class="col-md-1"><%= card.last4 -%></td>
+                    <td class="col-md-1"><%= default_card?(card.id) ? 'Default Card' : (link_to 'Make Default', stripe_customer_path({:card_id => card.id, :default_source => true}), method: :put) %></td>
+                    <td class="col-md-1">
+                      <%= button_to 'Delete', credit_card_path(:card_id => card.id), method: :delete, confirm: 'Are you sure you wish to delete this card?', class: 'delete-credit-card' %>
+                    </td>
+                  </tr>
+                <% end -%>
+              <% end %>
+            </table>
+          </div>
+        </div>
         <div class="margin-top-20">
           <%= render 'add_card' %>
         </div>

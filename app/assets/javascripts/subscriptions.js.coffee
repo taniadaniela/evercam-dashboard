@@ -20,7 +20,13 @@ createAddOns = ->
     control_id = $(this).attr("data-val")
     quantity = $("##{control_id}-qty").val()
     if quantity is "0"
-      alert 'no item in cart'
+      $(".user-add-ons-table").hide()
+      if $(".#{control_id}-table").length > 0
+        if $(".#{control_id}-table").length is 1
+          $(".#{control_id}-table a").click()
+        else
+          $(".#{control_id}-table").show()
+          $('#cancelAddOnsModal').modal('show')
       return false
     else
       return true

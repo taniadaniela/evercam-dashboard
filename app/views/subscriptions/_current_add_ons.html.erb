@@ -1,3 +1,75 @@
+<div id="cancelAddOnsModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col-md-12">
+          <% if @add_ons.present? %>
+            <!-- Add-ons list -->
+            <table id="user-add-ons-table" class="table margin-bottom-15">
+              <tr>
+                <th class="col-md-3">Add-ons</th>
+                <th class="col-md-3">Next charge</th>
+                <th class="col-md-3">Status</th>
+              </tr>
+              <% @add_ons.each do |add_on| -%>
+                <% if add_on.exid.eql?('snapmail') || add_on.exid.eql?('snapmail-annual') %>
+                  <tr class="add-snapmail-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.exid), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('timelapse') || add_on.exid.eql?('timelapse-annual') %>
+                  <tr class="add-timelapse-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.exid), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('restream') || add_on.exid.eql?('restream-annual') %>
+                  <tr class="add-restream-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.exid), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('7-days-recording') || add_on.exid.eql?('7-days-recording-annual') %>
+                  <tr class="add-7-days-recording-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.exid), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('30-days-recording') || add_on.exid.eql?('30-days-recording-annual') %>
+                  <tr class="add-30-days-recording-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.exid), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('90-days-recording') || add_on.exid.eql?('90-days-recording-annual') %>
+                  <tr class="add-90-days-recording-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.exid), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% end %>
+              <% end -%>
+            </table>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-sm-8 margin-top-10">
+          <input id="cancel-add-on" type="button" class="btn btn-primary pull-left" value="YES" style="display: none">
+          <input id="cancel-add-on-close" type="button" class="btn btn-default pull-left margin-left2" value="Close" data-dismiss="modal" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table class="table margin-bottom-15">
   <tr>
     <th class="col-md-2">Available Add-ons</th>

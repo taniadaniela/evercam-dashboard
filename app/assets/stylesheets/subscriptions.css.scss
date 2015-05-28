@@ -40,6 +40,9 @@
   h4 {
     font-family: $bold-family;
   }
+  .tooltip {
+    position: absolute;
+  }
 
   .table > tbody > tr > th {
     border-top:none;

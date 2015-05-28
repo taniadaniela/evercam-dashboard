@@ -12,8 +12,8 @@
       <div class="card">
         <div class="row">
           <div class="col-md-8">
+            <% if has_credit_cards? %>
             <table class="table table-full-width">
-              <% if has_credit_cards? %>
                 <tr>
                   <th class="col-md-1">Issuer</th>
                   <th class="col-md-1">Expires</th>
@@ -32,8 +32,10 @@
                     </td>
                   </tr>
                 <% end -%>
-              <% end %>
             </table>
+            <% else %>
+            No card added
+            <% end %>
           </div>
         </div>
         <div class="margin-top-20">

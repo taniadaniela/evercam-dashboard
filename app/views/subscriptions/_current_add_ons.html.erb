@@ -2,15 +2,15 @@
   <tr>
     <th class="col-md-2">Add-on</th>
     <th class="col-md-5">Description</th>
-    <th class="col-md-2" data-container="body" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Monthly / Annual</th>
+    <th class="col-md-2 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Monthly / Annual <i class="fa fa-question-circle grey"></i></th>
     <th class="col-md-2 text-center">Current</th>
     <th class="col-md-1 text-center">Change</th>
   </tr>
   <tr>
     <td><strong>Snapmail</strong></td>
     <td>Schedule email notifications from your camera <a href=""></a></td>
-    <td>
-      <%= cents_to_currency(@prices.snapmail) %> / <%= cents_to_currency(@prices.snapmail_annual) %>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.snapmail) %> / <%= cents_to_currency(@prices.snapmail_annual / 12) %>
     </td>
     <td class="text-center">
       <%= @snapmail %>
@@ -27,8 +27,8 @@
   <tr>
     <td><strong>Timelapse</strong></td>
     <td>Create and share timelapses from your camera</td>
-    <td>
-      <%= cents_to_currency(@prices.timelapse) %> / <%= cents_to_currency(@prices.timelapse_annual) %>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.timelapse) %> / <%= cents_to_currency(@prices.timelapse_annual / 12) %>
     </td>
     <td class="text-center">
       <%= @timelapse %>
@@ -45,8 +45,8 @@
   <tr>
     <td><strong>ReStreaming</strong></td>
     <td>ReStream your camera on any web page with our embed code</td>
-    <td>
-      <%= cents_to_currency(@prices.restream) %> / <%= cents_to_currency(@prices.restream_annual) %>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.restream) %> / <%= cents_to_currency(@prices.restream_annual / 12) %>
     </td>
     <td class="text-center">
       <%= @restream %>
@@ -63,8 +63,8 @@
   <tr>
     <td><strong>Remote Recording</strong></td>
     <td>7 days recording</td>
-    <td>
-      <%= cents_to_currency(@prices.seven_days_recording) %> / <%= cents_to_currency(@prices.seven_days_recording_annual) %>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.seven_days_recording) %> / <%= cents_to_currency(@prices.seven_days_recording_annual / 12) %>
     </td>
     <td class="text-center">
       <%= @seven_days_recording %>
@@ -81,8 +81,8 @@
   <tr>
     <td class="cont"></td>
     <td>30 days recording</td>
-    <td>
-      <%= cents_to_currency(@prices.thirty_days_recording) %> / <%= cents_to_currency(@prices.thirty_days_recording_annual) %>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.thirty_days_recording) %> / <%= cents_to_currency(@prices.thirty_days_recording_annual / 12) %>
     </td>
     <td class="text-center">
       <%= @thirty_days_recording %>
@@ -99,8 +99,8 @@
   <tr>
     <td class="cont"></td>
     <td>90 days recording</td>
-    <td>
-      <%= cents_to_currency(@prices.ninety_days_recording) %> / <%= cents_to_currency(@prices.ninety_days_recording_annual) %>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.ninety_days_recording) %> / <%= cents_to_currency(@prices.ninety_days_recording_annual / 12) %>
     </td>
     <td class="text-center">
       <%= @ninety_days_recording %>

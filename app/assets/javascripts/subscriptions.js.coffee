@@ -65,7 +65,7 @@ onUpgradeDownGrade = ->
           $("#change-plan-action").val("upgrade")
           $("#btn-change-plan").val("Upgrade my plan")
           $("#plan-descprition").html("The total #{plan_control.attr('data-period')} cost for you to upgrade " +
-            "to the #{plan_control.attr('data-plan')} would be #{plan_control.attr('data-price')} per #{plan_control.attr('data-period')}")
+            "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}ly")
         else
           $("#change-plan-action").val("downgrade")
           $("#btn-change-plan").val("Downgrade my plan")

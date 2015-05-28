@@ -1,22 +1,24 @@
-<% if !@billing_history %>
-  <p>No billing history.</p>
-<% else %>
-  <table style="width:100%;" class="table table-full-width">
-    <tr>
-      <th class="col-md-2">Date</th>
-      <th class="col-md-4">Details</th>
-      <th class="col-md-2 text-right">Amount</th>
-    </tr>
-    <% @billing_history.each do |item| %>
+<div class="card">
+  <% if !@billing_history %>
+    <p>No billing history.</p>
+  <% else %>
+    <table style="width:100%;" class="table table-full-width">
       <tr>
-        <td>
-          <span data-toggle="tooltip" data-placement="top" title="<%= Time.at(item[:created]).strftime("%I:%M%P") %>">
-            <%= Time.at(item[:created]).strftime("%d %b %Y") %>
-          </span>
-        </td>
-        <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
-        <td class="text-right"><small class="grey"><%= item[:paid] ? "Paid " : "Pending " %> </small> <%= cents_to_currency item[:amount] %></td>
+        <th class="col-md-2">Date</th>
+        <th class="col-md-4">Details</th>
+        <th class="col-md-2 text-right">Amount</th>
       </tr>
-    <% end %>
-  </table>
-<% end %>
+      <% @billing_history.each do |item| %>
+        <tr>
+          <td>
+            <span data-toggle="tooltip" data-placement="top" title="<%= Time.at(item[:created]).strftime("%I:%M%P") %>">
+              <%= Time.at(item[:created]).strftime("%d %b %Y") %>
+            </span>
+          </td>
+          <td><%= item[:description].blank? ? retrieve_customer_plan(item[:invoice]) : item[:description] %></td>
+          <td class="text-right"><small class="grey"><%= item[:paid] ? "Paid " : "Pending " %> </small> <%= cents_to_currency item[:amount] %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

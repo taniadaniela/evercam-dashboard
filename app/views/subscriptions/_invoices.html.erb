@@ -1,0 +1,30 @@
+<div class="invoices card">
+  <% if !@invoices %>
+    <p>No invoices</p>
+  <% else %>
+    <table style="width:100%;" class="table table-full-width">
+      <tr>
+        <th>Date</th>
+        <th></th>
+        <th class="text-right">Total</th>
+      </tr>
+      <% @invoices.each do |invoice| %>
+        <tr>
+          <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
+          <td>
+            <span class="download-pdf"><%= link_to "PDF", create_invoice_pdf_path(current_user.username, invoice[:id])%><i class="fa fa-file-pdf-o"></i></span>
+            <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
+          </td>
+          <td class="text-right">
+            <% if invoice[:paid] %>
+              <small class="green">Paid</small>
+            <% else %>
+              <small class='red'>Pending</small>
+            <% end %>
+            <%= cents_to_currency(invoice[:total]) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

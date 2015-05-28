@@ -12,10 +12,10 @@ class ProductSelector
     @evercam_free_annual = { product_id: 'evercam-free-annual', type: 'plan', name: 'Evercam Free Annual', price: 0, interval: 'year' }
 
     @evercam_pro = { product_id: 'evercam-pro', type: 'plan', name: 'Evercam Pro Monthly', price: 1000, interval: 'month' }
-    @evercam_pro_annual = { product_id: 'evercam-pro-annual', type: 'plan', name: 'Evercam Pro Annual', price: 10000, interval: 'year' }
+    @evercam_pro_annual = { product_id: 'evercam-pro-annual', type: 'plan', name: 'Evercam Pro Annual', price: 96000, interval: 'year' }
 
     @evercam_pro_plus = { product_id: 'evercam-pro-plus', type: 'plan', name: 'Evercam Pro Plus Monthly', price: 2000, interval: 'month' }
-    @evercam_pro_plus_annual = { product_id: 'evercam-pro-plus-annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 20000, interval: 'year' }
+    @evercam_pro_plus_annual = { product_id: 'evercam-pro-plus-annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 192000, interval: 'year' }
 
     @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 1000, interval: 'month' }
     @snapmail_annual = { product_id: 'snapmail-annual', type: 'add_on', name: 'Snapmail', price: 10000, interval: 'year' }

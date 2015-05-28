@@ -1,42 +1,15 @@
-<section class="cart">
-
-  <% unless cart_empty? %>
-    <% sub_totle = 0 %>
-    <% add_ons_total = 0 %>
-    <table class="table table-borderless">
-      <tr>
-        <th class="col-md-2">
-          Product
-        </th>
-        <th class="col-md-2 text-right">
-          Price
-        </th>
-      </tr>
-      <% session[:cart].each do |item| %>
-        <tr>
-          <td class="col-md-4 text-left"><%= item.name %>  <small><%= link_to 'remove', line_item_path({id: item.id, product: item.product_id, type: item.type}), method: :delete, remote: true, class: 'padding-left-10' %></small> </td>
-
-          <td class="col-md-2 text-right"><%= cents_to_currency item.price %> </td>
-        </tr>
-        <% add_ons_total = add_ons_total + item.price if item.type.eql?("add_on") %>
-        <% sub_totle = sub_totle + item.price %>
-      <% end %>
-    </table>
-    <div class="sub-container text-right">
-      <% if add_ons_in_cart? %>
-        <!--<li>Add-ons Subtotal to Renewal: <%# cents_to_currency(@pro_rated_add_ons_charge) %></li>-->
-        <p>
-          <span class="sub-total blue">Add-ons Total: </span>
-          <span class="pull-right"><%= cents_to_currency(add_ons_total) %></span>
-        </p>
-      <% end %>
-      <p>
-        <span class="bold sub-total blue">Total:  </span>
-        <span class="bold pull-right"> <%= cents_to_currency sub_totle %></span>
-      </p>
+<div class="checkout">
+  <a class="checkout__button" href="#"><!-- Fallback location -->
+    <span class="cart-count"><%= @cart_count %></span>
+      <span class="checkout__text">
+      <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
+    </span>
+  </a>
+  <div class="checkout__order">
+    <div class="checkout__order-inner">
+      <a class="checkout__cancel"><i class="fa-2 fa fa-times"></i></a>
+      <%= render "subscriptions/checkout" %>
+      <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary add-card-to-continue' %>
     </div>
-  <% else %>
-    <p>Your cart is empty</p>
-  <% end %>
-  <input type="hidden" id="cart-total" value="<%= session[:cart].count %>">
-</section>
+  </div>
+</div>

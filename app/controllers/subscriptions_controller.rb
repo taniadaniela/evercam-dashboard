@@ -31,27 +31,11 @@ class SubscriptionsController < ApplicationController
     render layout: false
   end
 
-  def billing_history
-    @billing_history = retrieve_customer_billing_history
-  end
-
   def create
     stripe_customer = retrieve_stripe_customer
     stripe_customer.subscription.create(:plan => params[:plan_id])
     flash[:message] = "You have successfuly created a new #{params[:plan_name]} subscription."
     redirect_to user_path(current_user.username)
-  end
-
-  def edit_subscription
-    @cameras = load_user_cameras(true, false)
-    set_prices
-    @subscription = current_subscription
-    @cart_count = cart_count
-  end
-
-  def edit_add_ons
-    @cameras = load_user_cameras(true, false)
-    @subscription = current_subscription
   end
 
   def destroy

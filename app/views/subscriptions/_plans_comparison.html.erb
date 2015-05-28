@@ -1,9 +1,13 @@
+<ul id="tabs" class="nav-plans nav nav-tabs" data-tabs="tabs">
+  <li class="active"><a href="#annual" data-toggle="tab">Annual Pricing</a></li>
+  <li><a href="#monthly" data-toggle="tab">Monthly Pricing</a></li>
+</ul>
 <div id="my-tab-content" class="tab-content">
   <div class="tab-pane active" id="annual">
     <div class="plans-comparison">
       <div class="row">
         <div class="col-md-4">
-          <ul class="list-group">
+          <ul class="list-group <%= "current-plan-highlight" unless has_subscription? %>">
             <li><h4>Free</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_free) %></strong></h3></li>
             <li><small class="grey">per month</small></li>
@@ -14,7 +18,7 @@
           </ul>
         </div>
         <div class="col-md-4">
-          <ul class="list-group">
+          <ul class="list-group <%= "current-plan-highlight" if has_subscription? && @subscription[:id].eql?('evercam-pro-annual') %>">
             <li><h4>Pro</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_annual / 12) %></strong></h3></li>
             <li><small class="grey">per month</small></li>
@@ -24,8 +28,8 @@
             <li><strong>&lt; 30</strong> days Recording</li>
           </ul>
         </div>
-        <div class="col-md-4">
-          <ul class="list-group">
+        <div class="col-md-4 plan-hover">
+          <ul class="list-group <%= "current-plan-highlight" if has_subscription? && @subscription[:id].eql?('evercam-pro-plus-annual') %>">
             <li><h4>Pro Plus</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus_annual / 12) %></strong></h3></li>
             <li><small class="grey">per month</small></li>
@@ -43,7 +47,7 @@
     <div class="plans-comparison">
       <div class="row">
         <div class="col-md-4">
-          <ul class="list-group">
+          <ul class="list-group <%= "current-plan-highlight" unless has_subscription? %>">
             <li><h4>Free</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_free) %></strong></h3></li>
             <li><small class="grey">per month</small></li>
@@ -54,7 +58,7 @@
           </ul>
         </div>
         <div class="col-md-4">
-          <ul class="list-group">
+          <ul class="list-group <%= "current-plan-highlight" if has_subscription? && @subscription[:id].eql?('evercam-pro') %>">
             <li><h4>Pro</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro) %></strong></h3></li>
             <li><small class="grey">per month</small></li>
@@ -65,7 +69,7 @@
           </ul>
         </div>
         <div class="col-md-4">
-          <ul class="list-group">
+          <ul class="list-group <%= "current-plan-highlight" if has_subscription? && @subscription[:id].eql?('evercam-pro-plus') %>">
             <li><h4>Pro Plus</h4></li>
             <li><h3><strong><%= cents_to_currency(@prices.evercam_pro_plus) %></strong></h3></li>
             <li><small class="grey">per month</small></li>

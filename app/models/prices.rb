@@ -13,19 +13,35 @@ class Prices
               :snapmail,
               :snapmail_annual,
               :timelapse,
-              :timelapse_annual
+              :timelapse_annual,
+              :seven_days_recording,
+              :seven_days_recording_annual,
+              :thirty_days_recording,
+              :thirty_days_recording_annual,
+              :ninety_days_recording,
+              :ninety_days_recording_annual,
+              :restream,
+              :restream_annual
+
+
   def initialize
     @evercam_free = 0
     @evercam_free_annual = 0
-    @evercam_pro = 999
-    @evercam_pro_annual = 9900
-    @evercam_pro_plus = 1499
-    @evercam_pro_plus_annual = 19990
-    @snapmail = 999
-    @snapmail_annual = 9900
-    @timelapse = 999
-    @timelapse_annual = 9990
-    @snapmail = 999
-    @snapmail_annual = 9990
+    @evercam_pro = 1000
+    @evercam_pro_annual = 9600
+    @evercam_pro_plus = 2000
+    @evercam_pro_plus_annual = 20000
+    @snapmail = 1000
+    @snapmail_annual = 10000
+    @timelapse = 1000
+    @timelapse_annual = 10000
+    @seven_days_recording = 1000
+    @seven_days_recording_annual = 10000
+    @thirty_days_recording = 2000
+    @thirty_days_recording_annual = 20000
+    @ninety_days_recording = 3000
+    @ninety_days_recording_annual = 30000
+    @restream = 1000
+    @restream_annual = 10000
   end
 end

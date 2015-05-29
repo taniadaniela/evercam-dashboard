@@ -65,7 +65,7 @@ onUpgradeDownGrade = ->
           $("#change-plan-action").val("upgrade")
           $("#btn-change-plan").val("Upgrade my plan")
           $("#plan-descprition").html("The total #{plan_control.attr('data-period')} cost for you to upgrade " +
-            "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}ly")
+            "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}")
         else
           $("#change-plan-action").val("downgrade")
           $("#btn-change-plan").val("Downgrade my plan")
@@ -93,7 +93,7 @@ changePlan = ->
     action = $("#change-plan-action").val()
 
     if action is "downgrade" && $("#downgrade-plan").val() is ''
-      Notification.show "Please type 'downgrade' to confirm downgrade your plan."
+      Notification.show "Please type 'downgrade' to confirm."
       return
     if $("#change-plan-id").val() is ""
       Notification.show "Empty plan id."

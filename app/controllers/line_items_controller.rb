@@ -35,6 +35,7 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
+    @current_subscription = current_subscription
     flash.now[:message] = "Product removed from cart."
     product_id = params[:id]
     if params[:type].eql?("add-on")
@@ -45,7 +46,9 @@ class LineItemsController < ApplicationController
       end
     end
     session[:cart].delete_if {|item| item.id.eql?(product_id) }
-    purge_add_ons_from_cart unless can_add_to_cart?
+    if !plan_in_cart? && !@current_subscription
+      purge_add_ons_from_cart
+    end
   end
 
   private

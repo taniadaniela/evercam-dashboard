@@ -30,7 +30,7 @@ class Prices
     @evercam_pro = 1000
     @evercam_pro_annual = 9600
     @evercam_pro_plus = 2000
-    @evercam_pro_plus_annual = 20000
+    @evercam_pro_plus_annual = 19200
     @snapmail = 1000
     @snapmail_annual = 10000
     @timelapse = 1000

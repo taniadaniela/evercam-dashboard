@@ -53,12 +53,12 @@ class LineItemsController < ApplicationController
 
   private
 
-  def build_line_item_params params
+  def build_line_item_params(params)
     selector = ProductSelector.new(params[:product_id])
     selector.product_params
   end
 
-  def build_line_item_params_add_on params
+  def build_line_item_params_add_on(params)
     product_id = params[:product_id]
     if plan_in_cart? && plan_in_cart.interval.eql?("year")
       product_id = "#{params[:product_id]}-annual"

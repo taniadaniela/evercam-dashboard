@@ -20,6 +20,12 @@ class StripeCustomer
     false
   end
 
+  def change_of_plan_period?
+    current_plan.interval.eql?(@plan_in_cart.interval) ? false : true
+  rescue
+    false
+  end
+
   def current_plan
     @stripe_customer.subscriptions.first.plan
   rescue

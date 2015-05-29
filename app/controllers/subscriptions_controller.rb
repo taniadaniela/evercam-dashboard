@@ -12,7 +12,6 @@ class SubscriptionsController < ApplicationController
   require "date"
 
   def index
-    @cameras = load_user_cameras(true, false)
     set_prices
     @subscription = current_subscription
     @billing_history = retrieve_customer_billing_history

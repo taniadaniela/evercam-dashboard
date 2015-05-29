@@ -32,8 +32,19 @@ class PaymentsController < ApplicationController
       product_params = build_line_item_params(params)
       @line_item = LineItem.new(product_params)
       @customer = retrieve_stripe_customer_without_cart(@line_item)
+      if @customer.change_of_plan_period?
+        add_ons = AddOn.where(user_id: current_user.id)
+        add_ons.each do |add_on|
+          add_on.period = @line_item.interval
+          if @line_item.interval.eql?("month")
+            add_on.add_ons_end_date = add_on.add_ons_start_date + 30.days
+          else
+            add_on.add_ons_end_date = add_on.add_ons_start_date + 1.year
+          end
+          add_on.save
+        end
+      end
       @customer.change_plan
-
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\

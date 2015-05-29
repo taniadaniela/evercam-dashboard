@@ -18,10 +18,10 @@ class ProductSelector
     @evercam_pro_plus_annual = { product_id: 'evercam-pro-plus-annual', type: 'plan', name: 'Evercam Pro Plus Annual', price: 192000, interval: 'year' }
 
     @snapmail = { product_id: 'snapmail', type: 'add_on', name: 'Snapmail', price: 1000, interval: 'month' }
-    @snapmail_annual = { product_id: 'snapmail-annual', type: 'add_on', name: 'Snapmail', price: 10000, interval: 'year' }
+    @snapmail_annual = { product_id: 'snapmail-annual', type: 'add_on', name: 'Snapmail Annual', price: 10000, interval: 'year' }
 
     @timelapse = { product_id: 'timelapse', type: 'add_on', name: 'Timelapse', price: 1000, interval: 'month' }
-    @timelapse_annual = { product_id: 'timelapse-annual', type: 'add_on', name: 'Timelapse', price: 10000, interval: 'year' }
+    @timelapse_annual = { product_id: 'timelapse-annual', type: 'add_on', name: 'Timelapse Annual', price: 10000, interval: 'year' }
 
     @seven_days_recording = { product_id: '7-days-recording', type: 'add_on', name: '7 Days Recording', price: 1000, interval: 'month' }
     @seven_days_recording_annual = { product_id: '7-days-recording-annual', type: 'add_on', name: '7 Days Recording Annual', price: 10000, interval: 'year' }

@@ -18,10 +18,10 @@ class InvoicesController < ApplicationController
       @invoice = retrieve_customer_invoice(params[:invoice_id])
       @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
       if !@invoice || !@invoice_lines
-        redirect_to invoices_path(current_user.username)
+        redirect_to billing_path(current_user.username)
       end
     else
-      redirect_to invoices_path(current_user.username)
+      redirect_to billing_path(current_user.username)
     end
   end
 
@@ -42,7 +42,7 @@ class InvoicesController < ApplicationController
     rescue
       flash[:message] = "Unable to locate your invoice details in the system. Please refresh your view and try again."
     end
-    redirect_to invoices_path(current_user.username)
+    redirect_to billing_path(current_user.username)
   end
 
   def create_pdf
@@ -56,7 +56,7 @@ class InvoicesController < ApplicationController
         :disposition => "attachment")
     rescue => _error
       flash[:message] = "Exception caught in create invoice pdf, Cause: #{_error.message}"
-      redirect_to invoices_path(current_user.username)
+      redirect_to billing_path(current_user.username)
     end
   end
 end

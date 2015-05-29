@@ -128,7 +128,7 @@ changePlan = ->
       success: onSuccess
       contentType: "application/x-www-form-urlencoded"
       type: 'POST'
-      url: "plans/change"
+      url: "/v1/users/#{Evercam.User.username}/billing/plans/change"
 
     sendAJAXRequest(settings)
 

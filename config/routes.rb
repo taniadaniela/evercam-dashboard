@@ -17,8 +17,6 @@ Rails.application.routes.draw do
   get '/v1/users/:id/billing' => 'subscriptions#index', as: :billing
   get '/v1/users/:id/billing/history' => 'subscriptions#billing_history', as: :billing_history
   get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
-  get '/v1/users/:id/billing/plans' => 'subscriptions#edit_subscription', as: :plans
-  get '/v1/users/:id/billing/add-ons' => 'subscriptions#edit_add_ons', as: :add_ons
   delete '/v1/users/:id/billing' => 'subscriptions#destroy', as: :subscription
 
   get "/v1/users/:id/billing/invoices" => "invoices#index", as: :invoices

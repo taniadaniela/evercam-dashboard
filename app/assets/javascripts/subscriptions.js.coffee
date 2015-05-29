@@ -39,7 +39,7 @@ onCheckoutConfirmCard = ->
   $(".add-card-to-continue").on 'click', ->
     has_credit_card = $("#has-credit-card").val()
     if has_credit_card is "false"
-      $("#plan-descprition").html('You will need to add a credit card before changing your plan.')
+      $("#plan-descprition").html('Add a credit card before changing your plan.')
       $("#change-plan-action").val("")
       $("#btn-change-plan").val($(".stripe-button-el span").text())
       $('.modal').modal('show')
@@ -56,7 +56,7 @@ onUpgradeDownGrade = ->
     $("#change-plan-id").val(plan_control.attr('data-plan-id'))
     $(".modal").on "show.bs.modal", ->
       if has_credit_card is "false"
-        $("#plan-descprition").html('You will need to add a credit card before changing your plan.')
+        $("#plan-descprition").html('Add a credit card before changing your plan.')
         $("#change-plan-action").val("")
         $("#btn-change-plan").val($(".stripe-button-el span").text())
       else
@@ -64,13 +64,13 @@ onUpgradeDownGrade = ->
           $("#section-downgrade").hide()
           $("#change-plan-action").val("upgrade")
           $("#btn-change-plan").val("Upgrade my plan")
-          $("#plan-descprition").html("The total #{plan_control.attr('data-period')} cost for you to upgrade " +
-            "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}")
+          $("#plan-descprition").html("The #{plan_control.attr('data-period')} cost for you to upgrade " +
+            "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}. We will credit you for any time you have not used on your current plan against the cost of this.")
         else
           $("#change-plan-action").val("downgrade")
           $("#btn-change-plan").val("Downgrade my plan")
-          $("#plan-descprition").html("Downgrading to the #{plan_control.attr('data-plan')} plan will change your " +
-            "#{plan_control.attr('data-period')} cost to #{plan_control.attr('data-price')}")
+          $("#plan-descprition").html("The #{plan_control.attr('data-plan')} plan will change your " +
+            "#{plan_control.attr('data-period')} cost to #{plan_control.attr('data-price')}. We will credit you for any time you have not used on your current plan against the cost of this.")
           $("#section-downgrade").show()
       centerModal(this)
     true

@@ -84,13 +84,13 @@
                 <table class="table-product">
                   <tr>
                     <th align="left">Product</th>
-                    <th>Qty.</th>
+                    <th align="center">Qty.</th>
                     <th align="right">Price</th>
                   </tr>
                   <% @invoice_lines.each do |item| %>
                     <tr style="border-top: solid 1px #eeeeee;">
                       <td align="left"><%= item.description.blank? ? item.plan.id : item.description%></td>
-                      <td><%= item.quantity %></td>
+                      <td align="center"><%= item.quantity %></td>
                       <td align="right"><%= item.amount < 0 ? "-" : "" %>&euro;<%= number_with_precision(item.amount.abs / 100, :precision => 2) %> </td>
                     </tr>
                   <% end %>

@@ -10,7 +10,7 @@
               <div class="invoice-status"><%= @invoice[:paid] ? "Paid" : "Pending" %></div>
               <div class="head-text"><strong>Invoice ID:</strong> <%= @invoice[:id] %></div>
               <div class="head-text"><strong>Date:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %></div>
-              <div class="head-text"><strong>Period:</strong> <%= Time.at(@invoice[:period_start]).strftime("%B %d, %Y") %> <span class="grey">to</span> <%= Time.at(@invoice[:period_end]).strftime("%B %d, %Y") %></div>
+              <div class="head-text"><strong>Period:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %> <span class="grey">to</span> <%= @subscription.interval.eql?("year") ? (Time.at(@invoice[:date]) + 1.year).strftime("%B %d, %Y") : (Time.at(@invoice[:date]) + 30.days).strftime("%B %d, %Y") %></div>
             </div>
           </div>
 

@@ -15,6 +15,7 @@ class InvoicesController < ApplicationController
 
   def show
     if params[:invoice_id]
+      @subscription = current_subscription
       @invoice = retrieve_customer_invoice(params[:invoice_id])
       @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
       if !@invoice || !@invoice_lines
@@ -28,12 +29,14 @@ class InvoicesController < ApplicationController
   def send_customer_invoice_email
     begin
       if params[:invoice_id]
+        subscription = current_subscription
+        period = subscription.interval
         invoice = retrieve_customer_invoice(params[:invoice_id])
         invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
         if !invoice || !invoice_lines
           flash[:message] = "Unable to locate your invoice details in the system. Please refresh your view and try again."
         else
-          StripeMailer.send_customer_invoice(invoice, invoice_lines, current_user.email).deliver_now
+          StripeMailer.send_customer_invoice(invoice, invoice_lines, period, current_user.email).deliver_now
           flash[:message] = 'We’ve sent you an invoice email.'
         end
       else
@@ -47,6 +50,7 @@ class InvoicesController < ApplicationController
 
   def create_pdf
     begin
+      @subscription = current_subscription
       @invoice = retrieve_customer_invoice(params[:invoice_id])
       @invoice_lines = retrieve_customer_invoice_lines(params[:invoice_id])
       @html = render_to_string(:action => :create_pdf, :layout => "mailer.html.erb")

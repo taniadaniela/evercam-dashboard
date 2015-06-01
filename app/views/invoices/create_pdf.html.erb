@@ -58,7 +58,7 @@
                 <div style="color: green;"><%= @invoice[:paid] ? "Paid" : "Pending" %></div>
                 <div style="margin-bottom: 5px;margin-top: 15px;"><strong>Invoice ID:</strong> <%= @invoice[:id] %></div>
                 <div style="margin-bottom: 5px;"><strong>Date:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %></div>
-                <div style="margin-bottom: 5px;"><strong>Period:</strong> <%= Time.at(@invoice[:period_start]).strftime("%B %d, %Y") %> <span style="color:grey;">to</span> <%= Time.at(@invoice[:period_end]).strftime("%B %d, %Y") %></div>
+                <div style="margin-bottom: 5px;"><strong>Period:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %> <span style="color:grey;">to</span> <%= @subscription.interval.eql?("year") ? (Time.at(@invoice[:date]) + 1.year).strftime("%B %d, %Y") : (Time.at(@invoice[:date]) + 30.days).strftime("%B %d, %Y") %></div>
               </div>
             </td>
           </tr>

@@ -83,16 +83,16 @@
           <tr>
             <td style="width: 45%;" valign="top">
               <div style="margin-top: 30px;">
-                <div style="padding: 2px 10px;"><strong>From:</strong> Evercam.io</div>
-                <div style="padding: 3px 10px;">Wayra Ireland</div>
-                <div style="padding: 3px 10px;">29 Sir John Rogerson's Quay</div>
-                <div style="padding: 3px 10px;">Dublin, Ireland</div>
+                <div style="padding: 2px 0px;"><strong>From:</strong> Evercam.io</div>
+                <div style="padding: 3px 0px;">Wayra Ireland</div>
+                <div style="padding: 3px 0px;">29 Sir John Rogerson's Quay</div>
+                <div style="padding: 3px 0px;">Dublin, Ireland</div>
               </div>
             </td>
             <td style="width: 10%;"></td>
             <td style="width: 45%;" valign="top">
               <div style="margin-top: 30px;text-align: right;">
-                <div style="padding: 2px 10px;"><strong>To:</strong> <%= @to_user_email %></div>
+                <div style="padding: 2px 0px;"><strong>To:</strong> <%= @to_user_email %></div>
               </div>
             </td>
           </tr>
@@ -108,7 +108,7 @@
                   <% @invoice_lines.each do |item| %>
                     <tr style="border-top: solid 1px #eeeeee;">
                       <td align="left"><%= item.description.blank? ? item.plan.id : item.description%></td>
-                      <td><%= item.quantity %></td>
+                      <td align="center"><%= item.quantity %></td>
                       <td align="right"><%= number_to_currency(item.amount / 100, :precision => 2) %> </td>
                     </tr>
                   <% end %>

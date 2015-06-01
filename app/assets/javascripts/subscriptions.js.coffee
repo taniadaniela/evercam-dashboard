@@ -66,6 +66,11 @@ onUpgradeDownGrade = ->
           $("#btn-change-plan").val("Upgrade my plan")
           $("#plan-descprition").html("The #{plan_control.attr('data-period')} cost for you to upgrade " +
             "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}. We will credit you for any time you have not used on your current plan against the cost of this.")
+        else if plan_change_to is "Switch to Monthly" || plan_change_to is "Switch to Annual"
+          $("#change-plan-action").val("switch")
+          $("#btn-change-plan").val(plan_change_to)
+          $("#plan-descprition").html("Your plan and add-ons switch to #{plan_control.attr('data-period')} billing and cost " +
+              "to the #{plan_control.attr('data-plan')} will be #{plan_control.attr('data-price')} #{plan_control.attr('data-period')}. We will credit you for any time you have not used on your current plan against the cost of this.")
         else
           $("#change-plan-action").val("downgrade")
           $("#btn-change-plan").val("Downgrade my plan")
@@ -99,6 +104,11 @@ changePlan = ->
       Notification.show "Empty plan id."
       return
     if action is "upgrade"
+      $(".change-plan-desc").text("One moment while we upgrade your account...")
+    else if action is "switch"
+      $(".change-plan-desc").text("One moment while we switch your plan and add-ons...")
+
+    if action is "upgrade" || action is "switch"
       $("#plan-descprition").hide()
       $(".modal-footer").hide()
       $("#confirm-upgrading").show()

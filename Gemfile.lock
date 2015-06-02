@@ -513,6 +513,7 @@ GEM
     wicked_pdf (0.11.0)
       rails
     wkhtmltopdf-binary (0.9.9.3)
+    wkhtmltopdf-heroku (2.12.2.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.4)
@@ -595,4 +596,5 @@ DEPENDENCIES
   webmock (~> 1.17)
   wicked_pdf
   wkhtmltopdf-binary
+  wkhtmltopdf-heroku
   yui-compressor

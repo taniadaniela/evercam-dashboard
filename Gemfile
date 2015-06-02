@@ -73,6 +73,7 @@ group :production do
   gem 'skylight'
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  gem 'wkhtmltopdf-heroku'
 end
 
 group :development do

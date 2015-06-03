@@ -137,7 +137,6 @@ saveImage = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/latest"
     sendAJAXRequest(settings)
 
-
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}

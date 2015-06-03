@@ -61,4 +61,16 @@ module StripeInvoicesHelper
     Rails.logger.info e
   end
 
+  def delete_invoice_item(invoice_item_id, add_on_amount, add_on_description)
+    invoice_item = Stripe::InvoiceItem.retrieve(invoice_item_id)
+    add_on_quantity = invoice_item.amount / add_on_amount
+    if add_on_quantity > 1
+      add_on_quantity -= 1
+      invoice_item.amount = add_on_amount * add_on_quantity
+      invoice_item.description = "#{add_on_description} x #{add_on_quantity}"
+      invoice_item.save
+    else
+      invoice_item.delete
+    end
+  end
 end

@@ -12,7 +12,7 @@
         <tr>
           <td><%= link_to Time.at(invoice[:date]).strftime("%d %B %Y"), invoice_show_path(current_user.username, invoice[:id])%></td>
           <td>
-            <span class="download-pdf"><%= link_to "PDF", create_invoice_pdf_path(current_user.username, invoice[:id])%><i class="fa fa-file-pdf-o"></i></span>
+            <span class="download-pdf hide"><%= link_to "PDF", create_invoice_pdf_path(current_user.username, invoice[:id])%><i class="fa fa-file-pdf-o"></i></span>
             <span class="send-email"><%= link_to "Email", send_invoic_email_path(current_user.username, invoice[:id])%><i class="fa fa-send-o"></i></span>
           </td>
           <td class="text-right">

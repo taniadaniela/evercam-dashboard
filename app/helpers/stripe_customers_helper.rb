@@ -78,4 +78,11 @@ module StripeCustomersHelper
   def stripe_plans
     @stripe_plans ||= Stripe::Plan.all
   end
+
+  def add_random_string_add_on(product_id)
+    product_id = product_id.downcase.gsub(' ','')
+    chars = [('a'..'z'), (0..9)].flat_map { |i| i.to_a }
+    random_string = (0...3).map { chars[rand(chars.length)] }.join
+    "#{product_id}-#{random_string}"
+  end
 end

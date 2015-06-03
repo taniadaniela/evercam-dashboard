@@ -7,6 +7,7 @@ class PaymentsController < ApplicationController
   include ApplicationHelper
   include CurrentCart
   include StripeCustomersHelper
+  include StripeInvoicesHelper
 
   # This is the view checkout action
   def new
@@ -161,18 +162,30 @@ class PaymentsController < ApplicationController
   def insert_add_ons
     add_ons_in_cart.each_with_index do |item, index|
       begin
-        AddOn.create(:user_id => current_user.id,
-                     :exid => item.product_id,
-                      :add_ons_name => item.name,
-                      :period => item.interval,
-                      :add_ons_start_date => DateTime.now(),
-                      :add_ons_end_date => calculateadd_ons_end_date(item),
-                      :status => true,
-                      :price => item.price)
-      rescue => error
-        @er = error
+        has_add_on = AddOn.where(user_id: current_user.id, exid: item.product_id)
+        if has_add_on.blank?
+          invoice_item = add_invoice_item(item.price, item.name, 1)
+          invoice_item_id = invoice_item.id
+        else
+          invoice_item_id = has_add_on.first.invoice_item_id
+          update_invoice_item(invoice_item_id, item.price, item.name, has_add_on.count + 1)
+        end
+        add_update_add_on(item, invoice_item_id)
+      rescue => _error
       end
     end
+  end
+
+  def add_update_add_on(item, invoice_item_id)
+    AddOn.create(user_id: current_user.id,
+                 exid: item.product_id,
+                 add_ons_name: item.name,
+                 period: item.interval,
+                 add_ons_start_date: DateTime.now(),
+                 add_ons_end_date: calculateadd_ons_end_date(item),
+                 status: true,
+                 price: item.price,
+                 invoice_item_id: invoice_item_id)
   end
 
   def calculateadd_ons_end_date add_on

@@ -14,7 +14,7 @@ module StripeCustomersHelper
 
   def retrieve_customer_billing_history
     if is_stripe_customer?
-      Stripe::Charge.all(:customer => current_user.stripe_customer_id, :limit => 100)
+      Stripe::Charge.all(:customer => current_user.stripe_customer_id, :limit => 10)
     else
       false
     end

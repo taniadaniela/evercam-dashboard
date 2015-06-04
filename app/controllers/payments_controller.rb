@@ -215,42 +215,42 @@ class PaymentsController < ApplicationController
 
   def product_price(product_id)
     case product_id
-      when "evercam-free"
-        @prices.evercam_free
-      when "evercam-free-annual"
-        @prices.evercam_free_annual
-      when "evercam-pro"
-        @prices.evercam_pro
-      when "evercam-pro-annual"
-        @prices.evercam_pro_annual
-      when "evercam-pro-plus"
-        @prices.evercam_pro_plus
-      when "evercam-pro-plus-annual"
-        @prices.evercam_pro_plus_annual
-      when "snapmail"
-        @prices.snapmail
-      when "snapmail-annual"
-        @prices.snapmail_annual
-      when "timelapse"
-        @prices.timelapse
-      when "timelapse-annual"
-        @prices.timelapse_annual
-      when "7-days-recording"
-        @prices.seven_days_recording
-      when "7-days-recording-annual"
-        @prices.seven_days_recording_annual
-      when "30-days-recording"
-        @prices.thirty_days_recording
-      when "30-days-recording-annual"
-        @prices.thirty_days_recording_annual
-      when "90-days-recording"
-        @prices.ninety_days_recording
-      when "90-days-recording-annual"
-        @prices.ninety_days_recording_annual
-      when "restream"
-        @prices.restream
-      when "restream-annual"
-        @prices.restream_annual
+    when "evercam-free"
+      @prices.evercam_free
+    when "evercam-free-annual"
+      @prices.evercam_free_annual
+    when "evercam-pro"
+      @prices.evercam_pro
+    when "evercam-pro-annual"
+      @prices.evercam_pro_annual
+    when "evercam-pro-plus"
+      @prices.evercam_pro_plus
+    when "evercam-pro-plus-annual"
+      @prices.evercam_pro_plus_annual
+    when "snapmail"
+      @prices.snapmail
+    when "snapmail-annual"
+      @prices.snapmail_annual
+    when "timelapse"
+      @prices.timelapse
+    when "timelapse-annual"
+      @prices.timelapse_annual
+    when "7-days-recording"
+      @prices.seven_days_recording
+    when "7-days-recording-annual"
+      @prices.seven_days_recording_annual
+    when "30-days-recording"
+      @prices.thirty_days_recording
+    when "30-days-recording-annual"
+      @prices.thirty_days_recording_annual
+    when "90-days-recording"
+      @prices.ninety_days_recording
+    when "90-days-recording-annual"
+      @prices.ninety_days_recording_annual
+    when "restream"
+      @prices.restream
+    when "restream-annual"
+      @prices.restream_annual
     end
   end
 

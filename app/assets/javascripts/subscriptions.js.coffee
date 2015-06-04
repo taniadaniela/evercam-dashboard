@@ -129,6 +129,7 @@ changePlan = ->
         location.reload()
       else
         Notification.show "Failed to #{action} plan."
+        $('.modal').modal('hide')
 
     settings =
       cache: false

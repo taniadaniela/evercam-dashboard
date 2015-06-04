@@ -32,16 +32,16 @@ class Prices
     @evercam_pro_plus = 2000
     @evercam_pro_plus_annual = 19200
     @snapmail = 1000
-    @snapmail_annual = 10000
+    @snapmail_annual = 9600
     @timelapse = 1000
-    @timelapse_annual = 10000
+    @timelapse_annual = 9600
     @seven_days_recording = 1000
-    @seven_days_recording_annual = 10000
+    @seven_days_recording_annual = 9600
     @thirty_days_recording = 2000
-    @thirty_days_recording_annual = 20000
+    @thirty_days_recording_annual = 19200
     @ninety_days_recording = 3000
     @ninety_days_recording_annual = 30000
     @restream = 1000
-    @restream_annual = 10000
+    @restream_annual = 9600
   end
 end

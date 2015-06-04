@@ -47,13 +47,14 @@ class SubscriptionsController < ApplicationController
   def delete_add_ons
     begin
       if params[:add_ons_id].present?
-        add_on = AddOn.find(exid: params[:add_ons_id])
+        add_on = AddOn.find(id: params[:add_ons_id])
+        delete_invoice_item(add_on.invoice_item_id, add_on.price.to_i, add_on.add_ons_name)
         flash[:message] = "You have successfuly deleted your '#{add_on.add_ons_name}' add-on."
         add_on.delete()
       else
         flash[:message] = "Invalid add-ons id specified."
       end
-    rescue => error
+    rescue => _error
       flash[:message] = "An error occurred while deleting add-ons. "\
                       "Please try again and, if the problem persists, contact "\
                       "support."

@@ -7,6 +7,7 @@ class PaymentsController < ApplicationController
   include ApplicationHelper
   include CurrentCart
   include StripeCustomersHelper
+  include StripeInvoicesHelper
 
   # This is the view checkout action
   def new
@@ -32,19 +33,36 @@ class PaymentsController < ApplicationController
       product_params = build_line_item_params(params)
       @line_item = LineItem.new(product_params)
       @customer = retrieve_stripe_customer_without_cart(@line_item)
-      if @customer.change_of_plan_period?
+      is_change_period = @customer.change_of_plan_period?
+      @customer.change_plan
+      if is_change_period
+        set_prices
+        @add_ons_arr = Array.new
         add_ons = AddOn.where(user_id: current_user.id)
         add_ons.each do |add_on|
+          old_exid = add_on.exid
           add_on.period = @line_item.interval
           if @line_item.interval.eql?("month")
             add_on.add_ons_end_date = add_on.add_ons_start_date + 30.days
+            add_on.exid = add_on.exid.gsub("-annual", "")
+            add_on.add_ons_name = add_on.add_ons_name.gsub(" Annual", "")
+            add_on.period = "month"
           else
             add_on.add_ons_end_date = add_on.add_ons_start_date + 1.year
+            add_on.exid = "#{add_on.exid}-annual"
+            add_on.add_ons_name = "#{add_on.add_ons_name} Annual"
+            add_on.period = "year"
+          end
+          add_on.price = product_price(add_on.exid)
+          has_created = @add_ons_arr.detect {|i| i.eql?(old_exid) } ? true : false
+          unless has_created
+            @add_ons_arr.push(old_exid)
+            invoice_item = add_invoice_item(add_on.price.to_i, add_on.add_ons_name, add_ons.where(exid: old_exid).count)
+            add_on.invoice_item_id = invoice_item.id
           end
           add_on.save
         end
       end
-      @customer.change_plan
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\
@@ -161,18 +179,30 @@ class PaymentsController < ApplicationController
   def insert_add_ons
     add_ons_in_cart.each_with_index do |item, index|
       begin
-        AddOn.create(:user_id => current_user.id,
-                     :exid => item.product_id,
-                      :add_ons_name => item.name,
-                      :period => item.interval,
-                      :add_ons_start_date => DateTime.now(),
-                      :add_ons_end_date => calculateadd_ons_end_date(item),
-                      :status => true,
-                      :price => item.price)
-      rescue => error
-        @er = error
+        has_add_on = AddOn.where(user_id: current_user.id, exid: item.product_id)
+        if has_add_on.blank?
+          invoice_item = add_invoice_item(item.price, item.name, 1)
+          invoice_item_id = invoice_item.id
+        else
+          invoice_item_id = has_add_on.first.invoice_item_id
+          update_invoice_item(invoice_item_id, item.price, item.name, has_add_on.count + 1)
+        end
+        add_update_add_on(item, invoice_item_id)
+      rescue => _error
       end
     end
+  end
+
+  def add_update_add_on(item, invoice_item_id)
+    AddOn.create(user_id: current_user.id,
+                 exid: item.product_id,
+                 add_ons_name: item.name,
+                 period: item.interval,
+                 add_ons_start_date: DateTime.now(),
+                 add_ons_end_date: calculateadd_ons_end_date(item),
+                 status: true,
+                 price: item.price,
+                 invoice_item_id: invoice_item_id)
   end
 
   def calculateadd_ons_end_date add_on
@@ -180,6 +210,47 @@ class PaymentsController < ApplicationController
       DateTime.now()+30.days
     else
       DateTime.now()+1.year
+    end
+  end
+
+  def product_price(product_id)
+    case product_id
+    when "evercam-free"
+      @prices.evercam_free
+    when "evercam-free-annual"
+      @prices.evercam_free_annual
+    when "evercam-pro"
+      @prices.evercam_pro
+    when "evercam-pro-annual"
+      @prices.evercam_pro_annual
+    when "evercam-pro-plus"
+      @prices.evercam_pro_plus
+    when "evercam-pro-plus-annual"
+      @prices.evercam_pro_plus_annual
+    when "snapmail"
+      @prices.snapmail
+    when "snapmail-annual"
+      @prices.snapmail_annual
+    when "timelapse"
+      @prices.timelapse
+    when "timelapse-annual"
+      @prices.timelapse_annual
+    when "7-days-recording"
+      @prices.seven_days_recording
+    when "7-days-recording-annual"
+      @prices.seven_days_recording_annual
+    when "30-days-recording"
+      @prices.thirty_days_recording
+    when "30-days-recording-annual"
+      @prices.thirty_days_recording_annual
+    when "90-days-recording"
+      @prices.ninety_days_recording
+    when "90-days-recording-annual"
+      @prices.ninety_days_recording_annual
+    when "restream"
+      @prices.restream
+    when "restream-annual"
+      @prices.restream_annual
     end
   end
 

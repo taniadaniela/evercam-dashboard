@@ -36,6 +36,8 @@ module StripeCustomersHelper
   def has_subscriptions?
     @stripe_customer ||= Stripe::Customer.retrieve(current_user.stripe_customer_id)
     @stripe_customer.subscriptions.total_count > 0
+  rescue
+    false
   end
 
   def default_card? card_id
@@ -45,6 +47,8 @@ module StripeCustomersHelper
 
   def retrieve_credit_cards
     Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.all(:object => "card")
+  rescue
+    false
   end
 
   def has_credit_cards?
@@ -54,6 +58,8 @@ module StripeCustomersHelper
     else
       false
     end
+  rescue
+    false
   end
 
   def stripe_customer_without_current_cards?

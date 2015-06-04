@@ -54,17 +54,29 @@ handlePusherEventSingle = ->
 updateCameraSinglePage = ->
   $.ajax(Evercam.request.rootpath).done (data) ->
     elements = [
-      '#camera-single .camera-title'
-      #'#details .info-preview'
-      #'#camera-details-panel'
-      #'#general-info-panel'
-      #'#urls-panel'
-      #'#settings-modal .modal-body'
+      '.camera-switch'
+      '#details .info-preview'
+      '#camera-details-panel'
+      '#camera-connection-panel'
+      '#general-info-panel'
+      '#urls-panel'
+      '#settings-modal .modal-body'
     ]
     updateElement(data, elem) for elem in elements
+    updateLiveViewPanel()
 
 updateElement = (page, elem)->
   $(elem).html $(page).find("#{elem} > *")
+
+updateLiveViewPanel = ->
+  status = $("#camera-details-panel td > .status").text().toLowerCase()
+  switch status
+    when "online"
+      $(".camera-preview-online").removeClass('hide')
+      $(".camera-preview-offline").addClass('hide')
+    when "offline"
+      $(".camera-preview-online").addClass('hide')
+      $(".camera-preview-offline").removeClass('hide')
 
 handleCameraModalSubmit = ->
   $('#settings-modal').on 'click', '#add-button', ->
@@ -117,7 +129,7 @@ addToMyCameras = ->
       type: 'POST'
       url: '/share'
     sendAJAXRequest(settings)
-    
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()

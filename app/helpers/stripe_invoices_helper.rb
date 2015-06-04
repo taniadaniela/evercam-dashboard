@@ -1,7 +1,7 @@
 module StripeInvoicesHelper
   def retrieve_customer_invoices
     if is_stripe_customer?
-      Stripe::Invoice.all(:customer => current_user.stripe_customer_id, :limit => 100)
+      Stripe::Invoice.all(:customer => current_user.stripe_customer_id, :limit => 10)
     else
       false
     end

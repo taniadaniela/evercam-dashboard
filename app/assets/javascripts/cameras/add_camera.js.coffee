@@ -121,6 +121,14 @@ onLoadPage = ->
   $("#unreveal").click ->
     $(".this").fadeOut()
 
+onAddCamera = ->
+  $("#add-button").on 'click', ->
+    regularExpression = /^(^127\.0\.0\.1)|(^192\.168\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)$/
+    if regularExpression.test($("#camera-url").val())
+      Notification.show "Its your local IP, please provide camera public IP."
+      $("#camera-url").css("border-color", "red")
+      return false
+
 window.initializeAddCamera = ->
   Metronic.init()
   Layout.init()
@@ -130,4 +138,5 @@ window.initializeAddCamera = ->
   handleVendorModelEvents()
   initNotification()
   loadVendors()
+  onAddCamera()
 

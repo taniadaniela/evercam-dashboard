@@ -56,7 +56,7 @@ gem 'country_select',
 gem 'devise'
 gem 'ie_iframe_cookies'
 gem 'heroku-api'
-gem 'airbrake'
+gem 'airbrake', '~> 4.2.1'
 gem 'pusher'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

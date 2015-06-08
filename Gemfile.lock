@@ -248,7 +248,7 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    geocoder (1.2.6)
+    geocoder (1.2.8)
     georuby (2.3.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)

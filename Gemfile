@@ -42,7 +42,7 @@ gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
 
 gem 'pg'
 gem 'sequel'
-gem 'bcrypt', '~> 3.1.2'
+gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes'
 gem 'rack-rewrite'
 gem 'typhoeus'

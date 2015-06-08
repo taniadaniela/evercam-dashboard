@@ -1,12 +1,14 @@
 <%= content_for(:title, "Evercam: Camera Dashboard") %>
-<script>mixpanel.identify(<%= current_user.username %>),
-mixpanel.people.set({
-  "$first_name": "<%= current_user.firstname %>",
-  "$last_name": "<%= current_user.lastname %>",
-  "$created": "<%= current_user.created_at %>",
-  "$email": "<%= current_user.email %>",
-  "Username": "<%= current_user.username %>"
-});</script>
+<script>
+ mixpanel.identify("<%= current_user.username %>"),
+    mixpanel.people.set({
+        "$first_name": "<%= current_user.firstname %>",
+        "$last_name": "<%= current_user.lastname %>",
+        "$created": "<%= current_user.created_at %>",
+        "$email": "<%= current_user.email %>",
+        "Username": "<%= current_user.username %>"
+    });
+</script>
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-index">
 
@@ -57,7 +59,7 @@ mixpanel.people.set({
 </div>
 
 <script>
-  $(document).ready(function () {
-    window.initializeCameraIndex();
-  });
+ $(document).ready(function () {
+     window.initializeCameraIndex();
+ });
 </script>

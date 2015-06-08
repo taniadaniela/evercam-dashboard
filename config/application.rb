@@ -41,6 +41,7 @@ module EvercamDashboard
       admin/admin.css
       views/widgets/widget.css
       views/widgets/add_camera.css
+      bare-bones.js
       widgets.js
       widgets/add_camera.js
       widgets/localstorage_widget.js

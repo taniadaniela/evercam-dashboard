@@ -171,7 +171,7 @@ GEM
       sequel (= 4.10)
       timezone (~> 0.3)
       typhoeus (~> 0.6)
-    excon (0.42.1)
+    excon (0.45.3)
     execjs (2.5.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -248,8 +248,8 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    geocoder (1.2.6)
-    georuby (2.3.0)
+    geocoder (1.2.8)
+    georuby (2.5.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     grit (2.5.0)
@@ -266,8 +266,8 @@ GEM
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
     hashie (3.4.1)
-    heroku-api (0.3.19)
-      excon (~> 0.38)
+    heroku-api (0.3.23)
+      excon (~> 0.44)
       multi_json (~> 1.8)
     heroku_rails_deflate (1.0.3)
       actionpack (>= 3.2.13)
@@ -279,7 +279,7 @@ GEM
       domain_name (~> 0.5)
     httpclient (2.6.0.1)
     i18n (0.7.0)
-    ie_iframe_cookies (0.1.6)
+    ie_iframe_cookies (0.2.0)
     inflecto (0.0.2)
     ipaddress (0.8.0)
     jquery-rails (4.0.3)
@@ -540,7 +540,7 @@ DEPENDENCIES
   factory_girl
   fog
   geocoder
-  georuby (= 2.3.0)
+  georuby (= 2.5.2)
   guard-rspec (~> 4.3.1)
   heroku-api
   heroku_rails_deflate

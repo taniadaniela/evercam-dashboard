@@ -352,7 +352,7 @@ GEM
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.6.1)
-    rack-rewrite (1.5.0)
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack_session_access (0.1.1)

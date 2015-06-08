@@ -84,7 +84,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    airbrake (4.0.0)
+    airbrake (4.2.1)
       builder
       multi_json
     arel (6.0.0)
@@ -92,8 +92,9 @@ GEM
       activemodel
       fog (>= 1.8.0)
       unf
-    autoprefixer-rails (4.0.2.2)
+    autoprefixer-rails (5.2.0)
       execjs
+      json
     awesome_print (1.2.0)
     babel-source (5.3.1)
     babel-transpiler (0.7.0)
@@ -171,7 +172,7 @@ GEM
       timezone (~> 0.3)
       typhoeus (~> 0.6)
     excon (0.42.1)
-    execjs (2.2.1)
+    execjs (2.5.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     faraday (0.9.1)
@@ -523,9 +524,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
+  airbrake (~> 4.2.1)
   asset_sync
-  autoprefixer-rails
+  autoprefixer-rails (~> 5.2.0)
   bcrypt (~> 3.1.2)
   coffee-rails (~> 4.0.0)
   country_select!

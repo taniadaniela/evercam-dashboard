@@ -10,7 +10,7 @@ showFeedback = (message) ->
   true
 
 $ ->
-  $('#camera-url-web').on 'input', () ->
+  $(document).on 'input', "#camera-url-web", () ->
     val = $(this).val()
     a = document.createElement('a')
     a.href = val
@@ -18,7 +18,7 @@ $ ->
     $('#port-web').val(a.port)
     $('#snapshot-web').val(a.pathname)
 
-  $('#test').on 'click', (event) ->
+  $(document).on 'click', "#test", (event) ->
     event.preventDefault()
     intRegex = /^\d+$/
     port = $('#port').val()

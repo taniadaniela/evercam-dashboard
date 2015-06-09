@@ -92,7 +92,7 @@ group :test do
   gem 'factory_girl'
   gem 'vcr'
   gem 'rspec-rails', '~> 3.2.3'
-  gem 'webmock', '~> 1.17'
+  gem 'webmock', '~> 1.21.0'
   gem 'poltergeist'
   gem 'simplecov'
   gem 'rack_session_access'

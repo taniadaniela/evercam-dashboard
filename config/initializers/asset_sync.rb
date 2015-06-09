@@ -6,7 +6,7 @@ AssetSync.configure do |config|
   config.aws_secret_access_key = ENV['AWS_SECRET_KEY']
   # To use AWS reduced redundancy storage.
   # config.aws_reduced_redundancy = true
-  config.fog_directory = "evercam-dashboard-assets-2"
+  config.fog_directory = "evercam-dashboard-assets"
 
   # Invalidate a file on a cdn after uploading files
   # config.cdn_distribution_id = "12345"

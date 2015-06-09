@@ -217,8 +217,6 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"share_requests": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}/shares/requests.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}").
            to_return(:status => 200, :body => '{"shares": []}', :headers => {})
-        stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}/webhooks.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}&camera_id=#{params['camera-id']}").
-           to_return(:status => 200, :body => '{"webhooks": [{}]}', :headers => {})
 
         session['user'] = camera.owner.email
         get :single, id: params['camera-id']
@@ -241,8 +239,6 @@ describe CamerasController do
            to_return(:status => 200, :body => '{"shares": []}', :headers => {})
         stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/logs.json?api_id=#{user.api_id}&api_key=#{user.api_key}&objects=true&page=-1&types=").
           to_return(:status => 200, :body => '{"logs": [{}], "pages": 1}', :headers => {})
-        stub_request(:get, "#{EVERCAM_API}cameras/#{camera2.exid}/webhooks.json?api_id=#{user.api_id}&api_key=#{user.api_key}").
-          to_return(:status => 200, :body => '{"webhooks": [{}]}', :headers => {})
 
         session['user'] = user.email
         get :single, id: camera2.exid

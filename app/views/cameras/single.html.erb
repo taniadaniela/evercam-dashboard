@@ -37,10 +37,6 @@
               <a data-toggle="tab" data-target="#apps" class="nav-tab-apps">Apps</a>
             </li>
 
-            <li>
-              <a data-toggle="tab" data-target="#webhooks" class="nav-tab-webhooks">Webhooks</a>
-            </li>
-
             <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
               <li>
                 <a data-toggle="tab" data-target="#local-storage" class="nav-tab-local-storage">Local Storage</a>
@@ -78,9 +74,6 @@
           <% end %>
           <div id="apps" class="tab-pane">
             <%= render partial: "cameras/single/apps_tab" %>
-          </div>
-          <div id="webhooks" class="tab-pane">
-            <%= render partial: "cameras/single/webhooks_tab" %>
           </div>
           <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
             <div id="local-storage" class="tab-pane">

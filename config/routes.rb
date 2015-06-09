@@ -57,9 +57,6 @@ Rails.application.routes.draw do
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
 
-  post '/cameras/:id/webhooks' => 'webhooks#create'
-  delete '/cameras/:id/webhooks' => 'webhooks#delete'
-
   get '/v1/public/cameras' => 'public#index', as: :public_cameras_index
   get '/v1/public/cameras/:id' => 'public#single', as: :public_cameras_single
 

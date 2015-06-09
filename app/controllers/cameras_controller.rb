@@ -188,7 +188,6 @@ class CamerasController < ApplicationController
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
-      @webhooks = api.get_webhooks(params[:id])
       @cameras = load_user_cameras(true, false)
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)

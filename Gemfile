@@ -11,8 +11,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'sprockets'
 gem 'sprockets-es6', require: 'sprockets/es6'
-gem 'fog',
-  require: 'fog/aws/storage'
+gem 'fog'
 gem 'asset_sync'
 gem 'autoprefixer-rails', '~> 5.2.0'
 gem 'stripe',

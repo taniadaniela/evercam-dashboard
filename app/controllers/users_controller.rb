@@ -102,7 +102,8 @@ class UsersController < ApplicationController
   def delete
     begin
       get_evercam_api.delete_user(params['id'])
-      redirect_to cameras_single_path
+      sign_out
+      redirect_to signin_path
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting user.\nCause: #{error}\n" +
@@ -111,7 +112,6 @@ class UsersController < ApplicationController
                       "and, if the problem persists, contact support."
       redirect_to user_path
     end
-    render layout: "user-account"
   end
 
   def settings_update

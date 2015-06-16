@@ -87,12 +87,14 @@ class SharingController < ApplicationController
     result = {success: true}
     if params.include?(:camera_id) && params.include?(:permissions) && params.include?(:email)
       camera_id = params[:camera_id]
+      body = {}
+      body[:message] = params["message"] unless params["message"].blank?
       rights = generate_rights_list(params[:permissions])
       share = nil
       api = get_evercam_api
 
       begin
-        share = api.share_camera(camera_id, params[:email], rights)
+        share = api.share_camera(camera_id, params[:email], rights, body)
         result[:camera_id] = share["camera_id"]
         result[:share_id] = share["id"]
         result[:type] = share["type"]

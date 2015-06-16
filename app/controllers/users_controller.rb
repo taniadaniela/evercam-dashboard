@@ -90,12 +90,7 @@ class UsersController < ApplicationController
  
   def settings
     @cameras = load_user_cameras(true, false)
-    @subscription = current_subscription
     @countries = Country.all
-    unless current_user.stripe_customer_id.blank?
-      @credit_cards = retrieve_credit_cards
-      @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
-    end
     render layout: "user-account"
   end
 

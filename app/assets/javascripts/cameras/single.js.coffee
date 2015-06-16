@@ -148,7 +148,7 @@ window.initializeCameraSingle = ->
   # temporarily disabled
   #handleCameraModalSubmit()
   # temporarily added
-  handlePageLoad()
+  # handlePageLoad()
   initializeiCheck()
   initializeDropdowns()
   addToMyCameras()

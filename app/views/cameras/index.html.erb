@@ -31,9 +31,9 @@
     </div>
 
     <% @cameras.each do |camera| %>
-      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index <%= "camera-offline" unless camera['is_online'] %>">
         <%= link_to cameras_single_path(camera['id']) do %>
-          <div class="snapshot <% unless camera['is_online'] %> offline-snapshot <% end %>">
+          <div class="snapshot <%= "offline-snapshot" unless camera['is_online'] %>">
             <%= preview(camera, true) %>
           </div>
           <div class="camera-info <% unless camera['is_online'] %> offline-grey <% end %>">

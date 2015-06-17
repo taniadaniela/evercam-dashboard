@@ -84,7 +84,7 @@ handleCameraModalSubmit = ->
 handlePageLoad = ->
   setTimeout (->
     updateCameraSinglePage()
-    $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *'
+    # $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *'
   ), 2000
 
 addToMyCameras = ->
@@ -148,7 +148,7 @@ window.initializeCameraSingle = ->
   # temporarily disabled
   #handleCameraModalSubmit()
   # temporarily added
-  # handlePageLoad()
+  handlePageLoad()
   initializeiCheck()
   initializeDropdowns()
   addToMyCameras()

@@ -51,7 +51,7 @@ onDeleteClick = ->
       return false
     return true
 
-hideOfflinesCamera = ->
+saveUserSettings = ->
   if $.cookie("hide-offline-cameras")
     $("#hide-offline-cameras").prop("checked", true)
     $("#lbl-for-hide-cameras span").addClass("checked")
@@ -71,7 +71,7 @@ window.initializeUserAccount = ->
   handleEditable()
   showHideMessage()
   handlePasswordChange()
-  hideOfflinesCamera()
+  saveUserSettings()
   onDeleteClick()
 
 initialize = ->

@@ -30,6 +30,12 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
+hideOfflineCamerasBox = ->
+  if $.cookie("hide-offline-cameras")
+    $("#camera-index div.camera-offline").addClass("hide")
+  else
+    $("#camera-index div.camera-offline").removeClass("hide")
+
 window.initializeCameraIndex = ->
   Metronic.init()
   Layout.init()
@@ -38,3 +44,4 @@ window.initializeCameraIndex = ->
   refreshImages()
   onRefreshImage()
   handlePusherEventIndex()
+  hideOfflineCamerasBox()

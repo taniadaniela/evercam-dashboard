@@ -13,6 +13,9 @@
               <li>
                 <a data-toggle="tab" href="#password"><i class="icon icon-key"></i>Password</a>
               </li>
+              <li>
+                <a data-toggle="tab" href="#settings"><i class="icon icon-key"></i>Settings</a>
+              </li>
             </ul>
           </div>
 
@@ -22,6 +25,9 @@
             </div>
             <div id="password" class="tab-pane">
               <%= render partial: "users/settings/password_tab" %>
+            </div>
+            <div id="settings" class="tab-pane">
+              <%= render partial: "users/settings/user_settings_tab" %>
             </div>
           </div>
         </div>

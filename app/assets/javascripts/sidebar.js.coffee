@@ -12,7 +12,9 @@ handleSidebarToggle = ->
 
 hideOfflineCameras = ->
   if $.cookie("hide-offline-cameras")
-    $(".sidebar-cameras-list li.sidebar-offline").hide()
+    $(".sidebar-cameras-list li.sidebar-offline").addClass("hide")
+  else
+    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
 
 $ ->
   handleSidebarToggle()

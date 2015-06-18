@@ -287,8 +287,8 @@ onDeleteShareRequestClicked = (event) ->
 
 onAddSharingUserClicked = (event) ->
   event.preventDefault()
-  emailAddress = $('#sharingUserEmail').val()
-  emailbodyMsg = $('#sharinMessage').val()
+  emailAddress = $('#sharing-user-email').val()
+  emailbodyMsg = $('#sharing-message').val()
   if $('#sharingPermissionLevel').val() != "Full Rights"
     permissions = "minimal"
   else
@@ -305,8 +305,8 @@ onAddSharingUserClicked = (event) ->
         data.type == "share_request"
         addSharingCameraRow(data)
         showFeedback("A notification email has been sent to the specified email address.")
-      $('#sharingUserEmail').val("")
-      $('#sharinMessage').val("")
+      $('#sharing-user-email').val("")
+      $('#sharing-message').val("")
 
     else
       message = "Adding a camera share failed."

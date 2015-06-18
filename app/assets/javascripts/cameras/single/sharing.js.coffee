@@ -287,7 +287,8 @@ onDeleteShareRequestClicked = (event) ->
 
 onAddSharingUserClicked = (event) ->
   event.preventDefault()
-  emailAddress = $('#sharingUserEmail').val()
+  emailAddress = $('#sharing-user-email').val()
+  emailbodyMsg = $('#sharing-message').val()
   if $('#sharingPermissionLevel').val() != "Full Rights"
     permissions = "minimal"
   else
@@ -304,7 +305,8 @@ onAddSharingUserClicked = (event) ->
         data.type == "share_request"
         addSharingCameraRow(data)
         showFeedback("A notification email has been sent to the specified email address.")
-      $('#sharingUserEmail').val("")
+      $('#sharing-user-email').val("")
+      $('#sharing-message').val("")
 
     else
       message = "Adding a camera share failed."
@@ -323,7 +325,7 @@ onAddSharingUserClicked = (event) ->
           message = data.message
       showError(message)
     true
-  createShare(Evercam.Camera.id, emailAddress, permissions, onSuccess, onError)
+  createShare(Evercam.Camera.id, emailAddress, emailbodyMsg, permissions, onSuccess, onError)
   true
 
 onSaveShareClicked = (event) ->
@@ -386,10 +388,11 @@ onSaveShareRequestClicked = (event) ->
   sendAJAXRequest(settings)
   true
 
-createShare = (cameraID, email, permissions, onSuccess, onError) ->
+createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
   data =
     camera_id: cameraID
     email: email
+    message: bodyMessage
     permissions: permissions
 
   settings =

@@ -237,32 +237,42 @@
       <span class="bold">Share Camera with:</span>
     </div>
     <div class="add-user">
-      <table class="table table-borderless">
+      <table class="table table-borderless col-lg-5">
         <tr>
           <td class="col-lg-4">
-
-
-            <div class="email-input">
-              <div class="input-group">
-                <input type="email" placeholder="Email address or Username" class="form-control" id="sharingUserEmail" name="sharingUserEmail">
-              </div>
-            </div>
-          </td>
-
-          <td class="col-lg-2">
-            <div class="input-group margin-left--10">
+            <div class="input-group">
               <select id="sharingPermissionLevel" class="form-control">
                 <option>Read Only</option>
                 <option>Full Rights</option>
               </select>
             </div>
           </td>
-          <td class="col-lg-2">
-            <div class="form-group share-camera">
+        </tr>
+
+        <tr>
+          <td class="col-lg-4">
+            <div class="email-input">
+              <div class="input-group">
+                <input type="email" placeholder="Email address or Username" class="form-control" id="sharing-user-email" name="sharing-user-email">
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-4">
+            <div class="email-input">
+              <div class="input-group">
+                <textarea id="sharing-message" rows="5" placeholder="Message to send in email" class="form-control"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-4">
+            <div class="input-group">
               <button type="submit" class="btn btn-primary" id="submit_share_button">Share</button>
             </div>
           </td>
-          <td class="col-lg-2">
         </tr>
       </table>
     </div>

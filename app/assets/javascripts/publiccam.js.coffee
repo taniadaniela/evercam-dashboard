@@ -24,7 +24,7 @@ onAddShareClicked = (event) ->
       else
         showError("Failed to add camera to your shared cameras.")
     true
-  window.Evercam.Share.createShare(cameraID, emailAddress, permissions, onSuccess, onError)
+  window.Evercam.Share.createShare(cameraID, emailAddress, "", permissions, onSuccess, onError)
   true
 
 setList = ->

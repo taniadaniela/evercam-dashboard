@@ -78,8 +78,10 @@
             <% if camera['owned'] %>
               <p class="text-left">You must confirm you would like to delete the cameras you own or you can transfer ownership before deleting your account. <br>Check the box to confirm you would like to delete the camera:</p>
               <div class="camera-row">
-                <input id="chk-camera-<%= camera['id'] %>" class="camera-delete" type="checkbox" value="<%= camera['id'] %>"> <label for="chk-camera-<%= camera['id'] %>" class="camera-row-label"><%= camera['name'] %></label>
-                <span class="transfer-span"><%= link_to 'Transfer camera', "#{cameras_single_path(camera['id'])}/shares/transfer", class: 'transfer-link' %></span>
+                <div class="form-group checkbox">
+                  <input id="chk-camera-<%= camera['id'] %>" class="camera-delete" type="checkbox" value="<%= camera['id'] %>"> <label for="chk-camera-<%= camera['id'] %>" class="camera-row-label"><%= camera['name'] %></label>
+                  <label class="transfer-span"><%= link_to 'Transfer camera', "#{cameras_single_path(camera['id'])}/shares/transfer", class: 'transfer-link' %></label>
+                </div>
               </div>
             <% end %>
           <% end %>

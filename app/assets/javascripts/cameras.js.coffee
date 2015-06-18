@@ -31,10 +31,10 @@ initNotification = ->
     Notification.show notifyMessage
 
 hideOfflineCamerasBox = ->
-  if $.cookie("hide-offline-cameras")
-    $("#camera-index div.camera-offline").addClass("hide")
-  else
+  if $.cookie("show-offline-cameras")
     $("#camera-index div.camera-offline").removeClass("hide")
+  else
+    $("#camera-index div.camera-offline").addClass("hide")
 
 window.initializeCameraIndex = ->
   Metronic.init()

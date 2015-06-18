@@ -85,10 +85,10 @@ handlePageLoad = ->
   setTimeout (->
     updateCameraSinglePage()
     $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *', ->
-      hideOfflineCameras()
+      showOfflineCameras()
   ), 2000
 
-hideOfflineCameras = ->
+showOfflineCameras = ->
   if $.cookie("show-offline-cameras")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
   else

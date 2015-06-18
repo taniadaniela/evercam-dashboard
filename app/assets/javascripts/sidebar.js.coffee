@@ -10,7 +10,7 @@ handleSidebarToggle = ->
     $(this).toggleClass('active')
     $('#cbp-spmenu-s1').toggleClass('cbp-spmenu-open')
 
-hideOfflineCameras = ->
+showOfflineCameras = ->
   if $.cookie("show-offline-cameras")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
   else
@@ -18,7 +18,7 @@ hideOfflineCameras = ->
 
 $ ->
   handleSidebarToggle()
-  hideOfflineCameras()
+  showOfflineCameras()
 
 $(window).load ->
   handlePusherEventUser()

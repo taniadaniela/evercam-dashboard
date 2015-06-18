@@ -30,7 +30,7 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
-hideOfflineCamerasBox = ->
+showOfflineCamerasBox = ->
   if $.cookie("show-offline-cameras")
     $("#camera-index div.camera-offline").removeClass("hide")
   else
@@ -44,4 +44,4 @@ window.initializeCameraIndex = ->
   refreshImages()
   onRefreshImage()
   handlePusherEventIndex()
-  hideOfflineCamerasBox()
+  showOfflineCamerasBox()

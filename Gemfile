@@ -82,7 +82,7 @@ group :development do
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
-  gem 'rspec', '~> 3.2.0'
+  gem 'rspec', '~> 3.3.0'
   gem 'guard-rspec', '~> 4.5.2'
 end
 
@@ -90,7 +90,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'vcr'
-  gem 'rspec-rails', '~> 3.2.3'
+  gem 'rspec-rails', '~> 3.3.2'
   gem 'webmock', '~> 1.21.0'
   gem 'poltergeist'
   gem 'simplecov'

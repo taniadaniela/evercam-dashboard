@@ -13,7 +13,7 @@ gem 'sprockets'
 gem 'sprockets-es6', require: 'sprockets/es6'
 gem 'fog'
 gem 'asset_sync'
-gem 'autoprefixer-rails', '~> 5.2.0'
+gem 'autoprefixer-rails', '~> 5.2.0.1'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'

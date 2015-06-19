@@ -91,7 +91,7 @@ GEM
       activemodel
       fog (>= 1.8.0)
       unf
-    autoprefixer-rails (5.2.0)
+    autoprefixer-rails (5.2.0.1)
       execjs
       json
     awesome_print (1.2.0)
@@ -274,7 +274,7 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    geocoder (1.2.8)
+    geocoder (1.2.9)
     georuby (2.5.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
@@ -566,7 +566,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake (~> 4.2.1)
   asset_sync
-  autoprefixer-rails (~> 5.2.0)
+  autoprefixer-rails (~> 5.2.0.1)
   bcrypt (~> 3.1.10)
   coffee-rails (~> 4.1.0)
   country_select!

@@ -52,15 +52,15 @@ onDeleteClick = ->
     return true
 
 saveUserSettings = ->
-  if $.cookie("show-offline-cameras")
-    $("#show-offline-cameras").prop("checked", true)
-    $("#lbl-for-show-cameras span").addClass("checked")
-  $("#show-offline-cameras").on "click", ->
+  if $.cookie("hide-offline-cameras")
+    $("#hide-offline-cameras").prop("checked", true)
+    $("#lbl-for-hide-cameras span").addClass("checked")
+  $("#hide-offline-cameras").on "click", ->
     hide_cameras = $(this).prop("checked")
     if hide_cameras
-      $.cookie("show-offline-cameras", $(this).prop("checked"), { expires: 365, path: "/" })
+      $.cookie("hide-offline-cameras", $(this).prop("checked"), { expires: 365, path: "/" })
     else
-      $.removeCookie("show-offline-cameras", { path: "/" })
+      $.removeCookie("hide-offline-cameras", { path: "/" })
 
 window.initializeUserAccount = ->
   $.validate()

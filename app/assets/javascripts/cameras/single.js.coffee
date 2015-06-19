@@ -92,7 +92,7 @@ showOfflineCameras = ->
   if $.cookie("show-offline-cameras")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
   else
-    $(".sidebar-cameras-list li.sidebar-offline").addClass("hide")
+    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide").addClass("hide")
 
 addToMyCameras = ->
   $('#add-to-cameras').on 'click', ->

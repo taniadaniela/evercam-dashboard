@@ -45,6 +45,19 @@
 .page-sidebar-menu {
   z-index: 10000 !important;
 }
+
+.sidebar-title a {
+  color: $secondary-color;
+  font-size: 16px;
+  padding: 8px 4px 4px;
+  font-family: $bold-family;
+}
+
+.sidebar-title {
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
 .tooltip-inner {
   background-color: lighten($secondary-color, 5%) !important;
   color: #ffffff;

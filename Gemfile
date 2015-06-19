@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 ruby '2.2.0'
 
-gem 'rails', '~> 4.2.1'
+gem 'rails', '~> 4.2.2'
 
 gem 'sass-rails', '~> 5.0'
 gem 'yui-compressor'
@@ -13,7 +13,7 @@ gem 'sprockets'
 gem 'sprockets-es6', require: 'sprockets/es6'
 gem 'fog'
 gem 'asset_sync'
-gem 'autoprefixer-rails', '~> 5.2.0'
+gem 'autoprefixer-rails', '~> 5.2.0.1'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
@@ -82,7 +82,7 @@ group :development do
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
-  gem 'rspec', '~> 3.2.0'
+  gem 'rspec', '~> 3.3.0'
   gem 'guard-rspec', '~> 4.5.2'
 end
 
@@ -90,7 +90,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'vcr'
-  gem 'rspec-rails', '~> 3.2.3'
+  gem 'rspec-rails', '~> 3.3.2'
   gem 'webmock', '~> 1.21.0'
   gem 'poltergeist'
   gem 'simplecov'

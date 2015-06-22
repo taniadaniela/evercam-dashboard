@@ -89,9 +89,14 @@ handlePageLoad = ->
   ), 2000
 
 hideOfflineCameras = ->
+  total_offline_cameras = $(".sidebar-cameras-list li.sidebar-offline").length
+  $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
+  $("#total-offline-cameras sub").text(total_offline_cameras)
   if $.cookie("hide-offline-cameras")
+    $("#total-offline-cameras").removeClass("hide")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide").addClass("hide")
   else
+    $("#total-offline-cameras").removeClass("hide").addClass("hide")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
 
 addToMyCameras = ->
@@ -159,6 +164,7 @@ window.initializeCameraSingle = ->
   initializeiCheck()
   initializeDropdowns()
   addToMyCameras()
+  $('[data-toggle="tooltip"]').tooltip()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()

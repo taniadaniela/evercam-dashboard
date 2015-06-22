@@ -47,7 +47,9 @@
           </a>
           <ul class="dropdown-menu">
             <li role="presentation">
-              <%= link_to 'Public Cameras', "http://www.evercam.io/public/cameras", target: "_blank" %>
+              <%= link_to "http://www.evercam.io/public/cameras", target: "_blank" do %>
+                <i class="fa fa-external-link icon-font"></i> Public Cameras
+              <% end %>
             </li>
             <li role="presentation">
               <%= link_to 'Account', user_path(current_user.username) %>

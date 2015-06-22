@@ -12,14 +12,20 @@ handleSidebarToggle = ->
     $('#cbp-spmenu-s1').toggleClass('cbp-spmenu-open')
 
 hideOfflineCameras = ->
+  total_offline_cameras = $(".sidebar-cameras-list li.sidebar-offline").length
+  $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
+  $("#total-offline-cameras sub").text(total_offline_cameras)
   if $.cookie("hide-offline-cameras")
+    $("#total-offline-cameras").removeClass("hide")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide").addClass("hide")
   else
+    $("#total-offline-cameras").removeClass("hide").addClass("hide")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
 
 $ ->
   handleSidebarToggle()
   hideOfflineCameras()
+  $('[data-toggle="tooltip"]').tooltip()
 
 $(window).load ->
   handlePusherEventUser()

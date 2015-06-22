@@ -3,9 +3,18 @@
 
     <ul class="page-sidebar-menu">
       <li class="cameras-sidebar">
-        <%= link_to cameras_index_path do %>
-          <i class="fa fa-camera"></i> Cameras
-        <% end %>
+        <div class="sidebar-title">
+          <div class="col-md-8">
+            <%= link_to cameras_index_path do %>
+              <i class="fa fa-camera icon-font"></i> Cameras
+            <% end %>
+          </div>
+          <div id="total-offline-cameras" class="col-md-4 text-right hide red"
+               data-toggle="tooltip" data-placement="bottom" title="">
+            <i class="fa fa-chain-broken"></i><sub>0</sub>
+          </div>
+          <div class="clear-f"></div>
+        </div>
       </li>
       <li>
         <ul class="sub-menu sidebar-cameras-list">

@@ -60,9 +60,6 @@ Rails.application.routes.draw do
   get '/v1/public/cameras' => 'public#index', as: :public_cameras_index
   get '/v1/public/cameras/:id' => 'public#single', as: :public_cameras_single
 
-  #TODO: remove this after Node.js snapshot servers are taken down
-  get 'publiccam/:id' => redirect('public/cameras/%{id}')
-
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :edit]
   get '/sessions' => redirect('/')

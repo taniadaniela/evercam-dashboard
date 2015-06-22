@@ -3,7 +3,7 @@ handlePusherEventUser = ->
     channel = Evercam.Pusher.subscribe(Evercam.User.username)
     channel.bind 'user_cameras_changed', (data) ->
       $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *', ->
-        showOfflineCameras()
+        hideOfflineCameras()
 
 handleSidebarToggle = ->
   $('.toggle-sidebar').on 'click', (event) ->
@@ -11,15 +11,15 @@ handleSidebarToggle = ->
     $(this).toggleClass('active')
     $('#cbp-spmenu-s1').toggleClass('cbp-spmenu-open')
 
-showOfflineCameras = ->
-  if $.cookie("show-offline-cameras")
-    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
-  else
+hideOfflineCameras = ->
+  if $.cookie("hide-offline-cameras")
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide").addClass("hide")
+  else
+    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
 
 $ ->
   handleSidebarToggle()
-  showOfflineCameras()
+  hideOfflineCameras()
 
 $(window).load ->
   handlePusherEventUser()

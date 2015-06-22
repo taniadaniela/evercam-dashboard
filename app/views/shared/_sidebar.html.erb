@@ -6,10 +6,13 @@
         <div class="sidebar-title">
           <div class="col-md-8">
             <%= link_to cameras_index_path do %>
-              <i class="fa fa-camera"></i> Cameras
+              <i class="fa fa-camera icon-font"></i> Cameras
             <% end %>
           </div>
-          <div class="col-md-4 text-right"><i class="fa fa-chain-broken"></i><sub>5</sub></div>
+          <div id="total-offline-cameras" class="col-md-4 text-right hide"
+               data-toggle="tooltip" data-placement="bottom" title="">
+            <i class="fa fa-chain-broken"></i><sub>0</sub>
+          </div>
           <div class="clear-f"></div>
         </div>
       </li>

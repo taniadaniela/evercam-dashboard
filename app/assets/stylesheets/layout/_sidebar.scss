@@ -58,6 +58,21 @@
   padding-bottom: 8px;
 }
 
+.sidebar-title .tooltip {
+  font-size: 15px;
+  width: 150px;
+  margin-top: 2px;
+  left: 35px !important;
+}
+
+.sidebar-title .tooltip-arrow {
+  display: none;
+}
+
+#total-offline-cameras {
+  cursor: pointer;
+}
+
 .tooltip-inner {
   background-color: lighten($secondary-color, 5%) !important;
   color: #ffffff;

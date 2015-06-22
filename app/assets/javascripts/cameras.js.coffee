@@ -32,9 +32,14 @@ initNotification = ->
     Notification.show notifyMessage
 
 hideOfflineCamerasBox = ->
+  total_offline_cameras = $("#camera-index div.camera-offline").length
+  $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
+  $("#total-offline-cameras sub").text(total_offline_cameras)
   if $.cookie("hide-offline-cameras")
+    $("#total-offline-cameras").removeClass("hide")
     $("#camera-index div.camera-offline").removeClass("hide").addClass("hide")
   else
+    $("#total-offline-cameras").removeClass("hide").addClass("hide")
     $("#camera-index div.camera-offline").removeClass("hide")
 
 window.initializeCameraIndex = ->
@@ -46,3 +51,4 @@ window.initializeCameraIndex = ->
   onRefreshImage()
   handlePusherEventIndex()
   hideOfflineCamerasBox()
+  $('[data-toggle="tooltip"]').tooltip()

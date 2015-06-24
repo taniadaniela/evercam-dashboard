@@ -20,6 +20,7 @@ playStep = 1
 CameraOffset = 0
 xhrRequestChangeMonth = null
 playFromDateTime = null
+playFromTimeStamp = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -235,7 +236,7 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
-  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{getSnapshotDate(date_time).toISOString()}"
+  url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
     window.history.replaceState({}, '', url);
@@ -268,7 +269,9 @@ handleBodyLoadContent = ->
 
   timestamp = getTimestampFromUrl()
   if timestamp isnt ""
+    playFromTimeStamp = moment.utc(timestamp)/1000
     playFromDateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY HH:mm:ss'))
+    playFromDateTime.setHours(playFromDateTime.getHours() + (CameraOffset))
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -430,11 +433,11 @@ GetCameraInfo = (isShowLoader) ->
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
       if playFromDateTime isnt null
-        snapshotTimeStamp = GetUTCDate(playFromDateTime)/1000
-        snapshotTimeStamp = SetPlayFromImage snapshotTimeStamp
+        snapshotTimeStamp = SetPlayFromImage playFromTimeStamp
         frameDateTime = new Date(snapshotTimeStamp*1000)
         if currentFrameNumber isnt 1
           playFromDateTime = null
+          playFromTimeStamp = null
 
       $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
       SetInfoMessage(currentFrameNumber, frameDateTime)
@@ -488,7 +491,7 @@ SetPlayFromImage = (timestamp) ->
   i = 0
   for snapshot in snapshotInfos
     snapshot_timestamp = GetUTCDate(new Date(getSnapshotDate(new Date(snapshot.created_at*1000)).format('MM/DD/YYYY HH:mm:ss')))/1000
-    if snapshot_timestamp >= timestamp
+    if snapshot.created_at >= timestamp
       currentFrameNumber = i + 1
       snapshotInfoIdx = i
       return snapshot.created_at
@@ -805,7 +808,7 @@ handleTabOpen = ->
     #BoldSnapshotHour(false)
     if snapshotInfos isnt null
       date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
-      url = "#{Evercam.request.rootpath}/recordings/snapshots/#{getSnapshotDate(date_time).toISOString()}"
+      url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
       if history.replaceState
         window.history.replaceState({}, '', url);
 

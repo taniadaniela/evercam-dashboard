@@ -6,7 +6,7 @@
 
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
-        <div class="wrap">
+        <div class="wrap col-md-12">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
             <div class="live-option" id="toggle">

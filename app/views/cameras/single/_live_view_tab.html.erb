@@ -28,7 +28,7 @@
         <div id="camera-video-stream" class="active">
           <video id="camera-video-player" class="video-js vjs-default-skin"
                  poster="<%= @camera['thumbnail_url'] %>"
-                 controls width="auto" height="auto">
+                 controls autoplay width="auto" height="auto">
             <source src="<%= rtmp_stream %>" type="rtmp/flv">
             <% unless hls_stream.blank? %>
               <source src="<%= hls_stream %>" type="application/x-mpegURL">

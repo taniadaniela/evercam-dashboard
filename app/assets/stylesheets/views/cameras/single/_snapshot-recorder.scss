@@ -14,23 +14,9 @@
   }
 }
 
-
-#snapshot-notes-text {
-  padding-left: 10px;
-  position: absolute;
-  margin-top: -27px;
-}
-@media (max-width: 480px) {
-  #snapshot-notes-text {
-    margin-top: -58px;
-    background: rgba(0,0,0,.5);
-    width: 100%;
-    color: #fff;
-    padding: 2px 9px;
-  }
-  .mobile-hide {
-    display: none;
-  }
+.playback-buttons-bar{
+  width: 100%;
+  text-align: center;
 }
 
 td.active.day.has-snapshot {
@@ -70,28 +56,75 @@ td.active.day.has-snapshot {
 }
 
 #btnFRwd i, #btnFFwd i {
+  color: #777777;
   font-size: 16px;
 }
 #btnRwd i, #btnFwd i {
+  color: #777777;
   font-size: 13px;
+  margin-top: 3px;
 }
+#btnPauseRec i {
+  color: #777777;
+}
+
 #btnPlayRec {
   padding-top: 2px;
 }
 
 .left-column {
-  width: 100%;
   float: left;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
   margin-bottom: 20px;
+  padding-right: 10px;
+  width: 80%;
 }
 .right-column {
-  padding-left: 15px;
-  padding-right: 15px;
   float: left;
-  width: 100%;
+  vertical-align: top;
+  width: 19%;
 }
+
+@media (max-width: 1350px) {
+  .left-column {
+    width: 71%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .left-column {
+    width: 71%;
+  }
+}
+
+@media (max-width: 950px) {
+  .left-column {
+    width: 74%;
+  }
+}
+
+@media (max-width: 850px) {
+  .left-column {
+    width: 70%;
+  }
+}
+@media (max-width: 780px) {
+  .left-column {
+    width: 66%;
+  }
+}
+@media (max-width: 480px) {
+  .left-column {
+    margin-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+  }
+  .right-column {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
 #snapshot-notes {
   opacity: 0;
   position: absolute;
@@ -135,14 +168,6 @@ td.active.day.has-snapshot {
   opacity: 1;
 }
 
-@media (min-width: 850px) {
-  .left-column {
-    width: 67%;
-  }
-  .right-column {
-    width: 33%;
-  }
-}
 .snapshots {
   position: relative;
   overflow:hidden;
@@ -198,12 +223,6 @@ td.active.day.has-snapshot {
   background: #68A2D5;
 }
 
-/*Start Recording tab stylesheet*/
-@media (min-width: 840px) {
-  .col-recording-right {
-  }
-}
-
 .loader-bg{
   left: 2px;
   top: 2px;
@@ -211,16 +230,17 @@ td.active.day.has-snapshot {
   display: none;
   background: asset-url('trans-grey.png') 0px;
 }
+
 .playback-slider-outer{
   width:100%;
   height:1.12em;
   cursor:pointer;
   margin-top:2px;
-  background:asset-url('sel.jpg') repeat-x -2px 0px;
+  background:#8cbae3 repeat-x -2px 0px;
 }
 
 .playback-slider-inner{
-  background:#0000FE asset-url('bar.jpg') repeat-x -2px 0px;
+  background:#458cc7 repeat-x -2px 0px;
   width:0px;
   height:1.12em;
   float:left;
@@ -236,7 +256,6 @@ td.active.day.has-snapshot {
   clear: both;padding: 0px;margin: 0px;
 }
 
-
 .date-time {
   position: absolute;
   right:10px;
@@ -245,10 +264,22 @@ td.active.day.has-snapshot {
   border:solid 1px #999999;
 }
 
-.playback-buttons-bar{
-  width: 100%;
+.playback-info-bar{
   text-align: center;
+  margin:0px 0px;
+  padding: 8px 0px;
+  background-color: #f3f3f3;
+  position: relative;
 }
+
+.playback-buttons-padding {
+  padding: 8px 0px;
+}
+
+#show-info {
+  display: none;
+}
+
 @media (max-width: 480px) {
   #recordings {
     min-height: 600px;
@@ -264,6 +295,29 @@ td.active.day.has-snapshot {
     #snapshot-notes-text {
       font-size: 14px;
     }
+  }
+
+  .playback-info-bar {
+    margin: 0px 0px;
+    background-color: #34393d;
+    position: relative;
+    height: 30px;
+    padding: 6px 0;
+    display: block;
+    color: #fff;
+  }
+  #show-info {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    right: 10px;
+    margin-top: -16px;
+    cursor: pointer;
+  }
+  #show-info i.icon.icon-info {
+    font-size: 18px;
+    margin-top: -8px;
+    color: #fff;
   }
 }
 
@@ -322,12 +376,11 @@ td.active.day.has-snapshot {
 
 .datepicker-bg{
   background-color: #fff;
-  width: 210px;
 }
+
 @media (max-width: 845px) {
   .datepicker-bg {
     background-color: #fff;
-    width: 210px;
     margin: 0 auto;
   }
 }
@@ -373,5 +426,82 @@ td.active.day.has-snapshot {
   #recordings {
     margin-left: -20px;
     margin-right: -20px;
+  }
+}
+
+/*Update stylesheet*/
+#recording-tab {
+  .grey.btn:hover {
+    background-color: #f5f5f5;
+  }
+  #imgPlayback {
+    border: none;
+  }
+  .playback-slider-outer {
+    margin-top: 0px;
+  }
+  .playback-buttons-bar {
+    background-color: #f5f5f5;
+  }
+  .snapshot-date {
+    position: absolute;
+    right: 10px;
+  }
+  @media (max-width: 480px) {
+    .snapshot-date {
+      right: 0;
+      left: 0;
+    }
+    .snapshot-frame {
+      float: left;
+      position: absolute;
+      left: 7px;
+      top: 6px;
+    }
+    .datepicker {
+      margin-bottom: 10px;
+      position: absolute;
+      margin: 0 auto;
+      right: 0;
+      left: 0;
+      width: 99%;
+    }
+    .table-condensed{
+      width: 100%;
+    }
+    .datepicker.datepicker-bg.datepicker-inline.show {
+      margin-top: 222px;
+      margin-bottom: 30px;
+    }
+    div#LblRecordedStatus {
+      POSITION: absolute;
+      bottom: -51px;
+      text-align: center;
+      right: 0;
+      left: 0;
+      display: none;
+    }
+  }
+}
+
+#snapshot-notes-text {
+  padding-left: 10px;
+  position: absolute;
+  margin-top: 8px;
+  display: block;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+  #snapshot-notes-text {
+    margin-top: -26px;
+    background: rgba(52, 57, 61, 0.7);
+    width: 100%;
+    color: #fff;
+    padding: 4px 8px;
+    transition: all 1s ease-in-out;
+  }
+  .mobile-hide {
+    display: none ;
   }
 }

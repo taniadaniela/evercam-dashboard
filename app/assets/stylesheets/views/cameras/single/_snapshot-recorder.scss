@@ -81,37 +81,9 @@ td.active.day.has-snapshot {
 .right-column {
   float: left;
   vertical-align: top;
-  width: 19%;
+  width: 220px;
 }
 
-@media (max-width: 1350px) {
-  .left-column {
-    width: 71%;
-  }
-}
-
-@media (max-width: 1050px) {
-  .left-column {
-    width: 71%;
-  }
-}
-
-@media (max-width: 950px) {
-  .left-column {
-    width: 74%;
-  }
-}
-
-@media (max-width: 850px) {
-  .left-column {
-    width: 70%;
-  }
-}
-@media (max-width: 780px) {
-  .left-column {
-    width: 66%;
-  }
-}
 @media (max-width: 480px) {
   .left-column {
     margin-bottom: 10px;
@@ -122,6 +94,7 @@ td.active.day.has-snapshot {
   .right-column {
     padding-left: 0;
     padding-right: 0;
+    width: 100%;
   }
 }
 
@@ -381,7 +354,9 @@ td.active.day.has-snapshot {
 @media (max-width: 845px) {
   .datepicker-bg {
     background-color: #fff;
+    float: left;
     margin: 0 auto;
+    margin-right: 15px;
   }
 }
 

@@ -817,6 +817,23 @@ saveImage = ->
     date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
     SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg")
 
+calculateWidth = ->
+  tab_width = $("#recording-tab").width()
+  if tab_width is 0
+    tab_width = $(".tab-content").width()
+  console.log tab_width
+  if tab_width > 480
+    $("#recording-tab .left-column").css("width", "#{tab_width - 231}px")
+    $("#recording-tab .right-column").css("width", "220px")
+  else
+    $("#recording-tab .left-column").css("width", "100%")
+    $("#recording-tab .right-column").css("width", "100%")
+
+handleResize = ->
+  calculateWidth()
+  $(window).resize ->
+    calculateWidth()
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -827,3 +844,4 @@ window.initializeRecordingsTab = ->
   handleTabOpen()
   fullscreenImage()
   saveImage()
+  handleResize()

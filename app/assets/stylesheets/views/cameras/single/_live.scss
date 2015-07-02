@@ -11,8 +11,6 @@
 }
 #live-player-image {
   max-width: 100%;
-  max-height:85vh;
-  width: 100%;
 }
 .live-options {
   position: absolute;
@@ -33,7 +31,6 @@
   transition: all .2s linear;
 }
 #live .camera-preview {
-  height: 80vh;
   max-width:100%;
 }
 .wrap {
@@ -43,6 +40,16 @@
 #live-view-placeholder {
   height: 100%;
   max-width: 100%;
+}
+.offline-camera-placeholder {
+  height: 100%;
+  max-width: 100%;
+}
+.offline-camera-placeholder img {
+  max-width: 100%;
+}
+.red {
+  color: #ff0000;
 }
 .live-option:hover {
   background: #68a2d5;
@@ -112,7 +119,7 @@
 .tab-content #live {
   margin: -20px -15px;
 }
-#live-view-placeholder .active{
+#live-view-placeholder .active, .camera-preview-offline .wrap {
   display: block;
   text-align: center;
   background: #000000;

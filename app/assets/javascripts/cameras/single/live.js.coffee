@@ -137,6 +137,17 @@ saveImage = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/latest"
     sendAJAXRequest(settings)
 
+calculateHeight = ->
+  content_height = Metronic.getViewPort().height
+  tab_menu_height = $("#ul-nav-tab").height()
+  $("#live-player-image").css("height", "#{content_height - (tab_menu_height *2) }px")
+  $(".offline-camera-placeholder img").css("height", "#{content_height - (tab_menu_height *2) }px")
+
+handleResize = ->
+  calculateHeight()
+  $(window).resize ->
+    calculateHeight()
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -147,3 +158,4 @@ window.initializeLiveTab = ->
   handleChangeStream()
   handleTabOpen()
   saveImage()
+  handleResize()

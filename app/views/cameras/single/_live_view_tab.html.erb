@@ -1,4 +1,4 @@
-<div class="camera-preview" id="camera-preview">
+<div class="camera-preview">
   <div class="camera-preview-online <%= 'hide' unless @camera['is_online'] %>" id="camera-preview">
     <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
     <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
@@ -6,7 +6,7 @@
 
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
-        <div class="wrap col-md-12">
+        <div class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
             <div class="live-option" id="toggle">
@@ -53,8 +53,12 @@
   </div>
 
   <div class="camera-preview-offline <%= 'hide' if @camera['is_online'] %>">
-    <div class="tint"><%= preview(@camera, true) %></div>
-    <p class="margin-top-20"><span class="red">Camera offline</span> - we can't get a live feed at the moment</p>
-    <p class="margin-top-10 refresh-camera"><i class="icon-refresh"></i> Refresh Status</p>
+    <div class="offline-camera-placeholder">
+      <div class="wrap"><%= preview(@camera, true) %></div>
+      <div class="col-md-12">
+        <div class="margin-top-10"><span class="red">Camera offline</span> - we can't get a live feed at the moment</div>
+        <div class="refresh-camera"><i class="icon-refresh"></i> Refresh Status</div>
+      </div>
+    </div>
   </div>
 </div>

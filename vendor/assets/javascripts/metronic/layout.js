@@ -25,6 +25,8 @@ var Layout = function () {
         } else {
             if (body.hasClass('page-sidebar-fixed')) {
                 height = Metronic.getViewPort().height; //_calculateFixedSidebarViewportHeight();
+                var tabsHeight = $("#ul-nav-tab").height();
+                height = height - tabsHeight;
                 if (!body.hasClass('page-footer-fixed')) {
                     height = height - $('.page-footer').outerHeight();
                 }

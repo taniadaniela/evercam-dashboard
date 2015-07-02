@@ -821,9 +821,12 @@ calculateWidth = ->
   tab_width = $("#recording-tab").width()
   if tab_width is 0
     tab_width = $(".tab-content").width()
-  console.log tab_width
+  isChrome = !! navigator.userAgent.match(/Chrome/)
+  left_col_width = tab_width - 231
+  if isChrome
+    left_col_width = tab_width - 235
   if tab_width > 480
-    $("#recording-tab .left-column").css("width", "#{tab_width - 231}px")
+    $("#recording-tab .left-column").css("width", "#{left_col_width}px")
     $("#recording-tab .right-column").css("width", "220px")
   else
     $("#recording-tab .left-column").css("width", "100%")

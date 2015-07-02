@@ -42,6 +42,11 @@
                 <a data-toggle="tab" data-target="#local-storage" class="nav-tab-local-storage">Local Storage</a>
               </li>
             <% end %>
+
+            <li>
+              <a data-toggle="tab" data-target="#archives" class="nav-tab-archives">Archives</a>
+            </li>
+
             <% if @camera['owner'] != current_user.username && @share.nil? && @camera["is_public"] %>
               <div class="pull-right add-to-share">
                 <a data-target="#" id="add-to-cameras" class="create-share-button"><i class="fa fa-plus-circle"></i> Add to my cameras</a>
@@ -80,6 +85,9 @@
               <%= render partial: "cameras/single/local_storage_tab" %>
             </div>
           <% end %>
+          <div id="archives" class="tab-pane">
+            <%= render partial: "cameras/single/archives_tab" %>
+          </div>
         </div>
       </div>
     </div>

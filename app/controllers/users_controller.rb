@@ -87,10 +87,18 @@ class UsersController < ApplicationController
     end
     redirect_to signin_path
   end
- 
-  def settings
+
+  def user_account
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
+    render layout: "user-account"
+  end
+
+  def settings
+    render layout: "user-account"
+  end
+
+  def password_change
     render layout: "user-account"
   end
 

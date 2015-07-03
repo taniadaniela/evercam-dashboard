@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found
   post '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
+  post 'cameras/:id/request_clip' => 'cameras#request_clip', as: :request_clip
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
 

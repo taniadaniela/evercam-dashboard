@@ -84,6 +84,47 @@ CREATE TABLE access_tokens (
 
 
 --
+-- Name: archive_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE archive_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: add_ons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE archive_id_seq OWNED BY archives.id;
+
+
+--
+-- Name: add_ons; Type: TABLE; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE TABLE archives (
+    id integer DEFAULT nextval('archive_id_seq'::regclass) NOT NULL,
+    camera_Id integer NOT NULL,
+    exid text NOT NULL,
+    title text NOT NULL,
+    url text,
+    notes text,
+    from_date timestamp with time zone NOT NULL,
+    to_date timestamp with time zone NOT NULL,
+    status integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    requested_by integer NOT NULL,
+    number_of_frames integer,
+    clip_length text,
+    embed_time boolean
+);
+
+
+--
 -- Name: add_ons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -558,6 +599,12 @@ ALTER TABLE ONLY access_rights ALTER COLUMN id SET DEFAULT nextval('access_right
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY archives ALTER COLUMN id SET DEFAULT nextval('archive_id_seq'::regclass);
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY add_ons ALTER COLUMN id SET DEFAULT nextval('add_ons_id_seq'::regclass);
 
 
@@ -609,6 +656,14 @@ ALTER TABLE ONLY webhooks ALTER COLUMN id SET DEFAULT nextval('webhooks_id_seq':
 
 ALTER TABLE ONLY access_rights
     ADD CONSTRAINT access_rights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+--
+
+ALTER TABLE ONLY archives
+    ADD CONSTRAINT archives_pkey PRIMARY KEY (id);
 
 
 --
@@ -942,6 +997,22 @@ ALTER TABLE ONLY access_rights
 
 ALTER TABLE ONLY access_tokens
     ADD CONSTRAINT access_tokens_grantor_id_fkey FOREIGN KEY (grantor_id) REFERENCES users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: archives_camera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY archives
+    ADD CONSTRAINT archives_camera_id_fkey FOREIGN KEY (camera_id) REFERENCES camera(id) ON DELETE CASCADE;
+
+
+--
+-- Name: archives_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY archives
+    ADD CONSTRAINT archives_user_id_fkey FOREIGN KEY (requested_by) REFERENCES user(id) ON DELETE CASCADE;
 
 
 --

@@ -234,6 +234,20 @@ class CamerasController < ApplicationController
     render json: result
   end
 
+  def request_clip
+    begin
+      api = get_evercam_api
+      camera = api.get_camera(params[:id], true)
+      UserMailer.create_clip_email(current_user.username, current_user.email, camera["name"], camera["exid"], params[:title]).deliver_now
+      flash[:message] = 'Your clip has been requested.'
+    rescue
+      flash[:message] = "An error occurred while creating clip request. "\
+                      "Please try again and, if the problem persists, contact "\
+                      "support."
+    end
+    redirect_to "#{cameras_single_path(params[:id])}/archives"
+  end
+
   private
 
   def assess_field_errors(error)

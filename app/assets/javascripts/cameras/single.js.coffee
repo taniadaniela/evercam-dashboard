@@ -8,6 +8,7 @@
 #= require cameras/single/local_storage.js.coffee
 #= require cameras/single/settings.js.coffee
 #= require cameras/single/testsnapshot.js.coffee
+#= require cameras/single/archives.js.coffee
 #= require saveimage.js
 #= require proxy.js
 
@@ -150,6 +151,7 @@ initializeTabs = ->
   window.initializeExplorerTab()
   window.initializeLocalStorageTab()
   window.initializeSettingsTab()
+  window.initializeArchivesTab()
 
 window.initializeCameraSingle = ->
   initializeTabs()
@@ -161,7 +163,7 @@ window.initializeCameraSingle = ->
   #handleCameraModalSubmit()
   # temporarily added
   handlePageLoad()
-  initializeiCheck()
+  # initializeiCheck()
   initializeDropdowns()
   addToMyCameras()
   $('[data-toggle="tooltip"]').tooltip()

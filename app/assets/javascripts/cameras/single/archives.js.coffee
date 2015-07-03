@@ -1,8 +1,9 @@
 initDatePicker = ->
   $('.clip-datepicker').datetimepicker
-    timepicker: false
+    #timepicker: false
+    step: 1
     closeOnDateSelect: 0
-    format: 'd/m/Y'
+    format: 'd/m/Y H:i:s'
 
 initializeArchivesDataTable = ->
   table = $('#archives-table').DataTable({
@@ -21,7 +22,7 @@ initializeArchivesDataTable = ->
     iDisplayLength: 50,
     order: [[ 3, "desc" ]]
   })
-
+#Your clip has been requested.
 window.initializeArchivesTab = ->
   initDatePicker()
   initializeArchivesDataTable()

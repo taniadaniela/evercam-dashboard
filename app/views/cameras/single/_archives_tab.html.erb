@@ -17,13 +17,13 @@
     <div class="form-title">
       <span class="bold">Create a new Clip:</span>
     </div>
-    <div class="add-clip">
+    <div id="form-create-clip" class="add-clip">
       <table class="table table-borderless">
         <tr>
           <td class="form-label-td col-md-2">
             <label class="control-label">Clip Name:</label>
           </td>
-          <td colspan="4">
+          <td>
             <div class="input-group">
               <input type="text" placeholder="Clip Name" class="form-control clip-text-box" id="clip-name" name="clip-name">
             </div>
@@ -39,24 +39,6 @@
               <input id="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - 2).strftime('%d/%m/%Y') %>">
             </div>
           </td>
-          <td>
-            <div class="col-md-4 dropdown-label">Hour:</div>
-            <div class="col-md-8 dropdown-padding-left">
-              <select id="from-hour" name="from-hour" class="time-dropdown form-control is-required"></select>
-            </div>
-          </td>
-          <td>
-            <div class="col-md-4 dropdown-label">Minutes:</div>
-            <div class="col-md-8 dropdown-padding-left">
-              <select id="from-minutes" name="from-hour" class="time-dropdown form-control is-required"></select>
-            </div>
-          </td>
-          <td>
-            <div class="col-md-4 dropdown-label">Minutes:</div>
-            <div class="col-md-8 dropdown-padding-left">
-              <select id="from-seconds" name="from-hour" class="time-dropdown form-control is-required"></select>
-            </div>
-          </td>
         </tr>
         <tr>
           <td class="form-label-td">
@@ -67,27 +49,19 @@
               <input id="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y') %>">
             </div>
           </td>
-          <td>
-            <div class="col-md-4 dropdown-label">Hour:</div>
-            <div class="col-md-8 dropdown-padding-left">
-              <select id="to-hour" name="to-hour" class="time-dropdown form-control is-required"></select>
-            </div>
+        </tr>
+        <tr>
+          <td class="form-label-td">
+            <label class="control-label"></label>
           </td>
-          <td>
-            <div class="col-md-4 dropdown-label">Minutes:</div>
-            <div class="col-md-8 dropdown-padding-left">
-              <select id="to-minutes" name="to-hour" class="time-dropdown form-control is-required"></select>
-            </div>
-          </td>
-          <td>
-            <div class="col-md-4 dropdown-label">Minutes:</div>
-            <div class="col-md-8 dropdown-padding-left">
-              <select id="to-seconds" name="to-hour" class="time-dropdown form-control is-required"></select>
+          <td class="col-md-3">
+            <div class="input-group checkbox">
+              <input id="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
             </div>
           </td>
         </tr>
         <tr>
-          <td colspan="5">
+          <td colspan="2">
             <div class="input-group">
               <button type="submit" class="btn btn-primary" id="create_clip_button">Create Clip</button>
             </div>

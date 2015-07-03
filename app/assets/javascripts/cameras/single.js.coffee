@@ -163,7 +163,7 @@ window.initializeCameraSingle = ->
   #handleCameraModalSubmit()
   # temporarily added
   handlePageLoad()
-  initializeiCheck()
+  # initializeiCheck()
   initializeDropdowns()
   addToMyCameras()
   $('[data-toggle="tooltip"]').tooltip()

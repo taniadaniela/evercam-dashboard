@@ -37,4 +37,12 @@ class UserMailer < ActionMailer::Base
       mail(to: user.email, subject: "Evercam Confirmation")
   end
 
+  def create_clip_email(user_name, email, camera_name, camera_id, title)
+    @user_name    = user_name
+    @camera_name    = camera_name
+    @camera_id    = camera_id
+    @title    = title
+    mail(to: email, subject: "Clip Requested")
+  end
+
 end

@@ -13,61 +13,64 @@
 </div>
 
 <div class="row form-vertical margin-top-10">
-  <div class="col-md-12">
-    <div class="form-title">
-      <span class="bold">Create a new Clip:</span>
-    </div>
-    <div id="form-create-clip" class="add-clip">
-      <table class="table table-borderless">
-        <tr>
-          <td class="form-label-td col-md-2">
-            <label class="control-label">Clip Name:</label>
-          </td>
-          <td>
-            <div class="input-group">
-              <input type="text" placeholder="Clip Name" class="form-control clip-text-box" id="clip-name" name="clip-name">
-            </div>
-          </td>
-        </tr>
+  <form method="post" action="<%= request_clip_path(params[:id]) %>">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    <div class="col-md-12">
+      <div class="form-title">
+        <span class="bold">Create a new Clip:</span>
+      </div>
+      <div id="form-create-clip" class="add-clip">
+        <table class="table table-borderless">
+          <tr>
+            <td class="form-label-td col-md-2">
+              <label class="control-label">Clip Name:</label>
+            </td>
+            <td>
+              <div class="input-group">
+                <input type="text" required placeholder="Clip Name" class="form-control clip-text-box" id="clip-name" name="clip-name">
+              </div>
+            </td>
+          </tr>
 
-        <tr>
-          <td class="form-label-td">
-            <label class="control-label">From:</label>
-          </td>
-          <td class="col-md-3">
-            <div class="input-group">
-              <input id="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - 2).strftime('%d/%m/%Y') %>">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="form-label-td">
-            <label class="control-label">To:</label>
-          </td>
-          <td class="col-md-3">
-            <div class="input-group">
-              <input id="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y') %>">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="form-label-td">
-            <label class="control-label"></label>
-          </td>
-          <td class="col-md-3">
-            <div class="input-group checkbox">
-              <input id="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <div class="input-group">
-              <button type="submit" class="btn btn-primary" id="create_clip_button">Create Clip</button>
-            </div>
-          </td>
-        </tr>
-      </table>
+          <tr>
+            <td class="form-label-td">
+              <label class="control-label">From:</label>
+            </td>
+            <td class="col-md-3">
+              <div class="input-group">
+                <input id="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - 2).strftime('%d/%m/%Y %H:%M:%S') %>">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="form-label-td">
+              <label class="control-label">To:</label>
+            </td>
+            <td class="col-md-3">
+              <div class="input-group">
+                <input id="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y %H:%M:%S') %>">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="form-label-td">
+              <label class="control-label"></label>
+            </td>
+            <td class="col-md-3">
+              <div class="input-group checkbox">
+                <input id="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="input-group">
+                <button type="submit" class="btn btn-primary" id="create_clip_button">Create Clip</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
+  </form>
 </div>

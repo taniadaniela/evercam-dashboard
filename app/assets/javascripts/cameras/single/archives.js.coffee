@@ -1,3 +1,11 @@
+sendAJAXRequest = (settings) ->
+  token = $('meta[name="csrf-token"]')
+  if token.size() > 0
+    headers =
+      "X-CSRF-Token": token.attr("content")
+    settings.headers = headers
+  xhrRequestChangeMonth = $.ajax(settings)
+
 initDatePicker = ->
   $('.clip-datepicker').datetimepicker
     #timepicker: false
@@ -22,7 +30,12 @@ initializeArchivesDataTable = ->
     iDisplayLength: 50,
     order: [[ 3, "desc" ]]
   })
-#Your clip has been requested.
+  $(".dataTables_empty").text("There are no clips.")
+
+createClip = ->
+  $("#").on "click", ->
+    true
+
 window.initializeArchivesTab = ->
   initDatePicker()
   initializeArchivesDataTable()

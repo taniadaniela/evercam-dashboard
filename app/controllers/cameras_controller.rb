@@ -239,8 +239,8 @@ class CamerasController < ApplicationController
       api = get_evercam_api
       camera = api.get_camera(params[:id], true)
       @time_overlay = params["embed-datetime"] ? "Yes" : "No"
-      UserMailer.create_clip_email(current_user.username, "azhar@evercam.io",
-        camera["name"], camera["exid"], params[:title], params["from-date"],
+      UserMailer.create_clip_email(current_user.fullname, "marco@evercam.io",
+        camera["name"], camera["id"], params["clip-name"], params["from-date"],
         params["to-date"], @time_overlay).deliver_now
       flash[:message] = 'Your clip has been requested.'
     rescue

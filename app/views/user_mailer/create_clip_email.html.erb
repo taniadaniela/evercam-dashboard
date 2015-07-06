@@ -54,16 +54,18 @@
         <table style="font-family: Arial, Helvetica, sans-serif; width: 100%; margin: 0; padding: 0;"><tr style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">
           <td style="font-family: Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; margin: 0; padding: 0;">
 
-            <p class="lead" style="line-height: 1.6; margin: 0 0 10px; padding: 0;">Hello from Evercam,</p>
-            <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">This is an automated message from Evercam.io</p>
-            <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;"><strong><%= @user_name %></strong> your clip (<%= @title %>) has been requested for the camera <em><%= @camera_name %></em>.</p>
+            <p class="lead" style="line-height: 1.6; margin: 0 0 10px; padding: 0;">Hello Marco,</p>
+            <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;"><strong><%= @user_name %></strong> has been requested clip for the camera <em><%= @camera_name %></em>.</p>
 
             <p class="callout" style="color:#428bca; line-height: 1.6; background: #f5f5f5;  margin: 0 0 15px; padding: 15px;">
-              <a style="color:#428bca;" href="https://dashboard.evercam.io/v1/cameras/<%= @camera_id %>">https://dashboard.evercam.io/v1/cameras/<%= @camera_id %></a>
-            </p><!-- /Callout Panel -->
+              <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">Camera ID: <strong><%= @camera_id %></strong></p>
+              <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">Clip Title: <strong><%= @title %></strong></p>
+              <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">From Date: <strong><%= @from_date %></strong></p>
+              <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">To Date: <strong><%= @to_date %></strong></p>
+            <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">Add Timestamp Overlay: <strong><%= @time_overlay %></strong></p>
+            </p>
             <br>
             <br>
-            <p style="line-height: 1.6; margin: 0 0 10px; padding: 0;">We greatly appreciate any feedback so if you have any suggestions or if there is anything we can do to improve your Evercam experience, please let us know!</p>
             <p style="line-height: 1.6; margin: 0 0 0px; padding: 0;">The Evercam Team</p>
             <p style="color:#aaaaaa; line-height: 1.0; margin: 0 0 10px; padding: 0;"><a href="#" style="text-decoration:none; color:#aaaaaa;">support@evercam.io</a></p>
             <br>

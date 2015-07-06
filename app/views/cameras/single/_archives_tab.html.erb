@@ -38,7 +38,7 @@
             </td>
             <td class="col-md-3">
               <div class="input-group">
-                <input id="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - 2).strftime('%d/%m/%Y %H:%M:%S') %>">
+                <input id="from-date" name="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - (2*24*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
               </div>
             </td>
           </tr>
@@ -48,7 +48,7 @@
             </td>
             <td class="col-md-3">
               <div class="input-group">
-                <input id="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y %H:%M:%S') %>">
+                <input id="to-date" name="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y %H:%M:%S') %>">
               </div>
             </td>
           </tr>
@@ -58,7 +58,7 @@
             </td>
             <td class="col-md-3">
               <div class="input-group checkbox">
-                <input id="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
+                <input id="embed-datetime" name="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
               </div>
             </td>
           </tr>

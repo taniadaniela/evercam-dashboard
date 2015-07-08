@@ -38,3 +38,4 @@ production:
   encoding: utf8
   schema_search_path: public
   template: template0
+  pool: 20

@@ -16,26 +16,62 @@ initDatePicker = ->
 initializeArchivesDataTable = ->
   table = $('#archives-table').DataTable({
     ajax: {
-      url: "",
-      dataSrc: 'logs',
+      url: $("#archive-api-url").val(),
+      dataSrc: 'archives',
       error: (xhr, error, thrown) ->
-        Notification.show(xhr.responseJSON.message)
+        # Notification.show(xhr.responseJSON.message)
     },
     columns: [
       {data: "title" },
       {data: "status"},
-      {data: "created_at" }
-      {data: "id"}
+      {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
+      {data: renderbuttons}
     ],
     iDisplayLength: 50,
     order: [[ 3, "desc" ]]
   })
   $(".dataTables_empty").text("There are no clips.")
 
+renderbuttons = (row, type, set, meta) ->
+  if row.status is "Completed"
+    return '<a class="archive-actions" href="#"><i class="fa fa-play-circle"></i></a>' +
+      '<a class="archive-actions" href="#"><i class="fa fa-download"></i></a>' +
+      '<a class="archive-actions" href="#"><i class="fa fa-remove-sign"></i></a>'
+  else
+    return '<a class="archive-actions" href="#"><i class="fa fa-remove-sign"></i></a>'
+
+renderDate = (row, type, set, meta) ->
+  return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
+
 createClip = ->
-  $("#").on "click", ->
-    true
+  $("#create_clip_button").on "click", ->
+    data =
+      title: $("#clip-name").val()
+      from_date: $("#from-date").val()
+      to_date: $("#to-date").val()
+      embed_time: $("#embed-datetime").is(":checked")
+      is_public: $("#is-public").is(":checked")
+
+    onError = (jqXHR, status, error) ->
+      Notification.show(jqXHR.responseJSON.message)
+      true
+    onSuccess = (data, status, jqXHR) ->
+      Notification.show(data.message)
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'POST'
+      url: $("#archive-url").val()
+    sendAJAXRequest(settings)
 
 window.initializeArchivesTab = ->
+  jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
+    return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   initDatePicker()
   initializeArchivesDataTable()
+  createClip()

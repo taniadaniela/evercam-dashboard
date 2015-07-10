@@ -7,70 +7,74 @@
       <th class="col-md-4">Created</th>
       <th class="col-md-4"></th>
       </thead>
-      <tbody></tbody>
+      <tbody>
+
+      </tbody>
     </table>
   </div>
 </div>
+<input id="archive-api-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/archives?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
 
 <div class="row form-vertical margin-top-10">
-  <form method="post" action="<%= request_clip_path(params[:id]) %>">
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-    <div class="col-md-12">
-      <div class="form-title">
-        <span class="bold">Create a new Clip:</span>
-      </div>
-      <div id="form-create-clip" class="add-clip">
-        <table class="table table-borderless">
-          <tr>
-            <td class="form-label-td col-md-2">
-              <label class="control-label">Clip Name:</label>
-            </td>
-            <td>
-              <div class="input-group">
-                <input type="text" required placeholder="Clip Name" class="form-control clip-text-box" id="clip-name" name="clip-name">
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="form-label-td">
-              <label class="control-label">From:</label>
-            </td>
-            <td class="col-md-3">
-              <div class="input-group">
-                <input id="from-date" name="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - (2*24*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="form-label-td">
-              <label class="control-label">To:</label>
-            </td>
-            <td class="col-md-3">
-              <div class="input-group">
-                <input id="to-date" name="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y %H:%M:%S') %>">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="form-label-td">
-              <label class="control-label"></label>
-            </td>
-            <td class="col-md-3">
-              <div class="input-group checkbox">
-                <input id="embed-datetime" name="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <div class="input-group">
-                <button type="submit" class="btn btn-primary" id="create_clip_button">Create Clip</button>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
+  <div class="col-md-12">
+    <div class="form-title">
+      <span class="bold">Create a new Clip:</span>
     </div>
-  </form>
+    <div id="form-create-clip" class="add-clip">
+      <table class="table table-borderless">
+        <tr>
+          <td class="form-label-td col-md-2">
+            <label class="control-label">Clip Name:</label>
+          </td>
+          <td>
+            <div class="input-group">
+              <input type="text" required placeholder="Clip Name" class="form-control clip-text-box" id="clip-name" name="clip-name">
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="form-label-td">
+            <label class="control-label">From:</label>
+          </td>
+          <td class="col-md-3">
+            <div class="input-group">
+              <input id="from-date" name="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - (2*24*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-label-td">
+            <label class="control-label">To:</label>
+          </td>
+          <td class="col-md-3">
+            <div class="input-group">
+              <input id="to-date" name="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y %H:%M:%S') %>">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-label-td">
+            <label class="control-label"></label>
+          </td>
+          <td class="col-md-3">
+            <div class="input-group checkbox">
+              <input id="embed-datetime" name="embed-datetime" class="" type="checkbox" > <label for="embed-datetime" class="camera-row-label">Overlay recording time along bottom of clip</label>
+            </div>
+            <div class="input-group checkbox">
+              <input id="is-public" name="is-public" class="" type="checkbox" > <label for="is-public" class="camera-row-label">Public on the web</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="input-group">
+              <input type="submit" class="btn btn-primary" id="create_clip_button" value="Create Clip"/>
+              <input type="hidden" id="archive-url" value="<%= request_clip_path(params[:id]) %>">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>

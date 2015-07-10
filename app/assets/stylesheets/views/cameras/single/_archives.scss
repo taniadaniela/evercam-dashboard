@@ -35,7 +35,12 @@
   padding: 0px 4px;
 }
 
-#uniform-embed-datetime {
+.archive-actions {
+  margin-right: 7px;
+  color: #34393d;
+}
+
+#uniform-embed-datetime, #uniform-is-public {
   display: none;
 }
 

@@ -108,19 +108,16 @@ ALTER SEQUENCE archive_id_seq OWNED BY archives.id;
 
 CREATE TABLE archives (
     id integer DEFAULT nextval('archive_id_seq'::regclass) NOT NULL,
-    camera_Id integer NOT NULL,
+    camera_id integer NOT NULL,
     exid text NOT NULL,
     title text NOT NULL,
-    url text,
-    notes text,
     from_date timestamp with time zone NOT NULL,
     to_date timestamp with time zone NOT NULL,
     status integer NOT NULL,
-    created_at timestamp with time zone NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
     requested_by integer NOT NULL,
-    number_of_frames integer,
-    clip_length text,
-    embed_time boolean
+    embed_time boolean,
+    public boolean
 );
 
 
@@ -1004,7 +1001,7 @@ ALTER TABLE ONLY access_tokens
 --
 
 ALTER TABLE ONLY archives
-    ADD CONSTRAINT archives_camera_id_fkey FOREIGN KEY (camera_id) REFERENCES camera(id) ON DELETE CASCADE;
+    ADD CONSTRAINT archives_camera_id_fkey FOREIGN KEY (camera_id) REFERENCES cameras(id) ON DELETE CASCADE;
 
 
 --
@@ -1012,7 +1009,7 @@ ALTER TABLE ONLY archives
 --
 
 ALTER TABLE ONLY archives
-    ADD CONSTRAINT archives_user_id_fkey FOREIGN KEY (requested_by) REFERENCES user(id) ON DELETE CASCADE;
+    ADD CONSTRAINT archives_user_id_fkey FOREIGN KEY (requested_by) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --

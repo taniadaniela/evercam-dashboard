@@ -1,3 +1,5 @@
+archives_table = null
+
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
@@ -14,7 +16,7 @@ initDatePicker = ->
     format: 'd/m/Y H:i:s'
 
 initializeArchivesDataTable = ->
-  table = $('#archives-table').DataTable({
+  archives_table = $('#archives-table').DataTable({
     ajax: {
       url: $("#archive-api-url").val(),
       dataSrc: 'archives',
@@ -28,7 +30,17 @@ initializeArchivesDataTable = ->
       {data: renderbuttons}
     ],
     iDisplayLength: 50,
-    order: [[ 3, "desc" ]]
+    order: [[ 2, "desc" ]],
+    bFilter: false,
+    initComplete: (settings, json) ->
+      $("#archives-table_length").hide()
+      if json.archives.length is 0
+        $(".dataTables_empty").text("There are no clips.")
+        $('#archives-table_paginate, #archives-table_info').hide()
+      else if json.archives.length <= 50
+        $("#archives-table_info").show()
+        $('#archives-table_paginate').hide()
+      true
   })
   $(".dataTables_empty").text("There are no clips.")
 
@@ -57,6 +69,8 @@ createClip = ->
       true
     onSuccess = (data, status, jqXHR) ->
       Notification.show(data.message)
+      if data.success
+        archives_table.ajax.reload()
       true
 
     settings =

@@ -255,6 +255,18 @@ class CamerasController < ApplicationController
     render json: result
   end
 
+  def delete_clip
+    result = {success: true}
+    begin
+      api = get_evercam_api
+      api.delete_archive(params[:camera_id], params[:archive_id])
+      result[:message] = "Clip deleted successfully."
+    rescue => error
+      result = {success: false, message: error.message}
+    end
+    render json: result
+  end
+
   private
 
   def assess_field_errors(error)

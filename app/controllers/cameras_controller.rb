@@ -239,8 +239,9 @@ class CamerasController < ApplicationController
     begin
       api = get_evercam_api
       camera = api.get_camera(params[:id], true)
-      from_date = DateTime.parse(params["from_date"]).utc.to_time.to_i
-      to_date = DateTime.parse(params["to_date"]).utc.to_time.to_i
+      from_date = DateTime.parse(params['from_date']).to_i
+      to_date = DateTime.parse(params['to_date']).to_i
+
       api.create_archive(camera["id"], params["title"], from_date, to_date,
         current_user.username, params["embed_time"], params["is_public"])
 

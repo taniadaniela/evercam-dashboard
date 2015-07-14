@@ -235,20 +235,37 @@ class CamerasController < ApplicationController
   end
 
   def request_clip
+    result = {success: true}
     begin
       api = get_evercam_api
       camera = api.get_camera(params[:id], true)
-      @time_overlay = params["embed-datetime"] ? "Yes" : "No"
+      from_date = DateTime.parse(params['from_date']).to_i
+      to_date = DateTime.parse(params['to_date']).to_i
+
+      api.create_archive(camera["id"], params["title"], from_date, to_date,
+        current_user.username, params["embed_time"], params["is_public"])
+
+      @time_overlay = params["embed_datetime"] ? "Yes" : "No"
       UserMailer.create_clip_email(current_user.fullname, "marco@evercam.io",
-        camera["name"], camera["id"], params["clip-name"], params["from-date"],
-        params["to-date"], @time_overlay).deliver_now
-      flash[:message] = 'Your clip has been requested.'
-    rescue
-      flash[:message] = "An error occurred while creating clip request. "\
-                      "Please try again and, if the problem persists, contact "\
-                      "support."
+        camera["name"], camera["id"], params["title"], params["from_date"],
+        params["to_date"], @time_overlay).deliver_now
+      result[:message] = "Your clip has been requested."
+    rescue => error
+      result = {success: false, message: error.message}
     end
-    redirect_to "#{cameras_single_path(params[:id])}/archives"
+    render json: result
+  end
+
+  def delete_clip
+    result = {success: true}
+    begin
+      api = get_evercam_api
+      api.delete_archive(params[:camera_id], params[:archive_id])
+      result[:message] = "Clip deleted successfully."
+    rescue => error
+      result = {success: false, message: error.message}
+    end
+    render json: result
   end
 
   private

@@ -14,7 +14,11 @@
 }
 
 .add-clip > .table > tbody > tr > td {
-  padding: 4px 8px;
+  padding: 1px;
+  line-height: 1;
+}
+.camera-name {
+  margin-bottom: 0px !important;
 }
 
 .add-clip > label {
@@ -35,7 +39,12 @@
   padding: 0px 4px;
 }
 
-#uniform-embed-datetime {
+.archive-actions {
+  margin-right: 7px;
+  color: #34393d;
+}
+
+#uniform-embed-datetime, #uniform-is-public {
   display: none;
 }
 
@@ -82,4 +91,29 @@
   transition: all 0.2s ease-in-out 0s;
   width: 14px;
   z-index: 1;
+}
+
+#form-create-clip .checkbox {
+  margin-bottom: 0;
+}
+
+#form-create-clip .table {
+  margin-bottom: 5px;
+}
+
+#archives .dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 0px;
+}
+
+#archives .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: white;
+  border: solid 1px #dddddd;
+}
+
+#archive-modal .modal-dialog {
+  width: 465px;
+}
+
+.xdsoft_datetimepicker {
+  z-index: 9999999;
 }

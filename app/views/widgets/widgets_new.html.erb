@@ -2,7 +2,7 @@
 
 <div class="page-content-wrapper">
   <div class="page-content" id="live-widget">
-    <div class="row">
+    <div>
       <div class="section-header">
         <div class="camera-title">
 
@@ -30,7 +30,10 @@
                   <div class="input-group col-md-7">
                     <select id="widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
-                        <option value="<%= camera['id'] %>">
+                        <% port = camera.deep_fetch('external', 'rtsp', 'port') {} %>
+                        <option value="<%= camera['id'] %>"
+                          val-rtmp-stream="<%= camera.fetch('proxy_url', {}).fetch('rtmp', {}) if camera['external'].blank? || port.present? %>"
+                        >
                           <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
                         </option>
                       <% end %>
@@ -64,8 +67,8 @@
                   </div>
                   <div class="input-group col-md-7">
                     <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required" onchange="admSelectCheck(this);">
-                      <option class="caret" value="false">No</option>
-                      <option class="caret" value="true">Yes</option>
+                      <option value="false">No</option>
+                      <option value="true">Yes</option>
                     </select>
                   </div>
                 </div>

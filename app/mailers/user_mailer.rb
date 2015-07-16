@@ -45,7 +45,7 @@ class UserMailer < ActionMailer::Base
     @from_date    = from_date
     @to_date      = to_date
     @time_overlay = time_overlay
-    mail(to: email, subject: "Clip Requested")
+    mail(to: email, subject: "#{user_name} requested clip #{title} for the camera #{camera_name}")
   end
 
 end

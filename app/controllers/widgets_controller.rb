@@ -20,22 +20,32 @@ class WidgetsController < ApplicationController
   end
 
   def live_view_widget
+    begin
+    api = get_evercam_api
+    @camera = api.get_camera(params[:camera], true)
+    rescue
+      @camera = {}
+    end
     respond_to do |format|
       format.js { render :file => "widgets/live.view.widget.js.erb", :mime_type => Mime::Type.lookup('text/javascript')}
     end
   end
 
   def live_view_private_widget
-    authenticate_user
-    unless current_user.nil?
+    if params["private"]
+      authenticate_user
+      unless current_user.nil?
+        render :layout => false
+      end
+      begin
+        api = get_evercam_api
+        api.get_snapshot(params[:camera])
+      rescue => error
+        @unathorized = error.status_code == 403
+        @not_exist = error.status_code == 404
+      end
+    else
       render :layout => false
-    end
-    begin
-      api = get_evercam_api
-      api.get_snapshot(params[:camera])
-    rescue => error
-      @unathorized = error.status_code == 403
-      @not_exist = error.status_code == 404
     end
   end
 

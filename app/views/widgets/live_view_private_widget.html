@@ -1,5 +1,22 @@
 <head lang="en">
    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <link href="http://vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
+  <script src="http://vjs.zencdn.net/4.11/video.js"></script>
+  <style>
+    .vjs-default-skin .vjs-play-control {
+      height: 3em;
+    }
+    .vjs-default-skin .vjs-fullscreen-control {
+      height: 3em;
+      margin-right: 5px;
+    }
+    .vjs-default-skin .vjs-volume-control {
+      margin-right: 10px;
+    }
+    .video-js {
+      padding-top: 56.2%;
+    }
+  </style>
 </head>
 <body style="margin: 0px;">
 <% if @unathorized %>
@@ -10,7 +27,18 @@ You are not allowed to view this camera
 <% else %>
 
 <div>
-  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+  <% if params[:rtmp] %>
+  <video id="camera-video-player" class="video-js vjs-default-skin"
+         poster="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>"
+         controls autoplay width="auto" height="auto">
+    <source src="<%= params[:rtmp] %>" type="rtmp/flv">
+    <% if params[:hls] %>
+    <source src="<%= params[:hls] %>" type="application/x-mpegURL">
+    <% end %>
+  </video>
+  <% else %>
+  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
+  <% end %>
 </div>
 
 <script>
@@ -196,17 +224,19 @@ You are not allowed to view this camera
     function handleVisibilityChange() {
       if (document.hidden) {
         clearTimeout(window.ec_watcher);
-        console.log('stop');
       } else  {
         updateImage();
-        console.log('start');
       }
     }
-
+    <% if params[:rtmp] %>
+      videojs('camera-video-player', {techOrder: ["flash", "hls", "html5"]});
+    <% else %>
+      fullscreenImage();
+      window.ec_vis_handler = handleVisibilityChange;
+      document.addEventListener("visibilitychange", handleVisibilityChange, false);
+    <% end %>
     updateImage();
-    fullscreenImage();
-    window.ec_vis_handler = handleVisibilityChange;
-    document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
   }(window));
 </script>
 <% end %>

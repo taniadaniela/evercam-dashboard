@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/evercam/evercam-dashboard.png?label=ready&title=Ready)](https://waffle.io/evercam/evercam-dashboard)
 | Name   | Evercam Dashboard HTML5 Client   |
 | --- | --- |
 | Owner   | [@azharmalik3](https://github.com/Azharmailk3)   |
@@ -9,6 +8,10 @@
 | Version  | 0.9  |
 | Evercam API Version  | 1.0  |
 | Licence | [AGPL](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-%28agpl-3.0%29) |
+| Waffle  | [![Stories in Ready](https://badge.waffle.io/evercam/evercam-dashboard.png?label=ready&title=Ready)](https://waffle.io/evercam/evercam-dashboard) |
+
+
+
 
 The best starting point for Evercam is http://www.evercam.io/open-source
 

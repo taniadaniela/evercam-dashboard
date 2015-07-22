@@ -21,8 +21,8 @@ class WidgetsController < ApplicationController
 
   def live_view_widget
     begin
-    api = get_evercam_api
-    @camera = api.get_camera(params[:camera], true)
+      api = get_evercam_api
+      @camera = api.get_camera(params[:camera], true)
     rescue
       @camera = {}
     end

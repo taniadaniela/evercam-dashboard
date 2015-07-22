@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/evercam/evercam-dashboard.png?label=ready&title=Ready)](https://waffle.io/evercam/evercam-dashboard)
 | Name   | Evercam Dashboard HTML5 Client   |
 | --- | --- |
 | Owner   | [@azharmalik3](https://github.com/Azharmailk3)   |

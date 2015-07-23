@@ -18,10 +18,12 @@ updateLogTypesFilter = () ->
   true
 
 toggleAllTypeFilters = ->
-  if $('#all-types').is(':checked')
-    $("input[name='type']").prop('checked', true);
+  if $('#type-all').is(':checked')
+    $("input[name='type']").prop("checked", true)
+    $(".type-label span").addClass("checked")
   else
-    $("input[name='type']").prop('checked', false);
+    $("input[name='type']").prop("checked", false)
+    $(".type-label span").removeClass("checked")
 
 initializeDataTable = ->
   table = $('#logs-table').DataTable({
@@ -53,7 +55,7 @@ initializeDataTable = ->
 window.initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
   $('.datetimepicker').datetimepicker()
-  $('#all-types').click(toggleAllTypeFilters)
+  $('#type-all').click(toggleAllTypeFilters)
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   updateLogTypesFilter()

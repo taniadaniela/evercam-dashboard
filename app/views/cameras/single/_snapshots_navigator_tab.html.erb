@@ -176,6 +176,15 @@
             &nbsp;
             <span id="divScheduleStatus"></span>
           </div>
+          <div id="recording-toggle">
+            <form>
+            <b>Recording:</b>
+              <input type="radio" name="cloud_recording" value="true" <%= @apps["cloud_recording"] ? "checked=checked" : "" %> />
+              <label>On </label>
+              <input type="radio" name="cloud_recording" value="false" <%= @apps["cloud_recording"] ? "" : "checked=checked" %> />
+              <label>Off</label>
+            </form>
+          </div>
         </div>
       </div>
     </div>

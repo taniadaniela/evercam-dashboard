@@ -176,6 +176,7 @@
             &nbsp;
             <span id="divScheduleStatus"></span>
           </div>
+          <% if @has_edit_rights %>
           <div id="recording-toggle">
             <form>
             <b>Recording:</b>
@@ -185,6 +186,7 @@
               <label>Off</label>
             </form>
           </div>
+          <% end %>
         </div>
       </div>
     </div>

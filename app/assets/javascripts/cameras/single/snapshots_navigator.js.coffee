@@ -22,6 +22,9 @@ xhrRequestChangeMonth = null
 playFromDateTime = null
 playFromTimeStamp = null
 
+showFeedback = (message) ->
+  Notification.show(message)
+
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
@@ -847,7 +850,21 @@ handleRecordingToggle = ->
       api_key: Evercam.User.api_key
       cloud_recording: cloud_recording_enabled
 
+    onError = () ->
+      showError("Updating recording settings has failed. Please contact support.")
+      false
+
+    onSuccess = (data) ->
+      status = data.apps[0].cloud_recording
+      if status
+        showFeedback("Cloud recording was successfully turned on")
+      else
+        showFeedback("Cloud recording was successfully turned off")
+      false
+
     settings =
+      error: onError
+      success: onSuccess
       cache: false
       data: data
       dataType: 'json'

@@ -36,7 +36,10 @@ hideOfflineCamerasBox = ->
   $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
   $("#total-offline-cameras sub").text(total_offline_cameras)
   if $.cookie("hide-offline-cameras")
-    $("#total-offline-cameras").removeClass("hide")
+    if total_offline_cameras is 0
+      $("#total-offline-cameras").removeClass("hide").addClass("hide")
+    else
+      $("#total-offline-cameras").removeClass("hide")
     $("#camera-index div.camera-offline").removeClass("hide").addClass("hide")
   else
     $("#total-offline-cameras").removeClass("hide").addClass("hide")

@@ -413,13 +413,6 @@ onSharingOptionsClicked = (event) ->
   $("div.desc").hide();
   $("#Shares" + test).show();
 
-centerModal = ->
-  $(this).css "display", "block"
-  $dialog = $(this).find(".modal-dialog")
-  offset = ($(window).height() - $dialog.height()) / 2
-  # Center modal vertically in window
-  $dialog.css "margin-top", offset
-
 initializePopup = ->
   $(".popbox2").popbox
     open: ".open2"
@@ -440,9 +433,6 @@ window.initializeSharingTab = ->
   $('.reveal').focus(onPermissionsFocus);
   $("input[name$='sharingOptionRadios']").click(onSharingOptionsClicked);
   initializePopup()
-  $(".modal").on "show.bs.modal", centerModal
-  $(window).on "resize", ->
-    $(".modal:visible").each centerModal
   Notification.init(".bb-alert")
   getTransferFromUrl()
 

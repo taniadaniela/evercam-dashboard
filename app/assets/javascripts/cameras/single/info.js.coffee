@@ -333,9 +333,9 @@ centerModal = ->
   $(this).css "display", "block"
   $dialog = $(this).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2
-
-  # Center modal vertically in window
-  $dialog.css "margin-top", offset
+  if $(window).height() > $dialog.height()
+    # Center modal vertically in window
+    $dialog.css "margin-top", offset
 
 initNotification = ->
   Notification.init(".bb-alert");

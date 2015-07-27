@@ -151,13 +151,19 @@ calculateHeight = ->
   content_width = Metronic.getViewPort().width
   tab_menu_height = $("#ul-nav-tab").height()
   side_bar_width = $(".page-sidebar").width()
-  content_width = content_width - side_bar_width
   image_height = content_height - (tab_menu_height *2)
+  if $(".page-sidebar").css('display') is "none"
+    content_width = content_width - side_bar_width
+
+  $("#console-log").text("Real-Width: #{img_real_width}, content-width: #{content_width}")
+  if $(".page-sidebar").css('display') is "none" && img_real_width > content_width
+    image_height = img_real_height / img_real_width * content_width
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
 
 handleResize = ->
+  getImageRealRatio()
   calculateHeight()
   $(window).resize ->
     calculateHeight()

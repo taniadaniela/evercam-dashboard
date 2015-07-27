@@ -2,6 +2,8 @@ default_img = "/assets/offline.svg"
 int_time = undefined
 refresh_paused = false
 image_placeholder = undefined
+img_real_width = 0
+img_real_height = 0
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -137,11 +139,23 @@ saveImage = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/latest"
     sendAJAXRequest(settings)
 
+getImageRealRatio = ->
+  $('<img/>').attr('src', $("#live-player-image").attr('src')).load ->
+    img_real_width = @width
+    img_real_height = @height
+    if img_real_width is 0 && img_real_height is 0
+      setTimeout(getImageRealRatio(), 1000)
+
 calculateHeight = ->
   content_height = Metronic.getViewPort().height
+  content_width = Metronic.getViewPort().width
   tab_menu_height = $("#ul-nav-tab").height()
-  $("#live-player-image").css("height", "#{content_height - (tab_menu_height *2) }px")
-  $(".offline-camera-placeholder img").css("height", "#{content_height - (tab_menu_height *2) }px")
+  side_bar_width = $(".page-sidebar").width()
+  content_width = content_width - side_bar_width
+  image_height = content_height - (tab_menu_height *2)
+
+  $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
+  $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
 
 handleResize = ->
   calculateHeight()

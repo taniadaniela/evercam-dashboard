@@ -158,6 +158,10 @@
   padding: 4px 0px;
 }
 
+.modal {
+  margin-right: -15px;
+}
+
 .save-settings {
   margin-top: 10px;
 }
@@ -166,7 +170,7 @@
 }
 .test-img-settings {
   background-color: $white;
-  height:165px;
+  min-height:165px;
   overflow: hidden;
   width: 100%;
 }

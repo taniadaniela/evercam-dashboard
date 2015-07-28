@@ -17,7 +17,7 @@ showSharingTab = ->
     10);
 
 onChangeOwnerButtonClicked = (event) ->
-  event .preventDefault()
+  event.preventDefault()
   showChangeOwnerDialog(true)
   true
 
@@ -79,12 +79,14 @@ showChangeOwnerDialog = (clear) ->
   true
 
 handleVendorModelEvents = ->
-  $("#camera-vendor").on "change", ->
+  $("#details").on "change", "#camera-vendor", (e) ->
+    e.preventDefault()
     loadVendorModels($(this).val())
-  true
 
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
+  if vendor_id is ""
+    return
   $("#camera-model").append('<option value="">Loading...</option>');
   data = {}
   data.vendor_id = vendor_id
@@ -105,7 +107,10 @@ loadVendorModels = (vendor_id) ->
     for model in models
       selected = if model.name == Evercam.Camera.model_name then 'selected="selected"' else ''
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
-      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+      if model.name.toLowerCase().indexOf('default') isnt -1
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+      else
+        $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
 
   settings =
     cache: false

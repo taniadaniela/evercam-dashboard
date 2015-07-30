@@ -62,7 +62,7 @@ gem 'wkhtmltopdf-binary'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.14'
+  gem 'evercam_models', '~> 0.3.21'
   gem 'evercam',
     github: 'evercam/evercam-ruby',
     branch: 'naming'

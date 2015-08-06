@@ -84,7 +84,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.2.1)
+    airbrake (4.3.0)
       builder
       multi_json
     arel (6.0.2)
@@ -92,7 +92,7 @@ GEM
       activemodel
       fog (>= 1.8.0)
       unf
-    autoprefixer-rails (5.2.0.1)
+    autoprefixer-rails (5.2.1.1)
       execjs
       json
     awesome_print (1.6.1)
@@ -283,7 +283,7 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    guard (2.12.9)
+    guard (2.13.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, <= 4.0)
       lumberjack (~> 1.0)
@@ -293,7 +293,7 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
-    guard-rspec (4.5.2)
+    guard-rspec (4.6.4)
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
@@ -343,7 +343,7 @@ GEM
     newrelic_rpm (3.12.1.298)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    notiffany (0.0.6)
+    notiffany (0.0.7)
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
@@ -362,7 +362,6 @@ GEM
       slop (~> 3.4)
     pry-byebug (1.3.2)
       byebug (~> 2.7)
-      pry (~> 0.9.12)
     pry-doc (0.4.6)
       pry (>= 0.9)
       yard (>= 0.8)
@@ -378,7 +377,7 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    puma (2.12.2)
+    puma (2.12.3)
     pusher (0.14.5)
       httpclient (~> 2.5)
       multi_json (~> 1.0)
@@ -495,7 +494,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    selenium-webdriver (2.46.2)
+    selenium-webdriver (2.47.1)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
@@ -508,7 +507,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    skylight (0.6.1)
+    skylight (0.7.1)
       activesupport (>= 3.0.0)
     slop (3.6.0)
     sort_alphabetical (1.0.1)
@@ -554,7 +553,7 @@ GEM
     wicked_pdf (0.11.0)
       rails
     wkhtmltopdf-binary (0.9.9.3)
-    wkhtmltopdf-heroku (2.12.2.1)
+    wkhtmltopdf-heroku (2.12.2.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.6)
@@ -564,9 +563,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 4.2.1)
+  airbrake (~> 4.3.0)
   asset_sync
-  autoprefixer-rails (~> 5.2.0.1)
+  autoprefixer-rails (~> 5.2.1.1)
   bcrypt (~> 3.1.10)
   coffee-rails (~> 4.1.0)
   country_select!
@@ -580,7 +579,7 @@ DEPENDENCIES
   fog
   geocoder
   georuby (= 2.5.2)
-  guard-rspec (~> 4.5.2)
+  guard-rspec (~> 4.6.4)
   heroku-api
   heroku_rails_deflate
   ie_iframe_cookies

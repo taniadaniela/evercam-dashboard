@@ -70,6 +70,7 @@ $ ->
     data.jpg_url = jpg_url
     data.cam_username = $("#camera-username").val() unless $("#camera-username").val() is ''
     data.cam_password = $("#camera-password").val() unless $("#camera-password").val() is ''
+    data.vendor_id = $("#camera-vendor").val()
 
     onError = (jqXHR, status, error) ->
       $('#test-error').text(jqXHR.responseJSON.message)

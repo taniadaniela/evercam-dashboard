@@ -844,19 +844,37 @@ handleRecordingToggle = ->
   $("#recording-toggle input").on "ifChecked", (event)->
     cloud_recording_enabled = $(this).val()
     cameraId = Evercam.Camera.id
+    storage_duration = -1
+    window.cc = cloud_recording_enabled
+
+    if cloud_recording_enabled == "true"
+      frequency = 60
+    else
+      frequency = 1
+
+    schedule =
+      'Monday': 'all_day': true
+      'Tuesday': 'all_day': true
+      'Wednesday': 'all_day': true
+      'Thursday': 'all_day': true
+      'Friday': 'all_day': true
+      'Saturday': 'all_day': true
+      'Sunday': 'all_day': true
 
     data =
       api_id: Evercam.User.api_id
       api_key: Evercam.User.api_key
-      cloud_recording: cloud_recording_enabled
+      frequency: frequency
+      storage_duration: storage_duration
+      schedule: JSON.stringify schedule
 
     onError = () ->
-      showError("Updating recording settings has failed. Please contact support.")
+      showFeedback("Updating recording settings has failed. Please contact support.")
       false
 
     onSuccess = (data) ->
-      status = data.apps[0].cloud_recording
-      if status
+      status = data.cloud_recordings[0].frequency
+      if status == 60
         showFeedback("Cloud recording was successfully turned on")
       else
         showFeedback("Cloud recording was successfully turned off")
@@ -868,8 +886,8 @@ handleRecordingToggle = ->
       cache: false
       data: data
       dataType: 'json'
-      type: 'PATCH'
-      url: "#{Evercam.API_URL}cameras/#{cameraId}/apps"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{cameraId}/apps/cloud-recording"
 
     sendAJAXRequest(settings)
 

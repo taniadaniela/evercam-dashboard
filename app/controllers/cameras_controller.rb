@@ -189,6 +189,7 @@ class CamerasController < ApplicationController
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @cloud_recording = api.get_cloud_recordings(params[:id]) if @has_edit_rights
+      @cloud_recording = {"frequency" => 1} if @cloud_recording.nil?
       @cameras = load_user_cameras(true, false)
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)

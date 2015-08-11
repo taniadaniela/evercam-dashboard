@@ -180,9 +180,9 @@
           <div id="recording-toggle">
             <form>
             <b>Recording:</b>
-              <input type="radio" name="cloud_recording" value="true" <%= @apps["cloud_recording"] ? "checked=checked" : "" %> />
+              <input type="radio" name="cloud_recording" value="true" <%= @cloud_recording["frequency"] == 60 ? "checked=checked" : "" %> />
               <label>On </label>
-              <input type="radio" name="cloud_recording" value="false" <%= @apps["cloud_recording"] ? "" : "checked=checked" %> />
+              <input type="radio" name="cloud_recording" value="false" <%= @cloud_recording["frequency"] == 60 ? "" : "checked=checked" %> />
               <label>Off</label>
             </form>
           </div>

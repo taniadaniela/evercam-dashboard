@@ -188,7 +188,7 @@ class CamerasController < ApplicationController
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
-      @apps = api.get_apps(params[:id]) if @has_edit_rights
+      @cloud_recording = api.get_cloud_recordings(params[:id]) if @has_edit_rights
       @cameras = load_user_cameras(true, false)
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)

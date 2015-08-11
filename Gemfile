@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
 ruby '2.2.0'
 
 gem 'rails', '~> 4.2.2'
@@ -10,34 +9,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'sprockets'
-gem 'sprockets-es6', require: 'sprockets/es6'
+gem 'sprockets-es6',
+  require: 'sprockets/es6'
 gem 'fog'
 gem 'asset_sync'
 gem 'autoprefixer-rails', '~> 5.2.1.1'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
-
-gem 'rails-assets-bootbox', '~> 4.3.0'
-gem 'rails-assets-bootstrap', '~> 3.3.1'
-gem 'rails-assets-bootstrap-datepicker', '~> 1.3.1'
-gem 'rails-assets-bootstrap-tabdrop', '~> 1.0.0'
-gem 'rails-assets-datatables', '~> 1.10.4'
-gem 'rails-assets-datatables-plugins', '~> 1.0'
-gem 'rails-assets-datetimepicker', '~> 2.4.1'
-gem 'rails-assets-iCheck', '~> 1.0.2'
-gem 'rails-assets-jquery-cookie', '~> 1.4.1'
-gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
-gem 'rails-assets-jquery.browser', '~> 0.0.7'
-gem 'rails-assets-jquery.nicescroll', '~> 3.5.6'
-gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'
-gem 'rails-assets-jquery.uniform', '~> 2.1.2'
-gem 'rails-assets-ladda', '~> 0.8.0'
-gem 'rails-assets-moment', '~> 2.8'
-gem 'rails-assets-pusher', '~> 2.2.3'
-gem 'rails-assets-screenfull', '~> 2.0'
-gem 'rails-assets-videojs', '~> 4.12.7'
-gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
 
 gem 'pg'
 gem 'sequel'
@@ -64,8 +43,7 @@ group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.3.21'
   gem 'evercam',
-    github: 'evercam/evercam-ruby',
-    branch: 'naming'
+    github: 'evercam/evercam-ruby'
 end
 
 group :production do
@@ -97,4 +75,27 @@ group :test do
   gem 'rack_session_access'
   gem 'selenium-webdriver'
   gem 'launchy'
+end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootbox', '~> 4.3.0'
+  gem 'rails-assets-bootstrap', '~> 3.3.1'
+  gem 'rails-assets-bootstrap-datepicker', '~> 1.3.1'
+  gem 'rails-assets-bootstrap-tabdrop', '~> 1.0.0'
+  gem 'rails-assets-datatables', '~> 1.10.4'
+  gem 'rails-assets-datatables-plugins', '~> 1.0'
+  gem 'rails-assets-datetimepicker', '~> 2.4.1'
+  gem 'rails-assets-iCheck', '~> 1.0.2'
+  gem 'rails-assets-jquery-cookie', '~> 1.4.1'
+  gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
+  gem 'rails-assets-jquery.browser', '~> 0.0.7'
+  gem 'rails-assets-jquery.nicescroll', '~> 3.5.6'
+  gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'
+  gem 'rails-assets-jquery.uniform', '~> 2.1.2'
+  gem 'rails-assets-ladda', '~> 0.8.0'
+  gem 'rails-assets-moment', '~> 2.8'
+  gem 'rails-assets-pusher', '~> 2.2.3'
+  gem 'rails-assets-screenfull', '~> 2.0'
+  gem 'rails-assets-videojs', '~> 4.12.7'
+  gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
 end

@@ -64,8 +64,7 @@ group :evercam do
   gem 'evercam_misc', '~> 0.0'
   gem 'evercam_models', '~> 0.3.21'
   gem 'evercam',
-    github: 'evercam/evercam-ruby',
-    branch: 'naming'
+    github: 'evercam/evercam-ruby'
 end
 
 group :production do

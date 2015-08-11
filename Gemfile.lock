@@ -1,9 +1,8 @@
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: 95b852aba41cf83c96153a407234d24ce2cf8608
-  branch: naming
+  revision: 540a9196466cded4f738a38b1ac953ba722d57a3
   specs:
-    evercam (0.3.pre.alpha6)
+    evercam (0.3.0)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
       typhoeus (~> 0.6)
@@ -529,7 +528,7 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timezone (0.3.11)
-    typhoeus (0.7.2)
+    typhoeus (0.7.3)
       ethon (>= 0.7.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)

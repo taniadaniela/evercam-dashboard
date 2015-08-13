@@ -576,8 +576,6 @@ DEPENDENCIES
   evercam_models (~> 0.3.21)
   factory_girl
   fog
-  geocoder
-  georuby (= 2.5.2)
   guard-rspec (~> 4.6.4)
   heroku-api
   heroku_rails_deflate
@@ -586,7 +584,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   newrelic_rpm
-  pg
   poltergeist
   protected_attributes
   pry-byebug

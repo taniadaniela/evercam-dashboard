@@ -1,19 +1,4 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    get '/' => 'dashboard#index'
-    get '/map' => 'dashboard#map'
-    get '/kpi' => 'dashboard#kpi'
-    resources :dash_cameras, path: :cameras
-    resources :dash_users, path: :users
-    resources :dash_vendor_model, path: :models
-    resources :dash_vendors, path: :vendors
-    get '/users/:id/impersonate' => 'dash_users#impersonate', as: :impersonate
-    put '/users/:id' => 'dash_users#update'
-    put '/models/:id' => 'dash_vendor_model#update'
-    get '/models/load.vendor.model' => 'dash_vendor_model#load_vendor_model'
-  end
-
   get '/v1/users/:id/billing' => 'subscriptions#index', as: :billing
   get '/v1/users/:id/billing/history' => 'subscriptions#billing_history', as: :billing_history
   get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription

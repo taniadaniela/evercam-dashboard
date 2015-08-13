@@ -18,7 +18,6 @@ gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
 
-gem 'pg'
 gem 'sequel'
 gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes'
@@ -26,8 +25,6 @@ gem 'rack-rewrite'
 gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
-gem 'geocoder'
-gem 'georuby', '= 2.5.2'
 gem 'heroku_rails_deflate'
 gem 'country_select',
   github: 'stefanpenner/country_select'

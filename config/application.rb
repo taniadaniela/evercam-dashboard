@@ -26,6 +26,8 @@ module EvercamDashboard
     # config.i18n.default_locale = :de
     GC::Profiler.enable
 
+    config.websockets_url = "wss://media.evercam.io/ws"
+
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.initialize_on_precompile = true

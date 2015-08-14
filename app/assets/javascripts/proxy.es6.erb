@@ -26,7 +26,7 @@ let recording_cameras = [
 $(() => {
   let camera_id = window.Evercam.Camera.id;
 
-  let socket = new Socket("wss://media.evercam.io/ws")
+  let socket = new Socket("<%= EvercamDashboard::Application.config.websockets_url %>")
 
   socket.connect();
 

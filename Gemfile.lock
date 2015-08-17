@@ -584,6 +584,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   newrelic_rpm
+  pg
   poltergeist
   protected_attributes
   pry-byebug

@@ -18,6 +18,7 @@ gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
 
+gem 'pg'
 gem 'sequel'
 gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes'

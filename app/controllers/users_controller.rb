@@ -149,7 +149,7 @@ class UsersController < ApplicationController
                         "again and, if the problem persists, contact support."
       end
     end
-    redirect_to action: 'settings'
+    redirect_to user_account_path(params[:id])
   end
 
   def change_password

@@ -305,13 +305,6 @@ CREATE SEQUENCE sq_streams
     NO MAXVALUE
     CACHE 1;
 
---
--- Name: postgis; Type: EXTENSION; Schema: public; Owner: -; Tablespace:
---
-
-CREATE EXTENSION postgis
-  SCHEMA public
-  VERSION "2.1.3";
 
 
 --
@@ -331,7 +324,7 @@ CREATE TABLE cameras (
     is_online boolean,
     timezone text,
     last_online_at timestamp with time zone,
-    location geography(Point,4326),
+    location integer,
     mac_address macaddr,
     model_id integer,
     discoverable boolean DEFAULT false NOT NULL,

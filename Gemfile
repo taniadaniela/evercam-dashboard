@@ -26,8 +26,6 @@ gem 'rack-rewrite'
 gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
-gem 'geocoder'
-gem 'georuby', '= 2.5.2'
 gem 'heroku_rails_deflate'
 gem 'country_select',
   github: 'stefanpenner/country_select'

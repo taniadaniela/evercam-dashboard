@@ -34,7 +34,9 @@
               <% end %>
             </li>
             <li role="presentation">
-              <a href="/cameras/new#tab_1_2">Add Android Camera</a>
+              <%= link_to "#{cameras_new_path}#tab_1_2" do %>
+                Add Android Camera
+              <% end %>
             </li>
             <li role="presentation">
               <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>

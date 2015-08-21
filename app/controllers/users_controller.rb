@@ -51,6 +51,7 @@ class UsersController < ApplicationController
         user['username'],
         user['email'],
         user['password'],
+        nil,
         params[:key]
       )
 
@@ -69,7 +70,7 @@ class UsersController < ApplicationController
       end
       Rails.logger.error "Exception caught in create user request.\nCause: #{error}\n" +
           error.backtrace.join("\n")
-      render action: 'new', user: user
+      render action: "new", user: user
     end
   end
 

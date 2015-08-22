@@ -189,7 +189,21 @@ class CamerasController < ApplicationController
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @cloud_recording = api.get_cloud_recordings(params[:id]) if @has_edit_rights
-      @cloud_recording = {"frequency" => 1} if @cloud_recording.nil?
+      if @cloud_recording.nil?
+        @cloud_recording = {
+          "frequency" => 1,
+          "storage_duration" => -1,
+          "schedule" => {
+            "Monday" => ["00:00-23:59"],
+            "Tuesday" => ["00:00-23:59"],
+            "Wednesday" => ["00:00-23:59"],
+            "Thursday" => ["00:00-23:59"],
+            "Friday" => ["00:00-23:59"],
+            "Saturday" => ["00:00-23:59"],
+            "Sunday" => ["00:00-23:59"]
+          }
+        }
+      end
       @cameras = load_user_cameras(true, false)
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)

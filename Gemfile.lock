@@ -414,6 +414,9 @@ GEM
     rails-assets-datatables-plugins (1.10.8)
     rails-assets-datetimepicker (2.4.5)
       rails-assets-jquery (>= 1.7.2)
+    rails-assets-fullcalendar (2.3.2)
+      rails-assets-jquery (>= 1.7.1)
+      rails-assets-moment (>= 2.5.0)
     rails-assets-iCheck (1.0.2)
       rails-assets-jquery (>= 1.7)
     rails-assets-jquery (2.1.4)
@@ -601,6 +604,7 @@ DEPENDENCIES
   rails-assets-datatables (~> 1.10.4)!
   rails-assets-datatables-plugins (~> 1.0)!
   rails-assets-datetimepicker (~> 2.4.1)!
+  rails-assets-fullcalendar (~> 2.3.2)!
   rails-assets-iCheck (~> 1.0.2)!
   rails-assets-jquery-cookie (~> 1.4.1)!
   rails-assets-jquery-form-validator (~> 2.1.47)!
@@ -635,3 +639,6 @@ DEPENDENCIES
   wkhtmltopdf-binary
   wkhtmltopdf-heroku
   yui-compressor
+
+BUNDLED WITH
+   1.10.6

@@ -103,6 +103,11 @@
     location: {
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>
+    },
+    cloud_recording: {
+      frequency: <%= @cloud_recording['frequency'].to_i %>,
+      storage_duration: <%= @cloud_recording['storage_duration'].to_i %>,
+      schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     }
   };
 

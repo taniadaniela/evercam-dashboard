@@ -1,4 +1,4 @@
-showFeedback = (message) ->
+window.showFeedback = (message) ->
   Notification.show(message)
   true
 

@@ -1,3 +1,5 @@
+#= require cameras/single/cloud_recording_schedule.js.coffee
+
 snapshotInfos = null
 totalFrames = 0
 snapshotInfoIdx = 0
@@ -839,57 +841,7 @@ handleResize = ->
   calculateWidth()
   $(window).resize ->
     calculateWidth()
-
-handleRecordingToggle = ->
-  $("#recording-toggle input").on "ifChecked", (event)->
-    cloud_recording_enabled = $(this).val()
-    cameraId = Evercam.Camera.id
-    storage_duration = -1
-    window.cc = cloud_recording_enabled
-
-    if cloud_recording_enabled == "true"
-      frequency = 60
-    else
-      frequency = 1
-
-    schedule =
-      'Monday': 'all_day': true
-      'Tuesday': 'all_day': true
-      'Wednesday': 'all_day': true
-      'Thursday': 'all_day': true
-      'Friday': 'all_day': true
-      'Saturday': 'all_day': true
-      'Sunday': 'all_day': true
-
-    data =
-      api_id: Evercam.User.api_id
-      api_key: Evercam.User.api_key
-      frequency: frequency
-      storage_duration: storage_duration
-      schedule: JSON.stringify schedule
-
-    onError = () ->
-      showFeedback("Updating recording settings has failed. Please contact support.")
-      false
-
-    onSuccess = (data) ->
-      status = data.cloud_recordings[0].frequency
-      if status == 60
-        showFeedback("Cloud recording was successfully turned on")
-      else
-        showFeedback("Cloud recording was successfully turned off")
-      false
-
-    settings =
-      error: onError
-      success: onSuccess
-      cache: false
-      data: data
-      dataType: 'json'
-      type: 'POST'
-      url: "#{Evercam.API_URL}cameras/#{cameraId}/apps/cloud-recording"
-
-    sendAJAXRequest(settings)
+    window.adjustScheduleCalendarWidth
 
 window.initializeRecordingsTab = ->
   initDatePicker()
@@ -902,4 +854,6 @@ window.initializeRecordingsTab = ->
   fullscreenImage()
   saveImage()
   handleResize()
-  handleRecordingToggle()
+  window.initScheduleCalendar()
+  window.setCloudRecordingToggle()
+  window.handleShowScheduleClick()

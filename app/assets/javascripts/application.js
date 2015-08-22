@@ -25,6 +25,7 @@
 //= require popbox.js
 //= require phoenix
 //= require pusher
+//= require fullcalendar/fullcalendar.js
 //=
 //= require alerts
 //= require layout

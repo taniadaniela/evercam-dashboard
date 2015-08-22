@@ -180,10 +180,17 @@
           <div id="recording-toggle">
             <form>
             <b>Recording:</b>
-              <input type="radio" name="cloud_recording" value="true" <%= @cloud_recording["frequency"] == 60 ? "checked=checked" : "" %> />
-              <label>On </label>
-              <input type="radio" name="cloud_recording" value="false" <%= @cloud_recording["frequency"] == 60 ? "" : "checked=checked" %> />
+              <br/>
+              <input type="radio" name="cloud_recording" id="cloud-recording-on" value="on" />
+              <label>On</label>
+              <br/>
+              <input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled" />
+              <label>On (Scheduled)</label>
+              <br/>
+              <input type="radio" name="cloud_recording" id="cloud-recording-off" value="off" />
               <label>Off</label>
+              <br/>
+              <a id="show-schedule" class="hide">Show schedule</a>
             </form>
           </div>
           <% end %>
@@ -216,3 +223,8 @@
 <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
 
 
+<div class="row">
+  <div class="col-md-12">
+    <div id="cloud-recording-calendar" class="hide"></div>
+  </div>
+</div>

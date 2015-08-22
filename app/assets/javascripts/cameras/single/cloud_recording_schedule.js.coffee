@@ -66,7 +66,7 @@ updateSchedule = (frequency, storage_duration, schedule, type) ->
     storage_duration: storage_duration
     schedule: schedule
 
-  onError = () ->
+  onError = ->
     showFeedback("Updating recording settings has failed. Please contact support.")
 
   onSuccess = (data) ->
@@ -150,7 +150,7 @@ window.fullWeekSchedule =
   "Sunday": ["00:00-23:59"]
 
 window.handleRecordingToggle = ->
-  $("#recording-toggle input").on "ifChecked", (event)->
+  $("#recording-toggle input").on "ifChecked", (event) ->
     switch $(this).val()
       when "on"
         hideScheduleCalendar()

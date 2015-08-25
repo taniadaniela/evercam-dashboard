@@ -120,7 +120,7 @@ td.active.day.has-snapshot {
   transition:all 0.4s ease;
 }
 .snapshot-info-i .icon-info {
- font-size: 22px;
+  font-size: 22px;
 }
 .snapshot-info {
   position: absolute;
@@ -141,7 +141,8 @@ td.active.day.has-snapshot {
   transition: all .2s linear;
 }
 
-#fullscreen:hover .snapshot-info, #fullscreen:hover .btn-live-player {
+#fullscreen:hover .snapshot-info,
+#fullscreen:hover .btn-live-player {
   opacity: 1;
 }
 
@@ -518,4 +519,25 @@ td.active.day.has-snapshot {
   .tab-content #recordings {
     margin: 0px -14px;
   }
+}
+
+#recording-toggle {
+  margin-bottom: 5px;
+}
+
+#cloud-recording-calendar th {
+  font-size: 1.2em;
+}
+
+#cloud-recording-calendar table {
+  font-size: 0.8em;
+}
+
+#cloud-recording-calendar .fc-toolbar,
+#cloud-recording-calendar .fc-content {
+  display: none;
+}
+
+#cloud-recording-calendar .fc-axis {
+  text-align: center;
 }

@@ -69,8 +69,12 @@ updateSchedule = (frequency, storage_duration, schedule, type) ->
     storage_duration: storage_duration
     schedule: schedule
 
-  onError = ->
-    showFeedback("Updating recording settings has failed. Please contact support.")
+  onError = (data) ->
+    switch data.status
+      when 403
+        showFeedback("You aren't authorized to change the scheduling for camera '#{Evercam.Camera.id}'.")
+      else
+        showFeedback("Updating recording settings has failed. Please contact support.")
 
   onSuccess = (data) ->
     showFeedback("Cloud recording schedule was successfully updated.")

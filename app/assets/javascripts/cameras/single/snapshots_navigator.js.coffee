@@ -855,5 +855,3 @@ window.initializeRecordingsTab = ->
   handleResize()
   window.initScheduleCalendar()
   window.setCloudRecordingToggle()
-  window.handleShowScheduleClick()
-  window.handleHideScheduleClick()

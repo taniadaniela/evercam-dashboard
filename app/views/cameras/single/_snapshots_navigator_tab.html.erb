@@ -176,10 +176,9 @@
             &nbsp;
             <span id="divScheduleStatus"></span>
           </div>
-          <% if @has_edit_rights %>
           <div id="recording-toggle">
             <form>
-            <b>Recording:</b>
+              <b>Recording:</b>
               <br/>
               <input type="radio" name="cloud_recording" id="cloud-recording-on" value="on" />
               <label>On</label>
@@ -191,10 +190,15 @@
               <label>Off</label>
               <br/>
               <a id="show-schedule" class="hide">Show schedule</a>
+              <a id="hide-schedule" class="hide">Hide schedule</a>
+              <% if @has_edit_rights %>
+                <a id="edit-schedule" class="hide">Edit schedule</a>
+              <% end %>
             </form>
           </div>
-          <% end %>
         </div>
+
+        <div id="cloud-recording-calendar" class="hide"></div>
       </div>
     </div>
   </div>
@@ -221,10 +225,3 @@
 <div id="divPopup"></div>
 <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
 <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
-
-
-<div class="row">
-  <div class="col-md-12">
-    <div id="cloud-recording-calendar" class="hide"></div>
-  </div>
-</div>

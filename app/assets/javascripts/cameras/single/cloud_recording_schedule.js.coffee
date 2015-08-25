@@ -1,9 +1,12 @@
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
+    axisFormat: 'HH'
     allDaySlot: false
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     defaultView: 'agendaWeek'
+    dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"]
+    eventColor: '#428bca'
     editable: true
     eventClick: (event, element) ->
       if (window.confirm("Are you sure you want to delete this event?"))
@@ -20,7 +23,7 @@ window.initScheduleCalendar = ->
       left: ''
       center: ''
       right: ''
-    height: 650
+    height: 'auto'
     select: (start, end) ->
       # TODO: select whole day range when allDaySlot is selected
       eventData =
@@ -66,8 +69,12 @@ updateSchedule = (frequency, storage_duration, schedule, type) ->
     storage_duration: storage_duration
     schedule: schedule
 
-  onError = ->
-    showFeedback("Updating recording settings has failed. Please contact support.")
+  onError = (data) ->
+    switch data.status
+      when 403
+        showFeedback("You aren't authorized to change the scheduling for camera '#{Evercam.Camera.id}'.")
+      else
+        showFeedback("Updating recording settings has failed. Please contact support.")
 
   onSuccess = (data) ->
     showFeedback("Cloud recording schedule was successfully updated.")
@@ -127,18 +134,25 @@ currentCalendarWeek = ->
     day.add 1, 'days'
   calendarWeek
 
-showScheduleLink = ->
+showShowScheduleLink = ->
   $("#show-schedule").removeClass('hide')
+
+showHideScheduleLink = ->
+  $("#hide-schedule").removeClass('hide')
+
+hideShowScheduleLink = ->
+  $("#show-schedule").addClass('hide')
+
+hideHideScheduleLink = ->
+  $("#hide-schedule").addClass('hide')
 
 showScheduleCalendar = ->
   $('#cloud-recording-calendar').removeClass('hide')
   scheduleCalendar.fullCalendar('render')
   renderEvents()
-  adjustScheduleCalendarWidth()
 
 hideScheduleCalendar = ->
   $('#cloud-recording-calendar').addClass('hide')
-  $("#show-schedule").addClass('hide')
 
 window.fullWeekSchedule =
   "Monday": ["00:00-23:59"]
@@ -153,11 +167,16 @@ window.handleRecordingToggle = ->
   $("#recording-toggle input").on "ifChecked", (event) ->
     switch $(this).val()
       when "on"
+        hideShowScheduleLink()
+        hideHideScheduleLink()
         hideScheduleCalendar()
         updateScheduleToOn()
       when "on-scheduled"
-        showScheduleLink()
+        showShowScheduleLink()
+        hideHideScheduleLink()
       when "off"
+        hideShowScheduleLink()
+        hideHideScheduleLink()
         hideScheduleCalendar()
         updateScheduleToOff()
 
@@ -169,14 +188,17 @@ window.setCloudRecordingToggle = ->
       $("#cloud-recording-on").iCheck('check')
     else
       $("#cloud-recording-on-scheduled").iCheck('check')
-      showScheduleLink()
+      showShowScheduleLink()
   handleRecordingToggle()
 
 window.handleShowScheduleClick = ->
   $("#show-schedule").on "click", ->
+    showHideScheduleLink()
+    hideShowScheduleLink()
     showScheduleCalendar()
-    updateScheduleFromCalendar()
 
-window.adjustScheduleCalendarWidth = ->
-  leftColumnWidth = $("#recording-tab .left-column").width()
-  $("#cloud-recording-calendar").css("width", "#{leftColumnWidth}px")
+window.handleHideScheduleClick = ->
+  $("#hide-schedule").on "click", ->
+    showShowScheduleLink()
+    hideHideScheduleLink()
+    hideScheduleCalendar()

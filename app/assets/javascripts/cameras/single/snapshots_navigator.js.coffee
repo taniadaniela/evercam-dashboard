@@ -841,7 +841,6 @@ handleResize = ->
   calculateWidth()
   $(window).resize ->
     calculateWidth()
-    window.adjustScheduleCalendarWidth
 
 window.initializeRecordingsTab = ->
   initDatePicker()
@@ -857,3 +856,4 @@ window.initializeRecordingsTab = ->
   window.initScheduleCalendar()
   window.setCloudRecordingToggle()
   window.handleShowScheduleClick()
+  window.handleHideScheduleClick()

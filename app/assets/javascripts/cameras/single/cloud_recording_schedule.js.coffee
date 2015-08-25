@@ -130,18 +130,25 @@ currentCalendarWeek = ->
     day.add 1, 'days'
   calendarWeek
 
-showScheduleLink = ->
+showShowScheduleLink = ->
   $("#show-schedule").removeClass('hide')
+
+showHideScheduleLink = ->
+  $("#hide-schedule").removeClass('hide')
+
+hideShowScheduleLink = ->
+  $("#show-schedule").addClass('hide')
+
+hideHideScheduleLink = ->
+  $("#hide-schedule").addClass('hide')
 
 showScheduleCalendar = ->
   $('#cloud-recording-calendar').removeClass('hide')
   scheduleCalendar.fullCalendar('render')
   renderEvents()
-  adjustScheduleCalendarWidth()
 
 hideScheduleCalendar = ->
   $('#cloud-recording-calendar').addClass('hide')
-  $("#show-schedule").addClass('hide')
 
 window.fullWeekSchedule =
   "Monday": ["00:00-23:59"]
@@ -156,11 +163,16 @@ window.handleRecordingToggle = ->
   $("#recording-toggle input").on "ifChecked", (event) ->
     switch $(this).val()
       when "on"
+        hideShowScheduleLink()
+        hideHideScheduleLink()
         hideScheduleCalendar()
         updateScheduleToOn()
       when "on-scheduled"
-        showScheduleLink()
+        showShowScheduleLink()
+        hideHideScheduleLink()
       when "off"
+        hideShowScheduleLink()
+        hideHideScheduleLink()
         hideScheduleCalendar()
         updateScheduleToOff()
 
@@ -172,14 +184,17 @@ window.setCloudRecordingToggle = ->
       $("#cloud-recording-on").iCheck('check')
     else
       $("#cloud-recording-on-scheduled").iCheck('check')
-      showScheduleLink()
+      showShowScheduleLink()
   handleRecordingToggle()
 
 window.handleShowScheduleClick = ->
   $("#show-schedule").on "click", ->
+    showHideScheduleLink()
+    hideShowScheduleLink()
     showScheduleCalendar()
-    updateScheduleFromCalendar()
 
-window.adjustScheduleCalendarWidth = ->
-  leftColumnWidth = $("#recording-tab .left-column").width()
-  $("#cloud-recording-calendar").css("width", "#{leftColumnWidth}px")
+window.handleHideScheduleClick = ->
+  $("#hide-schedule").on "click", ->
+    showShowScheduleLink()
+    hideHideScheduleLink()
+    hideScheduleCalendar()

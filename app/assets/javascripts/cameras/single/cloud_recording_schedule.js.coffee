@@ -1,9 +1,12 @@
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
+    axisFormat: 'HH'
     allDaySlot: false
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     defaultView: 'agendaWeek'
+    dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"]
+    eventColor: '#428bca'
     editable: true
     eventClick: (event, element) ->
       if (window.confirm("Are you sure you want to delete this event?"))
@@ -20,7 +23,7 @@ window.initScheduleCalendar = ->
       left: ''
       center: ''
       right: ''
-    height: 650
+    height: 'auto'
     select: (start, end) ->
       # TODO: select whole day range when allDaySlot is selected
       eventData =

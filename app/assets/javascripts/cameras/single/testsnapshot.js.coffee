@@ -20,6 +20,7 @@ $ ->
 
   $(document).on 'click', "#test", (event) ->
     event.preventDefault()
+    $('#test-error').text('')
     intRegex = /^\d+$/
     port = $('#port').val()
     ext_url = $('#camera-url').val()
@@ -77,6 +78,7 @@ $ ->
       loader.stop()
 
     onSuccess = (result, status, jqXHR) ->
+      $('#test-error').text('')
       if result.status is 'ok'
         if (result.data.indexOf('data:text/html') == 0)
           showFeedback("We got a response, but it's not an image")

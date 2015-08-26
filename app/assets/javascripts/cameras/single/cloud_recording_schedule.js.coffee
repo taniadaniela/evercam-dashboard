@@ -134,18 +134,6 @@ currentCalendarWeek = ->
     day.add 1, 'days'
   calendarWeek
 
-showShowScheduleLink = ->
-  $("#show-schedule").removeClass('hide')
-
-showHideScheduleLink = ->
-  $("#hide-schedule").removeClass('hide')
-
-hideShowScheduleLink = ->
-  $("#show-schedule").addClass('hide')
-
-hideHideScheduleLink = ->
-  $("#hide-schedule").addClass('hide')
-
 showScheduleCalendar = ->
   $('#cloud-recording-calendar').removeClass('hide')
   scheduleCalendar.fullCalendar('render')
@@ -167,38 +155,22 @@ window.handleRecordingToggle = ->
   $("#recording-toggle input").on "ifChecked", (event) ->
     switch $(this).val()
       when "on"
-        hideShowScheduleLink()
-        hideHideScheduleLink()
         hideScheduleCalendar()
         updateScheduleToOn()
       when "on-scheduled"
-        showShowScheduleLink()
-        hideHideScheduleLink()
+        showScheduleCalendar()
       when "off"
-        hideShowScheduleLink()
-        hideHideScheduleLink()
         hideScheduleCalendar()
         updateScheduleToOff()
 
 window.setCloudRecordingToggle = ->
-  if Evercam.Camera.cloud_recording.frequency == 1
-    $("#cloud-recording-off").iCheck('check')
-  else
-    if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
-      $("#cloud-recording-on").iCheck('check')
+  $(window).on 'load', ->
+    if Evercam.Camera.cloud_recording.frequency == 1
+      $("#cloud-recording-off").iCheck('check')
     else
-      $("#cloud-recording-on-scheduled").iCheck('check')
-      showShowScheduleLink()
-  handleRecordingToggle()
-
-window.handleShowScheduleClick = ->
-  $("#show-schedule").on "click", ->
-    showHideScheduleLink()
-    hideShowScheduleLink()
-    showScheduleCalendar()
-
-window.handleHideScheduleClick = ->
-  $("#hide-schedule").on "click", ->
-    showShowScheduleLink()
-    hideHideScheduleLink()
-    hideScheduleCalendar()
+      if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
+        $("#cloud-recording-on").iCheck('check')
+      else
+        $("#cloud-recording-on-scheduled").iCheck('check')
+        showScheduleCalendar()
+    handleRecordingToggle()

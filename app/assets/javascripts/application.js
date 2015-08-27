@@ -26,6 +26,9 @@
 //= require phoenix
 //= require pusher
 //= require fullcalendar/fullcalendar.js
+//= require bs-slider
+//= require jquery.imgareaselect
+
 //=
 //= require alerts
 //= require layout

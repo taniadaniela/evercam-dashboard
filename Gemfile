@@ -36,6 +36,7 @@ gem 'airbrake', '~> 4.3.0'
 gem 'pusher'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'imgareaselect-rails', '~> 1.0'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'
@@ -97,4 +98,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-screenfull', '~> 2.0'
   gem 'rails-assets-videojs', '~> 4.12.7'
   gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
+  gem 'rails-assets-bs-slider'
 end

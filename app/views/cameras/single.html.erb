@@ -17,6 +17,9 @@
             <li>
               <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings">Recordings</a>
             </li>
+            <li>
+              <a data-toggle="tab" data-target="#motion" class="nav-tab-motion">Motion</a>
+            </li>
             <% if has_edit_right %>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares">Sharing</a>
@@ -63,6 +66,9 @@
           </div>
           <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+          </div>
+          <div id="motion" class="tab-pane">
+            <%= render partial: "cameras/single/motion_detection_tab" %>
           </div>
           <% if has_edit_right %>
             <div id="shares" class="tab-pane">

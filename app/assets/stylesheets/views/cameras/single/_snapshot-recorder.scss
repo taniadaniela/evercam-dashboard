@@ -365,6 +365,15 @@ td.active.day.has-snapshot {
     margin-right: 15px;
     width: 100%;
   }
+  .datepicker-inline, .datepicker table {
+    width: 100%;
+  }
+  .left-column {
+    margin-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
 }
 
 .datepicker{
@@ -453,7 +462,6 @@ td.active.day.has-snapshot {
       left: 0;
       margin-bottom: 10px;
       margin: 0 auto;
-      /*position: absolute;*/
       right: 0;
       width: 99%;
     }
@@ -462,7 +470,6 @@ td.active.day.has-snapshot {
     }
     .datepicker.datepicker-bg.datepicker-inline.show {
       margin-bottom: 10px;
-      /*margin-top: 222px;*/
       width: 100%;
     }
     .datepicker-inline, .datepicker table {

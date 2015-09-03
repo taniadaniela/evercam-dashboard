@@ -57,7 +57,7 @@ group :development do
   gem 'jazz_hands',
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'
-  gem 'pry-byebug', '~> 3.2.0'
+  gem 'pry-byebug'
   gem 'rspec', '~> 3.3.0'
   gem 'guard-rspec', '~> 4.6.4'
 end

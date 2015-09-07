@@ -6,7 +6,7 @@
 
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
-        <div class="wrap">
+        <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
             <div class="live-option" id="toggle">
@@ -21,6 +21,25 @@
             <div id="save-live-snapshot" class="btn-live-player save-live hide">
               <i class="glyphicon glyphicon-floppy-disk"></i>
             </div>
+          </div>
+          <div class="ptz-controls" id="ptz-control">
+            <% if @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
+              <table>
+                <tr>
+                  <td class="text-center large-column" colspan="3"><i data-val="up=4" class="fa fa-chevron-up"></i></td>
+                  <td class="text-center small-column" style="vertical-align: bottom;"><i data-val="zoom=1" class="fa fa-plus"></i></td>
+                </tr>
+                <tr>
+                  <td class="text-center small-column"><i data-val="left=4" class="fa fa-chevron-left"></i></td>
+                  <td class="text-center small-column"><i data-val="home" class="fa fa-home"></i></td>
+                  <td class="text-center small-column"><i data-val="right=4" class="fa fa-chevron-right"></i></td>
+                </tr>
+                <tr>
+                  <td class="text-center large-column" colspan="3"><i data-val="down=4" class="fa fa-chevron-down"></i></td>
+                  <td class="text-center small-column"><i data-val="zoom=-1" class="fa fa-minus"></i></td>
+                </tr>
+              </table>
+            <% end %>
           </div>
         </div>
       </div>

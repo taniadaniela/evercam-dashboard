@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: 540a9196466cded4f738a38b1ac953ba722d57a3
+  revision: 8e7b73a4b5410a628c5c9f5a121b60125ea0922b
   specs:
-    evercam (0.3.0)
+    evercam (0.3.2)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
       typhoeus (~> 0.6)

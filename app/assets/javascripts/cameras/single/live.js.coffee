@@ -67,9 +67,11 @@ openPopout = ->
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
+  $(".vjs-text-track-display").append($("#ptz-control"))
 
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
+    $("#jpg-portion").append($("#ptz-control"))
     window.vjs_player.dispose()
     $("#camera-video-stream").html('')
 
@@ -168,6 +170,31 @@ handleResize = ->
   $(window).resize ->
     calculateHeight()
 
+handlePtzCommands = ->
+  $(".ptz-controls").on 'click', 'i', ->
+    ptz_command = $(this).attr("data-val")
+    api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/relative?#{ptz_command}&api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    if ptz_command is "home"
+      api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/#{ptz_command}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    data = {}
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (response) ->
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'POST'
+      url: api_url
+    sendAJAXRequest(settings)
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -179,3 +206,4 @@ window.initializeLiveTab = ->
   handleTabOpen()
   saveImage()
   handleResize()
+  handlePtzCommands()

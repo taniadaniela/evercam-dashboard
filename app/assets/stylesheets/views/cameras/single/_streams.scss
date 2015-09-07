@@ -1,13 +1,24 @@
 .vjs-default-skin .vjs-play-control {
   height: 3em;
 }
+
 .vjs-default-skin .vjs-fullscreen-control {
   height: 3em;
   margin-right: 5px;
 }
+
 .vjs-default-skin .vjs-volume-control {
   margin-right: 10px;
 }
+
 .video-js {
   padding-top: 56.2%;
+}
+
+.video-js .vjs-text-track-display {
+  pointer-events: visible !important;
+}
+
+.video-js .vjs-text-track-display:hover .ptz-controls {
+  opacity: 1;
 }

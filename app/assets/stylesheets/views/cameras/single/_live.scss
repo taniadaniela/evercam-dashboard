@@ -145,8 +145,8 @@
   position: absolute;
   top: 50%;
   transition: all .2s linear;
-  width: 104px;
-  z-index: 10000000000;
+  width: 115px;
+  z-index: 99999;
 }
 
 .ptz-controls i{
@@ -162,4 +162,42 @@
 .ptz-controls .large-column {
   height: 20px;
   width: 75px;
+}
+
+#camera-presets .modal-dialog {
+  z-index: 999999999 !important;
+}
+
+#camera-presets .modal-header {
+  background-color: #f3f3f3;
+  background-image: linear-gradient(to bottom, white, #e1e1e1);
+  background-repeat: repeat-x;
+  border-bottom: 1px solid #ccc;
+  border-radius: 6px 6px 0 0;
+  padding: 10px;
+}
+
+#camera-presets .cancel_link {
+  color: #cccccc;
+  font-size: 16px;
+  font-weight: bolder;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+#camera-presets .modal-header strong {
+  line-height: 34px;
+  margin-left: 10px;
+}
+
+#camera-presets .row-preset {
+  border-bottom: solid 1px #ccc;
+  padding-bottom: 7px;
+  padding-top: 7px;
+  cursor: pointer;
+}
+
+#camera-presets .row-preset:hover {
+  background-color: #f3f3f3;
 }

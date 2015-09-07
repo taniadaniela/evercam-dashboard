@@ -173,6 +173,8 @@ handleResize = ->
 handlePtzCommands = ->
   $(".ptz-controls").on 'click', 'i', ->
     ptz_command = $(this).attr("data-val")
+    if !ptz_command
+      return
     api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/relative?#{ptz_command}&api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     if ptz_command is "home"
       api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/#{ptz_command}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
@@ -181,7 +183,7 @@ handlePtzCommands = ->
     onError = (jqXHR, status, error) ->
       false
 
-    onSuccess = (response) ->
+    onSuccess = (result) ->
       true
 
     settings =
@@ -195,6 +197,56 @@ handlePtzCommands = ->
       url: api_url
     sendAJAXRequest(settings)
 
+getPtzPresets = ->
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (result) ->
+    for preset in result.Presets
+      divPresets =$('<div>', {class: "row-preset"})
+      divPresets.append($(document.createTextNode(preset.Name)))
+      divPresets.attr("token_val", preset.token)
+      $("#presets-table").append(divPresets)
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets"
+  sendAJAXRequest(settings)
+
+changePtzPresets = ->
+  $("#camera-presets").on 'click', '.row-preset', ->
+    data = {}
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (result) ->
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    sendAJAXRequest(settings)
+    $('#camera-presets').modal('hide')
+
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -207,3 +259,5 @@ window.initializeLiveTab = ->
   saveImage()
   handleResize()
   handlePtzCommands()
+  getPtzPresets()
+  changePtzPresets()

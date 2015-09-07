@@ -26,6 +26,11 @@
             <% if @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
               <table>
                 <tr>
+                  <td rowspan="3" class="text-center small-column">
+                    <div href="#" data-toggle="modal" data-target="#camera-presets">
+                      <i class="fa fa-map-signs"></i>
+                    </div>
+                  </td>
                   <td class="text-center large-column" colspan="3"><i data-val="up=4" class="fa fa-chevron-up"></i></td>
                   <td class="text-center small-column" style="vertical-align: bottom;"><i data-val="zoom=1" class="fa fa-plus"></i></td>
                 </tr>
@@ -77,6 +82,29 @@
       <div class="col-md-12">
         <div class="margin-top-10"><span class="red">Camera offline</span> - we can't get a live feed at the moment</div>
         <div class="refresh-camera"><i class="icon-refresh"></i> Refresh Status</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="camera-presets" class="modal fade">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="caption"><strong>Presets</strong></div>
+        <div class="cancel">
+          <a class="cancel_link" href="#" data-dismiss="modal">X</a>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="presets-table" class="form-group">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>

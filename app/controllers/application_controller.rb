@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def update_user_intercom(user)
-    if Evercam::Config.env == :development
+    if Evercam::Config.env == :production
       intercom = Intercom::Client.new(
         app_id: Evercam::Config[:intercom][:app_id],
         api_key: Evercam::Config[:intercom][:api_key]

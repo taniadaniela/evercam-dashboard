@@ -43,8 +43,6 @@ class ApplicationController < ActionController::Base
           ic_user.last_seen_ip = request.remote_ip
           intercom.users.save(ic_user)
         rescue => error
-          @e = error
-          pry
           # Ignore it
         end
       end

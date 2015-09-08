@@ -18,7 +18,33 @@ class ApplicationController < ActionController::Base
         redirect_to signin_path
       else
         sign_in user
+        update_user_intercom(user)
         redirect_to redirect_url
+      end
+    end
+  end
+
+  def update_user_intercom(user)
+    if Evercam::Config.env == :production
+      intercom = Intercom::Client.new(
+        app_id: Evercam::Config[:intercom][:app_id],
+        api_key: Evercam::Config[:intercom][:api_key]
+      )
+      begin
+        ic_user = intercom.users.find(:email => user.email)
+      rescue
+        # Intercom::ResourceNotFound
+        # Ignore it
+      end
+      unless ic_user.nil?
+        begin
+          ic_user.last_request_at = Time.now.to_i
+          ic_user.new_session = true
+          ic_user.last_seen_ip = request.remote_ip
+          intercom.users.save(ic_user)
+        rescue
+          # Ignore it
+        end
       end
     end
   end

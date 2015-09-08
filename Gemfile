@@ -36,6 +36,7 @@ gem 'airbrake', '~> 4.3.1'
 gem 'pusher'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'intercom', require: 'intercom'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0'

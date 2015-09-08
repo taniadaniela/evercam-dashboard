@@ -317,6 +317,8 @@ GEM
     i18n_data (0.7.0)
     ie_iframe_cookies (0.2.0)
     inflecto (0.0.2)
+    intercom (3.1.0)
+      json (~> 1.8)
     ipaddress (0.8.0)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
@@ -589,6 +591,7 @@ DEPENDENCIES
   heroku-api
   heroku_rails_deflate
   ie_iframe_cookies
+  intercom
   jazz_hands!
   jquery-rails
   launchy

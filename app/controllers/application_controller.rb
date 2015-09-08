@@ -40,7 +40,6 @@ class ApplicationController < ActionController::Base
         begin
           ic_user.last_request_at = Time.now.to_i
           ic_user.new_session = true
-          #ic_user.session_count = ic_user.session_count + 1
           ic_user.last_seen_ip = request.remote_ip
           intercom.users.save(ic_user)
         rescue => error

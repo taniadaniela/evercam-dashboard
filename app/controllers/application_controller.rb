@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       begin
         ic_user = intercom.users.find(:email => user.email)
       rescue
-        #Intercom::ResourceNotFound
+        # Intercom::ResourceNotFound
         # Ignore it
       end
       unless ic_user.nil?
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
           ic_user.new_session = true
           ic_user.last_seen_ip = request.remote_ip
           intercom.users.save(ic_user)
-        rescue => error
+        rescue
           # Ignore it
         end
       end

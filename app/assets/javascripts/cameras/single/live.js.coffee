@@ -67,7 +67,7 @@ openPopout = ->
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
-  $(".vjs-text-track-display").append($("#ptz-control"))
+  $("#camera-video-player").append($("#ptz-control"))
 
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
@@ -207,10 +207,11 @@ getPtzPresets = ->
 
   onSuccess = (result) ->
     for preset in result.Presets
-      divPresets =$('<div>', {class: "row-preset"})
-      divPresets.append($(document.createTextNode(preset.Name)))
-      divPresets.attr("token_val", preset.token)
-      $("#presets-table").append(divPresets)
+      if preset.token < 33
+        divPresets =$('<div>', {class: "row-preset"})
+        divPresets.append($(document.createTextNode(preset.Name)))
+        divPresets.attr("token_val", preset.token)
+        $("#presets-table").append(divPresets)
     true
 
   settings =

@@ -67,7 +67,7 @@ openPopout = ->
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
-  $(".vjs-text-track-display").append($("#ptz-control"))
+  $("#camera-video-player").append($("#ptz-control"))
 
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
@@ -198,6 +198,8 @@ handlePtzCommands = ->
     sendAJAXRequest(settings)
 
 getPtzPresets = ->
+  if !$(".ptz-controls").html()
+    return
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
@@ -207,10 +209,11 @@ getPtzPresets = ->
 
   onSuccess = (result) ->
     for preset in result.Presets
-      divPresets =$('<div>', {class: "row-preset"})
-      divPresets.append($(document.createTextNode(preset.Name)))
-      divPresets.attr("token_val", preset.token)
-      $("#presets-table").append(divPresets)
+      if preset.token < 33
+        divPresets =$('<div>', {class: "row-preset"})
+        divPresets.append($(document.createTextNode(preset.Name)))
+        divPresets.attr("token_val", preset.token)
+        $("#presets-table").append(divPresets)
     true
 
   settings =
@@ -246,6 +249,12 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
+handleModelEvents = ->
+  $("#camera-presets").on "show.bs.modal", ->
+    $("#ptz-control").addClass("hide")
+
+  $("#camera-presets").on "hidden.bs.modal", ->
+    $("#ptz-control").removeClass("hide")
 
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
@@ -261,3 +270,4 @@ window.initializeLiveTab = ->
   handlePtzCommands()
   getPtzPresets()
   changePtzPresets()
+  handleModelEvents()

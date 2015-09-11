@@ -23,8 +23,8 @@
               <i class="glyphicon glyphicon-floppy-disk"></i>
             </div>
           </div>
-          <div class="ptz-controls" id="ptz-control">
-            <% if has_edit_right && @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
+          <% if has_edit_right && @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
+            <div class="ptz-controls" id="ptz-control">
               <table>
                 <thead>
                 <tr>
@@ -50,8 +50,8 @@
                   <td class="text-center small-column"><i title="Zoom Out" data-val="zoom=-1" class="fa fa-minus"></i></td>
                 </tr>
               </table>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
       </div>
       <% unless rtmp_stream.blank? %>

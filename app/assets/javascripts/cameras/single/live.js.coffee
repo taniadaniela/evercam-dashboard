@@ -247,6 +247,12 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
+handleModelEvents = ->
+  $("#camera-presets").on "show.bs.modal", ->
+    $("#ptz-control").addClass("hide")
+
+  $("#camera-presets").on "hidden.bs.modal", ->
+    $("#ptz-control").removeClass("hide")
 
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
@@ -262,3 +268,4 @@ window.initializeLiveTab = ->
   handlePtzCommands()
   getPtzPresets()
   changePtzPresets()
+  handleModelEvents()

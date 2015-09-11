@@ -111,7 +111,6 @@
   border: none;
 }
 #live .btn {
-  padding: 14px 18px;
   margin-top: 1px;
   margin-left: 10px;
 }
@@ -200,6 +199,19 @@
 #camera-presets .modal-header strong {
   line-height: 34px;
   margin-left: 10px;
+}
+
+#camera-presets .modal-body {
+  padding: 15px 0 15px 15px;
+}
+
+#camera-presets .modal-footer {
+  border-top: none;
+}
+
+#camera-presets .form-group {
+  margin-bottom: 0;
+  max-height: 300px;
 }
 
 #camera-presets .row-preset {

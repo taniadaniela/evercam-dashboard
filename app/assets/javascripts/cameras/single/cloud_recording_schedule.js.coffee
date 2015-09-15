@@ -43,7 +43,7 @@ updateScheduleToOn = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
 
   frequency = $("#cloud-recording-frequency").val()
-  storage_duration = -1
+  storage_duration = $("#cloud-recording-duration").val()
   schedule = JSON.stringify(fullWeekSchedule)
   updateSchedule(frequency, storage_duration, schedule, "POST")
 
@@ -51,14 +51,14 @@ updateScheduleToOff = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
 
   frequency = 1
-  storage_duration = -1
+  storage_duration = 1
   schedule = JSON.stringify(fullWeekSchedule)
   updateSchedule(frequency, storage_duration, schedule, "DELETE")
 
 updateScheduleFromCalendar = ->
   Evercam.Camera.cloud_recording.schedule = parseCalendar()
   frequency = $("#cloud-recording-frequency").val()
-  storage_duration = -1
+  storage_duration = $("#cloud-recording-duration").val()
   schedule = JSON.stringify(parseCalendar())
   updateSchedule(frequency, storage_duration, schedule, "POST")
 
@@ -149,6 +149,12 @@ showFrequencySelect = ->
 hideFrequencySelect = ->
   $('#cloud-recording-frequency-wrap').addClass('hide')
 
+showDurationSelect = ->
+  $('#cloud-recording-duration-wrap').removeClass('hide')
+
+hideDurationSelect = ->
+  $('#cloud-recording-duration-wrap').addClass('hide')
+
 window.fullWeekSchedule =
   "Monday": ["00:00-23:59"]
   "Tuesday": ["00:00-23:59"]
@@ -165,19 +171,29 @@ handleFrequencySelect = ->
     else
       updateScheduleFromCalendar()
 
+handleDurationSelect = ->
+  $("#cloud-recording-duration").on "change", (event) ->
+    if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
+      updateScheduleToOn()
+    else
+      updateScheduleFromCalendar()
+
 handleRecordingToggle = ->
   $("#recording-toggle input").on "ifChecked", (event) ->
     switch $(this).val()
       when "on"
         hideScheduleCalendar()
         showFrequencySelect()
+        showDurationSelect()
         updateScheduleToOn()
       when "on-scheduled"
         showScheduleCalendar()
         showFrequencySelect()
+        showDurationSelect()
       when "off"
         hideScheduleCalendar()
         hideFrequencySelect()
+        hideDurationSelect()
         updateScheduleToOff()
 
 window.setCloudRecordingToggle = ->

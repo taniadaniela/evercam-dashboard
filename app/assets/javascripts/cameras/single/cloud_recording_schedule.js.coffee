@@ -209,3 +209,4 @@ window.setCloudRecordingToggle = ->
     $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
     handleRecordingToggle()
     handleFrequencySelect()
+    handleDurationSelect()

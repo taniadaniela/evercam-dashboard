@@ -44,7 +44,7 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    3scale_client (2.3.4)
+    3scale_client (2.4.2)
       nokogiri
     CFPropertyList (2.3.1)
     actionmailer (4.2.4)
@@ -155,7 +155,7 @@ GEM
     evercam_misc (0.0.10)
       3scale_client (~> 2.3)
       dotenv (~> 2.0.1)
-    evercam_models (0.3.21)
+    evercam_models (0.3.33)
       activesupport (~> 4.2)
       bcrypt (~> 3.1)
       dotenv (~> 2.0)
@@ -165,7 +165,7 @@ GEM
       hashie (~> 3.4)
       nokogiri (~> 1.6)
       pg (~> 0.18.2)
-      sequel (= 4.23.0)
+      sequel (= 4.26.0)
       timezone (~> 0.3)
       typhoeus (~> 0.7.1)
     excon (0.45.4)
@@ -279,7 +279,7 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    geocoder (1.2.9)
+    geocoder (1.2.11)
     georuby (2.5.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -353,7 +353,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
-    pg (0.18.2)
+    pg (0.18.3)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -509,7 +509,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sequel (4.23.0)
+    sequel (4.26.0)
     shellany (0.0.1)
     signature (0.1.8)
     simplecov (0.10.0)
@@ -538,7 +538,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    timezone (0.3.11)
+    timezone (0.4.1)
     typhoeus (0.7.3)
       ethon (>= 0.7.4)
     tzinfo (1.2.2)
@@ -584,7 +584,7 @@ DEPENDENCIES
   devise
   evercam!
   evercam_misc (~> 0.0)
-  evercam_models (~> 0.3.21)
+  evercam_models (~> 0.3.33)
   factory_girl
   fog
   guard-rspec (~> 4.6.4)

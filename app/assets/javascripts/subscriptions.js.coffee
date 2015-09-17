@@ -14,7 +14,7 @@ sendAJAXRequest = (settings) ->
 createAddOns = ->
   $(".create-add-ons").on 'click', ->
     control_id = $(this).attr("data-val")
-    $("##{control_id}").click()
+    # $("##{control_id}").click()
 
   $(".remove-add-on").on 'click', ->
     control_id = $(this).attr("data-val")
@@ -23,7 +23,7 @@ createAddOns = ->
       $(".user-add-ons-table").hide()
       if $(".#{control_id}-table").length > 0
         if $(".#{control_id}-table").length is 1
-          $(".#{control_id}-table a").click()
+          # $(".#{control_id}-table a").click()
         else
           $(".#{control_id}-table").show()
           $('#cancelAddOnsModal').modal('show')

@@ -1,0 +1,227 @@
+<table class="table margin-bottom-15">
+  <tr>
+    <th class="col-md-5">Description</th>
+    <th class="col-md-2 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Period <i class="fa fa-question-circle grey"></i></th>
+    <th class="col-md-1 text-center">Change</th>
+  </tr>
+  <tr>
+    <td>7 days recording monthly</td>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.seven_days_recording) %>
+    </td>
+    <td class="text-center">
+      <% if !@subscription %>
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
+          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '7-days-recording'), remote: true, class: 'btn btn-default'  %>
+        </div>
+      <% else %>
+        <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording') %>">
+          <% if @subscription[:id].eql?('7-days-recording') %>
+            <input class="btn btn-default change-plan" disabled type="button" value="Current Plan">
+          <% else %>
+            <input class="btn btn-default change-plan" data-price="<%= cents_to_currency(@prices.seven_days_recording) %>"
+              data-toggle="modal" data-target="#upgradeDwongradeModal" type="button" value="Downgrade"
+              data-period="monthly" data-plan="7 days recording" data-plan-id="7-days-recording">
+          <% end %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>30 days recording monthly</td>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.thirty_days_recording) %>
+    </td>
+    <td class="text-center">
+      <% if !@subscription %>
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
+          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '30-days-recording'), remote: true, class: 'btn btn-default'  %>
+        </div>
+      <% else %>
+        <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('30-days-recording') %>">
+          <div class="col-xs-12">
+            <% thirty_days_recording = case @subscription[:id]
+                               when "7-days-recording"
+                                 "Upgrade"
+                               when "90-days-recording","7-days-recording-annual","30-days-recording-annual","90-days-recording-annual"
+                                 "Downgrade"
+                               when "30-days-recording"
+                                 "Your Current Plan"
+                             end
+            %>
+            <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('30-days-recording') %>
+               data-price="<%= cents_to_currency(@prices.thirty_days_recording) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
+               type="button" data-period="monthly" data-plan-id="30-days-recording" data-plan="30 days recording" value="<%= thirty_days_recording %>">
+          </div>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>90 days recording monthly</td>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.ninety_days_recording) %>
+    </td>
+    <td class="text-center">
+      <% if !@subscription %>
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
+          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '90-days-recording'), remote: true, class: 'btn btn-default'  %>
+        </div>
+      <% else %>
+        <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording') %>">
+          <div class="col-xs-12">
+            <% ninty_days_recording = case @subscription[:id]
+                                        when "7-days-recording","30-days-recording"
+                                          "Upgrade"
+                                        when "7-days-recording-annual","30-days-recording-annual","90-days-recording-annual"
+                                          "Downgrade"
+                                        when "90-days-recording"
+                                          "Your Current Plan"
+                                      end
+            %>
+            <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('90-days-recording') %>
+                   data-price="<%= cents_to_currency(@prices.ninety_days_recording) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
+                   type="button" value="<%= ninty_days_recording %>" data-plan-id="90-days-recording" data-period="monthly" data-plan="90 days recording">
+          </div>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>7 days recording annual</td>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.seven_days_recording_annual) %>
+    </td>
+    <td class="text-center">
+      <% if !@subscription %>
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
+          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '7-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+        </div>
+      <% else %>
+        <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording-annual') %>">
+          <div class="col-xs-12">
+            <% seven_days_recording_annual = case @subscription[:id]
+                                               when "7-days-recording","30-days-recording","90-days-recording"
+                                                 "Upgrade"
+                                               when "30-days-recording-annual","90-days-recording-annual"
+                                                 "Downgrade"
+                                               when "7-days-recording-annual"
+                                                 "Your Current Plan"
+                                             end
+            %>
+            <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('7-days-recording-annual') %>
+                   data-price="<%= cents_to_currency(@prices.seven_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
+                   type="button" data-period="monthly" data-plan-id="7-days-recording-annual" data-plan="7 days recording annual" value="<%= seven_days_recording_annual %>">
+          </div>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>30 days recording annual</td>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.thirty_days_recording_annual) %>
+    </td>
+    <td class="text-center">
+      <% if !@subscription %>
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
+          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '30-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+        </div>
+      <% else %>
+        <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('30-days-recording-annual') %>">
+          <div class="col-xs-12">
+            <% thirty_days_recording_annual = case @subscription[:id]
+                                                 when "7-days-recording-annual","7-days-recording","30-days-recording","90-days-recording"
+                                                   "Upgrade"
+                                                 when "90-days-recording-annual"
+                                                   "Downgrade"
+                                                 when "30-days-recording-annual"
+                                                   "Your Current Plan"
+                                               end
+            %>
+            <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('30-days-recording-annual') %>
+                   data-price="<%= cents_to_currency(@prices.thirty_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
+                   type="button" data-period="monthly" data-plan-id="30-days-recording-annual" data-plan="30 days recording annual" value="<%= thirty_days_recording_annual %>">
+          </div>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>90 days recording annual</td>
+    <td class="text-center">
+      <%= cents_to_currency(@prices.ninety_days_recording_annual) %>
+    </td>
+    <td class="text-center">
+      <% if !@subscription %>
+        <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
+          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '90-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+        </div>
+      <% else %>
+        <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording-annual') %>">
+          <div class="col-xs-12">
+            <% ninty_days_recording_annual = case @subscription[:id]
+                                        when "90-days-recording-annual"
+                                          "Your Current Plan"
+                                      end
+            %>
+            <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('90-days-recording-annual') %>
+                   data-price="<%= cents_to_currency(@prices.ninety_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
+                   type="button" value="<%= ninty_days_recording_annual %>" data-plan-id="90-days-recording-annual" data-period="monthly" data-plan="90 days recording annual">
+          </div>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<div id="cancelAddOnsModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col-md-12">
+          <% if @add_ons.present? %>
+            <!-- Add-ons list -->
+            <table id="user-add-ons-table" class="table margin-bottom-15">
+              <tr>
+                <th class="col-md-3">Add-ons</th>
+                <th class="col-md-3">Next charge</th>
+                <th class="col-md-3">Status</th>
+              </tr>
+              <% @add_ons.each do |add_on| -%>
+                <% if add_on.exid.eql?('7-days-recording') || add_on.exid.eql?('7-days-recording-annual') %>
+                  <tr class="add-7-days-recording-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('30-days-recording') || add_on.exid.eql?('30-days-recording-annual') %>
+                  <tr class="add-30-days-recording-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% elsif add_on.exid.eql?('90-days-recording') || add_on.exid.eql?('90-days-recording-annual') %>
+                  <tr class="add-90-days-recording-table user-add-ons-table" style="display: none;">
+                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
+                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
+
+                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
+                  </tr>
+                <% end %>
+              <% end -%>
+            </table>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-sm-8 margin-top-10">
+          <input id="cancel-add-on" type="button" class="btn btn-primary pull-left" value="YES" style="display: none">
+          <input id="cancel-add-on-close" type="button" class="btn btn-default pull-left margin-left2" value="Close" data-dismiss="modal" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,17 +2,17 @@
   <tr>
     <th class="col-md-5">Description</th>
     <th class="col-md-2 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Period <i class="fa fa-question-circle grey"></i></th>
-    <th class="col-md-1 text-center">Change</th>
+    <th class="col-md-1 text-right">Change</th>
   </tr>
   <tr>
     <td>7 days recording monthly</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.seven_days_recording) %>
     </td>
-    <td class="text-center">
+    <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '7-days-recording'), remote: true, class: 'btn btn-default'  %>
+          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '7-days-recording'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording') %>">
@@ -32,14 +32,14 @@
     <td class="text-center">
       <%= cents_to_currency(@prices.thirty_days_recording) %>
     </td>
-    <td class="text-center">
+    <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '30-days-recording'), remote: true, class: 'btn btn-default'  %>
+          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '30-days-recording'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('30-days-recording') %>">
-          <div class="col-xs-12">
+          <div class="col-xs-121">
             <% thirty_days_recording = case @subscription[:id]
                                when "7-days-recording"
                                  "Upgrade"
@@ -62,14 +62,14 @@
     <td class="text-center">
       <%= cents_to_currency(@prices.ninety_days_recording) %>
     </td>
-    <td class="text-center">
+    <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '90-days-recording'), remote: true, class: 'btn btn-default'  %>
+          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '90-days-recording'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording') %>">
-          <div class="col-xs-12">
+          <div class="col-xs-121">
             <% ninty_days_recording = case @subscription[:id]
                                         when "7-days-recording","30-days-recording"
                                           "Upgrade"
@@ -93,14 +93,14 @@
     <td class="text-center">
       <%= cents_to_currency(@prices.seven_days_recording_annual) %>
     </td>
-    <td class="text-center">
+    <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '7-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '7-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording-annual') %>">
-          <div class="col-xs-12">
+          <div class="col-xs-121">
             <% seven_days_recording_annual = case @subscription[:id]
                                                when "7-days-recording","30-days-recording","90-days-recording"
                                                  "Upgrade"
@@ -123,14 +123,14 @@
     <td class="text-center">
       <%= cents_to_currency(@prices.thirty_days_recording_annual) %>
     </td>
-    <td class="text-center">
+    <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '30-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '30-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('30-days-recording-annual') %>">
-          <div class="col-xs-12">
+          <div class="col-xs-121">
             <% thirty_days_recording_annual = case @subscription[:id]
                                                  when "7-days-recording-annual","7-days-recording","30-days-recording","90-days-recording"
                                                    "Upgrade"
@@ -153,18 +153,19 @@
     <td class="text-center">
       <%= cents_to_currency(@prices.ninety_days_recording_annual) %>
     </td>
-    <td class="text-center">
+    <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Buy Plan', line_item_subscription_path(type: 'plan', product_id: '90-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '90-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording-annual') %>">
-          <div class="col-xs-12">
-            <% ninty_days_recording_annual = case @subscription[:id]
-                                        when "90-days-recording-annual"
-                                          "Your Current Plan"
-                                      end
+          <div class="col-xs-121">
+            <% if @subscription[:id].eql?('90-days-recording-annual')
+                 ninty_days_recording_annual = "Your Current Plan"
+               else
+                 ninty_days_recording_annual = "Downgrade"
+               end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('90-days-recording-annual') %>
                    data-price="<%= cents_to_currency(@prices.ninety_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"

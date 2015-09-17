@@ -27,14 +27,14 @@
     box-shadow: $box-shadow;
     border-radius:$border-radius;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     overflow: auto;
     margin: 0 0 30px;
   }
 
   .tab-content {
     background: #ffffff;
-    padding: 20px 0;
+    padding: 0;
   }
 
   .promo {
@@ -147,8 +147,8 @@
     border-right: 1px solid $secondary-grey;
     margin: 0 auto;
     overflow: auto;
-    padding: 10px 10px 40px;*/
-    text-align: center;
+    padding: 10px 10px 40px;
+    text-align: center;*/
   }
 
   .plan-button .disabled {

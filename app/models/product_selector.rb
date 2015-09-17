@@ -24,17 +24,17 @@ class ProductSelector
     @timelapse = { product_id: 'timelapse', type: 'add_on', name: 'Timelapse', price: product_prices.timelapse, interval: 'month' }
     @timelapse_annual = { product_id: 'timelapse-annual', type: 'add_on', name: 'Timelapse Annual', price: product_prices.timelapse_annual, interval: 'year' }
 
-    @seven_days_recording = { product_id: '7-days-recording', type: 'add_on', name: '7 Days Recording', price: product_prices.seven_days_recording, interval: 'month' }
-    @seven_days_recording_annual = { product_id: '7-days-recording-annual', type: 'add_on', name: '7 Days Recording Annual', price: product_prices.seven_days_recording_annual, interval: 'year' }
+    @seven_days_recording = { product_id: '7-days-recording', type: 'plan', name: '7 Days Recording', price: product_prices.seven_days_recording, interval: 'month' }
+    @seven_days_recording_annual = { product_id: '7-days-recording-annual', type: 'plan', name: '7 Days Recording Annual', price: product_prices.seven_days_recording_annual, interval: 'year' }
 
-    @thirty_days_recording = { product_id: '30-days-recording', type: 'add_on', name: '30 Days Recording', price: product_prices.thirty_days_recording, interval: 'month' }
-    @thirty_days_recording_annual = { product_id: '30-days-recording-annual', type: 'add_on', name: '30 Days Recording Annual', price: product_prices.thirty_days_recording_annual, interval: 'year' }
+    @thirty_days_recording = { product_id: '30-days-recording', type: 'plan', name: '30 Days Recording', price: product_prices.thirty_days_recording, interval: 'month' }
+    @thirty_days_recording_annual = { product_id: '30-days-recording-annual', type: 'plan', name: '30 Days Recording Annual', price: product_prices.thirty_days_recording_annual, interval: 'year' }
 
-    @ninety_days_recording = { product_id: '90-days-recording', type: 'add_on', name: '90 Days Recording', price: product_prices.ninety_days_recording, interval: 'month' }
-    @ninety_days_recording_annual = { product_id: '90-days-recording-annual', type: 'add_on', name: '90 Days Recording Annual', price: product_prices.ninety_days_recording_annual, interval: 'year' }
+    @ninety_days_recording = { product_id: '90-days-recording', type: 'plan', name: '90 Days Recording', price: product_prices.ninety_days_recording, interval: 'month' }
+    @ninety_days_recording_annual = { product_id: '90-days-recording-annual', type: 'plan', name: '90 Days Recording Annual', price: product_prices.ninety_days_recording_annual, interval: 'year' }
 
-    @restream = { product_id: 'restream', type: 'add_on', name: 'Restream', price: product_prices.restream, interval: 'month' }
-    @restream_annual = { product_id: 'restream-annual', type: 'add_on', name: 'Restream Annual', price: product_prices.restream_annual, interval: 'year' }
+    @restream = { product_id: 'restream', type: 'plan', name: 'Restream', price: product_prices.restream, interval: 'month' }
+    @restream_annual = { product_id: 'restream-annual', type: 'plan', name: 'Restream Annual', price: product_prices.restream_annual, interval: 'year' }
   end
 
   # Used by the line_items_controller to have the necessary data to calculate a total, and display other data.

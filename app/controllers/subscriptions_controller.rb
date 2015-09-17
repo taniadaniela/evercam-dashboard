@@ -22,6 +22,7 @@ class SubscriptionsController < ApplicationController
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
     unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards
+      @card = @credit_cards[:data][0]
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
     end
   end

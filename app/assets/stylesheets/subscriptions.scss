@@ -6,17 +6,17 @@
 
   .nav-tabs {
     margin-bottom: 20px;
-    border-bottom: none;
+    border-bottom: 1px solid $main-grey;
   }
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    border: 1px solid $light-grey;
-    border-radius: 30px;
+    /*border: 1px solid $light-grey;
+    border-radius: 30px;*/
   }
 
   .page-content {
     overflow: auto;
     padding: 0 0 60px;
-    background-color: $secondary-grey;
+    background-color: $white;
   }
 
   .header {

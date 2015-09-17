@@ -3,45 +3,37 @@
 </div>
 <div class="subscriptions page-content-wrapper">
   <div class="page-content">
-    <% render partial: "users/section_header", locals: { section_header_title: "Evercam: Billing" } %>
+
+    <div class="portlet-body">
+      <div class="tabbable tabbable-custom">
+        <div class="center-tabs">
+          <ul id="ul-nav-tab" class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" data-target="#licences" class="nav-tab-licences nav-tab-">Licences</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#history" class="nav-tab-history">History</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#cards" class="nav-tab-cards">Cards</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div id="licences" class="tab-pane active">
+            <%= render partial: "subscriptions/licences/licences_tab" %>
+          </div>
+          <div id="history" class="tab-pane">
+            <%= render partial: "subscriptions/history/history_tab" %>
+          </div>
+          <div id="cards" class="tab-pane">
+            <%= render partial: "subscriptions/cards/cards_tab" %>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <%= render 'cart' %>
-
-    <div class="col-md-12 margin-top-20">
-      <h3>Cards</h3>
-      <div class="card">
-        <%= render 'cards' %>
-      </div>
-    </div>
-
-    <div class="col-md-12">
-      <h3>Cameras</h3>
-      <div class="card">
-        <%= render 'licenses' %>
-      </div>
-    </div>
-
-    <div class="col-md-12">
-      <h3>Plans</h3>
-      <div class="card">
-        <%= render 'current_add_ons' %>
-        <% unless !@next_charge %>
-          <p class="margin-top-20">Your next charge of
-            <strong><%= cents_to_currency @next_charge[:total] %></strong>
-            is on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %>.</p>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="col-md-7">
-      <h3>Payment History</h3>
-      <%= render 'billing_history' %>
-    </div>
-
-    <div class="col-md-5">
-      <h3>Invoices</h3>
-      <%= render 'invoices' %>
-    </div>
 
   </div>
 </div>

@@ -19,7 +19,7 @@
           <% if @subscription[:id].eql?('7-days-recording') %>
             <input class="btn btn-default change-plan" disabled type="button" value="Current Plan">
           <% else %>
-            <input class="btn btn-default change-plan" data-price="<%= cents_to_currency(@prices.seven_days_recording) %>"
+            <input class="btn btn-primary change-plan" data-price="<%= cents_to_currency(@prices.seven_days_recording) %>"
               data-toggle="modal" data-target="#upgradeDwongradeModal" type="button" value="Downgrade"
               data-period="monthly" data-plan="7 days recording" data-plan-id="7-days-recording">
           <% end %>
@@ -164,7 +164,7 @@
             <% if @subscription[:id].eql?('90-days-recording-annual')
                  ninty_days_recording_annual = "Your Current Plan"
                else
-                 ninty_days_recording_annual = "Downgrade"
+                 ninty_days_recording_annual = "Upgrade"
                end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('90-days-recording-annual') %>

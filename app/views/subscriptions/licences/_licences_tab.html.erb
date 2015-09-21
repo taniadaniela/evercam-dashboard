@@ -1,0 +1,50 @@
+<div class="col-md-12 period-toggle margin-bottom-15">
+  <input id="period-toggle" type="checkbox" data-toggle="toggle" data-off="Monthly" data-on="Annual">
+</div>
+
+<div class="col-md-12">
+  <h3>Licences</h3>
+  <div class="card">
+    <%= render 'subscriptions/licences/plans' %>
+    <% unless !@next_charge %>
+      <p class="margin-top-20">Your next charge of
+        <strong><%= cents_to_currency @next_charge[:total] %></strong>
+        is on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %>.</p>
+    <% end %>
+  </div>
+</div>
+
+<div id="divCart" style="<% if session[:cart].blank? %>display: none;<% end %>" class="col-md-12">
+  <h3>Cart</h3>
+  <div class="card">
+    <%= render 'cart' %>
+    <a class="col-md-4 pull-right btn btn-primary add-card-to-continue" data-toggle="modal" data-target="#payNowModal">Pay Now</a>
+    <% link_to "Proceed to Checkout", new_checkout_path, class: '' %>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <h3>Cameras</h3>
+  <div class="card">
+    <%= render 'subscriptions/licences/cameras' %>
+  </div>
+</div>
+
+<div id="payNowModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col-md-12">
+          <p class="text-left margin-top-10">
+            <strong><span id="spnTotalPrice"></span></strong> will be charged from your <strong><%= @card.brand if @card.present? %></strong> card ending in <strong><%= @card.last4 if @card.present? %></strong></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-sm-8">
+          <%= button_to "Pay Now", new_charge_path({ amount: 1000 }), class: 'btn btn-primary pull-left' %>&nbsp;
+          <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

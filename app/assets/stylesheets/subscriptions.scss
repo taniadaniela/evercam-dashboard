@@ -6,17 +6,17 @@
 
   .nav-tabs {
     margin-bottom: 20px;
-    border-bottom: none;
+    border-bottom: 1px solid $main-grey;
   }
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    border: 1px solid $light-grey;
-    border-radius: 30px;
+    /*border: 1px solid $light-grey;
+    border-radius: 30px;*/
   }
 
   .page-content {
     overflow: auto;
     padding: 0 0 60px;
-    background-color: $secondary-grey;
+    background-color: $white;
   }
 
   .header {
@@ -27,14 +27,14 @@
     box-shadow: $box-shadow;
     border-radius:$border-radius;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     overflow: auto;
     margin: 0 0 30px;
   }
 
   .tab-content {
     background: #ffffff;
-    padding: 20px 0;
+    padding: 0;
   }
 
   .promo {
@@ -89,6 +89,26 @@
     margin-bottom: 20px;
   }
 
+  .toggle.btn {
+    border-width: 1px;
+  }
+
+  .toggle-handle {
+    height: 34px;
+    margin-right: 16px;
+    width: 15px;
+  }
+
+  .quantity-text {
+    text-align: center;
+    width: 50px;
+  }
+
+  .off .toggle-group .toggle-handle {
+    margin-left: 13px;
+    margin-right: 0;
+    margin-top: 0;
+  }
 
   .plans-comparison {
 
@@ -140,15 +160,7 @@
   }
 
   .plan-button {
-    border-bottom: 1px solid $secondary-grey;
-    border-bottom-left-radius:2px;
-    border-bottom-right-radius:2px;
-    border-left: 1px solid $secondary-grey;
-    border-right: 1px solid $secondary-grey;
-    margin: 0 auto;
-    overflow: auto;
-    padding: 10px 10px 40px;
-    text-align: center;
+    
   }
 
   .plan-button .disabled {
@@ -158,9 +170,9 @@
   }
 
   .plan-button.highlight-plan-button {
-    border-left: 1px solid $main-color;
+    /*border-left: 1px solid $main-color;
     border-right: 1px solid $main-color;
-    border-bottom: 1px solid $main-color;
+    border-bottom: 1px solid $main-color;*/
   }
   .cart-container {
     padding: 0px 10px 10px;
@@ -186,6 +198,7 @@
   .cancel-add-on {
     margin-left: 10px;
   }
+
 }
 
 .change-plan-desc {

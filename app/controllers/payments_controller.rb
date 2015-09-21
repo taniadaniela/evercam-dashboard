@@ -31,38 +31,10 @@ class PaymentsController < ApplicationController
     result = {success: true}
     begin
       product_params = build_line_item_params(params)
+      product_params[:quantity] = params[:quantity]
       @line_item = LineItem.new(product_params)
       @customer = retrieve_stripe_customer_without_cart(@line_item)
-      is_change_period = @customer.change_of_plan_period?
       @customer.change_plan
-      if is_change_period
-        set_prices
-        @add_ons_arr = Array.new
-        add_ons = AddOn.where(user_id: current_user.id)
-        add_ons.each do |add_on|
-          old_exid = add_on.exid
-          add_on.period = @line_item.interval
-          if @line_item.interval.eql?("month")
-            add_on.add_ons_end_date = add_on.add_ons_start_date + 30.days
-            add_on.exid = add_on.exid.gsub("-annual", "")
-            add_on.add_ons_name = add_on.add_ons_name.gsub(" Annual", "")
-            add_on.period = "month"
-          else
-            add_on.add_ons_end_date = add_on.add_ons_start_date + 1.year
-            add_on.exid = "#{add_on.exid}-annual"
-            add_on.add_ons_name = "#{add_on.add_ons_name} Annual"
-            add_on.period = "year"
-          end
-          add_on.price = product_price(add_on.exid)
-          has_created = @add_ons_arr.detect {|i| i.eql?(old_exid) } ? true : false
-          unless has_created
-            @add_ons_arr.push(old_exid)
-            invoice_item = add_invoice_item(add_on.price.to_i, add_on.add_ons_name, add_ons.where(exid: old_exid).count)
-            add_on.invoice_item_id = invoice_item.id
-          end
-          add_on.save
-        end
-      end
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\

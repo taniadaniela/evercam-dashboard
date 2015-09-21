@@ -17,8 +17,6 @@ class SubscriptionsController < ApplicationController
     @billing_history = retrieve_customer_billing_history
     @invoices = retrieve_customer_invoices
     @next_charge = retrieve_customer_next_charge
-    #@cart_count = cart_count
-    #retrieve_add_ons
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
     unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards

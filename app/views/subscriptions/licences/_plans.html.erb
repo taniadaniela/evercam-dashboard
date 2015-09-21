@@ -1,18 +1,26 @@
 <table class="table margin-bottom-15">
   <tr>
     <th class="col-md-5">Description</th>
-    <th class="col-md-2 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Period <i class="fa fa-question-circle grey"></i></th>
-    <th class="col-md-1 text-right">Change</th>
+    <th class="col-md-2 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Price <i class="fa fa-question-circle grey"></i></th>
+    <th class="col-md-1 text-center">Qty.</th>
+    <th class="col-md-2 text-right">Change</th>
   </tr>
-  <tr>
+  <tr class="plan-monthly">
     <td>7 days recording monthly</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.seven_days_recording) %>
     </td>
+    <td class="text-center">
+      <input id="7-days-recording-qty" type="text" value="0" class="add-on-text">
+    </td>
     <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '7-days-recording'), remote: true, class: 'btn btn-default'  %>
+          <form class="button_to" data-remote="true" action="/line_items/create_subscription?product_id=7-days-recording&type=plan" method="post">
+            <input id="7-days-recording-quantity" name="quantity" type="hidden" value="0">
+            <input data-plan="7-days-recording" class="btn btn-default add-to-cart" type="submit" value="Add to Cart">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </form>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording') %>">
@@ -27,15 +35,23 @@
       <% end %>
     </td>
   </tr>
-  <tr>
+  <tr class="plan-monthly">
     <td>30 days recording monthly</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.thirty_days_recording) %>
     </td>
+    <td class="text-center">
+      <input id="30-days-recording-qty" type="text" value="0" class="add-on-text">
+    </td>
     <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '30-days-recording'), remote: true, class: 'btn btn-default'  %>
+          <form class="button_to" data-remote="true" action="/line_items/create_subscription?product_id=30-days-recording&type=plan" method="post">
+            <input id="30-days-recording-quantity" name="quantity" type="hidden" value="0">
+            <input data-plan="30-days-recording" class="btn btn-default add-to-cart" type="submit" value="Add to Cart">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </form>
+          <% button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '30-days-recording'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('30-days-recording') %>">
@@ -57,15 +73,23 @@
       <% end %>
     </td>
   </tr>
-  <tr>
+  <tr class="plan-monthly">
     <td>90 days recording monthly</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.ninety_days_recording) %>
     </td>
+    <td class="text-center">
+      <input id="90-days-recording-qty" type="text" value="0" class="add-on-text">
+    </td>
     <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '90-days-recording'), remote: true, class: 'btn btn-default'  %>
+          <form class="button_to" data-remote="true" action="/line_items/create_subscription?product_id=90-days-recording&type=plan" method="post">
+            <input id="90-days-recording-quantity" name="quantity" type="hidden" value="0">
+            <input data-plan="90-days-recording" class="btn btn-default add-to-cart" type="submit" value="Add to Cart">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </form>
+          <% button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '90-days-recording'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording') %>">
@@ -88,15 +112,23 @@
     </td>
   </tr>
 
-  <tr>
+  <tr class="plan-annual hide">
     <td>7 days recording annual</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.seven_days_recording_annual) %>
     </td>
+    <td class="text-center">
+      <input id="7-days-recording-annual-qty" type="text" value="0" class="add-on-text">
+    </td>
     <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '7-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+          <form class="button_to" data-remote="true" action="/line_items/create_subscription?product_id=7-days-recording-annual&type=plan" method="post">
+            <input id="7-days-recording-annual-quantity" name="quantity" type="hidden" value="0">
+            <input data-plan="7-days-recording-annual" class="btn btn-default add-to-cart" type="submit" value="Add to Cart">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </form>
+          <% button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '7-days-recording-annual', quantity: "<script>$('#seven-days-annual-qty').val();</script>"), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording-annual') %>">
@@ -112,21 +144,29 @@
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('7-days-recording-annual') %>
                    data-price="<%= cents_to_currency(@prices.seven_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
-                   type="button" data-period="monthly" data-plan-id="7-days-recording-annual" data-plan="7 days recording annual" value="<%= seven_days_recording_annual %>">
+                   type="button" data-period="annual" data-plan-id="7-days-recording-annual" data-plan="7 days recording annual" value="<%= seven_days_recording_annual %>">
           </div>
         </div>
       <% end %>
     </td>
   </tr>
-  <tr>
+  <tr class="plan-annual hide">
     <td>30 days recording annual</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.thirty_days_recording_annual) %>
     </td>
+    <td class="text-center">
+      <input id="30-days-recording-annual-qty" type="text" value="0" class="add-on-text">
+    </td>
     <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '30-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+          <form class="button_to" data-remote="true" action="/line_items/create_subscription?product_id=30-days-recording-annual&type=plan" method="post">
+            <input id="30-days-recording-annual-quantity" name="quantity" type="hidden" value="0">
+            <input data-plan="30-days-recording-annual" class="btn btn-default add-to-cart" type="submit" value="Add to Cart">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </form>
+          <% button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '30-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('30-days-recording-annual') %>">
@@ -142,21 +182,29 @@
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('30-days-recording-annual') %>
                    data-price="<%= cents_to_currency(@prices.thirty_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
-                   type="button" data-period="monthly" data-plan-id="30-days-recording-annual" data-plan="30 days recording annual" value="<%= thirty_days_recording_annual %>">
+                   type="button" data-period="annual" data-plan-id="30-days-recording-annual" data-plan="30 days recording annual" value="<%= thirty_days_recording_annual %>">
           </div>
         </div>
       <% end %>
     </td>
   </tr>
-  <tr>
+  <tr class="plan-annual hide">
     <td>90 days recording annual</td>
     <td class="text-center">
       <%= cents_to_currency(@prices.ninety_days_recording_annual) %>
     </td>
+    <td class="text-center">
+      <input id="90-days-recording-annual-qty" type="text" value="0" class="add-on-text">
+    </td>
     <td class="text-right">
       <% if !@subscription %>
         <div class="plan-button <%= "highlight-plan-button" unless has_subscription? %>">
-          <%= button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '90-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
+          <form class="button_to" data-remote="true" action="/line_items/create_subscription?product_id=90-days-recording-annual&type=plan" method="post">
+            <input id="90-days-recording-annual-quantity" name="quantity" type="hidden" value="0">
+            <input data-plan="90-days-recording-annual" class="btn btn-default add-to-cart" type="submit" value="Add to Cart">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </form>
+          <% button_to 'Add to Cart', line_item_subscription_path(type: 'plan', product_id: '90-days-recording-annual'), remote: true, class: 'btn btn-default'  %>
         </div>
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording-annual') %>">
@@ -169,58 +217,41 @@
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('90-days-recording-annual') %>
                    data-price="<%= cents_to_currency(@prices.ninety_days_recording_annual) %>" data-toggle="modal" data-target="#upgradeDwongradeModal"
-                   type="button" value="<%= ninty_days_recording_annual %>" data-plan-id="90-days-recording-annual" data-period="monthly" data-plan="90 days recording annual">
+                   type="button" value="<%= ninty_days_recording_annual %>" data-plan-id="90-days-recording-annual" data-period="annual" data-plan="90 days recording annual">
           </div>
         </div>
       <% end %>
     </td>
   </tr>
 </table>
-<div id="cancelAddOnsModal" class="modal fade">
+
+<div id="upgradeDwongradeModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
         <div class="col-md-12">
-          <% if @add_ons.present? %>
-            <!-- Add-ons list -->
-            <table id="user-add-ons-table" class="table margin-bottom-15">
-              <tr>
-                <th class="col-md-3">Add-ons</th>
-                <th class="col-md-3">Next charge</th>
-                <th class="col-md-3">Status</th>
-              </tr>
-              <% @add_ons.each do |add_on| -%>
-                <% if add_on.exid.eql?('7-days-recording') || add_on.exid.eql?('7-days-recording-annual') %>
-                  <tr class="add-7-days-recording-table user-add-ons-table" style="display: none;">
-                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
-                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
-
-                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
-                  </tr>
-                <% elsif add_on.exid.eql?('30-days-recording') || add_on.exid.eql?('30-days-recording-annual') %>
-                  <tr class="add-30-days-recording-table user-add-ons-table" style="display: none;">
-                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
-                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
-
-                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
-                  </tr>
-                <% elsif add_on.exid.eql?('90-days-recording') || add_on.exid.eql?('90-days-recording-annual') %>
-                  <tr class="add-90-days-recording-table user-add-ons-table" style="display: none;">
-                    <td><%=  add_on.add_ons_name -%> <%= add_on.period -%>ly</td>
-                    <td><%= add_on.add_ons_end_date.strftime('%d/%m/%Y') %></td>
-
-                    <td><%= add_on.status ? 'Active' : 'Expired' %> <span class="cancel-add-on"><%= link_to 'cancel', delete_add_ons_path(current_user.username,add_on.id), method: :delete, class: 'delete-add-ons' %></span></td>
-                  </tr>
-                <% end %>
-              <% end -%>
-            </table>
-          <% end %>
+          <p class="text-left change-plan-desc" id="plan-descprition"></p>
+          <div id="confirm-upgrading" style="display: none;">
+            <p class="text-left change-plan-desc">One moment while we upgrade your account...</p>
+            <br>
+            <p class="text-left">We're just confirming your payment.</p>
+          </div>
+          <div id="section-downgrade" style="display: none;">
+            <p class="text-left downgrade-note">Feel free to upgrade again any time, we'll credit you for
+              any time you haven't used on you current plan and put that towards your next invoice.
+            </p>
+            <p>If you're sure you want to proceed, type '<strong>downgrade</strong>' in the field below.</p>
+            <input id="downgrade-plan" name="downgrade-plan" type="text" class="form-control">
+          </div>
         </div>
       </div>
       <div class="modal-footer">
         <div class="col-sm-8 margin-top-10">
-          <input id="cancel-add-on" type="button" class="btn btn-primary pull-left" value="YES" style="display: none">
-          <input id="cancel-add-on-close" type="button" class="btn btn-default pull-left margin-left2" value="Close" data-dismiss="modal" />
+          <input type="hidden" id="has-credit-card" value="<%= has_credit_cards? %>">
+          <input type="hidden" id="change-plan-id">
+          <input type="hidden" id="change-plan-action">
+          <input id="btn-change-plan" type="button" class="btn btn-primary pull-left" value="Upgrade my plan">
+          <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
         </div>
       </div>
     </div>

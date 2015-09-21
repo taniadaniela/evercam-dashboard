@@ -1,5 +1,5 @@
-<div class="col-md-12">
-  
+<div class="col-md-12 period-toggle margin-bottom-15">
+  <input id="period-toggle" type="checkbox" data-toggle="toggle" data-off="Monthly" data-on="Annual">
 </div>
 
 <div class="col-md-12">
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div id="divCart" style="display: none;" class="col-md-12">
+<div id="divCart" style="<% if session[:cart].blank? %>display: none;<% end %>" class="col-md-12">
   <h3>Cart</h3>
   <div class="card">
     <%= render 'cart' %>
@@ -36,7 +36,7 @@
       <div class="modal-body">
         <div class="col-md-12">
           <p class="text-left margin-top-10">
-            <strong><%= cents_to_currency(1000) %></strong> will be charged from your <strong><%= @card.brand %></strong> card ending in <strong><%= @card.last4 %></strong></p>
+            <strong><span id="spnTotalPrice"></span></strong> will be charged from your <strong><%= @card.brand %></strong> card ending in <strong><%= @card.last4 %></strong></p>
         </div>
       </div>
       <div class="modal-footer">

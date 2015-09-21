@@ -98,4 +98,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-screenfull', '~> 2.0'
   gem 'rails-assets-videojs', '~> 4.12.7'
   gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
+  gem 'rails-assets-bootstrap-toggle'
 end

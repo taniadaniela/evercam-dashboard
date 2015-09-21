@@ -49,6 +49,10 @@ onCheckoutConfirmCard = ->
 
 onUpgradeDownGrade = ->
   $('.change-plan').on 'click', ->
+    quantity = parseInt($("##{$(this).attr("data-plan-id")}-qty").val())
+    if quantity is 0
+      Notification.show "Please enetr quantity."
+      return false
     clearModal()
     plan_control = $(this)
     plan_change_to =  plan_control.val()
@@ -143,12 +147,39 @@ changePlan = ->
 
     sendAJAXRequest(settings)
 
-
 centerModal = (model) ->
   $(model).css "display", "block"
   $dialog = $(model).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2
   $dialog.css "margin-top", offset
+
+initToggleButton = ->
+  $('#period-toggle').bootstrapToggle
+    width: 110
+    #onstyle: 'default'
+
+  $('#period-toggle').change ->
+    if $(this).prop('checked')
+      $(".plan-monthly").addClass("hide")
+      $(".plan-annual").removeClass("hide")
+    else
+      $(".plan-monthly").removeClass("hide")
+      $(".plan-annual").addClass("hide")
+
+addToCart = ->
+  $(".add-to-cart").on "click", ->
+    plan = $(this).attr("data-plan")
+    quantity = parseInt($("##{plan}-qty").val())
+    if quantity is 0
+      Notification.show "Please enetr quantity."
+      return false
+    else
+      $("##{plan}-quantity").val(quantity)
+      return true
+
+updateTotalPrice = ->
+  $("#payNowModal").on "show.bs.modal", ->
+    $("#spnTotalPrice").text($("#total-price").val())
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
@@ -157,6 +188,9 @@ window.initializeSubscription = ->
   onCheckoutConfirmCard()
   createAddOns()
   changePlan()
+  initToggleButton()
+  addToCart()
+  updateTotalPrice()
 
 
 window.initializeChangePlan = ->

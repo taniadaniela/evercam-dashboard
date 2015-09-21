@@ -36,7 +36,7 @@
       <div class="modal-body">
         <div class="col-md-12">
           <p class="text-left margin-top-10">
-            <strong><span id="spnTotalPrice"></span></strong> will be charged from your <strong><%= @card.brand %></strong> card ending in <strong><%= @card.last4 %></strong></p>
+            <strong><span id="spnTotalPrice"></span></strong> will be charged from your <strong><%= @card.brand if @card.present? %></strong> card ending in <strong><%= @card.last4 if @card.present? %></strong></p>
         </div>
       </div>
       <div class="modal-footer">

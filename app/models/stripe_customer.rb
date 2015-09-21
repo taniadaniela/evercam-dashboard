@@ -57,6 +57,7 @@ class StripeCustomer
   def change_plan
     subscription = @stripe_customer.subscriptions.retrieve(subscription_id)
     subscription.plan = @plan_in_cart.product_id
+    subscription.quantity = @plan_in_cart.quantity
     subscription.save
   end
 

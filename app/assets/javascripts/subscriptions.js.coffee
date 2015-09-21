@@ -42,8 +42,8 @@ onCheckoutConfirmCard = ->
       $("#plan-descprition").html('Add a credit card before changing your plan.')
       $("#change-plan-action").val("")
       $("#btn-change-plan").val($(".stripe-button-el span").text())
-      $('.modal').modal('show')
-      $(".modal").on "show.bs.modal", ->
+      $('#upgradeDwongradeModal').modal('show')
+      $("#upgradeDwongradeModal").on "show.bs.modal", ->
         centerModal(this)
       return false
 
@@ -58,7 +58,7 @@ onUpgradeDownGrade = ->
     plan_change_to =  plan_control.val()
     has_credit_card = $("#has-credit-card").val()
     $("#change-plan-id").val(plan_control.attr('data-plan-id'))
-    $(".modal").on "show.bs.modal", ->
+    $("#upgradeDwongradeModal").on "show.bs.modal", ->
       if has_credit_card is "false"
         $("#plan-descprition").html('Add a credit card before changing your plan.')
         $("#change-plan-action").val("")
@@ -117,8 +117,10 @@ changePlan = ->
       $(".modal-footer").hide()
       $("#confirm-upgrading").show()
 
+    plan_id = $("#change-plan-id").val()
     data = {}
-    data.plan_id = $("#change-plan-id").val()
+    data.plan_id = plan_id
+    data.quantity = $("##{plan_id}-qty").val()
 
     onError = (jqXHR, status, error) ->
       if action is "upgrade"
@@ -171,7 +173,7 @@ addToCart = ->
     plan = $(this).attr("data-plan")
     quantity = parseInt($("##{plan}-qty").val())
     if quantity is 0
-      Notification.show "Please enetr quantity."
+      Notification.show "Please enter quantity."
       return false
     else
       $("##{plan}-quantity").val(quantity)
@@ -180,6 +182,9 @@ addToCart = ->
 updateTotalPrice = ->
   $("#payNowModal").on "show.bs.modal", ->
     $("#spnTotalPrice").text($("#total-price").val())
+
+  $("#upgradeDwongradeModal").on "hide.bs.modal", ->
+    $(".quantity-textsmall").val(0)
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")

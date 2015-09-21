@@ -1,7 +1,8 @@
+<% qty = @subscriptions[:data][0][:quantity] if @subscriptions.present? %>
 <table class="table margin-bottom-15">
   <tr>
-    <th class="col-md-5">Description</th>
-    <th class="col-md-2 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Price <i class="fa fa-question-circle grey"></i></th>
+    <th class="col-md-6">Description</th>
+    <th class="col-md-3 text-center" data-container="body" data-toggle="tooltip" data-placement="top" title="Price per month depending whether your on a monthly or annual plan.">Price <i class="fa fa-question-circle grey"></i></th>
     <th class="col-md-1 text-center">Qty.</th>
     <th class="col-md-2 text-right">Change</th>
   </tr>
@@ -11,7 +12,11 @@
       <%= cents_to_currency(@prices.seven_days_recording) %>
     </td>
     <td class="text-center">
-      <input id="7-days-recording-qty" type="text" value="0" class="add-on-text">
+      <% if @subscription && @subscription[:id].eql?('7-days-recording') && qty.present? %>
+        <%=qty %>
+      <% else %>
+        <input id="7-days-recording-qty" type="text" value="0" class="quantity-text small">
+      <% end %>
     </td>
     <td class="text-right">
       <% if !@subscription %>
@@ -25,7 +30,7 @@
       <% else %>
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('7-days-recording') %>">
           <% if @subscription[:id].eql?('7-days-recording') %>
-            <input class="btn btn-default change-plan" disabled type="button" value="Current Plan">
+            <input class="btn btn-primary change-plan" disabled type="button" value="Current Plan">
           <% else %>
             <input class="btn btn-primary change-plan" data-price="<%= cents_to_currency(@prices.seven_days_recording) %>"
               data-toggle="modal" data-target="#upgradeDwongradeModal" type="button" value="Downgrade"
@@ -41,7 +46,11 @@
       <%= cents_to_currency(@prices.thirty_days_recording) %>
     </td>
     <td class="text-center">
-      <input id="30-days-recording-qty" type="text" value="0" class="add-on-text">
+      <% if @subscription && @subscription[:id].eql?('30-days-recording') && qty.present? %>
+        <%=qty %>
+      <% else %>
+        <input id="30-days-recording-qty" type="text" value="0" class="quantity-text small">
+      <% end %>
     </td>
     <td class="text-right">
       <% if !@subscription %>
@@ -62,7 +71,7 @@
                                when "90-days-recording","7-days-recording-annual","30-days-recording-annual","90-days-recording-annual"
                                  "Downgrade"
                                when "30-days-recording"
-                                 "Your Current Plan"
+                                 "Current Plan"
                              end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('30-days-recording') %>
@@ -79,7 +88,11 @@
       <%= cents_to_currency(@prices.ninety_days_recording) %>
     </td>
     <td class="text-center">
-      <input id="90-days-recording-qty" type="text" value="0" class="add-on-text">
+      <% if @subscription && @subscription[:id].eql?('90-days-recording') && qty.present? %>
+        <%=qty %>
+      <% else %>
+        <input id="90-days-recording-qty" type="text" value="0" class="quantity-text small">
+      <% end %>
     </td>
     <td class="text-right">
       <% if !@subscription %>
@@ -100,7 +113,7 @@
                                         when "7-days-recording-annual","30-days-recording-annual","90-days-recording-annual"
                                           "Downgrade"
                                         when "90-days-recording"
-                                          "Your Current Plan"
+                                          "Current Plan"
                                       end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('90-days-recording') %>
@@ -118,7 +131,11 @@
       <%= cents_to_currency(@prices.seven_days_recording_annual) %>
     </td>
     <td class="text-center">
-      <input id="7-days-recording-annual-qty" type="text" value="0" class="add-on-text">
+      <% if @subscription && @subscription[:id].eql?('7-days-recording-annual') && qty.present? %>
+        <%=qty %>
+      <% else %>
+        <input id="7-days-recording-annual-qty" type="text" value="0" class="quantity-text small">
+      <% end %>
     </td>
     <td class="text-right">
       <% if !@subscription %>
@@ -139,7 +156,7 @@
                                                when "30-days-recording-annual","90-days-recording-annual"
                                                  "Downgrade"
                                                when "7-days-recording-annual"
-                                                 "Your Current Plan"
+                                                 "Current Plan"
                                              end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('7-days-recording-annual') %>
@@ -156,7 +173,11 @@
       <%= cents_to_currency(@prices.thirty_days_recording_annual) %>
     </td>
     <td class="text-center">
-      <input id="30-days-recording-annual-qty" type="text" value="0" class="add-on-text">
+      <% if @subscription && @subscription[:id].eql?('30-days-recording-annual') && qty.present? %>
+        <%=qty %>
+      <% else %>
+        <input id="30-days-recording-annual-qty" type="text" value="0" class="quantity-text small">
+      <% end %>
     </td>
     <td class="text-right">
       <% if !@subscription %>
@@ -177,7 +198,7 @@
                                                  when "90-days-recording-annual"
                                                    "Downgrade"
                                                  when "30-days-recording-annual"
-                                                   "Your Current Plan"
+                                                   "Current Plan"
                                                end
             %>
             <input class="btn btn-primary change-plan" <%= "disabled" if @subscription[:id].eql?('30-days-recording-annual') %>
@@ -194,7 +215,11 @@
       <%= cents_to_currency(@prices.ninety_days_recording_annual) %>
     </td>
     <td class="text-center">
-      <input id="90-days-recording-annual-qty" type="text" value="0" class="add-on-text">
+      <% if @subscription && @subscription[:id].eql?('90-days-recording-annual') && qty.present? %>
+        <%=qty %>
+      <% else %>
+        <input id="90-days-recording-annual-qty" type="text" value="0" class="quantity-text small">
+      <% end %>
     </td>
     <td class="text-right">
       <% if !@subscription %>
@@ -210,7 +235,7 @@
         <div class="plan-button <%= "highlight-plan-button" if @subscription[:id].eql?('90-days-recording-annual') %>">
           <div class="col-xs-121">
             <% if @subscription[:id].eql?('90-days-recording-annual')
-                 ninty_days_recording_annual = "Your Current Plan"
+                 ninty_days_recording_annual = "Current Plan"
                else
                  ninty_days_recording_annual = "Upgrade"
                end

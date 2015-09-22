@@ -35,7 +35,6 @@ initializeArchivesDataTable = ->
     initComplete: (settings, json) ->
       $("#archives-table_length").hide()
       if json.archives.length is 0
-        #$(".dataTables_empty").text("There are no clips.")
         $('#archives-table_paginate, #archives-table_info').hide()
         $('#archives-table').hide()
         $('#archives-table_wrapper .col-sm-12').text("There are no clips.")
@@ -44,7 +43,7 @@ initializeArchivesDataTable = ->
         $('#archives-table_paginate').hide()
       true
   })
-  #$(".dataTables_empty").text("There are no clips.")
+
 
 renderbuttons = (row, type, set, meta) ->
   if row.status is "Completed"

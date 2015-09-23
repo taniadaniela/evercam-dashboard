@@ -99,6 +99,12 @@
     width: 15px;
   }
 
+  .plan-table > tbody > tr > td {
+    border: 0;
+    height: 43px;
+    padding: 5px 0;
+  }
+
   .quantity-text {
     text-align: center;
     width: 50px;
@@ -108,6 +114,14 @@
     margin-left: 13px;
     margin-right: 0;
     margin-top: 0;
+  }
+
+  .no-editable {
+    background-color: transparent;
+    border: 0;
+  }
+  .no-editable:focus {
+    box-shadow: none;
   }
 
   .plans-comparison {

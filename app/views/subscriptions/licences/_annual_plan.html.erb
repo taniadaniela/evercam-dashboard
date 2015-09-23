@@ -1,0 +1,35 @@
+<div class="col-md-12">
+  <% qty = @subscriptions[:data][0][:quantity] if @subscriptions.present? %>
+  <table class="plan-table col-md-6">
+    <tr class="plan-annual">
+      <td class="col-md-5">7 Day Licences</td>
+      <td class=" col-md-1 text-center">
+        <% if @subscription && @subscription[:id].eql?('7-days-recording-annual') && qty.present? %>
+          <%=qty %>
+        <% else %>
+          <input id="7-days-recording-annual-qty" type="text" value="0" class="quantity-text small no-editable" readonly>
+        <% end %>
+      </td>
+    </tr>
+    <tr class="plan-annual">
+      <td>30 Day Licences</td>
+      <td class="text-center">
+        <% if @subscription && @subscription[:id].eql?('30-days-recording-annual') && qty.present? %>
+          <%=qty %>
+        <% else %>
+          <input id="30-days-recording-annual-qty" type="text" value="0" class="quantity-text small no-editable" readonly>
+        <% end %>
+      </td>
+    </tr>
+    <tr class="plan-annual">
+      <td>90 Day Licences</td>
+      <td class="text-center">
+        <% if @subscription && @subscription[:id].eql?('90-days-recording-annual') && qty.present? %>
+          <%=qty %>
+        <% else %>
+          <input id="90-days-recording-annual-qty" type="text" value="0" class="quantity-text small no-editable" readonly>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>

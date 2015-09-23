@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_filter :ensure_plan_in_cart_or_existing_subscriber
+  # before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists
   layout "user-account"
@@ -21,9 +21,19 @@ class PaymentsController < ApplicationController
 
   def create
     @customer = retrieve_stripe_customer
-    create_subscription unless @customer.has_active_subscription?
-    change_plan if @customer.change_of_plan?
-    create_charge if add_ons_in_cart?
+    unless @customer.has_active_subscription?
+      ["7-days-recording", "7-days-recording-annual", "30-days-recording", "30-days-recording-annual",
+       "90-days-recording", "90-days-recording-annual"].each do |resource|
+        unless params["#{resource}-qty"].to_i > 0
+          buy_subscription(resource, params["#{resource}-qty"])
+        end
+      end
+      # buy_subscription()
+    end
+    @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+    # create_subscription unless @customer.has_active_subscription?
+    # change_plan if @customer.change_of_plan?
+    # create_charge if add_ons_in_cart?
     redirect_to billing_path(current_user.username), flash: { message: "We've successfully made those changes to your account!" }
   end
 
@@ -46,6 +56,15 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def buy_subscription(plan, quantity)
+    selector = ProductSelector.new(plan)
+    product_params = selector.product_params
+    product_params[:quantity] = quantity
+    @line_item = LineItem.new(product_params)
+    @customer = retrieve_stripe_customer_without_cart(@line_item)
+    @customer.create_subscription
+  end
 
   def build_line_item_params params
     selector = ProductSelector.new(params[:plan_id])

@@ -9,7 +9,7 @@
         <% @cameras_products.each do |camera| %>
           <tr>
             <td><%= camera[:name] %></td>
-            <% if camera.cloud_recording %>
+            <% if camera.cloud_recording.present? %>
               <% if camera.cloud_recording[0].storage_duration.equal?(-1) %>
                 <td>Infinity</td>
               <% elsif  camera.cloud_recording[0].storage_duration.equal?(1) %>
@@ -17,6 +17,8 @@
               <% else %>
                 <td><%= camera.cloud_recording[0].storage_duration %> days recording</td>
               <% end %>
+            <% else %>
+              <td></td>
             <% end %>
           </tr>
         <% end %>

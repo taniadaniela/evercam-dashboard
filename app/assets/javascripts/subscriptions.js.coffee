@@ -155,18 +155,20 @@ centerModal = (model) ->
   offset = ($(window).height() - $dialog.height()) / 2
   $dialog.css "margin-top", offset
 
-initToggleButton = ->
-  $('#period-toggle').bootstrapToggle
-    width: 110
-    #onstyle: 'default'
-
-  $('#period-toggle').change ->
-    if $(this).prop('checked')
-      $(".plan-monthly").addClass("hide")
-      $(".plan-annual").removeClass("hide")
+initEditQuantity = ->
+  $('.edit-quantity').on "click", ->
+    if $(this).text() is "Save"
+      $("#form-make-payment").submit()
     else
-      $(".plan-monthly").removeClass("hide")
-      $(".plan-annual").addClass("hide")
+      if $(".quantity-text").hasClass("no-editable")
+        $(".quantity-text").removeClass("no-editable")
+        $(".quantity-text").removeAttr("readonly")
+      else
+        $(".quantity-text").addClass("no-editable")
+        $(".quantity-text").attr("readonly", true)
+
+  $('.quantity-text').on "keyup", ->
+    $('.edit-quantity').text("Save")
 
 addToCart = ->
   $(".add-to-cart").on "click", ->
@@ -193,7 +195,7 @@ window.initializeSubscription = ->
   onCheckoutConfirmCard()
   createAddOns()
   changePlan()
-  initToggleButton()
+  initEditQuantity()
   addToCart()
   updateTotalPrice()
 

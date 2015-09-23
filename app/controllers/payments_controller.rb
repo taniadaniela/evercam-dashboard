@@ -20,17 +20,26 @@ class PaymentsController < ApplicationController
   end
 
   def create
+    plans = ["7-days-recording", "7-days-recording-annual", "30-days-recording", "30-days-recording-annual",
+             "90-days-recording", "90-days-recording-annual"]
     @customer = retrieve_stripe_customer
-    unless @customer.has_active_subscription?
-      ["7-days-recording", "7-days-recording-annual", "30-days-recording", "30-days-recording-annual",
-       "90-days-recording", "90-days-recording-annual"].each do |resource|
-        unless params["#{resource}-qty"].to_i > 0
+    if @customer.has_active_subscription?
+      subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+      if subscriptions.present?
+        subscriptions[:data].each do |subscription|
+          unless params["#{subscription.plan.id}-qty"].to_i.equal?(subscription.quantity)
+            update_subscription(subscription.plan.id, params["#{subscription.plan.id}-qty"])
+          end
+        end
+      end
+    else
+      plans.each do |resource|
+        if params["#{resource}-qty"].to_i > 0
           buy_subscription(resource, params["#{resource}-qty"])
         end
       end
-      # buy_subscription()
     end
-    @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+
     # create_subscription unless @customer.has_active_subscription?
     # change_plan if @customer.change_of_plan?
     # create_charge if add_ons_in_cart?
@@ -64,6 +73,15 @@ class PaymentsController < ApplicationController
     @line_item = LineItem.new(product_params)
     @customer = retrieve_stripe_customer_without_cart(@line_item)
     @customer.create_subscription
+  end
+
+  def update_subscription(plan, quantity)
+    selector = ProductSelector.new(plan)
+    product_params = selector.product_params
+    product_params[:quantity] = quantity
+    @line_item = LineItem.new(product_params)
+    @customer = retrieve_stripe_customer_without_cart(@line_item)
+    @customer.change_plan
   end
 
   def build_line_item_params params

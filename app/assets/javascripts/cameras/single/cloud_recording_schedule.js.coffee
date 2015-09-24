@@ -138,7 +138,8 @@ currentCalendarWeek = ->
 showScheduleCalendar = ->
   $('#cloud-recording-calendar-wrap').removeClass('hide')
   scheduleCalendar.fullCalendar('render')
-  renderEvents()
+  if scheduleCalendar.is(':visible')
+    renderEvents()
 
 hideScheduleCalendar = ->
   $('#cloud-recording-calendar-wrap').addClass('hide')
@@ -154,6 +155,12 @@ showDurationSelect = ->
 
 hideDurationSelect = ->
   $('#cloud-recording-duration-wrap').addClass('hide')
+
+updateFrequencyTo1 = ->
+  $("#cloud-recording-frequency").val(1)
+
+updateFrequencyTo60 = ->
+  $("#cloud-recording-frequency").val(60)
 
 window.fullWeekSchedule =
   "Monday": ["00:00-23:59"]
@@ -197,16 +204,20 @@ handleRecordingToggle = ->
         updateScheduleToOff()
 
 window.setCloudRecordingToggle = ->
-  $(window).on 'load', ->
-    if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
-      if Evercam.Camera.cloud_recording.frequency == 1
-        $("#cloud-recording-off").iCheck('check')
-      else
-        $("#cloud-recording-on").iCheck('check')
+  if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
+    if Evercam.Camera.cloud_recording.frequency == 1
+      $("#cloud-recording-off").iCheck('check')
     else
-      $("#cloud-recording-on-scheduled").iCheck('check')
-      showScheduleCalendar()
-    $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
-    handleRecordingToggle()
-    handleFrequencySelect()
-    handleDurationSelect()
+      $("#cloud-recording-on").iCheck('check')
+      showFrequencySelect()
+      showDurationSelect()
+  else
+    $("#cloud-recording-on-scheduled").iCheck('check')
+    alert("scheduled")
+    showFrequencySelect()
+    showDurationSelect()
+    showScheduleCalendar()
+  $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
+  handleRecordingToggle()
+  handleFrequencySelect()
+  handleDurationSelect()

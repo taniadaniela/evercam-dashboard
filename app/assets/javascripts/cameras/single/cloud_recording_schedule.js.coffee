@@ -192,15 +192,18 @@ handleRecordingToggle = ->
         hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
+        updateFrequencyTo60
         updateScheduleToOn()
       when "on-scheduled"
         showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
+        updateFrequencyTo60
       when "off"
         hideScheduleCalendar()
         hideFrequencySelect()
         hideDurationSelect()
+        updateFrequencyTo1
         updateScheduleToOff()
 
 window.setCloudRecordingToggle = ->
@@ -213,7 +216,6 @@ window.setCloudRecordingToggle = ->
       showDurationSelect()
   else
     $("#cloud-recording-on-scheduled").iCheck('check')
-    alert("scheduled")
     showFrequencySelect()
     showDurationSelect()
     showScheduleCalendar()

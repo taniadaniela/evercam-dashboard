@@ -156,9 +156,6 @@ showDurationSelect = ->
 hideDurationSelect = ->
   $('#cloud-recording-duration-wrap').addClass('hide')
 
-updateFrequencyTo1 = ->
-  $("#cloud-recording-frequency").val(1)
-
 updateFrequencyTo60 = ->
   $("#cloud-recording-frequency").val(60)
 
@@ -192,18 +189,17 @@ handleRecordingToggle = ->
         hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
-        updateFrequencyTo60
+        updateFrequencyTo60()
         updateScheduleToOn()
       when "on-scheduled"
         showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
-        updateFrequencyTo60
+        updateFrequencyTo60()
       when "off"
         hideScheduleCalendar()
         hideFrequencySelect()
         hideDurationSelect()
-        updateFrequencyTo1
         updateScheduleToOff()
 
 window.setCloudRecordingToggle = ->

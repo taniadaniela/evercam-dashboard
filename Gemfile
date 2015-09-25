@@ -9,8 +9,6 @@ gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'sprockets'
-gem 'sprockets-es6',
-  require: 'sprockets/es6'
 gem 'fog'
 gem 'asset_sync'
 gem 'autoprefixer-rails', '~> 5.2.1.3'

@@ -14,7 +14,7 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 loadImage = ->
-  unless window.snapshot_streaming_enabled
+  unless window.Evercam.Camera.cloud_recording.frequency == 60
     img = new Image()
     live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{live_snapshot_url}&rand=" + new Date().getTime()

@@ -36,6 +36,7 @@
     window.Evercam = {};
   }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
   window.Evercam.User = {
     username: '<%= current_user.username %>',
     api_id: '<%= current_user.api_id %>',

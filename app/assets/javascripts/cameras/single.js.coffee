@@ -84,23 +84,8 @@ handleCameraModalSubmit = ->
 handlePageLoad = ->
   setTimeout (->
     updateCameraSinglePage()
-    $('.sidebar-cameras-list').load '/v1/cameras/new .sidebar-cameras-list > *', ->
-      hideOfflineCameras()
+    updateSidebar()
   ), 2000
-
-hideOfflineCameras = ->
-  total_offline_cameras = $(".sidebar-cameras-list li.sidebar-offline").length
-  $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
-  $("#total-offline-cameras sub").text(total_offline_cameras)
-  if $.cookie("hide-offline-cameras")
-    if total_offline_cameras is 0
-      $("#total-offline-cameras").removeClass("hide").addClass("hide")
-    else
-      $("#total-offline-cameras").removeClass("hide")
-    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide").addClass("hide")
-  else
-    $("#total-offline-cameras").removeClass("hide").addClass("hide")
-    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
 
 addToMyCameras = ->
   $('#add-to-cameras').on 'click', ->

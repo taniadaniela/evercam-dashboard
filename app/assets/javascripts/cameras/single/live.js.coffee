@@ -277,6 +277,7 @@ disconnectFromSocket = ->
   Evercam.socket.disconnect()
 
 window.initializeLiveTab = ->
+  initSocket()
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
@@ -291,4 +292,3 @@ window.initializeLiveTab = ->
   getPtzPresets()
   changePtzPresets()
   handleModelEvents()
-  initSocket()

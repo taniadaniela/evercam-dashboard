@@ -158,17 +158,20 @@ centerModal = (model) ->
 initEditQuantity = ->
   $('.edit-quantity').on "click", ->
     if $(this).text() is "Save"
-      $("#form-make-payment").submit()
+      $("#payNowModal").modal("show")
     else
       if $(".quantity-text").hasClass("no-editable")
         $(".quantity-text").removeClass("no-editable")
-        $(".quantity-text").removeAttr("readonly")
+        $(".quantity-text").removeAttr("disabled")
       else
         $(".quantity-text").addClass("no-editable")
-        $(".quantity-text").attr("readonly", true)
-
+        $(".quantity-text").attr("disabled", true)
+  $("#saveSubscriptions").on "click", ->
+    $("#form-make-payment").submit()
   $('.quantity-text').on "keyup", ->
     $('.edit-quantity').text("Save")
+  $('.quantity-text').on 'click', ->
+    @select()
 
 addToCart = ->
   $(".add-to-cart").on "click", ->
@@ -198,7 +201,6 @@ window.initializeSubscription = ->
   initEditQuantity()
   addToCart()
   updateTotalPrice()
-
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()

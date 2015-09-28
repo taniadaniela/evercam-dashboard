@@ -26,9 +26,23 @@ class PaymentsController < ApplicationController
     if @customer.has_active_subscription?
       subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
       if subscriptions.present?
-        subscriptions[:data].each do |subscription|
-          unless params["#{subscription.plan.id}-qty"].to_i.equal?(subscription.quantity)
-            update_subscription(subscription.plan.id, params["#{subscription.plan.id}-qty"])
+        plans.each do |resource|
+          is_saved = false
+          subscriptions[:data].each do |subscription|
+            if subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
+              !params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
+              update_subscription(subscription.plan.id, subscription.id, params["#{subscription.plan.id}-qty"])
+              is_saved = true
+            elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
+              params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
+              is_saved = true
+            elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i.eql?(0)
+              cancel_subscription(subscription.id)
+            end
+          end
+
+          if !is_saved && params["#{resource}-qty"].to_i > 0
+            buy_subscription(resource, params["#{resource}-qty"])
           end
         end
       end
@@ -75,13 +89,18 @@ class PaymentsController < ApplicationController
     @customer.create_subscription
   end
 
-  def update_subscription(plan, quantity)
+  def update_subscription(plan, subscription_id, quantity)
     selector = ProductSelector.new(plan)
     product_params = selector.product_params
     product_params[:quantity] = quantity
     @line_item = LineItem.new(product_params)
     @customer = retrieve_stripe_customer_without_cart(@line_item)
-    @customer.change_plan
+    @customer.update_subscription(subscription_id)
+  end
+
+  def cancel_subscription(subscription_id)
+    @customer = StripeCustomer.new(current_user.stripe_customer_id)
+    @customer.cancel_subscription(subscription_id)
   end
 
   def build_line_item_params params

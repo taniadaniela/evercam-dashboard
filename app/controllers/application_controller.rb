@@ -156,21 +156,20 @@ class ApplicationController < ActionController::Base
     if subscriptions.present?
       subscriptions[:data].each do |subscription|
         case subscription.plan.id
-          when "7-days-recording"
-            @seven_days_recording = subscription.quantity
-          when "7-days-recording-annual"
-            @seven_days_recording_annual = subscription.quantity
-          when "30-days-recording"
-            @thirty_days_recording = subscription.quantity
-          when "30-days-recording-annual"
-            @thirty_days_recording_annual = subscription.quantity
-          when "90-days-recording"
-            @ninety_days_recording = subscription.quantity
-          when "90-days-recording-annual"
-            @ninety_days_recording_annual = subscription.quantity
+        when "7-days-recording"
+          @seven_days_recording = subscription.quantity
+        when "7-days-recording-annual"
+          @seven_days_recording_annual = subscription.quantity
+        when "30-days-recording"
+          @thirty_days_recording = subscription.quantity
+        when "30-days-recording-annual"
+          @thirty_days_recording_annual = subscription.quantity
+        when "90-days-recording"
+          @ninety_days_recording = subscription.quantity
+        when "90-days-recording-annual"
+          @ninety_days_recording_annual = subscription.quantity
         end
       end
     end
   end
-
 end

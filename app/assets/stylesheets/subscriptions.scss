@@ -85,9 +85,11 @@
     max-width: 310px;
   }
 
-  .nav-plans > li.active > a, .nav-plans > li.active > a:hover, .nav-plans > li.active > a:focus {
+  .nav-plans > li.active > a,
+  .nav-plans > li.active > a:hover,
+  .nav-plans > li.active > a:focus {
     background-color: transparent;
-    border: 1px solid #e5e5e5;
+    border: 1px solid $secondary-grey;
     border-radius: 20px;
     font-family: proxima-nova-regular,"Open Sans",Arial,Helvetica,sans-serif;
   }
@@ -131,6 +133,7 @@
     background-color: transparent;
     border: 0;
   }
+
   .no-editable:focus {
     box-shadow: none;
   }

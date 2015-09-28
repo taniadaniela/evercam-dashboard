@@ -1,24 +1,15 @@
 <div class="col-md-12">
-  <% qty = @subscriptions[:data][0][:quantity] if @subscriptions.present? %>
   <table class="col-md-7 plan-table">
     <tr class="plan-monthly">
       <td class="col-md-5">7 Day Licences</td>
       <td class="col-md-2 text-center">
-        <% if @subscription && @subscription[:id].eql?('7-days-recording') && qty.present? %>
-          <%=qty %>
-        <% else %>
-          <input name="7-days-recording-qty" id="7-days-recording-qty" type="text" value="<%= @seven_days_recording %>" class="quantity-text small no-editable" disabled>
-        <% end %>
+        <input name="7-days-recording-qty" id="7-days-recording-qty" type="text" value="<%= @seven_days_recording %>" class="quantity-text small no-editable" disabled>
       </td>
     </tr>
     <tr class="plan-monthly">
       <td>30 Day Licences</td>
       <td class="text-center">
-        <% if @subscription && @subscription[:id].eql?('30-days-recording') && qty.present? %>
-          <%=qty %>
-        <% else %>
-          <input name="30-days-recording-qty" id="30-days-recording-qty" type="text" value="<%= @thirty_days_recording %>" class="quantity-text small no-editable" disabled>
-        <% end %>
+        <input name="30-days-recording-qty" id="30-days-recording-qty" type="text" value="<%= @thirty_days_recording %>" class="quantity-text small no-editable" disabled>
       </td>
     </tr>
     <tr class="plan-monthly">

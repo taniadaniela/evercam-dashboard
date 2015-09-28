@@ -81,7 +81,15 @@
   }
 
   .nav-plans {
+    border-bottom: none;
     max-width: 310px;
+  }
+
+  .nav-plans > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color: transparent;
+    border: 1px solid #e5e5e5;
+    border-radius: 20px;
+    font-family: "proxima-nova-bold","Open Sans",Arial,Helvetica,sans-serif;
   }
 
   .margin-left-15 {

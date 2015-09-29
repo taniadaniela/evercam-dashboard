@@ -280,18 +280,4 @@
 </div>
 
 
-<div class="show-on-public row margin-top-30">
-  <div class="col-md-12 share-link">
-    <h5>Link to Share Camera</h5>
-  </div>
-  <div>
-    <div class="col-md-12">
-      <div id="public-short-page" class="show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">
-        <%= link_to "http://evr.cm/#{@camera['id']}.html", "http://evr.cm/#{@camera['id']}.html", target: '_blank', :only_path => false %>
-      </div>
-      <div id="private-short-page" class="show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">
-        <%= "http://evr.cm/#{@camera['id']}.html" %>
-      </div>
-    </div>
-  </div>
-</div>
+

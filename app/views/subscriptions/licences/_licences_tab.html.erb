@@ -56,12 +56,14 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="col-md-12">
-          <p class="text-left margin-top-10">
+          <p class="text-left margin-top-10 change-plan-desc" id="add-card-message">Add a credit card before save your plan(s).</p>
+          <p id="checkout-message" class="text-left margin-top-10">
             <strong><span id="spnTotalPrice"></span></strong>Your subscriptions will be saved and charged from your <strong><%= @card.brand if @card.present? %></strong> card ending in <strong><%= @card.last4 if @card.present? %></strong></p>
         </div>
       </div>
       <div class="modal-footer">
         <div class="col-sm-8">
+          <input type="hidden" id="has-credit-card" value="<%= has_credit_cards? %>">
           <input id="saveSubscriptions" type="button" class="btn btn-primary pull-left" value="Save Plans" />&nbsp;
           <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
         </div>

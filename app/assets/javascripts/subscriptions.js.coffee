@@ -158,6 +158,14 @@ centerModal = (model) ->
 initEditQuantity = ->
   $('.edit-quantity').on "click", ->
     if $(this).text() is "Save"
+      if $("#has-credit-card").val() is "false"
+        $("#saveSubscriptions").val($(".stripe-button-el span").text())
+        $("#checkout-message").hide()
+        $("#add-card-message").show()
+      else
+        $("#checkout-message").show()
+        $("#add-card-message").hide()
+        $("#saveSubscriptions").val("Save Plans")
       $("#payNowModal").modal("show")
     else
       if $(".quantity-text").hasClass("no-editable")
@@ -166,8 +174,13 @@ initEditQuantity = ->
       else
         $(".quantity-text").addClass("no-editable")
         $(".quantity-text").attr("disabled", true)
+
   $("#saveSubscriptions").on "click", ->
-    $("#form-make-payment").submit()
+    if $("#has-credit-card").val() is "false"
+      $(".stripe-button-el").click()
+      $('#payNowModal').modal('hide')
+    else
+      $("#form-make-payment").submit()
   $('.quantity-text').on "keyup", ->
     $('.edit-quantity').text("Save")
   $('.quantity-text').on 'click', ->

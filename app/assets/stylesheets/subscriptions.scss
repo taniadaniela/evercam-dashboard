@@ -81,8 +81,21 @@
   }
 
   .nav-plans {
-    margin: 13px auto 10px;
-    max-width: 272px;
+    border-bottom: none;
+    max-width: 310px;
+  }
+
+  .nav-plans > li.active > a,
+  .nav-plans > li.active > a:hover,
+  .nav-plans > li.active > a:focus {
+    background-color: transparent;
+    border: 1px solid $secondary-grey;
+    border-radius: 20px;
+    font-family: proxima-nova-regular,"Open Sans",Arial,Helvetica,sans-serif;
+  }
+
+  .margin-left-15 {
+    margin-left: 15px;
   }
 
   .table {
@@ -99,6 +112,12 @@
     width: 15px;
   }
 
+  .plan-table > tbody > tr > td {
+    border: 0;
+    height: 43px;
+    padding: 5px 0;
+  }
+
   .quantity-text {
     text-align: center;
     width: 50px;
@@ -108,6 +127,15 @@
     margin-left: 13px;
     margin-right: 0;
     margin-top: 0;
+  }
+
+  .no-editable {
+    background-color: transparent;
+    border: 0;
+  }
+
+  .no-editable:focus {
+    box-shadow: none;
   }
 
   .plans-comparison {

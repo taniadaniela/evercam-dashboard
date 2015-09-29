@@ -23,6 +23,7 @@ class SubscriptionsController < ApplicationController
       @card = @credit_cards[:data][0] if @credit_cards.present?
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
     end
+    retrieve_plans_quantity(@subscriptions)
   end
 
   def new

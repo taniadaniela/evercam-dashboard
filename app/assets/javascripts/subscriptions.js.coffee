@@ -155,18 +155,36 @@ centerModal = (model) ->
   offset = ($(window).height() - $dialog.height()) / 2
   $dialog.css "margin-top", offset
 
-initToggleButton = ->
-  $('#period-toggle').bootstrapToggle
-    width: 110
-    #onstyle: 'default'
-
-  $('#period-toggle').change ->
-    if $(this).prop('checked')
-      $(".plan-monthly").addClass("hide")
-      $(".plan-annual").removeClass("hide")
+initEditQuantity = ->
+  $('.edit-quantity').on "click", ->
+    if $(this).text() is "Save"
+      if $("#has-credit-card").val() is "false"
+        $("#saveSubscriptions").val($(".stripe-button-el span").text())
+        $("#checkout-message").hide()
+        $("#add-card-message").show()
+      else
+        $("#checkout-message").show()
+        $("#add-card-message").hide()
+        $("#saveSubscriptions").val("Save Plans")
+      $("#payNowModal").modal("show")
     else
-      $(".plan-monthly").removeClass("hide")
-      $(".plan-annual").addClass("hide")
+      if $(".quantity-text").hasClass("no-editable")
+        $(".quantity-text").removeClass("no-editable")
+        $(".quantity-text").removeAttr("disabled")
+      else
+        $(".quantity-text").addClass("no-editable")
+        $(".quantity-text").attr("disabled", true)
+
+  $("#saveSubscriptions").on "click", ->
+    if $("#has-credit-card").val() is "false"
+      $(".stripe-button-el").click()
+      $('#payNowModal').modal('hide')
+    else
+      $("#form-make-payment").submit()
+  $('.quantity-text').on "keyup", ->
+    $('.edit-quantity').text("Save")
+  $('.quantity-text').on 'click', ->
+    @select()
 
 addToCart = ->
   $(".add-to-cart").on "click", ->
@@ -193,10 +211,9 @@ window.initializeSubscription = ->
   onCheckoutConfirmCard()
   createAddOns()
   changePlan()
-  initToggleButton()
+  initEditQuantity()
   addToCart()
   updateTotalPrice()
-
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()

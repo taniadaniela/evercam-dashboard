@@ -854,3 +854,9 @@ window.initializeRecordingsTab = ->
   handleResize()
   window.initScheduleCalendar()
   window.setCloudRecordingToggle()
+
+  $(document).ready ->
+    $('#cloud-recording-collaps').click ->
+      $('#cloud-recording-calendar').toggleClass 'open'
+    return
+  return

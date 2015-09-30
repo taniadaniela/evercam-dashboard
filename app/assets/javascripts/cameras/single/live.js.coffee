@@ -178,6 +178,9 @@ handleResize = ->
 
 handlePtzCommands = ->
   $(".ptz-controls").on 'click', 'i', ->
+    headingText = $('#ptz-control table thead tr th').text()
+    $('#ptz-control table thead tr th').html 'Waiting <div class="loader">Loading...</div>'
+    setTimeout (-> $('#ptz-control table thead tr th').html headingText), 5000
     ptz_command = $(this).attr("data-val")
     if !ptz_command
       return
@@ -191,6 +194,8 @@ handlePtzCommands = ->
 
     onSuccess = (result) ->
       true
+
+
 
     settings =
       cache: false
@@ -275,6 +280,8 @@ connectToSocket = ->
 
 disconnectFromSocket = ->
   Evercam.socket.disconnect()
+
+
 
 window.initializeLiveTab = ->
   initSocket()

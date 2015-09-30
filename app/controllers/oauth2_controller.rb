@@ -132,14 +132,6 @@ class Oauth2Controller < ApplicationController
       raise UNAUTHORIZED_CLIENT if client.nil?
       raise INVALID_REDIRECT_URI if redirect_uri.nil? || !valid_redirect_uri?(client, redirect_uri)
 
-      Rails.logger.debug "Making call to 3Scale to authorize client."
-      provider_key = Evercam::Config[:threescale][:provider_key]
-      three_scale  = ::ThreeScale::Client.new(:provider_key => provider_key)
-      response     = three_scale.authrep(app_id: client.api_id,
-                                         app_key: params[:client_secret])
-      Rails.logger.debug "3Scale request successful: #{response.success?}"
-      raise UNAUTHORIZED_CLIENT if !response.success?
-
       code = params[(grant_type == 'authorization_code') ? :code : :refresh_token]
       token = AccessToken.where(refresh: code).first if token.nil?
       raise ACCESS_DENIED if token.nil? || token.is_revoked?

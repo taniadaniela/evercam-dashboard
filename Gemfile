@@ -37,7 +37,7 @@ gem 'wkhtmltopdf-binary'
 gem 'intercom', require: 'intercom'
 
 group :evercam do
-  gem 'evercam_misc', '~> 0.0'
+  gem 'evercam_misc', '~> 0.0.11'
   gem 'evercam_models',
     github: 'evercam/evercam-models'
   gem 'evercam',

@@ -40,15 +40,17 @@
   }
 }
 .evercam-e-header {
-  margin:5px 14px 2px;
+  margin:5px 0px 2px;
 }
 @media (max-width: 992px) {
   .evercam-e-header {
-    margin:5px 0px 2px;
+    margin:5px 0 2px;
   }
 }
 .evercam-e-header img {
   max-height: 24px;
+  height: 100%;
+  display: block;
 }
 .navbar .dropdown-menu {
   background: lighten($secondary-color, 5%);

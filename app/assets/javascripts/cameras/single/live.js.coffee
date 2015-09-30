@@ -246,6 +246,9 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
+$('#ptz-control').click ->
+  alert 'clicked'
+  return
 
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()

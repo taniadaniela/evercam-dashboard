@@ -1,10 +1,8 @@
 development:
   adapter: postgresql
-  host: ec2-54-217-234-131.eu-west-1.compute.amazonaws.com
-  username: u9hmc4l83k9jt
-  password: p5j5tnfe7ig5qtfqdnntg9312cj
+  host: localhost
   port: 5432
-  database: d4ld6kbqmra556
+  database: evercam_dev
   encoding: utf8
   schema_search_path: public
   template: template0

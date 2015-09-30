@@ -14,7 +14,7 @@ sendAJAXRequest = (settings) ->
 createAddOns = ->
   $(".create-add-ons").on 'click', ->
     control_id = $(this).attr("data-val")
-    $("##{control_id}").click()
+    # $("##{control_id}").click()
 
   $(".remove-add-on").on 'click', ->
     control_id = $(this).attr("data-val")
@@ -23,7 +23,7 @@ createAddOns = ->
       $(".user-add-ons-table").hide()
       if $(".#{control_id}-table").length > 0
         if $(".#{control_id}-table").length is 1
-          $(".#{control_id}-table a").click()
+          # $(".#{control_id}-table a").click()
         else
           $(".#{control_id}-table").show()
           $('#cancelAddOnsModal').modal('show')
@@ -42,19 +42,23 @@ onCheckoutConfirmCard = ->
       $("#plan-descprition").html('Add a credit card before changing your plan.')
       $("#change-plan-action").val("")
       $("#btn-change-plan").val($(".stripe-button-el span").text())
-      $('.modal').modal('show')
-      $(".modal").on "show.bs.modal", ->
+      $('#upgradeDwongradeModal').modal('show')
+      $("#upgradeDwongradeModal").on "show.bs.modal", ->
         centerModal(this)
       return false
 
 onUpgradeDownGrade = ->
   $('.change-plan').on 'click', ->
+    quantity = parseInt($("##{$(this).attr("data-plan-id")}-qty").val())
+    if quantity is 0
+      Notification.show "Please enetr quantity."
+      return false
     clearModal()
     plan_control = $(this)
     plan_change_to =  plan_control.val()
     has_credit_card = $("#has-credit-card").val()
     $("#change-plan-id").val(plan_control.attr('data-plan-id'))
-    $(".modal").on "show.bs.modal", ->
+    $("#upgradeDwongradeModal").on "show.bs.modal", ->
       if has_credit_card is "false"
         $("#plan-descprition").html('Add a credit card before changing your plan.')
         $("#change-plan-action").val("")
@@ -113,8 +117,10 @@ changePlan = ->
       $(".modal-footer").hide()
       $("#confirm-upgrading").show()
 
+    plan_id = $("#change-plan-id").val()
     data = {}
-    data.plan_id = $("#change-plan-id").val()
+    data.plan_id = plan_id
+    data.quantity = $("##{plan_id}-qty").val()
 
     onError = (jqXHR, status, error) ->
       if action is "upgrade"
@@ -143,12 +149,60 @@ changePlan = ->
 
     sendAJAXRequest(settings)
 
-
 centerModal = (model) ->
   $(model).css "display", "block"
   $dialog = $(model).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2
   $dialog.css "margin-top", offset
+
+initEditQuantity = ->
+  $('.edit-quantity').on "click", ->
+    if $(this).text() is "Save"
+      if $("#has-credit-card").val() is "false"
+        $("#saveSubscriptions").val($(".stripe-button-el span").text())
+        $("#checkout-message").hide()
+        $("#add-card-message").show()
+      else
+        $("#checkout-message").show()
+        $("#add-card-message").hide()
+        $("#saveSubscriptions").val("Save Plans")
+      $("#payNowModal").modal("show")
+    else
+      if $(".quantity-text").hasClass("no-editable")
+        $(".quantity-text").removeClass("no-editable")
+        $(".quantity-text").removeAttr("disabled")
+      else
+        $(".quantity-text").addClass("no-editable")
+        $(".quantity-text").attr("disabled", true)
+
+  $("#saveSubscriptions").on "click", ->
+    if $("#has-credit-card").val() is "false"
+      $(".stripe-button-el").click()
+      $('#payNowModal').modal('hide')
+    else
+      $("#form-make-payment").submit()
+  $('.quantity-text').on "keyup", ->
+    $('.edit-quantity').text("Save")
+  $('.quantity-text').on 'click', ->
+    @select()
+
+addToCart = ->
+  $(".add-to-cart").on "click", ->
+    plan = $(this).attr("data-plan")
+    quantity = parseInt($("##{plan}-qty").val())
+    if quantity is 0
+      Notification.show "Please enter quantity."
+      return false
+    else
+      $("##{plan}-quantity").val(quantity)
+      return true
+
+updateTotalPrice = ->
+  $("#payNowModal").on "show.bs.modal", ->
+    $("#spnTotalPrice").text($("#total-price").val())
+
+  $("#upgradeDwongradeModal").on "hide.bs.modal", ->
+    $(".quantity-textsmall").val(0)
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
@@ -157,7 +211,9 @@ window.initializeSubscription = ->
   onCheckoutConfirmCard()
   createAddOns()
   changePlan()
-
+  initEditQuantity()
+  addToCart()
+  updateTotalPrice()
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()

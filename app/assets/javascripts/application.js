@@ -44,5 +44,6 @@
 //= require metronic/classie.js
 //= require metronic/modernizr.custom.js
 //= require metronic/icheck.min.js
+//= require bootstrap-toggle
 //=
 //= require subscriptions.js

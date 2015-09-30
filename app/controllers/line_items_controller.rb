@@ -7,6 +7,7 @@ class LineItemsController < ApplicationController
   def create_subscription
     @current_subscription = current_subscription
     product_params = build_line_item_params(params)
+    product_params[:quantity] = params[:quantity]
     @line_item = LineItem.new(product_params)
     purge_plan_from_cart
     if change_of_plan?

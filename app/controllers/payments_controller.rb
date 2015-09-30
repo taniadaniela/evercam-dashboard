@@ -1,5 +1,4 @@
 class PaymentsController < ApplicationController
-  before_filter :ensure_plan_in_cart_or_existing_subscriber
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists
   layout "user-account"
@@ -20,10 +19,39 @@ class PaymentsController < ApplicationController
   end
 
   def create
+    plans = ["7-days-recording", "7-days-recording-annual", "30-days-recording", "30-days-recording-annual",
+             "90-days-recording", "90-days-recording-annual"]
     @customer = retrieve_stripe_customer
-    create_subscription unless @customer.has_active_subscription?
-    change_plan if @customer.change_of_plan?
-    create_charge if add_ons_in_cart?
+    if @customer.has_active_subscription?
+      subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+      if subscriptions.present?
+        plans.each do |resource|
+          is_saved = false
+          subscriptions[:data].each do |subscription|
+            if subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
+              !params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
+              update_subscription(subscription.plan.id, subscription.id, params["#{subscription.plan.id}-qty"])
+              is_saved = true
+            elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
+              params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
+              is_saved = true
+            elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i.eql?(0)
+              cancel_subscription(subscription.id)
+            end
+          end
+
+          if !is_saved && params["#{resource}-qty"].to_i > 0
+            buy_subscription(resource, params["#{resource}-qty"])
+          end
+        end
+      end
+    else
+      plans.each do |resource|
+        if params["#{resource}-qty"].to_i > 0
+          buy_subscription(resource, params["#{resource}-qty"])
+        end
+      end
+    end
     redirect_to billing_path(current_user.username), flash: { message: "We've successfully made those changes to your account!" }
   end
 
@@ -31,38 +59,10 @@ class PaymentsController < ApplicationController
     result = {success: true}
     begin
       product_params = build_line_item_params(params)
+      product_params[:quantity] = params[:quantity]
       @line_item = LineItem.new(product_params)
       @customer = retrieve_stripe_customer_without_cart(@line_item)
-      is_change_period = @customer.change_of_plan_period?
       @customer.change_plan
-      if is_change_period
-        set_prices
-        @add_ons_arr = Array.new
-        add_ons = AddOn.where(user_id: current_user.id)
-        add_ons.each do |add_on|
-          old_exid = add_on.exid
-          add_on.period = @line_item.interval
-          if @line_item.interval.eql?("month")
-            add_on.add_ons_end_date = add_on.add_ons_start_date + 30.days
-            add_on.exid = add_on.exid.gsub("-annual", "")
-            add_on.add_ons_name = add_on.add_ons_name.gsub(" Annual", "")
-            add_on.period = "month"
-          else
-            add_on.add_ons_end_date = add_on.add_ons_start_date + 1.year
-            add_on.exid = "#{add_on.exid}-annual"
-            add_on.add_ons_name = "#{add_on.add_ons_name} Annual"
-            add_on.period = "year"
-          end
-          add_on.price = product_price(add_on.exid)
-          has_created = @add_ons_arr.detect {|i| i.eql?(old_exid) } ? true : false
-          unless has_created
-            @add_ons_arr.push(old_exid)
-            invoice_item = add_invoice_item(add_on.price.to_i, add_on.add_ons_name, add_ons.where(exid: old_exid).count)
-            add_on.invoice_item_id = invoice_item.id
-          end
-          add_on.save
-        end
-      end
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\
@@ -74,6 +74,29 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def buy_subscription(plan, quantity)
+    selector = ProductSelector.new(plan)
+    product_params = selector.product_params
+    product_params[:quantity] = quantity
+    @line_item = LineItem.new(product_params)
+    @customer = retrieve_stripe_customer_without_cart(@line_item)
+    @customer.create_subscription
+  end
+
+  def update_subscription(plan, subscription_id, quantity)
+    selector = ProductSelector.new(plan)
+    product_params = selector.product_params
+    product_params[:quantity] = quantity
+    @line_item = LineItem.new(product_params)
+    @customer = retrieve_stripe_customer_without_cart(@line_item)
+    @customer.update_subscription(subscription_id)
+  end
+
+  def cancel_subscription(subscription_id)
+    @customer = StripeCustomer.new(current_user.stripe_customer_id)
+    @customer.cancel_subscription(subscription_id)
+  end
 
   def build_line_item_params params
     selector = ProductSelector.new(params[:plan_id])

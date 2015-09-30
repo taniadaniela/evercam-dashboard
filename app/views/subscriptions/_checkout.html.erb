@@ -4,21 +4,18 @@
     <% add_ons_total = 0 %>
     <table class="table table-borderless">
       <tr>
-        <th class="col-md-2">
-          Product
-        </th>
-        <th class="col-md-2 text-right">
-          Price
-        </th>
+        <th class="col-md-2">Product</th>
+        <th class="col-md-1 text-center">Qty.</th>
+        <th class="col-md-2 text-right">Unit Price</th>
       </tr>
       <% session[:cart].each do |item| %>
         <tr>
           <td class="col-md-4 text-left"><%= item.name %>  <small><%= link_to 'remove', line_item_path({id: item.id, product: item.product_id.gsub('-annual',''), type: item.type}), method: :delete, remote: true, class: 'padding-left-10' %></small> </td>
-
+          <td class="col-md-1 text-center"><%= item.quantity %></td>
           <td class="col-md-2 text-right"><%= cents_to_currency item.price %> </td>
         </tr>
         <% add_ons_total = add_ons_total + item.price if item.type.eql?("add_on") %>
-        <% sub_totle = sub_totle + item.price %>
+        <% sub_totle = sub_totle + item.price * item.quantity.to_i %>
       <% end %>
     </table>
     <div class="sub-container text-right">
@@ -32,6 +29,7 @@
       <p>
         <span class="bold sub-total blue">Total:  </span>
         <span class="bold pull-right"> <%= cents_to_currency sub_totle %></span>
+        <input type="hidden" id="total-price" value="<%= cents_to_currency sub_totle %>">
       </p>
     </div>
   <% else %>

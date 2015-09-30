@@ -329,9 +329,6 @@ handleModelEvents = ->
   $(window).on "resize", ->
     $(".modal:visible").each centerModal
 
-  $(".modal").on "hidden.bs.modal", ->
-    $(this).closest("form")[0].reset()
-
 centerModal = ->
   if $("#camera-vendor option").length == 1
     loadVendors()

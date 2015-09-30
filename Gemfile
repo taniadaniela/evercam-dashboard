@@ -9,8 +9,6 @@ gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'sprockets'
-gem 'sprockets-es6',
-  require: 'sprockets/es6'
 gem 'fog'
 gem 'asset_sync'
 gem 'autoprefixer-rails', '~> 5.2.1.3'
@@ -39,8 +37,9 @@ gem 'wkhtmltopdf-binary'
 gem 'intercom', require: 'intercom'
 
 group :evercam do
-  gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.21'
+  gem 'evercam_misc', '~> 0.0.11'
+  gem 'evercam_models',
+    github: 'evercam/evercam-models'
   gem 'evercam',
     github: 'evercam/evercam-ruby'
 end
@@ -98,4 +97,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-screenfull', '~> 2.0'
   gem 'rails-assets-videojs', '~> 4.12.7'
   gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
+  gem 'rails-assets-bootstrap-toggle'
 end

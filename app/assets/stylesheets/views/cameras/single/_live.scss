@@ -62,7 +62,7 @@
   top: 50%;
   left: 50%;
   transition: all .2s linear;
-  z-index: 10000000000;
+  z-index: 99998;
   margin-left: -18px;
   margin-top: -5px;
 }
@@ -111,7 +111,6 @@
   border: none;
 }
 #live .btn {
-  padding: 14px 18px;
   margin-top: 1px;
   margin-left: 10px;
 }
@@ -135,37 +134,48 @@
 
 .ptz-controls {
   background: rgba(0, 0, 0, .65);
+  border: 1px solid #fff;
   border-radius: 2%;
   color: #fff;
-  right: 0;
-  margin-left: 0;
-  margin-top: 0;
+  left: 50%;
+  margin-left: -75px;
+  margin-top: -55px;
   opacity: 0;
-  padding: 0px 4px;
   position: absolute;
-  top: 0;
+  top: 50%;
   transition: all .2s linear;
-  width: 115px;
-  z-index: 99999;
+  width: 155px;
+  z-index: 21474836;
 }
 
 .ptz-controls i{
   cursor: pointer;
 }
 
+.ptz-controls table {
+  width: 100%;
+}
+
+.ptz-controls table > thead {
+  border-bottom: 1px solid #fff;
+  cursor: move;
+}
+
+.ptz-controls table > thead > tr > th {
+  padding-left: 5px;
+}
 
 .ptz-controls .small-column {
-  height: 20px;
-  width: 25px;
+  width: 30px;
 }
 
 .ptz-controls .large-column {
-  height: 20px;
+  height: 30px;
   width: 75px;
 }
 
 #camera-presets .modal-dialog {
-  z-index: 999999999 !important;
+  z-index: 2147483647 !important;
 }
 
 #camera-presets .modal-header {
@@ -174,7 +184,7 @@
   background-repeat: repeat-x;
   border-bottom: 1px solid #ccc;
   border-radius: 6px 6px 0 0;
-  padding: 10px;
+  padding: 5px;
 }
 
 #camera-presets .cancel_link {
@@ -183,12 +193,25 @@
   font-weight: bolder;
   position: absolute;
   right: 16px;
-  top: 16px;
+  top: 10px;
 }
 
 #camera-presets .modal-header strong {
   line-height: 34px;
   margin-left: 10px;
+}
+
+#camera-presets .modal-body {
+  padding: 15px 0 15px 15px;
+}
+
+#camera-presets .modal-footer {
+  border-top: none;
+}
+
+#camera-presets .form-group {
+  margin-bottom: 0;
+  max-height: 300px;
 }
 
 #camera-presets .row-preset {

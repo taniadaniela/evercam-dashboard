@@ -807,10 +807,9 @@ handleMinSecDropDown = ->
   return
 
 handleTabOpen = ->
-  $('.nav-tab-recordings').on 'show.bs.tab', ->
-    #showLoader()
-    #HighlightCurrentMonth()
-    #BoldSnapshotHour(false)
+  $('.nav-tab-recordings').on 'shown.bs.tab', ->
+    window.initScheduleCalendar()
+    window.setCloudRecordingToggle()
     if snapshotInfos isnt null
       date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
       url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
@@ -855,11 +854,3 @@ window.initializeRecordingsTab = ->
   handleResize()
   window.initScheduleCalendar()
   window.setCloudRecordingToggle()
-
-$(document).ready ->
-  $('#cloud-recording-collaps').click ->
-    $('#cloud-recording-calendar').toggleClass 'open'
-    return
-  return
-
-

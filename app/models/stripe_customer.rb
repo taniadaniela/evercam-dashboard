@@ -36,9 +36,9 @@ class StripeCustomer
     @stripe_customer.subscriptions.first
   end
 
-  def subscription_id
-    @stripe_customer.subscriptions.first.id
-  end
+  # def subscription_id
+  #   @stripe_customer.subscriptions.first.id
+  # end
 
   def valid_card?
     if @stripe_customer
@@ -51,12 +51,24 @@ class StripeCustomer
   end
 
   def create_subscription
-    @stripe_customer.subscriptions.create(:plan => @plan_in_cart.product_id)
+    @stripe_customer.subscriptions.create(:plan => @plan_in_cart.product_id, :quantity => @plan_in_cart.quantity)
+  end
+
+  def update_subscription(subscription_id)
+    subscription = @stripe_customer.subscriptions.retrieve(subscription_id)
+    subscription.plan = @plan_in_cart.product_id
+    subscription.quantity = @plan_in_cart.quantity
+    subscription.save
+  end
+
+  def cancel_subscription(subscription_id)
+    @stripe_customer.subscriptions.retrieve(subscription_id).delete
   end
 
   def change_plan
     subscription = @stripe_customer.subscriptions.retrieve(subscription_id)
     subscription.plan = @plan_in_cart.product_id
+    subscription.quantity = @plan_in_cart.quantity
     subscription.save
   end
 

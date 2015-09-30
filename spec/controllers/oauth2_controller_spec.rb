@@ -444,34 +444,9 @@ describe Oauth2Controller do
         end
       end
 
-      context 'when 3Scale returns a negative response' do
-        before(:each) do
-          client0.update(callback_uris: ['http://www.google.com/blah'])
-          stub_request(:get, "http://su1.3scale.net/transactions/authrep.xml?%5Busage%5D%5Bhits%5D=1&app_id=client0&app_key=client0_secret&provider_key=b25bc9166b8805fc26a96f1130578d2b").
-             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'su1.3scale.net', 'User-Agent'=>'Ruby'}).
-             to_return(:status => 409,
-                       :body => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<status>\n  <authorized>false</authorized>\n   <reason>its broke</reason>\n  <plan>Pay As You Go ($20 for 10,000 hits)</plan>\n</status>",
-                       :headers => {})
-        end
-
-        it 'hits the redirect URI with an error' do
-          post(:post_authorize, parameters)
-
-          expect(response.status).to eq(302)
-          uri = URI.parse(response.location)
-          expect(uri.host).to eq('www.google.com')
-          expect(uri.query).to eq('error=unauthorized_client')
-        end
-      end
-
       context 'when 3Scale returns a positive response' do
         before(:each) do
           client0.update(callback_uris: ['http://www.google.com/blah'])
-          stub_request(:get, "http://su1.3scale.net/transactions/authrep.xml?%5Busage%5D%5Bhits%5D=1&app_id=client0&app_key=client0_secret&provider_key=b25bc9166b8805fc26a96f1130578d2b").
-             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'su1.3scale.net', 'User-Agent'=>'Ruby'}).
-             to_return(:status => 200,
-                       :body => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<status>\n  <authorized>true</authorized>\n  <plan>Pay As You Go ($20 for 10,000 hits)</plan>\n</status>",
-                       :headers => {})
         end
 
         context 'when a redirect URI is included in the request' do
@@ -548,11 +523,6 @@ describe Oauth2Controller do
       context 'for valid requests' do
         before(:each) do
           client0.update(callback_uris: ['http://www.google.com/blah'])
-          stub_request(:get, "http://su1.3scale.net/transactions/authrep.xml?%5Busage%5D%5Bhits%5D=1&app_id=client0&app_key=client0_secret&provider_key=b25bc9166b8805fc26a96f1130578d2b").
-             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'su1.3scale.net', 'User-Agent'=>'Ruby'}).
-             to_return(:status => 200,
-                       :body => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<status>\n  <authorized>true</authorized>\n  <plan>Pay As You Go ($20 for 10,000 hits)</plan>\n</status>",
-                       :headers => {})
         end
 
         context 'when a redirect URI is included in the request' do

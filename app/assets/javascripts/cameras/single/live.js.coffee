@@ -14,7 +14,7 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 loadImage = ->
-  unless window.snapshot_streaming_enabled
+  unless window.Evercam.Camera.cloud_recording.frequency == 60
     img = new Image()
     live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{live_snapshot_url}&rand=" + new Date().getTime()
@@ -37,11 +37,13 @@ controlButtonEvents = ->
       refresh_paused = false
       $(this).children().removeClass "icon-control-play"
       $(this).children().addClass "icon-control-pause"
+      disconnectFromSocket()
     else
       clearInterval int_time
       refresh_paused = true
       $(this).children().removeClass "icon-control-pause"
       $(this).children().addClass "icon-control-play"
+      connectToSocket()
   $(".refresh-live-snap, .refresh-camera").on "click", ->
     loadImage()
 
@@ -67,7 +69,7 @@ openPopout = ->
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
-  $(".vjs-text-track-display").append($("#ptz-control"))
+  $("#camera-video-player").append($("#ptz-control"))
 
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
@@ -83,21 +85,25 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         int_time = setInterval(loadImage, 1000)
+        connectToSocket()
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
+        disconnectFromSocket()
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
+    connectToSocket()
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
     else
       checkCameraOnline()
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
+    Evercam.socket.disconnect()
     clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
@@ -198,6 +204,8 @@ handlePtzCommands = ->
     sendAJAXRequest(settings)
 
 getPtzPresets = ->
+  if !$(".ptz-controls").html()
+    return
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
@@ -207,10 +215,11 @@ getPtzPresets = ->
 
   onSuccess = (result) ->
     for preset in result.Presets
-      divPresets =$('<div>', {class: "row-preset"})
-      divPresets.append($(document.createTextNode(preset.Name)))
-      divPresets.attr("token_val", preset.token)
-      $("#presets-table").append(divPresets)
+      if preset.token < 33
+        divPresets =$('<div>', {class: "row-preset"})
+        divPresets.append($(document.createTextNode(preset.Name)))
+        divPresets.attr("token_val", preset.token)
+        $("#presets-table").append(divPresets)
     true
 
   settings =
@@ -246,11 +255,29 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
-$('#ptz-control').click ->
-  alert 'clicked'
-  return
+handleModelEvents = ->
+  $("#camera-presets").on "show.bs.modal", ->
+    $("#ptz-control").addClass("hide")
+
+  $("#camera-presets").on "hidden.bs.modal", ->
+    $("#ptz-control").removeClass("hide")
+
+initSocket = ->
+  window.Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
+  connectToSocket()
+
+connectToSocket = ->
+  Evercam.socket.connect()
+  chan = Evercam.socket.chan("cameras:#{Evercam.Camera.id}", {})
+  chan.join()
+  chan.on 'snapshot-taken', (payload) ->
+    $('#live-player-image').attr 'src', 'data:image/jpeg;base64,' + payload.image
+
+disconnectFromSocket = ->
+  Evercam.socket.disconnect()
 
 window.initializeLiveTab = ->
+  initSocket()
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
@@ -264,3 +291,4 @@ window.initializeLiveTab = ->
   handlePtzCommands()
   getPtzPresets()
   changePtzPresets()
+  handleModelEvents()

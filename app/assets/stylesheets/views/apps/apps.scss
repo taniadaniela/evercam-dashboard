@@ -1,0 +1,23 @@
+.user-applications {
+  .token_info {
+    margin-top: 15px;
+  }
+
+  .info-value, .info-title {
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+
+  .info-title {
+    width: 100px;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: transparent;
+    border: 1px solid transparent;
+  }
+}

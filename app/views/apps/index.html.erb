@@ -1,0 +1,43 @@
+<div class="user-applications">
+  <div class="page-content-wrapper" id="manage-account">
+    <div class="page-content">
+      <div class="portlet-body">
+        <div class="col-md-12">
+          <h3>Applications</h3>
+          <div class="token_info">
+            <table id="application-table" style="width:100%;" class="table table-full-width">
+              <thead>
+              <tr>
+                <th>Grantor</th>
+                <th>App</th>
+                <th>Token</th>
+                <th>Expire At</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @tokens.each do |item| %>
+                <tr>
+                  <td><%= item.grantor.fullname if item.grantor.present? %></td>
+                  <td><%= item.client.name if item.client_id.present? %></td>
+                  <td><%= item[:request] %></td>
+                  <td><%= Time.at(item[:expires_at]).strftime("%d %b %Y") %></td>
+                  <td><% unless item.is_revoked %><a>Revoke</a><% end %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#application-table').DataTable({
+    iDisplayLength: 50,
+    order: [[ 3, "desc" ]]
+  });
+});
+</script>

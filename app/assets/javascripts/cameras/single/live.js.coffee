@@ -178,6 +178,8 @@ handleResize = ->
 
 handlePtzCommands = ->
   $(".ptz-controls").on 'click', 'i', ->
+    headingText = $('#ptz-control table thead tr th').text()
+    $('#ptz-control table thead tr th').html 'Waiting <div class="loader"></div>'
     ptz_command = $(this).attr("data-val")
     if !ptz_command
       return
@@ -187,10 +189,14 @@ handlePtzCommands = ->
     data = {}
 
     onError = (jqXHR, status, error) ->
+      $('#ptz-control table thead tr th').html headingText
       false
 
     onSuccess = (result) ->
+      $('#ptz-control table thead tr th').html headingText
       true
+
+
 
     settings =
       cache: false
@@ -254,13 +260,13 @@ changePtzPresets = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
-
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->
     $("#ptz-control").addClass("hide")
 
   $("#camera-presets").on "hidden.bs.modal", ->
     $("#ptz-control").removeClass("hide")
+    $('#ptz-control table thead tr th').html 'PTZ'
 
 initSocket = ->
   window.Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
@@ -275,6 +281,8 @@ connectToSocket = ->
 
 disconnectFromSocket = ->
   Evercam.socket.disconnect()
+
+
 
 window.initializeLiveTab = ->
   initSocket()

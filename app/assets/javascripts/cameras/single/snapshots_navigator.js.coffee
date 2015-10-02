@@ -841,6 +841,10 @@ handleResize = ->
   $(window).resize ->
     calculateWidth()
 
+onCollapsRecording = ->
+  $('#cloud-recording-collaps').click ->
+    $('#cloud-recording-calendar').toggleClass 'open'
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -852,3 +856,6 @@ window.initializeRecordingsTab = ->
   fullscreenImage()
   saveImage()
   handleResize()
+  window.initScheduleCalendar()
+  window.setCloudRecordingToggle()
+  onCollapsRecording()

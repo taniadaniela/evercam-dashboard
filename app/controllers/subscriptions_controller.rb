@@ -14,8 +14,8 @@ class SubscriptionsController < ApplicationController
   def index
     set_prices
     @subscription = current_subscription
-    @billing_history = retrieve_customer_billing_history
-    @invoices = retrieve_customer_invoices
+    # @billing_history = retrieve_customer_billing_history
+    # @invoices = retrieve_customer_invoices
     @next_charge = retrieve_customer_next_charge
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
     unless current_user.stripe_customer_id.blank?

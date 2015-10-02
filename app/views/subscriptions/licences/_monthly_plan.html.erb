@@ -1,23 +1,51 @@
 <div class="col-md-12">
-  <table class="col-md-7 plan-table">
+  <table class="col-md-10 plan-table">
+    <tr>
+      <th>Licences</th>
+      <th class="text-center">Current</th>
+      <th class="text-center">Amount</th>
+      <th class="text-center">ADD / Remove</th>
+      <th class="text-center">Change (<i class="fa fa-eur"></i>)</th>
+    </tr>
     <tr class="plan-monthly">
-      <td class="col-md-5">7 Day Licences</td>
+      <td class="col-md-5">7 Day @ <%= cents_to_currency @prices.seven_days_recording %></td>
       <td class="col-md-2 text-center">
-        <input name="7-days-recording-qty" id="7-days-recording-qty" type="text" value="<%= @seven_days_recording %>" class="quantity-text small no-editable" disabled>
+        <%= @seven_days_recording %>
       </td>
+      <td class="text-center"><%= cents_to_currency @prices.seven_days_recording %></td>
+      <td class="text-center">
+        <i class="fa fa-plus"></i>
+        <input name="7-days-recording-qty" id="7-days-recording-qty" type="text" value="0" class="quantity-text small no-editable" disabled>
+        <i class="fa fa-minus"></i>
+      </td>
+      <td class="text-center"></td>
     </tr>
     <tr class="plan-monthly">
-      <td>30 Day Licences</td>
+      <td>30 Day @ <%= cents_to_currency @prices.thirty_days_recording %></td>
       <td class="text-center">
-        <input name="30-days-recording-qty" id="30-days-recording-qty" type="text" value="<%= @thirty_days_recording %>" class="quantity-text small no-editable" disabled>
+        <%= @thirty_days_recording %>
       </td>
+      <td class="text-center"><%= cents_to_currency @prices.thirty_days_recording %></td>
+      <td class="text-center">
+        <i class="fa fa-plus"></i>
+        <input name="30-days-recording-qty" id="30-days-recording-qty" type="text" value="0" class="quantity-text small no-editable" disabled>
+        <i class="fa fa-minus"></i>
+      </td>
+      <td class="text-center"></td>
     </tr>
     <tr class="plan-monthly">
-      <td>90 Day Licences</td>
+      <td>90 Day @ <%= cents_to_currency @prices.ninety_days_recording %></td>
       <td class="text-center">
-        <input name="90-days-recording-qty" id="90-days-recording-qty" type="text" value="<%= @ninety_days_recording %>" class="quantity-text small no-editable" disabled>
+        <%= @ninety_days_recording %>
       </td>
-      <td rowspan="3"><a href="#" class="edit-quantity margin-left-15">Edit</a></td>
+      <td class="text-center"><%= cents_to_currency @prices.ninety_days_recording %></td>
+      <td class="text-center">
+        <i class="fa fa-plus"></i>
+        <input name="90-days-recording-qty" id="90-days-recording-qty" type="text" value="0" class="quantity-text small no-editable" disabled>
+        <i class="fa fa-minus"></i>
+      </td>
+      <td class="text-center"></td>
     </tr>
   </table>
 </div>
+<!-- <a href="#" class="edit-quantity margin-left-15">Edit</a> -->

@@ -203,6 +203,7 @@ handleRecordingToggle = ->
         updateScheduleToOff()
 
 window.setCloudRecordingToggle = ->
+  $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
   if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
     if Evercam.Camera.cloud_recording.frequency == 1
       $("#cloud-recording-off").iCheck('check')

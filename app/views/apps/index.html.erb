@@ -3,41 +3,93 @@
     <div class="page-content">
       <div class="portlet-body">
         <div class="col-md-12">
-          <h3>Applications</h3>
-          <div class="token_info">
-            <table id="application-table" style="width:100%;" class="table table-full-width">
-              <thead>
-              <tr>
-                <th>Grantor</th>
-                <th>App</th>
-                <th>Token</th>
-                <th>Expire At</th>
-                <th></th>
-              </tr>
-              </thead>
-              <tbody>
-              <% @tokens.each do |item| %>
-                <tr>
-                  <td><%= item.grantor.fullname if item.grantor.present? %></td>
-                  <td><%= item.client.name if item.client_id.present? %></td>
-                  <td><%= item[:request] %></td>
-                  <td><%= Time.at(item[:expires_at]).strftime("%d %b %Y") %></td>
-                  <td><% unless item.is_revoked %><a>Revoke</a><% end %></td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
+          <h3>Authorized Applications</h3>
+          <div class="app-box">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row app-details">
+                  <div class="col-lg-3">Application:</div>
+                  <div class="col-lg-9">Evercam Timelapse</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">API ID:</div>
+                  <div class="col-lg-9">c403253</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">API Key:</div>
+                  <div class="col-lg-9">45jh34j5h3487y8erhiu34h878y87</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row app-details">
+                  <div class="col-lg-3">Expires At:</div>
+                  <div class="col-lg-9">18 July 2025</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">Auth Token:</div>
+                  <div class="col-lg-9">786ds8fb6786g87dshfsdf687sdf6</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">Scopes:</div>
+                  <div class="col-lg-9">cameras:list:all, cameras:view:all, user:view:all, snapshots:list:all</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <input type="button" value="Revoke Access" class="btn btn-primary red">
+              </div>
+            </div>
+          </div>
+
+          <div class="app-box">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row app-details">
+                  <div class="col-lg-3">Application:</div>
+                  <div class="col-lg-9">Evercam Capture</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">API ID:</div>
+                  <div class="col-lg-9">c403253</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">API Key:</div>
+                  <div class="col-lg-9">45jh34j5h3487y8erhiu34h878y87</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row app-details">
+                  <div class="col-lg-3">Expires At:</div>
+                  <div class="col-lg-9">18 July 2025</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">Auth Token:</div>
+                  <div class="col-lg-9">786ds8fb6786g87dshfsdf687sdf6</div>
+                </div>
+                <div class="row app-details">
+                  <div class="col-lg-3">Scopes:</div>
+                  <div class="col-lg-9">cameras:list:all, cameras:view:all, user:view:all, snapshots:list:all</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <input type="button" value="Revoke Access" class="btn btn-primary red">
+              </div>
+            </div>
           </div>
         </div>
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>
 </div>
 <script>
 $(document).ready(function() {
-  $('#application-table').DataTable({
-    iDisplayLength: 50,
-    order: [[ 3, "desc" ]]
-  });
+//  $('#application-table').DataTable({
+//    iDisplayLength: 50,
+//    order: [[ 3, "desc" ]]
+//  });
 });
 </script>

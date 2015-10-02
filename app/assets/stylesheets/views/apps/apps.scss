@@ -1,15 +1,12 @@
 .user-applications {
-  .token_info {
+  .app-box {
+    border-bottom: 1px solid $secondary-grey;
     margin-top: 15px;
+    padding: 15px 0;
   }
 
-  .info-value, .info-title {
-    display: inline-block;
+  .app-details {
     padding-bottom: 5px;
-  }
-
-  .info-title {
-    width: 100px;
   }
 
   .dataTables_wrapper .dataTables_paginate .paginate_button {

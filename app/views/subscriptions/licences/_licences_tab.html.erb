@@ -54,15 +54,6 @@
   </form>
 </div>
 
-<div id="divCart" style="<% if session[:cart].blank? %>display: none;<% end %>" class="col-md-12">
-  <h3>Cart</h3>
-  <div class="card">
-    <%= render 'cart' %>
-    <a class="col-md-4 pull-right btn btn-primary add-card-to-continue" data-toggle="modal" data-target="#payNowModal">Pay Now</a>
-    <% link_to "Proceed to Checkout", new_checkout_path, class: '' %>
-  </div>
-</div>
-
 <div id="payNowModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">

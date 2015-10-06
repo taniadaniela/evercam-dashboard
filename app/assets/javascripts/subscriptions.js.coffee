@@ -14,7 +14,8 @@ sendAJAXRequest = (settings) ->
 createAddRemoveLicence = ->
   $(".remove-licence").on 'click', ->
     control_id = $(this).attr("data-val")
-    quantity = parseInt($("##{control_id}-qty").val())
+    update_quantity = parseInt($("##{control_id}-qty").val())
+    quantity = parseInt($("##{control_id}-quantity").val())
     licence_price = parseInt($("##{control_id}").val())
     new_price = parseInt($("##{control_id}-new-price").text())
 
@@ -22,31 +23,34 @@ createAddRemoveLicence = ->
       current_quantity = parseInt($("##{control_id}-current-qty").text())
       if current_quantity > 0
         current_quantity--
+        update_quantity--
         $("##{control_id}-current-qty").text(current_quantity)
         $("##{control_id}-current-price").text(licence_price * current_quantity)
         $("##{control_id}-new-price").text(new_price + licence_price)
         $("##{control_id}-sign").text("-")
+        showTotal()
     else
       quantity--
+      update_quantity--
       new_price = licence_price *  quantity
-      $("##{control_id}-qty").val(quantity)
+      $("##{control_id}-quantity").val(quantity)
       $("##{control_id}-new-price").text(new_price)
       $("##{control_id}-sign").text("+")
+      showTotal()
 
-    $(".new-price-annual").each ->
-      price = parseInt($(this).text())
-      total_price = parseInt($("#new-total-price-annual").text())
-      $("#new-total-price-annual").text(price + total_price)
+    $("##{control_id}-qty").val(update_quantity)
 
   $(".add-licence").on 'click', ->
     control_id = $(this).attr("data-val")
-    quantity = parseInt($("##{control_id}-qty").val())
+    update_quantity = parseInt($("##{control_id}-qty").val())
+    quantity = parseInt($("##{control_id}-quantity").val())
     licence_price = parseInt($("##{control_id}").val())
     new_price = parseInt($("##{control_id}-new-price").text())
 
     if quantity is 0 && new_price > 0
       current_quantity = parseInt($("##{control_id}-current-qty").text())
       current_quantity++
+      update_quantity++
       $("##{control_id}-current-qty").text(current_quantity)
       $("##{control_id}-current-price").text(licence_price * current_quantity)
       substract_price = Math.abs(new_price - licence_price)
@@ -57,14 +61,49 @@ createAddRemoveLicence = ->
         $("##{control_id}-new-price").text(substract_price)
     else
       quantity++
+      update_quantity++
       new_price = licence_price *  quantity
-      $("##{control_id}-qty").val(quantity)
+      $("##{control_id}-quantity").val(quantity)
       $("##{control_id}-new-price").text(new_price)
 
+    $("##{control_id}-qty").val(update_quantity)
+    showTotal()
 
-showConfirmation = ->
-  $('.delete-add-ons').on 'click', ->
-    confirm('Are you sure you wish to cancel this add-on?')
+showTotal = ->
+  calculateCurrentTotal("new-price-monthly", "new-total-price-monthly")
+  calculateTotal("current-price-monthly", "current-total-price-monthly")
+  calculateTotal("current-qty-monthly", "current-total-quantity-monthly")
+  calculateCurrentTotal("new-price-annual", "new-total-price-annual")
+  calculateTotal("current-price-annual", "current-total-price-annual")
+  calculateTotal("current-qty-annual", "current-total-quantity-annual")
+
+calculateTotal = (price_control, total_price_control, has_sign) ->
+  $("##{total_price_control}").text(0)
+  new_total_price = 0
+  $(".#{price_control}").each ->
+    price = parseInt($(this).text())
+    total_price = parseInt($("##{total_price_control}").text())
+    $("##{total_price_control}").text(price + total_price)
+
+calculateCurrentTotal = (price_control, total_price_control) ->
+  $("##{total_price_control}").text(0)
+  new_total_price = 0
+  $(".#{price_control}").each ->
+    price = parseInt($(this).text())
+    total_price = parseInt($("##{total_price_control}").text())
+    sign_control_id = $(this).attr("id")
+    sign_control_id = sign_control_id.replace('-new-price', '')
+    if $("##{sign_control_id}-sign").text() is "+"
+      new_total_price = new_total_price + price
+    else
+      new_total_price = new_total_price - price
+
+  if new_total_price >= 0
+    $("##{total_price_control}").text(new_total_price)
+    $("##{total_price_control}-sign").text("+")
+  else
+    $("##{total_price_control}").text(Math.abs(new_total_price))
+    $("##{total_price_control}-sign").text("-")
 
 onCheckoutConfirmCard = ->
   $(".add-card-to-continue").on 'click', ->
@@ -186,9 +225,11 @@ centerModal = (model) ->
   offset = ($(window).height() - $dialog.height()) / 2
   $dialog.css "margin-top", offset
 
-initEditQuantity = ->
-  $('.edit-quantity').on "click", ->
-    if $(this).text() is "Save"
+validateLicenceForm = ->
+  $('#submit-licences').on "click", ->
+    price_monthly = parseInt($("#new-total-price-monthly").text())
+    price_annual = parseInt($("#new-total-price-annual").text())
+    if price_monthly isnt 0 || price_annual isnt 0
       if $("#has-credit-card").val() is "false"
         $("#saveSubscriptions").val($(".stripe-button-el span").text())
         $("#checkout-message").hide()
@@ -199,12 +240,7 @@ initEditQuantity = ->
         $("#saveSubscriptions").val("Save Plans")
       $("#payNowModal").modal("show")
     else
-      if $(".quantity-text").hasClass("no-editable")
-        $(".quantity-text").removeClass("no-editable")
-        $(".quantity-text").removeAttr("disabled")
-      else
-        $(".quantity-text").addClass("no-editable")
-        $(".quantity-text").attr("disabled", true)
+      Notification.show "Please add/remove licences."
 
   $("#saveSubscriptions").on "click", ->
     if $("#has-credit-card").val() is "false"
@@ -212,10 +248,6 @@ initEditQuantity = ->
       $('#payNowModal').modal('hide')
     else
       $("#form-make-payment").submit()
-  $('.quantity-text').on "keyup", ->
-    $('.edit-quantity').text("Save")
-  $('.quantity-text').on 'click', ->
-    @select()
 
 addToCart = ->
   $(".add-to-cart").on "click", ->
@@ -237,12 +269,11 @@ updateTotalPrice = ->
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
-  showConfirmation()
   onUpgradeDownGrade()
   onCheckoutConfirmCard()
   createAddRemoveLicence()
   changePlan()
-  initEditQuantity()
+  validateLicenceForm()
   addToCart()
   updateTotalPrice()
 

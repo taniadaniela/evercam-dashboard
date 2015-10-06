@@ -2,8 +2,6 @@ class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :owns_data!
   layout "user-account"
-  include CurrentCart
-  before_filter :set_cart
   include SessionsHelper
   include ApplicationHelper
   include StripeCustomersHelper
@@ -14,8 +12,8 @@ class SubscriptionsController < ApplicationController
   def index
     set_prices
     @subscription = current_subscription
-    # @billing_history = retrieve_customer_billing_history
-    # @invoices = retrieve_customer_invoices
+    @billing_history = retrieve_customer_billing_history
+    @invoices = retrieve_customer_invoices
     @next_charge = retrieve_customer_next_charge
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
     unless current_user.stripe_customer_id.blank?

@@ -1,4 +1,5 @@
 .subscriptions {
+  color: $text-grey;
 
   h3 {
     margin: 5px 0px 15px;
@@ -64,8 +65,8 @@
     padding: 8px 0px 8px;
   }
 
-  .table > tbody > tr > th {
-    color: $grey;
+  .table > thead > tr > th {
+    padding: 8px 0;
   }
 
   .table > tbody > tr > td {

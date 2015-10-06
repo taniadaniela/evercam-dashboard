@@ -1,28 +1,92 @@
 <div class="row">
   <div class="col-md-12">
-    <div>
-      <table style="width:100%;" class="table table-full-width">
+    <table style="width:100%;" class="table table-full-width">
+      <thead>
         <tr>
-          <th class="col-md-8">Camera</th>
-          <th class="col-md-4">Product</th>
+          <th class="col-md-4">Licence Required</th>
+          <th class="col-md-2">Qty.</th>
+          <th class="col-md-6">Camera(s)</th>
         </tr>
-        <% @cameras_products.each do |camera| %>
-          <tr>
-            <td><%= camera[:name] %></td>
-            <% if camera.cloud_recording.present? %>
-              <% if camera.cloud_recording[0].storage_duration.equal?(-1) %>
-                <td>Infinity</td>
-              <% elsif  camera.cloud_recording[0].storage_duration.equal?(1) %>
-                <td>24 hours recording</td>
-              <% else %>
-                <td><%= camera.cloud_recording[0].storage_duration %> days recording</td>
-              <% end %>
-            <% else %>
-              <td></td>
+      </thead>
+      <tbody>
+      <% one_day = []
+         seven = []
+         thirty = []
+         ninety = []
+         infinity = []
+      @cameras_products.each do |camera|
+        if camera.cloud_recording.present?
+          if camera.cloud_recording[0].storage_duration.equal?(-1)
+            infinity[infinity.count] = camera
+          elsif  camera.cloud_recording[0].storage_duration.equal?(1)
+            one_day[one_day.count] = camera
+          elsif  camera.cloud_recording[0].storage_duration.equal?(7)
+            seven[seven.count] = camera
+          elsif  camera.cloud_recording[0].storage_duration.equal?(30)
+            thirty[thirty.count] = camera
+          elsif  camera.cloud_recording[0].storage_duration.equal?(90)
+            ninety[ninety.count] = camera
+          end
+        end
+      end %>
+      <% if infinity.present? %>
+        <tr>
+          <td>Infinity Recording</td>
+          <td><%= infinity.count %></td>
+          <td>
+            <% infinity.each do |item| %>
+              <div><%= item.name %></div>
             <% end %>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+          </td>
+        </tr>
+      <% end %>
+      <% if one_day.present? %>
+        <tr>
+          <td><%= one_day[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= one_day.count %></td>
+          <td>
+            <% one_day.each do |item| %>
+              <div><%= item.name %></div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <% if seven.present? %>
+        <tr>
+          <td><%= seven[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= seven.count %></td>
+          <td>
+            <% seven.each do |item| %>
+              <div><%= item.name %></div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <% if thirty.present? %>
+        <tr>
+          <td><%= thirty[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= thirty.count %></td>
+          <td>
+            <% thirty.each do |item| %>
+              <div><%= item.name %></div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <% if ninety.present? %>
+        <tr>
+          <td><%= ninety[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= ninety.count %></td>
+          <td>
+            <% ninety.each do |item| %>
+              <div><%= item.name %></div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
+
+

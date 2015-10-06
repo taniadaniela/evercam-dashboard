@@ -11,25 +11,56 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
-createAddOns = ->
-  $(".create-add-ons").on 'click', ->
+createAddRemoveLicence = ->
+  $(".remove-licence").on 'click', ->
     control_id = $(this).attr("data-val")
-    # $("##{control_id}").click()
+    quantity = parseInt($("##{control_id}-qty").val())
+    licence_price = parseInt($("##{control_id}").val())
+    new_price = parseInt($("##{control_id}-new-price").text())
 
-  $(".remove-add-on").on 'click', ->
-    control_id = $(this).attr("data-val")
-    quantity = $("##{control_id}-qty").val()
-    if quantity is "0"
-      $(".user-add-ons-table").hide()
-      if $(".#{control_id}-table").length > 0
-        if $(".#{control_id}-table").length is 1
-          # $(".#{control_id}-table a").click()
-        else
-          $(".#{control_id}-table").show()
-          $('#cancelAddOnsModal').modal('show')
-      return false
+    if quantity is 0
+      current_quantity = parseInt($("##{control_id}-current-qty").text())
+      if current_quantity > 0
+        current_quantity--
+        $("##{control_id}-current-qty").text(current_quantity)
+        $("##{control_id}-current-price").text(licence_price * current_quantity)
+        $("##{control_id}-new-price").text(new_price + licence_price)
+        $("##{control_id}-sign").text("-")
     else
-      return true
+      quantity--
+      new_price = licence_price *  quantity
+      $("##{control_id}-qty").val(quantity)
+      $("##{control_id}-new-price").text(new_price)
+      $("##{control_id}-sign").text("+")
+
+    $(".new-price-annual").each ->
+      price = parseInt($(this).text())
+      total_price = parseInt($("#new-total-price-annual").text())
+      $("#new-total-price-annual").text(price + total_price)
+
+  $(".add-licence").on 'click', ->
+    control_id = $(this).attr("data-val")
+    quantity = parseInt($("##{control_id}-qty").val())
+    licence_price = parseInt($("##{control_id}").val())
+    new_price = parseInt($("##{control_id}-new-price").text())
+
+    if quantity is 0 && new_price > 0
+      current_quantity = parseInt($("##{control_id}-current-qty").text())
+      current_quantity++
+      $("##{control_id}-current-qty").text(current_quantity)
+      $("##{control_id}-current-price").text(licence_price * current_quantity)
+      substract_price = Math.abs(new_price - licence_price)
+      if substract_price is 0
+        $("##{control_id}-new-price").text(0)
+        $("##{control_id}-sign").text("+")
+      else
+        $("##{control_id}-new-price").text(substract_price)
+    else
+      quantity++
+      new_price = licence_price *  quantity
+      $("##{control_id}-qty").val(quantity)
+      $("##{control_id}-new-price").text(new_price)
+
 
 showConfirmation = ->
   $('.delete-add-ons').on 'click', ->
@@ -209,7 +240,7 @@ window.initializeSubscription = ->
   showConfirmation()
   onUpgradeDownGrade()
   onCheckoutConfirmCard()
-  createAddOns()
+  createAddRemoveLicence()
   changePlan()
   initEditQuantity()
   addToCart()

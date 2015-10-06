@@ -23,6 +23,14 @@
     margin:0px 0px 40px;
   }
 
+  .table-footer {
+    border-top: 1px solid $main-grey;
+  }
+
+  .table-footer tr > td {
+    padding-top: 10px;
+  }
+
   .card {
     box-shadow: $box-shadow;
     border-radius:$border-radius;
@@ -80,18 +88,34 @@
     padding: 0px 0px 0px;
   }
 
-  .nav-plans {
-    border-bottom: none;
-    max-width: 310px;
-  }
-
   .nav-plans > li.active > a,
   .nav-plans > li.active > a:hover,
   .nav-plans > li.active > a:focus {
     background-color: transparent;
-    border: 1px solid $secondary-grey;
-    border-radius: 20px;
+    border-color: -moz-use-text-color -moz-use-text-color $evercam-red;
+    border-width: medium medium 2px;
     font-family: proxima-nova-regular,"Open Sans",Arial,Helvetica,sans-serif;
+  }
+
+  .remove-licence,
+  .add-licence {
+    cursor: pointer;
+  }
+
+  .nav-plans > li > a:hover {
+    color: #555;
+  }
+
+  .nav-plans > li.hover > a,
+  .nav-plans > li.hover > a:hover{
+    background: rgba(0,0,0,0) none repeat scroll 0 0;
+    border-color: -moz-use-text-color -moz-use-text-color $evercam-red;
+    border: 0 none;
+    color: #555;
+  }
+
+  .nav-plans > li {
+    margin-bottom: -2px;
   }
 
   .margin-left-15 {

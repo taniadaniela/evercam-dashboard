@@ -33,12 +33,22 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <% unless !@next_charge %>
-          <p class="margin-bottom-20">Your next charge of
-            <strong><%= cents_to_currency @next_charge[:total] %></strong>
-            is on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %>.</p>
-        <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8 margin-top-15">
+            <% unless !@next_charge %>
+                <div class="col-md-8"><strong>Next Renewal:</strong></div>
+                <div class="col-md-4 text-right">
+                  <strong><%= Time.at(@next_charge[:date]).strftime("%d %B") %><% cents_to_currency @next_charge[:total] %></strong>
+                </div>
+            <% end %>
+            </div>
+            <div class="col-md-4 text-right">
+              <input type="button" class="btn btn-primary red" value="Add/Remove Licence" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </form>

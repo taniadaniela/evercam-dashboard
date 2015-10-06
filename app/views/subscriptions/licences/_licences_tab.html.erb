@@ -1,4 +1,13 @@
 <div class="col-md-12">
+  <h3>Licences Required</h3>
+  <div class="licence-cameras">
+    <%= render 'subscriptions/licences/cameras' %>
+  </div>
+</div>
+
+<div class="col-md-12 margin-top-15">
+  <h3>Licences Purchased</h3>
+
   <% monthly_total = @seven_days_recording + @thirty_days_recording + @ninety_days_recording %>
   <% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual %>
   <form id="form-make-payment" method="post" action="<%= new_charge_path %>">
@@ -11,7 +20,7 @@
               <a data-toggle="tab" data-target="#monthly-plans" class="nav-tab-licences nav-tab-">Monthly Plans (<%= monthly_total %>)</a>
             </li>
             <li>
-              <a data-toggle="tab" data-target="#annual-plans" class="nav-tab-history">Annual Plans (<%= annual_total %>)</a>
+              <a data-toggle="tab" data-target="#annual-plans" class="nav-tab-history">Annual Plans (<%= annual_total %>) (Save 20%)</a>
             </li>
           </ul>
         </div>
@@ -24,12 +33,22 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <% unless !@next_charge %>
-          <p class="margin-bottom-20">Your next charge of
-            <strong><%= cents_to_currency @next_charge[:total] %></strong>
-            is on <%= Time.at(@next_charge[:date]).strftime("%d %b %Y") %>.</p>
-        <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8 margin-top-15">
+            <% unless !@next_charge %>
+                <div class="col-md-8"><strong>Next Renewal:</strong></div>
+                <div class="col-md-4 text-right">
+                  <strong><%= Time.at(@next_charge[:date]).strftime("%d %B") %><% cents_to_currency @next_charge[:total] %></strong>
+                </div>
+            <% end %>
+            </div>
+            <div class="col-md-4 text-right">
+              <input id="submit-licences" type="button" class="btn btn-primary red" value="Add/Remove Licence" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </form>
@@ -41,13 +60,6 @@
     <%= render 'cart' %>
     <a class="col-md-4 pull-right btn btn-primary add-card-to-continue" data-toggle="modal" data-target="#payNowModal">Pay Now</a>
     <% link_to "Proceed to Checkout", new_checkout_path, class: '' %>
-  </div>
-</div>
-
-<div class="col-md-12">
-  <h3>Cameras</h3>
-  <div class="card">
-    <%= render 'subscriptions/licences/cameras' %>
   </div>
 </div>
 

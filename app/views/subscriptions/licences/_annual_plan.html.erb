@@ -1,23 +1,107 @@
+<% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual %>
+<% seven_days = cents_to_currency(@prices.seven_days_recording_annual * @seven_days_recording_annual) %>
+<% thiry_days = cents_to_currency(@prices.thirty_days_recording_annual * @thirty_days_recording_annual) %>
+<% ninety_days = cents_to_currency(@prices.ninety_days_recording_annual * @ninety_days_recording_annual) %>
 <div class="col-md-12">
-  <table class="plan-table col-md-7">
-    <tr class="plan-annual">
-      <td class="col-md-5">7 Day Licences</td>
-      <td class=" col-md-2 text-center">
-        <input name="7-days-recording-annual-qty" id="7-days-recording-annual-qty" type="text" value="<%= @seven_days_recording_annual %>" class="quantity-text small no-editable" disabled>
-      </td>
-    </tr>
-    <tr class="plan-annual">
-      <td>30 Day Licences</td>
-      <td class="text-center">
-        <input name="30-days-recording-annual-qty" id="30-days-recording-annual-qty" type="text" value="<%= @thirty_days_recording_annual %>" class="quantity-text small no-editable" disabled>
-      </td>
-    </tr>
-    <tr class="plan-annual">
-      <td>90 Day Licences</td>
-      <td class="text-center">
-        <input name="90-days-recording-annual-qty" id="90-days-recording-annual-qty" type="text" value="<%= @ninety_days_recording_annual %>" class="quantity-text small no-editable" disabled>
-      </td>
-      <td rowspan="3"><a href="#" class="edit-quantity margin-left-15">Edit</a></td>
-    </tr>
+  <table class="plan-table col-md-12">
+    <thead>
+      <tr>
+        <th>Licences</th>
+        <th class="text-center">Current</th>
+        <th class="text-center">Amount</th>
+        <th class="text-center">Add / Remove</th>
+        <th class="text-right">Change (<i class="fa fa-eur"></i>)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="plan-annual">
+        <td class="col-md-5">
+          7 Day @ &euro; <%= cents_to_currency @prices.seven_days_recording_annual %>
+          <input type="hidden" id="7-days-recording-annual" value="<%= @prices.seven_days_recording_annual/100 %>"/>
+        </td>
+        <td id="7-days-recording-annual-current-qty" class="text-center current-qty-annual">
+          <%= @seven_days_recording_annual %>
+        </td>
+        <td class="col-md-2 text-center">
+          &euro;
+          <span class="current-price-annual" id="7-days-recording-annual-current-price"><%= seven_days %></span>
+        </td>
+        <td class="text-center">
+          <i class="fa fa-minus remove-licence" data-val="7-days-recording-annual"></i>
+          <input type="hidden" name="7-days-recording-annual-qty" id="7-days-recording-annual-qty" value="<%= @seven_days_recording_annual %>" />
+          <input name="7-days-recording-annual-quantity" id="7-days-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+          <i class="fa fa-plus add-licence" data-val="7-days-recording-annual"></i>
+        </td>
+        <td class="col-md-1 text-center">
+          <span id="7-days-recording-annual-sign">+</span>
+          &euro;
+          <span class="new-price-annual" id="7-days-recording-annual-new-price">0</span>
+        </td>
+      </tr>
+      <tr class="plan-annual">
+        <td>
+          30 Day @ &euro; <%= cents_to_currency @prices.thirty_days_recording_annual %>
+          <input type="hidden" id="30-days-recording-annual" value="<%= @prices.thirty_days_recording_annual/100 %>"/>
+        </td>
+        <td id="30-days-recording-annual-current-qty" class="text-center current-qty-annual">
+          <%= @thirty_days_recording_annual %>
+        </td>
+        <td id="30-days-recording-annual-current-price" class="text-center">
+          &euro;
+          <span class="current-price-annual" id="30-days-recording-annual-current-price"><%= thiry_days %></span>
+        </td>
+        <td class="text-center">
+          <i class="fa fa-minus remove-licence" data-val="30-days-recording-annual"></i>
+          <input type="hidden" name="30-days-recording-annual-qty" id="30-days-recording-annual-qty" value="<%= @thirty_days_recording_annual %>" />
+          <input name="30-days-recording-annual-quantity" id="30-days-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+          <i class="fa fa-plus add-licence" data-val="30-days-recording-annual"></i>
+        </td>
+        <td class="text-center">
+          <span id="30-days-recording-annual-sign">+</span>
+          &euro;
+          <span class="new-price-annual" id="30-days-recording-annual-new-price">0</span>
+        </td>
+      </tr>
+      <tr class="plan-annual">
+        <td>
+          90 Day @ &euro; <%= cents_to_currency @prices.ninety_days_recording_annual %>
+          <input type="hidden" id="90-days-recording-annual" value="<%= @prices.ninety_days_recording_annual/100 %>"/>
+        </td>
+        <td id="90-days-recording-annual-current-qty" class="text-center current-qty-annual">
+          <%= @ninety_days_recording_annual %>
+        </td>
+        <td class="text-center">
+          &euro;
+          <span class="current-price-annual" id="90-days-recording-annual-current-price"><%= ninety_days %></span>
+        </td>
+        <td class="text-center">
+          <i class="fa fa-minus remove-licence" data-val="90-days-recording-annual"></i>
+          <input type="hidden" name="90-days-recording-annual-qty" id="90-days-recording-annual-qty" value="<%= @ninety_days_recording_annual %>" />
+          <input name="90-days-recording-annual-quantity" id="90-days-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+          <i class="fa fa-plus add-licence" data-val="90-days-recording-annual"></i>
+        </td>
+        <td class="text-center">
+          <span id="90-days-recording-annual-sign">+</span>
+          &euro;
+          <span class="new-price-annual" id="90-days-recording-annual-new-price">0</span>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot class="table-footer">
+      <tr>
+        <td>Total</td>
+        <td class="text-center"><span id="current-total-quantity-annual"><%= annual_total %></span></td>
+        <td class="text-center">
+          &euro;
+          <span id="current-total-price-annual"><%= seven_days + thiry_days + ninety_days %></span>
+        </td>
+        <td></td>
+        <td class="text-center">
+          <span id="new-total-price-annual-sign">+</span>
+          &euro;
+          <span id="new-total-price-annual">0</span>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </div>

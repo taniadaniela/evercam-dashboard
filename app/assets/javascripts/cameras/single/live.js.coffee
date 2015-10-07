@@ -274,9 +274,9 @@ initSocket = ->
 
 connectToSocket = ->
   Evercam.socket.connect()
-  chan = Evercam.socket.chan("cameras:#{Evercam.Camera.id}", {})
-  chan.join()
-  chan.on 'snapshot-taken', (payload) ->
+  channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
+  channel.join()
+  channel.on 'snapshot-taken', (payload) ->
     $('#live-player-image').attr 'src', 'data:image/jpeg;base64,' + payload.image
 
 disconnectFromSocket = ->

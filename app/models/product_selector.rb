@@ -30,26 +30,26 @@ class ProductSelector
   # Used by the line_items_controller to have the necessary data to calculate a total, and display other data.
   def product_params
     case @product_id
-      when "24-hours-recording"
-        @twenty_four_hours_recording
-      when "24-hours-recording-annual"
-        @twenty_four_hours_recording_annual
-      when "infinity"
-        @infinity
-      when "infinity-annual"
-        @infinity_annual
-      when "7-days-recording"
-        @seven_days_recording
-      when "7-days-recording-annual"
-        @seven_days_recording_annual
-      when "30-days-recording"
-        @thirty_days_recording
-      when "30-days-recording-annual"
-        @thirty_days_recording_annual
-      when "90-days-recording"
-        @ninety_days_recording
-      when "90-days-recording-annual"
-        @ninety_days_recording_annual
+    when "24-hours-recording"
+      @twenty_four_hours_recording
+    when "24-hours-recording-annual"
+      @twenty_four_hours_recording_annual
+    when "infinity"
+      @infinity
+    when "infinity-annual"
+      @infinity_annual
+    when "7-days-recording"
+      @seven_days_recording
+    when "7-days-recording-annual"
+      @seven_days_recording_annual
+    when "30-days-recording"
+      @thirty_days_recording
+    when "30-days-recording-annual"
+      @thirty_days_recording_annual
+    when "90-days-recording"
+      @ninety_days_recording
+    when "90-days-recording-annual"
+      @ninety_days_recording_annual
     end
   end
 end

@@ -279,7 +279,7 @@ showAlertMessage = ->
       changeTotalColor()
 
 changeTotalColor = ->
-  $(".licence_alert").show()
+  $(".licence-alert").show()
   $("#current-total-quantity-monthly").removeClass("green").addClass("red")
   $("#current-total-quantity-annual").removeClass("green").addClass("red")
   $("#total-required-licence").removeClass("green").addClass("red")

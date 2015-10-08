@@ -249,23 +249,40 @@ validateLicenceForm = ->
     else
       $("#form-make-payment").submit()
 
-addToCart = ->
-  $(".add-to-cart").on "click", ->
-    plan = $(this).attr("data-plan")
-    quantity = parseInt($("##{plan}-qty").val())
-    if quantity is 0
-      Notification.show "Please enter quantity."
-      return false
-    else
-      $("##{plan}-quantity").val(quantity)
-      return true
+showAlertMessage = ->
+  infinity_req = parseInt($("#licence-required-infinity").text())
+  one_day_req = parseInt($("#licence-required-one-day").text())
+  seven_day_req = parseInt($("#licence-required-seven-day").text())
+  thirty_day_req = parseInt($("#licence-required-thirty-day").text())
+  ninety_day_req = parseInt($("#licence-required-ninety-day").text())
 
-updateTotalPrice = ->
-  $("#payNowModal").on "show.bs.modal", ->
-    $("#spnTotalPrice").text($("#total-price").val())
+  one_day_current = parseInt($("#24-hours-recording-current-qty").text()) + parseInt($("#24-hours-recording-annual-current-qty").text())
+  seven_day_current = parseInt($("#7-days-recording-current-qty").text()) + parseInt($("#7-days-recording-annual-current-qty").text())
+  thirty_day_current = parseInt($("#30-days-recording-current-qty").text()) + parseInt($("#30-days-recording-annual-current-qty").text())
+  ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
+  infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
 
-  $("#upgradeDwongradeModal").on "hide.bs.modal", ->
-    $(".quantity-textsmall").val(0)
+  if !isNaN(infinity_req)
+    if infinity_current is 0 || infinity_current < infinity_req
+      changeTotalColor()
+  if !isNaN(one_day_req)
+    if one_day_current is 0 || one_day_current < one_day_req
+      changeTotalColor()
+  if !isNaN(seven_day_req)
+    if seven_day_current is 0 || seven_day_current < seven_day_req
+      changeTotalColor()
+  if !isNaN(thirty_day_req)
+    if thirty_day_current is 0 || thirty_day_current < thirty_day_req
+      changeTotalColor()
+  if !isNaN(ninety_day_req)
+    if ninety_day_current is 0 || ninety_day_current < ninety_day_req
+      changeTotalColor()
+
+changeTotalColor = ->
+  $(".licence_alert").show()
+  $("#current-total-quantity-monthly").removeClass("green").addClass("red")
+  $("#current-total-quantity-annual").removeClass("green").addClass("red")
+  $("#total-required-licence").removeClass("green").addClass("red")
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
@@ -274,8 +291,7 @@ window.initializeSubscription = ->
   createAddRemoveLicence()
   changePlan()
   validateLicenceForm()
-  addToCart()
-  updateTotalPrice()
+  showAlertMessage()
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()

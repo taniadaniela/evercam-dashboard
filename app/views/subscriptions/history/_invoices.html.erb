@@ -21,7 +21,7 @@
             <% else %>
               <small class='red'>Pending</small>
             <% end %>
-            <%= cents_to_currency(invoice[:total]) %>
+            &euro;<%= cents_to_currency(invoice[:total]) %>
           </td>
         </tr>
       <% end %>

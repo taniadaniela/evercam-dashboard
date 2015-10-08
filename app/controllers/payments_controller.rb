@@ -19,8 +19,9 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    plans = ["7-days-recording", "7-days-recording-annual", "30-days-recording", "30-days-recording-annual",
-             "90-days-recording", "90-days-recording-annual"]
+    plans = ["24-hours-recording", "24-hours-recording-annual", "7-days-recording", "7-days-recording-annual",
+             "30-days-recording", "30-days-recording-annual", "90-days-recording", "90-days-recording-annual",
+             "infinity", "infinity-annual"]
     @customer = retrieve_stripe_customer
     if @customer.has_active_subscription?
       subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil

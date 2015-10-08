@@ -119,16 +119,23 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_plans_quantity(subscriptions)
-    @add_ons = @add_ons.nil? ? false : @add_ons
+    @twenty_four_hours_recording = 0
+    @twenty_four_hours_recording_annual = 0
     @seven_days_recording = 0
     @seven_days_recording_annual = 0
     @thirty_days_recording = 0
     @thirty_days_recording_annual = 0
     @ninety_days_recording = 0
     @ninety_days_recording_annual = 0
+    @infinity = 0
+    @infinity_annual = 0
     if subscriptions.present?
       subscriptions[:data].each do |subscription|
         case subscription.plan.id
+        when "24-hours-recording"
+          @twenty_four_hours_recording = subscription.quantity
+        when "24-hours-recording-annual"
+          @twenty_four_hours_recording_annual = subscription.quantity
         when "7-days-recording"
           @seven_days_recording = subscription.quantity
         when "7-days-recording-annual"
@@ -141,6 +148,10 @@ class ApplicationController < ActionController::Base
           @ninety_days_recording = subscription.quantity
         when "90-days-recording-annual"
           @ninety_days_recording_annual = subscription.quantity
+        when "infinity"
+          @infinity = subscription.quantity
+        when "infinity-annual"
+          @infinity_annual = subscription.quantity
         end
       end
     end

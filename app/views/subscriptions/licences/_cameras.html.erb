@@ -32,7 +32,7 @@
       <% if infinity.present? %>
         <tr>
           <td>Infinity Recording</td>
-          <td><%= infinity.count %></td>
+          <td id="licence-required-infinity"><%= infinity.count %></td>
           <td>
             <% infinity.each do |item| %>
               <div><%= item.name %></div>
@@ -43,7 +43,7 @@
       <% if one_day.present? %>
         <tr>
           <td><%= one_day[0].cloud_recording[0].storage_duration %> Days Recording</td>
-          <td><%= one_day.count %></td>
+          <td id="licence-required-one-day"><%= one_day.count %></td>
           <td>
             <% one_day.each do |item| %>
               <div><%= item.name %></div>
@@ -54,7 +54,7 @@
       <% if seven.present? %>
         <tr>
           <td><%= seven[0].cloud_recording[0].storage_duration %> Days Recording</td>
-          <td><%= seven.count %></td>
+          <td id="licence-required-seven-day"><%= seven.count %></td>
           <td>
             <% seven.each do |item| %>
               <div><%= item.name %></div>
@@ -65,7 +65,7 @@
       <% if thirty.present? %>
         <tr>
           <td><%= thirty[0].cloud_recording[0].storage_duration %> Days Recording</td>
-          <td><%= thirty.count %></td>
+          <td id="licence-required-thirty-day"><%= thirty.count %></td>
           <td>
             <% thirty.each do |item| %>
               <div><%= item.name %></div>
@@ -76,7 +76,7 @@
       <% if ninety.present? %>
         <tr>
           <td><%= ninety[0].cloud_recording[0].storage_duration %> Days Recording</td>
-          <td><%= ninety.count %></td>
+          <td id="licence-required-ninety-day"><%= ninety.count %></td>
           <td>
             <% ninety.each do |item| %>
               <div><%= item.name %></div>
@@ -85,6 +85,13 @@
         </tr>
       <% end %>
       </tbody>
+      <tfoot>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td class="green" id="total-required-licence"><%= one_day.count + seven.count + thirty.count + ninety.count + infinity.count %></td>
+        <td></td>
+      </tr>
+      </tfoot>
     </table>
   </div>
 </div>

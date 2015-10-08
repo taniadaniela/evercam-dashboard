@@ -1,5 +1,8 @@
 <div class="col-md-12">
   <h3>Licences Required</h3>
+  <div class="licence-alert alert alert-danger" style="display:none;">
+    <span>You require additional licences</span>
+  </div>
   <div class="licence-cameras">
     <%= render 'subscriptions/licences/cameras' %>
   </div>
@@ -12,7 +15,7 @@
   <% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual %>
   <form id="form-make-payment" method="post" action="<%= new_charge_path %>">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-    <div class="portlet-body">
+    <div class="portlet-body table-border">
       <div class="tabbable tabbable-custom">
         <div class="center-tabs">
           <ul id="ul-nav-tab" class="nav-plans nav nav-tabs">
@@ -24,28 +27,30 @@
             </li>
           </ul>
         </div>
-        <div class="tab-content">
-          <div id="monthly-plans" class="tab-pane active">
+        <div class="tab-content tables-border-right">
+          <div id="monthly-plans" class="tab-pane margin-top-20 active">
             <%= render partial: "subscriptions/licences/monthly_plan" %>
           </div>
-          <div id="annual-plans" class="tab-pane">
+          <div id="annual-plans" class="tab-pane margin-top-20">
             <%= render partial: "subscriptions/licences/annual_plan" %>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-8 margin-top-15">
-            <% unless !@next_charge %>
-                <div class="col-md-8"><strong>Next Renewal:</strong></div>
-                <div class="col-md-4 text-right">
-                  <strong><%= Time.at(@next_charge[:date]).strftime("%d %B") %><% cents_to_currency @next_charge[:total] %></strong>
-                </div>
-            <% end %>
-            </div>
-            <div class="col-md-4 text-right">
-              <input id="submit-licences" type="button" class="btn btn-primary red" value="Add/Remove Licence" />
+      <div class="tables-border-right">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row margin-top-20">
+              <div class="col-md-8 margin-top-15">
+              <% unless !@next_charge %>
+                  <div class="col-md-8"><strong>Next Renewal:</strong></div>
+                  <div class="col-md-4 text-right">
+                    <strong><%= Time.at(@next_charge[:date]).strftime("%d %B %Y") %><% cents_to_currency @next_charge[:total] %></strong>
+                  </div>
+              <% end %>
+              </div>
+              <div class="col-md-4 text-right">
+                <input id="submit-licences" type="button" class="btn btn-primary red save-button" value="Add/Remove Licence" />
+              </div>
             </div>
           </div>
         </div>
@@ -61,13 +66,13 @@
         <div class="col-md-12">
           <p class="text-left margin-top-10 change-plan-desc" id="add-card-message">Add a credit card before save your plan(s).</p>
           <p id="checkout-message" class="text-left margin-top-10">
-            <strong><span id="spnTotalPrice"></span></strong>Your subscriptions will be saved and charged from your <strong><%= @card.brand if @card.present? %></strong> card ending in <strong><%= @card.last4 if @card.present? %></strong></p>
+            <strong><span id="spnTotalPrice"></span></strong>Click Save to update your licences</p>
         </div>
       </div>
       <div class="modal-footer">
         <div class="col-sm-8">
           <input type="hidden" id="has-credit-card" value="<%= has_credit_cards? %>">
-          <input id="saveSubscriptions" type="button" class="btn btn-primary pull-left" value="Save Plans" />&nbsp;
+          <input id="saveSubscriptions" type="button" class="btn btn-primary pull-left" value="Save Licences" />&nbsp;
           <input type="button" class="btn btn-default pull-left margin-left2" value="Cancel" data-dismiss="modal" />
         </div>
       </div>

@@ -1,6 +1,23 @@
 .subscriptions {
   color: $text-grey;
 
+  .licence-alert {
+    box-shadow: none;
+    font-size: 15px;
+    left: 45%;
+    margin-left: -142px;
+    padding: 0.4em 1em;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 50%;
+    z-index: 99999;
+  }
+
+  .green {
+    color: $green;
+  }
+
   h3 {
     margin: 5px 0px 15px;
   }
@@ -59,13 +76,23 @@
     position: absolute;
   }
 
+  .table-border {
+    border-bottom: 1px solid $lighter-grey;
+    border-left: 1px solid $lighter-grey;
+  }
+
+  .tables-border-right {
+    border-right: 1px solid $lighter-grey;
+  }
+
   .table > tbody > tr > th {
     border-top:none;
     border-bottom: 1px solid $lighter-grey;
     padding: 8px 0px 8px;
   }
 
-  .table > thead > tr > th {
+  .table > thead > tr > th,
+  .table > tfoot > tr > td {
     padding: 8px 0;
   }
 
@@ -85,6 +112,11 @@
     border-top:none !important;
   }
 
+  .tabbable-custom,
+  .nav-plans {
+    margin-bottom: 0;
+  }
+
   .checkout .table > tbody > tr > td {
     padding: 0px 0px 0px;
   }
@@ -93,7 +125,7 @@
   .nav-plans > li.active > a:hover,
   .nav-plans > li.active > a:focus {
     background-color: transparent;
-    border-color: -moz-use-text-color -moz-use-text-color $evercam-red;
+    border-color: $evercam-red !important;
     border-width: medium medium 2px;
     font-family: proxima-nova-regular,"Open Sans",Arial,Helvetica,sans-serif;
   }
@@ -103,8 +135,16 @@
     cursor: pointer;
   }
 
+  .nav-plans {
+    margin-top: 0;
+  }
+
   .nav-plans > li > a:hover {
     color: #555;
+  }
+
+  .nav-tabs > li > a {
+    margin-right: 0;
   }
 
   .nav-plans > li.hover > a,
@@ -112,11 +152,20 @@
     background: rgba(0,0,0,0) none repeat scroll 0 0;
     border-color: -moz-use-text-color -moz-use-text-color $evercam-red;
     border: 0 none;
+    border-right: solid 1px $lighter-grey;
     color: #555;
   }
 
   .nav-plans > li {
+    border-right: 1px solid $main-grey;
+    border-top: 1px solid $main-grey;
     margin-bottom: -2px;
+    margin-right: 0;
+  }
+
+  .save-button {
+    margin-bottom: 8px;
+    margin-right: 8px;
   }
 
   .margin-left-15 {

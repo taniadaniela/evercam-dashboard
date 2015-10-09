@@ -38,13 +38,14 @@
   z-index: 10000;
 }
 
-#offlineBtn{
+#offline-btn{
   display: none;
   position: absolute;
   white-space: nowrap;
   right: -58px;
   top: -1px;
   font-size: 10px;
+  cursor: pointer;
 }
 
 .sidebar-offline a {

@@ -31,16 +31,16 @@ renderSidebar = (cameras) ->
   hideOfflineCameras()
 
 showOfflineButton = ->
-  a = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
-  if a > 0
-    $('#offlineBtn').show()
+  offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
+  if offline_cameras > 0
+    $('#offline-btn').show()
   else
-    $('#offlineBtn').hide()
-  $('#offlineBtn').on 'click', (event) ->
+    $('#offline-btn').hide()
+  $('#offline-btn').on 'click', (event) ->
     $(this).toggleClass('active')
-    $('.sub-menu').toggleClass('cam-active')
+    $('.sub-menu,.dropdown-menu.scroll-menu').toggleClass('cam-active')
     text = $(this).text()
-    if text == 'Hide Offline'
+    if text is 'Hide Offline'
       $(this).text('Show Offline')
     else
       $(this).text('Hide Offline')

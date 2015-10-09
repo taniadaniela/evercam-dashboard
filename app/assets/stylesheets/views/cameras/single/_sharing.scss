@@ -155,15 +155,16 @@ td .share-camera {
 }
 
 @media (max-width: 767px) {
+
   .email-input {
     float: left;
     width: 100%;
     .input-group{
       width: 100%;
     }
+
     #sharing-message{
       min-width: 0;
     }
   }
 }
-

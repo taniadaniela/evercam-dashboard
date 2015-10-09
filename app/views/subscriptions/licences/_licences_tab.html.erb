@@ -42,9 +42,13 @@
             <div class="row margin-top-20">
               <div class="col-md-8 margin-top-15">
               <% unless !@next_charge %>
-                  <div class="col-md-8"><strong>Next Renewal:</strong></div>
+                  <div class="col-md-8">
+                    <strong>
+                      Next Renewal: <%= Time.at(@next_charge[:date]).strftime("%d %B %Y") %>
+                      <% cents_to_currency @next_charge[:total] %></strong>
+                  </div>
                   <div class="col-md-4 text-right">
-                    <strong><%= Time.at(@next_charge[:date]).strftime("%d %B %Y") %><% cents_to_currency @next_charge[:total] %></strong>
+                    <strong></strong>
                   </div>
               <% end %>
               </div>

@@ -125,7 +125,7 @@
   .nav-plans > li.active > a:hover,
   .nav-plans > li.active > a:focus {
     background-color: transparent;
-    border-color: $evercam-red !important;
+    border-color: $white !important;
     border-width: medium medium 2px;
     font-family: proxima-nova-regular,"Open Sans",Arial,Helvetica,sans-serif;
   }
@@ -150,7 +150,7 @@
   .nav-plans > li.hover > a,
   .nav-plans > li.hover > a:hover{
     background: rgba(0,0,0,0) none repeat scroll 0 0;
-    border-color: -moz-use-text-color -moz-use-text-color $evercam-red;
+    border-color: $white;
     border: 0 none;
     border-right: solid 1px $lighter-grey;
     color: #555;

@@ -14,12 +14,12 @@
 }
 .live-options {
   position: absolute;
-  top: 16px;
-  right: 10px;
+  top: 114px;
+  right: 32px;
   color: $white;
   opacity: 0;
   transition: all .2s linear;
-  z-index: 10000000000;
+  z-index: 1;
 }
 .live-option {
   float: left;
@@ -145,7 +145,7 @@
   top: 0;
   transition: all .2s linear;
   width: 155px;
-  z-index: 21474836;
+  z-index: 1;
 }
 
 .ptz-controls i{

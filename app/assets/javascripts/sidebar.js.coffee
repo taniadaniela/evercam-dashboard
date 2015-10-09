@@ -30,6 +30,21 @@ renderSidebar = (cameras) ->
   $(".sidebar-cameras-list").html(sidebar)
   hideOfflineCameras()
 
+showOfflineButton = ->
+  offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
+  if offline_cameras > 0
+    $('#offline-btn').show()
+  else
+    $('#offline-btn').hide()
+  $('#offline-btn').on 'click', (event) ->
+    $(this).toggleClass('active')
+    $('.sub-menu,.dropdown-menu.scroll-menu').toggleClass('cam-active')
+    text = $(this).text()
+    if text is 'Hide Offline'
+      $(this).text('Show Offline')
+    else
+      $(this).text('Hide Offline')
+
 handlePusherEventUser = ->
   if Evercam && Evercam.Pusher
     channel = Evercam.Pusher.subscribe(Evercam.User.username)
@@ -57,6 +72,7 @@ window.hideOfflineCameras = ->
     $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
 
 $ ->
+  showOfflineButton()
   handleSidebarToggle()
   hideOfflineCameras()
   $('[data-toggle="tooltip"]').tooltip()

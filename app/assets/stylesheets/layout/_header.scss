@@ -102,8 +102,22 @@
   text-align: center;
   height: 32px;
   padding-top: 4px;
+
+  .dropdown-menu.scroll-menu{
+    width: 300px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    max-height: 455px;
+  }
+
+  .dropdown-menu.scroll-menu.cam-active .sidebar-offline{
+    display: none;
+  }
+
   .sub-menu-item a {
-    padding:4px 14px 4px 0px !important;
+    padding: 4px 14px 4px 25px !important;
+    text-align: left;
   }
   .status-circle {
     padding: 5px;

@@ -153,3 +153,18 @@ td .share-camera {
   margin: 0px;
   margin-right: 15px;
 }
+
+@media (max-width: 767px) {
+
+  .email-input {
+    float: left;
+    width: 100%;
+    .input-group{
+      width: 100%;
+    }
+
+    #sharing-message{
+      min-width: 0;
+    }
+  }
+}

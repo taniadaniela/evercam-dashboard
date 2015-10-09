@@ -2,20 +2,18 @@ class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :owns_data!
   layout "user-account"
-  include CurrentCart
-  before_filter :set_cart
   include SessionsHelper
   include ApplicationHelper
   include StripeCustomersHelper
   include StripeInvoicesHelper
-  require "stripe"
-  require "date"
+  # require "stripe"
+  # require "date"
 
   def index
     set_prices
-    @subscription = current_subscription
-    @billing_history = retrieve_customer_billing_history
-    @invoices = retrieve_customer_invoices
+    # @subscription = current_subscription
+    # @billing_history = retrieve_customer_billing_history
+    # @invoices = retrieve_customer_invoices
     @next_charge = retrieve_customer_next_charge
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
     unless current_user.stripe_customer_id.blank?
@@ -23,6 +21,11 @@ class SubscriptionsController < ApplicationController
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
     end
     retrieve_plans_quantity(@subscriptions)
+  end
+
+  def billing_history
+    billing_history = retrieve_customer_billing_history
+    render json: billing_history
   end
 
   def new

@@ -229,7 +229,10 @@ validateLicenceForm = ->
   $('#submit-licences').on "click", ->
     price_monthly = parseInt($("#new-total-price-monthly").text())
     price_annual = parseInt($("#new-total-price-annual").text())
-    if price_monthly isnt 0 || price_annual isnt 0
+    one_day = parseInt($("#24-hours-recording-quantity").val())
+    one_day_annual = parseInt($("#24-hours-recording-annual-quantity").val())
+
+    if price_monthly isnt 0 || price_annual isnt 0 || one_day isnt 0 || one_day_annual isnt 0
       if $("#has-credit-card").val() is "false"
         $("#saveSubscriptions").val($(".stripe-button-el span").text())
         $("#checkout-message").hide()
@@ -284,14 +287,41 @@ changeTotalColor = ->
   $("#current-total-quantity-annual").removeClass("green").addClass("red")
   $("#total-required-licence").removeClass("green").addClass("red")
 
+loadBillingHistory = ->
+  data = {}
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (results, status, jqXHR) ->
+    for item in results.data
+      row = $('<tr>')
+      cell_1 = $('<td>')
+      cell.append(document.createTextNode(item.created))
+      cell_2 = $('<td>')
+      cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
+      cell_3 = $('<td>', {class: "text-right"})
+      cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "/v1/users/#{Evercam.User.username}/billing/history"
+
+  sendAJAXRequest(settings)
+
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
-  onUpgradeDownGrade()
-  onCheckoutConfirmCard()
   createAddRemoveLicence()
-  changePlan()
   validateLicenceForm()
   showAlertMessage()
+  setTimeout loadBillingHistory, 2000
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()

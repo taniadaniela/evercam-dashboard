@@ -29,12 +29,22 @@
   padding: 8px 4px 4px;
  font-family: $bold-family;
 }
+
 #sidebar {
   position: fixed !important;
   overflow-y: scroll !Important;
   top: 46px;
   bottom: 10px;
   z-index: 10000;
+}
+
+#offlineBtn{
+  display:none;
+  position: absolute;
+  white-space: nowrap;
+  right: -58px;
+  top: -1px;
+  font-size: 10px;
 }
 
 .sidebar-offline a {
@@ -56,6 +66,7 @@
 .sidebar-title {
   padding-top: 10px;
   padding-bottom: 8px;
+  position: relative;
 }
 
 .sidebar-title .tooltip {
@@ -178,6 +189,11 @@ li span {
   padding-bottom: 8px;
 
 }
+
+.sub-menu.cam-active .sidebar-offline{
+  display: none;
+}
+
 @media (max-width: 990px) {
   .page-sidebar .page-sidebar-menu .sub-menu {
     display: none !important;

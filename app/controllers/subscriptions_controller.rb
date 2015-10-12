@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
   def billing_history
     if params[:invoice_id]
       description = retrieve_customer_plan(params[:invoice_id])
-      render json: {description: description}
+      render json: { description: description }
     elsif params[:invoices]
       invoices = retrieve_customer_invoices
       render json: invoices
@@ -31,7 +31,6 @@ class SubscriptionsController < ApplicationController
       billing_history = retrieve_customer_billing_history
       render json: billing_history
     end
-
   end
 
   def new

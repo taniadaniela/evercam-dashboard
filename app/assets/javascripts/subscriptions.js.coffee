@@ -20,12 +20,14 @@ createAddRemoveLicence = ->
     licence_price = parseInt($("##{control_id}").val())
     new_price = parseInt($("##{control_id}-new-price").text())
 
-    if quantity is 0
+    if quantity is 0 || quantity < 0
       current_quantity = parseInt($("##{control_id}-current-qty").text())
       if current_quantity > 0
         current_quantity--
         update_quantity--
+        quantity--
         $("##{control_id}-current-qty").text(current_quantity)
+        $("##{control_id}-quantity").val(quantity)
         $("##{control_id}-current-price").text(licence_price * current_quantity)
         $("##{control_id}-new-price").text(new_price + licence_price)
         $("##{control_id}-sign").text("-")
@@ -48,11 +50,13 @@ createAddRemoveLicence = ->
     licence_price = parseInt($("##{control_id}").val())
     new_price = parseInt($("##{control_id}-new-price").text())
 
-    if quantity is 0 && new_price > 0
+    if quantity < 0 && new_price >= 0
       current_quantity = parseInt($("##{control_id}-current-qty").text())
       current_quantity++
       update_quantity++
+      quantity++
       $("##{control_id}-current-qty").text(current_quantity)
+      $("##{control_id}-quantity").val(quantity)
       $("##{control_id}-current-price").text(licence_price * current_quantity)
       substract_price = Math.abs(new_price - licence_price)
       if substract_price is 0

@@ -1,6 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -287,21 +288,134 @@ changeTotalColor = ->
   $("#current-total-quantity-annual").removeClass("green").addClass("red")
   $("#total-required-licence").removeClass("green").addClass("red")
 
-loadBillingHistory = ->
-  data = {}
+FormatNumTo2 = (n) ->
+  if n < 10
+    return "0#{n}"
+  else
+    return n
 
+loadBillingHistory = ->
+  loadInvoiceHistory()
+  data = {}
+  onError = (jqXHR, status, error) ->
+    $("#no-history").removeClass("hide")
+    $("#billing-history").hide()
+
+  onSuccess = (results, status, jqXHR) ->
+    if !results
+      $("#no-history").removeClass("hide")
+      $("#billing-history").hide()
+      return
+    for item in results.data
+      created_date = new Date(item.created*1000)
+      row = $('<tr>')
+      cell_1 = $('<td>')
+      span = $('<span>')
+      span.attr("data-toggle", "tooltip")
+      span.attr("data-placement", "top")
+      span.attr("title", "#{created_date}")
+      span.append(document.createTextNode("#{FormatNumTo2(created_date.getDate())} #{month[created_date.getMonth()]}  #{created_date.getFullYear()}"))
+      cell_1.append(span)
+      row.append(cell_1)
+
+      cell_2 = $('<td>')
+      cell_2.attr("id", item.id)
+      description = item.description
+      if description is null
+        getChargeDescription(item.invoice, item.id)
+      else
+        cell_2.append(document.createTextNode(description))
+      row.append(cell_2)
+
+      cell_3 = $('<td>', {class: "text-right"})
+      small = $('<small>', {class: "grey"})
+      if item.paid
+        small.append(document.createTextNode("Paid"))
+      else
+        small.append(document.createTextNode("Pending"))
+      cell_3.append(small)
+      cell_3.append(document.createTextNode(" \u20AC#{item.amount/100}"))
+      row.append(cell_3)
+      $("#billing-history tbody").append(row)
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "/v1/users/#{Evercam.User.username}/billing/history"
+
+  sendAJAXRequest(settings)
+
+getChargeDescription = (invoice_id, col_id) ->
+  data = {}
+  data.invoice_id = invoice_id
   onError = (jqXHR, status, error) ->
     false
 
+  onSuccess = (result, status, jqXHR) ->
+    $("##{col_id}").text(result.description)
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "/v1/users/#{Evercam.User.username}/billing/history"
+
+  sendAJAXRequest(settings)
+
+loadInvoiceHistory = ->
+  data = {}
+  data.invoices = true
+  onError = (jqXHR, status, error) ->
+    $("#no-invoice").removeClass("hide")
+    $("#invoice-history").hide()
+
   onSuccess = (results, status, jqXHR) ->
+    if !results
+      $("#no-invoice").removeClass("hide")
+      $("#invoice-history").hide()
+      return
     for item in results.data
+      created_date = new Date(item.date*1000)
       row = $('<tr>')
       cell_1 = $('<td>')
-      cell.append(document.createTextNode(item.created))
+      a_link = $('<a>')
+      a_link.attr("href", "/v1/users/#{Evercam.User.username}/billing/invoices/#{item.id}")
+      a_link.append(document.createTextNode("#{FormatNumTo2(created_date.getDate())} #{month[created_date.getMonth()]}  #{created_date.getFullYear()}"))
+      cell_1.append(a_link)
+      row.append(cell_1)
+
       cell_2 = $('<td>')
-      cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
+      span = $('<span>', {class: "send-email"})
+      a_link = $('<a>')
+      a_link.attr("href", "/v1/users/#{Evercam.User.username}/billing/invoices/#{item.id}/send")
+      a_link.append(document.createTextNode("Email "))
+      span.append(a_link)
+      icon = $('<i>', {class: "fa"})
+      icon.addClass("fa-send-o")
+      span.append(icon)
+      cell_2.append(span)
+      row.append(cell_2)
+
       cell_3 = $('<td>', {class: "text-right"})
-      cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
+      small = $('<small>', {class: "green"})
+      if item.paid
+        small.append(document.createTextNode("Paid"))
+      else
+        small.removeClass("green").addClass("red")
+        small.append(document.createTextNode("Pending"))
+      cell_3.append(small)
+      cell_3.append(document.createTextNode(" \u20AC#{item.total/100}"))
+      row.append(cell_3)
+      $("#invoice-history tbody").append(row)
     true
 
   settings =

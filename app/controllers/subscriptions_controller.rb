@@ -11,9 +11,6 @@ class SubscriptionsController < ApplicationController
 
   def index
     set_prices
-    # @subscription = current_subscription
-    # @billing_history = retrieve_customer_billing_history
-    # @invoices = retrieve_customer_invoices
     @next_charge = retrieve_customer_next_charge
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
     unless current_user.stripe_customer_id.blank?
@@ -24,8 +21,17 @@ class SubscriptionsController < ApplicationController
   end
 
   def billing_history
-    billing_history = retrieve_customer_billing_history
-    render json: billing_history
+    if params[:invoice_id]
+      description = retrieve_customer_plan(params[:invoice_id])
+      render json: {description: description}
+    elsif params[:invoices]
+      invoices = retrieve_customer_invoices
+      render json: invoices
+    else
+      billing_history = retrieve_customer_billing_history
+      render json: billing_history
+    end
+
   end
 
   def new

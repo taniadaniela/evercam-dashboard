@@ -11,8 +11,8 @@
 <div class="col-md-12 margin-top-15">
   <h3>Licences Purchased</h3>
 
-  <% monthly_total = @seven_days_recording + @thirty_days_recording + @ninety_days_recording %>
-  <% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual %>
+  <% monthly_total = @seven_days_recording + @thirty_days_recording + @ninety_days_recording + @twenty_four_hours_recording + @infinity %>
+  <% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual + @twenty_four_hours_recording_annual + @infinity_annual %>
   <form id="form-make-payment" method="post" action="<%= new_charge_path %>">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
     <div class="portlet-body table-border">

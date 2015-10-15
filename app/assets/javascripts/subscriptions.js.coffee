@@ -76,11 +76,7 @@ createAddRemoveLicence = ->
 
 showTotal = ->
   calculateCurrentTotal("new-price-monthly", "new-total-price-monthly")
-  calculateTotal("current-price-monthly", "current-total-price-monthly")
-  calculateTotal("current-qty-monthly", "current-total-quantity-monthly")
   calculateCurrentTotal("new-price-annual", "new-total-price-annual")
-  calculateTotal("current-price-annual", "current-total-price-annual")
-  calculateTotal("current-qty-annual", "current-total-quantity-annual")
 
 calculateTotal = (price_control, total_price_control, has_sign) ->
   $("##{total_price_control}").text(0)

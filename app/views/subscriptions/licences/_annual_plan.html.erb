@@ -21,12 +21,14 @@
         24 Hours @ &euro; <%= cents_to_currency @prices.twenty_four_hours_recording_annual %>
         <input type="hidden" id="24-hours-recording-annual" value="<%= @prices.twenty_four_hours_recording_annual %>"/>
       </td>
-      <td id="24-hours-recording-annual-current-qty" class="col-md-1 text-center current-qty-annual">
+      <td class="col-md-1 text-center">
         <%= @twenty_four_hours_recording_annual %>
+        <span class="current-qty-annual hide" id="24-hours-recording-annual-current-qty"><%= @twenty_four_hours_recording_annual %></span>
       </td>
       <td class="col-md-1 text-center">
         &euro;
-        <span class="current-price-annual" id="24-hours-recording-annual-current-price"><%= one_day_recording %></span>
+        <%= one_day_recording %>
+        <span class="current-price-annual hide" id="24-hours-recording-annual-current-price"><%= one_day_recording %></span>
       </td>
       <td class="col-md-2 text-center">
         <i class="fa fa-minus remove-licence" data-val="24-hours-recording-annual"></i>
@@ -46,12 +48,14 @@
         7 Day @ &euro; <%= cents_to_currency @prices.seven_days_recording_annual %>
         <input type="hidden" id="7-days-recording-annual" value="<%= @prices.seven_days_recording_annual/100 %>"/>
       </td>
-      <td id="7-days-recording-annual-current-qty" class="text-center current-qty-annual">
+      <td class="text-center">
         <%= @seven_days_recording_annual %>
+        <span class="current-qty-annual hide" id="7-days-recording-annual-current-qty"><%= @seven_days_recording_annual %></span>
       </td>
       <td class="text-center">
         &euro;
-        <span class="current-price-annual" id="7-days-recording-annual-current-price"><%= seven_days %></span>
+        <%= seven_days %>
+        <span class="current-price-annual hide" id="7-days-recording-annual-current-price"><%= seven_days %></span>
       </td>
       <td class="text-center">
         <i class="fa fa-minus remove-licence" data-val="7-days-recording-annual"></i>
@@ -70,12 +74,14 @@
         30 Day @ &euro; <%= cents_to_currency @prices.thirty_days_recording_annual %>
         <input type="hidden" id="30-days-recording-annual" value="<%= @prices.thirty_days_recording_annual/100 %>"/>
       </td>
-      <td id="30-days-recording-annual-current-qty" class="text-center current-qty-annual">
+      <td class="text-center">
         <%= @thirty_days_recording_annual %>
+        <span class="current-qty-annual hide" id="30-days-recording-annual-current-qty"><%= @thirty_days_recording_annual %></span>
       </td>
       <td id="30-days-recording-annual-current-price" class="text-center">
         &euro;
-        <span class="current-price-annual" id="30-days-recording-annual-current-price"><%= thiry_days %></span>
+        <%= thiry_days %>
+        <span class="current-price-annual hide" id="30-days-recording-annual-current-price"><%= thiry_days %></span>
       </td>
       <td class="text-center">
         <i class="fa fa-minus remove-licence" data-val="30-days-recording-annual"></i>
@@ -94,12 +100,14 @@
         90 Day @ &euro; <%= cents_to_currency @prices.ninety_days_recording_annual %>
         <input type="hidden" id="90-days-recording-annual" value="<%= @prices.ninety_days_recording_annual/100 %>"/>
       </td>
-      <td id="90-days-recording-annual-current-qty" class="text-center current-qty-annual">
+      <td class="text-center">
         <%= @ninety_days_recording_annual %>
+        <span class="current-qty-annual hide" id="90-days-recording-annual-current-qty"><%= @ninety_days_recording_annual %></span>
       </td>
       <td class="text-center">
         &euro;
-        <span class="current-price-annual" id="90-days-recording-annual-current-price"><%= ninety_days %></span>
+        <%= ninety_days %>
+        <span class="current-price-annual hide" id="90-days-recording-annual-current-price"><%= ninety_days %></span>
       </td>
       <td class="text-center">
         <i class="fa fa-minus remove-licence" data-val="90-days-recording-annual"></i>
@@ -119,12 +127,14 @@
         Infinity @ &euro; <%= cents_to_currency @prices.infinity_annual %>
         <input type="hidden" id="infinity-annual" value="<%= @prices.infinity_annual/100 %>"/>
       </td>
-      <td id="infinity-annual-current-qty" class="text-center current-qty-annual">
+      <td class="text-center">
         <%= @infinity_annual %>
+        <span class="current-qty-annual hide" id="infinity-annual-current-qty"><%= @infinity_annual %></span>
       </td>
       <td class="text-center">
         &euro;
-        <span class="current-price-annual" id="infinity-annual-current-price"><%= infinity %></span>
+        <%= infinity %>
+        <span class="current-price-annual hide" id="infinity-annual-current-price"><%= infinity %></span>
       </td>
       <td class="text-center">
         <i class="fa fa-minus remove-licence" data-val="infinity-annual"></i>

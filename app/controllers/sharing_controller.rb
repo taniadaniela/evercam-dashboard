@@ -97,6 +97,8 @@ class SharingController < ApplicationController
         share = api.share_camera(camera_id, params[:email], rights, body)
         result[:camera_id] = share["camera_id"]
         result[:share_id] = share["id"]
+        result[:fullname] = share["fullname"]
+        result[:email] = share["email"]
         result[:type] = share["type"]
         result[:permissions] = params[:permissions]
         result[:email] = share["email"]

@@ -181,9 +181,9 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
         return redirect_to cameras_not_found_path if @share.nil? && !@camera['is_public']
-        @owner_email = User.by_login(@camera['owner']).username
+        @owner = User.by_login(@camera['owner'])
       else
-        @owner_email = current_user.username
+        @owner = current_user
       end
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])

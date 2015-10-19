@@ -8,6 +8,11 @@
   border-radius: 50%;
   max-width: 30px;
 }
+
+#shares .reveal {
+  padding: 6px 12px 6px 0px;
+}
+
 #transfer {
   display: block;
 }
@@ -142,9 +147,7 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
 td.owner-email {
   height: 51px;
 }
-td.is-owner {
- padding-left: 16px !important;
-}
+
 td .share-camera {
   padding-left: 5px;
 }

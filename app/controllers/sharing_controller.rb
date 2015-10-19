@@ -89,6 +89,7 @@ class SharingController < ApplicationController
       camera_id = params[:camera_id]
       body = {}
       body[:message] = params["message"] unless params["message"].blank?
+      body[:grantor] = current_user.username
       rights = generate_rights_list(params[:permissions])
       share = nil
       api = get_evercam_api
@@ -99,6 +100,8 @@ class SharingController < ApplicationController
         result[:share_id] = share["id"]
         result[:fullname] = share["fullname"]
         result[:email] = share["email"]
+        result[:sharer_name] = share["sharer_name"]
+        result[:avatar] = avatar_url(share["email"])
         result[:type] = share["type"]
         result[:permissions] = params[:permissions]
         result[:email] = share["email"]

@@ -23,14 +23,27 @@ addSharingCameraRow = (details) ->
     row.attr("share-username", details['user_id'])
     $("#new_owner_email").append("<option value='#{details['user_id']}'>#{details['user_id']}</option>")
 
-  cell = $('<td>', {class: "col-lg-4"})
-  cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
+  cell = $('<td>', {class: "col-lg-2"})
+  avatar = $('<img>', {class: "gravatar"})
+  avatar.attr("src", details['avatar'])
+  cell.append(avatar)
+  cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['fullname'])))
   if details.type == "share_request"
     suffix = $('<small>', {class: "blue"})
     suffix.text(" ...pending")
+    cell.attr("colspan", "2")
+    cell.removeClass("col-lg-2").addClass("col-lg-5")
     cell.append(suffix)
   row.append(cell)
 
+  cell = $('<td>', {class: "col-lg-3"})
+  if details.type == "share"
+    cell.append(document.createTextNode(" " + details['email']))
+    row.append(cell)
+
+  cell = $('<td>', {class: "col-lg-2"})
+  cell.append(document.createTextNode(" " + details['sharer_name']))
+  row.append(cell)
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "input-group"})
   select = $('<select>', {class: "form-control reveal", "show-class": "show-save"})
@@ -49,7 +62,7 @@ addSharingCameraRow = (details) ->
   cell.append(div)
   row.append(cell)
 
-  cell = $('<td>', {class: "col-lg-2"})
+  cell = $('<td>', {class: "col-lg-1"})
   button = $('<button>', {class: "save show-save btn btn-primary"})
   button.text("Save")
   if details.type == "share"
@@ -406,7 +419,7 @@ createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
   sendAJAXRequest(settings)
 
 onPermissionsFocus = (event) ->
-  $(this).parent().parent().parent().find("td:eq(2) button").fadeIn()
+  $(this).parent().parent().parent().find("td:eq(4) button").fadeIn()
 
 onSharingOptionsClicked = (event) ->
   test = $(this).val();

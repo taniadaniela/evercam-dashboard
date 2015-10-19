@@ -1,8 +1,8 @@
 module ApplicationHelper
   include SessionsHelper
 
-  def avatar_url
-    gravatar_id = Digest::MD5.hexdigest(current_user.email.downcase)
+  def avatar_url(email)
+    gravatar_id = Digest::MD5.hexdigest(email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png"
   end
 

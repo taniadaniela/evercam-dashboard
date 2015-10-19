@@ -120,47 +120,57 @@
     </div>
     <input type="hidden" id="user_name" value="<%= current_user.username %>">
     <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
+      <thead>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Shared By</th>
+      <th class="col-lg-2">Rights</th>
+      <th></th>
+      <th>Action</th>
+      </thead>
       <tbody>
       <tr>
         <td class="owner-email">
-          <%= @owner_email %>
+          <%= image_tag avatar_url(@owner.email), class: 'gravatar' %>
+          <%= @owner.fullname %>
           <% if @camera['owner'] == current_user.username %>
             <small>(you)</small>
           <% end %></td>
         </td>
+        <td><%= @owner.email %></td>
+        <td></td>
         <td class="is-owner">Is Owner</td>
         <td></td>
-        <td>
+        <td class="col-lg-2">
           <% if @camera['owner'] == current_user.username %>
             <a href="#" id="transfer" data-toggle="modal" data-target="#change_owner2">
               Transfer
             </a>
           <% end %></td>
-        </td></td>
       </tr>
       <% if @camera_shares %>
         <% @camera_shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
           <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>">
-            <td class="col-lg-4">
-              <%= share["user_id"] %>
+            <td class="col-lg-2">
+              <%= image_tag avatar_url(share["email"]), class: 'gravatar' %>
+              <%= share["fullname"] %><% share["user_id"] %>
               <% if share["user_id"] == current_user.username %>
                 <small class="blue"> (you)</small>
               <% end %>
             </td>
+            <td class="col-lg-3"><%= share["email"] %></td>
+            <td class="col-lg-2"><%= share["sharer_name"] %></td>
             <td class="col-lg-2">
               <div class="input-group">
-                <% if share["user_id"] == current_user.username %>
-                  <select class="form-control reveal disabled" disabled show-class="show-save">
-                <% else %>
-                  <select class="form-control reveal" show-class="show-save">
-                <% end %>
+                <select class="form-control reveal <% if share["user_id"] == current_user.username %>disabled<% end %>"
+                  show-class="show-save" <% if share["user_id"] == current_user.username %>disabled<% end %>>
                 <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
                 <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
                 </select>
               </div>
             </td>
-            <td class="col-lg-2">
+            <td class="col-lg-1">
               <button type="submit" class="save show-save btn btn-primary update-share-button">Save</button>
             </td>
             <td class="col-lg-2">
@@ -189,9 +199,12 @@
         <% @share_requests.each do |share_request| %>
           <% rights = share_request["rights"].split(",") %>
           <tr id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
-            <td class="col-lg-4"><%= share_request["email"] %>
+            <td colspan="2" class="col-lg-5">
+              <%= image_tag avatar_url(share_request["email"]), class: 'gravatar' %>
+              <%= share_request["email"] %>
               <small class="blue"> ...pending</small>
             </td>
+            <td class="col-lg-2"><%= share_request["sharer_name"] %></td>
             <td class="col-lg-2">
               <div class="input-group">
                 <select class="form-control reveal" show-class="show-save">
@@ -200,7 +213,7 @@
                 </select>
               </div>
             </td>
-            <td class="col-lg-2">
+            <td class="col-lg-1">
               <button type="submit" class="save show-save btn btn-primary update-share-request-button">Save</button>
             </td>
             <td class="col-lg-2">

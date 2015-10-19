@@ -65,7 +65,7 @@ openPopout = ->
     $("<img/>").attr("src", image_placeholder.src).load( ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=#{@width}, height=#{@height}, scrollbars=0")
     ).error ->
-      window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
+      window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}

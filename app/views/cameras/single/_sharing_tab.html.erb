@@ -122,8 +122,8 @@
     <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
       <thead>
       <th>Name</th>
-      <th>Email</th>
-      <th>Shared By</th>
+      <th class="email">Email</th>
+      <th class="share-by">Shared By</th>
       <th class="col-lg-2">Rights</th>
       <th></th>
       <th>Action</th>
@@ -137,8 +137,8 @@
             <small>(you)</small>
           <% end %></td>
         </td>
-        <td><%= @owner.email %></td>
-        <td></td>
+        <td class="email"><%= @owner.email %></td>
+        <td class="share-by"></td>
         <td class="is-owner">Is Owner</td>
         <td></td>
         <td class="col-lg-2">
@@ -153,14 +153,19 @@
           <% rights = share["rights"].split(",") %>
           <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>">
             <td class="col-lg-2">
-              <%= image_tag avatar_url(share["email"]), class: 'gravatar' %>
-              <%= share["fullname"] %><% share["user_id"] %>
-              <% if share["user_id"] == current_user.username %>
-                <small class="blue"> (you)</small>
-              <% end %>
+              <div class="gravatar-placeholder">
+                <%= image_tag avatar_url(share["email"]), class: 'gravatar' %>
+              </div>
+              <div class="username-id">
+                <%= share["fullname"] %><% share["user_id"] %>
+                <% if share["user_id"] == current_user.username %>
+                  <small class="blue"> (you)</small>
+                <% end %><br>
+                <small class="blue"><%= share["user_id"] %></small>
+              </div>
             </td>
-            <td class="col-lg-3"><%= share["email"] %></td>
-            <td class="col-lg-2"><%= share["sharer_name"] %></td>
+            <td class="col-lg-3 email"><%= share["email"] %></td>
+            <td class="col-lg-2 share-by"><%= share["sharer_name"] %></td>
             <td class="col-lg-2">
               <div class="input-group">
                 <select class="form-control reveal <% if share["user_id"] == current_user.username %>disabled<% end %>"
@@ -204,7 +209,7 @@
               <%= share_request["email"] %>
               <small class="blue"> ...pending</small>
             </td>
-            <td class="col-lg-2"><%= share_request["sharer_name"] %></td>
+            <td class="col-lg-2 share-by"><%= share_request["sharer_name"] %></td>
             <td class="col-lg-2">
               <div class="input-group">
                 <select class="form-control reveal" show-class="show-save">

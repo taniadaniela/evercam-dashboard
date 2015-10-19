@@ -9,6 +9,24 @@
   max-width: 30px;
 }
 
+#shares .gravatar-placeholder {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#shares .username-id {
+  display: inline-block;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+#shares .username-id-margin {
+  display: inline-block;
+  line-height: 1;
+  margin-left: 3px;
+  margin-top: 2px;
+}
+
 #shares .reveal {
   padding: 6px 12px 6px 0px;
 }
@@ -163,6 +181,12 @@ td .share-camera {
 
 @media (max-width: 767px) {
 
+  td.email,
+  th.email {
+    column-span: 1;
+    display: none !important;
+  }
+
   .email-input {
     float: left;
     width: 100%;
@@ -173,5 +197,12 @@ td .share-camera {
     #sharing-message{
       min-width: 0;
     }
+  }
+}
+
+@media (max-width: 480px) {
+  td.share-by,
+  th.share-by {
+    display: none !important;
   }
 }

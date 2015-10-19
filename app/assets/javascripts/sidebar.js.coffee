@@ -38,7 +38,7 @@ showOfflineButton = ->
     $('#offline-btn').hide()
   $('#offline-btn').on 'click', (event) ->
     $(this).toggleClass('active')
-    $('.sub-menu,.dropdown-menu.scroll-menu').toggleClass('cam-active')
+    $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
     text = $(this).text()
     if text is 'Hide Offline'
       $(this).text('Show Offline')

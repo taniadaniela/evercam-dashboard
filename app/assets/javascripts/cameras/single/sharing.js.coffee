@@ -47,11 +47,13 @@ addSharingCameraRow = (details) ->
   row.append(cell)
 
   cell = $('<td>', {class: "col-lg-3"})
+  cell.addClass("email")
   if details.type == "share"
     cell.append(document.createTextNode(" " + details['email']))
     row.append(cell)
 
   cell = $('<td>', {class: "col-lg-2"})
+  cell.addClass("share-by")
   cell.append(document.createTextNode(" " + details['sharer_name']))
   row.append(cell)
   cell = $('<td>', {class: "col-lg-2"})

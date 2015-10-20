@@ -182,8 +182,8 @@ td .share-camera {
 @media (max-width: 767px) {
 
   td.email,
-  th.email {
-    column-span: 1;
+  th.email,
+  tr.share-request {
     display: none !important;
   }
 

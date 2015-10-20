@@ -203,7 +203,7 @@
       <% if @share_requests %>
         <% @share_requests.each do |share_request| %>
           <% rights = share_request["rights"].split(",") %>
-          <tr id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
+          <tr class="share-request" id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
             <td colspan="2" class="col-lg-5">
               <%= image_tag avatar_url(share_request["email"]), class: 'gravatar' %>
               <%= share_request["email"] %>

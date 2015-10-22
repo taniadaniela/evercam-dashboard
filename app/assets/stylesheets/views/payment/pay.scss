@@ -13,21 +13,24 @@
     height: 36px;
   }
 }
-/********* Cards CSS *******************/
+//********* Cards CSS *******************
 .cards {
-  height:25px;
-  margin:10px 0;
+  height: 25px;
+  margin: 10px 0;
 }
 
-ul.unstyled, ol.unstyled {
+ul.unstyled,
+ol.unstyled {
   list-style: none;
   margin-left: 0;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0 0 10px 25px;
   padding: 0;
 }
+
 .cards li {
   float: left;
   display: block;
@@ -57,7 +60,7 @@ li {
   background-image: asset-url("card-delta.gif");
 }
 
-.card.diners_club {
+.card.diners-club {
   background-image: asset-url("card-diners.gif");
 }
 
@@ -74,4 +77,3 @@ li {
   text-indent: -9999px;
   width: 39px;
 }
-/**************************************/

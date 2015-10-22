@@ -20,58 +20,58 @@
 }
 
 ul.unstyled, ol.unstyled {
-  list-style:none;
-  margin-left:0;
+  list-style: none;
+  margin-left: 0;
 }
 
 ul, ol {
-  margin:0 0 10px 25px;
-  padding:0;
+  margin: 0 0 10px 25px;
+  padding: 0;
 }
 .cards li {
-  float:left;
-  display:block;
+  float: left;
+  display: block;
 }
 
 li {
-  line-height:20px;
+  line-height: 20px;
 }
 
 .card.visa {
-  background-image: asset-url('card-visa.gif');
+  background-image: asset-url("card-visa.gif");
 }
 
 .card.master {
-  background-image: asset-url('card-mastercard.gif');
+  background-image: asset-url("card-mastercard.gif");
 }
 
 .card.amex {
-  background-image: asset-url('card-amex.gif');
+  background-image: asset-url("card-amex.gif");
 }
 
 .card.laser {
-  background-image: asset-url('card-laser.gif');
+  background-image: asset-url("card-laser.gif");
 }
 
 .card.delta {
-  background-image: asset-url('card-delta.gif');
+  background-image: asset-url("card-delta.gif");
 }
 
 .card.diners_club {
-  background-image: asset-url('card-diners.gif');
+  background-image: asset-url("card-diners.gif");
 }
 
 .card.cdisabled {
-  background-position:0 -25px;
-  opacity:0.3;
+  background-position: 0 -25px;
+  opacity: 0.3;
 }
 
 .card {
   background-position:0 0;
-  float:left;
-  height:25px;
-  margin-right:4px;
-  text-indent:-9999px;
-  width:39px;
+  float: left;
+  height: 25px;
+  margin-right: 4px;
+  text-indent: -9999px;
+  width: 39px;
 }
 /**************************************/

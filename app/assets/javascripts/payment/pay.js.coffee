@@ -25,7 +25,6 @@ ValidateCardData = ->
     return false
 
   result = ExpiryDate($('#expiry-month').val(), $('#expiry-year').val())
-  console.log result
   if result isnt undefined
     Notification.show result
     return false

@@ -17,7 +17,7 @@ class PaymentsController < ApplicationController
   def make_payment
     begin
       token = create_token(params)
-      make_custom_payment(params,token)
+      make_custom_payment(params, token)
       flash[:error] = "Payment made successfully."
     rescue => error
       flash[:error] = error.message

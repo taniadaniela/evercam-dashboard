@@ -121,8 +121,7 @@
     <input type="hidden" id="user_name" value="<%= current_user.username %>">
     <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
       <thead>
-      <th>Name</th>
-      <th class="email">Email</th>
+      <th>Shared With</th>
       <th class="share-by">Shared By</th>
       <th class="col-lg-2">Rights</th>
       <th></th>
@@ -131,13 +130,17 @@
       <tbody>
       <tr>
         <td class="owner-email">
-          <%= image_tag avatar_url(@owner.email), class: 'gravatar' %>
-          <%= @owner.fullname %>
-          <% if @camera['owner'] == current_user.username %>
-            <small>(you)</small>
-          <% end %></td>
+          <div class="gravatar-placeholder">
+            <%= image_tag avatar_url(@owner.email), class: 'gravatar' %>
+          </div>
+          <div class="username-id">
+            <%= @owner.fullname %>
+            <% if @camera['owner'] == current_user.username %>
+              <small>(you)</small>
+            <% end %><br>
+            <small class="blue"><%= @owner.email %></small>
+          </div>
         </td>
-        <td class="email"><%= @owner.email %></td>
         <td class="share-by"></td>
         <td class="is-owner">Is Owner</td>
         <td></td>
@@ -152,20 +155,24 @@
         <% @camera_shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
           <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>">
-            <td class="col-lg-2">
+            <td class="col-lg-4">
               <div class="gravatar-placeholder">
                 <%= image_tag avatar_url(share["email"]), class: 'gravatar' %>
               </div>
               <div class="username-id">
-                <%= share["fullname"] %><% share["user_id"] %>
+                <%= share["fullname"] %>
                 <% if share["user_id"] == current_user.username %>
                   <small class="blue"> (you)</small>
                 <% end %><br>
-                <small class="blue"><%= share["user_id"] %></small>
+                <small class="blue"><%= share["email"] %></small>
               </div>
             </td>
-            <td class="col-lg-3 email"><%= share["email"] %></td>
-            <td class="col-lg-2 share-by"><%= share["sharer_name"] %></td>
+            <td class="col-lg-3 share-by">
+              <div class="username-id">
+                <%= share["sharer_name"] %><br>
+                <small class="blue"><%= share["sharer_email"] %></small>
+              </div>
+            </td>
             <td class="col-lg-2">
               <div class="input-group">
                 <select class="form-control reveal <% if share["user_id"] == current_user.username %>disabled<% end %>"
@@ -181,7 +188,7 @@
             <td class="col-lg-2">
               <div class="form-group">
                 <div class="popbox2">
-                  <span class="open2"><span class="remove"></span>Remove</span>
+                  <span class="open2"><span class="remove"></span><i title="Remove" class="fa fa-trash-o font-size-17"></i></span>
                   <div class="collapse-popup">
                     <div class="box2">
                       <div class="arrow2"></div>
@@ -204,12 +211,17 @@
         <% @share_requests.each do |share_request| %>
           <% rights = share_request["rights"].split(",") %>
           <tr class="share-request" id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
-            <td colspan="2" class="col-lg-5">
+            <td class="col-lg-4">
               <%= image_tag avatar_url(share_request["email"]), class: 'gravatar' %>
               <%= share_request["email"] %>
               <small class="blue"> ...pending</small>
             </td>
-            <td class="col-lg-2 share-by"><%= share_request["sharer_name"] %></td>
+            <td class="col-lg-3 share-by">
+              <div class="username-id">
+                <%= share_request["sharer_name"] %><br>
+                <small class="blue"><%= share_request["sharer_email"] %></small>
+              </div>
+            </td>
             <td class="col-lg-2">
               <div class="input-group">
                 <select class="form-control reveal" show-class="show-save">
@@ -224,9 +236,8 @@
             <td class="col-lg-2">
               <div class="form-group">
                 <div class="popbox2">
-                  <span class="open2"><span class="remove"></span>Revoke</span>
-                  <span>&nbsp;|&nbsp;</span>
-                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>">Resend</span>
+                  <span class="open2"><span class="remove"></span><i class="fa fa-trash-o font-size-17" title="Revoke"></i></span>
+                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><i title="Resend Email" class="fa fa-paper-plane font-size-17"></i></span>
                   <div class="collapse-popup">
                     <div class="box2">
                       <div class="arrow2"></div>

@@ -114,6 +114,12 @@ creditCardTypeFromNumber = (num) ->
     return 'LASER'
   ''
 
+autoDecimal = ->
+  $("#amount").on "blur", ->
+    value = $(this).val()
+    $(this).val(parseFloat(value).toFixed(2))
+
 window.initializePay = ->
   CheckCardNumber()
   submitForm()
+  autoDecimal()

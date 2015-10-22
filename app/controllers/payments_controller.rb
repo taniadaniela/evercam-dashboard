@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists, only: [:create, :new]
-  skip_before_action :authenticate_user!, only: [:pay, :make_payment]
+  skip_before_action :authenticate_user!, only: [:pay, :make_payment, :thank]
   layout "user-account"
   include SessionsHelper
   include ApplicationHelper
@@ -14,16 +14,19 @@ class PaymentsController < ApplicationController
     render layout: "bare-bones"
   end
 
+  def thank
+    render layout: "bare-bones"
+  end
+
   def make_payment
     begin
       token = create_token(params)
-      make_custom_payment(params, token)
-      flash[:error] = "Payment made successfully."
+      response = make_custom_payment(params, token)
+      redirect_to thank_payment_path
     rescue => error
       flash[:error] = error.message
+      redirect_to pay_path
     end
-    redirect_to pay_path
-    # render action: "pay", info: params
   end
 
   # This is the view checkout action

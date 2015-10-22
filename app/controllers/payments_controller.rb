@@ -1,12 +1,30 @@
 class PaymentsController < ApplicationController
   before_filter :redirect_when_cart_empty, only: :new
-  prepend_before_filter :ensure_card_exists
+  prepend_before_filter :ensure_card_exists, only: [:create, :new]
+  skip_before_action :authenticate_user!, only: [:pay, :make_payment]
   layout "user-account"
   include SessionsHelper
   include ApplicationHelper
   include CurrentCart
   include StripeCustomersHelper
   include StripeInvoicesHelper
+  require "stripe"
+
+  def pay
+    render layout: "bare-bones"
+  end
+
+  def make_payment
+    begin
+      token = create_token(params)
+      make_custom_payment(params, token)
+      flash[:error] = "Payment made successfully."
+    rescue => error
+      flash[:error] = error.message
+    end
+    redirect_to pay_path
+    # render action: "pay", info: params
+  end
 
   # This is the view checkout action
   def new
@@ -75,6 +93,26 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def create_token(params)
+    Stripe::Token.create(
+      :card => {
+        :number => params["card-number"],
+        :exp_month => params["expiry-month"],
+        :exp_year => params["expiry-year"],
+        :cvc => params["card-cvc"]
+      },
+    )
+  end
+
+  def make_custom_payment(params, token)
+    Stripe::Charge.create(
+      :amount => params[:amount].to_i * 100,
+      :currency => "eur",
+      :source => token.id,
+      :description => "Charge for #{params[:email]}"
+    )
+  end
 
   def buy_subscription(plan, quantity)
     selector = ProductSelector.new(plan)
@@ -197,8 +235,6 @@ class PaymentsController < ApplicationController
       end
     description
   end
-
-  private
 
   def insert_add_ons
     add_ons_in_cart.each_with_index do |item, index|

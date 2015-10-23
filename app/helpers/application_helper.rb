@@ -3,7 +3,7 @@ module ApplicationHelper
 
   def avatar_url(email)
     gravatar_id = Digest::MD5.hexdigest(email.downcase)
-    "http://gravatar.com/avatar/#{gravatar_id}.png"
+    "//gravatar.com/avatar/#{gravatar_id}.png"
   end
 
   def vendors
@@ -47,7 +47,7 @@ module ApplicationHelper
 
   def format_time stamp
     t = Time.at(stamp)
-    t.to_formatted_s(:long) 
+    t.to_formatted_s(:long)
   end
 
   # Bug here is rounding amounts, and not showing the cents correctly

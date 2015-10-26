@@ -188,8 +188,7 @@ td .share-camera {
 @media (max-width: 767px) {
 
   td.email,
-  th.email,
-  tr.share-request {
+  th.email {
     display: none !important;
   }
 
@@ -210,5 +209,28 @@ td .share-camera {
   td.share-by,
   th.share-by {
     display: none !important;
+  }
+
+  .share-with-title{
+    color: #333333;
+    display: block;
+    font-size: 16px;
+    line-height: 18px;
+    max-height: 36px;
+    min-height: 18px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .paragraph-end{
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 0;
+    height: 25px;
+    max-height: 100%;
+    position: absolute;
+    right: 0;
+    width: 60px;
   }
 }

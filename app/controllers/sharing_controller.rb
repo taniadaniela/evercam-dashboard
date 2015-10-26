@@ -101,6 +101,7 @@ class SharingController < ApplicationController
         result[:fullname] = share["fullname"]
         result[:email] = share["email"]
         result[:sharer_name] = share["sharer_name"]
+        result[:sharer_email] = share["sharer_email"]
         result[:avatar] = avatar_url(share["email"])
         result[:type] = share["type"]
         result[:permissions] = params[:permissions]

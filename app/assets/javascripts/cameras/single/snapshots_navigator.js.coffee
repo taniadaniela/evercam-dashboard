@@ -397,6 +397,8 @@ GetCameraInfo = (isShowLoader) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
+  $('#divNoMd').text 'Loading motions...'
+  $('#divNoMd').show()
   if isShowLoader
     showLoader()
   fromDT = GetFromDT()/1000
@@ -447,6 +449,7 @@ GetCameraInfo = (isShowLoader) ->
       $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
       SetInfoMessage(currentFrameNumber, frameDateTime)
       loadImage(snapshotTimeStamp)
+      BindMDStrip()
     true
 
   settings =
@@ -460,6 +463,88 @@ GetCameraInfo = (isShowLoader) ->
     url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots.json"
 
   sendAJAXRequest(settings)
+
+BindMDStrip = ->
+  snapshot_list = snapshotInfos.slice()
+  snapshot_list.reverse()
+  extractMdRecords(snapshot_list)
+
+  total_md = $('#MDSliderItem li').length
+  mwidth = total_md * 77
+  if total_md is 0
+    $('#divNoMd').text 'No motion detected'
+    $('#divNoMd').show()
+  else
+    $('#divNoMd').hide()
+    $('#divSliderMD').width mwidth
+    loadMdImages()
+  #$('img[class="RecordedImg"]').thumbPopup
+  #  imgSmallFlag: ''
+  #  imgLargeFlag: ''
+  #return
+
+extractMdRecords = (snapshot_list) ->
+  for snapshot in snapshotInfos
+    if $('#MDSliderItem li').length > 20
+      break
+    if snapshot.motion_level > 5
+      image_date = new Date(snapshot.created_at*1000)
+      li = $('<li>')
+      div_image = $('<div>')
+      image = $('<img>', {class: "md-Img"})
+      image.attr("src", "")
+      image.attr("width", 75)
+      image.attr("height", 57)
+      image.attr("timestamp", snapshot.created_at)
+      div_image.append(image)
+      li.append(div_image)
+      div_date = $('<div>')
+      hour = parseInt(cameraCurrentHour)
+      div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
+      li.append(div_date)
+      $('#MDSliderItem').append li
+
+selectMdImage = ->
+  $("#MDSliderItem").on "click", ".md-Img", ->
+    timestamp = $(this).attr("timestamp")
+    i = 0
+    for snapshot in snapshotInfos
+      if snapshot.created_at is parseInt(timestamp)
+        currentFrameNumber = i + 1
+        snapshotInfoIdx = i
+        UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
+        break
+      i++
+
+loadMdImages = ->
+  $(".md-Img").each ->
+    image_control = $(this)
+    timestamp = image_control.attr("timestamp")
+    cameraId = Evercam.Camera.id
+    data = {}
+    data.with_data = true
+    data.range = 1
+    data.api_id = Evercam.User.api_id
+    data.api_key = Evercam.User.api_key
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (response) ->
+      if response.snapshots.length > 0
+        image_control.attr("src", response.snapshots[0].data)
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'GET'
+      url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{timestamp}.json"
+
+    sendAJAXRequest(settings)
 
 loadImage = (timestamp) ->
   cameraId = Evercam.Camera.id
@@ -859,3 +944,4 @@ window.initializeRecordingsTab = ->
   window.initScheduleCalendar()
   window.setCloudRecordingToggle()
   onCollapsRecording()
+  selectMdImage()

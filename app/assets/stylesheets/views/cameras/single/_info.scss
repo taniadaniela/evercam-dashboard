@@ -58,6 +58,39 @@
 .capture {
   max-width: 450px;
 }
+#details .portlet-body{
+  position: relative;
+}
+.image-placeholder-detail-page{
+  border: 1px solid #e5e5e5;
+  max-height: 137px;
+  padding: 5px;
+  text-align: center;
+  width: 139px;
+  position: absolute;
+  z-index: 999;
+  top: 0px;
+  right: 0px;
+  #vemdor-image{
+    max-height: 12px;
+    margin-top: -11px;
+    float: left;
+    margin-left: -20px;
+  }
+  #model-image{
+    max-height: 127px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 780px) {
+
+  .image-placeholder-detail-page{
+    position: relative;
+    margin: 20px auto 0px;
+  }
+
+}
 #deleteModal .modal-footer {
   padding: 0px 14px 25px;
 }

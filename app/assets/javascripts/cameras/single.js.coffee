@@ -10,6 +10,7 @@
 #= require cameras/single/testsnapshot.js.coffee
 #= require cameras/single/archives.js.coffee
 #= require saveimage.js
+#= require jquery.thumbhover.js
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')

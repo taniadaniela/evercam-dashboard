@@ -478,10 +478,10 @@ BindMDStrip = ->
     $('#divNoMd').hide()
     $('#divSliderMD').width mwidth
     loadMdImages()
-  #$('img[class="RecordedImg"]').thumbPopup
-  #  imgSmallFlag: ''
-  #  imgLargeFlag: ''
-  #return
+  $('img[class="md-Img"]').thumbPopup
+    imgSmallFlag: ''
+    imgLargeFlag: ''
+  return
 
 extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos

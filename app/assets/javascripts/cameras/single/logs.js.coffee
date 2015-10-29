@@ -39,7 +39,10 @@ initializeDataTable = ->
       , orderDataType: 'string-date', type: 'string-date' },
       {data: ( row, type, set, meta ) ->
         if row.action is 'shared' or row.action is 'stopped sharing'
-          return row.action + ' with ' + row.extra.with
+          if row.extra && row.extra.with
+            return row.action + ' with ' + (row.extra.with if row.extra)
+          else
+            return row.action
         return row.action
       , className: 'log-action'},
       {data: ( row, type, set, meta ) ->

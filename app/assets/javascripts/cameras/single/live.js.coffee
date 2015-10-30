@@ -283,6 +283,9 @@ disconnectFromSocket = ->
   Evercam.socket.disconnect()
 
 
+checkPTZExist = ->
+  if $(".ptz-controls").length > 0
+    $('.live-options').css('top','114px').css('right','32px')
 
 window.initializeLiveTab = ->
   initSocket()
@@ -300,3 +303,4 @@ window.initializeLiveTab = ->
   getPtzPresets()
   changePtzPresets()
   handleModelEvents()
+  checkPTZExist()

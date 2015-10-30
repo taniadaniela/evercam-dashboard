@@ -95,5 +95,11 @@
         </td>
       </tr>
     </table>
+    <% if @camera['vendor_id'] != "" %>
+        <div class="image-placeholder-detail-page">
+          <img id="vemdor-image" src="https://evercam-public-assets.s3.amazonaws.com/<%= @camera['vendor_id'] %>/logo.jpg" >
+          <img id="model-image" src="https://evercam-public-assets.s3.amazonaws.com/<%= @camera['vendor_id'] %>/<%= @camera['model_id'] %>/thumbnail.jpg">
+        </div>
+    <% end %>
   </div>
 </div>

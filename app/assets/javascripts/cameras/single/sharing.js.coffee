@@ -437,7 +437,7 @@ createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
   sendAJAXRequest(settings)
 
 onPermissionsFocus = (event) ->
-  $(this).parent().parent().parent().find("td:eq(4) button").fadeIn()
+  $(this).parent().parent().parent().find("td:eq(3) button").fadeIn()
 
 onSharingOptionsClicked = (event) ->
   test = $(this).val();

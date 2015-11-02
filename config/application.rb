@@ -36,7 +36,7 @@ module EvercamDashboard
     config.assets.paths << "#{Rails.root.to_s}/vendor/assets/javascripts"
     config.assets.paths << "#{Rails.root.to_s}/lib/assets/javascripts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
-    config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.svg]
+    config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.svg *.woff *.woff2]
     config.assets.precompile += %w[
       snapshot_navigator_widget.js
       admin/admin.js

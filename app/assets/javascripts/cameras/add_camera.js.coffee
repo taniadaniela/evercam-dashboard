@@ -47,6 +47,8 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
         jpg_url = ""
       if selected is '' && model.name.toLowerCase().indexOf('default') isnt -1
         $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name}</option>")
+      else if model.name.toLowerCase().indexOf('other') isnt -1
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name} - Custom URL</option>")
       else
         $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
     if $("#last-selected-model").val() is ''
@@ -91,13 +93,19 @@ loadVendors = ->
 
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
+    $("#camera-vendor option").remove()
+
     for vendor in vendors
       selected = ''
       if vendor.id is $("#last-selected-vendor").val()
         selected = 'selected="selected"'
         loadVendorModels(vendor.id)
         $("#last-selected-vendor").val('')
-      $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
+      if vendor.id is "other"
+        $("#camera-vendor").prepend("<option value='#{vendor.id}' #{selected}>#{vendor.name} - Custom URL</option>")
+      else
+        $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
+    $("#camera-vendor").prepend('<option value="">Select Camera Vendor</option>');
 
   settings =
     cache: false

@@ -12,10 +12,16 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
-loadVendorModels = (vendor_id) ->
+loadVendorModels = (vendor_id, stroke_key_up) ->
   $("#camera-model option").remove()
   $("#camera-model").append('<option value="">Loading...</option>');
   if vendor_id is ""
+    $("#camera-model option").remove()
+    $("#camera-model").append('<option value="">Select Camera Model</option>');
+    $("#snapshot").val("")
+    $("#snapshot-readonly").val("")
+    $("#snapshot").removeClass("hide")
+    $("#snapshot-readonly").addClass("hide")
     return
 
   data = {}
@@ -39,9 +45,21 @@ loadVendorModels = (vendor_id) ->
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
       if jpg_url is "unknown"
         jpg_url = ""
-      $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+      if selected is '' && model.name.toLowerCase().indexOf('default') isnt -1
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name}</option>")
+      else
+        $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
     if $("#last-selected-model").val() is ''
-      $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
+      if model.id isnt "other_default"
+        $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
+        $("#snapshot-readonly").val $("#camera-model").find(":selected").attr("jpg-val")
+        $("#snapshot").addClass("hide")
+        $("#snapshot-readonly").removeClass("hide")
+      else
+        $("#snapshot").val("") if !stroke_key_up
+        $("#snapshot-readonly").val("")
+        $("#snapshot").removeClass("hide")
+        $("#snapshot-readonly").addClass("hide")
     $("#last-selected-model").val('')
 
   settings =
@@ -105,8 +123,18 @@ handleVendorModelEvents = ->
 
   $(".camera-model").on "change", ->
     $("#snapshot").val $(this).find(":selected").attr("jpg-val")
+    $("#snapshot-readonly").val $(this).find(":selected").attr("jpg-val")
+    $("#snapshot").addClass("hide")
+    $("#snapshot-readonly").removeClass("hide")
 
 onLoadPage = ->
+  if $("#last-selected-model").val() isnt ''
+    if $("#last-selected-model").val() is "other_default"
+      $("#snapshot").removeClass("hide")
+      $("#snapshot-readonly").addClass("hide")
+    else
+      $("#snapshot").addClass("hide")
+      $("#snapshot-readonly").removeClass("hide")
   $(".settings").hide()
   #toggle the componenet with class msg_body
   $(".additional").click ->
@@ -123,11 +151,32 @@ onLoadPage = ->
 
 onAddCamera = ->
   $("#add-button").on 'click', ->
+    if $("#camera-name").val().trim() is "" && $("#camera-id").val().trim() is "" && $("#camera-url").val().trim() is "" && $("#snapshot").val().trim() is ""
+      Notification.show "Please enter required camera fields: Camera Name, Camera-Id, Camera URL and Snapshot Url."
+      return false
+    if $("#camera-name").val().trim() is ""
+      Notification.show "Please enter required fields: Camera Name."
+      return false
+    if $("#camera-id").val().trim() is ""
+      Notification.show "Please enter required fields: Camera-Id."
+      return false
+    if $("#camera-url").val().trim() is ""
+      Notification.show "Please enter required fields: Camera URL."
+      return false
+    if $("#snapshot").val().trim() is ""
+      Notification.show "Please enter required fields: Snapshot Url."
+      return false
     regularExpression = /^(^127\.0\.0\.1)|(^192\.168\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)$/
     if regularExpression.test($("#camera-url").val())
       Notification.show "Its your local IP, please provide camera public IP."
       $("#camera-url").css("border-color", "red")
       return false
+
+onCustomizedUrl = ->
+  $("#snapshot").on "keyup", ->
+    if $("#camera-vendor").val() isnt "other"
+      $("#camera-vendor").val("other")
+      loadVendorModels($("#camera-vendor").val(), true)
 
 window.initializeAddCamera = ->
   Metronic.init()
@@ -139,4 +188,5 @@ window.initializeAddCamera = ->
   initNotification()
   loadVendors()
   onAddCamera()
+  onCustomizedUrl()
 

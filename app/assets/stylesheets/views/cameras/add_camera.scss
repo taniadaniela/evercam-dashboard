@@ -234,3 +234,9 @@ input:-webkit-autofill {
   background-color: transparent;
   border-color: transparent;
 }
+
+.snapshot-readonly {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px #aaaaaa !important;
+}

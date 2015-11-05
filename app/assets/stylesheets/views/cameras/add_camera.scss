@@ -1,21 +1,25 @@
 @media screen and (max-width: 767px) {
-    div.form-group {
+
+  div.form-group {
       height: 55px;
-    }
-    div#change.form-group{
-    height: 70px;
-    }
-
-
-    span.prepend.prepend-1 {
-    display: none;
-    }
-
-    span.prepend.prepend-2 {
-    display: none;
-
-    }
+      
   }
+
+  div#change.form-group {
+    height: 70px;
+
+  }
+
+  span.prepend.prepend-1 {
+    display: none;
+
+  }
+
+  span.prepend.prepend-2 {
+    display: none;
+
+  }
+}
 
 
 

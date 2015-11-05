@@ -86,19 +86,19 @@
                     </div>
                   </div>
                   <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-6">
-                    <p class="help-block this form-error text-left" style="display: none;">Select 'Default' if you're unsure</p>
                     <div class="form-group">
                     <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
                     <div class="dropdown">
                       <select id="camera-model" name="camera-model" class="form-control camera-model">
                         <option value="">Select Camera Model</option>
                       </select>
-                    </div>
+                        </div>
                     <input type="hidden" id="last-selected-model" value="<%= @user['camera-model'] %>">
                     <% if field_errors["model"] %>
                       <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
                     <% end %>
                     </div>
+                      <p class="help-block this form-error text-left" style="display: none;">Select 'Default' if you're unsure</p>
                   </div>
                 </div>
               </div>

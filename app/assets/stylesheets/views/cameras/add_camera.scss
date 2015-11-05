@@ -1,3 +1,26 @@
+@media screen and (max-width: 767px) {
+    div.form-group {
+      height: 55px;
+    }
+    div#change.form-group{
+    height: 70px;
+    }
+
+
+    span.prepend.prepend-1 {
+    display: none;
+    }
+
+    span.prepend.prepend-2 {
+    display: none;
+
+    }
+  }
+
+
+
+
+
 #add-ip .form-actions {
   padding-bottom: 15px;
 }
@@ -119,7 +142,7 @@ input:-webkit-autofill {
   margin-bottom: 20px;
 }
 #add-ip .help-block {
-  font-size: 12px;
+  font-size: 11px;
   width:110%;
   margin-bottom: 0;
   position: absolute;
@@ -128,7 +151,7 @@ input:-webkit-autofill {
   background-color: #fff;
 }
 #camera-port .help-block {
-  padding-top: 35px;
+  padding-top: 0px;
 }
 #port .help-block {
   margin-top: 20px !important;
@@ -215,7 +238,7 @@ input:-webkit-autofill {
 }
 .prepend-1 {
   margin-left: -26px;
-  margin-top: 6px;
+  margin-top: 20px;
   position: absolute;
 }
 
@@ -234,3 +257,5 @@ input:-webkit-autofill {
   background-color: transparent;
   border-color: transparent;
 }
+
+

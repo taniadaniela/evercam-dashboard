@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   root to: redirect('/v1/cameras'), as: :root
   get '/v1/cameras' => 'cameras#index', as: :cameras_index
   get '/v1/cameras/new' => 'cameras#new', as: :cameras_new
+  get '/v1/cameras/new-test' => 'cameras#addcam_test', as: :cameras_new_test
   post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single

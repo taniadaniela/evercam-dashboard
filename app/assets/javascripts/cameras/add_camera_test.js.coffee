@@ -1,7 +1,7 @@
 vandor_urls = []
 
 initNotification = ->
-  Notification.init(".bb-alert");
+  Notification.init(".bb-alert")
   if notifyMessage
     Notification.show notifyMessage
 
@@ -16,10 +16,10 @@ sendAJAXRequest = (settings) ->
 
 loadVendorModels = (vendor_id, stroke_key_up) ->
   $("#camera-model option").remove()
-  $("#camera-model").append('<option value="">Loading...</option>');
+  $("#camera-model").append('<option value="">Loading...</option>')
   if vendor_id is ""
     $("#camera-model option").remove()
-    $("#camera-model").append('<option value="">Select Camera Model</option>');
+    $("#camera-model").append('<option value="">Select Camera Model</option>')
     $("#snapshot").val("")
     $("#snapshot-readonly").val("")
     $("#snapshot").removeClass("hide")
@@ -40,7 +40,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
   onSuccess = (result, status, jqXHR) ->
     $("#camera-model option").remove()
     if result.models.length == 0
-      $("#camera-model").append('<option value="">No Model Found</option>');
+      $("#camera-model").append('<option value="">No Model Found</option>')
       return
 
     models = sortByKey(result.models, "name")
@@ -125,7 +125,7 @@ loadVendors = ->
         $("#camera-vendor").prepend("<option data-val='#{vendor.logo}' value='#{vendor.id}' #{selected}>#{vendor.name} - Custom URL</option>")
       else
         $("#camera-vendor").append("<option data-val='#{vendor.logo}' value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
-    $("#camera-vendor").prepend('<option value="">Select Camera Vendor</option>');
+    $("#camera-vendor").prepend('<option value="">Select Camera Vendor</option>')
     $('#camera-vendor').select2()
       #placeholder: 'Select Camera'
       #templateResult: format

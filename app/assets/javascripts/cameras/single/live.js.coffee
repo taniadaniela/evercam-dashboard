@@ -4,6 +4,7 @@ refresh_paused = false
 image_placeholder = undefined
 img_real_width = 0
 img_real_height = 0
+live_view_timestamp = 0
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -266,7 +267,9 @@ connectToSocket = ->
   channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
   channel.join()
   channel.on 'snapshot-taken', (payload) ->
-    $('#live-player-image').attr 'src', 'data:image/jpeg;base64,' + payload.image
+    if payload.timestamp > live_view_timestamp
+      live_view_timestamp = payload.timestamp
+      $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
 disconnectFromSocket = ->
   Evercam.socket.disconnect()

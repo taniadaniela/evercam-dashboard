@@ -18,16 +18,6 @@ loadImage = ->
     img = new Image()
     live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{live_snapshot_url}&rand=" + new Date().getTime()
-    # NOTE: temporarily commented out to disable image replacement.
-    # Now image requests are only used as a trigger for websockets stream
-    # See proxy.es6 for more details.
-    #
-    # img.onload = ->
-    #   unless not image_placeholder.parent
-    #     image_placeholder.parent.replaceChild img, image_placeholder
-    #   else
-    #     image_placeholder.src = src
-    #   $(".btn-live-player").removeClass "hide"
     img.src = src
 
 controlButtonEvents = ->

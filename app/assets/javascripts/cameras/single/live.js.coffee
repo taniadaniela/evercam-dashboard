@@ -186,8 +186,6 @@ handlePtzCommands = ->
       $('#ptz-control table thead tr th').html headingText
       true
 
-
-
     settings =
       cache: false
       data: data
@@ -250,6 +248,7 @@ changePtzPresets = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
+
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->
     $("#ptz-control").addClass("hide")
@@ -271,7 +270,6 @@ connectToSocket = ->
 
 disconnectFromSocket = ->
   Evercam.socket.disconnect()
-
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0

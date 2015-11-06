@@ -22,6 +22,7 @@
 //= require datatables
 //= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js
 //= require iCheck
+//= require select2
 //= require popbox.js
 //= require phoenix
 //= require pusher
@@ -35,6 +36,7 @@
 //= require cameras.js
 //= require cameras/single.js
 //= require cameras/add_camera.js
+//= require cameras/add_camera_test.js
 //= require user_account.js
 //=
 //= require metronic/respond.min.js

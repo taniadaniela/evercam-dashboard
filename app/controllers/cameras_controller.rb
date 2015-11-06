@@ -38,6 +38,37 @@ class CamerasController < ApplicationController
     end
   end
 
+  def addcam_test
+    @cameras = load_user_cameras(true, false)
+    @user = (flash[:user] || {})
+    @ip = request.remote_ip
+
+    if @user == {} && params[:id]
+      camera = get_evercam_api.get_camera(params[:id], false)
+      @user['camera-name'] = camera['name']
+      @user['camera-id'] = camera['id']
+      @user['camera-username'] = camera['cam_username']
+      @user['camera-password'] = camera['cam_password']
+      @user['camera-url'] = camera.deep_fetch('external', 'host')
+      @user['port'] = camera.deep_fetch('external', 'http', 'port') {}
+      @user['ext-rtsp-port'] = camera.deep_fetch('external', 'rtsp', 'port') {}
+      @user['camera-vendor'] = camera['vendor_id']
+      @user['camera-model'] = camera['model_id']
+      @user['local-ip'] = camera.deep_fetch('internal', 'host') {}
+      @user['local-http'] = camera.deep_fetch('internal', 'http', 'port') {}
+      @user['local-rtsp'] = camera.deep_fetch('internal', 'rtsp', 'port') {}
+      if camera.deep_fetch('location') { '' }
+        @user['camera-lat'] = camera.deep_fetch('location', 'lat') {}
+        @user['camera-lng'] = camera.deep_fetch('location', 'lng') {}
+      end
+      if camera.deep_fetch('external', 'http', 'jpg') { '' }
+        @user['snapshot'] = camera.deep_fetch('external', 'http', 'jpg') { '' }.
+          sub("http://#{camera.deep_fetch('external', 'host') { '' }}", '').
+          sub(":#{camera.deep_fetch('external', 'http', 'port') { '' }}", '')
+      end
+    end
+  end
+
   def create
     camera_id = params['camera-id'].squish if params['camera-id'].present?
     begin
@@ -94,7 +125,11 @@ class CamerasController < ApplicationController
       end
       Rails.logger.error "Exception caught in create camera request.\nCause: #{error}\n" +
           error.backtrace.join("\n")
-      return redirect_to cameras_new_path
+      if params["add-camera"].present? && params["add-camera"].eql?("test")
+        return redirect_to cameras_new_test_path
+      else
+        return redirect_to cameras_new_path
+      end
     end
     begin
       # Storing snapshot is not essential, so don't show any errors to user

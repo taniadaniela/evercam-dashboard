@@ -230,6 +230,8 @@ sendTestSnapshotRequest = (loader, index) ->
   vendor_model = vandor_urls[index]
   port = $('#port').val()
   ext_url = $('#camera-url').val()
+  if (port != '')
+    port = ':' + port
   jpg_url = vendor_model.defaults.snapshots.jpg
   # Encode parameters
   jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
@@ -288,8 +290,6 @@ testSnapshot = ->
     if(port != '' && (!intRegex.test(port) || port > 65535))
       showFeedback("Port value is incorrect")
       return
-    else if (port != '')
-      port = ':' + port
 
     # Validate host
     if (ext_url is '' || !validate_hostname(ext_url))

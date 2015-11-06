@@ -232,7 +232,10 @@ sendTestSnapshotRequest = (loader, index) ->
   ext_url = $('#camera-url').val()
   if (port != '')
     port = ':' + port
-  jpg_url = vendor_model.defaults.snapshots.jpg
+  if vandor_urls.length is 0
+    jpg_url = $('#snapshot').val()
+  else
+    jpg_url = vendor_model.defaults.snapshots.jpg
   # Encode parameters
   jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
   data = {}
@@ -258,9 +261,10 @@ sendTestSnapshotRequest = (loader, index) ->
       else
         showFeedback("We got a snapshot")
         $('#testimg').attr('src', result.data)
-        $("#camera-model").val vendor_model.id
-        $("#snapshot").val jpg_url
-        $("#snapshot-readonly").val jpg_url
+        if vandor_urls.length isnt 0
+          $("#camera-model").val vendor_model.id
+          $("#snapshot").val jpg_url
+          $("#snapshot-readonly").val jpg_url
     loader.stop()
 
   settings =
@@ -278,7 +282,7 @@ sendTestSnapshotRequest = (loader, index) ->
 testSnapshot = ->
   $("#test-snapshot").on 'click', (event) ->
     event.preventDefault()
-    if vandor_urls.length is 0 && $('#snapshot').val()
+    if vandor_urls.length is 0 && $('#snapshot').val() is ""
       showFeedback("Please choose camera vendor or add your camera snapshot URL.")
       return
     $('#test-error').text('')
@@ -308,10 +312,7 @@ testSnapshot = ->
         loader.stop()
         clearInterval(interval)
     , 200)
-
-    if vandor_urls.length > 0
-      sendTestSnapshotRequest(loader, 0)
-
+    sendTestSnapshotRequest(loader, 0)
 
 window.initializeAddCameraTest = ->
   Metronic.init()

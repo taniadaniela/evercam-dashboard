@@ -4,6 +4,7 @@ refresh_paused = false
 image_placeholder = undefined
 img_real_width = 0
 img_real_height = 0
+live_view_timestamp = 0
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -18,16 +19,6 @@ loadImage = ->
     img = new Image()
     live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{live_snapshot_url}&rand=" + new Date().getTime()
-    # NOTE: temporarily commented out to disable image replacement.
-    # Now image requests are only used as a trigger for websockets stream
-    # See proxy.es6 for more details.
-    #
-    # img.onload = ->
-    #   unless not image_placeholder.parent
-    #     image_placeholder.parent.replaceChild img, image_placeholder
-    #   else
-    #     image_placeholder.src = src
-    #   $(".btn-live-player").removeClass "hide"
     img.src = src
 
 controlButtonEvents = ->
@@ -196,8 +187,6 @@ handlePtzCommands = ->
       $('#ptz-control table thead tr th').html headingText
       true
 
-
-
     settings =
       cache: false
       data: data
@@ -260,6 +249,7 @@ changePtzPresets = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
+
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->
     $("#ptz-control").addClass("hide")
@@ -277,11 +267,12 @@ connectToSocket = ->
   channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
   channel.join()
   channel.on 'snapshot-taken', (payload) ->
-    $('#live-player-image').attr 'src', 'data:image/jpeg;base64,' + payload.image
+    if payload.timestamp > live_view_timestamp
+      live_view_timestamp = payload.timestamp
+      $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
 disconnectFromSocket = ->
   Evercam.socket.disconnect()
-
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0

@@ -1,0 +1,64 @@
+<div class="user-applications">
+  <div class="page-content-wrapper" id="manage-account">
+    <div class="page-content">
+      <div class="portlet-body">
+        <div class="col-md-12">
+          <h3>Authorized Applications</h3>
+          <% if !@apps %>
+            <p>No Authorized application</p>
+          <% else %>
+            <% @apps.each do |app| %>
+              <div class="app-box">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row app-details">
+                      <div class="col-lg-3">Application:</div>
+                      <div class="col-lg-9"><%= app.client.name %></div>
+                    </div>
+                    <div class="row app-details">
+                      <div class="col-lg-3">API ID:</div>
+                      <div class="col-lg-9"><%= app.client.api_id %></div>
+                    </div>
+                    <div class="row app-details">
+                      <div class="col-lg-3">API Key:</div>
+                      <div class="col-lg-9"><%= app.client.api_key %></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row app-details">
+                      <div class="col-lg-3">Expires At:</div>
+                      <div class="col-lg-9"><%= Time.at(app.expires_at).strftime("%d %B %Y") %></div>
+                    </div>
+                    <div class="row app-details">
+                      <div class="col-lg-3">Auth Token:</div>
+                      <div class="col-lg-9"><%= app.request %></div>
+                    </div>
+                    <div class="row app-details">
+                      <div class="col-lg-3">Scopes:</div>
+                      <div class="col-lg-9">cameras:list:all, cameras:view:all, user:view:all, snapshots:list:all</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <input type="button" value="Revoke Access" class="btn btn-primary red">
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+//  $('#application-table').DataTable({
+//    iDisplayLength: 50,
+//    order: [[ 3, "desc" ]]
+//  });
+});
+</script>

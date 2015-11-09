@@ -38,6 +38,37 @@ class CamerasController < ApplicationController
     end
   end
 
+  def addcam_test
+    @cameras = load_user_cameras(true, false)
+    @user = (flash[:user] || {})
+    @ip = request.remote_ip
+
+    if @user == {} && params[:id]
+      camera = get_evercam_api.get_camera(params[:id], false)
+      @user['camera-name'] = camera['name']
+      @user['camera-id'] = camera['id']
+      @user['camera-username'] = camera['cam_username']
+      @user['camera-password'] = camera['cam_password']
+      @user['camera-url'] = camera.deep_fetch('external', 'host')
+      @user['port'] = camera.deep_fetch('external', 'http', 'port') {}
+      @user['ext-rtsp-port'] = camera.deep_fetch('external', 'rtsp', 'port') {}
+      @user['camera-vendor'] = camera['vendor_id']
+      @user['camera-model'] = camera['model_id']
+      @user['local-ip'] = camera.deep_fetch('internal', 'host') {}
+      @user['local-http'] = camera.deep_fetch('internal', 'http', 'port') {}
+      @user['local-rtsp'] = camera.deep_fetch('internal', 'rtsp', 'port') {}
+      if camera.deep_fetch('location') { '' }
+        @user['camera-lat'] = camera.deep_fetch('location', 'lat') {}
+        @user['camera-lng'] = camera.deep_fetch('location', 'lng') {}
+      end
+      if camera.deep_fetch('external', 'http', 'jpg') { '' }
+        @user['snapshot'] = camera.deep_fetch('external', 'http', 'jpg') { '' }.
+          sub("http://#{camera.deep_fetch('external', 'host') { '' }}", '').
+          sub(":#{camera.deep_fetch('external', 'http', 'port') { '' }}", '')
+      end
+    end
+  end
+
   def create
     camera_id = params['camera-id'].squish if params['camera-id'].present?
     begin
@@ -94,7 +125,11 @@ class CamerasController < ApplicationController
       end
       Rails.logger.error "Exception caught in create camera request.\nCause: #{error}\n" +
           error.backtrace.join("\n")
-      return redirect_to cameras_new_path
+      if params["add-camera"].present? && params["add-camera"].eql?("test")
+        return redirect_to cameras_new_test_path
+      else
+        return redirect_to cameras_new_path
+      end
     end
     begin
       # Storing snapshot is not essential, so don't show any errors to user
@@ -181,13 +216,14 @@ class CamerasController < ApplicationController
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)
         return redirect_to cameras_not_found_path if @share.nil? && !@camera['is_public']
-        @owner_email = User.by_login(@camera['owner']).username
+        @owner = User.by_login(@camera['owner'])
       else
-        @owner_email = current_user.username
+        @owner = current_user
       end
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = api.get_camera_shares(params[:id])
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
+      @vendor_model = api.get_model(@camera['model_id']) if @camera['model_id'].present?
       @cloud_recording = api.get_cloud_recordings(params[:id]) if @has_edit_rights
       if @cloud_recording.nil?
         @cloud_recording = {

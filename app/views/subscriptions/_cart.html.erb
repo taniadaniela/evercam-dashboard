@@ -1,17 +1,1 @@
-<div class="checkout">
-  <a class="checkout__button" href="#"><!-- Fallback location -->
-      <span class="cart-count" <% if @cart_count.eql?(0) %> style="opacity: 0;"<% end %>>
-        <%= @cart_count %>
-      </span>
-      <span class="checkout__text">
-      <i class="checkout__icon fa fa-3 fa-shopping-cart"></i>
-    </span>
-  </a>
-  <div class="checkout__order">
-    <div class="checkout__order-inner">
-      <a class="checkout__cancel"><i class="fa-2 fa fa-times"></i></a>
-      <%= render "subscriptions/checkout" %>
-      <%= link_to "Proceed to Checkout", new_checkout_path, class: 'col-md-6 pull-right btn btn-primary add-card-to-continue' %>
-    </div>
-  </div>
-</div>
+<%= render "subscriptions/checkout" %>

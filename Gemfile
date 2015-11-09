@@ -5,15 +5,13 @@ gem 'rails', '~> 4.2.2'
 
 gem 'sass-rails', '~> 5.0'
 gem 'yui-compressor'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'sprockets'
-gem 'sprockets-es6',
-  require: 'sprockets/es6'
 gem 'fog'
 gem 'asset_sync'
-gem 'autoprefixer-rails', '~> 5.2.1.1'
+gem 'autoprefixer-rails', '~> 5.2.1.3'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
@@ -32,15 +30,17 @@ gem 'country_select',
 gem 'devise'
 gem 'ie_iframe_cookies'
 gem 'heroku-api'
-gem 'airbrake', '~> 4.3.0'
+gem 'airbrake', '~> 4.3.1'
 gem 'pusher'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'intercom', require: 'intercom'
 gem 'imgareaselect-rails', '~> 1.0'
 
 group :evercam do
-  gem 'evercam_misc', '~> 0.0'
-  gem 'evercam_models', '~> 0.3.21'
+  gem 'evercam_misc', '~> 0.0.11'
+  gem 'evercam_models',
+    github: 'evercam/evercam-models'
   gem 'evercam',
     github: 'evercam/evercam-ruby'
 end
@@ -99,4 +99,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-videojs', '~> 4.12.7'
   gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
   gem 'rails-assets-bs-slider'
+  gem 'rails-assets-bootstrap-toggle'
+  gem 'rails-assets-select2'
 end

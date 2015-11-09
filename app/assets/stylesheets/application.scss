@@ -18,6 +18,8 @@
 //= require fullcalendar/fullcalendar.css
 //= require bs-slider
 //= require imgareaselect-default
+//= require bootstrap-toggle
+//= require select2
 //= require_self
 
 
@@ -52,6 +54,8 @@
 @import "views/users/sessions";
 @import "views/users/password_reset";
 @import "views/api_docs";
+@import "views/apps/apps";
+@import "views/payment/pay";
 
 @import "subscriptions";
 

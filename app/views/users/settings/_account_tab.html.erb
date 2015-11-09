@@ -1,7 +1,7 @@
 <div id="user-settings">
   <div class="user-settings-portal col-sm-6 col-md-4 col-lg-4">
     <div class="profile">
-      <%= image_tag avatar_url, class: 'gravatar pull-left' %>
+      <%= image_tag avatar_url(current_user.email), class: 'gravatar pull-left' %>
       <div class="username">
         <span class="grey">Username </span><span> <%= current_user.username -%></span>
       </div>

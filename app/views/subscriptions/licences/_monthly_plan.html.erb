@@ -1,0 +1,169 @@
+<% monthly_total = @seven_days_recording + @thirty_days_recording + @ninety_days_recording + @twenty_four_hours_recording + @infinity %>
+<% one_day_recording = cents_to_currency(@prices.twenty_four_hours_recording * @twenty_four_hours_recording) %>
+<% seven_days = cents_to_currency(@prices.seven_days_recording * @seven_days_recording) %>
+<% thiry_days = cents_to_currency(@prices.thirty_days_recording * @thirty_days_recording) %>
+<% ninety_days = cents_to_currency(@prices.ninety_days_recording * @ninety_days_recording) %>
+<% infinity = cents_to_currency(@prices.infinity * @infinity) %>
+<div class="col-md-12">
+  <table class="table table-full-width plan-table">
+    <thead>
+      <tr>
+        <th>Licences</th>
+        <th class="text-center">Current</th>
+        <th class="text-center">Amount</th>
+        <th class="text-center">Add / Remove</th>
+        <th class="text-center">Change (<i class="fa fa-eur"></i>)</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr class="plan-monthly">
+      <td class="col-md-2">
+        24 Hours @ &euro; <%= cents_to_currency @prices.twenty_four_hours_recording %>
+        <input type="hidden" id="24-hours-recording" value="<%= @prices.twenty_four_hours_recording %>"/>
+      </td>
+      <td class="col-md-1 text-center">
+        <%= @twenty_four_hours_recording %>
+        <span class="current-qty-monthly hide" id="24-hours-recording-current-qty"><%= @twenty_four_hours_recording %></span>
+      </td>
+      <td class="col-md-1 text-center">
+        &euro;
+        <%= one_day_recording %>
+        <span class="current-price-monthly hide" id="24-hours-recording-current-price"><%= one_day_recording %></span>
+      </td>
+      <td class="col-md-2 text-center">
+        <i class="fa fa-minus remove-licence" data-val="24-hours-recording"></i>
+        <input type="hidden" name="24-hours-recording-qty" id="24-hours-recording-qty" value="<%= @twenty_four_hours_recording %>" />
+        <input name="24-hours-recording-quantity" id="24-hours-recording-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="24-hours-recording"></i>
+      </td>
+      <td class=" col-md-1 text-center">
+        <span id="24-hours-recording-sign">+</span>
+        &euro;
+        <span class="new-price-monthly" id="24-hours-recording-new-price">0</span>
+      </td>
+    </tr>
+
+    <tr class="plan-monthly">
+      <td>
+        7 Day @ &euro; <%= cents_to_currency @prices.seven_days_recording %>
+        <input type="hidden" id="7-days-recording" value="<%= @prices.seven_days_recording/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @seven_days_recording %>
+        <span class="current-qty-monthly hide" id="7-days-recording-current-qty"><%= @seven_days_recording %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= seven_days %>
+        <span class="current-price-monthly hide" id="7-days-recording-current-price"><%= seven_days %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="7-days-recording"></i>
+        <input type="hidden" name="7-days-recording-qty" id="7-days-recording-qty" value="<%= @seven_days_recording %>" />
+        <input name="7-days-recording-quantity" id="7-days-recording-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="7-days-recording"></i>
+      </td>
+      <td class="text-center">
+        <span id="7-days-recording-sign">+</span>
+        &euro;
+        <span class="new-price-monthly" id="7-days-recording-new-price">0</span>
+      </td>
+    </tr>
+    <tr class="plan-monthly">
+      <td>
+        30 Day @ &euro; <%= cents_to_currency @prices.thirty_days_recording %>
+        <input type="hidden" id="30-days-recording" value="<%= @prices.thirty_days_recording/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @thirty_days_recording %>
+        <span class="current-qty-monthly hide" id="30-days-recording-current-qty"><%= @thirty_days_recording %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= thiry_days %>
+        <span class="current-price-monthly hide" id="30-days-recording-current-price"><%= thiry_days %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="30-days-recording"></i>
+        <input type="hidden" name="30-days-recording-qty" id="30-days-recording-qty" value="<%= @thirty_days_recording %>" />
+        <input name="30-days-recording-quantity" id="30-days-recording-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="30-days-recording"></i>
+      </td>
+      <td class="text-center">
+        <span id="30-days-recording-sign">+</span>
+        &euro;
+        <span class="new-price-monthly" id="30-days-recording-new-price">0</span>
+      </td>
+    </tr>
+    <tr class="plan-monthly">
+      <td>
+        90 Day @ &euro; <%= cents_to_currency @prices.ninety_days_recording %>
+        <input type="hidden" id="90-days-recording" value="<%= @prices.ninety_days_recording/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @ninety_days_recording %>
+        <span class="current-qty-monthly hide" id="90-days-recording-current-qty"><%= @ninety_days_recording %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= ninety_days %>
+        <span class="current-price-monthly hide" id="7-days-recording-current-price"><%= ninety_days %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="90-days-recording"></i>
+        <input type="hidden" name="90-days-recording-qty" id="90-days-recording-qty" value="<%= @ninety_days_recording %>" />
+        <input name="90-days-recording-quantity" id="90-days-recording-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="90-days-recording"></i>
+      </td>
+      <td class="text-center">
+        <span id="90-days-recording-sign">+</span>
+        &euro;
+        <span class="new-price-monthly" id="90-days-recording-new-price">0</span>
+      </td>
+    </tr>
+
+    <tr class="plan-monthly">
+      <td>
+        Infinity @ &euro; <%= cents_to_currency @prices.infinity %>
+        <input type="hidden" id="infinity" value="<%= @prices.infinity/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @infinity %>
+        <span class="current-qty-monthly hide" id="infinity-current-qty"><%= @infinity %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= infinity %>
+        <span class="current-price-monthly hide" id="infinity-current-price"><%= infinity %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="infinity"></i>
+        <input type="hidden" name="infinity-qty" id="infinity-qty" value="<%= @infinity %>" />
+        <input name="infinity-quantity" id="infinity-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="infinity"></i>
+      </td>
+      <td class="text-center">
+        <span id="infinity-sign">+</span>
+        &euro;
+        <span class="new-price-monthly" id="infinity-new-price">0</span>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot class="table-footer">
+      <tr>
+        <td>Total</td>
+        <td class="text-center"><span class="green" id="current-total-quantity-monthly"><%= monthly_total %></span></td>
+        <td class="text-center">
+          &euro;
+          <span id="current-total-price-monthly"><%= one_day_recording + seven_days + thiry_days + ninety_days + infinity %></span>
+        </td>
+        <td></td>
+        <td class="text-center">
+          <span id="new-total-price-monthly-sign">+</span>
+          &euro;
+          <span id="new-total-price-monthly">0</span>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

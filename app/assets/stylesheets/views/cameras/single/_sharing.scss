@@ -1,9 +1,42 @@
 #shares a {
   text-decoration: none;
 }
+
 #shares h5 {
   margin-top: 0px;
 }
+
+#shares .gravatar {
+  border-radius: 50%;
+  max-width: 30px;
+}
+
+#shares .font-size-17 {
+  font-size: 17px;
+}
+
+#shares .gravatar-placeholder {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#shares .username-id {
+  display: inline-block;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+#shares .username-id-margin {
+  display: inline-block;
+  line-height: 1;
+  margin-left: 3px;
+  margin-top: 2px;
+}
+
+#shares .reveal {
+  padding: 6px 12px 6px 0px;
+}
+
 #transfer {
   display: block;
 }
@@ -138,9 +171,7 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
 td.owner-email {
   height: 51px;
 }
-td.is-owner {
- padding-left: 16px !important;
-}
+
 td .share-camera {
   padding-left: 5px;
 }
@@ -152,4 +183,54 @@ td .share-camera {
   float: left;
   margin: 0px;
   margin-right: 15px;
+}
+
+@media (max-width: 767px) {
+
+  td.email,
+  th.email {
+    display: none !important;
+  }
+
+  .email-input {
+    float: left;
+    width: 100%;
+    .input-group{
+      width: 100%;
+    }
+
+    #sharing-message{
+      min-width: 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  td.share-by,
+  th.share-by {
+    display: none !important;
+  }
+
+  .share-with-title{
+    color: #333333;
+    display: block;
+    font-size: 16px;
+    line-height: 18px;
+    max-height: 36px;
+    min-height: 18px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .paragraph-end{
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 0;
+    height: 25px;
+    max-height: 100%;
+    position: absolute;
+    right: 0;
+    width: 60px;
+  }
 }

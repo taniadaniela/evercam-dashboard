@@ -114,7 +114,7 @@ class UsersController < ApplicationController
                            error.backtrace.join("\n")
       flash[:message] = "An error occurred deleting user. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to user_path
+      redirect_to user_account_path(params[:id])
     end
   end
 
@@ -167,8 +167,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = 'Invalid Current Password'
     end
-
-    redirect_to :action => 'settings', :anchor => 'password'
+    redirect_to user_account_path(params[:id])
   end
 
   def password_reset_request
@@ -231,7 +230,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = t("errors.user_not_found_error")
     end
-    redirect_to user_path(user.username)
+    redirect_to user_account_path(params[:id])
   end
 
   private

@@ -40,15 +40,17 @@
   }
 }
 .evercam-e-header {
-  margin:5px 14px 2px;
+  margin:5px 0px 2px;
 }
 @media (max-width: 992px) {
   .evercam-e-header {
-    margin:5px 0px 2px;
+    margin:5px 0 2px;
   }
 }
 .evercam-e-header img {
   max-height: 24px;
+  height: 100%;
+  display: block;
 }
 .navbar .dropdown-menu {
   background: lighten($secondary-color, 5%);
@@ -100,8 +102,22 @@
   text-align: center;
   height: 32px;
   padding-top: 4px;
+
+  .dropdown-menu.scroll-menu{
+    width: 300px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    max-height: 455px;
+  }
+
+  .dropdown-menu.scroll-menu.cam-active .sidebar-offline{
+    display: none;
+  }
+
   .sub-menu-item a {
-    padding:4px 14px 4px 0px !important;
+    padding: 4px 14px 4px 25px !important;
+    text-align: left;
   }
   .status-circle {
     padding: 5px;

@@ -1,6 +1,9 @@
 :defaults: &defaults
   :cookies:
     :secret: qwertyuiop
+  :intercom:
+    :app_id: f9c1fd60de50d31bcbc3f4d8d74c9c6dbc40e95a
+    :api_key: <%= ENV['INTERCOM_API_KEY'] %>
   :api:
     :timeout: 5
     :ssl:
@@ -19,9 +22,6 @@
     :secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
     :route53:
       :evr.cm: Z15MY0AN5PFWCW
-  :threescale:
-    :url: https://evercam-admin.3scale.net/
-    :provider_key: <%= ENV['THREESCALE_PROVIDER_KEY'] %>
 
 :development:
   <<: *defaults

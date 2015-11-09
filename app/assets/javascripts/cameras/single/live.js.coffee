@@ -4,6 +4,7 @@ refresh_paused = false
 image_placeholder = undefined
 img_real_width = 0
 img_real_height = 0
+live_view_timestamp = 0
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -14,20 +15,10 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 loadImage = ->
-  unless window.snapshot_streaming_enabled
+  unless window.Evercam.Camera.cloud_recording.frequency == 60
     img = new Image()
     live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{live_snapshot_url}&rand=" + new Date().getTime()
-    # NOTE: temporarily commented out to disable image replacement.
-    # Now image requests are only used as a trigger for websockets stream
-    # See proxy.es6 for more details.
-    #
-    # img.onload = ->
-    #   unless not image_placeholder.parent
-    #     image_placeholder.parent.replaceChild img, image_placeholder
-    #   else
-    #     image_placeholder.src = src
-    #   $(".btn-live-player").removeClass "hide"
     img.src = src
 
 controlButtonEvents = ->
@@ -37,11 +28,13 @@ controlButtonEvents = ->
       refresh_paused = false
       $(this).children().removeClass "icon-control-play"
       $(this).children().addClass "icon-control-pause"
+      disconnectFromSocket()
     else
       clearInterval int_time
       refresh_paused = true
       $(this).children().removeClass "icon-control-pause"
       $(this).children().addClass "icon-control-play"
+      connectToSocket()
   $(".refresh-live-snap, .refresh-camera").on "click", ->
     loadImage()
 
@@ -63,13 +56,15 @@ openPopout = ->
     $("<img/>").attr("src", image_placeholder.src).load( ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=#{@width}, height=#{@height}, scrollbars=0")
     ).error ->
-      window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=480, scrollbars=0")
+      window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
+  $("#camera-video-player").append($("#ptz-control"))
 
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
+    $("#jpg-portion").append($("#ptz-control"))
     window.vjs_player.dispose()
     $("#camera-video-stream").html('')
 
@@ -81,21 +76,25 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         int_time = setInterval(loadImage, 1000)
+        connectToSocket()
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
+        disconnectFromSocket()
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
+    connectToSocket()
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
     else
       checkCameraOnline()
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
+    Evercam.socket.disconnect()
     clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
@@ -168,7 +167,119 @@ handleResize = ->
   $(window).resize ->
     calculateHeight()
 
+handlePtzCommands = ->
+  $(".ptz-controls").on 'click', 'i', ->
+    headingText = $('#ptz-control table thead tr th').text()
+    $('#ptz-control table thead tr th').html 'Waiting <div class="loader"></div>'
+    ptz_command = $(this).attr("data-val")
+    if !ptz_command
+      return
+    api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/relative?#{ptz_command}&api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    if ptz_command is "home"
+      api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/#{ptz_command}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    data = {}
+
+    onError = (jqXHR, status, error) ->
+      $('#ptz-control table thead tr th').html headingText
+      false
+
+    onSuccess = (result) ->
+      $('#ptz-control table thead tr th').html headingText
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'POST'
+      url: api_url
+    sendAJAXRequest(settings)
+
+getPtzPresets = ->
+  if !$(".ptz-controls").html()
+    return
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (result) ->
+    for preset in result.Presets
+      if preset.token < 33
+        divPresets =$('<div>', {class: "row-preset"})
+        divPresets.append($(document.createTextNode(preset.Name)))
+        divPresets.attr("token_val", preset.token)
+        $("#presets-table").append(divPresets)
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets"
+  sendAJAXRequest(settings)
+
+changePtzPresets = ->
+  $("#camera-presets").on 'click', '.row-preset', ->
+    data = {}
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (result) ->
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    sendAJAXRequest(settings)
+    $('#camera-presets').modal('hide')
+
+handleModelEvents = ->
+  $("#camera-presets").on "show.bs.modal", ->
+    $("#ptz-control").addClass("hide")
+
+  $("#camera-presets").on "hidden.bs.modal", ->
+    $("#ptz-control").removeClass("hide")
+    $('#ptz-control table thead tr th').html 'PTZ'
+
+initSocket = ->
+  window.Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
+  connectToSocket()
+
+connectToSocket = ->
+  Evercam.socket.connect()
+  channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
+  channel.join()
+  channel.on 'snapshot-taken', (payload) ->
+    if payload.timestamp > live_view_timestamp
+      live_view_timestamp = payload.timestamp
+      $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
+
+disconnectFromSocket = ->
+  Evercam.socket.disconnect()
+
+checkPTZExist = ->
+  if $(".ptz-controls").length > 0
+    $('.live-options').css('top','114px').css('right','32px')
+
 window.initializeLiveTab = ->
+  initSocket()
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
@@ -179,3 +290,8 @@ window.initializeLiveTab = ->
   handleTabOpen()
   saveImage()
   handleResize()
+  handlePtzCommands()
+  getPtzPresets()
+  changePtzPresets()
+  handleModelEvents()
+  checkPTZExist()

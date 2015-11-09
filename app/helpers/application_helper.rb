@@ -1,9 +1,9 @@
 module ApplicationHelper
   include SessionsHelper
 
-  def avatar_url
-    gravatar_id = Digest::MD5.hexdigest(current_user.email.downcase)
-    "http://gravatar.com/avatar/#{gravatar_id}.png"
+  def avatar_url(email)
+    gravatar_id = Digest::MD5.hexdigest(email.downcase)
+    "//gravatar.com/avatar/#{gravatar_id}.png"
   end
 
   def vendors
@@ -47,11 +47,12 @@ module ApplicationHelper
 
   def format_time stamp
     t = Time.at(stamp)
-    t.to_formatted_s(:long) 
+    t.to_formatted_s(:long)
   end
 
   # Bug here is rounding amounts, and not showing the cents correctly
   def cents_to_currency amount
-    number_to_currency(amount / 100, :precision => 2)
+    amount / 100
+    # number_to_currency(amount / 100, :precision => 2)
   end
 end

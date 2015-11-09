@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  prepend_before_filter :authenticate_user!, :set_cache_buster,
+  prepend_before_filter :authenticate_user!, :set_cache_buster
+  rescue_from Exception, :with => :render_error
 
   def authenticate_user!
     if current_user.nil? or (params.has_key?(:api_id) and params.has_key?(:api_key))
@@ -18,7 +19,33 @@ class ApplicationController < ActionController::Base
         redirect_to signin_path
       else
         sign_in user
+        update_user_intercom(user)
         redirect_to redirect_url
+      end
+    end
+  end
+
+  def update_user_intercom(user)
+    if Evercam::Config.env == :production
+      intercom = Intercom::Client.new(
+        app_id: Evercam::Config[:intercom][:app_id],
+        api_key: Evercam::Config[:intercom][:api_key]
+      )
+      begin
+        ic_user = intercom.users.find(:email => user.email)
+      rescue
+        # Intercom::ResourceNotFound
+        # Ignore it
+      end
+      unless ic_user.nil?
+        begin
+          ic_user.last_request_at = Time.now.to_i
+          ic_user.new_session = true
+          ic_user.last_seen_ip = request.remote_ip
+          intercom.users.save(ic_user)
+        rescue
+          # Ignore it
+        end
       end
     end
   end
@@ -92,31 +119,49 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def retrieve_add_ons
-    @add_ons = AddOn.where(:user_id => current_user.id)
-    @add_ons = @add_ons.nil? ? false : @add_ons
-    @snapmail = 0
-    @timelapse = 0
+  def retrieve_plans_quantity(subscriptions)
+    @twenty_four_hours_recording = 0
+    @twenty_four_hours_recording_annual = 0
     @seven_days_recording = 0
-    @restream = 0
+    @seven_days_recording_annual = 0
     @thirty_days_recording = 0
+    @thirty_days_recording_annual = 0
     @ninety_days_recording = 0
-    @add_ons.each do |add_on|
-      case add_on.exid
-        when "snapmail", "snapmail-annual"
-          @snapmail += 1
-        when "timelapse", "timelapse-annual"
-          @timelapse += 1
-        when "7-days-recording", "7-days-recording-annual"
-          @seven_days_recording += 1
-        when "30-days-recording", "30-days-recording-annual"
-          @thirty_days_recording += 1
-        when "90-days-recording", "90-days-recording-annual"
-          @ninety_days_recording += 1
-        when "restream", "restream-annual"
-          @restream += 1
+    @ninety_days_recording_annual = 0
+    @infinity = 0
+    @infinity_annual = 0
+    if subscriptions.present?
+      subscriptions[:data].each do |subscription|
+        case subscription.plan.id
+        when "24-hours-recording"
+          @twenty_four_hours_recording = subscription.quantity
+        when "24-hours-recording-annual"
+          @twenty_four_hours_recording_annual = subscription.quantity
+        when "7-days-recording"
+          @seven_days_recording = subscription.quantity
+        when "7-days-recording-annual"
+          @seven_days_recording_annual = subscription.quantity
+        when "30-days-recording"
+          @thirty_days_recording = subscription.quantity
+        when "30-days-recording-annual"
+          @thirty_days_recording_annual = subscription.quantity
+        when "90-days-recording"
+          @ninety_days_recording = subscription.quantity
+        when "90-days-recording-annual"
+          @ninety_days_recording_annual = subscription.quantity
+        when "infinity"
+          @infinity = subscription.quantity
+        when "infinity-annual"
+          @infinity_annual = subscription.quantity
+        end
       end
     end
   end
 
+  private
+
+  def render_error(exception)
+    render :file => "#{Rails.root}/public/500.html", :layout => false, :status => 500
+    env["airbrake.error_id"] = notify_airbrake(exception)
+  end
 end

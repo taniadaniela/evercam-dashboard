@@ -1,4 +1,22 @@
 .subscriptions {
+  color: $text-grey;
+
+  .licence-alert {
+    box-shadow: none;
+    font-size: 15px;
+    left: 45%;
+    margin-left: -142px;
+    padding: 0.4em 1em;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 50%;
+    z-index: 99999;
+  }
+
+  .green {
+    color: $green;
+  }
 
   h3 {
     margin: 5px 0px 15px;
@@ -6,35 +24,43 @@
 
   .nav-tabs {
     margin-bottom: 20px;
-    border-bottom: none;
+    border-bottom: 1px solid $main-grey;
   }
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    border: 1px solid $light-grey;
-    border-radius: 30px;
+    /*border: 1px solid $light-grey;
+    border-radius: 30px;*/
   }
 
   .page-content {
     overflow: auto;
     padding: 0 0 60px;
-    background-color: $secondary-grey;
+    background-color: $white;
   }
 
   .header {
     margin:0px 0px 40px;
   }
 
+  .table-footer {
+    border-top: 1px solid $main-grey;
+  }
+
+  .table-footer tr > td {
+    padding-top: 10px;
+  }
+
   .card {
     box-shadow: $box-shadow;
     border-radius:$border-radius;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     overflow: auto;
     margin: 0 0 30px;
   }
 
   .tab-content {
     background: #ffffff;
-    padding: 20px 0;
+    padding: 0;
   }
 
   .promo {
@@ -50,20 +76,30 @@
     position: absolute;
   }
 
+  .table-border {
+    border-bottom: 1px solid $lighter-grey;
+    border-left: 1px solid $lighter-grey;
+  }
+
+  .tables-border-right {
+    border-right: 1px solid $lighter-grey;
+  }
+
   .table > tbody > tr > th {
     border-top:none;
     border-bottom: 1px solid $lighter-grey;
     padding: 8px 0px 8px;
   }
 
-  .table > tbody > tr > th {
-    color: $grey;
+  .table > thead > tr > th,
+  .table > tfoot > tr > td {
+    padding: 8px 0;
   }
 
   .table > tbody > tr > td {
     border-top:none;
     padding: 8px 0px 0px 0px;
-    vertical-align: middle;
+    vertical-align: top;
   }
 
   .table > tbody > tr > td {
@@ -76,19 +112,105 @@
     border-top:none !important;
   }
 
+  .tabbable-custom,
+  .nav-plans {
+    margin-bottom: 0;
+  }
+
   .checkout .table > tbody > tr > td {
     padding: 0px 0px 0px;
   }
 
+  .nav-plans > li.active > a,
+  .nav-plans > li.active > a:hover,
+  .nav-plans > li.active > a:focus {
+    background-color: transparent;
+    border-color: $white !important;
+    border-width: medium medium 2px;
+    font-family: proxima-nova-regular,"Open Sans",Arial,Helvetica,sans-serif;
+  }
+
+  .remove-licence,
+  .add-licence {
+    cursor: pointer;
+  }
+
   .nav-plans {
-    margin: 13px auto 10px;
-    max-width: 272px;
+    margin-top: 0;
+  }
+
+  .nav-plans > li > a:hover {
+    color: #555;
+  }
+
+  .nav-tabs > li > a {
+    margin-right: 0;
+  }
+
+  .nav-plans > li.hover > a,
+  .nav-plans > li.hover > a:hover{
+    background: rgba(0,0,0,0) none repeat scroll 0 0;
+    border-color: $white;
+    border: 0 none;
+    border-right: solid 1px $lighter-grey;
+    color: #555;
+  }
+
+  .nav-plans > li {
+    border-right: 1px solid $main-grey;
+    border-top: 1px solid $main-grey;
+    margin-bottom: -2px;
+    margin-right: 0;
+  }
+
+  .save-button {
+    margin-bottom: 8px;
+    margin-right: 8px;
+  }
+
+  .margin-left-15 {
+    margin-left: 15px;
   }
 
   .table {
     margin-bottom: 20px;
   }
 
+  .toggle.btn {
+    border-width: 1px;
+  }
+
+  .toggle-handle {
+    height: 34px;
+    margin-right: 16px;
+    width: 15px;
+  }
+
+  .plan-table > tbody > tr > td {
+    border: 0;
+    height: 43px;
+    padding: 5px 0;
+  }
+
+  .quantity-text {
+    text-align: center;
+    width: 50px;
+  }
+
+  .off .toggle-group .toggle-handle {
+    margin-left: 13px;
+    margin-right: 0;
+    margin-top: 0;
+  }
+
+  .no-editable {
+    background-color: transparent;
+    border: 0;
+  }
+
+  .no-editable:focus {
+    box-shadow: none;
+  }
 
   .plans-comparison {
 
@@ -140,15 +262,7 @@
   }
 
   .plan-button {
-    border-bottom: 1px solid $secondary-grey;
-    border-bottom-left-radius:2px;
-    border-bottom-right-radius:2px;
-    border-left: 1px solid $secondary-grey;
-    border-right: 1px solid $secondary-grey;
-    margin: 0 auto;
-    overflow: auto;
-    padding: 10px 10px 40px;
-    text-align: center;
+    
   }
 
   .plan-button .disabled {
@@ -158,9 +272,9 @@
   }
 
   .plan-button.highlight-plan-button {
-    border-left: 1px solid $main-color;
+    /*border-left: 1px solid $main-color;
     border-right: 1px solid $main-color;
-    border-bottom: 1px solid $main-color;
+    border-bottom: 1px solid $main-color;*/
   }
   .cart-container {
     padding: 0px 10px 10px;
@@ -186,6 +300,7 @@
   .cancel-add-on {
     margin-left: 10px;
   }
+
 }
 
 .change-plan-desc {

@@ -1,0 +1,169 @@
+<% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual + @twenty_four_hours_recording_annual + @infinity_annual %>
+<% one_day_recording = cents_to_currency(@prices.twenty_four_hours_recording_annual * @twenty_four_hours_recording_annual) %>
+<% seven_days = cents_to_currency(@prices.seven_days_recording_annual * @seven_days_recording_annual) %>
+<% thiry_days = cents_to_currency(@prices.thirty_days_recording_annual * @thirty_days_recording_annual) %>
+<% ninety_days = cents_to_currency(@prices.ninety_days_recording_annual * @ninety_days_recording_annual) %>
+<% infinity = cents_to_currency(@prices.infinity_annual * @infinity_annual) %>
+<div class="col-md-12">
+  <table class="table table-full-width plan-table">
+    <thead>
+      <tr>
+        <th>Licences</th>
+        <th class="text-center">Current</th>
+        <th class="text-center">Amount</th>
+        <th class="text-center">Add / Remove</th>
+        <th class="text-center">Change (<i class="fa fa-eur"></i>)</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr class="plan-annual">
+      <td class="col-md-2">
+        24 Hours @ &euro; <%= cents_to_currency @prices.twenty_four_hours_recording_annual %>
+        <input type="hidden" id="24-hours-recording-annual" value="<%= @prices.twenty_four_hours_recording_annual %>"/>
+      </td>
+      <td class="col-md-1 text-center">
+        <%= @twenty_four_hours_recording_annual %>
+        <span class="current-qty-annual hide" id="24-hours-recording-annual-current-qty"><%= @twenty_four_hours_recording_annual %></span>
+      </td>
+      <td class="col-md-1 text-center">
+        &euro;
+        <%= one_day_recording %>
+        <span class="current-price-annual hide" id="24-hours-recording-annual-current-price"><%= one_day_recording %></span>
+      </td>
+      <td class="col-md-2 text-center">
+        <i class="fa fa-minus remove-licence" data-val="24-hours-recording-annual"></i>
+        <input type="hidden" name="24-hours-recording-annual-qty" id="24-hours-recording-annual-qty" value="<%= @twenty_four_hours_recording_annual %>" />
+        <input name="24-hours-recording-annual-quantity" id="24-hours-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="24-hours-recording-annual"></i>
+      </td>
+      <td class=" col-md-1 text-center">
+        <span id="24-hours-recording-annual-sign">+</span>
+        &euro;
+        <span class="new-price-annual" id="24-hours-recording-annual-new-price">0</span>
+      </td>
+    </tr>
+
+    <tr class="plan-annual">
+      <td>
+        7 Day @ &euro; <%= cents_to_currency @prices.seven_days_recording_annual %>
+        <input type="hidden" id="7-days-recording-annual" value="<%= @prices.seven_days_recording_annual/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @seven_days_recording_annual %>
+        <span class="current-qty-annual hide" id="7-days-recording-annual-current-qty"><%= @seven_days_recording_annual %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= seven_days %>
+        <span class="current-price-annual hide" id="7-days-recording-annual-current-price"><%= seven_days %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="7-days-recording-annual"></i>
+        <input type="hidden" name="7-days-recording-annual-qty" id="7-days-recording-annual-qty" value="<%= @seven_days_recording_annual %>" />
+        <input name="7-days-recording-annual-quantity" id="7-days-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="7-days-recording-annual"></i>
+      </td>
+      <td class="text-center">
+        <span id="7-days-recording-annual-sign">+</span>
+        &euro;
+        <span class="new-price-annual" id="7-days-recording-annual-new-price">0</span>
+      </td>
+    </tr>
+    <tr class="plan-annual">
+      <td>
+        30 Day @ &euro; <%= cents_to_currency @prices.thirty_days_recording_annual %>
+        <input type="hidden" id="30-days-recording-annual" value="<%= @prices.thirty_days_recording_annual/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @thirty_days_recording_annual %>
+        <span class="current-qty-annual hide" id="30-days-recording-annual-current-qty"><%= @thirty_days_recording_annual %></span>
+      </td>
+      <td id="30-days-recording-annual-current-price" class="text-center">
+        &euro;
+        <%= thiry_days %>
+        <span class="current-price-annual hide" id="30-days-recording-annual-current-price"><%= thiry_days %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="30-days-recording-annual"></i>
+        <input type="hidden" name="30-days-recording-annual-qty" id="30-days-recording-annual-qty" value="<%= @thirty_days_recording_annual %>" />
+        <input name="30-days-recording-annual-quantity" id="30-days-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="30-days-recording-annual"></i>
+      </td>
+      <td class="text-center">
+        <span id="30-days-recording-annual-sign">+</span>
+        &euro;
+        <span class="new-price-annual" id="30-days-recording-annual-new-price">0</span>
+      </td>
+    </tr>
+    <tr class="plan-annual">
+      <td>
+        90 Day @ &euro; <%= cents_to_currency @prices.ninety_days_recording_annual %>
+        <input type="hidden" id="90-days-recording-annual" value="<%= @prices.ninety_days_recording_annual/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @ninety_days_recording_annual %>
+        <span class="current-qty-annual hide" id="90-days-recording-annual-current-qty"><%= @ninety_days_recording_annual %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= ninety_days %>
+        <span class="current-price-annual hide" id="90-days-recording-annual-current-price"><%= ninety_days %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="90-days-recording-annual"></i>
+        <input type="hidden" name="90-days-recording-annual-qty" id="90-days-recording-annual-qty" value="<%= @ninety_days_recording_annual %>" />
+        <input name="90-days-recording-annual-quantity" id="90-days-recording-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="90-days-recording-annual"></i>
+      </td>
+      <td class="text-center">
+        <span id="90-days-recording-annual-sign">+</span>
+        &euro;
+        <span class="new-price-annual" id="90-days-recording-annual-new-price">0</span>
+      </td>
+    </tr>
+
+    <tr class="plan-annual">
+      <td>
+        Infinity @ &euro; <%= cents_to_currency @prices.infinity_annual %>
+        <input type="hidden" id="infinity-annual" value="<%= @prices.infinity_annual/100 %>"/>
+      </td>
+      <td class="text-center">
+        <%= @infinity_annual %>
+        <span class="current-qty-annual hide" id="infinity-annual-current-qty"><%= @infinity_annual %></span>
+      </td>
+      <td class="text-center">
+        &euro;
+        <%= infinity %>
+        <span class="current-price-annual hide" id="infinity-annual-current-price"><%= infinity %></span>
+      </td>
+      <td class="text-center">
+        <i class="fa fa-minus remove-licence" data-val="infinity-annual"></i>
+        <input type="hidden" name="infinity-annual-qty" id="infinity-annual-qty" value="<%= @infinity_annual %>" />
+        <input name="infinity-annual-quantity" id="infinity-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
+        <i class="fa fa-plus add-licence" data-val="infinity-annual"></i>
+      </td>
+      <td class="text-center">
+        <span id="infinity-annual-sign">+</span>
+        &euro;
+        <span class="new-price-annual" id="infinity-annual-new-price">0</span>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot class="table-footer">
+      <tr>
+        <td>Total</td>
+        <td class="text-center"><span class="green" id="current-total-quantity-annual"><%= annual_total %></span></td>
+        <td class="text-center">
+          &euro;
+          <span id="current-total-price-annual"><%= one_day_recording + seven_days + thiry_days + ninety_days + infinity %></span>
+        </td>
+        <td></td>
+        <td class="text-center">
+          <span id="new-total-price-annual-sign">+</span>
+          &euro;
+          <span id="new-total-price-annual">0</span>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

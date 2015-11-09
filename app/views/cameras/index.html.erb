@@ -1,35 +1,18 @@
 <%= content_for(:title, "Evercam: Camera Dashboard") %>
+<% if Rails.env.staging? || Rails.env.production? %>
 <script>
- mixpanel.identify("<%= current_user.username %>"),
+  mixpanel.identify("<%= current_user.username %>"),
     mixpanel.people.set({
-        "$first_name": "<%= current_user.firstname %>",
-        "$last_name": "<%= current_user.lastname %>",
-        "$created": "<%= current_user.created_at %>",
-        "$email": "<%= current_user.email %>",
-        "Username": "<%= current_user.username %>"
+      "$first_name": "<%= current_user.firstname %>",
+      "$last_name": "<%= current_user.lastname %>",
+      "$created": "<%= current_user.created_at %>",
+      "$email": "<%= current_user.email %>",
+      "Username": "<%= current_user.username %>"
     });
 </script>
+<% end %>
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-index">
-
-    <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">Modal title</h4>
-          </div>
-          <div class="modal-body">
-            Widget settings form goes here
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn blue">Save changes</button>
-            <button type="button" class="btn default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <% @cameras.each do |camera| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index <%= "camera-offline" unless camera['is_online'] %>">
         <%= link_to cameras_single_path(camera['id']) do %>
@@ -59,7 +42,7 @@
 </div>
 
 <script>
- $(document).ready(function () {
-     window.initializeCameraIndex();
- });
+  $(document).ready(function () {
+    window.initializeCameraIndex();
+  });
 </script>

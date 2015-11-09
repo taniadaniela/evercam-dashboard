@@ -1,12 +1,13 @@
 <div class="camera-preview">
   <div class="camera-preview-online <%= 'hide' unless @camera['is_online'] %>" id="camera-preview">
+    <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
     <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
     <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
     <% hls_stream = @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>
 
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
-        <div class="wrap">
+        <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
           <div class="live-options">
             <div class="live-option" id="toggle">
@@ -22,6 +23,35 @@
               <i class="glyphicon glyphicon-floppy-disk"></i>
             </div>
           </div>
+          <% if has_edit_right && @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
+            <div class="ptz-controls" id="ptz-control">
+              <table>
+                <thead>
+                <tr>
+                  <th colspan="5" style="position: relative">PTZ</th>
+                </tr>
+                </thead>
+                <tr>
+                  <td rowspan="3" class="text-center small-column">
+                    <div href="#" data-toggle="modal" data-target="#camera-presets">
+                      <i title="Change Preset" class="fa fa-map-signs"></i>
+                    </div>
+                  </td>
+                  <td class="text-center large-column" colspan="3"><i title="Move Up" data-val="up=4" class="fa fa-chevron-up"></i></td>
+                  <td class="text-center small-column" style="vertical-align: bottom;"><i title="Zoom In" data-val="zoom=1" class="fa fa-plus"></i></td>
+                </tr>
+                <tr>
+                  <td class="text-center small-column"><i title="Move Left" data-val="left=4" class="fa fa-chevron-left"></i></td>
+                  <td class="text-center small-column"><i title="Go to Home" data-val="home" class="fa fa-home"></i></td>
+                  <td class="text-center small-column"><i title="Move Right" data-val="right=4" class="fa fa-chevron-right"></i></td>
+                </tr>
+                <tr>
+                  <td class="text-center large-column" colspan="3"><i title="Move Down" data-val="down=4" class="fa fa-chevron-down"></i></td>
+                  <td class="text-center small-column"><i title="Zoom Out" data-val="zoom=-1" class="fa fa-minus"></i></td>
+                </tr>
+              </table>
+            </div>
+          <% end %>
         </div>
       </div>
       <% unless rtmp_stream.blank? %>
@@ -58,6 +88,29 @@
       <div class="col-md-12">
         <div class="margin-top-10"><span class="red">Camera offline</span> - we can't get a live feed at the moment</div>
         <div class="refresh-camera"><i class="icon-refresh"></i> Refresh Status</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="camera-presets" class="modal fade">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="caption"><strong>Presets</strong></div>
+        <div class="cancel">
+          <a class="cancel_link" href="#" data-dismiss="modal"><i class="fa fa-remove"></i></a>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="presets-table" class="form-group">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>

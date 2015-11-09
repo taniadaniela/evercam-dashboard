@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   delete 'v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 
+  get '/pay' => 'payments#pay', as: :pay
+  get '/thank-for-payment' => 'payments#thank', as: :thank_payment
+  post '/pay' => 'payments#make_payment', as: :make_payment
   get 'v1/payments' => 'payments#new', as: :new_checkout
   post 'v1/payments' => 'payments#create', as: :new_charge
   post '/v1/users/:id/billing/plans/change' => 'payments#upgrade_downgrade_plan'
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
   root to: redirect('/v1/cameras'), as: :root
   get '/v1/cameras' => 'cameras#index', as: :cameras_index
   get '/v1/cameras/new' => 'cameras#new', as: :cameras_new
+  get '/v1/cameras/new-test' => 'cameras#addcam_test', as: :cameras_new_test
   post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
@@ -69,6 +73,8 @@ Rails.application.routes.draw do
   post '/v1/users/:id' => 'users#settings_update'
   put '/v1/users/:id/password/change' => 'users#change_password', as: :user_change_password
 
+  get '/v1/users/:id/apps' => 'apps#index', as: :apps
+  get '/v1/users/:id/apps/:token_id' => 'apps#revoke', as: :revoke
   get '/dev' => 'pages#dev'
   get '/swagger' => 'pages#swagger'
   get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view

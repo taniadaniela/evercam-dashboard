@@ -128,7 +128,7 @@ input:-webkit-autofill {
   background-color: #fff;
 }
 #camera-port .help-block {
-  padding-top: 35px;
+  padding-top: 0px;
 }
 #port .help-block {
   margin-top: 20px !important;
@@ -233,4 +233,32 @@ input:-webkit-autofill {
 .add-camera-page .open > a, .add-camera-page .open > a:hover, .add-camera-page .open > a:focus {
   background-color: transparent;
   border-color: transparent;
+}
+
+.snapshot-readonly {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px #aaaaaa !important;
+}
+
+.add-camera {
+  .select2-container--default .select2-selection--single {
+    border: none;
+  }
+
+  .select2-container .select2-selection--single {
+    height: 35px;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 35px;
+  }
+
+  .select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px;
+  }
+
+  .select2-selection__arrow {
+    display: none;
+  }
 }

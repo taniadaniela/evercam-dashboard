@@ -99,7 +99,7 @@ loadVendorModels = (vendor_id) ->
 
 hasModelImage = (vendor_id, model_id) ->
   img = new Image()
-  image_url = "http://evercam-public-assets.s3.amazonaws.com/#{vendor_id}/#{model_id}/thumbnail.jpg"
+  image_url = "https://evercam-public-assets.s3.amazonaws.com/#{vendor_id}/#{model_id}/thumbnail.jpg"
   img.onload = ->
     $("#model-image").attr("src", image_url)
   img.onerror = ->
@@ -109,7 +109,7 @@ hasModelImage = (vendor_id, model_id) ->
 handleVendorModelEvents = ->
   $("#camera-vendor").on "change", ->
     img = new Image()
-    image_url = "http://evercam-public-assets.s3.amazonaws.com/#{$(this).val()}/logo.jpg"
+    image_url = "https://evercam-public-assets.s3.amazonaws.com/#{$(this).val()}/logo.jpg"
     img.onload = ->
       $("#vemdor-image").attr("src", image_url)
     img.onerror = ->

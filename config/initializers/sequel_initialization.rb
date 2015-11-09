@@ -3,7 +3,7 @@
 
 require 'evercam_misc'
 
-DB = Sequel::Model.db = Sequel.connect(ENV['DATABASE_URL'], max_connections: 20)
+DB = Sequel::Model.db = Sequel.connect(ENV['DATABASE_URL'], max_connections: 100)
 Sequel::Model.db.sql_log_level = Rails.application.config.log_level || :debug
 
 if ARGV.any? {|parameter| parameter =~ /(--sandbox|-s)/}

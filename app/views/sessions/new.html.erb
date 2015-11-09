@@ -1,7 +1,9 @@
 <% provide(:title, "Sign in") %>
+<% if Rails.env.staging? || Rails.env.production? %>
 <script type="text/javascript">
   mixpanel.track_forms("#user-sign-in", "Sign In", {'Client-Type':'Dash'});
 </script>
+<% end %>
 <section id="sign-in-section" class="site-min-height">
   <div class="container section">
     <div id="signin" class="col-md-12 text-center">

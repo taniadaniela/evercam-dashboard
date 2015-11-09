@@ -26,7 +26,7 @@ module StripeCustomersHelper
     invoice_items = Stripe::Invoice.retrieve(invoice_id).lines.all
     @description = ""
     invoice_items.each do |item|
-      @description = item.description.blank? ? item.plan.id : item.description
+      @description = item.description.blank? ? item.plan.name : item.description
     end
     @description
   rescue

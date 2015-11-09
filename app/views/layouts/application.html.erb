@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <title><%= yield(:title) %></title>
-
-
+  <%= render partial: "shared/favicon" %>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,6 +35,7 @@
     window.Evercam = {};
   }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
   window.Evercam.User = {
     username: '<%= current_user.username %>',
     api_id: '<%= current_user.api_id %>',

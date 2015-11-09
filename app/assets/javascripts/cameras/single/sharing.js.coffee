@@ -24,13 +24,37 @@ addSharingCameraRow = (details) ->
     $("#new_owner_email").append("<option value='#{details['user_id']}'>#{details['user_id']}</option>")
 
   cell = $('<td>', {class: "col-lg-4"})
-  cell.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['user_id'])))
+  avatar_placeholder = $('<div>', {class: "gravatar-placeholder"})
+  avatar = $('<img>', {class: "gravatar"})
+  avatar.attr("src", details['avatar'])
+  avatar_placeholder.append(avatar)
+  cell.append(avatar_placeholder)
+  username_id = $('<div>', {class: "username-id-margin"})
+  username_id.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['fullname'])))
   if details.type == "share_request"
     suffix = $('<small>', {class: "blue"})
     suffix.text(" ...pending")
-    cell.append(suffix)
+    username_id.append(suffix)
+  else
+    line_breake = $('<br>')
+    username_id.append(line_breake)
+    suffix = $('<small>', {class: "blue"})
+    suffix.text(details['email'])
+    username_id.append(suffix)
+  cell.append(username_id)
   row.append(cell)
 
+  cell = $('<td>', {class: "col-lg-3"})
+  cell.addClass("share-by")
+  username_id = $('<div>', {class: "username-id-margin"})
+  username_id.append(document.createTextNode(" " + details['sharer_name']))
+  line_breake = $('<br>')
+  username_id.append(line_breake)
+  suffix = $('<small>', {class: "blue"})
+  suffix.text(details['sharer_email'])
+  username_id.append(suffix)
+  cell.append(username_id)
+  row.append(cell)
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "input-group"})
   select = $('<select>', {class: "form-control reveal", "show-class": "show-save"})
@@ -49,7 +73,7 @@ addSharingCameraRow = (details) ->
   cell.append(div)
   row.append(cell)
 
-  cell = $('<td>', {class: "col-lg-2"})
+  cell = $('<td>', {class: "col-lg-1"})
   button = $('<button>', {class: "save show-save btn btn-primary"})
   button.text("Save")
   if details.type == "share"
@@ -65,7 +89,10 @@ addSharingCameraRow = (details) ->
   span = $('<span>', {class: "open"})
   span.append($('<span>', {class: "remove"}))
   if details.type == "share"
-    span.append($(document.createTextNode("Remove")))
+    remove_icon = $('<i>', {class: "fa"})
+    remove_icon.addClass("fa-trash-o").addClass("font-size-17")
+    remove_icon.attr("title", "Remove")
+    span.append(remove_icon)
     divPopup.append(span)
     divCollapsePopup = $('<div>', {class: "collapse-popup"})
     divBox2 = $('<div>', {class: "box-new"})
@@ -87,13 +114,17 @@ addSharingCameraRow = (details) ->
     divPopup.append(divCollapsePopup)
     div.append(divPopup)
   else
-    span.append($(document.createTextNode("Revoke")))
+    revoke_icon = $('<i>', {class: "fa"})
+    revoke_icon.addClass("fa-trash-o").addClass("font-size-17")
+    revoke_icon.attr("title", "Revoke")
+    span.append(revoke_icon)
     divPopup.append(span)
-    spanLinkSeperator = $('<span>')
-    spanLinkSeperator.append($(document.createTextNode(" | ")))
-    divPopup.append(spanLinkSeperator)
+
     spanResend = $('<span>', {class: "resend-share-request"})
-    spanResend.append($(document.createTextNode("Resend")))
+    resend_icon = $('<i>', {class: "fa"})
+    resend_icon.addClass("fa-paper-plane").addClass("font-size-17")
+    resend_icon.attr("title", "Resend Email")
+    spanResend.append(resend_icon)
     spanResend.attr("camera_id", details["camera_id"])
     spanResend.attr("share_request_id", details["share_id"])
     spanResend.attr("email", details["email"])
@@ -406,7 +437,7 @@ createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
   sendAJAXRequest(settings)
 
 onPermissionsFocus = (event) ->
-  $(this).parent().parent().parent().find("td:eq(2) button").fadeIn()
+  $(this).parent().parent().parent().find("td:eq(3) button").fadeIn()
 
 onSharingOptionsClicked = (event) ->
   test = $(this).val();

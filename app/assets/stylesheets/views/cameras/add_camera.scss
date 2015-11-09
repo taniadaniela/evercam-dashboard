@@ -14,6 +14,16 @@
   span.prepend.prepend-2 {
     display: none;
   }
+
+  span.help-block.form-error {
+    position:relative; 
+    left: 1px;
+  }
+
+  span.jquery_form_help_camera-url.help.help-block{
+   position: relative;
+   left: 1px;
+  }
 }
 #add-ip .form-actions {
   padding-bottom: 15px;

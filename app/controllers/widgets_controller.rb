@@ -41,8 +41,10 @@ class WidgetsController < ApplicationController
         api = get_evercam_api
         api.get_snapshot(params[:camera])
       rescue => error
-        @unathorized = error.status_code == 403
-        @not_exist = error.status_code == 404
+        if error.try(:status_code).present?
+          @unathorized = error.status_code == 403
+          @not_exist = error.status_code == 404
+        end
       end
     else
       render :layout => false

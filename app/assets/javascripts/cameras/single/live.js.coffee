@@ -268,11 +268,8 @@ connectToSocket = ->
   channel.join()
   channel.on 'snapshot-taken', (payload) ->
     if payload.timestamp >= live_view_timestamp
-      console.log "using timstamp #{payload.timestamp} : #{live_view_timestamp}"
       live_view_timestamp = payload.timestamp
       $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
-    else
-      console.log "discarding timstamp #{payload.timestamp} : #{live_view_timestamp}"
 
 disconnectFromSocket = ->
   Evercam.socket.disconnect()

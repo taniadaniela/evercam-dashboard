@@ -50,15 +50,15 @@ changeMonthFromArrow = (value) ->
   xhrRequestChangeMonth.abort()
   $("#ui_date_picker_inline").datepicker('fill');
   d = $("#ui_date_picker_inline").datepicker('getDate');
-  day = d.getMonth()
+  month = d.getMonth()
   year = d.getFullYear()
   if value is 'n'
-    day = day + 2
-  if day is 13
-    day = 1
+    month = month + 2
+  if month is 13
+    month = 1
     year++
-  if day is 0
-    day = 12
+  if month is 0
+    month = 12
     year--
   cameraId = Evercam.Camera.id
 
@@ -76,7 +76,7 @@ changeMonthFromArrow = (value) ->
     success: HighlightCurrentMonthSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{year}/#{day}/days.json"
+    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{year}/#{month}/days.json"
 
   sendAJAXRequest(settings)
   if value =='n'

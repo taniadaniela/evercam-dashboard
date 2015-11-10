@@ -117,23 +117,16 @@
 
 <script>
 function InvalidMsg(textbox) {
-    
     var use = /^[a-z]+[\w-]+$/;
-
     if (textbox.value == '') {
         textbox.setCustomValidity('Required username');
     }
-
     else if(use.test(textbox.value)) {
-
             textbox.setCustomValidity('');
-            
     }
     else {
         textbox.setCustomValidity( 'Start with lower case letters then numbers, dashes & underscores are allowed');
-        
     }
-
     return true;
 }
 </script>

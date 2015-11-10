@@ -51,7 +51,7 @@
               <%= f.label :username %>
             </div>
             <div class="col-sm-9 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w-]+$', "data-validation-error-msg" => "Only lower case letters, numbers, dashes & underscores allowed." %>
+              <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "" , 'oninput' => "InvalidMsg(this)" , 'oninvalid' => "InvalidMsg(this)" %>
               <% if field_errors.include?("username") %>
                 <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
               <% end %>
@@ -114,3 +114,27 @@
   });
   $.validate()
 </script>
+
+<script>
+function InvalidMsg(textbox) {
+    
+    var use = /^[a-z]+[\w-]+$/;
+
+    if (textbox.value == '') {
+        textbox.setCustomValidity('Required username');
+    }
+
+    else if(use.test(textbox.value)) {
+
+            textbox.setCustomValidity('');
+            
+    }
+    else {
+        textbox.setCustomValidity( 'Start with lower case letters then numbers, dashes & underscores are allowed');
+        
+    }
+
+    return true;
+}
+</script>
+

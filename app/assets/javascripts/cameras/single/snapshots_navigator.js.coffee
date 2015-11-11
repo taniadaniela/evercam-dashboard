@@ -99,7 +99,7 @@ checkDay = (year, month, day) ->
     HighlightDay(day, response.exists)
 
   settings =
-    cache: false
+    cache: true
     data: data
     dataType: 'json'
     error: onError

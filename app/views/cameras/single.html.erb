@@ -116,6 +116,7 @@
       schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     },
     motion: {
+      <% if has_edit_right %>
       enabled: <%= @camera.deep_fetch('motion', 'md_enabled') {} %>,
       week_days: "<%= @camera.deep_fetch('motion', 'week_days') {} %>",
       alert_from_hour: <%= @camera.deep_fetch('motion', 'alert_from_hour') {} %>,
@@ -125,9 +126,8 @@
       x1: <%= @camera.deep_fetch('motion', 'x1') {} %>,
       y1: <%= @camera.deep_fetch('motion', 'y1') {} %>,
       x2: <%= @camera.deep_fetch('motion', 'x2') {} %>,
-      y2: <%= @camera.deep_fetch('motion', 'y2') {} %>,
-      width: <%= @camera.deep_fetch('motion', 'width') {} %>,
-      height: <%= @camera.deep_fetch('motion', 'height') {} %>
+      y2: <%= @camera.deep_fetch('motion', 'y2') {} %>
+      <% end %>
     }
   };
 

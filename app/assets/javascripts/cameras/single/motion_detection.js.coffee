@@ -251,13 +251,13 @@ saveMdSettings = ->
 
     onSuccess = (result, status, jqXHR) ->
       $('#motion-detection-settings-modal').modal('hide')
-      $("#alert-interval").text($("#reset-time").find(":selected").text())
-      $("#alert-time").text("From #{$('#alert-from').val()} to #{$('#alert-to').val()} hour")
-      $("#alert-days").text(week_days)
       if $("#enable-md-label span").hasClass("checked")
-        $("#md-enabled-span").text("On")
+        $("#motion div#md-enabled-span").text("On")
       else
-        $("#md-enabled-span").text("Off")
+        $("#motion div#md-enabled-span").text("Off")
+      $("#motion div#alert-interval").text($("#reset-time").find(":selected").text())
+      $("#motion div#alert-time").text("From #{$('#alert-from').val()} to #{$('#alert-to').val()} hour")
+      $("#motion div#alert-days").text(week_days)
       Notification.show 'Motion detection settings updated.'
       true
 
@@ -307,8 +307,6 @@ saveMdArea = ->
   data.y1 = actTopLeftY
   data.x2 = actBottomRightX
   data.y2 = actBottomRightY
-  data.width = mdArea.width
-  data.height = mdArea.height
 
   onError = (jqXHR, status, error) ->
     Notification.show 'Failed to update motion detection area.'
@@ -330,10 +328,19 @@ saveMdArea = ->
 
   sendAJAXRequest(settings)
 
+onHideModal = ->
+  $("#motion-detection-settings-modal").on "hide.bs.modal", ->
+    if $("#enable-md-label span").hasClass("checked")
+      $("#md-enabled-span").text("On")
+    else
+      $("#md-enabled-span").text("Off")
+
 initNotification = ->
   Notification.init(".bb-alert");
 
 window.initializeMotionDetectionTab = ->
+  if Evercam.Camera.motion.enabled is undefined
+    return
   mdImage = $("#div-md-image img")
   extractImageResolution()
   initSlider()

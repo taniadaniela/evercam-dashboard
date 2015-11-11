@@ -12,7 +12,7 @@ rvm:
 addons:
   postgresql: 9.3
   code_climate:
-      repo_token: 1de5915a26cc9ca28c71cd9cd114a1e9f61dc4fb9095a0e76bc3e2fc2e3e2b39
+      repo_token: 3045bb415f20a2b7f8715ab52458747dddc35b71848a631553a391fb38ecbc2b
 
 before_script:
   - psql -U postgres -c "create extension postgis"

@@ -19,6 +19,9 @@
             </li>
             <% if has_edit_right %>
               <li>
+                <a data-toggle="tab" data-target="#motion" class="nav-tab-motion">Motion</a>
+              </li>
+              <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares">Sharing</a>
               </li>
             <% end %>
@@ -65,6 +68,9 @@
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
           <% if has_edit_right %>
+            <div id="motion" class="tab-pane">
+              <%= render partial: "cameras/single/motion_detection_tab" %>
+            </div>
             <div id="shares" class="tab-pane">
               <%= render partial: "cameras/single/sharing_tab" %>
             </div>
@@ -108,6 +114,20 @@
       frequency: <%= @cloud_recording['frequency'].to_i %>,
       storage_duration: <%= @cloud_recording['storage_duration'].to_i %>,
       schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
+    },
+    motion: {
+      <% if has_edit_right %>
+      enabled: <%= @camera.deep_fetch('motion', 'md_enabled') {} %>,
+      week_days: "<%= @camera.deep_fetch('motion', 'week_days') {} %>",
+      alert_from_hour: <%= @camera.deep_fetch('motion', 'alert_from_hour') {} %>,
+      alert_to_hour: <%= @camera.deep_fetch('motion', 'alert_to_hour') {} %>,
+      alert_interval_min: <%= @camera.deep_fetch('motion', 'alert_interval_min') {} %>,
+      sensitivity: <%= @camera.deep_fetch('motion', 'sensitivity') {} %>,
+      x1: <%= @camera.deep_fetch('motion', 'x1') {} %>,
+      y1: <%= @camera.deep_fetch('motion', 'y1') {} %>,
+      x2: <%= @camera.deep_fetch('motion', 'x2') {} %>,
+      y2: <%= @camera.deep_fetch('motion', 'y2') {} %>
+      <% end %>
     }
   };
 

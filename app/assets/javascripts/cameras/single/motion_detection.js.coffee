@@ -5,7 +5,14 @@ MdChanged = false
 __imgHeight = 640
 __imgWidth = 480
 sensitivity_value = 0
-days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+fullWeekSchedule =
+  "Monday": ["00:00-23:59"]
+  "Tuesday": ["00:00-23:59"]
+  "Wednesday": ["00:00-23:59"]
+  "Thursday": ["00:00-23:59"]
+  "Friday": ["00:00-23:59"]
+  "Saturday": ["00:00-23:59"]
+  "Sunday": ["00:00-23:59"]
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -124,7 +131,6 @@ initMotionDetection = ->
     $("#md-enabled-span").text("On")
   else
     $("#md-enabled-span").text("Off")
-  $("#alert-days").text(Evercam.Camera.motion.week_days)
 
 initSlider = ->
   sensitivity_value = Evercam.Camera.motion.sensitivity
@@ -158,25 +164,24 @@ handleTabOpen = ->
     window.setTimeout mdHide, 100
 
 addEmailToTable = ->
-  $("#add-md-email").on "click", ->
-    row_no = $(".email-box").length
-    parentdiv = $('<div>', {class: "email-box"})
-    parentdiv.attr("id", "email-box#{row_no}")
-    removediv = $('<div>')
-    removediv.addClass("col-lg-1 padding-left-0")
-    removeicon = $('<i>')
-    removeicon.addClass("fa fa-remove-sign remove-md-email")
-    removeicon.attr("data-val", "#{row_no}")
-    removediv.append(removeicon)
-    emaildiv = $('<div>')
-    emaildiv.addClass("col-lg-11 padding-left-0")
-    emaildiv.append($(document.createTextNode($("#email").val())))
-    clearfloatdiv = $('<div>', {class: "clear-f"})
-    parentdiv.append(removediv)
-    parentdiv.append(emaildiv)
-    parentdiv.append(clearfloatdiv)
-    $("#row-email-box").append(parentdiv)
-    $("#email").val("")
+  row_no = $(".email-box").length
+  parentdiv = $('<div>', {class: "email-box"})
+  parentdiv.attr("id", "email-box#{row_no}")
+  removediv = $('<div>')
+  removediv.addClass("col-lg-1 padding-left-0")
+  removeicon = $('<i>')
+  removeicon.addClass("fa fa-remove-sign remove-md-email")
+  removeicon.attr("data-val", "#{row_no}")
+  removediv.append(removeicon)
+  emaildiv = $('<div>')
+  emaildiv.addClass("col-lg-11 padding-left-0")
+  emaildiv.append($(document.createTextNode($("#email").val())))
+  clearfloatdiv = $('<div>', {class: "clear-f"})
+  parentdiv.append(removediv)
+  parentdiv.append(emaildiv)
+  parentdiv.append(clearfloatdiv)
+  $("#row-email-box").append(parentdiv)
+  $("#email").val("")
 
 removeEmail = ->
   $("#row-email-box").on "click", ".remove-md-email", ->
@@ -184,28 +189,14 @@ removeEmail = ->
     $("#email-box#{row_no}").remove()
 
 bindHours = ->
-  for num in [0..23]
-    option = $('<option>').val(num).append(FormatNumTo2(num))
-    $('#alert-from').append option
-    option = $('<option>').val(num).append(FormatNumTo2(num))
-    $('#alert-to').append option
-  $('#alert-from').val(Evercam.Camera.motion.alert_from_hour)
-  $('#alert-to').val(Evercam.Camera.motion.alert_to_hour)
   $("#reset-time").val(Evercam.Camera.motion.alert_interval_min)
   $("#alert-interval").text($("#reset-time").find(":selected").text())
-  $("#alert-time").text("From #{Evercam.Camera.motion.alert_from_hour} to #{Evercam.Camera.motion.alert_to_hour} hour")
 
 FormatNumTo2 = (n) ->
   if n < 10
     return "0#{n}"
   else
     return n
-
-bindeDays = ->
-  days = Evercam.Camera.motion.week_days.split(',')
-  for day in days
-    $("#chk#{day}").prop("checked", true)
-    $("#lbl#{day} span").addClass("checked")
 
 extractImageResolution = ->
   img = new Image()
@@ -214,36 +205,13 @@ extractImageResolution = ->
     __imgWidth = @naturalWidth
     __imgHeight = @naturalHeight
 
-GetWeekdaysSelected = ->
-  wDays = ''
-  if $('#lblMon span').hasClass('checked')
-    wDays += 'Mon,'
-  if $('#lblTue span').hasClass('checked')
-    wDays += 'Tue,'
-  if $('#lblWed span').hasClass('checked')
-    wDays += 'Wed,'
-  if $('#lblThu span').hasClass('checked')
-    wDays += 'Thu,'
-  if $('#lblFri span').hasClass('checked')
-    wDays += 'Fri,'
-  if $('#lblSat span').hasClass('checked')
-    wDays += 'Sat,'
-  if $('#lblSun span').hasClass('checked')
-    wDays += 'Sun,'
-  if wDays.length > 0
-    return wDays.substring(0, wDays.lastIndexOf(','))
-  wDays
-
 saveMdSettings = ->
   $("#save-md-settings").on "click", ->
-    week_days = GetWeekdaysSelected()
     data = {}
     data.enabled = $("#enable-md").is(":checked")
-    data.week_days = week_days
-    data.alert_from_hour = parseInt($('#alert-from').val())
-    data.alert_to_hour = parseInt($('#alert-to').val())
-    data.alert_interval_min = parseInt($("#reset-time").val())
     data.sensitivity = sensitivity_value
+    data.alert_interval_min = parseInt($("#reset-time").val())
+    data.schedule = JSON.stringify(fullWeekSchedule)
 
     onError = (jqXHR, status, error) ->
       Notification.show 'Error to update motion detection settings.'
@@ -256,8 +224,6 @@ saveMdSettings = ->
       else
         $("#motion div#md-enabled-span").text("Off")
       $("#motion div#alert-interval").text($("#reset-time").find(":selected").text())
-      $("#motion div#alert-time").text("From #{$('#alert-from').val()} to #{$('#alert-to').val()} hour")
-      $("#motion div#alert-days").text(week_days)
       Notification.show 'Motion detection settings updated.'
       true
 
@@ -338,6 +304,43 @@ onHideModal = ->
 initNotification = ->
   Notification.init(".bb-alert");
 
+saveEmail = ->
+  $("#save-email").on "click", ->
+    data = {}
+    data.email = $("#md-alert-email").val()
+
+    onError = (jqXHR, status, error) ->
+      console.log jqXHR
+      Notification.show jqXHR.message
+      false
+
+    onSuccess = (result, status, jqXHR) ->
+      $('#email-alert-settings-modal').modal('hide')
+      parentdiv = $('<div>', {class: "email-box"})
+      parentdiv.append($(document.createTextNode(result.email)))
+      $("#motion div#div-alert-emails").append(parentdiv)
+      Notification.show 'Email saved for Motion detection alert.'
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/x-www-form-urlencoded"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+    sendAJAXRequest(settings)
+
+bindEmails = ->
+  for email in Evercam.Camera.motion.emails
+    parentdiv = $('<div>', {class: "email-box"})
+    parentdiv.append($(document.createTextNode(email)))
+    $("#div-alert-emails").append(parentdiv)
+  true
+
 window.initializeMotionDetectionTab = ->
   if Evercam.Camera.motion.enabled is undefined
     return
@@ -347,9 +350,8 @@ window.initializeMotionDetectionTab = ->
   initMotionDetection()
   handleTabOpen()
   CheckAllWeek()
-  addEmailToTable()
-  removeEmail()
   bindHours()
-  bindeDays()
   saveMdSettings()
   initNotification()
+  saveEmail()
+  bindEmails()

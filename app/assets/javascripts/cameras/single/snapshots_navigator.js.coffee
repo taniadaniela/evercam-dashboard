@@ -96,7 +96,7 @@ checkDay = (year, month, day) ->
     false
 
   onSuccess = (response, status, jqXHR) ->
-    HighlightDay(day, response.exists)
+    HighlightDay(year, month, day, response.exists)
 
   settings =
     cache: true
@@ -323,20 +323,24 @@ HighlightCurrentMonth = ->
   month = d.getMonth() + 1
   walkDaysInMonth(year, month)
 
-HighlightDay = (day, exists) ->
-  calDays = $("#ui_date_picker_inline table td[class*='day']")
-  calDays.each ->
-    calDay = $(this)
-    if !calDay.hasClass('old') && !calDay.hasClass('new')
-      iDay = parseInt(calDay.text())
-      if day == iDay
-        if playFromDateTime isnt null && playFromDateTime.getDate() == iDay
-          calDay.addClass('active')
-        if exists
-          calDay.addClass('has-snapshot')
-          BoldDays.push(day)
-        else
-          calDay.addClass('no-snapshot')
+HighlightDay = (year, month, day, exists) ->
+  d = $("#ui_date_picker_inline").datepicker('getDate')
+  calendar_year = d.getFullYear()
+  calendar_month = d.getMonth() + 1
+  if year == calendar_year and month == calendar_month
+    calDays = $("#ui_date_picker_inline table td[class*='day']")
+    calDays.each ->
+      calDay = $(this)
+      if !calDay.hasClass('old') && !calDay.hasClass('new')
+        iDay = parseInt(calDay.text())
+        if day == iDay
+          if playFromDateTime isnt null && playFromDateTime.getDate() == iDay
+            calDay.addClass('active')
+          if exists
+            calDay.addClass('has-snapshot')
+            BoldDays.push(day)
+          else
+            calDay.addClass('no-snapshot')
 
 BoldSnapshotHour = (callFromDt) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")

@@ -118,15 +118,15 @@
     motion: {
       <% if has_edit_right %>
       enabled: <%= @camera.deep_fetch('motion', 'md_enabled') {} %>,
-      week_days: "<%= @camera.deep_fetch('motion', 'week_days') {} %>",
-      alert_from_hour: <%= @camera.deep_fetch('motion', 'alert_from_hour') {} %>,
-      alert_to_hour: <%= @camera.deep_fetch('motion', 'alert_to_hour') {} %>,
       alert_interval_min: <%= @camera.deep_fetch('motion', 'alert_interval_min') {} %>,
       sensitivity: <%= @camera.deep_fetch('motion', 'sensitivity') {} %>,
       x1: <%= @camera.deep_fetch('motion', 'x1') {} %>,
       y1: <%= @camera.deep_fetch('motion', 'y1') {} %>,
       x2: <%= @camera.deep_fetch('motion', 'x2') {} %>,
-      y2: <%= @camera.deep_fetch('motion', 'y2') {} %>
+      y2: <%= @camera.deep_fetch('motion', 'y2') {} %>,
+      schedule: <%= raw((@camera.deep_fetch('motion', 'schedule') {}).to_json) %>,
+      alert_email: <%= @camera.deep_fetch('motion', 'alert_email') {} %>,
+      emails: <%= raw(@camera.deep_fetch('motion', 'emails') {}) %>
       <% end %>
     }
   };

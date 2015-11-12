@@ -95,6 +95,6 @@ $ ->
       success: onSuccess
       contentType: "application/x-www-form-urlencoded"
       type: 'POST'
-      url: "#{window.Evercam.API_URL}cameras/test"
+      url: "#{window.Evercam.MEDIA_API_URL}cameras/test"
 
     jQuery.ajax(settings)

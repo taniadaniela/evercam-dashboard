@@ -15,17 +15,16 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 loadImage = ->
-  unless window.Evercam.Camera.cloud_recording.frequency == 60
-    img = new Image()
-    live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-    src = "#{live_snapshot_url}&rand=" + new Date().getTime()
-    img.onload = ->
-      unless not image_placeholder.parent
-        image_placeholder.parent.replaceChild img, image_placeholder
-      else
-        image_placeholder.src = src
-      $(".btn-live-player").removeClass "hide"
-    img.src = src
+  img = new Image()
+  live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+  src = "#{live_snapshot_url}&rand=" + new Date().getTime()
+  img.onload = ->
+    unless not image_placeholder.parent
+      image_placeholder.parent.replaceChild img, image_placeholder
+    else
+      image_placeholder.src = src
+    $(".btn-live-player").removeClass "hide"
+  img.src = src
 
 controlButtonEvents = ->
   $(".play-pause").on "click", ->

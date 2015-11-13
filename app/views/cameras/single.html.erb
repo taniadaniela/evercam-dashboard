@@ -126,7 +126,7 @@
       y2: <%= @camera.deep_fetch('motion', 'y2') {} %>,
       schedule: <%= raw((@camera.deep_fetch('motion', 'schedule') {}).to_json) %>,
       alert_email: <%= @camera.deep_fetch('motion', 'alert_email') {} %>,
-      emails: <%= raw(@camera.deep_fetch('motion', 'emails') {}) %>
+      emails: []
       <% end %>
     }
   };

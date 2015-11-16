@@ -87,19 +87,19 @@
                     </div>
                   </div>
                   <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-6">
-                    <p class="help-block this form-error text-left" style="display: none;">Select 'Default' if you're unsure</p>
                     <div class="form-group">
                     <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
                     <div class="dropdown">
                       <select id="camera-model" name="camera-model" class="form-control camera-model">
                         <option value="">Select Camera Model</option>
                       </select>
-                    </div>
+                        </div>
                     <input type="hidden" id="last-selected-model" value="<%= @user['camera-model'] %>">
                     <% if field_errors["model"] %>
                       <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
                     <% end %>
                     </div>
+                      <p class="help-block this form-error text-left" style="display: none;">Select 'Default' if you're unsure</p>
                   </div>
                 </div>
               </div>
@@ -206,7 +206,7 @@
                       <div class="col-sm-12">
                         <div class="col-sm-4">
                           <div class='<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
-                            <div class="form-group">
+                            <div id="change" class="form-group"  >
                               <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-help" => "The port should be a 2-5 digit number", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
                               <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "float-label") %>
                               <% if field_errors["external_rtsp_port"] %>

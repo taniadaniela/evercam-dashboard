@@ -2,6 +2,7 @@ mdArea = null
 mdInited = false
 mdImage = undefined
 MdChanged = false
+method = "PATCH"
 __imgHeight = 640
 __imgWidth = 480
 sensitivity_value = 0
@@ -144,15 +145,6 @@ initSlider = ->
     change: (event, ui) ->
       sensitivity_value = ui.value
 
-CheckAllWeek = ->
-  $(".day-label-all").on "click", ->
-    if $("#chkAll").is(':checked')
-      $("input[name='day']").prop("checked", false)
-      $(".day-label span").removeClass("checked")
-    else
-      $("input[name='day']").prop("checked", true)
-      $(".day-label span").addClass("checked")
-
 area_defined = ->
   return Evercam.Camera.motion.x1 > 0 || Evercam.Camera.motion.y1 > 0 || Evercam.Camera.motion.x2 > 0 || Evercam.Camera.motion.y2 > 0
 
@@ -225,6 +217,7 @@ saveMdSettings = ->
         $("#motion div#md-enabled-span").text("Off")
       $("#motion div#alert-interval").text($("#reset-time").find(":selected").text())
       Notification.show 'Motion detection settings updated.'
+      method = 'PATCH'
       true
 
     settings =
@@ -235,7 +228,7 @@ saveMdSettings = ->
       success: onSuccess
       contentType: "application/x-www-form-urlencoded"
       type: 'PATCH'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/settings?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     sendAJAXRequest(settings)
 
@@ -280,6 +273,7 @@ saveMdArea = ->
 
   onSuccess = (result, status, jqXHR) ->
     Notification.show 'Motion detection area saved.'
+    method = 'PATCH'
     true
 
   settings =
@@ -289,8 +283,8 @@ saveMdArea = ->
     error: onError
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
-    type: 'PATCH'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/settings?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    type: method
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
   sendAJAXRequest(settings)
 
@@ -317,9 +311,10 @@ saveEmail = ->
     onSuccess = (result, status, jqXHR) ->
       $('#email-alert-settings-modal').modal('hide')
       parentdiv = $('<div>', {class: "email-box"})
-      parentdiv.append($(document.createTextNode(result.email)))
+      parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
       $("#motion div#div-alert-emails").append(parentdiv)
       Notification.show 'Email saved for Motion detection alert.'
+      $("#md-alert-email").val("")
       true
 
     settings =
@@ -340,6 +335,7 @@ bindEmails = ->
     parentdiv.append($(document.createTextNode(email)))
     $("#div-alert-emails").append(parentdiv)
   true
+  method = Evercam.Camera.motion.method
 
 window.initializeMotionDetectionTab = ->
   if Evercam.Camera.motion.enabled is undefined
@@ -349,7 +345,6 @@ window.initializeMotionDetectionTab = ->
   initSlider()
   initMotionDetection()
   handleTabOpen()
-  CheckAllWeek()
   bindHours()
   saveMdSettings()
   initNotification()

@@ -240,6 +240,22 @@ class CamerasController < ApplicationController
           }
         }
       end
+      @motion_detection = api.get_motion_detections(params[:id]) if @has_edit_rights
+      if @motion_detection.nil?
+        @motion_detection_method = "POST"
+        @motion_detection = {
+          "enabled" => false,
+          "alert_interval_min" => 0,
+          "sensitivity" => 0,
+          "x1" => 0,
+          "x2" => 0,
+          "y1" => 0,
+          "y2" => 0,
+          "schedule" => {},
+          "alert_email" => false,
+          "emails" => []
+        }
+      end
       @cameras = load_user_cameras(true, false)
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)

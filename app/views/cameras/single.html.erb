@@ -116,17 +116,18 @@
       schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     },
     motion: {
-      <% if has_edit_right %>
-      enabled: <%= @camera.deep_fetch('motion', 'md_enabled') {} %>,
-      alert_interval_min: <%= @camera.deep_fetch('motion', 'alert_interval_min') {} %>,
-      sensitivity: <%= @camera.deep_fetch('motion', 'sensitivity') {} %>,
-      x1: <%= @camera.deep_fetch('motion', 'x1') {} %>,
-      y1: <%= @camera.deep_fetch('motion', 'y1') {} %>,
-      x2: <%= @camera.deep_fetch('motion', 'x2') {} %>,
-      y2: <%= @camera.deep_fetch('motion', 'y2') {} %>,
-      schedule: <%= raw((@camera.deep_fetch('motion', 'schedule') {}).to_json) %>,
-      alert_email: <%= @camera.deep_fetch('motion', 'alert_email') {} %>,
-      emails: []
+      <% if has_edit_right && @motion_detection.present? %>
+      enabled: <%= @motion_detection["enabled"] %>,
+      alert_interval_min: <%= @motion_detection["alert_interval_min"].to_i %>,
+      sensitivity: <%= @motion_detection["sensitivity"].to_i %>,
+      x1: <%= @motion_detection["x1"].to_i %>,
+      y1: <%= @motion_detection["y1"].to_i %>,
+      x2: <%= @motion_detection["x2"].to_i %>,
+      y2: <%= @motion_detection["y2"].to_i %>,
+      schedule: <%= raw((@motion_detection["schedule"]).to_json) %>,
+      alert_email: <%= @motion_detection["alert_email"] %>,
+      emails: <%= raw(@motion_detection["emails"]) %>,
+      method: "<%= @motion_detection_method %>"
       <% end %>
     }
   };

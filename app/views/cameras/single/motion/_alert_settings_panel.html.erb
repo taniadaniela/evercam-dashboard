@@ -1,0 +1,32 @@
+<div class="portlet solid" id="camera-md-settings-panel">
+  <div class="portlet-title">
+    <div class="caption">Motion Detection Settings</div>
+    <% if @has_edit_rights %>
+      <div href="#" class="btn btn-edit" data-toggle="modal" data-target="#motion-detection-settings-modal">
+        edit
+      </div>
+    <% end %>
+  </div>
+  <div class="portlet-body col-md-12">
+    <table class="table table-fixed table-borderless">
+      <tr>
+        <td class="col-md-3">Motion Detection:</td>
+        <td class="col-md-9">
+          <div id="md-enabled-span"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>Sensitivity:</td>
+        <td>
+          High
+        </td>
+      </tr>
+      <tr>
+        <td>Reset Time:</td>
+        <td>
+          <div id="alert-interval"></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

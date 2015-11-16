@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  prepend_before_filter :authenticate_user!, :set_cache_buster,
+  prepend_before_filter :authenticate_user!, :set_cache_buster
+  rescue_from Exception, :with => :render_error
 
   def authenticate_user!
     if current_user.nil? or (params.has_key?(:api_id) and params.has_key?(:api_key))
@@ -155,5 +156,12 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  private
+
+  def render_error(exception)
+    render :file => "#{Rails.root}/public/500.html", :layout => false, :status => 500
+    env["airbrake.error_id"] = notify_airbrake(exception)
   end
 end

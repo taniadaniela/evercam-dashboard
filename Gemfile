@@ -35,6 +35,7 @@ gem 'pusher'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'intercom', require: 'intercom'
+gem 'imgareaselect-rails', '~> 1.0'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0.11'
@@ -97,5 +98,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-screenfull', '~> 2.0'
   gem 'rails-assets-videojs', '~> 4.12.7'
   gem 'rails-assets-videojs-contrib-media-sources', '~> 1.0.0'
+  gem 'rails-assets-bs-slider'
   gem 'rails-assets-bootstrap-toggle'
+  gem 'rails-assets-select2'
 end

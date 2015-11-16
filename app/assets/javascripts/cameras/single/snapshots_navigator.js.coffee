@@ -4,9 +4,9 @@ snapshotInfos = null
 totalFrames = 0
 snapshotInfoIdx = 0
 currentFrameNumber = 0
-cameraCurrentHour = 0;
+cameraCurrentHour = 0
 PreviousImageHour = "tdI8"
-BoldDays = null
+BoldDays = []
 ClearCalanderTimeOut = null
 isPlaying = false
 PauseAfterPlay = false
@@ -48,45 +48,67 @@ initDatePicker = ->
 
 changeMonthFromArrow = (value) ->
   xhrRequestChangeMonth.abort()
-  $("#ui_date_picker_inline").datepicker('fill');
-  d = $("#ui_date_picker_inline").datepicker('getDate');
-  day = d.getMonth()
+  $("#ui_date_picker_inline").datepicker('fill')
+  d = $("#ui_date_picker_inline").datepicker('getDate')
+  month = d.getMonth()
   year = d.getFullYear()
   if value is 'n'
-    day = day + 2
-  if day is 13
-    day = 1
+    month = month + 2
+  if month is 13
+    month = 1
     year++
-  if day is 0
-    day = 12
+  if month is 0
+    month = 12
     year--
-  cameraId = Evercam.Camera.id
 
-  data = {}
-  data.api_id = Evercam.User.api_id
-  data.api_key = Evercam.User.api_key
-  onError = (jqXHR, status, error) ->
-    false
+  walkDaysInMonth(year, month)
 
-  settings =
-    cache: false
-    data: data
-    dataType: 'json'
-    error: onError
-    success: HighlightCurrentMonthSuccess
-    contentType: "application/json; charset=utf-8"
-    type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{year}/#{day}/days.json"
-
-  sendAJAXRequest(settings)
   if value =='n'
     d.setMonth(d.getMonth()+1)
   else if value =='p'
     d.setMonth(d.getMonth()-1)
-  $("#ui_date_picker_inline").datepicker('setDate',d);
+  $("#ui_date_picker_inline").datepicker('setDate',d)
   snapshotInfos = null
   snapshotInfoIdx = 1
   currentFrameNumber = 0
+
+walkDaysInMonth = (year, month) ->
+  BoldDays = []
+  d = new Date()
+  currentMonth = d.getMonth() + 1
+  currentYear = d.getFullYear()
+  currentDay = d.getDate()
+  if (month == currentMonth) and (year == currentYear)
+    days = [1..currentDay]
+  else if (month < currentMonth) and (year <= currentYear)
+    days = [1..31]
+  else
+    days = []
+  for day in days
+    checkDay(year, month, day)
+
+checkDay = (year, month, day) ->
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (response, status, error) ->
+    false
+
+  onSuccess = (response, status, jqXHR) ->
+    HighlightDay(year, month, day, response.exists)
+
+  settings =
+    cache: true
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/#{day}.json"
+
+  sendAJAXRequest(settings)
 
 datePickerSelect = (value)->
   dt = value.date
@@ -109,29 +131,13 @@ datePickerSelect = (value)->
   else
     NoRecordingDayOrHour()
 
-  ClearCalanderTimeOut = setTimeout(ResetDays, 100);
+  ClearCalanderTimeOut = setTimeout(ResetDays, 100)
 
 datePickerChange=(value)->
   d = value.date
-  cameraId = Evercam.Camera.id
-
-  data = {}
-  data.api_id = Evercam.User.api_id
-  data.api_key = Evercam.User.api_key
-  onError = (jqXHR, status, error) ->
-    false
-
-  settings =
-    cache: false
-    data: data
-    dataType: 'json'
-    error: onError
-    success: HighlightCurrentMonthSuccess
-    contentType: "application/json; charset=utf-8"
-    type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
-
-  sendAJAXRequest(settings)
+  year = d.getFullYear()
+  month = d.getMonth() + 1
+  walkDaysInMonth(year, month)
   snapshotInfos = null
   snapshotInfoIdx = 1
   currentFrameNumber = 0
@@ -145,18 +151,17 @@ clearHourCalander = ->
 
 ResetDays = ->
   clearTimeout ClearCalanderTimeOut
-  return  unless BoldDays?
+  return unless BoldDays.length > 0
   calDays = $("#ui_date_picker_inline table td[class*='day']")
   calDays.each (idx, el) ->
     calDay = $(this)
     if !calDay.hasClass('old') && !calDay.hasClass('new')
       iDay = parseInt(calDay.text())
-      j = 0
-      while j < BoldDays.length
-        if BoldDays[j] is iDay
+      for day in BoldDays
+        if day is iDay
           calDay.addClass('has-snapshot')
-          break
-        j++
+        else
+          calDay.addClass('no-snapshot')
 
 selectCurrentDay = ->
   $(".datepicker-days table td[class*='day']").removeClass('active')
@@ -244,7 +249,7 @@ SetInfoMessage = (currFrame, date_time) ->
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
-    window.history.replaceState({}, '', url);
+    window.history.replaceState({}, '', url)
 
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
@@ -313,47 +318,35 @@ getLocationBaseDateTime = (offset) ->
   return nd
 
 HighlightCurrentMonth = ->
-  d = $("#ui_date_picker_inline").datepicker('getDate');
-  cameraId = Evercam.Camera.id
+  d = $("#ui_date_picker_inline").datepicker('getDate')
+  year = d.getFullYear()
+  month = d.getMonth() + 1
+  walkDaysInMonth(year, month)
 
-  data = {}
-  data.api_id = Evercam.User.api_id
-  data.api_key = Evercam.User.api_key
-  onError = (jqXHR, status, error) ->
-    false
-
-  settings =
-    cache: false
-    data: data
-    dataType: 'json'
-    error: onError
-    success: HighlightCurrentMonthSuccess
-    contentType: "application/json; charset=utf-8"
-    type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/days.json"
-
-  sendAJAXRequest(settings)
-
-HighlightCurrentMonthSuccess = (results, status, jqXHR) ->
-  calDays = $("#ui_date_picker_inline table td[class*='day']")
-  BoldDays = results.days
-  calDays.each ->
-    calDay = $(this)
-    if !calDay.hasClass('old') && !calDay.hasClass('new')
-      iDay = parseInt(calDay.text())
-      for result in results.days
-        if result == iDay
-          calDay.addClass('has-snapshot')
+HighlightDay = (year, month, day, exists) ->
+  d = $("#ui_date_picker_inline").datepicker('getDate')
+  calendar_year = d.getFullYear()
+  calendar_month = d.getMonth() + 1
+  if year == calendar_year and month == calendar_month
+    calDays = $("#ui_date_picker_inline table td[class*='day']")
+    calDays.each ->
+      calDay = $(this)
+      if !calDay.hasClass('old') && !calDay.hasClass('new')
+        iDay = parseInt(calDay.text())
+        if day == iDay
           if playFromDateTime isnt null && playFromDateTime.getDate() == iDay
             calDay.addClass('active')
-          break
+          if exists
+            calDay.addClass('has-snapshot')
+            BoldDays.push(day)
+          else
+            calDay.addClass('no-snapshot')
 
 BoldSnapshotHour = (callFromDt) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
-  d = $("#ui_date_picker_inline").datepicker('getDate');
-  cameraId = Evercam.Camera.id
+  d = $("#ui_date_picker_inline").datepicker('getDate')
 
   data = {}
   data.api_id = Evercam.User.api_id
@@ -368,15 +361,15 @@ BoldSnapshotHour = (callFromDt) ->
     error: onError
     success: BoldSnapshotHourSuccess
     context: { isCall: callFromDt }
-    contentType: "application/json; charset=utf-8"
+    contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
 
   sendAJAXRequest(settings)
 
 BoldSnapshotHourSuccess = (result, context) ->
-  lastBoldHour = 0;
-  hasRecords = false;
+  lastBoldHour = 0
+  hasRecords = false
   for hour in result.hours
     #hr = hour + CameraOffset
     $("#tdI#{hour}").addClass('has-snapshot')
@@ -403,8 +396,6 @@ GetCameraInfo = (isShowLoader) ->
     showLoader()
   fromDT = GetFromDT()/1000
   toDT = GetToDT()/1000
-
-  cameraId = Evercam.Camera.id
 
   data = {}
   data.from = fromDT
@@ -458,9 +449,9 @@ GetCameraInfo = (isShowLoader) ->
     dataType: 'json'
     error: onError
     success: onSuccess
-    contentType: "application/json; charset=utf-8"
+    contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots.json"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots.json"
 
   sendAJAXRequest(settings)
 
@@ -520,7 +511,6 @@ loadMdImages = ->
   $(".md-Img").each ->
     image_control = $(this)
     timestamp = image_control.attr("timestamp")
-    cameraId = Evercam.Camera.id
     data = {}
     data.with_data = true
     data.range = 1
@@ -540,15 +530,13 @@ loadMdImages = ->
       dataType: 'json'
       error: onError
       success: onSuccess
-      contentType: "application/json; charset=utf-8"
+      contentType: "application/json charset=utf-8"
       type: 'GET'
-      url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{timestamp}.json"
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}.json"
 
     sendAJAXRequest(settings)
 
 loadImage = (timestamp) ->
-  cameraId = Evercam.Camera.id
-
   data = {}
   data.with_data = true
   data.range = 1
@@ -571,9 +559,9 @@ loadImage = (timestamp) ->
     dataType: 'json'
     error: onError
     success: onSuccess
-    contentType: "application/json; charset=utf-8"
+    contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{timestamp}.json"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}.json"
 
   sendAJAXRequest(settings)
 
@@ -644,7 +632,7 @@ NoRecordingDayOrHour = ->
   $("#divNoMd").text('No motion detected')
   HideLoader()
 
-  totalFrames = 0;
+  totalFrames = 0
 
 SetImageHour = (hr, id) ->
   value = $("##{id}").html()
@@ -695,7 +683,7 @@ Pause = ->
   PauseAfterPlay = true
 
 HideLoader = ->
-  $("#imgLoaderRec").hide();
+  $("#imgLoaderRec").hide()
 
 handleWindowResize = ->
   $(window).on "resize", ->
@@ -776,7 +764,6 @@ DoNextImg = ->
     currentFrameNumber = snapshotInfos.length
     snapshotInfoIdx = snapshotInfos.length - 1
   si = snapshotInfos[snapshotInfoIdx]
-  cameraId = Evercam.Camera.id
 
   data = {}
   data.with_data = true
@@ -830,9 +817,9 @@ DoNextImg = ->
     dataType: 'json'
     error: onError
     success: onSuccess
-    contentType: "application/json; charset=utf-8"
+    contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{cameraId}/recordings/snapshots/#{si.created_at}.json"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{si.created_at}.json"
 
   sendAJAXRequest(settings)
 
@@ -899,7 +886,7 @@ handleTabOpen = ->
       date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
       url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
       if history.replaceState
-        window.history.replaceState({}, '', url);
+        window.history.replaceState({}, '', url)
 
 saveImage = ->
   $('#save-recording-image').on 'click', ->

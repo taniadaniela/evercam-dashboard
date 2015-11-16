@@ -194,8 +194,7 @@ You are not allowed to view this camera
       if (refresh > 0) {
         window.ec_watcher = setTimeout(updateImage, refresh);
       }
-      var live_snapshot_url = url + '&' + new Date().getTime()
-
+      var live_snapshot_url = url + '&' + new Date().getTime();
       var img = new Image()
       img.onload = function(){
         if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
@@ -237,8 +236,8 @@ You are not allowed to view this camera
       fullscreenImage();
       window.ec_vis_handler = handleVisibilityChange;
       document.addEventListener("visibilitychange", handleVisibilityChange, false);
+      updateImage();
     <% end %>
-    updateImage();
 
   }(window));
 </script>

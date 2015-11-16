@@ -1,8 +1,8 @@
 <%= content_for(:title, "Evercam: Add Camera") %>
 <% if Rails.env.staging? || Rails.env.production? %>
-<script type="text/javascript">
-  mixpanel.track_forms("#create-a-camera", "Create a camera", {'Client-Type':'Dash'});
-</script>
+  <script type="text/javascript">
+    mixpanel.track_forms("#create-a-camera", "Create a camera", {'Client-Type':'Dash'});
+  </script>
 <% end %>
 <div id="add-ip"/>
 <div class="page-content-wrapper">
@@ -36,7 +36,7 @@
         </ul>
 
       </div>
-      <div class="tab-content">
+      <div class="tab-content add-camera">
         <div class="tab-pane active" id="tab_1_1">
           <%= form_tag(cameras_new_path, method: 'post', id: 'create-a-camera', class: 'has-validation-callback', autocomplete: 'off', role: 'form') do %>
             <% field_errors = (flash[:field_errors] || {}) %>
@@ -45,7 +45,7 @@
             <input style="display:none" type="password" name="fakepasswordremembered"/>
             <%= hidden_field_tag('camera-lat', @user['camera-lat']) %>
             <%= hidden_field_tag('camera-lng', @user['camera-lng']) %>
-
+            <input type="hidden" name="add-camera" value="test"/>
             <div class="col-sm-8">
               <div class="row">
                 <div class='col-sm-12'>
@@ -66,7 +66,7 @@
                       <% if field_errors["id"] %>
                         <div class="help-block form-error text-left"><%= field_errors["id"] %></div>
                       <% end %>
-                  </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -74,32 +74,33 @@
                 <div class='col-sm-12'>
                   <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6">
                     <div class="form-group">
-                    <%= label_tag('camera-vendor', "Camera Vendor", class: "control-label") %>
-                    <div class="dropdown">
-                      <select id="camera-vendor" name="camera-vendor" class="form-control">
-                        <option value="">Select Camera Vendor</option>
-                      </select>
-                    </div>
-                    <input type="hidden" id="last-selected-vendor" value="<%= @user['camera-vendor'] %>">
-                    <% if field_errors["vendor"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
-                    <% end %>
+                      <%= label_tag('camera-vendor', "Camera Vendor", class: "control-label") %>
+                      <div class="dropdown">
+                        <select id="camera-vendor" name="camera-vendor" class="form-control hide">
+                          <option value="">Select Camera Vendor</option>
+                        </select>
+                      </div>
+                      <input type="hidden" id="last-selected-vendor" value="<%= @user['camera-vendor'] %>">
+                      <% if field_errors["vendor"] %>
+                        <span class="help-block form-error text-left"><%= field_errors["vendor"] %></span>
+                      <% end %>
                     </div>
                   </div>
                   <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-6">
-                    <div class="form-group">
-                    <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
-                    <div class="dropdown">
-                      <select id="camera-model" name="camera-model" class="form-control camera-model">
-                        <option value="">Select Camera Model</option>
-                      </select>
-                        </div>
-                    <input type="hidden" id="last-selected-model" value="<%= @user['camera-model'] %>">
-                    <% if field_errors["model"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
-                    <% end %>
+                    <p class="help-block this form-error text-left" style="display: none;">Select 'Default' if you're unsure</p>
+                    <img id="vendor-image" class="col-sm-12 hide" src="" style="max-height: 60px;">
+                    <div class="form-group hide">
+                      <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
+                      <div class="dropdown">
+                        <select id="camera-model" name="camera-model" class="form-control camera-model">
+                          <option value="">Select Camera Model</option>
+                        </select>
+                      </div>
+                      <input type="hidden" id="last-selected-model" value="<%= @user['camera-model'] %>">
+                      <% if field_errors["model"] %>
+                        <span class="help-block form-error text-left"><%= field_errors["model"] %></span>
+                      <% end %>
                     </div>
-                      <p class="help-block this form-error text-left" style="display: none;">Select 'Default' if you're unsure</p>
                   </div>
                 </div>
               </div>
@@ -125,14 +126,14 @@
                       <div class="form-group">
                         <%= text_field_tag("port", @user['port'] || 80, "class" => "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.") %>
                         <%= label_tag('port', raw("HTTP Port*"), class: "float-label") %>
-                         <% if field_errors["external_http_port"] %>
+                        <% if field_errors["external_http_port"] %>
                           <span class="help-block form-error text-left"><%= field_errors["external_http_port"] %></span>
                         <% end %>
                       </div>
                     </div>
                   </div>
                   <div class='col-sm-4 <%= field_errors["jpg_url"] ? ' has-error' : '' %>'>
-                    <div class="snap-end">
+                    <div class="snap-end hide">
                       <span class="prepend prepend-2">/</span>
                       <div class="form-group">
                         <input id="snapshot-readonly" class="form-control snapshot-readonly hide" disabled value="<%= @user['snapshot'] %>"/>
@@ -149,7 +150,7 @@
                     <div class="col-sm-4">
                       <div class="form-group">
                         <%= text_field_tag("camera-username", @user['camera-username'], "data-validation-help" => "Required if the camera needs authenticating", "class" => "form-control") %>
-                          <%= label_tag('camera-username', "Camera Username", class: "float-label") %>
+                        <%= label_tag('camera-username', "Camera Username", class: "float-label") %>
                         <% if field_errors["username"] %>
                           <span class="help-block form-error text-left"><%= field_errors["username"] %></span>
                         <% end %>
@@ -178,11 +179,11 @@
 
                         <div class="col-sm-4">
                           <div class='<%= field_errors["internal_host"] ? ' has-error' : '' %>'>
-                              <span class="prepend prepend-3">http://</span>
-                              <div class="form-group">
+                            <span class="prepend prepend-3">http://</span>
+                            <div class="form-group">
                               <%= text_field_tag("local-ip", @user['local-ip'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.", "data-validation-optional" => "true") %>
-                                <label class="float-label">Local IP</label>
-                                <%= label_tag('local-ip', "Local IP", class: "float-label hide") %>
+                              <label class="float-label">Local IP</label>
+                              <%= label_tag('local-ip', "Local IP", class: "float-label hide") %>
                               <% if field_errors["internal_host"] %>
                                 <span class="help-block form-error text-left"><%= field_errors["internal_host"] %></span>
                               <% end %>
@@ -206,7 +207,7 @@
                       <div class="col-sm-12">
                         <div class="col-sm-4">
                           <div class='<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
-                            <div id="change" class="form-group"  >
+                            <div class="form-group">
                               <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-help" => "The port should be a 2-5 digit number", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
                               <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "float-label") %>
                               <% if field_errors["external_rtsp_port"] %>
@@ -248,7 +249,7 @@
                   <img id="testimg" src="" class="text-center testimg-add" width="100%"></div>
                 <div class="test-snapshot">
                   <section class="progress-demo">
-                    <a id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>
+                    <a id="test-snapshot" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>
                   </section>
                   <div id="test-error"><span></span></div>
                 </div>
@@ -274,6 +275,6 @@
 </div>
 <script>
   $(document).ready(function () {
-    window.initializeAddCamera();
+    window.initializeAddCameraTest();
   });
 </script>

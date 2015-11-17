@@ -43,5 +43,8 @@ EvercamDashboard::Application.configure do
 
   # Evercam API settings. Use "EVERCAM_LOCAL=true bundle exec rails server" to test
   # against a locally running version of evercam-api.
-  config.evercam_api = {host: 'localhost', port: 9292, scheme: 'http'} if ENV['EVERCAM_LOCAL']
+  if ENV['EVERCAM_LOCAL']
+    config.evercam_api = { host: 'localhost', port: 9292, scheme: 'http' }
+    config.evercam_media_api = { host: 'localhost', port: 4000, scheme: 'http' }
+  end
 end

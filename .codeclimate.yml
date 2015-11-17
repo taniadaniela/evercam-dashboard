@@ -17,3 +17,6 @@ ratings:
 exclude_paths:
 - vendor/**/*
 - public/**/*
+- config/**/*
+- db/**/*
+- spec/**/*

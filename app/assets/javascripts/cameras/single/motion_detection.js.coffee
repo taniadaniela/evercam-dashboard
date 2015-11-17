@@ -141,8 +141,7 @@ initSlider = ->
     step: 1
     animate: true
     value: Evercam.Camera.motion.sensitivity
-    #create: saveMdSensitivity(3)
-    change: (event, ui) ->
+    slide: (event, ui) ->
       sensitivity_value = ui.value
 
 area_defined = ->
@@ -227,7 +226,7 @@ saveMdSettings = ->
       error: onError
       success: onSuccess
       contentType: "application/x-www-form-urlencoded"
-      type: 'PATCH'
+      type: method
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     sendAJAXRequest(settings)
@@ -335,7 +334,7 @@ bindEmails = ->
     parentdiv.append($(document.createTextNode(email)))
     $("#div-alert-emails").append(parentdiv)
   true
-  method = Evercam.Camera.motion.method
+  method = Evercam.Camera.motion.method if Evercam.Camera.motion.method
 
 window.initializeMotionDetectionTab = ->
   if Evercam.Camera.motion.enabled is undefined

@@ -3,6 +3,8 @@ engines:
     enabled: true
   csslint:
     enabled: true
+  eslint:
+    enabled: true
   coffeelint:
     enabled: true
   bundler-audit:
@@ -10,11 +12,12 @@ engines:
 ratings:
    paths:
    - app/**
+   - app/assets/**
    - lib/**
+   - spec/**
    - "**.rb"
+   - "**.js.coffee"
+   - "**.js"
 exclude_paths:
 - vendor/**/*
 - public/**/*
-- config/**/*
-- db/**/*
-- spec/**/*

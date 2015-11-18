@@ -235,3 +235,14 @@ ul.scroll-menu {
 .snapshot-proxy{
   height: auto;
 }
+
+.no-thumbnail {
+  .offline-camera-placeholder & {
+    background: #ffffff;
+    width: 100%;
+  }
+
+  .snapshot.offline-snapshot & {
+    width: 100%;
+  }
+}

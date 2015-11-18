@@ -187,9 +187,9 @@ You are not allowed to view this camera
   })();
 
   (function(window) {
-    var refresh = 1000*<%= params[:refresh] %>,
-      container = $('#evercam-container-img'),
-      url = container.attr('src');
+    var refresh = 1000*<%= params[:refresh] %>;
+    var  container = document.getElementById("evercam-container-img");
+    var url = "<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>";
     function updateImage() {
       if (refresh > 0) {
         window.ec_watcher = setTimeout(updateImage, refresh);
@@ -200,8 +200,7 @@ You are not allowed to view this camera
         if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
           //broken image!
         } else {
-          //update image
-          container.attr('src', live_snapshot_url);
+          container.src = live_snapshot_url
         }
       };
       img.src = live_snapshot_url;

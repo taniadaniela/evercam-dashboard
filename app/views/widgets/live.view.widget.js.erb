@@ -38,8 +38,8 @@
   function main() {
     jQuery(document).ready(function($) {
       <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
-      var rtmp_stream = "<%= @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>";
-      var hls_stream = "<%= @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>";
+      var rtmp_stream = "<%= @camera.deep_fetch('proxy_url', 'rtmp') {} if @camera['external'].blank? || port.present? %>";
+      var hls_stream = "<%= @camera.deep_fetch('proxy_url', 'hls') {} if @camera['external'].blank? || port.present? %>";
       var query_string = "";
       if (rtmp_stream) {
         query_string = "&rtmp=" + rtmp_stream;

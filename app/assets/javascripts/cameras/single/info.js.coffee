@@ -83,6 +83,9 @@ handleVendorModelEvents = ->
     e.preventDefault()
     loadVendorModels($(this).val())
 
+  $("#details").on "change", "#camera-model", ->
+    $("#snapshot").val $(this).find(":selected").attr("jpg-val")
+
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
   if vendor_id is ""
@@ -109,8 +112,14 @@ loadVendorModels = (vendor_id) ->
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
       if model.name.toLowerCase().indexOf('default') isnt -1
         $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+      else if model.name.toLowerCase().indexOf('other') isnt -1
+        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name} - Custom URL</option>")
       else
         $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+
+    jpg_url = $("#camera-model").find(":selected").attr("jpg-val")
+    if jpg_url isnt ""
+      $("#snapshot").val jpg_url
 
   settings =
     cache: false

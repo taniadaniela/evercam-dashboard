@@ -70,6 +70,7 @@ group :test do
   gem 'rspec-rails', '~> 3.3.2'
   gem 'webmock', '~> 1.21.0'
   gem 'poltergeist'
+  gem 'nokogiri', '~> 1.6.7.rc4'
   gem 'simplecov'
   gem 'rack_session_access'
   gem 'selenium-webdriver'

@@ -84,7 +84,7 @@ handleVendorModelEvents = ->
     loadVendorModels($(this).val())
 
   $("#details").on "change", "#camera-model", ->
-    $("#snapshot").val $(this).find(":selected").attr("jpg-val")
+    cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val"))
 
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
@@ -119,7 +119,7 @@ loadVendorModels = (vendor_id) ->
 
     jpg_url = $("#camera-model").find(":selected").attr("jpg-val")
     if jpg_url isnt ""
-      $("#snapshot").val jpg_url
+      cleanAndSetJpegUrl(jpg_url)
 
   settings =
     cache: false
@@ -133,6 +133,11 @@ loadVendorModels = (vendor_id) ->
 
   sendAJAXRequest(settings)
   true
+
+cleanAndSetJpegUrl = (jpeg_url) ->
+  if jpeg_url.indexOf('/') == 0
+    jpeg_url = jpeg_url.substr(1)
+  $("#snapshot").val jpeg_url
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->

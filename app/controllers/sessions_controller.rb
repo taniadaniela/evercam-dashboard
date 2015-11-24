@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
   def create
     begin
-      @user = User.by_login(params[:session][:login])
+      @user = User.by_login(params[:session][:login].downcase)
     rescue NoMethodError => error
       Rails.logger.error "Error caught fetching user details.\nCause: #{error}\n" + error.backtrace.join("\n")
     end

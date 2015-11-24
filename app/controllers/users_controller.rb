@@ -171,7 +171,7 @@ class UsersController < ApplicationController
   end
 
   def password_reset_request
-    email = params[:email]
+    email = params[:email].downcase if params[:email]
     unless email.nil?
       user = User.by_login(email)
 

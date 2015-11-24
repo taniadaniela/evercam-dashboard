@@ -881,7 +881,7 @@ handleMinSecDropDown = ->
 handleTabOpen = ->
   $('.nav-tab-recordings').on 'shown.bs.tab', ->
     window.initScheduleCalendar()
-    window.setCloudRecordingToggle()
+    window.initCloudRecordingSettings()
     if snapshotInfos isnt null
       date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
       url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
@@ -929,6 +929,6 @@ window.initializeRecordingsTab = ->
   saveImage()
   handleResize()
   window.initScheduleCalendar()
-  window.setCloudRecordingToggle()
+  window.initCloudRecordingSettings()
   onCollapsRecording()
   selectMdImage()

@@ -113,6 +113,7 @@
     cloud_recording: {
       frequency: <%= @cloud_recording['frequency'].to_i %>,
       storage_duration: <%= @cloud_recording['storage_duration'].to_i %>,
+      status: '<%= @cloud_recording['status'].to_s %>',
       schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     },
     motion: {

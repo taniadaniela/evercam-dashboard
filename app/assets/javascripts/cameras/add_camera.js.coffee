@@ -53,8 +53,8 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
         $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
     if $("#last-selected-model").val() is ''
       if model.id isnt "other_default"
-        $("#snapshot").val $("#camera-model").find(":selected").attr("jpg-val")
-        $("#snapshot-readonly").val $("#camera-model").find(":selected").attr("jpg-val")
+        $("#snapshot").val(cleanAndSetJpegUrl($("#camera-model").find(":selected").attr("jpg-val")))
+        $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#camera-model").find(":selected").attr("jpg-val")))
         $("#snapshot").addClass("hide")
         $("#snapshot-readonly").removeClass("hide")
       else
@@ -130,10 +130,15 @@ handleVendorModelEvents = ->
     loadVendorModels($(this).val())
 
   $(".camera-model").on "change", ->
-    $("#snapshot").val $(this).find(":selected").attr("jpg-val")
-    $("#snapshot-readonly").val $(this).find(":selected").attr("jpg-val")
+    $("#snapshot").val(cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val")))
+    $("#snapshot-readonly").val(cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val")))
     $("#snapshot").addClass("hide")
     $("#snapshot-readonly").removeClass("hide")
+
+cleanAndSetJpegUrl = (jpeg_url) ->
+  if jpeg_url.indexOf('/') == 0
+    jpeg_url = jpeg_url.substr(1)
+  return jpeg_url
 
 onLoadPage = ->
   if $("#last-selected-model").val() isnt ''
@@ -143,6 +148,8 @@ onLoadPage = ->
     else
       $("#snapshot").addClass("hide")
       $("#snapshot-readonly").removeClass("hide")
+    $("#snapshot").val(cleanAndSetJpegUrl($("#snapshot").val()))
+    $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#snapshot-readonly").val()))
   $(".settings").hide()
   #toggle the componenet with class msg_body
   $(".additional").click ->

@@ -44,30 +44,34 @@ updateScheduleToOn = ->
 
   frequency = $("#cloud-recording-frequency").val()
   storage_duration = $("#cloud-recording-duration").val()
+  status = "on"
   schedule = JSON.stringify(fullWeekSchedule)
-  updateSchedule(frequency, storage_duration, schedule, "POST")
+  updateSchedule(frequency, storage_duration, schedule, status)
 
 updateScheduleToOff = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
 
   frequency = 1
   storage_duration = 1
+  status = "off"
   schedule = JSON.stringify(fullWeekSchedule)
-  updateSchedule(frequency, storage_duration, schedule, "DELETE")
+  updateSchedule(frequency, storage_duration, schedule, status)
 
 updateScheduleFromCalendar = ->
   Evercam.Camera.cloud_recording.schedule = parseCalendar()
   frequency = $("#cloud-recording-frequency").val()
   storage_duration = $("#cloud-recording-duration").val()
+  status = Evercam.Camera.cloud_recording.status
   schedule = JSON.stringify(parseCalendar())
-  updateSchedule(frequency, storage_duration, schedule, "POST")
+  updateSchedule(frequency, storage_duration, schedule, status)
 
-updateSchedule = (frequency, storage_duration, schedule, type) ->
+updateSchedule = (frequency, storage_duration, schedule, status) ->
   data =
     api_id: Evercam.User.api_id
     api_key: Evercam.User.api_key
     frequency: frequency
     storage_duration: storage_duration
+    status: status
     schedule: schedule
 
   onError = (data) ->
@@ -86,7 +90,7 @@ updateSchedule = (frequency, storage_duration, schedule, type) ->
     cache: false
     data: data
     dataType: 'text'
-    type: type
+    type: "POST"
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/cloud-recording"
 
   sendAJAXRequest(settings)
@@ -182,8 +186,9 @@ handleDurationSelect = ->
     else
       updateScheduleFromCalendar()
 
-handleRecordingToggle = ->
+handleStatusSelect = ->
   $("#recording-toggle input").on "ifChecked", (event) ->
+    Evercam.Camera.cloud_recording.status = $(this).val()
     switch $(this).val()
       when "on"
         hideScheduleCalendar()
@@ -202,21 +207,30 @@ handleRecordingToggle = ->
         hideDurationSelect()
         updateScheduleToOff()
 
-window.setCloudRecordingToggle = ->
+renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
-  if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
-    if Evercam.Camera.cloud_recording.frequency == 1
-      $("#cloud-recording-off").iCheck('check')
-    else
+
+renderCloudRecordingFrequency = ->
+  $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
+
+renderCloudRecordingStatus = ->
+  switch Evercam.Camera.cloud_recording.status
+    when "on"
       $("#cloud-recording-on").iCheck('check')
       showFrequencySelect()
       showDurationSelect()
-  else
-    $("#cloud-recording-on-scheduled").iCheck('check')
-    showFrequencySelect()
-    showDurationSelect()
-    showScheduleCalendar()
-  $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
-  handleRecordingToggle()
-  handleFrequencySelect()
+    when "on-scheduled"
+      $("#cloud-recording-on-scheduled").iCheck('check')
+      showFrequencySelect()
+      showDurationSelect()
+      showScheduleCalendar()
+    when "off"
+      $("#cloud-recording-off").iCheck('check')
+
+window.initCloudRecordingSettings = ->
+  renderCloudRecordingDuration()
+  renderCloudRecordingFrequency()
+  renderCloudRecordingStatus()
   handleDurationSelect()
+  handleFrequencySelect()
+  handleStatusSelect()

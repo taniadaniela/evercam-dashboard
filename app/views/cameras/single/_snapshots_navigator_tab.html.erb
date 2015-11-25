@@ -1,222 +1,233 @@
 <div id="recording-tab">
   <% has_right = @camera["rights"].split(",").include?("edit") %>
-<div class="left-column">
-<div class="snapshots">
-<div class="loader-bg" id="imgLoaderRec">
-<table cellspacing="0" cellpadding="6" border="0" width="100%" height="100%">
-<tr>
-<td width="35%">&nbsp;</td>
-<td style="width:105px; height:66px;text-align: center;font-weight: bold;">
-  <%= image_tag('loader3.gif', alt: 'Loading') %>
-&nbsp;Loading Image
-</td>
-<td width="35%">&nbsp;</td>
-</tr>
-</table>
+  <div class="left-column">
+    <div class="snapshots">
+      <div class="loader-bg" id="imgLoaderRec">
+        <table cellspacing="0" cellpadding="6" border="0" width="100%" height="100%">
+          <tr>
+            <td width="35%">&nbsp;</td>
+            <td style="width:105px; height:66px;text-align: center;font-weight: bold;">
+              <%= image_tag('loader3.gif', alt: 'Loading') %>
+              &nbsp;Loading Image
+            </td>
+            <td width="35%">&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+      <div id="fullscreen" class="html5-fullscreen-api">
+        <img id="imgPlayback" style="width: 100%;" src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAIUElEQVR4Xu3IMQHAQBAEofdv+mJgFUwoaHh3BwDAj8wEAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICqex8S0sIfHl2RqAAAAABJRU5ErkJggg=="/>
+        <div id="snapshot-tab-save" class="play-options">
+          <div id="save-recording-image" class="btn-live-player save-live"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+        </div>
+      </div>
+    </div>
+    <span id="snapshot-notes-text" class="mobile-hide"></span>
+    <span id="snapshot-notes-text" style="display: none;"></span>
+    <div id="divInfo" class="playback-info-bar"></div>
+    <div id="show-info"><i class="icon icon-info"></i></div>
+    <div id="divSliderBackground" class="slider slider-basic ui-slider ui-slider-horizontal ui-slider-recordings ui-widget ui-widget-content ui-corner-all">
+      <div id="divSlider" class="playback-slider-outer">
+        <div id="divPointer" class="playback-slider-inner"></div>
+      </div>
+    </div>
+
+    <div class="clear-f"></div>
+
+    <div id="divDisableButtons">
+      <div class="playback-buttons-bar">
+        <div class="btn-group">
+          <a class="btn grey disabled">-100</a>
+          <a class="btn grey disabled">-10</a>
+
+        </div>
+        <div class="btn-group">
+          <a class="btn grey disabled">-1</a>
+          <a class="btn btn-padding-tab btn-padding grey disabled"><i class="icon-control-play"></i></a>
+          <a class="btn grey disabled">+1</a>
+        </div>
+        <div class="btn-group">
+
+          <a class="btn grey disabled">+10</a>
+          <a class="btn grey disabled">+100</a>
+        </div>
+      </div>
+    </div>
+    <div id="divFrameMode" class="hide">
+      <div class="playback-buttons-bar">
+        <div class="btn-group">
+          <a class="btn grey skipframe">-100</a>
+          <a class="btn grey skipframe">-10</a>
+
+        </div>
+        <div class="btn-group">
+          <a class="btn grey skipframe left">-1</a>
+          <a class="btn btn-padding-tab btn-padding grey" id="btnPlayRec"><i class="icon-control-play"></i></a>
+          <a class="btn grey skipframe">+1</a>
+        </div>
+        <div class="btn-group">
+          <a class="btn grey skipframe">+10</a>
+          <a class="btn grey skipframe">+100</a>
+        </div>
+      </div>
+    </div>
+    <div id="divPlayMode" class="hide">
+      <div class="playback-buttons-bar playback-buttons-padding">
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-10">
+          <a class="btn btn-padding grey" id="btnFRwd"><i class="icon icon-control-rewind"></i></a>
+        </div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-5">
+          <a class="btn btn-padding grey" id="btnRwd"><i class="icon icon-control-rewind"></i></a>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-padding grey" id="btnPauseRec"><i class="icon icon-control-pause"></i></a>
+        </div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+5">
+          <a class="btn btn-padding grey" id="btnFwd"><i class="icon icon-control-forward"></i></a>
+        </div>
+        <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+10">
+          <a class="btn btn-padding grey" id="btnFFwd"><i class="icon icon-control-forward"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="clear-f"></div>
+  </div>
+  <div class="right-column">
+    <div class="col-recording-right">
+      <div class="portlet">
+        <div id="ui_date_picker_inline" class="datepicker-bg"></div>
+
+        <div class="datepicker datepicker-bg datepicker-inline show">
+          <div class="datepicker-day show">
+            <table id="hourCalandar" class="table-condensed width100">
+              <thead>
+              <tr>
+                <th colspan="7">Hour</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td id="tdI0" class="day">0</td>
+                <td id="tdI1" class="day">1</td>
+                <td id="tdI2" class="day">2</td>
+                <td id="tdI3" class="day">3</td>
+                <td id="tdI4" class="day">4</td>
+                <td id="tdI5" class="day">5</td>
+                <td id="tdI6" class="day">6</td>
+              </tr>
+              <tr>
+                <td id="tdI7" class="day">7</td>
+                <td id="tdI8" class="day">8</td>
+                <td id="tdI9" class="day">9</td>
+                <td id="tdI10" class="day">10</td>
+                <td id="tdI11" class="day">11</td>
+                <td id="tdI12" class="day">12</td>
+                <td id="tdI13" class="day">13</td>
+              </tr>
+              <tr>
+                <td id="tdI14" class="day">14</td>
+                <td id="tdI15" class="day">15</td>
+                <td id="tdI16" class="day">16</td>
+                <td id="tdI17" class="day">17</td>
+                <td id="tdI18" class="day">18</td>
+                <td id="tdI19" class="day">19</td>
+                <td id="tdI20" class="day">20</td>
+              </tr>
+              <tr>
+                <td id="tdI21" class="day">21</td>
+                <td id="tdI22" class="day">22</td>
+                <td id="tdI23" class="day">23</td>
+                <td class="day"></td>
+                <td class="day"></td>
+                <td class="day"></td>
+                <td class="day"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="padding:5px 0px 5px 0px;" class="hide">
+          <div class="col-md-6">
+            Min:&nbsp;<select id="ddlRecMinutes" style="width: 50%;" class="">
+            <option value="0">00</option>
+          </select>
+          </div>
+          <div class="col-md-6">
+            Sec:&nbsp;<select id="ddlRecSeconds" style="width: 50%;" class="">
+            <option value="0">00</option>
+          </select>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+
+        <div>
+          <div id="recording-toggle">
+            <form>
+              <b>Recording:</b>
+              <br/>
+              <input type="radio" name="cloud_recording" id="cloud-recording-on" value="on" <%= "disabled" if !has_right%> />
+              <label>On</label>
+              <br/>
+              <input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled" <%= "disabled" if !has_right%> />
+              <label>On (Scheduled)</label>
+              <br/>
+              <input type="radio" name="cloud_recording" id="cloud-recording-off" value="off" <%= "disabled" if !has_right%> />
+              <label>Off</label>
+              <br/>
+            </form>
+          </div>
+        </div>
+        <div id="cloud-recording-duration-wrap" class="hide">
+          <b>Storage duration:</b>
+          <select id="cloud-recording-duration" style="width: 175px;">
+            <option value="1">24 hours recording</option>
+            <option value="7">7 days recording</option>
+            <option value="30">30 days recording</option>
+            <option value="90">90 days recording</option>
+            <option value="-1">Indefinite</option>
+          </select>
+        </div>
+        <div id="cloud-recording-frequency-wrap" class="hide">
+          <b>Snapshots per minute:</b>
+          <select id="cloud-recording-frequency" style="width: 175px;">
+            <option value="60">60 (1 per second)</option>
+            <option value="30">30 (1 every 2 seconds)</option>
+            <option value="12">12 (1 every 5 seconds)</option>
+            <option value="6">6 (1 every 10 seconds)</option>
+            <option value="1">1 (1 every 60 seconds)</option>
+          </select>
+        </div>
+        <div id="cloud-recording-calendar-wrap" class="hide">
+          <b>Schedule:</b>
+          <br/>
+          <div id="cloud-recording-calendar">
+            <span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clear-f"></div>
 </div>
-<div id="fullscreen" class="html5-fullscreen-api">
-<img id="imgPlayback" style="width: 100%;" src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAIUElEQVR4Xu3IMQHAQBAEofdv+mJgFUwoaHh3BwDAj8wEAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICqex8S0sIfHl2RqAAAAABJRU5ErkJggg=="/>
-<div id="snapshot-tab-save" class="play-options">
-<div id="save-recording-image" class="btn-live-player save-live"><i class="glyphicon glyphicon-floppy-disk"></i></div>
-</div>
-</div>
-</div>
-<span id="snapshot-notes-text" class="mobile-hide"></span>
-<span id="snapshot-notes-text" style="display: none;"></span>
-<div id="divInfo" class="playback-info-bar"></div>
-<div id="show-info"><i class="icon icon-info"></i></div>
-<div id="divSliderBackground" class="slider slider-basic ui-slider ui-slider-horizontal ui-slider-recordings ui-widget ui-widget-content ui-corner-all">
-<div id="divSlider" class="playback-slider-outer">
-<div id="divPointer" class="playback-slider-inner"></div>
-</div>
-</div>
-<div class="clear-f"></div>
-<div id="divDisableButtons">
-<div class="playback-buttons-bar">
-<div class="btn-group">
-<a class="btn grey disabled">-100</a>
-<a class="btn grey disabled">-10</a></div>
-<div class="btn-group">
-<a class="btn grey disabled">-1</a>
-<a class="btn btn-padding-tab btn-padding grey disabled"><i class="icon-control-play"></i></a>
-<a class="btn grey disabled">+1</a>
-</div>
-<div class="btn-group">
-<a class="btn grey disabled">+10</a>
-<a class="btn grey disabled">+100</a>
-</div>
-</div>
-</div>
-<div id="divFrameMode" class="hide">
-<div class="playback-buttons-bar">
-<div class="btn-group">
-<a class="btn grey skipframe">-100</a>
-<a class="btn grey skipframe">-10</a>
-</div>
-<div class="btn-group">
-<a class="btn grey skipframe left">-1</a>
-<a class="btn btn-padding-tab btn-padding grey" id="btnPlayRec"><i class="icon-control-play"></i></a>
-<a class="btn grey skipframe">+1</a>
-</div>
-<div class="btn-group">
-<a class="btn grey skipframe">+10</a>
-<a class="btn grey skipframe">+100</a>
-</div>
-</div>
-</div>
-<div id="divPlayMode" class="hide">
-<div class="playback-buttons-bar playback-buttons-padding">
-<div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-10">
-<a class="btn btn-padding grey" id="btnFRwd"><i class="icon icon-control-rewind"></i></a>
-</div>
-<div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-5">
-<a class="btn btn-padding grey" id="btnRwd"><i class="icon icon-control-rewind"></i></a>
-</div>
-<div class="btn-group">
-<a class="btn btn-padding grey" id="btnPauseRec"><i class="icon icon-control-pause"></i></a>
-</div>
-<div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+5">
-<a class="btn btn-padding grey" id="btnFwd"><i class="icon icon-control-forward"></i></a>
-</div>
-<div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+10">
-<a class="btn btn-padding grey" id="btnFFwd"><i class="icon icon-control-forward"></i></a>
-</div>
-</div>
-</div>
-<div class="clear-f"></div>
-</div>
-<div class="right-column">
-<div class="col-recording-right">
-<div class="portlet">
-<div id="ui_date_picker_inline" class="datepicker-bg"></div>
-<div class="datepicker datepicker-bg datepicker-inline show">
-<div class="datepicker-day show">
-<table id="hourCalandar" class="table-condensed width100">
-<thead>
-<tr>
-<th colspan="7">Hour</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td id="tdI0" class="day">0</td>
-<td id="tdI1" class="day">1</td>
-<td id="tdI2" class="day">2</td>
-<td id="tdI3" class="day">3</td>
-<td id="tdI4" class="day">4</td>
-<td id="tdI5" class="day">5</td>
-<td id="tdI6" class="day">6</td>
-</tr>
-<tr>
-<td id="tdI7" class="day">7</td>
-<td id="tdI8" class="day">8</td>
-<td id="tdI9" class="day">9</td>
-<td id="tdI10" class="day">10</td>
-<td id="tdI11" class="day">11</td>
-<td id="tdI12" class="day">12</td>
-<td id="tdI13" class="day">13</td>
-</tr>
-<tr>
-<td id="tdI14" class="day">14</td>
-<td id="tdI15" class="day">15</td>
-<td id="tdI16" class="day">16</td>
-<td id="tdI17" class="day">17</td>
-<td id="tdI18" class="day">18</td>
-<td id="tdI19" class="day">19</td>
-<td id="tdI20" class="day">20</td>
-</tr>
-<tr>
-<td id="tdI21" class="day">21</td>
-<td id="tdI22" class="day">22</td>
-<td id="tdI23" class="day">23</td>
-<td class="day"></td>
-<td class="day"></td>
-<td class="day"></td>
-<td class="day"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div style="padding:5px 0px 5px 0px;" class="hide">
-<div class="col-md-6">
-Min:&nbsp;<select id="ddlRecMinutes" style="width: 50%;" class="">
-<option value="0">00</option>
-</select>
-</div>
-<div class="col-md-6">
-Sec:&nbsp;<select id="ddlRecSeconds" style="width: 50%;" class="">
-<option value="0">00</option>
-</select>
-</div>
-</div>
-<div class="clear-f"></div>
-<div>
-<div id="recording-toggle">
-<form>
-<b>Recording:</b>
-<br/>
-<input type="radio" name="cloud_recording" id="cloud-recording-on" value="on" <%= "disabled" if !has_right%>/>
-<label>On</label>
-<br/>
-<input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled" <%= "disabled" if !has_right%> />
-<label>On (Scheduled)</label>
-<br/>
-<input type="radio" name="cloud_recording" id="cloud-recording-off" value="off" <%= "disabled" if !has_right%> />
-<label>Off</label>
-<br/>
-</form>
-</div>
-</div>
-<div id="cloud-recording-duration-wrap" class="hide">
-<b>Storage duration:</b>
-<select id="cloud-recording-duration" style="width: 175px;">
-<option value="1">24 hours recording</option>
-<option value="7">7 days recording</option>
-<option value="30">30 days recording</option>
-<option value="90">90 days recording</option>
-<option value="-1">Indefinite</option>
-</select>
-</div>
-<div id="cloud-recording-frequency-wrap" class="hide">
-<b>Snapshots per minute:</b>
-<select id="cloud-recording-frequency" style="width: 175px;">
-<option value="60">60 (1 per second)</option>
-<option value="30">30 (1 every 2 seconds)</option>
-<option value="12">12 (1 every 5 seconds)</option>
-<option value="6">6 (1 every 10 seconds)</option>
-<option value="1">1 (1 every 60 seconds)</option>
-</select>
-</div>
-<div id="cloud-recording-calendar-wrap" class="hide">
-<b>Schedule:</b>
-<br/>
-<div id="cloud-recording-calendar">
-<span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="clear-f"></div>
-</div>
+
 <div class="row hide1 margin-bottom-20">
-<div class="col-md-12">
-<div style="padding:3px 0px 5px 3px;" id="MDLabel">Motion Detection Results</div>
-<div style="padding-left:2px;">
-<div class="MDSlider-outer" id="divCarousel">
-<div class="MDSlider">
-<div id="divSliderMD">
-<ul id="MDSliderItem"></ul>
-<div id="divNoMd" class="label-noMD">No motion detected</div>
-<div class="clear-f"></div>
+  <div class="col-md-12">
+    <div style="padding:3px 0px 5px 3px;" id="MDLabel">Motion Detection Results</div>
+    <div style="padding-left:2px;">
+      <div class="MDSlider-outer" id="divCarousel">
+        <div class="MDSlider">
+          <div id="divSliderMD">
+            <ul id="MDSliderItem"></ul>
+            <div id="divNoMd" class="label-noMD">No motion detected</div>
+            <div class="clear-f"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear-f"></div>
+  </div>
 </div>
-</div>
-</div>
-</div>
-<div class="clear-f"></div>
-</div>
-</div>
+
 <div id="divPopup"></div>
 <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
 <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">

@@ -18,6 +18,7 @@ ratings:
    - "**.rb"
    - "**.js.coffee"
    - "**.js"
+   - "**.css"
 exclude_paths:
 - vendor/**/*
 - public/**/*

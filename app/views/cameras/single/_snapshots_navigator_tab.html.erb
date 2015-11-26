@@ -1,5 +1,5 @@
 <div id="recording-tab">
-
+  <% has_right = @camera["rights"].split(",").include?("edit") %>
   <div class="left-column">
     <div class="snapshots">
       <div class="loader-bg" id="imgLoaderRec">
@@ -165,13 +165,13 @@
             <form>
               <b>Recording:</b>
               <br/>
-              <input type="radio" name="cloud_recording" id="cloud-recording-on" value="on" />
+              <input type="radio" name="cloud_recording" id="cloud-recording-on" value="on" <%= "disabled" if !has_right%> />
               <label>On</label>
               <br/>
-              <input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled" />
+              <input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled" <%= "disabled" if !has_right%> />
               <label>On (Scheduled)</label>
               <br/>
-              <input type="radio" name="cloud_recording" id="cloud-recording-off" value="off" />
+              <input type="radio" name="cloud_recording" id="cloud-recording-off" value="off" <%= "disabled" if !has_right%> />
               <label>Off</label>
               <br/>
             </form>

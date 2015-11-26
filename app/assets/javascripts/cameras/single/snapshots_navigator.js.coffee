@@ -372,13 +372,13 @@ BoldSnapshotHourSuccess = (result, context) ->
   hasRecords = false
   currentDate = new Date($("#camera_selected_time").val())
   AssignedDate = $("#ui_date_picker_inline").datepicker('getDate')
+  if  currentDate.getDate() isnt AssignedDate.getDate()
+    lastBoldHour = 12
   for hour in result.hours
     #hr = hour + CameraOffset
     $("#tdI#{hour}").addClass('has-snapshot')
-    if  currentDate.getDate() != AssignedDate.getDate()
-         lastBoldHour = 12
-    else
-        lastBoldHour = hour
+    if hour isnt 12 && hour > 12 && lastBoldHour isnt 12
+         lastBoldHour = hour
     hasRecords =true
 
   if hasRecords

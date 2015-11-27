@@ -259,7 +259,7 @@ onDeleteShareClicked = (event) ->
   row = control.closest('tr')
   data =
     camera_id: control.attr("camera_id")
-    email: row.attr('share-username')
+    email: row.attr('share-email')
   onError = (jqXHR, status, error) ->
     showError("Delete of camera shared failed. Please contact support.")
     false

@@ -156,7 +156,7 @@
       <% if @camera_shares %>
         <% @camera_shares.each do |share| %>
           <% rights = share["rights"].split(",") %>
-          <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>">
+          <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>" share-email="<%= share["email"] %>">
             <td class="col-lg-4">
               <div class="gravatar-placeholder">
                 <% unless @camera['id'] == "evercam-remembrance-camera" %>

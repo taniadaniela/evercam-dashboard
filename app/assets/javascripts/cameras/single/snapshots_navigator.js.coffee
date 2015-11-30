@@ -370,11 +370,18 @@ BoldSnapshotHour = (callFromDt) ->
 BoldSnapshotHourSuccess = (result, context) ->
   lastBoldHour = 0
   hasRecords = false
+  currentDate = new Date($("#camera_selected_time").val())
+  AssignedDate = $("#ui_date_picker_inline").datepicker('getDate')
   for hour in result.hours
     #hr = hour + CameraOffset
     $("#tdI#{hour}").addClass('has-snapshot')
-    lastBoldHour = hour
-    hasRecords = true
+    if currentDate.getDate() isnt AssignedDate.getDate()
+      if hour >= 12 && !hasRecords
+        lastBoldHour = hour
+        hasRecords = true
+    else
+      lastBoldHour = hour
+      hasRecords = true
 
   if hasRecords
     if this.isCall
@@ -581,6 +588,8 @@ SetPlayFromImage = (timestamp) ->
 GetUTCDate = (date) ->
   UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
   return UtcDate
+
+
 
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')

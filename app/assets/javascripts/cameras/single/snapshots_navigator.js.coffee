@@ -387,8 +387,8 @@ BoldSnapshotHourSuccess = (result, context) ->
     if this.isCall
       GetCameraInfo true
     else
-      #if playFromDateTime isnt null
-        #lastBoldHour = cameraCurrentHour
+      if playFromDateTime isnt null
+        lastBoldHour = cameraCurrentHour
       SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
   else
     NoRecordingDayOrHour()

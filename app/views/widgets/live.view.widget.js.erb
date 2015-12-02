@@ -6,7 +6,14 @@
     url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot',
     container,
     refresh = 1000*<%= params[:refresh] %>,
+    camera_id = '<%= params[:camera] %>',
+    request_ip = '<%= request.ip %>',
+    denied = false,
     priv = <%= params[:private] %>;
+
+    if (request_ip !== "217.112.145.202" && camera_id === "central-bank-fusion") {
+      denied = true;
+    }
 
   function updateImage() {
     if (refresh > 0) {
@@ -54,7 +61,7 @@
         container = $('#ec-container');
       }
 
-      if (priv) {
+      if (priv || denied == true) {
         container.html('<iframe id="ec-frame" allowFullScreen style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&private=true&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>'+query_string+'" frameborder="0" scrolling="no"/>');
         $('#ec-frame').load(function() {
         });

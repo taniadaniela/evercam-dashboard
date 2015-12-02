@@ -32,14 +32,15 @@ class ApplicationController < ActionController::Base
         api_key: Evercam::Config[:intercom][:api_key]
       )
       begin
-        ic_user = intercom.users.find(:email => user.email)
+        ic_user = intercom.users.find(:user_id => user.username)
       rescue
         # Intercom::ResourceNotFound
         # Ignore it
       end
       unless ic_user.nil?
         begin
-          ic_user.user_id = user.id if ic_user.user_id.nil?
+          ic_user.user_id = user.username if ic_user.user_id.nil?
+          ic_user.email = user.email
           ic_user.name = user.fullname
           ic_user.signed_up_at = user.created_at.to_i if ic_user.signed_up_at
           ic_user.last_seen_user_agent = request.user_agent

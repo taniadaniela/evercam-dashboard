@@ -32,6 +32,10 @@ class WidgetsController < ApplicationController
   end
 
   def live_view_private_widget
+    if params[:camera] == "central-bank-fusion" && request.ip != "217.112.145.202"
+      @unathorized = true
+    end
+
     if params["private"]
       authenticate_user
       unless current_user.nil?

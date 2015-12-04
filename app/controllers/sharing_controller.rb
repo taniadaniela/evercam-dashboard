@@ -70,7 +70,7 @@ class SharingController < ApplicationController
     begin
       api = get_evercam_api
       camera_id = params[:camera_id]
-      user = User.where(Sequel.expr(username: params[:user_name])).first
+      user = User.where(Sequel.ilike(:username, params[:user_name])).first
       @camera = api.get_camera(camera_id, true)
       UserMailer.sign_up_to_share_email(params[:email], "#{@camera["name"]}(#{camera_id})", user, params[:share_request_id], @camera['thumbnail']).deliver_now
     rescue => error

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
         key: params[:key]
       ).first
       unless @share_request.nil?
-        user = User.where(email: @share_request.email.downcase).first
+        user = User.where(Sequel.ilike(:email, @share_request.email)).first
         unless user.blank?
           flash[:error] = "You've already registered with this email #{@share_request.email.downcase} address."
           redirect_to signin_path
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
         params[:key]
       )
 
-      user = User.where(email: user[:email].downcase).first
+      user = User.where(Sequel.ilike(:email, user[:email])).first
       sign_in user
       redirect_to cameras_index_path
     rescue => error
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def confirm
-    user = User.where(Sequel.expr(email: params[:u]) | Sequel.expr(username: params[:u])).first
+    user = User.by_login(params[:u])
     unless user.nil?
       code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
       if params[:c] == code
@@ -222,7 +222,7 @@ class UsersController < ApplicationController
   end
 
   def resend_confirmation_email
-    user = User.where(Sequel.expr(username: params[:id])).first
+    user = User.where(Sequel.ilike(:username, params[:id])).first
     unless user.nil?
       code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
       UserMailer.resend_confirmation_email(user, code).deliver_now

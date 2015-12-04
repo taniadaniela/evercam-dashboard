@@ -18,11 +18,11 @@ module SessionsHelper
   end
 
   def current_user
-    @current_user ||= User.where(email: session[:user]).first
+    @current_user ||= User.where(Sequel.ilike(:email, session[:user])).first
   end
 
   def refresh_user
-    @current_user = User.where(email: session[:user]).first
+    @current_user = User.where(Sequel.ilike(:email, session[:user])).first
   end
 
   def allow_iframe

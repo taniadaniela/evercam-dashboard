@@ -57,6 +57,7 @@ class UsersController < ApplicationController
 
       user = User.where(email: user[:email].downcase).first
       sign_in user
+      update_user_intercom user
       redirect_to cameras_index_path
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

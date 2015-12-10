@@ -1,6 +1,6 @@
 | Name   | Evercam Dashboard HTML5 Client   |
 | --- | --- |
-| Owner   | [@azharmalik3](https://github.com/Azharmailk3)   |
+| Owner   | [@muneeb2542](https://github.com/muneeb2542)   |
 | Dependencies Status   | [![Dependency Status](https://gemnasium.com/evercam/evercam-dashboard.svg)](https://gemnasium.com/evercam/evercam-dashboard)  |
 | Code Climate   | [![Code Climate](https://codeclimate.com/github/evercam/evercam-dashboard/badges/gpa.svg)](https://codeclimate.com/github/evercam/evercam-dashboard)   |
 | Travis Test   | [![Dependency Status](https://travis-ci.org/evercam/evercam-dashboard.svg?branch=master)](https://travis-ci.org/evercam/evercam-dashboard)   |

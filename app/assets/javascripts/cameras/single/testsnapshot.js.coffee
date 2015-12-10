@@ -75,6 +75,8 @@ $ ->
 
     onError = (jqXHR, status, error) ->
       $('#test-error').text(jqXHR.responseJSON.message)
+      console.log('Error getting the snapshot from the camera. The camera response was:')
+      console.log(jqXHR.responseJSON.response)
       loader.stop()
 
     onSuccess = (result, status, jqXHR) ->

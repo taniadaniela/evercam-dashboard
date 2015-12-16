@@ -11,17 +11,9 @@ var SaveImage = (function() {
   };
 
 
-  function getMobileOperatingSystem() {
-      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      if( userAgent.match( /Android/i ) )
-      {
-          return 'Android';
-      }
-      else
-      {
-          return 'unknown';
-      }
-  }
+    function isNativeApp(){
+        return /io.evercam.androidapp\/[0-9\.]+$/.test(navigator.userAgent);
+    }
 
   that.save = function (fileURL, fileName) {
       // for non-IE
@@ -29,7 +21,7 @@ var SaveImage = (function() {
           var save = document.createElement('a');
           save.href = fileURL;
           save.target = '_blank';
-          if(getMobileOperatingSystem() == "unknown") {
+          if(!isNativeApp()) {
               save.download = fileName || 'unknown';
           }
           var event = document.createEvent('Event');

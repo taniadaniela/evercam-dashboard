@@ -352,7 +352,9 @@ BoldSnapshotHour = (callFromDt) ->
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
-    false
+    HideLoader()
+    $('#snapshot-tab-save').hide()
+    $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
 
   settings =
     cache: false
@@ -363,6 +365,7 @@ BoldSnapshotHour = (callFromDt) ->
     context: { isCall: callFromDt }
     contentType: "application/json charset=utf-8"
     type: 'GET'
+    timeout: 15000
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours.json"
 
   sendAJAXRequest(settings)

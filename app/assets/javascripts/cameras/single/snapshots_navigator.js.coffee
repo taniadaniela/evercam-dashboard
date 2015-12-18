@@ -80,7 +80,7 @@ walkDaysInMonth = (year, month) ->
   currentDay = d.getDate()
   if (month == currentMonth) and (year == currentYear)
     days = [1..currentDay]
-  else if (month < currentMonth) and (year <= currentYear)
+  else if (month <= currentMonth) and (year <= currentYear)
     days = [1..31]
   else
     days = []

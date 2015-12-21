@@ -7,7 +7,6 @@ window.updateSidebar = ->
 
   onSuccess = (data, status, jqXHR) ->
     renderSidebar(data.cameras)
-
   settings =
     cache: false
     data: data
@@ -30,20 +29,27 @@ renderSidebar = (cameras) ->
   $(".sidebar-cameras-list").html(sidebar)
   hideOfflineCameras()
 
-showOfflineButton = ->
+window.showOfflineButton = ->
   offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
   if offline_cameras > 0
     $('#offline-btn').show()
   else
     $('#offline-btn').hide()
+  if $.cookie("offline-btn")
+    $("#offline-btn").text("Show Offline")
+    $("#offline-btn").addClass("active")
+    $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')
   $('#offline-btn').on 'click', (event) ->
     $(this).toggleClass('active')
-    $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
     text = $(this).text()
     if text is 'Hide Offline'
       $(this).text('Show Offline')
+      $.cookie("offline-btn",$(this).text('Show Offline'),{ expires: 365, path: "/" })
+      $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
     else
       $(this).text('Hide Offline')
+      $.removeCookie("offline-btn",{ path: "/" })
+      $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
 handlePusherEventUser = ->
   if Evercam && Evercam.Pusher

@@ -5,7 +5,7 @@ module CamerasHelper
 
     # TODO: replace with image_tag
     if thumbnail_url.blank? && !camera['is_online']
-      return "<img class='no-thumbnail' src='#{asset_path("offline.svg")}' data-proxy=#{proxy}>".html_safe
+      return "<img id='message' class='no-thumbnail' src='#{asset_path("offline.svg")}' data-proxy=#{proxy}>".html_safe
     elsif thumbnail_url.blank? && camera['is_online']
       return "<img class='snapshot-proxy' src='#{proxy}' data-proxy=#{proxy}>".html_safe
     elsif refresh

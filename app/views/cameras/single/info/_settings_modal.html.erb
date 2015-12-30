@@ -56,6 +56,14 @@
                           <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" value="<%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %>">
                         </td>
                       </tr>
+                      <tr>
+                        <td><label class="control-label" for="camera-notification">Offline Alert:</label></td>
+                        <td>
+                          <div class="input-group checkbox" name="camera-notification">
+                            <input id="camera-notification" name="camera-notification" type="checkbox" <%= "checked" if @camera["is_online_email_owner_notification"] == true %> > <label class="type-label" for="camera-notification">Enable Email Alert Notification</label>
+                          </div>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                   <div class='col-lg-4'>

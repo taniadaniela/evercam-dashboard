@@ -346,6 +346,9 @@ handleModelEvents = ->
 centerModal = ->
   if $("#camera-vendor option").length == 1
     loadVendors()
+    $("#camera-notification").iCheck
+      checkboxClass: "icheckbox_flat-blue"
+      console.log("i am here")
   $(this).css "display", "block"
   $dialog = $(this).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2

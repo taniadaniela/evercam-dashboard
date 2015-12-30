@@ -1,0 +1,20 @@
+<div class="portlet solid margin-top-40">
+  <div class="portlet-title">
+    <div class="caption">Other</div>
+  </div>
+  <div class="portlet-body col-md-12">
+    <table class="table table-fixed table-borderless">
+      <tr>
+        <td class="col-md-2 col-xs-4">Notifications:</td>
+        <% if @camera["is_online_email_owner_notification"] == true %>
+          <td class="col-md-10">Send email to owner when camera goes offline.
+          </td>
+        <%else%>
+          <td class="col-md-10">Email notification not enabled.
+          </td>
+        <%end%>
+      </tr>
+    </table>
+  </div>
+</div>
+

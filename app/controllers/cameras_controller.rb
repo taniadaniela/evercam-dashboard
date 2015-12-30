@@ -156,9 +156,9 @@ class CamerasController < ApplicationController
         :location_lat => params['cameraLat'],
         :location_lng => params['cameraLng'],
         :cam_username => params['camera-username'],
-        :cam_password => params['camera-password']
+        :cam_password => params['camera-password'],
+        :is_online_email_owner_notification => params['camera-notification'].blank? ? "false" : "true"
       }
-
       get_evercam_api.update_camera(params['camera-id'], settings)
       flash[:message] = 'Settings updated successfully'
       redirect_to "#{cameras_single_path(params['camera-id'])}/details"

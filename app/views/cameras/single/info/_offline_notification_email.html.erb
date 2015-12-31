@@ -6,13 +6,12 @@
     <table class="table table-fixed table-borderless">
       <tr>
         <td class="col-md-2 col-xs-4">Notifications:</td>
-        <% if @camera["is_online_email_owner_notification"] == true %>
-          <td class="col-md-10">Send email to owner when camera goes offline.
-          </td>
-        <%else%>
-          <td class="col-md-10">Email notification not enabled.
-          </td>
-        <%end%>
+        <td class="col-md-10">
+          <div class="form-group checkbox">
+            <input type="checkbox" id="camera-notification" name="camera-notification" class="chk-span" <%= "checked" if @camera['is_online_email_owner_notification'] == true %>/>
+            <label id="cameras" for="camera-notification">Send email to owner when camera goes offline</label>
+          </div>
+        </td>
       </tr>
     </table>
   </div>

@@ -229,6 +229,34 @@ saveMapLocation = ->
   sendAJAXRequest(settings)
   true
 
+NotificationAlert = ->
+  data = {}
+
+  if $("#camera-notification").prop("checked")
+    data.is_online_email_owner_notification = true
+  else
+    data.is_online_email_owner_notification = false
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (result, status, jqXHR) ->
+    Notification.show "Camera Offline Alert Notification updated successfully"
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'PATCH'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}.json?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+  sendAJAXRequest(settings)
+  true
+
+
 initializeMap = ->
   if map_loaded
     return
@@ -346,9 +374,6 @@ handleModelEvents = ->
 centerModal = ->
   if $("#camera-vendor option").length == 1
     loadVendors()
-    $("#camera-notification").iCheck
-      checkboxClass: "icheckbox_flat-blue"
-      console.log("i am here")
   $(this).css "display", "block"
   $dialog = $(this).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2
@@ -378,6 +403,7 @@ window.initializeInfoTab = ->
   $('.open-sharing').click(showSharingTab)
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
   $('.change_camera_ownership').click(onChangeOwnerSubmitClicked)
+  $('#camera-notification').click(NotificationAlert)
 
   if Evercam.Camera.location.lng is ""
     $("#info-location").replaceWith "<p>Not set</p>"

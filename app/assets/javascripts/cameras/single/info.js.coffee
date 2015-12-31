@@ -231,17 +231,16 @@ saveMapLocation = ->
 
 NotificationAlert = ->
   data = {}
-
-  if $("#camera-notification").prop("checked")
-    data.is_online_email_owner_notification = true
-  else
-    data.is_online_email_owner_notification = false
+  data.is_online_email_owner_notification =  $("#camera-notification").prop("checked")
 
   onError = (jqXHR, status, error) ->
     false
 
   onSuccess = (result, status, jqXHR) ->
-    Notification.show "Camera Offline Alert Notification updated successfully"
+    if data.is_online_email_owner_notification == true
+      Notification.show "Camera Offline Notification Enabled"
+    else
+      Notification.show "Camera Offline Notification Disabled"
 
   settings =
     cache: false
@@ -255,7 +254,6 @@ NotificationAlert = ->
 
   sendAJAXRequest(settings)
   true
-
 
 initializeMap = ->
   if map_loaded

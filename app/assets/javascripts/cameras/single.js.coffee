@@ -22,8 +22,7 @@ window.sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 initializeiCheck = ->
-  $("input[type=radio], input[type=checkbox]").iCheck
-    checkboxClass: "icheckbox_flat-blue"
+  $("input[type=radio]").iCheck
     radioClass: "iradio_flat-blue"
 
 initializeDropdowns = ->

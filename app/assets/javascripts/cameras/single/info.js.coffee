@@ -231,7 +231,7 @@ saveMapLocation = ->
 
 NotificationAlert = ->
   data = {}
-  data.is_online_email_owner_notification =  $("#camera-notification").prop("checked")
+  data.is_online_email_owner_notification = $('#camera-notification').prop("checked")
 
   onError = (jqXHR, status, error) ->
     false

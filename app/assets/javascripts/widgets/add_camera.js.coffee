@@ -3,7 +3,7 @@
 #= require bootstrap
 #= require ladda/spin.min.js
 #= require ladda/ladda.min.js
-
+Evercam_MEDIA_URL = 'https://media.evercam.io'
 Evercam_API_URL = 'https://api.evercam.io/v1/'
 Dasboard_URL = 'https://dash.evercam.io'
 API_ID = ''
@@ -266,7 +266,7 @@ testSnapshot = ->
       success: onSuccess
       contentType: "application/x-www-form-urlencoded"
       type: 'POST'
-      url: "#{Evercam_API_URL}cameras/test"
+      url: "#{Evercam_MEDIA_URL}cameras/test"
 
     jQuery.ajax(settings)
 

@@ -108,7 +108,7 @@
     margin: auto;
     left: 0;
     right: 0;
-    max-height: 455px;
+    max-height: 650px;
   }
 
   .dropdown-menu.scroll-menu.cam-active .sidebar-offline{
@@ -116,8 +116,16 @@
   }
 
   .sub-menu-item a {
-    padding: 4px 14px 4px 25px !important;
+    padding: 4px 14px 4px 4px !important;
     text-align: left;
+    display: inline-block;
+  }
+  .sub-menu-item #snap img {
+    padding: 0px 4px 0px 15px !important;
+    float: left;
+    height: 25px !important;
+    width: 70px !important;
+    display: inline-block !important;
   }
   .status-circle {
     padding: 5px;
@@ -160,7 +168,7 @@
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .camera-switch .fa-caret-down {
-  display: none;
+    display: none;
   }
 }
 

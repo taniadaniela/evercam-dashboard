@@ -261,9 +261,9 @@ checkPTZExist = ->
   if $(".ptz-controls").length > 0
     $('.live-options').css('top','114px').css('right','32px')
 
-HideMessage = ->
-  if $("#message").hasClass("no-thumbnail")
-    $("#offline_message").hide()
+$(window).load HideMessage = ->
+  if !$(".wrap img#message").hasClass("no-thumbnail")
+    $("#offline_message").show()
 
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
@@ -281,4 +281,3 @@ window.initializeLiveTab = ->
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()
-  HideMessage()

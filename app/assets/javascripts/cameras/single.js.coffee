@@ -130,14 +130,6 @@ addToMyCameras = ->
       url: '/share'
     sendAJAXRequest(settings)
 
-window.load HideBrokenSnapSingle = ->
-  $('#message.snapshot-proxy').on 'error', ->
-    @src = '/assets/offline.png'
-    @removeclassName = 'snapshot-proxy snapshot-refresh'
-    @className = 'no-thumbnail'
-    true
-  return
-
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()

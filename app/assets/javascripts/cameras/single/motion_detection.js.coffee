@@ -336,14 +336,6 @@ bindEmails = ->
   true
   method = Evercam.Camera.motion.method if Evercam.Camera.motion.method
 
-HideBrokenSnapMotion = ->
-  $('#message.snapshot-proxy').on 'error', ->
-    @src = '/assets/offline.png'
-    @removeclassName = 'snapshot-proxy snapshot-refresh'
-    @className = 'no-thumbnail'
-    true
-  return
-
 window.initializeMotionDetectionTab = ->
   if Evercam.Camera.motion.enabled is undefined
     return
@@ -357,4 +349,3 @@ window.initializeMotionDetectionTab = ->
   initNotification()
   saveEmail()
   bindEmails()
-  HideBrokenSnapMotion()

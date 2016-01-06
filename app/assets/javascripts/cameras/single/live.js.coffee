@@ -261,7 +261,7 @@ checkPTZExist = ->
   if $(".ptz-controls").length > 0
     $('.live-options').css('top','114px').css('right','32px')
 
-window.load HideMessage = ->
+$(window).load HideMessage = ->
   if !$(".wrap img#message").hasClass("no-thumbnail")
     $("#offline_message").show()
 

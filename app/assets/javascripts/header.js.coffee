@@ -5,5 +5,5 @@ HideBrokenSnap = ->
     @className = 'no-thumbnail'
     true
 
-window.initializeShared = ->
+window.initializeHeader = ->
   HideBrokenSnap()

@@ -1,4 +1,4 @@
-HideBrokenSnapHeader = ->
+HideBrokenSnap = ->
   $('#message.snapshot-proxy').on 'error', ->
     @src = '/assets/offline.png'
     @removeclassName = 'snapshot-proxy snapshot-refresh'
@@ -6,4 +6,4 @@ HideBrokenSnapHeader = ->
     true
 
 window.initializeShared = ->
-  HideBrokenSnapHeader()
+  HideBrokenSnap()

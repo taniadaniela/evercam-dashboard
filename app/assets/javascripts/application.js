@@ -41,7 +41,7 @@
 //= require cameras/add_camera.js
 //= require cameras/add_camera_test.js
 //= require user_account.js
-//= require shared.js
+//= require header.js
 //= require metronic/respond.min.js
 //= require metronic/metronic.js
 //= require metronic/layout.js

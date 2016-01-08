@@ -84,7 +84,8 @@ handleCameraModalSubmit = ->
 
 handlePageLoad = ->
   setTimeout (->
-    updateCameraSinglePage()
+    if !$(".wrap img#message").hasClass("no-thumbnail")
+      updateCameraSinglePage()
     updateSidebar()
   ), 2000
 

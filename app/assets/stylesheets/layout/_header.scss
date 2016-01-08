@@ -105,28 +105,36 @@
 
   .dropdown-menu.scroll-menu{
     width: 300px;
+    font-size: 15px !important;
     margin: auto;
     left: 0;
     right: 0;
-    max-height: 650px;
+    max-height: 98vh !important;
   }
 
   .dropdown-menu.scroll-menu.cam-active .sidebar-offline{
     display: none;
   }
 
-  .sub-menu-item a {
-    padding: 4px 14px 4px 4px !important;
+  .sub-menu-item {
+    height: 47px;
+  }
+
+  .sub-menu-item a{
+    padding: 8px 14px 4px 4px !important;
     text-align: left;
+    height: 35px !important;
     display: inline-block;
   }
+
   .sub-menu-item #snap img {
-    padding: 0px 4px 0px 15px !important;
+    padding: 0px 4px 0px 14px !important;
     float: left;
-    height: 25px !important;
-    width: 70px !important;
+    height: 35px !important;
+    width: 60px !important;
     display: inline-block !important;
   }
+
   .status-circle {
     padding: 5px;
     border-radius: 50%;

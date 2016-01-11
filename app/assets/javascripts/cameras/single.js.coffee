@@ -67,6 +67,8 @@ updateCameraSinglePage = ->
 
 updateElement = (page, elem)->
   $(elem).html $(page).find("#{elem} > *")
+  if !$(".wrap img#message").hasClass("no-thumbnail")
+    HideBrokenSnaps()
 
 updateLiveViewPanel = ->
   status = $("#camera-details-panel td > .status").text().toLowerCase()
@@ -130,6 +132,13 @@ addToMyCameras = ->
       type: 'POST'
       url: '/share'
     sendAJAXRequest(settings)
+
+HideBrokenSnaps = ->
+  $('div#snap #message.snapshot-proxy').on 'error', ->
+    @src = '/assets/offline.png'
+    @removeclassName = 'snapshot-proxy snapshot-refresh'
+    @className = 'no-thumbnail'
+    true
 
 initializeTabs = ->
   window.initializeInfoTab()

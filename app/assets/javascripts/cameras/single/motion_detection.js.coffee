@@ -96,11 +96,13 @@ mdInitArea = ->
     #calculate the size of the window here by scaling it down
     scaleX = _originalWidth / _renderedWidth
     scaleY = _originalHeight / _renderedHeight
+    _defHeight = _renderedHeight - 5
+    _defWidth =  _renderedWidth - 5
     renderedTopLeftX = Math.ceil(topLeftX / scaleX)
     renderedBottomRightX = Math.ceil(bottomRightX / scaleX)
     renderedTopLeftY = Math.ceil(topLeftY / scaleY)
     renderedBottomRightY = Math.ceil(bottomRightY / scaleY)
-    if true
+    if Evercam.Camera.motion.x1 && Evercam.Camera.motion.x2 && Evercam.Camera.motion.y1 && Evercam.Camera.motion.y2
       area = mdImage.imgAreaSelect(
         instance: true
         handles: true
@@ -116,10 +118,10 @@ mdInitArea = ->
         handles: true
         onSelectEnd: mdSelected
         fadeSpeed: 200
-        x1: 0
-        y1: 0
-        x2: _renderedWidth
-        y2: _renderedHeight)
+        x1: 5
+        y1: 5
+        x2: _defWidth
+        y2: _defHeight)
   mdArea = area.getSelection()
   mdInited = true
 
@@ -257,7 +259,7 @@ saveMdArea = ->
     actTopLeftY = Math.ceil(mdArea.y1 * scaleY)
     actBottomRightY = Math.ceil(mdArea.y2 * scaleY)
   if actTopLeftX == actBottomRightX and actTopLeftY == actBottomRightY
-    Notification.show 'Plesae select motion detection area.'
+    Notification.show 'Please select motion detection area.'
     return false
 
   data = {}

@@ -475,7 +475,7 @@ BindMDStrip = ->
   total_md = $('#MDSliderItem li').length
   mwidth = total_md * 77
   if total_md is 0
-    $('#divNoMd').text 'No motion detected'
+    $('#divNoMd').text 'Motion Detection Not Enabled'
     $('#divNoMd').show()
   else
     $('#divNoMd').hide()
@@ -643,7 +643,7 @@ NoRecordingDayOrHour = ->
 
   $("#MDSliderItem").html("")
   $("#divNoMd").show()
-  $("#divNoMd").text('No motion detected')
+  $("#divNoMd").text('Motion Detection Not Enabled')
   HideLoader()
 
   totalFrames = 0
@@ -685,7 +685,7 @@ SetImageHour = (hr, id) ->
     totalFrames = 0
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
     $("#divNoMd").show()
-    $("#divNoMd").text('No motion detected')
+    $("#divNoMd").text('Motion Detection Not Enabled')
     HideLoader()
     $("#snapshot-tab-save").hide()
   true

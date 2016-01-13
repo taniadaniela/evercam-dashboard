@@ -231,6 +231,7 @@ li.inactive a {
     background-color: rgba(0, 0, 0, 0.06);
     position: absolute;
     cursor: pointer;
+
   }
   .toggle .toggle-control::after {
 
@@ -247,19 +248,23 @@ li.inactive a {
     top: 0;
     left: -1.0em;
     cursor: pointer;
+
   }
   .toggle input {
 
     display: none;
+
   }
   .toggle input:checked + .toggle-control {
 
     border-color: #428bca;
     background-color: #428bca;
+
   }
-  .toggle input:checked + .toggle-control:after {
+  .toggle input:checked + .toggle-control::after {
 
     left: 1.0em;
+
   }
   .label {
 
@@ -268,6 +273,7 @@ li.inactive a {
     height: 30px;
     top: -32px;
     left: 85px;
+
   }
   #lbl {
 
@@ -276,9 +282,11 @@ li.inactive a {
     position:absolute;
     left: 180px;
     top: 0px;
+
   }
   #offline-btn{
 
     display: none;
+
   }
 }

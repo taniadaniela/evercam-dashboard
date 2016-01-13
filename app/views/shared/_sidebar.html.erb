@@ -1,18 +1,19 @@
 <div class="page-sidebar-wrapper">
   <div class="page-sidebar navbar-collapse collapse">
-
     <ul class="page-sidebar-menu">
       <li class="cameras-sidebar">
         <div class="sidebar-title">
-          <div class="col-md-8">
+          <div id="hello" class="col-md-8">
             <%= link_to cameras_index_path do %>
               <i class="fa fa-camera icon-font"></i> Cameras
             <% end %>
-            <span id="offline-btn">Hide Offline</span>
-          </div>
-          <div id="total-offline-cameras" class="col-md-4 text-right hide red"
-               data-toggle="tooltip" data-placement="bottom" title="">
-            <i class="fa fa-chain-broken"></i><sub>0</sub>
+            <div id="siderbar">
+              <label class="label toggle">
+                <input type="checkbox" class="toggle_input" id="offline-btn"/>
+                <div class="toggle-control"></div>
+              </label>
+              <label id="lbl" for="hide-offline-cameras" class="red fa fa-chain-broken"> </label>
+            </div>
           </div>
           <div class="clear-f"></div>
         </div>
@@ -26,7 +27,6 @@
           <% end %>
         </ul>
       </li>
-
     </ul>
   </div>
 </div>

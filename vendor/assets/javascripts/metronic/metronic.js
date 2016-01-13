@@ -154,12 +154,14 @@ var Metronic = function () {
         }
         var test = $("input[type=checkbox]:not(.toggle, .make-switch), input[type=radio]:not(.toggle, .star, .make-switch)");
         if (test.size() > 0) {
-            test.each(function () {
-                if ($(this).parents(".checker").size() == 0) {
-                    $(this).show();
-                    $(this).uniform();
-                }
-            });
+            if (!$("input[type=checkbox]").hasClass('toggle_input')) {
+                test.each(function () {
+                    if ($(this).parents(".checker").size() == 0) {
+                        $(this).show();
+                        $(this).uniform();
+                    }
+                });
+            }
         }
     }
 

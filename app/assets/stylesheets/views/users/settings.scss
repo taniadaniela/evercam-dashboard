@@ -2,10 +2,6 @@
  input, .form-group {
    max-width: 265px;
  }
-
-  .checker {
-    display: none;
-  }
 }
 .profile {
   padding: 10px 0px 30px;
@@ -167,7 +163,58 @@ span.input-group-addon .custom {
     text-decoration: underline;
     top: 3px;
   }
-  div.checker span{
-    width: 21px;
+}
+
+#hello.form-group {
+  margin-top: 25px !important;
+
+  .toggle .toggle-control {
+    -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    width: 3.5em;
+    height: 1.5em;
+    display: inline-block;
+    border: 2px solid #8E8E93;
+    border-radius: 0.8em;
+    background-color: rgba(0, 0, 0, 0.06);
+    position: relative;
+    cursor: pointer;
+  }
+  .toggle .toggle-control:after {
+    -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    content: "";
+    width: 1em;
+    height: 1.2em;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 3px 2px rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: 0;
+    left: -1.1em;
+    cursor: pointer;
+  }
+  .toggle input {
+    display: none;
+  }
+  .toggle input:checked + .toggle-control {
+    border-color: #428bca;
+    background-color: #428bca;
+  }
+  .toggle input:checked + .toggle-control:after {
+    left: 1.1em;
+  }
+  .label {
+    position: relative !important;
+  }
+  #lbl-for-hide-cameras {
+    display: inline-block !important;
+    margin-top: 2.2px !important;
+  }
+  .fa-unlink:before,
+  .fa-chain-broken:before {
+    content: "\f127";
+    color: #dc4c3f !important;
   }
 }

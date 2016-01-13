@@ -54,7 +54,6 @@ onDeleteClick = ->
 saveUserSettings = ->
   if $.cookie("hide-offline-cameras")
     $("#hide-offline-cameras").prop("checked", true)
-    $("#lbl-for-hide-cameras span").addClass("checked")
   $("#hide-offline-cameras").on "click", ->
     hide_cameras = $(this).prop("checked")
     if hide_cameras

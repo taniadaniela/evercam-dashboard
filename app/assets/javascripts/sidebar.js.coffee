@@ -32,23 +32,21 @@ renderSidebar = (cameras) ->
 window.showOfflineButton = ->
   offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
   if offline_cameras > 0
-    $('#offline-btn').show()
+    $('#siderbar').show()
   else
-    $('#offline-btn').hide()
-  if $.cookie("offline-btn")
-    $("#offline-btn").text("Show Offline")
+    $('#siderbar').hide()
+  if $.cookie("hide-offline-cameras")
+    $("#offline-btn").prop("checked",true)
     $("#offline-btn").addClass("active")
     $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')
   $('#offline-btn').on 'click', (event) ->
     $(this).toggleClass('active')
-    text = $(this).text()
-    if text is 'Hide Offline'
-      $(this).text('Show Offline')
-      $.cookie("offline-btn",$(this).text('Show Offline'),{ expires: 365, path: "/" })
+    hide_cameras = $(this).prop("checked")
+    if hide_cameras
+      $.cookie("hide-offline-cameras", $(this).prop("checked"), { expires: 365, path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
     else
-      $(this).text('Hide Offline')
-      $.removeCookie("offline-btn",{ path: "/" })
+      $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
 handlePusherEventUser = ->
@@ -63,24 +61,9 @@ handleSidebarToggle = ->
     $(this).toggleClass('active')
     $('#cbp-spmenu-s1').toggleClass('cbp-spmenu-open')
 
-window.hideOfflineCameras = ->
-  total_offline_cameras = $(".sidebar-cameras-list li.sidebar-offline").length
-  $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
-  $("#total-offline-cameras sub").text(total_offline_cameras)
-  if $.cookie("hide-offline-cameras")
-    if total_offline_cameras is 0
-      $("#total-offline-cameras").removeClass("hide").addClass("hide")
-    else
-      $("#total-offline-cameras").removeClass("hide")
-    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide").addClass("hide")
-  else
-    $("#total-offline-cameras").removeClass("hide").addClass("hide")
-    $(".sidebar-cameras-list li.sidebar-offline").removeClass("hide")
-
 $ ->
   showOfflineButton()
   handleSidebarToggle()
-  hideOfflineCameras()
   $('[data-toggle="tooltip"]').tooltip()
 
 $(window).load ->

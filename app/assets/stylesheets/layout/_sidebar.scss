@@ -221,7 +221,7 @@ li.inactive a {
 
   .toggle .toggle-control {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     width: 3.2em;
     height: 1.5em;
     display: inline-block;
@@ -234,7 +234,7 @@ li.inactive a {
 
   .toggle .toggle-control::after {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     content: "";
     width: 1em;
     height: 1.15em;

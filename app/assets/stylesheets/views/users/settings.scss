@@ -223,12 +223,7 @@ span.input-group-addon .custom {
   #lbl-for-hide-cameras {
     display: inline-block ;
     margin-top: 2.2px;
-  }
-
-  .fa-unlink::before,
-  .fa-chain-broken::before {
-    content: "\f127";
-    color: #dc4c3f;
+    font-size: 14px;
   }
 
 }

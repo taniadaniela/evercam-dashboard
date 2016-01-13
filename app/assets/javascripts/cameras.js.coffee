@@ -31,20 +31,6 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
-hideOfflineCamerasBox = ->
-  total_offline_cameras = $("#camera-index div.camera-offline").length
-  $("#total-offline-cameras").attr("data-original-title", "#{total_offline_cameras} Offline cameras")
-  $("#total-offline-cameras sub").text(total_offline_cameras)
-  if $.cookie("hide-offline-cameras")
-    if total_offline_cameras is 0
-      $("#total-offline-cameras").removeClass("hide").addClass("hide")
-    else
-      $("#total-offline-cameras").removeClass("hide")
-    $("#camera-index div.camera-offline").removeClass("hide").addClass("hide")
-  else
-    $("#total-offline-cameras").removeClass("hide").addClass("hide")
-    $("#camera-index div.camera-offline").removeClass("hide")
-
 window.initializeCameraIndex = ->
   Metronic.init()
   Layout.init()
@@ -53,5 +39,4 @@ window.initializeCameraIndex = ->
   refreshImages()
   onRefreshImage()
   handlePusherEventIndex()
-  hideOfflineCamerasBox()
   $('[data-toggle="tooltip"]').tooltip()

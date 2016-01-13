@@ -166,7 +166,8 @@ span.input-group-addon .custom {
 }
 
 #hello.form-group {
-  margin-top: 25px !important;
+
+  margin-top: 25px;
 
   .toggle .toggle-control {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -180,7 +181,8 @@ span.input-group-addon .custom {
     position: relative;
     cursor: pointer;
   }
-  .toggle .toggle-control:after {
+  .toggle .toggle-control::after {
+
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     content: "";
@@ -196,25 +198,31 @@ span.input-group-addon .custom {
     cursor: pointer;
   }
   .toggle input {
+
     display: none;
   }
   .toggle input:checked + .toggle-control {
+
     border-color: #428bca;
     background-color: #428bca;
   }
   .toggle input:checked + .toggle-control:after {
+
     left: 1.1em;
   }
   .label {
-    position: relative !important;
+
+    position: relative;
   }
   #lbl-for-hide-cameras {
-    display: inline-block !important;
-    margin-top: 2.2px !important;
+
+    display: inline-block ;
+    margin-top: 2.2px ;
   }
-  .fa-unlink:before,
-  .fa-chain-broken:before {
+  .fa-unlink::before,
+  .fa-chain-broken::before {
+
     content: "\f127";
-    color: #dc4c3f !important;
+    color: #dc4c3f;
   }
 }

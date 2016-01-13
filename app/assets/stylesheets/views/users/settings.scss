@@ -170,6 +170,7 @@ span.input-group-addon .custom {
   margin-top: 25px;
 
   .toggle .toggle-control {
+
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     width: 3.5em;
@@ -182,6 +183,7 @@ span.input-group-addon .custom {
     cursor: pointer;
 
   }
+
   .toggle .toggle-control::after {
 
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -199,32 +201,39 @@ span.input-group-addon .custom {
     cursor: pointer;
 
   }
+
   .toggle input {
 
     display: none;
 
   }
+
   .toggle input:checked + .toggle-control {
 
     border-color: #428bca;
     background-color: #428bca;
 
   }
+
   .toggle input:checked + .toggle-control::after {
 
     left: 1.1em;
 
   }
+
   .label {
 
     position: relative;
+
   }
+
   #lbl-for-hide-cameras {
 
     display: inline-block ;
     margin-top: 2.2px;
 
   }
+
   .fa-unlink::before,
   .fa-chain-broken::before {
 
@@ -232,4 +241,5 @@ span.input-group-addon .custom {
     color: #dc4c3f;
 
   }
+
 }

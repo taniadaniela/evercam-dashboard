@@ -233,6 +233,7 @@ li.inactive a {
     cursor: pointer;
 
   }
+
   .toggle .toggle-control::after {
 
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -250,22 +251,26 @@ li.inactive a {
     cursor: pointer;
 
   }
+
   .toggle input {
 
     display: none;
 
   }
+
   .toggle input:checked + .toggle-control {
 
     border-color: #428bca;
     background-color: #428bca;
 
   }
+
   .toggle input:checked + .toggle-control::after {
 
     left: 1.0em;
 
   }
+
   .label {
 
     position: absolute;
@@ -275,6 +280,7 @@ li.inactive a {
     left: 85px;
 
   }
+
   #lbl {
 
     display: inline-block ;
@@ -284,9 +290,11 @@ li.inactive a {
     top: 0px;
 
   }
+
   #offline-btn{
 
     display: none;
 
   }
+
 }

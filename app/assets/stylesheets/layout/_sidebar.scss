@@ -244,7 +244,7 @@ li.inactive a {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 3px 2px rgba(0, 0, 0, 0.4);
     position: relative;
     top: 0;
-    left: -1.0em;
+    left: -1.0em !important;
     cursor: pointer;
   }
 
@@ -258,7 +258,7 @@ li.inactive a {
   }
 
   .toggle input:checked + .toggle-control::after {
-    left: 1.0em;
+    left: 1.0em !important;
   }
 
   .label {

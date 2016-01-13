@@ -153,15 +153,14 @@ var Metronic = function () {
             return;
         }
         var test = $("input[type=checkbox]:not(.toggle, .make-switch), input[type=radio]:not(.toggle, .star, .make-switch)");
+        test.splice(0,1);
         if (test.size() > 0) {
-            if (!$("input[type=checkbox]").hasClass('toggle_input')) {
                 test.each(function () {
                     if ($(this).parents(".checker").size() == 0) {
                         $(this).show();
                         $(this).uniform();
                     }
                 });
-            }
         }
     }
 

@@ -27,7 +27,6 @@ renderSidebar = (cameras) ->
     """
     sidebar = sidebar + row
   $(".sidebar-cameras-list").html(sidebar)
-  hideOfflineCameras()
 
 window.showOfflineButton = ->
   offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length

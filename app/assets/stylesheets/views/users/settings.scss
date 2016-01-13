@@ -2,6 +2,9 @@
  input, .form-group {
    max-width: 265px;
  }
+ .checker {
+   display: none;
+ }
 }
 .profile {
   padding: 10px 0px 30px;
@@ -162,6 +165,9 @@ span.input-group-addon .custom {
   .transfer-link{
     text-decoration: underline;
     top: 3px;
+  }
+  div.checker span {
+    width: 21px;
   }
 }
 

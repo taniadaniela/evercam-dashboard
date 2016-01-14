@@ -88,11 +88,10 @@
   <div class="camera-preview-offline <%= 'hide' if @camera['is_online'] %>">
     <div class="offline-camera-placeholder">
       <div class="wrap">
+        <div class="refresh-camera"><i class="icon-refresh"></i> Refresh</div>
         <span id="offline_message" style="display:none;">Camera is Offline</span>
         <%= preview(@camera, true) %></div>
       <div class="col-md-12">
-        <div class="margin-top-10"><span class="red">Camera offline</span> - we can't get a live feed at the moment</div>
-        <div class="refresh-camera"><i class="icon-refresh"></i> Refresh Status</div>
       </div>
     </div>
   </div>

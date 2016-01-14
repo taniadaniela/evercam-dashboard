@@ -85,7 +85,15 @@
   left: 68px;
 }
 .refresh-camera{
+  position: absolute;
+  top: 62%;
+  left: 44%;
+  color: #000000;
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-family: sans-serif;
+  padding: 8px 13px;
 }
 .tint img {
   border: 1px solid $main-grey !important;
@@ -148,10 +156,20 @@
 }
 
 @media (max-width: 600px) {
+
   #offline_message {
     font-size: 8px;
     padding: 5px 5px;
   }
+
+}
+
+@media (max-width: 892px) {
+
+  .refresh-camera {
+    display: none;
+  }
+
 }
 
 .ptz-controls {

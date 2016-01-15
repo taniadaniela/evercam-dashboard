@@ -38,6 +38,7 @@ module EvercamDashboard
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.svg *.woff *.woff2]
     config.assets.precompile += %w[
+      live_view_private_widget.js
       snapshot_navigator_widget.js
       admin/admin.js
       admin/admin.css

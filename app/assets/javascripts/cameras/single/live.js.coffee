@@ -1,6 +1,6 @@
 default_img = "/assets/offline.svg"
 int_time = undefined
-refresh_paused = false
+stream_paused = false
 image_placeholder = undefined
 img_real_width = 0
 img_real_height = 0
@@ -28,16 +28,16 @@ loadImage = ->
 
 controlButtonEvents = ->
   $(".play-pause").on "click", ->
-    if refresh_paused
-      int_time = setInterval(loadImage, 1000)
-      refresh_paused = false
+    if stream_paused
       $(this).children().removeClass "icon-control-play"
       $(this).children().addClass "icon-control-pause"
+      connectToSocket()
     else
-      clearInterval int_time
-      refresh_paused = true
       $(this).children().removeClass "icon-control-pause"
       $(this).children().addClass "icon-control-play"
+      disconnectFromSocket()
+    stream_paused = !stream_paused
+
   $(".refresh-live-snap, .refresh-camera").on "click", ->
     loadImage()
 
@@ -78,22 +78,23 @@ handleChangeStream = ->
         destroyPlayer()
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
-        int_time = setInterval(loadImage, 1000)
+        connectToSocket()
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
+        disconnectFromSocket()
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
+    connectToSocket()
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
-    else
-      checkCameraOnline()
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
+    Evercam.socket.disconnect()
     clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
@@ -101,17 +102,11 @@ handleTabOpen = ->
   if $(".nav-tabs li.active a").attr("data-target") is "#live"
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
-    else
-      checkCameraOnline()
-
-checkCameraOnline = ->
-  if Evercam.Camera.is_online
-    int_time = setInterval(loadImage, 1000)
 
 saveImage = ->
   $('#save-live-snapshot').on 'click', ->
     clearInterval int_time
-    refresh_paused = true
+    stream_paused = true
     data = {}
     data.with_data = true
     data.api_id = Evercam.User.api_id
@@ -121,8 +116,7 @@ saveImage = ->
       false
 
     onSuccess = (response) ->
-      int_time = setInterval(loadImage, 1000)
-      refresh_paused = false
+      stream_paused = false
       SaveImage.save(response.snapshots[0].data, "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
       true
 
@@ -257,6 +251,23 @@ handleModelEvents = ->
     $("#ptz-control").removeClass("hide")
     $('#ptz-control table thead tr th').html 'PTZ'
 
+initSocket = ->
+  window.Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
+  connectToSocket()
+
+connectToSocket = ->
+  Evercam.socket.connect()
+  channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
+  channel.join()
+  channel.on 'snapshot-taken', (payload) ->
+    $(".btn-live-player").removeClass "hide"
+    if payload.timestamp >= live_view_timestamp and not stream_paused
+      live_view_timestamp = payload.timestamp
+      $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
+
+disconnectFromSocket = ->
+  Evercam.socket.disconnect()
+
 checkPTZExist = ->
   if $(".ptz-controls").length > 0
     $('.live-options').css('top','114px').css('right','32px')
@@ -266,6 +277,7 @@ $(window).load HideMessage = ->
     $("#offline_message").show()
 
 window.initializeLiveTab = ->
+  initSocket()
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")

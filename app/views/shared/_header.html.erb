@@ -15,13 +15,6 @@
         <ul class="dropdown-menu scroll-menu" role="menu">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-              <div id="snap">
-                <%if camera['is_online'] %>
-                  <%= preview(camera, false) %>
-                <%else%>
-                  <%= preview(camera, true) %>
-                <%end%>
-              </div>
               <%= link_to camera['name'] , cameras_single_path(camera['id'])%>
             </li>
           <% end %>

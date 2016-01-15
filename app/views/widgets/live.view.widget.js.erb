@@ -6,14 +6,25 @@
     url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot',
     container,
     refresh = 1000*<%= params[:refresh] %>,
+    live_view_timestamp = 0,
     camera_id = '<%= params[:camera] %>',
     request_ip = '<%= request.ip %>',
     denied = false,
     priv = <%= params[:private] %>;
 
-    if (request_ip !== "217.112.145.202" && camera_id === "central-bank-fusion") {
-      denied = true;
-    }
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  Evercam.Camera = {
+    id: '<%= params[:camera] %>'
+  }
+  Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
+
+  addPhoenix();
+
+  if (request_ip !== "217.112.145.202" && camera_id === "central-bank-fusion") {
+    denied = true;
+  }
 
   function updateImage() {
     if (refresh > 0) {
@@ -36,10 +47,33 @@
   function handleVisibilityChange() {
     if (document.hidden) {
       clearTimeout(window.ec_watcher);
+      disconnectFromSocket();
     } else  {
-      updateImage();
+      connectToSocket();
     }
   }
+
+  function initSocket() {
+    window.Evercam.socket = new Phoenix.Socket(Evercam.websockets_url);
+    connectToSocket();
+  };
+
+  function connectToSocket() {
+    var channel;
+    Evercam.socket.connect();
+    channel = Evercam.socket.channel("cameras:" + Evercam.Camera.id, {});
+    channel.join();
+    return channel.on('snapshot-taken', function(payload) {
+      if (payload.timestamp >= live_view_timestamp) {
+        live_view_timestamp = payload.timestamp;
+        jQuery(container.find('img')).attr('src', 'data:image/jpeg;base64,' + payload.image);
+      }
+    });
+  };
+
+  function disconnectFromSocket() {
+    return Evercam.socket.disconnect();
+  };
 
   /******** Our main function ********/
   function main() {
@@ -72,7 +106,7 @@
           container.html('<iframe id="ec-frame" allowFullScreen style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>'+query_string+'" frameborder="0" scrolling="no"/>');
         } else {
           container.html("<img style='width: 100%; height: 100%;'/>");
-          updateImage();
+          initSocket();
           window.ec_vis_handler = handleVisibilityChange;
           document.addEventListener("visibilitychange", handleVisibilityChange, false);
         }
@@ -108,6 +142,13 @@
     videojs_tag.setAttribute("src", "http://vjs.zencdn.net/4.11/video.js");
     (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(videojs_tag);
   }
+  /******** Add phoenix *****************/
+  function addPhoenix() {
+    var phoenix_tag = document.createElement('script');
+    phoenix_tag.setAttribute("type","text/javascript");
+    phoenix_tag.setAttribute("src", "<%= url_to_javascript('phoenix.js') %>");
+    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(phoenix_tag);
+  }
 
   /******** Called once jQuery has loaded ******/
   function scriptLoadHandler() {
@@ -119,7 +160,7 @@
   }
 
   /******** Load jQuery if not present *********/
-  if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
+  if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.3') {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     script_tag.setAttribute("src",

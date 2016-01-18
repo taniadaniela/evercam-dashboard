@@ -319,6 +319,8 @@ GEM
     inflecto (0.0.2)
     intercom (3.1.0)
       json (~> 1.8)
+    intercom-rails (0.2.29)
+      activesupport (> 3.0)
     ipaddress (0.8.0)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
@@ -597,6 +599,7 @@ DEPENDENCIES
   ie_iframe_cookies
   imgareaselect-rails (~> 1.0)
   intercom
+  intercom-rails
   jazz_hands!
   jquery-rails
   launchy

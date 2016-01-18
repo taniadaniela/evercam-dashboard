@@ -27,6 +27,7 @@ module EvercamDashboard
     GC::Profiler.enable
 
     config.websockets_url = "wss://media.evercam.io/socket"
+    config.action_dispatch.default_headers.merge!('X-UA-Compatible' => 'IE=edge')
 
     # Enable the asset pipeline
     config.assets.enabled = true

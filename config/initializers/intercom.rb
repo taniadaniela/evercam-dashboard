@@ -1,24 +1,24 @@
 IntercomRails.config do |config|
   # == Intercom app_id
   #
-  config.app_id = ENV["INTERCOM_APP_ID"] || "f9c1fd60de50d31bcbc3f4d8d74c9c6dbc40e95a"
+  config.app_id = ENV['INTERCOM_APP_ID']
 
   # == Intercom secret key
   # This is required to enable secure mode, you can find it on your Intercom
   # "security" configuration page.
   #
-  config.api_secret = "43ZKomJ9dVRm_8ycB_Bxc7pLnj1ath-D6LBW2x3c"
+  config.api_secret = ENV['INTERCOM_API_SECRET']
 
   # == Intercom API Key
   # This is required for some Intercom rake tasks like importing your users;
   # you can generate one at https://www.intercom.io/apps/api_keys.
   #
-  config.api_key = "abb697cdc286f9acbff35c0881977d293bd4f918"
+  config.api_key = ENV['INTERCOM_API_KEY']
 
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for
   #
-  config.enabled_environments = ["production"]
+  config.enabled_environments = ['production']
 
   # == Current user method/variable
   # The method/variable that contains the logged in user in your controllers.
@@ -36,8 +36,8 @@ IntercomRails.config do |config|
   # You can provide either a method name which will be sent to the current
   # user object, or a Proc which will be passed the current user.
   #
-   config.user.custom_data = {
-         :name => Proc.new { |current_user| current_user.fullname }
+  config.user.custom_data = {
+    :name => Proc.new { |current_user| current_user.fullname }
    }
 
   # == User -> Company association

@@ -43,7 +43,7 @@ You are not allowed to view this camera
     <% end %>
   </video>
   <% else %>
-  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
+  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/recordings/snapshots/latest/jpg?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
   <% end %>
 </div>
 

@@ -85,5 +85,5 @@ IntercomRails.config do |config|
   #
   # config.inbox.style = :default
   # config.inbox.style = :custom
-  config.inbox.custom_activator = '#FeedBack_intercom'
+  # config.inbox.custom_activator = '#FeedBack_intercom'
 end

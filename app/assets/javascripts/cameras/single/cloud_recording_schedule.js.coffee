@@ -136,7 +136,7 @@ currentCalendarWeek = ->
   while day.isBefore(weekEnd)
     weekDay = day.format("dddd")
     calendarWeek[weekDay] = day.format('YYYY-MM-DD')
-    day.add 1, 'days'
+    day.add 1,'days'
   calendarWeek
 
 showScheduleCalendar = ->

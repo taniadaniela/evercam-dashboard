@@ -39,7 +39,6 @@ IntercomRails.config do |config|
   config.user.custom_data = {
     :name => Proc.new { |current_user| current_user.fullname }
   }
-
   # == User -> Company association
   # A Proc that given a user returns an array of companies
   # that the user belongs to.
@@ -85,5 +84,6 @@ IntercomRails.config do |config|
   #             id of #Intercom.
   #
   # config.inbox.style = :default
-  # config.inbox.style = :custom
+  config.inbox.style = :custom
+  # config.inbox.custom_activator = '#FeedBack_intercom'
 end

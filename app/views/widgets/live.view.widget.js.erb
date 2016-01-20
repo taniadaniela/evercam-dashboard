@@ -3,7 +3,6 @@
   "use strict";
 // Localize jQuery variable
   var jQuery,
-    url = '<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot',
     container,
     refresh = 1000*<%= params[:refresh] %>,
     live_view_timestamp = 0,
@@ -24,24 +23,6 @@
 
   if (request_ip !== "217.112.145.202" && camera_id === "central-bank-fusion") {
     denied = true;
-  }
-
-  function updateImage() {
-    if (refresh > 0) {
-      window.ec_watcher = setTimeout(updateImage, refresh);
-    }
-    var img = new Image()
-    var live_snapshot_url = url + '?' + new Date().getTime()
-
-    img.onload = function(){
-      if (!this.complete || this.naturalWidth === undefined || this.naturalWidth === 0) {
-        //broken image!
-      } else {
-        //update image
-        container.find('img').attr('src', live_snapshot_url);
-      }
-    };
-    img.src = live_snapshot_url;
   }
 
   function handleVisibilityChange() {
@@ -164,7 +145,7 @@
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     script_tag.setAttribute("src",
-      "https://code.jquery.com/jquery-2.1.3.min.js");
+      "https://code.jquery.com/jquery-1.12.0.min.js");
     if (script_tag.readyState) {
       script_tag.onreadystatechange = function () { // For old versions of IE
         if (this.readyState === 'complete' || this.readyState === 'loaded') {

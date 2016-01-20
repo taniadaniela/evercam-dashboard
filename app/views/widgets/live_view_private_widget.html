@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <%= javascript_include_tag "live_view_private_widget" %>
-   <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-  <link href="https://vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
-  <script src="https://vjs.zencdn.net/4.11/video.js"></script>
-  <style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Live View</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <link href="https://vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/4.11/video.js"></script>
+    <%= javascript_include_tag "live_view_private_widget" %>
+    <style>
     .vjs-default-skin .vjs-play-control {
       height: 3em;
     }
@@ -43,7 +47,7 @@ You are not allowed to view this camera
     <% end %>
   </video>
   <% else %>
-  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
+  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/recordings/snapshots/latest/jpg?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
   <% end %>
 </div>
 

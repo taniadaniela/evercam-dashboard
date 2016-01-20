@@ -103,33 +103,9 @@ handleTabOpen = ->
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
 
-saveImage = ->
+handleSaveSnapshot = ->
   $('#save-live-snapshot').on 'click', ->
-    clearInterval int_time
-    stream_paused = true
-    data = {}
-    data.with_data = true
-    data.api_id = Evercam.User.api_id
-    data.api_key = Evercam.User.api_key
-
-    onError = (jqXHR, status, error) ->
-      false
-
-    onSuccess = (response) ->
-      stream_paused = false
-      SaveImage.save(response.snapshots[0].data, "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
-      true
-
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/json; charset=utf-8"
-      type: 'GET'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/latest"
-    sendAJAXRequest(settings)
+    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
 
 getImageRealRatio = ->
   $('<img/>').attr('src', $("#live-player-image").attr('src')).load ->
@@ -286,7 +262,7 @@ window.initializeLiveTab = ->
   openPopout()
   handleChangeStream()
   handleTabOpen()
-  saveImage()
+  handleSaveSnapshot()
   handleResize()
   handlePtzCommands()
   getPtzPresets()

@@ -1,7 +1,7 @@
 module CamerasHelper
   def preview(camera, refresh=false)
     thumbnail_url = camera['thumbnail_url']
-    proxy = "#{EVERCAM_API}cameras/#{camera['id']}/live/snapshot.jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+    proxy = "#{EVERCAM_API}cameras/#{camera['id']}/recordings/snapshots/latest/jpg?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
 
     # TODO: replace with image_tag
     if thumbnail_url.blank? && !camera['is_online']

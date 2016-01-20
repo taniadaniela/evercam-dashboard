@@ -907,7 +907,7 @@ saveImage = ->
     date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
     SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg")
     $('.play-options').css('display','none')
-    setTimeout opBack , 1000
+    setTimeout opBack , 1500
 
 opBack = ->
   $('.play-options').css('display','inline')

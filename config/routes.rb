@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get 'v1/payments' => 'payments#new', as: :new_checkout
   post 'v1/payments' => 'payments#create', as: :new_charge
   post '/v1/users/:id/billing/plans/change' => 'payments#upgrade_downgrade_plan'
-  
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]
   resources :credit_cards, only: [:create, :destroy]

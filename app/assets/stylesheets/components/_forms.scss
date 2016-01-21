@@ -1,4 +1,4 @@
-#user-settings, #feedback, #add-ip {
+#user-settings, #add-ip {
 .form-control[disabled] {
   background-color: $white;
   border:none;
@@ -291,9 +291,3 @@ select{
 }
 }
 
-#feedback {
-  textarea {
-    min-height: 150px;
-    padding: 8px 0px !Important;
-  }
-}

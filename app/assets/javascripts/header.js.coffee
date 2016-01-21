@@ -5,13 +5,10 @@ HideBrokenSnap = ->
     @className = 'no-thumbnail'
     true
 
-#OpenIntercom = ->
-#  $("#FeedBack_intercom").on "click", ->
-#    $('#intercom-launcher').removeClass('intercom-launcher-active').addClass('intercom-launcher-inactive')
-#    $('#intercom-messenger').removeClass('intercom-messenger-inactive').addClass('intercom-messenger-active')
-#    $('#intercom-conversations').addClass('intercom-sheet-active')
-#    console.log('i am here')
+RemoveDropdown = ->
+  $("#Intercom").on "click", ->
+    $('#live_support').removeClass('open')
 
 window.initializeHeader = ->
   HideBrokenSnap()
- # OpenIntercom()
+  RemoveDropdown()

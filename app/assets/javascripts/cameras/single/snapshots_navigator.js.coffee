@@ -72,6 +72,7 @@ changeMonthFromArrow = (value) ->
   snapshotInfos = null
   snapshotInfoIdx = 1
   currentFrameNumber = 0
+  BoldSnapshotHour(false)
 
 walkDaysInMonth = (year, month) ->
   BoldDays = []

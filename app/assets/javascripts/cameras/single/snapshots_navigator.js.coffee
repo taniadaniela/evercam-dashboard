@@ -47,6 +47,7 @@ initDatePicker = ->
     SetImageHour $(this).html(), "tdI#{$(this).html()}"
 
 changeMonthFromArrow = (value) ->
+  clearHourCalander()
   xhrRequestChangeMonth.abort()
   $("#ui_date_picker_inline").datepicker('fill')
   d = $("#ui_date_picker_inline").datepicker('getDate')

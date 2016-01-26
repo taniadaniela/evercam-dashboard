@@ -30,7 +30,7 @@ module SessionsHelper
   end
 
   def update_last_login(user)
-    user.last_login_at = Time.now
+    user.last_login_at = Time.now.utc
     user.save
   end
 end

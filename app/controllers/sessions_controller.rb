@@ -31,6 +31,7 @@ class SessionsController < ApplicationController
           session[:redirect_url] = nil
           redirect_to "#{url}#{params[:session][:anchor]}"
         else
+
           Rails.logger.debug "Redirecting to the cameras index action."
           redirect_to cameras_index_path
         end

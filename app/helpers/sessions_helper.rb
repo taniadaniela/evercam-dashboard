@@ -1,6 +1,8 @@
 module SessionsHelper
   def sign_in(user)
     session[:user] = (user ? user.email : nil)
+    user.last_login_at = Time.now.utc
+    user.save
     @current_user = user
   end
 
@@ -27,10 +29,5 @@ module SessionsHelper
 
   def allow_iframe
     headers['X-Frame-Options'] = 'ALLOWALL'
-  end
-
-  def update_last_login(user)
-    user.last_login_at = Time.now.utc
-    user.save
   end
 end

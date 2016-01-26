@@ -24,7 +24,6 @@ class SessionsController < ApplicationController
     if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
       update_user_intercom(@user)
-      update_last_login(@user)
       if params[:session][:widget].blank?
         if session[:redirect_url]
           url = session[:redirect_url]

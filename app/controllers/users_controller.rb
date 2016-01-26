@@ -131,6 +131,7 @@ class UsersController < ApplicationController
       if !parameters.empty?
         get_evercam_api.update_user(current_user.username, parameters)
         session[:user] = User.by_login(current_user.username).email
+        update_user_intercom(current_user)
         refresh_user
       end
       flash[:message] = 'Settings updated successfully'

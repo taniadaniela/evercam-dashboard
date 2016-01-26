@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
     if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
       update_user_intercom(@user)
+      update_last_login(@user)
       if params[:session][:widget].blank?
         if session[:redirect_url]
           url = session[:redirect_url]
@@ -31,6 +32,7 @@ class SessionsController < ApplicationController
           session[:redirect_url] = nil
           redirect_to "#{url}#{params[:session][:anchor]}"
         else
+
           Rails.logger.debug "Redirecting to the cameras index action."
           redirect_to cameras_index_path
         end

@@ -29,4 +29,8 @@ module SessionsHelper
     headers['X-Frame-Options'] = 'ALLOWALL'
   end
 
+  def update_last_login(user)
+    user.last_login_at = Time.now
+    user.save
+  end
 end

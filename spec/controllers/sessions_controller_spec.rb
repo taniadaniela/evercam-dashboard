@@ -37,7 +37,7 @@ describe SessionsController do
 
   describe 'POST #create with correct credentials' do
     it "rerenders signin" do
-      post :create, {session: {login: user.email, password: 'password', last_login_at: Time.now}}
+      post :create, {session: {login: user.email, password: 'password'}}
       expect(response).to redirect_to cameras_index_path
     end
   end

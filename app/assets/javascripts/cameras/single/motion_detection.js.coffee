@@ -182,7 +182,8 @@ removeEmail = ->
     $("#email-box#{row_no}").remove()
 
 bindHours = ->
-  $("#reset-time").val(Evercam.Camera.motion.alert_interval_min)
+  if Evercam.Camera.motion.alert_interval_min isnt 0
+    $("#reset-time").val(Evercam.Camera.motion.alert_interval_min)
   $("#alert-interval").text($("#reset-time").find(":selected").text())
 
 FormatNumTo2 = (n) ->
@@ -207,7 +208,7 @@ saveMdSettings = ->
     data.schedule = JSON.stringify(fullWeekSchedule)
 
     onError = (jqXHR, status, error) ->
-      Notification.show 'Error to update motion detection settings.'
+      Notification.show 'Error updating settings.'
       false
 
     onSuccess = (result, status, jqXHR) ->

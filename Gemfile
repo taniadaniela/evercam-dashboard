@@ -47,7 +47,6 @@ group :evercam do
 end
 
 group :production do
-  gem 'skylight'
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'wkhtmltopdf-heroku'

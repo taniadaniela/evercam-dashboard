@@ -24,6 +24,13 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
+loadMotionImage = ->
+  $('#refresh-motion').on 'click', ->
+    img = mdImage
+    live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    src = "#{live_snapshot_url}&rand=" + new Date().getTime()
+    img.attr 'src', src
+
 mdShow = ->
   mdImage.imgAreaSelect show: true
 
@@ -130,21 +137,18 @@ initMotionDetection = ->
   window.setTimeout mdInitArea, 100
   if Evercam.Camera.motion.enabled
     $("#enable-md").prop("checked", true)
-    $("#enable-md-label span").addClass("checked")
-    $("#md-enabled-span").text("On")
-  else
-    $("#md-enabled-span").text("Off")
 
 initSlider = ->
+  slidering = ''
   sensitivity_value = Evercam.Camera.motion.sensitivity
-  $('#divSensitivity').slider
-    min: 1
+  slidering = $('#divSensitivity').slider
+    value: sensitivity_value
+    min: 0
     max: 20
     step: 1
     animate: true
-    value: Evercam.Camera.motion.sensitivity
-    slide: (event, ui) ->
-      sensitivity_value = ui.value
+  slidering.on "slide",(data) ->
+    sensitivity_value = data.value
 
 area_defined = ->
   return Evercam.Camera.motion.x1 > 0 || Evercam.Camera.motion.y1 > 0 || Evercam.Camera.motion.x2 > 0 || Evercam.Camera.motion.y2 > 0
@@ -212,12 +216,6 @@ saveMdSettings = ->
       false
 
     onSuccess = (result, status, jqXHR) ->
-      $('#motion-detection-settings-modal').modal('hide')
-      if $("#enable-md-label span").hasClass("checked")
-        $("#motion div#md-enabled-span").text("On")
-      else
-        $("#motion div#md-enabled-span").text("Off")
-      $("#motion div#alert-interval").text($("#reset-time").find(":selected").text())
       Notification.show 'Motion detection settings updated.'
       method = 'PATCH'
       true
@@ -290,13 +288,6 @@ saveMdArea = ->
 
   sendAJAXRequest(settings)
 
-onHideModal = ->
-  $("#motion-detection-settings-modal").on "hide.bs.modal", ->
-    if $("#enable-md-label span").hasClass("checked")
-      $("#md-enabled-span").text("On")
-    else
-      $("#md-enabled-span").text("Off")
-
 initNotification = ->
   Notification.init(".bb-alert");
 
@@ -306,7 +297,6 @@ saveEmail = ->
     data.email = $("#md-alert-email").val()
 
     onError = (jqXHR, status, error) ->
-      console.log jqXHR
       Notification.show jqXHR.message
       false
 
@@ -352,3 +342,4 @@ window.initializeMotionDetectionTab = ->
   initNotification()
   saveEmail()
   bindEmails()
+  loadMotionImage()

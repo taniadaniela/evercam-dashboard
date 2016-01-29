@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-6">
     <%= render partial: "cameras/single/motion/email_alert_settings_modal" %>
-    <%= render partial: "cameras/single/motion/motion_detection_settings_modal" %>
     <%= render partial: "cameras/single/motion/alert_settings_panel" %>
     <%= render partial: "cameras/single/motion/alert_emails_panel" %>
   </div>
   <div class="col-md-6">
     <div class="portlet solid">
       <span class="bold">Select area to be analysed for motion</span>
+      <button id="refresh-motion">Refresh</button>
       <div class="portlet-body">
         <div class="info-preview">
           <div id="div-md-image" class="camera-preview">

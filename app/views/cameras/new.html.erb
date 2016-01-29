@@ -19,6 +19,11 @@
               Add Android Camera
             </a>
           </li>
+          <li>
+            <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
+                <i class="fa fa-external-link icon-font"></i> Add Public Camera
+            <% end %>
+          </li>
           <li class="pull-right">
             <a class="cameras-dropdown-toggle" data-toggle="dropdown">
               <% if params[:id].present? %><%=params[:id] %><% else %>Copy from<% end %> <i class="fa fa-caret-down"></i>

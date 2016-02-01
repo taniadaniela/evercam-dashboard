@@ -153,7 +153,11 @@ var Metronic = function () {
             return;
         }
         var test = $("input[type=checkbox]:not(.toggle, .make-switch), input[type=radio]:not(.toggle, .star, .make-switch)");
-        test.splice(0,1);
+        for(i = 0;i < test.length; i++) {
+          if (test[i].className == 'toggle_input') {
+            test.splice(i,1);
+          }
+        }
         if (test.size() > 0) {
                 test.each(function () {
                     if ($(this).parents(".checker").size() == 0) {

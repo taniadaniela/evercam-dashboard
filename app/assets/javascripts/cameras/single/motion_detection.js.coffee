@@ -27,7 +27,7 @@ sendAJAXRequest = (settings) ->
 loadMotionImage = ->
   $('#refresh-motion').on 'click', ->
     img = mdImage
-    live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/latest/jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{live_snapshot_url}&rand=" + new Date().getTime()
     img.attr 'src', src
 

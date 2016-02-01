@@ -144,11 +144,6 @@ button#save-email-settings {
   margin-left: 120px;
 }
 
-td#reset-times{
-  margin-top: 5px !important;
-  display: inline-block !important;
-}
-
 #motion-toggle.col-md-9 {
 
   .toggle .toggle-control {
@@ -194,11 +189,8 @@ td#reset-times{
   }
 
   .label {
-    position: absolute;
+    position: relative;
     width: 100px;
-    height: 30px;
-    top: -32px;
-    left: 110px;
+    padding-left: 0px;
   }
-
 }

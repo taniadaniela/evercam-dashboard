@@ -103,6 +103,7 @@
                                 <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
                             </div>
                         </div>
+                    </div>
                 </section>
 
                 <script>
@@ -112,4 +113,9 @@
                     });
                     });
                     $.validate()
+                    $( document ).ready(function() {
+                        if ($('div').find("input[type=text]").val() == '') {
+                            $('.form-error').hide();
+                        }
+                    })
                 </script>

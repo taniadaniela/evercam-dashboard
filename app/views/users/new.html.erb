@@ -113,15 +113,10 @@
                     });
                     });
                     $.validate()
-                </script>
-                <script>
-
                     $( document ).ready(function() {
                         if ($('div').find("input[type=text]").val() == '') {
                             console.log("in empty field")
-                            $('.form-error').hide(function () {
-                                console.log("complete")
-                            })
+                            $('.form-error').hide();
                         }
                     })
                 </script>

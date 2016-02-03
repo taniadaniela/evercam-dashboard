@@ -291,36 +291,43 @@ saveMdArea = ->
 initNotification = ->
   Notification.init(".bb-alert");
 
+isEmail = (email) ->
+  regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
+  regex.test email
+
 saveEmail = ->
   $("#save-email").on "click", ->
-    data = {}
-    data.email = $("#md-alert-email").val()
+    if !isEmail $("#md-alert-email").val()
+      Notification.show 'Please enter a valid email.'
+    else
+      data = {}
+      data.email = $("#md-alert-email").val()
 
-    onError = (jqXHR, status, error) ->
-      Notification.show jqXHR.message
-      false
+      onError = (jqXHR, status, error) ->
+        Notification.show jqXHR.message
+        false
 
-    onSuccess = (result, status, jqXHR) ->
-      $('#email-alert-settings-modal').modal('hide')
-      parentdiv = $('<div>', {class: "email-box"})
-      parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
-      parentdiv.append(' <i title="Remove" class="fa fa-trash-o font-size-17"></i>')
-      $("#motion div#div-alert-emails").append(parentdiv)
-      Notification.show 'Email saved for Motion detection alert.'
-      $("#md-alert-email").val("")
-      true
+      onSuccess = (result, status, jqXHR) ->
+        $('#email-alert-settings-modal').modal('hide')
+        parentdiv = $('<div>', {class: "email-box"})
+        parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
+        parentdiv.append(' <i title="Remove" class="fa fa-trash-o font-size-17"></i>')
+        $("#motion div#div-alert-emails").append(parentdiv)
+        Notification.show 'Email saved for Motion detection alert.'
+        $("#md-alert-email").val("")
+        true
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/x-www-form-urlencoded"
-      type: 'POST'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      settings =
+        cache: false
+        data: data
+        dataType: 'json'
+        error: onError
+        success: onSuccess
+        contentType: "application/x-www-form-urlencoded"
+        type: 'POST'
+        url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
-    sendAJAXRequest(settings)
+      sendAJAXRequest(settings)
 
 bindEmails = ->
   for email in Evercam.Camera.motion.emails

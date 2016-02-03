@@ -44,6 +44,12 @@
   td:first-child {
     color: #666666;
   }
+
+  .fa-trash-o {
+    color: $main-color;
+    cursor: pointer;
+    margin-left: 0.5em;
+  }
 }
 
 #motion .checker {
@@ -212,10 +218,4 @@ tr#email {
     margin-right: 2em !important;
     display: inline-block;
   }
-}
-
-#motion .fa-trash-o {
-  color: $main-color;
-  cursor: pointer;
-  margin-left:0.5em;
 }

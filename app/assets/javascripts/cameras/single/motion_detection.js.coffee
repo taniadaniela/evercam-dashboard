@@ -291,43 +291,87 @@ saveMdArea = ->
 initNotification = ->
   Notification.init(".bb-alert");
 
+isEmail = (email) ->
+  regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
+  regex.test email
+
 saveEmail = ->
   $("#save-email").on "click", ->
-    data = {}
-    data.email = $("#md-alert-email").val()
+    if !isEmail $("#md-alert-email").val()
+      Notification.show 'Please enter a valid email.'
+    else
+      data = {}
+      data.email = $("#md-alert-email").val()
 
-    onError = (jqXHR, status, error) ->
-      Notification.show jqXHR.message
-      false
+      onError = (jqXHR, status, error) ->
+        Notification.show jqXHR.message
+        false
 
-    onSuccess = (result, status, jqXHR) ->
-      $('#email-alert-settings-modal').modal('hide')
-      parentdiv = $('<div>', {class: "email-box"})
-      parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
-      $("#motion div#div-alert-emails").append(parentdiv)
-      Notification.show 'Email saved for Motion detection alert.'
-      $("#md-alert-email").val("")
-      true
+      onSuccess = (result, status, jqXHR) ->
+        $('#email-alert-settings-modal').modal('hide')
+        parentdiv = $('<div>', {class: "email-box"})
+        parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
+        parentdiv.append(' <i title="Remove" class="fa fa-trash-o font-size-17"></i>')
+        $("#motion div#div-alert-emails").append(parentdiv)
+        Notification.show 'Email saved for Motion detection alert.'
+        $("#md-alert-email").val("")
+        true
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/x-www-form-urlencoded"
-      type: 'POST'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      settings =
+        cache: false
+        data: data
+        dataType: 'json'
+        error: onError
+        success: onSuccess
+        contentType: "application/x-www-form-urlencoded"
+        type: 'POST'
+        url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
-    sendAJAXRequest(settings)
+      sendAJAXRequest(settings)
 
 bindEmails = ->
   for email in Evercam.Camera.motion.emails
     parentdiv = $('<div>', {class: "email-box"})
     parentdiv.append($(document.createTextNode(email)))
+    parentdiv.append(' <i title="Remove" class="fa fa-trash-o font-size-17"></i>')
     $("#div-alert-emails").append(parentdiv)
   true
   method = Evercam.Camera.motion.method if Evercam.Camera.motion.method
+
+EmailAlertStatus = ->
+  if !$("div#div-alert-emails").text()
+    $("span#ec_cam_id").text('Off')
+  else
+    $("span#ec_cam_id").text('On')
+
+deleteAddedEmail = ->
+  $('#motion').on "click", ".fa-trash-o", ->
+    parentsdiv = $(this).parent()
+    data =
+      camera_id: Evercam.Camera.id
+      email: $(this).parent().text()
+
+    onError = (jqXHR, status, error) ->
+      Notification.show("Deletion of camera email failed. Please contact support.")
+      false
+
+    onSuccess = (data, status, jqXHR) ->
+      parentsdiv.remove()
+      EmailAlertStatus()
+      Notification.show("Camera email deleted successfully.")
+      true
+
+    settings =
+      ContentType: 'application/json'
+      data: data
+      dataType: 'text'
+      error: onError
+      success: onSuccess
+      type: 'DELETE'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+    sendAJAXRequest(settings)
+    true
 
 window.initializeMotionDetectionTab = ->
   if Evercam.Camera.motion.enabled is undefined
@@ -343,3 +387,5 @@ window.initializeMotionDetectionTab = ->
   saveEmail()
   bindEmails()
   loadMotionImage()
+  EmailAlertStatus()
+  deleteAddedEmail()

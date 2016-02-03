@@ -144,8 +144,9 @@ button#save-email-settings {
 }
 
 #save-md-settings {
-  display: inline-block !important;
-  margin-left: 120px;
+  float: right;
+  margin-right: 2em !important;
+  display: inline-block;
 }
 
 #motion-toggle.col-md-9 {
@@ -207,7 +208,14 @@ tr#email {
   }
 
   #save-email {
-    margin-left: 120px;
+    float: right;
+    margin-right: 2em !important;
+    display: inline-block;
   }
-  
+}
+
+#motion .fa-trash-o {
+  color: $main-color;
+  cursor: pointer;
+  margin-left:0.5em;
 }

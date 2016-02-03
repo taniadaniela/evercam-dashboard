@@ -2,10 +2,18 @@
   <div class="camera-preview-online <%= 'hide' unless @camera['is_online'] %>" id="camera-preview">
     <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
     <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
-    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
-    <% hls_stream = @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>
+    <% host = @camera.deep_fetch('external', 'host') {} %>
+    <% h264 = "rtsp://#{host}:#{port}/"%>
+    <% h264url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
+    <% if h264url != h264 %>
+      <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
+      <% hls_stream = @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>
+    <% else %>
+      <% rtmp_stream = "" %>
+      <% hls_stream = "" %>
+    <%end%>
 
-    <div id="live-view-placeholder">
+       <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />

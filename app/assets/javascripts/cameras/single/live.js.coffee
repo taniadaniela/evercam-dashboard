@@ -273,7 +273,7 @@ selectOption = ->
            
     else
       $('#camera-video-stream').show()
-      $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent' 
+      $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
       $('#live-view-placeholder .pull-right table').css 'margin-top', '-86px'
     return
   return

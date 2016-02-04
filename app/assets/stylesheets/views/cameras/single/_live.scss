@@ -84,6 +84,7 @@
   bottom: 9px;
   left: 68px;
 }
+
 .refresh-camera{
   position: absolute;
   top: 62%;
@@ -94,7 +95,21 @@
   font-size: 15px;
   font-family: sans-serif;
   padding: 8px 13px;
+  margin-top: 10px;
 }
+
+.refresh-camera:hover {
+  color: $dark-blue;
+}
+
+.refresh-gif {
+  width: 20px;
+  height: 20px !important;
+  max-height: 100%;
+  float: left;
+  display: none;
+}
+
 .tint img {
   border: 1px solid $main-grey !important;
 }

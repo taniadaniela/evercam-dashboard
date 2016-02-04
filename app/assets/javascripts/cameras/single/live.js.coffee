@@ -38,8 +38,17 @@ controlButtonEvents = ->
       disconnectFromSocket()
     stream_paused = !stream_paused
 
-  $(".refresh-live-snap, .refresh-camera").on "click", ->
+  $('.refresh-live-snap, .refresh-camera').on 'click', ->
+    $('.icon-refresh').hide()
+    $('.refresh-gif').show()
+    setTimeout (->
+      $('.refresh-gif').hide()
+      $('.icon-refresh').show()
+      return
+    ), 3000
     loadImage()
+    
+
 
 fullscreenImage = ->
   $("#toggle").click ->

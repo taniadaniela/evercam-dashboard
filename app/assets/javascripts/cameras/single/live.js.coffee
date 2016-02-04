@@ -79,6 +79,8 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         connectToSocket()
+        $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
+        $('#camera-video-stream').hide()
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
@@ -86,6 +88,9 @@ handleChangeStream = ->
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
         disconnectFromSocket()
+        $('#camera-video-stream').show()
+        $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
+        $('#live-view-placeholder .pull-right table').css 'margin-top', '-86px'
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
@@ -129,16 +134,17 @@ calculateHeight = ->
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
-
   #set the height of the video player and video container div
   $('#camera-video-player').css 'height', '44.00vw'
   $('#camera-video-stream').css 'height', '45.00vw'
   $('.vjs-error-display').css 'height', '95%'
-  $(document).ready ->
-    if $(window).width() <= 980
-      $('.video-js').css 'padding-top', '41.00%'
-    else
-      $('.video-js').css 'padding-top', '51.20%'
+
+selectOption = ->
+  if $(window).width() <= 980
+    $('.video-js').css 'padding-top', '41.00%'
+    $('#camera-video-player').css 'height', '42.00vw'
+  else
+    $('.video-js').css 'padding-top', '51.20%'
   return
 
 handleResize = ->
@@ -263,20 +269,6 @@ $(window).load HideMessage = ->
   if !$(".wrap img#message").hasClass("no-thumbnail")
     $("#offline_message").show()
 
-#set the alignment of the table option div
-selectOption = ->
-  $('#select-stream-type').change ->
-    val = $(this).val()
-    if val == 'jpeg'
-      $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
-      $('#camera-video-stream').hide()
-           
-    else
-      $('#camera-video-stream').show()
-      $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
-      $('#live-view-placeholder .pull-right table').css 'margin-top', '-86px'
-    return
-  return
 
 
 

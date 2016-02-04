@@ -24,6 +24,11 @@ loadImage = ->
     else
       image_placeholder.src = src
     $(".btn-live-player").removeClass "hide"
+    $('.refresh-gif').hide()
+    $('.icon-refresh').show()
+  img.onerror = ->
+    $('.refresh-gif').hide()
+    $('.icon-refresh').show()
   img.src = src
 
 controlButtonEvents = ->
@@ -41,11 +46,6 @@ controlButtonEvents = ->
   $('.refresh-live-snap, .refresh-camera').on 'click', ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
-    setTimeout (->
-      $('.refresh-gif').hide()
-      $('.icon-refresh').show()
-      return
-    ), 3000
     loadImage()
     
 

@@ -24,6 +24,11 @@ loadImage = ->
     else
       image_placeholder.src = src
     $(".btn-live-player").removeClass "hide"
+    $('.refresh-gif').hide()
+    $('.icon-refresh').show()
+  img.onerror = ->
+    $('.refresh-gif').hide()
+    $('.icon-refresh').show()
   img.src = src
 
 controlButtonEvents = ->
@@ -38,8 +43,12 @@ controlButtonEvents = ->
       disconnectFromSocket()
     stream_paused = !stream_paused
 
-  $(".refresh-live-snap, .refresh-camera").on "click", ->
+  $('.refresh-live-snap, .refresh-camera').on 'click', ->
+    $('.icon-refresh').hide()
+    $('.refresh-gif').show()
     loadImage()
+    
+
 
 fullscreenImage = ->
   $("#toggle").click ->

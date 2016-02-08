@@ -41,6 +41,44 @@
   height: 100%;
   max-width: 100%;
 }
+
+#live-view-placeholder .pull-right {
+  table {
+    position: relative;
+    margin-top: -48px;
+    margin-right: 0px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.27) !important;
+  }
+}
+
+#live-view-placeholder .pull-right {
+  table tbody { 
+    td {
+      padding-left: 3px;
+    }
+  }
+}
+
+#live-view-placeholder .pull-right {
+  table tbody { 
+    td .form-control {
+      background-color: transparent !important;
+      font-weight: bold !important;
+      color: #ffffff !important;
+      border: none !important;
+    }
+  }
+}
+
+#live-view-placeholder .pull-right {
+  table tbody { 
+    td .form-control option {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+  }
+}
+
 .offline-camera-placeholder, .offline-camera-placeholder img  {
   height: 100%;
   max-width: 100%;

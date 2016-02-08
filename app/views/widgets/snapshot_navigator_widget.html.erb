@@ -8,6 +8,21 @@
   <%= render partial: "cameras/single/snapshots_navigator_tab" %>
 </div>
 <script>
+  window.sendAJAXRequest = function(settings) {
+    var headers, token, xhrRequestChangeMonth;
+    token = $('meta[name="csrf-token"]');
+    if (token.size() > 0) {
+      headers = {
+        "X-CSRF-Token": token.attr("content")
+      };
+      settings.headers = headers;
+    }
+    return xhrRequestChangeMonth = $.ajax(settings);
+  };
+  window.showFeedback = function(message) {
+    Notification.show(message);
+    return true;
+  };
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
   <% params_subpath = params.fetch('subpath', '') %>
   <% params_format = params.fetch('format', '') %>

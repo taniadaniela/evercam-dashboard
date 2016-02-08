@@ -8,9 +8,8 @@
 //= require metronic/metronic.js
 //= require screenfull
 //= require saveimage.js
-//= require evercam.js
+//= require evercam.js.coffee
 //= require fullcalendar/fullcalendar.js
-//= require cameras/single/snapshots_navigator.js
 
 //=
 //= require jquery.uniform/jquery.uniform.js
@@ -19,7 +18,7 @@
 
 //=
 //= require alerts
-//= require cameras/single.js
+//= require cameras/single/snapshots_navigator.js.coffee
 //= require bootstrap-toggle
 //=
 

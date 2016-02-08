@@ -100,18 +100,18 @@ class WidgetsController < ApplicationController
       @cloud_recording = api.get_cloud_recordings(params[:camera]) if @has_edit_rights
       if @cloud_recording.nil?
         @cloud_recording = {
-            "frequency" => 1,
-            "status" => "off",
-            "storage_duration" => -1,
-            "schedule" => {
-                "Monday" => ["00:00-23:59"],
-                "Tuesday" => ["00:00-23:59"],
-                "Wednesday" => ["00:00-23:59"],
-                "Thursday" => ["00:00-23:59"],
-                "Friday" => ["00:00-23:59"],
-                "Saturday" => ["00:00-23:59"],
-                "Sunday" => ["00:00-23:59"]
-            }
+          "frequency" => 1,
+          "status" => "off",
+          "storage_duration" => -1,
+          "schedule" => {
+            "Monday" => ["00:00-23:59"],
+            "Tuesday" => ["00:00-23:59"],
+            "Wednesday" => ["00:00-23:59"],
+            "Thursday" => ["00:00-23:59"],
+            "Friday" => ["00:00-23:59"],
+            "Saturday" => ["00:00-23:59"],
+            "Sunday" => ["00:00-23:59"]
+          }
         }
       end
       render :layout => false

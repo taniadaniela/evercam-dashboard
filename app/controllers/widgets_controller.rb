@@ -91,12 +91,29 @@ class WidgetsController < ApplicationController
 
       api               = get_evercam_api
       @camera           = api.get_camera(params[:camera], true)
+      @has_edit_rights  = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera['timezone'] = 'Etc/GMT+1' unless @camera['timezone']
       time_zone         = TZInfo::Timezone.get(@camera['timezone'])
       current           = time_zone.current_period
       @offset           = current.utc_offset + current.std_offset
       @selected_date    = Time.new.in_time_zone(@camera['timezone']).strftime("%m/%d/%Y")
-
+      @cloud_recording = api.get_cloud_recordings(params[:camera]) if @has_edit_rights
+      if @cloud_recording.nil?
+        @cloud_recording = {
+          "frequency" => 1,
+          "status" => "off",
+          "storage_duration" => -1,
+          "schedule" => {
+            "Monday" => ["00:00-23:59"],
+            "Tuesday" => ["00:00-23:59"],
+            "Wednesday" => ["00:00-23:59"],
+            "Thursday" => ["00:00-23:59"],
+            "Friday" => ["00:00-23:59"],
+            "Saturday" => ["00:00-23:59"],
+            "Sunday" => ["00:00-23:59"]
+          }
+        }
+      end
       render :layout => false
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

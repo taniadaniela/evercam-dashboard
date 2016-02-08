@@ -8,6 +8,21 @@
   <%= render partial: "cameras/single/snapshots_navigator_tab" %>
 </div>
 <script>
+  window.sendAJAXRequest = function(settings) {
+    var headers, token, xhrRequestChangeMonth;
+    token = $('meta[name="csrf-token"]');
+    if (token.size() > 0) {
+      headers = {
+        "X-CSRF-Token": token.attr("content")
+      };
+      settings.headers = headers;
+    }
+    return xhrRequestChangeMonth = $.ajax(settings);
+  };
+  window.showFeedback = function(message) {
+    Notification.show(message);
+    return true;
+  };
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
   <% params_subpath = params.fetch('subpath', '') %>
   <% params_format = params.fetch('format', '') %>
@@ -20,6 +35,12 @@
     location: {
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>
+    },
+    cloud_recording: {
+      frequency: <%= @cloud_recording['frequency'].to_i %>,
+      storage_duration: <%= @cloud_recording['storage_duration'].to_i %>,
+      status: '<%= @cloud_recording['status'].to_s %>',
+      schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     }
   };
   window.Evercam.request = {
@@ -36,6 +57,11 @@
   };
   $(document).ready(function () {
     window.initializeRecordingsTab();
+    Metronic.init();
+    Notification.init();
+    return $("input[type=radio]").iCheck({
+      radioClass: "iradio_flat-blue"
+    });
   });
 </script>
 </body>

@@ -1,6 +1,14 @@
 //= require bootstrap
-//= require metronic/metronic-components
-//= require bootstrap-datepicker
+//= require datetimepicker
+//= require uniform.default.min.css
+//= require metronic/metronic-components.css
+//= require iCheck/skins/minimal/_all.scss
+//= require iCheck/skins/square/_all.css
+//= require iCheck/skins/flat/_all.css
+//= require iCheck/skins/line/_all.css
+//= require iCheck/skins/polaris/polaris.css
+//= require iCheck/skins/futurico/futurico.css
+//= require fullcalendar/fullcalendar.css
 //= require_self
 
 @import "base/fonts";

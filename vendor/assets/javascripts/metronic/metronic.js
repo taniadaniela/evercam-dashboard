@@ -156,6 +156,7 @@ var Metronic = function () {
         for(i = 0;i < test.length; i++) {
           if (test[i].className == 'toggle_input') {
             test.splice(i,1);
+            i--;
           }
         }
         if (test.size() > 0) {

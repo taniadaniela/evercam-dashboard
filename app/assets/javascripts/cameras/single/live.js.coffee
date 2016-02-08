@@ -66,8 +66,8 @@ initializePlayer = ->
   $("#camera-video-player").append($("#ptz-control"))
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
-      $('#live-view-placeholder .pull-right table').css 'marginTop', '-86px'  
-      $('#live-view-placeholder .pull-right table').stop().animate()  
+      $('#live-view-placeholder .pull-right table').css 'marginTop', '-86px'
+      $('#live-view-placeholder .pull-right table').stop().animate()
     else
       $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-48px' }, 500
     return

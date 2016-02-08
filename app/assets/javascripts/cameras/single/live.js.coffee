@@ -64,7 +64,16 @@ openPopout = ->
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
   $("#camera-video-player").append($("#ptz-control"))
-
+  setInterval (->
+    if $('.vjs-control-bar').css('visibility') == 'visible'
+      $('#live-view-placeholder .pull-right table').css 'marginTop', '-86px'  
+      $('#live-view-placeholder .pull-right table').stop().animate()  
+    else
+      $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-48px' }, 500
+    return
+  ), 10
+  return
+  
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
     $("#jpg-portion").append($("#ptz-control"))
@@ -81,6 +90,7 @@ handleChangeStream = ->
         connectToSocket()
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
         $('#camera-video-stream').hide()
+        $('#live-player-image').css 'height', '45.00vw'
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
@@ -90,7 +100,13 @@ handleChangeStream = ->
         disconnectFromSocket()
         $('#camera-video-stream').show()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
-        $('#live-view-placeholder .pull-right table').css 'margin-top', '-86px'
+        
+        if $(window).width() <= 980
+          $('.video-js').css 'padding-top', '41.00%'
+          $('#camera-video-player').css 'height', '42.00vw'
+        else
+          $('.video-js').css 'padding-top', '52.20%'
+        return
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
@@ -146,6 +162,7 @@ selectOption = ->
   else
     $('.video-js').css 'padding-top', '51.20%'
   return
+
 
 handleResize = ->
   getImageRealRatio()

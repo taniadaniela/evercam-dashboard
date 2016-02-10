@@ -105,7 +105,9 @@ handleChangeStream = ->
           $('.video-js').css 'padding-top', '41.00%'
           $('#camera-video-player').css 'height', '42.00vw'
         else
-          $('.video-js').css 'padding-top', '52.20%'
+          $('.video-js').css 'padding-top', '51.20%'
+          $('#camera-video-player').css 'height', '44.00vw'
+          $('#camera-video-stream').css 'height', '45.10vw'
         return
 
 handleTabOpen = ->
@@ -152,7 +154,7 @@ calculateHeight = ->
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
   #set the height of the video player and video container div
   $('#camera-video-player').css 'height', '44.00vw'
-  $('#camera-video-stream').css 'height', '45.00vw'
+  $('#camera-video-stream').css 'height', '45.10vw'
   $('.vjs-error-display').css 'height', '95%'
 
 selectOption = ->

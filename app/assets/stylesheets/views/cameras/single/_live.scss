@@ -63,6 +63,11 @@
 #live-view-placeholder .pull-right {
   table tbody { 
     td .form-control {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
       background-color: transparent !important;
       font-weight: bold !important;
       color: #ffffff !important;
@@ -70,10 +75,26 @@
     }
   }
 }
+.pull-right table {
+  tbody td {
+    .fa {
+    display: inline-block;
+    float: right;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: -26px;
+    }
+  }
+}
 
 #live-view-placeholder .pull-right {
   table tbody { 
     td .form-control option {
+      // -webkit-appearance: none;
+      // -moz-appearance: none;
+      // appearance: none;
       background-color: rgba(0, 0, 0, 0.5) !important;
     }
   }

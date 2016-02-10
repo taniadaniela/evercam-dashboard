@@ -67,7 +67,7 @@
       -moz-appearance: none;
       -o-appearance: none;
       text-indent: 0.01px;
-      text-overflow: '';
+      text-overflow: "";
       background-color: transparent !important;
       font-weight: bold !important;
       color: #ffffff !important;
@@ -75,16 +75,16 @@
     }
   }
 }
-.pull-right table {
-  tbody td {
-    .fa {
-    display: inline-block;
-    float: right;
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    margin-top: -26px;
+.pull-right {
+  table tbody {
+    td .fa {
+      display: inline-block;
+      float: right;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      margin-top: -26px;
     }
   }
 }

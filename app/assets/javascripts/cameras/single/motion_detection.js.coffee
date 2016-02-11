@@ -329,6 +329,7 @@ saveEmail = ->
     data.email = $("#md-alert-email").val()
 
     onError = (jqXHR, status, error) ->
+      false
 
     onSuccess = (result, status, jqXHR) ->
       $('#email-alert-settings-modal').modal('hide')
@@ -338,6 +339,7 @@ saveEmail = ->
       $("#motion div#div-alert-emails").append(parentdiv)
       $("#md-alert-email").val("")
       Notification.show 'The email was saved successfully.'
+      true
 
     settings =
       cache: false

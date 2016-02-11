@@ -45,7 +45,7 @@ mdSelected = (img, selection) ->
   mdArea = selection
 
 mdChanged = ->
-  saveMdArea()
+  MotionArea()
 
 mdResetArea = ->
   area = mdImage.imgAreaSelect(
@@ -203,36 +203,66 @@ extractImageResolution = ->
     __imgWidth = @naturalWidth
     __imgHeight = @naturalHeight
 
+enablealert = ->
+  $("#save-email").on "click", ->
+    saveEmailAlert()
+    saveEmail()
+
 saveMdSettings = ->
-  $("#save-md-settings").on "click", ->
-    data = {}
-    data.enabled = $("#enable-md").is(":checked")
-    data.sensitivity = sensitivity_value
-    data.alert_interval_min = parseInt($("#reset-time").val())
-    data.schedule = JSON.stringify(fullWeekSchedule)
 
-    onError = (jqXHR, status, error) ->
-      Notification.show 'Error updating settings.'
-      false
+  _originalHeight = __imgHeight
+  _originalWidth = __imgWidth
+  _renderedHeight = mdImage.height()
+  _renderedWidth = mdImage.width()
+  actTopLeftX = undefined
+  actTopLeftY = undefined
+  actBottomRightX = undefined
+  actBottomRightY = undefined
+  if _originalHeight == _renderedHeight and _originalWidth == _renderedWidth
+    actTopLeftX = mdArea.x1
+    actTopLeftY = mdArea.y1
+    actBottomRightX = mdArea.x2
+    actBottomRightY = mdArea.y2
+  else
+    scaleX = _originalWidth / _renderedWidth
+    scaleY = _originalHeight / _renderedHeight
+    actTopLeftX = Math.ceil(mdArea.x1 * scaleX)
+    actBottomRightX = Math.ceil(mdArea.x2 * scaleX)
+    actTopLeftY = Math.ceil(mdArea.y1 * scaleY)
+    actBottomRightY = Math.ceil(mdArea.y2 * scaleY)
 
-    onSuccess = (result, status, jqXHR) ->
-      Notification.show 'Motion detection settings updated.'
-      method = 'PATCH'
-      true
+  data = {}
+  data.enabled = $("#enable-md").is(":checked")
+  data.sensitivity = sensitivity_value
+  data.alert_interval_min = parseInt($("#reset-time").val())
+  data.schedule = JSON.stringify(fullWeekSchedule)
+  data.x1 = actTopLeftX
+  data.y1 = actTopLeftY
+  data.x2 = actBottomRightX
+  data.y2 = actBottomRightY
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/x-www-form-urlencoded"
-      type: method
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+  onError = (jqXHR, status, error) ->
+    Notification.show 'Error updating settings.'
+    false
 
-    sendAJAXRequest(settings)
+  onSuccess = (result, status, jqXHR) ->
+    Notification.show 'Motion detection settings updated.'
+    method = 'PATCH'
+    true
 
-saveMdArea = ->
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: method
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+  sendAJAXRequest(settings)
+
+MotionArea = ->
   if isNaN(mdArea.x1) or isNaN(mdArea.x2) or isNaN(mdArea.y1) or isNaN(mdArea.y2)
     Notification.show 'Motion detection area does not have valid values.'
     return false
@@ -261,18 +291,14 @@ saveMdArea = ->
     Notification.show 'Please select motion detection area.'
     return false
 
-  data = {}
-  data.x1 = actTopLeftX
-  data.y1 = actTopLeftY
-  data.x2 = actBottomRightX
-  data.y2 = actBottomRightY
+saveEmailAlert = ->
+  data= {}
+  data.alert_email = $("#enable-email").is(":checked")
 
   onError = (jqXHR, status, error) ->
-    Notification.show 'Failed to update motion detection area.'
     false
 
   onSuccess = (result, status, jqXHR) ->
-    Notification.show 'Motion detection area saved.'
     method = 'PATCH'
     true
 
@@ -296,38 +322,34 @@ isEmail = (email) ->
   regex.test email
 
 saveEmail = ->
-  $("#save-email").on "click", ->
-    if !isEmail $("#md-alert-email").val()
-      Notification.show 'Please enter a valid email.'
-    else
-      data = {}
-      data.email = $("#md-alert-email").val()
+  if !isEmail $("#md-alert-email").val()
+    Notification.show 'Please enter a valid email.'
+  else
+    data = {}
+    data.email = $("#md-alert-email").val()
 
-      onError = (jqXHR, status, error) ->
-        Notification.show jqXHR.message
-        false
+    onError = (jqXHR, status, error) ->
 
-      onSuccess = (result, status, jqXHR) ->
-        $('#email-alert-settings-modal').modal('hide')
-        parentdiv = $('<div>', {class: "email-box"})
-        parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
-        parentdiv.append(' <i title="Remove" class="fa fa-trash-o font-size-17"></i>')
-        $("#motion div#div-alert-emails").append(parentdiv)
-        Notification.show 'Email saved for Motion detection alert.'
-        $("#md-alert-email").val("")
-        true
+    onSuccess = (result, status, jqXHR) ->
+      $('#email-alert-settings-modal').modal('hide')
+      parentdiv = $('<div>', {class: "email-box"})
+      parentdiv.append($(document.createTextNode($("#md-alert-email").val())))
+      parentdiv.append(' <i title="Remove" class="fa fa-trash-o font-size-17"></i>')
+      $("#motion div#div-alert-emails").append(parentdiv)
+      $("#md-alert-email").val("")
+      Notification.show 'The email was saved successfully.'
 
-      settings =
-        cache: false
-        data: data
-        dataType: 'json'
-        error: onError
-        success: onSuccess
-        contentType: "application/x-www-form-urlencoded"
-        type: 'POST'
-        url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/x-www-form-urlencoded"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/motion-detection/email?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
-      sendAJAXRequest(settings)
+    sendAJAXRequest(settings)
 
 bindEmails = ->
   for email in Evercam.Camera.motion.emails
@@ -339,10 +361,8 @@ bindEmails = ->
   method = Evercam.Camera.motion.method if Evercam.Camera.motion.method
 
 EmailAlertStatus = ->
-  if !$("div#div-alert-emails").text()
-    $("span#ec_cam_id").text('Off')
-  else
-    $("span#ec_cam_id").text('On')
+  if Evercam.Camera.motion.alert_email
+    $('#enable-email').prop('checked', true)
 
 deleteAddedEmail = ->
   $('#motion').on "click", ".fa-trash-o", ->
@@ -357,7 +377,6 @@ deleteAddedEmail = ->
 
     onSuccess = (data, status, jqXHR) ->
       parentsdiv.remove()
-      EmailAlertStatus()
       Notification.show("Camera email deleted successfully.")
       true
 
@@ -382,10 +401,11 @@ window.initializeMotionDetectionTab = ->
   initMotionDetection()
   handleTabOpen()
   bindHours()
-  saveMdSettings()
   initNotification()
-  saveEmail()
   bindEmails()
   loadMotionImage()
-  EmailAlertStatus()
   deleteAddedEmail()
+  $("#save-md-settings").click saveMdSettings
+  enablealert()
+  EmailAlertStatus()
+  area_defined()

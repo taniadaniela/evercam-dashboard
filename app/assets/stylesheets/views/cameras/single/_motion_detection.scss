@@ -8,7 +8,7 @@
   padding: 0px;
 
   #refresh-motion {
-    padding: 0px 4px 4px;
+    padding: 0px 2px 2px;
   }
 }
 
@@ -155,7 +155,7 @@ button#save-email-settings {
   display: inline-block;
 }
 
-#motion-toggle.col-md-9 {
+#motion-toggle,#alert-toggle {
 
   .toggle .toggle-control {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -202,7 +202,8 @@ button#save-email-settings {
   .label {
     position: relative;
     width: 100px;
-    padding-left: 0px;
+    padding-left: 1em;
+    top: 0.3em;
   }
 }
 

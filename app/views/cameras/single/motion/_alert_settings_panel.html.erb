@@ -1,21 +1,18 @@
 <div class="portlet solid" id="camera-md-settings-panel">
   <div class="portlet-title">
     <div class="caption">Motion Detection Settings</div>
+    <div id="motion-toggle" >
+      <label class="label toggle">
+        <input id="enable-md" type="checkbox" class="toggle_input"/>
+        <div class="toggle-control"></div>
+      </label>
+    </div>
   </div>
   <div class="portlet-body col-md-12">
     <table class="table table-fixed table-borderless">
       <tr>
-        <td class="col-md-3">Motion Detection:</td>
-        <td id="motion-toggle" class="col-md-9">
-          <label class="label toggle">
-            <input id="enable-md" type="checkbox" class="toggle_input"/>
-            <div class="toggle-control"></div>
-          </label>
-        </td>
-      </tr>
-      <tr>
-        <td>Sensitivity:</td>
-        <td>
+        <td class="col-md-3">Sensitivity:</td>
+        <td class="col-md-9">
           <div id="divSensitivity"></div>
         </td>
       </tr>

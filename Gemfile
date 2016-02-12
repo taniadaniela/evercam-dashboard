@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+fail 'Ruby version must be greater than 2.0' unless RUBY_VERSION.to_f > 2.0
 
 gem 'rails', '~> 4.2.2'
 

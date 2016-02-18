@@ -109,7 +109,7 @@ mdInitArea = ->
     renderedBottomRightX = Math.ceil(bottomRightX / scaleX)
     renderedTopLeftY = Math.ceil(topLeftY / scaleY)
     renderedBottomRightY = Math.ceil(bottomRightY / scaleY)
-    if Evercam.Camera.motion.x1 && Evercam.Camera.motion.x2 && Evercam.Camera.motion.y1 && Evercam.Camera.motion.y2
+    if Evercam.Camera.motion.x2 && Evercam.Camera.motion.y2
       area = mdImage.imgAreaSelect(
         instance: true
         handles: true

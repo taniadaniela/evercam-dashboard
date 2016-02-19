@@ -10,11 +10,7 @@
       <div class="portlet-body">
         <div class="info-preview">
           <div id="div-md-image" class="camera-preview">
-            <% if @camera['is_online'] %>
-                <%= preview(@camera, false) %>
-            <% else %>
-                <%= preview(@camera, true) %>
-            <%end%>
+            <%= preview(@camera, true) %>
           </div>
         </div>
       </div>

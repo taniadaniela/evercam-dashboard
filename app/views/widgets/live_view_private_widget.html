@@ -39,7 +39,7 @@ You are not allowed to view this camera
 <div>
   <% if params[:rtmp] %>
   <video id="camera-video-player" class="video-js vjs-default-skin"
-         poster="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>"
+         poster="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>"
          controls autoplay width="auto" height="auto">
     <source src="<%= params[:rtmp] %>" type="rtmp/flv">
     <% if params[:hls] %>
@@ -47,7 +47,7 @@ You are not allowed to view this camera
     <% end %>
   </video>
   <% else %>
-  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_API %>cameras/<%= params[:camera] %>/recordings/snapshots/latest/jpg?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
+  <img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />
   <% end %>
 </div>
 
@@ -196,7 +196,7 @@ You are not allowed to view this camera
   (function(window) {
     var refresh = 1000*<%= params[:refresh] %>;
     var  container = document.getElementById("evercam-container-img");
-    var url = "<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/live/snapshot?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>";
+    var url = "<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>";
     var live_view_timestamp = 0;
     if (!window.Evercam) {
       window.Evercam = {};

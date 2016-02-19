@@ -16,7 +16,7 @@
        <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">
-          <img id="live-player-image" src="<%= @camera['thumbnail_url'] %>" />
+          <%= preview(@camera) %>
           <div class="live-options">
             <div class="live-option" id="toggle">
               <span class="glyphicon glyphicon-fullscreen"></span>
@@ -65,7 +65,7 @@
       <% unless rtmp_stream.blank? %>
         <div id="camera-video-stream" class="active">
           <video id="camera-video-player" class="video-js vjs-default-skin"
-                 poster="<%= @camera['thumbnail_url'] %>"
+                 poster="#{EVERCAM_MEDIA_API}cameras/#{@camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
                  controls autoplay width="auto" height="auto">
             <source src="<%= rtmp_stream %>" type="rtmp/flv">
             <% unless hls_stream.blank? %>

@@ -15,7 +15,7 @@
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">
-          <%= preview(@camera) %>
+          <img id="live-player-image" src="<%= thumbnail_url(@camera) %>" />
           <div class="live-options">
             <div class="live-option" id="toggle">
               <span class="glyphicon glyphicon-fullscreen"></span>

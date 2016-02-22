@@ -47,7 +47,6 @@ controlButtonEvents = ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
     loadImage()
-    
 
 
 fullscreenImage = ->
@@ -79,10 +78,8 @@ initializePlayer = ->
       $('#live-view-placeholder .pull-right table').stop().animate()
     else
       $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-48px' }, 500
-    return
   ), 10
-  return
-  
+
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
     $("#jpg-portion").append($("#ptz-control"))
@@ -109,7 +106,6 @@ handleChangeStream = ->
         disconnectFromSocket()
         $('#camera-video-stream').show()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
-        
         if $(window).width() <= 980
           $('.video-js').css 'padding-top', '41.00%'
           $('#camera-video-player').css 'height', '42.00vw'
@@ -117,7 +113,6 @@ handleChangeStream = ->
           $('.video-js').css 'padding-top', '51.20%'
           $('#camera-video-player').css 'height', '44.00vw'
           $('#camera-video-stream').css 'height', '45.10vw'
-        return
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
@@ -172,8 +167,6 @@ selectOption = ->
     $('#camera-video-player').css 'height', '42.00vw'
   else
     $('.video-js').css 'padding-top', '51.20%'
-  return
-
 
 handleResize = ->
   getImageRealRatio()
@@ -297,9 +290,6 @@ $(window).load HideMessage = ->
   if !$(".wrap img#message").hasClass("no-thumbnail")
     $("#offline_message").show()
 
-
-
-
 window.initializeLiveTab = ->
   initSocket()
   window.video_player_html = $('#camera-video-stream').html()
@@ -318,4 +308,3 @@ window.initializeLiveTab = ->
   handleModelEvents()
   checkPTZExist()
   selectOption()
-

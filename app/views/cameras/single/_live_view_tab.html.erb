@@ -12,8 +12,7 @@
       <% rtmp_stream = "" %>
       <% hls_stream = "" %>
     <%end%>
-
-       <div id="live-view-placeholder">
+    <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">
           <%= preview(@camera) %>
@@ -35,9 +34,9 @@
             <div class="ptz-controls" id="ptz-control">
               <table>
                 <thead>
-                <tr>
-                  <th colspan="5" style="position: relative">PTZ</th>
-                </tr>
+                  <tr>
+                    <th colspan="5" style="position: relative">PTZ</th>
+                  </tr>
                 </thead>
                 <tr>
                   <td rowspan="3" class="text-center small-column">
@@ -81,8 +80,8 @@
                 <select id="select-stream-type" class="form-control">
                   <option value="jpeg">JPEG</option>
                   <option value="video" selected="selected">VIDEO</option>
-                </select> 
-                <i class="fa fa-chevron-down"></i>      
+                </select>
+                <i class="fa fa-chevron-down"></i>
               </td>
             </tr>
           </table>
@@ -95,7 +94,7 @@
     <div class="offline-camera-placeholder">
       <div class="wrap">
         <div class="refresh-camera"><i class="icon-refresh"></i><span> Refresh</span>
-        <img src="/assets/refresh.gif" class="refresh-gif">
+          <img src="/assets/refresh.gif" class="refresh-gif">
         </div>
         <span id="offline_message" style="display:none;">Camera is Offline</span>
         <%= preview(@camera, true) %></div>

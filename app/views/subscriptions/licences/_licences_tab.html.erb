@@ -13,6 +13,7 @@
 
   <% monthly_total = @seven_days_recording + @thirty_days_recording + @ninety_days_recording + @twenty_four_hours_recording + @infinity %>
   <% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual + @twenty_four_hours_recording_annual + @infinity_annual %>
+  <% has_custom = @custom_licence.count > 0 %>
   <form id="form-make-payment" method="post" action="<%= new_charge_path %>">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
     <div class="portlet-body table-border">
@@ -25,6 +26,11 @@
             <li>
               <a data-toggle="tab" data-target="#annual-plans" class="nav-tab-history">Annual Plans (<%= annual_total %>) (Save 20%)</a>
             </li>
+            <% if has_custom %>
+            <li>
+              <a data-toggle="tab" data-target="#custom-licence" class="nav-tab-history">Custom Licence (<%= annual_total %>)</a>
+            </li>
+            <% end %>
           </ul>
         </div>
         <div class="tab-content tables-border-right">
@@ -34,6 +40,11 @@
           <div id="annual-plans" class="tab-pane margin-top-20">
             <%= render partial: "subscriptions/licences/annual_plan" %>
           </div>
+          <% if has_custom %>
+          <div id="custom-licence" class="tab-pane margin-top-20">
+            <%= render partial: "subscriptions/licences/custom_licence" %>
+          </div>
+          <% end %>
         </div>
       </div>
       <div class="tables-border-right">

@@ -1,0 +1,45 @@
+<%
+  total_cameras = 0
+  total_amount = 0
+%>
+<div class="col-md-12">
+  <table class="table table-full-width plan-table">
+    <thead>
+    <tr>
+      <th>Licences</th>
+      <th class="text-center">Cameras</th>
+      <th class="text-center">Storage</th>
+      <th class="text-center">Start Date</th>
+      <th class="text-center">End Date</th>
+      <th class="text-right">Status</th>
+      <th class="text-center">Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @custom_licence.each do |licence| %>
+      <% total_cameras = total_cameras + licence.total_cameras %>
+      <% total_amount = total_amount + licence.amount/100 %>
+      <tr>
+        <td><%= licence.description %></td>
+        <td class="text-center"><%= licence.total_cameras %></td>
+        <td class="text-center"><%= licence.storage %></td>
+        <td class="text-center"><%= Time.at(licence.start_date).strftime('%d/%m/%Y') %></td>
+        <td class="text-center"><%= Time.at(licence.end_date).strftime('%d/%m/%Y') %></td>
+        <td class="text-right <%= licence.paid ? "green" : "red" %>"><%= licence.paid ? "Paid" : "Pending" %></td>
+        <td class="text-center">&euro; <%= number_with_precision(licence.amount/100, precision: 2) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot class="table-footer">
+    <tr>
+      <td>Total</td>
+      <td class="text-center"><span class="green" id="current-total-quantity-monthly"><%= total_cameras %></span></td>
+      <td class="text-center"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="text-center">&euro; <%= number_with_precision(total_amount, precision: 2) %></td>
+    </tr>
+    </tfoot>
+  </table>
+</div>

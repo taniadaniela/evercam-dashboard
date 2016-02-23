@@ -16,15 +16,15 @@
          infinity = []
       @cameras_products.each do |camera|
         if camera.cloud_recording.present?
-          if camera.cloud_recording[0].storage_duration.equal?(-1)
+          if camera.cloud_recording.storage_duration.equal?(-1)
             infinity[infinity.count] = camera
-          elsif  camera.cloud_recording[0].storage_duration.equal?(1)
+          elsif  camera.cloud_recording.storage_duration.equal?(1)
             one_day[one_day.count] = camera
-          elsif  camera.cloud_recording[0].storage_duration.equal?(7)
+          elsif  camera.cloud_recording.storage_duration.equal?(7)
             seven[seven.count] = camera
-          elsif  camera.cloud_recording[0].storage_duration.equal?(30)
+          elsif  camera.cloud_recording.storage_duration.equal?(30)
             thirty[thirty.count] = camera
-          elsif  camera.cloud_recording[0].storage_duration.equal?(90)
+          elsif  camera.cloud_recording.storage_duration.equal?(90)
             ninety[ninety.count] = camera
           end
         end
@@ -42,7 +42,7 @@
       <% end %>
       <% if one_day.present? %>
         <tr>
-          <td><%= one_day[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= one_day[0].cloud_recording.storage_duration %> Days Recording</td>
           <td class="text-center" id="licence-required-one-day"><%= one_day.count %></td>
           <td>
             <% one_day.each do |item| %>
@@ -53,7 +53,7 @@
       <% end %>
       <% if seven.present? %>
         <tr>
-          <td><%= seven[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= seven[0].cloud_recording.storage_duration %> Days Recording</td>
           <td class="text-center" id="licence-required-seven-day"><%= seven.count %></td>
           <td>
             <% seven.each do |item| %>
@@ -64,7 +64,7 @@
       <% end %>
       <% if thirty.present? %>
         <tr>
-          <td><%= thirty[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= thirty[0].cloud_recording.storage_duration %> Days Recording</td>
           <td class="text-center" id="licence-required-thirty-day"><%= thirty.count %></td>
           <td>
             <% thirty.each do |item| %>
@@ -75,7 +75,7 @@
       <% end %>
       <% if ninety.present? %>
         <tr>
-          <td><%= ninety[0].cloud_recording[0].storage_duration %> Days Recording</td>
+          <td><%= ninety[0].cloud_recording.storage_duration %> Days Recording</td>
           <td class="text-center" id="licence-required-ninety-day"><%= ninety.count %></td>
           <td>
             <% ninety.each do |item| %>

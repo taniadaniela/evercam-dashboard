@@ -12,7 +12,7 @@
 }
 
 .video-js {
-  padding-top: 56.2%;
+  padding-top: 51.2%;
 }
 
 .video-js .vjs-text-track-display {
@@ -21,4 +21,9 @@
 
 .video-js:hover .ptz-controls {
   opacity: 1;
+}
+@media (min-width: 1470px) {
+	.video-js {
+		padding-top: 53% !important;
+  }
 }

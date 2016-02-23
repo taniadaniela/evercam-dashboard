@@ -267,8 +267,8 @@ showAlertMessage = ->
   thirty_day_current = parseInt($("#30-days-recording-current-qty").text()) + parseInt($("#30-days-recording-annual-current-qty").text())
   ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
   infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
-
-  if $("#custom-licence")
+  
+  if $("#custom-licence").html()
     if $(".custom-licence-status").hasClass("red")
       $(".licence-alert span").text("Please pay your custom licence(s).")
       total_required = parseInt($("#total-required-licence").text())

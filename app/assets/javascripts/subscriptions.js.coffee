@@ -232,6 +232,7 @@ validateLicenceForm = ->
     price_annual = parseInt($("#new-total-price-annual").text())
     one_day = parseInt($("#24-hours-recording-quantity").val())
     one_day_annual = parseInt($("#24-hours-recording-annual-quantity").val())
+    $("#message-custom-licence").hide()
 
     if price_monthly isnt 0 || price_annual isnt 0 || one_day isnt 0 || one_day_annual isnt 0
       if $("#has-credit-card").val() is "false"
@@ -242,6 +243,7 @@ validateLicenceForm = ->
         $("#checkout-message").show()
         $("#add-card-message").hide()
         $("#saveSubscriptions").val("Save Plans")
+        $("#is-custom-payment").val("false")
       $("#payNowModal").modal("show")
     else
       Notification.show "Please add/remove licences."
@@ -266,21 +268,28 @@ showAlertMessage = ->
   ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
   infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
 
-  if !isNaN(infinity_req)
-    if infinity_current is 0 || infinity_current < infinity_req
-      changeTotalColor()
-  if !isNaN(one_day_req)
-    if one_day_current is 0 || one_day_current < one_day_req
-      changeTotalColor()
-  if !isNaN(seven_day_req)
-    if seven_day_current is 0 || seven_day_current < seven_day_req
-      changeTotalColor()
-  if !isNaN(thirty_day_req)
-    if thirty_day_current is 0 || thirty_day_current < thirty_day_req
-      changeTotalColor()
-  if !isNaN(ninety_day_req)
-    if ninety_day_current is 0 || ninety_day_current < ninety_day_req
-      changeTotalColor()
+  if $("#custom-licence")
+    if $(".custom-licence-status").hasClass("red")
+      $(".licence-alert span").text("Please pay your custom licence(s).")
+      total_required = parseInt($("#total-required-licence").text())
+      if total_required < parseInt($("#total-custom-cameras").text())
+        changeTotalColor()
+  else
+    if !isNaN(infinity_req)
+      if infinity_current is 0 || infinity_current < infinity_req
+        changeTotalColor()
+    if !isNaN(one_day_req)
+      if one_day_current is 0 || one_day_current < one_day_req
+        changeTotalColor()
+    if !isNaN(seven_day_req)
+      if seven_day_current is 0 || seven_day_current < seven_day_req
+        changeTotalColor()
+    if !isNaN(thirty_day_req)
+      if thirty_day_current is 0 || thirty_day_current < thirty_day_req
+        changeTotalColor()
+    if !isNaN(ninety_day_req)
+      if ninety_day_current is 0 || ninety_day_current < ninety_day_req
+        changeTotalColor()
 
 changeTotalColor = ->
   $(".licence-alert").show()
@@ -430,11 +439,39 @@ loadInvoiceHistory = ->
 
   sendAJAXRequest(settings)
 
+handleTabOpen = ->
+  $('.tab-custom-licence').on 'shown.bs.tab', ->
+    if $(".custom-licence-status").hasClass("red")
+      $("#submit-licences").hide()
+      $("#pay-custom-licences").show()
+    else
+      $("#submit-licences").hide()
+      $("#pay-custom-licences").hide()
+  $('.tab-custom-licence').on 'hide.bs.tab', ->
+    $("#submit-licences").show()
+    $("#pay-custom-licences").hide()
+
+payCustomLicence = ->
+  $('#pay-custom-licences').on "click", ->
+    if $("#has-credit-card").val() is "false"
+      $("#saveSubscriptions").val($(".stripe-button-el span").text())
+      $("#checkout-message").hide()
+      $("#add-card-message").show()
+    else
+      $("#checkout-message").hide()
+      $("#add-card-message").hide()
+      $("#message-custom-licence").show()
+      $("#saveSubscriptions").val(" Pay ")
+      $("#is-custom-payment").val("true")
+    $("#payNowModal").modal("show")
+
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
   createAddRemoveLicence()
   validateLicenceForm()
   showAlertMessage()
+  handleTabOpen()
+  payCustomLicence()
   setTimeout loadBillingHistory, 2000
 
 window.initializeChangePlan = ->

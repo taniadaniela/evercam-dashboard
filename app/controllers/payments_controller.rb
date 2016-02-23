@@ -44,33 +44,44 @@ class PaymentsController < ApplicationController
              "30-days-recording", "30-days-recording-annual", "90-days-recording", "90-days-recording-annual",
              "infinity", "infinity-annual"]
     @customer = retrieve_stripe_customer
-    if @customer.has_active_subscription?
-      subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
-      if subscriptions.present?
-        plans.each do |resource|
-          is_saved = false
-          subscriptions[:data].each do |subscription|
-            if subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
-              !params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
-              update_subscription(subscription.plan.id, subscription.id, params["#{subscription.plan.id}-qty"])
-              is_saved = true
-            elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
-              params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
-              is_saved = true
-            elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i.eql?(0)
-              cancel_subscription(subscription.id)
-            end
-          end
-
-          if !is_saved && params["#{resource}-qty"].to_i > 0
-            buy_subscription(resource, params["#{resource}-qty"])
-          end
+    if params["is-custom-payment"] && params["is-custom-payment"].eql?("true")
+      if params["custom-licence-amount"].to_i > 0
+        @customer.create_charge(params["custom-licence-amount"].to_i, "")
+        ids = params["custom_licence_ids"].split(",").inject([]) { |list, entry| list << entry.strip }
+        Licence.where(id: ids).each do |licence|
+          licence.paid = true
+          licence.save
         end
       end
     else
-      plans.each do |resource|
-        if params["#{resource}-qty"].to_i > 0
-          buy_subscription(resource, params["#{resource}-qty"])
+      if @customer.has_active_subscription?
+        subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+        if subscriptions.present?
+          plans.each do |resource|
+            is_saved = false
+            subscriptions[:data].each do |subscription|
+              if subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
+                  !params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
+                update_subscription(subscription.plan.id, subscription.id, params["#{subscription.plan.id}-qty"])
+                is_saved = true
+              elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i > 0 &&
+                  params["#{subscription.plan.id}-qty"].to_i.eql?(subscription.quantity)
+                is_saved = true
+              elsif subscription.plan.id.eql?(resource) && params["#{resource}-qty"].to_i.eql?(0)
+                cancel_subscription(subscription.id)
+              end
+            end
+
+            if !is_saved && params["#{resource}-qty"].to_i > 0
+              buy_subscription(resource, params["#{resource}-qty"])
+            end
+          end
+        end
+      else
+        plans.each do |resource|
+          if params["#{resource}-qty"].to_i > 0
+            buy_subscription(resource, params["#{resource}-qty"])
+          end
         end
       end
     end

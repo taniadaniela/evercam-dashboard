@@ -94,7 +94,6 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         connectToSocket()
-        $('#live-view-placeholder').css 'height', 'auto'
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
 
       when 'video'

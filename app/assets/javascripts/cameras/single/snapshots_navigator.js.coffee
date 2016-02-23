@@ -244,9 +244,14 @@ showLoader = ->
   $("#imgLoaderRec").css("left", $('#imgPlayback').css('left'))
   $("#imgLoaderRec").show()
 
+
+
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
   $("#snapshot-notes-text").show()
+  $("#snapshot-motion_level").show()
+  console.log(snapshot.motion_level)
+  # console.log(snapshot-motion_level)
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -260,6 +265,7 @@ UpdateSnapshotRec = (snapInfo) ->
   $("#snapshot-notes-text").text(snapInfo.notes)
   SetInfoMessage currentFrameNumber, new Date(snapInfo.created_at*1000)
   loadImage(snapInfo.created_at)
+  
 
 getTimestampFromUrl = ->
   timestamp = window.Evercam.request.subpath.
@@ -495,6 +501,10 @@ extractMdRecords = (snapshot_list) ->
     if snapshot.motion_level > 5
       image_date = new Date(snapshot.created_at*1000)
       li = $('<li>')
+      div_date = $('<div>')
+      hour = parseInt(cameraCurrentHour)
+      div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
+      li.append(div_date)
       div_image = $('<div>')
       image = $('<img>', {class: "md-Img"})
       image.attr("src", "")
@@ -502,11 +512,7 @@ extractMdRecords = (snapshot_list) ->
       image.attr("height", 57)
       image.attr("timestamp", snapshot.created_at)
       div_image.append(image)
-      li.append(div_image)
-      div_date = $('<div>')
-      hour = parseInt(cameraCurrentHour)
-      div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
-      li.append(div_date)
+      li.append(div_image) 
       $('#MDSliderItem').append li
 
 selectMdImage = ->
@@ -936,6 +942,20 @@ onCollapsRecording = ->
   $('#cloud-recording-collaps').click ->
     $('#cloud-recording-calendar').toggleClass 'open'
 
+calenderShow = ->
+  $('.ui-datepicker-trigger').on 'click', ->
+    $('.datepicker-bg').toggle 'slow', ->
+      $('#calender .fa').css 'color', 'white'
+      return
+    $('#calender .fa').css 'color', 'blue'  
+    return
+  
+
+
+
+      
+
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -951,3 +971,5 @@ window.initializeRecordingsTab = ->
   window.initCloudRecordingSettings()
   onCollapsRecording()
   selectMdImage()
+  calenderShow()
+  # calendarHide()

@@ -46,7 +46,8 @@ class PaymentsController < ApplicationController
     @customer = retrieve_stripe_customer
     if params["is-custom-payment"] && params["is-custom-payment"].eql?("true")
       if params["custom-licence-amount"].to_i > 0
-        @customer.create_charge(params["custom-licence-amount"].to_i, "")
+        @customer.create_charge(params["custom-licence-amount"].to_i, "Custom Payment")
+        add_invoice_item(params["custom-licence-amount"].to_i, "Custom Payment", 1)
         ids = params["custom_licence_ids"].split(",").inject([]) { |list, entry| list << entry.strip }
         Licence.where(id: ids).each do |licence|
           licence.paid = true

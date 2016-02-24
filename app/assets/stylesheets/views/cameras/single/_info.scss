@@ -20,11 +20,11 @@
   transition: all .1s linear;
 }
 
-#details .portlet.solid.bordered > .portlet-title {
+#settings .portlet.solid.bordered > .portlet-title {
   margin-bottom: 5px;
   border-bottom: 1px solid $white;
 }
-#details .portlet.solid {
+#settings .portlet.solid {
   overflow-x: hidden;
   background-color: $white;
   padding: 0px;
@@ -32,16 +32,16 @@
 .margin-bottom-5 {
   margin-bottom: 5px;
 }
-#details .table-borderless td {
+#settings .table-borderless td {
   line-height: 1.2 !Important;
   padding: 6px 2px !important;
 }
 
-#details .table {
+#settings .table {
   margin-bottom: 5px;
 }
 
-#details .help-block {
+#settings .help-block {
   font-size: 12px;
   background: none;
 }
@@ -58,7 +58,7 @@
 .capture {
   max-width: 450px;
 }
-#details .portlet-body{
+#settings .portlet-body{
   position: relative;
 }
 .image-placeholder-detail-page{
@@ -127,10 +127,10 @@
   max-width:200px;
   min-width:200px;
 }
-#details .table>tbody>tr>td {
+#settings .table>tbody>tr>td {
   padding: 1px 2px;
 }
-#details .table>thead>tr>th {
+#settings .table>thead>tr>th {
   padding: 0px 0 4px;
 }
 #settings-modal .portlet, #settings-modal-1 .portlet {
@@ -146,7 +146,7 @@
 #settings-modal-1 .control-label {
   margin-top: 8px;
 }
-#details {
+#settings {
   border: none;
   width: 100%;
   height: auto;
@@ -232,7 +232,7 @@
   width:auto;
 }
 
-#details {
+#settings {
   td:first-child {
     color: #666666;
   }

@@ -161,7 +161,7 @@ class CamerasController < ApplicationController
       }
       get_evercam_api.update_camera(params['camera-id'], settings)
       flash[:message] = 'Settings updated successfully'
-      redirect_to "#{cameras_single_path(params['camera-id'])}/details"
+      redirect_to "#{cameras_single_path(params['camera-id'])}/settings"
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +
@@ -169,7 +169,7 @@ class CamerasController < ApplicationController
       flash[:message] = "An error occurred updating the details for your camera. "\
                         "Please try again and, if this problem persists, contact "\
                         "support."
-      redirect_to "#{cameras_single_path(params['camera-id'])}/details"
+      redirect_to "#{cameras_single_path(params['camera-id'])}/settings"
     end
   end
 

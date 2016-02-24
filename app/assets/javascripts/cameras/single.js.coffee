@@ -55,7 +55,7 @@ updateCameraSinglePage = ->
   $.ajax(Evercam.request.rootpath).done (data) ->
     elements = [
       '.camera-switch'
-      '#settings .info-preview'
+      '#details .info-preview'
       '#camera-details-panel'
       '#camera-connection-panel'
       '#general-info-panel'

@@ -79,11 +79,11 @@ showChangeOwnerDialog = (clear) ->
   true
 
 handleVendorModelEvents = ->
-  $("#settings").on "change", "#camera-vendor", (e) ->
+  $("#details").on "change", "#camera-vendor", (e) ->
     e.preventDefault()
     loadVendorModels($(this).val())
 
-  $("#settings").on "change", "#camera-model", ->
+  $("#details").on "change", "#camera-model", ->
     cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val"))
 
 loadVendorModels = (vendor_id) ->

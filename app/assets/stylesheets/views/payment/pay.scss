@@ -36,7 +36,6 @@
   }
 
   .cards li {
-    float: left;
     display: block;
   }
 
@@ -54,6 +53,9 @@
 
   .card.amex {
     background-image: asset-url("card-amex.gif");
+  }
+  .card.stripe {
+    background-image: asset-url("solid.png");
   }
 
   .card.laser {
@@ -80,5 +82,10 @@
     margin-right: 4px;
     text-indent: -9999px;
     width: 39px;
+  }
+  .stripe {
+    height: 26px !important;
+    width: 119px !important;
+    float: right !important;
   }
 }

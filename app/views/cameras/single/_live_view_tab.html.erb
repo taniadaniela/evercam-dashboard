@@ -64,7 +64,7 @@
       <% unless rtmp_stream.blank? %>
         <div id="camera-video-stream" class="active">
           <video id="camera-video-player" class="video-js vjs-default-skin"
-                 poster='<%= "#{EVERCAM_MEDIA_API}cameras/#{@camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>'
+                 poster='<%= "#{thumbnail_url(@camera)}" %>'
                  controls autoplay width="auto" height="auto">
             <source src="<%= rtmp_stream %>" type="rtmp/flv">
             <% unless hls_stream.blank? %>

@@ -4,20 +4,20 @@ Rails.application.routes.draw do
   get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
   delete '/v1/users/:id/billing' => 'subscriptions#destroy', as: :subscription
 
-  get "/v1/users/:id/billing/invoices" => "invoices#index", as: :invoices
-  get "/v1/users/:id/billing/invoices/:invoice_id" => "invoices#show", as: :invoice_show
-  get "/v1/users/:id/billing/invoices/:invoice_id/pdf" => "invoices#create_pdf", as: :create_invoice_pdf
-  get "/v1/users/:id/billing/invoices/:invoice_id/send" => "invoices#send_customer_invoice_email", as: :send_invoic_email
+  get '/v1/users/:id/billing/invoices' => 'invoices#index', as: :invoices
+  get '/v1/users/:id/billing/invoices/:invoice_id' => 'invoices#show', as: :invoice_show
+  get '/v1/users/:id/billing/invoices/:invoice_id/pdf' => 'invoices#create_pdf', as: :create_invoice_pdf
+  get '/v1/users/:id/billing/invoices/:invoice_id/send' => 'invoices#send_customer_invoice_email', as: :send_invoic_email
 
-
-  delete 'v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
+  delete '/v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 
   get '/pay' => 'payments#pay', as: :pay
   get '/thank-for-payment' => 'payments#thank', as: :thank_payment
   post '/pay' => 'payments#make_payment', as: :make_payment
-  get 'v1/payments' => 'payments#new', as: :new_checkout
-  post 'v1/payments' => 'payments#create', as: :new_charge
+  get '/v1/payments' => 'payments#new', as: :new_checkout
+  post '/v1/payments' => 'payments#create', as: :new_charge
   post '/v1/users/:id/billing/plans/change' => 'payments#upgrade_downgrade_plan'
+
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]
   resources :credit_cards, only: [:create, :destroy]

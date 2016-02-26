@@ -248,12 +248,10 @@ showLoader = ->
 
 
 SetInfoMessage = (currFrame, date_time) ->
+  console.log snapshotInfos[snapshotInfoIdx].notes 
   $("#divInfo").fadeIn()
-  $("#snapshot-notes-text").show()
-  # if $('#snapshot-notes-text').attr('Evercam Timelapse')
-  #   $('#snapshot-motion_level').css 'margin-left', '131px'
-  # else
-  #   $('#snapshot-motion_level').css 'margin-left', '100px'
+  $("#snapshot-notes-text").show() 
+  console.log snapshotInfos[snapshotInfoIdx].notes
   $("#snapshot-motion_level").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()

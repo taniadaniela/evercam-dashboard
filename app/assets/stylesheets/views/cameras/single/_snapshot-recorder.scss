@@ -31,8 +31,9 @@
       background-color: #f5f5f5;
     }
     .snapshot-date {
-      position: absolute;
-      right: 10px;
+      position: inherit;
+      right: 0%;
+      float: right;
     }
   }
 
@@ -267,9 +268,13 @@
   .playback-info-bar {
     text-align: center;
     margin: 0;
-    padding: 8px 0;
+    padding: 4px 0;
     background-color: #f3f3f3;
-    position: relative;
+    z-index: 1;
+    margin-top: -26px;
+  }
+  .snapshot-frame {
+    margin-left: 118px;
   }
 
   .playback-buttons-padding {
@@ -300,11 +305,12 @@
     .playback-info-bar {
       margin: 0px 0px;
       background-color: #34393d;
-      position: relative;
       height: 30px;
-      padding: 6px 0;
+      padding: 4px 0;
       display: block;
       color: #fff;
+      z-index: 1;
+      margin-top: -23px;
     }
     #show-info {
       cursor: pointer;
@@ -467,8 +473,9 @@
       background-color: #f5f5f5;
     }
     .snapshot-date {
-      position: absolute;
-      right: 10px;
+      position: inherit;
+      right: 0%;
+      float: right;
     }
     @media (max-width: 480px) {
       .snapshot-date {
@@ -515,19 +522,13 @@
   }
 
   #snapshot-notes-text {
-    display: block;
-    margin-top: 8px;
-    padding-left: 10px;
-    position: absolute;
-    z-index: 10;
+    display: inline-block;
+    padding-left: 8px;
   }
   #snapshot-motion_level {
-    display: block;
-    margin-top: 8px;
-    padding-left: 10px;
+    display: inline-block;
+    padding-left: 2px;
     position: absolute;
-    z-index: 10;
-    margin-left: 130px;
   }
 
   @media (max-width: 480px) {
@@ -540,11 +541,24 @@
       width: 100%;
     }
     .mobile-hide {
-      display: none;
+      display: none !important;
     }
     #recording-tab #calender .fa {
       display: none !important;
     }
+  }
+  
+  @media (max-width: 667px) {
+    .mobile-hide {
+      display: none !important;
+    }
+    .playback-info-bar {
+      text-align: left;
+      margin-top: 0px;
+    }
+    .snapshot-frame {
+    margin-left: 0px;
+  }
   }
   
   @media (max-width: 600px) {
@@ -555,14 +569,15 @@
       padding: 4px 8px;
       transition: all 1s ease-in-out;
       width: 100%;
-      position: relative;
+      // position: relative;
     }
     .mobile-hide {
-      display: none;
+      display: none !important;
     }
 
     .playback-info-bar {
       text-align: left;
+      margin-top: 0px;
     }
   }
 

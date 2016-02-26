@@ -21,6 +21,7 @@
     #calender .fa {
       color: white;
     }
+
     #imgPlayback {
       border: none;
     }
@@ -273,6 +274,7 @@
     z-index: 1;
     margin-top: -26px;
   }
+
   .snapshot-frame {
     margin-left: 118px;
   }
@@ -520,12 +522,13 @@
       }
     }
   }
-  
+
   #snapshot-notes-text {
     display: inline-block;
     padding-left: 8px;
   }
-  #snapshot-motion-level {
+
+  #snapshot-motion-level  {
     display: inline-block;
     padding-left: 2px;
     position: absolute;
@@ -546,20 +549,22 @@
       }
     }
   }
-  
+
   @media (max-width: 667px) {
     .mobile-hide {
       display: none !important;
     }
+
     .playback-info-bar {
       text-align: left;
       margin-top: 0px;
     }
+
     .snapshot-frame {
       margin-left: 0px;
     }
   }
-  
+
   @media (max-width: 600px) {
     #snapshot-notes-text {
       background: rgba(52, 57, 61, 0.7);

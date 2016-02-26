@@ -24,6 +24,7 @@ xhrRequestChangeMonth = null
 playFromDateTime = null
 playFromTimeStamp = null
 
+
 showFeedback = (message) ->
   Notification.show(message)
 
@@ -249,9 +250,11 @@ showLoader = ->
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
   $("#snapshot-notes-text").show()
+  # if $('#snapshot-notes-text').attr('Evercam Timelapse')
+  #   $('#snapshot-motion_level').css 'margin-left', '131px'
+  # else
+  #   $('#snapshot-motion_level').css 'margin-left', '100px'
   $("#snapshot-motion_level").show()
-  console.log(snapshot.motion_level)
-  # console.log(snapshot-motion_level)
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -410,7 +413,7 @@ GetCameraInfo = (isShowLoader) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
-  $('#divNoMd').text 'Loading motions...'
+  $('#divNoMd').text 'Loading Motion Thumbnails'
   $('#divNoMd').show()
   if isShowLoader
     showLoader()
@@ -497,12 +500,13 @@ BindMDStrip = ->
 extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
     if $('#MDSliderItem li').length > 20
-      break
+      break  
+    $('#snapshot-motion_level').text '(' + snapshot.motion_level + ')'   
     if snapshot.motion_level > 5
       image_date = new Date(snapshot.created_at*1000)
       li = $('<li>')
       div_date = $('<div>')
-      hour = parseInt(cameraCurrentHour)
+      hour = parseInt(cameraCurrentHour)  
       div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
       li.append(div_date)
       div_image = $('<div>')
@@ -510,11 +514,11 @@ extractMdRecords = (snapshot_list) ->
       image.attr("src", "")
       image.attr("width", 75)
       image.attr("height", 57)
-      image.attr("timestamp", snapshot.created_at)
-      div_image.append(image)
+      image.attr("timestamp", snapshot.created_at) 
+      div_image.append(image)  
       li.append(div_image) 
-      $('#MDSliderItem').append li
-
+      $('#MDSliderItem').append li 
+      
 selectMdImage = ->
   $("#MDSliderItem").on "click", ".md-Img", ->
     timestamp = $(this).attr("timestamp")

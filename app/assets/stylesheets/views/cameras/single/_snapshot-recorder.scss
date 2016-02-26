@@ -520,7 +520,6 @@
       }
     }
   }
-
   #snapshot-notes-text {
     display: inline-block;
     padding-left: 8px;
@@ -540,12 +539,11 @@
       transition: all 1s ease-in-out;
       width: 100%;
     }
-    .mobile-hide {
-      display: none !important;
-    }
-    #recording-tab #calender .fa {
-      display: none !important;
-    }
+    #recording-tab #calender { 
+      .fa {
+        display: none !important;
+      }
+    }  
   }
   
   @media (max-width: 667px) {
@@ -558,7 +556,7 @@
     }
     .snapshot-frame {
     margin-left: 0px;
-  }
+    }
   }
   
   @media (max-width: 600px) {
@@ -571,10 +569,6 @@
       width: 100%;
       // position: relative;
     }
-    .mobile-hide {
-      display: none !important;
-    }
-
     .playback-info-bar {
       text-align: left;
       margin-top: 0px;

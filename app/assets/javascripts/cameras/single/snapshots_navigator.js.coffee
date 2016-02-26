@@ -248,9 +248,9 @@ showLoader = ->
 
 
 SetInfoMessage = (currFrame, date_time) ->
-  console.log snapshotInfos[snapshotInfoIdx].notes 
+  console.log snapshotInfos[snapshotInfoIdx].notes
   $("#divInfo").fadeIn()
-  $("#snapshot-notes-text").show() 
+  $("#snapshot-notes-text").show()
   console.log snapshotInfos[snapshotInfoIdx].notes
   $("#snapshot-motion_level").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
@@ -498,13 +498,13 @@ BindMDStrip = ->
 extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
     if $('#MDSliderItem li').length > 20
-      break  
-    $('#snapshot-motion_level').text '(' + snapshot.motion_level + ')'   
+      break
+    $('#snapshot-motion_level').text '(' + snapshot.motion_level + ')'
     if snapshot.motion_level > 5
       image_date = new Date(snapshot.created_at*1000)
       li = $('<li>')
       div_date = $('<div>')
-      hour = parseInt(cameraCurrentHour)  
+      hour = parseInt(cameraCurrentHour)
       div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
       li.append(div_date)
       div_image = $('<div>')
@@ -512,10 +512,10 @@ extractMdRecords = (snapshot_list) ->
       image.attr("src", "")
       image.attr("width", 75)
       image.attr("height", 57)
-      image.attr("timestamp", snapshot.created_at) 
-      div_image.append(image)  
-      li.append(div_image) 
-      $('#MDSliderItem').append li 
+      image.attr("timestamp", snapshot.created_at)
+      div_image.append(image)
+      li.append(div_image)
+      $('#MDSliderItem').append li
       
 selectMdImage = ->
   $("#MDSliderItem").on "click", ".md-Img", ->
@@ -949,7 +949,7 @@ calenderShow = ->
     $('.datepicker-bg').toggle 'slow', ->
       $('#calender .fa').css 'color', 'white'
       return
-    $('#calender .fa').css 'color', 'blue'  
+    $('#calender .fa').css 'color', 'blue'
     return
   
 

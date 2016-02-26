@@ -82,6 +82,8 @@ updateSchedule = (frequency, storage_duration, schedule, status) ->
         showFeedback("Updating recording settings has failed. Please contact support.")
 
   onSuccess = (data) ->
+    Evercam.Camera.cloud_recording.storage_duration = JSON.parse(data).cloud_recordings[0].storage_duration
+    Evercam.Camera.cloud_recording.frequency = JSON.parse(data).cloud_recordings[0].frequency
     showFeedback("Cloud recording schedule was successfully updated.")
 
   settings =

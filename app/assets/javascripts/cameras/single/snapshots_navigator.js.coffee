@@ -248,11 +248,9 @@ showLoader = ->
 
 
 SetInfoMessage = (currFrame, date_time) ->
-  console.log snapshotInfos[snapshotInfoIdx].notes
   $("#divInfo").fadeIn()
   $("#snapshot-notes-text").show()
-  console.log snapshotInfos[snapshotInfoIdx].notes
-  $("#snapshot-motion_level").show()
+  $("#snapshot-motion-level").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -499,7 +497,7 @@ extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
     if $('#MDSliderItem li').length > 20
       break
-    $('#snapshot-motion_level').text '(' + snapshot.motion_level + ')'
+    $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
     if snapshot.motion_level > 5
       image_date = new Date(snapshot.created_at*1000)
       li = $('<li>')
@@ -951,12 +949,6 @@ calenderShow = ->
       return
     $('#calender .fa').css 'color', 'blue'
     return
-  
-
-
-
-      
-
 
 window.initializeRecordingsTab = ->
   initDatePicker()

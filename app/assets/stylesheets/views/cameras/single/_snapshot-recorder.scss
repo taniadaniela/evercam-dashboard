@@ -520,11 +520,12 @@
       }
     }
   }
+  
   #snapshot-notes-text {
     display: inline-block;
     padding-left: 8px;
   }
-  #snapshot-motion_level {
+  #snapshot-motion-level {
     display: inline-block;
     padding-left: 2px;
     position: absolute;
@@ -539,11 +540,11 @@
       transition: all 1s ease-in-out;
       width: 100%;
     }
-    #recording-tab #calender { 
+    #recording-tab #calender {
       .fa {
         display: none !important;
       }
-    }  
+    }
   }
   
   @media (max-width: 667px) {
@@ -555,7 +556,7 @@
       margin-top: 0px;
     }
     .snapshot-frame {
-    margin-left: 0px;
+      margin-left: 0px;
     }
   }
   

@@ -103,8 +103,8 @@ mdInitArea = ->
     #calculate the size of the window here by scaling it down
     scaleX = _originalWidth / _renderedWidth
     scaleY = _originalHeight / _renderedHeight
-    _defHeight = _renderedHeight - 5
-    _defWidth =  _renderedWidth - 5
+    _defHeight = _renderedHeight - 10
+    _defWidth =  _renderedWidth - 10
     renderedTopLeftX = Math.ceil(topLeftX / scaleX)
     renderedBottomRightX = Math.ceil(bottomRightX / scaleX)
     renderedTopLeftY = Math.ceil(topLeftY / scaleY)
@@ -125,8 +125,8 @@ mdInitArea = ->
         handles: true
         onSelectEnd: mdSelected
         fadeSpeed: 200
-        x1: 5
-        y1: 5
+        x1: 10
+        y1: 10
         x2: _defWidth
         y2: _defHeight)
   mdArea = area.getSelection()
@@ -288,7 +288,7 @@ MotionArea = ->
     actTopLeftY = Math.ceil(mdArea.y1 * scaleY)
     actBottomRightY = Math.ceil(mdArea.y2 * scaleY)
   if actTopLeftX == actBottomRightX and actTopLeftY == actBottomRightY
-    Notification.show 'Please select motion detection area.'
+#    Notification.show 'Please select motion detection area.'
     return false
 
 saveEmailAlert = ->

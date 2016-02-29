@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   delete '/cameras/:id' => 'cameras#delete'
   post 'cameras/:id/request_clip' => 'cameras#request_clip', as: :request_clip
   delete 'cameras/clip/delete' => 'cameras#delete_clip', as: :delete_clip
+  get '/v1/cameras/:id/clip/:clip_id/play' => 'pages#play', as: :play_clip
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
 

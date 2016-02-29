@@ -1,4 +1,5 @@
 archives_table = null
+server_url = "http://timelapse.evercam.io/timelapses"
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -47,8 +48,10 @@ initializeArchivesDataTable = ->
 
 renderbuttons = (row, type, set, meta) ->
   if row.status is "Completed"
-    return '<a class="archive-actions" href="#"><i class="fa fa-play-circle"></i></a>' +
-      '<a class="archive-actions" href="#"><i class="fa fa-download"></i></a>' +
+    mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
+    view_url = "clip/#{row.id}/play"
+    return '<a class="archive-actions play-clip" href="#" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
+      '<a class="archive-actions" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
         '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
   else
     return '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
@@ -100,6 +103,11 @@ formReset = ->
   $("#lbl-is-public span").removeClass("checked")
   $('#archive-modal').modal('hide')
 
+playClip = ->
+  $("#archives-table").on "click", ".play-clip", ->
+    view_url = $(this).attr("play-url")
+    window.open view_url, '_blank', 'width=640, Height=480, scrollbars=0, resizable=0'
+
 deleteClip = ->
   $("#archives-table").on "click", ".delete-archive", ->
     data =
@@ -134,3 +142,4 @@ window.initializeArchivesTab = ->
   initializeArchivesDataTable()
   createClip()
   deleteClip()
+  playClip()

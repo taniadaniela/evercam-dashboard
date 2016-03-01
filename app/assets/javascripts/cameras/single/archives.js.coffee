@@ -110,6 +110,7 @@ playClip = ->
 
 deleteClip = ->
   $("#archives-table").on "click", ".delete-archive", ->
+    confirm 'Are you sure?'
     data =
       camera_id: $(this).attr("val-camera-id")
       archive_id: $(this).attr("val-archive-id")

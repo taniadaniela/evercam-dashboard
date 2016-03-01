@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-EvercamDashboard::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
+EvercamDashboard::Application.config.secret_key_base = 'fd655af7a44f28d11ff47d58320b313af17002c4e5c0fa0ae1c893e0e6a15c86495736d4fae806b94d879764a9e6e0296e280118c1f39a450246ed7eca99ae0c'

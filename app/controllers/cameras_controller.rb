@@ -206,7 +206,8 @@ class CamerasController < ApplicationController
         'shared', 'stopped sharing', 'online', 'offline']
       @camera['is_online'] = false if @camera['is_online'].blank?
       @camera['timezone'] = 'Etc/UTC' unless @camera['timezone']
-      @selected_date = Time.new.in_time_zone(@camera['timezone']).strftime("%m/%d/%Y")
+      @user_time = Time.new.in_time_zone(@camera['timezone'])
+      @selected_date = @user_time.strftime("%m/%d/%Y")
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset
@@ -314,10 +315,10 @@ class CamerasController < ApplicationController
       api.create_archive(camera["id"], params["title"], from_date, to_date,
         current_user.username, params["embed_time"], params["is_public"])
 
-      @time_overlay = params["embed_datetime"] ? "Yes" : "No"
-      UserMailer.create_clip_email(current_user.fullname, "marco@evercam.io",
-        camera["name"], camera["id"], params["title"], params["from_date"],
-        params["to_date"], @time_overlay).deliver_now
+      # @time_overlay = params["embed_datetime"] ? "Yes" : "No"
+      # UserMailer.create_clip_email(current_user.fullname, "marco@evercam.io",
+      #   camera["name"], camera["id"], params["title"], params["from_date"],
+      #   params["to_date"], @time_overlay).deliver_now
       result[:message] = "Your clip has been requested."
     rescue => error
       result = {success: false, message: error.message}

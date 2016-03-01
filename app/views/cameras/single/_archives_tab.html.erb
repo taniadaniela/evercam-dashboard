@@ -45,13 +45,13 @@
                     <tr>
                       <td class="col-md-4"><label class="control-label" for="camera-vendor">From:</label></td>
                       <td>
-                        <input id="from-date" name="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (Time.now - (2*24*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
+                        <input id="from-date" name="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (@user_time - (2*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
                       </td>
                     </tr>
                     <tr>
                       <td class="model-td"><label class="control-label">To:</label></td>
                       <td>
-                        <input id="to-date" name="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= Time.now.strftime('%d/%m/%Y %H:%M:%S') %>">
+                        <input id="to-date" name="to-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= @user_time.strftime('%d/%m/%Y %H:%M:%S') %>">
                       </td>
                     </tr>
                     <tr>

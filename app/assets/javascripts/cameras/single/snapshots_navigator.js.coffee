@@ -497,7 +497,11 @@ extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
     if $('#MDSliderItem li').length > 20
       break
-    $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
+    console.log snapshot.motion_level
+    if snapshot.motion_level
+      $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
+    else
+      $('#snapshot-motion-level').text ''
     if snapshot.motion_level > 5
       image_date = new Date(snapshot.created_at*1000)
       li = $('<li>')

@@ -24,7 +24,6 @@ xhrRequestChangeMonth = null
 playFromDateTime = null
 playFromTimeStamp = null
 
-
 showFeedback = (message) ->
   Notification.show(message)
 
@@ -244,8 +243,6 @@ showLoader = ->
   $("#imgLoaderRec").css("top", $('#imgPlayback').css('top'))
   $("#imgLoaderRec").css("left", $('#imgPlayback').css('left'))
   $("#imgLoaderRec").show()
-
-
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
@@ -497,7 +494,6 @@ extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
     if $('#MDSliderItem li').length > 20
       break
-    console.log snapshot.motion_level
     if snapshot.motion_level
       $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
     else

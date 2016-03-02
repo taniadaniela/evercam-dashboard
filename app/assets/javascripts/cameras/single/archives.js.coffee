@@ -26,6 +26,9 @@ initializeArchivesDataTable = ->
     },
     columns: [
       {data: "title" },
+      {data: "from_date"},
+      {data: "to_date"},
+      {data: "frames"},
       {data: "status"},
       {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
       {data: renderbuttons}
@@ -39,7 +42,10 @@ initializeArchivesDataTable = ->
         $('#archives-table_paginate, #archives-table_info').hide()
         $('#archives-table').hide()
         $('#archives-table_wrapper .col-sm-12').text("There are no clips.")
-      else if json.archives.length <= 50
+      else if json.archives.length < 50
+        $("#archives-table_info").hide()
+        $('#archives-table_paginate').hide()
+      else if json.archives.length >= 50
         $("#archives-table_info").show()
         $('#archives-table_paginate').hide()
       true

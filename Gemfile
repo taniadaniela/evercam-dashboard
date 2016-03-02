@@ -41,7 +41,7 @@ gem 'imgareaselect-rails', '~> 1.0'
 group :evercam do
   gem 'evercam_misc', '~> 0.0.11'
   gem 'evercam_models',
-    github: 'evercam/evercam-models', branch: "add_licence_class"
+    github: 'evercam/evercam-models'
   gem 'evercam',
     github: 'evercam/evercam-ruby'
 end

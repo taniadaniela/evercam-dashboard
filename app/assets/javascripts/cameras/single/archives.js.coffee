@@ -79,10 +79,10 @@ renderToDate = (row, type, set, meta) ->
   return moment(row.to_date*1000).format('MMMM Do YYYY, H:mm:ss')
 
 shareURL = ->
- $("#archives-table").on "click", ".share-archive", ->
-   url = $(this).attr("play-url")
-   share_url ="https://dash.evercam.io/v1/cameras/#{$(this).attr("val-camera-id")}/#{url}"
-   copyToClipboard share_url
+  $("#archives-table").on "click",".share-archive", ->
+    url = $(this).attr("play-url")
+    share_url ="https://dash.evercam.io/v1/cameras/#{$(this).attr("val-camera-id")}/#{url}"
+    copyToClipboard share_url
 
 copyToClipboard = (text) ->
   window.prompt 'Copy to URL from here', text

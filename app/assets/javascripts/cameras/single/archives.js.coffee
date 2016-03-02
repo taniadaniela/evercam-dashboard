@@ -26,8 +26,8 @@ initializeArchivesDataTable = ->
     },
     columns: [
       {data: "title" },
-      {data: "from_date"},
-      {data: "to_date"},
+      {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
+      {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
       {data: "frames"},
       {data: "status"},
       {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
@@ -51,19 +51,42 @@ initializeArchivesDataTable = ->
       true
   })
 
-
 renderbuttons = (row, type, set, meta) ->
-  if row.status is "Completed"
+  if row.status is "Completed" and row.public is true
     mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
     view_url = "clip/#{row.id}/play"
     return '<a class="archive-actions play-clip" href="#" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
       '<a class="archive-actions" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
-        '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
+        '<a href="#" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share"></i></a>'+
+          '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
+
+  else if row.status is "Completed"
+    mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
+    view_url = "clip/#{row.id}/play"
+    return '<a class="archive-actions play-clip" href="#" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
+        '<a class="archive-actions" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+          '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
   else
     return '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
 
 renderDate = (row, type, set, meta) ->
   return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
+
+renderFromDate = (row, type, set, meta) ->
+  return moment(row.from_date*1000).format('MMMM Do YYYY, H:mm:ss')
+
+renderToDate = (row, type, set, meta) ->
+  return moment(row.to_date*1000).format('MMMM Do YYYY, H:mm:ss')
+
+shareURL = ->
+ $("#archives-table").on "click", ".share-archive", ->
+   url = $(this).attr("play-url")
+   share_url ="https://dash.evercam.io/v1/cameras/#{$(this).attr("val-camera-id")}/#{url}"
+   copyToClipboard share_url
+
+copyToClipboard = (text) ->
+  window.prompt 'Copy to URL from here', text
+  return
 
 createClip = ->
   $("#create_clip_button").on "click", ->
@@ -150,3 +173,4 @@ window.initializeArchivesTab = ->
   createClip()
   deleteClip()
   playClip()
+  shareURL()

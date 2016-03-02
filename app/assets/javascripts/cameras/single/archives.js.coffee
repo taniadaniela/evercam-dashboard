@@ -52,19 +52,16 @@ initializeArchivesDataTable = ->
   })
 
 renderbuttons = (row, type, set, meta) ->
-  if row.status is "Completed" and row.public is true
+  if row.status is "Completed"
     mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
     view_url = "clip/#{row.id}/play"
+    copy_url = ""
+    if row.public is true
+      copy_url = '<a href="#" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share"></i></a>'
+
     return '<a class="archive-actions play-clip" href="#" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
       '<a class="archive-actions" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
-        '<a href="#" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share"></i></a>'+
-          '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
-
-  else if row.status is "Completed"
-    mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
-    view_url = "clip/#{row.id}/play"
-    return '<a class="archive-actions play-clip" href="#" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
-        '<a class="archive-actions" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+        copy_url +
           '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
   else
     return '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
@@ -139,7 +136,9 @@ playClip = ->
 
 deleteClip = ->
   $("#archives-table").on "click", ".delete-archive", ->
-    confirm 'Are you sure?'
+    status =  confirm 'Are you sure?'
+    if !status
+      return
     data =
       camera_id: $(this).attr("val-camera-id")
       archive_id: $(this).attr("val-archive-id")

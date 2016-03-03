@@ -158,6 +158,8 @@ hideFrequencySelect = ->
 
 showDurationSelect = ->
   $('#cloud-recording-duration-wrap').removeClass('hide')
+  if Evercam.Camera.cloud_recording.storage_duration is -1
+    $('#cloud-recording-duration').attr('disabled',true)
 
 hideDurationSelect = ->
   $('#cloud-recording-duration-wrap').addClass('hide')

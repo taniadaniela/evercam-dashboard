@@ -248,31 +248,12 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#snapshot-notes-text").show()
   $("#snapshot-motion-level").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
-  for snapshot in snapshotInfos
-    snapshot_date = new Date(snapshot.created_at*1000)
-    month = snapshot_date.getUTCMonth() + 1 #months from 1-12
-    if month < 10
-      month = "0" + month
-    day = snapshot_date.getUTCDate()
-    if day < 10
-      day = "0" + day
-    year = snapshot_date.getUTCFullYear()
-    hours = snapshot_date.getUTCHours()
-    if hours < 10
-      hours = "0" + hours
-    minutes = snapshot_date.getUTCMinutes()
-    if minutes < 10
-      minutes = "0" + minutes
-    seconds = snapshot_date.getUTCSeconds()
-    if seconds < 10
-      seconds = "0" + seconds
+  snapshot = snapshotInfos[snapshotInfoIdx]
+  if snapshot.motion_level
+    $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
+  else
+    $('#snapshot-motion-level').text '(0)'
 
-    snapdate = day + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + seconds
-    if snapdate is shortDate(date_time)
-      if snapshot.motion_level
-        $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
-      else
-        $('#snapshot-motion-level').text '(0)'
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"

@@ -3,9 +3,9 @@
     <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
     <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
     <% host = @camera.deep_fetch('external', 'host') {} %>
-    <% h264 = "rtsp://#{host}:#{port}/"%>
+    <% h264 = "rtsp://#{host}:#{port}/" %>
     <% h264url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
-    <% if h264url != h264 %>
+    <% if h264url != h264 && h264url.present? %>
       <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
       <% hls_stream = @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>
     <% else %>

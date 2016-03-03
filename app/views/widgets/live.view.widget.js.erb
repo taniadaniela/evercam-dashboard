@@ -62,8 +62,10 @@
       <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
       var rtmp_stream = "<%= @camera.deep_fetch('proxy_url', 'rtmp') {} if @camera['external'].blank? || port.present? %>";
       var hls_stream = "<%= @camera.deep_fetch('proxy_url', 'hls') {} if @camera['external'].blank? || port.present? %>";
+      var h264_url = "<%= @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>";
       var query_string = "";
-      if (rtmp_stream) {
+
+      if (rtmp_stream && h264_url) {
         query_string = "&rtmp=" + rtmp_stream;
         if (hls_stream) {
           query_string += "&hls=" + hls_stream;

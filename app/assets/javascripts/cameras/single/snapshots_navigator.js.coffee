@@ -246,13 +246,12 @@ showLoader = ->
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
   $("#snapshot-notes-text").show()
-  $("#snapshot-motion-level").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   snapshot = snapshotInfos[snapshotInfoIdx]
   if snapshot.motion_level
-    $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
+    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(' + snapshot.motion_level + ')'
   else
-    $('#snapshot-motion-level').text '(0)'
+    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
 
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -499,18 +498,9 @@ extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
     if $('#MDSliderItem li').length > 20
       break
-##    console.log
-#    if snapshot.motion_level
-#      $('#snapshot-motion-level').text '(' + snapshot.motion_level + ')'
-#    else
-#      $('#snapshot-motion-level').text ''
     if snapshot.motion_level > 5
       image_date = new Date(snapshot.created_at*1000)
       li = $('<li>')
-      div_date = $('<div>')
-      hour = parseInt(cameraCurrentHour)
-      div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
-      li.append(div_date)
       div_image = $('<div>')
       image = $('<img>', {class: "md-Img"})
       image.attr("src", "")
@@ -519,6 +509,10 @@ extractMdRecords = (snapshot_list) ->
       image.attr("timestamp", snapshot.created_at)
       div_image.append(image)
       li.append(div_image)
+      div_date = $('<div>', {class: "time-div"})
+      hour = parseInt(cameraCurrentHour)
+      div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
+      li.append(div_date)
       $('#MDSliderItem').append li
       
 selectMdImage = ->

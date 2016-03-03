@@ -33,9 +33,8 @@
       background-color: #f5f5f5;
     }
     .snapshot-date {
-      position: inherit;
-      right: 0%;
-      float: right;
+      position: absolute;
+      right: 10px;
     }
   }
 
@@ -110,6 +109,14 @@
     float: left;
     vertical-align: top;
     width: 220px;
+  }
+
+  .time-div {
+    background-color: rgba(238, 238, 238, 0.6);
+    color: #000000;
+    margin-top: -10px;
+    position: relative;
+    height: 11px;
   }
 
   @media (max-width: 480px) {
@@ -270,14 +277,9 @@
   .playback-info-bar {
     text-align: center;
     margin: 0;
-    padding: 4px 0;
+    padding: 8px 0;
     background-color: #f3f3f3;
-    z-index: 1;
-    margin-top: -26px;
-  }
-
-  .snapshot-frame {
-    margin-left: 118px;
+    position: relative;
   }
 
   .playback-buttons-padding {
@@ -308,12 +310,10 @@
     .playback-info-bar {
       margin: 0px 0px;
       background-color: #34393d;
+      position: relative;
       height: 30px;
-      padding: 4px 0;
+      padding: 6px 0;
       display: block;
-      color: #fff;
-      z-index: 1;
-      margin-top: -23px;
     }
     #show-info {
       cursor: pointer;
@@ -337,14 +337,14 @@
   .MDSlider-outer{
     background-color: #e2e2e2;
     border: 0px solid #b6b6b6;
-    height: 105px;
+    height: 90px;
     padding: 0px;
   }
 
   .MDSlider{
     overflow-y: hidden;
     overflow-x: scroll;
-    height: 100px;
+    height: 90px;
   }
 
   .MDSlider::-webkit-scrollbar {
@@ -354,7 +354,7 @@
 
   #divSliderMD ul, ol{
     margin-top: 12px;
-    padding-left: 0;
+    padding-left: 3px;
   }
 
   #MDSliderItem li{
@@ -362,7 +362,7 @@
     font-size: 10px;
     float: left;
     list-style: none;
-    padding-left: 2px;
+    padding-left: 1.6px;
     text-align: center;
     color: #2a6496;
   }
@@ -476,9 +476,8 @@
       background-color: #f5f5f5;
     }
     .snapshot-date {
-      position: inherit;
-      right: 0%;
-      float: right;
+      position: absolute;
+      right: 10px;
     }
     @media (max-width: 480px) {
       .snapshot-date {
@@ -525,15 +524,18 @@
   }
 
   #snapshot-notes-text {
-    display: inline-block;
-    padding-left: 8px;
+    display: block;
+    margin-top: 8px;
+    padding-left: 10px;
+    position: absolute;
+    z-index: 10;
   }
 
-  #snapshot-motion-level  {
-    display: inline-block;
-    padding-left: 2px;
-    position: absolute;
-  }
+  // #snapshot-motion-level  {
+  //   display: inline-block;
+  //   padding-left: 2px;
+  //   position: absolute;
+  // }
 
   @media (max-width: 480px) {
     #snapshot-notes-text {
@@ -551,21 +553,6 @@
     }
   }
 
-  @media (max-width: 667px) {
-    .mobile-hide {
-      display: none !important;
-    }
-
-    .playback-info-bar {
-      text-align: left;
-      margin-top: 0px;
-    }
-
-    .snapshot-frame {
-      margin-left: 0px;
-    }
-  }
-
   @media (max-width: 600px) {
     #snapshot-notes-text {
       background: rgba(52, 57, 61, 0.7);
@@ -574,7 +561,7 @@
       padding: 4px 8px;
       transition: all 1s ease-in-out;
       width: 100%;
-      // position: relative;
+      position: relative;
     }
     .playback-info-bar {
       text-align: left;

@@ -154,7 +154,7 @@ var Metronic = function () {
         }
         var test = $("input[type=checkbox]:not(.toggle, .make-switch), input[type=radio]:not(.toggle, .star, .make-switch)");
         for(i = 0;i < test.length; i++) {
-          if (test[i].className == 'toggle_input') {
+          if (test[i].className == 'toggle_input' || test[i].className == 'toggle_input active') {
             test.splice(i,1);
             i--;
           }

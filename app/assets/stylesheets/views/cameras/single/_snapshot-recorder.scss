@@ -112,7 +112,7 @@
   }
 
   .time-div {
-    background-color: rgba(238, 238, 238, 0.6);
+    background-color: rgba(238, 238, 238, 0.8);
     color: #000000;
     margin-top: -10px;
     position: relative;
@@ -337,14 +337,14 @@
   .MDSlider-outer{
     background-color: #e2e2e2;
     border: 0px solid #b6b6b6;
-    height: 90px;
+    height: 75px;
     padding: 0px;
   }
 
   .MDSlider{
     overflow-y: hidden;
     overflow-x: scroll;
-    height: 90px;
+    height: 74px;
   }
 
   .MDSlider::-webkit-scrollbar {
@@ -353,7 +353,7 @@
   }
 
   #divSliderMD ul, ol{
-    margin-top: 12px;
+    margin-top: 5px;
     padding-left: 3px;
   }
 

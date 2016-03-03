@@ -465,11 +465,16 @@ payCustomLicence = ->
       $("#is-custom-payment").val("true")
     $("#payNowModal").modal("show")
 
+addlicencesrquired = ->
+  licen = " (" + $('#total-required-licence').text() + ")"
+  $('h3#licences').append(licen)
+
 window.initializeSubscription = ->
   Notification.init(".bb-alert")
   createAddRemoveLicence()
   validateLicenceForm()
   showAlertMessage()
+  addlicencesrquired()
   handleTabOpen()
   payCustomLicence()
   setTimeout loadBillingHistory, 2000

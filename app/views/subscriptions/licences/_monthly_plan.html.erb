@@ -121,33 +121,6 @@
         <span class="new-price-monthly" id="90-days-recording-new-price">0</span>
       </td>
     </tr>
-
-    <tr class="plan-monthly">
-      <td>
-        Infinity @ &euro; <%= cents_to_currency @prices.infinity %>
-        <input type="hidden" id="infinity" value="<%= @prices.infinity/100 %>"/>
-      </td>
-      <td class="text-center">
-        <%= @infinity %>
-        <span class="current-qty-monthly hide" id="infinity-current-qty"><%= @infinity %></span>
-      </td>
-      <td class="text-center">
-        &euro;
-        <%= infinity %>
-        <span class="current-price-monthly hide" id="infinity-current-price"><%= infinity %></span>
-      </td>
-      <td class="text-center">
-        <i class="fa fa-minus remove-licence" data-val="infinity"></i>
-        <input type="hidden" name="infinity-qty" id="infinity-qty" value="<%= @infinity %>" />
-        <input name="infinity-quantity" id="infinity-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
-        <i class="fa fa-plus add-licence" data-val="infinity"></i>
-      </td>
-      <td class="text-center">
-        <span id="infinity-sign">+</span>
-        &euro;
-        <span class="new-price-monthly" id="infinity-new-price">0</span>
-      </td>
-    </tr>
     </tbody>
     <tfoot class="table-footer">
       <tr>

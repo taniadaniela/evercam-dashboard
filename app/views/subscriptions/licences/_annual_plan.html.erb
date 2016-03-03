@@ -121,33 +121,6 @@
         <span class="new-price-annual" id="90-days-recording-annual-new-price">0</span>
       </td>
     </tr>
-
-    <tr class="plan-annual">
-      <td>
-        Infinity @ &euro; <%= cents_to_currency @prices.infinity_annual %>
-        <input type="hidden" id="infinity-annual" value="<%= @prices.infinity_annual/100 %>"/>
-      </td>
-      <td class="text-center">
-        <%= @infinity_annual %>
-        <span class="current-qty-annual hide" id="infinity-annual-current-qty"><%= @infinity_annual %></span>
-      </td>
-      <td class="text-center">
-        &euro;
-        <%= infinity %>
-        <span class="current-price-annual hide" id="infinity-annual-current-price"><%= infinity %></span>
-      </td>
-      <td class="text-center">
-        <i class="fa fa-minus remove-licence" data-val="infinity-annual"></i>
-        <input type="hidden" name="infinity-annual-qty" id="infinity-annual-qty" value="<%= @infinity_annual %>" />
-        <input name="infinity-annual-quantity" id="infinity-annual-quantity" type="text" value="0" class="quantity-text no-editable" disabled>
-        <i class="fa fa-plus add-licence" data-val="infinity-annual"></i>
-      </td>
-      <td class="text-center">
-        <span id="infinity-annual-sign">+</span>
-        &euro;
-        <span class="new-price-annual" id="infinity-annual-new-price">0</span>
-      </td>
-    </tr>
     </tbody>
     <tfoot class="table-footer">
       <tr>

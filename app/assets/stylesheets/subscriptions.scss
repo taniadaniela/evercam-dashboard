@@ -145,12 +145,14 @@
 
   div#custom-licence {
     display: none;
+    
     span {
       display: inline-block;
       color: $evercam-red;
       padding:13px 2px 2px;
       font-size: 15px;
     }
+
   }
 
   .nav-tabs > li > a {

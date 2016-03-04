@@ -205,7 +205,6 @@ handleSlider = ->
 
     $("#divSlider").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
     $("#divPointer").css('background-position', "#{(ev.pageX - sliderStartX)}px 0px")
-
   $("#divSlider").mousemove(onSliderMouseMove)
 
   onSliderMouseOut = ->
@@ -248,6 +247,12 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
   $("#snapshot-notes-text").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
+  snapshot = snapshotInfos[snapshotInfoIdx]
+  if snapshot.motion_level
+    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(' + snapshot.motion_level + ')'
+  else
+    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
+
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
@@ -260,6 +265,7 @@ UpdateSnapshotRec = (snapInfo) ->
   $("#snapshot-notes-text").text(snapInfo.notes)
   SetInfoMessage currentFrameNumber, new Date(snapInfo.created_at*1000)
   loadImage(snapInfo.created_at)
+  
 
 getTimestampFromUrl = ->
   timestamp = window.Evercam.request.subpath.
@@ -404,7 +410,7 @@ GetCameraInfo = (isShowLoader) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
-  $('#divNoMd').text 'Loading motions...'
+  $('#divNoMd').text 'Loading Motion Thumbnails...'
   $('#divNoMd').show()
   if isShowLoader
     showLoader()
@@ -503,12 +509,12 @@ extractMdRecords = (snapshot_list) ->
       image.attr("timestamp", snapshot.created_at)
       div_image.append(image)
       li.append(div_image)
-      div_date = $('<div>')
+      div_date = $('<div>', {class: "time-div"})
       hour = parseInt(cameraCurrentHour)
       div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
       li.append(div_date)
       $('#MDSliderItem').append li
-
+      
 selectMdImage = ->
   $("#MDSliderItem").on "click", ".md-Img", ->
     timestamp = $(this).attr("timestamp")
@@ -936,6 +942,14 @@ onCollapsRecording = ->
   $('#cloud-recording-collaps').click ->
     $('#cloud-recording-calendar').toggleClass 'open'
 
+calenderShow = ->
+  $('.ui-datepicker-trigger').on 'click', ->
+    $('.datepicker-bg').toggle 'slow', ->
+      $('#calender .fa').css 'color', 'white'
+      return
+    $('#calender .fa').css 'color', 'blue'
+    return
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -951,3 +965,5 @@ window.initializeRecordingsTab = ->
   window.initCloudRecordingSettings()
   onCollapsRecording()
   selectMdImage()
+  calenderShow()
+  # calendarHide()

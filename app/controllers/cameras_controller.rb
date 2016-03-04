@@ -2,9 +2,19 @@ class CamerasController < ApplicationController
   before_filter :authenticate_user!
   include SessionsHelper
   include ApplicationHelper
+  include StripeCustomersHelper
+  include StripeInvoicesHelper
 
   def index
     @cameras = load_user_cameras(true, false)
+    @next_charge = retrieve_customer_next_charge
+    @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
+    @custom_licence = Licence.where(user_id: current_user.id).where(cancel_licence: false)
+    unless current_user.stripe_customer_id.blank?
+      @credit_cards = retrieve_credit_cards
+      @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil
+    end
+    retrieve_plans_quantity(@subscriptions)
   end
 
   def new

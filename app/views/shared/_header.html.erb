@@ -1,6 +1,36 @@
 <div class="page-header navbar navbar-fixed-top">
   <div class="page-header-inner">
     <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
+    <% if params[:controller] == 'cameras' and params[:action] == 'index'%>
+
+        <% @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
+           one_day = []
+           seven = []
+           thirty = []
+           ninety = []
+           infinity = []
+           @cameras_products.each do |camera|
+             if camera.cloud_recording.present?
+               if camera.cloud_recording.storage_duration.equal?(-1)
+                 infinity[infinity.count] = camera
+               elsif  camera.cloud_recording.storage_duration.equal?(1)
+                 one_day[one_day.count] = camera
+               elsif  camera.cloud_recording.storage_duration.equal?(7)
+                 seven[seven.count] = camera
+               elsif  camera.cloud_recording.storage_duration.equal?(30)
+                 thirty[thirty.count] = camera
+               elsif  camera.cloud_recording.storage_duration.equal?(90)
+                 ninety[ninety.count] = camera
+               end
+             end
+           end
+        total_count = ninety.count + thirty.count + one_day.count + infinity.count%>
+        <%if total_count %>
+          <div class="licence-message alert alert-danger">
+            <span>You require <%=total_count%> additional licences,Pay <a href="users/marco/billing">here</a> </span>
+          </div>
+        <%end%>
+    <%end%>
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">

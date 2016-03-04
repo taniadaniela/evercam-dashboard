@@ -270,10 +270,11 @@ showAlertMessage = ->
 
   if $("#custom-licence").html()
     if $(".custom-licence-status").hasClass("red")
-      $(".licence-alert span").text("Please pay your custom licence(s).")
-      total_required = parseInt($("#total-required-licence").text())
-      #if total_required < parseInt($("#total-custom-cameras").text())
-      changeTotalColor()
+      $('div#custom-licence').show()
+#      $(".licence-alert span").text("Please pay your custom licence(s).")
+#      total_required = parseInt($("#total-required-licence").text())
+#      #if total_required < parseInt($("#total-custom-cameras").text())
+#      changeTotalColor()
   else
     if !isNaN(infinity_req)
       if infinity_current is 0 || infinity_current < infinity_req
@@ -467,7 +468,9 @@ payCustomLicence = ->
 
 addlicencesrquired = ->
   licen = " (" + $('#total-required-licence').text() + ")"
+  licences = $('#total-required-licence').text()
   $('h3#licences').append(licen)
+  $('span#licence-message').append(licences)
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")

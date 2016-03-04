@@ -13,10 +13,13 @@
   width: 12%;
 }
 
+<<<<<<< HEAD
 #archives-table > tbody > tr > td {
   width: 30em;
 }
 
+=======
+>>>>>>> 956ab0d2c6b2bfcd197924e550e94f211764f3b5
 .camera-name {
   margin-bottom: 0px !important;
 }
@@ -110,4 +113,8 @@
 }
 table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dataTable thead .sorting{
   background: none;
+}
+
+table.table-bordered th:last-child {
+  width: 11% !important;
 }

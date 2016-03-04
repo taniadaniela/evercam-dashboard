@@ -57,14 +57,14 @@ renderbuttons = (row, type, set, meta) ->
     view_url = "clip/#{row.id}/play"
     copy_url = ""
     if row.public is true
-      copy_url = '<a href="#" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share"></i></a>'
+      copy_url = '<a href="#" data-toggle="tooltip" title="share!" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
-    return '<a class="archive-actions play-clip" href="#" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
-      '<a class="archive-actions" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+    return '<a class="archive-actions play-clip" href="#" data-toggle="tooltip" title="Play!" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
+      '<a class="archive-actions" data-toggle="tooltip" title="Download!" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
         copy_url +
-          '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
+          '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
   else
-    return '<a href="#" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
+    return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
 
 renderDate = (row, type, set, meta) ->
   return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
@@ -83,6 +83,10 @@ shareURL = ->
 
 copyToClipboard = (text) ->
   window.prompt 'Copy to URL from here', text
+  return
+
+tooltip = ->
+  $('[data-toggle="tooltip"]').tooltip()
   return
 
 createClip = ->
@@ -169,6 +173,7 @@ window.initializeArchivesTab = ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   initDatePicker()
   initializeArchivesDataTable()
+  tooltip()
   createClip()
   deleteClip()
   playClip()

@@ -25,7 +25,7 @@ renderSidebar = (cameras) ->
       <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
       <li class="sub-menu-item #{sidebar-offline}">
       <i class="red main-sidebar fa fa-chain-broken"></i>
-      </li>  
+      </li>
     </li>\n
     """
     sidebar = sidebar + row

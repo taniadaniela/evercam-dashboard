@@ -274,7 +274,7 @@ showAlertMessage = ->
 #      $(".licence-alert span").text("Please pay your custom licence(s).")
 #      total_required = parseInt($("#total-required-licence").text())
 #      #if total_required < parseInt($("#total-custom-cameras").text())
-#      changeTotalColor()
+      changeTotalColor()
   else
     if !isNaN(infinity_req)
       if infinity_current is 0 || infinity_current < infinity_req

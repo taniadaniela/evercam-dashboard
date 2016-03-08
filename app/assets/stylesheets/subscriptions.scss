@@ -143,16 +143,25 @@
     color: #555;
   }
 
-  div#custom-licence {
+  div#message-custom-licence {
     display: none;
-    
+
     span {
+      background-color:#F2DEDE;
+      border: 1px solid #ebccd1;
+      border-radius: 4px;
+      box-shadow:none;
+      color:#A94442;
       display: inline-block;
-      color: $evercam-red;
-      padding:13px 2px 2px;
       font-size: 15px;
+      margin-top: 3px;
+      padding:0.4em 1em;
+      text-align:center;
     }
 
+    i {
+      color:#A94442;
+    }
   }
 
   .nav-tabs > li > a {

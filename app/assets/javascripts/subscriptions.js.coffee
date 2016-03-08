@@ -261,6 +261,7 @@ showAlertMessage = ->
   seven_day_req = parseInt($("#licence-required-seven-day").text())
   thirty_day_req = parseInt($("#licence-required-thirty-day").text())
   ninety_day_req = parseInt($("#licence-required-ninety-day").text())
+  total_require = infinity_req + one_day_req + seven_day_req + thirty_day_req + ninety_day_req
 
   one_day_current = parseInt($("#24-hours-recording-current-qty").text()) + parseInt($("#24-hours-recording-annual-current-qty").text())
   seven_day_current = parseInt($("#7-days-recording-current-qty").text()) + parseInt($("#7-days-recording-annual-current-qty").text())
@@ -269,12 +270,11 @@ showAlertMessage = ->
   infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
 
   if $("#custom-licence").html()
+    paid_custom_licences = $("td.green").length - 1
     if $(".custom-licence-status").hasClass("red")
-      $('div#custom-licence').show()
-#      $(".licence-alert span").text("Please pay your custom licence(s).")
-#      total_required = parseInt($("#total-required-licence").text())
-#      #if total_required < parseInt($("#total-custom-cameras").text())
-      changeTotalColor()
+      $('div#message-custom-licence').show()
+      if total_require > paid_custom_licences
+        changeTotalColor()
   else
     if !isNaN(infinity_req)
       if infinity_current is 0 || infinity_current < infinity_req

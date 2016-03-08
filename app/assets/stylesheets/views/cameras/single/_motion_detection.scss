@@ -9,7 +9,20 @@
 
   #refresh-motion {
     padding: 0px 2px 2px;
+    display: -moz-inline-block;
+
+    .refresh-gif {
+      display: -moz-inline-block;
+      float: right;
+    }
   }
+}
+
+.mdsettings {
+  z-index:1001;
+  pointer-events: none;
+  opacity:.4;
+  filter: alpha(opacity=00);
 }
 
 #motion .table-borderless td {

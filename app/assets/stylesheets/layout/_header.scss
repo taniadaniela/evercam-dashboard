@@ -96,6 +96,26 @@
 .dropdown-toggle {
   font-size: 18px;
 }
+.licence-message {
+  padding-top: 0px;
+  max-width: 500px;
+  margin: 1px auto;
+  top: 10%;
+  text-align: center;
+  height: 32px;
+
+  span a {
+    color: #a94442;
+    text-decoration: underline;
+  }
+
+  span a:hover {
+    font-weight: bold;
+    color: #a94442;
+  }
+
+}
+
 .camera-switch {
   margin: 0 auto;
   max-width: 250px;

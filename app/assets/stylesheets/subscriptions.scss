@@ -13,7 +13,7 @@
     width: 50%;
     z-index: 99999;
   }
-
+  
   .green {
     color: $green;
   }
@@ -141,6 +141,27 @@
 
   .nav-plans > li > a:hover {
     color: #555;
+  }
+
+  div#message-custom-licence {
+    display: none;
+
+    span {
+      background-color: #F2DEDE;
+      border: 1px solid #ebccd1;
+      border-radius: 4px;
+      box-shadow: none;
+      color: #A94442;
+      display: inline-block;
+      font-size: 15px;
+      margin-top: 3px;
+      padding: 0.4em 1em;
+      text-align: center;
+    }
+
+    i {
+      color: #A94442;
+    }
   }
 
   .nav-tabs > li > a {

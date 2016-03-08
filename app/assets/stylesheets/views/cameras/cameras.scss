@@ -77,6 +77,28 @@ border-bottom: 1px solid #e5e5e5;
   border:1px solid transparent;
 }
 
+.copy-from li a {
+  color: #333333;
+}
+
+.copy-from li a:hover, .nav-tabs li a:active  {
+  color: $main-color;
+}
+
+.copy-from > li > a:hover {
+  border:1px solid transparent;
+}
+
+.copy-from .dropdown-menu {
+  height: 75vh;
+  min-width: 230px;
+}
+
+.copy-from .dropdown-menu li > a {
+  text-align: left;
+  margin-left: 5px;
+}
+
 .tabbable-custom > .tab-content {
   border: none;
 }

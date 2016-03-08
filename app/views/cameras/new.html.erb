@@ -24,22 +24,7 @@
                 <i class="fa fa-external-link icon-font"></i> Add Public Camera
             <% end %>
           </li>
-          <li class="pull-right">
-            <a class="cameras-dropdown-toggle" data-toggle="dropdown">
-              <% if params[:id].present? %><%=params[:id] %><% else %>Copy from<% end %> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu scroll-menu" role="menu">
-              <% @cameras.each do |camera| %>
-              <% if camera["rights"].split(",").include?("edit") %>
-              <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-                <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
-              </li>
-              <% end %>
-              <% end %>
-            </ul>
-          </li>
         </ul>
-
       </div>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1_1">
@@ -53,6 +38,24 @@
 
           <div class="col-sm-8">
             <div class="row">
+              <div class="copy-from">
+                <ul class="nav add-camera-page">
+                  <li class="pull-right">
+                    <a class="cameras-dropdown-toggle" data-toggle="dropdown">
+                      <% if params[:id].present? %><%=params[:id] %><% else %>Copy from<% end %> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu scroll-menu" role="menu">
+                      <% @cameras.each do |camera| %>
+                      <% if camera["rights"].split(",").include?("edit") %>
+                      <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+                        <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
+                      </li>
+                      <% end %>
+                      <% end %>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
               <div class='col-sm-12'>
                 <div class="col-sm-6 <%= field_errors["name"] ? ' has-error' : '' %>">
                   <div class='form-group'>

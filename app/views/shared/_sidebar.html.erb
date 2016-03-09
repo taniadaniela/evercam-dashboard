@@ -18,7 +18,7 @@
           <div class="clear-f"></div>
         </div>
       </li>
-      <li>
+      <li class="cameralist-height">
         <ul class="sub-menu sidebar-cameras-list">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <%= "sidebar-offline" unless camera['is_online'] %>">
@@ -26,6 +26,53 @@
             </li>
           <% end %>
         </ul>
+      </li>
+      <li class="sidebar-line nav nav-tabs add-camera-page">
+        <a href="#tab_1_1" data-toggle="tab">
+         <i class="fa fa-video-camera icon-font"></i> Add IP Camera </a>
+      </li>
+      <li>
+        <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
+            <i class="fa fa-compass icon-font"></i> Public Cameras <i class="fa fa-external-link pull-right"></i>
+        <% end %>
+      </li>
+      <li class="sidebar-line">
+        <%= link_to "http://snapmails.cloudapp.net/login.html", target: "_blank" do %>
+            <img class="icon-font" src="//dkzcs7h1dpzak.cloudfront.net/assets/snapmail-fd5f12a06005b85e0247e6fa206e9992c31af9f0c95a79544dcca1f9d216f620.png"></i> Snapmail <i class="fa fa-external-link pull-right"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "http://timelapse.evercam.io/?_ga=1.107202891.892362612.1455700298", target: "_blank" do %>
+            <img class="icon-font" src="//dkzcs7h1dpzak.cloudfront.net/assets/timegoes-ce6d9f25f668a343084936fcf62e53f5ebc746e9ee0810bd98d3fbce10f0e364.png"></i> Timelapse <i class="fa fa-external-link pull-right"></i>
+        <% end %>
+      </li>
+      <li class="sidebar-line">
+        <%= link_to billing_path(current_user.username) do %>
+          <i class="fa fa-credit-card icon-font"></i> Billing
+        <% end %>
+      </li>
+      <li>
+        <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i></a>
+        <ul class="developer-list left-nav-submenu">
+          <li><a>Docs</a></li>
+          <li><a>Embed Live View</a></li>
+          <li><a>Embed Recordings</a></li>
+        </ul>
+      </li>
+      <li>
+        <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
+        <ul class="setting-list left-nav-submenu">
+          <li><a>Profile</a></a></a></a></li>
+          <li><a>Password</a></a></a></li>
+          <li><a>General</a></a></li>
+          <li><a>OAuth</a></li>
+        </ul>
+      </li>
+      <li role="presentation">
+        <a id="Intercom"><i class="fa fa-weixin icon-font"></i> Live Support</a>
+      </li>
+      <li>
+        <a rel="nofollow" data-method="delete" href="/v1/users/signout"><i class="fa fa-sign-out icon-font"></i>Sign out</a>
       </li>
     </ul>
   </div>

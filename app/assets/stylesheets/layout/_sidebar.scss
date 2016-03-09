@@ -19,6 +19,10 @@
   font-size: 15px;
 }
 
+.page-sidebar .page-sidebar-menu li a:hover {
+  background-color: rgba(187, 187, 187, 0.45);
+}
+
 .page-sidebar .page-sidebar-menu .sub-menu-item a {
   padding: 7px 15px;
   color: $secondary-color;
@@ -75,6 +79,37 @@
   cursor: pointer;
 }
 
+.sidebar-line {
+  border-top: 1px solid rgba(187, 187, 187, 0.45) !important;
+  margin-top: 5px !important;
+}
+
+.pull-right {
+  float: right;
+  margin-top: 4px;
+}
+
+.developer-list, .setting-list {
+  display: none;
+}
+
+.developer-list li a, .setting-list li a {
+  color: #34393d;
+}
+
+
+.left-nav-submenu {
+  margin-left: 46px;
+  list-style: initial;
+}
+
+.cameralist-height {
+  height: 39vh;
+  overflow: auto;
+  overflow-y: scroll;
+  border-bottom: 1px solid rgb(187, 187, 187);
+}
+
 .tooltip-inner {
   background-color: lighten($secondary-color, 5%) !important;
   color: #ffffff;
@@ -105,7 +140,7 @@
   display:none;
 }
 .page-sidebar .page-sidebar-menu > li.active > a {
-  color: #ffffff;
+  color: #34393d;
   font-size: 16px;
 }
 li .dev-menu-title:hover {

@@ -48,6 +48,22 @@ window.showOfflineButton = ->
       $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
+slidetoggel = ->
+  $('.dev').click ->
+    $('.developer-list').slideToggle()
+    return
+  $('.seting').click ->
+    $('.setting-list').slideToggle()
+    return
+  $('#hello').click ->
+    $('.cameralist-height').slideToggle()
+    return
+  return
+
+RemoveDropdown = ->
+  $("#Intercom").on "click", ->
+    $('#live_support').removeClass('open')
+
 handlePusherEventUser = ->
   if Evercam && Evercam.Pusher
     channel = Evercam.Pusher.subscribe(Evercam.User.username)
@@ -66,4 +82,8 @@ $ ->
   $('[data-toggle="tooltip"]').tooltip()
 
 $(window).load ->
+  slidetoggel()
   handlePusherEventUser()
+  RemoveDropdown()
+  
+

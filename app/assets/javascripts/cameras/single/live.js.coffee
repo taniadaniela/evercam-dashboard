@@ -43,11 +43,35 @@ controlButtonEvents = ->
       disconnectFromSocket()
     stream_paused = !stream_paused
 
-  $('.refresh-live-snap, .refresh-camera').on 'click', ->
+  $('#refresh-offline-camera').on "click", ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
     loadImage()
+    refreshcamerastatus()
 
+refreshcamerastatus = ->
+  data = {}
+  data.with_data = true
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (data, status, jqXHR) ->
+    Evercam.Camera.is_online = true
+    location.reload();
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'POST'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+  sendAJAXRequest(settings)
 
 fullscreenImage = ->
   $("#toggle").click ->

@@ -99,14 +99,26 @@
 
 .left-nav-submenu {
   margin-left: 46px;
-  list-style: initial;
+  list-style: none;  
 }
 
-.cameralist-height {
-  height: 39vh;
-  overflow: auto;
-  overflow-y: scroll;
-  border-bottom: 1px solid rgb(187, 187, 187);
+.left-nav-submenu li {
+  margin-bottom: 3%;
+}
+
+// .cameralist-height {
+//   position: absolute;
+//   height: 56.5vh;
+//   overflow: auto;
+//   overflow-y: scroll;
+//   margin-right: 8px !important;
+// }
+
+.camera-faUp {
+  position: absolute;
+  top: 60vh;
+  right: 10%;
+  background-color: rgba(128, 128, 128, 0.3)
 }
 
 .tooltip-inner {
@@ -252,7 +264,7 @@ li.inactive a {
   color:$light-grey !important;
 }
 
-#hello.col-md-8 {
+#siderbar {
 
   .toggle .toggle-control {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -297,19 +309,16 @@ li.inactive a {
   }
 
   .label {
-    position: absolute;
-    width: 100px;
-    height: 30px;
-    top: -32px;
-    left: 85px;
+    position: inherit;
+    text-align: center;
+    margin-left: -10px;
   }
 
   #lbl {
     display: inline-block ;
-    margin-top: 3px ;
     position:absolute;
     left: 180px;
-    top: 0px;
+    top: 13px;
   }
 
   #offline-btn{

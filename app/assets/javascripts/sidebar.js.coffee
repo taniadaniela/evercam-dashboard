@@ -84,9 +84,12 @@ $ ->
   handleSidebarToggle()
   $('[data-toggle="tooltip"]').tooltip()
 
-$(window).load ->
+$(window).ready ->
   slidetoggel()
-  handlePusherEventUser()
   RemoveDropdown()
+
+$(window).load ->
+  handlePusherEventUser()
+  
   
 

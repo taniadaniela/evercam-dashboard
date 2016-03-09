@@ -5,16 +5,16 @@
         <div class="sidebar-title">
           <div id="hello" class="col-md-8">
             <%= link_to cameras_index_path do %>
-              <i class="fa fa-camera icon-font"></i> Cameras
+              <i class="fa fa-camera icon-font"></i> Cameras <i class="fa fa-caret-down pull-right camera-fadrop"></i>
             <% end %>
-            <div id="siderbar">
-              <label class="label toggle">
-                <input type="checkbox" class="toggle_input" id="offline-btn"/>
-                <div class="toggle-control"></div>
-              </label>
-              <label id="lbl" for="hide-offline-cameras" class="red fa fa-chain-broken"> </label>
-            </div>
           </div>
+          <div id="siderbar">
+            <label class="label toggle">
+              <input type="checkbox" class="toggle_input" id="offline-btn"/>
+              <div class="toggle-control"></div>
+            </label>
+            <label id="lbl" for="hide-offline-cameras" class="red fa fa-chain-broken"> </label>
+        </div>
           <div class="clear-f"></div>
         </div>
       </li>
@@ -28,13 +28,10 @@
               <% end %>
             </li>
           <% end %>
+          <button id="camera-faUp" type="button" class="ui-datepicker-trigger"><i class="fa fa-caret-up icon-font"></i></button>
         </ul>
       </li>
-      <li class="sidebar-line nav nav-tabs add-camera-page">
-        <a href="#tab_1_1" data-toggle="tab">
-         <i class="fa fa-video-camera icon-font"></i> Add IP Camera </a>
-      </li>
-      <li>
+      <li class="sidebar-line">
         <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
             <i class="fa fa-compass icon-font"></i> Public Cameras <i class="fa fa-external-link pull-right"></i>
         <% end %>
@@ -46,32 +43,10 @@
       </li>
       <li>
         <%= link_to "http://timelapse.evercam.io/?_ga=1.107202891.892362612.1455700298", target: "_blank" do %>
-            <img class="icon-font" src="//dkzcs7h1dpzak.cloudfront.net/assets/timegoes-ce6d9f25f668a343084936fcf62e53f5ebc746e9ee0810bd98d3fbce10f0e364.png"></i> Timelapse <i class="fa fa-external-link pull-right"></i>
+            <i class="fa fa-history icon-font"></i> Timelapse <i class="fa fa-external-link pull-right"></i>
         <% end %>
       </li>
-      <li class="sidebar-line">
-        <%= link_to billing_path(current_user.username) do %>
-          <i class="fa fa-credit-card icon-font"></i> Billing
-        <% end %>
-      </li>
-      <li>
-        <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i></a>
-        <ul class="developer-list left-nav-submenu">
-          <li><a>Docs</a></li>
-          <li><a>Embed Live View</a></li>
-          <li><a>Embed Recordings</a></li>
-        </ul>
-      </li>
-      <li>
-        <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
-        <ul class="setting-list left-nav-submenu">
-          <li><a>Profile</a></a></a></a></li>
-          <li><a>Password</a></a></a></li>
-          <li><a>General</a></a></li>
-          <li><a>OAuth</a></li>
-        </ul>
-      </li>
-      <li role="presentation">
+      <li role="presentation" class="sidebar-line">
         <a id="Intercom"><i class="fa fa-weixin icon-font"></i> Live Support</a>
       </li>
       <li>

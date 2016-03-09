@@ -47,18 +47,18 @@ controlButtonEvents = ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
     loadImage()
-    refreshcamerastatus()
+    refreshCameraStatus()
 
-refreshcamerastatus = ->
+refreshCameraStatus = ->
   data = {}
   data.with_data = true
 
   onError = (jqXHR, status, error) ->
+    Notification.show "Connection to the camera timed out."
     false
 
   onSuccess = (data, status, jqXHR) ->
-    Evercam.Camera.is_online = true
-    location.reload();
+    location.reload()
     true
 
   settings =

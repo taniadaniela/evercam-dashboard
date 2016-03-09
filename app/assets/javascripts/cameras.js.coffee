@@ -3,12 +3,15 @@ window.showFeedback = (message) ->
   true
 
 refreshThumbnails = ->
-  images = $('.camera-thumbnail')
-  for img in images
-    img_url = img.src
-    src = "#{img_url}&rand=" + new Date().getTime()
-    img.src = src
-  setInterval refreshThumbnails, 60000
+  $('.camera-thumbnail').each ->
+    img = $(this)
+    img_url = img.attr "data-proxy"
+    if img_url.endsWith "thumbnail"
+      src = "#{img_url}?rand=" + new Date().getTime()
+    else
+      src = "#{img_url}&rand=" + new Date().getTime()
+    img.attr "src", src
+  setTimeout refreshThumbnails, 60000
 
 handlePusherEventIndex = ->
   channel = Evercam.Pusher.subscribe(Evercam.User.username)
@@ -27,5 +30,5 @@ window.initializeCameraIndex = ->
   QuickSidebar.init()
   initNotification()
   handlePusherEventIndex()
-  refreshThumbnails()
+  setTimeout refreshThumbnails, 60000
   $('[data-toggle="tooltip"]').tooltip()

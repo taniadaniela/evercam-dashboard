@@ -1,6 +1,6 @@
 module CamerasHelper
   def preview(camera, _refresh = false)
-    image_tag(thumbnail_url(camera), alt: "camera thumbnail", camera: "camera-thumbnail")
+    image_tag(thumbnail_url(camera), class: "camera-thumbnail", alt: camera['id'], camera: "camera-thumbnail")
   end
 
   def thumbnail_url(camera)

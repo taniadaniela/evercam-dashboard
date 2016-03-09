@@ -16,7 +16,8 @@
   max-height: 21px;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a {
-  font-size: 15px;
+  font-size: 13px;
+  display: inline-block;
 }
 
 .page-sidebar .page-sidebar-menu li a:hover {
@@ -43,9 +44,7 @@
 }
 
 .sidebar-offline a {
-  color: lighten($evercam-red, 5%) !important;
   opacity: .60;
-  text-decoration: line-through !important;
 }
 .page-sidebar-menu {
   z-index: 10000 !important;
@@ -167,6 +166,7 @@ li span {
 .menu-title a:hover {
   color:$main-grey;
 }
+
 @media (max-width: 980px) {
 .menu-title {
   text-transform: capitalize;

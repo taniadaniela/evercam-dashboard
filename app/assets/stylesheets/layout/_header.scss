@@ -96,6 +96,26 @@
 .dropdown-toggle {
   font-size: 18px;
 }
+.licence-message {
+  padding-top: 0px;
+  max-width: 500px;
+  margin: 1px auto;
+  top: 10%;
+  text-align: center;
+  height: 32px;
+
+  span a {
+    color: #a94442;
+    text-decoration: underline;
+  }
+
+  span a:hover {
+    font-weight: bold;
+    color: #a94442;
+  }
+
+}
+
 .camera-switch {
   margin: 0 auto;
   max-width: 250px;
@@ -104,8 +124,8 @@
   padding-top: 4px;
 
   .dropdown-menu.scroll-menu{
-    width: 300px;
-    font-size: 15px !important;
+    width: 250px;
+    font-size: 13px !important;
     margin: auto;
     left: 0;
     right: 0;
@@ -116,14 +136,10 @@
     display: none;
   }
 
-  .sub-menu-item {
-    height: 47px;
-  }
-
   .sub-menu-item a{
-    padding: 8px 14px 4px 4px !important;
+    padding: 8px 0px 4px 10px !important;
     text-align: left;
-    height: 35px !important;
+    height: 28px !important;
     display: inline-block;
   }
 
@@ -188,6 +204,10 @@
 .page-header .fa,
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > i {
   font-size: 23px;
+}
+
+.page-header .header-sidebar {
+  font-size: 12px;
 }
 
 .cameras-back {

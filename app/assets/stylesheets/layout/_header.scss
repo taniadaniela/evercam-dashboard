@@ -346,4 +346,13 @@ a.grey {
   top: 1px;
   width: 315px;
   z-index: 100000000000;
+
+  .billing-link{
+    color: #a94442;
+  }
+
+  .billing-link:hover{
+    color: #a94442;
+    text-decoration: underline;
+  }
 }

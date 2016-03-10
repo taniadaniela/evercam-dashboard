@@ -408,7 +408,7 @@ refreshLastSnaps = ->
     else
       src = "#{img_url}&rand=" + new Date().getTime()
     img.attr "src", src
-    setTimeout hideRefreshGif , 3000
+    setTimeout hideRefreshGif , 2000
 
 hideRefreshGif = ->
   $('.refresh-detail-snap .refresh-gif').hide()

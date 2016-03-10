@@ -58,7 +58,7 @@ slidetoggel = ->
   $('.seting').click ->
     $('.setting-list').slideToggle()
     return
-  $('#hello').click ->
+  $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle()
     return
   return

@@ -106,19 +106,27 @@
   margin-bottom: 3%;
 }
 
-// .cameralist-height {
-//   position: absolute;
-//   height: 56.5vh;
-//   overflow: auto;
-//   overflow-y: scroll;
-//   margin-right: 8px !important;
-// }
+.cameralist-height {
+  max-height: 55vh;
+  overflow: auto;
+  overflow-y: hidden;
+  margin-right: 8px !important;
+}
+
+.cameralist-height:hover {
+  overflow-y: auto;
+}
 
 .camera-faUp {
   position: absolute;
   top: 60vh;
   right: 10%;
   background-color: rgba(128, 128, 128, 0.3)
+}
+
+.camera-fadrop {
+  position: absolute;
+  margin-top: 5px;
 }
 
 .tooltip-inner {

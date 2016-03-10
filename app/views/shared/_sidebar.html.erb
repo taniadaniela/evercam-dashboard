@@ -5,9 +5,11 @@
         <div class="sidebar-title">
           <div id="hello" class="col-md-8">
             <%= link_to cameras_index_path do %>
-              <i class="fa fa-camera icon-font"></i> Cameras <i class="fa fa-caret-down pull-right camera-fadrop"></i>
+              <i class="fa fa-camera icon-font"></i> Cameras 
             <% end %>
+            <i class="fa fa-caret-down camera-fadrop"></i>
           </div>
+
           <div id="siderbar">
             <label class="label toggle">
               <input type="checkbox" class="toggle_input" id="offline-btn"/>
@@ -28,7 +30,6 @@
               <% end %>
             </li>
           <% end %>
-          <button id="camera-faUp" type="button" class="ui-datepicker-trigger"><i class="fa fa-caret-up icon-font"></i></button>
         </ul>
       </li>
       <li class="sidebar-line">

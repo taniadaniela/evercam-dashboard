@@ -54,7 +54,8 @@ refreshCameraStatus = ->
   data.with_data = true
 
   onError = (jqXHR, status, error) ->
-    Notification.show "Connection to the camera timed out."
+    message = jqXHR.responseJSON.message
+    Notification.show message
     false
 
   onSuccess = (data, status, jqXHR) ->

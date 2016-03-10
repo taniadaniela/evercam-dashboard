@@ -49,6 +49,27 @@
   width:100%;
   overflow: hidden;
   margin-bottom: 5px;
+
+  .refresh-gif {
+    display: none;
+    color: $main-grey;
+    width: 10px;
+    min-width: 15px;
+    height: 100%;
+  }
+
+  .refresh-detail-snap {
+    position: absolute;
+    float: left;
+    left: 2%;
+    cursor: pointer;
+
+    .fa-refresh {
+      color: $main-grey;
+      width: 10px;
+      height: 100%;
+    }
+  }
 }
 .info-preview img {
   width: 100%;

@@ -397,6 +397,23 @@ handleMapEvents = ->
       $("#search-coordinates").toggle()
       $("#search-notes").toggle()
 
+refreshLastSnaps = ->
+  $('.info-preview').on "click", 'i#snaps', ->
+    $('.refresh-detail-snap i').hide()
+    $('.refresh-detail-snap .refresh-gif').show()
+    img = $('.info-preview .camera-thumbnail')
+    img_url = img.attr "data-proxy"
+    if img_url.endsWith "thumbnail"
+      src = "#{img_url}?rand=" + new Date().getTime()
+    else
+      src = "#{img_url}&rand=" + new Date().getTime()
+    img.attr "src", src
+    setTimeout hideRefreshGif , 2000
+
+hideRefreshGif = ->
+  $('.refresh-detail-snap .refresh-gif').hide()
+  $('.refresh-detail-snap i').show()
+
 window.initializeInfoTab = ->
   $('.open-sharing').click(showSharingTab)
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
@@ -412,3 +429,4 @@ window.initializeInfoTab = ->
   initNotification()
   $("#save-map-location").on "click", saveMapLocation
   handleMapEvents()
+  refreshLastSnaps()

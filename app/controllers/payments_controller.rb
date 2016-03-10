@@ -164,7 +164,7 @@ class PaymentsController < ApplicationController
     storage = product_params[:storage]
     @line_item = LineItem.new(product_params)
     @customer = retrieve_stripe_customer_without_cart(@line_item)
-    subscription =  @customer.update_subscription(subscription_id)
+    subscription = @customer.update_subscription(subscription_id)
     update_licence(subscription, storage)
   end
 

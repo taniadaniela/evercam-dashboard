@@ -5,6 +5,20 @@ class CamerasController < ApplicationController
 
   def index
     @cameras = load_user_cameras(true, false)
+    @show_alert_message = false
+    @required_licences = 0
+    if current_user.payment_method.eql?(Licence::STRIPE)
+      cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
+      cameras_products = cameras_products.select { |a| a.cloud_recording.present? }
+      @required_licences = cameras_products.count
+      if @required_licences > 0
+        licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
+        if licences && licences.count < @required_licences
+          @show_alert_message = true
+          @required_licences = @required_licences -  licences.count
+        end
+      end
+    end
   end
 
   def new

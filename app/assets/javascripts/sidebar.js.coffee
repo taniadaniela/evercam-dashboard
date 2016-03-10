@@ -20,14 +20,19 @@ renderSidebar = (cameras) ->
   sidebar = ""
   for camera in cameras
     classes = if camera.is_online then "" else "sidebar-offline"
-    row = """
-    <li class="sub-menu-item #{classes}">
-      <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
-      <li class="sub-menu-item #{sidebar-offline}">
-      <i class="red main-sidebar fa fa-chain-broken"></i>
-      </li>
-    </li>\n
-    """
+    if camera.is_online 
+      row = """
+      <li class="sub-menu-item #{classes}">
+        <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
+      </li>\n
+      """
+    else   
+      row = """
+      <li class="sub-menu-item #{classes}">
+        <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
+        <i class="red main-sidebar fa fa-chain-broken"></i>
+      </li>\n
+      """
     sidebar = sidebar + row
   $(".sidebar-cameras-list").html(sidebar)
 

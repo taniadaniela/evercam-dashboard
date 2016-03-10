@@ -3,6 +3,7 @@
   z-index:10000;
   width:210px;
   border-right: 1px solid #e5e5e5;
+  background-color: rgb(16, 28, 39);
 }
 .page-sidebar-fixed .page-sidebar {
   top: 33px;
@@ -18,10 +19,19 @@
 .page-sidebar .page-sidebar-menu .sub-menu li > a {
   font-size: 13px;
   display: inline-block;
+  color: #FFFFFF;
 }
 
 .page-sidebar .page-sidebar-menu li a:hover {
-  background-color: rgba(187, 187, 187, 0.45);
+  background-color: rgb(66, 23, 22);
+}
+
+#hello a i {
+  margin-right: 5px;
+}
+
+#hello {
+  padding-left: 5px;
 }
 
 .page-sidebar .page-sidebar-menu .sub-menu-item a {
@@ -29,8 +39,8 @@
   color: $secondary-color;
 }
 .page-sidebar .page-sidebar-menu > li > a {
-  color: $secondary-color;
-  font-size: 16px;
+  color: rgba(255, 255, 255, 0.77);
+  font-size: 14px;
   padding: 8px 4px 4px;
  font-family: $bold-family;
 }
@@ -51,8 +61,8 @@
 }
 
 .sidebar-title a {
-  color: $secondary-color;
-  font-size: 16px;
+  color: rgba(255, 255, 255, 0.77);
+  font-size: 14px;
   padding: 8px 4px 4px;
   font-family: $bold-family;
 }
@@ -79,7 +89,7 @@
 }
 
 .sidebar-line {
-  border-top: 1px solid rgba(187, 187, 187, 0.45) !important;
+  border-top: 1px solid rgba(170, 170, 170, 0.13) !important;
   margin-top: 5px !important;
 }
 
@@ -111,6 +121,7 @@
   overflow: auto;
   overflow-y: hidden;
   margin-right: 8px !important;
+  background-color: rgba(0, 11, 21, 0.65);
 }
 
 .cameralist-height:hover {
@@ -158,6 +169,10 @@
 
   display:none;
 }
+.page-sidebar .page-sidebar-menu > li {
+  color: #FFFFFF;
+}
+
 .page-sidebar .page-sidebar-menu > li.active > a {
   color: #34393d;
   font-size: 16px;
@@ -185,6 +200,13 @@ li span {
 }
 .menu-title a:hover {
   color:$main-grey;
+}
+.snapImg {
+  margin-top: -4px !important;
+}
+
+.right-ajustment {
+  margin-right: 8px !important;
 }
 
 @media (max-width: 980px) {
@@ -278,13 +300,14 @@ li.inactive a {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     width: 3.2em;
-    height: 1.5em;
+    height: 1.3em;
     display: inline-block;
     border: 2px solid #8E8E93;
     border-radius: 0.8em;
     background-color: rgba(0, 0, 0, 0.06);
     position: absolute;
     cursor: pointer;
+    margin-top: 3px;
   }
 
   .toggle .toggle-control::after {
@@ -308,8 +331,8 @@ li.inactive a {
   }
 
   .toggle input:checked + .toggle-control {
-    border-color: #428bca;
-    background-color: #428bca;
+    border-color: rgba(44, 62, 78, 0.53);
+    background-color: rgba(44, 62, 78, 0.53);
   }
 
   .toggle input:checked + .toggle-control::after {
@@ -326,7 +349,7 @@ li.inactive a {
     display: inline-block ;
     position:absolute;
     left: 180px;
-    top: 13px;
+    top: 14px;
   }
 
   #offline-btn{

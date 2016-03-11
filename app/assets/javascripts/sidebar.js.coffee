@@ -20,14 +20,19 @@ renderSidebar = (cameras) ->
   sidebar = ""
   for camera in cameras
     classes = if camera.is_online then "" else "sidebar-offline"
-    row = """
-    <li class="sub-menu-item #{classes}">
-      <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
-      <li class="sub-menu-item #{sidebar-offline}">
-      <i class="red main-sidebar fa fa-chain-broken"></i>
-      </li>
-    </li>\n
-    """
+    if camera.is_online 
+      row = """
+      <li class="sub-menu-item #{classes}">
+        <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
+      </li>\n
+      """
+    else   
+      row = """
+      <li class="sub-menu-item #{classes}">
+        <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
+        <i class="red main-sidebar fa fa-chain-broken"></i>
+      </li>\n
+      """
     sidebar = sidebar + row
   $(".sidebar-cameras-list").html(sidebar)
 
@@ -51,6 +56,22 @@ window.showOfflineButton = ->
       $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
+slideToggel = ->
+  $('.dev').click ->
+    $('.developer-list').slideToggle()
+    return
+  $('.seting').click ->
+    $('.setting-list').slideToggle()
+    return
+  $('.camera-fadrop').click ->
+    $('.cameralist-height').slideToggle()
+    return
+  return
+
+removeDropdown = ->
+  $("#Intercom").on "click", ->
+    $('#live_support').removeClass('open')
+
 handlePusherEventUser = ->
   if Evercam && Evercam.Pusher
     channel = Evercam.Pusher.subscribe(Evercam.User.username)
@@ -68,5 +89,12 @@ $ ->
   handleSidebarToggle()
   $('[data-toggle="tooltip"]').tooltip()
 
+$(window).ready ->
+  slideToggel()
+  removeDropdown()
+
 $(window).load ->
   handlePusherEventUser()
+  
+  
+

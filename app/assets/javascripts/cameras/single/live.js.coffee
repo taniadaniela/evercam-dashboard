@@ -99,7 +99,7 @@ initializePlayer = ->
   $("#camera-video-player").append($("#ptz-control"))
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
-      $('#live-view-placeholder .pull-right table').css 'marginTop', '-83px'
+      $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
       $('#live-view-placeholder .pull-right table').stop().animate()
     else
       $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-46px' }, 500
@@ -120,6 +120,7 @@ handleChangeStream = ->
         $("#fullscreen").removeClass("inactive").addClass "active"
         connectToSocket()
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
+        $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
 
       when 'video'
         $("#camera-video-stream").html(video_player_html)
@@ -128,7 +129,6 @@ handleChangeStream = ->
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
         disconnectFromSocket()
-        $('.vjs-control-bar').css 'margin-bottom', '11px'
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
         
 handleTabOpen = ->

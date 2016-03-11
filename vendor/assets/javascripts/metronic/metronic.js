@@ -414,7 +414,7 @@ var Metronic = function () {
 
                 $(this).slimScroll({
                     allowPageScroll: true, // allow page scroll when the element scroll is ended
-                    size: '7px',
+                    size: '0px',
                     color: ($(this).attr("data-handle-color")  ? $(this).attr("data-handle-color") : '#bbb'),
                     wrapperClass: ($(this).attr("data-wrapper-class")  ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
                     railColor: ($(this).attr("data-rail-color")  ? $(this).attr("data-rail-color") : '#eaeaea'),

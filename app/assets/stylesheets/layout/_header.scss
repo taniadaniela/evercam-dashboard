@@ -2,7 +2,7 @@
 .page-header.navbar {
   height: 33px;
   min-height: 33px;
-  background: $secondary-color;
+  background: rgba(0, 22, 42, 0.82);
 }
 .page-header-fixed .page-container {
   margin-top: 33px;
@@ -53,7 +53,7 @@
   display: block;
 }
 .navbar .dropdown-menu {
-  background: lighten($secondary-color, 5%);
+  background: rgba(0, 22, 42, 0.82);
 }
 .top-menu .dropdown-menu {
   left:-140px;
@@ -85,7 +85,7 @@
   color:$white;
 }
 .navbar .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
-  background-color:lighten($secondary-color, 10%);
+  background-color: rgb(66, 23, 22);
   color: #f5f5f5;
 }
 .dropdown-menu li > a {

@@ -98,18 +98,19 @@
   margin-top: 4px;
 }
 
-.developer-list, .setting-list {
+.developer-list, 
+.setting-list {
   display: none;
 }
 
-.developer-list li a, .setting-list li a {
+.developer-list li a, 
+.setting-list li a {
   color: #34393d;
 }
 
-
 .left-nav-submenu {
   margin-left: 46px;
-  list-style: none;  
+  list-style: none;
 }
 
 .left-nav-submenu li {
@@ -126,13 +127,6 @@
 
 .cameralist-height:hover {
   overflow-y: auto;
-}
-
-.camera-faUp {
-  position: absolute;
-  top: 60vh;
-  right: 10%;
-  background-color: rgba(128, 128, 128, 0.3)
 }
 
 .camera-fadrop {
@@ -201,7 +195,7 @@ li span {
 .menu-title a:hover {
   color:$main-grey;
 }
-.snapImg {
+.snapimg {
   margin-top: -4px !important;
 }
 

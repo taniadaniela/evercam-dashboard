@@ -10,7 +10,7 @@ class CamerasController < ApplicationController
     if current_user.payment_method.eql?(Licence::STRIPE)
       cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
       unless cameras_products.nil?
-        cameras_products = cameras_products.select { |a| a.cloud_recording.present? }
+        cameras_products = cameras_products.select { |a| a.cloud_recording.present? && !a.cloud_recording.status.eql?("off") }
         @required_licences = cameras_products.count
         if @required_licences > 0
           licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)

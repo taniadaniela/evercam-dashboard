@@ -54,24 +54,19 @@
     position: absolute;
     right: 0%;
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.4);
     border: none;
     height: 36px;
     width: 40px;
     text-align: center;
 
-    .refresh-gif {
-      display: none;
-      min-width: 30px;
-      min-height: 30px;
-      padding: 2px;
-    }
-
     .fa-refresh {
       width: 30px;
       font-size: 30px;
       padding: 2px;
+      color: $secondary-color;
     }
+
   }
 }
 .info-preview img {

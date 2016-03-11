@@ -232,7 +232,7 @@ validateLicenceForm = ->
     price_annual = parseInt($("#new-total-price-annual").text())
     one_day = parseInt($("#24-hours-recording-quantity").val())
     one_day_annual = parseInt($("#24-hours-recording-annual-quantity").val())
-    $("#message-custom-licence").hide()
+    $("#pay-custom-licence").hide()
 
     if price_monthly isnt 0 || price_annual isnt 0 || one_day isnt 0 || one_day_annual isnt 0
       if $("#has-credit-card").val() is "false"
@@ -458,10 +458,11 @@ payCustomLicence = ->
       $("#saveSubscriptions").val($(".stripe-button-el span").text())
       $("#checkout-message").hide()
       $("#add-card-message").show()
+      $("#pay-custom-licence").hide()
     else
       $("#checkout-message").hide()
       $("#add-card-message").hide()
-      $("#message-custom-licence").show()
+      $("#pay-custom-licence").show()
       $("#saveSubscriptions").val(" Pay ")
       $("#is-custom-payment").val("true")
     $("#payNowModal").modal("show")

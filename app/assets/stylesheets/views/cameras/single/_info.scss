@@ -54,16 +54,28 @@
     position: absolute;
     right: 0%;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.5);
     border: none;
-    height: 36px;
+    height: 35px;
     width: 40px;
     text-align: center;
 
+  .refresh-gif {
+    position: absolute;
+    right: 8%;
+    min-height: 30px;
+    min-width: 30px;
+    width: 30px;
+    padding: 2px;
+    display: none;
+
+  }
+
     .fa-refresh {
       width: 30px;
-      font-size: 30px;
+      font-size: 25px;
       padding: 2px;
+      display: inline-block;
       color: $secondary-color;
     }
 

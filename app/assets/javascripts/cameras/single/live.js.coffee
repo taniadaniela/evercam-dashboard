@@ -43,11 +43,36 @@ controlButtonEvents = ->
       disconnectFromSocket()
     stream_paused = !stream_paused
 
-  $('.refresh-live-snap, .refresh-camera').on 'click', ->
+  $('#refresh-offline-camera').on "click", ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
     loadImage()
+    refreshCameraStatus()
 
+refreshCameraStatus = ->
+  data = {}
+  data.with_data = true
+
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+    Notification.show message
+    false
+
+  onSuccess = (data, status, jqXHR) ->
+    location.reload()
+    true
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'POST'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+  sendAJAXRequest(settings)
 
 fullscreenImage = ->
   $("#toggle").click ->
@@ -74,7 +99,7 @@ initializePlayer = ->
   $("#camera-video-player").append($("#ptz-control"))
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
-      $('#live-view-placeholder .pull-right table').css 'marginTop', '-83px'
+      $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
       $('#live-view-placeholder .pull-right table').stop().animate()
     else
       $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-46px' }, 500
@@ -95,6 +120,7 @@ handleChangeStream = ->
         $("#fullscreen").removeClass("inactive").addClass "active"
         connectToSocket()
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
+        $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
 
       when 'video'
         $("#camera-video-stream").html(video_player_html)
@@ -103,7 +129,6 @@ handleChangeStream = ->
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
         disconnectFromSocket()
-        $('.vjs-control-bar').css 'margin-bottom', '11px'
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
         
 handleTabOpen = ->

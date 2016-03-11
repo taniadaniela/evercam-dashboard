@@ -132,6 +132,11 @@
 .camera-fadrop {
   position: absolute;
   margin-top: 5px;
+  cursor: pointer;
+}
+
+.camera-fadrop:hover {
+  background-color: rgb(66, 23, 22);
 }
 
 .tooltip-inner {

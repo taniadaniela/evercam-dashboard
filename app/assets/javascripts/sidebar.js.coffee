@@ -56,7 +56,7 @@ window.showOfflineButton = ->
       $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
-slidetoggel = ->
+slideToggel = ->
   $('.dev').click ->
     $('.developer-list').slideToggle()
     return
@@ -68,7 +68,7 @@ slidetoggel = ->
     return
   return
 
-RemoveDropdown = ->
+removeDropdown = ->
   $("#Intercom").on "click", ->
     $('#live_support').removeClass('open')
 
@@ -90,8 +90,8 @@ $ ->
   $('[data-toggle="tooltip"]').tooltip()
 
 $(window).ready ->
-  slidetoggel()
-  RemoveDropdown()
+  slideToggel()
+  removeDropdown()
 
 $(window).load ->
   handlePusherEventUser()

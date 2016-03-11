@@ -50,25 +50,23 @@
   overflow: hidden;
   margin-bottom: 5px;
 
-  .refresh-gif {
-    display: none;
-    color: $main-grey;
-    width: 10px;
-    min-width: 15px;
-    height: 100%;
-  }
-
   .refresh-detail-snap {
     position: absolute;
-    float: left;
-    left: 2%;
+    right: 0%;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    height: 36px;
+    width: 40px;
+    text-align: center;
 
     .fa-refresh {
-      color: $main-grey;
-      width: 10px;
-      height: 100%;
+      width: 30px;
+      font-size: 30px;
+      padding: 2px;
+      color: $secondary-color;
     }
+
   }
 }
 .info-preview img {

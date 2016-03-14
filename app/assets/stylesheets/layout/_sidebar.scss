@@ -17,7 +17,7 @@
   max-height: 21px;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a {
-  font-size: 13px;
+  font-size: 12.5px;
   display: inline-block;
   color: #FFFFFF;
 }
@@ -118,10 +118,10 @@
 }
 
 .cameralist-height {
-  max-height: 55vh;
+  max-height: 62vh;
   overflow: auto;
   overflow-y: hidden;
-  margin-right: 8px !important;
+  margin-right: 2px !important;
   background-color: rgba(0, 11, 21, 0.65);
 }
 
@@ -172,6 +172,10 @@
   color: #FFFFFF;
 }
 
+.page-sidebar-menu {
+  background-color: #101C27;
+}
+
 .page-sidebar .page-sidebar-menu > li.active > a {
   color: #34393d;
   font-size: 16px;
@@ -202,10 +206,6 @@ li span {
 }
 .snapimg {
   margin-top: -4px !important;
-}
-
-.right-ajustment {
-  margin-right: 8px !important;
 }
 
 @media (max-width: 980px) {
@@ -252,13 +252,21 @@ li span {
 
 /*SUB MENU */
 .page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 0px 0 0 19px;
+  margin: 0px 0 0 14px;
   padding-bottom: 8px;
 
 }
 
 .sub-menu.cam-active .sidebar-offline{
   display: none;
+}
+
+.cameralist-height::-webkit-scrollbar {
+  width: 7px;
+}
+
+.cameralist-height::-webkit-scrollbar-thumb {
+  background-color: rgba(16, 28, 39, 0.67);
 }
 
 @media (max-width: 990px) {
@@ -277,7 +285,7 @@ li span {
 .sub-menu-item a {
   border: none !important;
   color: $secondary-color;
-  padding: 5px 5px 2px 0px !important;
+  padding: 5px 0px 2px 0px !important;
 }
 
 @media (max-width: 980px) {

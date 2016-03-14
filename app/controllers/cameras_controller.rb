@@ -7,7 +7,7 @@ class CamerasController < ApplicationController
     @cameras = load_user_cameras(true, false)
     @show_alert_message = false
     @required_licences = 0
-    if current_user.payment_method.eql?(Licence::STRIPE)
+    if ENV['DISPLAY_BILLING_MESSAGE'].eql?("yes") && current_user.payment_method.eql?(Licence::STRIPE)
       cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
       unless cameras_products.nil?
         cameras_products = cameras_products.select { |a| a.cloud_recording.present? && !a.cloud_recording.status.eql?("off") }

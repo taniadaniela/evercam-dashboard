@@ -16,7 +16,7 @@ class CamerasController < ApplicationController
           licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
           if licences && licences.count < @required_licences
             @show_alert_message = true
-            @required_licences = @required_licences -  licences.count
+            @required_licences = @required_licences - licences.count
           end
         end
       end

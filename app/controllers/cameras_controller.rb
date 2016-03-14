@@ -7,21 +7,7 @@ class CamerasController < ApplicationController
     @cameras = load_user_cameras(true, false)
     @show_alert_message = false
     @required_licences = 0
-    if ENV['DISPLAY_BILLING_MESSAGE'].eql?("yes") && current_user.payment_method.eql?(Licence::STRIPE)
-      cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
-      unless cameras_products.nil?
-        cameras_products = cameras_products.select { |a| a.cloud_recording.present? && !a.cloud_recording.status.eql?("off") }
-        @required_licences = cameras_products.count
-        if @required_licences > 0
-          licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
-          total_licences = licences.inject(0) { |sum, a| sum + a.total_cameras }
-          if total_licences < @required_licences
-            @show_alert_message = true
-            @required_licences = @required_licences - total_licences
-          end
-        end
-      end
-    end
+    display_billing_alert if ENV['DISPLAY_BILLING_MESSAGE'].eql?("yes") && current_user.payment_method.eql?(Licence::STRIPE)
   end
 
   def new
@@ -356,6 +342,49 @@ class CamerasController < ApplicationController
   end
 
   private
+
+  def display_billing_alert
+    cloud_recordings = Camera.where(owner: current_user).eager(:cloud_recording).all
+    cloud_recordings = cloud_recordings.select { |a| a.cloud_recording.present? && !a.cloud_recording.status.eql?("off") }
+    unless cloud_recordings.nil?
+      seven_day = thirty_day = ninty_day = 0
+      cloud_recordings.each do |camera|
+        if  camera.cloud_recording.storage_duration.equal?(7)
+          seven_day = seven_day + 1
+        elsif  camera.cloud_recording.storage_duration.equal?(30)
+          thirty_day = thirty_day + 1
+        elsif  camera.cloud_recording.storage_duration.equal?(90)
+          ninty_day = ninty_day + 1
+        end
+      end
+
+      @required_licences = cloud_recordings.count
+      if @required_licences > 0
+        licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
+        valid_seven_day = valid_thirty_day = valid_ninty_day = 0
+        licences.each do |licence|
+          if  licence.storage.equal?(7)
+            valid_seven_day = valid_seven_day + licence.total_cameras
+          elsif  licence.storage.equal?(30)
+            valid_thirty_day = valid_thirty_day + licence.total_cameras
+          elsif  licence.storage.equal?(90)
+            valid_ninty_day = valid_ninty_day + licence.total_cameras
+          end
+        end
+        total_licences = licences.inject(0) { |sum, a| sum + a.total_cameras }
+        @required_licences = @required_licences - total_licences
+        if seven_day > valid_seven_day
+          @show_alert_message = true
+        end
+        if thirty_day > valid_thirty_day
+          @show_alert_message = true
+        end
+        if ninty_day > valid_ninty_day
+          @show_alert_message = true
+        end
+      end
+    end
+  end
 
   def assess_field_errors(error)
     field_errors = {}

@@ -347,11 +347,11 @@ a.grey {
   z-index: 100000000000;
 
   .billing-link{
-    color: #a94442;
+    color: $dark-blue;
   }
 
   .billing-link:hover{
-    color: #a94442;
+    color: $dark-blue;
     text-decoration: underline;
   }
 }

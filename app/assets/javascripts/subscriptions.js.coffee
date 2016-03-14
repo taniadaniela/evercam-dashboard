@@ -261,13 +261,16 @@ showAlertMessage = ->
   seven_day_req = parseInt($("#licence-required-seven-day").text())
   thirty_day_req = parseInt($("#licence-required-thirty-day").text())
   ninety_day_req = parseInt($("#licence-required-ninety-day").text())
-  total_require = infinity_req + one_day_req + seven_day_req + thirty_day_req + ninety_day_req
+  total_require = parseInt($('#total-required-licence').text())
 
   one_day_current = parseInt($("#24-hours-recording-current-qty").text()) + parseInt($("#24-hours-recording-annual-current-qty").text())
   seven_day_current = parseInt($("#7-days-recording-current-qty").text()) + parseInt($("#7-days-recording-annual-current-qty").text())
   thirty_day_current = parseInt($("#30-days-recording-current-qty").text()) + parseInt($("#30-days-recording-annual-current-qty").text())
   ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
   infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
+  total_valid = one_day_current + seven_day_current + thirty_day_current + ninety_day_current
+  
+  $("#licence-message").text(total_require - total_valid)
 
   if $("#custom-licence").html()
     paid_custom_licences = $("td.green").length - 1
@@ -471,7 +474,6 @@ addlicencesrquired = ->
   licen = " (" + $('#total-required-licence').text() + ")"
   licences = $('#total-required-licence').text()
   $('h3#licences').append(licen)
-  $('span#licence-message').append(licences)
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")

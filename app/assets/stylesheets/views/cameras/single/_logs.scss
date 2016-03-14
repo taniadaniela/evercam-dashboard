@@ -2,6 +2,15 @@
   .checkbox-inline {
     padding-left: 0 !important;
   }
+
+  .paginate_button {
+    padding: 0px;
+  }
+  
+  .paginate_button:hover {
+    background: #ffffff;
+    border: solid 1px #dddddd;
+  }
 }
 #apply-types {
   margin: 20px 0px;
@@ -53,13 +62,4 @@
 #logs-filter .checkbox {
   display: inline-block;
   margin-right: 15px;
-}
-
-#logs .paginate_button {
-  padding: 0px;
-}
-
-#logs .paginate_button:hover {
-  background: #ffffff;
-  border: solid 1px #dddddd;
 }

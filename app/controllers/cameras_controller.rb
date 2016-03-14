@@ -14,9 +14,10 @@ class CamerasController < ApplicationController
         @required_licences = cameras_products.count
         if @required_licences > 0
           licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
-          if licences && licences.count < @required_licences
+          total_licences = licences.inject(0) { |sum, a| sum + a.total_cameras }
+          if total_licences < @required_licences
             @show_alert_message = true
-            @required_licences = @required_licences - licences.count
+            @required_licences = @required_licences - total_licences
           end
         end
       end

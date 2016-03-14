@@ -55,11 +55,11 @@
   margin-right: 15px;
 }
 
-#logs .dataTables_wrapper .dataTables_paginate .paginate_button {
+#logs .paginate_button {
   padding: 0px;
 }
 
-#logs .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  background: white;
+#logs .paginate_button:hover {
+  background: #ffffff;
   border: solid 1px #dddddd;
 }

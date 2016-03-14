@@ -54,3 +54,12 @@
   display: inline-block;
   margin-right: 15px;
 }
+
+#logs .dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 0px;
+}
+
+#logs .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: white;
+  border: solid 1px #dddddd;
+}

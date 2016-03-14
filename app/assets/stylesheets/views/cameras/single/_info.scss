@@ -56,8 +56,8 @@
     cursor: pointer;
     background: rgba(255, 255, 255, 0.5);
     border: none;
-    height: 35px;
-    width: 40px;
+    height: 32px;
+    width: 36px;
     text-align: center;
 
     .refresh-gif {
@@ -74,7 +74,7 @@
     .fa-refresh {
       width: 30px;
       font-size: 25px;
-      padding: 2px;
+      padding: 3px;
       display: inline-block;
       color: $secondary-color;
     }

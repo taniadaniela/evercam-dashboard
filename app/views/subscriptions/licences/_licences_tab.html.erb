@@ -11,8 +11,8 @@
 <div class="col-md-12 margin-top-15">
   <% monthly_total = @seven_days_recording + @thirty_days_recording + @ninety_days_recording + @twenty_four_hours_recording + @infinity %>
   <% annual_total = @seven_days_recording_annual + @thirty_days_recording_annual + @ninety_days_recording_annual + @twenty_four_hours_recording_annual + @infinity_annual %>
-  <% has_custom = @custom_licence.count %>
-  <%total = monthly_total + annual_total + has_custom%>
+  <% custom_licence = @custom_licence.inject(0) { |sum, a| sum + a.total_cameras } %>
+  <% total = monthly_total + annual_total + custom_licence %>
   <h3>Licences Purchased (<%=total%>)</h3>
   <form id="form-make-payment" method="post" action="<%= new_charge_path %>">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
@@ -26,9 +26,9 @@
             <li>
               <a data-toggle="tab" data-target="#annual-plans" class="nav-tab-history">Annual (<%= annual_total %>) (Save 20%)</a>
             </li>
-            <% if has_custom > 0 %>
+            <% if custom_licence > 0 %>
             <li>
-              <a data-toggle="tab" data-target="#custom-licence" class="nav-tab-history tab-custom-licence">Created by Admin (<%= has_custom %>)</a>
+              <a data-toggle="tab" data-target="#custom-licence" class="nav-tab-history tab-custom-licence">Created by Admin (<%= custom_licence %>)</a>
             </li>
               <div id="message-custom-licence">
                 <i class="fa fa-arrow-left"></i>
@@ -44,7 +44,7 @@
           <div id="annual-plans" class="tab-pane margin-top-20">
             <%= render partial: "subscriptions/licences/annual_plan" %>
           </div>
-          <% if has_custom > 0 %>
+          <% if custom_licence > 0 %>
           <div id="custom-licence" class="tab-pane margin-top-20">
             <%= render partial: "subscriptions/licences/custom_licence" %>
           </div>
@@ -87,7 +87,7 @@
           <p class="text-left margin-top-10 change-plan-desc" id="add-card-message">Add a credit card before save your plan(s).</p>
           <p id="checkout-message" class="text-left margin-top-10">
             <strong><span id="spnTotalPrice"></span></strong>Click Save to update your licences</p>
-          <p id="message-custom-licence" class="text-left margin-top-10">Click pay to complete your payment.</p>
+          <p id="pay-custom-licence" class="text-left margin-top-10">Click pay to complete your payment.</p>
         </div>
       </div>
       <div class="modal-footer">

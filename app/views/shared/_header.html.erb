@@ -1,12 +1,10 @@
 <div class="page-header navbar navbar-fixed-top">
   <div class="page-header-inner">
     <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
-<<<<<<< HEAD
     <div class="menu-toggler sidebar-toggler">
     </div>
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
     </a>
-=======
     <% if params[:controller] == 'cameras' && params[:action] == 'index' && @show_alert_message %>
       <div class="biling-alert alert alert-danger">
         <span>You require <%= @required_licences %> additional licences.
@@ -14,7 +12,6 @@
         </span>
       </div>
     <% end %>
->>>>>>> master
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">

@@ -263,9 +263,9 @@ var Metronic = function () {
     }
 
     // Handles scrollable contents using jQuery SlimScroll plugin.
-    var handleScrollers = function () {
-        Metronic.initSlimScroll('.scroller');
-    }
+    // var handleScrollers = function () {
+    //     Metronic.initSlimScroll('.scroller');
+    // }
 
     // Handles Image Preview using jQuery Fancybox plugin
     var handleFancybox = function () {
@@ -340,7 +340,7 @@ var Metronic = function () {
             //UI Component handlers            
             handleUniform(); // hanfle custom radio & checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents
+            // handleScrollers(); // handles slim scrolling contents
             handleFancybox() // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -400,78 +400,78 @@ var Metronic = function () {
             }, 'slow');
         }, 
 
-        initSlimScroll: function(el) {
-            $(el).each(function () {
-                if ($(this).attr("data-initialized")) {
-                    return; // exit
-                }
-                var height;
-                if ($(this).attr("data-height")) {
-                    height = $(this).attr("data-height");
-                } else {
-                    height = $(this).css('height');
-                }
+        // initSlimScroll: function(el) {
+        //     $(el).each(function () {
+        //         if ($(this).attr("data-initialized")) {
+        //             return; // exit
+        //         }
+        //         var height;
+        //         if ($(this).attr("data-height")) {
+        //             height = $(this).attr("data-height");
+        //         } else {
+        //             height = $(this).css('height');
+        //         }
 
-                $(this).slimScroll({
-                    allowPageScroll: true, // allow page scroll when the element scroll is ended
-                    size: '0px',
-                    color: ($(this).attr("data-handle-color")  ? $(this).attr("data-handle-color") : '#bbb'),
-                    wrapperClass: ($(this).attr("data-wrapper-class")  ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
-                    railColor: ($(this).attr("data-rail-color")  ? $(this).attr("data-rail-color") : '#eaeaea'),
-                    position: isRTL ? 'left' : 'right',
-                    height: height,
-                    alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
-                    railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
-                    disableFadeOut: true
-                });
-                $(this).attr("data-initialized", "1");
-            });
-        },
+        //         $(this).slimScroll({
+        //             allowPageScroll: true, // allow page scroll when the element scroll is ended
+        //             size: '0px',
+        //             color: ($(this).attr("data-handle-color")  ? $(this).attr("data-handle-color") : '#bbb'),
+        //             wrapperClass: ($(this).attr("data-wrapper-class")  ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
+        //             railColor: ($(this).attr("data-rail-color")  ? $(this).attr("data-rail-color") : '#eaeaea'),
+        //             position: isRTL ? 'left' : 'right',
+        //             height: height,
+        //             alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
+        //             railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
+        //             disableFadeOut: true
+        //         });
+        //         $(this).attr("data-initialized", "1");
+        //     });
+        // },
 
-        destroySlimScroll: function(el) {
-            $(el).each(function () {
-                if ($(this).attr("data-initialized") === "1") { // destroy existing instance before updating the height
-                    $(this).removeAttr("data-initialized");
-                    $(this).removeAttr("style");
+        // destroySlimScroll: function(el) {
+        //     $(el).each(function () {
+        //         if ($(this).attr("data-initialized") === "1") { // destroy existing instance before updating the height
+        //             $(this).removeAttr("data-initialized");
+        //             $(this).removeAttr("style");
 
-                    var attrList = {};
+        //             var attrList = {};
 
-                    // store the custom attribures so later we will reassign.
-                    if ($(this).attr("data-handle-color")) {
-                        attrList["data-handle-color"] = $(this).attr("data-handle-color");
-                    }
-                    if ($(this).attr("data-wrapper-class")) {
-                        attrList["data-wrapper-class"] = $(this).attr("data-wrapper-class");
-                    }
-                    if ($(this).attr("data-rail-color")) {
-                        attrList["data-rail-color"] = $(this).attr("data-rail-color");
-                    }
-                    if ($(this).attr("data-always-visible")) {
-                        attrList["data-always-visible"] = $(this).attr("data-always-visible");
-                    }
-                    if ($(this).attr("data-rail-visible")) {
-                        attrList["data-rail-visible"] = $(this).attr("data-rail-visible");
-                    }
+        //             // store the custom attribures so later we will reassign.
+        //             if ($(this).attr("data-handle-color")) {
+        //                 attrList["data-handle-color"] = $(this).attr("data-handle-color");
+        //             }
+        //             if ($(this).attr("data-wrapper-class")) {
+        //                 attrList["data-wrapper-class"] = $(this).attr("data-wrapper-class");
+        //             }
+        //             if ($(this).attr("data-rail-color")) {
+        //                 attrList["data-rail-color"] = $(this).attr("data-rail-color");
+        //             }
+        //             if ($(this).attr("data-always-visible")) {
+        //                 attrList["data-always-visible"] = $(this).attr("data-always-visible");
+        //             }
+        //             if ($(this).attr("data-rail-visible")) {
+        //                 attrList["data-rail-visible"] = $(this).attr("data-rail-visible");
+        //             }
 
-                    $(this).slimScroll({
-                        wrapperClass: ($(this).attr("data-wrapper-class")  ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
-                        destroy: true
-                    });
+        //             $(this).slimScroll({
+        //                 wrapperClass: ($(this).attr("data-wrapper-class")  ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
+        //                 destroy: true
+        //             });
 
-                    var the = $(this);
+        //             var the = $(this);
 
-                    // reassign custom attributes
-                    $.each(attrList, function (key, value) {
-                        the.attr(key, value);
-                    });
-                }
-            });
-        },
+        //             // reassign custom attributes
+        //             $.each(attrList, function (key, value) {
+        //                 the.attr(key, value);
+        //             });
+        //         }
+        //     });
+        // },
 
-        // function to scroll to the top
-        scrollTop: function () {
-            Metronic.scrollTo();
-        },
+        // // function to scroll to the top
+        // scrollTop: function () {
+        //     Metronic.scrollTo();
+        // },
 
         // wrMetronicer function to  block element(indicate loading)
         blockUI: function (options) {

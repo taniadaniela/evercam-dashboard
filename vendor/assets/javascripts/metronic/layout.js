@@ -207,22 +207,22 @@ var Layout = function () {
     }
 
     // Handles fixed sidebar
-    var handleFixedSidebar = function () {
-        var menu = $('.page-sidebar-menu');
+    // var handleFixedSidebar = function () {
+    //     var menu = $('.page-sidebar-menu');
 
-        Metronic.destroySlimScroll(menu);
+    //     Metronic.destroySlimScroll(menu);
 
-        if ($('.page-sidebar-fixed').size() === 0) {
-            handleSidebarAndContentHeight();
-            return;
-        }
+    //     if ($('.page-sidebar-fixed').size() === 0) {
+    //         handleSidebarAndContentHeight();
+    //         return;
+    //     }
 
-        if (Metronic.getViewPort().width >= 992) {
-            menu.attr("data-height", _calculateFixedSidebarViewportHeight());
-            Metronic.initSlimScroll(menu);
-            handleSidebarAndContentHeight();
-        }
-    }
+    //     if (Metronic.getViewPort().width >= 992) {
+    //         menu.attr("data-height", _calculateFixedSidebarViewportHeight());
+    //         Metronic.initSlimScroll(menu);
+    //         handleSidebarAndContentHeight();
+    //     }
+    // }
 
     // Handles sidebar toggler to close/hide the sidebar.
     var _initFixedSidebarHoverEffect = function () {
@@ -250,21 +250,18 @@ var Layout = function () {
         }
 
         // handle sidebar show/hide
-        $('.page-sidebar, .page-header').on('click', '.sidebar-toggler', function (e) {
-            console.log('in click')
+        $('.page-sidebar, .page-header').off('click').on('click', '.sidebar-toggler', function (e) {
             var sidebar = $('.page-sidebar');
             var sidebarMenu = $('.page-sidebar-menu');
             $(".sidebar-search", sidebar).removeClass("open");
 
-            if (body.hasclas('page-sidebar-closed')) {
-                console.log('has class')
+            if (body.hasClass('page-sidebar-closed')) {
                 body.removeClass("page-sidebar-closed");
                 sidebarMenu.removeClass("page-sidebar-menu-closed");
                 // if ($.cookie) {
                 //     $.cookie('sidebar_closed', '0');
                 // }
             } else {
-                console.log('no class')
                 body.addClass("page-sidebar-closed");
                 sidebarMenu.addClass("page-sidebar-menu-closed");
                 // if (body.hasClass("page-sidebar-fixed")) {
@@ -660,7 +657,7 @@ var Layout = function () {
             //IMPORTANT!!!: Do not modify the core handlers call order.
 
             //layout handlers
-            handleFixedSidebar(); // handles fixed sidebar menu
+            // handleFixedSidebar(); // handles fixed sidebar menu
             handleSidebarMenu(); // handles main menu
             handleHorizontalMenu(); // handles horizontal menu
             handleSidebarToggler(); // handles sidebar hide/show
@@ -671,7 +668,7 @@ var Layout = function () {
 
             // reinitialize the layout on window resize
             Metronic.addResizeHandler(handleSidebarAndContentHeight); // recalculate sidebar & content height on window resize
-            Metronic.addResizeHandler(handleFixedSidebar); // reinitialize fixed sidebar on window resize
+            // Metronic.addResizeHandler(handleFixedSidebar); // reinitialize fixed sidebar on window resize
             Metronic.addResizeHandler(handle100HeightContent); // reinitialize content height on window resize 
         },
 

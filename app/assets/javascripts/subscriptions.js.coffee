@@ -268,9 +268,7 @@ showAlertMessage = ->
   thirty_day_current = parseInt($("#30-days-recording-current-qty").text()) + parseInt($("#30-days-recording-annual-current-qty").text())
   ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
   infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
-  total_valid = one_day_current + seven_day_current + thirty_day_current + ninety_day_current
-  
-  $("#licence-message").text(total_require - total_valid)
+  total_valid = 0
 
   if $("#custom-licence").html()
     paid_custom_licences = $("td.green").length - 1
@@ -279,21 +277,23 @@ showAlertMessage = ->
       if total_require > paid_custom_licences
         changeTotalColor()
   else
-    if !isNaN(infinity_req)
-      if infinity_current is 0 || infinity_current < infinity_req
-        changeTotalColor()
     if !isNaN(one_day_req)
       if one_day_current is 0 || one_day_current < one_day_req
+        total_valid = total_valid + (one_day_req - one_day_current)
         changeTotalColor()
     if !isNaN(seven_day_req)
       if seven_day_current is 0 || seven_day_current < seven_day_req
+        total_valid = total_valid + (seven_day_req - seven_day_current)
         changeTotalColor()
     if !isNaN(thirty_day_req)
       if thirty_day_current is 0 || thirty_day_current < thirty_day_req
+        total_valid = total_valid + (thirty_day_req - thirty_day_current)
         changeTotalColor()
     if !isNaN(ninety_day_req)
       if ninety_day_current is 0 || ninety_day_current < ninety_day_req
+        total_valid = total_valid + (ninety_day_req - ninety_day_current)
         changeTotalColor()
+  $("#licence-message").text(total_valid)
 
 changeTotalColor = ->
   $(".licence-alert").show()

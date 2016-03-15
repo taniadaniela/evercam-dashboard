@@ -358,8 +358,8 @@ class CamerasController < ApplicationController
         end
       end
 
-      @required_licences = cloud_recordings.count
-      if @required_licences > 0
+      total_required = cloud_recordings.count
+      if total_required > 0
         licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
         valid_seven_day = valid_thirty_day = valid_ninty_day = 0
         licences.each do |licence|
@@ -372,14 +372,16 @@ class CamerasController < ApplicationController
           end
         end
         total_licences = licences.inject(0) { |sum, a| sum + a.total_cameras }
-        @required_licences = @required_licences - total_licences
         if seven_day > valid_seven_day
+          @required_licences = @required_licences + (seven_day - valid_seven_day)
           @show_alert_message = true
         end
         if thirty_day > valid_thirty_day
+          @required_licences = @required_licences + (thirty_day - valid_thirty_day)
           @show_alert_message = true
         end
         if ninty_day > valid_ninty_day
+          @required_licences = @required_licences + (ninty_day - valid_ninty_day)
           @show_alert_message = true
         end
       end

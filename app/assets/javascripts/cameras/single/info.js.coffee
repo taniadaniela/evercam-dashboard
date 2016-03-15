@@ -399,7 +399,8 @@ handleMapEvents = ->
 
 refreshLastSnaps = ->
   $('.info-preview').on "click", 'i#snaps', ->
-    $('.refresh-detail-snap i').addClass('fa-spin')
+    $('.refresh-detail-snap i').hide()
+    $('.refresh-detail-snap .refresh-gif').show()
     img = $('.info-preview .camera-thumbnail')
     img_url = img.attr "data-proxy"
     if img_url.endsWith "thumbnail"
@@ -410,7 +411,8 @@ refreshLastSnaps = ->
     setTimeout hideRefreshGif , 2000
 
 hideRefreshGif = ->
-  $('.refresh-detail-snap i').removeClass('fa-spin')
+  $('.refresh-detail-snap i').show()
+  $('.refresh-detail-snap .refresh-gif').hide()
 
 window.initializeInfoTab = ->
   $('.open-sharing').click(showSharingTab)

@@ -232,7 +232,7 @@ validateLicenceForm = ->
     price_annual = parseInt($("#new-total-price-annual").text())
     one_day = parseInt($("#24-hours-recording-quantity").val())
     one_day_annual = parseInt($("#24-hours-recording-annual-quantity").val())
-    $("#message-custom-licence").hide()
+    $("#pay-custom-licence").hide()
 
     if price_monthly isnt 0 || price_annual isnt 0 || one_day isnt 0 || one_day_annual isnt 0
       if $("#has-credit-card").val() is "false"
@@ -261,13 +261,14 @@ showAlertMessage = ->
   seven_day_req = parseInt($("#licence-required-seven-day").text())
   thirty_day_req = parseInt($("#licence-required-thirty-day").text())
   ninety_day_req = parseInt($("#licence-required-ninety-day").text())
-  total_require = infinity_req + one_day_req + seven_day_req + thirty_day_req + ninety_day_req
+  total_require = parseInt($('#total-required-licence').text())
 
   one_day_current = parseInt($("#24-hours-recording-current-qty").text()) + parseInt($("#24-hours-recording-annual-current-qty").text())
   seven_day_current = parseInt($("#7-days-recording-current-qty").text()) + parseInt($("#7-days-recording-annual-current-qty").text())
   thirty_day_current = parseInt($("#30-days-recording-current-qty").text()) + parseInt($("#30-days-recording-annual-current-qty").text())
   ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
   infinity_current = parseInt($("#infinity-current-qty").text()) + parseInt($("#infinity-annual-current-qty").text())
+  total_valid = 0
 
   if $("#custom-licence").html()
     paid_custom_licences = $("td.green").length - 1
@@ -276,21 +277,23 @@ showAlertMessage = ->
       if total_require > paid_custom_licences
         changeTotalColor()
   else
-    if !isNaN(infinity_req)
-      if infinity_current is 0 || infinity_current < infinity_req
-        changeTotalColor()
     if !isNaN(one_day_req)
       if one_day_current is 0 || one_day_current < one_day_req
+        total_valid = total_valid + (one_day_req - one_day_current)
         changeTotalColor()
     if !isNaN(seven_day_req)
       if seven_day_current is 0 || seven_day_current < seven_day_req
+        total_valid = total_valid + (seven_day_req - seven_day_current)
         changeTotalColor()
     if !isNaN(thirty_day_req)
       if thirty_day_current is 0 || thirty_day_current < thirty_day_req
+        total_valid = total_valid + (thirty_day_req - thirty_day_current)
         changeTotalColor()
     if !isNaN(ninety_day_req)
       if ninety_day_current is 0 || ninety_day_current < ninety_day_req
+        total_valid = total_valid + (ninety_day_req - ninety_day_current)
         changeTotalColor()
+  $("#licence-message").text(total_valid)
 
 changeTotalColor = ->
   $(".licence-alert").show()
@@ -458,10 +461,11 @@ payCustomLicence = ->
       $("#saveSubscriptions").val($(".stripe-button-el span").text())
       $("#checkout-message").hide()
       $("#add-card-message").show()
+      $("#pay-custom-licence").hide()
     else
       $("#checkout-message").hide()
       $("#add-card-message").hide()
-      $("#message-custom-licence").show()
+      $("#pay-custom-licence").show()
       $("#saveSubscriptions").val(" Pay ")
       $("#is-custom-payment").val("true")
     $("#payNowModal").modal("show")
@@ -470,7 +474,6 @@ addlicencesrquired = ->
   licen = " (" + $('#total-required-licence').text() + ")"
   licences = $('#total-required-licence').text()
   $('h3#licences').append(licen)
-  $('span#licence-message').append(licences)
 
 window.initializeSubscription = ->
   Notification.init(".bb-alert")

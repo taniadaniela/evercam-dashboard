@@ -334,6 +334,28 @@ a.grey {
   color: #777 !important;
 }
 
-//#intercom-container .intercom-launcher {
-//  visibility: hidden !important;
-//}
+.biling-alert {
+  border-radius: 2px;
+  font-size: 13px;
+  left: 50%;
+  margin-left: -142px;
+  padding: 0.43em 1em;
+  position: fixed;
+  text-align: center;
+  top: 1px;
+  width: 315px;
+  z-index: 100000000000;
+
+  .billing-link{
+    color: $dark-blue;
+  }
+
+  .billing-link:hover{
+    color: $dark-blue;
+    text-decoration: underline;
+  }
+}
+
+.imgareaselect-outer {
+  background-color: transparent;
+}

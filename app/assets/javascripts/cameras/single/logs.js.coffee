@@ -7,8 +7,10 @@ updateLogTypesFilter = () ->
   $.each($("input[name='type']:checked"), ->
     types.push($(this).val())
   )
-  from = new Date($('#datetimepicker').val()).getTime()/ 1000
-  to = new Date($('#datetimepicker2').val()).getTime()/ 1000
+  from_date = moment($('#datetimepicker').val(), "DD-MM-YYYY H:mm")
+  to_date = moment($('#datetimepicker2').val(), "DD-MM-YYYY H:mm")
+  from = from_date._d.getTime()/ 1000
+  to = to_date._d.getTime()/ 1000
   fromto_seg = ''
   fromto_seg += '&from=' + from unless isNaN(from)
   fromto_seg += '&to=' + to unless isNaN(to)
@@ -57,7 +59,7 @@ initializeDataTable = ->
 
 window.initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
-  $('.datetimepicker').datetimepicker()
+  $('.datetimepicker').datetimepicker(format: 'd/m/Y H:m')
   $('#type-all').click(toggleAllTypeFilters)
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')

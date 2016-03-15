@@ -320,36 +320,6 @@ var Layout = function () {
                 }
             });
         }
-
-        // handle the search submit(for sidebar search and responsive mode of the header search)
-        $('.sidebar-search .submit').on('click', function (e) {
-            e.preventDefault();
-            if ($('body').hasClass("page-sidebar-closed")) {
-                if ($('.sidebar-search').hasClass('open') == false) {
-                    if ($('.page-sidebar-fixed').size() === 1) {
-                        $('.page-sidebar .sidebar-toggler').click(); //trigger sidebar toggle button
-                    }
-                    $('.sidebar-search').addClass("open");
-                } else {
-                    $('.sidebar-search').submit();
-                }
-            } else {
-                $('.sidebar-search').submit();
-            }
-        });
-
-        // handle close on body click
-        if ($('.sidebar-search').size() != 0) {
-            $('.sidebar-search .input-group').on('click', function(e){
-                e.stopPropagation();
-            });
-
-            $('body').on('click', function() {
-                if ($('.sidebar-search').hasClass('open')) {
-                    $('.sidebar-search').removeClass("open");
-                }
-            });
-        }
     }
 
     // Handles the horizontal menu

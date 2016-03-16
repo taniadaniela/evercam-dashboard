@@ -116,9 +116,7 @@ createClip = ->
         $('#archives-table').show()
         $("#no-archive").hide()
         formReset()
-        console.log 'here if'
       else
-        console.log 'here else'
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       Notification.show(data.message)
 

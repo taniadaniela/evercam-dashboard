@@ -70,13 +70,24 @@ renderbuttons = (row, type, set, meta) ->
     return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
 
 renderDate = (row, type, set, meta) ->
-  return moment(row.created_at*1000).utc().format('MMMM Do YYYY, H:mm:ss')
+#  return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
+  getDate(row.created_at*1000)
 
 renderFromDate = (row, type, set, meta) ->
-  return moment(row.from_date*1000).utc().format('MMMM Do YYYY, H:mm:ss')
+#  return moment(row.from_date*1000).format('MMMM Do YYYY, H:mm:ss')
+  getDate(row.from_date*1000)
 
 renderToDate = (row, type, set, meta) ->
-  return moment(row.to_date*1000).utc().format('MMMM Do YYYY, H:mm:ss')
+#  return moment(row.to_date*1000).format('MMMM Do YYYY, H:mm:ss')
+  getDate(row.to_date*1000)
+
+getDate = (timestamp) ->
+  offset =  $('#camera_time_offset').val()
+  cameraOffset = parseInt(offset)/3600
+  DateTime = new Date(moment.utc(timestamp).format('MM DD YYYY, HH:mm:ss'))
+  DateTime.setHours(DateTime.getHours() + (cameraOffset))
+  Dateformateed =  DateTime.dateFormat('M d Y, H:i:s')
+  return Dateformateed
 
 shareURL = ->
   $("#archives-table").on "click",".share-archive", ->
@@ -132,12 +143,15 @@ createClip = ->
 
 setDate = ->
   $('.btn-primary').on 'click', ->
-    dt = new Date($.now())
-    time_from = dt.getUTCDate() + "/" + (dt.getUTCMonth() + 1) + "/" + dt.getUTCFullYear() + " " + (dt.getUTCHours() - 2) + ":" + dt.getUTCMinutes() + ":" + dt.getUTCSeconds()
-    time_to = dt.getUTCDate() + "/" + (dt.getUTCMonth() + 1) + "/" + dt.getUTCFullYear() + " " + dt.getUTCHours() + ":" + dt.getUTCMinutes() + ":" + dt.getUTCSeconds()
-    $('#from-date').val time_from,true
-    $('#to-date').val time_to,true
-
+    offset =  $('#camera_time_offset').val()
+    cameraOffset = parseInt(offset)/3600
+    DateTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+    DateTime.setHours(DateTime.getHours() + (cameraOffset))
+    Dateto =  DateTime.dateFormat('d/m/Y H:i:s')
+    $('#to-date').val Dateto,true
+    DateTime.setHours(DateTime.getHours() - 2)
+    Datefrom = DateTime.dateFormat('d/m/Y H:i:s')
+    $('#from-date').val Datefrom,true
 
 formReset = ->
   $("#clip-name").val("")

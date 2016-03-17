@@ -2,13 +2,13 @@
   <div class="col-md-12 table-responsive">
     <table id="archives-table" class="table table-striped table-bordered ">
       <thead>
-      <th class="col-md-1">Title</th>
-      <th class="col-md-2">From</th>
-      <th class="col-md-2">To</th>
-      <th class="col-md-1">Frames</th>
-      <th class="col-md-1">Status</th>
-      <th class="col-md-2">Created</th>
-      <th class="col-md-1">Options</th>
+      <th class="col-md-1" id="title">Title</th>
+      <th class="col-md-2" id="from">From</th>
+      <th class="col-md-2" id="to">To</th>
+      <th class="col-md-1" id="frames" >Frames</th>
+      <th class="col-md-1" id="status">Status</th>
+      <th class="col-md-2" id="created">Created</th>
+      <th class="col-md-1" id="options">Options</th>
       </thead>
       <tbody>
 
@@ -88,3 +88,6 @@
     </div>
   </div>
 </div>
+
+<input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
+<input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">

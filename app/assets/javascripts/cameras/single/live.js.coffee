@@ -130,7 +130,7 @@ handleChangeStream = ->
         clearInterval int_time
         disconnectFromSocket()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
-        
+
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
     connectToSocket()
@@ -173,8 +173,6 @@ calculateHeight = ->
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
-
-
 
 handleResize = ->
   getImageRealRatio()
@@ -315,4 +313,3 @@ window.initializeLiveTab = ->
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()
-  

@@ -235,7 +235,7 @@ initSocket = ->
   Evercam.socket.connect()
 
 playJpegStream = ->
-  Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
+  Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key})
   Evercam.camera_channel.join()
   Evercam.camera_channel.on 'snapshot-taken', (payload) ->
     $(".btn-live-player").removeClass "hide"

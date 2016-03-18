@@ -1,6 +1,6 @@
 #= require evercam.js.coffee
 #= require cameras/single/info.js.coffee
-#= require cameras/single/live.js.coffee
+#= require cameras/single/live_view.js.coffee
 #= require cameras/single/sharing.js.coffee
 #= require cameras/single/snapshots_navigator.js.coffee
 #= require cameras/single/motion_detection.js.coffee

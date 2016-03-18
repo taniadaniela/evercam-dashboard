@@ -12,12 +12,6 @@ refreshThumbnails = ->
     img.attr "src", src
   setTimeout refreshThumbnails, 60000
 
-handlePusherEventIndex = ->
-  channel = Evercam.Pusher.subscribe(Evercam.User.username)
-  channel.bind 'user_cameras_changed', (data) ->
-    $('#camera-index.page-content').load "#{Evercam.request.rootpath} #camera-index.page-content > *", ->
-      window.refreshThumbnails()
-
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
@@ -28,6 +22,5 @@ window.initializeCameraIndex = ->
   Layout.init()
   QuickSidebar.init()
   initNotification()
-  handlePusherEventIndex()
   refreshThumbnails()
   $('[data-toggle="tooltip"]').tooltip()

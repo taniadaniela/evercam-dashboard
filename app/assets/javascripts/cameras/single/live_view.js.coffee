@@ -244,7 +244,7 @@ playJpegStream = ->
       $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
 stopJpegStream = ->
-  Evercam.camera_channel.leave()
+  Evercam.camera_channel.leave() if Evercam.camera_channel
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0

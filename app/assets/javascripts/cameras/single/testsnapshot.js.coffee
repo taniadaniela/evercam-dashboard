@@ -34,6 +34,11 @@ $ ->
     # Encode parameters
     jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
 
+    # Check for vendor model and snap-url
+    if $("#camera-vendor").val() is "Select Camera Vendor" || $('#snapshot').val() is ""
+      showFeedback("Please choose camera vendor or add your camera snapshot URL.")
+      return
+
     # Validate port
     if(port != '' && (!intRegex.test(port) || port > 65535))
       showFeedback("Port value is incorrect")

@@ -87,6 +87,7 @@ updateSchedule = (frequency, storage_duration, schedule, status) ->
     Evercam.Camera.cloud_recording.storage_duration = JSON.parse(data).cloud_recordings[0].storage_duration
     Evercam.Camera.cloud_recording.frequency = JSON.parse(data).cloud_recordings[0].frequency
     $('#cloud-recording-duration').val(Evercam.Camera.cloud_recording.storage_duration)
+    $('#cloud-recording-duration').attr('disabled',false)
     showFeedback("Cloud recording schedule was successfully updated.")
 
   settings =

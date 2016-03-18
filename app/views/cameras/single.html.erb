@@ -1,7 +1,7 @@
 <%= content_for(:title, "#{@camera['name']} | Evercam: Camera View") %>
 
 <div class="page-content-wrapper">
-  <div class="page-content" id="camera-single">
+  <div class="page-content camera-<%= @camera['id'] %>" id="camera-single">
 
     <div class="portlet-body">
       <% has_edit_right = @camera["rights"].split(",").include?("edit") %>

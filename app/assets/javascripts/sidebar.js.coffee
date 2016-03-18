@@ -33,6 +33,24 @@ removeDropdown = ->
 initSocket = ->
   Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
   Evercam.socket.connect()
+  Evercam.user_channel = Evercam.socket.channel("users:#{Evercam.User.username}", {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key})
+  Evercam.user_channel.join()
+  Evercam.user_channel.on 'camera-status-changed', (payload) ->
+    updateCameraStatus(payload.camera_id, payload.status)
+
+updateCameraStatus = (camera_id, status) ->
+  console.log(camera_id)
+  console.log(status)
+  if status
+    $(".sidebar-cameras-list .camera-#{camera_id}").removeClass("sidebar-offline")
+    $(".page-header.camera-#{camera_id} .camera-switch").removeClass("camera-offline")
+    $(".page-content .camera-index.camera-#{camera_id}").removeClass("camera-offline")
+    $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status green">Online</div>')
+  else
+    $(".sidebar-cameras-list .camera-#{camera_id}").addClass("sidebar-offline")
+    $(".page-header.camera-#{camera_id} .camera-switch").addClass("camera-offline")
+    $(".page-content .camera-index.camera-#{camera_id}").addClass("camera-offline")
+    $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status red">Offline</div>')
 
 $ ->
   initSocket()

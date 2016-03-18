@@ -36,11 +36,11 @@ controlButtonEvents = ->
     if stream_paused
       $(this).children().removeClass "icon-control-play"
       $(this).children().addClass "icon-control-pause"
-      connectToSocket()
+      playJpegStream()
     else
       $(this).children().removeClass "icon-control-pause"
       $(this).children().addClass "icon-control-play"
-      disconnectFromSocket()
+      stopJpegStream()
     stream_paused = !stream_paused
 
   $('#refresh-offline-camera').on "click", ->
@@ -118,7 +118,7 @@ handleChangeStream = ->
         destroyPlayer()
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
-        connectToSocket()
+        playJpegStream()
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
 
@@ -128,17 +128,17 @@ handleChangeStream = ->
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
         clearInterval int_time
-        disconnectFromSocket()
+        stopJpegStream()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
-    connectToSocket()
+    playJpegStream()
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
-    Evercam.socket.disconnect()
+    stopJpegStream()
     clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
@@ -274,21 +274,20 @@ handleModelEvents = ->
     $('#ptz-control table thead tr th').html 'PTZ'
 
 initSocket = ->
-  window.Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
-  connectToSocket()
-
-connectToSocket = ->
+  Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
   Evercam.socket.connect()
-  channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
-  channel.join()
-  channel.on 'snapshot-taken', (payload) ->
+
+playJpegStream = ->
+  Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
+  Evercam.camera_channel.join()
+  Evercam.camera_channel.on 'snapshot-taken', (payload) ->
     $(".btn-live-player").removeClass "hide"
     if payload.timestamp >= live_view_timestamp and not stream_paused
       live_view_timestamp = payload.timestamp
       $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
-disconnectFromSocket = ->
-  Evercam.socket.disconnect()
+stopJpegStream = ->
+  Evercam.camera_channel.leave()
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0

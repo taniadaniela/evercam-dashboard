@@ -240,9 +240,6 @@
   z-index: 10000;
 }
 
-.page-sidebar-menu {
-  z-index: 10000 !important;
-}
 .tooltip-inner {
   background-color: lighten($secondary-color, 5%) !important;
   color: #ffffff !important;
@@ -364,3 +361,17 @@ a.grey {
 .imgareaselect-outer {
   background-color: transparent;
 }
+
+@media only screen and (min-width: 990px) {
+
+  .menu-toggler {
+    display: none;
+  }
+ }
+
+@media only screen and (max-width: 990px) {
+
+  .menu-toggler {
+    display: block;
+  }
+ }

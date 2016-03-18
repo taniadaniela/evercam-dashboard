@@ -72,9 +72,9 @@ Page Header
   margin: 18px 6px 0 6px;
 }
 .page-header.navbar .menu-toggler.sidebar-toggler {
-  float: right;
+  float: left;
   display: inline-block;
-  margin: 15px 0 0 0;
+  margin: 3px 0 0 120px;
 }
 
 .page-header.navbar .search-form {
@@ -137,9 +137,9 @@ Page Header
   height: 16px;
 }
 .page-header.navbar .menu-toggler.sidebar-toggler {
-  float: right;
+  float: left;
   display: inline-block;
-  margin: 15px 0 0 0;
+  margin: 3px 0 0 120px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
   height:67px;
@@ -328,12 +328,12 @@ Page sidebar
   0 0.5em 0 0 white;
 }
 .page-header.navbar .menu-toggler.responsive-toggler {
-  margin: 18px 6px 0 6px;
+  margin: 13px 0 0 0;
 }
 .page-header.navbar .menu-toggler.sidebar-toggler {
-  float: right;
+  float: left;
   display: inline-block;
-  margin: 15px 0 0 0;
+  margin: 3px 0 0 120px;
 }
 
 
@@ -366,10 +366,10 @@ Page sidebar
 
 @media only screen and (max-width: 990px) {
   .page-header.navbar .menu-toggler.responsive-toggler {
-    margin-top:23px;
+    // margin-top:23px;
   }
   .page-sidebar.navbar-collapse.in {
-    margin: 75px 0 0 0;
+    // margin: 53px 0 0 0;
   }
 
 }
@@ -400,9 +400,9 @@ Page sidebar
   height: 16px;
 }
 .page-header.navbar .menu-toggler.sidebar-toggler {
-  float: right;
-  display: inline-block;
-  margin: 15px 0 0 0;
+  float: left;
+  display: none;
+  margin: 3px 0 0 120px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
   height:35px;

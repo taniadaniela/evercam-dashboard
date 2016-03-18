@@ -24,6 +24,7 @@ $ ->
     intRegex = /^\d+$/
     port = $('#port').val()
     ext_url = $('#camera-url').val()
+    vandor_model = $("#camera-vendor").val()
     $snap = $('#snapshot')
     jpg_url = $snap.val()
     # Auto-fix snapshot
@@ -35,7 +36,7 @@ $ ->
     jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
 
     # Check for vendor model and snap-url
-    if $("#camera-vendor").val() is "Select Camera Vendor" || $('#snapshot').val() is ""
+    if vandor_model is "Select Camera Vendor" || jpg_url is ""
       showFeedback("Please choose camera vendor or add your camera snapshot URL.")
       return
 

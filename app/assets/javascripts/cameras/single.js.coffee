@@ -46,50 +46,9 @@ handleBackForwardButton = ->
       .split('/')[1]
     $(".nav-tab-#{tab}").tab('show')
 
-handlePusherEventSingle = ->
-  channel = Evercam.Pusher.subscribe(Evercam.Camera.id)
-  channel.bind 'camera_changed', (data) ->
-    updateCameraSinglePage()
-
-updateCameraSinglePage = ->
-  $.ajax(Evercam.request.rootpath).done (data) ->
-    elements = [
-      '.camera-switch'
-      '#details .info-preview'
-      '#camera-details-panel'
-      '#camera-connection-panel'
-      '#general-info-panel'
-      '#urls-panel'
-      '#settings-modal .modal-body'
-    ]
-    updateElement(data, elem) for elem in elements
-    updateLiveViewPanel()
-
-updateElement = (page, elem)->
-  $(elem).html $(page).find("#{elem} > *")
-  if !$(".wrap img#message").hasClass("no-thumbnail")
-    HideBrokenSnaps()
-
-updateLiveViewPanel = ->
-  status = $("#camera-details-panel td > .status").text().toLowerCase()
-  switch status
-    when "online"
-      $(".camera-preview-online").removeClass('hide')
-      $(".camera-preview-offline").addClass('hide')
-    when "offline"
-      $(".camera-preview-online").addClass('hide')
-      $(".camera-preview-offline").removeClass('hide')
-
 handleCameraModalSubmit = ->
   $('#settings-modal').on 'click', '#add-button', ->
     $('#settings-modal').modal('hide')
-
-handlePageLoad = ->
-  setTimeout (->
-    if !$(".wrap img#message").hasClass("no-thumbnail")
-      updateCameraSinglePage()
-    updateSidebar()
-  ), 2000
 
 addToMyCameras = ->
   $('#add-to-cameras').on 'click', ->
@@ -133,13 +92,6 @@ addToMyCameras = ->
       url: '/share'
     sendAJAXRequest(settings)
 
-HideBrokenSnaps = ->
-  $('div#snap #message.snapshot-proxy').on 'error', ->
-    @src = '/assets/offline.png'
-    @removeclassName = 'snapshot-proxy snapshot-refresh'
-    @className = 'no-thumbnail'
-    true
-
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -157,11 +109,6 @@ window.initializeCameraSingle = ->
   handleTabClick()
   switchToTab()
   handleBackForwardButton()
-  handlePusherEventSingle()
-  # temporarily disabled
-  #handleCameraModalSubmit()
-  # temporarily added
-  handlePageLoad()
   initializeiCheck()
   initializeDropdowns()
   addToMyCameras()

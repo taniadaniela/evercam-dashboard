@@ -247,3 +247,10 @@ ul.scroll-menu {
     width: 100%;
   }
 }
+
+.camera-info:not(.offline-grey),
+.sub-menu-item:not(.sidebar-offline) {
+  .fa-chain-broken {
+    display:none;
+  }
+}

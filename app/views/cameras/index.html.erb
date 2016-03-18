@@ -22,9 +22,7 @@
           <div class="camera-info <% unless camera['is_online'] %> offline-grey <% end %>">
             <div class="camera-name">
               <%= camera['name'] %>
-              <% unless camera['is_online'] %>
-                <i class="red fa fa-chain-broken"></i>
-              <% end %>
+              <i class="red fa fa-chain-broken"></i>
             </div>
           </div>
         <% end %>

@@ -1,6 +1,5 @@
 window.showFeedback = (message) ->
   Notification.show(message)
-  true
 
 refreshThumbnails = ->
   $('.camera-thumbnail').each ->
@@ -30,5 +29,5 @@ window.initializeCameraIndex = ->
   QuickSidebar.init()
   initNotification()
   handlePusherEventIndex()
-  setTimeout refreshThumbnails, 60000
+  refreshThumbnails()
   $('[data-toggle="tooltip"]').tooltip()

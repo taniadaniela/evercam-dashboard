@@ -56,11 +56,9 @@ refreshCameraStatus = ->
   onError = (jqXHR, status, error) ->
     message = jqXHR.responseJSON.message
     Notification.show message
-    false
 
   onSuccess = (data, status, jqXHR) ->
     location.reload()
-    true
 
   settings =
     cache: false
@@ -194,20 +192,15 @@ handlePtzCommands = ->
       api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/#{ptz_command}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     data = {}
 
-    onError = (jqXHR, status, error) ->
+    onComplete = (result) ->
       $('#ptz-control table thead tr th').html headingText
-      false
-
-    onSuccess = (result) ->
-      $('#ptz-control table thead tr th').html headingText
-      true
 
     settings =
       cache: false
       data: data
       dataType: 'json'
-      error: onError
-      success: onSuccess
+      error: onSuccess
+      success: onComplete
       contentType: "application/json; charset=utf-8"
       type: 'POST'
       url: api_url
@@ -220,9 +213,6 @@ getPtzPresets = ->
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 
-  onError = (jqXHR, status, error) ->
-    false
-
   onSuccess = (result) ->
     for preset in result.Presets
       if preset.token < 33
@@ -230,13 +220,11 @@ getPtzPresets = ->
         divPresets.append($(document.createTextNode(preset.Name)))
         divPresets.attr("token_val", preset.token)
         $("#presets-table").append(divPresets)
-    true
 
   settings =
     cache: false
     data: data
     dataType: 'json'
-    error: onError
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
@@ -247,18 +235,10 @@ changePtzPresets = ->
   $("#camera-presets").on 'click', '.row-preset', ->
     data = {}
 
-    onError = (jqXHR, status, error) ->
-      false
-
-    onSuccess = (result) ->
-      true
-
     settings =
       cache: false
       data: data
       dataType: 'json'
-      error: onError
-      success: onSuccess
       contentType: "application/json; charset=utf-8"
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"

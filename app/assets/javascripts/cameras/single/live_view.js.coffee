@@ -1,7 +1,4 @@
-default_img = "/assets/offline.svg"
-int_time = undefined
 stream_paused = false
-image_placeholder = undefined
 img_real_width = 0
 img_real_height = 0
 live_view_timestamp = 0
@@ -13,23 +10,6 @@ sendAJAXRequest = (settings) ->
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
   xhrRequestChangeMonth = $.ajax(settings)
-
-loadImage = ->
-  img = new Image()
-  live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-  src = "#{live_snapshot_url}&rand=" + new Date().getTime()
-  img.onload = ->
-    unless not image_placeholder.parent
-      image_placeholder.parent.replaceChild img, image_placeholder
-    else
-      image_placeholder.src = src
-    $(".btn-live-player").removeClass "hide"
-    $('.refresh-gif').hide()
-    $('.icon-refresh').show()
-  img.onerror = ->
-    $('.refresh-gif').hide()
-    $('.icon-refresh').show()
-  img.src = src
 
 controlButtonEvents = ->
   $(".play-pause").on "click", ->
@@ -46,7 +26,6 @@ controlButtonEvents = ->
   $('#refresh-offline-camera').on "click", ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
-    loadImage()
     refreshCameraStatus()
 
 refreshCameraStatus = ->
@@ -125,7 +104,6 @@ handleChangeStream = ->
         initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
-        clearInterval int_time
         stopJpegStream()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
 
@@ -137,7 +115,6 @@ handleTabOpen = ->
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
     stopJpegStream()
-    clearInterval int_time
     if $('#select-stream-type').length
       destroyPlayer()
 

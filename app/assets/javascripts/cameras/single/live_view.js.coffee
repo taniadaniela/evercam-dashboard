@@ -146,6 +146,8 @@ handleTabOpen = ->
   if $(".nav-tabs li.active a").attr("data-target") is "#live"
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
+    else
+      $(".nav-tabs li.active a").trigger("show.bs.tab");
 
 handleSaveSnapshot = ->
   $('#save-live-snapshot').on 'click', ->

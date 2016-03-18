@@ -26,7 +26,7 @@ initializeiCheck = ->
     radioClass: "iradio_flat-blue"
 
 initializeDropdowns = ->
-  $("[data-toggle=\"tooltip\"]").tooltip()
+  $('[data-toggle="tooltip"]').tooltip()
   $(".dropdown-toggle").dropdown()
 
 switchToTab = ->
@@ -50,7 +50,7 @@ handleCameraModalSubmit = ->
   $('#settings-modal').on 'click', '#add-button', ->
     $('#settings-modal').modal('hide')
 
-addToMyCameras = ->
+handleAddToMyCameras = ->
   $('#add-to-cameras').on 'click', ->
     data =
       camera_id: Evercam.Camera.id
@@ -59,7 +59,7 @@ addToMyCameras = ->
 
     onError = (jqXHR, status, error) ->
       Notification.show("Failed to add camera.")
-      false
+
     onSuccess = (data, status, jqXHR) ->
       if data.success
         Notification.show("Camera successfully added.")
@@ -80,7 +80,6 @@ addToMyCameras = ->
           else
             message = data.message
         Notification.show(message)
-      true
 
     settings =
       cache: false
@@ -109,10 +108,9 @@ window.initializeCameraSingle = ->
   handleTabClick()
   switchToTab()
   handleBackForwardButton()
+  handleAddToMyCameras()
   initializeiCheck()
   initializeDropdowns()
-  addToMyCameras()
-  $('[data-toggle="tooltip"]').tooltip()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()

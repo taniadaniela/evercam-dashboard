@@ -230,10 +230,6 @@ handleModelEvents = ->
     $("#ptz-control").removeClass("hide")
     $('#ptz-control table thead tr th').html 'PTZ'
 
-initSocket = ->
-  Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
-  Evercam.socket.connect()
-
 playJpegStream = ->
   Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key})
   Evercam.camera_channel.join()
@@ -255,7 +251,6 @@ $(window).load HideMessage = ->
     $("#offline_message").show()
 
 window.initializeLiveTab = ->
-  initSocket()
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")

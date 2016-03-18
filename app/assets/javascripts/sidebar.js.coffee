@@ -30,7 +30,12 @@ removeDropdown = ->
   $("#Intercom").on "click", ->
     $('#live_support').removeClass('open')
 
+initSocket = ->
+  Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
+  Evercam.socket.connect()
+
 $ ->
+  initSocket()
   showOfflineButton()
   $('[data-toggle="tooltip"]').tooltip()
 

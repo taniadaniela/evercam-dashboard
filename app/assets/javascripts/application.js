@@ -25,7 +25,6 @@
 //= require select2
 //= require popbox.js
 //= require phoenix
-//= require pusher
 //= require fullcalendar/fullcalendar.js
 //= require bs-slider
 //= require jquery.imgareaselect

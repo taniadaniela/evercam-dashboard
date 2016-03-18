@@ -7,6 +7,7 @@ window.updateSidebar = ->
 
   onSuccess = (data, status, jqXHR) ->
     renderSidebar(data.cameras)
+
   settings =
     cache: false
     data: data
@@ -20,13 +21,13 @@ renderSidebar = (cameras) ->
   sidebar = ""
   for camera in cameras
     classes = if camera.is_online then "" else "sidebar-offline"
-    if camera.is_online 
+    if camera.is_online
       row = """
       <li class="sub-menu-item #{classes}">
         <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
       </li>\n
       """
-    else   
+    else
       row = """
       <li class="sub-menu-item #{classes}">
         <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
@@ -43,7 +44,7 @@ window.showOfflineButton = ->
   else
     $('#siderbar').hide()
   if $.cookie("hide-offline-cameras")
-    $("#offline-btn").prop("checked",true)
+    $("#offline-btn").prop("checked", true)
     $("#offline-btn").addClass("active")
     $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')
   $('#offline-btn').on 'click', (event) ->
@@ -56,17 +57,13 @@ window.showOfflineButton = ->
       $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
-slideToggel = ->
+slideToggle = ->
   $('.dev').click ->
     $('.developer-list').slideToggle()
-    return
   $('.seting').click ->
     $('.setting-list').slideToggle()
-    return
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle()
-    return
-  return
 
 removeDropdown = ->
   $("#Intercom").on "click", ->
@@ -78,23 +75,13 @@ handlePusherEventUser = ->
     channel.bind 'user_cameras_changed', (data) ->
       updateSidebar()
 
-handleSidebarToggle = ->
-  $('.toggle-sidebar').on 'click', (event) ->
-    event.preventDefault()
-    $(this).toggleClass('active')
-    $('#cbp-spmenu-s1').toggleClass('cbp-spmenu-open')
-
 $ ->
   showOfflineButton()
-  handleSidebarToggle()
   $('[data-toggle="tooltip"]').tooltip()
 
 $(window).ready ->
-  slideToggel()
+  slideToggle()
   removeDropdown()
 
 $(window).load ->
   handlePusherEventUser()
-  
-  
-

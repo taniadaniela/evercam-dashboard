@@ -41,7 +41,7 @@ class PublicController < ApplicationController
     begin
       api = get_evercam_api
       @camera = api.get_camera(params[:id])
-      @camera['jpg'] = "#{EVERCAM_MEDIA_API}cameras/#{@camera['id']}/live/snapshot"
+      @camera['jpg'] = "#{EVERCAM_MEDIA_API}cameras/#{@camera['id']}/thumbnail"
       @cameras = load_user_cameras(true, false)
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)

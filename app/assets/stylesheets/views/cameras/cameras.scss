@@ -77,6 +77,35 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   border:1px solid transparent;
 }
 
+.copy-from li a {
+  color: #333333;
+}
+
+.copy-from li a:hover , .nav-tabs li a:active  {
+  color: $main-color;
+}
+
+.copy-from > li > a:hover {
+  border:1px solid transparent;
+}
+
+.copy-from .dropdown-menu {
+  height: 75vh;
+  min-width: 230px;
+  margin-left: 24px;
+}
+
+.copy-from .dropdown-menu li > a {
+  text-align: left;
+  padding-left: 5px !important;
+}
+
+.copy-from .cameras-dropdown-toggle {
+  padding: 10px 5px;
+  border-bottom: 1px solid #AAAAAA;
+  padding-left: 0px;
+}
+
 .tabbable-custom > .tab-content {
   border: none;
 }
@@ -123,9 +152,6 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   color:#333333;
 }
 
-.add-camera-index a:hover {
-  color:#333333;
-}
 .link {
   z-index: 100000;
   height: 300px;
@@ -246,4 +272,23 @@ ul.scroll-menu {
   .snapshot.offline-snapshot & {
     width: 100%;
   }
+}
+
+.cameras-dropdown-toggle {
+  min-width: 230px;
+}
+
+.fa-copy-from {
+  color: #A0A0A0;
+  float: right;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.fa-copy-from:hover {
+  color: #428bca;
+}
+
+.margin-top-set {
+  margin-top: 28px;
 }

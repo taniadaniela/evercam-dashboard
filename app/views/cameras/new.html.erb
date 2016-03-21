@@ -24,22 +24,7 @@
                 <i class="fa fa-external-link icon-font"></i> Add Public Camera
             <% end %>
           </li>
-          <li class="pull-right">
-            <a class="cameras-dropdown-toggle" data-toggle="dropdown">
-              <% if params[:id].present? %><%=params[:id] %><% else %>Copy from<% end %> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu scroll-menu" role="menu">
-              <% @cameras.each do |camera| %>
-              <% if camera["rights"].split(",").include?("edit") %>
-              <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-                <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
-              </li>
-              <% end %>
-              <% end %>
-            </ul>
-          </li>
         </ul>
-
       </div>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1_1">
@@ -54,6 +39,31 @@
           <div class="col-sm-8">
             <div class="row">
               <div class='col-sm-12'>
+                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6">
+                  <div class="form-group">
+                    <%= label_tag('copy-from', "Copy From", class: "control-label") %>
+                    <div class="copy-from">                
+                      <ul class="nav add-camera-page">
+                        <li class="pull-left">
+                          <a class="cameras-dropdown-toggle" data-toggle="dropdown">
+                            <% if params[:id].present? %><%=params[:id] %><% else %>Select Camera<% end %> <i class="fa fa-chevron-down fa-copy-from"></i>
+                          </a>
+                          <ul class="dropdown-menu scroll-menu" role="menu">
+                            <% @cameras.each do |camera| %>
+                            <% if camera["rights"].split(",").include?("edit") %>
+                            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+                              <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
+                            </li>
+                            <% end %>
+                            <% end %>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='col-sm-12 margin-top-set'>
                 <div class="col-sm-6 <%= field_errors["name"] ? ' has-error' : '' %>">
                   <div class='form-group'>
                     <%= text_field_tag("camera-name", @user['camera-name'], "class" => "form-control", "required" =>"
@@ -164,7 +174,7 @@
                 <div class='<%= field_errors["password"] ? ' has-error' : '' %>'>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <%= password_field_tag("camera-password", @user['camera-password'], "data-validation-help" => "Enter the Password of the camera.", class: "form-control") %>
+                      <%= text_field_tag("camera-password", @user['camera-password'], "data-validation-help" => "Enter the Password of the camera.", class: "form-control") %>
                       <%= label_tag('camera-password', "Camera Password", class: "float-label") %>
                       <% if field_errors["password"] %>
                       <span class="help-block form-error text-left"><%= field_errors["password"] %></span>

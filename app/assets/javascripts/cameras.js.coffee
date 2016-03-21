@@ -2,22 +2,16 @@ window.showFeedback = (message) ->
   Notification.show(message)
   true
 
-refreshImages = ->
-  clearPreviousTime = 0
-  $('img.snap').each ->
-    oldimg = $(this)
-    $("<img class='snap' />").attr({"data-proxy": $(this).attr('data-proxy'), "src": $(this).attr('data-proxy') + '&' + new Date().getTime()}).load () ->
-      if this.complete and this.naturalWidth isnt undefined and this.naturalWidth isnt 0
-        oldimg.replaceWith($(this))
-        clearTimeout clearPreviousTime
-        clearPreviousTime = setTimeout (->
-          $(".refresh-images i").removeClass "rotate-refresh-icon"
-        ), 4000
-
-onRefreshImage = ->
-  $(".refresh-images").on 'click', () ->
-    $(this).find('i').removeClass("rotate-refresh-icon").addClass "rotate-refresh-icon"
-    refreshImages()
+refreshThumbnails = ->
+  $('.camera-thumbnail').each ->
+    img = $(this)
+    img_url = img.attr "data-proxy"
+    if img_url.endsWith "thumbnail"
+      src = "#{img_url}?rand=" + new Date().getTime()
+    else
+      src = "#{img_url}&rand=" + new Date().getTime()
+    img.attr "src", src
+  setTimeout refreshThumbnails, 60000
 
 handlePusherEventIndex = ->
   channel = Evercam.Pusher.subscribe(Evercam.User.username)
@@ -35,7 +29,6 @@ window.initializeCameraIndex = ->
   Layout.init()
   QuickSidebar.init()
   initNotification()
-  refreshImages()
-  onRefreshImage()
   handlePusherEventIndex()
+  setTimeout refreshThumbnails, 60000
   $('[data-toggle="tooltip"]').tooltip()

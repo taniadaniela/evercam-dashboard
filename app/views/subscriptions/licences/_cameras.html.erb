@@ -15,7 +15,7 @@
          ninety = []
          infinity = []
       @cameras_products.each do |camera|
-        if camera.cloud_recording.present?
+        if camera.cloud_recording.present? && !camera.cloud_recording.status.eql?("off")
           if camera.cloud_recording.storage_duration.equal?(-1)
             infinity[infinity.count] = camera
           elsif  camera.cloud_recording.storage_duration.equal?(1)

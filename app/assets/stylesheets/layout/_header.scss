@@ -2,7 +2,7 @@
 .page-header.navbar {
   height: 33px;
   min-height: 33px;
-  background: $secondary-color;
+  background: rgba(0, 22, 42, 0.82);
 }
 .page-header-fixed .page-container {
   margin-top: 33px;
@@ -53,7 +53,7 @@
   display: block;
 }
 .navbar .dropdown-menu {
-  background: lighten($secondary-color, 5%);
+  background: rgba(0, 22, 42, 0.82);
 }
 .top-menu .dropdown-menu {
   left:-140px;
@@ -85,7 +85,7 @@
   color:$white;
 }
 .navbar .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
-  background-color:lighten($secondary-color, 10%);
+  background-color: rgb(66, 23, 22);
   color: #f5f5f5;
 }
 .dropdown-menu li > a {
@@ -93,9 +93,34 @@
   text-align:right;
   color:#f5f5f5;
 }
+
+.dropdown-menu li:hover {
+  background-color: rgb(66, 23, 22);
+}
+
 .dropdown-toggle {
   font-size: 18px;
 }
+.licence-message {
+  padding-top: 0px;
+  max-width: 500px;
+  margin: 1px auto;
+  top: 10%;
+  text-align: center;
+  height: 32px;
+
+  span a {
+    color: #a94442;
+    text-decoration: underline;
+  }
+
+  span a:hover {
+    font-weight: bold;
+    color: #a94442;
+  }
+
+}
+
 .camera-switch {
   margin: 0 auto;
   max-width: 250px;
@@ -215,9 +240,6 @@
   z-index: 10000;
 }
 
-.page-sidebar-menu {
-  z-index: 10000 !important;
-}
 .tooltip-inner {
   background-color: lighten($secondary-color, 5%) !important;
   color: #ffffff !important;
@@ -314,6 +336,42 @@ a.grey {
   color: #777 !important;
 }
 
-//#intercom-container .intercom-launcher {
-//  visibility: hidden !important;
-//}
+.biling-alert {
+  border-radius: 2px;
+  font-size: 13px;
+  left: 50%;
+  margin-left: -142px;
+  padding: 0.43em 1em;
+  position: fixed;
+  text-align: center;
+  top: 1px;
+  width: 315px;
+  z-index: 100000000000;
+
+  .billing-link{
+    color: $dark-blue;
+  }
+
+  .billing-link:hover{
+    color: $dark-blue;
+    text-decoration: underline;
+  }
+}
+
+.imgareaselect-outer {
+  background-color: transparent;
+}
+
+@media only screen and (min-width: 990px) {
+
+  .menu-toggler {
+    display: none;
+  }
+ }
+
+@media only screen and (max-width: 990px) {
+
+  .menu-toggler {
+    display: block;
+  }
+ }

@@ -65,13 +65,13 @@
   margin-top: 8px;
 }
 .nav-tabs {
-border-bottom: 1px solid #e5e5e5;
+border-bottom: 1px solid rgba(16, 28, 39, 0.58);
 }
 .nav-tabs li a {
   color: #333333;
 }
 .nav-tabs li a:hover, .nav-tabs li a:active  {
-  color: $main-color;
+  color: rgba(6, 17, 27, 0.65);
 }
 .nav-tabs > li > a:hover {
   border:1px solid transparent;

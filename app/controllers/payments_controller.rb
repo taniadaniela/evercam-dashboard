@@ -133,23 +133,61 @@ class PaymentsController < ApplicationController
     selector = ProductSelector.new(plan)
     product_params = selector.product_params
     product_params[:quantity] = quantity
+    storage = product_params[:storage]
     @line_item = LineItem.new(product_params)
     @customer = retrieve_stripe_customer_without_cart(@line_item)
-    @customer.create_subscription
+    subscription = @customer.create_subscription
+    save_licence(subscription, storage)
+  end
+
+  def save_licence(subscription, storage)
+    licence = Licence.new(
+      user_id: current_user.id,
+      subscription_id: subscription.id,
+      description: subscription.plan.name,
+      total_cameras: subscription.quantity,
+      storage: storage,
+      amount: subscription.plan.amount,
+      start_date: Time.at(subscription.current_period_start),
+      end_date: Time.at(subscription.current_period_end),
+      created_at: Time.at(subscription.start),
+      auto_renew: !subscription.cancel_at_period_end,
+      paid: true
+    )
+    licence.save
   end
 
   def update_subscription(plan, subscription_id, quantity)
     selector = ProductSelector.new(plan)
     product_params = selector.product_params
     product_params[:quantity] = quantity
+    storage = product_params[:storage]
     @line_item = LineItem.new(product_params)
     @customer = retrieve_stripe_customer_without_cart(@line_item)
-    @customer.update_subscription(subscription_id)
+    subscription = @customer.update_subscription(subscription_id)
+    update_licence(subscription, storage)
+  end
+
+  def update_licence(subscription, storage)
+    licence = Licence.where(subscription_id: subscription.id).first
+    licence.description = subscription.plan.name
+    licence.total_cameras = subscription.quantity
+    licence.storage = storage
+    licence.amount = subscription.plan.amount
+    licence.start_date = Time.at(subscription.current_period_start)
+    licence.end_date = Time.at(subscription.current_period_end)
+    licence.created_at = Time.at(subscription.start)
+    licence.auto_renew = !subscription.cancel_at_period_end
+    licence.paid = true
+    licence.save
   end
 
   def cancel_subscription(subscription_id)
     @customer = StripeCustomer.new(current_user.stripe_customer_id)
     @customer.cancel_subscription(subscription_id)
+    licence = Licence.where(subscription_id: subscription_id).first
+    licence.cancel_licence = true
+    licence.save
   end
 
   def build_line_item_params params

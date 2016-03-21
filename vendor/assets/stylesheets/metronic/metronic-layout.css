@@ -165,7 +165,7 @@ Page Header
 }
 .page-header.navbar .menu-toggler.responsive-toggler {
   display: none;
-  float: right;
+  float: left;
   margin: 11px 6px 0 6px;
 }
 .page-header.navbar .top-menu {
@@ -958,7 +958,7 @@ Page sidebar
   border-bottom-color: transparent !important;
 }
 .page-sidebar .page-sidebar-menu > li > a {
-  margin:4px 0px 3px 13px !important;
+  margin:4px 0px 3px 5px !important;
 }
 .page-sidebar .page-sidebar-menu > li > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
@@ -1595,7 +1595,7 @@ Page sidebar
   /* 991px */
   .page-sidebar {
     border-top: 0 !important;
-    margin: 20px;
+    margin: 0px;
   }
   .page-sidebar .sidebar-toggler {
     display: none;
@@ -1612,8 +1612,8 @@ Page sidebar
   }
   .page-sidebar.navbar-collapse.in {
     border-top: 0 !important;
-    margin: 20px;
-    position: relative;
+    /*margin: 0px;*/
+    position: fixed;
     overflow: hidden !important;
     overflow-y: auto !important;
     display: block !important;
@@ -1650,11 +1650,11 @@ Page sidebar
   /* Page sidebar */
   .page-sidebar,
   .page-sidebar.in {
-    margin: 0 10px 10px 10px !important;
+    /*margin: 0 10px 10px 10px !important;*/
   }
   .page-header-fixed.page-header-fixed-mobile .page-sidebar, .page-header-fixed.page-header-fixed-mobile
   .page-sidebar.in {
-    margin-top: 10px !important;
+    /*margin-top: 10px !important;*/
   }
 }
 /******************

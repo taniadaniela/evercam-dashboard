@@ -13,7 +13,7 @@ class SubscriptionsController < ApplicationController
     set_prices
     @next_charge = retrieve_customer_next_charge
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all
-    @custom_licence = Licence.where(user_id: current_user.id).where(cancel_licence: false)
+    @custom_licence = Licence.where(user_id: current_user.id).where(cancel_licence: false, subscription_id: nil)
     unless current_user.stripe_customer_id.blank?
       @credit_cards = retrieve_credit_cards
       @subscriptions = has_subscriptions? ? retrieve_stripe_subscriptions : nil

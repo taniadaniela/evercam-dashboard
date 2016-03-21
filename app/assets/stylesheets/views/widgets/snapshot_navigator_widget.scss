@@ -609,3 +609,19 @@ ul, menu, dir {
   }
 
 }
+
+#calender .fa {
+  color: #ffffff;
+}
+
+.ui-datepicker-trigger {
+  float: right;
+  right: 0%;
+  font-size: 20px;
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 1;
+  height: 24px;
+}
+

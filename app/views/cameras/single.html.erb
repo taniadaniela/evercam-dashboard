@@ -1,4 +1,4 @@
-<%= content_for(:title, "Evercam: Camera View") %>
+<%= content_for(:title, "#{@camera['name']} | Evercam: Camera View") %>
 
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-single">
@@ -19,7 +19,7 @@
             </li>
             <% if has_edit_right %>
               <li>
-                <a data-toggle="tab" data-target="#motion" class="nav-tab-motion">Motion</a>
+                <a data-toggle="tab" data-target="#motion" class="nav-tab-motion" style="display: none" >Motion</a>
               </li>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares">Sharing</a>
@@ -31,10 +31,6 @@
                 <a data-toggle="tab" data-target="#logs" class="nav-tab-logs">Logs</a>
               </li>
             <% end %>
-
-            <li>
-              <a data-toggle="tab" data-target="#apps" class="nav-tab-apps">Apps</a>
-            </li>
 
             <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
               <li>
@@ -64,7 +60,7 @@
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
           <% if has_edit_right %>
-            <div id="motion" class="tab-pane">
+            <div id="motion-temporary-hide" class="tab-pane">
               <%= render partial: "cameras/single/motion_detection_tab" %>
             </div>
             <div id="shares" class="tab-pane">
@@ -79,14 +75,13 @@
               <%= render partial: "cameras/single/logs_tab" %>
             </div>
           <% end %>
-          <div id="apps" class="tab-pane">
-            <%= render partial: "cameras/single/apps_tab" %>
-          </div>
+
           <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>
             <div id="local-storage" class="tab-pane">
               <%= render partial: "cameras/single/local_storage_tab" %>
             </div>
           <% end %>
+
           <div id="archives" class="tab-pane">
             <%= render partial: "cameras/single/archives_tab" %>
           </div>

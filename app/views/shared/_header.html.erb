@@ -1,6 +1,17 @@
 <div class="page-header navbar navbar-fixed-top">
   <div class="page-header-inner">
     <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
+    <div class="menu-toggler sidebar-toggler">
+    </div>
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+    </a>
+    <% if params[:controller] == 'cameras' && params[:action] == 'index' && @show_alert_message %>
+      <div class="biling-alert alert alert-danger">
+        <span>You require <%= @required_licences %> additional licences.
+          <%= link_to "Buy Licences", billing_path(current_user.username), class: "billing-link" %>
+        </span>
+      </div>
+    <% end %>
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch">
         <a class="dropdown-toggle" data-toggle="dropdown">
@@ -57,11 +68,6 @@
           </a>
           <ul class="dropdown-menu">
             <li role="presentation">
-              <%= link_to "http://www.evercam.io/public/cameras", target: "_blank" do %>
-                <i class="fa fa-external-link icon-font"></i> Public Cameras
-              <% end %>
-            </li>
-            <li role="presentation">
               <%= link_to 'Account', user_account_path(current_user.username) %>
             </li>
             <li role="presentation">
@@ -69,12 +75,6 @@
             </li>
             <li role="presentation">
               <%= link_to 'Developer', dev_path %>
-            </li>
-            <li role="presentation">
-              <a id="Intercom">Live Support</a>
-            </li>
-            <li role="presentation">
-              <%= link_to 'Sign out', signout_path, method: 'delete' %>
             </li>
           </ul>
         </li>

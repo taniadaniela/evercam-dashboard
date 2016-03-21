@@ -23,17 +23,17 @@ var QuickSidebar = function () {
             chatUsersHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
 
             // chat user list 
-            Metronic.destroySlimScroll(chatUsers);
+            // Metronic.destroySlimScroll(chatUsers);
             chatUsers.attr("data-height", chatUsersHeight);
-            Metronic.initSlimScroll(chatUsers);
+            // Metronic.initSlimScroll(chatUsers);
 
             var chatMessages = wrapperChat.find('.page-quick-sidebar-chat-user-messages');
             var chatMessagesHeight = chatUsersHeight - wrapperChat.find('.page-quick-sidebar-chat-user-form').outerHeight() - wrapperChat.find('.page-quick-sidebar-nav').outerHeight();
 
             // user chat messages 
-            Metronic.destroySlimScroll(chatMessages);
+            // Metronic.destroySlimScroll(chatMessages);
             chatMessages.attr("data-height", chatMessagesHeight);
-            Metronic.initSlimScroll(chatMessages);
+            // Metronic.initSlimScroll(chatMessages);
         }
 
         initChatSlimScroll();
@@ -130,35 +130,35 @@ var QuickSidebar = function () {
             alertListHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
 
             // alerts list 
-            Metronic.destroySlimScroll(alertList);
+            // Metronic.destroySlimScroll(alertList);
             alertList.attr("data-height", alertListHeight);
-            Metronic.initSlimScroll(alertList);
+            // Metronic.initSlimScroll(alertList);
         }
 
-        initAlertsSlimScroll();
-        Metronic.addResizeHandler(initAlertsSlimScroll); // reinitialize on window resize
+        // initAlertsSlimScroll();
+        // Metronic.addResizeHandler(initAlertsSlimScroll); // reinitialize on window resize
     }
 
     // Handles quick sidebar settings
-    var handleQuickSidebarSettings = function () {
-        var wrapper = $('.page-quick-sidebar-wrapper');
-        var wrapperAlerts = wrapper.find('.page-quick-sidebar-settings');
+    // var handleQuickSidebarSettings = function () {
+    //     var wrapper = $('.page-quick-sidebar-wrapper');
+    //     var wrapperAlerts = wrapper.find('.page-quick-sidebar-settings');
 
-        var initSettingsSlimScroll = function () {
-            var settingsList = wrapper.find('.page-quick-sidebar-settings-list');
-            var settingsListHeight;
+    //     var initSettingsSlimScroll = function () {
+    //         var settingsList = wrapper.find('.page-quick-sidebar-settings-list');
+    //         var settingsListHeight;
 
-            settingsListHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
+    //         settingsListHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
 
-            // alerts list 
-            Metronic.destroySlimScroll(settingsList);
-            settingsList.attr("data-height", settingsListHeight);
-            Metronic.initSlimScroll(settingsList);
-        }
+    //         // alerts list 
+    //         Metronic.destroySlimScroll(settingsList);
+    //         settingsList.attr("data-height", settingsListHeight);
+    //         Metronic.initSlimScroll(settingsList);
+    //     }
 
-        initSettingsSlimScroll();
-        Metronic.addResizeHandler(initSettingsSlimScroll); // reinitialize on window resize
-    }
+    //     initSettingsSlimScroll();
+    //     Metronic.addResizeHandler(initSettingsSlimScroll); // reinitialize on window resize
+    // }
 
     return {
 
@@ -167,7 +167,7 @@ var QuickSidebar = function () {
             handleQuickSidebarToggler(); // handles quick sidebar's toggler
             handleQuickSidebarChat(); // handles quick sidebar's chats
             handleQuickSidebarAlerts(); // handles quick sidebar's alerts
-            handleQuickSidebarSettings(); // handles quick sidebar's setting
+            // handleQuickSidebarSettings(); // handles quick sidebar's setting
         }
     };
 

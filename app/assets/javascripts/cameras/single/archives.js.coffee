@@ -28,7 +28,7 @@ initializeArchivesDataTable = ->
       {data: "title" },
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
-      {data: "frames"},
+      {data: "frames", sClass: 'frame'},
       {data: "status"},
       {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
       {data: renderbuttons}
@@ -41,7 +41,10 @@ initializeArchivesDataTable = ->
       if json.archives.length is 0
         $('#archives-table_paginate, #archives-table_info').hide()
         $('#archives-table').hide()
-        $('#archives-table_wrapper .col-sm-12').text("There are no clips.")
+        span = $("<span>")
+        span.append($(document.createTextNode("There are no clips.")))
+        span.attr("id", "no-archive")
+        $('#archives-table_wrapper .col-sm-12').append(span)
       else if json.archives.length < 50
         $("#archives-table_info").hide()
         $('#archives-table_paginate').hide()
@@ -67,13 +70,24 @@ renderbuttons = (row, type, set, meta) ->
     return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
 
 renderDate = (row, type, set, meta) ->
-  return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
+#  return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
+  getDate(row.created_at*1000)
 
 renderFromDate = (row, type, set, meta) ->
-  return moment(row.from_date*1000).format('MMMM Do YYYY, H:mm:ss')
+#  return moment(row.from_date*1000).format('MMMM Do YYYY, H:mm:ss')
+  getDate(row.from_date*1000)
 
 renderToDate = (row, type, set, meta) ->
-  return moment(row.to_date*1000).format('MMMM Do YYYY, H:mm:ss')
+#  return moment(row.to_date*1000).format('MMMM Do YYYY, H:mm:ss')
+  getDate(row.to_date*1000)
+
+getDate = (timestamp) ->
+  offset =  $('#camera_time_offset').val()
+  cameraOffset = parseInt(offset)/3600
+  DateTime = new Date(moment.utc(timestamp).format('MM DD YYYY, HH:mm:ss'))
+  DateTime.setHours(DateTime.getHours() + (cameraOffset))
+  Dateformateed =  DateTime.dateFormat('M d Y, H:i:s')
+  return Dateformateed
 
 shareURL = ->
   $("#archives-table").on "click",".share-archive", ->
@@ -110,6 +124,8 @@ createClip = ->
     onSuccess = (data, status, jqXHR) ->
       if data.success
         archives_table.ajax.reload()
+        $('#archives-table').show()
+        $("#no-archive").hide()
         formReset()
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -124,6 +140,18 @@ createClip = ->
       type: 'POST'
       url: $("#archive-url").val()
     sendAJAXRequest(settings)
+
+setDate = ->
+  $('.btn-primary').on 'click', ->
+    offset =  $('#camera_time_offset').val()
+    cameraOffset = parseInt(offset)/3600
+    DateTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+    DateTime.setHours(DateTime.getHours() + (cameraOffset))
+    Dateto =  DateTime.dateFormat('d/m/Y H:i:s')
+    $('#to-date').val Dateto,true
+    DateTime.setHours(DateTime.getHours() - 2)
+    Datefrom = DateTime.dateFormat('d/m/Y H:i:s')
+    $('#from-date').val Datefrom,true
 
 formReset = ->
   $("#clip-name").val("")
@@ -178,3 +206,4 @@ window.initializeArchivesTab = ->
   deleteClip()
   playClip()
   shareURL()
+  setDate()

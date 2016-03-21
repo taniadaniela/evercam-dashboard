@@ -509,7 +509,8 @@ CREATE TABLE users (
     api_key text,
     is_admin boolean DEFAULT false NOT NULL,
     stripe_customer_id text,
-    last_login_at timestamp with time zone
+    last_login_at timestamp with time zone,
+    payment_method integer DEFAULT 0
 );
 
 

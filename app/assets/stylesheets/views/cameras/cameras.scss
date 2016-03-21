@@ -81,7 +81,7 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   color: #333333;
 }
 
-.copy-from li a:hover, .nav-tabs li a:active  {
+.copy-from li a:hover , .nav-tabs li a:active  {
   color: $main-color;
 }
 
@@ -97,7 +97,7 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
 
 .copy-from .dropdown-menu li > a {
   text-align: left;
-  padding-left: 5px !important;  
+  padding-left: 5px !important;
 }
 
 .copy-from .cameras-dropdown-toggle {

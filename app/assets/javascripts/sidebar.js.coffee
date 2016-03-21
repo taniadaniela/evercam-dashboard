@@ -39,8 +39,6 @@ initSocket = ->
     updateCameraStatus(payload.camera_id, payload.status)
 
 updateCameraStatus = (camera_id, status) ->
-  console.log(camera_id)
-  console.log(status)
   if status
     $(".sidebar-cameras-list .camera-#{camera_id}").removeClass("sidebar-offline")
     $(".page-header.camera-#{camera_id} .camera-switch").removeClass("camera-offline")

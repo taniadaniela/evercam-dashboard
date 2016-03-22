@@ -28,6 +28,10 @@ controlButtonEvents = ->
     $('.refresh-gif').show()
     refreshCameraStatus()
 
+hidegif = ->
+  $('.refresh-gif').hide()
+  $('.icon-refresh').show()
+
 refreshCameraStatus = ->
   data = {}
   data.with_data = true
@@ -35,9 +39,11 @@ refreshCameraStatus = ->
   onError = (jqXHR, status, error) ->
     message = jqXHR.responseJSON.message
     Notification.show message
+    hidegif()
 
   onSuccess = (data, status, jqXHR) ->
     location.reload()
+    hidegif()
 
   settings =
     cache: false

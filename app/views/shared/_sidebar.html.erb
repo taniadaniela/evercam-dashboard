@@ -51,6 +51,11 @@
         <% end %>
       </li>
       <li class="sidebar-line">
+        <%= link_to billing_path(current_user.username) do %>
+          <i class="fa fa-credit-card"></i> Billing
+        <% end %>
+      </li>
+      <li>
         <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
         <ul class="setting-list left-nav-submenu">
           <li>

@@ -14,30 +14,6 @@
             <a href="#tab_1_1" data-toggle="tab">
               Add IP Camera </a>
           </li>
-          <li>
-            <a href="#tab_1_2" data-toggle="tab">
-              Add Android Camera
-            </a>
-          </li>
-          <li>
-            <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
-                <i class="fa fa-external-link icon-font"></i> Add Public Camera
-            <% end %>
-          </li>
-          <li class="pull-right">
-            <a class="cameras-dropdown-toggle" data-toggle="dropdown">
-              <% if params[:id].present? %><%=params[:id] %><% else %>Copy from<% end %> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu scroll-menu" role="menu">
-              <% @cameras.each do |camera| %>
-              <% if camera["rights"].split(",").include?("edit") %>
-              <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-                <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
-              </li>
-              <% end %>
-              <% end %>
-            </ul>
-          </li>
         </ul>
       </div>
       <div class="tab-content">
@@ -286,17 +262,6 @@
 
           <% end %>
         </div>
-        <div class="tab-pane" id="tab_1_2">
-          <div class="col-lg-12 margin-bottom-20">
-            <p>
-              Use your Android phone as a camera by installing Evercam Capture.
-            </p>
-            <a href="https://play.google.com/store/apps/details?id=io.evercam.capture" target="_blank">
-              <img alt="Android app on Google Play" src="https://evercam.io/img/google_play_download.png" width="110px" margin-top="20px"/>
-            </a>
-          </div>
-        </div>
-        <div class="tab-pane" id="tab_1_3"></div>
       </div>
     </div>
   </div>

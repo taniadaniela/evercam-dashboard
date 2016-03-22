@@ -5,6 +5,7 @@ class AppsController < ApplicationController
   layout "user-account"
 
   def index
+    @cameras = load_user_cameras(true, false)
     # This is temporary solution to get data for each application using multiple queries.
     @apps = []
     query = AccessToken.where(grantor: current_user).and(is_revoked: false).and("expires_at > '#{Time.now}'")

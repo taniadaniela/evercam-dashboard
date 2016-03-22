@@ -97,10 +97,12 @@ class UsersController < ApplicationController
   end
 
   def settings
+    @cameras = load_user_cameras(true, false)
     render layout: "user-account"
   end
 
   def password_change
+    @cameras = load_user_cameras(true, false)
     render layout: "user-account"
   end
 

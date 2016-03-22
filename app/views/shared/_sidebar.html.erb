@@ -33,6 +33,11 @@
         </ul>
       </li>
       <li class="sidebar-line">
+        <a href="#tab_1_1" data-toggle="tab">
+          <i class="fa fa-video-camera icon-font"></i><span class="title"> Add A Camera</span>
+        </a>
+      </li>
+      <li>
         <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
             <i class="fa fa-compass icon-font"></i><span class="title"> Public Cameras</span> <i class="fa fa-external-link pull-right title"></i>
         <% end %>
@@ -47,13 +52,39 @@
             <i class="fa fa-history icon-font"></i><span class="title"> Timelapse</span> <i class="fa fa-external-link pull-right title"></i>
         <% end %>
       </li>
-      <li role="presentation" class="sidebar-line">
+      <li class="sidebar-line">
+        <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
+        <ul class="setting-list left-nav-submenu">
+          <li>
+            <%= link_to user_account_path(current_user.username) do %>
+              <i class="fa fa-user"></i> Account
+            <% end %>
+          </li>
+          <li>
+            <%= link_to password_change_path(current_user.username) do %>
+              <i class="fa fa-key"></i> Password
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_settings_path(current_user.username) do %>
+              <i class="fa fa-cog"></i> General
+            <% end %>
+          </li>
+          <li>
+            <%= link_to apps_path(current_user.username) do %>
+              <i class="fa fa-wrench"></i> Applications
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li role="presentation">
         <a id="Intercom"><i class="fa fa-weixin icon-font"></i><span class="title"> Live Support</span></a>
       </li>
       <li>
         <a rel="nofollow" data-method="delete" href="/v1/users/signout"><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out <span class="title"></span></a>
       </li>
     </ul>
+
   </div>
 </div>
 

@@ -1,7 +1,4 @@
-default_img = "/assets/offline.svg"
-int_time = undefined
 stream_paused = false
-image_placeholder = undefined
 img_real_width = 0
 img_real_height = 0
 live_view_timestamp = 0
@@ -14,40 +11,26 @@ sendAJAXRequest = (settings) ->
     settings.headers = headers
   xhrRequestChangeMonth = $.ajax(settings)
 
-loadImage = ->
-  img = new Image()
-  live_snapshot_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-  src = "#{live_snapshot_url}&rand=" + new Date().getTime()
-  img.onload = ->
-    unless not image_placeholder.parent
-      image_placeholder.parent.replaceChild img, image_placeholder
-    else
-      image_placeholder.src = src
-    $(".btn-live-player").removeClass "hide"
-    $('.refresh-gif').hide()
-    $('.icon-refresh').show()
-  img.onerror = ->
-    $('.refresh-gif').hide()
-    $('.icon-refresh').show()
-  img.src = src
-
 controlButtonEvents = ->
   $(".play-pause").on "click", ->
     if stream_paused
       $(this).children().removeClass "icon-control-play"
       $(this).children().addClass "icon-control-pause"
-      connectToSocket()
+      playJpegStream()
     else
       $(this).children().removeClass "icon-control-pause"
       $(this).children().addClass "icon-control-play"
-      disconnectFromSocket()
+      stopJpegStream()
     stream_paused = !stream_paused
 
   $('#refresh-offline-camera').on "click", ->
     $('.icon-refresh').hide()
     $('.refresh-gif').show()
-    loadImage()
     refreshCameraStatus()
+
+hidegif = ->
+  $('.refresh-gif').hide()
+  $('.icon-refresh').show()
 
 refreshCameraStatus = ->
   data = {}
@@ -56,11 +39,11 @@ refreshCameraStatus = ->
   onError = (jqXHR, status, error) ->
     message = jqXHR.responseJSON.message
     Notification.show message
-    false
+    hidegif()
 
   onSuccess = (data, status, jqXHR) ->
     location.reload()
-    true
+    hidegif()
 
   settings =
     cache: false
@@ -118,7 +101,7 @@ handleChangeStream = ->
         destroyPlayer()
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
-        connectToSocket()
+        playJpegStream()
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
 
@@ -127,25 +110,25 @@ handleChangeStream = ->
         initializePlayer()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
-        clearInterval int_time
-        disconnectFromSocket()
+        stopJpegStream()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
-        
+
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
-    connectToSocket()
+    playJpegStream()
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
-    Evercam.socket.disconnect()
-    clearInterval int_time
+    stopJpegStream()
     if $('#select-stream-type').length
       destroyPlayer()
 
   if $(".nav-tabs li.active a").attr("data-target") is "#live"
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
+    else
+      $(".nav-tabs li.active a").trigger("show.bs.tab")
 
 handleSaveSnapshot = ->
   $('#save-live-snapshot').on 'click', ->
@@ -174,8 +157,6 @@ calculateHeight = ->
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
 
-
-
 handleResize = ->
   getImageRealRatio()
   calculateHeight()
@@ -194,20 +175,15 @@ handlePtzCommands = ->
       api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/#{ptz_command}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     data = {}
 
-    onError = (jqXHR, status, error) ->
+    onComplete = (result) ->
       $('#ptz-control table thead tr th').html headingText
-      false
-
-    onSuccess = (result) ->
-      $('#ptz-control table thead tr th').html headingText
-      true
 
     settings =
       cache: false
       data: data
       dataType: 'json'
-      error: onError
-      success: onSuccess
+      error: onSuccess
+      success: onComplete
       contentType: "application/json; charset=utf-8"
       type: 'POST'
       url: api_url
@@ -220,9 +196,6 @@ getPtzPresets = ->
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 
-  onError = (jqXHR, status, error) ->
-    false
-
   onSuccess = (result) ->
     for preset in result.Presets
       if preset.token < 33
@@ -230,13 +203,11 @@ getPtzPresets = ->
         divPresets.append($(document.createTextNode(preset.Name)))
         divPresets.attr("token_val", preset.token)
         $("#presets-table").append(divPresets)
-    true
 
   settings =
     cache: false
     data: data
     dataType: 'json'
-    error: onError
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
@@ -247,18 +218,10 @@ changePtzPresets = ->
   $("#camera-presets").on 'click', '.row-preset', ->
     data = {}
 
-    onError = (jqXHR, status, error) ->
-      false
-
-    onSuccess = (result) ->
-      true
-
     settings =
       cache: false
       data: data
       dataType: 'json'
-      error: onError
-      success: onSuccess
       contentType: "application/json; charset=utf-8"
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/go/#{$(this).attr("token_val")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
@@ -273,22 +236,17 @@ handleModelEvents = ->
     $("#ptz-control").removeClass("hide")
     $('#ptz-control table thead tr th').html 'PTZ'
 
-initSocket = ->
-  window.Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
-  connectToSocket()
-
-connectToSocket = ->
-  Evercam.socket.connect()
-  channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {})
-  channel.join()
-  channel.on 'snapshot-taken', (payload) ->
+playJpegStream = ->
+  Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}", {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key})
+  Evercam.camera_channel.join()
+  Evercam.camera_channel.on 'snapshot-taken', (payload) ->
     $(".btn-live-player").removeClass "hide"
     if payload.timestamp >= live_view_timestamp and not stream_paused
       live_view_timestamp = payload.timestamp
       $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
-disconnectFromSocket = ->
-  Evercam.socket.disconnect()
+stopJpegStream = ->
+  Evercam.camera_channel.leave() if Evercam.camera_channel
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0
@@ -299,7 +257,6 @@ $(window).load HideMessage = ->
     $("#offline_message").show()
 
 window.initializeLiveTab = ->
-  initSocket()
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
@@ -315,4 +272,3 @@ window.initializeLiveTab = ->
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()
-  

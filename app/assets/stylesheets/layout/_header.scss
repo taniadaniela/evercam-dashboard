@@ -183,10 +183,10 @@
     margin-right:3px;
   }
 }
-.green-bg {
+.camera-switch .status-circle{
   background-color: $green;
 }
-.red-bg {
+.camera-switch.camera-offline .status-circle {
   background-color: $evercam-red;
 }
 .page-header.navbar .top-menu .navbar-nav {

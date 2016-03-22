@@ -1,7 +1,7 @@
 module CamerasHelper
   def preview(camera, _refresh = false)
     thumbnail = thumbnail_url(camera)
-    image_tag(thumbnail, class: "camera-thumbnail", alt: "camera-thumbnail", camera: "camera-thumbnail", "data-proxy": thumbnail)
+    image_tag(thumbnail, class: "camera-thumbnail", alt: "camera-thumbnail", "data-proxy": thumbnail)
   end
 
   def thumbnail_url(camera)

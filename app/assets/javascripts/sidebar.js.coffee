@@ -1,41 +1,3 @@
-window.updateSidebar = ->
-  data =
-    user_id: Evercam.User.id
-    api_id: Evercam.User.api_id
-    api_key: Evercam.User.api_key
-    include_shared: true
-
-  onSuccess = (data, status, jqXHR) ->
-    renderSidebar(data.cameras)
-  settings =
-    cache: false
-    data: data
-    dataType: 'json'
-    success: onSuccess
-    type: 'GET'
-    url: "#{Evercam.API_URL}cameras.json"
-  sendAJAXRequest(settings)
-
-renderSidebar = (cameras) ->
-  sidebar = ""
-  for camera in cameras
-    classes = if camera.is_online then "" else "sidebar-offline"
-    if camera.is_online 
-      row = """
-      <li class="sub-menu-item #{classes}">
-        <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
-      </li>\n
-      """
-    else   
-      row = """
-      <li class="sub-menu-item #{classes}">
-        <a href="/v1/cameras/#{camera.id}">#{camera.name}</a>
-        <i class="red main-sidebar fa fa-chain-broken"></i>
-      </li>\n
-      """
-    sidebar = sidebar + row
-  $(".sidebar-cameras-list").html(sidebar)
-
 window.showOfflineButton = ->
   offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
   if offline_cameras > 0
@@ -43,7 +5,7 @@ window.showOfflineButton = ->
   else
     $('#siderbar').hide()
   if $.cookie("hide-offline-cameras")
-    $("#offline-btn").prop("checked",true)
+    $("#offline-btn").prop("checked", true)
     $("#offline-btn").addClass("active")
     $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')
   $('#offline-btn').on 'click', (event) ->
@@ -56,45 +18,43 @@ window.showOfflineButton = ->
       $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
-slideToggel = ->
+slideToggle = ->
   $('.dev').click ->
     $('.developer-list').slideToggle()
-    return
   $('.seting').click ->
     $('.setting-list').slideToggle()
-    return
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle()
-    return
-  return
 
 removeDropdown = ->
   $("#Intercom").on "click", ->
     $('#live_support').removeClass('open')
 
-handlePusherEventUser = ->
-  if Evercam && Evercam.Pusher
-    channel = Evercam.Pusher.subscribe(Evercam.User.username)
-    channel.bind 'user_cameras_changed', (data) ->
-      updateSidebar()
+initSocket = ->
+  Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url)
+  Evercam.socket.connect()
+  Evercam.user_channel = Evercam.socket.channel("users:#{Evercam.User.username}", {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key})
+  Evercam.user_channel.join()
+  Evercam.user_channel.on 'camera-status-changed', (payload) ->
+    updateCameraStatus(payload.camera_id, payload.status)
 
-handleSidebarToggle = ->
-  $('.toggle-sidebar').on 'click', (event) ->
-    event.preventDefault()
-    $(this).toggleClass('active')
-    $('#cbp-spmenu-s1').toggleClass('cbp-spmenu-open')
+updateCameraStatus = (camera_id, status) ->
+  if status
+    $(".sidebar-cameras-list .camera-#{camera_id}").removeClass("sidebar-offline")
+    $(".page-header.camera-#{camera_id} .camera-switch").removeClass("camera-offline")
+    $(".page-content .camera-index.camera-#{camera_id}").removeClass("camera-offline")
+    $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status green">Online</div>')
+  else
+    $(".sidebar-cameras-list .camera-#{camera_id}").addClass("sidebar-offline")
+    $(".page-header.camera-#{camera_id} .camera-switch").addClass("camera-offline")
+    $(".page-content .camera-index.camera-#{camera_id}").addClass("camera-offline")
+    $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status red">Offline</div>')
 
 $ ->
+  initSocket()
   showOfflineButton()
-  handleSidebarToggle()
   $('[data-toggle="tooltip"]').tooltip()
 
 $(window).ready ->
-  slideToggel()
+  slideToggle()
   removeDropdown()
-
-$(window).load ->
-  handlePusherEventUser()
-  
-  
-

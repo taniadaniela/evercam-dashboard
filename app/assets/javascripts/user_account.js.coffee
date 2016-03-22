@@ -1,5 +1,3 @@
-#= require sidebar.js.coffee
-
 handleEditable = ->
   $('.makeNonEditable').on 'click', ->
     $('#userProfile input:text').attr 'readonly', 'readonly'

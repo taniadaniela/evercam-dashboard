@@ -51,6 +51,27 @@
         <% end %>
       </li>
       <li class="sidebar-line">
+        <%= link_to billing_path(current_user.username) do %>
+          <i class="fa fa-credit-card"></i> Billing
+        <% end %>
+      </li>
+      <li>
+        <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i></a>
+        <ul class="developer-list left-nav-submenu">
+          <li>
+            <a href="/dev"><i class="fa fa-book"></i> Docs</a>
+          </li>
+
+          <li class="widgets-menu">
+            <a href="<%= widget_live_view_path %>"><i class="fa fa-code"></i> Embed Live View</a>
+          </li>
+
+          <li class="widgets-menu">
+            <a href="<%= widget_snapshot_navigator_path %>"><i class="fa fa-code"></i> Embed Recordings</a>
+          </li>
+        </ul>
+      </li>
+      <li>
         <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
         <ul class="setting-list left-nav-submenu">
           <li>
@@ -77,7 +98,7 @@
         <a rel="nofollow" data-method="delete" href="/v1/users/signout"><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out <span class="title"></span></a>
       </li>
     </ul>
-
+    <input type="hidden" id="controller" value="<%= params[:controller] %>">
   </div>
 </div>
 

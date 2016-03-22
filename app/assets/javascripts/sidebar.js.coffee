@@ -50,6 +50,13 @@ updateCameraStatus = (camera_id, status) ->
     $(".page-content .camera-index.camera-#{camera_id}").addClass("camera-offline")
     $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status red">Offline</div>')
 
+handleToggle = ->
+  value = $('#controller').val()
+  if value is 'users' || value is 'apps'
+    $('.setting-list').show()
+  else if value is 'widgets' || value is 'pages'
+    $('.developer-list').show()
+
 $ ->
   initSocket()
   showOfflineButton()
@@ -58,3 +65,4 @@ $ ->
 $(window).ready ->
   slideToggle()
   removeDropdown()
+  handleToggle()

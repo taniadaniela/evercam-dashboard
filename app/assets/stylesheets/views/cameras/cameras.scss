@@ -37,14 +37,6 @@
     height: 100%;
     width: 100%;
   }
-  .offline-grey {
-    background: rgba(0, 0, 0, 0.65);
-  }
-  .offline-snapshot img {
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    filter: grayscale(100%);
-  }
 }
 .camera-index:hover #cam-refresh {
   visibility: visible;
@@ -195,12 +187,10 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   height: 100%;
   width: 100%;
 }
-.offline-grey {
+.camera-index.camera-offline .camera-info {
   background: rgba(0, 0, 0, 0.65);
 }
 .offline-snapshot img {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
   filter: grayscale(100%);
 }
 
@@ -237,8 +227,6 @@ ul.scroll-menu {
   padding: 10px 0px;
 }
 
-
-
 .rotate-refresh-icon {
   -webkit-animation-name: rotate;
   -webkit-animation-duration: 1s;
@@ -269,7 +257,7 @@ ul.scroll-menu {
     width: 100%;
   }
 
-  .snapshot.offline-snapshot & {
+  .snapshot & {
     width: 100%;
   }
 }
@@ -291,4 +279,11 @@ ul.scroll-menu {
 
 .margin-top-set {
   margin-top: 28px;
+}
+
+.camera-index:not(.camera-offline),
+.sub-menu-item:not(.sidebar-offline) {
+  .fa-chain-broken {
+    display: none;
+  }
 }

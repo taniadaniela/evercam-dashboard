@@ -28,7 +28,7 @@ loadMotionImage = ->
   $('#refresh-motion').on 'click', ->
     $('.refresh-gif').show()
     img = mdImage
-    thumbnail_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/live/snapshot.jpg?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    thumbnail_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     src = "#{thumbnail_url}&rand=" + new Date().getTime()
     img.attr 'src', src
     setTimeout hidegif , 2000

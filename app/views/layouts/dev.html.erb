@@ -52,8 +52,6 @@
     rootpath: '<%= request.path.sub(params_subpath, '').chomp('/') %>'
   };
 
-  window.Evercam.Pusher = new Pusher('<%= ENV['PUSHER_KEY'] %>');
-
   Metronic.init();
   Layout.init();
   QuickSidebar.init();

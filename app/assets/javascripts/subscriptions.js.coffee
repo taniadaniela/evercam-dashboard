@@ -277,10 +277,6 @@ showAlertMessage = ->
       if total_require > paid_custom_licences
         changeTotalColor()
   else
-    if !isNaN(one_day_req)
-      if one_day_current is 0 || one_day_current < one_day_req
-        total_valid = total_valid + (one_day_req - one_day_current)
-        changeTotalColor()
     if !isNaN(seven_day_req)
       if seven_day_current is 0 || seven_day_current < seven_day_req
         total_valid = total_valid + (seven_day_req - seven_day_current)

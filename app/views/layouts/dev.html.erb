@@ -20,7 +20,7 @@
 
 <%= render :partial => "shared/header" %>
 <div class="page-container">
-  <%= render :partial => "shared/dev_sidebar" %>
+  <%= render :partial => "shared/sidebar" %>
   <%= yield %>
 </div>
 
@@ -35,6 +35,8 @@
     window.Evercam = {};
   }
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.MEDIA_API_URL = '<%= EVERCAM_MEDIA_API %>';
+  window.Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
   window.Evercam.User = {
     username: '<%= current_user.username %>',
     api_id: '<%= current_user.api_id %>',

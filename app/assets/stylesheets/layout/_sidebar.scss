@@ -125,11 +125,11 @@
 .left-nav-submenu li {
   padding-top: 2px;
   padding-bottom: 2px;
-  margin: 0px 0 0 14px;
+  margin: 0px 0 0 14px !important;
 }
 
 .cameralist-height {
-  max-height: 38vh;
+  max-height: 30vh;
   overflow: auto;
   overflow-y: hidden;
   margin-right: 2px !important;

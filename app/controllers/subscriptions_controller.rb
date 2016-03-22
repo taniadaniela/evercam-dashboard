@@ -10,6 +10,7 @@ class SubscriptionsController < ApplicationController
   # require "date"
 
   def index
+    @cameras = load_user_cameras(true, false)
     set_prices
     @next_charge = retrieve_customer_next_charge
     @cameras_products = Camera.where(owner: current_user).eager(:cloud_recording).all

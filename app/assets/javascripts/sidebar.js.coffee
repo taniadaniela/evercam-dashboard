@@ -57,6 +57,9 @@ handleToggle = ->
   else if value is 'widgets' || value is 'pages'
     $('.developer-list').show()
 
+handleCameraListHeight = ->
+  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 390
+
 $ ->
   initSocket()
   showOfflineButton()
@@ -66,3 +69,4 @@ $(window).ready ->
   slideToggle()
   removeDropdown()
   handleToggle()
+  handleCameraListHeight()

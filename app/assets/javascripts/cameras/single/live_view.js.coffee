@@ -182,7 +182,7 @@ handlePtzCommands = ->
       cache: false
       data: data
       dataType: 'json'
-      error: onSuccess
+      error: onComplete
       success: onComplete
       contentType: "application/json; charset=utf-8"
       type: 'POST'

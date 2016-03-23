@@ -54,7 +54,7 @@ var Layout = function () {
 
             if ($(this).next().hasClass('sub-menu') === false) {
                 if (Metronic.getViewPort().width < 992) { // close the menu on mobile view while laoding a page 
-                    $('.page-header .responsive-toggler').click();
+                    // $('.page-header .responsive-toggler').click();
                 }
                 return;
             }

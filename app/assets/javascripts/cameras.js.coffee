@@ -12,6 +12,15 @@ refreshThumbnails = ->
     img.attr "src", src
   setTimeout refreshThumbnails, 60000
 
+hideThumbnailGif = ->
+  $('.refresh-camera-thumbnail').on "click", ->
+    gifid = $(this)
+    id = gifid.attr 'id'
+    console.log id
+    $('#' + id + 'icon-refresh').hide()
+    $('#' + id + '.refresh-gif-thumbnail').show()
+    # refreshThumbnails()  
+
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
@@ -23,4 +32,5 @@ window.initializeCameraIndex = ->
   QuickSidebar.init()
   initNotification()
   refreshThumbnails()
+  hideThumbnailGif()
   $('[data-toggle="tooltip"]').tooltip()

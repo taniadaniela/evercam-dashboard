@@ -287,3 +287,29 @@ ul.scroll-menu {
     display: none;
   }
 }
+
+.refresh-camera-thumbnail {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  color: #000000;
+  cursor: pointer;
+  background: rgba(153, 153, 153, 0.37);
+  font-size: 15px;
+  font-family: sans-serif;
+  padding: 8px 13px;
+  margin-top: 10px;
+  border-radius: 20px;
+}
+
+.refresh-camera-thumbnail:hover {
+  color: $dark-blue;
+}
+
+.refresh-gif-thumbnail {
+  width: 20px;
+  height: 20px !important;
+  max-height: 100%;
+  float: left;
+  display: none;
+}

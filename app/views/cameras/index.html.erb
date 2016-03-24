@@ -19,6 +19,11 @@
           <div class="snapshot">
             <%= preview(camera, true) %>
           </div>
+          <% unless camera['is_online'] %>
+            <div id= "<%= camera['id'] %>" class="refresh-camera-thumbnail"><i class="icon-refresh"></i>
+              <img src="/assets/refresh.gif" class="refresh-gif-thumbnail">
+            </div>
+          <% end %>
           <div class="camera-info">
             <div class="camera-name">
               <%= camera['name'] %>

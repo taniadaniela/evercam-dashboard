@@ -287,3 +287,36 @@ ul.scroll-menu {
     display: none;
   }
 }
+
+.refresh-camera-thumbnail {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  width: 30px;
+  color: #000000;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(153, 153, 153, 0.3);
+  font-family: sans-serif;
+  z-index: 1;
+
+  i {
+    font-size: 25px;
+    width: 30px;
+    padding: 2px;
+  }
+}
+
+.refresh-camera-thumbnail:hover {
+  color: $dark-blue;
+}
+
+.refresh-gif-thumbnail {
+  min-width: 25px;
+  min-height: 25px;
+  padding: 2px;
+  right: 0%;
+  width: 30px;
+  display: none;
+
+}

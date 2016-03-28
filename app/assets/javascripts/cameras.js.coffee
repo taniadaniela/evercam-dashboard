@@ -16,27 +16,27 @@ hideThumbnailGif = ->
   $('.refresh-camera-thumbnail').on "click", ->
     gifid = $(this)
     camera_id = gifid.attr 'id'
-    camera_tid = '#' + camera_id
-    $("#{camera_tid} i").hide()
-    $("#{camera_tid} img").show()
-    refreshCameraStatus(camera_id, camera_tid)
+    control_id = '#' + camera_id
+    $("#{control_id} i").hide()
+    $("#{control_id} img").show()
+    refreshCameraStatus(camera_id, control_id)
 
-hidegif = (camera_tid) ->
-  $("#{camera_tid} i").show()
-  $("#{camera_tid} img").hide()
+hide_gif = (control_id) ->
+  $("#{control_id} i").show()
+  $("#{control_id} img").hide()
 
-refreshCameraStatus = (id, tid) ->
+refreshCameraStatus = (cam_id, contr_id) ->
   data = {}
   data.with_data = true
 
-  gif_id = id
-  gif_tid = tid
+  camera_id = cam_id
+  control_id = contr_id
 
   onError = (jqXHR, status, error) ->
-    hidegif(gif_tid)
+    hide_gif(control_id)
 
   onSuccess = (data, status, jqXHR) ->
-    hidegif(gif_tid)
+    hide_gif(control_id)
 
   settings =
     cache: false
@@ -46,7 +46,7 @@ refreshCameraStatus = (id, tid) ->
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
     type: 'POST'
-    url: "#{Evercam.API_URL}cameras/#{gif_id}/recordings/snapshots?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    url: "#{Evercam.API_URL}cameras/#{camera_id}/recordings/snapshots?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
   sendAJAXRequest(settings)
 

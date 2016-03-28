@@ -7,7 +7,7 @@ currentFrameNumber = 0
 cameraCurrentHour = 0
 PreviousImageHour = "tdI8"
 BoldDays = []
-ClearCalanderTimeOut = null
+ClearCalendarTimeOut = null
 isPlaying = false
 PauseAfterPlay = false
 playInterval = 250
@@ -43,11 +43,11 @@ initDatePicker = ->
   $("#ui_date_picker_inline table th[class*='next']").on "click", ->
     changeMonthFromArrow('n')
 
-  $("#hourCalandar td[class*='day']").on "click", ->
+  $("#hourCalendar td[class*='day']").on "click", ->
     SetImageHour $(this).html(), "tdI#{$(this).html()}"
 
 changeMonthFromArrow = (value) ->
-  clearHourCalander()
+  clearHourCalendar()
   xhrRequestChangeMonth.abort()
   $("#ui_date_picker_inline").datepicker('fill')
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -129,13 +129,13 @@ datePickerSelect = (value)->
       hasDayRecord = true
       break
 
-  clearHourCalander()
+  clearHourCalendar()
   if hasDayRecord
     BoldSnapshotHour(false)
   else
     NoRecordingDayOrHour()
 
-  ClearCalanderTimeOut = setTimeout(ResetDays, 100)
+  ClearCalendarTimeOut = setTimeout(ResetDays, 100)
 
 datePickerChange=(value)->
   d = value.date
@@ -146,15 +146,15 @@ datePickerChange=(value)->
   snapshotInfoIdx = 1
   currentFrameNumber = 0
 
-clearHourCalander = ->
-  $("#hourCalandar td[class*='day']").removeClass("active")
-  calDays = $("#hourCalandar td[class*='day']")
+clearHourCalendar = ->
+  $("#hourCalendar td[class*='day']").removeClass("active")
+  calDays = $("#hourCalendar td[class*='day']")
   calDays.each ->
     calDay = $(this)
     calDay.removeClass('has-snapshot')
 
 ResetDays = ->
-  clearTimeout ClearCalanderTimeOut
+  clearTimeout ClearCalendarTimeOut
   return unless BoldDays.length > 0
   calDays = $("#ui_date_picker_inline table td[class*='day']")
   calDays.each (idx, el) ->
@@ -285,7 +285,7 @@ handleBodyLoadContent = ->
   CameraOffset = parseInt(offset)/3600
   currentDate = new Date($("#camera_selected_time").val())
   cameraCurrentHour = currentDate.getHours()
-  $("#hourCalandar td[class*='day']").removeClass("active")
+  $("#hourCalendar td[class*='day']").removeClass("active")
 
   timestamp = getTimestampFromUrl()
   if timestamp isnt ""
@@ -942,12 +942,12 @@ onCollapsRecording = ->
   $('#cloud-recording-collaps').click ->
     $('#cloud-recording-calendar').toggleClass 'open'
 
-calenderShow = ->
+calendarShow = ->
   $('.ui-datepicker-trigger').on 'click', ->
     $('.datepicker-bg').toggle 'slow', ->
-      $('#calender .fa').css 'color', 'white'
+      $('#calendar .fa').css 'color', 'white'
       return
-    $('#calender .fa').css 'color', 'blue'
+    $('#calendar .fa').css 'color', 'blue'
     return
 
 window.initializeRecordingsTab = ->
@@ -965,5 +965,5 @@ window.initializeRecordingsTab = ->
   window.initCloudRecordingSettings()
   onCollapsRecording()
   selectMdImage()
-  calenderShow()
+  calendarShow()
   # calendarHide()

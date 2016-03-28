@@ -292,15 +292,20 @@ ul.scroll-menu {
   position: absolute;
   top: 0%;
   right: 0%;
+  width: 30px;
   color: #000000;
+  text-align: center;
   cursor: pointer;
-  background: rgba(153, 153, 153, 0.37);
-  font-size: 15px;
+  background: rgba(153, 153, 153, 0.3);
   font-family: sans-serif;
-  padding: 8px 13px;
-  margin-top: 10px;
-  border-radius: 20px;
   z-index: 1;
+
+  i {
+    font-size: 25px;
+    padding: 3px;
+    wdth: 30px;
+    padding: 2px;
+  }
 }
 
 .refresh-camera-thumbnail:hover {
@@ -308,10 +313,11 @@ ul.scroll-menu {
 }
 
 .refresh-gif-thumbnail {
-  width: 14px;
-  height: 14px !important;
-  max-height: 100%;
-  float: left;
+  min-width: 25px;
+  min-height: 25px !important;
+  padding: 2px;
+  right: 0%;
+  width: 30px;
   display: none;
 
 }

@@ -16,7 +16,7 @@
     <% @cameras.each do |camera| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index camera-<%= camera['id'] %> <%= "camera-offline" unless camera['is_online'] %>">
         <% unless camera['is_online'] %>
-          <div id= "<%= camera['id'] %>" class="refresh-camera-thumbnail"><i class="icon-refresh"></i>
+          <div id= "<%= camera['id'] %>" class="refresh-camera-thumbnail"><i class="fa fa-refresh"></i>
             <img src="/assets/refresh.gif" class="refresh-gif-thumbnail">
           </div>
         <% end %>

@@ -293,7 +293,6 @@ ul.scroll-menu {
   top: 0%;
   right: 0%;
   width: 30px;
-  color: #000000;
   text-align: center;
   cursor: pointer;
   background: rgba(153, 153, 153, 0.3);
@@ -302,8 +301,7 @@ ul.scroll-menu {
 
   i {
     font-size: 25px;
-    padding: 3px;
-    wdth: 30px;
+    width: 30px;
     padding: 2px;
   }
 }
@@ -323,5 +321,5 @@ ul.scroll-menu {
 }
 
 .disable_a_href{
-    pointer-events: none;
+  pointer-events: none;
 }

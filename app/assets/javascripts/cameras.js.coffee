@@ -35,8 +35,10 @@ refreshCameraStatus = (cam_id, contr_id) ->
   onError = (jqXHR, status, error) ->
     hide_gif(control_id)
 
+
   onSuccess = (data, status, jqXHR) ->
     hide_gif(control_id)
+    $("#{control_id}").hide()
 
   settings =
     cache: false

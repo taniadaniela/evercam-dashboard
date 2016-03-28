@@ -300,6 +300,7 @@ ul.scroll-menu {
   padding: 8px 13px;
   margin-top: 10px;
   border-radius: 20px;
+  z-index: 1;
 }
 
 .refresh-camera-thumbnail:hover {
@@ -307,9 +308,14 @@ ul.scroll-menu {
 }
 
 .refresh-gif-thumbnail {
-  width: 20px;
-  height: 20px !important;
+  width: 14px;
+  height: 14px !important;
   max-height: 100%;
   float: left;
   display: none;
+
+}
+
+.disable_a_href{
+    pointer-events: none;
 }

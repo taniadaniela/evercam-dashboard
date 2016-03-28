@@ -16,9 +16,9 @@ hideThumbnailGif = ->
   $('.refresh-camera-thumbnail').on "click", ->
     gifid = $(this)
     id = gifid.attr 'id'
-    console.log id
-    $('#' + id + '.icon-refresh').hide()
-    $('#' + id + '.refresh-gif-thumbnail').show()  
+    tid = '#' + id
+    $("#{tid} i").hide()
+    $("#{tid} img").show()
 
 initNotification = ->
   Notification.init(".bb-alert");

@@ -68,6 +68,14 @@ updateScheduleFromCalendar = ->
 updateSchedule = (frequency, storage_duration, schedule, status) ->
   if status is 'off'
     storage_duration = 1
+  if status is 'on' and storage_duration is -1
+    storage_duration = 1
+  if status is 'on-scheduled' and storage_duration is -1
+    storage_duration = 1
+  if status is 'on' and storage_duration is null
+    storage_duration = 1
+  if status is 'on-scheduled' and storage_duration is null
+    storage_duration = 1
   data =
     api_id: Evercam.User.api_id
     api_key: Evercam.User.api_key

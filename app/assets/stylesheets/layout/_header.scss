@@ -375,3 +375,13 @@ a.grey {
     display: block;
   }
  }
+
+@media only screen and (max-width: 380px) {
+  .biling-alert {
+    font-size: 10px;
+    left: 64%;
+    padding: 0.40em 0.5em;
+    top: 5px;
+    width: 218px;
+  }
+}

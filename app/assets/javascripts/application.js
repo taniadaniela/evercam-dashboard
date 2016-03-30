@@ -24,6 +24,7 @@
 //= require iCheck
 //= require select2
 //= require popbox.js
+//= require swfobject.js
 //= require phoenix
 //= require fullcalendar/fullcalendar.js
 //= require bs-slider

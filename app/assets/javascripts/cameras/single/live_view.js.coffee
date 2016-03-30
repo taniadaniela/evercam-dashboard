@@ -256,6 +256,11 @@ $(window).load HideMessage = ->
   if !$(".wrap img#message").hasClass("no-thumbnail")
     $("#offline_message").show()
 
+flashDetection = ->
+  if !swfobject.hasFlashPlayerVersion("9.0.115") and Evercam.Camera.is_online and $('#select-stream-type').val() is "video"
+    $('.vjs-error-display').hide()
+    $('.flash-error-message').show()
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -272,3 +277,4 @@ window.initializeLiveTab = ->
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()
+  flashDetection()

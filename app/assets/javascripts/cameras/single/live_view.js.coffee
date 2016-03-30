@@ -99,6 +99,7 @@ handleChangeStream = ->
     switch $(this).val()
       when 'jpeg'
         destroyPlayer()
+        $('.flash-error-message').hide()
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         playJpegStream()
@@ -108,6 +109,7 @@ handleChangeStream = ->
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
+        flashDetection()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
         stopJpegStream()

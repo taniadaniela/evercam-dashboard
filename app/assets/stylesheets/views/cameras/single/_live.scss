@@ -186,7 +186,7 @@
     top: 42%;
     left: 38%;
     height: 16%;
-    margin : 0 auto;
+    margin: 0 auto;
     width: 24%;
     color: #000000;
     font-size: 100%;
@@ -196,12 +196,12 @@
     padding: 8px 13px;
     z-index: 1;
 
-    a.message {
+    .message {
       color: #000000;
       text-decoration: underline;
     }
 
-    a.message:hover {
+    .message:hover {
       color: $dark-blue;
       text-decoration: none;
       cursor: pointer;
@@ -210,7 +210,7 @@
 
 }
 
-       #live .panel {
+#live .panel {
   width: auto;
 }
 .panel {
@@ -259,16 +259,24 @@
 
 @media (max-width: 1194px) {
 
-  div#flash-message.flash-error-message {
-    font-size: 75%;
+  .camera-preview {
+
+    .flash-error-message {
+
+      font-size: 75%;
+    }
   }
 
 }
 
 @media (max-width: 740px) {
 
-  div#flash-message.flash-error-message {
-    display: none;
+  .camera-preview {
+
+    .flash-error-message {
+
+      display: none !important;
+    }
   }
 
 }

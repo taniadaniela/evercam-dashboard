@@ -40,6 +40,7 @@
 #live-view-placeholder {
   height: 100%;
   max-width: 100%;
+
 }
 
 #live-view-placeholder .pull-right {
@@ -177,7 +178,37 @@
 }
 .camera-preview {
   position: relative;
+
+  .flash-error-message {
+    display: none;
+    position: absolute;
+    top: 42%;
+    left: 38%;
+    height: 16%;
+    margin: 0 auto;
+    width: 24%;
+    color: #000000;
+    font-size: 100%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.7);
+    font-family: sans-serif;
+    padding: 8px 13px;
+    z-index: 1;
+
+    .message {
+      color: #000000;
+      text-decoration: underline;
+    }
+
+    .message:hover {
+      color: $dark-blue;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
 }
+
 #live .panel {
   width: auto;
 }
@@ -223,6 +254,30 @@
     margin-left: -20px;
     margin-right: -20px;
   }
+}
+
+@media (max-width: 1194px) {
+
+  .camera-preview {
+
+    .flash-error-message {
+
+      font-size: 75%;
+    }
+  }
+
+}
+
+@media (max-width: 740px) {
+
+  .camera-preview {
+
+    .flash-error-message {
+
+      display: none !important;
+    }
+  }
+
 }
 
 @media (max-width: 600px) {

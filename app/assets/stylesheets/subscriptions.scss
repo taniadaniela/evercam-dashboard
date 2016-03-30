@@ -7,11 +7,11 @@
     left: 45%;
     margin-left: -142px;
     padding: 0.4em 1em;
-    position: absolute;
+    position: fixed;
     text-align: center;
-    top: 0;
+    top: 80px;
     width: 50%;
-    z-index: 99999;
+    z-index: 2;
   }
   
   .green {
@@ -19,7 +19,7 @@
   }
 
   h3 {
-    margin: 5px 0px 15px;
+    margin: 15px 0px;
   }
 
   .nav-tabs {
@@ -767,4 +767,21 @@ i.blue {
 
 .margin-left2 {
   margin-left: 2px;
+}
+
+@media only screen and (max-width: 580px) {
+
+  .subscriptions .licence-alert {
+    width: 70%;
+  }
+
+}
+
+@media only screen and (max-width: 480px) {
+
+  .subscriptions .licence-alert {
+    width: 85%;
+    margin-left: -130px;
+  }
+
 }

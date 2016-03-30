@@ -161,7 +161,6 @@
 .refresh-gif {
   width: 20px;
   height: 20px !important;
-  max-height: 100%;
   float: left;
   display: none;
 }
@@ -397,4 +396,9 @@
   40% {
     box-shadow: 0 2.5em 0 0 #ffffff;
   }
+}
+
+.wrap i {
+  font-size: 18px;
+  color: rgba(51, 51, 51, 0.80);
 }

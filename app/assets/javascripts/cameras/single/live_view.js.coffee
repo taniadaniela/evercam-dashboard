@@ -24,13 +24,13 @@ controlButtonEvents = ->
     stream_paused = !stream_paused
 
   $('#refresh-offline-camera').on "click", ->
-    $('.icon-refresh').hide()
+    $('.fa-refresh').hide()
     $('.refresh-gif').show()
     refreshCameraStatus()
 
 hidegif = ->
   $('.refresh-gif').hide()
-  $('.icon-refresh').show()
+  $('.fa-refresh').show()
 
 refreshCameraStatus = ->
   data = {}

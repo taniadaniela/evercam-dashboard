@@ -171,7 +171,8 @@
                   <label>On</label>
                   <br/>
                   <input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled"/>
-                  <label>On (Scheduled)</label>
+                  <label>On</label><label id="schdule-label" class="hide schedule-label padding-left-5"> (Schedule)</label><a id= "show-schedule-calendar" href="#" class="right hide padding-left-5" data-toggle="modal" data-target="#cloud-recording-calendar-wrap">(click to change schedule)
+                  </a>
                   <br/>
                   <input type="radio" name="cloud_recording" id="cloud-recording-off" value="off"/>
                   <label>Off</label>
@@ -200,12 +201,19 @@
             <option value="1">1 (1 every 60 seconds)</option>
           </select>
         </div>
-        <div id="cloud-recording-calendar-wrap" class="hide">
-          <b>Schedule:</b>
-          <br/>
-          <div id="cloud-recording-calendar">
-            <span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>
+        <div id="cloud-recording-calendar-wrap" class="modal fade setting-schedule hide">
+          <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-body">
+            <b>Schedule:</b>
+            <br/>
+            <div id="cloud-recording-calendar">
+              <span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>
+            </div>
           </div>
+          </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -769,6 +769,13 @@ i.blue {
   margin-left: 2px;
 }
 
+.licence-alert .licence-message-30,
+.licence-message-90,
+.licence-message-infinity,
+.licence-message-7 {
+  display: none;
+}
+
 @media only screen and (max-width: 580px) {
 
   .subscriptions .licence-alert {
@@ -784,32 +791,4 @@ i.blue {
     margin-left: -130px;
   }
 
-}
-
-.licence-alert {
-
-  .licence-message-7 {
-    display: none;
-  }
-}
-
-.licence-alert {
-
-  .licence-message-30 {
-    display: none;
-  }
-}
-
-.licence-alert {
-
-  .licence-message-90 {
-    display: none;
-  }
-}
-
-.licence-alert {
-
-  .licence-message-infinity {
-    display: none;
-  }
 }

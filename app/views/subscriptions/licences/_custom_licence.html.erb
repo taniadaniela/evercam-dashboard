@@ -27,8 +27,12 @@
       %>
       <tr>
         <td><%= licence.description %></td>
-        <td class="text-center"><%= licence.total_cameras %></td>
-        <td class="text-center"><%= licence.storage %></td>
+        <td class="text-center no-of-licences <%=licence.storage%>"><%= licence.total_cameras %></td>
+        <% if licence.storage == -1 %>
+          <td class="text-center"><%= 'Infinity' %></td>
+        <%else%>
+          <td class="text-center"><%= licence.storage %></td>
+        <%end%>
         <td class="text-center"><%= Time.at(licence.start_date).strftime('%d/%m/%Y') %></td>
         <td class="text-center"><%= Time.at(licence.end_date).strftime('%d/%m/%Y') %></td>
         <td class="text-center custom-licence-status <%= licence.paid ? "green" : "red" %>"><%= licence.paid ? "Paid" : "Pending" %></td>

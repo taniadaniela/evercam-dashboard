@@ -2,11 +2,10 @@ window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
     axisFormat: 'HH'
     allDaySlot: false
-    slotDuration: '00:90:00'
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     defaultView: 'agendaWeek'
-    dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"]
     eventColor: '#428bca'
     editable: true
     eventClick: (event, element) ->
@@ -155,27 +154,10 @@ currentCalendarWeek = ->
   calendarWeek
 
 showScheduleCalendar = ->
-  $('#cloud-recording-calendar-wrap').removeClass('hide' , 'fade')
-  $('#cloud-recording-calendar-wrap').addClass('fade in')
-  $('.setting-schedule').show()
-  $(document).click (event) ->
-    if $(event.target).closest('.modal-content').get(0) == null
-      $('.setting-schedule').hide()
-    return
+  $('#cloud-recording-calendar-wrap').removeClass('hide')
   scheduleCalendar.fullCalendar('render')
   if scheduleCalendar.is(':visible')
     renderEvents()
-
-showEditButton = ->
-  $('#show-schedule-calendar').removeClass('hide')
-  $('#schdule-label').addClass('hide')
-  $('#show-schedule-calendar').click ->
-    showScheduleCalendar()
-    return
-
-hideEditButton = ->
-  $('#show-schedule-calendar').addClass('hide')
-  $('#schdule-label').removeClass('hide')
 
 hideScheduleCalendar = ->
   $('#cloud-recording-calendar-wrap').addClass('hide')
@@ -197,7 +179,7 @@ hideDurationSelect = ->
 updateFrequencyTo60 = ->
   $("#cloud-recording-frequency").val(60)
 
-window.fullWeekSchedule = ->
+window.fullWeekSchedule =
   "Monday": ["00:00-23:59"]
   "Tuesday": ["00:00-23:59"]
   "Wednesday": ["00:00-23:59"]
@@ -225,19 +207,19 @@ handleStatusSelect = ->
     Evercam.Camera.cloud_recording.status = $(this).val()
     switch $(this).val()
       when "on"
-        hideEditButton()
+        hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
         updateFrequencyTo60()
         updateScheduleToOn()
       when "on-scheduled"
-        showEditButton()
+        showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
         updateFrequencyTo60()
         updateScheduleToOn()
       when "off"
-        hideEditButton()
+        hideScheduleCalendar()
         hideFrequencySelect()
         hideDurationSelect()
         updateScheduleToOff()
@@ -258,7 +240,7 @@ renderCloudRecordingStatus = ->
       $("#cloud-recording-on-scheduled").iCheck('check')
       showFrequencySelect()
       showDurationSelect()
-      showEditButton()
+      showScheduleCalendar()
     when "off"
       $("#cloud-recording-off").iCheck('check')
 
@@ -269,4 +251,3 @@ window.initCloudRecordingSettings = ->
   handleDurationSelect()
   handleFrequencySelect()
   handleStatusSelect()
-

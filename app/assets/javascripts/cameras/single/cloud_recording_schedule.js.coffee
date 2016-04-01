@@ -1,8 +1,8 @@
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
     axisFormat: 'HH'
-    slotMinutes: 30
     allDaySlot: false
+    slotDuration: '00:90:00'
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     defaultView: 'agendaWeek'

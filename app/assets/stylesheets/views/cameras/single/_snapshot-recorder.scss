@@ -598,7 +598,7 @@
   }
 
   #cloud-recording-calendar{
-    max-height: 150px;
+    max-height: 350px;
     overflow-y: hidden;
     position: relative;
     &.open{
@@ -643,3 +643,20 @@
       cursor: pointer;
     }
   }
+
+.setting-schedule {
+  background-color: rgba(0, 0, 0, 0.22);
+  display: block;
+}
+
+.margin-left-15 {
+  margin-left: 15px;
+}
+
+.padding-left-5 {
+  padding-left: 5px;
+}
+
+.schedule-label {
+  font-size: 14px;
+}

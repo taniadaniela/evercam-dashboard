@@ -197,7 +197,7 @@ hideDurationSelect = ->
 updateFrequencyTo60 = ->
   $("#cloud-recording-frequency").val(60)
 
-window.fullWeekSchedule = ->
+window.fullWeekSchedule =
   "Monday": ["00:00-23:59"]
   "Tuesday": ["00:00-23:59"]
   "Wednesday": ["00:00-23:59"]

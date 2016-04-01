@@ -12,33 +12,8 @@
     top: 80px;
     width: 50%;
     z-index: 2;
-
-    .licence-message-7 {
-      display: none;
-    }
   }
 
-  .licence-alert {
-
-    .licence-message-30 {
-      display: none;
-    }
-  }
-
-  .licence-alert {
-
-    .licence-message-90 {
-      display: none;
-    }
-  }
-
-  .licence-alert {
-
-    .licence-message-infinity {
-      display: none;
-    }
-  }
-  
   .green {
     color: $green;
   }
@@ -809,4 +784,32 @@ i.blue {
     margin-left: -130px;
   }
 
+}
+
+.licence-alert {
+
+  .licence-message-7 {
+    display: none;
+  }
+}
+
+.licence-alert {
+
+  .licence-message-30 {
+    display: none;
+  }
+}
+
+.licence-alert {
+
+  .licence-message-90 {
+    display: none;
+  }
+}
+
+.licence-alert {
+
+  .licence-message-infinity {
+    display: none;
+  }
 }

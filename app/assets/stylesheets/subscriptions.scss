@@ -13,7 +13,7 @@
     width: 50%;
     z-index: 2;
   }
-  
+
   .green {
     color: $green;
   }
@@ -767,6 +767,13 @@ i.blue {
 
 .margin-left2 {
   margin-left: 2px;
+}
+
+.licence-alert .licence-message-30,
+.licence-message-90,
+.licence-message-infinity,
+.licence-message-7 {
+  display: none;
 }
 
 @media only screen and (max-width: 580px) {

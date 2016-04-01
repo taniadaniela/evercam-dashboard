@@ -347,7 +347,7 @@ class CamerasController < ApplicationController
     cloud_recordings = Camera.where(owner: current_user).eager(:cloud_recording).all
     cloud_recordings = cloud_recordings.select { |a| a.cloud_recording.present? && !a.cloud_recording.status.eql?("off") }
     unless cloud_recordings.nil?
-      seven_day = thirty_day = ninty_day = 0
+      seven_day = thirty_day = ninty_day = infinity = 0
       cloud_recordings.each do |camera|
         if  camera.cloud_recording.storage_duration.equal?(7)
           seven_day = seven_day + 1
@@ -355,13 +355,15 @@ class CamerasController < ApplicationController
           thirty_day = thirty_day + 1
         elsif  camera.cloud_recording.storage_duration.equal?(90)
           ninty_day = ninty_day + 1
+        elsif  camera.cloud_recording.storage_duration.equal?(-1)
+          infinity = infinity + 1
         end
       end
 
       total_required = cloud_recordings.count
       if total_required > 0
         licences = Licence.where(user_id: current_user.id).where(cancel_licence: false)
-        valid_seven_day = valid_thirty_day = valid_ninty_day = 0
+        valid_seven_day = valid_thirty_day = valid_ninty_day = valid_infinity = 0
         licences.each do |licence|
           if  licence.storage.equal?(7)
             valid_seven_day = valid_seven_day + licence.total_cameras
@@ -369,6 +371,8 @@ class CamerasController < ApplicationController
             valid_thirty_day = valid_thirty_day + licence.total_cameras
           elsif  licence.storage.equal?(90)
             valid_ninty_day = valid_ninty_day + licence.total_cameras
+          elsif  licence.storage.equal?(-1)
+            valid_infinity = valid_infinity + licence.total_cameras
           end
         end
         total_licences = licences.inject(0) { |sum, a| sum + a.total_cameras }
@@ -382,6 +386,10 @@ class CamerasController < ApplicationController
         end
         if ninty_day > valid_ninty_day
           @required_licences = @required_licences + (ninty_day - valid_ninty_day)
+          @show_alert_message = true
+        end
+        if infinity > valid_infinity
+          @required_licences = @required_licences + (infinity - valid_infinity)
           @show_alert_message = true
         end
       end

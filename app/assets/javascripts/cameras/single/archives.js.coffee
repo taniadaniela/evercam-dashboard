@@ -30,9 +30,9 @@ initializeArchivesDataTable = ->
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
       {data: "frames", sClass: 'frame'},
       {data: "requester_name"},
-      {data: renderIsPublic, orderDataType: 'string-date', type: 'string-date'},
+      {data: renderIsPublic, orderDataType: 'string', type: 'string'},
       {data: "status"},
-      {data: renderDate, orderDataType: 'string', type: 'string' },
+      {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
       {data: renderbuttons}
     ],
     iDisplayLength: 50,

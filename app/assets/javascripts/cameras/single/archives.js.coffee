@@ -29,8 +29,10 @@ initializeArchivesDataTable = ->
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
       {data: "frames", sClass: 'frame'},
+      {data: "requester_name"},
+      {data: renderIsPublic, orderDataType: 'string-date', type: 'string-date'},
       {data: "status"},
-      {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
+      {data: renderDate, orderDataType: 'string', type: 'string' },
       {data: renderbuttons}
     ],
     iDisplayLength: 50,
@@ -70,16 +72,20 @@ renderbuttons = (row, type, set, meta) ->
     return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
 
 renderDate = (row, type, set, meta) ->
-#  return moment(row.created_at*1000).format('MMMM Do YYYY, H:mm:ss')
   getDate(row.created_at*1000)
 
 renderFromDate = (row, type, set, meta) ->
-#  return moment(row.from_date*1000).format('MMMM Do YYYY, H:mm:ss')
   getDate(row.from_date*1000)
 
 renderToDate = (row, type, set, meta) ->
-#  return moment(row.to_date*1000).format('MMMM Do YYYY, H:mm:ss')
   getDate(row.to_date*1000)
+
+renderIsPublic = (row, type, set, meta) ->
+  if row.public
+    return 'Yes'
+  else
+    return 'No'
+
 
 getDate = (timestamp) ->
   offset =  $('#camera_time_offset').val()

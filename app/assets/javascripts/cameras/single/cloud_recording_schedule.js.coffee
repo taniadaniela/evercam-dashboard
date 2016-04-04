@@ -168,13 +168,18 @@ showScheduleCalendar = ->
 
 showEditButton = ->
   $('#show-schedule-calendar').removeClass('hide')
-  $('#schdule-label').addClass('hide')
   $('#show-schedule-calendar').click ->
     showScheduleCalendar()
     return
 
 hideEditButton = ->
   $('#show-schedule-calendar').addClass('hide')
+  $('#schdule-label').removeClass('hide')
+
+hideScheduleLabel = ->
+  $('#schdule-label').addClass('hide')
+
+showScheduleLabel = ->
   $('#schdule-label').removeClass('hide')
 
 hideScheduleCalendar = ->
@@ -230,17 +235,20 @@ handleStatusSelect = ->
         showDurationSelect()
         updateFrequencyTo60()
         updateScheduleToOn()
+        showScheduleLabel()
       when "on-scheduled"
         showEditButton()
         showFrequencySelect()
         showDurationSelect()
         updateFrequencyTo60()
         updateScheduleToOn()
+        hideScheduleLabel()
       when "off"
         hideEditButton()
         hideFrequencySelect()
         hideDurationSelect()
         updateScheduleToOff()
+        showScheduleLabel()
 
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
@@ -254,13 +262,16 @@ renderCloudRecordingStatus = ->
       $("#cloud-recording-on").iCheck('check')
       showFrequencySelect()
       showDurationSelect()
+      showScheduleLabel()
     when "on-scheduled"
       $("#cloud-recording-on-scheduled").iCheck('check')
       showFrequencySelect()
       showDurationSelect()
       showEditButton()
+      hideScheduleLabel()
     when "off"
       $("#cloud-recording-off").iCheck('check')
+      showScheduleLabel()
 
 window.initCloudRecordingSettings = ->
   renderCloudRecordingDuration()

@@ -28,6 +28,7 @@ initializeArchivesDataTable = ->
       {data: "title" },
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
+      {data: renderDuration, orderDataType: 'string-date', type: 'string-date'}
       {data: "frames", sClass: 'frame'},
       {data: "requester_name"},
       {data: renderIsPublic, orderDataType: 'string', type: 'string'},
@@ -80,12 +81,25 @@ renderFromDate = (row, type, set, meta) ->
 renderToDate = (row, type, set, meta) ->
   getDate(row.to_date*1000)
 
+renderDuration = (row, type, set, meta) ->
+  dateTimeFrom = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  dateTimeTo = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  diff = dateTimeTo - dateTimeFrom
+  diffSeconds = diff / 1000
+  HH = Math.floor(diffSeconds / 3600)
+  hours = HH + ' ' + 'hr'
+  hours = '' unless HH isnt 0
+  MM = Math.floor(diffSeconds % 3600) / 60
+  minutes = MM + ' ' +'min'
+  minutes = '' unless MM isnt 0
+  formatted = hours + ' ' + minutes
+  return formatted
+
 renderIsPublic = (row, type, set, meta) ->
   if row.public
     return 'Yes'
   else
     return 'No'
-
 
 getDate = (timestamp) ->
   offset =  $('#camera_time_offset').val()
@@ -187,10 +201,18 @@ deleteClip = ->
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        archives_table.ajax.reload()
+        archives_table.ajax.reload (json) ->
+          if json.archives.length is 0
+            $('#archives-table_paginate, #archives-table_info').hide()
+            $('#archives-table').hide()
+            span = $("<span>")
+            span.append($(document.createTextNode("There are no clips.")))
+            span.attr("id", "no-archive")
+            $('#archives-table_wrapper .col-sm-12').append(span)
+        Notification.show(data.message)
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-      Notification.show(data.message)
+        Notification.show("Only the Camera Owner can delete this clip.")
 
     settings =
       cache: false

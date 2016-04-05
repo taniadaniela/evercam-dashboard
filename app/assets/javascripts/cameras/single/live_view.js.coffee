@@ -162,8 +162,10 @@ calculateHeight = ->
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
-  $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".video-js").css({"height": "#{image_height}px"})
+
+  if $(window).width() >= 668
+    $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})
+    $(".video-js").css({"height": "#{image_height}px"})
 
   if $(window).width() <= 668
     $("#live-player-image").css({"height": "375px"})

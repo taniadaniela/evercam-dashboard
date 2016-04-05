@@ -41,7 +41,6 @@ initializeArchivesDataTable = ->
     bFilter: false,
     initComplete: (settings, json) ->
       $("#archives-table_length").hide()
-      console.log 'here'
       if json.archives.length is 0
         $('#archives-table_paginate, #archives-table_info').hide()
         $('#archives-table').hide()
@@ -145,7 +144,7 @@ createClip = ->
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        archives_table.ajax.reload(initComplete)
+        archives_table.ajax.reload()
         $('#archives-table').show()
         $("#no-archive").hide()
         formReset()
@@ -203,7 +202,15 @@ deleteClip = ->
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        archives_table.ajax.reload()
+        archives_table.ajax.reload (json) ->
+          if json.archives.length is 0
+            $('#archives-table_paginate, #archives-table_info').hide()
+            $('#archives-table').hide()
+            span = $("<span>")
+            span.append($(document.createTextNode("There are no clips.")))
+            span.attr("id", "no-archive")
+            $('#archives-table_wrapper .col-sm-12').append(span)
+#        archives_table.ajax.reload()
         Notification.show(data.message)
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")

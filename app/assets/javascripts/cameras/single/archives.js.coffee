@@ -82,9 +82,9 @@ renderToDate = (row, type, set, meta) ->
   getDate(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
-  Datetime1 = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
-  Datetime2 = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
-  diff = Datetime2 - Datetime1
+  DateTimeFrom = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  DateTimeTo = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  diff = DateTimeTo - DateTimeFrom
   diffSeconds = diff / 1000
   HH = Math.floor(diffSeconds / 3600)
   hours = HH + ' ' + 'hr'
@@ -210,7 +210,6 @@ deleteClip = ->
             span.append($(document.createTextNode("There are no clips.")))
             span.attr("id", "no-archive")
             $('#archives-table_wrapper .col-sm-12').append(span)
-#        archives_table.ajax.reload()
         Notification.show(data.message)
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -226,14 +225,6 @@ deleteClip = ->
       url: $("#archive-delete-url").val()
     sendAJAXRequest(settings)
 
-#initializePopup = ->
-#  $(".delete-archive").popbox
-#    open: ".open2"
-#    box: ".box2"
-#    arrow: ".arrow2"
-#    arrow_border: ".arrow-border2"
-#    close: ".closepopup2"
-
 window.initializeArchivesTab = ->
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
@@ -245,4 +236,3 @@ window.initializeArchivesTab = ->
   playClip()
   shareURL()
   setDate()
-#  initializePopup()

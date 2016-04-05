@@ -85,7 +85,7 @@ initializePlayer = ->
       $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
       $('#live-view-placeholder .pull-right table').stop().animate()
     else
-      $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-46px' }, 500
+      $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
   ), 10
 
 destroyPlayer = ->
@@ -103,7 +103,7 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         playJpegStream()
-        $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
+        $('#live-view-placeholder .pull-right table').css 'margin-top', '-39px'
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
 
       when 'video'
@@ -158,6 +158,10 @@ calculateHeight = ->
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
+
+  if $(window).width() >= 668
+    $('#live-player-image').css 'height': '#{image_height}px' + 400
+    console.log "#{image_height}px"
 
 handleResize = ->
   getImageRealRatio()

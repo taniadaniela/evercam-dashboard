@@ -41,6 +41,7 @@ initializeArchivesDataTable = ->
     bFilter: false,
     initComplete: (settings, json) ->
       $("#archives-table_length").hide()
+      console.log 'here'
       if json.archives.length is 0
         $('#archives-table_paginate, #archives-table_info').hide()
         $('#archives-table').hide()
@@ -144,7 +145,7 @@ createClip = ->
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        archives_table.ajax.reload()
+        archives_table.ajax.reload(initComplete)
         $('#archives-table').show()
         $("#no-archive").hide()
         formReset()

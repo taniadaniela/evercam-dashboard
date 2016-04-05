@@ -82,9 +82,9 @@ renderToDate = (row, type, set, meta) ->
   getDate(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
-  DateTimeFrom = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
-  DateTimeTo = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
-  diff = DateTimeTo - DateTimeFrom
+  dateTimeFrom = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  dateTimeTo = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  diff = dateTimeTo - dateTimeFrom
   diffSeconds = diff / 1000
   HH = Math.floor(diffSeconds / 3600)
   hours = HH + ' ' + 'hr'
@@ -100,7 +100,6 @@ renderIsPublic = (row, type, set, meta) ->
     return 'Yes'
   else
     return 'No'
-
 
 getDate = (timestamp) ->
   offset =  $('#camera_time_offset').val()

@@ -254,6 +254,11 @@
 
 .tabbable-custom{
   margin-bottom: 0px !important;
+
+  .tab-content {
+    padding-bottom: 0px;
+  }
+
 }
 
 @media (max-width: 980px) {
@@ -495,8 +500,4 @@
     }
   }
 
-}
-
-.tabbable-custom > .tab-content {
-  padding-bottom: 0px;
 }

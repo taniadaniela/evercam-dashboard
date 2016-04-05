@@ -107,7 +107,7 @@ handleChangeStream = ->
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
         $("#camera-video-stream").hide()
         $(".video-js").css 'height', '0px'
-        
+
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
@@ -164,7 +164,8 @@ calculateHeight = ->
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
   $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".video-js").css({"height": "#{image_height}px"})
+  imgHeight = $("#camera-video-stream").height()
+  $(".video-js").css 'height', "#{imgHeight}px"
   
 
   if $(window).width() <= 668
@@ -287,8 +288,8 @@ window.initializeLiveTab = ->
   controlButtonEvents()
   fullscreenImage()
   openPopout()
-  handleResize()
   handleChangeStream()
+  handleResize()
   handleTabOpen()
   handleSaveSnapshot()
   handlePtzCommands()

@@ -105,6 +105,7 @@ handleChangeStream = ->
         playJpegStream()
         $('#live-view-placeholder .pull-right table').css 'margin-top', '-39px'
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
+        $("#camera-video-stream").hide()
 
       when 'video'
         $("#camera-video-stream").html(video_player_html)
@@ -114,6 +115,7 @@ handleChangeStream = ->
         $("#streams").removeClass("inactive").addClass "active"
         stopJpegStream()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
+        $("#camera-video-stream").show()
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
@@ -158,10 +160,15 @@ calculateHeight = ->
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
+  $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})
+  $(".video-js").css({"height": "#{image_height}px","max-height": "100%"})
 
-  if $(window).width() >= 668
-    $('#live-player-image').css 'height': '#{image_height}px' + 400
-    console.log "#{image_height}px"
+  if $(window).width() <= 668
+    $("#live-player-image").css({"height": "375px"})
+  if $(window).width() <= 480
+    $("#live-player-image").css({"height": "270"})
+  if $(window).width() <= 380
+    $("#live-player-image").css({"height": "220"})
 
 handleResize = ->
   getImageRealRatio()

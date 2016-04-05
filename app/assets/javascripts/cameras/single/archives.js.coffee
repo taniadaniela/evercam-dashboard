@@ -82,15 +82,18 @@ renderToDate = (row, type, set, meta) ->
   getDate(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
-  Datetime1 = new Date(moment.utc(row.from_date).format('MM DD YYYY, HH:mm:ss'))
-  Datetime2 = new Date(moment.utc(row.to_date).format('MM DD YYYY, HH:mm:ss'))
-  TotalHours = Datetime2.getHours() - Datetime1.getHours()
-  TotalMinutes = Datetime2.getMinutes() - Datetime1.getMinutes()
-  TotalSeconds = Datetime2.getSeconds() - Datetime1.getSeconds()
-  console.log TotalHours
-  console.log TotalMinutes
-  console.log TotalSeconds
-  return 'none'
+  Datetime1 = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  Datetime2 = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  diff = Datetime2 - Datetime1
+  diffSeconds = diff / 1000
+  HH = Math.floor(diffSeconds / 3600)
+  hours = HH + ' ' + 'hr'
+  hours = '' unless HH isnt 0
+  MM = Math.floor(diffSeconds % 3600) / 60
+  minutes = MM + ' ' +'min'
+  minutes = '' unless MM isnt 0
+  formatted = hours + ' ' + minutes
+  return formatted
 
 renderIsPublic = (row, type, set, meta) ->
   if row.public

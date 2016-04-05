@@ -28,6 +28,7 @@ initializeArchivesDataTable = ->
       {data: "title" },
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
+      {data: renderDuration, orderDataType: 'string-date', type: 'string-date'}
       {data: "frames", sClass: 'frame'},
       {data: "requester_name"},
       {data: renderIsPublic, orderDataType: 'string', type: 'string'},
@@ -79,6 +80,17 @@ renderFromDate = (row, type, set, meta) ->
 
 renderToDate = (row, type, set, meta) ->
   getDate(row.to_date*1000)
+
+renderDuration = (row, type, set, meta) ->
+  Datetime1 = new Date(moment.utc(row.from_date).format('MM DD YYYY, HH:mm:ss'))
+  Datetime2 = new Date(moment.utc(row.to_date).format('MM DD YYYY, HH:mm:ss'))
+  TotalHours = Datetime2.getHours() - Datetime1.getHours()
+  TotalMinutes = Datetime2.getMinutes() - Datetime1.getMinutes()
+  TotalSeconds = Datetime2.getSeconds() - Datetime1.getSeconds()
+  console.log TotalHours
+  console.log TotalMinutes
+  console.log TotalSeconds
+  return 'none'
 
 renderIsPublic = (row, type, set, meta) ->
   if row.public
@@ -188,9 +200,10 @@ deleteClip = ->
     onSuccess = (data, status, jqXHR) ->
       if data.success
         archives_table.ajax.reload()
+        Notification.show(data.message)
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-      Notification.show(data.message)
+        Notification.show("Only the Camera Owner can delete this clip.")
 
     settings =
       cache: false
@@ -201,6 +214,14 @@ deleteClip = ->
       type: 'DELETE'
       url: $("#archive-delete-url").val()
     sendAJAXRequest(settings)
+
+#initializePopup = ->
+#  $(".delete-archive").popbox
+#    open: ".open2"
+#    box: ".box2"
+#    arrow: ".arrow2"
+#    arrow_border: ".arrow-border2"
+#    close: ".closepopup2"
 
 window.initializeArchivesTab = ->
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
@@ -213,3 +234,4 @@ window.initializeArchivesTab = ->
   playClip()
   shareURL()
   setDate()
+#  initializePopup()

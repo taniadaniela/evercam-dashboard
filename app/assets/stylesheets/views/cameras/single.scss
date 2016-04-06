@@ -17,9 +17,11 @@
   display:inline-block;
   height:14px;
   line-height:14px;
-  margin-top:1px;
+  margin-top: -2px;
   vertical-align:text-top;
   width:14px;
+  float: right;
+  margin-right: -5px;
 }
 #ul-nav-tab .caret{
   display: none;

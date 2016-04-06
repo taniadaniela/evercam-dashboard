@@ -85,7 +85,7 @@ initializePlayer = ->
       $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
       $('#live-view-placeholder .pull-right table').stop().animate()
     else
-      $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-46px' }, 500
+      $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
   ), 10
 
 destroyPlayer = ->
@@ -103,9 +103,10 @@ handleChangeStream = ->
         $("#streams").removeClass("active").addClass "inactive"
         $("#fullscreen").removeClass("inactive").addClass "active"
         playJpegStream()
-        $('#live-view-placeholder .pull-right table').css 'margin-top', '-48px'
+        $('#live-view-placeholder .pull-right table').css 'margin-top', '-39px'
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
-
+        $("#camera-video-stream").hide()
+        $(".video-js").css 'height', '0px'
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
@@ -114,6 +115,9 @@ handleChangeStream = ->
         $("#streams").removeClass("inactive").addClass "active"
         stopJpegStream()
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
+        $("#camera-video-stream").show()
+        imgHeight = $("#camera-video-stream").height()
+        $(".video-js").css 'height', "#{imgHeight}px"
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
@@ -158,6 +162,17 @@ calculateHeight = ->
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
+
+  if $(window).width() >= 668
+    $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})
+    $(".video-js").css({"height": "#{image_height}px"})
+
+  if $(window).width() <= 668
+    $("#live-player-image").css({"height": "375px"})
+  if $(window).width() <= 480
+    $("#live-player-image").css({"height": "270"})
+  if $(window).width() <= 380
+    $("#live-player-image").css({"height": "220"})
 
 handleResize = ->
   getImageRealRatio()
@@ -270,13 +285,16 @@ window.initializeLiveTab = ->
   controlButtonEvents()
   fullscreenImage()
   openPopout()
+  handleResize()
   handleChangeStream()
   handleTabOpen()
   handleSaveSnapshot()
-  handleResize()
   handlePtzCommands()
   getPtzPresets()
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()
   flashDetection()
+
+->
+  calculateHeight()

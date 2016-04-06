@@ -93,6 +93,10 @@
   color:#2a6496;
 }
 
+.delete-archive {
+  cursor: pointer;
+}
+
 .box2 {
   display: none;
   background: #FFF;

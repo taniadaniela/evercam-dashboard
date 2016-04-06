@@ -28,7 +28,7 @@ initializeArchivesDataTable = ->
       {data: "title" },
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
-      {data: renderDuration, orderDataType: 'string-date', type: 'string-date'}
+      {data: renderDuration, orderDataType: 'string-date', type: 'string-date'},
       {data: "frames", sClass: 'frame'},
       {data: "requester_name"},
       {data: renderIsPublic, orderDataType: 'string', type: 'string'},
@@ -40,6 +40,7 @@ initializeArchivesDataTable = ->
     order: [[ 2, "desc" ]],
     bFilter: false,
     initComplete: (settings, json) ->
+      initializePopup()
       $("#archives-table_length").hide()
       if json.archives.length is 0
         $('#archives-table_paginate, #archives-table_info').hide()
@@ -54,10 +55,36 @@ initializeArchivesDataTable = ->
       else if json.archives.length >= 50
         $("#archives-table_info").show()
         $('#archives-table_paginate').hide()
+      deleteClip()
       true
   })
 
 renderbuttons = (row, type, set, meta) ->
+  div = $('<div>', {class: "form-group"})
+  divPopup =$('<div>', {class: "popbox2"})
+  remove_icon = '<span href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></span>'
+  span = $('<span>', {class: "open2"})
+  span.append(remove_icon)
+  divPopup.append(span)
+  divCollapsePopup = $('<div>', {class: "collapse-popup"})
+  divBox2 = $('<div>', {class: "box-new"})
+  divBox2.append($('<div>', {class: "arrow2"}))
+  divBox2.append($('<div>', {class: "arrow-border2"}))
+  divMessage = $('<div>', {class: "margin-bottom-10"})
+  divMessage.append($(document.createTextNode("Are you sure?")))
+  divBox2.append(divMessage)
+  divButtons = $('<div>', {class: "margin-bottom-10"})
+  inputDelete = $('<input type="button" value="Yes, Remove">')
+  inputDelete.addClass("btn btn-primary delete-btn delete-archive2")
+  inputDelete.attr("camera_id", Evercam.Camera.id)
+  inputDelete.attr("archive_id", row.id)
+  inputDelete.click(deleteClip)
+  divButtons.append(inputDelete)
+  divButtons.append('<div class="btn delete-btn closepopup grey"><div class="text-center" fit>CANCEL</div></div>')
+  divBox2.append(divButtons)
+  divCollapsePopup.append(divBox2)
+  divPopup.append(divCollapsePopup)
+  div.append(divPopup)
   if row.status is "Completed"
     mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
     view_url = "clip/#{row.id}/play"
@@ -67,10 +94,9 @@ renderbuttons = (row, type, set, meta) ->
 
     return '<a class="archive-actions play-clip" href="#" data-toggle="tooltip" title="Play!" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
       '<a class="archive-actions" data-toggle="tooltip" title="Download!" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
-        copy_url +
-          '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></a>'
+        copy_url + div.html()
   else
-    return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></a>'
+    return div.html()
 
 renderDate = (row, type, set, meta) ->
   getDate(row.created_at*1000)
@@ -187,13 +213,11 @@ playClip = ->
     window.open view_url, '_blank', 'width=640, Height=480, scrollbars=0, resizable=0'
 
 deleteClip = ->
-  $("#archives-table").on "click", ".delete-archive", ->
-    status =  confirm 'Are you sure?'
-    if !status
-      return
+  $('.delete-archive2').on 'click', ->
+    control = $(this)
     data =
-      camera_id: $(this).attr("val-camera-id")
-      archive_id: $(this).attr("val-archive-id")
+      camera_id: control.attr("camera-id")
+      archive_id: control.attr("archive-id")
 
     onError = (jqXHR, status, error) ->
       Notification.show(jqXHR.responseJSON.message)
@@ -224,6 +248,15 @@ deleteClip = ->
       url: $("#archive-delete-url").val()
     sendAJAXRequest(settings)
 
+initializePopup = ->
+  console.log 'here'
+  $(".popbox2").popbox
+    open: ".open2"
+    box: ".box-new"
+    arrow: ".arrow2"
+    arrow_border: ".arrow-border2"
+    close: ".closepopup"
+
 window.initializeArchivesTab = ->
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
@@ -231,7 +264,6 @@ window.initializeArchivesTab = ->
   initializeArchivesDataTable()
   tooltip()
   createClip()
-  deleteClip()
   playClip()
   shareURL()
   setDate()

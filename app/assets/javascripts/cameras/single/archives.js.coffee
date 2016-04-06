@@ -68,9 +68,9 @@ renderbuttons = (row, type, set, meta) ->
     return '<a class="archive-actions play-clip" href="#" data-toggle="tooltip" title="Play!" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
       '<a class="archive-actions" data-toggle="tooltip" title="Download!" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
         copy_url +
-          '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
+          '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></a>'
   else
-    return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-remove-sign"></i></a>'
+    return '<a href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></a>'
 
 renderDate = (row, type, set, meta) ->
   getDate(row.created_at*1000)

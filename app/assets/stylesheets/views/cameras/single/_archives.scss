@@ -163,10 +163,10 @@ table.table-bordered td:last-child {
   background-color: transparent;
 }
 
-table.dataTable thead .sorting_asc::after {
+thead .sorting_asc::after {
   color: $dark-blue;
 }
 
-table.dataTable thead .sorting_desc::after {
+thead .sorting_desc::after {
   color: $dark-blue;
 }

@@ -249,7 +249,6 @@ deleteClip = ->
     sendAJAXRequest(settings)
 
 initializePopup = ->
-  console.log 'here'
   $(".popbox2").popbox
     open: ".open2"
     box: ".box-new"

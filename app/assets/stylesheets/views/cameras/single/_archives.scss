@@ -37,10 +37,15 @@
 
 .archive-actions {
   margin-right: 12px;
-  color: #34393d;
   .fa {
     font-size: 18px;
+    color: $light-blue;
   }
+
+  .fa:hover {
+    color: $dark-blue;
+  }
+
 }
 
 #uniform-embed-datetime, #uniform-is-public {
@@ -146,3 +151,22 @@ table.table-bordered td:last-child {
   width: 12%;
 }
 
+.popbox2 {
+  display: inline;
+}
+
+.table-responsive {
+  overflow-x: inherit;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1){
+  background-color: transparent;
+}
+
+thead .sorting_asc::after {
+  color: $dark-blue;
+}
+
+thead .sorting_desc::after {
+  color: $dark-blue;
+}

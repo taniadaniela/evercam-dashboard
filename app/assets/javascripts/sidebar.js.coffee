@@ -60,6 +60,13 @@ handleToggle = ->
 handleCameraListHeight = ->
   $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 390
 
+delay = do ->
+  timer = 0
+  (callback, ms) ->
+    clearTimeout timer
+    timer = setTimeout(callback, ms)
+    return
+
 $ ->
   initSocket()
   showOfflineButton()
@@ -70,3 +77,9 @@ $(window).ready ->
   removeDropdown()
   handleToggle()
   handleCameraListHeight()
+  $(window).resize ->
+    delay (->
+      handleCameraListHeight()
+      return
+    ), 500
+    return

@@ -60,14 +60,12 @@ handleToggle = ->
 handleCameraListHeight = ->
   $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 390
 
-$(window).resize ->
-  if @resizeTO
-    clearTimeout @resizeTO
-  @resizeTO = setTimeout((->
-    $(this).trigger 'resizeEnd'
+delay = do ->
+  timer = 0
+  (callback, ms) ->
+    clearTimeout timer
+    timer = setTimeout(callback, ms)
     return
-  ), 500)
-  return
 
 $ ->
   initSocket()
@@ -79,6 +77,9 @@ $(window).ready ->
   removeDropdown()
   handleToggle()
   handleCameraListHeight()
-  $(window).bind 'resizeEnd', ->
-    handleCameraListHeight()
+  $(window).resize ->
+    delay (->
+      handleCameraListHeight()
+      return
+    ), 500
     return

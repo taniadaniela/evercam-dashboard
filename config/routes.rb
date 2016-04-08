@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
 
+  get '/port/check' => 'cameras#is_port_open'
+
   get '/v1/public/cameras' => 'public#index', as: :public_cameras_index
   get '/v1/public/cameras/:id' => 'public#single', as: :public_cameras_single
 

@@ -193,6 +193,31 @@ onCustomizedUrl = ->
       $("#camera-vendor").val("other")
       loadVendorModels($("#camera-vendor").val(), true)
 
+port_check = ->
+  $('#port').on 'input', ->
+    data = {}
+    data.ip = $('#camera-url').text()
+    data.port = $('#port').text()
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (result, status, jqXHR) ->
+      true
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/json; charset=utf-8"
+      type: 'GET'
+      url: '/port/check'
+
+    sendAJAXRequest(settings)
+    true
+
 window.initializeAddCamera = ->
   Metronic.init()
   Layout.init()
@@ -204,4 +229,5 @@ window.initializeAddCamera = ->
   loadVendors()
   onAddCamera()
   onCustomizedUrl()
+  port_check()
 

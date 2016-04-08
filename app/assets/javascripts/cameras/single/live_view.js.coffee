@@ -2,6 +2,7 @@ stream_paused = false
 img_real_width = 0
 img_real_height = 0
 live_view_timestamp = 0
+image_placeholder = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')

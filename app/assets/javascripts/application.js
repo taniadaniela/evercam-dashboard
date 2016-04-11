@@ -9,7 +9,7 @@
 //= require jquery-cookie
 //= require jquery.nicescroll
 //= require jquery.slimscroll
-//= require jquery-form-validator/form-validator/jquery.form-validator.js
+//= require jquery-form-validator
 //= require moment
 //= require ladda/spin.min.js
 //= require ladda/ladda.min.js

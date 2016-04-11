@@ -116,6 +116,7 @@ renderDuration = (row, type, set, meta) ->
   hours = HH + ' ' + 'hr'
   hours = '' unless HH isnt 0
   MM = Math.floor(diffSeconds % 3600) / 60
+  MM = Math.round(MM)
   minutes = MM + ' ' +'min'
   minutes = '' unless MM isnt 0
   formatted = hours + ' ' + minutes

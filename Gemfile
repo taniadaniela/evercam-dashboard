@@ -87,7 +87,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-fullcalendar', '~> 2.3.2'
   gem 'rails-assets-iCheck', '~> 1.0.2'
   gem 'rails-assets-jquery-cookie', '~> 1.4.1'
-  gem 'rails-assets-jquery-form-validator', '~> 2.1.47'
+  gem 'rails-assets-jquery-form-validator', '~> 2.2.81'
   gem 'rails-assets-jquery.browser', '~> 0.0.7'
   gem 'rails-assets-jquery.nicescroll', '~> 3.5.6'
   gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'

@@ -183,9 +183,14 @@ table.table-bordered td:last-child {
 
 .table-bordered {
   border: none;
-  
+
   thead > tr > th {
     border-right: none;
+  }
+
+  tbody > tr > td {
+    border-right: none;
+    vertical-align: middle;
   }
 
   .to {
@@ -208,13 +213,6 @@ table.table-bordered td:last-child {
     min-width: 62px;
   }
 
-}
-
-.table-bordered > tbody {
-  tr > td {
-    border-right: none;
-    vertical-align: middle;
-  }
 }
 
 @media (max-width: 767px) {

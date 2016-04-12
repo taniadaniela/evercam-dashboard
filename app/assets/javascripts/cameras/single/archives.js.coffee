@@ -33,7 +33,6 @@ initializeArchivesDataTable = ->
       {data: "frames", sClass: 'frame'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string'},
       {data: "status"},
-#      {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
       {data: renderbuttons}
     ],
     iDisplayLength: 50,
@@ -107,7 +106,7 @@ gravatarName = (row, type, set, meta) ->
   img = $('<img>', {class: "gravatar"})
   img.attr("src", img_src)
   div.append(img)
-  div_user = $('<div>', {class: "username_id"})
+  div_user = $('<div>', {class: "username-id"})
   div_user.append(row.requester_name)
   div_user.append('<br>')
   small = $('<small>', {class: "blue"})

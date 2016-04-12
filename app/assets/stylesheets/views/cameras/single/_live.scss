@@ -41,7 +41,7 @@
   .fa-refresh {
     font-size: 18px;
     color: $white;
-    margin-top: 9px
+    margin-top: 9px;
   }
 
   .refresh-gif {
@@ -157,7 +157,7 @@
 }
 
 .refresh-camera:hover {
-  background: #68a2d5;
+  background: $hover-blue;
 }
 
 .tint img {
@@ -226,12 +226,12 @@
   background: #000000;
 }
 
-.offline_message {
+.offline-message {
   position: absolute;
   width: 147px;
   top: 0%;
   left: 42%;
-  right:42%;
+  right: 42%;
   color: $white;
   background: $ever-background;
   font-size: 15px;
@@ -290,7 +290,7 @@
 
 @media (max-width: 600px) {
 
-  .offline_message {
+  .offline-message {
     font-size: 8px;
     padding: 5px 5px;
   }
@@ -476,7 +476,7 @@
     margin-top: 11px;
   }
 
-  .offline_message {
+  .offline-message {
     left: 36%;
   }
 
@@ -505,7 +505,7 @@
     margin-top: -23px;
   }
 
-  .offline_message {
+  .offline-message {
     width: 76px;
     left: 38%;
   }

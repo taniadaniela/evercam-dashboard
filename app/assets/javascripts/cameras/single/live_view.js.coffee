@@ -162,7 +162,7 @@ calculateHeight = ->
     image_height = img_real_height / img_real_width * content_width
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
+  $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
 
   if $(window).width() >= 668
     $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})

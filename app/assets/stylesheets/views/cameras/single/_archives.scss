@@ -187,31 +187,34 @@ table.table-bordered td:last-child {
   thead > tr > th {
     border-right: none;
   }
+
+  .to {
+    min-width: 100px;
+  }
+
+  .from {
+    min-width: 100px;
+  }
+
+  .title {
+    min-width: 80px;
+  }
+
+  .fullname {
+    min-width: 201px;
+  }
+
+  .public  {
+    min-width: 62px;
+  }
+
 }
 
-.table-bordered > tbody > tr > td {
-  border-right: none;
-  vertical-align: middle;
-}
-
-.table-bordered .public {
-  min-width: 62px;
-}
-
-.table-bordered .fullname {
-  min-width: 201px;
-}
-
-.table-bordered .from {
-  min-width: 100px;
-}
-
-.table-bordered .to {
-  min-width: 100px;
-}
-
-.table-bordered .title {
-  min-width: 80px;
+.table-bordered > tbody {
+  tr > td {
+    border-right: none;
+    vertical-align: middle;
+  }
 }
 
 @media (max-width: 767px) {

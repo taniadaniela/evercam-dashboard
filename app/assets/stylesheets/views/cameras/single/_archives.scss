@@ -215,3 +215,18 @@ table.table-bordered td:last-child {
 .table-bordered .title {
   min-width: 80px;
 }
+
+@media (max-width: 767px) {
+  .username_id {
+    display: inline-block;
+    float: left;
+    text-align: left;
+    line-height: 1;
+    margin-top: 2px;
+    margin-left: 5px;
+  }
+}
+
+.margin-bottom-40 {
+  margin-bottom: 40px;
+}

@@ -66,11 +66,8 @@ fullscreenImage = ->
 
   if screenfull.enabled
     document.addEventListener screenfull.raw.fullscreenchange, ->
-      if screenfull.isFullscreen
-        $("#live-player-image").css('width','auto')
-      else
-        $("#live-player-image").css('width','auto')
-
+      $("#live-player-image").css('width','auto')
+      
 openPopout = ->
   $("#link-popout").on "click", ->
     $("<img/>").attr("src", image_placeholder.src).load( ->

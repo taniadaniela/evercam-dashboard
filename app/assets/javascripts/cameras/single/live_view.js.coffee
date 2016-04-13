@@ -69,7 +69,7 @@ fullscreenImage = ->
       if screenfull.isFullscreen
         $("#live-player-image").css('width','auto')
       else
-        $("#live-player-image").css('width','100%')
+        $("#live-player-image").css('width','auto')
 
 openPopout = ->
   $("#link-popout").on "click", ->

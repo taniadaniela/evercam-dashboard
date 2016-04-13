@@ -194,23 +194,23 @@ table.table-bordered td:last-child {
   }
 
   .to {
-    min-width: 100px;
+    min-width: 12%;
   }
 
   .from {
-    min-width: 100px;
+    min-width: 12%;
   }
 
   .title {
-    min-width: 80px;
+    min-width: 12%;
   }
 
   .fullname {
-    min-width: 201px;
+    min-width: 15%;
   }
 
   .public  {
-    min-width: 62px;
+    min-width: 10% !important;
   }
 
 }
@@ -224,4 +224,9 @@ table.table-bordered td:last-child {
 
 .margin-bottom-40 {
   margin-bottom: 40px;
+}
+
+.dataTables_wrapper {
+  font-family: "proxima-nova-regular", "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 15px;
 }

@@ -25,19 +25,19 @@ initializeArchivesDataTable = ->
         # Notification.show(xhr.responseJSON.message)
     },
     columns: [
+      {data: gravatarName},
       {data: "title" },
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
       {data: renderDuration, orderDataType: 'string-date', type: 'string-date'},
       {data: "frames", sClass: 'frame'},
-      {data: "requester_name"},
       {data: renderIsPublic, orderDataType: 'string', type: 'string'},
       {data: "status"},
-      {data: renderDate, orderDataType: 'string-date', type: 'string-date' },
       {data: renderbuttons}
     ],
     iDisplayLength: 50,
     order: [[ 2, "desc" ]],
+    bSort: false,
     bFilter: false,
     initComplete: (settings, json) ->
       initializePopup()
@@ -98,14 +98,32 @@ renderbuttons = (row, type, set, meta) ->
   else
     return div.html()
 
+gravatarName = (row, type, set, meta) ->
+  main_div = $('<div>', {class: "main_div"})
+  div = $('<div>', {class: "gravatar-placeholder"})
+  signature = hex_md5(row.requester_email)
+  img_src = "//gravatar.com/avatar/#{signature}.png"
+  img = $('<img>', {class: "gravatar"})
+  img.attr("src", img_src)
+  div.append(img)
+  div_user = $('<div>', {class: "username-id"})
+  div_user.append(row.requester_name)
+  div_user.append('<br>')
+  small = $('<small>', {class: "blue"})
+  small.append(renderDate(row, type, set, meta))
+  div_user.append(small)
+  main_div.append(div)
+  main_div.append(div_user)
+  return main_div.html()
+
 renderDate = (row, type, set, meta) ->
   getDate(row.created_at*1000)
 
 renderFromDate = (row, type, set, meta) ->
-  getDate(row.from_date*1000)
+  getDates(row.from_date*1000)
 
 renderToDate = (row, type, set, meta) ->
-  getDate(row.to_date*1000)
+  getDates(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
   dateTimeFrom = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
@@ -127,6 +145,14 @@ renderIsPublic = (row, type, set, meta) ->
     return 'Yes'
   else
     return 'No'
+
+getDates = (times) ->
+  offset =  $('#camera_time_offset').val()
+  cameraOffset = parseInt(offset)/3600
+  DateTime = new Date(moment.utc(times).format('MM DD YYYY, HH:mm:ss'))
+  DateTime.setHours(DateTime.getHours() + (cameraOffset))
+  Dateformateed =  DateTime.dateFormat('m/d/y H:i')
+  return Dateformateed
 
 getDate = (timestamp) ->
   offset =  $('#camera_time_offset').val()

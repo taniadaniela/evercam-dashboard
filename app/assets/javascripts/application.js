@@ -14,6 +14,7 @@
 //= require ladda/spin.min.js
 //= require ladda/ladda.min.js
 //= require bootbox
+//= require securehash
 //= require videojs
 //= require videojs-contrib-media-sources/src/videojs-media-sources.js
 //= require videojs-contrib-hls-0.16.0.js

@@ -163,10 +163,65 @@ table.table-bordered td:last-child {
   background-color: transparent;
 }
 
-thead .sorting_asc::after {
-  color: $dark-blue;
+.gravatar-placeholder .gravatar {
+  border-radius: 50%;
+  max-width: 30px;
+  display: inline-block;
+  float: left;
 }
 
-thead .sorting_desc::after {
-  color: $dark-blue;
+.username-id {
+  display: inline-block;
+  line-height: 1;
+  margin-top: 2px;
+  margin-left: 5px;
+
+  small {
+    color: $small-grey;
+  }
+}
+
+.table-bordered {
+  border: none;
+
+  thead > tr > th {
+    border-right: none;
+  }
+
+  tbody > tr > td {
+    border-right: none;
+    vertical-align: middle;
+  }
+
+  .to {
+    min-width: 100px;
+  }
+
+  .from {
+    min-width: 100px;
+  }
+
+  .title {
+    min-width: 80px;
+  }
+
+  .fullname {
+    min-width: 201px;
+  }
+
+  .public  {
+    min-width: 62px;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .username-id {
+    float: left;
+    text-align: left;
+  }
+}
+
+.margin-bottom-40 {
+  margin-bottom: 40px;
 }

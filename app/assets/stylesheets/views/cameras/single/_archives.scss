@@ -161,87 +161,72 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
     vertical-align: middle;
   }
 
-  th.fullname {
+  .fullname {
     min-width: 180px;
   }
 
-  th.public  {
+  .public  {
     min-width: 60px;
   }
 
-  th.options {
+  .options {
     min-width: 120px;
   }
 
 }
 
-@media (max-width: 820px) {
+@media (max-width: 850px) {
 
   .username-id {
     float: left;
     text-align: left;
   }
 
-  th.from,
-  td.from {
+  .from {
     display:none;
   }
 
-  th.to,
-  td.to {
+  .to {
     display: none;
   }
 
 }
 
-@media (max-width: 640px) {
+@media (max-width: 670px) {
 
-  th.public,
-  td.public {
+  .public {
     display: none;
   }
 
-  th.frames,
-  td.frames {
+  .frames {
     display: none;
   }
 
-  th.duration,
-  td.duration {
+  .duration {
     display: none;
   }
 
 }
 
-@media (max-width: 520px) {
+@media (max-width: 550px) {
 
-  th.status,
-  td.status {
+  .status {
     display: none;
   }
 
-  td.options {
+}
+
+@media (max-width: 400px) {
+
+  .fullname {
+    display: none;
+  }
+
+
+  .title {
     text-align: left;
   }
 
-}
-
-@media (max-width: 360px) {
-
-  th.fullname,
-  td.fullname {
-    display: none;
-  }
-
-  th.title,
-  td.title {
-    text-align: left;
-  }
-
-}
-
-tbody > tr > td.fulname {
-  display: inline-block;
 }
 
 .margin-bottom-40 {

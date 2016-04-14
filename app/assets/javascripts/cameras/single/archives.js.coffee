@@ -11,7 +11,6 @@ sendAJAXRequest = (settings) ->
 
 initDatePicker = ->
   $('.clip-datepicker').datetimepicker
-    #timepicker: false
     step: 1
     closeOnDateSelect: 0
     format: 'd/m/Y H:i:s'
@@ -22,23 +21,23 @@ initializeArchivesDataTable = ->
       url: $("#archive-api-url").val(),
       dataSrc: 'archives',
       error: (xhr, error, thrown) ->
-        # Notification.show(xhr.responseJSON.message)
     },
     columns: [
-      {data: gravatarName},
-      {data: "title" },
-      {data: renderFromDate, orderDataType: 'string-date', type: 'string-date'},
-      {data: renderToDate, orderDataType: 'string-date', type: 'string-date'},
-      {data: renderDuration, orderDataType: 'string-date', type: 'string-date'},
-      {data: "frames", sClass: 'frame'},
-      {data: renderIsPublic, orderDataType: 'string', type: 'string'},
-      {data: "status"},
-      {data: renderbuttons}
+      {data: gravatarName, sClass: 'fullname'},
+      {data: "title", sClass: 'title' },
+      {data: renderFromDate, orderDataType: 'string-date', type: 'string-date', sClass: 'from'},
+      {data: renderToDate, orderDataType: 'string-date', type: 'string-date', sClass: 'to'},
+      {data: renderDuration, orderDataType: 'string-date', type: 'string-date', sClass: 'duration'},
+      {data: "frames", sClass: 'frames'},
+      {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
+      {data: "status", sClass: 'status'},
+      {data: renderbuttons, sClass: 'options'}
     ],
     iDisplayLength: 50,
     order: [[ 2, "desc" ]],
     bSort: false,
     bFilter: false,
+    autoWidth: false,
     initComplete: (settings, json) ->
       initializePopup()
       $("#archives-table_length").hide()

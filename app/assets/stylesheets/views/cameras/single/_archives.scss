@@ -39,7 +39,7 @@
   margin-right: 12px;
   .fa {
     font-size: 18px;
-    color: $light-blue;
+    color: $main-color;
   }
 
   .fa:hover {
@@ -91,34 +91,6 @@
 
 #archives {
 
-  //#title {
-  //  max-width: 150px;
-  //}
-
-  //#from {
-  //  max-width: 150px;
-  //}
-  //
-  //#to {
-  //  max-width: 150px;
-  //}
-
-  //#created {
-  //  width: 140px !important;
-  //}
-
-  #frames {
-    max-width: 40px !important;
-  }
-
-  #options {
-    width: 65px !important;
-  }
-
-  #status {
-    width: 50px !important;
-  }
-
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0px;
   }
@@ -146,11 +118,6 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   background: none;
 }
 
-table.table-bordered th:last-child,
-table.table-bordered td:last-child {
-  width: 12%;
-}
-
 .popbox2 {
   display: inline;
 }
@@ -166,8 +133,8 @@ table.table-bordered td:last-child {
 .gravatar-placeholder .gravatar {
   border-radius: 50%;
   max-width: 30px;
-  display: inline-block;
   float: left;
+  display: inline-block;
 }
 
 .username-id {
@@ -186,6 +153,7 @@ table.table-bordered td:last-child {
 
   thead > tr > th {
     border-right: none;
+    padding-right: 7px !important;
   }
 
   tbody > tr > td {
@@ -193,33 +161,72 @@ table.table-bordered td:last-child {
     vertical-align: middle;
   }
 
-  .to {
-    min-width: 100px;
-  }
-
-  .from {
-    min-width: 100px;
-  }
-
-  .title {
-    min-width: 80px;
-  }
-
   .fullname {
-    min-width: 201px;
+    min-width: 180px;
   }
 
   .public  {
-    min-width: 62px;
+    min-width: 60px;
+  }
+
+  .options {
+    min-width: 110px;
   }
 
 }
 
-@media (max-width: 767px) {
+@media (max-width: 850px) {
+
   .username-id {
     float: left;
     text-align: left;
   }
+
+  .from {
+    display: none;
+  }
+
+  .to {
+    display: none;
+  }
+
+}
+
+@media (max-width: 670px) {
+
+  .public {
+    display: none;
+  }
+
+  .frames {
+    display: none;
+  }
+
+  .duration {
+    display: none;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  .status {
+    display: none;
+  }
+
+}
+
+@media (max-width: 400px) {
+
+  .fullname {
+    display: none;
+  }
+
+
+  .title {
+    text-align: left;
+  }
+
 }
 
 .margin-bottom-40 {

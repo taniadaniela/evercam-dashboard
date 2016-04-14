@@ -11,7 +11,6 @@ sendAJAXRequest = (settings) ->
 
 initDatePicker = ->
   $('.clip-datepicker').datetimepicker
-#    timepicker: false
     step: 1
     closeOnDateSelect: 0
     format: 'd/m/Y H:i:s'
@@ -22,7 +21,6 @@ initializeArchivesDataTable = ->
       url: $("#archive-api-url").val(),
       dataSrc: 'archives',
       error: (xhr, error, thrown) ->
-#      Notification.show(xhr.responseJSON.message)
     },
     columns: [
       {data: gravatarName, sClass: 'fullname'},

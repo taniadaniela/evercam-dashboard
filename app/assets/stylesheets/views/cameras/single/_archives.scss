@@ -148,15 +148,15 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   }
 }
 
-.table-bordered {
+.dataTables_wrapper .table-bordered {
   border: none;
 
-  thead > tr > th {
+  th {
     border-right: none;
     padding-right: 7px !important;
   }
 
-  tbody > tr > td {
+  td {
     border-right: none;
     vertical-align: middle;
   }

@@ -1,9 +1,8 @@
 <div class="page-header <%= "camera-#{@camera['id']}" if @camera %> navbar navbar-fixed-top">
   <div class="page-header-inner">
-    <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
     <div class="menu-toggler sidebar-toggler">
     </div>
-    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+    <a href="javascript:;" class="pull-left menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
     </a>
     <% if params[:controller] == 'cameras' && params[:action] == 'index' && @show_alert_message %>
       <div class="biling-alert alert alert-danger">

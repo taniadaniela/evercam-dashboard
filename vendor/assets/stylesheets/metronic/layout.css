@@ -1402,7 +1402,7 @@ Quick Sidebar Layout
   width: 270px;
 }
 .page-footer-fixed .page-quick-sidebar-wrapper {
-  bottom: 33px;
+  bottom: 0px;
 }
 .page-quick-sidebar-full-height .page-quick-sidebar-wrapper {
   top: 0;

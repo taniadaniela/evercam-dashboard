@@ -58,7 +58,7 @@ handleToggle = ->
     $('.developer-list').show()
 
 handleCameraListHeight = ->
-  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 390
+  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 395
 
 delay = do ->
   timer = 0

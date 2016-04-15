@@ -37,17 +37,17 @@
       </li>
       <li>
         <%= link_to "http://www.evercam.io/public/cameras?user_id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
-            <i class="fa fa-compass icon-font"></i><span class="title"> Public Cameras</span> <i class="fa fa-external-link pull-right title"></i>
+            <i class="fa fa-compass icon-font"></i><span class="title"> Public Cameras</span>
         <% end %>
       </li>
       <li class="sidebar-line">
-        <%= link_to "http://snapmails.cloudapp.net/login.html", target: "_blank" do %>
-            <img class="icon-font snapimg" src="//dkzcs7h1dpzak.cloudfront.net/assets/snapmail-fd5f12a06005b85e0247e6fa206e9992c31af9f0c95a79544dcca1f9d216f620.png"></i><span class="title"> Snapmail</span> <i class="fa fa-external-link pull-right title"></i>
+        <%= link_to "http://snapmails.cloudapp.net/login.html?id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
+            <img class="icon-font snapimg" src="//dkzcs7h1dpzak.cloudfront.net/assets/snapmail-fd5f12a06005b85e0247e6fa206e9992c31af9f0c95a79544dcca1f9d216f620.png"></i><span class="title"> Snapmail</span>
         <% end %>
       </li>
       <li>
-        <%= link_to "http://timelapse.evercam.io/?_ga=1.107202891.892362612.1455700298", target: "_blank" do %>
-            <i class="fa fa-history icon-font"></i><span class="title"> Timelapse</span> <i class="fa fa-external-link pull-right title"></i>
+        <%= link_to "http://timelapse.evercam.io/login.html?id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
+            <i class="fa fa-history icon-font"></i><span class="title"> Timelapse</span>
         <% end %>
       </li>
       <li class="sidebar-line">
@@ -92,7 +92,7 @@
         </ul>
       </li>
       <li role="presentation">
-        <a id="Intercom"><i class="fa fa-weixin icon-font"></i><span class="title"> Live Support</span></a>
+        <a id="Intercom"><i class="fa fa-comment icon-font"></i><span class="title"> Live Support</span></a>
       </li>
       <li>
         <a rel="nofollow" data-method="delete" href="/v1/users/signout"><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out <span class="title"></span></a>

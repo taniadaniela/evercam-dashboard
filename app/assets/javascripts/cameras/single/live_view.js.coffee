@@ -66,10 +66,7 @@ fullscreenImage = ->
 
   if screenfull.enabled
     document.addEventListener screenfull.raw.fullscreenchange, ->
-      if screenfull.isFullscreen
-        $("#live-player-image").css('width','auto')
-      else
-        $("#live-player-image").css('width','100%')
+      $("#live-player-image").css('width','auto')
 
 openPopout = ->
   $("#link-popout").on "click", ->
@@ -149,7 +146,7 @@ getImageRealRatio = ->
       setTimeout(getImageRealRatio(), 1000)
 
 calculateHeight = ->
-  content_height = Metronic.getViewPort().height
+  content_height = Metronic.getViewPort().height + $(".page-header").height()
   content_width = Metronic.getViewPort().width
   tab_menu_height = $("#ul-nav-tab").height()
   side_bar_width = $(".page-sidebar").width()
@@ -162,7 +159,7 @@ calculateHeight = ->
     image_height = img_real_height / img_real_width * content_width
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
+  $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
 
   if $(window).width() >= 668
     $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})

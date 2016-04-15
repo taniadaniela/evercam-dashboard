@@ -2268,7 +2268,7 @@ Page content
   /* Page content */
   .page-content-wrapper .page-content {
     margin: 0px !important;
-    padding: 20px 20px 20px 20px !important;
+    padding: 20px 20px 20px 20px;
     min-height: 280px;
   }
 }
@@ -2283,7 +2283,7 @@ Page content
   /* 767px */
   /* Page content */
   .page-content-wrapper .page-content {
-    padding: 20px 10px 10px 10px !important;
+    padding: 20px 10px 10px 10px;
     overflow: hidden;
     /* Page title */
   }

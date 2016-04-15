@@ -1,5 +1,6 @@
 /*CAMERA INDEX PAGE*/
 #camera-index {
+  padding: 0;
 
   &.cam-active .camera-offline{
       display: none;
@@ -322,11 +323,7 @@ ul.scroll-menu {
   }
 
   .page-content-wrapper .page-content {
-    margin: 33px 0 0 0;
+    margin: 33px 0 0;
   }
 
-}
-
-#camera-index{
-  padding:0;
 }

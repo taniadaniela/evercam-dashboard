@@ -117,13 +117,17 @@
   var env = $(".env").val()
   $.validate()
 
-  var checkNoOfInputs = function(){
-    var inputs = $('input[not=checkbox]');
-    console.log(inputs);
-  };
 
-  if (env == "production" || env == "staging")
-    mixpanel.track_forms("#create-account", "Create an account", {'Client-Type':'Dash'});
+  $('.btn').on("click",function() {
+    var inputs = $("input[type=text],input[type=password]").parent();
+    for(i=0;i < inputs.length;i++){
+      if (inputs[i].className == 'col-sm-9 form-group has-success'){
+        if (env == "production" || env == "development"){
+          mixpanel.track_forms("#create-account", "Create an account", {'Client-Type':'Dash'});
+        }
+      }
+    }
+  });
 
   $( document ).ready(function() {
     if ($('div').find("input[type=text]").val() == '') {
@@ -135,6 +139,5 @@
       $(this).val($.trim($(this).val()));
     });
   });
-  $(window).load(checkNoOfInputs());
 </script>
 

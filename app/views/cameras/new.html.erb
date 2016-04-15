@@ -271,12 +271,16 @@
 
   $('.btn-primary').on("click",function() {
     var inputs = $(".col-sm-8 input").parent();
-    console.log(inputs);
+    var count = 0;
+    var env = $('.env').val()
     for(i=0;i < inputs.length;i++){
-      if (inputs[i].classList[1] != 'has-error'){
-        if (env == "production" || env == "development"){
-          mixpanel.track_forms("#create-a-camera", "Create a camera", {'Client-Type':'Dash'});
-        }
+      if (inputs[i].classList[1] != null && inputs[i].classList[1] != 'has-error'){
+        count++;
+      }
+    }
+    if (env == "production" || env == "staging") {
+      if (count == 5) {
+        mixpanel.track_forms("#create-a-camera", "Create a camera", {'Client-Type': 'Dash'});
       }
     }
   });

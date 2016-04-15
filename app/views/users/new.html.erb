@@ -114,12 +114,17 @@
 
 
   $('.btn').on("click",function() {
-    var inputs = $("input[type=text],input[type=password]").parent();
+    var inputs = $("input[type=text]").parent();
+    var count = 0;
+    var env = $('.env').val()
     for(i=0;i < inputs.length;i++){
       if (inputs[i].className == 'col-sm-9 form-group has-success'){
-        if (env == "production" || env == "development"){
-          mixpanel.track_forms("#create-account", "Create an account", {'Client-Type':'Dash'});
-        }
+        count++;
+      }
+    }
+    if (env == "production" || env == "staging"){
+      if (count == 4) {
+        mixpanel.track_forms("#create-account", "Create an account", {'Client-Type': 'Dash'});
       }
     }
   });

@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     end
     begin
       if request.location
-        params[:user] = { 'country'=> request.location.country_code }
+        params[:user] = { 'country' => request.location.country_code }
       end
     rescue => error
       notify_airbrake(error)

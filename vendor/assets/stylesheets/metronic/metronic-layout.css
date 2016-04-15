@@ -1685,7 +1685,7 @@ Quick Sidebar Layout
   width: 270px;
 }
 .page-footer-fixed .page-quick-sidebar-wrapper {
-  bottom: 0px;
+  bottom: 33px;
 }
 .page-quick-sidebar-full-height .page-quick-sidebar-wrapper {
   top: 0;

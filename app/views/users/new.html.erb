@@ -100,30 +100,21 @@
     </div>
   </div>
 </section>
-
-<input class="env" type="hidden" value=<%= Rails.env %>>
-
 <script>
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.ENV = '<%= Rails.env %>';
   $(function () {
     $("alert").on("click", function () {
       $("." + $(this).attr("data-hide")).hide();
       });
   });
-  var env = $(".env").val()
   $.validate()
 
-
   $('.btn').on("click",function() {
-    console.log($("#create-account input[class='has-error']"));
-    var count = 0;
-    var env = $('.env').val();
-//    for(i=0;i < inputs.length;i++){
-//      if (inputs[i].className == 'col-sm-9 form-group has-success'){
-//        count++;
-//      }
-//    }
-    if (env == "production" || env == "staging"){
-      if (count == 4) {
+    if (Evercam.ENV == "production"){
+      if ($("#create-account input[type=text]").parent('.has-success').length == 4) {
         mixpanel.track_forms("#create-account", "Create an account", {'Client-Type': 'Dash'});
       }
     }

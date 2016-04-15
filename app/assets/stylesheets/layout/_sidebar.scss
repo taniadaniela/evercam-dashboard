@@ -5,6 +5,7 @@
   border-right: 1px solid #e5e5e5;
   background-color: rgb(16, 28, 39);
 }
+
 .page-sidebar-fixed .page-sidebar {
   top: 33px;
 }
@@ -412,4 +413,20 @@ li.inactive a {
   .page-sidebar .page-sidebar-menu {
     padding: 10px;
   }
+}
+
+@media (min-width: 992px) {
+
+  .page-sidebar-fixed .page-sidebar {
+    top: 0px;
+  }
+
+  .slimScrollDiv {
+    height: 100vh !important;
+  }
+
+  .page-sidebar-menu {
+    height: 100vh !important;
+  }
+
 }

@@ -146,7 +146,7 @@ getImageRealRatio = ->
       setTimeout(getImageRealRatio(), 1000)
 
 calculateHeight = ->
-  content_height = Metronic.getViewPort().height
+  content_height = Metronic.getViewPort().height + $(".page-header").height()
   content_width = Metronic.getViewPort().width
   tab_menu_height = $("#ul-nav-tab").height()
   side_bar_width = $(".page-sidebar").width()

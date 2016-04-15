@@ -2,11 +2,7 @@
   padding: 1px 0px 0px 0px;
   margin-left: 210px;
 }
-@media (max-width: 991px) {
-  .page-content-wrapper .page-content {
-    margin: 55px 0 0 0 !important;
-  }
-}
+
 .tabbable-custom > .tab-content {
   background-color: #fff;
   border: 1px solid $secondary-grey;
@@ -19,14 +15,13 @@
   margin-left: 0px;
 }
 @media (max-width: 980px) {
+
   .tabbable-custom > .tab-content {
     margin-right: 0px;
     margin-left: 0px;
     padding-top: 0px;
   }
-  .page-content-wrapper .page-content {
-    padding: 0px 0px 10px 0px !important;
-  }
+
 }
 .tab-content {
   background: #fafafa;

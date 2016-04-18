@@ -1,9 +1,4 @@
 <%= content_for(:title, "Evercam: Add Camera") %>
-<% if Rails.env.staging? || Rails.env.production? %>
-<script type="text/javascript">
-  mixpanel.track_forms("#create-a-camera", "Create a camera", {'Client-Type':'Dash'});
-</script>
-<% end %>
 <div id="add-ip"/>
 <div class="page-content-wrapper">
   <div class="page-content">

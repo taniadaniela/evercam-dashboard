@@ -1,9 +1,4 @@
 <% provide(:title, "Create New Account") %>
-<% if Rails.env.staging? || Rails.env.production? %>
-  <script type="text/javascript">
-      mixpanel.track_forms("#create-account", "Create Account", {'Client-Type':'Dash'});
-  </script>
-<% end %>
 <section id="new-account" class="site-min-height">
   <div class="container section" id="new-account">
     <div id="signin" class="col-md-12 text-center">
@@ -105,14 +100,26 @@
     </div>
   </div>
 </section>
-
 <script>
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.ENV = '<%= Rails.env %>';
   $(function () {
     $("alert").on("click", function () {
       $("." + $(this).attr("data-hide")).hide();
       });
   });
   $.validate()
+
+  $('.btn').on("click",function() {
+    if (Evercam.ENV == "production"){
+      if ($("#create-account input[type=text]").parent('.has-success').length == 4) {
+        mixpanel.track_forms("#create-account", "Create an account", {'Client-Type': 'Dash'});
+      }
+    }
+  });
+
   $( document ).ready(function() {
     if ($('div').find("input[type=text]").val() == '') {
       $('.form-error').hide();
@@ -124,3 +131,4 @@
     });
   });
 </script>
+

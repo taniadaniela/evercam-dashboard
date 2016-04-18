@@ -243,6 +243,22 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
+createPtzPresets = ->
+  $('#create-preset').on 'click', '.add-preset', ->
+    preset_name = $('.preset-value').val()
+    data = {}
+    data.id = Evercam.Camera.id
+    data.preset_name = preset_name
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      contentType: "application/json; charset=utf-8"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    sendAJAXRequest(settings)
+
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->
     $("#ptz-control").addClass("hide")
@@ -293,6 +309,7 @@ window.initializeLiveTab = ->
   handleModelEvents()
   checkPTZExist()
   flashDetection()
+  createPtzPresets()
 
 ->
   calculateHeight()

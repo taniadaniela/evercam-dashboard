@@ -410,6 +410,17 @@
   background-color: #f3f3f3;
 }
 
+#camera-presets .row-create {
+  border-bottom: solid 1px #ccc;
+  padding-bottom: 7px;
+  padding-top: 7px;
+  cursor: pointer;
+}
+
+#camera-presets .row-create:hover {
+  background-color: #f3f3f3;
+}
+
 .loader:before,
 .loader:after,
 .loader {
@@ -422,6 +433,11 @@
   animation: load7 1.8s infinite ease-in-out;
   top: -15px;
   left: 73px;
+}
+
+#create-preset .preset-value {
+  width: 100%;
+  font-size: 15px;
 }
 .loader {
   font-size: 10px;

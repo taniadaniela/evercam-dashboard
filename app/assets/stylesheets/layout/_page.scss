@@ -50,22 +50,8 @@
 
 @media (max-width: 667px) {
 
-  .nav-tabs > li.active {
-    a {
-      border-bottom: none;
-    }
-  }
-
-  .nav-tabs > li.active {
-    a:hover {
-      border-bottom: none;
-    }
-  }
-
-  .nav-tabs > li.active {
-    a:focus {
-      border-bottom: none;
-    }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border-bottom: none;
   }
 
 }

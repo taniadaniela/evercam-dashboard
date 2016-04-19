@@ -246,17 +246,27 @@ changePtzPresets = ->
 createPtzPresets = ->
   $('#create-preset').on 'click', '.add-preset', ->
     preset_name = $('.preset-value').val()
+    encoded_name = encodeURIComponent(preset_name)
     data = {}
     data.id = Evercam.Camera.id
     data.preset_name = preset_name
+
+    onError = (jqXHR, status, error) ->
+      message = jqXHR.responseJSON.message
+      Notification.show message
+
+    onSuccess = (data, status, jqXHR) ->
+      Notification.show "Preset Added Successfully"
 
     settings =
       cache: false
       data: data
       dataType: 'json'
+      success: onSuccess
+      error: onError
       contentType: "application/json; charset=utf-8"
       type: 'POST'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{encoded_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendAJAXRequest(settings)
 
 handleModelEvents = ->

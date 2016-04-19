@@ -14,6 +14,7 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    @cameras = load_user_cameras(true, false)
     if params[:invoice_id]
       @subscription = current_subscription
       @invoice = retrieve_customer_invoice(params[:invoice_id])

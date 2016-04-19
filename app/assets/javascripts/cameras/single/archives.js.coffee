@@ -61,7 +61,7 @@ initializeArchivesDataTable = ->
 renderbuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
   divPopup =$('<div>', {class: "popbox2"})
-  remove_icon = '<span href="#" data-toggle="tooltip" title="Delete!" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></span>'
+  remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></span>'
   span = $('<span>', {class: "open2"})
   span.append(remove_icon)
   divPopup.append(span)
@@ -89,10 +89,10 @@ renderbuttons = (row, type, set, meta) ->
     view_url = "clip/#{row.id}/play"
     copy_url = ""
     if row.public is true
-      copy_url = '<a href="#" data-toggle="tooltip" title="share!" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
+      copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
-    return '<a class="archive-actions play-clip" href="#" data-toggle="tooltip" title="Play!" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
-      '<a class="archive-actions" data-toggle="tooltip" title="Download!" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+    return '<a class="archive-actions play-clip" href="#" data-toggle="tooltip" title="Play" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
+      '<a class="archive-actions" data-toggle="tooltip" title="Download" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
         copy_url + div.html()
   else
     return div.html()

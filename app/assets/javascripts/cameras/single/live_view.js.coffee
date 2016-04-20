@@ -251,13 +251,9 @@ createPtzPresets = ->
     preset_name = preset_name.replace(/\s+/g, '-')
     data = {}
 
-
     onError = (jqXHR, status, error) ->
-      if /\s/.test(preset_name)
-        Notification.show "Preset Name should not consist of Spaces"
-      else
-        message = jqXHR.responseJSON.message
-        Notification.show message
+      message = jqXHR.responseJSON.message
+      Notification.show message
 
     onSuccess = (data, status, jqXHR) ->
       Notification.show "Preset Added Successfully"

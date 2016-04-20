@@ -387,7 +387,8 @@
 }
 
 #camera-presets .modal-body {
-  padding: 15px 0 15px 15px;
+  padding: 0 0 15px 15px;
+  margin-bottom: 3px;
 }
 
 #camera-presets .modal-footer {
@@ -403,6 +404,7 @@
   border-bottom: solid 1px $border-black;
   padding-bottom: 7px;
   padding-top: 7px;
+  padding-left: 4px;
   cursor: pointer;
   margin-right: 15px;
 }
@@ -413,10 +415,16 @@
 
 .camera-preset .row-create {
   border-bottom: solid 1px $border-black;
-  padding-bottom: 7px;
-  padding-top: 7px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 18px;
   cursor: pointer;
-  margin-right: 15px;
+  padding-right: 28px;
+  padding-left: 15px;
+
+  .fa-plus {
+    font-size: 18px;
+  }
 }
 
 .camera-preset .row-create:hover {

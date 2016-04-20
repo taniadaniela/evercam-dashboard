@@ -400,10 +400,11 @@
 }
 
 #camera-presets .row-preset {
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px $border-black;
   padding-bottom: 7px;
   padding-top: 7px;
   cursor: pointer;
+  margin-right: 15px;
 }
 
 #camera-presets .row-preset:hover {

@@ -246,7 +246,11 @@ changePtzPresets = ->
 createPtzPresets = ->
   $('#create-preset').on 'click', '.add-preset', ->
     preset_name = $('.preset-value').val()
+    preset_name = preset_name.toLowerCase()
+    preset_name = preset_name.replace(/(^\s+|[^a-zA-Z0-9 ]+|\s+$)/g, '')
+    preset_name = preset_name.replace(/\s+/g, '-')
     data = {}
+
 
     onError = (jqXHR, status, error) ->
       if /\s/.test(preset_name)
@@ -257,6 +261,7 @@ createPtzPresets = ->
 
     onSuccess = (data, status, jqXHR) ->
       Notification.show "Preset Added Successfully"
+      getPtzPresets()
 
     settings =
       cache: false

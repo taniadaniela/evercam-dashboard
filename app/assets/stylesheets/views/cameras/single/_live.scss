@@ -407,7 +407,29 @@
 }
 
 #camera-presets .row-preset:hover {
-  background-color: #f3f3f3;
+  background-color: $evercam-grey;
+}
+
+.camera-preset .row-create {
+  border-bottom: solid 1px $border-black;
+  padding-bottom: 7px;
+  padding-top: 7px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.camera-preset .row-create:hover {
+  background-color: $evercam-grey;
+}
+
+.create-presets .modal-dialog {
+  width: 300px;
+  height: 100px;
+}
+
+.create-presets .preset-value {
+  width: 100%;
+  font-size: 15px;
 }
 
 .loader:before,
@@ -423,6 +445,7 @@
   top: -15px;
   left: 73px;
 }
+
 .loader {
   font-size: 10px;
   margin:0 auto;

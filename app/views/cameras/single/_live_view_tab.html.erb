@@ -106,7 +106,7 @@
   </div>
 </div>
 
-<div id="camera-presets" class="modal fade">
+<div id="camera-presets" class="modal fade camera-preset">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -116,7 +116,9 @@
         </div>
       </div>
       <div class="modal-body">
-        <div id="presets-table" class="form-group"></div>
+        <div id="presets-table" class="form-group">
+          <div class="row-create" data-dismiss="modal" data-target="#create-preset" data-toggle="modal" ><i class="fa fa-plus"></i> Create a preset </div>
+        </div>
       </div>
       <div class="modal-footer">
         <div class="pull-right">
@@ -124,5 +126,19 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="create-preset" class="modal fade create-presets">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+        <div class="modal-body">
+          <input type="text" class="preset-value" placeholder="Enter Preset Name">
+          <div class="pull-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-default add-preset" data-dismiss="modal">Add</button>
+          </div>
+        </div>
+      </div>
   </div>
 </div>

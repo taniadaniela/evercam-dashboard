@@ -102,12 +102,5 @@ Rails.application.routes.draw do
   patch '/share/request' => 'sharing#update_share_request'
   patch '/share/:id' => 'sharing#update_share'
 
-  get '/oauth2/error' => 'oauth2#error'
-  post '/oauth2/feedback' => 'oauth2#feedback'
-  get '/oauth2/authorize' => 'oauth2#authorize'
-  post '/oauth2/authorize' => 'oauth2#post_authorize'
-  get '/oauth2/tokeninfo' => 'oauth2#tokeninfo'
-  get '/oauth2/revoke' => 'oauth2#revoke'
-
   get '*path' => 'pages#log_and_redirect'
 end

@@ -9,4 +9,4 @@ $(window).ready(function() {
 });
 $(window).load(function(){
 	NProgress.done();
-})
+});

@@ -65,3 +65,4 @@ window.initializeCameraIndex = ->
   refreshThumbnails()
   hideThumbnailGif()
   $('[data-toggle="tooltip"]').tooltip()
+  NProgress.done()

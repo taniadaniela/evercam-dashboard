@@ -30,7 +30,7 @@
           <% end %>
         </ul>
       </li>
-      <li class="sidebar-line">  
+      <li class="sidebar-line nprogCall">
         <%= link_to cameras_new_path do %>
         <i class="fa fa-video-camera icon-font"></i><span class="title"> Add IP Camera</span>    
         <% end %>
@@ -50,7 +50,7 @@
             <i class="fa fa-history icon-font"></i><span class="title"> Timelapse</span>
         <% end %>
       </li>
-      <li class="sidebar-line">
+      <li class="sidebar-line nprogCall">
         <%= link_to billing_path(current_user.username) do %>
           <i class="fa fa-credit-card"></i> Billing
         <% end %>
@@ -58,15 +58,15 @@
       <li>
         <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i></a>
         <ul class="developer-list left-nav-submenu">
-          <li>
+          <li class="nprogCall">
             <a href="/dev"><i class="fa fa-book"></i> Docs</a>
           </li>
 
-          <li class="widgets-menu">
+          <li class="widgets-menu nprogCall">
             <a href="<%= widget_live_view_path %>"><i class="fa fa-code"></i> Embed Live View</a>
           </li>
 
-          <li class="widgets-menu">
+          <li class="widgets-menu nprogCall">
             <a href="<%= widget_snapshot_navigator_path %>"><i class="fa fa-code"></i> Embed Recordings</a>
           </li>
         </ul>
@@ -74,17 +74,17 @@
       <li>
         <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
         <ul class="setting-list left-nav-submenu">
-          <li>
+          <li class="nprogCall">
             <%= link_to user_account_path(current_user.username) do %>
               <i class="fa fa-user"></i> Account
             <% end %>
           </li>
-          <li>
+          <li class="nprogCall">
             <%= link_to password_change_path(current_user.username) do %>
               <i class="fa fa-key"></i> Password
             <% end %>
           </li>
-          <li>
+          <li class="nprogCall">
             <%= link_to apps_path(current_user.username) do %>
               <i class="fa fa-wrench"></i> Applications
             <% end %>
@@ -94,7 +94,7 @@
       <li role="presentation">
         <a id="Intercom"><i class="fa fa-comment icon-font"></i><span class="title"> Live Support</span></a>
       </li>
-      <li>
+      <li class="nprogCall">
         <a rel="nofollow" data-method="delete" href="/v1/users/signout"><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out <span class="title"></span></a>
       </li>
     </ul>

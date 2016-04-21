@@ -325,6 +325,7 @@ window.initializeLiveTab = ->
   checkPTZExist()
   flashDetection()
   createPtzPresets()
+  NProgress.done()
 
 ->
   calculateHeight()

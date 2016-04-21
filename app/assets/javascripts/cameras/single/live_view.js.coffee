@@ -257,7 +257,7 @@ createPtzPresets = ->
 
     onSuccess = (data, status, jqXHR) ->
       Notification.show "Preset Added Successfully"
-      getPtzPresets()
+      refreshPresetList()
 
     settings =
       cache: false
@@ -269,6 +269,10 @@ createPtzPresets = ->
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendAJAXRequest(settings)
+
+refreshPresetList = ->
+  $('#presets-table').empty()
+  getPtzPresets()
 
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->

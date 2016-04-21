@@ -207,4 +207,4 @@ window.initializeAddCamera = ->
   loadVendors()
   onAddCamera()
   onCustomizedUrl()
-
+  NProgress.done()

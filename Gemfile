@@ -16,6 +16,8 @@ gem 'autoprefixer-rails', '~> 5.2.1.3'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
+gem 'nprogress-rails'
+gem 'turbolinks', '~> 5.0.0.beta'
 
 gem 'pg'
 gem 'sequel'

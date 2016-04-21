@@ -21,11 +21,14 @@ showHideMessage = ->
 
 handlePasswordChange = ->
   $('#change-password').on 'click', ->
+    NProgress.start()
     if $('#new-password').val() != $('#password_again').val()
       $('#wrong-confirm-password').show()
       $('#password_again').addClass 'border-red'
+      NProgress.done()
       return false
     $('#wrong-confirm-password').hide()
+    NProgress.done()
     $('#password_again').removeClass 'border-red'
     true
 
@@ -72,6 +75,7 @@ window.initializeUserAccount = ->
   handlePasswordChange()
   saveUserSettings()
   onDeleteClick()
+  NProgress.done()
 
 initialize = ->
   markers = []

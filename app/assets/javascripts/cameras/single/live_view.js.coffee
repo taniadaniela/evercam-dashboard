@@ -105,6 +105,7 @@ handleChangeStream = ->
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
         $("#camera-video-stream").hide()
         $(".video-js").css 'height', '0px'
+        $(".wrap").css 'padding-top', '0px'
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()

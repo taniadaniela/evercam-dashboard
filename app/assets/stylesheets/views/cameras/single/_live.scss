@@ -364,6 +364,11 @@
   z-index: 2147483647 !important;
 }
 
+#camera-presets .modal-body {
+  padding: 0px;
+  max-height: 400px;
+}
+
 #camera-presets .modal-header {
   background-color: #f3f3f3;
   background-image: linear-gradient(to bottom, white, #e1e1e1);
@@ -396,7 +401,7 @@
   max-height: 300px;
 }
 
-#camera-presets .row-preset {
+#camera-presets .whole-row {
   border-bottom: solid 1px $border-black;
   padding-bottom: 7px;
   padding-top: 7px;
@@ -406,8 +411,25 @@
   margin-left: 15px;
 }
 
-#camera-presets .row-preset:hover {
+#camera-presets .whole-row:hover {
   background-color: $evercam-grey;
+}
+
+#camera-presets .row-preset {
+  display: inline-block;
+  width: 90%;
+}
+
+#camera-presets .fa-edit {
+  display: inline-block;
+  float: right;
+  width: 10%;
+  color: $main-color;
+  font-size: 15px;
+}
+
+#camera-presets .fa-edit:hover {
+  color: $dark-blue;
 }
 
 .camera-preset .row-create {
@@ -434,7 +456,17 @@
   height: 100px;
 }
 
+.edit-presets .modal-dialog {
+  width: 300px;
+  height: 100px;
+}
+
 .create-presets .preset-value {
+  width: 100%;
+  font-size: 15px;
+}
+
+.edit-presets .edit-value {
   width: 100%;
   font-size: 15px;
 }

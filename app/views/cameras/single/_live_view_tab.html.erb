@@ -4,7 +4,9 @@
     <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
     <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
     <% host = @camera.deep_fetch('external', 'host') {} %>
+    <% external_port = @camera.deep_fetch('external', 'http', 'port') {} %>
     <% h264 = "rtsp://#{host}:#{port}/" %>
+    <% external_host = "http://#{host}:#{external_port}" %>
     <% h264url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
     <% if h264url != h264 && h264url.present? %>
       <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
@@ -136,3 +138,19 @@
       </div>
   </div>
 </div>
+
+<div id="edit-preset" class="modal fade edit-presets">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body">
+        <input type="text" class="edit-value" placeholder="Enter Preset Name">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default preset-edit" token_val=""  data-dismiss="modal">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="hidden-input" value="<%= external_host %>">

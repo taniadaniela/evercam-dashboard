@@ -3,6 +3,7 @@ img_real_width = 0
 img_real_height = 0
 live_view_timestamp = 0
 image_placeholder = null
+camera_host = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -215,10 +216,17 @@ getPtzPresets = ->
   onSuccess = (result) ->
     for preset in result.Presets
       if preset.token < 33
+        whole_div = $('<div>', {class: "whole-row"})
         divPresets =$('<div>', {class: "row-preset"})
+        edit_icon = $('<i>', {class: "fa fa-edit edit-ptz-ctrl"})
+        edit_icon.attr("data-dismiss", "modal")
+        edit_icon.attr("data-target", "#edit-preset")
+        edit_icon.attr("data-toggle", "modal")
         divPresets.append($(document.createTextNode(preset.Name)))
         divPresets.attr("token_val", preset.token)
-        $("#presets-table").append(divPresets)
+        whole_div.append(divPresets)
+        whole_div.append(edit_icon)
+        $("#presets-table").append(whole_div)
 
   settings =
     cache: false
@@ -229,6 +237,36 @@ getPtzPresets = ->
     type: 'GET'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets"
   sendAJAXRequest(settings)
+
+onEditPtz = ->
+  $("#camera-presets").on "click", ".edit-ptz-ctrl", ->
+    token_value = $(this).prev(".row-preset").attr("token_val")
+    token_name = $(this).prev(".row-preset").text()
+    $("#edit-preset .preset-edit").attr("token_val", token_value)
+    $("#edit-preset input").val(token_name)
+
+deletePtzPreset = ->
+  $("#edit-preset").on "click", ".preset-edit", ->
+    data = {}
+    token = $(this).attr("token_val")
+
+    onError = (jqXHR, status, error) ->
+      Notification.show(jqXHR.responseJSON.message)
+
+    onSuccess = (data, status, jqXHR) ->
+      token_name = $("#edit-preset input").val()
+#      createPtzPresets(token_name)
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      contentType: "application/x-www-form-urlencoded"
+      success: onSuccess
+      crossDomain: true
+      type: 'DELETE'
+      url: "#{camera_host}/v1/onvif/v20/PTZ/RemovePreset?id=#{Evercam.Camera.id}&ProfileToken=Profile_1&PresetToken=#{token}"
+    sendAJAXRequest(settings)
 
 changePtzPresets = ->
   $("#camera-presets").on 'click', '.row-preset', ->
@@ -244,32 +282,35 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
-createPtzPresets = ->
+ptzCreation = ->
   $('#create-preset').on 'click', '.add-preset', ->
     preset_name = $('.preset-value').val()
-    preset_name = preset_name.toLowerCase()
-    preset_name = preset_name.replace(/(^\s+|[^a-zA-Z0-9 ]+|\s+$)/g, '')
-    preset_name = preset_name.replace(/\s+/g, '-')
-    data = {}
+    createPtzPresets(preset_name)
 
-    onError = (jqXHR, status, error) ->
-      message = jqXHR.responseJSON.message
-      Notification.show message
+createPtzPresets = (preset_name) ->
+  preset_name = preset_name.toLowerCase()
+  preset_name = preset_name.replace(/(^\s+|[^a-zA-Z0-9 ]+|\s+$)/g, '')
+  preset_name = preset_name.replace(/\s+/g, '-')
+  data = {}
 
-    onSuccess = (data, status, jqXHR) ->
-      Notification.show "Preset Added Successfully"
-      refreshPresetList()
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+    Notification.show message
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      success: onSuccess
-      error: onError
-      contentType: "application/json; charset=utf-8"
-      type: 'POST'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-    sendAJAXRequest(settings)
+  onSuccess = (data, status, jqXHR) ->
+    Notification.show "Preset Added Successfully"
+    refreshPresetList()
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    success: onSuccess
+    error: onError
+    contentType: "application/json; charset=utf-8"
+    type: 'POST'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+  sendAJAXRequest(settings)
 
 refreshPresetList = ->
   $('#presets-table').empty()
@@ -312,6 +353,7 @@ window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
+  camera_host = $('.hidden-input').val()
   controlButtonEvents()
   fullscreenImage()
   openPopout()
@@ -325,7 +367,9 @@ window.initializeLiveTab = ->
   handleModelEvents()
   checkPTZExist()
   flashDetection()
-  createPtzPresets()
+  onEditPtz()
+  deletePtzPreset()
+  ptzCreation()
   NProgress.done()
 
 ->

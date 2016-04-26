@@ -9,7 +9,8 @@ sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
     headers =
-      "X-CSRF-Token": token.attr("content")
+      "X-CSRF-Token": token.attr("content"),
+      "Access-Control-Allow-Origin": "http://localhost:3000"
     settings.headers = headers
   xhrRequestChangeMonth = $.ajax(settings)
 
@@ -247,8 +248,8 @@ onEditPtz = ->
 
 deletePtzPreset = ->
   $("#edit-preset").on "click", ".preset-edit", ->
-    data = {}
     token = $(this).attr("token_val")
+    data = {}
 
     onError = (jqXHR, status, error) ->
       Notification.show(jqXHR.responseJSON.message)
@@ -261,11 +262,11 @@ deletePtzPreset = ->
       cache: false
       data: data
       dataType: 'json'
-      contentType: "application/x-www-form-urlencoded"
+#      contentType: "application/x-www-form-urlencoded"
       success: onSuccess
       crossDomain: true
-      type: 'DELETE'
-      url: "#{camera_host}/v1/onvif/v20/PTZ/RemovePreset?id=#{Evercam.Camera.id}&ProfileToken=Profile_1&PresetToken=#{token}"
+      type: 'GET'
+      url: "http://www.onvif.org/v20/PTZ/RemovePreset?id=#{Evercam.Camera.id}&ProfileToken=Profile_1&PresetToken=#{token}"
     sendAJAXRequest(settings)
 
 changePtzPresets = ->

@@ -66,10 +66,18 @@
       width: 25px;
       height: 25px;
     }
+
+    .setting-heading .btn {
+      padding: 5px 12px;
+      border: 1px solid #428bca;
+      margin-left: 5px;
+    }
+
     .btn {
       padding: 9px 14px;
-      border:none !important;
+      border:none;
     }
+
     .btn-padding-tab {
       padding: 9px 14px !important;
     }
@@ -598,7 +606,7 @@
   }
 
   #cloud-recording-calendar{
-    max-height: 350px;
+    max-height: 220px;
     overflow-y: hidden;
     position: relative;
     &.open{
@@ -658,4 +666,37 @@
 
 .schedule-label {
   font-size: 14px;
+}
+
+.margin-topbottom-10 {
+  margin: 10px 0px;
+}
+
+.recording-heading {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.margin-left-45 {
+  margin-left: 45px;
+}
+
+.margin-left-18 {
+  margin-left: 18px;
+}
+
+.color-grey {
+  color: $pop-up-text;
+}
+
+.no-display {
+  display: none;
+}
+
+@media (min-width: 768px) {
+
+  .setting-schedule .modal-dialog {
+    width: 500px;
+  }
+
 }

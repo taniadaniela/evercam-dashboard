@@ -5,7 +5,6 @@ window.initScheduleCalendar = ->
     slotDuration: '00:90:00'
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
-    defaultView: 'agendaWeek'
     dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     eventColor: '#428bca'
     editable: true
@@ -22,10 +21,11 @@ window.initScheduleCalendar = ->
     eventOverlap: false
     firstDay: 1
     header:
-      left: ''
-      center: ''
-      right: ''
+      left: 'prev,next today',
+      center: 'title'
+      right: 'month,agendaWeek,agendaDay'
     height: 'auto'
+    events: '/application/events'
     select: (start, end) ->
       # TODO: select whole day range when allDaySlot is selected
       eventData =
@@ -154,7 +154,7 @@ currentCalendarWeek = ->
     day.add 1, 'days'
   calendarWeek
 
-showScheduleCalendar = ->
+editScheduleCalendar = ->
   $('#cloud-recording-calendar-wrap').removeClass('hide' , 'fade')
   $('#cloud-recording-calendar-wrap').addClass('fade in')
   $('.setting-schedule').show()
@@ -162,18 +162,13 @@ showScheduleCalendar = ->
     if $(event.target).closest('.modal-content').get(0) == null
       $('.setting-schedule').hide()
     return
-  scheduleCalendar.fullCalendar('render')
-  if scheduleCalendar.is(':visible')
-    renderEvents()
 
 showEditButton = ->
-  $('#show-schedule-calendar').removeClass('hide')
   $('#show-schedule-calendar').click ->
-    showScheduleCalendar()
+    editScheduleCalendar()
     return
 
 hideEditButton = ->
-  $('#show-schedule-calendar').addClass('hide')
   $('#schdule-label').removeClass('hide')
 
 hideScheduleLabel = ->
@@ -182,8 +177,14 @@ hideScheduleLabel = ->
 showScheduleLabel = ->
   $('#schdule-label').removeClass('hide')
 
+showScheduleCalendar = ->
+  $('#cloud-recording-calendar').removeClass('hide')
+  scheduleCalendar.fullCalendar('render')
+  if scheduleCalendar.is(':visible')
+    renderEvents()
+
 hideScheduleCalendar = ->
-  $('#cloud-recording-calendar-wrap').addClass('hide')
+  $('#cloud-recording-calendar').addClass('hide')
 
 showFrequencySelect = ->
   $('#cloud-recording-frequency-wrap').removeClass('hide')
@@ -230,25 +231,22 @@ handleStatusSelect = ->
     Evercam.Camera.cloud_recording.status = $(this).val()
     switch $(this).val()
       when "on"
-        hideEditButton()
+        hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
         updateFrequencyTo60()
         updateScheduleToOn()
-        showScheduleLabel()
       when "on-scheduled"
-        showEditButton()
+        showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
         updateFrequencyTo60()
         updateScheduleToOn()
-        hideScheduleLabel()
       when "off"
-        hideEditButton()
         hideFrequencySelect()
         hideDurationSelect()
+        hideScheduleCalendar()
         updateScheduleToOff()
-        showScheduleLabel()
 
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
@@ -262,16 +260,14 @@ renderCloudRecordingStatus = ->
       $("#cloud-recording-on").iCheck('check')
       showFrequencySelect()
       showDurationSelect()
-      showScheduleLabel()
+      hideScheduleCalendar()
     when "on-scheduled"
       $("#cloud-recording-on-scheduled").iCheck('check')
+      showScheduleCalendar()
       showFrequencySelect()
       showDurationSelect()
-      showEditButton()
-      hideScheduleLabel()
     when "off"
       $("#cloud-recording-off").iCheck('check')
-      showScheduleLabel()
 
 window.initCloudRecordingSettings = ->
   renderCloudRecordingDuration()
@@ -279,5 +275,5 @@ window.initCloudRecordingSettings = ->
   renderCloudRecordingStatus()
   handleDurationSelect()
   handleFrequencySelect()
+  showEditButton()
   handleStatusSelect()
-

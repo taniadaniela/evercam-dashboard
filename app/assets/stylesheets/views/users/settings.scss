@@ -229,6 +229,10 @@ span.input-group-addon .custom {
 
 }
 
-.table > tbody > tr > td {
+.table .api-id {
+  vertical-align: middle;
+}
+
+.table .api-key {
   vertical-align: middle;
 }

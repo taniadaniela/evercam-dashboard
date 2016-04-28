@@ -70,7 +70,6 @@ Rails.application.routes.draw do
   post '/v1/users/:id' => 'users#settings_update'
   put '/v1/users/:id/password/change' => 'users#change_password', as: :user_change_password
 
-
   get '/swagger' => 'pages#swagger', as: :swagger
   get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view
   get '/live.view.widget' => 'widgets#live_view_widget'

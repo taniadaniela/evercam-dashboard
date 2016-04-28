@@ -37,6 +37,7 @@
 .wrap {
   display: inline-block;
   position: relative;
+  padding-top: 4px;
 
   .fa-refresh {
     font-size: 18px;
@@ -320,7 +321,7 @@
   color: #fff;
   right: 0;
   margin-left: 0;
-  margin-top: 0;
+  margin-top: 4px;
   opacity: 0;
   position: absolute;
   top: 0;
@@ -386,10 +387,6 @@
   margin-left: 10px;
 }
 
-#camera-presets .modal-body {
-  padding: 15px 0 15px 15px;
-}
-
 #camera-presets .modal-footer {
   border-top: none;
 }
@@ -400,10 +397,13 @@
 }
 
 #camera-presets .row-preset {
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px $border-black;
   padding-bottom: 7px;
   padding-top: 7px;
+  padding-left: 4px;
   cursor: pointer;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 #camera-presets .row-preset:hover {
@@ -412,10 +412,17 @@
 
 .camera-preset .row-create {
   border-bottom: solid 1px $border-black;
-  padding-bottom: 7px;
-  padding-top: 7px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 18px;
   cursor: pointer;
-  margin-right: 15px;
+  padding-right: 28px;
+  padding-left: 15px;
+
+}
+
+.camera-preset .fa-plus {
+  font-size: 18px;
 }
 
 .camera-preset .row-create:hover {

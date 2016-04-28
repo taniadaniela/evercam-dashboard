@@ -509,6 +509,7 @@ addlicencesrquired = ->
   $('h3#licences').append(licen)
 
 window.initializeSubscription = ->
+  NProgress.done()
   Notification.init(".bb-alert")
   createAddRemoveLicence()
   validateLicenceForm()

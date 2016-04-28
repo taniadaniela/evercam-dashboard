@@ -39,7 +39,6 @@ initializeArchivesDataTable = ->
     bFilter: false,
     autoWidth: false,
     initComplete: (settings, json) ->
-      initializePopup()
       $("#archives-table_length").hide()
       if json.archives.length is 0
         $('#archives-table_paginate, #archives-table_info').hide()
@@ -54,6 +53,7 @@ initializeArchivesDataTable = ->
       else if json.archives.length >= 50
         $("#archives-table_info").show()
         $('#archives-table_paginate').hide()
+      initializePopup()
       deleteClip()
       true
   })
@@ -62,13 +62,13 @@ renderbuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
   divPopup =$('<div>', {class: "popbox2"})
   remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></span>'
-  span = $('<span>', {class: "open2"})
+  span = $('<span>', {class: "open-archive"})
   span.append(remove_icon)
   divPopup.append(span)
   divCollapsePopup = $('<div>', {class: "collapse-popup"})
-  divBox2 = $('<div>', {class: "box-new"})
-  divBox2.append($('<div>', {class: "arrow2"}))
-  divBox2.append($('<div>', {class: "arrow-border2"}))
+  divBox2 = $('<div>', {class: "box2"})
+  divBox2.append($('<div>', {class: "arrow"}))
+  divBox2.append($('<div>', {class: "arrow-border"}))
   divMessage = $('<div>', {class: "margin-bottom-10"})
   divMessage.append($(document.createTextNode("Are you sure?")))
   divBox2.append(divMessage)
@@ -276,10 +276,10 @@ deleteClip = ->
 
 initializePopup = ->
   $(".popbox2").popbox
-    open: ".open2"
-    box: ".box-new"
-    arrow: ".arrow2"
-    arrow_border: ".arrow-border2"
+    open: ".open-archive"
+    box: ".box2"
+    arrow: ".arrow"
+    arrow_border: ".arrow-border"
     close: ".closepopup"
 
 window.initializeArchivesTab = ->

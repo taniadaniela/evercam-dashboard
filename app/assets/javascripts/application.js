@@ -51,5 +51,7 @@
 //= require metronic/modernizr.custom.js
 //= require metronic/icheck.min.js
 //= require bootstrap-toggle
-//=
+//= require nprogress.js
+//= require nprogress-turbolinks
+//= require nprogress-call.js
 //= require subscriptions.js

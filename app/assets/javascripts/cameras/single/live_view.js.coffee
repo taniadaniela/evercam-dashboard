@@ -105,6 +105,7 @@ handleChangeStream = ->
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
         $("#camera-video-stream").hide()
         $(".video-js").css 'height', '0px'
+        $(".wrap").css 'padding-top', '0px'
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
@@ -246,17 +247,18 @@ changePtzPresets = ->
 createPtzPresets = ->
   $('#create-preset').on 'click', '.add-preset', ->
     preset_name = $('.preset-value').val()
+    preset_name = preset_name.toLowerCase()
+    preset_name = preset_name.replace(/(^\s+|[^a-zA-Z0-9 ]+|\s+$)/g, '')
+    preset_name = preset_name.replace(/\s+/g, '-')
     data = {}
 
     onError = (jqXHR, status, error) ->
-      if /\s/.test(preset_name)
-        Notification.show "Preset Name should not consist of Spaces"
-      else
-        message = jqXHR.responseJSON.message
-        Notification.show message
+      message = jqXHR.responseJSON.message
+      Notification.show message
 
     onSuccess = (data, status, jqXHR) ->
       Notification.show "Preset Added Successfully"
+      refreshPresetList()
 
     settings =
       cache: false
@@ -268,6 +270,10 @@ createPtzPresets = ->
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendAJAXRequest(settings)
+
+refreshPresetList = ->
+  $('#presets-table').empty()
+  getPtzPresets()
 
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->
@@ -320,6 +326,7 @@ window.initializeLiveTab = ->
   checkPTZExist()
   flashDetection()
   createPtzPresets()
+  NProgress.done()
 
 ->
   calculateHeight()

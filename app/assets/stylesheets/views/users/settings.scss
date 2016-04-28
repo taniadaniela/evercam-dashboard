@@ -1,6 +1,6 @@
 #user-settings {
  input, .form-group {
-   max-width: 265px;
+   max-width: 300px;
  }
  .checker {
    display: none;
@@ -227,4 +227,12 @@ span.input-group-addon .custom {
     font-size: 14px;
   }
 
+}
+
+.table .api-id {
+  vertical-align: middle;
+}
+
+.table .api-key {
+  vertical-align: middle;
 }

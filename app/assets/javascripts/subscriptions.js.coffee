@@ -364,7 +364,6 @@ loadBillingHistory = ->
       cell_1.append(span)
       row.append(cell_1)
 
-      console.log item.failure_message
       cell_2 = $('<td>')
       cell_2.attr("id", item.id)
       description = item.description
@@ -381,8 +380,10 @@ loadBillingHistory = ->
       small = $('<small>', {class: "grey"})
       if item.paid
         small.append(document.createTextNode("Paid"))
-      else
+      else if failure_message
         small.append(document.createTextNode("Failed"))
+      else
+        small.append(document.createTextNode("Pending"))
       cell_3.append(small)
       cell_3.append(document.createTextNode(" \u20AC#{item.amount/100}"))
       row.append(cell_3)

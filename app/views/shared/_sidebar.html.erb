@@ -59,7 +59,7 @@
         <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i></a>
         <ul class="developer-list left-nav-submenu">
           <li class="nprogCall">
-            <a href="/dev"><i class="fa fa-book"></i> Docs</a>
+            <a href=<%= swagger_path  %>><i class="fa fa-book"></i> Swagger </a>
           </li>
 
           <li class="widgets-menu nprogCall">
@@ -95,7 +95,7 @@
         <a id="Intercom"><i class="fa fa-comment icon-font"></i><span class="title"> Live Support</span></a>
       </li>
       <li class="nprogCall">
-        <a rel="nofollow" data-method="delete" href="/v1/users/signout"><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out <span class="title"></span></a>
+        <a rel="nofollow" data-method="delete" href=<%= signout_path %>><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out <span class="title"></span></a>
       </li>
     </ul>
     <input type="hidden" id="controller" value="<%= params[:controller] %>">

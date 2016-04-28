@@ -1,6 +1,7 @@
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
     axisFormat: 'HH'
+    defaultView: 'agendaWeek'
     allDaySlot: false
     slotDuration: '00:90:00'
     columnFormat: 'ddd'
@@ -178,27 +179,27 @@ showScheduleLabel = ->
   $('#schdule-label').removeClass('hide')
 
 showScheduleCalendar = ->
-  $('#cloud-recording-calendar').removeClass('hide')
+  $('#cloud-recording-calendar').show('slow')
   scheduleCalendar.fullCalendar('render')
   if scheduleCalendar.is(':visible')
     renderEvents()
 
 hideScheduleCalendar = ->
-  $('#cloud-recording-calendar').addClass('hide')
+  $('#cloud-recording-calendar').hide('slow')
 
 showFrequencySelect = ->
-  $('#cloud-recording-frequency-wrap').removeClass('hide')
+  $('#cloud-recording-frequency-wrap').show('slow')
 
 hideFrequencySelect = ->
-  $('#cloud-recording-frequency-wrap').addClass('hide')
+  $('#cloud-recording-frequency-wrap').hide('slow')
 
 showDurationSelect = ->
-  $('#cloud-recording-duration-wrap').removeClass('hide')
+  $('#cloud-recording-duration-wrap').show('slow')
   if Evercam.Camera.cloud_recording.storage_duration is -1
     $('#cloud-recording-duration').attr('disabled',true)
 
 hideDurationSelect = ->
-  $('#cloud-recording-duration-wrap').addClass('hide')
+  $('#cloud-recording-duration-wrap').hide('slow')
 
 updateFrequencyTo60 = ->
   $("#cloud-recording-frequency").val(60)

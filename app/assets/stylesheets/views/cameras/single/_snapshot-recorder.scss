@@ -696,7 +696,38 @@
 @media (min-width: 768px) {
 
   .setting-schedule .modal-dialog {
-    width: 500px;
+    max-width: 600px;
   }
 
+}
+
+.button-prev-next {
+  background-color: $background-gray;
+  color: $evercam-black;
+  padding: 3px;
+}
+
+.btn-style {
+  width: 14px;
+}
+
+.change-view {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.calendarfull-wrap .fc-icon {
+  padding: 3px;
+  margin-top: 1px;
+}
+
+.margin-top-25 {
+  margin-top: 25px;
+}
+
+.calendar-width {
+  max-width: 600px;
 }

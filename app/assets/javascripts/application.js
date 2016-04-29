@@ -28,6 +28,7 @@
 //= require swfobject.js
 //= require phoenix
 //= require fullcalendar/fullcalendar.js
+//= require metronic/fullcalendar.min.js
 //= require bs-slider
 //= require jquery.imgareaselect
 

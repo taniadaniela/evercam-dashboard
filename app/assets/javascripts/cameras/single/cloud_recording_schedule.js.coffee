@@ -20,11 +20,12 @@ window.initScheduleCalendar = ->
       updateScheduleFromCalendar()
     eventLimit: true
     eventOverlap: false
+    eventColor: '#efb57c'
     firstDay: 1
     header:
-      left: 'prev,next today',
+      left: '',
       center: 'title'
-      right: 'month,agendaWeek,agendaDay'
+      right: ''
     height: 'auto'
     events: '/application/events'
     select: (start, end) ->
@@ -168,6 +169,27 @@ showEditButton = ->
   $('#show-schedule-calendar').click ->
     editScheduleCalendar()
     return
+  $('#next-week').click ->
+    $('#cloud-recording-calendar').fullCalendar 'next'
+    return
+  $('#previous-week').click ->
+    $('#cloud-recording-calendar').fullCalendar 'prev'
+    return
+  $('#today').click ->
+    $('#cloud-recording-calendar').fullCalendar 'today'
+    return
+  $('#SimpleWeek').click ->
+    $('#cloud-recording-calendar').fullCalendar 'changeView' , 'basicWeek'
+    return
+  $('#Month').click ->
+    $('#cloud-recording-calendar').fullCalendar 'changeView' , 'month'
+    return
+  $('#AgendaWeek').click ->
+    $('#cloud-recording-calendar').fullCalendar 'changeView' , 'agendaWeek'
+    return
+  textcalendar = $('#cloud-recording-calendar').fullCalendar 'header'
+  console.log textcalendar
+  # $('#fullc-title').text textcalendar
 
 hideEditButton = ->
   $('#schdule-label').removeClass('hide')
@@ -179,13 +201,13 @@ showScheduleLabel = ->
   $('#schdule-label').removeClass('hide')
 
 showScheduleCalendar = ->
-  $('#cloud-recording-calendar').show('slow')
+  $('#calendarfull-wrap').show('slow')
   scheduleCalendar.fullCalendar('render')
   if scheduleCalendar.is(':visible')
     renderEvents()
 
 hideScheduleCalendar = ->
-  $('#cloud-recording-calendar').hide('slow')
+  $('#calendarfull-wrap').hide('slow')
 
 showFrequencySelect = ->
   $('#cloud-recording-frequency-wrap').show('slow')

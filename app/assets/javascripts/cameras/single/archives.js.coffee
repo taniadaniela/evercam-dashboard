@@ -176,12 +176,12 @@ tooltip = ->
 
 createClip = ->
   $("#create_clip_button").on "click", ->
-    NProgress.start()
     if $("#clip-name").val() is ""
       Notification.show("Clip title cannot be empty.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       return false
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+    NProgress.start()
     data =
       title: $("#clip-name").val()
       from_date: $("#from-date").val()
@@ -190,9 +190,9 @@ createClip = ->
       is_public: $("#is-public").is(":checked")
 
     onError = (jqXHR, status, error) ->
-      NProgress.done()
       Notification.show(jqXHR.responseJSON.message)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      NProgress.done()
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
@@ -205,6 +205,7 @@ createClip = ->
         formReset()
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        NProgress.done()
       Notification.show(data.message)
 
     settings =
@@ -253,6 +254,7 @@ deleteClip = ->
     onError = (jqXHR, status, error) ->
       Notification.show(jqXHR.responseJSON.message)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      NProgress.done()
 
     onSuccess = (data, status, jqXHR) ->
       if data.success

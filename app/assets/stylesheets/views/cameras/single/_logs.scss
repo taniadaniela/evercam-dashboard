@@ -22,9 +22,33 @@
   float: left;
   margin-top: 4px;
 }
-@media (max-width: 480px) {
+
+@media (max-width: 960px) {
+  .to-time {
+    margin-left: 15px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 540px) {
   .checkbox-list {
     padding-left: 35px;
+  }
+
+  .dates {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .dates {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 340px) {
+  .dates {
+    margin-top: 90px;
   }
 }
 
@@ -77,3 +101,4 @@
 .datetimepicker {
   font-size: 12px;
 }
+

@@ -67,6 +67,7 @@ initializeDataTable = ->
         return row.who
       }
     ],
+    autoWidth: false,
     iDisplayLength: 50,
     order: [[ 0, "desc" ]]
   })

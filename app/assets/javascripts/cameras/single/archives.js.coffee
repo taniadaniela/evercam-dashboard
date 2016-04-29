@@ -201,7 +201,6 @@ createClip = ->
           $('#archives-table').show()
           $("#no-archive").hide()
           NProgress.done()
-          return
         formReset()
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")

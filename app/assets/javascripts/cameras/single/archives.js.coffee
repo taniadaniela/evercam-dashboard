@@ -54,7 +54,6 @@ initializeArchivesDataTable = ->
         $("#archives-table_info").show()
         $('#archives-table_paginate').hide()
       initializePopup()
-      deleteClip()
       true
   })
 
@@ -177,6 +176,7 @@ tooltip = ->
 
 createClip = ->
   $("#create_clip_button").on "click", ->
+    NProgress.start()
     if $("#clip-name").val() is ""
       Notification.show("Clip title cannot be empty.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -190,6 +190,7 @@ createClip = ->
       is_public: $("#is-public").is(":checked")
 
     onError = (jqXHR, status, error) ->
+      NProgress.done()
       Notification.show(jqXHR.responseJSON.message)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
 
@@ -197,10 +198,10 @@ createClip = ->
       if data.success
         archives_table.ajax.reload (json) ->
           initializePopup()
-          deleteClip()
+          $('#archives-table').show()
+          $("#no-archive").hide()
+          NProgress.done()
           return
-        $('#archives-table').show()
-        $("#no-archive").hide()
         formReset()
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -230,11 +231,11 @@ setDate = ->
 
 formReset = ->
   $("#clip-name").val("")
+  $('#archive-modal').modal('hide')
   $("#embed-datetime").prop("checked", false)
   $("#lbl-embed-datetime span").removeClass("checked")
   $("#is-public").prop("checked", false)
   $("#lbl-is-public span").removeClass("checked")
-  $('#archive-modal').modal('hide')
 
 playClip = ->
   $("#archives-table").on "click", ".play-clip", ->
@@ -242,7 +243,8 @@ playClip = ->
     window.open view_url, '_blank', 'width=640, Height=480, scrollbars=0, resizable=0'
 
 deleteClip = ->
-  $('.options').on 'click','.delete-archive2', ->
+  $('#archives').on 'click','.delete-archive2', ->
+    NProgress.start()
     control = $(this)
     data =
       camera_id: control.attr("camera_id")
@@ -258,13 +260,12 @@ deleteClip = ->
           if json.archives.length is 0
             $('#archives-table_paginate, #archives-table_info').hide()
             $('#archives-table').hide()
-            span = $("<span>")
-            span.append($(document.createTextNode("There are no clips.")))
-            span.attr("id", "no-archive")
-            $('#archives-table_wrapper .col-sm-12').append(span)
-        Notification.show(data.message)
+            $("#no-archive").show()
+          NProgress.done()
+          Notification.show(data.message)
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        NProgress.done()
         Notification.show("Only the Camera Owner can delete this clip.")
 
     settings =
@@ -295,3 +296,4 @@ window.initializeArchivesTab = ->
   playClip()
   shareURL()
   setDate()
+  deleteClip()

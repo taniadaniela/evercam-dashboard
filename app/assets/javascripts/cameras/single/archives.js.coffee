@@ -195,7 +195,10 @@ createClip = ->
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        archives_table.ajax.reload()
+        archives_table.ajax.reload (json) ->
+          initializePopup()
+          deleteClip()
+          return
         $('#archives-table').show()
         $("#no-archive").hide()
         formReset()
@@ -239,11 +242,11 @@ playClip = ->
     window.open view_url, '_blank', 'width=640, Height=480, scrollbars=0, resizable=0'
 
 deleteClip = ->
-  $('.delete-archive2').on 'click', ->
+  $('.options').on 'click','.delete-archive2', ->
     control = $(this)
     data =
-      camera_id: control.attr("camera-id")
-      archive_id: control.attr("archive-id")
+      camera_id: control.attr("camera_id")
+      archive_id: control.attr("archive_id")
 
     onError = (jqXHR, status, error) ->
       Notification.show(jqXHR.responseJSON.message)

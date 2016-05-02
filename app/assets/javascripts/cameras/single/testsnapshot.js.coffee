@@ -19,6 +19,7 @@ $ ->
     $('#snapshot-web').val(a.pathname)
 
   $(document).on 'click', "#test", (event) ->
+    NProgress.start()
     event.preventDefault()
     $('#test-error').text('')
     intRegex = /^\d+$/
@@ -84,6 +85,7 @@ $ ->
       console.log('Error getting the snapshot from the camera. The camera response was:')
       console.log(jqXHR.responseJSON.response)
       loader.stop()
+      NProgress.done()
 
     onSuccess = (result, status, jqXHR) ->
       $('#test-error').text('')
@@ -94,6 +96,7 @@ $ ->
           showFeedback("We got a snapshot")
           $('#testimg').attr('src', result.data)
       loader.stop()
+      NProgress.done()
 
     settings =
       cache: false

@@ -67,6 +67,7 @@ updateScheduleFromCalendar = ->
   updateSchedule(frequency, storage_duration, schedule, status)
 
 updateSchedule = (frequency, storage_duration, schedule, status) ->
+  NProgress.start()
   if status is 'off'
     storage_duration = 1
   if status is 'on' and storage_duration is -1
@@ -91,6 +92,7 @@ updateSchedule = (frequency, storage_duration, schedule, status) ->
         showFeedback("You aren't authorized to change the scheduling for camera '#{Evercam.Camera.id}'.")
       else
         showFeedback("Updating recording settings has failed. Please contact support.")
+    NProgress.done()
 
   onSuccess = (data) ->
     Evercam.Camera.cloud_recording.storage_duration = JSON.parse(data).cloud_recordings[0].storage_duration
@@ -98,6 +100,7 @@ updateSchedule = (frequency, storage_duration, schedule, status) ->
     $('#cloud-recording-duration').val(Evercam.Camera.cloud_recording.storage_duration)
     $('#cloud-recording-duration').attr('disabled',false)
     showFeedback("Cloud recording schedule was successfully updated.")
+    NProgress.done()
 
   settings =
     error: onError

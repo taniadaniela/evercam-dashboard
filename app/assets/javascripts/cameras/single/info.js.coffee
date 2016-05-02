@@ -176,6 +176,7 @@ loadVendors = ->
   true
 
 saveMapLocation = ->
+  NProgress.start()
   data = {}
   
   locs = $("#camera_Lats_Lng").val().split(/(?:,| )+/) 
@@ -202,6 +203,7 @@ saveMapLocation = ->
   data.location_lng = $("#cameraLng").val()
 
   onError = (jqXHR, status, error) ->
+    NProgress.done()
     false
 
   onSuccess = (result, status, jqXHR) ->
@@ -214,6 +216,7 @@ saveMapLocation = ->
 
     $("#coordinates-value").text("#{$('#cameraLats').val()}, #{$('#cameraLng').val()}")
     Notification.show "Camera location updated successfully"
+    NProgress.done()
     true
 
   settings =
@@ -230,10 +233,12 @@ saveMapLocation = ->
   true
 
 NotificationAlert = ->
+  NProgress.start()
   data = {}
   data.is_online_email_owner_notification = $('#camera-notification').prop("checked")
 
   onError = (jqXHR, status, error) ->
+    NProgress.done()
     false
 
   onSuccess = (result, status, jqXHR) ->
@@ -241,6 +246,7 @@ NotificationAlert = ->
       Notification.show "Camera Offline Notification Enabled"
     else
       Notification.show "Camera Offline Notification Disabled"
+    NProgress.done()
 
   settings =
     cache: false

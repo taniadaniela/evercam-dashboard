@@ -1,6 +1,6 @@
 @media screen and (max-width: 767px) {
     div.form-group {
-    height: 55px;
+    height: 40px;
   }
 
   div#change.form-group {
@@ -288,4 +288,62 @@ input:-webkit-autofill {
   .select2-selection__arrow {
     display: none;
   }
+}
+
+.section-position {
+  position: absolute;
+  top: 0;
+}
+
+.width-400 {
+  width: 400px;
+}
+
+.margin-topbottom30 {
+  margin: 10px 0px 30px;
+}
+
+.padding-topbottom30 {
+  padding: 10px 0 30px;
+}
+
+@media (max-width: 480px) {
+
+  .width-400 {
+    width: 305px;
+  }
+
+  .margin-topbottom30 {
+    margin: 10px;
+  }
+
+  .padding-topbottom30 {
+    padding: 10px;
+  }
+
+  .padding-left-0 {
+    padding-left: 0px;
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .right-margin {
+    right: 15px;
+  }
+
+}
+
+.no-padding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.padding-left-right-40 {
+  padding: 0 40px;
+}
+
+.width-full {
+  width: 100%;
 }

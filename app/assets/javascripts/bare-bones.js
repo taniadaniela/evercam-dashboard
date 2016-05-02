@@ -8,3 +8,4 @@
 //=
 //= require alerts
 //= require payment/pay.js
+//= require sign_in_up.js

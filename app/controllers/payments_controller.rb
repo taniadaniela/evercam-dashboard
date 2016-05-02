@@ -203,12 +203,8 @@ class PaymentsController < ApplicationController
   end
 
   def ensure_card_exists
-    if current_user.stripe_customer_id
-      @customer = StripeCustomer.new(current_user.stripe_customer_id)
-    else
-      redirect_to billing_path(current_user.username)
-    end
-
+    redirect_to billing_path(current_user.username) unless current_user.stripe_customer_id
+    @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
       redirect_to billing_path(current_user.username), flash: { message: "You need to add a card first!" }
     end

@@ -9,6 +9,7 @@ class PaymentsController < ApplicationController
   include StripeCustomersHelper
   include StripeInvoicesHelper
   require "stripe"
+  require "pry"
 
   def pay
     render layout: "bare-bones"
@@ -202,7 +203,12 @@ class PaymentsController < ApplicationController
   end
 
   def ensure_card_exists
-    @customer = StripeCustomer.new(current_user.stripe_customer_id)
+    if current_user.stripe_customer_id
+      @customer = StripeCustomer.new(current_user.stripe_customer_id)
+    else
+      redirect_to billing_path(current_user.username)
+    end
+
     unless @customer.valid_card?
       redirect_to billing_path(current_user.username), flash: { message: "You need to add a card first!" }
     end

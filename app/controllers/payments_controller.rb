@@ -9,7 +9,6 @@ class PaymentsController < ApplicationController
   include StripeCustomersHelper
   include StripeInvoicesHelper
   require "stripe"
-  require "pry"
 
   def pay
     render layout: "bare-bones"

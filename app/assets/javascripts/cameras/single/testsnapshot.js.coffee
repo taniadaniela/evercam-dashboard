@@ -19,7 +19,6 @@ $ ->
     $('#snapshot-web').val(a.pathname)
 
   $(document).on 'click', "#test", (event) ->
-    NProgress.start()
     event.preventDefault()
     $('#test-error').text('')
     intRegex = /^\d+$/
@@ -71,6 +70,7 @@ $ ->
         loader.stop()
         clearInterval(interval)
     , 200)
+    NProgress.start()
 
     #send request for test snapshot
     data = {}

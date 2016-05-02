@@ -34,6 +34,7 @@ hidegif = ->
   $('.fa-refresh').show()
 
 refreshCameraStatus = ->
+  NProgress.start()
   data = {}
   data.with_data = true
 
@@ -41,10 +42,13 @@ refreshCameraStatus = ->
     message = jqXHR.responseJSON.message
     Notification.show message
     hidegif()
+    NProgress.done()
 
   onSuccess = (data, status, jqXHR) ->
-    location.reload()
+    NProgress.done()
     hidegif()
+    location.reload()
+
 
   settings =
     cache: false

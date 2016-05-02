@@ -68,5 +68,4 @@ class InvoicesController < ApplicationController
   def get_camares
     @cameras = load_user_cameras(true, false)
   end
-
 end

@@ -1,7 +1,7 @@
 <% provide(:title, "Create New Account") %>
 <section id="new-account" class="site-min-height">
   <div id="evercam-video-section" class="evercam-video-section">
-    <video class="cover-image" autoplay="" loop="" preload="" poster="poster.jpg" id="loop-video">
+    <video class="cover-image" autoplay="" loop="" preload="" poster="/assets/poster.jpg" id="loop-video">
       <source src="/assets/gpoview.mp4" type="video/mp4">
     </video>
   </div>
@@ -16,11 +16,11 @@
             <%= image_tag("evercam_logo.svg", :class => "svg-logo", alt: "Evercam.io") %>
           <% end %>
         </div>
-        <div class="col-sm-11 col-sm-offset-1 padding-left-right-40 row">
+        <div class="col-sm-12 padding-left-right-40">
           <%= form_for(:user, url: signup_path, :html => { :id => "create-account" } ) do |f| %>
             <% field_errors = (flash[:field_errors] || {}) %>
 
-            <div class="row text-center">
+            <div class="text-center">
               <div class="col-sm-3">
                 <%= f.label :firstname, 'First Name' %>
               </div>
@@ -32,7 +32,7 @@
               </div>
             </div>
 
-            <div class="row text-center">
+            <div class="text-center">
               <div class="col-sm-3">
                 <%= f.label :lastname, 'Last Name' %>
               </div>
@@ -44,7 +44,7 @@
               </div>
             </div>
 
-            <div class="row text-center">
+            <div class="text-center">
               <div class="col-sm-3">
                 <%= f.label :username %>
               </div>
@@ -56,7 +56,7 @@
               </div>
             </div>
 
-            <div class="row text-center">
+            <div class="text-center">
               <div class="col-sm-3">
                 <%= f.label :email, 'Email' %>
               </div>
@@ -72,7 +72,7 @@
               </div>
             </div>
 
-            <div class="row text-center">
+            <div class="text-center">
               <div class="col-sm-3">
                 <%= f.label :password %>
               </div>
@@ -86,7 +86,7 @@
             <div class="text-center margin-top-20">
               <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
             </div>
-            <div class="row text-center margin-top-10">
+            <div class="text-center margin-top-10">
               <p class="col-md-12 grey use">Signing up signifies that you've read and agree to our
                 <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
             </div>
@@ -95,7 +95,7 @@
               <input type="hidden" name="key" id="key" value="<%= @share_request.key %>"/>
             <% end %>
           <% end %>
-          <div class="col-md-12 col-sm-8 row text-center grey">
+          <div class="col-md-12 col-sm-12 text-center grey">
             <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
           </div>
         </div>

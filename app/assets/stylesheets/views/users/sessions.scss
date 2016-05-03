@@ -170,10 +170,6 @@ input:-webkit-autofill:focus {
   color: #404142;
 }
 
-html {
-  overflow: auto;
-}
-
 @media (max-width: 668px) {
 
   #registration label {
@@ -181,6 +177,14 @@ html {
   }
   .form-group {
     margin-bottom: 0px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  html {
+    overflow: auto;
   }
 
 }

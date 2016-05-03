@@ -4,12 +4,14 @@
   mixpanel.track_forms("#user-sign-in", "Sign In", {'Client-Type':'Dash'});
 </script>
 <% end %>
-<section id="sign-in-section" class="site-min-height">
-  <div id="evercam-video-section" class="evercam-video-section">
-    <video class="cover-image" autoplay="" loop="" preload="" poster="poster.jpg" id="loop-video">
-      <source src="/assets/gpoview.mp4" type="video/mp4">
-    </video>
-  </div>
+
+<div id="evercam-video-section" class="evercam-video-section">
+  <video class="cover-image" autoplay="" loop="" preload="" poster="/assets/poster.jpg" id="loop-video">
+    <source src="/assets/gpoview.mp4" type="video/mp4">
+  </video>
+</div>
+
+<section id="sign-in-section">
   <div class="section section-position no-padding col-sm-12 col-md-12">
 
     <div id="sign-in" class="col-md-4 width-400 center-div">
@@ -56,7 +58,7 @@
         <input type="hidden" id="session_anchor" name="session[anchor]">
       <% end %>
 
-      <div class="grey col-md-12 padding-left-right-40 row text-center margin-top-20">
+      <div class="grey col-md-12 padding-left-right-40 text-center margin-top-20">
         <p>Or <%= link_to "Create New Account", signup_path %></p>
       </div>
 

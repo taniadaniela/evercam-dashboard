@@ -1,12 +1,8 @@
 setVideoContainerHeight = ->
-	if $(window).width() <= 1200
-  	$('#evercam-video-section video').css 'min-width', '800px'
-  	$('#evercam-video-section').css height: $(window).innerHeight()
-  	$('#evercam-video-section video').css height: $('#evercam-video-section').height()
-	else
-		$('#evercam-video-section video').css 'min-width', $(window).width()
-		$('#evercam-video-section video').css 'min-height', $(window).height()
-		$('#evercam-video-section').css 'height', $(window).height()
+	$('#evercam-video-section').css 'width', '100%'
+	$('#evercam-video-section video').css 'min-width', '100%'
+	$('#evercam-video-section').css 'height', $(window).innerHeight()
+	$('#evercam-video-section video').css 'min-height', '100%'
 
 resizeWin = ->
 	$(window).resize ->

@@ -303,6 +303,10 @@ input:-webkit-autofill {
   margin: 10px 0px 30px;
 }
 
+.padding-left-right-40 {
+  padding: 0 40px;
+}
+
 .padding-topbottom30 {
   padding: 10px 0 30px;
 }
@@ -325,6 +329,10 @@ input:-webkit-autofill {
     padding-left: 0px;
   }
 
+  .padding-left-right-40 {
+    padding: 10px;
+  }
+
 }
 
 @media (max-width: 380px) {
@@ -340,10 +348,14 @@ input:-webkit-autofill {
   padding-right: 0px;
 }
 
-.padding-left-right-40 {
-  padding: 0 40px;
-}
-
 .width-full {
   width: 100%;
+}
+
+@media (max-width: 320px) {
+
+  .margin-topbottom30 {
+    margin: 0px;
+  }
+
 }

@@ -210,8 +210,8 @@ class PaymentsController < ApplicationController
   end
 
   def customer_id_exists
-    if !current_user.stripe_customer_id.nil?
-      redirect_to billing_path(current_user.username)
+    if current_user.stripe_customer_id.nil?
+      redirect_to billing_path(current_user.username), flash: { message: "You need to add a card first!" }
     end
   end
 

@@ -220,6 +220,9 @@ port_check = ->
       $('.port-status').text('Port is Closed')
 
     onSuccess = (result, status, jqXHR) ->
+      $('.port-status').removeClass('red')
+      $('.port-status').addClass('green')
+      $('.port-status').text('Port is Open')
       true
 
     settings =

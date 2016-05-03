@@ -289,3 +289,17 @@ input:-webkit-autofill {
     display: none;
   }
 }
+
+#add-ip .port {
+  border-bottom: 1px solid #aaaaaa;
+  width: 100%;
+}
+
+#add-ip input#port {
+  border-bottom: none;
+  width: 40%;
+}
+
+#add-ip .port-status {
+  width: 60%;
+}

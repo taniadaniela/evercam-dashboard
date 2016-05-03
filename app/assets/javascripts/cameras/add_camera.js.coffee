@@ -16,10 +16,6 @@ sendAJAXRequest1 = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
     headers =
-      "X-CSRF-Token": token.attr("content")
-      "Access-Control-Allow-Origin": "#{Evercam.MEDIA_API_URL}"
-      "Access-Control-Allow-Methods": "GET, POST"
-      "Access-Control-Allow-Headers": "X-Custom-Header"
     settings.headers = headers
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
@@ -218,21 +214,20 @@ port_check = ->
     port = $('#port').val()
     data = {}
 
-
     onError = (jqXHR, textStatus, ex) ->
-      false
+      $('.port-status').removeClass('green')
+      $('.port-status').addClass('red')
+      $('.port-status').text('Port is Closed')
 
     onSuccess = (result, status, jqXHR) ->
       true
 
     settings =
-      cache: false
       data: data
       dataType: 'json'
-      crossDomain:false
       error: onError
       success: onSuccess
-      contentType: "application/json; charset=utf-8"
+      contentType: "application/x-www-form-urlencoded"
       type: 'GET'
       url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
 

@@ -399,25 +399,6 @@ class CamerasController < ApplicationController
     end
   end
 
-  def is_port_open
-    begin
-      ip = params['ip']
-      port = params['port']
-      Timeout::timeout(1) do
-        begin
-          s = TCPSocket.new(ip, port)
-          s.close
-          return true
-        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
-          return false
-        end
-      end
-    rescue Timeout::Error
-    end
-
-    return false
-  end
-
   def assess_field_errors(error)
     field_errors = {}
     case error.code

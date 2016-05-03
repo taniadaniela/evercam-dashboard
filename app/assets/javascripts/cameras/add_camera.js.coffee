@@ -12,6 +12,18 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
+sendAJAXRequest1 = (settings) ->
+  token = $('meta[name="csrf-token"]')
+  if token.size() > 0
+    headers =
+      "X-CSRF-Token": token.attr("content")
+      "Access-Control-Allow-Origin": "#{Evercam.MEDIA_API_URL}"
+      "Access-Control-Allow-Methods": "GET, POST"
+      "Access-Control-Allow-Headers": "X-Custom-Header"
+    settings.headers = headers
+  xhrRequestChangeMonth = jQuery.ajax(settings)
+  true
+
 loadVendorModels = (vendor_id, stroke_key_up) ->
   NProgress.start()
   $("#camera-model option").remove()
@@ -202,11 +214,12 @@ onCustomizedUrl = ->
 
 port_check = ->
   $('#port').on 'input', ->
+    ip = $('#camera-url').val()
+    port = $('#port').val()
     data = {}
-    data.ip = $('#camera-url').text()
-    data.port = $('#port').text()
 
-    onError = (jqXHR, status, error) ->
+
+    onError = (jqXHR, textStatus, ex) ->
       false
 
     onSuccess = (result, status, jqXHR) ->
@@ -216,13 +229,14 @@ port_check = ->
       cache: false
       data: data
       dataType: 'json'
+      crossDomain:false
       error: onError
       success: onSuccess
       contentType: "application/json; charset=utf-8"
       type: 'GET'
-      url: '/port/check'
+      url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
 
-    sendAJAXRequest(settings)
+    sendAJAXRequest1(settings)
     true
 
 window.initializeAddCamera = ->

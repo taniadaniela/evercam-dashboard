@@ -1,6 +1,7 @@
 table = null
 
 updateLogTypesFilter = () ->
+  NProgress.start()
   exid = $('#exid').val()
   page = $('#current-page').val()
   types = []
@@ -41,6 +42,10 @@ initializeDataTable = ->
       dataSrc: 'logs',
       error: (xhr, error, thrown) ->
         Notification.show(xhr.responseJSON.message)
+        NProgress.done()
+
+      success: (data,error,thrown) ->
+        NProgress.done()
     },
     columns: [
       {data: ( row, type, set, meta ) ->

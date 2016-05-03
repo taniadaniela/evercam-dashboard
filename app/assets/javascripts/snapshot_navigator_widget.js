@@ -31,4 +31,8 @@
 //= require lib/underscore-min
 //= require lib/backbone-min
 //= require lib/highlight.7.3.pack
+//= require nprogress.js
+//= require nprogress-turbolinks
+//= require nprogress-call.js
+//= require jquery.thumbhover.js
 

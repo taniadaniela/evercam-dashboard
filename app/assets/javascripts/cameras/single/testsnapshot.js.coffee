@@ -70,6 +70,7 @@ $ ->
         loader.stop()
         clearInterval(interval)
     , 200)
+    NProgress.start()
 
     #send request for test snapshot
     data = {}
@@ -84,6 +85,7 @@ $ ->
       console.log('Error getting the snapshot from the camera. The camera response was:')
       console.log(jqXHR.responseJSON.response)
       loader.stop()
+      NProgress.done()
 
     onSuccess = (result, status, jqXHR) ->
       $('#test-error').text('')
@@ -94,6 +96,7 @@ $ ->
           showFeedback("We got a snapshot")
           $('#testimg').attr('src', result.data)
       loader.stop()
+      NProgress.done()
 
     settings =
       cache: false

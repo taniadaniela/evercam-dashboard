@@ -1,6 +1,8 @@
 class PaymentsController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists, only: [:create, :new]
+  prepend_before_filter :customer_id_exists, only: [:ensure_card_exists]
   skip_before_action :authenticate_user!, only: [:pay, :make_payment, :thank]
   layout "user-account"
   include SessionsHelper
@@ -196,7 +198,7 @@ class PaymentsController < ApplicationController
   end
 
   def redirect_when_cart_empty
-    if session[:cart].empty?
+    if session[:cart].nil?
       redirect_to billing_path(current_user.username), flash: {message: "You have nothing to checkout"}
     end
   end
@@ -204,6 +206,12 @@ class PaymentsController < ApplicationController
   def ensure_card_exists
     @customer = StripeCustomer.new(current_user.stripe_customer_id)
     unless @customer.valid_card?
+      redirect_to billing_path(current_user.username), flash: { message: "You need to add a card first!" }
+    end
+  end
+
+  def customer_id_exists
+    if current_user.stripe_customer_id.nil?
       redirect_to billing_path(current_user.username), flash: { message: "You need to add a card first!" }
     end
   end

@@ -86,17 +86,17 @@
             <div class="text-center margin-top-20">
               <%= f.submit "Create New Account", class: "btn btn-large btn-primary" %>
             </div>
-            <div class="text-center margin-top-10">
-              <p class="col-md-12 grey use">Signing up signifies that you've read and agree to our
-                <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
-            </div>
 
             <% if @share_request %>
               <input type="hidden" name="key" id="key" value="<%= @share_request.key %>"/>
             <% end %>
           <% end %>
-          <div class="col-md-12 col-sm-12 text-center grey">
+          <div class="col-md-12 col-sm-12 text-center grey margin-top-20">
             <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
+          </div>
+          <div class="text-center">
+            <p class="col-md-12 grey use">
+              <a href="http://www.evercam.io/terms" target="blank">Terms of Use</a></p>
           </div>
         </div>
       </div>

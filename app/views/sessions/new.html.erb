@@ -29,7 +29,7 @@
       <%= form_for(:session, url: sessions_path, :html => { :id => "user-sign-in" }) do |f| %>
 
         <div class="grey col-md-12 padding-left-right-40 text-center">
-          <%= f.label :email %> or <%= f.label :username %>
+          <%= f.label :email %> <%= f.label :or %> <%= f.label :username %>
           <div class="input-icon right">
             <i class="icon-user"></i>
             <%= f.text_field :login, value: params.fetch(session, {})[:login] %>
@@ -52,7 +52,7 @@
 
         <div class="col-md-12 padding-left-right-40 text-center">
           <div class="grey margin-top-20">
-            I've <%= link_to "forgotten my password", password_reset_path %>
+            <p>I've <%= link_to "forgotten my password", password_reset_path %></p>
           </div>
         </div>
         <input type="hidden" id="session_anchor" name="session[anchor]">

@@ -6,21 +6,21 @@ setVideoContainerHeight = ->
 
 resizeWin = ->
 	$(window).resize ->
-	  $('#evercam-video-section').css height: $(window).innerHeight()
-	  centerSignIn()
-	  setVideoContainerHeight()
-	  return
+		$('#evercam-video-section').css height: $(window).innerHeight()
+		centerSignIn()
+		setVideoContainerHeight()
+		return
 
 centerSignIn = ->
-  offset = ($(window).height() - $('.section-position').height()) / 2
-  if $(window).height() > $('.section-position').height()
-    # Center vertically in window
-    $('.section-position').css "margin-top", offset
+	offset = ($(window).height() - $('.section-position').height()) / 2
+	if $(window).height() > $('.section-position').height()
+		# Center vertically in window
+		$('.section-position').css "margin-top", offset
 
-  widthset = ($(window).width() - $('.center-div').width()) / 2
-  if $(window).width() > $('.center-div').width()
-    # Center vertically in window
-    $('.center-div').css "margin-left", widthset
+	widthset = ($(window).width() - $('.center-div').width()) / 2
+	if $(window).width() > $('.center-div').width()
+		# Center vertically in window
+		$('.center-div').css "margin-left", widthset
 
 window.initializeSignInUp = ->
 	setVideoContainerHeight()

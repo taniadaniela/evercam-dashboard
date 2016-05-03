@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :redirect_when_cart_empty, only: :new
   prepend_before_filter :ensure_card_exists, only: [:create, :new]
   prepend_before_filter :customer_id_exists, only: [:ensure_card_exists]

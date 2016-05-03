@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row dates">
       <div class="col-md-2"><h5>Date &amp; Time Range</h5></div>
       <div class="col-md-3">
         <label>From:</label>
@@ -24,7 +24,7 @@
       </div>
       <div class="col-md-3">
         <label>To:</label>
-        <input id="datetimepicker2" class="datetimepicker" type="text" value="<%= Time.at(params[:to].to_i).strftime('%d/%m/%Y %H:%M') unless params[:to].blank? %>">
+        <input id="datetimepicker2" class="datetimepicker to-time" type="text" value="<%= Time.at(params[:to].to_i).strftime('%d/%m/%Y %H:%M') unless params[:to].blank? %>">
       </div>
     </div>
 

@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require jquery-form-validator/form-validator/jquery.form-validator.js
+//= require jquery-form-validator
 //= require videojs
 //= require videojs-contrib-media-sources/src/videojs-media-sources.js
 //= require videojs-contrib-hls-0.16.0.js

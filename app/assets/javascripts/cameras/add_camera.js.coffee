@@ -13,6 +13,7 @@ sendAJAXRequest = (settings) ->
   true
 
 loadVendorModels = (vendor_id, stroke_key_up) ->
+  NProgress.start()
   $("#camera-model option").remove()
   $("#camera-model").append('<option value="">Loading...</option>');
   if vendor_id is ""
@@ -22,6 +23,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
     $("#snapshot-readonly").val("")
     $("#snapshot").removeClass("hide")
     $("#snapshot-readonly").addClass("hide")
+    NProgress.done()
     return
 
   data = {}
@@ -31,6 +33,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
   data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
+    NProgress.done()
     false
 
   onSuccess = (result, status, jqXHR) ->
@@ -63,6 +66,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
         $("#snapshot").removeClass("hide")
         $("#snapshot-readonly").addClass("hide")
     $("#last-selected-model").val('')
+    NProgress.done()
 
   settings =
     cache: false
@@ -186,6 +190,9 @@ onAddCamera = ->
       Notification.show "Its your local IP, please provide camera public IP."
       $("#camera-url").css("border-color", "red")
       return false
+    if Evercam.ENV == 'production'
+      if $('.col-sm-8 input').parent('.has-error').length > 0
+        mixpanel.track_forms '#create-a-camera', 'Create a camera', 'Client-Type': 'Dash'
 
 onCustomizedUrl = ->
   $("#snapshot").on "keyup", ->
@@ -230,4 +237,5 @@ window.initializeAddCamera = ->
   onAddCamera()
   onCustomizedUrl()
   port_check()
+  NProgress.done()
 

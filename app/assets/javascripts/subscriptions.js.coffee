@@ -367,8 +367,11 @@ loadBillingHistory = ->
       cell_2 = $('<td>')
       cell_2.attr("id", item.id)
       description = item.description
-      if description is null
+      failure_message = item.failure_message
+      if !description and !failure_message
         getChargeDescription(item.invoice, item.id)
+      else if failure_message
+        cell_2.append(document.createTextNode(failure_message))
       else
         cell_2.append(document.createTextNode(description))
       row.append(cell_2)
@@ -377,6 +380,8 @@ loadBillingHistory = ->
       small = $('<small>', {class: "grey"})
       if item.paid
         small.append(document.createTextNode("Paid"))
+      else if failure_message
+        small.append(document.createTextNode("Failed"))
       else
         small.append(document.createTextNode("Pending"))
       cell_3.append(small)
@@ -509,6 +514,7 @@ addlicencesrquired = ->
   $('h3#licences').append(licen)
 
 window.initializeSubscription = ->
+  NProgress.done()
   Notification.init(".bb-alert")
   createAddRemoveLicence()
   validateLicenceForm()

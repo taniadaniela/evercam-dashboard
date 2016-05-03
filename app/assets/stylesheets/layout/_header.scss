@@ -32,6 +32,19 @@
     background-color: lighten($secondary-color, 5%);
   }
 }
+
+@media (min-width: 992px) {
+
+  .page-header {
+    display: none;
+  }
+
+  .page-header-fixed .page-container {
+    margin-top: 0px;
+  }
+
+}
+
 @media (max-width: 480px) {
   /* 480px */
   /* Fixed header for mobile */

@@ -1,6 +1,7 @@
 class InvoicesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :owns_data!
+  before_filter :get_camares
   layout "user-account"
   include SessionsHelper
   include ApplicationHelper
@@ -62,5 +63,9 @@ class InvoicesController < ApplicationController
       flash[:message] = "Exception caught in create invoice pdf, Cause: #{_error.message}"
       redirect_to billing_path(current_user.username)
     end
+  end
+
+  def get_camares
+    @cameras = load_user_cameras(true, false)
   end
 end

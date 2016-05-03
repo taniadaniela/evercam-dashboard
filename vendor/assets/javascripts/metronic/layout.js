@@ -2,7 +2,7 @@
 Core script to handle the entire theme and core functions
 **/
 var Layout = function () {
-
+    
     var layoutImgPath = Metronic.getAssetsPath() + 'admin/layout/img/';
 
     var layoutCssPath = Metronic.getAssetsPath() + 'admin/layout/css/';

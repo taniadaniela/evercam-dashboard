@@ -26,6 +26,7 @@ hide_gif = (control_id) ->
   $("#{control_id} img").hide()
 
 refreshCameraStatus = (cam_id, contr_id) ->
+  NProgress.start()
   data = {}
   data.with_data = true
 
@@ -34,11 +35,12 @@ refreshCameraStatus = (cam_id, contr_id) ->
 
   onError = (jqXHR, status, error) ->
     hide_gif(control_id)
-
+    NProgress.done()
 
   onSuccess = (data, status, jqXHR) ->
     hide_gif(control_id)
     $("#{control_id}").hide()
+    NProgress.done()
 
   settings =
     cache: false
@@ -65,3 +67,4 @@ window.initializeCameraIndex = ->
   refreshThumbnails()
   hideThumbnailGif()
   $('[data-toggle="tooltip"]').tooltip()
+  NProgress.done()

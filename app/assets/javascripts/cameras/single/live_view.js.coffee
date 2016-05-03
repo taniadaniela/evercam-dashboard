@@ -2,6 +2,7 @@ stream_paused = false
 img_real_width = 0
 img_real_height = 0
 live_view_timestamp = 0
+image_placeholder = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -33,6 +34,7 @@ hidegif = ->
   $('.fa-refresh').show()
 
 refreshCameraStatus = ->
+  NProgress.start()
   data = {}
   data.with_data = true
 
@@ -40,10 +42,13 @@ refreshCameraStatus = ->
     message = jqXHR.responseJSON.message
     Notification.show message
     hidegif()
+    NProgress.done()
 
   onSuccess = (data, status, jqXHR) ->
-    location.reload()
+    NProgress.done()
     hidegif()
+    location.reload()
+
 
   settings =
     cache: false
@@ -65,10 +70,7 @@ fullscreenImage = ->
 
   if screenfull.enabled
     document.addEventListener screenfull.raw.fullscreenchange, ->
-      if screenfull.isFullscreen
-        $("#live-player-image").css('width','auto')
-      else
-        $("#live-player-image").css('width','100%')
+      $("#live-player-image").css('width','auto')
 
 openPopout = ->
   $("#link-popout").on "click", ->
@@ -107,6 +109,7 @@ handleChangeStream = ->
         $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
         $("#camera-video-stream").hide()
         $(".video-js").css 'height', '0px'
+        $(".wrap").css 'padding-top', '0px'
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()
@@ -148,7 +151,7 @@ getImageRealRatio = ->
       setTimeout(getImageRealRatio(), 1000)
 
 calculateHeight = ->
-  content_height = Metronic.getViewPort().height
+  content_height = Metronic.getViewPort().height + $(".page-header").height()
   content_width = Metronic.getViewPort().width
   tab_menu_height = $("#ul-nav-tab").height()
   side_bar_width = $(".page-sidebar").width()
@@ -161,7 +164,7 @@ calculateHeight = ->
     image_height = img_real_height / img_real_width * content_width
 
   $("#live-player-image").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".offline-camera-placeholder img").css({"height": "#{image_height}px","max-height": "100%"})
+  $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
 
   if $(window).width() >= 668
     $("#camera-video-stream").css({"height": "#{image_height}px","max-height": "100%"})
@@ -245,6 +248,37 @@ changePtzPresets = ->
     sendAJAXRequest(settings)
     $('#camera-presets').modal('hide')
 
+createPtzPresets = ->
+  $('#create-preset').on 'click', '.add-preset', ->
+    preset_name = $('.preset-value').val()
+    preset_name = preset_name.toLowerCase()
+    preset_name = preset_name.replace(/(^\s+|[^a-zA-Z0-9 ]+|\s+$)/g, '')
+    preset_name = preset_name.replace(/\s+/g, '-')
+    data = {}
+
+    onError = (jqXHR, status, error) ->
+      message = jqXHR.responseJSON.message
+      Notification.show message
+
+    onSuccess = (data, status, jqXHR) ->
+      Notification.show "Preset Added Successfully"
+      refreshPresetList()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      success: onSuccess
+      error: onError
+      contentType: "application/json; charset=utf-8"
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset_name}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    sendAJAXRequest(settings)
+
+refreshPresetList = ->
+  $('#presets-table').empty()
+  getPtzPresets()
+
 handleModelEvents = ->
   $("#camera-presets").on "show.bs.modal", ->
     $("#ptz-control").addClass("hide")
@@ -295,6 +329,8 @@ window.initializeLiveTab = ->
   handleModelEvents()
   checkPTZExist()
   flashDetection()
+  createPtzPresets()
+  NProgress.done()
 
 ->
   calculateHeight()

@@ -163,6 +163,7 @@ addSharingCameraRow = (details) ->
   true
 
 resendCameraShareRequest = ->
+  NProgress.start()
   control = $(this)
   data =
     camera_id: control.attr("camera_id")
@@ -172,12 +173,14 @@ resendCameraShareRequest = ->
 
   onError = (jqXHR, status, error) ->
     showError("Failed to resend camera share request.")
+    NProgress.done()
     true
   onSuccess = (data, status, jqXHR) ->
     if data.success
       showFeedback("A notification email has been sent to the specified email address.")
     else
       showFeedback(data.message)
+    NProgress.done()
     true
 
   settings =
@@ -193,6 +196,7 @@ resendCameraShareRequest = ->
 
 onSetCameraAccessClicked = (event) ->
   event.preventDefault()
+  NProgress.start()
   selected = $('input[name=sharingOptionRadios]:checked').val()
   button = $('#set_permissions_submit')
   divText = $('#Sharespublic_discoverable')
@@ -232,6 +236,7 @@ onSetCameraAccessClicked = (event) ->
     else
       showError("Update of camera permissions failed. Please contact support.")
     button.removeAttr('disabled')
+    NProgress.done()
     true
 
   settings =
@@ -255,6 +260,7 @@ getTransferFromUrl = ->
     $('#change_owner2').modal('show')
 
 onDeleteShareClicked = (event) ->
+  NProgress.start()
   event.preventDefault()
   control = $(event.currentTarget)
   row = control.closest('tr')
@@ -263,6 +269,7 @@ onDeleteShareClicked = (event) ->
     email: row.attr('share-email')
   onError = (jqXHR, status, error) ->
     showError("Delete of camera shared failed. Please contact support.")
+    NProgress.done()
     false
   onSuccess = (data, status, jqXHR) ->
     if data.success
@@ -274,6 +281,7 @@ onDeleteShareClicked = (event) ->
         window.location = '/'
     else
       showError("Delete of camera shared failed. Please contact support.")
+    NProgress.done()
     true
 
   settings =
@@ -289,6 +297,7 @@ onDeleteShareClicked = (event) ->
 
 onDeleteShareRequestClicked = (event) ->
   event.preventDefault()
+  NProgress.start()
   control = $(event.currentTarget)
   row = control.closest('tr')
   data =
@@ -296,6 +305,7 @@ onDeleteShareRequestClicked = (event) ->
     email: row.attr("share-request-email")
   onError = (jqXHR, status, error) ->
     showError("Delete of share request failed. Please contact support.")
+    NProgress.done()
     false
   onSuccess = (data, success, jqXHR) ->
     if data.success
@@ -305,6 +315,7 @@ onDeleteShareRequestClicked = (event) ->
       showError("Camera share request deleted successfully.")
     else
       showError("Delete of share request failed. Please contact support.")
+    NProgress.done()
     true
   settings =
     cache: false
@@ -327,6 +338,7 @@ onAddSharingUserClicked = (event) ->
     permissions = "full"
   onError = (jqXHR, status, error) ->
     showError("Failed to share camera.")
+    NProgress.done()
     false
   onSuccess = (data, status, jqXHR) ->
     if data.success
@@ -356,12 +368,14 @@ onAddSharingUserClicked = (event) ->
         else
           message = data.message
       showError(message)
+    NProgress.done()
     true
   createShare(Evercam.Camera.id, emailAddress, emailbodyMsg, permissions, onSuccess, onError)
   true
 
 onSaveShareClicked = (event) ->
   event.preventDefault()
+  NProgress.start()
   button = $(this)
   row = button.closest('tr')
   control = row.find('select')
@@ -371,6 +385,7 @@ onSaveShareClicked = (event) ->
     email: row.attr('share-username')
   onError = (jqXHR, status, error) ->
     showError("Update of share failed. Please contact support.")
+    NProgress.done()
     false
   onSuccess = (data, success, jqXHR) ->
     if data.success
@@ -378,6 +393,7 @@ onSaveShareClicked = (event) ->
       button.fadeOut()
     else
       showError("Update of share failed. Please contact support.")
+    NProgress.done()
     true
   settings =
     cache: false
@@ -392,6 +408,7 @@ onSaveShareClicked = (event) ->
 
 onSaveShareRequestClicked = (event) ->
   event.preventDefault()
+  NProgress.start()
   button = $(this)
   row = button.closest('tr')
   control = row.find('select')
@@ -401,6 +418,7 @@ onSaveShareRequestClicked = (event) ->
     email: row.attr('share-request-email')
   onError = (jqXHR, status, error) ->
     showError("Update of share request failed. Please contact support.")
+    NProgress.done()
     false
   onSuccess = (data, success, jqXHR) ->
     if data.success
@@ -408,6 +426,7 @@ onSaveShareRequestClicked = (event) ->
       button.fadeOut()
     else
       showError("Update of share request failed. Please contact support.")
+    NProgress.done()
     true
   settings =
     cache: false
@@ -421,6 +440,7 @@ onSaveShareRequestClicked = (event) ->
   true
 
 createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
+  NProgress.start()
   data =
     camera_id: cameraID
     email: email

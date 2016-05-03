@@ -9,11 +9,12 @@
 //= require jquery-cookie
 //= require jquery.nicescroll
 //= require jquery.slimscroll
-//= require jquery-form-validator/form-validator/jquery.form-validator.js
+//= require jquery-form-validator
 //= require moment
 //= require ladda/spin.min.js
 //= require ladda/ladda.min.js
 //= require bootbox
+//= require securehash
 //= require videojs
 //= require videojs-contrib-media-sources/src/videojs-media-sources.js
 //= require videojs-contrib-hls-0.16.0.js
@@ -50,5 +51,7 @@
 //= require metronic/modernizr.custom.js
 //= require metronic/icheck.min.js
 //= require bootstrap-toggle
-//=
+//= require nprogress.js
+//= require nprogress-turbolinks
+//= require nprogress-call.js
 //= require subscriptions.js

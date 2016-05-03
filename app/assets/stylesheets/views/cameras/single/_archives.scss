@@ -39,7 +39,7 @@
   margin-right: 12px;
   .fa {
     font-size: 18px;
-    color: $light-blue;
+    color: $main-color;
   }
 
   .fa:hover {
@@ -91,34 +91,6 @@
 
 #archives {
 
-  //#title {
-  //  max-width: 150px;
-  //}
-
-  //#from {
-  //  max-width: 150px;
-  //}
-  //
-  //#to {
-  //  max-width: 150px;
-  //}
-
-  //#created {
-  //  width: 140px !important;
-  //}
-
-  #frames {
-    max-width: 40px !important;
-  }
-
-  #options {
-    width: 65px !important;
-  }
-
-  #status {
-    width: 50px !important;
-  }
-
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0px;
   }
@@ -134,7 +106,7 @@
   z-index: 9999;
 }
 
-#archive-modal .modal-dialog {
+.archive-modal .modal-dialog {
   width: 465px;
 }
 
@@ -144,11 +116,6 @@
 
 table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dataTable thead .sorting{
   background: none;
-}
-
-table.table-bordered th:last-child,
-table.table-bordered td:last-child {
-  width: 12%;
 }
 
 .popbox2 {
@@ -163,10 +130,121 @@ table.table-bordered td:last-child {
   background-color: transparent;
 }
 
-thead .sorting_asc::after {
-  color: $dark-blue;
+.gravatar-placeholder .gravatar {
+  border-radius: 50%;
+  max-width: 30px;
+  float: left;
+  display: inline-block;
 }
 
-thead .sorting_desc::after {
-  color: $dark-blue;
+.username-id {
+  display: inline-block;
+  line-height: 1;
+  margin-top: 2px;
+  margin-left: 5px;
+
+  small {
+    color: $small-grey;
+  }
+}
+
+.table-bordered {
+  border: none;
+
+  thead > tr > th {
+    border-right: none;
+    padding-right: 7px !important;
+  }
+
+  tbody > tr > td {
+    border-right: none;
+    vertical-align: middle;
+  }
+
+  .fullname {
+    min-width: 180px;
+  }
+
+  .public  {
+    min-width: 60px;
+  }
+
+  .options {
+    min-width: 110px;
+  }
+
+}
+
+@media (max-width: 850px) {
+
+  .username-id {
+    float: left;
+    text-align: left;
+  }
+
+  .from {
+    display: none;
+  }
+
+  .to {
+    display: none;
+  }
+
+}
+
+@media (max-width: 670px) {
+
+  .public {
+    display: none;
+  }
+
+  .frames {
+    display: none;
+  }
+
+  .duration {
+    display: none;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  .status {
+    display: none;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .archive-modal .modal-dialog {
+    width: 94%;
+  }
+
+}
+
+@media (max-width: 400px) {
+
+  .fullname {
+    display: none;
+  }
+
+
+  .title {
+    text-align: left;
+  }
+
+}
+
+.margin-bottom-40 {
+  margin-bottom: 40px;
+}
+
+@media (max-width: 380px) {
+
+  .archive-modal .modal-dialog {
+    width: 92%;
+  }
+
 }

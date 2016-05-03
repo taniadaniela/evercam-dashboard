@@ -94,16 +94,19 @@
   <div class="camera-preview-offline <%= 'hide' if @camera['is_online'] %>">
     <div class="offline-camera-placeholder">
       <div class="wrap">
-        <div id="refresh-offline-camera" class="refresh-camera"><i class="fa fa-refresh"></i><span> Refresh</span>
-          <img src="/assets/refresh.gif" class="refresh-gif">
+        <div class="offline-image">
+          <%= preview(@camera, true) %>
+          <div id="refresh-offline-camera" title="refresh" class="refresh-camera"><i class="fa fa-refresh"></i>
+            <img src="/assets/refresh.gif" class="refresh-gif">
+          </div>
+          <span id="offline_message" class="offline-message" style="display:none;">Camera is Offline</span>
         </div>
-        <span id="offline_message" style="display:none;">Camera is Offline</span>
-        <%= preview(@camera, true) %></div>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="camera-presets" class="modal fade">
+<div id="camera-presets" class="modal fade camera-preset">
   <div class="modal-dialog" style="width:300px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -112,14 +115,24 @@
           <a class="cancel_link" href="#" data-dismiss="modal"><i class="fa fa-remove"></i></a>
         </div>
       </div>
+      <div class="row-create" data-dismiss="modal" data-target="#create-preset" data-toggle="modal" ><i class="fa fa-plus"></i> Create a preset </div>
       <div class="modal-body">
         <div id="presets-table" class="form-group"></div>
       </div>
-      <div class="modal-footer">
-        <div class="pull-right">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="create-preset" class="modal fade create-presets">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+        <div class="modal-body">
+          <input type="text" class="preset-value" placeholder="Enter Preset Name">
+          <div class="pull-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-default add-preset" data-dismiss="modal">Add</button>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>

@@ -18,6 +18,14 @@ window.showOfflineButton = ->
       $.removeCookie("hide-offline-cameras", { path: "/" })
       $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').toggleClass('cam-active')
 
+nProgressCall = ->
+  $('#hello > a').on 'click', ->
+    NProgress.start()
+  $('.cameralist-height > ul > li > a').on 'click', ->
+    NProgress.start()
+  $('.nprogCall').on 'click', ->
+    NProgress.start()
+
 slideToggle = ->
   $('.dev').click ->
     $('.developer-list').slideToggle()
@@ -58,7 +66,14 @@ handleToggle = ->
     $('.developer-list').show()
 
 handleCameraListHeight = ->
-  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 390
+  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 395
+
+delay = do ->
+  timer = 0
+  (callback, ms) ->
+    clearTimeout timer
+    timer = setTimeout(callback, ms)
+    return
 
 $ ->
   initSocket()
@@ -66,7 +81,14 @@ $ ->
   $('[data-toggle="tooltip"]').tooltip()
 
 $(window).ready ->
+  nProgressCall()
   slideToggle()
   removeDropdown()
   handleToggle()
   handleCameraListHeight()
+  $(window).resize ->
+    delay (->
+      handleCameraListHeight()
+      return
+    ), 500
+    return

@@ -1,17 +1,9 @@
 <div class="page-header <%= "camera-#{@camera['id']}" if @camera %> navbar navbar-fixed-top">
   <div class="page-header-inner">
-    <%= link_to image_tag('evercam-e.svg', alt: 'Evercam logo'), root_path, class: 'pull-left evercam-e-header' %>
     <div class="menu-toggler sidebar-toggler">
     </div>
-    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+    <a href="javascript:;" class="pull-left menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
     </a>
-    <% if params[:controller] == 'cameras' && params[:action] == 'index' && @show_alert_message %>
-      <div class="biling-alert alert alert-danger">
-        <span>You require <%= @required_licences %> additional licences.
-          <%= link_to "Buy Licences", billing_path(current_user.username), class: "billing-link" %>
-        </span>
-      </div>
-    <% end %>
     <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
       <div class="camera-switch <% unless @camera['is_online'] %>camera-offline<% end %>">
         <a class="dropdown-toggle" data-toggle="dropdown">

@@ -5,11 +5,6 @@ class PagesController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
 
-  def dev
-    @cameras = load_user_cameras(true, false)
-    render layout: "dev"
-  end
-
   def play
     @mp4_url = "http://timelapse.evercam.io/timelapses/#{params[:id]}/archives/#{params[:clip_id]}.mp4"
     render layout: "bare-bones"

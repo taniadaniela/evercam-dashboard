@@ -42,10 +42,6 @@ initializeDataTable = ->
       dataSrc: 'logs',
       error: (xhr, error, thrown) ->
         Notification.show(xhr.responseJSON.message)
-        NProgress.done()
-
-      success: (data,error,thrown) ->
-        NProgress.done()
     },
     columns: [
       {data: ( row, type, set, meta ) ->
@@ -74,7 +70,9 @@ initializeDataTable = ->
     ],
     autoWidth: false,
     iDisplayLength: 50,
-    order: [[ 0, "desc" ]]
+    order: [[ 0, "desc" ]],
+    drawCallback: ->
+      NProgress.done()
   })
 
 window.initializeLogsTab = ->

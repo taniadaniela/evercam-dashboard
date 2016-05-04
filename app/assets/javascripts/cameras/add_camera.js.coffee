@@ -208,34 +208,97 @@ onCustomizedUrl = ->
       $("#camera-vendor").val("other")
       loadVendorModels($("#camera-vendor").val(), true)
 
-port_check = ->
-  $('#port').on 'input', ->
-    ip = $('#camera-url').val()
-    port = $('#port').val()
-    data = {}
+external_port_check = ->
+  ip = $('#camera-url').val()
+  port = $('#port').val()
+  if !port
+    $('.port-status').empty()
+    return
+  if !ip
+    $('.port-status').empty()
+    return
+  $('.port-status').empty()
+  $('.refresh-gif').show()
+  data = {}
 
-    onError = (jqXHR, textStatus, ex) ->
+  onError = (jqXHR, textStatus, ex) ->
+    $('.refresh-gif').hide()
+    $('.port-status').removeClass('green')
+    $('.port-status').addClass('red')
+    $('.port-status').text('Port is Closed')
+
+  onSuccess = (result, status, jqXHR) ->
+    if result.open is true
+      $('.refresh-gif').hide()
+      $('.port-status').removeClass('red')
+      $('.port-status').addClass('green')
+      $('.port-status').text('Port is Open')
+    else
+      $('.refresh-gif').hide()
       $('.port-status').removeClass('green')
       $('.port-status').addClass('red')
       $('.port-status').text('Port is Closed')
 
-    onSuccess = (result, status, jqXHR) ->
-      $('.port-status').removeClass('red')
-      $('.port-status').addClass('green')
-      $('.port-status').text('Port is Open')
-      true
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
 
-    settings =
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/x-www-form-urlencoded"
-      type: 'GET'
-      url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
+  sendAJAXRequest1(settings)
+  true
 
-    sendAJAXRequest1(settings)
-    true
+rtsp_port_check = ->
+  ip = $('#camera-url').val()
+  port = $('#ext-rtsp-port').val()
+  if !port
+    $('.rtsp-port-status').empty()
+    return
+  if !ip
+    $('.rtsp-port-status').empty()
+    return
+  $('.rtsp-port-status').empty()
+  $('.refresh-gif2').show()
+  data = {}
+
+  onError = (jqXHR, textStatus, ex) ->
+    $('.refresh-gif2').hide()
+    $('.rtsp-port-status').removeClass('green')
+    $('.rtsp-port-status').addClass('red')
+    $('.rtsp-port-status').text('Port is Closed')
+
+  onSuccess = (result, status, jqXHR) ->
+    if result.open is true
+      $('.refresh-gif2').hide()
+      $('.rtsp-port-status').removeClass('red')
+      $('.rtsp-port-status').addClass('green')
+      $('.rtsp-port-status').text('Port is Open')
+    else
+      $('.refresh-gif2').hide()
+      $('.rtsp-port-status').removeClass('green')
+      $('.rtsp-port-status').addClass('red')
+      $('.rtsp-port-status').text('Port is Closed')
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
+
+  sendAJAXRequest1(settings)
+  true
+
+check_port = ->
+  $('#port').on 'keyup', external_port_check
+  $('#camera-url').on 'keyup', external_port_check
+  $('#camera-url').on 'keyup', rtsp_port_check
+  $('#ext-rtsp-port').on 'keyup', rtsp_port_check
 
 window.initializeAddCamera = ->
   Metronic.init()
@@ -248,6 +311,8 @@ window.initializeAddCamera = ->
   loadVendors()
   onAddCamera()
   onCustomizedUrl()
-  port_check()
+  check_port()
+  external_port_check()
+  rtsp_port_check()
   NProgress.done()
 

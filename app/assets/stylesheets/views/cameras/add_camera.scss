@@ -290,16 +290,43 @@ input:-webkit-autofill {
   }
 }
 
-#add-ip .port {
+.external-port {
   border-bottom: 1px solid #aaaaaa;
   width: 100%;
 }
 
-#add-ip input#port {
+#camera-port #port {
   border-bottom: none;
   width: 40%;
 }
 
-#add-ip .port-status {
+#camera-port .port-status {
   width: 60%;
+}
+
+#camera-port .refresh-gif1 {
+  display: none;
+  float: right;
+  margin-right: 30px;
+}
+
+.ext-rtsp-port .rtsp-port {
+  border-bottom: 1px solid #aaaaaa;
+  width: 100%;
+}
+
+.ext-rtsp-port #ext-rtsp-port {
+  border-bottom: none;
+  display: inline-block;
+  width: 40%;
+}
+
+.ext-rtsp-port .rtsp-port-status {
+  width: 60%;
+}
+
+.ext-rtsp-port .refresh-gif2 {
+  display: none;
+  float: right;
+  margin-right: 75px;
 }

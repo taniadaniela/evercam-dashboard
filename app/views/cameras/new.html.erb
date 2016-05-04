@@ -123,13 +123,13 @@
                 <div class='col-sm-3 <%= field_errors["external_http_port"] ? ' has-error' : '' %>'>
                   <div id="camera-port" class="input-group">
                     <span class="prepend prepend-1">:</span>
-                    <div class="form-group port">
+                    <div class="form-group external-port">
                       <%= text_field_tag("port", @user['port'] || 80, "class" => "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.") %>
                       <%= label_tag('port', raw("HTTP Port*"), class: "float-label") %>
                       <% if field_errors["external_http_port"] %>
                       <span class="help-block form-error text-left"><%= field_errors["external_http_port"] %></span>
                       <% end %>
-                      <span class="port-status"></span>
+                      <span class="port-status"></span><img src="/assets/refresh.gif" class="refresh-gif1">
                     </div>
                   </div>
                 </div>
@@ -204,16 +204,17 @@
                       </div>
                     </div>
                   </div>
-                  <div id="port" class="row margin-top-20">
+                  <div id="port" class="row margin-top-20 ext-rtsp-port">
                     <div class="col-sm-12">
                       <div class="col-sm-4">
                         <div class='<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
-                          <div id="change" class="form-group"  >
+                          <div id="change" class="form-group rtsp-port"  >
                             <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-help" => "The port should be a 2-5 digit number", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
                             <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "float-label") %>
                             <% if field_errors["external_rtsp_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["external_rtsp_port"] %></span>
                             <% end %>
+                            <span class="rtsp-port-status"></span><img src="/assets/refresh.gif" class="refresh-gif2">
                           </div>
                         </div>
                       </div>

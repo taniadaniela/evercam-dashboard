@@ -1,4 +1,6 @@
-<video id="archive-play" class="video-js vjs-default-skin" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }' width="640" height="480">
+<%= stylesheet_link_tag "clip_play" %>
+
+<video id="archive-play" class="video-js vjs-default-skin" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }'>
     <source src="<%= @mp4_url %>" type="video/mp4">
 </video>
 

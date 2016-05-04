@@ -296,9 +296,12 @@ rtsp_port_check = ->
 
 check_port = ->
   $('#port').on 'keyup', external_port_check
-  $('#camera-url').on 'keyup', external_port_check
-  $('#camera-url').on 'keyup', rtsp_port_check
+  $('#camera-url').on 'keyup', ip_check
   $('#ext-rtsp-port').on 'keyup', rtsp_port_check
+
+ip_check = ->
+  external_port_check()
+  rtsp_port_check()
 
 window.initializeAddCamera = ->
   Metronic.init()

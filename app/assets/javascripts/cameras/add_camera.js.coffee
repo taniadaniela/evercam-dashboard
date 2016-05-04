@@ -204,8 +204,8 @@ onCustomizedUrl = ->
       $("#camera-vendor").val("other")
       loadVendorModels($("#camera-vendor").val(), true)
 
-port_check = (external_ip,external_port,type) ->
-  ex_ip = external_ip
+port_check = (external_port,type) ->
+  ex_ip = $('#camera-url').val()
   ex_port = external_port
   if !ex_port
     $(".#{type}port-status").empty()
@@ -251,14 +251,13 @@ port_check = (external_ip,external_port,type) ->
 check_port = ->
   $('#port').on 'keyup', ->
     port = $('#port').val()
-    port_check(ip,port,'')
+    port_check(port,'')
   $('#camera-url').on 'keyup', ->
-    ip = $('#camera-url').val()
-    port_check(ip,port,'')
-    port_check(ip,rtsp_port,'rtsp-')
+    port_check(port,'')
+    port_check(rtsp_port,'rtsp-')
   $('#ext-rtsp-port').on 'keyup', ->
     rtsp_port = $('#ext-rtsp-port').val()
-    port_check(ip,rtsp_port,'rtsp-')
+    port_check(rtsp_port,'rtsp-')
 
 window.initializeAddCamera = ->
   ip = $('#camera-url').val()
@@ -275,7 +274,7 @@ window.initializeAddCamera = ->
   onAddCamera()
   onCustomizedUrl()
   check_port()
-  port_check(ip,port,'')
-  port_check(ip,rtsp_port,'rtsp-')
+  port_check(port,'')
+  port_check(rtsp_port,'rtsp-')
   NProgress.done()
 

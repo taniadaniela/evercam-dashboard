@@ -291,11 +291,11 @@ input:-webkit-autofill {
 }
 
 .camera-ext-port .external-port {
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid $grey;
   width: 100%;
 }
 
-.camera-ext-port #port {
+#add-ip .port-input {
   border-bottom: none;
   width: 40% !important;
 }
@@ -308,17 +308,19 @@ input:-webkit-autofill {
   display: none;
   float: right;
   margin-right: 30px;
+  width: 25px;
+  margin-top: 5px;
 }
 
 .ext-rtsp-port .rtsp-port {
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid $grey;
   width: 100%;
 }
 
-.ext-rtsp-port #ext-rtsp-port {
+#add-ip .rtsp-input {
   border-bottom: none;
   display: inline-block;
-  width: 55% !important;
+  width: 55%;
 }
 
 .ext-rtsp-port .rtsp-port-status {
@@ -329,6 +331,8 @@ input:-webkit-autofill {
   display: none;
   float: right;
   margin-right: 30px;
+  width: 25px;
+  margin-top: 5px;
 }
 
 .green {

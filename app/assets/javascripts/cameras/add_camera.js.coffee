@@ -207,61 +207,34 @@ onCustomizedUrl = ->
 port_check = (external_ip,external_port,type) ->
   ex_ip = external_ip
   ex_port = external_port
-  if type is 1
-    if !ex_port
-      $('.port-status').empty()
-      return
-    if !ex_ip
-      $('.port-status').empty()
-      return
-    $('.port-status').empty()
-    $('.refresh-gif1').show()
-  else
-    if !ex_port
-      $('.rtsp-port-status').empty()
-      return
-    if !ex_ip
-      $('.rtsp-port-status').empty()
-      return
-    $('.rtsp-port-status').empty()
-    $('.refresh-gif2').show()
+  if !ex_port
+    $(".#{type}port-status").empty()
+    return
+  if !ex_ip
+    $(".#{type}port-status").empty()
+    return
+  $(".#{type}port-status").empty()
+  $(".#{type}refresh-gif").show()
   data = {}
 
   onError = (jqXHR, textStatus, ex) ->
-    if type is 1
-      $('.refresh-gif1').hide()
-      $('.port-status').removeClass('green')
-      $('.port-status').addClass('red')
-      $('.port-status').text('Port is Closed')
-    else
-      $('.refresh-gif2').hide()
-      $('.rtsp-port-status').removeClass('green')
-      $('.rtsp-port-status').addClass('red')
-      $('.rtsp-port-status').text('Port is Closed')
+    $(".#{type}refresh-gif").hide()
+    $(".#{type}port-status").removeClass('green')
+    $(".#{type}port-status").addClass('red')
+    $(".#{type}port-status").text('Port is Closed')
 
   onSuccess = (result, status, jqXHR) ->
-    if type is 1
-      if result.open is true
-        $('.refresh-gif1').hide()
-        $('.port-status').removeClass('red')
-        $('.port-status').addClass('green')
-        $('.port-status').text('Port is Open')
-      else
-        $('.refresh-gif1').hide()
-        $('.port-status').removeClass('green')
-        $('.port-status').addClass('red')
-        $('.port-status').text('Port is Closed')
+    if result.open is true
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").removeClass('red')
+      $(".#{type}port-status").addClass('green')
+      $(".#{type}port-status").text('Port is Open')
     else
-      if result.open is true
-        $('.refresh-gif2').hide()
-        $('.rtsp-port-status').removeClass('red')
-        $('.rtsp-port-status').addClass('green')
-        $('.rtsp-port-status').text('Port is Open')
-      else
-        $('.refresh-gif2').hide()
-        $('.rtsp-port-status').removeClass('green')
-        $('.rtsp-port-status').addClass('red')
-        $('.rtsp-port-status').text('Port is Closed')
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").removeClass('green')
+      $(".#{type}port-status").addClass('red')
+      $(".#{type}port-status").text('Port is Closed')
+
 
   settings =
     data: data
@@ -278,14 +251,14 @@ port_check = (external_ip,external_port,type) ->
 check_port = ->
   $('#port').on 'keyup', ->
     port = $('#port').val()
-    port_check(ip,port,1)
+    port_check(ip,port,'')
   $('#camera-url').on 'keyup', ->
     ip = $('#camera-url').val()
-    port_check(ip,port,1)
-    port_check(ip,rtsp_port,2)
+    port_check(ip,port,'')
+    port_check(ip,rtsp_port,'rtsp-')
   $('#ext-rtsp-port').on 'keyup', ->
     rtsp_port = $('#ext-rtsp-port').val()
-    port_check(ip,rtsp_port,2)
+    port_check(ip,rtsp_port,'rtsp-')
 
 window.initializeAddCamera = ->
   ip = $('#camera-url').val()
@@ -302,7 +275,7 @@ window.initializeAddCamera = ->
   onAddCamera()
   onCustomizedUrl()
   check_port()
-  port_check(ip,port,1)
-  port_check(ip,rtsp_port,2)
+  port_check(ip,port,'')
+  port_check(ip,rtsp_port,'rtsp-')
   NProgress.done()
 

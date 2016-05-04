@@ -218,23 +218,23 @@ external_port_check = ->
     $('.port-status').empty()
     return
   $('.port-status').empty()
-  $('.refresh-gif').show()
+  $('.refresh-gif1').show()
   data = {}
 
   onError = (jqXHR, textStatus, ex) ->
-    $('.refresh-gif').hide()
+    $('.refresh-gif1').hide()
     $('.port-status').removeClass('green')
     $('.port-status').addClass('red')
     $('.port-status').text('Port is Closed')
 
   onSuccess = (result, status, jqXHR) ->
     if result.open is true
-      $('.refresh-gif').hide()
+      $('.refresh-gif1').hide()
       $('.port-status').removeClass('red')
       $('.port-status').addClass('green')
       $('.port-status').text('Port is Open')
     else
-      $('.refresh-gif').hide()
+      $('.refresh-gif1').hide()
       $('.port-status').removeClass('green')
       $('.port-status').addClass('red')
       $('.port-status').text('Port is Closed')

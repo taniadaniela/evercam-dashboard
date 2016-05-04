@@ -255,6 +255,19 @@ input:-webkit-autofill {
   input#camera-url, input#local-ip {
     padding-left: 40px;
   }
+
+  .port-input {
+    border-bottom: none;
+    display: inline-block;
+    width: 40% !important;
+  }
+
+  .rtsp-input {
+    border-bottom: none;
+    display: inline-block;
+    width: 55%;
+  }
+
 }
 
 .add-camera-page .open > a, .add-camera-page .open > a:hover, .add-camera-page .open > a:focus {
@@ -295,11 +308,6 @@ input:-webkit-autofill {
   width: 100%;
 }
 
-#add-ip .port-input {
-  border-bottom: none;
-  width: 40% !important;
-}
-
 .camera-ext-port .port-status {
   width: 60%;
 }
@@ -315,12 +323,6 @@ input:-webkit-autofill {
 .ext-rtsp-port .rtsp-port {
   border-bottom: 1px solid $grey;
   width: 100%;
-}
-
-#add-ip .rtsp-input {
-  border-bottom: none;
-  display: inline-block;
-  width: 55%;
 }
 
 .ext-rtsp-port .rtsp-port-status {

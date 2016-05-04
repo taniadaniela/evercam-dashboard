@@ -719,6 +719,7 @@ handleWindowResize = ->
   $(window).on "resize", ->
     totalWidth = $("#divSlider").width()
     $("#divPointer").width(totalWidth * currentFrameNumber / totalFrames)
+    recodringSnapshotDivHeight()
 
 handlePlay = ->
   $("#btnPlayRec").on "click", ->
@@ -960,6 +961,12 @@ calendarShow = ->
     $('#calendar .fa').css 'color', 'blue'
     return
 
+recodringSnapshotDivHeight = ->
+  if $(window).width() <= 990
+    $('#fullscreen > img').css height: '100%'
+  else
+    $('#fullscreen > img').css height: $(window).innerHeight() - $('.center-tabs').height()
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -976,4 +983,5 @@ window.initializeRecordingsTab = ->
   onCollapsRecording()
   selectMdImage()
   calendarShow()
+  recodringSnapshotDivHeight()
   # calendarHide()

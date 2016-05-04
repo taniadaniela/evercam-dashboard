@@ -2,6 +2,8 @@ class CamerasController < ApplicationController
   before_filter :authenticate_user!
   include SessionsHelper
   include ApplicationHelper
+  require 'socket'
+  require 'timeout'
 
   def index
     @cameras = load_user_cameras(true, false)

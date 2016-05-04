@@ -1,3 +1,7 @@
+ip = null
+port = null
+rtsp_port = null
+
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
@@ -200,7 +204,65 @@ onCustomizedUrl = ->
       $("#camera-vendor").val("other")
       loadVendorModels($("#camera-vendor").val(), true)
 
+port_check = (external_port,type) ->
+  ex_ip = $('#camera-url').val()
+  ex_port = external_port
+  if !ex_port
+    $(".#{type}port-status").empty()
+    return
+  if !ex_ip
+    $(".#{type}port-status").empty()
+    return
+  $(".#{type}port-status").empty()
+  $(".#{type}refresh-gif").show()
+  data = {}
+
+  onError = (jqXHR, textStatus, ex) ->
+    $(".#{type}refresh-gif").hide()
+    $(".#{type}port-status").removeClass('green')
+    $(".#{type}port-status").addClass('red')
+    $(".#{type}port-status").text('Port is Closed')
+
+  onSuccess = (result, status, jqXHR) ->
+    if result.open is true
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").removeClass('red')
+      $(".#{type}port-status").addClass('green')
+      $(".#{type}port-status").text('Port is Open')
+    else
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").removeClass('green')
+      $(".#{type}port-status").addClass('red')
+      $(".#{type}port-status").text('Port is Closed')
+
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
+
+  jQuery.ajax(settings)
+  true
+
+check_port = ->
+  $('#port').on 'keyup', ->
+    port = $('#port').val()
+    port_check(port,'')
+  $('#camera-url').on 'keyup', ->
+    port_check(port,'')
+    port_check(rtsp_port,'rtsp-')
+  $('#ext-rtsp-port').on 'keyup', ->
+    rtsp_port = $('#ext-rtsp-port').val()
+    port_check(rtsp_port,'rtsp-')
+
 window.initializeAddCamera = ->
+  ip = $('#camera-url').val()
+  port = $('#port').val()
+  rtsp_port = $('#ext-rtsp-port').val()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
@@ -211,4 +273,8 @@ window.initializeAddCamera = ->
   loadVendors()
   onAddCamera()
   onCustomizedUrl()
+  check_port()
+  port_check(port,'')
+  port_check(rtsp_port,'rtsp-')
   NProgress.done()
+

@@ -1,3 +1,7 @@
+ip = null
+port = null
+rtsp_port = null
+
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
@@ -8,14 +12,6 @@ sendAJAXRequest = (settings) ->
   if token.size() > 0
     headers =
       "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = jQuery.ajax(settings)
-  true
-
-sendAJAXRequest1 = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
     settings.headers = headers
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
@@ -208,80 +204,65 @@ onCustomizedUrl = ->
       $("#camera-vendor").val("other")
       loadVendorModels($("#camera-vendor").val(), true)
 
-external_port_check = ->
-  ip = $('#camera-url').val()
-  port = $('#port').val()
-  if !port
+port_check = (external_ip,external_port,type) ->
+  ex_ip = external_ip
+  ex_port = external_port
+  if type is 1
+    if !ex_port
+      $('.port-status').empty()
+      return
+    if !ex_ip
+      $('.port-status').empty()
+      return
     $('.port-status').empty()
-    return
-  if !ip
-    $('.port-status').empty()
-    return
-  $('.port-status').empty()
-  $('.refresh-gif1').show()
+    $('.refresh-gif1').show()
+  else
+    if !ex_port
+      $('.rtsp-port-status').empty()
+      return
+    if !ex_ip
+      $('.rtsp-port-status').empty()
+      return
+    $('.rtsp-port-status').empty()
+    $('.refresh-gif2').show()
   data = {}
 
   onError = (jqXHR, textStatus, ex) ->
-    $('.refresh-gif1').hide()
-    $('.port-status').removeClass('green')
-    $('.port-status').addClass('red')
-    $('.port-status').text('Port is Closed')
-
-  onSuccess = (result, status, jqXHR) ->
-    if result.open is true
-      $('.refresh-gif1').hide()
-      $('.port-status').removeClass('red')
-      $('.port-status').addClass('green')
-      $('.port-status').text('Port is Open')
-    else
+    if type is 1
       $('.refresh-gif1').hide()
       $('.port-status').removeClass('green')
       $('.port-status').addClass('red')
       $('.port-status').text('Port is Closed')
-
-  settings =
-    data: data
-    dataType: 'json'
-    error: onError
-    success: onSuccess
-    contentType: "application/x-www-form-urlencoded"
-    type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
-
-  sendAJAXRequest1(settings)
-  true
-
-rtsp_port_check = ->
-  ip = $('#camera-url').val()
-  port = $('#ext-rtsp-port').val()
-  if !port
-    $('.rtsp-port-status').empty()
-    return
-  if !ip
-    $('.rtsp-port-status').empty()
-    return
-  $('.rtsp-port-status').empty()
-  $('.refresh-gif2').show()
-  data = {}
-
-  onError = (jqXHR, textStatus, ex) ->
-    $('.refresh-gif2').hide()
-    $('.rtsp-port-status').removeClass('green')
-    $('.rtsp-port-status').addClass('red')
-    $('.rtsp-port-status').text('Port is Closed')
-
-  onSuccess = (result, status, jqXHR) ->
-    if result.open is true
-      $('.refresh-gif2').hide()
-      $('.rtsp-port-status').removeClass('red')
-      $('.rtsp-port-status').addClass('green')
-      $('.rtsp-port-status').text('Port is Open')
     else
       $('.refresh-gif2').hide()
       $('.rtsp-port-status').removeClass('green')
       $('.rtsp-port-status').addClass('red')
       $('.rtsp-port-status').text('Port is Closed')
 
+  onSuccess = (result, status, jqXHR) ->
+    if type is 1
+      if result.open is true
+        $('.refresh-gif1').hide()
+        $('.port-status').removeClass('red')
+        $('.port-status').addClass('green')
+        $('.port-status').text('Port is Open')
+      else
+        $('.refresh-gif1').hide()
+        $('.port-status').removeClass('green')
+        $('.port-status').addClass('red')
+        $('.port-status').text('Port is Closed')
+    else
+      if result.open is true
+        $('.refresh-gif2').hide()
+        $('.rtsp-port-status').removeClass('red')
+        $('.rtsp-port-status').addClass('green')
+        $('.rtsp-port-status').text('Port is Open')
+      else
+        $('.refresh-gif2').hide()
+        $('.rtsp-port-status').removeClass('green')
+        $('.rtsp-port-status').addClass('red')
+        $('.rtsp-port-status').text('Port is Closed')
+
   settings =
     data: data
     dataType: 'json'
@@ -289,21 +270,27 @@ rtsp_port_check = ->
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
     type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ip}&port=#{port}"
+    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
 
-  sendAJAXRequest1(settings)
+  jQuery.ajax(settings)
   true
 
 check_port = ->
-  $('#port').on 'keyup', external_port_check
-  $('#camera-url').on 'keyup', ip_check
-  $('#ext-rtsp-port').on 'keyup', rtsp_port_check
-
-ip_check = ->
-  external_port_check()
-  rtsp_port_check()
+  $('#port').on 'keyup', ->
+    port = $('#port').val()
+    port_check(ip,port,1)
+  $('#camera-url').on 'keyup', ->
+    ip = $('#camera-url').val()
+    port_check(ip,port,1)
+    port_check(ip,rtsp_port,2)
+  $('#ext-rtsp-port').on 'keyup', ->
+    rtsp_port = $('#ext-rtsp-port').val()
+    port_check(ip,rtsp_port,2)
 
 window.initializeAddCamera = ->
+  ip = $('#camera-url').val()
+  port = $('#port').val()
+  rtsp_port = $('#ext-rtsp-port').val()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
@@ -315,7 +302,7 @@ window.initializeAddCamera = ->
   onAddCamera()
   onCustomizedUrl()
   check_port()
-  external_port_check()
-  rtsp_port_check()
+  port_check(ip,port,1)
+  port_check(ip,rtsp_port,2)
   NProgress.done()
 

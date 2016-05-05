@@ -102,8 +102,8 @@
 
   .left-column {
     float: left;
-    margin-bottom: 10px;
-    padding-right: 10px;
+    margin-bottom: 5px;
+    padding-right: 5px;
     width: 80%;
   }
   .right-column {
@@ -189,12 +189,16 @@
     user-select: none;
 
     .navbar-section {
-      position: absolute;
+      position: fixed;
+      z-index: 2;
       bottom: 0;
-      width: 100%;
       top: inherit;
       left: inherit;
       margin: 0px;
+    }
+
+    .slider {
+      display: block;
     }
 
   }
@@ -670,6 +674,14 @@
   font-size: 14px;
 }
 
-.navbar-section span {
-  color: $white;
+.navbar-settings {
+
+  span {
+    color: $white;
+  }
+
+  .btn {
+    color: $white;
+  }
+
 }

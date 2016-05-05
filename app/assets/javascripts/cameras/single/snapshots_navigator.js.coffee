@@ -574,6 +574,7 @@ loadImage = (timestamp) ->
   data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
+    recodringSnapshotDivHeight()
     false
 
   onSuccess = (response) ->
@@ -581,6 +582,7 @@ loadImage = (timestamp) ->
       $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
+    recodringSnapshotDivHeight()
     true
 
   settings =
@@ -719,7 +721,6 @@ handleWindowResize = ->
   $(window).on "resize", ->
     totalWidth = $("#divSlider").width()
     $("#divPointer").width(totalWidth * currentFrameNumber / totalFrames)
-    recodringSnapshotDivHeight()
 
 handlePlay = ->
   $("#btnPlayRec").on "click", ->
@@ -948,6 +949,7 @@ handleResize = ->
   calculateWidth()
   $(window).resize ->
     calculateWidth()
+    recodringSnapshotDivHeight()
 
 onCollapsRecording = ->
   $('#cloud-recording-collaps').click ->
@@ -962,10 +964,15 @@ calendarShow = ->
     return
 
 recodringSnapshotDivHeight = ->
-  if $(window).width() <= 990
-    $('#fullscreen > img').css height: '100%'
+  calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()
+  if $('#fullscreen > img').height() < calcuHeight
+    $('div#navbar-section').removeClass 'navbar-section'
+    $('div#navbar-section').css 'width', $('.left-column').width()
+    return
   else
-    $('#fullscreen > img').css height: $(window).innerHeight() - $('.center-tabs').height()
+    $('div#navbar-section').addClass 'navbar-section'
+    $('div#navbar-section').css 'width', $('.left-column').width()
+    return
 
 window.initializeRecordingsTab = ->
   initDatePicker()
@@ -983,5 +990,4 @@ window.initializeRecordingsTab = ->
   onCollapsRecording()
   selectMdImage()
   calendarShow()
-  recodringSnapshotDivHeight()
   # calendarHide()

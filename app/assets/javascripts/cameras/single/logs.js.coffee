@@ -41,7 +41,10 @@ initializeDataTable = ->
       url: $('#ajax-url').val(),
       dataSrc: 'logs',
       error: (xhr, error, thrown) ->
-        Notification.show("Something went wrong, Please try again.")
+        if xhr.responseJSON
+          Notification.show(xhr.responseJSON.message)
+        else
+          Notification.show("Something went wrong, Please try again.")
         NProgress.done()
     },
     columns: [

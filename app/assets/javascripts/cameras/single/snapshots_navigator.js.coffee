@@ -990,5 +990,4 @@ window.initializeRecordingsTab = ->
   onCollapsRecording()
   selectMdImage()
   calendarShow()
-  # recodringSnapshotDivHeight()
   # calendarHide()

@@ -24,7 +24,15 @@
     position: relative;
     left: 1px;
   }
+
 }
+
+@media (max-width: 800px) {
+  #add-ip #port {
+    width: 30% !important;
+  }
+}
+
 #add-ip .form-actions {
   padding-bottom: 15px;
 }

@@ -1,6 +1,7 @@
 table = null
 
 updateLogTypesFilter = () ->
+  NProgress.start()
   exid = $('#exid').val()
   page = $('#current-page').val()
   types = []
@@ -27,13 +28,24 @@ toggleAllTypeFilters = ->
     $("input[name='type']").prop("checked", false)
     $(".type-label span").removeClass("checked")
 
+toggleCheckboxes = ->
+  if !$('#type-online').is(':checked')
+    $("input[id='type-online']").prop("checked", true)
+    $("input[id='type-offline']").prop("checked", true)
+    $("label[for='type-online'] span").addClass("checked")
+    $("label[for='type-offline'] span").addClass("checked")
+
 initializeDataTable = ->
   table = $('#logs-table').DataTable({
     ajax: {
       url: $('#ajax-url').val(),
       dataSrc: 'logs',
       error: (xhr, error, thrown) ->
-        Notification.show(xhr.responseJSON.message)
+        if xhr.responseJSON
+          Notification.show(xhr.responseJSON.message)
+        else
+          Notification.show("Something went wrong, Please try again.")
+        NProgress.done()
     },
     columns: [
       {data: ( row, type, set, meta ) ->
@@ -45,7 +57,14 @@ initializeDataTable = ->
             return row.action + ' with ' + (row.extra.with if row.extra)
           else
             return row.action
-        return row.action
+        else if row.action is 'online'
+          return '<div class="onlines">Camera came online</div>'
+        else if row.action is 'offline'
+          return '<div class="offlines">Camera went offline</div>'
+        else if row.action is 'accessed'
+          return 'Camera was viewed'
+        else
+          return row.action
       , className: 'log-action'},
       {data: ( row, type, set, meta ) ->
         if row.action is 'online' or row.action is 'offline'
@@ -53,8 +72,11 @@ initializeDataTable = ->
         return row.who
       }
     ],
+    autoWidth: false,
     iDisplayLength: 50,
-    order: [[ 0, "desc" ]]
+    order: [[ 0, "desc" ]],
+    drawCallback: ->
+      NProgress.done()
   })
 
 window.initializeLogsTab = ->
@@ -63,5 +85,7 @@ window.initializeLogsTab = ->
   $('#type-all').click(toggleAllTypeFilters)
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
+  toggleCheckboxes()
   updateLogTypesFilter()
   initializeDataTable()
+

@@ -102,8 +102,8 @@
 
   .left-column {
     float: left;
-    margin-bottom: 20px;
-    padding-right: 10px;
+    margin-bottom: 5px;
+    padding-right: 5px;
     width: 80%;
   }
   .right-column {
@@ -187,6 +187,20 @@
     /* Rules below not implemented in browsers yet */
     -o-user-select: none;
     user-select: none;
+
+    .navbar-section {
+      position: fixed;
+      z-index: 2;
+      bottom: 0;
+      top: inherit;
+      left: inherit;
+      margin: 0px;
+    }
+
+    .slider {
+      display: block;
+    }
+
   }
   .snapshots i {
     color: #ffffff;
@@ -279,7 +293,7 @@
     text-align: center;
     margin: 0;
     padding: 8px 0;
-    background-color: #f3f3f3;
+    background-color: $ever-background;
     position: relative;
   }
 
@@ -474,7 +488,7 @@
       margin-top: 0;
     }
     .playback-buttons-bar {
-      background-color: #f5f5f5;
+      background-color: $ever-background;
     }
     .snapshot-date {
       position: absolute;
@@ -658,4 +672,16 @@
 
 .schedule-label {
   font-size: 14px;
+}
+
+.navbar-settings {
+
+  span {
+    color: $white;
+  }
+
+  .btn {
+    color: $white;
+  }
+
 }

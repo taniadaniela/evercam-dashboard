@@ -1,6 +1,7 @@
 ip = null
 port = null
 rtsp_port = null
+xhrRequestPortCheck = null
 
 initNotification = ->
   Notification.init(".bb-alert");
@@ -245,19 +246,42 @@ port_check = (external_port,type) ->
     type: 'GET'
     url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
 
-  jQuery.ajax(settings)
+  xhrRequestPortCheck = jQuery.ajax(settings)
   true
 
 check_port = ->
+  regexp = /^[0-9]{2,5}$/
   $('#port').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
     port = $('#port').val()
-    port_check(port,'')
+    if port and !port.match regexp
+      $('.external-port').css('borderColor',"#b94a48")
+      $(".port-status").empty()
+    else
+      $('.external-port').css('borderColor',"#aaaaaa")
+      port_check(port,'')
   $('#camera-url').on 'keyup', ->
-    port_check(port,'')
-    port_check(rtsp_port,'rtsp-')
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    port_check(port,'') unless !port.match regexp
+    port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
   $('#ext-rtsp-port').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
     rtsp_port = $('#ext-rtsp-port').val()
-    port_check(rtsp_port,'rtsp-')
+    if rtsp_port and !rtsp_port.match regexp
+      $('#change').css('borderColor',"#b94a48")
+      $(".rtsp-port-status").empty()
+    else
+      $('#change').css('borderColor',"#aaaaaa")
+      port_check(rtsp_port,'rtsp-')
+
+cursor_visible = ->
+  $('.external-port').on 'click', ->
+    $('#port').focus()
+  $('#change').on 'click', ->
+    $('#ext-rtsp-port').focus()
 
 window.initializeAddCamera = ->
   ip = $('#camera-url').val()
@@ -273,6 +297,7 @@ window.initializeAddCamera = ->
   loadVendors()
   onAddCamera()
   onCustomizedUrl()
+  cursor_visible()
   check_port()
   port_check(port,'')
   port_check(rtsp_port,'rtsp-')

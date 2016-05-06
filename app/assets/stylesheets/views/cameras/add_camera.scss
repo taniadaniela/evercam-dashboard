@@ -247,6 +247,11 @@ input:-webkit-autofill {
 }
 
 #add-ip {
+
+  .camera-ext-port {
+    width: 100%;
+  }
+
   .prepend-3 {
     margin-top: 6px;
     position: absolute;
@@ -259,13 +264,13 @@ input:-webkit-autofill {
   .port-input {
     border-bottom: none;
     display: inline-block;
-    width: 40% !important;
+    width: 35% !important;
   }
 
   .rtsp-input {
     border-bottom: none;
     display: inline-block;
-    width: 55%;
+    width: 35%;
   }
 
 }
@@ -310,7 +315,10 @@ input:-webkit-autofill {
 }
 
 .camera-ext-port .port-status {
-  width: 60%;
+  display: inline;
+  float: right;
+  font-size: 15px;
+  margin-top: 9px;
 }
 
 .camera-ext-port .refresh-gif {
@@ -328,7 +336,10 @@ input:-webkit-autofill {
 }
 
 .ext-rtsp-port .rtsp-port-status {
-  width: 45%;
+  display: inline;
+  float: right;
+  font-size: 15px;
+  margin-top: 9px;
 }
 
 .ext-rtsp-port .rtsp-refresh-gif {

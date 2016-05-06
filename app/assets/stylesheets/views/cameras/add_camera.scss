@@ -27,12 +27,6 @@
 
 }
 
-@media (max-width: 800px) {
-  #add-ip #port {
-    width: 30% !important;
-  }
-}
-
 #add-ip .form-actions {
   padding-bottom: 15px;
 }
@@ -272,13 +266,13 @@ input:-webkit-autofill {
   .port-input {
     border-bottom: none;
     display: inline-block;
-    width: 35% !important;
+    width: 30%;
   }
 
   .rtsp-input {
     border-bottom: none;
     display: inline-block;
-    width: 35%;
+    width: 30%;
   }
 
 }

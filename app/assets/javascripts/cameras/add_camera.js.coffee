@@ -255,25 +255,25 @@ check_port = ->
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     port = $('#port').val()
-    port_check(port,'')
     if port and !port.match regexp
       $('.external-port').css('borderColor',"#b94a48")
     else
       $('.external-port').css('borderColor',"#aaaaaa")
+      port_check(port,'')
   $('#camera-url').on 'keyup', ->
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
-    port_check(port,'')
-    port_check(rtsp_port,'rtsp-')
+    port_check(port,'') unless !port.match regexp
+    port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
   $('#ext-rtsp-port').on 'keyup', ->
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     rtsp_port = $('#ext-rtsp-port').val()
-    port_check(rtsp_port,'rtsp-')
     if rtsp_port and !rtsp_port.match regexp
       $('#change').css('borderColor',"#b94a48")
     else
       $('#change').css('borderColor',"#aaaaaa")
+      port_check(rtsp_port,'rtsp-')
 
 cursor_visible = ->
   $('.external-port').on 'click', ->

@@ -257,6 +257,7 @@ check_port = ->
     port = $('#port').val()
     if port and !port.match regexp
       $('.external-port').css('borderColor',"#b94a48")
+      $(".port-status").empty()
     else
       $('.external-port').css('borderColor',"#aaaaaa")
       port_check(port,'')
@@ -271,6 +272,7 @@ check_port = ->
     rtsp_port = $('#ext-rtsp-port').val()
     if rtsp_port and !rtsp_port.match regexp
       $('#change').css('borderColor',"#b94a48")
+      $(".rtsp-port-status").empty()
     else
       $('#change').css('borderColor',"#aaaaaa")
       port_check(rtsp_port,'rtsp-')

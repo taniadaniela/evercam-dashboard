@@ -38,6 +38,8 @@ initializeArchivesDataTable = ->
     bSort: false,
     bFilter: false,
     autoWidth: false,
+    drawCallback: ->
+      initializePopup()
     initComplete: (settings, json) ->
       $("#archives-table_length").hide()
       if json.archives.length is 0
@@ -53,7 +55,6 @@ initializeArchivesDataTable = ->
       else if json.archives.length >= 50
         $("#archives-table_info").show()
         $('#archives-table_paginate').hide()
-      initializePopup()
       true
   })
 
@@ -197,7 +198,6 @@ createClip = ->
     onSuccess = (data, status, jqXHR) ->
       if data.success
         archives_table.ajax.reload (json) ->
-          initializePopup()
           $('#archives-table').show()
           $("#no-archive").hide()
           NProgress.done()

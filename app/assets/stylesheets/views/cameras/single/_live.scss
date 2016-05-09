@@ -369,27 +369,31 @@
   max-height: 400px;
 }
 
-.camera-preset .modal-header {
-  background-color: #f3f3f3;
-  background-image: linear-gradient(to bottom, white, #e1e1e1);
-  background-repeat: repeat-x;
-  border-bottom: 1px solid #ccc;
-  border-radius: 6px 6px 0 0;
-  padding: 5px;
-}
+.camera-preset {
 
-.camera-preset .cancel_link {
+  .modal-header {
+    background-color: #f3f3f3;
+    background-image: linear-gradient(to bottom, white, #e1e1e1);
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #ccc;
+    border-radius: 6px 6px 0 0;
+    padding: 5px;
+  }
+
+  .modal-header strong {
+    line-height: 34px;
+    margin-left: 10px;
+  }
+
+
+}
+.camera-preset .cancel-link {
   color: #cccccc;
   font-size: 16px;
   font-weight: bolder;
   position: absolute;
   right: 16px;
   top: 10px;
-}
-
-.camera-preset .modal-header strong {
-  line-height: 34px;
-  margin-left: 10px;
 }
 
 .camera-preset .modal-footer {

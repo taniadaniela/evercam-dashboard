@@ -417,7 +417,6 @@
 
 #camera-presets .row-preset {
   display: inline-block;
-  width: 90%;
 }
 
 #camera-presets .fa-edit {
@@ -425,7 +424,15 @@
   float: right;
   width: 10%;
   color: $main-color;
-  font-size: 15px;
+  font-size: 20px;
+}
+
+#camera-presets .fa-trash-o {
+  display: inline-block;
+  float: right;
+  width: 10%;
+  color: $main-color;
+  font-size: 20px;
 }
 
 #camera-presets .fa-edit:hover {
@@ -461,12 +468,22 @@
   height: 100px;
 }
 
+.delete-presets .modal-dialog {
+  width: 300px;
+  height: 100px;
+}
+
 .create-presets .preset-value {
   width: 100%;
   font-size: 15px;
 }
 
 .edit-presets .edit-value {
+  width: 100%;
+  font-size: 15px;
+}
+
+.delete-presets .delete-value {
   width: 100%;
   font-size: 15px;
 }

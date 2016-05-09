@@ -362,8 +362,13 @@
 
 .camera-preset {
 
+  strong {
+    line-height: 34px;
+    margin-left: 10px;
+  }
+
   .modal-dialog {
-    z-index: 2147483647 !important;
+    z-index: 2147483647;
   }
 
   .modal-body {
@@ -378,12 +383,6 @@
     border-bottom: 1px solid $border-black;
     border-radius: 6px 6px 0 0;
     padding: 5px;
-
-    strong {
-      line-height: 34px;
-      margin-left: 10px;
-    }
-
   }
 
   .cancel-link {

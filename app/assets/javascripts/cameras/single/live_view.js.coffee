@@ -222,7 +222,7 @@ getPtzPresets = ->
       if preset.token < 33
         whole_div = $('<div>', {class: "whole-row"})
         divPresets =$('<div>', {class: "row-preset"})
-        edit_icon = $('<i>', {class: "fa fa-edit edit-ptz-ctrl"})
+        edit_icon = $('<i>', {class: "fa fa-pencil edit-ptz-ctrl"})
         delete_icon = $('<i>', {class: "fa fa-trash-o delete-ptz-ctrl"})
         edit_icon.attr("data-dismiss", "modal")
         edit_icon.attr("data-target", "#edit-preset")

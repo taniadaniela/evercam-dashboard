@@ -360,16 +360,16 @@
   z-index: 10050009999 !important;
 }
 
-#camera-presets .modal-dialog {
+.camera-preset .modal-dialog {
   z-index: 2147483647 !important;
 }
 
-#camera-presets .modal-body {
+.camera-preset .modal-body {
   padding: 0px;
   max-height: 400px;
 }
 
-#camera-presets .modal-header {
+.camera-preset .modal-header {
   background-color: #f3f3f3;
   background-image: linear-gradient(to bottom, white, #e1e1e1);
   background-repeat: repeat-x;
@@ -378,7 +378,7 @@
   padding: 5px;
 }
 
-#camera-presets .cancel_link {
+.camera-preset .cancel_link {
   color: #cccccc;
   font-size: 16px;
   font-weight: bolder;
@@ -387,21 +387,21 @@
   top: 10px;
 }
 
-#camera-presets .modal-header strong {
+.camera-preset .modal-header strong {
   line-height: 34px;
   margin-left: 10px;
 }
 
-#camera-presets .modal-footer {
+.camera-preset .modal-footer {
   border-top: none;
 }
 
-#camera-presets .form-group {
+.camera-preset .form-group {
   margin-bottom: 0;
   max-height: 300px;
 }
 
-#camera-presets .whole-row {
+.camera-preset .whole-row {
   border-bottom: solid 1px $border-black;
   padding-bottom: 7px;
   padding-top: 7px;
@@ -411,23 +411,15 @@
   margin-left: 15px;
 }
 
-#camera-presets .whole-row:hover {
+.camera-preset .whole-row:hover {
   background-color: $evercam-grey;
 }
 
-#camera-presets .row-preset {
+.camera-preset .row-preset {
   display: inline-block;
 }
 
-#camera-presets .fa-pencil {
-  display: inline-block;
-  float: right;
-  width: 10%;
-  color: $main-color;
-  font-size: 20px;
-}
-
-#camera-presets .fa-trash-o {
+.camera-preset .fa-pencil {
   display: inline-block;
   float: right;
   width: 10%;
@@ -435,7 +427,15 @@
   font-size: 20px;
 }
 
-#camera-presets .fa-edit:hover {
+.camera-preset .fa-trash-o {
+  display: inline-block;
+  float: right;
+  width: 10%;
+  color: $main-color;
+  font-size: 20px;
+}
+
+.camera-preset .fa-edit:hover {
   color: $dark-blue;
 }
 

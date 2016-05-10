@@ -28,19 +28,19 @@
 
       <%= form_for(:session, url: sessions_path, :html => { :id => "user-sign-in" }) do |f| %>
 
-        <div class="grey col-md-12 padding-left-right-40 text-center">
-          <%= f.label :email %> <%= f.label :or %> <%= f.label :username %>
+        <div class="form-group grey col-md-12 padding-left-right-40 text-center">
           <div class="input-icon right">
             <i class="icon-user"></i>
-            <%= f.text_field :login, value: params.fetch(session, {})[:login] %>
+            <%= f.text_field :login, value: params.fetch(session, {})[:login], class: "form-control", required: "required" %>
+            <%= label_tag('session_login', "Email Or username", class: "float-label") %>
           </div>
         </div>
 
-        <div class="col-md-12 padding-left-right-40 text-center">
-          <%= f.label :password %>
+        <div class="form-group col-md-12 padding-left-right-40 text-center">
           <div class="input-icon right">
             <i class="icon-key"></i>
-            <%= f.password_field :password %>
+            <%= f.password_field :password, class: "form-control", required: "required" %>
+            <%= f.label :password, class: "float-label" %>
           </div>
         </div>
 
@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <div class="col-md-12 padding-left-right-40 text-center">
+        <div class="col-md-12 text-center">
           <div class="grey margin-top-20">
             <p>I've <%= link_to "forgotten my password", password_reset_path %></p>
           </div>
@@ -58,7 +58,7 @@
         <input type="hidden" id="session_anchor" name="session[anchor]">
       <% end %>
 
-      <div class="grey col-md-12 padding-left-right-40 text-center margin-top-20">
+      <div class="grey col-md-12 text-center">
         <p>Or <%= link_to "Create New Account", signup_path %></p>
       </div>
 

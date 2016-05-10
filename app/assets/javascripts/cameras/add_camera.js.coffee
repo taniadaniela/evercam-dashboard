@@ -291,7 +291,7 @@ window.initializeAddCamera = ->
   Layout.init()
   QuickSidebar.init()
   onLoadPage()
-  $.validate()
+  $.validate(validateOnEvent : true)
   handleVendorModelEvents()
   initNotification()
   loadVendors()

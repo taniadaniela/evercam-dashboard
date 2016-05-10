@@ -421,6 +421,7 @@ refreshLastSnaps = ->
 
 port_check = (external_port,type) ->
   ex_ip = $('#camera-url').val()
+  url = "cameras/port-check"
   ex_port = external_port
   if !ex_port
     $(".#{type}port-status").hide()
@@ -458,7 +459,7 @@ port_check = (external_port,type) ->
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
     type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
+    url: "#{Evercam.MEDIA_API_URL}#{url}?address=#{ex_ip}&port=#{ex_port}"
 
   xhrRequestPortCheck = jQuery.ajax(settings)
   true

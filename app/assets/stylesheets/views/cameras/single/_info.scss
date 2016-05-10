@@ -381,3 +381,59 @@ p#search-notes {
 .width100per {
   width: 100%;
 }
+
+.table {
+
+  .port-changes {
+    background-color: $form-grey;
+  }
+
+  .rtsp-port-changes {
+    background-color: $form-grey;
+  }
+
+  .port {
+    background-color: transparent;
+    border: 0;
+    width: 50%;
+    display: inline-block;
+  }
+
+  .rtsp-port {
+    background-color: transparent;
+    border: 0;
+    width: 50%;
+    display: inline-block;
+  }
+
+  .port-status {
+    display: inline;
+    margin-right: 10px;
+    float: right;
+    margin-top: 7px;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .rtsp-port-status {
+    display: inline;
+    margin-right: 10px;
+    float: right;
+    margin-top: 7px;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .refresh-gif {
+    display: none;
+    margin-right: 20px;
+    float: right;
+  }
+
+  .rtsp-refresh-gif {
+    display: none;
+    margin-right: 20px;
+    float: right;
+  }
+
+}

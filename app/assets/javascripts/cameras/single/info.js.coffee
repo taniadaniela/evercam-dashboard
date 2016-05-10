@@ -1,5 +1,8 @@
 previous = undefined
 map_loaded = false
+xhrRequestPortCheck = null
+port = null
+rtsp_port = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -416,11 +419,103 @@ refreshLastSnaps = ->
     img.attr "src", src
     setTimeout hideRefreshGif , 2000
 
+port_check = (external_port,type) ->
+  ex_ip = $('#camera-url').val()
+  ex_port = external_port
+  if !ex_port
+    $(".#{type}port-status").hide()
+    return
+  if !ex_ip
+    $(".#{type}port-status").hide()
+    return
+  $(".#{type}port-status").hide()
+  $(".#{type}refresh-gif").show()
+  data = {}
+
+  onError = (jqXHR, textStatus, ex) ->
+    $(".#{type}refresh-gif").hide()
+    $(".#{type}port-status").show()
+    $(".#{type}port-status").removeClass('green')
+    $(".#{type}port-status").addClass('red')
+    $(".#{type}port-status").text('Port is Closed')
+
+  onSuccess = (result, status, jqXHR) ->
+    if result.open is true
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").show()
+      $(".#{type}port-status").removeClass('red')
+      $(".#{type}port-status").addClass('green')
+      $(".#{type}port-status").text('Port is Open')
+    else
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").empty()
+      $(".#{type}port-status").show()
+      $(".#{type}port-status").removeClass('green')
+      $(".#{type}port-status").addClass('red')
+      $(".#{type}port-status").text('Port is Closed')
+
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
+
+  xhrRequestPortCheck = jQuery.ajax(settings)
+  true
+
+check_port = ->
+  regexp = /^[0-9]{2,5}$/
+  $('#port').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    port = $('#port').val()
+    if port and !port.match regexp
+      $(".port-status").hide()
+      $("#port").css('width', '100%')
+      $("#port").css('backgroundColor','#f0f0f0')
+      $(".port-changes").css('backgroundColor','transparent')
+    else
+      $("#port").css('width', '50%')
+      $("#port").css('backgroundColor','transparent')
+      $(".port-changes").css('backgroundColor','#f0f0f0')
+      port_check(port,'')
+  $('#camera-url').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    port_check(port,'') unless !port.match regexp
+    port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
+  $('#ext-rtsp-port').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    rtsp_port = $('#ext-rtsp-port').val()
+    if rtsp_port and !rtsp_port.match regexp
+      $(".rtsp-port-status").hide()
+      $("#ext-rtsp-port").css('width', '100%')
+      $("#ext-rtsp-port").css('backgroundColor','#f0f0f0')
+      $(".rtsp-port-changes").css('backgroundColor','transparent')
+    else
+      $("#ext-rtsp-port").css('width', '50%')
+      $("#ext-rtsp-port").css('backgroundColor','transparent')
+      $(".rtsp-port-changes").css('backgroundColor','#f0f0f0')
+      port_check(rtsp_port,'rtsp-')
+
+cursor_visible = ->
+  $('.port-changes').on 'click', ->
+    $('#port').focus()
+  $('.rtsp-port-changes').on 'click', ->
+    $('#ext-rtsp-port').focus()
+
 hideRefreshGif = ->
   $('.refresh-detail-snap i').show()
   $('.refresh-detail-snap .refresh-gif').hide()
 
 window.initializeInfoTab = ->
+  port = $('#port').val()
+  rtsp_port = $('#ext-rtsp-port').val()
   $('.open-sharing').click(showSharingTab)
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
   $('.change_camera_ownership').click(onChangeOwnerSubmitClicked)
@@ -436,3 +531,7 @@ window.initializeInfoTab = ->
   $("#save-map-location").on "click", saveMapLocation
   handleMapEvents()
   refreshLastSnaps()
+  port_check(port,'')
+  port_check(rtsp_port,'rtsp-')
+  check_port()
+  cursor_visible()

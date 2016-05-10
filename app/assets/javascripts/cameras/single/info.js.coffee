@@ -435,23 +435,19 @@ port_check = (external_port,type) ->
   onError = (jqXHR, textStatus, ex) ->
     $(".#{type}refresh-gif").hide()
     $(".#{type}port-status").show()
-    $(".#{type}port-status").removeClass('green')
-    $(".#{type}port-status").addClass('red')
+    $(".#{type}port-status").removeClass('green').addClass('red')
     $(".#{type}port-status").text('Port is Closed')
 
   onSuccess = (result, status, jqXHR) ->
     if result.open is true
       $(".#{type}refresh-gif").hide()
       $(".#{type}port-status").show()
-      $(".#{type}port-status").removeClass('red')
-      $(".#{type}port-status").addClass('green')
+      $(".#{type}port-status").removeClass('red').addClass('green')
       $(".#{type}port-status").text('Port is Open')
     else
       $(".#{type}refresh-gif").hide()
-      $(".#{type}port-status").empty()
       $(".#{type}port-status").show()
-      $(".#{type}port-status").removeClass('green')
-      $(".#{type}port-status").addClass('red')
+      $(".#{type}port-status").removeClass('green').addClass('red')
       $(".#{type}port-status").text('Port is Closed')
 
 
@@ -467,7 +463,7 @@ port_check = (external_port,type) ->
   xhrRequestPortCheck = jQuery.ajax(settings)
   true
 
-check_port = ->
+init_key_events = ->
   regexp = /^[0-9]{2,5}$/
   $('#port').on 'keyup', ->
     if xhrRequestPortCheck
@@ -533,5 +529,5 @@ window.initializeInfoTab = ->
   refreshLastSnaps()
   port_check(port,'')
   port_check(rtsp_port,'rtsp-')
-  check_port()
+  init_key_events()
   cursor_visible()

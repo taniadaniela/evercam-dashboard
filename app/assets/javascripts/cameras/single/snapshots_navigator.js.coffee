@@ -75,6 +75,7 @@ changeMonthFromArrow = (value) ->
   BoldSnapshotHour(false)
 
 walkDaysInMonth = (year, month) ->
+  NProgress.start()
   BoldDays = []
   d = new Date()
   currentMonth = d.getMonth() + 1
@@ -97,10 +98,12 @@ checkDay = (year, month, day) ->
   data.api_key = Evercam.User.api_key
 
   onError = (response, status, error) ->
+    NProgress.done()
     false
 
   onSuccess = (response, status, jqXHR) ->
     HighlightDay(year, month, day, response.exists)
+    NProgress.done()
 
   settings =
     cache: true
@@ -353,6 +356,7 @@ HighlightDay = (year, month, day, exists) ->
             calDay.addClass('no-snapshot')
 
 BoldSnapshotHour = (callFromDt) ->
+  NProgress.start()
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
@@ -365,6 +369,7 @@ BoldSnapshotHour = (callFromDt) ->
     HideLoader()
     $('#snapshot-tab-save').hide()
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
+    NProgress.done()
 
   settings =
     cache: false
@@ -403,10 +408,13 @@ BoldSnapshotHourSuccess = (result, context) ->
       if playFromDateTime isnt null
         lastBoldHour = cameraCurrentHour
       SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
+    NProgress.done()
   else
     NoRecordingDayOrHour()
+    NProgress.done()
 
 GetCameraInfo = (isShowLoader) ->
+  NProgress.start()
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
@@ -425,6 +433,7 @@ GetCameraInfo = (isShowLoader) ->
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
+    NProgress.done()
     false
   onSuccess = (response) ->
     snapshotInfoIdx = 0
@@ -461,6 +470,7 @@ GetCameraInfo = (isShowLoader) ->
       SetInfoMessage(currentFrameNumber, frameDateTime)
       loadImage(snapshotTimeStamp)
       BindMDStrip()
+    NProgress.done()
     true
 
   settings =
@@ -564,6 +574,7 @@ loadImage = (timestamp) ->
   data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
+    recodringSnapshotDivHeight()
     false
 
   onSuccess = (response) ->
@@ -571,6 +582,7 @@ loadImage = (timestamp) ->
       $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
+    recodringSnapshotDivHeight()
     true
 
   settings =
@@ -937,6 +949,7 @@ handleResize = ->
   calculateWidth()
   $(window).resize ->
     calculateWidth()
+    recodringSnapshotDivHeight()
 
 onCollapsRecording = ->
   $('#cloud-recording-collaps').click ->
@@ -948,6 +961,17 @@ calendarShow = ->
       $('#calendar .fa').css 'color', 'white'
       return
     $('#calendar .fa').css 'color', 'blue'
+    return
+
+recodringSnapshotDivHeight = ->
+  calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()
+  if $('#fullscreen > img').height() < calcuHeight
+    $('div#navbar-section').removeClass 'navbar-section'
+    $('div#navbar-section').css 'width', $('.left-column').width()
+    return
+  else
+    $('div#navbar-section').addClass 'navbar-section'
+    $('div#navbar-section').css 'width', $('.left-column').width()
     return
 
 window.initializeRecordingsTab = ->

@@ -70,10 +70,7 @@ Rails.application.routes.draw do
   post '/v1/users/:id' => 'users#settings_update'
   put '/v1/users/:id/password/change' => 'users#change_password', as: :user_change_password
 
-  get '/v1/users/:id/apps' => 'apps#index', as: :apps
-  get '/v1/users/:id/apps/:token_id' => 'apps#revoke', as: :revoke
-  get '/dev' => 'pages#dev'
-  get '/swagger' => 'pages#swagger'
+  get '/swagger' => 'pages#swagger', as: :swagger
   get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view
   get '/live.view.widget' => 'widgets#live_view_widget'
   get '/live.view.private.widget' => 'widgets#live_view_private_widget'
@@ -101,13 +98,6 @@ Rails.application.routes.draw do
   post '/share/request/resend' => 'sharing#resend_share_request'
   patch '/share/request' => 'sharing#update_share_request'
   patch '/share/:id' => 'sharing#update_share'
-
-  get '/oauth2/error' => 'oauth2#error'
-  post '/oauth2/feedback' => 'oauth2#feedback'
-  get '/oauth2/authorize' => 'oauth2#authorize'
-  post '/oauth2/authorize' => 'oauth2#post_authorize'
-  get '/oauth2/tokeninfo' => 'oauth2#tokeninfo'
-  get '/oauth2/revoke' => 'oauth2#revoke'
 
   get '*path' => 'pages#log_and_redirect'
 end

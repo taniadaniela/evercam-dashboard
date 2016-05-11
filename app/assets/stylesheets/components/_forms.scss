@@ -1,4 +1,4 @@
-#user-settings, #add-ip {
+#user-settings, #add-ip,#sign-in-form, #new-account {
 .form-control[disabled] {
   background-color: $white;
   border:none;
@@ -44,7 +44,6 @@
   position: relative;
   z-index: inherit;
   float: inherit;
-  width: 100%;
   margin-bottom: 0;
 }
 .form-control:focus {

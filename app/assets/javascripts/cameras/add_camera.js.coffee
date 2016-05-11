@@ -1,3 +1,8 @@
+ip = null
+port = null
+rtsp_port = null
+xhrRequestPortCheck = null
+
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
@@ -13,6 +18,7 @@ sendAJAXRequest = (settings) ->
   true
 
 loadVendorModels = (vendor_id, stroke_key_up) ->
+  NProgress.start()
   $("#camera-model option").remove()
   $("#camera-model").append('<option value="">Loading...</option>');
   if vendor_id is ""
@@ -22,6 +28,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
     $("#snapshot-readonly").val("")
     $("#snapshot").removeClass("hide")
     $("#snapshot-readonly").addClass("hide")
+    NProgress.done()
     return
 
   data = {}
@@ -31,6 +38,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
   data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
+    NProgress.done()
     false
 
   onSuccess = (result, status, jqXHR) ->
@@ -63,6 +71,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
         $("#snapshot").removeClass("hide")
         $("#snapshot-readonly").addClass("hide")
     $("#last-selected-model").val('')
+    NProgress.done()
 
   settings =
     cache: false
@@ -196,7 +205,88 @@ onCustomizedUrl = ->
       $("#camera-vendor").val("other")
       loadVendorModels($("#camera-vendor").val(), true)
 
+port_check = (external_port,type) ->
+  ex_ip = $('#camera-url').val()
+  ex_port = external_port
+  if !ex_port
+    $(".#{type}port-status").empty()
+    return
+  if !ex_ip
+    $(".#{type}port-status").empty()
+    return
+  $(".#{type}port-status").empty()
+  $(".#{type}refresh-gif").show()
+  data = {}
+
+  onError = (jqXHR, textStatus, ex) ->
+    $(".#{type}refresh-gif").hide()
+    $(".#{type}port-status").removeClass('green')
+    $(".#{type}port-status").addClass('red')
+    $(".#{type}port-status").text('Port is Closed')
+
+  onSuccess = (result, status, jqXHR) ->
+    if result.open is true
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").removeClass('red')
+      $(".#{type}port-status").addClass('green')
+      $(".#{type}port-status").text('Port is Open')
+    else
+      $(".#{type}refresh-gif").hide()
+      $(".#{type}port-status").removeClass('green')
+      $(".#{type}port-status").addClass('red')
+      $(".#{type}port-status").text('Port is Closed')
+
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
+
+  xhrRequestPortCheck = jQuery.ajax(settings)
+  true
+
+check_port = ->
+  regexp = /^[0-9]{2,5}$/
+  $('#port').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    port = $('#port').val()
+    if port and !port.match regexp
+      $('.external-port').css('borderColor',"#b94a48")
+      $(".port-status").empty()
+    else
+      $('.external-port').css('borderColor',"#aaaaaa")
+      port_check(port,'')
+  $('#camera-url').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    port_check(port,'') unless !port.match regexp
+    port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
+  $('#ext-rtsp-port').on 'keyup', ->
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    rtsp_port = $('#ext-rtsp-port').val()
+    if rtsp_port and !rtsp_port.match regexp
+      $('#change').css('borderColor',"#b94a48")
+      $(".rtsp-port-status").empty()
+    else
+      $('#change').css('borderColor',"#aaaaaa")
+      port_check(rtsp_port,'rtsp-')
+
+cursor_visible = ->
+  $('.external-port').on 'click', ->
+    $('#port').focus()
+  $('#change').on 'click', ->
+    $('#ext-rtsp-port').focus()
+
 window.initializeAddCamera = ->
+  ip = $('#camera-url').val()
+  port = $('#port').val()
+  rtsp_port = $('#ext-rtsp-port').val()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
@@ -207,4 +297,9 @@ window.initializeAddCamera = ->
   loadVendors()
   onAddCamera()
   onCustomizedUrl()
+  cursor_visible()
+  check_port()
+  port_check(port,'')
+  port_check(rtsp_port,'rtsp-')
   NProgress.done()
+

@@ -52,7 +52,7 @@
                 <div class="col-sm-6 <%= field_errors["name"] ? ' has-error' : '' %>">
                   <div class='form-group'>
                     <%= text_field_tag("camera-name", @user['camera-name'], "class" => "form-control", "required" =>"
-                    ", "data-validation-help" => "To identify your camera in the dashboard, Max 24 characters.", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "maxlength" => "24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Containing letters, spaces and hyphens.") %>
+                    ", "data-validation-help" => "To identify your camera in the dashboard, Max 24 characters.", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "maxlength" => "24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Containing letters, spaces and hyphens.", "data-validation-event" => "click") %>
                     <%= label_tag('camera-name', "Camera Friendly Name*", class: "float-label") %>
                     <% if field_errors["name"] %>
                     <span class="help-block form-error text-left"><%= field_errors["name"] %></span>
@@ -61,7 +61,7 @@
                 </div>
                 <div class='col-sm-6 model<%= field_errors["id"] ? ' has-error' : '' %>'>
                   <div class="form-group">
-                    <%= text_field_tag("camera-id", @user['camera-id'], "required" =>"required", "class" => "form-control", "data-validation-help" => "This must be unique and cannot be changed.", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.") %>
+                    <%= text_field_tag("camera-id", @user['camera-id'], "required" =>"required", "class" => "form-control", "data-validation-help" => "This must be unique and cannot be changed.", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.", "data-validation-event" => "click")%>
                     <%= label_tag('camera-id', "Evercam ID*", class: "float-label") %>
                     <% if field_errors["id"] %>
                     <div class="help-block form-error text-left"><%= field_errors["id"] %></div>
@@ -109,7 +109,7 @@
                   <div id="ext-ip" class='<%= field_errors["external_host"] ? ' has-error' : '' %>'>
                     <span class="prepend prepend-3">http://</span>
                     <div class="form-group">
-                      <%= text_field_tag("camera-url", @user['camera-url'], "class" => "form-control", "data-validation-help" => "Your IP address is #{@ip}", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This should be in the form of <strong>149.5.43.10</strong> or <strong>portlarochelle.com</strong>. Your IP address is #{@ip} ") %>
+                      <%= text_field_tag("camera-url", @user['camera-url'], "class" => "form-control", "data-validation-help" => "Your IP address is #{@ip}", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This should be in the form of <strong>149.5.43.10</strong> or <strong>portlarochelle.com</strong>. Your IP address is #{@ip}", "data-validation-event" => "click") %>
                       <%= label_tag('camera-url', raw("External <strong>IP</strong> (or URL)*"), class: "float-label") %>
                     </div>
 
@@ -124,7 +124,7 @@
                   <div id="camera-port" class="input-group camera-ext-port">
                     <span class="prepend prepend-1">:</span>
                     <div class="form-group external-port">
-                      <%= text_field_tag("port", @user['port'] || 80, "class" => "form-control port-input", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.") %>
+                      <%= text_field_tag("port", @user['port'] || 80, "class" => "form-control port-input", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-event" => "click") %>
                       <%= label_tag('port', raw("HTTP Port*"), class: "float-label") %>
                       <% if field_errors["external_http_port"] %>
                       <span class="help-block form-error text-left"><%= field_errors["external_http_port"] %></span>
@@ -138,7 +138,7 @@
                     <span class="prepend prepend-2">/</span>
                     <div class="form-group">
                       <input id="snapshot-readonly" class="form-control snapshot-readonly hide" disabled value="<%= @user['snapshot'] %>"/>
-                      <%= text_field_tag("snapshot", @user['snapshot'], "required" => "required", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain eg.data-externe/webcam/webcam.jpg", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "") %>
+                      <%= text_field_tag("snapshot", @user['snapshot'], "required" => "required", "class" => "form-control", "data-validation-help" => "Include the entire snapshot path after the domain eg.data-externe/webcam/webcam.jpg", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "", "data-validation-event" => "click") %>
                       <%= label_tag('snapshot', "Snapshot URL Ending*", class: "float-label") %>
                     </div>
                   </div>
@@ -150,7 +150,7 @@
                 <div class='<%= field_errors["username"] ? ' has-error' : '' %>'>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <%= text_field_tag("camera-username", @user['camera-username'], "data-validation-help" => "Required if the camera needs authenticating", "class" => "form-control") %>
+                      <%= text_field_tag("camera-username", @user['camera-username'], "data-validation-help" => "Required if the camera needs authenticating", "class" => "form-control", "data-validation-event" => "click") %>
                       <%= label_tag('camera-username', "Camera Username", class: "float-label") %>
                       <% if field_errors["username"] %>
                       <span class="help-block form-error text-left"><%= field_errors["username"] %></span>
@@ -161,7 +161,7 @@
                 <div class='<%= field_errors["password"] ? ' has-error' : '' %>'>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <%= text_field_tag("camera-password", @user['camera-password'], "data-validation-help" => "Enter the Password of the camera.", class: "form-control") %>
+                      <%= text_field_tag("camera-password", @user['camera-password'], "data-validation-help" => "Enter the Password of the camera.", class: "form-control", "data-validation-event" => "click") %>
                       <%= label_tag('camera-password', "Camera Password", class: "float-label") %>
                       <% if field_errors["password"] %>
                       <span class="help-block form-error text-left"><%= field_errors["password"] %></span>
@@ -182,7 +182,7 @@
                         <div class='<%= field_errors["internal_host"] ? ' has-error' : '' %>'>
                           <span class="prepend prepend-3">http://</span>
                           <div class="form-group">
-                            <%= text_field_tag("local-ip", @user['local-ip'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.", "data-validation-optional" => "true") %>
+                            <%= text_field_tag("local-ip", @user['local-ip'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
                             <label class="float-label">Local IP</label>
                             <%= label_tag('local-ip', "Local IP", class: "float-label hide") %>
                             <% if field_errors["internal_host"] %>
@@ -194,7 +194,7 @@
                       <div class="col-sm-4">
                         <div class='<%= field_errors["internal_http_port"] ? ' has-error' : '' %>'>
                           <div class="form-group">
-                            <%= text_field_tag("local-http", @user['local-http'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true") %>
+                            <%= text_field_tag("local-http", @user['local-http'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
                             <%= label_tag('local-http', "Local HTTP Port", class: "float-label") %>
                             <% if field_errors["internal_http_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["internal_http_port"] %></span>
@@ -209,7 +209,7 @@
                       <div class="col-sm-4">
                         <div class='<%= field_errors["external_rtsp_port"] ? ' has-error' : '' %>'>
                           <div id="change" class="form-group rtsp-port"  >
-                            <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control rtsp-input", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-help" => "The port should be a 2-5 digit number", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true") %>
+                            <%= text_field_tag("ext-rtsp-port", @user['ext-rtsp-port'], "class" => "form-control rtsp-input", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-help" => "The port should be a 2-5 digit number", "data-validation-error-msg" => "The Port should be a #, 2-5 digits.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
                             <%= label_tag('ext-rtsp-port', raw("External RTSP Port"), class: "float-label") %>
                             <% if field_errors["external_rtsp_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["external_rtsp_port"] %></span>
@@ -221,7 +221,7 @@
                       <div class="col-sm-4">
                         <div class='<%= field_errors["internal_rtsp_port"] ? ' has-error' : '' %>'>
                           <div class="form-group">
-                            <%= text_field_tag("local-rtsp", @user['local-rtsp'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true") %>
+                            <%= text_field_tag("local-rtsp", @user['local-rtsp'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
                             <%= label_tag('local-rtsp', "Local RTSP Port", class: "float-label") %>
                             <% if field_errors["internal_rtsp_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["internal_rtsp_port"] %></span>

@@ -467,9 +467,9 @@ port_check = (external_port,type) ->
 init_key_events = ->
   regexp = /^[0-9]{2,5}$/
   $('#camera-name').on 'keyup', ->
-    $.validate(validateOnEvent:true)
+    $.validate()
   $('#port').on 'keyup', ->
-    $.validate(validateOnEvent:true)
+    $.validate()
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     port = $('#port').val()

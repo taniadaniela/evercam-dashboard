@@ -21,7 +21,7 @@
                       <tr>
                         <td><label class="control-label" for="camera-name">Name:</label></td>
                         <td>
-                          <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" data-validation-allowing="-_ " data-validation="alphanumeric" placeholder="" name="camera-name">
+                          <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" maxlength = "24" data-validation-allowing="-_ " data-validation="alphanumeric" placeholder="" name="camera-name">
                         </td>
                       </tr>
                       <tr>

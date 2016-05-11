@@ -3,7 +3,7 @@
 //= require bootstrap
 //= require editable-1.5.1.min
 //= require jquery.dcjqaccordion.2.7.js
-//=
+//= require lib/underscore-min
 //= require jquery.uniform/jquery.uniform.js
 //= require datetimepicker/jquery.datetimepicker.js
 //= require jquery-cookie

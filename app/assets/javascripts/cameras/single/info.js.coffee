@@ -466,11 +466,14 @@ port_check = (external_port,type) ->
 
 init_key_events = ->
   regexp = /^[0-9]{2,5}$/
+  $('#camera-name').on 'keyup', ->
+    $.validate(validateOnEvent:true)
   $('#port').on 'keyup', ->
+    $.validate(validateOnEvent:true)
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     port = $('#port').val()
-    if port and !port.match regexp
+    if !port.match regexp
       $(".port-status").hide()
       $("#port").css('width', '100%')
       $("#port").css('backgroundColor','#f0f0f0')
@@ -481,15 +484,17 @@ init_key_events = ->
       $(".port-changes").css('backgroundColor','#f0f0f0')
       port_check(port,'')
   $('#camera-url').on 'keyup', ->
+    $.validate()
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     port_check(port,'') unless !port.match regexp
     port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
   $('#ext-rtsp-port').on 'keyup', ->
+    $.validate()
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     rtsp_port = $('#ext-rtsp-port').val()
-    if rtsp_port and !rtsp_port.match regexp
+    if !rtsp_port.match regexp
       $(".rtsp-port-status").hide()
       $("#ext-rtsp-port").css('width', '100%')
       $("#ext-rtsp-port").css('backgroundColor','#f0f0f0')

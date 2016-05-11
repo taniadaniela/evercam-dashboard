@@ -11,7 +11,8 @@ updateCode = () ->
   priv = if camera_name.indexOf('(Private)') == -1 then 'false' else 'true'
   api_credentials = if pre_auth == 'true' then "&api_id=#{window.api_credentials.api_id}&api_key=#{window.api_credentials.api_key}" else ''
 
-  baseText = "<div id='ec-container-#{camera}' style='width: #{width + option_width}'></div>
+  baseText = "<div id='ec-container-#{camera}' style='width: #{width + option_width}'></
+    div>
     <script src='#{url}/live.view.widget.js?refresh=#{refresh}&camera=#{camera}&private=#{priv}#{api_credentials}' async></script>"
   $('#code').text(baseText)
   document.removeEventListener("visibilitychange", window.ec_vis_handler, false);
@@ -32,7 +33,8 @@ updatePartialValues = ->
   priv = if camera_name.indexOf('(Private)') == -1 then 'false' else 'true'
   api_credentials = if pre_auth == 'true' then "&api_id=#{window.api_credentials.api_id}&api_key=#{window.api_credentials.api_key}" else ''
 
-  baseText = "<div id='ec-container-#{camera}' style='width: #{width + option_width}'></div>
+  baseText = "<div id='ec-container-#{camera}' style='width: #{width + option_width}'><
+    div>
     <script src='#{url}/live.view.widget.js?refresh=#{refresh}&camera=#{camera}&private=#{priv}#{api_credentials}' async></script>"
   $('#code').text(baseText)
   $("#ec-container-#{camera}").width("#{width + option_width}")

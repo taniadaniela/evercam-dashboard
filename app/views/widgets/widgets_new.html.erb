@@ -1,4 +1,5 @@
 <%= content_for(:title, "Evercam: Live View Widget") %>
+<%= stylesheet_link_tag "widgets" %>
 
 <div class="page-content-wrapper">
   <div class="page-content" id="live-widget">
@@ -55,10 +56,13 @@
                   <div class="my-row">
                     <label class="col-md-5 control-label" for="widget-camera-width">Width of Image</label>
                   </div>
-                  <div class="input-group col-md-7">
-                    <input type="text" pattern="\d*" value="400" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="600" min="200" max="1600" maxlength="4" data-validation="number" data-validation-allowing="range[200;1600],float" data-validation-error-msg="Image Width must be between 200 and 1600 pixels">
-                    <span class="input-group-addon">px</span>
-                  </div>
+                    <div class="input-group col-md-7">
+                      <input type="text" pattern="\d*" value="100" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="100" min="20" max="1600" maxlength="4" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Image Width must be between 20 and 1600 pixels or percentage">
+                      <span class="input-group-addon"><select id="width-option" class="width-option" name="width-option" onchange="admSelectCheck(this);">
+                        <option> % </option>
+                        <option> px </option>
+                      </select></span>
+                    </div>
                 </div>
 
                 <div class="form-group widget-input margin-top-20">

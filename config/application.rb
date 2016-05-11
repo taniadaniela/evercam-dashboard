@@ -53,6 +53,7 @@ module EvercamDashboard
       phoenix.js
       swagger.js
       swagger.css
+      widgets.scss
       clip_play.scss
     ]
   end

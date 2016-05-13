@@ -935,12 +935,12 @@ opBack = ->
   $('.play-options').css('display','inline')
 
 calculateWidth = ->
-  snap = $('#snapshot-diff').val()
+  is_widget = $('#snapshot-diff').val()
   tab_width = $("#recording-tab").width()
   right_column_width = $("#recording-tab .right-column").width()
   if tab_width is 0
-    tab_width = $(".tab-content").width() + (if snap then 30 else 10)
-  left_col_width = tab_width - right_column_width - (if snap then 20 else 40)
+    tab_width = $(".tab-content").width() + (if is_widget is "false" then 30 else 10)
+  left_col_width = tab_width - right_column_width - (if is_widget is "false" then 20 else 40)
   if tab_width > 480
     $("#recording-tab .left-column").css("width", "#{left_col_width}px")
     $("#recording-tab .right-column").css("width", "220px")

@@ -575,6 +575,8 @@ loadImage = (timestamp) ->
 
   onError = (jqXHR, status, error) ->
     recodringSnapshotDivHeight()
+    calculateWidth()
+    $('div#navbar-section').css 'width', $('.left-column').width()
     false
 
   onSuccess = (response) ->
@@ -583,6 +585,8 @@ loadImage = (timestamp) ->
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
     recodringSnapshotDivHeight()
+    calculateWidth()
+    $('div#navbar-section').css 'width', $('.left-column').width()
     true
 
   settings =
@@ -932,24 +936,19 @@ opBack = ->
 
 calculateWidth = ->
   tab_width = $("#recording-tab").width()
+  right_column_width = $("#recording-tab .right-column").width()
   if tab_width is 0
-    tab_width = $(".tab-content").width()
+    tab_width = $(".tab-content").width() + 30
   isChrome = !! navigator.userAgent.match(/Chrome/)
-  left_col_width = tab_width - 231
+  left_col_width = tab_width - right_column_width - 20
   if isChrome
-    left_col_width = tab_width - 235
+    left_col_width = tab_width - right_column_width - 20
   if tab_width > 480
     $("#recording-tab .left-column").css("width", "#{left_col_width}px")
     $("#recording-tab .right-column").css("width", "220px")
   else
     $("#recording-tab .left-column").css("width", "100%")
     $("#recording-tab .right-column").css("width", "100%")
-
-handleResize = ->
-  calculateWidth()
-  $(window).resize ->
-    calculateWidth()
-    recodringSnapshotDivHeight()
 
 onCollapsRecording = ->
   $('#cloud-recording-collaps').click ->
@@ -973,6 +972,13 @@ recodringSnapshotDivHeight = ->
     $('div#navbar-section').addClass 'navbar-section'
     $('div#navbar-section').css 'width', $('.left-column').width()
     return
+
+handleResize = ->
+  calculateWidth()
+  recodringSnapshotDivHeight()
+  $(window).resize ->
+    calculateWidth()
+    recodringSnapshotDivHeight()
 
 window.initializeRecordingsTab = ->
   initDatePicker()

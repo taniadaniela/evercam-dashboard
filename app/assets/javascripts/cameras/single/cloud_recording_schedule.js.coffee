@@ -1,5 +1,9 @@
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
+    header:
+      left: 'prev,next,today'
+      center: 'title'
+      right: 'month,agendaWeek,agendaDay'
     axisFormat: 'HH'
     defaultView: 'agendaWeek'
     allDaySlot: false
@@ -7,7 +11,6 @@ window.initScheduleCalendar = ->
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    eventColor: '#428bca'
     editable: true
     eventClick: (event, element) ->
       event.preventDefault
@@ -20,20 +23,27 @@ window.initScheduleCalendar = ->
       updateScheduleFromCalendar()
     eventLimit: true
     eventOverlap: false
+    eventAfterRender: (event, $el, view ) ->
+      start = moment(event.start).format('HH:mm')
+      end = moment(event.end).format('HH:mm')
+      title = event.title
+      #    If FullCalendar has removed the title div, then add the title to the time div like FullCalendar would do
+      if title
+        $el.find(".fc-bg").text(start + "-" + end + " " + title )
+      else
+        $el.find(".fc-bg").text(start + "-" + end)
     eventColor: '#efb57c'
     firstDay: 1
-    header:
-      left: '',
-      center: 'title'
-      right: ''
     height: 'auto'
     events: '/application/events'
     select: (start, end) ->
+      title = prompt('Event Title:')
       # TODO: select whole day range when allDaySlot is selected
-      eventData =
-        start: start
-        end: end
-      scheduleCalendar.fullCalendar('renderEvent', eventData, true)
+      scheduleCalendar.fullCalendar('renderEvent',
+          title: title
+          start: start
+          end: end
+      , true)
       scheduleCalendar.fullCalendar('unselect')
       updateScheduleFromCalendar()
     selectHelper: true
@@ -100,6 +110,8 @@ updateSchedule = (frequency, storage_duration, schedule, status) ->
     Evercam.Camera.cloud_recording.storage_duration = JSON.parse(data).cloud_recordings[0].storage_duration
     Evercam.Camera.cloud_recording.frequency = JSON.parse(data).cloud_recordings[0].frequency
     $('#cloud-recording-duration').val(Evercam.Camera.cloud_recording.storage_duration)
+    renderCloudRecordingDuration()
+    renderCloudRecordingFrequency()
     $('#cloud-recording-duration').attr('disabled',false)
     showFeedback("Cloud recording schedule was successfully updated.")
     NProgress.done()
@@ -169,30 +181,29 @@ editScheduleCalendar = ->
     return
 
 showEditButton = ->
-  $('#show-schedule-calendar').click ->
+  $('#show-schedule-calendar').off('click').on 'click' , ->
+    if Evercam.Camera.cloud_recording.status is "on-scheduled"
+      setTimeout showScheduleCalendar, 50
     editScheduleCalendar()
-    return
-  $('#next-week').click ->
-    $('#cloud-recording-calendar').fullCalendar 'next'
-    return
-  $('#previous-week').click ->
-    $('#cloud-recording-calendar').fullCalendar 'prev'
-    return
-  $('#today').click ->
-    $('#cloud-recording-calendar').fullCalendar 'today'
-    return
-  $('#SimpleWeek').click ->
+#  $('#next-week').click ->
+#    $('#cloud-recording-calendar').fullCalendar 'next'
+#    return
+#  $('#previous-week').click ->
+#    $('#cloud-recording-calendar').fullCalendar 'prev'
+#    return
+#  $('#today').click ->
+#    $('#cloud-recording-calendar').fullCalendar 'today'
+#    return
+  $('#SimpleWeek').on 'click', ->
     $('#cloud-recording-calendar').fullCalendar 'changeView' , 'basicWeek'
-    return
-  $('#Month').click ->
+  $('#Month').on 'click', ->
     $('#cloud-recording-calendar').fullCalendar 'changeView' , 'month'
-    return
-  $('#AgendaWeek').click ->
+  $('#AgendaWeek').on 'click', ->
     $('#cloud-recording-calendar').fullCalendar 'changeView' , 'agendaWeek'
-    return
-  textcalendar = $('#cloud-recording-calendar').fullCalendar 'header'
-  console.log textcalendar
-  # $('#fullc-title').text textcalendar
+  d = new Date()
+  mon = [ 'January','February','March','April','May','June','July','August','September','October','November','December']
+  day = [ 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+  $("#fullc-title").text(d.getDate() + "-" + mon[d.getMonth()] + ", " + day[d.getDay() - 1])
 
 hideEditButton = ->
   $('#schdule-label').removeClass('hide')
@@ -276,9 +287,29 @@ handleStatusSelect = ->
 
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
+  switch Evercam.Camera.cloud_recording.storage_duration
+    when 1
+      $(".storage-duration").text("24 hours recording")
+    when 7
+      $(".storage-duration").text("7 days recording")
+    when 30
+      $(".storage-duration").text("30 days recording")
+    when 90
+      $(".storage-duration").text("90 days recording")
 
 renderCloudRecordingFrequency = ->
   $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
+  switch Evercam.Camera.cloud_recording.frequency
+    when 60
+      $(".recording-frequency").text("60 (1 per second)")
+    when 30
+      $(".recording-frequency").text("30 (1 per 2 second)")
+    when 12
+      $(".recording-frequency").text("12 (1 per 5 second)")
+    when 6
+      $(".recording-frequency").text("6 (1 per 10 second)")
+    when 1
+      $(".recording-frequency").text("1 (1 per 60 second)")
 
 renderCloudRecordingStatus = ->
   switch Evercam.Camera.cloud_recording.status
@@ -294,11 +325,14 @@ renderCloudRecordingStatus = ->
       showDurationSelect()
     when "off"
       $("#cloud-recording-off").iCheck('check')
+      hideScheduleCalendar()
+      hideFrequencySelect()
+      hideDurationSelect()
 
 window.initCloudRecordingSettings = ->
   renderCloudRecordingDuration()
-  renderCloudRecordingFrequency()
   renderCloudRecordingStatus()
+  renderCloudRecordingFrequency()
   handleDurationSelect()
   handleFrequencySelect()
   showEditButton()

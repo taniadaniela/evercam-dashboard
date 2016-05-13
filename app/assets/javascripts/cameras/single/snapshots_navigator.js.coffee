@@ -939,8 +939,10 @@ calculateWidth = ->
   tab_width = $("#recording-tab").width()
   right_column_width = $("#recording-tab .right-column").width()
   if tab_width is 0
-    tab_width = $(".tab-content").width() + (if is_widget is "false" then 30 else 10)
-  left_col_width = tab_width - right_column_width - (if is_widget is "false" then 20 else 40)
+    width_add = if !is_widget then 10 else 30
+    tab_width = $(".tab-content").width() + width_add
+  width_remove = if !is_widget then 40 else 20
+  left_col_width = tab_width - right_column_width - width_remove
   if tab_width > 480
     $("#recording-tab .left-column").css("width", "#{left_col_width}px")
     $("#recording-tab .right-column").css("width", "220px")

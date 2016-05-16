@@ -27,7 +27,8 @@ window.initScheduleCalendar = ->
       start = moment(event.start).format('HH:mm')
       end = moment(event.end).format('HH:mm')
       title = event.title
-      #    If FullCalendar has removed the title div, then add the title to the time div like FullCalendar would do
+      # If FullCalendar has removed the title div,
+      # then add the title to the time div like FullCalendar would do
       if title
         $el.find(".fc-bg").text(start + "-" + end + " " + title )
       else
@@ -185,9 +186,12 @@ showEditButton = ->
       setTimeout showScheduleCalendar, 50
     editScheduleCalendar()
   d = new Date()
-  mon = [ 'January','February','March','April','May','June','July','August','September','October','November','December']
-  day = [ 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-  $("#fullc-title").text(d.getDate() + "-" + mon[d.getMonth()] + ", " + day[d.getDay() - 1])
+  mon = [ 'January','February','March','April','May','June','July',
+    'August','September','October','November','December']
+  day = [ 'Monday','Tuesday','Wednesday','Thursday','Friday',
+    'Saturday','Sunday']
+  $("#fullc-title").text(d.getDate() + "-" + mon[d.getMonth()] + ",
+    " + day[d.getDay() - 1])
 
 hideEditButton = ->
   $('#schdule-label').removeClass('hide')

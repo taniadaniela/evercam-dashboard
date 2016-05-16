@@ -940,8 +940,9 @@ calculateWidth = ->
   if isChrome
     left_col_width = tab_width - right_column_width - 20
   if tab_width > 480
-    $("#recording-tab .left-column").animate { width: "#{left_col_width}px" }, ->
-      recodringSnapshotDivHeight()
+    $("#recording-tab .left-column").animate { width:
+      "#{left_col_width}px" }, ->
+        recodringSnapshotDivHeight()
     $("#recording-tab .right-column").css("width", "220px")
   else
     $("#recording-tab .left-column").css("width", "100%")

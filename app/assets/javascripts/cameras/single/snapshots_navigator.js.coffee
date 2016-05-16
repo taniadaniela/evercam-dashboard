@@ -574,9 +574,7 @@ loadImage = (timestamp) ->
   data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
-    recodringSnapshotDivHeight()
-    calculateWidth()
-    $('div#navbar-section').css 'width', $('.left-column').width()
+    checkCalendarDisplay()
     false
 
   onSuccess = (response) ->
@@ -584,9 +582,7 @@ loadImage = (timestamp) ->
       $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
-    recodringSnapshotDivHeight()
-    calculateWidth()
-    $('div#navbar-section').css 'width', $('.left-column').width()
+    checkCalendarDisplay()
     true
 
   settings =
@@ -944,23 +940,12 @@ calculateWidth = ->
   if isChrome
     left_col_width = tab_width - right_column_width - 20
   if tab_width > 480
-    $("#recording-tab .left-column").css("width", "#{left_col_width}px")
+    $("#recording-tab .left-column").animate { width: "#{left_col_width}px" }, ->
+      recodringSnapshotDivHeight()
     $("#recording-tab .right-column").css("width", "220px")
   else
     $("#recording-tab .left-column").css("width", "100%")
     $("#recording-tab .right-column").css("width", "100%")
-
-onCollapsRecording = ->
-  $('#cloud-recording-collaps').click ->
-    $('#cloud-recording-calendar').toggleClass 'open'
-
-calendarShow = ->
-  $('.ui-datepicker-trigger').on 'click', ->
-    $('.datepicker-bg').toggle 'slow', ->
-      $('#calendar .fa').css 'color', 'white'
-      return
-    $('#calendar .fa').css 'color', 'blue'
-    return
 
 recodringSnapshotDivHeight = ->
   calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()
@@ -973,12 +958,32 @@ recodringSnapshotDivHeight = ->
     $('div#navbar-section').css 'width', $('.left-column').width()
     return
 
+onCollapsRecording = ->
+  $('#cloud-recording-collaps').click ->
+    $('#cloud-recording-calendar').toggleClass 'open'
+
+checkCalendarDisplay = ->
+  if $('.col-recording-right').css('display') == 'none'
+    $('#recording-tab .left-column').animate { width: "99.8%" }, ->
+      recodringSnapshotDivHeight()
+  else
+    calculateWidth()
+    recodringSnapshotDivHeight()
+
+calendarShow = ->
+  $('.ui-datepicker-trigger').on 'click', ->
+    $('.col-recording-right').toggle 'slow', ->
+      $('#calendar .fa').css 'color', 'white'
+      checkCalendarDisplay()
+      return
+    $('#calendar .fa').css 'color', 'blue'
+    return
+
 handleResize = ->
   calculateWidth()
   recodringSnapshotDivHeight()
   $(window).resize ->
-    calculateWidth()
-    recodringSnapshotDivHeight()
+    checkCalendarDisplay()
 
 window.initializeRecordingsTab = ->
   initDatePicker()

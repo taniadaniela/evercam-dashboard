@@ -32,10 +32,9 @@ window.initScheduleCalendar = ->
         $el.find(".fc-bg").text(start + "-" + end + " " + title )
       else
         $el.find(".fc-bg").text(start + "-" + end)
-    eventColor: '#efb57c'
+    eventColor: '#458CC7'
     firstDay: 1
     height: 'auto'
-    events: '/application/events'
     select: (start, end) ->
       title = prompt('Event Title:')
       # TODO: select whole day range when allDaySlot is selected
@@ -185,21 +184,6 @@ showEditButton = ->
     if Evercam.Camera.cloud_recording.status is "on-scheduled"
       setTimeout showScheduleCalendar, 50
     editScheduleCalendar()
-#  $('#next-week').click ->
-#    $('#cloud-recording-calendar').fullCalendar 'next'
-#    return
-#  $('#previous-week').click ->
-#    $('#cloud-recording-calendar').fullCalendar 'prev'
-#    return
-#  $('#today').click ->
-#    $('#cloud-recording-calendar').fullCalendar 'today'
-#    return
-  $('#SimpleWeek').on 'click', ->
-    $('#cloud-recording-calendar').fullCalendar 'changeView' , 'basicWeek'
-  $('#Month').on 'click', ->
-    $('#cloud-recording-calendar').fullCalendar 'changeView' , 'month'
-  $('#AgendaWeek').on 'click', ->
-    $('#cloud-recording-calendar').fullCalendar 'changeView' , 'agendaWeek'
   d = new Date()
   mon = [ 'January','February','March','April','May','June','July','August','September','October','November','December']
   day = [ 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
@@ -290,6 +274,8 @@ renderCloudRecordingDuration = ->
   switch Evercam.Camera.cloud_recording.storage_duration
     when 1
       $(".storage-duration").text("24 hours recording")
+    when -1
+      $(".storage-duration").text("Infinity")
     when 7
       $(".storage-duration").text("7 days recording")
     when 30

@@ -275,31 +275,13 @@ handleStatusSelect = ->
 
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
-  switch Evercam.Camera.cloud_recording.storage_duration
-    when 1
-      $(".storage-duration").text("24 hours recording")
-    when -1
-      $(".storage-duration").text("Infinity")
-    when 7
-      $(".storage-duration").text("7 days recording")
-    when 30
-      $(".storage-duration").text("30 days recording")
-    when 90
-      $(".storage-duration").text("90 days recording")
+  recording_duration_value = $("#cloud-recording-duration :selected").text()
+  $(".storage-duration").text(recording_duration_value)
 
 renderCloudRecordingFrequency = ->
   $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
-  switch Evercam.Camera.cloud_recording.frequency
-    when 60
-      $(".recording-frequency").text("60 (1 per second)")
-    when 30
-      $(".recording-frequency").text("30 (1 per 2 second)")
-    when 12
-      $(".recording-frequency").text("12 (1 per 5 second)")
-    when 6
-      $(".recording-frequency").text("6 (1 per 10 second)")
-    when 1
-      $(".recording-frequency").text("1 (1 per 60 second)")
+  recording_frequency_value = $("#cloud-recording-frequency :selected").text()
+  $(".recording-frequency").text(recording_frequency_value)
 
 renderCloudRecordingStatus = ->
   switch Evercam.Camera.cloud_recording.status

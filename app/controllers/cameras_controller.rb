@@ -265,6 +265,7 @@ class CamerasController < ApplicationController
         }
       end
       @cameras = load_user_cameras(true, false)
+      @snapshot_navigator = false
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)
         redirect_to cameras_not_found_path

@@ -1,18 +1,17 @@
 source 'https://rubygems.org'
-fail 'Ruby version must be greater than 2.0' unless RUBY_VERSION.to_f > 2.0
-
-gem 'rails', '~> 4.2.2'
+ruby '2.3.0'
+gem 'rails'
 
 gem 'sass-rails', '~> 5.0'
 gem 'yui-compressor'
-gem 'uglifier', '>= 2.7.2'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'sprockets'
 gem 'javascript-securehash-rails'
 gem 'fog'
 gem 'asset_sync'
-gem 'autoprefixer-rails', '~> 5.2.1.3'
+gem 'autoprefixer-rails'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
@@ -33,7 +32,7 @@ gem 'country_select',
 gem 'devise'
 gem 'ie_iframe_cookies'
 gem 'heroku-api'
-gem 'airbrake', '~> 4.3.1'
+gem 'airbrake'
 gem 'intercom-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
@@ -61,16 +60,16 @@ group :development do
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
-  gem 'rspec', '~> 3.3.0'
-  gem 'guard-rspec', '~> 4.6.4'
+  gem 'rspec'
+  gem 'guard-rspec'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'vcr'
-  gem 'rspec-rails', '~> 3.3.2'
-  gem 'webmock', '~> 1.21.0'
+  gem 'rspec-rails'
+  gem 'webmock'
   gem 'poltergeist'
   gem 'nokogiri'
   gem 'simplecov'
@@ -93,7 +92,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-form-validator', '~> 2.2.81'
   gem 'rails-assets-jquery.browser', '~> 0.0.7'
   gem 'rails-assets-jquery.nicescroll', '~> 3.5.6'
-  gem 'rails-assets-jquery.slimscroll', '~> 1.3.3'
+  gem 'rails-assets-jquery.slimscroll'
   gem 'rails-assets-jquery.uniform', '~> 2.1.2'
   gem 'rails-assets-ladda', '~> 0.8.0'
   gem 'rails-assets-moment', '~> 2.8'

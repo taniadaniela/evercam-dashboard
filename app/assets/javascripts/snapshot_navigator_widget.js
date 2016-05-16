@@ -13,7 +13,7 @@
 
 //=
 //= require jquery.uniform/jquery.uniform.js
-//= require datetimepicker/jquery.datetimepicker.js
+//= require datetimepicker
 //= require iCheck
 
 //=

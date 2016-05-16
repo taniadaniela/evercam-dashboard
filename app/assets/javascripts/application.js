@@ -5,10 +5,10 @@
 //= require jquery.dcjqaccordion.2.7.js
 //= require lib/underscore-min
 //= require jquery.uniform/jquery.uniform.js
-//= require datetimepicker/jquery.datetimepicker.js
+//= require datetimepicker
 //= require jquery-cookie
 //= require jquery.nicescroll
-//= require jquery.slimscroll
+//= require metronic/jquery.slimscroll.min
 //= require jquery-form-validator
 //= require moment
 //= require ladda/spin.min.js

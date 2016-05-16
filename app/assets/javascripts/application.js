@@ -27,7 +27,8 @@
 //= require popbox.js
 //= require swfobject.js
 //= require phoenix
-//= require fullcalendar/fullcalendar.js
+//= require fullcalendar
+//= require lib/underscore-min.js
 //= require bs-slider
 //= require jquery.imgareaselect
 

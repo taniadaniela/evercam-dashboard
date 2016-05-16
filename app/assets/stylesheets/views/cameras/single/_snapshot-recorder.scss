@@ -12,6 +12,7 @@
     .ui-datepicker-trigger {
       float: right;
       right: 0%;
+      margin-right: 2px;
       font-size: 20px;
       border: none;
       background: rgba(0, 0, 0, 0.2);
@@ -66,10 +67,18 @@
       width: 25px;
       height: 25px;
     }
+
+    .setting-heading .btn {
+      padding: 5px 12px;
+      border: 1px solid $hover-blue;
+      margin-left: 5px;
+    }
+
     .btn {
       padding: 9px 14px;
-      border:none !important;
+      border: none;
     }
+
     .btn-padding-tab {
       padding: 9px 14px !important;
     }
@@ -546,12 +555,6 @@
     z-index: 10;
   }
 
-  // #snapshot-motion-level  {
-  //   display: inline-block;
-  //   padding-left: 2px;
-  //   position: absolute;
-  // }
-
   @media (max-width: 480px) {
     #snapshot-notes-text {
       background: rgba(52, 57, 61, 0.7);
@@ -612,7 +615,7 @@
   }
 
   #cloud-recording-calendar{
-    max-height: 350px;
+    max-height: 220px;
     overflow-y: hidden;
     position: relative;
     &.open{
@@ -674,6 +677,70 @@
   font-size: 14px;
 }
 
+.margin-topbottom-10 {
+  margin: 10px 0px;
+}
+
+.recording-heading {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.margin-left-45 {
+  margin-left: 45px;
+}
+
+.margin-left-18 {
+  margin-left: 18px;
+}
+
+.color-grey {
+  color: $pop-up-text;
+}
+
+.no-display {
+  display: none;
+}
+
+@media (min-width: 768px) {
+
+  .setting-schedule .modal-dialog {
+    max-width: 570px;
+  }
+
+}
+
+.button-prev-next {
+  background-color: $background-gray;
+  color: $evercam-black;
+  padding: 3px;
+}
+
+.btn-style {
+  width: 14px;
+}
+
+.change-view {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.calendarfull-wrap .fc-icon {
+  padding: 3px;
+  margin-top: 1px;
+}
+
+.margin-top-25 {
+  margin-top: 25px;
+}
+
+.calendar-width {
+  max-width: 600px;
+}
+
 .navbar-settings {
 
   span {
@@ -684,4 +751,29 @@
     color: $white;
   }
 
+}
+
+.fc-event .fc-bg {
+  opacity: 0.5;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  color: $evercam-black;
+}
+
+.cloud-info span {
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+.recording-text {
+  border: 1px solid $evercam-grey;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.fc-center-date {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
 }

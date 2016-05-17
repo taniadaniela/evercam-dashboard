@@ -174,9 +174,12 @@
                 <label class="color-grey">Storage Duration:</label>
                 <span class="storage-duration"></span>
               </div>
-              <div>
+              <div class="frequency-text">
                 <label class="color-grey">Snapshot per min:</label>
                 <span class="recording-frequency"></span>
+              </div>
+              <div class="status-off">
+                <span class="off-status">Recording Status is <b>Off</b></span>
               </div>
               </div>
             </div>
@@ -184,6 +187,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-body">
+                  <button id="close-dialog" type="button" class="close-dialog" data-dismiss="modal"><i class="fa fa-times close-white"></i></button>
                     <div id="recording-toggle">
                       <div class="recording-header"><span class="recording-heading">Recording settings</span></div>
                       <form class="margin-topbottom-10">
@@ -221,9 +225,6 @@
                       </select>
                     </div>
                     <div id="calendarfull-wrap" class="calendar-width margin-top-25">
-                      <div class="calendarfull-wrap">
-                        <div id="fullc-title" class="fc-center-date"></div>
-                      </div>
                       <div class="clear-f"></div>
                       <div id="cloud-recording-calendar" class="margin-topbottom-10">
                         <span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>

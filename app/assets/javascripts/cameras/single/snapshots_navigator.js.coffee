@@ -959,10 +959,6 @@ recodringSnapshotDivHeight = ->
     $('div#navbar-section').css 'width', $('.left-column').width()
     return
 
-onCollapsRecording = ->
-  $('#cloud-recording-collaps').click ->
-    $('#cloud-recording-calendar').toggleClass 'open'
-
 checkCalendarDisplay = ->
   if $('.col-recording-right').css('display') == 'none'
     $('#recording-tab .left-column').animate { width: "99.8%" }, ->
@@ -999,6 +995,5 @@ window.initializeRecordingsTab = ->
   handleResize()
   window.initScheduleCalendar()
   window.initCloudRecordingSettings()
-  onCollapsRecording()
   selectMdImage()
   calendarShow()

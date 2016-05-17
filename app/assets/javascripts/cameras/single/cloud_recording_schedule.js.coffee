@@ -7,7 +7,7 @@ window.initScheduleCalendar = ->
     axisFormat: 'HH'
     defaultView: 'agendaWeek'
     allDaySlot: false
-    slotDuration: '00:90:00'
+    slotDuration: '00:60:00'
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -183,15 +183,8 @@ editScheduleCalendar = ->
 showEditButton = ->
   $('#show-schedule-calendar').off('click').on 'click' , ->
     if Evercam.Camera.cloud_recording.status is "on-scheduled"
-      setTimeout showScheduleCalendar, 50
+      setTimeout showScheduleCalendar, 5
     editScheduleCalendar()
-  d = new Date()
-  mon = [ 'January','February','March','April','May','June','July',
-    'August','September','October','November','December']
-  day = [ 'Monday','Tuesday','Wednesday','Thursday','Friday',
-    'Saturday','Sunday']
-  $("#fullc-title").text(d.getDate() + "-" + mon[d.getMonth()] + ",
-    " + day[d.getDay() - 1])
 
 hideEditButton = ->
   $('#schdule-label').removeClass('hide')
@@ -203,6 +196,7 @@ showScheduleLabel = ->
   $('#schdule-label').removeClass('hide')
 
 showScheduleCalendar = ->
+  $(".setting-schedule .modal-dialog").animate { "margin-top": "7%" }
   $('#calendarfull-wrap').show('slow')
   scheduleCalendar.fullCalendar('render')
   if scheduleCalendar.is(':visible')
@@ -276,12 +270,24 @@ handleStatusSelect = ->
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
   recording_duration_value = $("#cloud-recording-duration :selected").text()
-  $(".storage-duration").text(recording_duration_value)
+  if Evercam.Camera.cloud_recording.status is "off"
+    $(".recording-text .storage").hide('slow')
+    $(".recording-text .status-off").show('slow')
+  else
+    $(".recording-text .status-off").hide('slow')
+    $(".recording-text .storage").show('slow')
+    $(".storage-duration").text(recording_duration_value)
 
 renderCloudRecordingFrequency = ->
   $("#cloud-recording-frequency").val(Evercam.Camera.cloud_recording.frequency)
   recording_frequency_value = $("#cloud-recording-frequency :selected").text()
-  $(".recording-frequency").text(recording_frequency_value)
+  if Evercam.Camera.cloud_recording.status is "off"
+    $(".recording-text .frequency-text").hide('slow')
+    $(".recording-text .status-off").show('slow')
+  else
+    $(".recording-text .status-off").hide('slow')
+    $(".recording-text .frequency-text").show('slow')
+    $(".recording-frequency").text(recording_frequency_value)
 
 renderCloudRecordingStatus = ->
   switch Evercam.Camera.cloud_recording.status
@@ -290,11 +296,15 @@ renderCloudRecordingStatus = ->
       showFrequencySelect()
       showDurationSelect()
       hideScheduleCalendar()
+      renderCloudRecordingDuration()
+      renderCloudRecordingFrequency()
     when "on-scheduled"
       $("#cloud-recording-on-scheduled").iCheck('check')
       showScheduleCalendar()
       showFrequencySelect()
       showDurationSelect()
+      renderCloudRecordingDuration()
+      renderCloudRecordingFrequency()
     when "off"
       $("#cloud-recording-off").iCheck('check')
       hideScheduleCalendar()
@@ -309,3 +319,4 @@ window.initCloudRecordingSettings = ->
   handleFrequencySelect()
   showEditButton()
   handleStatusSelect()
+  

@@ -5,7 +5,7 @@
 }
 
   .tab-content #recordings {
-    margin: -10px -14px;
+    margin: -10px -15px;
   }
 
   #recording-tab {
@@ -93,16 +93,11 @@
   }
 
   #btnFRwd i, #btnFFwd i {
-    color: #777777;
     font-size: 16px;
   }
   #btnRwd i, #btnFwd i {
-    color: #777777;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 3px;
-  }
-  #btnPauseRec i {
-    color: #777777;
   }
 
   #btnPlayRec {
@@ -301,13 +296,18 @@
   .playback-info-bar {
     text-align: center;
     margin: 0;
-    padding: 8px 0;
+    padding: 9.5px 0;
     background-color: $ever-background;
     position: relative;
   }
 
   .playback-buttons-padding {
-    padding: 8px 0;
+    padding: 9.5px 0;
+
+    .btn-group {
+      padding: 0px 6px;
+    }
+
   }
 
   #show-info {
@@ -615,7 +615,6 @@
   }
 
   #cloud-recording-calendar{
-    max-height: 220px;
     overflow-y: hidden;
     position: relative;
     &.open{
@@ -623,7 +622,7 @@
       overflow-y: inherit;
       position: relative;
       #cloud-recording-collaps{
-        display: block;
+        display: none;
         width: 100%;
         padding: 5px 0;
         text-align: center;
@@ -640,7 +639,7 @@
     }
 
   #cloud-recording-collaps{
-    display: block;
+    display: none;
     width: 100%;
     padding: 5px 0;
     text-align: center;
@@ -705,7 +704,7 @@
 @media (min-width: 768px) {
 
   .setting-schedule .modal-dialog {
-    max-width: 570px;
+    max-width: 575px;
   }
 
 }
@@ -776,4 +775,17 @@
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+}
+
+.close-dialog {
+  height: 25px;
+  background: $white;
+  border: 1px solid $secondary-grey;
+  float: right;
+  margin: -15px;
+}
+
+.close-dialog:hover {
+  background-color: $hover-blue;
+  color: $white;
 }

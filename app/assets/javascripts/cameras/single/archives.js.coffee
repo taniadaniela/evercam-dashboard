@@ -1,5 +1,6 @@
 archives_table = null
 server_url = "http://timelapse.evercam.io/timelapses"
+fmt = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -150,7 +151,7 @@ getDates = (times) ->
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc(times).format('MM DD YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateformateed =  DateTime.dateFormat('m/d/y H:i')
+  Dateformateed =  fmt.formatDate(DateTime,'m/d/y H:i')
   return Dateformateed
 
 getDate = (timestamp) ->
@@ -158,7 +159,7 @@ getDate = (timestamp) ->
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc(timestamp).format('MM DD YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateformateed =  DateTime.dateFormat('M d Y, H:i:s')
+  Dateformateed = fmt.formatDate(DateTime,'M d Y, H:i:s')
   return Dateformateed
 
 shareURL = ->
@@ -223,10 +224,10 @@ setDate = ->
     cameraOffset = parseInt(offset)/3600
     DateTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
     DateTime.setHours(DateTime.getHours() + (cameraOffset))
-    Dateto =  DateTime.dateFormat('d/m/Y H:i:s')
+    Dateto =  fmt.formatDate(DateTime,'d/m/Y H:i:s')
     $('#to-date').val Dateto,true
     DateTime.setHours(DateTime.getHours() - 2)
-    Datefrom = DateTime.dateFormat('d/m/Y H:i:s')
+    Datefrom = fmt.formatDate(DateTime,'d/m/Y H:i:s')
     $('#from-date').val Datefrom,true
 
 formReset = ->
@@ -288,6 +289,7 @@ initializePopup = ->
     close: ".closepopup"
 
 window.initializeArchivesTab = ->
+  fmt = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   initDatePicker()

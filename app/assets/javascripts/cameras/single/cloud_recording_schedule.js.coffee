@@ -55,8 +55,10 @@ isAllDay = (start, end) ->
 
 updateScheduleToOn = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
-  Evercam.Camera.cloud_recording.frequency = $("#cloud-recording-frequency").val()
-  Evercam.Camera.cloud_recording.storage_duration = $("#cloud-recording-duration").val()
+  Evercam.Camera.cloud_recording.frequency =
+  $("#cloud-recording-frequency").val()
+  Evercam.Camera.cloud_recording.storage_duration =
+  $("#cloud-recording-duration").val()
 
 updateScheduleToOff = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
@@ -67,11 +69,13 @@ updateScheduleToOff = ->
 
 updateScheduleFromCalendar = ->
   Evercam.Camera.cloud_recording.schedule = parseCalendar()
-  Evercam.Camera.cloud_recording.frequency = $("#cloud-recording-frequency").val()
-  Evercam.Camera.cloud_recording.storage_duration = $("#cloud-recording-duration").val()
+  Evercam.Camera.cloud_recording.frequency =
+  $("#cloud-recording-frequency").val()
+  Evercam.Camera.cloud_recording.storage_duration =
+  $("#cloud-recording-duration").val()
   status = Evercam.Camera.cloud_recording.status
 
-updateSchedule = () ->
+updateSchedule = ->
   NProgress.start()
   if status is 'off'
     storage_duration = 1

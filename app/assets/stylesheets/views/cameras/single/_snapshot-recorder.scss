@@ -74,6 +74,10 @@
       margin-left: 5px;
     }
 
+    .modal-dialog .schedule-cancel {
+      border: 1px solid $border-black;
+    }
+
     .btn {
       padding: 9px 14px;
       border: none;
@@ -777,15 +781,7 @@
   font-size: 16px;
 }
 
-.close-dialog {
-  height: 25px;
-  background: $white;
-  border: 1px solid $secondary-grey;
-  float: right;
-  margin: -15px;
-}
-
-.close-dialog:hover {
-  background-color: $hover-blue;
-  color: $white;
+.off-status {
+  font-size: 12px;
+  font-weight: bold;
 }

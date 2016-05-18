@@ -169,7 +169,11 @@
             <div class="setting-heading">
               <b>Recording Settings</b><a id= "show-schedule-calendar" href="#" class="btn btn-edit right padding-left-5" data-toggle="modal" data-target="#cloud-recording-calendar-wrap">Edit</a>
             </div>
-              <div class="cloud-info margin-top-20">
+              <div class="cloud-info margin-top-10">
+              <div class="status-off">
+                <label class="color-grey">Recording Status:</label>
+                <span class="off-status"></span>
+              </div>
               <div class="storage">
                 <label class="color-grey">Storage Duration:</label>
                 <span class="storage-duration"></span>
@@ -178,16 +182,12 @@
                 <label class="color-grey">Snapshot per min:</label>
                 <span class="recording-frequency"></span>
               </div>
-              <div class="status-off">
-                <span class="off-status">Recording Status is <b>Off</b></span>
-              </div>
               </div>
             </div>
             <div id="cloud-recording-calendar-wrap" class="modal fade setting-schedule hide">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-body">
-                  <button id="close-dialog" type="button" class="close-dialog" data-dismiss="modal"><i class="fa fa-times close-white"></i></button>
                     <div id="recording-toggle">
                       <div class="recording-header"><span class="recording-heading">Recording settings</span></div>
                       <form class="margin-topbottom-10">
@@ -230,6 +230,14 @@
                         <span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>
                       </div>
                     </div>
+                    <fieldset>
+                      <div class="row save-settings margin-top-20">
+                        <div class='pull-left form-group'><label class="control-label" for="add-button"></label>
+                          <button id="add-button" name="add-button" class="alert push btn btn-primary margin-right-10 schedule-save">Save</button>
+                        </div>
+                        <button type="button" class="btn btn-default schedule-cancel" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </fieldset>
                   </div>
                 </div>
               </div>

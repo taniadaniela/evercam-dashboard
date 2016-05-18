@@ -408,7 +408,10 @@ getChargeDescription = (invoice_id, col_id) ->
     false
 
   onSuccess = (result, status, jqXHR) ->
-    $("##{col_id}").text(result.description)
+    if result.description
+      $("##{col_id}").text(result.description)
+    else
+      $("##{col_id}").text("Created By Admin")
 
   settings =
     cache: false

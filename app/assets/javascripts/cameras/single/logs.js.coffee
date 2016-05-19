@@ -73,7 +73,7 @@ initializeDataTable = ->
       }
     ],
     autoWidth: false,
-    info: false;
+    info: false,
     bPaginate: false,
     bFilter: false,
     order: [[ 0, "desc" ]],

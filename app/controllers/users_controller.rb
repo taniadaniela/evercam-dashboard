@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   def user_account
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
-    @countries.sort_by!{ |e| e.name.downcase }
+    @countries.sort_by! { |e| e.name.downcase }
     render layout: "user-account"
   end
 

@@ -1,8 +1,8 @@
 <div class="info-panel padding-right15">
   <div id="logs-filter" class="filter">
     <div class="row mb15">
-      <div class="col-md-2"><h5>Filter by Events</h5></div>
-      <div class="form-group col-md-10" id="types">
+      <div class="col-sm-2"><h5>Filter by Event</h5></div>
+      <div class="form-group col-md-10 margin-top-bottom10" id="types">
         <div class="checkbox-list">
           <div class="input-group checkbox">
             <input id="type-all" name="type" class="" type="checkbox" value="" /> <label class="type-label" for="type-all">All </label>
@@ -16,36 +16,33 @@
       </div>
     </div>
 
-    <div class="row dates">
-      <div class="col-md-2"><h5>Date &amp; Time Range</h5></div>
-      <div class="col-md-3">
+    <div class="row dates margin-top-20">
+      <div class="col-sm-2 set-margin"><h5>Date &amp; Time Range</h5></div>
+      <div class="col-sm-1 min-width200">
         <label>From:</label>
         <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%d/%m/%Y %H:%M') unless params[:from].blank? %>">
       </div>
-      <div class="col-md-3">
+      <div class="col-sm-1 min-width200">
         <label>To:</label>
         <input id="datetimepicker2" class="datetimepicker to-time" type="text" value="<%= Time.at(params[:to].to_i).strftime('%d/%m/%Y %H:%M') unless params[:to].blank? %>">
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-2 col-md-offset-2">
+       <div class="col-sm-2">
         <input id="current-page" type="hidden" value="<%= @page + 1 %>">
         <input id="exid" type="hidden" value="<%= @camera['id'] %>">
         <input id="base-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
         <input id="ajax-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/logs?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}&objects=true&limit=10000" %>">
-        <button id="apply-types" class="btn btn-primary">Show Report</button>
+        <button id="apply-types" class="btn btn-primary btn-setting">Show Report</button>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
+  <div class="row margin-top-20">
+    <div class="col-sm-12">
       <table id="logs-table" class="table table-logs table-striped table-bordered">
         <thead>
-        <th class="col-md-4">Date &amp; Time</th>
-        <th class="col-md-4">Event</th>
-        <th class="col-md-4">User/Client</th>
+        <th class="col-sm-4">Date &amp; Time</th>
+        <th class="col-sm-4">Event</th>
+        <th class="col-sm-4">User/Client</th>
         </thead>
         <tbody></tbody>
       </table>

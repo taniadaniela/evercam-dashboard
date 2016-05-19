@@ -120,6 +120,7 @@
   .image-placeholder-detail-page{
     position: relative;
     margin: 20px auto 0px;
+    display: none;
   }
 
 }
@@ -439,6 +440,32 @@ p#search-notes {
     float: right;
     width: 20px;
     margin-top: 7px;
+  }
+
+}
+
+.width-30 {
+  width: 35%;
+}
+
+@media (min-width: 600px) {
+
+  .settings-modal-width .col-sm-8 {
+    width: 66.66666667%;
+    float: left;
+  }
+
+  .settings-modal-width .col-sm-4 {
+    width: 33.33333333%;
+    float: left;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .width-30 {
+    width: 30%;
   }
 
 }

@@ -14,20 +14,22 @@
 
 }
 
-#apply-types {
-  margin: 20px 0px;
-}
-
 .checkbox-inline input[type="checkbox"] {
   float: left;
   margin-top: 4px;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 768px) {
+
   .to-time {
     margin-left: 15px;
     margin-top: 10px;
   }
+
+  .btn-setting {
+    margin-top: 10px;
+  }
+
 }
 
 @media (max-width: 540px) {
@@ -41,9 +43,16 @@
 }
 
 @media (max-width: 400px) {
+
   .dates {
     margin-top: 60px;
+
+    .set-margin {
+      margin-top: 40px;
+    }
+
   }
+
 }
 
 @media (max-width: 340px) {
@@ -63,7 +72,7 @@
   display: inline-block;
   float: left;
   height: 14px;
-  margin: 5px 10px 10px 1px;
+  margin-right: 5px;
   outline-color: #eaeaea;
   padding: 0;
   position: relative;
@@ -104,4 +113,22 @@
 
 .padding-right15 {
   padding-right: 15px;
+}
+
+.margin-top-bottom10 {
+  margin: 10px 0px;
+}
+
+.min-width200 {
+  min-width: 200px;
+}
+
+.btn-setting {
+  height: 30px;
+  padding: 4px 6px;
+  font-size: 14px;
+}
+
+.info-panel table {
+  font-size: 10px;
 }

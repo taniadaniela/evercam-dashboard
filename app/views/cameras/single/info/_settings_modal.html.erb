@@ -13,8 +13,8 @@
                   <div class='col-sm-8'>
                     <table class="table table-fixed table-borderless">
                       <tr>
-                        <td class="col-sm-4 id-td"><label class="control-label">ID:</label></td>
-                        <td class="col-sm-8 settings">
+                        <td class="id-td width-30"><label class="control-label">ID:</label></td>
+                        <td class="settings">
                           <div class="settings-id" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div>
                           <input type="hidden" name="camera-id" value="<%= @camera['id'] %>"></td>
                       </tr>
@@ -25,7 +25,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="col-sm-4"><label class="control-label" for="camera-vendor">Vendor:</label></td>
+                        <td><label class="control-label" for="camera-vendor">Vendor:</label></td>
                         <td>
                           <select id="camera-vendor" name="camera-vendor" class="form-control makeEditable">
                             <option value="">-- select vendor --</option>
@@ -80,8 +80,8 @@
                     </div>
                     <table class="table table-fixed table-borderless">
                       <tr>
-                        <td class="col-sm-4"><label class="control-label" for="camera-url">IP (or URL):</label></td>
-                        <td class="col-sm-8">
+                        <td class="width-30"><label class="control-label" for="camera-url">IP (or URL):</label></td>
+                        <td>
                           <div class="input-group"><span class="input-group-addon">http://</span>
                             <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera.deep_fetch('external', 'host') {} %>">
                           </div>

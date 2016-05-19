@@ -73,7 +73,9 @@ initializeDataTable = ->
       }
     ],
     autoWidth: false,
-    iDisplayLength: 50,
+    info: false;
+    bPaginate: false,
+    bFilter: false,
     order: [[ 0, "desc" ]],
     drawCallback: ->
       NProgress.done()

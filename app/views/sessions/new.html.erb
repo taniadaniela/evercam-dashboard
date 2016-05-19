@@ -15,11 +15,11 @@
   <div class="section section-position no-padding col-sm-12 col-md-12">
 
     <div id="sign-in" class="col-md-4 width-400 center-div">
-      <div id="sign-in-form">
+      <div id="sign-in-form" class="sign-in-form">
+      <div class="bb-alert alert alert-danger" style="display:none;">
+        <span></span>
+      </div>
         <div id="signin" class="col-md-12 text-center">
-          <div class="bb-alert alert alert-danger" style="display:none;">
-            <span></span>
-          </div>
           <div class="branding margin-topbottom30">
             <%= link_to root_path, class: 'sign-in-logo' do %>
               <%= image_tag("evercam_logo.svg", :class => "svg-logo", alt: "Evercam.io") %>

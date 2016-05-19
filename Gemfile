@@ -86,7 +86,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-datatables'
   gem 'rails-assets-datatables-plugins'
   gem 'rails-assets-datetimepicker'
-  gem 'rails-assets-fullcalendar'
+  gem 'rails-assets-fullcalendar','~> 2.6.0'
   gem 'rails-assets-iCheck'
   gem 'rails-assets-jquery-cookie'
   gem 'rails-assets-jquery-form-validator'

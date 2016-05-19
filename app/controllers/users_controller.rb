@@ -5,8 +5,10 @@ class UsersController < ApplicationController
                      :password_reset_request, :password_update, :password_update_form]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
-  skip_after_filter  :intercom_rails_auto_include, only: [:new, :create, :confirm,
-                     :password_reset_request, :password_update, :password_update_form]
+  skip_after_filter  :intercom_rails_auto_include, only: [
+    :new, :create, :confirm, :password_reset_request,
+    :password_update, :password_update_form
+  ]
   layout "bare-bones", except: [:settings, :delete]
   include SessionsHelper
   include ApplicationHelper

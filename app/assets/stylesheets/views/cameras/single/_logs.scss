@@ -130,18 +130,19 @@
   font-size: 14px;
 }
 
-.info-panel table {
+.info-panel .table {
   font-size: 12px;
+
+  thead > tr > th {
+    padding-left: 0px;
+  }
+
+  tbody td {
+    padding-left: 0px;
+  }
+
 }
 
 .padding-right-left-10 {
   padding: 0 5px;
-}
-
-.info-panel table.dataTable thead > tr > th {
-  padding-left: 0px;
-}
-
-table.dataTable tbody td {
-  padding-left: 0px;
 }

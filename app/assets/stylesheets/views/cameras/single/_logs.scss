@@ -109,6 +109,7 @@
 
 .datetimepicker {
   font-size: 12px;
+  width: 123px;
 }
 
 .padding-right15 {
@@ -130,5 +131,17 @@
 }
 
 .info-panel table {
-  font-size: 10px;
+  font-size: 12px;
+}
+
+.padding-right-left-10 {
+  padding: 0 5px;
+}
+
+.info-panel table.dataTable thead > tr > th {
+  padding-left: 0px;
+}
+
+table.dataTable tbody td {
+  padding-left: 0px;
 }

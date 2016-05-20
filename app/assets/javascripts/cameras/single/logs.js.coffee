@@ -76,6 +76,9 @@ initializeDataTable = ->
     info: false,
     bPaginate: false,
     bFilter: false,
+    "language": {
+      "emptyTable": "No data available"
+    },
     order: [[ 0, "desc" ]],
     drawCallback: ->
       NProgress.done()

@@ -268,7 +268,6 @@ UpdateSnapshotRec = (snapInfo) ->
   $("#snapshot-notes-text").text(snapInfo.notes)
   SetInfoMessage currentFrameNumber, new Date(snapInfo.created_at*1000)
   loadImage(snapInfo.created_at)
-  
 
 getTimestampFromUrl = ->
   timestamp = window.Evercam.request.subpath.
@@ -524,7 +523,7 @@ extractMdRecords = (snapshot_list) ->
       div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
       li.append(div_date)
       $('#MDSliderItem').append li
-      
+
 selectMdImage = ->
   $("#MDSliderItem").on "click", ".md-Img", ->
     timestamp = $(this).attr("timestamp")
@@ -724,7 +723,7 @@ handleWindowResize = ->
 
 handlePlay = ->
   $("#btnPlayRec").on "click", ->
-    return  if totalFrames is 0
+    return if totalFrames is 0
 
     playDirection = 1
     playStep = 1
@@ -764,7 +763,7 @@ handlePlay = ->
 
 SetSkipFrames = (num, direction) ->
   if direction is "p"
-    return  if snapshotInfoIdx is 0
+    return if snapshotInfoIdx is 0
     if snapshotInfoIdx - num < 0
       currentFrameNumber = 1
       snapshotInfoIdx = 0
@@ -772,7 +771,7 @@ SetSkipFrames = (num, direction) ->
       currentFrameNumber = currentFrameNumber - num
       snapshotInfoIdx = snapshotInfoIdx - num
   else if direction is "n"
-    return  if snapshotInfos.length is snapshotInfoIdx + 1
+    return if snapshotInfos.length is snapshotInfoIdx + 1
     if snapshotInfoIdx + num > snapshotInfos.length - 1
       snapshotInfoIdx = snapshotInfos.length - 1
       currentFrameNumber = snapshotInfos.length
@@ -790,7 +789,7 @@ SetPlaySpeed = (step, direction) ->
   playStep = step
 
 DoNextImg = ->
-  return  if totalFrames is 0
+  return if totalFrames is 0
   if snapshotInfos.length is snapshotInfoIdx
     Pause()
     currentFrameNumber = snapshotInfos.length
@@ -809,16 +808,16 @@ DoNextImg = ->
       snapshotInfoIdx++
     else if playDirection is 1 and playStep > 1
       currentFrameNumber = currentFrameNumber + playStep
-      currentFrameNumber = snapshotInfos.length  if currentFrameNumber >= snapshotInfos.length
+      currentFrameNumber = snapshotInfos.length if currentFrameNumber >= snapshotInfos.length
       snapshotInfoIdx = snapshotInfoIdx + playStep
-      snapshotInfoIdx = snapshotInfos.length - 1  if snapshotInfoIdx > snapshotInfos.length - 1
+      snapshotInfoIdx = snapshotInfos.length - 1 if snapshotInfoIdx > snapshotInfos.length - 1
     else if playDirection is -1 and playStep > 1
       currentFrameNumber = currentFrameNumber - playStep
-      currentFrameNumber = 1  if currentFrameNumber <= 1
+      currentFrameNumber = 1 if currentFrameNumber <= 1
       snapshotInfoIdx = snapshotInfoIdx - playStep
-      snapshotInfoIdx = 0  if snapshotInfoIdx < 0
-      Pause()  if snapshotInfoIdx is 0
-    window.setTimeout DoNextImg, playInterval  if isPlaying
+      snapshotInfoIdx = 0 if snapshotInfoIdx < 0
+      Pause() if snapshotInfoIdx is 0
+    window.setTimeout DoNextImg, playInterval if isPlaying
     false
 
   onSuccess = (response) ->
@@ -831,17 +830,17 @@ DoNextImg = ->
       snapshotInfoIdx++
     else if playDirection is 1 and playStep > 1
       currentFrameNumber = currentFrameNumber + playStep
-      currentFrameNumber = snapshotInfos.length  if currentFrameNumber >= snapshotInfos.length
+      currentFrameNumber = snapshotInfos.length if currentFrameNumber >= snapshotInfos.length
       snapshotInfoIdx = snapshotInfoIdx + playStep
-      snapshotInfoIdx = snapshotInfos.length - 1  if snapshotInfoIdx > snapshotInfos.length - 1
+      snapshotInfoIdx = snapshotInfos.length - 1 if snapshotInfoIdx > snapshotInfos.length - 1
     else if playDirection is -1 and playStep > 1
       currentFrameNumber = currentFrameNumber - playStep
-      currentFrameNumber = 1  if currentFrameNumber <= 1
+      currentFrameNumber = 1 if currentFrameNumber <= 1
       snapshotInfoIdx = snapshotInfoIdx - playStep
-      snapshotInfoIdx = 0  if snapshotInfoIdx < 0
-      Pause()  if snapshotInfoIdx is 0
+      snapshotInfoIdx = 0 if snapshotInfoIdx < 0
+      Pause() if snapshotInfoIdx is 0
 
-    window.setTimeout DoNextImg, playInterval  if isPlaying
+    window.setTimeout DoNextImg, playInterval if isPlaying
 
   settings =
     cache: false

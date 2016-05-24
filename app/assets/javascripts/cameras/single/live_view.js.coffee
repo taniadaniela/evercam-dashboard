@@ -159,9 +159,9 @@ getImageRealRatio = ->
     if $(window).width() >= 668
       if jpeg_img_height > fullscreen_height ||
       jpeg_img_width < fullscreen_width
-          $("#live-player-image").css({"height": "#{fullscreen_height}px"})
-          $("#live-player-image").css({"width": "auto"})
-          $("#live-player-image").css({"margin-top": "0px"})
+        $("#live-player-image").css({"height": "#{fullscreen_height}px"})
+        $("#live-player-image").css({"width": "auto"})
+        $("#live-player-image").css({"margin-top": "0px"})
       else
         jpeg_align = (fullscreen_height - jpeg_img_height) / 2
         $("#live-player-image").css({"margin-top": "#{jpeg_align}px"})

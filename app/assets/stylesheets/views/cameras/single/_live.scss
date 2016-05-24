@@ -11,6 +11,7 @@
 }
 #live-player-image {
   max-width: 100%;
+  width: 100%;
 }
 .live-options {
   position: absolute;
@@ -38,6 +39,7 @@
   display: inline-block;
   position: relative;
   padding-top: 4px;
+  width: 100%;
 
   .fa-refresh {
     font-size: 18px;

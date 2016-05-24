@@ -181,9 +181,9 @@ calculateHeight = ->
 
   $("#console-log").text("Real-Width: #{img_real_width}, content-width: #{content_width}")
   if $(".page-sidebar").css('display') is "none" && img_real_width > content_width
-      image_height = img_real_height / img_real_width * content_width
+    image_height = img_real_height / img_real_width * content_width
   $("#fullscreen").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".offline-camera-placeholder .camera-thumbnail").css({"height":"#{image_height}px","max-height": "100%"})
+  $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
   if $(window).width() >= 668
     $("#camera-video-stream").css({"height": "#{image_height}px",
     "max-height": "100%"})

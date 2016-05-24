@@ -73,20 +73,9 @@ updateScheduleFromCalendar = ->
     $("#cloud-recording-frequency").val()
   Evercam.Camera.cloud_recording.storage_duration =
     $("#cloud-recording-duration").val()
-  status = Evercam.Camera.cloud_recording.status
 
 updateSchedule = ->
   NProgress.start()
-  if status is 'off'
-    storage_duration = 1
-  if status is 'on' and storage_duration is -1
-    storage_duration = 1
-  if status is 'on-scheduled' and storage_duration is -1
-    storage_duration = 1
-  if status is 'on' and storage_duration is null
-    storage_duration = 1
-  if status is 'on-scheduled' and storage_duration is null
-    storage_duration = 1
   data =
     api_id: Evercam.User.api_id
     api_key: Evercam.User.api_key
@@ -106,10 +95,11 @@ updateSchedule = ->
   onSuccess = (data) ->
     Evercam.Camera.cloud_recording.storage_duration = JSON.parse(data).cloud_recordings[0].storage_duration
     Evercam.Camera.cloud_recording.frequency = JSON.parse(data).cloud_recordings[0].frequency
+    Evercam.Camera.cloud_recording.status = JSON.parse(data).cloud_recordings[0].status
     $('#cloud-recording-duration').val(Evercam.Camera.cloud_recording.storage_duration)
     renderCloudRecordingDuration()
     renderCloudRecordingFrequency()
-    $('#cloud-recording-duration').attr('disabled',false)
+    $('#cloud-recording-duration').prop("disabled", false)
     showFeedback("Cloud recording schedule was successfully updated.")
     NProgress.done()
 
@@ -244,18 +234,25 @@ handleDurationSelect = ->
 
 handleStatusSelect = ->
   $("#recording-toggle input").off("ifChecked").on "ifChecked", (event) ->
+    status = Evercam.Camera.cloud_recording.status
     Evercam.Camera.cloud_recording.status = $(this).val()
     switch $(this).val()
       when "on"
         hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
+        if Evercam.Camera.cloud_recording.storage_duration is -1 and status is "off"
+          $('#cloud-recording-duration').prop("disabled", false)
+          $('#cloud-recording-duration').val("1")
         updateFrequencyTo60()
         updateScheduleToOn()
       when "on-scheduled"
         showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
+        if Evercam.Camera.cloud_recording.storage_duration is -1 and status is "off"
+          $('#cloud-recording-duration').prop("disabled", false)
+          $('#cloud-recording-duration').val("1")
         updateFrequencyTo60()
         updateScheduleToOn()
       when "off"

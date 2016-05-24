@@ -93,10 +93,13 @@ updateSchedule = ->
     NProgress.done()
 
   onSuccess = (data) ->
-    Evercam.Camera.cloud_recording.storage_duration = JSON.parse(data).cloud_recordings[0].storage_duration
-    Evercam.Camera.cloud_recording.frequency = JSON.parse(data).cloud_recordings[0].frequency
-    Evercam.Camera.cloud_recording.status = JSON.parse(data).cloud_recordings[0].status
-    $('#cloud-recording-duration').val(Evercam.Camera.cloud_recording.storage_duration)
+    duration = JSON.parse(data).cloud_recordings[0].storage_duration
+    frequency = JSON.parse(data).cloud_recordings[0].frequency
+    status = JSON.parse(data).cloud_recordings[0].status
+    Evercam.Camera.cloud_recording.storage_duration = duration
+    Evercam.Camera.cloud_recording.frequency = frequency
+    Evercam.Camera.cloud_recording.status = status
+    $('#cloud-recording-duration').val(duration)
     renderCloudRecordingDuration()
     renderCloudRecordingFrequency()
     $('#cloud-recording-duration').prop("disabled", false)
@@ -235,13 +238,14 @@ handleDurationSelect = ->
 handleStatusSelect = ->
   $("#recording-toggle input").off("ifChecked").on "ifChecked", (event) ->
     status = Evercam.Camera.cloud_recording.status
+    storage = Evercam.Camera.cloud_recording.storage_duration
     Evercam.Camera.cloud_recording.status = $(this).val()
     switch $(this).val()
       when "on"
         hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
-        if Evercam.Camera.cloud_recording.storage_duration is -1 and status is "off"
+        if storage is -1 and status is "off"
           $('#cloud-recording-duration').prop("disabled", false)
           $('#cloud-recording-duration').val("1")
         updateFrequencyTo60()
@@ -250,7 +254,7 @@ handleStatusSelect = ->
         showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
-        if Evercam.Camera.cloud_recording.storage_duration is -1 and status is "off"
+        if storage is -1 and status is "off"
           $('#cloud-recording-duration').prop("disabled", false)
           $('#cloud-recording-duration').val("1")
         updateFrequencyTo60()

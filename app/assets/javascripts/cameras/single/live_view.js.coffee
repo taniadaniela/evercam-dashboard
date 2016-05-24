@@ -158,7 +158,7 @@ getImageRealRatio = ->
     jpeg_img_width = $("#live-player-image").width()
     if $(window).width() >= 668
       if jpeg_img_height > fullscreen_height ||
-        jpeg_img_width < fullscreen_width
+      jpeg_img_width < fullscreen_width
           $("#live-player-image").css({"height": "#{fullscreen_height}px"})
           $("#live-player-image").css({"width": "auto"})
           $("#live-player-image").css({"margin-top": "0px"})
@@ -185,8 +185,10 @@ calculateHeight = ->
   $("#fullscreen").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
   if $(window).width() >= 668
-    $("#camera-video-stream").css({"height": "#{image_height}px",
-    "max-height": "100%"})
+    $("#camera-video-stream").css({
+    "height": "#{image_height}px",
+    "max-height": "100%"
+    })
     $(".video-js").css({"height": "#{image_height}px"})
 
   if $(window).width() <= 668

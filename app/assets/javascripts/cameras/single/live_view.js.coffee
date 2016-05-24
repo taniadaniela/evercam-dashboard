@@ -186,8 +186,8 @@ calculateHeight = ->
   $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
   if $(window).width() >= 668
     $("#camera-video-stream").css({
-    "height": "#{image_height}px",
-    "max-height": "100%"
+      "height": "#{image_height}px",
+      "max-height": "100%"
     })
     $(".video-js").css({"height": "#{image_height}px"})
 

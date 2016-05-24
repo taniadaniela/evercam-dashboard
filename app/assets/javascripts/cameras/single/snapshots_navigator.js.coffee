@@ -180,7 +180,6 @@ selectCurrentDay = ->
       iDay = parseInt(calDay.text())
       if dt.getDate() is iDay
         calDay.addClass('active')
-        return
 
 handleSlider = ->
   onSliderMouseMove = (ev) ->
@@ -275,9 +274,9 @@ getTimestampFromUrl = ->
     replace(RegExp("snapshots", "g"), "").
     replace(RegExp("/", "g"), "")
   if isValidDateTime(timestamp)
-    return timestamp
+    timestamp
   else
-    return ""
+    ""
 
 isValidDateTime = (timestamp) ->
   moment(timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid()
@@ -480,7 +479,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots.json"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
 
   sendAJAXRequest(settings)
 
@@ -501,7 +500,6 @@ BindMDStrip = ->
   $('img[class="md-Img"]').thumbPopup
     imgSmallFlag: ''
     imgLargeFlag: ''
-  return
 
 extractMdRecords = (snapshot_list) ->
   for snapshot in snapshotInfos
@@ -607,49 +605,45 @@ SetPlayFromImage = (timestamp) ->
     i++
   currentFrameNumber = snapshotInfos.length
   snapshotInfoIdx = snapshotInfos.length - 1
-  return snapshotInfos[snapshotInfoIdx].created_at
+  snapshotInfos[snapshotInfoIdx].created_at
 
 GetUTCDate = (date) ->
-  UtcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
-  return UtcDate
+  Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
 
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  return "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
+  "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
 
 getSnapshotDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  return moment.utc([dt.getFullYear(), dt.getMonth(), dt.getDate(), hour, date.getMinutes(), date.getSeconds(), date.getMilliseconds()])
+  moment.utc([dt.getFullYear(), dt.getMonth(), dt.getDate(), hour, date.getMinutes(), date.getSeconds(), date.getMilliseconds()])
 
 GetFromDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  fDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
-  return fDt
+  Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
 
 GetToDT = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour) + 1
-  tDt = 0
   if hour == 24
-    tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59)
+    Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59)
   else
-    tDt = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
-  return tDt
+    Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0)
 
 StripLeadingZeros = (input) ->
   if input.length > 1 && input.substr(0,1) == "0"
-    return input.substr(1)
+    input.substr(1)
   else
-    return input
+    input
 
 FormatNumTo2 = (n) ->
   if n < 10
-    return "0#{n}"
+    "0#{n}"
   else
-    return n
+    n
 
 NoRecordingDayOrHour = ->
   $("#divRecent").show()
@@ -705,7 +699,6 @@ SetImageHour = (hr, id) ->
     $("#divNoMd").text('Motion Detection Not Enabled')
     HideLoader()
     $("#snapshot-tab-save").hide()
-  true
 
 Pause = ->
   isPlaying = false
@@ -782,7 +775,6 @@ SetSkipFrames = (num, direction) ->
   playDirection = 1
 
   UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
-  return
 
 SetPlaySpeed = (step, direction) ->
   playDirection = direction
@@ -907,7 +899,6 @@ handleMinSecDropDown = ->
 
   $('#show-info').click ->
     $('#snapshot-notes-text').toggle()
-  return
 
 handleTabOpen = ->
   $('.nav-tab-recordings').on 'shown.bs.tab', ->
@@ -952,11 +943,9 @@ recodringSnapshotDivHeight = ->
   if $('#fullscreen > img').height() < calcuHeight
     $('div#navbar-section').removeClass 'navbar-section'
     $('div#navbar-section').css 'width', $('.left-column').width()
-    return
   else
     $('div#navbar-section').addClass 'navbar-section'
     $('div#navbar-section').css 'width', $('.left-column').width()
-    return
 
 checkCalendarDisplay = ->
   if $('.col-recording-right').css('display') == 'none'
@@ -971,9 +960,7 @@ calendarShow = ->
     $('.col-recording-right').toggle 'slow', ->
       $('#calendar .fa').css 'color', 'white'
       checkCalendarDisplay()
-      return
     $('#calendar .fa').css 'color', 'blue'
-    return
 
 handleResize = ->
   calculateWidth()

@@ -56,3 +56,18 @@
   overflow: hidden;
 }
 
+.delete-share-icon {
+  float: right;
+  padding: 9px;
+  cursor: pointer;
+  border-radius: 50%;
+  color: $main-color;
+  font-size: 17px;
+  margin-top: 0px;
+  margin-right: 2px;
+}
+
+.delete-share-icon:hover {
+  background-color: $hover-blue;
+  color: $white;
+}

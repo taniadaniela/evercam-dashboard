@@ -479,7 +479,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
 
   sendAJAXRequest(settings)
 

@@ -37,7 +37,6 @@
 //= require alerts
 //= require layout
 //= require sidebar
-//= require helpers
 //= require forms
 //= require cameras.js
 //= require cameras/single.js

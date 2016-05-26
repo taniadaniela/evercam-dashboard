@@ -471,11 +471,6 @@ GetCameraInfo = (isShowLoader) ->
     NProgress.done()
     true
 
-  if 1463788800 < fromDT
-    url = "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
-  else
-    url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
-
   settings =
     cache: false
     data: data
@@ -484,7 +479,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: url
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
 
   sendAJAXRequest(settings)
 

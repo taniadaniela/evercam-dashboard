@@ -1,8 +1,6 @@
 archives_table = null
 server_url = "http://timelapse.evercam.io/timelapses"
 format_time = null
-owner = null
-current_user = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -296,8 +294,6 @@ initializePopup = ->
     close: ".closepopup"
 
 window.initializeArchivesTab = ->
-  owner = $('#camera_owner').val()
-  current_user = $('#current_user').val()
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')

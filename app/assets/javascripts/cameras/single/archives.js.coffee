@@ -61,30 +61,35 @@ initializeArchivesDataTable = ->
 
 renderbuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
-  divPopup =$('<div>', {class: "popbox2"})
-  remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" class="archive-actions delete-archive" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-trash-o"></i></span>'
-  span = $('<span>', {class: "open-archive"})
-  span.append(remove_icon)
-  divPopup.append(span)
-  divCollapsePopup = $('<div>', {class: "collapse-popup"})
-  divBox2 = $('<div>', {class: "box2"})
-  divBox2.append($('<div>', {class: "arrow"}))
-  divBox2.append($('<div>', {class: "arrow-border"}))
-  divMessage = $('<div>', {class: "margin-bottom-10"})
-  divMessage.append($(document.createTextNode("Are you sure?")))
-  divBox2.append(divMessage)
-  divButtons = $('<div>', {class: "margin-bottom-10"})
-  inputDelete = $('<input type="button" value="Yes, Remove">')
-  inputDelete.addClass("btn btn-primary delete-btn delete-archive2")
-  inputDelete.attr("camera_id", Evercam.Camera.id)
-  inputDelete.attr("archive_id", row.id)
-  inputDelete.click(deleteClip)
-  divButtons.append(inputDelete)
-  divButtons.append('<div class="btn delete-btn closepopup grey"><div class="text-center" fit>CANCEL</div></div>')
-  divBox2.append(divButtons)
-  divCollapsePopup.append(divBox2)
-  divPopup.append(divCollapsePopup)
-  div.append(divPopup)
+  if Evercam.Camera.is_owner
+    divPopup =$('<div>', {class: "popbox2"})
+    remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
+      'class="archive-actions delete-archive" val-archive-id="'+row.id+
+      '" val-camera-id="'+row.camera_id+'">' +
+      '<i class="fa fa-trash-o"></i></span>'
+    span = $('<span>', {class: "open-archive"})
+    span.append(remove_icon)
+    divPopup.append(span)
+    divCollapsePopup = $('<div>', {class: "collapse-popup"})
+    divBox2 = $('<div>', {class: "box2"})
+    divBox2.append($('<div>', {class: "arrow"}))
+    divBox2.append($('<div>', {class: "arrow-border"}))
+    divMessage = $('<div>', {class: "margin-bottom-10"})
+    divMessage.append($(document.createTextNode("Are you sure?")))
+    divBox2.append(divMessage)
+    divButtons = $('<div>', {class: "margin-bottom-10"})
+    inputDelete = $('<input type="button" value="Yes, Remove">')
+    inputDelete.addClass("btn btn-primary delete-btn delete-archive2")
+    inputDelete.attr("camera_id", Evercam.Camera.id)
+    inputDelete.attr("archive_id", row.id)
+    inputDelete.click(deleteClip)
+    divButtons.append(inputDelete)
+    divButtons.append('<div class="btn delete-btn closepopup grey">' +
+      '<div class="text-center" fit>CANCEL</div></div>')
+    divBox2.append(divButtons)
+    divCollapsePopup.append(divBox2)
+    divPopup.append(divCollapsePopup)
+    div.append(divPopup)
   if row.status is "Completed"
     mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
     view_url = "clip/#{row.id}/play"

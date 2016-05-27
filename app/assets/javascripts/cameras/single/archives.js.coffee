@@ -63,7 +63,7 @@ initializeArchivesDataTable = ->
 
 renderbuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
-  if current_user is owner
+  if Evercam.Camera.is_owner
     divPopup =$('<div>', {class: "popbox2"})
     remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
       'class="archive-actions delete-archive" val-archive-id="'+row.id+

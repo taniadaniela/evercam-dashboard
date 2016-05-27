@@ -133,6 +133,7 @@
     is_online: <%= @camera['is_online'] %>,
     vendor_id: '<%= @camera['vendor_id'] %>',
     model_name: '<%= @camera['model_name'] %>',
+    is_owner: <%= @owner[:email] == current_user[:email]? true : false %>,
     location: {
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>

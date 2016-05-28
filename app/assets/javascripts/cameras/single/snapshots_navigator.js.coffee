@@ -559,7 +559,7 @@ loadMdImages = ->
       success: onSuccess
       contentType: "application/json charset=utf-8"
       type: 'GET'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}.json"
+      url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
 
     sendAJAXRequest(settings)
 
@@ -590,7 +590,7 @@ loadImage = (timestamp) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}.json"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
 
   sendAJAXRequest(settings)
 
@@ -842,7 +842,7 @@ DoNextImg = ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{si.created_at}.json"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{si.created_at}"
 
   sendAJAXRequest(settings)
 

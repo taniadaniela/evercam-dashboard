@@ -1,9 +1,9 @@
 module SessionsHelper
   def sign_in(user)
     session[:user] = (user ? user.email : nil)
-    # return unless user
-    # user.last_login_at = Time.now.utc
-    # user.save
+    return unless user
+    user.last_login_at = Time.now.utc
+    user.save
     @current_user = user
   end
 

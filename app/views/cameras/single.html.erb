@@ -154,7 +154,7 @@
       x2: <%= @motion_detection["x2"].to_i %>,
       y2: <%= @motion_detection["y2"].to_i %>,
       schedule: <%= raw((@motion_detection["schedule"]).to_json) %>,
-      alert_email: <%= @motion_detection["alert_email"] %>,
+      alert_email: <%= raw(@motion_detection["alert_email"]) %>,
       emails: <%= raw(@motion_detection["emails"]) %>,
       method: "<%= @motion_detection_method %>"
       <% end %>

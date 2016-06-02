@@ -156,6 +156,8 @@ getImageRealRatio = ->
     fullscreen_width = $("#fullscreen").width()
     jpeg_img_height = $("#live-player-image").height()
     jpeg_img_width = $("#live-player-image").width()
+    play_options_position = $("#fullscreen").height() / 2
+    $('.play-options').css({"margin-top": "#{play_options_position}px"})
     if $(window).width() >= 668
       if jpeg_img_height > fullscreen_height ||
       jpeg_img_width < fullscreen_width

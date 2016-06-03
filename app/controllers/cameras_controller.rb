@@ -216,9 +216,6 @@ class CamerasController < ApplicationController
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset
-
-      params[:from] = (Time.now - 24.hours) if params[:from].blank?
-      params[:to] = Time.now if params[:to].blank?
       @share = nil
       if @camera['owner'] != current_user.username
         @share = api.get_camera_share(params[:id], current_user.username)

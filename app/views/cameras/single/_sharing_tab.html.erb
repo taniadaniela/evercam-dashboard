@@ -90,9 +90,6 @@
 
 <div class="row padding-right15">
   <div class="col-md-12">
-    <div class="sharing-title">
-      <span class="bold">Who has access: </span>
-    </div>
     <% styling = 'display: none;' %>
     <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
       <p>
@@ -243,7 +240,7 @@
               <div class="form-group">
                 <div class="popbox2">
                   <span class="open2"><span class="remove"></span><i class="fa fa-trash-o font-size-17" title="Revoke"></i></span>
-                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><i title="Resend Email" class="fa fa-paper-plane font-size-17"></i></span>
+                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>">Resend</span>
                   <div class="collapse-popup">
                     <div class="box2">
                       <div class="arrow2"></div>

@@ -26,7 +26,7 @@
 }
 .nav-tabs, .nav-pills {
   margin-bottom: 0px;
-  margin-top: 2px;
+  margin-top: 0px;
 }
 #camera-not-found{
   .dialog {
@@ -58,11 +58,11 @@
 
 .delete-share-icon {
   float: right;
-  padding: 9px;
+  padding: 6px;
   cursor: pointer;
   border-radius: 50%;
   color: $main-color;
-  font-size: 17px;
+  font-size: 15px;
   margin-top: 0px;
   margin-right: 2px;
 }

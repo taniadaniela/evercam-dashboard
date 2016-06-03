@@ -88,16 +88,16 @@ initializeDataTable = ->
   })
 
 callDate = ->
-  getDate('from','')
-  getDate('to',2)
+  $('#datetimepicker').val(getDate('from'))
+  $('#datetimepicker2').val(getDate('to'))
 
-getDate = (type,value) ->
+getDate = (type) ->
   DateFromTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
   DateFromTime.setHours(DateFromTime.getHours() + (cameraOffset))
   if type is "from"
     DateFromTime.setDate(DateFromTime.getDate() - 1)
   Dateformateed =  format_time.formatDate(DateFromTime, 'd/m/y H:i')
-  $("#datetimepicker#{value}").val(Dateformateed)
+  return Dateformateed
 
 window.initializeLogsTab = ->
   offset = $('#camera_time_offset').val()

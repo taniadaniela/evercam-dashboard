@@ -20,11 +20,11 @@
       <div class="col-sm-2 set-margin padding-right-left-10"><h5>Date &amp; Time</h5></div>
       <div class="col-sm-1 min-width200">
         <label>From:</label>
-        <input id="datetimepicker" class="datetimepicker" type="text" value="<%= Time.at(params[:from].to_i).strftime('%d/%m/%Y %H:%M') unless params[:from].blank? %>">
+        <input id="datetimepicker" class="datetimepicker" type="text" value="">
       </div>
       <div class="col-sm-1 min-width200">
         <label>To:</label>
-        <input id="datetimepicker2" class="datetimepicker to-time" type="text" value="<%= Time.at(params[:to].to_i).strftime('%d/%m/%Y %H:%M') unless params[:to].blank? %>">
+        <input id="datetimepicker2" class="datetimepicker to-time" type="text" value="">
       </div>
        <div class="col-sm-2">
         <input id="current-page" type="hidden" value="<%= @page + 1 %>">
@@ -49,3 +49,5 @@
     </div>
   </div>
 </div>
+
+<input type="hidden" name="camera_time_offset" id="camera_offset" value="<%= @offset %>">

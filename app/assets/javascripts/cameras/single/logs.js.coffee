@@ -1,4 +1,5 @@
 table = null
+format_time = null
 
 updateLogTypesFilter = () ->
   NProgress.start()
@@ -84,7 +85,27 @@ initializeDataTable = ->
       NProgress.done()
   })
 
+getFromDate = ->
+  offset = $('#camera_offset').val()
+  cameraOffset = parseInt(offset)/3600
+  DateFromTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+  DateFromTime.setHours(DateFromTime.getHours() + (cameraOffset))
+  DateFromTime.setDate(DateFromTime.getDate() - 1)
+  Dateformateed =  format_time.formatDate(DateFromTime, 'd/m/y H:i')
+  $('#datetimepicker').val(Dateformateed)
+
+getToDate = ->
+  offset = $('#camera_offset').val()
+  cameraOffset = parseInt(offset)/3600
+  DateToTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+  DateToTime.setHours(DateToTime.getHours() + (cameraOffset))
+  Dateformat =  format_time.formatDate(DateToTime, 'd/m/y H:i')
+  $('#datetimepicker2').val(Dateformat)
+
 window.initializeLogsTab = ->
+  format_time = new DateFormatter()
+  getFromDate()
+  getToDate()
   $('#apply-types').click(updateLogTypesFilter)
   $('.datetimepicker').datetimepicker(format: 'd/m/Y H:m')
   $('#type-all').click(toggleAllTypeFilters)

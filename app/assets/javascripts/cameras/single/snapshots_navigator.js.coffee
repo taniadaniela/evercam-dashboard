@@ -1,5 +1,5 @@
 #= require cameras/single/cloud_recording_schedule.js.coffee
-
+count = 0
 snapshotInfos = null
 totalFrames = 0
 snapshotInfoIdx = 0
@@ -395,16 +395,21 @@ BoldSnapshotHourSuccess = (result, context) ->
       if hour >= 12 && !hasRecords
         lastBoldHour = hour
         hasRecords = true
+      else if hour < 12 && !hasRecords
+        lastBoldHour = hour
     else
       lastBoldHour = hour
       hasRecords = true
+
+  if lastBoldHour < 12
+    hasRecords = true
 
   if hasRecords
     if this.isCall
       GetCameraInfo true
     else
-      if playFromDateTime isnt null
-        lastBoldHour = cameraCurrentHour
+#      if playFromDateTime isnt null
+#        lastBoldHour = cameraCurrentHour
       SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
     NProgress.done()
   else
@@ -969,6 +974,7 @@ handleResize = ->
     checkCalendarDisplay()
 
 window.initializeRecordingsTab = ->
+  count = 0
   initDatePicker()
   handleSlider()
   handleWindowResize()

@@ -158,7 +158,7 @@ getImageRealRatio = ->
     jpeg_img_width = $("#live-player-image").width()
     play_options_position = $("#fullscreen").height() / 2
     $('.play-options').css({"margin-top": "#{play_options_position}px"})
-    if $(window).width() >= 668
+    if $(window).width() >= 992
       if jpeg_img_height > fullscreen_height ||
       jpeg_img_width < fullscreen_width
         $("#live-player-image").css({"height": "#{fullscreen_height}px"})
@@ -186,17 +186,22 @@ calculateHeight = ->
     image_height = img_real_height / img_real_width * content_width
   $("#fullscreen").css({"height": "#{image_height}px","max-height": "100%"})
   $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
-  if $(window).width() >= 668
+  if $(window).width() >= 992
     $("#camera-video-stream").css({
       "height": "#{image_height}px",
       "max-height": "100%"
     })
     $(".video-js").css({"height": "#{image_height}px"})
+  else
+    $("#camera-video-stream").css({"width": "100%"})
+    $("#camera-video-stream").css({"height": "auto"})
+    $(".video-js").css({"width": "100%"})
+    $(".video-js").css({"height": "auto"})
 
-  if $(window).width() <= 668
+  if $(window).width() <= 992
     $("#fullscreen").css({"width": "100%"})
     $("#fullscreen").css({"height": "auto"})
-    $("#live-player-image").css({"margin-top": "0px"})
+    $("#live-player-image").css({"margin-top": "-7px"})
 
 handleResize = ->
   calculateHeight()
@@ -396,7 +401,7 @@ stopJpegStream = ->
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0
-    $('.live-options').css('top','114px').css('right','32px')
+    $('.live-options').css('top','124px').css('right','32px')
 
 $(window).load HideMessage = ->
   if !$(".wrap img#message").hasClass("no-thumbnail")

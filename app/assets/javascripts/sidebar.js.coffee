@@ -33,6 +33,11 @@ slideToggle = ->
     $('.setting-list').slideToggle()
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle()
+  $('.sidebar-type-label').on 'click', ->
+    if $('.sidebar-type-label span').hasClass("checked")
+      $('.sidebar-type-label span').removeClass 'checked'
+    else
+      $('.sidebar-type-label span').addClass 'checked'
 
 removeDropdown = ->
   $("#Intercom").on "click", ->

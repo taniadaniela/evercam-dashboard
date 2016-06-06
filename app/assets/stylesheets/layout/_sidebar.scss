@@ -434,14 +434,14 @@ li.inactive a {
 
 }
 
-.chk-span {
+.sidebar-chk-span {
   display: inline-block;
   margin-right: -1px;
   position: relative;
   margin-top: -1px;
 }
 
-.chk-span.checked {
+.sidebar-checked {
   border-color: transparent transparent $main-color $main-color;
   border-style: solid;
   border-width: 1px 1px 4px 2px;
@@ -453,7 +453,7 @@ li.inactive a {
   transform: rotate(-45deg) scaleY(0.5);
 }
 
-.type-label {
+.sidebar-type-label {
   border: 1px solid $evercam-grey;
   color: $evercam-grey;
   cursor: pointer;

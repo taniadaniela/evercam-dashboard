@@ -61,7 +61,7 @@
                 <option value="one">Select a new owner...</option>
                 <% if @camera_shares %>
                   <% @camera_shares.each do |share| %>
-                   <option value="<%= share["user_id"] %>"><%= share["user_id"] %></option>
+                   <option value="<%= share["user_id"] %>"><%= share["fullname"] %></option>
                   <% end %>
                 <% end %>
               </select>

@@ -22,8 +22,9 @@ addSharingCameraRow = (details) ->
   else
     row.attr("share-username", details['user_id'])
     row.attr("share-email", details['email'])
-    $("#new_owner_email").append("<option value='#{details['user_id']}'>#{details['user_id']}</option>")
-
+    $("#new_owner_email").append(
+      "<option value='#{details['user_id']}'>#{details['fullname']}</option>"
+    )
   cell = $('<td>', {class: "col-lg-4"})
   avatar_placeholder = $('<div>', {class: "gravatar-placeholder"})
   avatar = $('<img>', {class: "gravatar"})

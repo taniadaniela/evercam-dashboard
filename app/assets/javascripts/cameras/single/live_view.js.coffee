@@ -157,7 +157,7 @@ getImageRealRatio = ->
     jpeg_img_height = $("#live-player-image").height()
     jpeg_img_width = $("#live-player-image").width()
     play_options_position = $("#fullscreen").height() / 2
-    $('.play-options').css({"margin-top": "#{play_options_position}px"})
+    $('#jpg-portion .play-options').css({"top": "#{play_options_position}px"})
     if $(window).width() >= 992
       if jpeg_img_height > fullscreen_height ||
       jpeg_img_width < fullscreen_width
@@ -169,8 +169,10 @@ getImageRealRatio = ->
         $("#live-player-image").css({"margin-top": "#{jpeg_align}px"})
         $("#live-player-image").css({"width": "100%"})
         $("#live-player-image").css({"height": "auto"})
-    if img_real_width is 0 && img_real_height is 0 && jpeg_img_height is 0
-      setTimeout(getImageRealRatio(), 1000)
+    if img_real_width is 0 && img_real_height is 0
+      setTimeout (-> getImageRealRatio()), 100
+    if jpeg_img_height is 0
+      setTimeout (-> getImageRealRatio()), 100
 
 calculateHeight = ->
   content_height = Metronic.getViewPort().height + $(".page-header").height()

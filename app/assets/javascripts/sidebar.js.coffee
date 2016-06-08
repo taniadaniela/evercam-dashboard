@@ -92,7 +92,7 @@ sidebarScrollPosition = ->
       path: '/'
     return
 
- highlightActiveCamera = ->
+highlightActiveCamera = ->
   hrefs = $('.cameralist-height a')
   hrefs.each ->
     a = $(this)

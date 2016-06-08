@@ -1,6 +1,11 @@
 .datepicker {
   margin-bottom: 10px;
 }
+
+.datepicker table tr th {
+  border-radius: 0px;
+}
+
 .datepicker td,
 .datepicker th {
   text-align: center;

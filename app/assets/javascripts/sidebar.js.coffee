@@ -80,6 +80,27 @@ delay = do ->
     timer = setTimeout(callback, ms)
     return
 
+sidebarScrollPosition = ->
+  $(document).ready ->
+    prev_scroll_position = $.cookie('prev_scroll_position')
+    $('.cameralist-height').scrollTop prev_scroll_position
+    return
+  $('.page-sidebar-menu .cameralist-height').scroll (event) ->
+    scroll_positon = $('.cameralist-height').scrollTop()
+    $.cookie 'prev_scroll_position', scroll_positon,
+      expires: 7
+      path: '/'
+    return
+
+ highlightActiveCamera = ->
+  hrefs = $('.cameralist-height a')
+  hrefs.each ->
+    a = $(this)
+    if a.text() == Evercam.Camera.name
+      a.parent().addClass('active-color')
+    else
+      a.parent().removeClass('active-color')
+
 $ ->
   initSocket()
   showOfflineButton()
@@ -91,6 +112,8 @@ $(window).ready ->
   removeDropdown()
   handleToggle()
   handleCameraListHeight()
+  sidebarScrollPosition()
+  highlightActiveCamera()
   $(window).resize ->
     delay (->
       handleCameraListHeight()

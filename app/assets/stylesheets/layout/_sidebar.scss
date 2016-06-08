@@ -267,7 +267,7 @@ li span {
 
 /*SUB MENU */
 .page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 0px 0 0 14px;
+  margin: 0;
   padding-bottom: 8px;
 
 }
@@ -467,4 +467,8 @@ li.inactive a {
 .offline-span {
   font-size: 12px;
   margin-top: 5px;
+}
+
+.active-color {
+  background-color: $hover-blue;
 }

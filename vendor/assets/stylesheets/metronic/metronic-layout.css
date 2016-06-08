@@ -479,8 +479,8 @@ Page Header
     margin-left: 0;
   }
 }
-/*** 
-Horizontal Menu 
+/***
+Horizontal Menu
 ***/
 .page-header.navbar {
   /* Header container */
@@ -1088,9 +1088,10 @@ Page sidebar
 }
 .page-sidebar .page-sidebar-menu .sub-menu li,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {
-  background: none;
+  /*background: none;*/
   margin: 0px;
   padding: 0px;
+  padding-left: 14px;
   margin-top: 1px !important;
   /* 2nd level sub menu */
 }
@@ -1696,8 +1697,8 @@ Quick Sidebar Layout
   right: 0;
 }
 
-/*** 
-Quick Sidebar Toggler 
+/***
+Quick Sidebar Toggler
 ***/
 .page-quick-sidebar-toggler {
   overflow: hidden;
@@ -2593,8 +2594,8 @@ Theme Panel
   margin-right: 255px;
 }
 
-/***  
-Page Loading    
+/***
+Page Loading
 ***/
 .page-on-load {
   background: #fefefe;

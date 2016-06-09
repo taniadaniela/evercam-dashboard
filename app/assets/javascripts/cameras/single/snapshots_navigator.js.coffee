@@ -1,5 +1,4 @@
 #= require cameras/single/cloud_recording_schedule.js.coffee
-
 snapshotInfos = null
 totalFrames = 0
 snapshotInfoIdx = 0
@@ -384,28 +383,24 @@ BoldSnapshotHour = (callFromDt) ->
   sendAJAXRequest(settings)
 
 BoldSnapshotHourSuccess = (result, context) ->
-  lastBoldHour = 0
   hasRecords = false
   currentDate = new Date($("#camera_selected_time").val())
   AssignedDate = $("#ui_date_picker_inline").datepicker('getDate')
   for hour in result.hours
     #hr = hour + CameraOffset
     $("#tdI#{hour}").addClass('has-snapshot')
-    if currentDate.getDate() isnt AssignedDate.getDate()
-      if hour >= 12 && !hasRecords
-        lastBoldHour = hour
-        hasRecords = true
+    if currentDate.getDate() isnt AssignedDate.getDate() ||
+    currentDate.getMonth() isnt AssignedDate.getMonth()
+      hasRecords = true
     else
-      lastBoldHour = hour
+      cameraCurrentHour = hour
       hasRecords = true
 
   if hasRecords
     if this.isCall
       GetCameraInfo true
     else
-      if playFromDateTime isnt null
-        lastBoldHour = cameraCurrentHour
-      SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
+      SetImageHour(cameraCurrentHour, "tdI#{cameraCurrentHour}")
     NProgress.done()
   else
     NoRecordingDayOrHour()

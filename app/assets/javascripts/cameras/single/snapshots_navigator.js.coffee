@@ -1,5 +1,4 @@
 #= require cameras/single/cloud_recording_schedule.js.coffee
-count = 0
 snapshotInfos = null
 totalFrames = 0
 snapshotInfoIdx = 0
@@ -384,7 +383,6 @@ BoldSnapshotHour = (callFromDt) ->
   sendAJAXRequest(settings)
 
 BoldSnapshotHourSuccess = (result, context) ->
-  lastBoldHour = 0
   hasRecords = false
   currentDate = new Date($("#camera_selected_time").val())
   AssignedDate = $("#ui_date_picker_inline").datepicker('getDate')
@@ -969,7 +967,6 @@ handleResize = ->
     checkCalendarDisplay()
 
 window.initializeRecordingsTab = ->
-  count = 0
   initDatePicker()
   handleSlider()
   handleWindowResize()

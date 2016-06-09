@@ -391,26 +391,18 @@ BoldSnapshotHourSuccess = (result, context) ->
   for hour in result.hours
     #hr = hour + CameraOffset
     $("#tdI#{hour}").addClass('has-snapshot')
-    if currentDate.getDate() isnt AssignedDate.getDate()
-      if hour >= 12 && !hasRecords
-        lastBoldHour = hour
-        hasRecords = true
-      else if hour < 12 && !hasRecords
-        lastBoldHour = hour
-    else
-      lastBoldHour = hour
+    if currentDate.getDate() isnt AssignedDate.getDate() ||
+    currentDate.getMonth() isnt AssignedDate.getMonth()
       hasRecords = true
-
-  if lastBoldHour < 12
-    hasRecords = true
+    else
+      cameraCurrentHour = hour
+      hasRecords = true
 
   if hasRecords
     if this.isCall
       GetCameraInfo true
     else
-#      if playFromDateTime isnt null
-#        lastBoldHour = cameraCurrentHour
-      SetImageHour(lastBoldHour, "tdI#{lastBoldHour}")
+      SetImageHour(cameraCurrentHour, "tdI#{cameraCurrentHour}")
     NProgress.done()
   else
     NoRecordingDayOrHour()

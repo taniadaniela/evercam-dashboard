@@ -944,6 +944,7 @@ calculateWidth = ->
     $("#recording-tab .right-column").css("width", "100%")
 
 recodringSnapshotDivHeight = ->
+  tab_width = $("#recording-tab").width()
   calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()
   if $('#fullscreen > img').height() < calcuHeight
     $('div#navbar-section').removeClass 'navbar-section'
@@ -951,6 +952,8 @@ recodringSnapshotDivHeight = ->
   else
     $('div#navbar-section').addClass 'navbar-section'
     $('div#navbar-section').css 'width', $('.left-column').width()
+  if tab_width is 0
+    setTimeout (-> recodringSnapshotDivHeight()), 500
 
 checkCalendarDisplay = ->
   if $('.col-recording-right').css('display') == 'none'

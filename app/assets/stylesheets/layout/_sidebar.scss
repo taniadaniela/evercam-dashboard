@@ -18,7 +18,7 @@
   max-height: 21px;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a {
-  font-size: 12.5px;
+  font-size: 12px;
   display: inline-block;
   color: #FFFFFF;
 }
@@ -45,7 +45,7 @@
 }
 .page-sidebar .page-sidebar-menu > li > a {
   color: rgba(255, 255, 255, 0.77);
-  font-size: 14px;
+  font-size: 12px;
   padding: 8px 4px 4px;
  font-family: $bold-family;
 }
@@ -116,6 +116,7 @@
 .developer-list li a,
 .setting-list li a {
   color: #FFFFFF;
+  font-size: 12px;
 }
 
 .left-nav-submenu {
@@ -127,6 +128,7 @@
   padding-top: 2px;
   padding-bottom: 2px;
   margin: 0px 0 0 14px !important;
+  padding-left: 20px;
 }
 
 .cameralist-height {
@@ -145,6 +147,7 @@
   position: absolute;
   margin-top: 5px;
   cursor: pointer;
+  right: 8px;
 }
 
 .camera-fadrop:hover {
@@ -264,7 +267,7 @@ li span {
 
 /*SUB MENU */
 .page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 0px 0 0 14px;
+  margin: 0;
   padding-bottom: 8px;
 
 }
@@ -429,4 +432,43 @@ li.inactive a {
     height: 100vh !important;
   }
 
+}
+
+.sidebar-chk-span {
+  display: inline-block;
+  margin-right: -1px;
+  position: relative;
+  margin-top: -1px;
+}
+
+.sidebar-checked {
+  border-color: transparent transparent $main-color $main-color;
+  border-style: solid;
+  border-width: 1px 1px 4px 2px;
+  top: -2px;
+  height: 14px;
+  width: 14px;
+  outline-color: $ever-background;
+  -webkit-transform: rotate(-45deg) scaleY(0.5);
+  transform: rotate(-45deg) scaleY(0.5);
+}
+
+.sidebar-type-label {
+  border: 1px solid $evercam-grey;
+  color: $evercam-grey;
+  cursor: pointer;
+  float: right;
+  margin-right: 12px;
+  height: 16px;
+  margin-top: 4px;
+  width: 16px;
+}
+
+.offline-span {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.active-color {
+  background-color: $hover-blue;
 }

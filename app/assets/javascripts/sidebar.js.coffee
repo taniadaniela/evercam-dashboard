@@ -33,6 +33,11 @@ slideToggle = ->
     $('.setting-list').slideToggle()
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle()
+  $('.sidebar-type-label').on 'click', ->
+    if $('.sidebar-type-label span').hasClass("sidebar-checked")
+      $('.sidebar-type-label span').removeClass 'sidebar-checked'
+    else
+      $('.sidebar-type-label span').addClass 'sidebar-checked'
 
 removeDropdown = ->
   $("#Intercom").on "click", ->
@@ -75,6 +80,25 @@ delay = do ->
     timer = setTimeout(callback, ms)
     return
 
+sidebarScrollPosition = ->
+  $(document).ready ->
+    prev_scroll_position = $.cookie('prev_scroll_position')
+    $('.cameralist-height').scrollTop prev_scroll_position
+
+  $('.page-sidebar-menu .cameralist-height').scroll (event) ->
+    scroll_positon = $('.cameralist-height').scrollTop()
+    $.cookie 'prev_scroll_position', scroll_positon,
+      expires: 7
+      path: '/'
+
+highlightActiveCamera = ->
+  hrefs = $('.cameralist-height a')
+  hrefs.each ->
+    if $(this).text() == Evercam.Camera.name
+      $(this).parent().addClass('active-color')
+    else
+      $(this).parent().removeClass('active-color')
+
 $ ->
   initSocket()
   showOfflineButton()
@@ -86,6 +110,8 @@ $(window).ready ->
   removeDropdown()
   handleToggle()
   handleCameraListHeight()
+  sidebarScrollPosition()
+  highlightActiveCamera()
   $(window).resize ->
     delay (->
       handleCameraListHeight()

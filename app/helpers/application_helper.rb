@@ -2,8 +2,9 @@ module ApplicationHelper
   include SessionsHelper
 
   def avatar_url(email)
+    default_url = "https://evercam.io/img/evercamconnect.png"
     gravatar_id = Digest::MD5.hexdigest(email.downcase)
-    "//gravatar.com/avatar/#{gravatar_id}.png"
+    "//gravatar.com/avatar/#{gravatar_id}?d=#{default_url}"
   end
 
   def vendors

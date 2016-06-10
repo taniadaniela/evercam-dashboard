@@ -106,8 +106,9 @@ renderbuttons = (row, type, set, meta) ->
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
   div = $('<div>', {class: "gravatar-placeholder"})
+  default_url = "https://evercam.io/img/evercamconnect.png"
   signature = hex_md5(row.requester_email)
-  img_src = "//gravatar.com/avatar/#{signature}.png"
+  img_src = "//gravatar.com/avatar/#{signature}?d=#{default_url}"
   img = $('<img>', {class: "gravatar"})
   img.attr("src", img_src)
   div.append(img)

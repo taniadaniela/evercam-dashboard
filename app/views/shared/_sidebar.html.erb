@@ -5,7 +5,7 @@
         <div class="sidebar-title">
           <div id="hello" class="col-md-12">
             <%= link_to cameras_index_path do %>
-              <i class="fa fa-camera icon-font"></i><span class="title"> Cameras</span> 
+              <i class="fa fa-camera icon-font"></i><span class="title"> Cameras</span>
             <% end %>
             <i class="fa fa-caret-down camera-fadrop title"></i>
           </div>
@@ -24,7 +24,7 @@
       </li>
       <li class="sidebar-line nprogCall">
         <%= link_to cameras_new_path do %>
-        <i class="fa fa-video-camera icon-font"></i><span class="title"> Add IP Camera</span>    
+        <i class="fa fa-video-camera icon-font"></i><span class="title"> Add IP Camera</span>
         <% end %>
       </li>
       <li>
@@ -68,10 +68,12 @@
         <ul class="setting-list left-nav-submenu">
           <li>
             <i class="fa fa-video-camera" aria-hidden="true"></i>
-            <span class="offline-span"> Offline Cameras</span>
-            <label id="offline-btn" class="sidebar-type-label" for="label-chek">
-              <span class="sidebar-chk-span sidebar-checked" tabindex="30"></span>
-            </label>
+            <span class="offline-span"> Hide Offline Cameras</span>
+            <div id="siderbar" class="sidebar">
+              <label class="label sidebar-type-label">
+                <input id="offline-btn" type="checkbox" class="sidebar-chk-span" tabindex="30"></input>
+              </label>
+            </div>
           </li>
           <li class="nprogCall">
             <%= link_to user_account_path(current_user.username) do %>

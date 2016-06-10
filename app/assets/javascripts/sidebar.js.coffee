@@ -7,9 +7,11 @@ window.showOfflineButton = ->
   if $.cookie("hide-offline-cameras")
     $("#offline-btn").prop("checked", true)
     $("#offline-btn").addClass("active")
+    $("#offline-btn").addClass("sidebar-checked")
     $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')
   $('#offline-btn').on 'click', (event) ->
     $(this).toggleClass('active')
+    $(this).toggleClass('sidebar-checked')
     hide_cameras = $(this).prop("checked")
     if hide_cameras
       $.cookie("hide-offline-cameras", $(this).prop("checked"), { expires: 365, path: "/" })
@@ -33,11 +35,6 @@ slideToggle = ->
     $('.setting-list').slideToggle()
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle()
-  $('.sidebar-type-label').on 'click', ->
-    if $('.sidebar-type-label span').hasClass("sidebar-checked")
-      $('.sidebar-type-label span').removeClass 'sidebar-checked'
-    else
-      $('.sidebar-type-label span').addClass 'sidebar-checked'
 
 removeDropdown = ->
   $("#Intercom").on "click", ->

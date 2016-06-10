@@ -148,6 +148,11 @@
   margin-top: 0px;
   cursor: pointer;
   right: 8px;
+
+  .fa-caret-down {
+    display: none;
+  }
+
 }
 
 .camera-fadrop:hover {

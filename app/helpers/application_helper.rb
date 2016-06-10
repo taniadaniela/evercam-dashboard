@@ -4,7 +4,7 @@ module ApplicationHelper
   require 'uri'
 
   def avatar_url(email)
-    domain =  email.split("@").last
+    domain = email.split("@").last
     domain_url = "https://icons.better-idea.org/icon?url=#{domain}&size=120"
     res = Net::HTTP.get_response(URI(domain_url))
     location = res['location']

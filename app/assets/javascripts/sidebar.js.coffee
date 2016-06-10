@@ -28,13 +28,38 @@ nProgressCall = ->
   $('.nprogCall').on 'click', ->
     NProgress.start()
 
+slideToggleList = ->
+  if $('.developer-list:visible').length == 0
+    $('.dev .fa-caret-up').hide()
+    $('.dev .fa-caret-down').show()
+  else
+    $('.dev .fa-caret-up').show()
+    $('.dev .fa-caret-down').hide()
+
+  if $('.setting-list:visible').length == 0
+    $('.seting .fa-caret-up').hide()
+    $('.seting .fa-caret-down').show()
+  else
+    $('.seting .fa-caret-up').show()
+    $('.seting .fa-caret-down').hide()
+
+  if $('.cameralist-height:visible').length == 0
+    $('#hello .fa-caret-up').hide()
+    $('#hello .fa-caret-down').show()
+  else
+    $('#hello .fa-caret-up').show()
+    $('#hello .fa-caret-down').hide()
+
 slideToggle = ->
   $('.dev').click ->
-    $('.developer-list').slideToggle()
+    $('.developer-list').slideToggle 'slow', ->
+      slideToggleList()
   $('.seting').click ->
-    $('.setting-list').slideToggle()
+    $('.setting-list').slideToggle 'slow', ->
+      slideToggleList()
   $('.camera-fadrop').click ->
-    $('.cameralist-height').slideToggle()
+    $('.cameralist-height').slideToggle 'slow', ->
+      slideToggleList()
 
 removeDropdown = ->
   $("#Intercom").on "click", ->
@@ -109,6 +134,7 @@ $(window).ready ->
   handleCameraListHeight()
   sidebarScrollPosition()
   highlightActiveCamera()
+  slideToggleList()
   $(window).resize ->
     delay (->
       handleCameraListHeight()

@@ -7,7 +7,10 @@
             <%= link_to cameras_index_path do %>
               <i class="fa fa-camera icon-font"></i><span class="title"> Cameras</span>
             <% end %>
-            <i class="fa fa-caret-down camera-fadrop title"></i>
+            <span class="camera-fadrop">
+              <i class="fa fa-caret-down pull-right title"></i>
+              <i class="fa fa-caret-up pull-right title"></i>
+            </span>
           </div>
           <div class="clear-f"></div>
         </div>
@@ -48,7 +51,8 @@
         <% end %>
       </li>
       <li>
-        <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i></a>
+        <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i>
+        <i class="fa fa-caret-up pull-right"></i></a>
         <ul class="developer-list left-nav-submenu">
           <li>
             <a href="<%= swagger_path  %>" target="_blank"><i class="fa fa-book"></i> API Docs </a>
@@ -64,7 +68,8 @@
         </ul>
       </li>
       <li>
-        <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i></a>
+        <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i>
+        <i class="fa fa-caret-up pull-right"></i></a>
         <ul class="setting-list left-nav-submenu">
           <li>
             <i class="fa fa-video-camera" aria-hidden="true"></i>

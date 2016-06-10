@@ -1,18 +1,10 @@
 module ApplicationHelper
   include SessionsHelper
-  require 'net/http'
-  require 'uri'
 
   def avatar_url(email)
-    domain = email.split("@").last
-    domain_url = "https://icons.better-idea.org/icon?url=#{domain}&size=120"
-    res = Net::HTTP.get_response(URI(domain_url))
-    location = res['location']
-    if location.start_with?('/')
-      location = "https://icons.better-idea.org" + location
-    end
+    default_url = "https://evercam.io/img/evercamconnect.png"
     gravatar_id = Digest::MD5.hexdigest(email.downcase)
-    "//gravatar.com/avatar/#{gravatar_id}?d=#{location}"
+    "//gravatar.com/avatar/#{gravatar_id}?d=#{default_url}"
   end
 
   def vendors

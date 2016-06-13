@@ -129,7 +129,7 @@
         <td class="owner-email">
           <div class="gravatar-placeholder">
             <% unless @camera['id'] == "evercam-remembrance-camera" %>
-            <%= image_tag avatar_url(@owner.email), class: 'gravatar' %>
+            <%= image_tag avatar_url(@owner.email), class: 'gravatar', onError: "this.src ='https://gravatar.com/avatar';" %>
             <% end %>
           </div>
           <div class="username-id">
@@ -157,7 +157,7 @@
             <td class="col-lg-4">
               <div class="gravatar-placeholder">
                 <% unless @camera['id'] == "evercam-remembrance-camera" %>
-                <%= image_tag avatar_url(share["email"]), class: 'gravatar' %>
+                <%= image_tag avatar_url(share["email"]), class: 'gravatar', onError: "this.src ='https://gravatar.com/avatar';" %>
                 <% end %>
               </div>
               <div class="username-id">
@@ -214,7 +214,7 @@
           <tr class="share-request" id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
             <td class="col-lg-4">
               <% unless @camera['id'] == "evercam-remembrance-camera" %>
-              <%= image_tag avatar_url(share_request["email"]), class: 'gravatar' %>
+              <%= image_tag avatar_url(share_request["email"]), class: 'gravatar', onError: "this.src ='https://gravatar.com/avatar';" %>
               <% end %>
               <%= share_request["email"] %>
               <small class="blue"> ...pending</small>

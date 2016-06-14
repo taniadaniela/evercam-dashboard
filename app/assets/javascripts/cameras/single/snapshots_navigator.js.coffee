@@ -535,7 +535,7 @@ loadMdImages = ->
     timestamp = image_control.attr("timestamp")
     data = {}
     data.with_data = true
-    data.range = 1
+    data.range = 2
     data.api_id = Evercam.User.api_id
     data.api_key = Evercam.User.api_key
 
@@ -561,7 +561,7 @@ loadMdImages = ->
 loadImage = (timestamp) ->
   data = {}
   data.with_data = true
-  data.range = 1
+  data.range = 2
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 
@@ -785,7 +785,7 @@ DoNextImg = ->
 
   data = {}
   data.with_data = true
-  data.range = 1
+  data.range = 2
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 

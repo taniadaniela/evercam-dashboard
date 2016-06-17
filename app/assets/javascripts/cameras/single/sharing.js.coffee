@@ -489,7 +489,7 @@ addGravatarFallbacks = ->
       img_src = "//gravatar.com/avatar/#{signature}"
     data = {}
 
-    onSuccess = (data, success, jqXHR)->
+    onSuccess = (data, success, jqXHR) ->
       length = jqXHR.responseText.length
       if length < 100
         img_src = "//gravatar.com/avatar/#{signature}"

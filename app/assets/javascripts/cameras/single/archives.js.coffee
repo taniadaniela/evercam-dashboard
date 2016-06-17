@@ -120,8 +120,7 @@ gravatarName = (row, type, set, meta) ->
   return main_div.html()
 
 changeImageSource = (email, id) ->
-  default_url = "//favicon.yandex.net/favicon/"
-  favicon_url = default_url
+  favicon_url = "//favicon.yandex.net/favicon/"
   if email
     signature = hex_md5(email)
     index = email.indexOf("@")

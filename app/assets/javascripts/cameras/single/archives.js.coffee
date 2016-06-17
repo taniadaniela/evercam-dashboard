@@ -106,11 +106,7 @@ renderbuttons = (row, type, set, meta) ->
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
   div = $('<div>', {class: "gravatar-placeholder"})
-  default_url = "https://evercam.io/img/evercamconnect.png"
-  signature = hex_md5(row.requester_email)
-  img_src = "//gravatar.com/avatar/#{signature}?d=#{default_url}"
-  img = $('<img>', {class: "gravatar"})
-  img.attr("src", img_src)
+  img = $('<img>', {class: "gravatar #{row.id}"})
   div.append(img)
   div_user = $('<div>', {class: "username-id"})
   div_user.append(row.requester_name)
@@ -120,7 +116,42 @@ gravatarName = (row, type, set, meta) ->
   div_user.append(small)
   main_div.append(div)
   main_div.append(div_user)
+  changeImageSource(row.requester_email, row.id)
   return main_div.html()
+
+changeImageSource = (email, id) ->
+  favicon_url = "//favicon.yandex.net/favicon/"
+  if email
+    signature = hex_md5(email)
+    index = email.indexOf("@")
+    domain = email.substr((index+1))
+    favicon_url = favicon_url + domain
+    img_src = "//gravatar.com/avatar/#{signature}?d=#{favicon_url}"
+    if domain is "hotmail.com"
+      img_src = "//gravatar.com/avatar/#{signature}"
+  else
+    img_src = "//gravatar.com/avatar"
+
+  data = {}
+
+  onSuccess = (data, success, jqXHR) ->
+    length = jqXHR.responseText.length
+    if length < 100
+      img_src = "//gravatar.com/avatar/#{signature}"
+    $("#archives-table .#{id}").attr "src", img_src
+
+  onError = (jqXHR, status, error) ->
+    $("#archives-table .#{id}").attr "src", img_src
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'html'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{favicon_url}"
+  jQuery.ajax(settings)
 
 renderDate = (row, type, set, meta) ->
   getDate(row.created_at*1000)

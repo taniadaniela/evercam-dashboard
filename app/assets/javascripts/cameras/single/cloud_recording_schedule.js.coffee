@@ -7,7 +7,7 @@ window.initScheduleCalendar = ->
     axisFormat: 'HH'
     defaultView: 'agendaWeek'
     allDaySlot: false
-    slotDuration: '00:60:00'
+    slotDuration: '00:59:59'
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -331,4 +331,3 @@ window.initCloudRecordingSettings = ->
   showEditButton()
   handleStatusSelect()
   saveScheduleSettings()
-  

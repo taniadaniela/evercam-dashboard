@@ -474,6 +474,40 @@ initializePopup = ->
     arrow_border: ".arrow-border2"
     close: ".closepopup2"
 
+addGravatarFallbacks = ->
+  img_tags = $("#shares .gravatar")
+  favicon = "//favicon.yandex.net/favicon/"
+  img_tags.each ->
+    img = $(this)
+    email = img.attr "email"
+    signature = hex_md5(email)
+    index = email.indexOf("@")
+    domain = email.substr((index+1))
+    favicon_url = favicon + domain
+    img_src = "//gravatar.com/avatar/#{signature}?d=#{favicon_url}"
+    if domain is "hotmail.com"
+      img_src = "//gravatar.com/avatar/#{signature}"
+    data = {}
+
+    onSuccess = (data, success, jqXHR)->
+      length = jqXHR.responseText.length
+      if length < 100
+        img_src = "//gravatar.com/avatar/#{signature}"
+      img.attr "src", img_src
+
+    onError = (jqXHR, status, error) ->
+      img.attr "src", img_src
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'html'
+      error: onError
+      success: onSuccess
+      type: 'GET'
+      url: "#{favicon_url}"
+    jQuery.ajax(settings)
+
 window.initializeSharingTab = ->
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
   $('.delete-share').click(onDeleteShareClicked)
@@ -488,5 +522,6 @@ window.initializeSharingTab = ->
   initializePopup()
   Notification.init(".bb-alert")
   getTransferFromUrl()
+  addGravatarFallbacks()
 
 window.Evercam.Share.createShare = createShare

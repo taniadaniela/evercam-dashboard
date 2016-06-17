@@ -1,6 +1,11 @@
 module ApplicationHelper
   include SessionsHelper
 
+  def avatar_url(email)
+    gravatar_id = Digest::MD5.hexdigest(email.downcase)
+    "//gravatar.com/avatar/#{gravatar_id}"
+  end
+
   def vendors
     Vendor.order(:name).all
   end

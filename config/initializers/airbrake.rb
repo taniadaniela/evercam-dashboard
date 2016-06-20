@@ -1,7 +1,9 @@
+require "evercam_misc"
+
 Airbrake.configure do |config|
-  config.project_id = ENV['AIRBRAKE_PROJECT_ID'].to_s
-  config.project_key = ENV['AIRBRAKE_PROJECT_KEY'].to_s
-  config.ignore_environments = %w(development)
+  config.project_id = ENV['AIRBRAKE_PROJECT_ID'].to_i
+  config.project_key = ENV['AIRBRAKE_PROJECT_KEY']
+  config.environment = :development
 end
 
 Airbrake.add_filter do |notice|

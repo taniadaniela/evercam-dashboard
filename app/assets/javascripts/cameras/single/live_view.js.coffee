@@ -152,27 +152,52 @@ getImageRealRatio = ->
   $('<img/>').attr('src', $("#live-player-image").attr('src')).load ->
     img_real_width = @width
     img_real_height = @height
+    offline_img_width = $(".camera-thumbnail").width()
+    offline_img_height = $(".camera-thumbnail").height()
+    offline_wrap_width = $(".offline-camera-placeholder .wrap").width()
+    offline_wrap_height = $(".offline-camera-placeholder .wrap").height()
+    offline_height = $(".offline-camera-placeholder .offline-image").height()
     fullscreen_height = $("#fullscreen").height()
     fullscreen_width = $("#fullscreen").width()
     jpeg_img_height = $("#live-player-image").height()
     jpeg_img_width = $("#live-player-image").width()
     play_options_position = $("#fullscreen").height() / 2
     $('#jpg-portion .play-options').css({"top": "#{play_options_position}px"})
-    if $(window).width() >= 992
-      if jpeg_img_height > fullscreen_height ||
-      jpeg_img_width < fullscreen_width
-        $("#live-player-image").css({"height": "#{fullscreen_height}px"})
-        $("#live-player-image").css({"width": "auto"})
-        $("#live-player-image").css({"margin-top": "0px"})
+    if $('.camera-preview-online').hasClass 'hide'
+      if offline_img_height > offline_wrap_height ||
+      offline_img_width < offline_wrap_width
+        $(".camera-thumbnail").css({"height": "#{offline_wrap_height}px"})
+        $(".camera-thumbnail").css({"width": "auto"})
+        $(".camera-thumbnail").css({"margin-top": "0px"})
       else
-        jpeg_align = (fullscreen_height - jpeg_img_height) / 2
-        $("#live-player-image").css({"margin-top": "#{jpeg_align}px"})
-        $("#live-player-image").css({"width": "100%"})
-        $("#live-player-image").css({"height": "auto"})
-    if img_real_width is 0 && img_real_height is 0
-      setTimeout (-> getImageRealRatio()), 100
-    if jpeg_img_height is 0
-      setTimeout (-> getImageRealRatio()), 100
+        $(".camera-thumbnail").css({"width": "100%"})
+        $(".camera-thumbnail").css({"height": "auto"})
+        if offline_wrap_height == offline_img_height
+          setTimeout (-> getImageRealRatio()), 100
+        else
+          offline_img_align = (offline_wrap_height - offline_img_height) / 2
+          $(".camera-thumbnail").css({"margin-top": "#{offline_img_align}px"})
+      if offline_img_width is 0
+        setTimeout (-> getImageRealRatio()), 100
+    else
+      if $(window).width() >= 992
+        if jpeg_img_height > fullscreen_height ||
+        jpeg_img_width < fullscreen_width
+          $("#live-player-image").css({"height": "#{fullscreen_height}px"})
+          $("#live-player-image").css({"width": "auto"})
+          $("#live-player-image").css({"margin-top": "0px"})
+        else
+          $("#live-player-image").css({"width": "100%"})
+          $("#live-player-image").css({"height": "auto"})
+          if fullscreen_height == jpeg_img_height
+            setTimeout (-> getImageRealRatio()), 100
+          else
+            jpeg_align = (fullscreen_height - jpeg_img_height) / 2
+            $("#live-player-image").css({"margin-top": "#{jpeg_align}px"})
+      if img_real_width is 0 && img_real_height is 0
+        setTimeout (-> getImageRealRatio()), 100
+      if jpeg_img_height is 0
+        setTimeout (-> getImageRealRatio()), 100
 
 calculateHeight = ->
   content_height = Metronic.getViewPort().height + $(".page-header").height()
@@ -187,14 +212,22 @@ calculateHeight = ->
   if $(".page-sidebar").css('display') is "none" && img_real_width > content_width
     image_height = img_real_height / img_real_width * content_width
   $("#fullscreen").css({"height": "#{image_height}px","max-height": "100%"})
-  $(".offline-camera-placeholder .camera-thumbnail").css({"height": "#{image_height}px","max-height": "100%"})
   if $(window).width() >= 992
     $("#camera-video-stream").css({
       "height": "#{image_height}px",
       "max-height": "100%"
     })
+    $(".offline-camera-placeholder .offline-image").css({
+      "height": "#{image_height}px",
+      "width": "100%"
+    })
     $(".video-js").css({"height": "#{image_height}px"})
   else
+    $(".offline-camera-placeholder .offline-image").css({
+      "height": "auto",
+      "max-height": "100%"
+      "width": "100%"
+    })
     $("#camera-video-stream").css({"width": "100%"})
     $("#camera-video-stream").css({"height": "auto"})
     $(".video-js").css({"width": "100%"})
@@ -204,6 +237,9 @@ calculateHeight = ->
     $("#fullscreen").css({"width": "100%"})
     $("#fullscreen").css({"height": "auto"})
     $("#live-player-image").css({"margin-top": "-7px"})
+    $(".camera-thumbnail").css({"margin-top": "0px"})
+    $(".camera-thumbnail").css({"width": "100%"})
+    $(".camera-thumbnail").css({"height": "auto"})
 
 handleResize = ->
   calculateHeight()

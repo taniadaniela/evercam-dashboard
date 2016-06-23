@@ -19,7 +19,7 @@
         <ul class="sub-menu sidebar-cameras-list">
           <% @cameras.each do |camera| %>
             <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <%= "sidebar-offline" unless camera['is_online'] %>">
-              <%= link_to camera['name'], cameras_single_path(camera['id']) %>
+              <%= link_to camera['name'], cameras_single_path(camera['id']), data: {"camera-id" => camera['id']} %>
               <i class="red main-sidebar fa fa-chain-broken"></i>
             </li>
           <% end %>

@@ -109,7 +109,10 @@ gravatarName = (row, type, set, meta) ->
   img = $('<img>', {class: "gravatar #{row.id}"})
   div.append(img)
   div_user = $('<div>', {class: "username-id"})
-  div_user.append(row.requester_name)
+  if row.requester_email
+    div_user.append(row.requester_name)
+  else
+    div_user.append("Deleted User")
   div_user.append('<br>')
   small = $('<small>', {class: "blue"})
   small.append(renderDate(row, type, set, meta))

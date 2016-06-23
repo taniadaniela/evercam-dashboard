@@ -170,8 +170,12 @@
             </td>
             <td class="col-lg-3 share-by">
               <div class="username-id">
-                <%= share["sharer_name"] %><br>
-                <small class="blue"><%= share["sharer_email"] %></small>
+                <% unless share["sharer_name"].nil? %>
+                  <%= share["sharer_name"] %><br>
+                  <small class="blue"><%= share["sharer_email"] %></small>
+                <% else %>
+                  Deleted User<br>
+                <% end %>
               </div>
             </td>
             <td class="col-lg-2">
@@ -221,8 +225,12 @@
             </td>
             <td class="col-lg-3 share-by">
               <div class="username-id">
-                <%= share_request["sharer_name"] %><br>
-                <small class="blue"><%= share_request["sharer_email"] %></small>
+                <% unless share_request["sharer_name"].nil? %>
+                    <%= share_request["sharer_name"] %><br>
+                    <small class="blue"><%= share_request["sharer_email"] %></small>
+                <% else %>
+                    Deleted User<br>
+                <% end %>
               </div>
             </td>
             <td class="col-lg-2">

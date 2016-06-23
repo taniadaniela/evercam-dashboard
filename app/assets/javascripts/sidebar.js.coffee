@@ -116,7 +116,7 @@ sidebarScrollPosition = ->
 highlightActiveCamera = ->
   hrefs = $('.cameralist-height a')
   hrefs.each ->
-    if $(this).text() == Evercam.Camera.name
+    if $(this).data('camera-id') == Evercam.Camera.id
       $(this).parent().addClass('active-color')
     else
       $(this).parent().removeClass('active-color')

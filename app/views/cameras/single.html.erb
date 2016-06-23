@@ -49,28 +49,28 @@
             <% end %>
 
             <% unless has_edit_right %>
-              <i class="fa fa-trash-o delete-share-icon" data-toggle="modal" data-target="#deleteModal" aria-hidden="true"></i>
+              <i class="fa fa-trash-o delete-share-icon" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
             <% end %>
               <div id="deleteModal" class="modal fade">
-                <div class="modal-dialog">
+                <div class="modal-dialog width-420">
                   <div class="modal-content">
                     <div class="modal-body">
-                      <div class="col-md-12">
+                      <div class="col-md-12 padding-0">
                         <% if @share.nil? %>
-                          <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                          <p class="text-left margin-0">Are you sure you want to <strong>Delete</strong> this camera?</p>
                         <% else %>
-                          <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                          <p class="text-left margin-0">Are you sure you want to <strong>Remove</strong> this camera?</p>
                         <% end %>
                       </div>
                       <% if @share.nil? %>
-                        <div class="col-md-12">
+                        <div class="col-md-12 margin-top-10 padding-0">
                           <p>Enter camera id (<strong><%= @camera['id'] %></strong>) to confirm that you want to permanently delete this camera</p>
                           <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
                         </div>
                       <% end %>
                     </div>
-                    <div class="modal-footer">
-                      <div class="col-sm-8 margin-top-10">
+                    <div class="modal-footer padding-15">
+                      <div class="col-sm-8 padding-0">
                         <input type="hidden" id="id" name="id" value="<%= @camera['id'] %>"/>
                         <% if @share.nil? %>
                           <input type="hidden" id="share" name="share" value="false"/>

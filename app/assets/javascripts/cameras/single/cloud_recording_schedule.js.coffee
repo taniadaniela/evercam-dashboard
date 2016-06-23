@@ -7,7 +7,7 @@ window.initScheduleCalendar = ->
     axisFormat: 'HH'
     defaultView: 'agendaWeek'
     allDaySlot: false
-    slotDuration: '00:59:59'
+    slotDuration: '00:60:00'
     columnFormat: 'ddd'
     defaultDate: '1970-01-01'
     dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -42,7 +42,7 @@ window.initScheduleCalendar = ->
       scheduleCalendar.fullCalendar('renderEvent',
           title: title
           start: start
-          end: end
+          end: end - 1
       , true)
       scheduleCalendar.fullCalendar('unselect')
       updateScheduleFromCalendar()

@@ -17,13 +17,13 @@ hideThumbnailGif = ->
     gifid = $(this)
     camera_id = gifid.attr 'id'
     control_id = '#' + camera_id
-    $("#{control_id} i").hide()
-    $("#{control_id} img").show()
+    $("#{control_id} > .fa-still").css 'display', 'none'
+    $("#{control_id} > .refresh-gif-thumbnail").css 'display', 'block'
     refreshCameraStatus(camera_id, control_id)
 
 hide_gif = (control_id) ->
-  $("#{control_id} i").show()
-  $("#{control_id} img").hide()
+  $("#{control_id} .fa-still").css 'display', 'block'
+  $("#{control_id} .refresh-gif-thumbnail").css 'display', 'none'
 
 refreshCameraStatus = (cam_id, contr_id) ->
   NProgress.start()

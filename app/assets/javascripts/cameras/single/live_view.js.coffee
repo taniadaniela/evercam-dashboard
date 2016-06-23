@@ -26,13 +26,13 @@ controlButtonEvents = ->
     stream_paused = !stream_paused
 
   $('#refresh-offline-camera').on "click", ->
-    $('.fa-refresh').hide()
-    $('.refresh-gif').show()
+    $('.fa-still').css 'display', 'none'
+    $('.fa-spin').css 'display', 'block'
     refreshCameraStatus()
 
 hidegif = ->
-  $('.refresh-gif').hide()
-  $('.fa-refresh').show()
+  $('.fa-spin').css 'display', 'none'
+  $('.fa-still').css 'display', 'block'
 
 refreshCameraStatus = ->
   NProgress.start()

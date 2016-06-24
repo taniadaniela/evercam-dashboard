@@ -449,7 +449,7 @@ GetCameraInfo = (isShowLoader) ->
       $("#divSlider").width("#{sliderpercentage}%")
       currentFrameNumber=1
       frameDateTime = new Date(moment(snapshotInfos[snapshotInfoIdx]
-        .created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+      .created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
       if playFromDateTime isnt null

@@ -608,15 +608,17 @@ GetUTCDate = (date) ->
 
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
+  getDate = dt.getDate()
+  getMonth = dt.getMonth()
   hour = parseInt(cameraCurrentHour)
+  sec = date.getSeconds()
   minutes = date.getMinutes()
   if minutes >= CameraOffsetMinutes
     minutes = minutes - CameraOffsetMinutes
   else
     minutes = minutes + CameraOffsetMinutes
-  "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/
-   #{date.getFullYear()} #{FormatNumTo2(hour)}
-  :#{FormatNumTo2(minutes)}:#{FormatNumTo2(date.getSeconds())}"
+  "#{FormatNumTo2(getDate)}/#{FormatNumTo2(getMonth+1)}/#{date.getFullYear()}
+  #{FormatNumTo2(hour)}:#{FormatNumTo2(minutes)}:#{FormatNumTo2(sec)}"
 
 getSnapshotDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')

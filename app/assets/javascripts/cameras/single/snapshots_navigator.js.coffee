@@ -266,7 +266,8 @@ SetInfoMessage = (currFrame, date_time) ->
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
   $("#snapshot-notes-text").text(snapInfo.notes)
-  SetInfoMessage currentFrameNumber, new Date(moment(snapInfo.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+  SetInfoMessage currentFrameNumber, new Date(moment(snapInfo.created_at*1000)
+  .format('MM/DD/YYYY HH:mm:ss'))
   loadImage(snapInfo.created_at)
 
 getTimestampFromUrl = ->
@@ -294,9 +295,11 @@ handleBodyLoadContent = ->
   timestamp = getTimestampFromUrl()
   if timestamp isnt ""
     playFromTimeStamp = moment.utc(timestamp)/1000
-    playFromDateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY HH:mm:ss'))
+    playFromDateTime = new Date(moment.utc(timestamp)
+    .format('MM/DD/YYYY HH:mm:ss'))
     playFromDateTime.setHours(playFromDateTime.getHours() + CameraOffsetHours)
-    playFromDateTime.setMinutes(playFromDateTime.getMinutes() + CameraOffsetMinutes)
+    playFromDateTime
+    .setMinutes(playFromDateTime.getMinutes() + CameraOffsetMinutes)
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -445,12 +448,14 @@ GetCameraInfo = (isShowLoader) ->
         sliderpercentage = 100
       $("#divSlider").width("#{sliderpercentage}%")
       currentFrameNumber=1
-      frameDateTime = new Date(moment(snapshotInfos[snapshotInfoIdx].created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+      frameDateTime = new Date(moment(snapshotInfos[snapshotInfoIdx]
+        .created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
       if playFromDateTime isnt null
         snapshotTimeStamp = SetPlayFromImage playFromTimeStamp
-        frameDateTime = new Date(moment(snapshotTimeStamp*1000).format('MM/DD/YYYY HH:mm:ss'))
+        frameDateTime = new Date(moment(snapshotTimeStamp*1000)
+        .format('MM/DD/YYYY HH:mm:ss'))
         if currentFrameNumber isnt 1
           playFromDateTime = null
           playFromTimeStamp = null
@@ -609,7 +614,9 @@ shortDate = (date) ->
     minutes = minutes - CameraOffsetMinutes
   else
     minutes = minutes + CameraOffsetMinutes
-  "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(minutes)}:#{FormatNumTo2(date.getSeconds())}"
+  "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/
+   #{date.getFullYear()} #{FormatNumTo2(hour)}
+  :#{FormatNumTo2(minutes)}:#{FormatNumTo2(date.getSeconds())}"
 
 getSnapshotDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
@@ -810,7 +817,8 @@ DoNextImg = ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
-      SetInfoMessage currentFrameNumber, new Date(moment(si.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+      SetInfoMessage currentFrameNumber,
+        new Date(moment(si.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
     $("#imgPlayback").attr("src", response.snapshots[0].data)
 
     if playDirection is 1 and playStep is 1

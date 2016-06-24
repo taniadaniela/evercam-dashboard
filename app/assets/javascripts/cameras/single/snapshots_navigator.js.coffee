@@ -22,6 +22,8 @@ CameraOffset = 0
 xhrRequestChangeMonth = null
 playFromDateTime = null
 playFromTimeStamp = null
+CameraOffsetHours = null
+CameraOffsetMinutes = null
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -264,7 +266,8 @@ SetInfoMessage = (currFrame, date_time) ->
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
   $("#snapshot-notes-text").text(snapInfo.notes)
-  SetInfoMessage currentFrameNumber, new Date(snapInfo.created_at*1000)
+  SetInfoMessage currentFrameNumber, new Date(moment(snapInfo.created_at*1000)
+  .format('MM/DD/YYYY HH:mm:ss'))
   loadImage(snapInfo.created_at)
 
 getTimestampFromUrl = ->
@@ -283,6 +286,8 @@ isValidDateTime = (timestamp) ->
 handleBodyLoadContent = ->
   offset = $('#camera_time_offset').val()
   CameraOffset = parseInt(offset)/3600
+  CameraOffsetHours = Math.floor(CameraOffset)
+  CameraOffsetMinutes = 60 *(CameraOffset - CameraOffsetHours)
   currentDate = new Date($("#camera_selected_time").val())
   cameraCurrentHour = currentDate.getHours()
   $("#hourCalendar td[class*='day']").removeClass("active")
@@ -290,8 +295,11 @@ handleBodyLoadContent = ->
   timestamp = getTimestampFromUrl()
   if timestamp isnt ""
     playFromTimeStamp = moment.utc(timestamp)/1000
-    playFromDateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY HH:mm:ss'))
-    playFromDateTime.setHours(playFromDateTime.getHours() + (CameraOffset))
+    playFromDateTime = new Date(moment.utc(timestamp)
+    .format('MM/DD/YYYY HH:mm:ss'))
+    playFromDateTime.setHours(playFromDateTime.getHours() + CameraOffsetHours)
+    playFromDateTime
+    .setMinutes(playFromDateTime.getMinutes() + CameraOffsetMinutes)
     currentDate = playFromDateTime
     cameraCurrentHour = currentDate.getHours()
     $("#ui_date_picker_inline").datepicker('update', currentDate)
@@ -317,15 +325,6 @@ fullscreenImage = ->
       else
         $("#imgPlayback").css('width','100%')
 
-getLocationBaseDateTime = (offset) ->
-  #create Date object for current location
-  d = new Date()
-  #d.getTimezoneOffset() Returns the time difference between UTC time and local time, in minutes
-  utc = d.getTime() + (d.getTimezoneOffset() * 60000)
-  #create new Date object for different Location using supplied offset
-  utc = (utc + parseInt(offset))
-  nd = new Date(utc)
-  return nd
 
 HighlightCurrentMonth = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
@@ -449,12 +448,14 @@ GetCameraInfo = (isShowLoader) ->
         sliderpercentage = 100
       $("#divSlider").width("#{sliderpercentage}%")
       currentFrameNumber=1
-      frameDateTime = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
+      frameDateTime = new Date(moment(snapshotInfos[snapshotInfoIdx]
+      .created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
       if playFromDateTime isnt null
         snapshotTimeStamp = SetPlayFromImage playFromTimeStamp
-        frameDateTime = new Date(snapshotTimeStamp*1000)
+        frameDateTime = new Date(moment(snapshotTimeStamp*1000)
+        .format('MM/DD/YYYY HH:mm:ss'))
         if currentFrameNumber isnt 1
           playFromDateTime = null
           playFromTimeStamp = null
@@ -608,7 +609,14 @@ GetUTCDate = (date) ->
 shortDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
   hour = parseInt(cameraCurrentHour)
-  "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/#{date.getFullYear()} #{FormatNumTo2(hour)}:#{FormatNumTo2(date.getMinutes())}:#{FormatNumTo2(date.getSeconds())}"
+  minutes = date.getMinutes()
+  if minutes >= CameraOffsetMinutes
+    minutes = minutes - CameraOffsetMinutes
+  else
+    minutes = minutes + CameraOffsetMinutes
+  "#{FormatNumTo2(dt.getDate())}/#{FormatNumTo2(dt.getMonth()+1)}/
+   #{date.getFullYear()} #{FormatNumTo2(hour)}
+  :#{FormatNumTo2(minutes)}:#{FormatNumTo2(date.getSeconds())}"
 
 getSnapshotDate = (date) ->
   dt = $("#ui_date_picker_inline").datepicker('getDate')
@@ -809,7 +817,8 @@ DoNextImg = ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
-      SetInfoMessage currentFrameNumber, new Date(si.created_at*1000)
+      SetInfoMessage currentFrameNumber,
+        new Date(moment(si.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
     $("#imgPlayback").attr("src", response.snapshots[0].data)
 
     if playDirection is 1 and playStep is 1

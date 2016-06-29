@@ -268,7 +268,7 @@ UpdateSnapshotRec = (snapInfo) ->
   $("#snapshot-notes-text").text(snapInfo.notes)
   SetInfoMessage currentFrameNumber, new Date(moment(snapInfo.created_at*1000)
   .format('MM/DD/YYYY HH:mm:ss'))
-  loadImage(snapInfo.created_at)
+  loadImage(snapInfo.created_at, snapInfo.notes)
 
 getTimestampFromUrl = ->
   timestamp = window.Evercam.request.subpath.
@@ -426,7 +426,7 @@ GetCameraInfo = (isShowLoader) ->
   data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
     NProgress.done()
-    false
+
   onSuccess = (response) ->
     snapshotInfoIdx = 0
     snapshotInfos = response.snapshots
@@ -451,6 +451,7 @@ GetCameraInfo = (isShowLoader) ->
       frameDateTime = new Date(moment(snapshotInfos[snapshotInfoIdx]
       .created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
+      snapshotNotes = snapshotInfos[snapshotInfoIdx].notes
 
       if playFromDateTime isnt null
         snapshotTimeStamp = SetPlayFromImage playFromTimeStamp
@@ -462,10 +463,9 @@ GetCameraInfo = (isShowLoader) ->
 
       $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
       SetInfoMessage(currentFrameNumber, frameDateTime)
-      loadImage(snapshotTimeStamp)
+      loadImage(snapshotTimeStamp, snapshotNotes)
       BindMDStrip()
     NProgress.done()
-    true
 
   settings =
     cache: false
@@ -559,16 +559,16 @@ loadMdImages = ->
 
     sendAJAXRequest(settings)
 
-loadImage = (timestamp) ->
+loadImage = (timestamp, notes) ->
   data = {}
   data.with_data = true
   data.range = 2
+  data.notes = notes
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
     checkCalendarDisplay()
-    false
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
@@ -576,7 +576,6 @@ loadImage = (timestamp) ->
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
     checkCalendarDisplay()
-    true
 
   settings =
     cache: false

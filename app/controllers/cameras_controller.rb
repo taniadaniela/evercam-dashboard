@@ -207,7 +207,7 @@ class CamerasController < ApplicationController
       api = get_evercam_api
       @camera = api.get_camera(params[:id], true)
       @page = (params[:page].to_i - 1) || 0
-      @types = ['created', 'accessed', 'viewed', 'edited', 'captured',
+      @types = ['accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline']
       @camera['is_online'] = false if @camera['is_online'].blank?
       @camera['timezone'] = 'Etc/UTC' unless @camera['timezone']

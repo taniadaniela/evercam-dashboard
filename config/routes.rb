@@ -45,8 +45,8 @@ Rails.application.routes.draw do
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
 
-  get '/v1/public/cameras' => 'public#index', as: :public_cameras_index
-  get '/v1/public/cameras/:id' => 'public#single', as: :public_cameras_single
+  get '/v1/public/cameras' => redirect('https://evercam.io/public/cameras/')
+  get '/v1/public/cameras/:id' => redirect('https://evercam.io/public/cameras/')
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :edit]

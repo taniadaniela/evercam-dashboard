@@ -139,10 +139,34 @@
 
   tbody td {
     padding-left: 0px;
+    width: 25%;
+    text-align: left;
   }
 
 }
 
 .padding-right-left-10 {
   padding: 0 5px;
+}
+
+.thumbs {
+  width: 60px;
+  cursor: pointer;
+  border: 1px solid $border-black;
+}
+
+.div-elms {
+  max-width: 600px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  overflow: hidden;
+  border: 2px solid $border-black;
+  z-index: 9999;
+  display: none;
+}
+
+.table-logs .fa-refresh {
+  margin-left: 20px;
 }

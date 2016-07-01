@@ -2,6 +2,15 @@ table = null
 format_time = null
 offset = null
 cameraOffset = null
+mouseOverCtrl = undefined
+
+sendAJAXRequest = (settings) ->
+  token = $('meta[name="csrf-token"]')
+  if token.size() > 0
+    headers =
+      "X-CSRF-Token": token.attr("content")
+    settings.headers = headers
+  xhrRequestChangeMonth = $.ajax(settings)
 
 updateLogTypesFilter = () ->
   NProgress.start()
@@ -73,6 +82,13 @@ initializeDataTable = ->
         if row.action is 'online' or row.action is 'offline'
           return 'System'
         return row.who
+      },
+      { data: ( row, type, set, meta ) ->
+        getImage(row, type, set, meta)
+        return "
+          <div class='#{row.done_at}'>
+          <i class='fa fa-refresh fa-spin fa-1x fa-fw' aria-hidden='true'></i>
+          </div>"
       }
     ],
     autoWidth: false,
@@ -87,6 +103,40 @@ initializeDataTable = ->
       NProgress.done()
   })
 
+getImage = (row, type, set, meta) ->
+  timestamp = row.done_at
+  data = {}
+  data.with_data = true
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onSuccess = (response) ->
+    if response.snapshots and response.snapshots.length > 0
+      img_src = response.snapshots[0].data
+    else
+      img_src = "/assets/offline.png"
+    img = $('<img>',{class: "thumbs"})
+    img.attr "src",img_src
+    $("#logs .#{timestamp}").empty()
+    $("#logs .#{timestamp}").append(img)
+
+  onError = (jqXHR, status, error) ->
+    icon = $('<img>',{class: "thumbs"})
+    icon.attr "src", "/assets/offline.png"
+    $("#logs .#{timestamp}").empty()
+    $("#logs .#{timestamp}").append(icon)
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
+  sendAJAXRequest(settings)
+
 callDate = ->
   $('#datetimepicker').val(getDate('from'))
   $('#datetimepicker2').val(getDate('to'))
@@ -98,6 +148,19 @@ getDate = (type) ->
     DateFromTime.setDate(DateFromTime.getDate() - 1)
   Dateformateed =  format_time.formatDate(DateFromTime, 'd/m/y H:i')
   return Dateformateed
+
+onImageHover = ->
+  $("#logs-table").on "mouseover", ".thumbs", ->
+    content_height = Metronic.getViewPort().height
+    mouseOverCtrl = this
+    $(".full-image").attr("src", @src)
+    $(".div-elms").show()
+    thumbnail_height = $('.div-elms').height()
+    thumbnail_center = (content_height - thumbnail_height) / 2
+    $('.div-elms').css({"top": "#{thumbnail_center}px"})
+
+  $("#logs-table").on "mouseout", mouseOverCtrl, ->
+    $(".div-elms").hide()
 
 window.initializeLogsTab = ->
   offset = $('#camera_time_offset').val()
@@ -112,4 +175,4 @@ window.initializeLogsTab = ->
   toggleCheckboxes()
   updateLogTypesFilter()
   initializeDataTable()
-
+  onImageHover()

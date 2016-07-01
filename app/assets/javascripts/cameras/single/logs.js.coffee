@@ -84,7 +84,7 @@ initializeDataTable = ->
         return row.who
       },
       { data: ( row, type, set, meta ) ->
-        getImage(row, type, set, meta)
+        getImage(row)
         return "
           <div class='#{row.done_at}'>
           <i class='fa fa-refresh fa-spin fa-1x fa-fw' aria-hidden='true'></i>
@@ -103,7 +103,7 @@ initializeDataTable = ->
       NProgress.done()
   })
 
-getImage = (row, type, set, meta) ->
+getImage = (row) ->
   timestamp = row.done_at
   data = {}
   data.with_data = true

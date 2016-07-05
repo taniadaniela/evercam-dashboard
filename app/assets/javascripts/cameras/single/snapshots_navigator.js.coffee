@@ -114,7 +114,7 @@ checkDay = (year, month, day) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/#{day}.json"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/#{day}"
 
   sendAJAXRequest(settings)
 

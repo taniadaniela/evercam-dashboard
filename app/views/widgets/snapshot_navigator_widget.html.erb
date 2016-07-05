@@ -24,6 +24,7 @@
     return true;
   };
   window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.MEDIA_API_URL = '<%= EVERCAM_MEDIA_API %>';
   <% params_subpath = params.fetch('subpath', '') %>
   <% params_format = params.fetch('format', '') %>
   <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>

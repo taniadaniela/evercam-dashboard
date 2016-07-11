@@ -61,7 +61,12 @@ initializeDataTable = ->
     },
     columns: [
       {data: ( row, type, set, meta ) ->
-        return moment(row.done_at*1000).format('MMMM Do YYYY, H:mm:ss')
+        getImage(row)
+        time = row.done_at*1000
+        return "
+          <div class='#{row.done_at} thumb-div'>
+          </div>\
+          <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
       , orderDataType: 'string-date', type: 'string-date' },
       {data: ( row, type, set, meta ) ->
         if row.action is 'shared' or row.action is 'stopped sharing'
@@ -82,13 +87,6 @@ initializeDataTable = ->
         if row.action is 'online' or row.action is 'offline'
           return 'System'
         return row.who
-      },
-      { data: ( row, type, set, meta ) ->
-        getImage(row)
-        return "
-          <div class='#{row.done_at}'>
-          <i class='fa fa-refresh fa-spin fa-1x fa-fw' aria-hidden='true'></i>
-          </div>"
       }
     ],
     autoWidth: false,
@@ -115,13 +113,15 @@ getImage = (row) ->
       img_src = response.snapshots[0].data
     else
       img_src = "/assets/offline.png"
-    img = $('<img>',{class: "thumbs"})
+    img = $('<i>',{class: "thumbs fa fa-picture-o"})
+    img.attr "aria-hidden", true
     img.attr "src",img_src
     $("#logs .#{timestamp}").empty()
     $("#logs .#{timestamp}").append(img)
 
   onError = (jqXHR, status, error) ->
-    icon = $('<img>',{class: "thumbs"})
+    icon = $('<i>',{class: "thumbs fa fa-picture-o"})
+    icon.attr "aria-hidden", true
     icon.attr "src", "/assets/offline.png"
     $("#logs .#{timestamp}").empty()
     $("#logs .#{timestamp}").append(icon)
@@ -151,9 +151,10 @@ getDate = (type) ->
 
 onImageHover = ->
   $("#logs-table").on "mouseover", ".thumbs", ->
+    data_src = $(this).attr "src"
     content_height = Metronic.getViewPort().height
     mouseOverCtrl = this
-    $(".full-image").attr("src", @src)
+    $(".full-image").attr("src", data_src)
     $(".div-elms").show()
     thumbnail_height = $('.div-elms').height()
     thumbnail_center = (content_height - thumbnail_height) / 2

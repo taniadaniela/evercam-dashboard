@@ -62,10 +62,11 @@ initializeDataTable = ->
     columns: [
       {data: ( row, type, set, meta ) ->
         getImage(row)
+        time = row.done_at*1000
         return "
           <div class='#{row.done_at} thumb-div'>
           </div>\
-          <span>#{moment(row.done_at*1000).format('MMMM Do YYYY, H:mm:ss')}</span>"
+          <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
       , orderDataType: 'string-date', type: 'string-date' },
       {data: ( row, type, set, meta ) ->
         if row.action is 'shared' or row.action is 'stopped sharing'

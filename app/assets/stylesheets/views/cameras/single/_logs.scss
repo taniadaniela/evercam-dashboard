@@ -12,6 +12,15 @@
     border: solid 1px #dddddd;
   }
 
+  .thumb-div {
+    float: left;
+  }
+
+  span {
+    vertical-align: middle;
+    padding: 5px;
+  }
+
 }
 
 .checkbox-inline input[type="checkbox"] {
@@ -150,9 +159,7 @@
 }
 
 .thumbs {
-  width: 60px;
   cursor: pointer;
-  border: 1px solid $border-black;
 }
 
 .div-elms {

@@ -85,7 +85,7 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}models.json"
+    url: "#{Evercam.API_URL}models"
 
   sendAJAXRequest(settings)
   true
@@ -143,7 +143,7 @@ loadVendors = ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}vendors.json"
+    url: "#{Evercam.API_URL}vendors"
 
   sendAJAXRequest(settings)
   true

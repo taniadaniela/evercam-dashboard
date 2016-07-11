@@ -132,7 +132,7 @@ loadVendorModels = (vendor_id) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}models.json"
+    url: "#{Evercam.API_URL}models"
 
   sendAJAXRequest(settings)
   true
@@ -173,7 +173,7 @@ loadVendors = ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.API_URL}vendors.json"
+    url: "#{Evercam.API_URL}vendors"
 
   sendAJAXRequest(settings)
   true
@@ -230,7 +230,7 @@ saveMapLocation = ->
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
     type: 'PATCH'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}.json?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
   sendAJAXRequest(settings)
   true
@@ -259,7 +259,7 @@ NotificationAlert = ->
     success: onSuccess
     contentType: "application/x-www-form-urlencoded"
     type: 'PATCH'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}.json?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
   sendAJAXRequest(settings)
   true

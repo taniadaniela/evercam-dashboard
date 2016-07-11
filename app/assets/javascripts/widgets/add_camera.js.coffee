@@ -92,7 +92,7 @@ loadVendorModels = (vendor_id) ->
     success: onSuccess
     contentType: "application/json; charset=utf-8"
     type: 'GET'
-    url: "#{Evercam_API_URL}models.json"
+    url: "#{Evercam_API_URL}models"
 
   jQuery.ajax(settings)
   true

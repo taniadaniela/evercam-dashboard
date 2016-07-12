@@ -109,13 +109,13 @@ updateSchedule = ->
   settings =
     error: onError
     success: onSuccess
-    cache: false
     data: data
     dataType: 'text'
+    contentType: "application/x-www-form-urlencoded"
     type: "POST"
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/apps/cloud-recording"
 
-  sendAJAXRequest(settings)
+  $.ajax(settings)
 
 parseCalendar = ->
   events = $('#cloud-recording-calendar').fullCalendar('clientEvents')

@@ -16,27 +16,29 @@ var SaveImage = (function() {
     }
 
   that.save = function (fileURL, fileName) {
-      // for non-IE
-      if (!window.ActiveXObject) {
-          var save = document.createElement('a');
-          save.href = fileURL;
-          save.target = '_blank';
-          if(!isNativeApp()) {
-              save.download = fileName || 'unknown';
-          }
-          var event = document.createEvent('Event');
-          event.initEvent('click', true, true);
-          save.dispatchEvent(event);
-          (window.URL || window.webkitURL).revokeObjectURL(save.href);
-      }
-      // for IE
-      else if (!!window.ActiveXObject && document.execCommand) {
-          var _window = window.open(fileURL, '_blank');
-          _window.document.close();
-          _window.document.execCommand('SaveAs', true, fileName || fileURL);
-          _window.close();
-      }
+    var hyperlink = document.createElement('a');
+    hyperlink.href = fileURL;
+    hyperlink.target = '_blank';
+    hyperlink.download = fileName || fileURL;
+
+    (document.body || document.documentElement).appendChild(hyperlink);
+    hyperlink.onclick = function() {
+       (document.body || document.documentElement).removeChild(hyperlink);
+    };
+
+    var mouseEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+
+    hyperlink.dispatchEvent(mouseEvent);
+
+    if(!navigator.mozGetUserMedia) { // i.e. if it is NOT Firefox
+       window.URL.revokeObjectURL(hyperlink.href);
+    }
+
   };
-    
+
   return that;
 }());

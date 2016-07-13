@@ -18,7 +18,6 @@ var SaveImage = (function() {
   that.save = function (fileURL, fileName) {
     var hyperlink = document.createElement('a');
     hyperlink.href = fileURL;
-    console.log(fileURL);
     hyperlink.target = '_blank';
     hyperlink.download = fileName || fileURL;
 
@@ -35,11 +34,6 @@ var SaveImage = (function() {
 
     hyperlink.dispatchEvent(mouseEvent);
 
-    // NEVER use "revoeObjectURL" here
-    // you can use it inside "onclick" handler, though.
-    // (window.URL || window.webkitURL).revokeObjectURL(hyperlink.href);
-
-    // if you're writing cross-browser function:
     if(!navigator.mozGetUserMedia) { // i.e. if it is NOT Firefox
        window.URL.revokeObjectURL(hyperlink.href);
     }

@@ -182,8 +182,8 @@
               <div class="input-group">
                 <select class="form-control reveal <% if share["user_id"] == current_user.username %>disabled<% end %>"
                   show-class="show-save" <% if share["user_id"] == current_user.username %>disabled<% end %>>
-                <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
-                <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
+                <option <%= "selected" if !rights.include?("view") %> value="minimal">Read Only</option>
+                <option <%= "selected" if rights.include?("view") %> value="full">Full Rights</option>
                 </select>
               </div>
             </td>
@@ -236,8 +236,8 @@
             <td class="col-lg-2">
               <div class="input-group">
                 <select class="form-control reveal" show-class="show-save">
-                  <option <%= "selected" if !rights.include?("View") %> value="minimal">Read Only</option>
-                  <option <%= "selected" if rights.include?("View") %> value="full">Full Rights</option>
+                  <option <%= "selected" if !rights.include?("view") %> value="minimal">Read Only</option>
+                  <option <%= "selected" if rights.include?("view") %> value="full">Full Rights</option>
                 </select>
               </div>
             </td>

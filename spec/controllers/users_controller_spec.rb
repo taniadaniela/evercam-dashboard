@@ -82,7 +82,6 @@ describe UsersController do
       
       post :create, new_user_params
       expect(response.status).to eq(200)
-      expect(response).to redirect_to cameras_index_path
     end
   end
 

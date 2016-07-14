@@ -135,7 +135,7 @@ getImage = (row) ->
     contentType: "application/json charset=utf-8"
     type: 'GET'
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
-  sendAJAXRequest(settings)
+  #sendAJAXRequest(settings)
 
 callDate = ->
   $('#datetimepicker').val(getDate('from'))

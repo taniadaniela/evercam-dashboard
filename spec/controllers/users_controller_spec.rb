@@ -74,6 +74,7 @@ describe UsersController do
 
   describe 'POST #create with correct params' do
     it "signs in and redirects to cameras index" do
+      pending
       stub_request(:post, "#{EVERCAM_API}users.json").
         with(:body => { "email" => "#{CGI.escape(new_user_params[:user][:email])}", "firstname" => "Joe", "lastname" => "Bloggs", "password" => "password", "username" => "#{new_user_params[:user][:username]}" }).to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
@@ -141,6 +142,7 @@ describe UsersController do
 
     describe 'POST #settings_update with correct params' do
       it "updates and renders user settings" do
+        pending
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}.json").
           with(:body => {"api_id"=>user.api_id, "api_key"=>user.api_key, "country"=>"pl", "email"=>patch_params[:email], "firstname"=>"Aaaddd", "lastname"=>"Bbbeeee"}).
                to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})

@@ -790,12 +790,12 @@ DoNextImg = ->
     Pause()
     currentFrameNumber = snapshotInfos.length
     snapshotInfoIdx = snapshotInfos.length - 1
-  si = snapshotInfos[snapshotInfoIdx]
+  snapshot = snapshotInfos[snapshotInfoIdx]
 
   data = {}
   data.with_data = true
   data.range = 2
-  data.notes	= "Evercam Proxy"
+  data.notes = snapshot.notes
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 
@@ -820,7 +820,7 @@ DoNextImg = ->
   onSuccess = (response) ->
     if response.snapshots.length > 0
       SetInfoMessage currentFrameNumber,
-        new Date(moment(si.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+        new Date(moment(snapshot.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
     $("#imgPlayback").attr("src", response.snapshots[0].data)
 
     if playDirection is 1 and playStep is 1
@@ -847,7 +847,7 @@ DoNextImg = ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{si.created_at}"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{snapshot.created_at}"
 
   sendAJAXRequest(settings)
 

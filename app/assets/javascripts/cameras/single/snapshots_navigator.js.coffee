@@ -795,6 +795,7 @@ DoNextImg = ->
   data = {}
   data.with_data = true
   data.range = 2
+  data.notes	= "Evercam Proxy"
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
 
@@ -840,7 +841,6 @@ DoNextImg = ->
     window.setTimeout DoNextImg, playInterval if isPlaying
 
   settings =
-    cache: false
     data: data
     dataType: 'json'
     error: onError

@@ -221,19 +221,21 @@ window.fullWeekSchedule =
   "Saturday": ["00:00-23:59"]
   "Sunday": ["00:00-23:59"]
 
+perfomAction = ->
+  status = $('input[name=cloud_recording]:checked').val()
+  switch status
+    when "on"
+      updateScheduleToOn()
+    when "on-scheduled"
+      updateScheduleFromCalendar()
+
 handleFrequencySelect = ->
   $("#cloud-recording-frequency").off("change").on "change" , (event) ->
-    if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
-      updateScheduleToOn()
-    else
-      updateScheduleFromCalendar()
+    perfomAction()
 
 handleDurationSelect = ->
   $("#cloud-recording-duration").off("change").on "change" , (event) ->
-    if JSON.stringify(Evercam.Camera.cloud_recording.schedule) == JSON.stringify(fullWeekSchedule)
-      updateScheduleToOn()
-    else
-      updateScheduleFromCalendar()
+    perfomAction()
 
 handleStatusSelect = ->
   $("#recording-toggle input").off("ifChecked").on "ifChecked", (event) ->

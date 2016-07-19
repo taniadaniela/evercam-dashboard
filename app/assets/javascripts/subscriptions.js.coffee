@@ -532,13 +532,13 @@ initializeInvoiceTable = ->
       {data: ( row, type, set, meta ) ->
         path = "/v1/users/" + Evercam.User.username + "/billing/invoices"
         return "<a href = '#{path}/#{meta.row}/custom'>#{row.ID}</a>"
-      },
+      , className: 'id'},
       {data: ( row, type, set, meta ) ->
         if row.MANAGERNAME
           return row.MANAGERNAME
         else
           return "No Manager"
-      , className: 'manager'  },
+      , className: 'manager'},
       {data: "KIND", sClass: 'kind'},
       {data: "POSTDATE", sClass: 'date'},
       {data: ( row, type, set, meta ) ->
@@ -546,19 +546,19 @@ initializeInvoiceTable = ->
           return row.REFERENCE
         else
           return "None"
-      , className: 'manager'  },
+      , className: 'reference'},
       {data: ( row, type, set, meta ) ->
         return row.FRGAMTVATINC.toFixed(2)
-      , className: 'amount' }
+      , className: 'amount'}
       {data: ( row, type, set, meta ) ->
         return row.FRGDUEAMT.toFixed(2)
-      , className: 'due' }
+      , className: 'due'}
       {data: ( row, type, set, meta ) ->
         if row.NEXTCREATEDATE
           return row.NEXTCREATEDATE
         else
           return "None"
-      , className: 'next_due'  },
+      , className: 'next_due'},
     ],
     autoWidth: false,
     info: false,

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/v1/users/:id/billing/invoices/:invoice_id' => 'invoices#show', as: :invoice_show
   get '/v1/users/:id/billing/invoices/:invoice_id/pdf' => 'invoices#create_pdf', as: :create_invoice_pdf
   get '/v1/users/:id/billing/invoices/:invoice_id/send' => 'invoices#send_customer_invoice_email', as: :send_invoic_email
+  get '/v1/users/:id/billing/invoices/:custom_id/custom' => 'invoices#custom_user_invoices', as: :custom_show
 
   delete '/v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 

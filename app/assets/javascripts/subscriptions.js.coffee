@@ -516,9 +516,64 @@ addlicencesrquired = ->
   licences = $('#total-required-licence').text()
   $('h3#licences').append(licen)
 
+initializeInvoiceTable = ->
+  table = $('#custom-invoices').DataTable({
+    ajax: {
+      url: $('#insight-custom-url').val(),
+      dataSrc: 'result',
+      dataType: 'json',
+      cache: true,
+      type: 'GET',
+      error: (xhr, error, thrown) ->
+        if xhr.responseJSON
+          Notification.show(xhr.responseJSON.message)
+    },
+    columns: [
+      {data: ( row, type, set, meta ) ->
+        path = "/v1/users/" + Evercam.User.username + "/billing/invoices"
+        return "<a href = '#{path}/#{meta.row}/custom'>#{row.ID}</a>"
+      , className: 'id'},
+      {data: ( row, type, set, meta ) ->
+        if row.MANAGERNAME
+          return row.MANAGERNAME
+        else
+          return "No Manager"
+      , className: 'manager'},
+      {data: "KIND", sClass: 'kind'},
+      {data: "POSTDATE", sClass: 'date'},
+      {data: ( row, type, set, meta ) ->
+        if row.REFERENCE
+          return row.REFERENCE
+        else
+          return "None"
+      , className: 'reference'},
+      {data: ( row, type, set, meta ) ->
+        return row.FRGAMTVATINC.toFixed(2)
+      , className: 'amount'}
+      {data: ( row, type, set, meta ) ->
+        return row.FRGDUEAMT.toFixed(2)
+      , className: 'due'}
+      {data: ( row, type, set, meta ) ->
+        if row.NEXTCREATEDATE
+          return row.NEXTCREATEDATE
+        else
+          return "None"
+      , className: 'next_due'},
+    ],
+    autoWidth: false,
+    info: false,
+    bPaginate: false,
+    bFilter: false,
+    "language": {
+      "emptyTable": "No data available"
+    },
+    order: [[ 0, "desc" ]],
+  })
+
 window.initializeSubscription = ->
   NProgress.done()
   Notification.init(".bb-alert")
+  initializeInvoiceTable()
   createAddRemoveLicence()
   validateLicenceForm()
   showAlertMessage()

@@ -1,0 +1,21 @@
+<div class="custom_licences">
+  <h3 class="margin-left-15">Custom Invoices</h3>
+  <div class="col-md-12">
+    <table id="custom-invoices" style="width:100%;" class="table table-full-width">
+      <thead>
+      <tr>
+        <th>Inv #</th>
+        <th>Manager</th>
+        <th>kind</th>
+        <th>Date</th>
+        <th>Reference</th>
+        <th>Amount €</th>
+        <th>Due €</th>
+        <th>Next Create Date</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<input id="insight-custom-url" type="hidden" value="https://hqs.herbst.ie/cmb/a/customersales.json?AuthKey=<%= current_user.insight_auth_key %>&JSONObject&CustomerCode=<%= current_user.insight_id %>">

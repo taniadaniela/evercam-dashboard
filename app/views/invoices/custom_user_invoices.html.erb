@@ -1,0 +1,66 @@
+<div class="subscriptions page-content-wrapper">
+  <div class="page-content">
+    <div class="portlet-body">
+      <div class="invoice col-md-12">
+        <div class="card">
+          <div class="col-md-12">
+
+            <div class="invoice-header text-right">
+              <h3 class="invoice-title">Invoice</h3>
+              <div class="invoice-status"><%= @custom['FRGDUEAMT'] == 0? "Paid" : "Still Remaining" %></div>
+              <div class="head-text"><strong>Invoice ID:</strong> <%= @custom['ID'] %></div>
+              <div class="head-text"><strong>Date:</strong> <%= @custom['POSTDATE'] %></div>
+            </div>
+          </div>
+
+          <div class="col-md-12 margin-top-30">
+            <div class="col-md-4 address">
+              <div class="address-title"><strong>From:</strong> Evercam.io</div>
+              <div class="address-text">6-7 Granby Row</div>
+              <div class="address-text">Dublin 1</div>
+              <div class="address-text">D01 FW20, Ireland</div>
+            </div>
+
+            <div class="col-md-4 pull-right address text-right">
+              <div class="address-title"><strong>To:</strong> <%= current_user.email -%></div>
+              <div class="address-text">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 margin-top-30">
+            <table class="table">
+              <tr>
+                <th class="col-md-2">
+                  Kind
+                </th>
+                <th class="col-md-2">
+                  Due
+                </th>
+                <th class="col-md-2 text-right">
+                  Paid Amount
+                </th>
+
+              </tr>
+              <tr>
+                <td class="col-md-4"><%= @custom['KIND'] %></td>
+                <td class="col-md-2"><%= @custom['FRGDUEAMT'] %></td>
+                <td class="col-md-2 text-right"><%= @custom['FRGAMTVATINC'] %> </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-12 text-right footer-text pull-right">
+            <div class="row invoice-total">
+              <div class="col-md-10">Sub Total:</div>
+              <div class="col-md-2"><%= @custom['FRGAMTVATINC'] %></div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">Total:</div>
+              <div class="col-md-2"><%= @custom['FRGAMTVATINC'] %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

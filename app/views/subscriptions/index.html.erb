@@ -14,6 +14,11 @@
             <li>
               <a data-toggle="tab" data-target="#history" class="nav-tab-history">History</a>
             </li>
+            <% if current_user.insight_id and current_user.insight_auth_key %>
+              <li>
+                <a data-toggle="tab" data-target="#invoices" class="nav-tab-cards">Custom</a>
+              </li>
+            <% end %>
             <li>
               <a data-toggle="tab" data-target="#cards" class="nav-tab-cards">Cards</a>
             </li>
@@ -28,6 +33,9 @@
           </div>
           <div id="cards" class="tab-pane">
             <%= render partial: "subscriptions/cards/cards_tab" %>
+          </div>
+          <div id="invoices" class="tab-pane">
+            <%= render partial: "subscriptions/invoices" %>
           </div>
         </div>
       </div>

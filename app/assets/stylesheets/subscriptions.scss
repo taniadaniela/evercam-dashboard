@@ -269,7 +269,7 @@
       border-right: 1px solid $main-color;
       border-top: 1px solid $main-color;
     }
-    
+
   }
 
   .plans-select {
@@ -283,7 +283,7 @@
   }
 
   .plan-button {
-    
+
   }
 
   .plan-button .disabled {
@@ -791,4 +791,19 @@ i.blue {
     margin-left: -130px;
   }
 
+}
+
+.custom_licences {
+
+  .amount {
+    text-align: center;
+  }
+
+  .due {
+    text-align: center;
+  }
+
+  .next_due {
+    text-align: center;
+  }
 }

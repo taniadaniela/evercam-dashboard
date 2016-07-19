@@ -9,6 +9,7 @@ class InvoicesController < ApplicationController
   include StripeInvoicesHelper
   require "stripe"
   require "date"
+  require "open-uri"
 
   def index
     @invoices = retrieve_customer_invoices
@@ -25,6 +26,27 @@ class InvoicesController < ApplicationController
     else
       redirect_to billing_path(current_user.username)
     end
+  end
+
+  def custom_user_invoices
+    custom_id = params[:custom_id]
+    if current_user.insight_id.present? && current_user.insight_auth_key.present? && custom_id.present?
+      url = ENV['INSIGHT_URL'] + "AuthKey=#{current_user.insight_auth_key}&JSONObject&CustomerCode=#{current_user.insight_id}"
+      response = open(url).read
+      resp = JSON.parse(response)
+      res = resp['result']
+      @custom = res[custom_id.to_i]
+    else
+      redirect_to billing_path(current_user.username)
+    end
+  rescue => error
+    env["airbrake.error_id"] = notify_airbrake(error)
+    Rails.logger.error "Exception caught while accessing insight url.\nCause: #{error}\n" +
+                         error.backtrace.join("\n")
+    flash[:message] = "An error occurred while accessing insight url. "\
+                      "Please try again and, if this problem persists, contact "\
+                      "support."
+    redirect_to billing_path(current_user.username)
   end
 
   def send_customer_invoice_email

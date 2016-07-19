@@ -41,8 +41,7 @@ class InvoicesController < ApplicationController
     end
   rescue => error
     env["airbrake.error_id"] = notify_airbrake(error)
-    Rails.logger.error "Exception caught while accessing insight url.\nCause: #{error}\n" +
-                         error.backtrace.join("\n")
+    Rails.logger.error "Exception caught while accessing insight url.\nCause: #{error}\n" + error.backtrace.join("\n")
     flash[:message] = "An error occurred while accessing insight url. "\
                       "Please try again and, if this problem persists, contact "\
                       "support."

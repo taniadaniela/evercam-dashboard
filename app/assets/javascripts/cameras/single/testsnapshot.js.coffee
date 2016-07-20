@@ -32,9 +32,6 @@ $ ->
       $snap.val(jpg_url.substring(1))
       jpg_url = $snap.val()
 
-    # Encode parameters
-    jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
-
     # Check for vendor model and snap-url
     if vandor_model is "Select Camera Vendor" || jpg_url is ""
       showFeedback("Please choose camera vendor or add your camera snapshot URL.")

@@ -236,8 +236,6 @@ sendTestSnapshotRequest = (loader, index) ->
     jpg_url = $('#snapshot').val()
   else
     jpg_url = vendor_model.defaults.snapshots.jpg
-  # Encode parameters
-  jpg_url = jpg_url.replace(/\?/g, 'X_QQ_X').replace(/&/g, 'X_AA_X')
   data = {}
   data.external_url = "http://#{ext_url}#{port}"
   data.jpg_url = jpg_url

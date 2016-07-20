@@ -14,7 +14,7 @@
             <li>
               <a data-toggle="tab" data-target="#history" class="nav-tab-history">History</a>
             </li>
-            <% if current_user.insight_id and current_user.insight_auth_key %>
+            <% if current_user.insight_id.present? %>
               <li>
                 <a data-toggle="tab" data-target="#invoices" class="nav-tab-cards">Custom</a>
               </li>

@@ -3,60 +3,78 @@
     <div class="portlet-body">
       <div class="invoice col-md-12">
         <div class="card">
+          <img class="img-invoice" src="/assets/evercam-invoice.png">
           <div class="col-md-12">
+            <% @address = @custom['CUSTOMERTEXT'].split("\n") %>
+            <div class="col-md-4 address ">
+              <% @address.each do |address| %>
+                <div class="address-text"><%= address  %></div>
+              <%end%>
+            </div>
 
-            <div class="invoice-header text-right">
-              <h3 class="invoice-title">Invoice</h3>
-              <div class="invoice-status"><%= @custom['FRGDUEAMT'] == 0? "Paid" : "Still Remaining" %></div>
-              <div class="head-text"><strong>Invoice ID:</strong> <%= @custom['ID'] %></div>
-              <div class="head-text"><strong>Date:</strong> <%= @custom['POSTDATE'] %></div>
+            <div class="invoice-header col-md-8 text-right">
+              <div class="head-text"><strong class="margin-right-10" >Reference:</strong> <%= @custom['REFERENCE']? @custom['REFERENCE'] : "None"  %></div>
+              <div class="head-text"><strong class="margin-right-10" >Account No:</strong> <%= @custom['CUSTOMERCODE'] %></div>
+              <div class="head-text"><strong class="margin-right-10" >Manager:</strong> <%= @custom['CUSTOMERNAME'] %></div>
+              <div class="head-text"><strong class="margin-right-10">Invoice Date:</strong> <%= @custom['POSTDATE'] %></div>
+              <div class="head-text"><strong class="margin-right-10">Terms:</strong>As per quotation</div>
             </div>
           </div>
 
           <div class="col-md-12 margin-top-30">
-            <div class="col-md-4 address">
-              <div class="address-title"><strong>From:</strong> Evercam.io</div>
-              <div class="address-text">6-7 Granby Row</div>
-              <div class="address-text">Dublin 1</div>
-              <div class="address-text">D01 FW20, Ireland</div>
-            </div>
+            <div class="invoice-no"><strong>Invoice No. </strong><strong><%= @custom['NUMBER'] %></strong></div>
 
-            <div class="col-md-4 pull-right address text-right">
-              <div class="address-title"><strong>To:</strong> <%= current_user.email -%></div>
-              <div class="address-text">
-              </div>
-            </div>
           </div>
 
-          <div class="col-md-12 margin-top-30">
+          <div class="col-md-12 ">
             <table class="table">
               <tr>
-                <th class="col-md-2">
-                  Kind
+                <th class="col-md-7">
+                  Product or Service
                 </th>
-                <th class="col-md-2">
-                  Due
+                <th class="col-md-1 text-right">
+                  Quantity
                 </th>
-                <th class="col-md-2 text-right">
-                  Paid Amount
+                <th class="col-md-1 text-right">
+                  Price
+                </th>
+                <th class="col-md-1 text-right">
+                  VAT Exc
+                </th>
+                <th class="col-md-1 text-right">
+                  VAT
+                </th>
+                <th class="col-md-1 text-right">
+                  VAT Inc
                 </th>
 
               </tr>
+              <% @product.each do |products| %>
               <tr>
-                <td class="col-md-4"><%= @custom['KIND'] %></td>
-                <td class="col-md-2"><%= @custom['FRGDUEAMT'] %></td>
-                <td class="col-md-2 text-right"><%= @custom['FRGAMTVATINC'] %> </td>
+                <td class="col-md-7"><%= products['ITEMNAME'] %></td>
+                <td class="col-md-1 text-right"><%= products['QUANTITY'] %></td>
+                <td class="col-md-1 text-right"><%= products['FRGSALEPRICE'] %></td>
+                <td class="col-md-1 text-right"><%= products['FRGAMOUNTVATEXC'] %></td>
+                <td class="col-md-1 text-right"><%= products['FRGVATAMOUNT'] %></td>
+                <td class="col-md-1 text-right"><%= products['FRGAMOUNTVATINC'] %> </td>
               </tr>
+              <% end %>
             </table>
           </div>
           <div class="col-md-12 text-right footer-text pull-right">
-            <div class="row invoice-total">
-              <div class="col-md-10">Sub Total:</div>
-              <div class="col-md-2"><%= @custom['FRGAMTVATINC'] %></div>
-            </div>
             <div class="row">
-              <div class="col-md-10">Total:</div>
-              <div class="col-md-2"><%= @custom['FRGAMTVATINC'] %></div>
+              <div class="col-md-9">Total:</div>
+              <%@exc = 0 %>
+              <%@vat = 0 %>
+              <%@inc = 0 %>
+              <% @product.each do |products| %>
+                <%@exc = @exc + products['FRGAMOUNTVATEXC'].to_f %>
+                <%@vat = @vat + products['FRGVATAMOUNT'].to_f %>
+                <%@inc = @inc + products['FRGAMOUNTVATINC'].to_f %>
+              <%end%>
+              <div class="col-md-1 text-right"><%= @exc %></div>
+              <div class="col-md-1 text-right"><%= @vat %></div>
+              <div class="col-md-1 text-right"><%= @inc %></div>
             </div>
           </div>
         </div>

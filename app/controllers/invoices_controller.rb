@@ -31,8 +31,8 @@ class InvoicesController < ApplicationController
   def custom_user_invoices
     custom_id = params[:custom_id]
     if current_user.insight_id.present? && custom_id.present?
-      custom_url =  ENV['DOCUMENT_URL'] + "AuthKey=#{ENV['document_auth_key']}&JSONObject&DocNumber=#{custom_id}"
-      product_url = ENV['PRODUCT_URL'] + "AuthKey=#{ENV['product_auth_key']}&JSONObject&DocNumber=#{custom_id}"
+      custom_url =  "#{ENV['DOCUMENT_URL']}AuthKey=#{ENV['document_auth_key']}&JSONObject&DocNumber=#{custom_id}"
+      product_url = "#{ENV['PRODUCT_URL']}AuthKey=#{ENV['product_auth_key']}&JSONObject&DocNumber=#{custom_id}"
       response_custom = open(custom_url).read
       response_product = open(product_url).read
       resp_custom = JSON.parse(response_custom)

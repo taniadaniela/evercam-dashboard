@@ -30,12 +30,17 @@ class InvoicesController < ApplicationController
 
   def custom_user_invoices
     custom_id = params[:custom_id]
-    if current_user.insight_id.present? && current_user.insight_auth_key.present? && custom_id.present?
-      url = ENV['INSIGHT_URL'] + "AuthKey=#{current_user.insight_auth_key}&JSONObject&CustomerCode=#{current_user.insight_id}"
-      response = open(url).read
-      resp = JSON.parse(response)
-      res = resp['result']
-      @custom = res[custom_id.to_i]
+    if current_user.insight_id.present? && custom_id.present?
+      custom_url =  ENV['DOCUMENT_URL'] + "AuthKey=#{ENV['document_auth_key']}&JSONObject&DocNumber=#{custom_id}"
+      product_url = ENV['PRODUCT_URL'] + "AuthKey=#{ENV['product_auth_key']}&JSONObject&DocNumber=#{custom_id}"
+      response_custom = open(custom_url).read
+      response_product = open(product_url).read
+      resp_custom = JSON.parse(response_custom)
+      resp_product = JSON.parse(response_product)
+      res_custom = resp_custom['result']
+      res_product = resp_product['result']
+      @custom = res_custom[0]
+      @product = res_product
     else
       redirect_to billing_path(current_user.username)
     end

@@ -531,7 +531,7 @@ initializeInvoiceTable = ->
     columns: [
       {data: ( row, type, set, meta ) ->
         path = "/v1/users/" + Evercam.User.username + "/billing/invoices"
-        return "<a href = '#{path}/#{meta.row}/custom'>#{row.ID}</a>"
+        return "<a href = '#{path}/#{row.NUMBER}/custom'>#{row.ID}</a>"
       , className: 'id'},
       {data: ( row, type, set, meta ) ->
         if row.MANAGERNAME

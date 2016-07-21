@@ -10,6 +10,7 @@ class SubscriptionsController < ApplicationController
   # require "date"
 
   def index
+    @insight_url = ENV['INSIGHT_URL'] + "AuthKey=#{ENV['invoice_auth_key']}&JSONObject&CustomerCode=#{current_user.insight_id}"
     @cameras = load_user_cameras(true, false)
     set_prices
     @next_charge = retrieve_customer_next_charge

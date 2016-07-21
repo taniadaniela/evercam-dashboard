@@ -704,12 +704,18 @@
   margin-top: 15px;
 
   .invoice-header {
-    margin-bottom: 60px;
+    margin-bottom: 90px;
+    margin-top: 85px;
+  }
+
+  .img-invoice {
+    position: absolute;
+    left: 15px;
   }
 
   h3.invoice-title {
     text-transform: uppercase;
-    margin-bottom: 0;
+    margin-bottom: 45px;
   }
   .invoice-status {
     color:$green;
@@ -722,13 +728,14 @@
     margin-bottom: 5px;
   }
 
-  .table {
-    margin-top: 40px;
+  .invoice-no {
+    font-size: 18pt;
+    margin-top: 30px;
   }
 
   .footer-text {
     font-family: $bold-family;
-    margin: 30px 0px;
+    margin: 0px 0px;
   }
 
   .invoice-total {
@@ -738,6 +745,7 @@
   .address {
     padding-left: 0;
     padding-right: 0;
+    margin-top: 85px;
   }
 
   .address-text {

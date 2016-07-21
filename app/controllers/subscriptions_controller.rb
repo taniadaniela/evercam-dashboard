@@ -11,7 +11,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     if current_user.insight_id.present?
-      @insight_url = ENV['INSIGHT_URL'] + "AuthKey=#{ENV['invoice_auth_key']}&JSONObject&CustomerCode=#{current_user.insight_id}"
+      @insight_url = "#{ENV['INSIGHT_URL']}AuthKey=#{ENV['invoice_auth_key']}&JSONObject&CustomerCode=#{current_user.insight_id}"
     end
     @cameras = load_user_cameras(true, false)
     set_prices

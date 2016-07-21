@@ -1,3 +1,5 @@
+<%=raw render file: '/lib/assets/javascripts/phoenix.js' %>
+
 (function(window) {
 
   "use strict";
@@ -18,8 +20,6 @@
     id: '<%= params[:camera] %>'
   }
   Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
-
-  addPhoenix();
 
   if (request_ip !== "217.112.145.202" && camera_id === "central-bank-fusion") {
     denied = true;
@@ -121,13 +121,6 @@
     videojs_tag.setAttribute("type","text/javascript");
     videojs_tag.setAttribute("src", "http://vjs.zencdn.net/4.11/video.js");
     (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(videojs_tag);
-  }
-  /******** Add phoenix *****************/
-  function addPhoenix() {
-    var phoenix_tag = document.createElement('script');
-    phoenix_tag.setAttribute("type","text/javascript");
-    phoenix_tag.setAttribute("src", "<%= url_to_javascript('phoenix.js') %>");
-    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(phoenix_tag);
   }
 
   /******** Called once jQuery has loaded ******/

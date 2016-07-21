@@ -15,7 +15,7 @@
             <div class="invoice-header col-md-8 text-right">
               <div class="head-text"><strong class="margin-right-10" >Reference:</strong> <%= @custom['REFERENCE']? @custom['REFERENCE'] : "None"  %></div>
               <div class="head-text"><strong class="margin-right-10" >Account No:</strong> <%= @custom['CUSTOMERCODE'] %></div>
-              <div class="head-text"><strong class="margin-right-10" >Manager:</strong> <%= @custom['CUSTOMERNAME'] %></div>
+              <div class="head-text"><strong class="margin-right-10" >Manager:</strong> <%= @custom['MANAGERNAME'] %></div>
               <div class="head-text"><strong class="margin-right-10">Invoice Date:</strong> <%= @custom['POSTDATE'] %></div>
               <div class="head-text"><strong class="margin-right-10">Terms:</strong>As per quotation</div>
             </div>
@@ -36,16 +36,16 @@
                   Quantity
                 </th>
                 <th class="col-md-1 text-right">
-                  Price
+                  Price €
                 </th>
                 <th class="col-md-1 text-right">
-                  VAT Exc
+                  VAT Exc €
                 </th>
                 <th class="col-md-1 text-right">
-                  VAT
+                  VAT €
                 </th>
                 <th class="col-md-1 text-right">
-                  VAT Inc
+                  VAT Inc €
                 </th>
 
               </tr>
@@ -72,9 +72,9 @@
                 <%@vat = @vat + products['FRGVATAMOUNT'].to_f %>
                 <%@inc = @inc + products['FRGAMOUNTVATINC'].to_f %>
               <%end%>
-              <div class="col-md-1 text-right"><%= @exc %></div>
-              <div class="col-md-1 text-right"><%= @vat %></div>
-              <div class="col-md-1 text-right"><%= @inc %></div>
+              <div class="col-md-1 text-right"><%= @exc.round(2) %> €</div>
+              <div class="col-md-1 text-right"><%= @vat.round(2) %> €</div>
+              <div class="col-md-1 text-right"><%= @inc.round(2) %> €</div>
             </div>
           </div>
         </div>

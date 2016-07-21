@@ -709,8 +709,7 @@
   }
 
   .img-invoice {
-    position: absolute;
-    left: 15px;
+    margin-left: 15px;
   }
 
   h3.invoice-title {
@@ -801,17 +800,3 @@ i.blue {
 
 }
 
-.custom_licences {
-
-  .amount {
-    text-align: center;
-  }
-
-  .due {
-    text-align: center;
-  }
-
-  .next_due {
-    text-align: center;
-  }
-}

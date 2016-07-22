@@ -49,7 +49,7 @@ describe UsersController do
 
   describe 'GET #confirm' do
     it "confirms user if parameters are correct" do
-      code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.utc.to_s)
       get :confirm, {:u => user.username, :c => code}
       expect(response.status).to eq(302)
       expect(flash[:notice]).to eq('Successfully activated your account')
@@ -79,7 +79,7 @@ describe UsersController do
 
       stub_request(:post, "#{EVERCAM_API}users.json").
         with(:body => "email=#{CGI.escape(new_user_params[:user][:email])}&firstname=Joe&lastname=Bloggs&password=password&username=#{new_user_params[:user][:username]}").to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
-      
+
       post :create, new_user_params
       expect(response.status).to eq(200)
     end

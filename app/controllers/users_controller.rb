@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   def confirm
     user = User.by_login(params[:u])
     unless user.nil?
-      code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.utc.to_s)
       if params[:c] == code
         user.confirmed_at = Time.now
         user.save
@@ -236,7 +236,7 @@ class UsersController < ApplicationController
   def resend_confirmation_email
     user = User.where(Sequel.ilike(:username, params[:id])).first
     unless user.nil?
-      code = Digest::SHA1.hexdigest(user.username + user.created_at.to_s)
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.utc.to_s)
       UserMailer.resend_confirmation_email(user, code).deliver_now
       flash[:message] = 'We’ve sent you a confirmation email with instructions.'
     else

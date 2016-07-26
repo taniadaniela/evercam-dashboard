@@ -12,7 +12,7 @@
 //= require fullcalendar/fullcalendar.js
 
 //=
-//= require jquery.uniform/jquery.uniform.js
+//= require jquery.uniform
 //= require datetimepicker
 //= require iCheck
 

@@ -509,6 +509,7 @@ extractMdRecords = (snapshot_list) ->
       image.attr("src", "")
       image.attr("width", 75)
       image.attr("height", 57)
+      image.attr("notes", snapshot.notes)
       image.attr("timestamp", snapshot.created_at)
       div_image.append(image)
       li.append(div_image)
@@ -533,8 +534,10 @@ selectMdImage = ->
 loadMdImages = ->
   $(".md-Img").each ->
     image_control = $(this)
+    notes = image_control.attr("notes")
     timestamp = image_control.attr("timestamp")
     data = {}
+    data.notes = notes
     data.with_data = true
     data.range = 2
     data.api_id = Evercam.User.api_id

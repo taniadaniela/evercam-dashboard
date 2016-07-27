@@ -171,12 +171,14 @@ renderDuration = (row, type, set, meta) ->
   diff = dateTimeTo - dateTimeFrom
   diffSeconds = diff / 1000
   HH = Math.floor(diffSeconds / 3600)
-  hours = HH + ' ' + 'hr'
-  hours = '' unless HH isnt 0
   MM = Math.floor(diffSeconds % 3600) / 60
   MM = Math.round(MM)
+  HH = (HH + 1) if MM is 60
+  hours = HH + ' ' + 'hr'
+  hours = '' if HH is 0
   minutes = MM + ' ' +'min'
-  minutes = '' unless MM isnt 0
+  minutes = '' if MM is 0
+  minutes = '' if MM is 60
   formatted = hours + ' ' + minutes
   return formatted
 
@@ -191,7 +193,7 @@ getDates = (times) ->
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc(times).format('MM DD YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateformateed =  format_time.formatDate(DateTime, 'm/d/y H:i')
+  Dateformateed =  format_time.formatDate(DateTime, 'd/m/y H:i')
   return Dateformateed
 
 getDate = (timestamp) ->
@@ -199,7 +201,7 @@ getDate = (timestamp) ->
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc(timestamp).format('MM DD YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateformateed = format_time.formatDate(DateTime, 'M d Y, H:i:s')
+  Dateformateed = format_time.formatDate(DateTime, 'd M Y, H:i:s')
   return Dateformateed
 
 shareURL = ->

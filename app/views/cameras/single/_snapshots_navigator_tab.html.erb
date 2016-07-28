@@ -253,6 +253,7 @@
 <div class="row hide1 margin-bottom-20">
   <div class="col-md-12">
     <div style="padding-left:2px;">
+      <% if ["marco", "meherbst", "vinniequinn", "vq"].include? current_user.username %>
       <div class="MDSlider-outer" id="divCarousel">
         <div class="MDSlider">
           <div id="divSliderMD">
@@ -262,6 +263,7 @@
           </div>
         </div>
       </div>
+      <% end %>
     </div>
     <div class="clear-f"></div>
   </div>

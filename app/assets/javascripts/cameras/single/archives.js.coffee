@@ -174,9 +174,9 @@ renderDuration = (row, type, set, meta) ->
   MM = Math.floor(diffSeconds % 3600) / 60
   MM = Math.round(MM)
   HH = (HH + 1) if MM is 60
-  hours = HH + ' ' + 'hr'
+  hours = HH + ' ' + if HH is 1 then 'hr' else 'hrs'
   hours = '' if HH is 0
-  minutes = MM + ' ' +'min'
+  minutes = MM + ' ' + if MM is 1 then 'min' else 'mins'
   minutes = '' if MM is 0
   minutes = '' if MM is 60
   formatted = hours + ' ' + minutes
@@ -244,7 +244,8 @@ createClip = ->
           $('#archives-table').show()
           $("#no-archive").hide()
           NProgress.done()
-        formReset()
+          formReset()
+          setDate()
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         NProgress.done()
@@ -261,16 +262,15 @@ createClip = ->
     sendAJAXRequest(settings)
 
 setDate = ->
-  $('.btn-primary').on 'click', ->
-    offset =  $('#camera_time_offset').val()
-    cameraOffset = parseInt(offset)/3600
-    DateTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
-    DateTime.setHours(DateTime.getHours() + (cameraOffset))
-    Dateto =  format_time.formatDate(DateTime, 'd/m/Y H:i:s')
-    $('#to-date').val Dateto,true
-    DateTime.setHours(DateTime.getHours() - 2)
-    Datefrom = format_time.formatDate(DateTime, 'd/m/Y H:i:s')
-    $('#from-date').val Datefrom,true
+  offset =  $('#camera_time_offset').val()
+  cameraOffset = parseInt(offset)/3600
+  DateTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+  DateTime.setHours(DateTime.getHours() + (cameraOffset))
+  Dateto =  format_time.formatDate(DateTime, 'd/m/Y H:i:s')
+  $('#to-date').val Dateto,true
+  DateTime.setHours(DateTime.getHours() - 2)
+  Datefrom = format_time.formatDate(DateTime, 'd/m/Y H:i:s')
+  $('#from-date').val Datefrom,true
 
 formReset = ->
   $("#clip-name").val("")
@@ -284,6 +284,11 @@ playClip = ->
   $("#archives-table").on "click", ".play-clip", ->
     view_url = $(this).attr("play-url")
     window.open view_url, '_blank', 'width=640, Height=480, scrollbars=0, resizable=0'
+
+cancelForm = ->
+  $('#archive-modal').on 'hidden.bs.modal', ->
+    $("#clip-name").val("")
+    setDate()
 
 deleteClip = ->
   $('#archives').on 'click','.delete-archive2', ->
@@ -342,3 +347,4 @@ window.initializeArchivesTab = ->
   shareURL()
   setDate()
   deleteClip()
+  cancelForm()

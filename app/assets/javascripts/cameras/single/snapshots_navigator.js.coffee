@@ -414,14 +414,13 @@ GetCameraInfo = (isShowLoader) ->
   $('#divNoMd').show()
   if isShowLoader
     showLoader()
-  fromDT = GetFromDT()/1000
-  toDT = GetToDT()/1000
+  date = $("#ui_date_picker_inline").datepicker('getDate')
+  year = date.getFullYear()
+  month = date.getMonth() + 1
+  day = date.getDate()
+  hour = parseInt(cameraCurrentHour)
 
   data = {}
-  data.from = fromDT
-  data.to = toDT
-  data.limit = limit
-  data.page = 1
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
@@ -475,7 +474,7 @@ GetCameraInfo = (isShowLoader) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/#{day}/#{hour}"
 
   sendAJAXRequest(settings)
 

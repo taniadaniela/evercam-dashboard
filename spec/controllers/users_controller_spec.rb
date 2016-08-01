@@ -73,6 +73,7 @@ describe UsersController do
   end
 
   describe 'POST #create with correct params' do
+    pending
     it "signs in and redirects to cameras index" do
       stub_request(:post, "#{EVERCAM_API}users.json").
         with(:body => { "email" => "#{CGI.escape(new_user_params[:user][:email])}", "firstname" => "Joe", "lastname" => "Bloggs", "password" => "password", "username" => "#{new_user_params[:user][:username]}" }).to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})

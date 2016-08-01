@@ -1,22 +1,4 @@
 GIT
-  remote: git://github.com/evercam/evercam-models.git
-  revision: b0d5f07cce9da59be72a02070cfe52ca1629b668
-  specs:
-    evercam_models (0.3.43)
-      activesupport (~> 4.2)
-      bcrypt (~> 3.1)
-      dotenv (~> 2.0)
-      evercam_misc (~> 0.0.11)
-      geocoder (~> 1.2)
-      georuby (~> 2.3)
-      hashie (~> 3.4)
-      nokogiri (~> 1.6)
-      pg (~> 0.18.2)
-      sequel (= 4.26.0)
-      timezone (~> 0.3)
-      typhoeus (~> 0.7.1)
-
-GIT
   remote: git://github.com/evercam/evercam-ruby.git
   revision: fe4f60d72b2d09e2b660aa40f61e6fd6d7dc8803
   specs:
@@ -624,10 +606,12 @@ DEPENDENCIES
   devise
   evercam!
   evercam_misc (~> 0.0.11)
-  evercam_models!
   factory_girl
   fog
+  geocoder
+  georuby
   guard-rspec
+  hashie
   heroku-api
   heroku_rails_deflate
   ie_iframe_cookies
@@ -684,6 +668,7 @@ DEPENDENCIES
   sprockets
   stripe!
   stripe_event
+  timezone
   turbolinks (~> 5.0.0.beta)
   typhoeus
   uglifier

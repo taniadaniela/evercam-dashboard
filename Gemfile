@@ -17,6 +17,11 @@ gem 'stripe',
 gem 'stripe_event'
 gem 'nprogress-rails'
 gem 'turbolinks', '~> 5.0.0.beta'
+gem 'georuby'
+gem 'geocoder'
+gem 'hashie'
+gem 'timezone'
+
 
 gem 'pg'
 gem 'sequel'
@@ -41,8 +46,6 @@ gem 'imgareaselect-rails', '~> 1.0'
 
 group :evercam do
   gem 'evercam_misc', '~> 0.0.11'
-  gem 'evercam_models',
-    github: 'evercam/evercam-models'
   gem 'evercam',
     github: 'evercam/evercam-ruby'
 end

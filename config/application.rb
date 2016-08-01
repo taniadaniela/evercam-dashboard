@@ -51,8 +51,6 @@ module EvercamDashboard
       widgets/localstorage_widget.js
       jquery.js
       phoenix.js
-      swagger.js
-      swagger.css
       widgets.scss
       clip_play.scss
     ]

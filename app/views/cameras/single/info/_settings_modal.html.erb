@@ -113,9 +113,11 @@
                         <td>
                           <select id="camera-timezone" name="camera-timezone" class="form-control makeEditable">
                             <% ActiveSupport::TimeZone.all.each do |time_zone| %>
-                              <option value="<%= time_zone.tzinfo.name %>" <%= "selected" if time_zone.tzinfo.name == @camera['timezone'] %>>
-                                <%= time_zone %>
-                              </option>
+                                <% if time_zone.utc_offset % 3600 == 0 %>
+                                  <option value="<%= time_zone.tzinfo.name %>" <%= "selected" if time_zone.tzinfo.name == @camera['timezone'] %>>
+                                    <%= time_zone %>
+                                  </option>
+                                <% end %>
                             <% end %>
                           </select>
                         </td>

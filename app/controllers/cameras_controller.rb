@@ -210,7 +210,8 @@ class CamerasController < ApplicationController
       @types = ['accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline']
       @camera['is_online'] = false if @camera['is_online'].blank?
-      @camera['timezone'] = 'Etc/UTC' unless @camera['timezone']
+      time = ActiveSupport::TimeZone.new(@camera['timezone'])
+      @camera['timezone'] = 'Etc/UTC' unless time.utc_offset % 3600 == 0
       @user_time = Time.new.in_time_zone(@camera['timezone'])
       @selected_date = @user_time.strftime("%m/%d/%Y")
       time_zone = TZInfo::Timezone.get(@camera['timezone'])

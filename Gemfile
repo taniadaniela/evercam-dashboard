@@ -16,7 +16,7 @@ gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
 gem 'nprogress-rails'
-gem 'turbolinks', '~> 5.0.0.beta'
+gem 'turbolinks'
 gem 'georuby'
 gem 'geocoder'
 gem 'hashie'

@@ -18,15 +18,14 @@
               <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings">Recordings</a>
             </li>
             <% if has_edit_right %>
+              <% if ["marco", "meherbst", "vinniequinn", "vq"].include? current_user.username %>
               <li>
                 <a data-toggle="tab" data-target="#motion" class="nav-tab-motion">Motion</a>
               </li>
+              <% end %>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares">Sharing</a>
               </li>
-            <% end %>
-
-            <% if has_edit_right %>
               <li>
                 <a data-toggle="tab" data-target="#logs" class="nav-tab-logs">Logs</a>
               </li>

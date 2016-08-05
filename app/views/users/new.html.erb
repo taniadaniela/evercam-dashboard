@@ -66,7 +66,7 @@
 
             <div class="text-center">
               <div class="col-sm-12 no-padding form-group<%= field_errors.include?("password") ? " has-error" : "" %>">
-                <%= f.password_field :password, autocomplete: "off", class: "form-control", "required" => "" %>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^.{6,}$", "data-validation-error-msg" => "Password should be at least 6 characters"%>
                 <% if field_errors.include?("password") %>
                   <span class="help-block form-error arrow_box text-left"><%= field_errors["password"] %></span>
                 <% end %>
@@ -97,6 +97,12 @@
   if (!window.Evercam) {
     window.Evercam = {};
   }
+
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
+
   window.Evercam.ENV = '<%= Rails.env %>';
   $(function () {
     $("alert").on("click", function () {

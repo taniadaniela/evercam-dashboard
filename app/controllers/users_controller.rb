@@ -69,8 +69,12 @@ class UsersController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       if error.kind_of?(Evercam::EvercamError)
-        flash[:message] = t("errors.#{error.code}") unless error.code.nil?
-        assess_field_errors(error)
+        response = instance_eval(error.message).first
+        if error.try(:status_code).present? && error.status_code.equal?(400)
+          assess_field_errors(response)
+        else
+          flash[:message] = response.last.first
+        end
       else
         flash[:message] = "An error occurred creating your account. Please check "\
                             "the details and try again. If the problem persists, "\
@@ -249,18 +253,7 @@ class UsersController < ApplicationController
 
   def assess_field_errors(error)
     field_errors = {}
-    case error.code
-      when "duplicate_email_error"
-        field_errors["email"] = t("errors.email_field_duplicate")
-      when "duplicate_username_error"
-        field_errors["username"] = t("errors.username_field_duplicate")
-      when "invalid_country_error"
-        field_errors["country"] = t("errors.country_field_invalid")
-      when "unknown_error"
-        field_errors["unknown"] = t("errors.unknown_error")
-      when "invalid_parameters"
-        error.context.each {|field| field_errors[field] = t("errors.#{field}_field_invalid")}
-    end
+    field_errors[error.first] = error.last.first
     flash[:field_errors] = field_errors
   end
 end

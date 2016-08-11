@@ -20,6 +20,9 @@ var SaveImage = (function() {
     hyperlink.href = fileURL;
     hyperlink.target = '_blank';
     hyperlink.download = fileName || fileURL;
+    if(!isNativeApp()) {
+        hyperlink.download = fileName || 'unknown';
+    }
 
     (document.body || document.documentElement).appendChild(hyperlink);
     hyperlink.onclick = function() {

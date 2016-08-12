@@ -22,7 +22,7 @@ centerSignIn = ->
     # Center vertically in window
     $('.center-div').css "margin-left", widthset
 
-window.initializeSignInUp = ->
+window.initializeVideoBackground = ->
   setVideoContainerHeight()
   centerSignIn()
   resizeWin()

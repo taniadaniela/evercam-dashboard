@@ -8,4 +8,4 @@
 //=
 //= require alerts
 //= require payment/pay.js
-// = require sign_in_up.js
+// = require video_background.js

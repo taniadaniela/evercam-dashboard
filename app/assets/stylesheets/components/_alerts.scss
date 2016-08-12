@@ -1,7 +1,7 @@
 .bb-alert {
   position: fixed;
   top: 14px;
-  left: 50%;
+  left: 49%;
   padding: 0.8em 1em;
   z-index: 100000000000;
   font-size: 13px;
@@ -9,11 +9,7 @@
   text-align: center;
   margin-left: -142px;
 }
-#signin .bb-alert {
-  position: absolute;
-  top: 68px;
 
-}
 .bbb-alert {
   padding: 0.8em 1em;
   z-index: 2000;

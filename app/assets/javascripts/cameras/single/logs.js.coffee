@@ -76,6 +76,8 @@ initializeDataTable = ->
             return row.action
         else if row.action is 'online'
           return '<div class="onlines">Camera came online</div>'
+        else if row.extra and row.action is 'offline'
+          getOfflineCause(row)
         else if row.action is 'offline'
           return '<div class="offlines">Camera went offline</div>'
         else if row.action is 'accessed'
@@ -100,6 +102,47 @@ initializeDataTable = ->
     drawCallback: ->
       NProgress.done()
   })
+
+getOfflineCause = (row) ->
+  switch row.extra.reason
+    when "case_clause"
+      message = "Bad request."
+    when "bad_request"
+      message = "Bad request"
+    when "closed"
+      message = "Connection closed."
+    when "nxdomain"
+      message = "Non-existant domain."
+    when "ehostunreach"
+      message = "No route to host."
+    when "enetunreach"
+      message = "Network unreachable."
+    when "req_timedout"
+      message = "Request to the camera timed out."
+    when "timeout"
+      message = "Camera response timed out."
+    when "connect_timeout"
+      message = "Connection to the camera timed out."
+    when "econnrefused"
+      message = "Connection refused."
+    when "not_found"
+      message = "Camera url is not found."
+    when "forbidden"
+      message = "Camera responded with a Forbidden message."
+    when "unauthorized"
+      message = "Please check the username and password."
+    when "device_error"
+      message = "Camera responded with a Device Error message."
+    when "device_busy"
+      message = "Camera responded with a Device Busy message."
+    when "moved"
+      message = "Camera url has changed, please update it."
+    when "not_a_jpeg"
+      message = "Camera didn't respond with an image."
+    when "unhandled"
+      message = "Sorry, we dropped the ball."
+  error = "<span class='message'>( Cause: #{message} )</span>"
+  return "<div class='offlines'>Camera went offline #{error}</div>"
 
 getImage = (row) ->
   timestamp = row.done_at

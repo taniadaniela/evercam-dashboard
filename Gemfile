@@ -58,7 +58,6 @@ end
 
 group :development do
   gem 'quiet_assets'
-  gem 'spring'
   gem 'jazz_hands',
     github: 'nixme/jazz_hands',
     branch: 'bring-your-own-debugger'

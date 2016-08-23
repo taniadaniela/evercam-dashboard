@@ -27,7 +27,7 @@
                 <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6">
                   <div class="form-group">
                     <%= label_tag('copy-from', "Copy From", class: "control-label") %>
-                    <div class="copy-from">                
+                    <div class="copy-from">
                       <ul class="nav add-camera-page">
                         <li class="pull-left">
                           <a class="cameras-dropdown-toggle" data-toggle="dropdown">
@@ -63,8 +63,8 @@
                   <div class="form-group">
                     <%= text_field_tag("camera-id", @user['camera-id'], "required" =>"required", "class" => "form-control", "data-validation-help" => "This must be unique and cannot be changed.", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.", "data-validation-event" => "click")%>
                     <%= label_tag('camera-id', "Evercam ID*", class: "float-label") %>
-                    <% if field_errors["id"] %>
-                    <div class="help-block form-error text-left"><%= field_errors["id"] %></div>
+                    <% if field_errors["exid"] %>
+                    <div class="help-block form-error text-left"><%= field_errors["exid"] %></div>
                     <% end %>
                   </div>
                 </div>

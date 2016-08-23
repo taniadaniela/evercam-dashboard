@@ -121,8 +121,9 @@ class CamerasController < ApplicationController
         'local-rtsp' => params['local-rtsp']
       }
       if error.kind_of?(Evercam::EvercamError)
+        response = instance_eval(error.message).first
         flash[:message] = t("errors.#{error.code}") unless error.code.nil?
-        assess_field_errors(error)
+        assess_field_errors(response)
       else
         flash[:message] = "An error occurred creating your account. Please check "\
                           "the details and try again. If the problem persists, "\
@@ -400,16 +401,7 @@ class CamerasController < ApplicationController
 
   def assess_field_errors(error)
     field_errors = {}
-    case error.code
-      when "vendor_not_found_error"
-        field_errors["username"] = t("errors.invalid_vendor_error")
-      when "model_not_found_error"
-        field_errors["model"] = t("errors.invalid_model_error")
-      when "duplicate_camera_id_error"
-        field_errors["id"] = t("errors.#{error.code}")
-      when "invalid_parameters"
-        error.context.each { |field| field_errors[field] = t("errors.#{field}_field_invalid") }
-    end
+    field_errors[error.first] = error.last.first
     flash[:field_errors] = field_errors
   end
 end

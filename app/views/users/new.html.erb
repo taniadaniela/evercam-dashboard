@@ -54,13 +54,16 @@
               <div class="col-sm-12 no-padding form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
                 <% if @share_request.nil? %>
                   <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "data-validation" => "email", "required" => "" %>
+                  <%= f.label :email, 'Email', class: "float-label" %>
                 <% else %>
-                  <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control" %>
+                  <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control grey-background" %>
+                  <i class="fa fa-info-circle info-icon" aria-hidden="true" title="User cannot edit email"></i>
+                  <%= f.label :email, 'Email', class: "left-0" %>
                 <% end %>
                 <% if field_errors.include?("email") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["email"] %></span>
+                  <%= f.label :email, 'Email', class: "float-label" %>
                 <% end %>
-                <%= f.label :email, 'Email', class: "float-label" %>
               </div>
             </div>
 

@@ -57,10 +57,24 @@
 }
 
 /* - Create Account - */
-#new-account select {
-  height: 34px;
-  border-radius: 0px !important;
+#new-account {
+
+  select {
+    height: 34px;
+    border-radius: 0px !important;
+  }
+
+  .grey-background {
+    background-color: $evercam-grey;
+  }
+
+  .left-0 {
+    left: 0px;
+    top: -22px;
+  }
+
 }
+
 #registration {
   border: 1px solid #E5E5E5;
   border-radius: 2px;
@@ -172,6 +186,13 @@ input:-webkit-autofill:focus {
 
 .width100 {
   width: 100%;
+}
+
+.info-icon {
+  position: absolute;
+  right: 0;
+  top: 9px;
+  color: $grey;
 }
 
 @media (max-width: 668px) {

@@ -235,7 +235,7 @@ class CamerasController < ApplicationController
         @cloud_recording = {
           "frequency" => 1,
           "status" => "off",
-          "storage_duration" => -1,
+          "storage_duration" => 1,
           "schedule" => {
             "Monday" => ["00:00-23:59"],
             "Tuesday" => ["00:00-23:59"],

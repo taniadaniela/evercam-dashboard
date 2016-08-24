@@ -62,9 +62,6 @@ updateScheduleToOn = ->
 
 updateScheduleToOff = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
-
-  Evercam.Camera.cloud_recording.frequency = 1
-  Evercam.Camera.cloud_recording.storage_duration = 1
   status = "off"
 
 updateScheduleFromCalendar = ->
@@ -247,18 +244,12 @@ handleStatusSelect = ->
         hideScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
-        if storage is -1 and status is "off"
-          $('#cloud-recording-duration').prop("disabled", false)
-          $('#cloud-recording-duration').val("1")
         updateFrequencyTo60()
         updateScheduleToOn()
       when "on-scheduled"
         showScheduleCalendar()
         showFrequencySelect()
         showDurationSelect()
-        if storage is -1 and status is "off"
-          $('#cloud-recording-duration').prop("disabled", false)
-          $('#cloud-recording-duration').val("1")
         updateFrequencyTo60()
         updateScheduleToOn()
       when "off"

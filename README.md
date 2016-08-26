@@ -5,10 +5,10 @@
 | Code Climate   | [![Code Climate](https://codeclimate.com/github/evercam/evercam-dashboard/badges/gpa.svg)](https://codeclimate.com/github/evercam/evercam-dashboard)   |
 | Travis Test   | [![Dependency Status](https://travis-ci.org/evercam/evercam-dashboard.svg?branch=master)](https://travis-ci.org/evercam/evercam-dashboard)   |
 | Test Coverage  | [![Test Coverage](https://codeclimate.com/github/evercam/evercam-dashboard/badges/coverage.svg)](https://codeclimate.com/github/evercam/evercam-dashboard)   |
-| Version  | 0.9  |
+| Version  | 1.1  |
 | Evercam API Version  | 1.0  |
 | Licence | [AGPL](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-%28agpl-3.0%29) |
-| Waffle  | [![Stories in Ready](https://badge.waffle.io/evercam/evercam-dashboard.png?label=ready&title=Ready)](https://waffle.io/evercam/evercam-dashboard) |
+
 
 
 

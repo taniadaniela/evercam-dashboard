@@ -118,13 +118,14 @@ th {
     border: 1px solid #efefef;
 }
 .left-column {
-    width: 100%;
-    max-width: 906px;
-    float: left;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 20px;
+  width: 100%;
+  max-width: 906px;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
 }
+
 .right-column {
     float: left;
     width: 100%;
@@ -158,12 +159,18 @@ th {
     padding-left: 0px;
     padding-right: 0px;
     margin-bottom: 10px;
+    max-width: none;
   }
   .right-column {
     float: left;
     padding-left: 0px;
     padding-right: 0px;
   }
+
+  #recording-tab #calendar {
+    display: none;
+  }
+
 }
 
 .snapshots {
@@ -561,7 +568,7 @@ ul, menu, dir {
   max-height: 150px;
   overflow-y: hidden;
   position: relative;
-  
+
   &.open{
     max-height: 100%;
     overflow-y: inherit;

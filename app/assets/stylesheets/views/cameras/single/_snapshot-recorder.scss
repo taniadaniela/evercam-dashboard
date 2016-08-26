@@ -19,7 +19,7 @@
       position: absolute;
       z-index: 1;
     }
-    
+
     #calendar .fa {
       color: white;
       margin-top: 0px;
@@ -94,7 +94,12 @@
       background-color: #f6f6f6;
       border: 1px solid #e5e5e5;
     }
+
   }
+
+.datepicker table {
+  width: 100%;
+}
 
   #btnFRwd i, #btnFFwd i {
     font-size: 16px;
@@ -132,12 +137,12 @@
     .left-column {
       margin-bottom: 10px;
       padding-left: 0;
-      padding-right: 0;
+      padding-right: 15px;
       width: 100%;
     }
     .right-column {
       padding-left: 0;
-      padding-right: 0;
+      padding-right: 15px;
       width: 100%;
     }
   }
@@ -318,9 +323,18 @@
     display: none;
   }
 
+@media (max-width: 975px) {
+
+  .tab-content #recordings {
+    margin: 0px -14px;
+  }
+
+}
+
   @media (max-width: 480px) {
-    #recordings {
+    .tab-content #recordings {
       min-height: 600px;
+      margin: 0 0 0 -14px;
       .playback-info-bar {
         font-size: 14px;
       }
@@ -588,12 +602,6 @@
     .playback-info-bar {
       text-align: left;
       margin-top: 0px;
-    }
-  }
-
-  @media (max-width: 975px) {
-    .tab-content #recordings {
-      margin: 0px -14px;
     }
   }
 

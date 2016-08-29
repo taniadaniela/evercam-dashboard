@@ -212,4 +212,12 @@ input:-webkit-autofill:focus {
     overflow: auto;
   }
 
+  .evercam-video-section video {
+    display: none;
+  }
+
+  .evercam-video-section {
+    background-image: url("./poster.jpg");
+  }
+
 }

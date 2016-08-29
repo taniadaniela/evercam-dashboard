@@ -360,6 +360,7 @@ input:-webkit-autofill {
 .section-position {
   position: absolute;
   top: 0;
+  z-index: 999999;
 }
 
 .width-400 {

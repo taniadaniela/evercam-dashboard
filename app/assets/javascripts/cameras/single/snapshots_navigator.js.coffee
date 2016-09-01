@@ -928,6 +928,8 @@ opBack = ->
   $('.play-options').css('display','inline')
 
 calculateWidth = ->
+  deviceAgent = navigator.userAgent.toLowerCase()
+  agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
   is_widget = $('#snapshot-diff').val()
   tab_width = $("#recording-tab").width()
   right_column_width = $("#recording-tab .right-column").width()
@@ -936,30 +938,34 @@ calculateWidth = ->
     tab_width = $(".tab-content").width() + width_add
   width_remove = if !is_widget then 40 else 20
   left_col_width = tab_width - right_column_width - width_remove
-  if $(window).width() >= 490
-    $("#recording-tab .left-column").animate { width:
-      "#{left_col_width}px" }, ->
-        if $("#recording-tab .left-column").width() is 0
-          setTimeout(calculateWidth, 500)
-        recodringSnapshotDivHeight()
-    $("#recording-tab .right-column").css("width", "220px")
-  else
-    $("#recording-tab .left-column").css("width", "100%")
-    $("#recording-tab .right-column").css("width", "220px")
+  if !(agentID)
+    if $(window).width() >= 490
+      $("#recording-tab .left-column").animate { width:
+        "#{left_col_width}px" }, ->
+          if $("#recording-tab .left-column").width() is 0
+            setTimeout(calculateWidth, 500)
+          recodringSnapshotDivHeight()
+      $("#recording-tab .right-column").css("width", "220px")
+    else
+      $("#recording-tab .left-column").css("width", "100%")
+      $("#recording-tab .right-column").css("width", "220px")
 
 recodringSnapshotDivHeight = ->
-  if $(window).width() >= 490
-    tab_width = $("#recording-tab").width()
-    calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()
-    if $('#fullscreen > img').height() < calcuHeight
-      $('div#navbar-section').removeClass 'navbar-section'
-      $('div#navbar-section').css 'width', $('.left-column').width()
+  deviceAgent = navigator.userAgent.toLowerCase()
+  agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
+  if !(agentID)
+    if $(window).width() >= 490
+      tab_width = $("#recording-tab").width()
+      calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()
+      if $('#fullscreen > img').height() < calcuHeight
+        $('div#navbar-section').removeClass 'navbar-section'
+        $('div#navbar-section').css 'width', $('.left-column').width()
+      else
+        $('div#navbar-section').addClass 'navbar-section'
+        $('div#navbar-section').css 'width', $('.left-column').width()
     else
-      $('div#navbar-section').addClass 'navbar-section'
-      $('div#navbar-section').css 'width', $('.left-column').width()
-  else
-    $('div#navbar-section').removeClass 'navbar-section'
-    $('div#navbar-section').css("width", "100%")
+      $('div#navbar-section').removeClass 'navbar-section'
+      $('div#navbar-section').css("width", "100%")
   if tab_width is 0
     setTimeout (-> recodringSnapshotDivHeight()), 500
 

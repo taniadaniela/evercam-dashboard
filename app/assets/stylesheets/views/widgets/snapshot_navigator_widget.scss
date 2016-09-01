@@ -131,6 +131,10 @@ th {
     width: 100%;
 }
 
+.datepicker table {
+  width: 100%;
+}
+
 
 @media (min-width: 850px) {
     .left-column {
@@ -541,6 +545,11 @@ ul, menu, dir {
   .mobile-hide {
     display: none ;
   }
+
+  .left-column {
+    width: 100%;
+  }
+
 }
 
 #recording-toggle {

@@ -938,7 +938,14 @@ calculateWidth = ->
     tab_width = $(".tab-content").width() + width_add
   width_remove = if !is_widget then 40 else 20
   left_col_width = tab_width - right_column_width - width_remove
-  if !(agentID)
+  if (agentID)
+    if tab_width > 480
+      $("#recording-tab .left-column").css("width", "#{left_col_width}px")
+      $("#recording-tab .right-column").css("width", "220px")
+    else
+      $("#recording-tab .left-column").css("width", "100%")
+      $("#recording-tab .right-column").css("width", "220px")
+  else
     if $(window).width() >= 490
       $("#recording-tab .left-column").animate { width:
         "#{left_col_width}px" }, ->
@@ -953,7 +960,13 @@ calculateWidth = ->
 recodringSnapshotDivHeight = ->
   deviceAgent = navigator.userAgent.toLowerCase()
   agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
-  if !(agentID)
+  if (agentID)
+    if $(window).width() <= 990
+      $('#fullscreen > img').css height: 'auto'
+    else
+      $('#fullscreen > img').css height: $(window).innerHeight() - $('.center
+        -tabs').height()
+  else
     if $(window).width() >= 490
       tab_width = $("#recording-tab").width()
       calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#navbar-section').height()

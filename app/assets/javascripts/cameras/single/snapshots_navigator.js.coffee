@@ -943,7 +943,7 @@ calculateWidth = ->
       $("#recording-tab .left-column").css("width", "#{left_col_width}px")
       $("#recording-tab .right-column").css("width", "220px")
     else
-      $("#recording-tab .left-column").css("width", "100%")
+      $("#recording-tab .left-column").css("width", $(window).width())
       $("#recording-tab .right-column").css("width", "220px")
   else
     if $(window).width() >= 490

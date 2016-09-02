@@ -943,7 +943,7 @@ calculateWidth = ->
       $("#recording-tab .left-column").css("width", "#{left_col_width}px")
       $("#recording-tab .right-column").css("width", "220px")
     else
-      $("#recording-tab .left-column").css("width", $('#recording-tab').width())
+      $("#recording-tab .left-column").css("width", "100%")
       $("#recording-tab .right-column").css("width", "220px")
   else
     if $(window).width() >= 490
@@ -977,12 +977,22 @@ recodringSnapshotDivHeight = ->
     setTimeout (-> recodringSnapshotDivHeight()), 500
 
 checkCalendarDisplay = ->
-  if $('.col-recording-right').css('display') == 'none'
-    $('#recording-tab .left-column').animate { width: "99.8%" }, ->
+  deviceAgent = navigator.userAgent.toLowerCase()
+  agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
+  if (agentID)
+    if $('.col-recording-right').css('display') == 'none'
+      $('#recording-tab .left-column').css { width: "99.8%" }, ->
+        recodringSnapshotDivHeight()
+    else
+      calculateWidth()
       recodringSnapshotDivHeight()
   else
-    calculateWidth()
-    recodringSnapshotDivHeight()
+    if $('.col-recording-right').css('display') == 'none'
+      $('#recording-tab .left-column').animate { width: "99.8%" }, ->
+        recodringSnapshotDivHeight()
+    else
+      calculateWidth()
+      recodringSnapshotDivHeight()
 
 calendarShow = ->
   $('.ui-datepicker-trigger').on 'click', ->

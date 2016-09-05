@@ -257,7 +257,8 @@ SetInfoMessage = (currFrame, date_time) ->
     $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
 
   totalWidth = $("#divSlider").width()
-  $("#divPointer").width(totalWidth * currFrame / totalFrames)
+  $("#divPointer").hide()
+  # $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState

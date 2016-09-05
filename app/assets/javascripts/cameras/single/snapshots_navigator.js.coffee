@@ -257,8 +257,7 @@ SetInfoMessage = (currFrame, date_time) ->
     $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
 
   totalWidth = $("#divSlider").width()
-  $("#divPointer").hide()
-  # $("#divPointer").width(totalWidth * currFrame / totalFrames)
+  $("#divPointer").width(totalWidth * currFrame / totalFrames)
   url = "#{Evercam.request.rootpath}/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
 
   if $(".nav-tabs li.active a").html() is "Recordings" && history.replaceState
@@ -432,6 +431,17 @@ GetCameraInfo = (isShowLoader) ->
     snapshotInfos = response.snapshots
     totalFrames = response.snapshots.length
     totalSnaps = response.snapshots.length
+    deviceAgent = navigator.userAgent.toLowerCase()
+    agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
+    if (agentID)
+      console.log "in ios"
+      if totalSnaps is 1
+        $("#divPointer").hide()
+      else
+        console.log "in other"
+        $("#divPointer").show()
+    else
+      $("#divPointer").show()
     if response == null || response.snapshots.length == 0
       $("#divSliderMD").width("100%")
       $("#MDSliderItem").html("")
@@ -939,6 +949,12 @@ calculateWidth = ->
     tab_width = $(".tab-content").width() + width_add
   width_remove = if !is_widget then 40 else 20
   left_col_width = tab_width - right_column_width - width_remove
+  if left_col_width > 360
+    $("#snapshot-notes-text").show()
+    $("#navbar-section .playback-info-bar").css("text-align", "center")
+  else
+    $("#snapshot-notes-text").hide()
+    $("#navbar-section .playback-info-bar").css("text-align", "left")
   if (agentID)
     if tab_width > 480
       $("#recording-tab .left-column").css("width", "#{left_col_width}px")
@@ -946,6 +962,8 @@ calculateWidth = ->
     else
       $("#recording-tab .left-column").css("width", "100%")
       $("#recording-tab .right-column").css("width", "220px")
+      $("#snapshot-notes-text").show()
+      $("#navbar-section .playback-info-bar").css("text-align", "center")
   else
     if $(window).width() >= 490
       $("#recording-tab .left-column").animate { width:
@@ -957,6 +975,8 @@ calculateWidth = ->
     else
       $("#recording-tab .left-column").css("width", "100%")
       $("#recording-tab .right-column").css("width", "220px")
+      $("#snapshot-notes-text").show()
+      $("#navbar-section .playback-info-bar").css("text-align", "center")
 
 recodringSnapshotDivHeight = ->
   deviceAgent = navigator.userAgent.toLowerCase()
@@ -978,22 +998,12 @@ recodringSnapshotDivHeight = ->
     setTimeout (-> recodringSnapshotDivHeight()), 500
 
 checkCalendarDisplay = ->
-  deviceAgent = navigator.userAgent.toLowerCase()
-  agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
-  if (agentID)
-    if $('.col-recording-right').css('display') == 'none'
-      $('#recording-tab .left-column').css { width: "99.8%" }, ->
-        recodringSnapshotDivHeight()
-    else
-      calculateWidth()
+  if $('.col-recording-right').css('display') == 'none'
+    $('#recording-tab .left-column').animate { width: "99.8%" }, ->
       recodringSnapshotDivHeight()
   else
-    if $('.col-recording-right').css('display') == 'none'
-      $('#recording-tab .left-column').animate { width: "99.8%" }, ->
-        recodringSnapshotDivHeight()
-    else
-      calculateWidth()
-      recodringSnapshotDivHeight()
+    calculateWidth()
+    recodringSnapshotDivHeight()
 
 calendarShow = ->
   $('.ui-datepicker-trigger').on 'click', ->

@@ -9,3 +9,4 @@
 //= require alerts
 //= require payment/pay.js
 // = require video_background.js
+//= require old_browsers_alert.js

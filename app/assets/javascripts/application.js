@@ -32,6 +32,7 @@
 //= require lib/underscore-min.js
 //= require bs-slider
 //= require jquery.imgareaselect
+//= require old_browsers_alert.js
 
 //=
 //= require alerts

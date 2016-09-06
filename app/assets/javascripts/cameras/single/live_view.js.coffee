@@ -84,7 +84,9 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
-  window.vjs_player = videojs 'camera-video-player', {techOrder: ["flash", "hls", "html5"]}
+  videojs 'camera-video-player', {
+    techOrder: ["flash", "html5"]
+  }
   $("#camera-video-player").append($("#ptz-control"))
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'

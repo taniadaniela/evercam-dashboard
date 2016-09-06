@@ -3,8 +3,8 @@
 //= require bootstrap
 //= require jquery-form-validator
 //= require videojs
-//= require videojs-contrib-media-sources/src/videojs-media-sources.js
-//= require videojs-contrib-hls-0.16.0.js
+//= require videojs-contrib-media-sources
+//= require videojs-contrib-hls
 //=
 //= require alerts
 //= require payment/pay.js

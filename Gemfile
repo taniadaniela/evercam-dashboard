@@ -43,9 +43,9 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'intercom', require: 'intercom'
 gem 'imgareaselect-rails', '~> 1.0'
+gem 'dotenv'
 
 group :evercam do
-  gem 'evercam_misc', '~> 0.0.11'
   gem 'evercam',
     github: 'evercam/evercam-ruby'
 end

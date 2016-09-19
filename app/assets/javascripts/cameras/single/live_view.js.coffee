@@ -4,6 +4,7 @@ img_real_height = 0
 live_view_timestamp = 0
 image_placeholder = null
 camera_host = null
+tries = 0
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -84,10 +85,11 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
-  videojs 'camera-video-player', {
+  window.vjs_player = videojs 'camera-video-player', {
     techOrder: ["flash", "html5"]
   }
   $("#camera-video-player").append($("#ptz-control"))
+  setTimeout switch_to_jpeg, 3000
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
       $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
@@ -96,27 +98,38 @@ initializePlayer = ->
       $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
   ), 10
 
+switch_to_jpeg = ->
+  if tries < 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+    tries = tries + 1
+    setTimeout switch_to_jpeg, 3000
+  else if tries >= 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+    $("#select-stream-type").val("jpeg")
+    load_jpeg()
+
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
     $("#jpg-portion").append($("#ptz-control"))
     window.vjs_player.dispose()
     $("#camera-video-stream").html('')
 
+load_jpeg = ->
+  destroyPlayer()
+  $('.flash-error-message').hide()
+  $("#streams").removeClass("active").addClass "inactive"
+  $("#fullscreen").removeClass("inactive").addClass "active"
+  playJpegStream()
+  $('#live-view-placeholder .pull-right table').css 'margin-top', '-39px'
+  $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
+  $("#camera-video-stream").hide()
+  $(".video-js").css 'height', '0px'
+  $(".wrap").css 'padding-top', '0px'
+  getImageRealRatio()
+
 handleChangeStream = ->
   $("#select-stream-type").on "change", ->
     switch $(this).val()
       when 'jpeg'
-        destroyPlayer()
-        $('.flash-error-message').hide()
-        $("#streams").removeClass("active").addClass "inactive"
-        $("#fullscreen").removeClass("inactive").addClass "active"
-        playJpegStream()
-        $('#live-view-placeholder .pull-right table').css 'margin-top', '-39px'
-        $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
-        $("#camera-video-stream").hide()
-        $(".video-js").css 'height', '0px'
-        $(".wrap").css 'padding-top', '0px'
-        getImageRealRatio()
+        load_jpeg()
       when 'video'
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()

@@ -17,8 +17,8 @@
 //= require bootbox
 //= require securehash
 //= require videojs
-//= require videojs-contrib-media-sources
-//= require videojs-contrib-hls
+//= require videojs-contrib-media-sources.min.js
+//= require videojs-contrib-hls.min.js
 //= require screenfull
 //= require bootstrap-tabdrop
 //= require datatables

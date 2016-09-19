@@ -5,6 +5,7 @@ live_view_timestamp = 0
 image_placeholder = null
 camera_host = null
 tries = 0
+clear_timeout_videojs = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -89,7 +90,7 @@ initializePlayer = ->
     techOrder: ["flash", "html5"]
   }
   $("#camera-video-player").append($("#ptz-control"))
-  setTimeout switch_to_jpeg, 3000
+  clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
       $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
@@ -101,7 +102,7 @@ initializePlayer = ->
 switch_to_jpeg = ->
   if tries < 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     tries = tries + 1
-    setTimeout switch_to_jpeg, 3000
+    clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
   else if tries >= 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     $("#select-stream-type").val("jpeg")
     load_jpeg()
@@ -149,6 +150,7 @@ handleTabOpen = ->
       $("#select-stream-type").trigger "change"
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
+    clearTimeout(clear_timeout_videojs)
     stopJpegStream()
     if $('#select-stream-type').length
       destroyPlayer()

@@ -166,8 +166,14 @@ renderToDate = (row, type, set, meta) ->
   getDates(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
-  dateTimeFrom = new Date(moment.utc(row.from_date*1000).format('MM DD YYYY, HH:mm:ss'))
-  dateTimeTo = new Date(moment.utc(row.to_date*1000).format('MM DD YYYY, HH:mm:ss'))
+  dateTimeFrom = new Date(
+    moment.utc(row.from_date*1000).
+    format('MM/DD/YYYY,HH:mm:ss')
+  )
+  dateTimeTo = new Date(
+    moment.utc(row.to_date*1000).
+    format('MM/DD/YYYY, HH:mm:ss')
+  )
   diff = dateTimeTo - dateTimeFrom
   diffSeconds = diff / 1000
   HH = Math.floor(diffSeconds / 3600)
@@ -191,7 +197,7 @@ renderIsPublic = (row, type, set, meta) ->
 getDates = (times) ->
   offset =  $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
-  DateTime = new Date(moment.utc(times).format('MM DD YYYY, HH:mm:ss'))
+  DateTime = new Date(moment.utc(times).format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
   Dateformateed =  format_time.formatDate(DateTime, 'd/m/y H:i')
   return Dateformateed
@@ -199,7 +205,7 @@ getDates = (times) ->
 getDate = (timestamp) ->
   offset =  $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
-  DateTime = new Date(moment.utc(timestamp).format('MM DD YYYY, HH:mm:ss'))
+  DateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
   Dateformateed = format_time.formatDate(DateTime, 'd M Y, H:i:s')
   return Dateformateed
@@ -264,7 +270,7 @@ createClip = ->
 setDate = ->
   offset =  $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
-  DateTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+  DateTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
   Dateto =  format_time.formatDate(DateTime, 'd/m/Y H:i:s')
   $('#to-date').val Dateto,true

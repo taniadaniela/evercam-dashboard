@@ -16,7 +16,7 @@
   display: none;
 }
 
-.video-js {
+.camera-preview .video-js {
   padding-top: 51.2%;
   width: 100%;
 }
@@ -27,4 +27,8 @@
 
 .video-js:hover .ptz-controls {
   opacity: 1;
+}
+
+select::-ms-expand {
+  display: none;
 }

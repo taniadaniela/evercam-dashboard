@@ -47,9 +47,11 @@
               </div>
             <% end %>
 
-            <% unless has_edit_right %>
-              <i class="fa fa-trash-o delete-share-icon" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
-            <% end %>
+            <div id="delete-read-only-camera">
+              <% unless has_edit_right %>
+                <i class="fa fa-trash-o delete-share-icon" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
+              <% end %>
+            </div>
               <div id="deleteModal" class="modal fade">
                 <div class="modal-dialog width-420">
                   <div class="modal-content">

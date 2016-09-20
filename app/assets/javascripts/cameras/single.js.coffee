@@ -90,6 +90,14 @@ handleAddToMyCameras = ->
       url: '/share'
     sendAJAXRequest(settings)
 
+readOnlyCameraDeleteOption = ->
+  $("#delete-read-only-camera").hide()
+  hrefs = $('.cameralist-height a')
+  hrefs.each ->
+    if $(this).data('camera-id') == Evercam.Camera.id
+      $("#delete-read-only-camera").show()
+      return
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -113,3 +121,4 @@ window.initializeCameraSingle = ->
   Layout.init()
   QuickSidebar.init()
   SaveImage.init()
+  readOnlyCameraDeleteOption()

@@ -90,6 +90,7 @@ initializePlayer = ->
     techOrder: ["flash", "html5"]
   }
   $("#camera-video-player").append($("#ptz-control"))
+  tries = 0
   clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
@@ -125,6 +126,7 @@ load_jpeg = ->
   $(".video-js").css 'height', '0px'
   $(".wrap").css 'padding-top', '0px'
   getImageRealRatio()
+  clearTimeout(clear_timeout_videojs)
 
 handleChangeStream = ->
   $("#select-stream-type").on "change", ->

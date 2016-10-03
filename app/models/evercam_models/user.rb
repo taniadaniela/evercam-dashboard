@@ -50,7 +50,7 @@ class User < Sequel::Model
     super
     errors.add(:firstname, "is invalid") if (/^[\p{Word}\s,.']+$/ =~ firstname).nil?
     errors.add(:lastname, "is invalid") if (/^[\p{Word}\s,.']+$/ =~ lastname).nil?
-    errors.add(:username, "is invalid") if (/^[a-z]+[\w-]+$/i =~ username).nil?
+    errors.add(:username, "is invalid") if (/^[a-z]+[[:alnum:]-]+$/i =~ username).nil?
     errors.add(:email, "is invalid") if (/^.+@.+\..+$/ =~ email).nil?
   end
 

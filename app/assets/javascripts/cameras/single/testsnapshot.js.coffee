@@ -76,7 +76,7 @@ $ ->
     data.cam_username = $("#camera-username").val() unless $("#camera-username").val() is ''
     data.cam_password = $("#camera-password").val() unless $("#camera-password").val() is ''
     data.vendor_id = $("#camera-vendor").val()
-    data.camera_exid= $("#camera-exid").val()
+    data.camera_exid = window.Evercam.Camera.id if window.Evercam.Camera.id
 
     onError = (jqXHR, status, error) ->
       $('#test-error').text(jqXHR.responseJSON.message)
@@ -93,7 +93,7 @@ $ ->
         else
           showFeedback("We got a snapshot")
           $('#testimg').attr('src', result.data)
-          if !window.Evercam.Camera.is_online
+          if window.Evercam.Camera.is_online isnt undefined && !window.Evercam.Camera.is_online
             location.reload()
       loader.stop()
       NProgress.done()

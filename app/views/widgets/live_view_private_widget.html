@@ -6,22 +6,28 @@
     <title>Live View</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <link href="https://vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/4.11/video.js"></script>
+    <%= stylesheet_link_tag "videojs/video-js.min" %>
     <%= javascript_include_tag "live_view_private_widget" %>
     <style>
     .vjs-default-skin .vjs-play-control {
       height: 3em;
     }
     .vjs-default-skin .vjs-fullscreen-control {
-      height: 3em;
       margin-right: 5px;
+      height: 3em;
     }
     .vjs-default-skin .vjs-volume-control {
       margin-right: 10px;
     }
     .video-js {
+      height: auto;
+      width: auto;
       padding-top: 56.2%;
+    }
+    .video-js img{
+      position: absolute;
+      top: 0;
+      height: 100%;
     }
     .video-js.vjs-fullscreen{
         padding-top: 0;
@@ -40,7 +46,7 @@ You are not allowed to view this camera
   <% if params[:rtmp] %>
   <video id="camera-video-player" class="video-js vjs-default-skin"
          poster="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>"
-         controls autoplay width="auto" height="auto">
+         controls autoplay>
     <source src="<%= params[:rtmp] %>" type="rtmp/flv">
     <% if params[:hls] %>
     <source src="<%= params[:hls] %>" type="application/x-mpegURL">
@@ -195,7 +201,7 @@ You are not allowed to view this camera
 
   (function(window) {
     var refresh = 1000*<%= params[:refresh] %>;
-    var  container = document.getElementById("evercam-container-img");
+    var container = document.getElementById("evercam-container-img");
     var url = "<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>";
     var live_view_timestamp = 0;
     if (!window.Evercam) {
@@ -256,7 +262,36 @@ You are not allowed to view this camera
     };
 
     <% if params[:rtmp] %>
-      videojs('camera-video-player', {techOrder: ["flash", "hls", "html5"]});
+      window.vjs_player = videojs('camera-video-player', {
+        techOrder: ["flash", "html5"]
+      });
+      var count = 0;
+      var clear_timeout_videojs;
+
+      clear_timeout_videojs = setTimeout(function() {
+        switch_to_jpeg();
+      }, 3000);
+
+      function switch_to_jpeg() {
+
+        if (count < 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)) {
+            count = count + 1;
+            setTimeout(function() {
+              switch_to_jpeg();
+            }, 3000);
+        }
+        else if (count >= 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)) {
+            fullscreenImage();
+            $("#camera-video-player").html(
+              '<img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />'
+            );
+            window.ec_vis_handler = handleVisibilityChange;
+            document.addEventListener(
+              "visibilitychange", handleVisibilityChange, false
+            );
+            initSocket()
+        }
+      };
     <% else %>
       fullscreenImage();
       window.ec_vis_handler = handleVisibilityChange;

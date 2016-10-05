@@ -1,1 +1,2 @@
 #= require phoenix
+#= require videojs

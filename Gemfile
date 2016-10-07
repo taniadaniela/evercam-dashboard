@@ -78,6 +78,7 @@ group :test do
   gem 'rack_session_access'
   gem 'selenium-webdriver'
   gem 'launchy'
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 source 'https://rails-assets.org' do

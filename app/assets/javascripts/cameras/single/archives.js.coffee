@@ -29,7 +29,12 @@ initializeArchivesDataTable = ->
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date', sClass: 'from'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date', sClass: 'to'},
       {data: renderDuration, orderDataType: 'string-date', type: 'string-date', sClass: 'duration'},
-      {data: "frames", sClass: 'frames'},
+      {data: ( row, type, set, meta ) ->
+        if row.status is 'Pending'
+          return "Pending"
+        else
+          return row.frames
+      },
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
       {data: "status", sClass: 'status'},
       {data: renderbuttons, sClass: 'options'}
@@ -226,16 +231,23 @@ tooltip = ->
 
 createClip = ->
   $("#create_clip_button").on "click", ->
+    from_date = $("#from-date").val()
+    duration = $("#to-date").val()
+    to_date = setToDate(from_date, duration)
     if $("#clip-name").val() is ""
       Notification.show("Clip title cannot be empty.")
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      return false
+    if duration > 30
+      Notification.show("Duration exceeds maximum limit of 30 min.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       return false
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     NProgress.start()
     data =
       title: $("#clip-name").val()
-      from_date: $("#from-date").val()
-      to_date: $("#to-date").val()
+      from_date: from_date
+      to_date: to_date
       embed_time: $("#embed-datetime").is(":checked")
       is_public: $("#is-public").is(":checked")
 
@@ -267,14 +279,27 @@ createClip = ->
       url: $("#archive-url").val()
     sendAJAXRequest(settings)
 
+setToDate = (date, duration) ->
+  dates = date.split(" ")
+  date = dates[0]
+  date_arr = date.split('/')
+  time = dates[1]
+  time_arr = time.split(":")
+  new_date = new Date(
+    date_arr[2],date_arr[1] - 1,date_arr[0],
+    time_arr[0],time_arr[1],time_arr[2]
+  )
+  min = new_date.getMinutes()
+  new_date.setMinutes(parseInt(min) + parseInt(duration))
+  set_date = format_time.formatDate(new_date, 'd/m/Y H:i:s')
+  return set_date
+
 setDate = ->
   offset =  $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateto =  format_time.formatDate(DateTime, 'd/m/Y H:i:s')
-  $('#to-date').val Dateto,true
-  DateTime.setHours(DateTime.getHours() - 2)
+  DateTime.setMinutes(DateTime.getMinutes() - 30)
   Datefrom = format_time.formatDate(DateTime, 'd/m/Y H:i:s')
   $('#from-date').val Datefrom,true
 

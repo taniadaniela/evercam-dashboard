@@ -185,17 +185,21 @@ getImageRealRatio = ->
     if $('.camera-preview-online').hasClass 'hide'
       if offline_img_height > offline_wrap_height ||
       offline_img_width < offline_wrap_width
-        $(".camera-thumbnail").css({"height": "#{offline_wrap_height}px"})
-        $(".camera-thumbnail").css({"width": "auto"})
-        $(".camera-thumbnail").css({"margin-top": "0px"})
+        $(".offline-image .camera-thumbnail").css({
+          "height": "#{offline_wrap_height}px"
+        })
+        $(".offline-image .camera-thumbnail").css({"width": "auto"})
+        $(".offline-image .camera-thumbnail").css({"margin-top": "0px"})
       else
-        $(".camera-thumbnail").css({"width": "100%"})
-        $(".camera-thumbnail").css({"height": "auto"})
+        $(".offline-image .camera-thumbnail").css({"width": "100%"})
+        $(".offline-image .camera-thumbnail").css({"height": "auto"})
         if offline_wrap_height == offline_img_height
           setTimeout (-> getImageRealRatio()), 100
         else
           offline_img_align = (offline_wrap_height - offline_img_height) / 2
-          $(".camera-thumbnail").css({"margin-top": "#{offline_img_align}px"})
+          $(".offline-image .camera-thumbnail").css({
+            "margin-top": "#{offline_img_align}px"
+          })
       if offline_img_width is 0
         setTimeout (-> getImageRealRatio()), 100
     else

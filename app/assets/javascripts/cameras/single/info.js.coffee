@@ -181,12 +181,12 @@ loadVendors = ->
 saveMapLocation = ->
   NProgress.start()
   data = {}
-  
-  locs = $("#camera_Lats_Lng").val().split(/(?:,| )+/) 
+
+  locs = $("#camera_Lats_Lng").val().split(/(?:,| )+/)
   if locs.length == 2
     ilat = parseFloat(locs[0], 10)
     ilng = parseFloat(locs[1], 10)
-    
+
     if isNaN(ilat) || isNaN(ilng)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       Notification.show "Invalid latitude or longitude value"
@@ -194,14 +194,14 @@ saveMapLocation = ->
     else
       $("#cameraLats").val(ilat)
       $("#cameraLng").val(ilng)
-  
+
   else
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
     Notification.show "Invalid latitude or longitude value"
     return
 
   $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
-  
+
   data.location_lat = $("#cameraLats").val()
   data.location_lng = $("#cameraLng").val()
 

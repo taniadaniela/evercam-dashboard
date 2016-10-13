@@ -128,24 +128,24 @@ gravatarName = (row, type, set, meta) ->
   return main_div.html()
 
 changeImageSource = (email, id) ->
-  favicon_url = "//favicon.yandex.net/favicon/"
+  favicon_url = "https://favicon.yandex.net/favicon/"
   if email
     signature = hex_md5(email)
     index = email.indexOf("@")
     domain = email.substr((index+1))
     favicon_url = favicon_url + domain
-    img_src = "//gravatar.com/avatar/#{signature}?d=#{favicon_url}"
+    img_src = "https://gravatar.com/avatar/#{signature}?d=#{favicon_url}"
     if domain is "hotmail.com"
-      img_src = "//gravatar.com/avatar/#{signature}"
+      img_src = "https://gravatar.com/avatar/#{signature}"
   else
-    img_src = "//gravatar.com/avatar"
+    img_src = "https://gravatar.com/avatar"
 
   data = {}
 
   onSuccess = (data, success, jqXHR) ->
     length = jqXHR.responseText.length
     if length < 100
-      img_src = "//gravatar.com/avatar/#{signature}"
+      img_src = "https://gravatar.com/avatar/#{signature}"
     $("#archives-table .#{id}").attr "src", img_src
 
   onError = (jqXHR, status, error) ->

@@ -476,7 +476,7 @@ initializePopup = ->
 
 addGravatarFallbacks = ->
   img_tags = $("#shares .gravatar")
-  favicon = "//favicon.yandex.net/favicon/"
+  favicon = "https://favicon.yandex.net/favicon/"
   img_tags.each ->
     img = $(this)
     email = img.attr "email"
@@ -484,15 +484,15 @@ addGravatarFallbacks = ->
     index = email.indexOf("@")
     domain = email.substr((index+1))
     favicon_url = favicon + domain
-    img_src = "//gravatar.com/avatar/#{signature}?d=#{favicon_url}"
+    img_src = "https://gravatar.com/avatar/#{signature}?d=#{favicon_url}"
     if domain is "hotmail.com"
-      img_src = "//gravatar.com/avatar/#{signature}"
+      img_src = "https://gravatar.com/avatar/#{signature}"
     data = {}
 
     onSuccess = (data, success, jqXHR) ->
       length = jqXHR.responseText.length
       if length < 100
-        img_src = "//gravatar.com/avatar/#{signature}"
+        img_src = "https://gravatar.com/avatar/#{signature}"
       img.attr "src", img_src
 
     onError = (jqXHR, status, error) ->

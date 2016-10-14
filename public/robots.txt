@@ -2,7 +2,10 @@
 #
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
-# Disallow: bingbot
-# Disallow: Baiduspider
-# Disallow: MJ12bot
+# Disallow: /
+# User-agent: bingbot
+# Disallow: /
+# User-agent: Baiduspider
+# Disallow: /
+# User-agent: MJ12bot
 # Disallow: /

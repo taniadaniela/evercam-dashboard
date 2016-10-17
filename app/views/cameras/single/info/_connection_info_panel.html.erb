@@ -31,7 +31,18 @@
       </tr>
       <tr>
         <td>Snapshot URL:</td>
-        <td><%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %></td>
+        <td><%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %>
+        </td>
+      </tr>
+      <tr>
+        <td>H264 URL:</td>
+        <td>
+          <% if @camera.deep_fetch('external', 'rtsp', 'h264').present? %>
+            <%= @camera.deep_fetch('external', 'rtsp' , 'h264') { '' }.sub("rtsp://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '') %>
+          <% else %>
+            <span class="grey">Not available</span>
+          <% end %>
+        </td>
       </tr>
     </table>
     <div class="row">

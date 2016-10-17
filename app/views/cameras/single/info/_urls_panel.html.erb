@@ -19,6 +19,58 @@
             <% end %>
           </td>
         </tr>
+        <tr>
+          <td class="col-md-4 col-xs-4">
+            Snapshot URL:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch('external', 'http', 'jpg') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-4 col-xs-4">
+            HLS:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch('proxy_url', 'hls') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, "http://media.evercam.io:4000/live/index.m3u8?camera_id=#{@camera['id']}", url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-4 col-xs-4">
+            rtsp:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-4 col-xs-4">
+            rtmp:
+          </td>
+          <td>
+            <% url = @camera.deep_fetch('proxy_url', 'rtmp') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, "rtmp://media.evercam.io:1935/live?camera_id=#{@camera['id']}", url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
       </table>
     </section>
   </div>

@@ -69,11 +69,21 @@ initializeDataTable = ->
           <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
       , orderDataType: 'string-date', type: 'string-date' },
       {data: ( row, type, set, meta ) ->
+        ip = ""
+        if row.extra and row.extra.ip
+          ip = ", ip: #{row.extra.ip}"
         if row.action is 'shared' or row.action is 'stopped sharing'
           if row.extra && row.extra.with
-            return row.action + ' with ' + (row.extra.with if row.extra)
+            return ("#{row.action} with #{row.extra.with}") + ip
           else
             return row.action
+        if row.action is 'edited' or
+          row.action is 'created' or
+          row.action is 'cloud recordings updated' or
+          row.action is 'cloud recordings created' or
+          row.action is 'archive created' or
+          row.action is 'archive deleted'
+            return row.action + ip
         else if row.action is 'online'
           return '<div class="onlines">Camera came online</div>'
         else if row.extra and row.action is 'offline'

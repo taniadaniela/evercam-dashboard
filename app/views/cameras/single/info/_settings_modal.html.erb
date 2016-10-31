@@ -59,7 +59,7 @@
                       <tr>
                           <td><label class="control-label" for="snapshot">RTSP:</label></td>
                           <td>
-                           <input type="text" id="rtsp" name="rtsp" placeholder="Not yet provided" class="form-control makeEditable" disabled value="<% if @camera.deep_fetch('external', 'rtsp', 'h264').present? %><%= @camera.deep_fetch('external', 'rtsp' , 'h264') { '' }.sub("rtsp://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '') %><% end %>">
+                           <input type="text" id="rtsp" name="rtsp" placeholder="Not yet provided" class="form-control makeEditable" disabled value="<%= @camera.deep_fetch('external', 'rtsp' , 'h264') { '' }.sub("rtsp://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '') if @camera.deep_fetch('external', 'rtsp', 'h264') { '' } %> ">
                           </td>
                         </tr>
                     </table>

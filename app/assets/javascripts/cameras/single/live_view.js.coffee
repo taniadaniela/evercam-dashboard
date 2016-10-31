@@ -411,10 +411,8 @@ ptzCreation = ->
 
 createPtzPresets = (preset_name) ->
   NProgress.start()
-  preset = preset_name.toLowerCase()
-  preset = preset_name.replace(/(^\s+|[^a-zA-Z0-9 ]+|\s+$)/g, '')
-  preset = preset_name.replace(/\s+/g, '-')
   data = {}
+  data.preset_name = preset_name
 
   onError = (jqXHR, status, error) ->
     message = jqXHR.responseJSON.message
@@ -431,9 +429,9 @@ createPtzPresets = (preset_name) ->
     dataType: 'json'
     success: onSuccess
     error: onError
-    contentType: "application/json; charset=utf-8"
     type: 'POST'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create/#{preset}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    contentType: 'application/x-www-form-urlencoded'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
   sendAJAXRequest(settings)
 
 refreshPresetList = ->

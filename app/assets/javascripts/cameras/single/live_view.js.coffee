@@ -430,6 +430,7 @@ createPtzPresets = (preset_name) ->
     success: onSuccess
     error: onError
     type: 'POST'
+    contentType: 'application/x-www-form-urlencoded'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets/create?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
   sendAJAXRequest(settings)
 

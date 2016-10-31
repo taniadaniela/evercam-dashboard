@@ -102,7 +102,6 @@ loadVendors = ->
 
   onSuccess = (result, status, jqXHR) ->
     vendors = sortByKey(result.vendors, "name")
-    $("#camera-vendor option").remove()
 
     for vendor in vendors
       selected = ''
@@ -114,7 +113,6 @@ loadVendors = ->
         $("#camera-vendor").prepend("<option value='#{vendor.id}' #{selected}>#{vendor.name} - Custom URL</option>")
       else
         $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
-    $("#camera-vendor").prepend('<option value="">Select Camera Vendor</option>');
 
   settings =
     cache: false

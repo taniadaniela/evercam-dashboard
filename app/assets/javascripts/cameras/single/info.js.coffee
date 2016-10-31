@@ -85,9 +85,12 @@ handleVendorModelEvents = ->
   $("#details").on "change", "#camera-vendor", (e) ->
     e.preventDefault()
     loadVendorModels($(this).val())
+    checkSnapshotInput()
 
   $("#details").on "change", "#camera-model", ->
     cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val"))
+    cleanAndSetRtspUrl($(this).find(":selected").attr("rtsp-val"))
+    checkRtspInput()
 
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
@@ -114,15 +117,36 @@ loadVendorModels = (vendor_id) ->
       selected = if model.name == Evercam.Camera.model_name then 'selected="selected"' else ''
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
       if model.name.toLowerCase().indexOf('default') isnt -1
-        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+        $("#camera-model").prepend(
+          "<option jpg-val='#{jpg_url}'
+          rtsp-val='#{model.h264_url}'
+          value='#{model.id}' #{selected}>#{model.name}
+          </option>"
+        )
       else if model.name.toLowerCase().indexOf('other') isnt -1
-        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name} - Custom URL</option>")
+        $("#camera-model").prepend(
+          "<option jpg-val='#{jpg_url}'
+          rtsp-val='#{model.h264_url}'
+          value='#{model.id}'
+          selected='selected'>#{model.name} - Custom URL
+          </option>"
+        )
       else
-        $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+        $("#camera-model").append(
+          "<option jpg-val='#{jpg_url}'
+          rtsp-val='#{model.h264_url}'
+          value='#{model.id}' #{selected}>#{model.name}
+          </option>"
+        )
 
     jpg_url = $("#camera-model").find(":selected").attr("jpg-val")
+    rtsp_url = $("#camera-model").find(":selected").attr("rtsp-val")
+
     if jpg_url isnt ""
       cleanAndSetJpegUrl(jpg_url)
+    if rtsp_url isnt ""
+      cleanAndSetRtspUrl(rtsp_url)
+    checkRtspInput()
 
   settings =
     cache: false
@@ -141,6 +165,11 @@ cleanAndSetJpegUrl = (jpeg_url) ->
   if jpeg_url.indexOf('/') == 0
     jpeg_url = jpeg_url.substr(1)
   $("#snapshot").val jpeg_url
+
+cleanAndSetRtspUrl = (rtsp_url) ->
+  if rtsp_url.indexOf('/') == 0
+    rtsp_url = rtsp_url.substr(1)
+  $("#rtsp").val rtsp_url
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -163,7 +192,16 @@ loadVendors = ->
       if vendor.id == Evercam.Camera.vendor_id
         selected = 'selected="selected"'
         loadVendorModels(vendor.id)
-      $("#camera-vendor").append("<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>")
+      if vendor.id is "other"
+        $("#camera-vendor").prepend(
+          "<option value='#{vendor.id}' #{selected}>
+          #{vendor.name} - Custom URL</option>"
+        )
+      else
+        $("#camera-vendor").append(
+          "<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>"
+        )
+    checkSnapshotInput()
 
   settings =
     cache: false
@@ -514,6 +552,24 @@ cursor_visible = ->
 hideRefreshGif = ->
   $('.refresh-detail-snap i').show()
   $('.refresh-detail-snap .refresh-gif').hide()
+
+checkSnapshotInput = ->
+  if $("#camera-vendor").val() is "other"
+    $("#snapshot").removeAttr('disabled')
+    $("#snapshot").val("")
+    $("#rtsp").removeAttr('disabled')
+    $("#rtsp").val("")
+  else
+    $("#snapshot").attr('disabled', 'disabled')
+    $("#rtsp").attr('disabled', 'disabled')
+
+checkRtspInput = ->
+  if $("#rtsp").val() in ['<blank>', '/', 'unknown', '']
+    $("#rtsp").removeAttr('disabled')
+    $("#rtsp").val("")
+  else
+    $("#snapshot").attr('disabled', 'disabled')
+    $("#rtsp").attr('disabled', 'disabled')
 
 window.initializeInfoTab = ->
   port = $('#port').val()

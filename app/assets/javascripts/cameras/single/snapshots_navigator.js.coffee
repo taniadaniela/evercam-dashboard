@@ -434,11 +434,9 @@ GetCameraInfo = (isShowLoader) ->
     deviceAgent = navigator.userAgent.toLowerCase()
     agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
     if (agentID)
-      console.log "in ios"
       if totalSnaps is 1
         $("#divPointer").hide()
       else
-        console.log "in other"
         $("#divPointer").show()
     else
       $("#divPointer").show()

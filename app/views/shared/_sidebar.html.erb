@@ -50,18 +50,10 @@
           <i class="fa fa-credit-card"></i> Billing
         <% end %>
       </li>
-      <li>
-        <a class="dev"><i class="fa fa-book icon-font"></i> Developer <i class="fa fa-caret-down pull-right"></i>
-        <i class="fa fa-caret-up pull-right"></i></a>
-        <ul class="developer-list left-nav-submenu">
-          <li class="widgets-menu nprogCall">
-            <a href="<%= widget_live_view_path %>"><i class="fa fa-code"></i> Embed Live View</a>
-          </li>
-
-          <li class="widgets-menu nprogCall">
-            <a href="<%= widget_snapshot_navigator_path %>"><i class="fa fa-code"></i> Embed Recordings</a>
-          </li>
-        </ul>
+      <li class="nprogCall">
+        <%= link_to widget_path do %>
+          <i class="fa fa-book"></i> Developer
+        <% end %>
       </li>
       <li>
         <a class="seting"><i class="fa fa-cog icon-font"></i> Settings <i class="fa fa-caret-down pull-right"></i>

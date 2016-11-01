@@ -29,13 +29,6 @@ nProgressCall = ->
     NProgress.start()
 
 slideToggleList = ->
-  if $('.developer-list:visible').length == 0
-    $('.dev .fa-caret-up').hide()
-    $('.dev .fa-caret-down').show()
-  else
-    $('.dev .fa-caret-up').show()
-    $('.dev .fa-caret-down').hide()
-
   if $('.setting-list:visible').length == 0
     $('.seting .fa-caret-up').hide()
     $('.seting .fa-caret-down').show()
@@ -51,9 +44,6 @@ slideToggleList = ->
     $('#hello .fa-caret-down').hide()
 
 slideToggle = ->
-  $('.dev').click ->
-    $('.developer-list').slideToggle 'slow', ->
-      slideToggleList()
   $('.seting').click ->
     $('.setting-list').slideToggle 'slow', ->
       slideToggleList()

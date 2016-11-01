@@ -163,6 +163,19 @@ th {
   margin-top: 0px;
 }
 
+.widget-config .height-160 {
+  min-height: 160px;
+}
+
+.widget-tabs .tab-content {
+  padding-left: 0px;
+}
+
+.live-widget-header .left-0 {
+  padding-left: 15px;
+  margin-left: 0px;
+}
+
 /*!
 * Tab drop for Bootstrap
 *
@@ -407,3 +420,19 @@ a:hover, a:focus {
   overflow-y: hidden;
 }
 
+@media screen and (max-width: 992px) {
+
+  .widget-tabs .page-content-wrapper {
+    padding-top: 0px;
+    margin-top: 0px;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+
+  .widget-tabs .form-group {
+    height: auto;
+  }
+
+}

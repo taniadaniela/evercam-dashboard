@@ -1,7 +1,7 @@
 <%= content_for(:title, "Evercam: Snapshot Navigator Widget") %>
 
 <div class="page-content-wrapper">
-  <div class="page-content" id="snapshot-widgets">
+  <div id="snapshot-widgets">
     <div class="row">
       <div class="section-header">
         <div class="camera-title">
@@ -24,7 +24,7 @@
                     <label class="col-md-4 control-label" for="widget-camera">Camera</label>
                   </div>
                   <div class="input-group col-md-8">
-                    <select id="widget-camera" name="widget-camera" class="form-control is-required">
+                    <select id="snapshot-widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
                         <option value="<%= camera['id'] %>">
                           <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
@@ -59,7 +59,7 @@
                     <label class="col-md-4 control-label" for="widget-authenticate">Pre-Authenticate<span style="visibility: hidden;" class="true switch grey">*</span></label>
                   </div>
                   <div class="input-group col-md-8">
-                    <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required">
+                    <select id="snapshot-widget-authenticate" name="widget-authenticate" class="form-control is-required">
                       <option class="" value="false">No</option>
                       <option class="" value="true">Yes</option>
                     </select>
@@ -76,7 +76,7 @@
               <div class="row widget-code">
                 <div class="col-md-12">
                   <h5>Embed this code on your webpage:</h5>
-                  <textarea id="code" class="pretty-code col-md-12" type="text" readonly>
+                  <textarea id="snapshot-code" class="pretty-code height-160 col-md-12" type="text" readonly>
                   </textarea>
                 </div>
               </div>
@@ -111,9 +111,9 @@
     });
 
     initLocalStorage();
-    $("#widget-camera, #widget-hour, #widget-minutes, #widget-seconds").on("change", initLocalStorage);
-    $("#widget-authenticate").on("change", showNote);
-    $("#code").on("click", function(){
+    $("#snapshot-widget-camera, #widget-hour, #widget-minutes, #widget-seconds").on("change", initLocalStorage);
+    $("#snapshot-widget-authenticate").on("change", showNote);
+    $("#snapshot-code").on("click", function(){
       this.select();
     });
     for(var i=0;i<60;i++){
@@ -136,9 +136,9 @@
 
   function initLocalStorage() {
     var url = window.location.origin;
-    var camera = $("#widget-camera").val();
-    var camera_name = $('#widget-camera option:selected').text()
-    var pre_auth = $('#widget-authenticate').val();
+    var camera = $("#snapshot-widget-camera").val();
+    var camera_name = $('#snapshot-widget-camera option:selected').text()
+    var pre_auth = $('#snapshot-widget-authenticate').val();
     var is_private = camera_name.indexOf('(Private)') == -1 ? 'false' : 'true';
     var api_credentials = '';
     var date_time = '';
@@ -154,7 +154,7 @@
 
     var embedCode = '&lt;div evercam&#61;"snapshot-navigator"&gt;&lt;&#47;div&gt;'+
         '&lt;script type&#61;"text/javascript" src&#61;"' + url + '&#47;snapshot.navigator.js?camera&#61;' + camera+'&amp;private&#61;'+is_private + api_credentials + date_time + '"&gt;&lt;&#47;script&gt;';
-    $('#code').html(embedCode);
+    $('#snapshot-code').html(embedCode);
 
     $(".placeholder").empty();
     var iframe =

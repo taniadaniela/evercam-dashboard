@@ -1,8 +1,14 @@
 class PagesController < ApplicationController
   before_filter :authenticate_user!
   skip_after_filter :intercom_rails_auto_include, only: [:live, :play]
+  skip_before_action :authenticate_user!, only: :revoke_request
   include SessionsHelper
   include ApplicationHelper
+
+  def revoke_request
+    @camera_id = params["id"]
+    render layout: "bare-bones"
+  end
 
   def play
     @mp4_url = "http://timelapse.evercam.io/timelapses/#{params[:id]}/archives/#{params[:clip_id]}.mp4"

@@ -417,8 +417,6 @@ handleModelEvents = ->
     $(".modal:visible").each centerModal
 
 centerModal = ->
-  if $("#camera-vendor option").length == 1
-    loadVendors()
   $(this).css "display", "block"
   $dialog = $(this).find(".modal-dialog")
   offset = ($(window).height() - $dialog.height()) / 2
@@ -583,6 +581,8 @@ window.initializeInfoTab = ->
     $("#info-location").replaceWith "<p>Not set</p>"
   $.validate()
   handleVendorModelEvents()
+  if $("#camera-vendor option").length == 1
+    loadVendors()
   google.maps.event.addDomListener document.getElementById("edit-location"), "click", initializeMap
   handleModelEvents()
   initNotification()

@@ -58,3 +58,4 @@
 //= require nprogress-call.js
 //= require subscriptions.js
 //= require user_analytic_tag_script
+//= require cameras_table

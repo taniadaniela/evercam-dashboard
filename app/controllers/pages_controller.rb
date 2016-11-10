@@ -19,6 +19,7 @@ class PagesController < ApplicationController
     begin
       api = get_evercam_api
       @camera = api.get_camera(params[:id], true)
+      render layout: "bare-bones"
     rescue => error
       puts error
       env["airbrake.error_id"] = notify_airbrake(error)
@@ -29,7 +30,6 @@ class PagesController < ApplicationController
                         "support."
       redirect_to cameras_index_path
     end
-    render layout: "bare-bones"
   end
 
   def log_and_redirect

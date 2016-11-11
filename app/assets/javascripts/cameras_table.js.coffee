@@ -35,7 +35,6 @@ initializeCamerasDataTable = ->
         else
           return "<span style='color: red'>No</span>"
       },
-      {data: cameraCreationDate},
       {data: (row, type, set, meta ) ->
         if row.cloud_recordings
           if row.cloud_recordings.storage_duration is 1
@@ -78,13 +77,6 @@ userCameraRights = (row) ->
     return "Full"
   else
     return "Read only"
-
-cameraCreationDate = (row) ->
-  created_date = new Date(
-    moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss')
-  )
-  formated_date = format_time.formatDate(created_date, 'd/m/y, H:i:s')
-  return formated_date
 
 window.initializeCamerasTable = ->
   format_time = new DateFormatter()

@@ -92,10 +92,12 @@ handleAddToMyCameras = ->
 
 readOnlyCameraDeleteOption = ->
   $("#delete-read-only-camera").hide()
+  $("#ro-sharing-tab").hide()
   hrefs = $('.cameralist-height a')
   hrefs.each ->
     if $(this).data('camera-id') == Evercam.Camera.id
       $("#delete-read-only-camera").show()
+      $("#ro-sharing-tab").show()
       return
 
 initializeTabs = ->

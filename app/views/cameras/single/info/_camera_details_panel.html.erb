@@ -29,9 +29,9 @@
           <%= @camera['owner'] %>
         </td>
       </tr>
-      <tr>
+      <tr id="vendor-value">
         <td>Vendor:</td>
-        <td>
+        <td class="vendor-data">
           <% if @camera['vendor_name'] != "" %>
             <%= @camera['vendor_name'] %>
           <% else %>

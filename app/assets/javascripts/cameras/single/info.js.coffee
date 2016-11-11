@@ -146,7 +146,6 @@ loadVendorModels = (vendor_id) ->
       cleanAndSetJpegUrl(jpg_url)
     if rtsp_url isnt ""
       cleanAndSetRtspUrl(rtsp_url)
-    checkRtspInput()
 
   settings =
     cache: false
@@ -201,7 +200,11 @@ loadVendors = ->
         $("#camera-vendor").append(
           "<option value='#{vendor.id}' #{selected}>#{vendor.name}</option>"
         )
-    checkSnapshotInput()
+
+    if $("#camera-vendor").val() is "other"
+      $("#snapshot").removeAttr('disabled')
+    else
+      $("#snapshot").attr('disabled', 'disabled')
 
   settings =
     cache: false
@@ -552,11 +555,18 @@ hideRefreshGif = ->
   $('.refresh-detail-snap .refresh-gif').hide()
 
 checkSnapshotInput = ->
+  snapshot_val = $("#snapshot-value").text()
+  rtsp_val = $("#rtsp-value").text()
+
   if $("#camera-vendor").val() is "other"
     $("#snapshot").removeAttr('disabled')
-    $("#snapshot").val("")
     $("#rtsp").removeAttr('disabled')
-    $("#rtsp").val("")
+    if $("#vendor-value .vendor-data:contains('Other')").length > 0
+      $("#snapshot").val("#{snapshot_val}")
+      $("#rtsp").val("#{rtsp_val}")
+    else
+      $("#snapshot").val("")
+      $("#rtsp").val("")
   else
     $("#snapshot").attr('disabled', 'disabled')
     $("#rtsp").attr('disabled', 'disabled')

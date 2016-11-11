@@ -364,6 +364,7 @@ createUserAccount = ->
     data.username = $("#username").val()
     data.email = $("#user-email").val()
     data.password = $("#user-password").val()
+    data.token = $("#app_token").val()
 
     onError = (jqXHR, status, error) ->
       $("#message-user-create").text(jqXHR.responseJSON.message)

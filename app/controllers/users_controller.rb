@@ -58,6 +58,7 @@ class UsersController < ApplicationController
         user['username'],
         user['email'],
         user['password'],
+        ENV['WEB_APP_TOKEN'],
         nil,
         params[:key]
       )
@@ -69,11 +70,15 @@ class UsersController < ApplicationController
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       if error.kind_of?(Evercam::EvercamError)
-        response = instance_eval(error.message).first
-        if error.try(:status_code).present? && error.status_code.equal?(400)
-          assess_field_errors(response)
+        if error.message.eql?("Invalid token.")
+          flash[:message] = error.message
         else
-          flash[:message] = response.last.first
+          response = instance_eval(error.message).first
+          if error.try(:status_code).present? && error.status_code.equal?(400)
+            assess_field_errors(response)
+          else
+            flash[:message] = response.last.first
+          end
         end
       else
         flash[:message] = "An error occurred creating your account. Please check "\

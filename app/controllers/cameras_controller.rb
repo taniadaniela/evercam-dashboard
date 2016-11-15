@@ -209,7 +209,9 @@ class CamerasController < ApplicationController
       @camera = api.get_camera(params[:id], true)
       @page = (params[:page].to_i - 1) || 0
       @types = ['accessed', 'viewed', 'edited', 'captured',
-        'shared', 'stopped sharing', 'online', 'offline']
+        'shared', 'stopped sharing', 'online', 'offline',
+        'cloud recordings updated', 'cloud recordings created',
+        'archive created', 'archive deleted']
       @camera['is_online'] = false if @camera['is_online'].blank?
       time = ActiveSupport::TimeZone.new(@camera['timezone'])
       @camera['timezone'] = 'Etc/UTC' unless time.utc_offset % 3600 == 0

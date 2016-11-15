@@ -67,7 +67,7 @@ initializeDataTable = ->
           <div class='#{row.done_at} thumb-div'>
           </div>\
           <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
-      , orderDataType: 'string-date', type: 'string-date' },
+      , sType: 'uk_datetime' },
       {data: ( row, type, set, meta ) ->
         ip = ""
         if row.extra and row.extra.ip
@@ -199,6 +199,10 @@ getDate = (type) ->
   DateFromTime.setHours(DateFromTime.getHours() + (cameraOffset))
   if type is "from"
     DateFromTime.setDate(DateFromTime.getDate() - 1)
+    DateFromTime.setHours(0)
+    DateFromTime.setMinutes(0)
+  if type is "to"
+    DateFromTime.setHours(DateFromTime.getHours() + 2)
   Dateformateed =  format_time.formatDate(DateFromTime, 'd/m/y H:i')
   return Dateformateed
 

@@ -39,6 +39,10 @@
     margin-top: 10px;
   }
 
+  .filter {
+    margin-top: 10px;
+  }
+
 }
 
 @media (max-width: 540px) {
@@ -104,8 +108,7 @@
 }
 
 #logs-filter .checkbox {
-  display: inline-block;
-  margin-right: 15px;
+  margin-bottom: 10px;
 }
 
 .offlines {
@@ -145,17 +148,6 @@
 
 .info-panel .table {
   font-size: 12px;
-
-  thead > tr > th {
-    padding-left: 0px;
-  }
-
-  tbody td {
-    padding-left: 0px;
-    width: 25%;
-    text-align: left;
-  }
-
 }
 
 .padding-right-left-10 {
@@ -180,4 +172,22 @@
 
 .table-logs .fa-refresh {
   margin-left: 20px;
+}
+
+.filter-dialog {
+  height: 31px;
+  padding: 5px 13px;
+
+  i {
+    font-size: 14px;
+  }
+
+}
+
+.min-width150 {
+  min-width: 150px;
+}
+
+.max-width-300 {
+  max-width: 300px;
 }

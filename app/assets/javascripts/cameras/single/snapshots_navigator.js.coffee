@@ -76,7 +76,8 @@ changeMonthFromArrow = (value) ->
   BoldSnapshotHour(false)
 
 walkDaysInMonth = (year, month) ->
-  NProgress.start()
+  showDaysLoadingAnimation()
+  showHourLoadingAnimation()
   BoldDays = []
   d = new Date()
   currentMonth = d.getMonth() + 1
@@ -99,12 +100,14 @@ checkDay = (year, month, day) ->
   data.api_key = Evercam.User.api_key
 
   onError = (response, status, error) ->
-    NProgress.done()
+    hideDaysLoadingAnimation()
+    hideHourLoadingAnimation()
     false
 
   onSuccess = (response, status, jqXHR) ->
     HighlightDay(year, month, day, response.exists)
-    NProgress.done()
+    hideDaysLoadingAnimation()
+    hideHourLoadingAnimation()
 
   settings =
     cache: true
@@ -352,7 +355,7 @@ HighlightDay = (year, month, day, exists) ->
             calDay.addClass('no-snapshot')
 
 BoldSnapshotHour = (callFromDt) ->
-  NProgress.start()
+  showHourLoadingAnimation()
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
@@ -365,7 +368,7 @@ BoldSnapshotHour = (callFromDt) ->
     HideLoader()
     $('#snapshot-tab-save').hide()
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
-    NProgress.done()
+    hideHourLoadingAnimation()
 
   settings =
     cache: false
@@ -400,10 +403,11 @@ BoldSnapshotHourSuccess = (result, context) ->
       GetCameraInfo true
     else
       SetImageHour(cameraCurrentHour, "tdI#{cameraCurrentHour}")
-    NProgress.done()
+    hideHourLoadingAnimation()
   else
     NoRecordingDayOrHour()
-    NProgress.done()
+    hideDaysLoadingAnimation()
+    hideHourLoadingAnimation()
 
 GetCameraInfo = (isShowLoader) ->
   NProgress.start()
@@ -1009,6 +1013,23 @@ calendarShow = ->
       $('#calendar .fa').css 'color', 'white'
       checkCalendarDisplay()
     $('#calendar .fa').css 'color', 'blue'
+
+showDaysLoadingAnimation = ->
+  $('#img-days-loader').removeClass 'hide'
+  $('#ui_date_picker_inline').addClass 'opacity-transparent'
+
+hideDaysLoadingAnimation = ->
+  $('#img-days-loader').addClass 'hide'
+  $('#ui_date_picker_inline').removeClass 'opacity-transparent'
+
+showHourLoadingAnimation = ->
+  $('#img-hour-Loader').removeClass 'hide'
+  $('#hourCalendar').addClass 'opacity-transparent'
+
+hideHourLoadingAnimation = ->
+  $('#img-hour-Loader').addClass 'hide'
+  $('#hourCalendar').removeClass 'opacity-transparent'
+
 
 handleResize = ->
   calculateWidth()

@@ -97,9 +97,16 @@
   <div class="right-column">
     <div class="col-recording-right">
       <div class="portlet">
-        <div id="ui_date_picker_inline" class="datepicker-bg"></div>
+        <div id="ui_date_picker_inline" class="datepicker-bg">
+          <div id="img-days-loader" class="img-loader-calendar2 hide">
+            <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+          </div>
+        </div>
 
         <div class="datepicker datepicker-bg datepicker-inline">
+          <div id="img-hour-Loader" class="img-loader-calendar hide">
+            <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+          </div>
           <div class="datepicker-day show">
             <table id="hourCalendar" class="table-condensed width100">
               <thead>

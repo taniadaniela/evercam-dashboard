@@ -7,8 +7,8 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'factory_girl'
 require 'rack_session_access/capybara'
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require "simplecov"
+SimpleCov.start
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

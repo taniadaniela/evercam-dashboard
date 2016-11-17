@@ -382,7 +382,7 @@ deletePtzPreset = (token_value,type) ->
     success: onSuccess
     error: onError
     type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}onvif/v20/PTZ/RemovePreset?id=#{Evercam.Camera.id}&ProfileToken=Profile_1&PresetToken=#{token}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    url: "#{Evercam.MEDIA_API_URL}onvif/v20/PTZ/RemovePreset?id=#{Evercam.Camera.id}&ProfileToken=Profile_1&PresetToken=#{token}&api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
   jQuery.ajax(settings)
 
 changePtzPresets = ->

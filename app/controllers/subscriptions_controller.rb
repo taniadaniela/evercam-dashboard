@@ -51,10 +51,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    stripe_customer = retrieve_stripe_customer
-    stripe_customer.subscriptions.retrieve(params[:subscription_id]).delete
-    flash[:message] = "You have successfuly deleted your #{params[:plan_name]} subscription."
-    redirect_to user_path(current_user.username)
+    subscription = Stripe::Subscription.retrieve(params[:subscription_id])
+    subscription.delete(:at_period_end => true)
+    render json: {result: true}
   end
 
   def delete_add_ons
@@ -73,5 +72,18 @@ class SubscriptionsController < ApplicationController
                       "support."
     end
     redirect_to billing_path(current_user.username)
+  end
+
+  def edit_subscription
+    subscription = Stripe::Subscription.retrieve(params[:subscription_id])
+    subscription.plan = params[:plan]
+    subscription.quantity = params[:quantity].to_i
+    subscription.save
+    render json: {result: true}
+  end
+
+  def subscription_data
+    subscription =  has_subscriptions? ? retrieve_stripe_subscriptions : nil
+    render json: {subscription: subscription[:data]}
   end
 end

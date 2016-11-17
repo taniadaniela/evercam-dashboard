@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get '/v1/users/:id/billing' => 'subscriptions#index', as: :billing
+  patch '/v1/users/:id/billing' => 'subscriptions#edit_subscription', as: :edit_subscription
   get '/v1/users/:id/billing/history' => 'subscriptions#billing_history', as: :billing_history
   get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
   delete '/v1/users/:id/billing' => 'subscriptions#destroy', as: :subscription
+  get '/v1/users/:id/billing/sub_data' => 'subscriptions#subscription_data', as: :sub_data
 
   get '/v1/users/:id/billing/invoices' => 'invoices#index', as: :invoices
   get '/v1/users/:id/billing/invoices/:invoice_id' => 'invoices#show', as: :invoice_show

@@ -273,11 +273,23 @@ UpdateSnapshotRec = (snapInfo) ->
   .format('MM/DD/YYYY HH:mm:ss'))
   loadImage(snapInfo.created_at, snapInfo.notes)
 
+getQueryStringByName = (name) ->
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  results = regex.exec(location.search)
+  if results == null
+    null
+  else
+    decodeURIComponent(results[1].replace(/\+/g, ' '))
+
 getTimestampFromUrl = ->
-  timestamp = window.Evercam.request.subpath.
-    replace(RegExp("recordings", "g"), "").
-    replace(RegExp("snapshots", "g"), "").
-    replace(RegExp("/", "g"), "")
+  if getQueryStringByName("date_time")
+    timestamp = getQueryStringByName("date_time")
+  else
+    timestamp = window.Evercam.request.subpath.
+      replace(RegExp("recordings", "g"), "").
+      replace(RegExp("snapshots", "g"), "").
+      replace(RegExp("/", "g"), "")
   if isValidDateTime(timestamp)
     timestamp
   else

@@ -2,13 +2,6 @@
 
 <div class="page-content-wrapper">
   <div id="snapshot-widgets">
-    <div class="row">
-      <div class="section-header">
-        <div class="camera-title">
-          Create a Snapshot Navigator Widget
-        </div>
-      </div>
-    </div>
     <div class="portlet-body margin-top-30">
 
         <div id="snapshot-widget" class="widget-config">
@@ -39,7 +32,7 @@
                     <label class="col-md-4 control-label" for="widget-datetime">Date</label>
                   </div>
                   <div class="input-group col-md-8">
-                    <input type="text" class="form-control" id="widget-datetime" readonly name="widget-datetime">
+                    <input type="text" class="form-control" id="widget-datetime" name="widget-datetime">
                   </div>
                 </div>
 
@@ -82,6 +75,14 @@
               </div>
             </div>
 
+            <div class="row form-vertical margin-top-20">
+              <div class="col-md-12">
+                <div class="btn btn-primary margin-left-15 margin-bottom-20" onclick="initLocalStorage()">
+                  Show Widget
+                </div>
+              </div>
+            </div>
+
             <div class="clear-f"></div>
 
             <div class="col-md-12">
@@ -104,14 +105,12 @@
       onChangeDateTime: function(dp, $input){
         if($input.val() != lastSelectedDate) {
           lastSelectedDate = $input.val();
-          initLocalStorage();
         }
       },
-      format: 'd-m-Y'
+      format: 'Y-m-d'
     });
 
     initLocalStorage();
-    $("#snapshot-widget-camera, #widget-hour, #widget-minutes, #widget-seconds").on("change", initLocalStorage);
     $("#snapshot-widget-authenticate").on("change", showNote);
     $("#snapshot-code").on("click", function(){
       this.select();
@@ -145,7 +144,7 @@
     var stringDateTime = '';
 
     if($('#widget-datetime').val()){
-      stringDateTime = $('#widget-datetime').val()+"T"+$('#widget-hour').val()+":"+$('#widget-minutes').val()+":"+$('#widget-seconds').val()+"Z";
+      stringDateTime = $('#widget-datetime').val()+"T"+$('#widget-hour').val()+":"+$('#widget-minutes').val()+":"+$('#widget-seconds').val()+".000Z";
       date_time = "&date_time=" + stringDateTime;
     }
     if(pre_auth == 'true') {
@@ -180,7 +179,6 @@
         //if the class contains the selected value, then show it, else hide it
         preElements[i].style.visibility = preElements[i].classList.contains($(this).val())?'visible':'hidden';
       }
-      initLocalStorage()
     }
   }
 </script>

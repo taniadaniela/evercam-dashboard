@@ -1,0 +1,56 @@
+<%
+  total_cameras = 0
+  total_amount = 0
+  custom_licence_ids = ''
+%>
+<div class="col-md-12">
+  <table class="table table-full-width plan-table">
+    <thead>
+    <tr>
+      <th>Licences</th>
+      <th class="text-center">Cameras</th>
+      <th class="text-center">Storage</th>
+      <th class="text-center">Start Date</th>
+      <th class="text-center">End Date</th>
+      <th class="text-center">Status</th>
+      <th class="text-center">Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @custom_licence.each do |licence| %>
+      <% total_cameras = total_cameras + licence.total_cameras %>
+      <%
+         unless licence.paid
+           custom_licence_ids += "#{licence.id},"
+           total_amount = total_amount + licence.amount/100
+         end
+      %>
+      <tr>
+        <td><%= licence.description %></td>
+        <td class="text-center no-of-licences <%=licence.storage%>"><%= licence.total_cameras %></td>
+        <% if licence.storage == -1 %>
+          <td class="text-center"><%= 'Infinity' %></td>
+        <%else%>
+          <td class="text-center"><%= licence.storage %></td>
+        <%end%>
+        <td class="text-center"><%= Time.at(licence.start_date).strftime('%d/%m/%Y') %></td>
+        <td class="text-center"><%= Time.at(licence.end_date).strftime('%d/%m/%Y') %></td>
+        <td class="text-center custom-licence-status <%= licence.paid ? "green" : "red" %>"><%= licence.paid ? "Paid" : "Pending" %></td>
+        <td class="text-center">&euro; <%= number_with_precision(licence.amount/100, precision: 2) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot class="table-footer">
+    <tr>
+      <td>Total</td>
+      <td class="text-center"><span class="green" id="total-custom-cameras"><%= total_cameras %></span></td>
+      <td class="text-center"></td>
+      <td></td>
+      <td><input value="<%= custom_licence_ids[0..custom_licence_ids.length-2] %>" id="custom_licence_ids" name="custom_licence_ids" type="hidden"/></td>
+      <td><input value="<%= total_amount * 100 %>" type="hidden" id="custom-licence-amount" name="custom-licence-amount"/></td>
+      <td class="text-center">&euro; <%= number_with_precision(total_amount, precision: 2) %></td>
+    </tr>
+    </tfoot>
+  </table>
+  <input type="hidden" id="is-custom-payment" name="is-custom-payment" value="false">
+</div>

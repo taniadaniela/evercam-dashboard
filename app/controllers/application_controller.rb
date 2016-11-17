@@ -139,21 +139,21 @@ class ApplicationController < ActionController::Base
       subscriptions[:data].each do |subscription|
         case subscription.plan.id
         when "24-hours-recording"
-          @twenty_four_hours_recording = @twenty_four_hours_recording + subscription.quantity
+          @twenty_four_hours_recording = subscription.quantity
         when "24-hours-recording-annual"
-          @twenty_four_hours_recording_annual = @twenty_four_hours_recording_annual + subscription.quantity
+          @twenty_four_hours_recording_annual = subscription.quantity
         when "7-days-recording"
-          @seven_days_recording = @seven_days_recording + subscription.quantity
+          @seven_days_recording = subscription.quantity
         when "7-days-recording-annual"
-          @seven_days_recording_annual = @seven_days_recording_annual + subscription.quantity
+          @seven_days_recording_annual = subscription.quantity
         when "30-days-recording"
-          @thirty_days_recording = @thirty_days_recording + subscription.quantity
+          @thirty_days_recording = subscription.quantity
         when "30-days-recording-annual"
-          @thirty_days_recording_annual = @thirty_days_recording_annual + subscription.quantity
+          @thirty_days_recording_annual = subscription.quantity
         when "90-days-recording"
-          @ninety_days_recording = @ninety_days_recording + subscription.quantity
+          @ninety_days_recording = subscription.quantity
         when "90-days-recording-annual"
-          @ninety_days_recording_annual = @ninety_days_recording_annual + subscription.quantity
+          @ninety_days_recording_annual = subscription.quantity
         when "infinity"
           @infinity = subscription.quantity
         when "infinity-annual"

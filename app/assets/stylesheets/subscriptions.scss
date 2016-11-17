@@ -9,20 +9,13 @@
     padding: 0.4em 1em;
     position: fixed;
     text-align: center;
-    top: 31px;
+    top: 80px;
     width: 50%;
     z-index: 2;
   }
 
   .green {
     color: $green;
-  }
-
-  .icons {
-    color: $main-color;
-    font-size: 18px;
-    cursor: pointer;
-    margin-right: 12px;
   }
 
   h3 {
@@ -36,11 +29,6 @@
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     /*border: 1px solid $light-grey;
     border-radius: 30px;*/
-  }
-
-  .save-sub-button {
-    float: left;
-    margin: 10px 0;
   }
 
   .page-content {
@@ -332,10 +320,6 @@
 
   .cancel-add-on {
     margin-left: 10px;
-  }
-
-  .btn-edit {
-    margin-left: 5px;
   }
 
 }
@@ -782,18 +766,6 @@
   .fa {
     margin-left: 10px;
   }
-
-}
-
-.opacity-transparent {
-  opacity: 0.2;
-}
-
-.center-gif {
-  left: 48%;
-  position: absolute;
-  top: 50%;
-  z-index: 99999;
 }
 
 i.blue {
@@ -811,15 +783,6 @@ i.blue {
   display: none;
 }
 
-@media (min-width: 768px) {
-
-  .edit-modal .modal-dialog {
-    width: 500px;
-    margin: 30px auto;
-  }
-
-}
-
 @media only screen and (max-width: 580px) {
 
   .subscriptions .licence-alert {
@@ -835,9 +798,5 @@ i.blue {
     margin-left: -130px;
   }
 
-}
-
-.margin-bottom-100 {
-  margin-bottom: 100px;
 }
 

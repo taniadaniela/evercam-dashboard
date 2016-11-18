@@ -123,8 +123,9 @@ class PaymentsController < ApplicationController
   end
 
   def make_custom_payment(params, token)
+    amount = params[:amount].to_f * 100
     Stripe::Charge.create(
-      :amount => params[:amount].to_f * 100,
+      :amount => amount.to_i,
       :currency => "eur",
       :source => token.id,
       :description => "Charge for #{params[:email]}"

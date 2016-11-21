@@ -1,6 +1,9 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+subs_table = null
+subscriptions = null
+format_time = null
 month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 sendAJAXRequest = (settings) ->
@@ -22,16 +25,6 @@ createAddRemoveLicence = ->
 
     if quantity is 0 || quantity < 0
       current_quantity = parseInt($("##{control_id}-current-qty").text())
-      if current_quantity > 0
-        current_quantity--
-        update_quantity--
-        quantity--
-        $("##{control_id}-current-qty").text(current_quantity)
-        $("##{control_id}-quantity").val(quantity)
-        $("##{control_id}-current-price").text(licence_price * current_quantity)
-        $("##{control_id}-new-price").text(new_price + licence_price)
-        $("##{control_id}-sign").text("-")
-        showTotal()
     else
       quantity--
       update_quantity--
@@ -122,7 +115,7 @@ onUpgradeDownGrade = ->
   $('.change-plan').on 'click', ->
     quantity = parseInt($("##{$(this).attr("data-plan-id")}-qty").val())
     if quantity is 0
-      Notification.show "Please enetr quantity."
+      Notification.show "Please enter quantity."
       return false
     clearModal()
     plan_control = $(this)
@@ -233,7 +226,6 @@ validateLicenceForm = ->
     one_day = parseInt($("#24-hours-recording-quantity").val())
     one_day_annual = parseInt($("#24-hours-recording-annual-quantity").val())
     $("#pay-custom-licence").hide()
-
     if price_monthly isnt 0 || price_annual isnt 0 || one_day isnt 0 || one_day_annual isnt 0
       if $("#has-credit-card").val() is "false"
         $("#saveSubscriptions").val($(".stripe-button-el span").text())
@@ -246,7 +238,7 @@ validateLicenceForm = ->
         $("#is-custom-payment").val("false")
       $("#payNowModal").modal("show")
     else
-      Notification.show "Please add/remove licences."
+      Notification.show "Please add licences."
 
   $("#saveSubscriptions").on "click", ->
     if $("#has-credit-card").val() is "false"
@@ -257,16 +249,13 @@ validateLicenceForm = ->
 
 showAlertMessage = ->
   infinity_req = parseInt($("#licence-required-infinity").text())
-  one_day_req = parseInt($("#licence-required-one-day").text())
-  seven_day_req = parseInt($("#licence-required-seven-day").text())
-  thirty_day_req = parseInt($("#licence-required-thirty-day").text())
-  ninety_day_req = parseInt($("#licence-required-ninety-day").text())
-  total_require = parseInt($('#total-required-licence').text())
+  seven_day_req = parseInt($("#licence-required-seven-day").val())
+  thirty_day_req = parseInt($("#licence-required-thirty-day").val())
+  ninety_day_req = parseInt($("#licence-required-ninety-day").val())
 
-  one_day_current = parseInt($("#24-hours-recording-current-qty").text()) + parseInt($("#24-hours-recording-annual-current-qty").text())
-  seven_day_current = parseInt($("#7-days-recording-current-qty").text()) + parseInt($("#7-days-recording-annual-current-qty").text())
-  thirty_day_current = parseInt($("#30-days-recording-current-qty").text()) + parseInt($("#30-days-recording-annual-current-qty").text())
-  ninety_day_current = parseInt($("#90-days-recording-current-qty").text()) + parseInt($("#90-days-recording-annual-current-qty").text())
+  seven_day_current = parseInt($("#7-days-recording-current-qty").val())
+  thirty_day_current = parseInt($("#30-days-recording-current-qty").val())
+  ninety_day_current = parseInt($("#90-days-recording-current-qty").val())
   infinity_current = 0
   total_valid = 0
 
@@ -284,15 +273,15 @@ showAlertMessage = ->
     if $(".custom-licence-status").hasClass("red")
       $('div#message-custom-licence').show()
 
-  if !isNaN(seven_day_req)
+  if !isNaN(seven_day_req) && seven_day_req != 0
     if seven_day_current is 0 || seven_day_current < seven_day_req
       total_valid = total_valid + (seven_day_req - seven_day_current)
       changeTotalColor()
-  if !isNaN(thirty_day_req)
+  if !isNaN(thirty_day_req) && thirty_day_req != 0
     if thirty_day_current is 0 || thirty_day_current < thirty_day_req
       total_valid = total_valid + (thirty_day_req - thirty_day_current)
       changeTotalColor()
-  if !isNaN(ninety_day_req)
+  if !isNaN(ninety_day_req) && ninety_day_req != 0
     if ninety_day_current is 0 || ninety_day_current < ninety_day_req
       total_valid = total_valid + (ninety_day_req - ninety_day_current)
       changeTotalColor()
@@ -564,7 +553,250 @@ initializeInvoiceTable = ->
       order: [[ 0, "desc" ]],
     })
 
+addCreditCard = ->
+  if $("#has-credit-card").val() is "false"
+    $("#open-modal").val("Add Card")
+  $("#open-modal").on "click", ->
+    if $("#has-credit-card").val() is "false"
+      $(".stripe-button-el").click()
+      $("#add-modal").modal('hide')
+    else
+      $("#add-modal").modal('show')
+
+initializeSubscriptionTable = ->
+  if subscriptions != null
+    subs_table = $('#subscription_data').DataTable({
+      ajax: {
+        url: $("#sub-url").val(),
+        dataSrc: 'subscription',
+        dataType: 'json',
+        cache: true,
+        type: 'GET',
+        error: (xhr, error, thrown) ->
+          if xhr.responseJSON
+            Notification.show(xhr.responseJSON.message)
+      },
+      columns: [
+        { data: "id" },
+        { data: ( row, type, set, meta ) ->
+          return row.plan.name
+        },
+        { data: "quantity" },
+        { data: ( row, type, set, meta ) ->
+          price = row.plan.amount / 100
+          quantity = parseInt(row.quantity)
+          price  = price*quantity
+          return "<i class='fa fa-eur'></i>" +' '+ price
+        },
+        { data: ( row, type, set, meta ) ->
+          start = new Date(moment.utc(row.created*1000).format('MM/DD/YYYY, HH:mm:ss'))
+          start_date = format_time.formatDate(start, 'd M Y, H:i:s')
+          return start_date
+        },
+        { data: ( row, type, set, meta ) ->
+          if row.plan.id.indexOf('annual') != -1
+            period = "Annually"
+          else
+            period = "Monthly"
+          return period
+        },
+        { data: ( row, type, set, meta ) ->
+          if row.cancel_at_period_end == true
+            description = "No"
+          else
+            description = "Yes"
+          return description
+        },
+        {data: (row, type, set, meta) ->
+          return renderEditOptions(row) + renderDeleteOptions(row)
+        }
+      ],
+      autoWidth: false,
+      info: false,
+      bSort: false,
+      bPaginate: false,
+      bFilter: false,
+      "language": {
+        "emptyTable": "No data available"
+      },
+      order: [[ 0, "desc" ]],
+      drawCallback: ->
+        initializePopup()
+        editSubscription()
+        hideImgLoader()
+    })
+
+renderEditOptions = (row) ->
+  div = $('<div>', {class: "form-group"})
+  divedit = $('<i>',{class: 'sub-edit fa fa-edit icons'})
+  divedit.attr('title', 'edit')
+  divedit.attr('href','#')
+  divedit.attr('data-toggle','modal')
+  divedit.attr('data-target','#edit-modal')
+  divedit.attr('sub-id', row.id )
+  divedit.attr('sub-quantity', row.quantity )
+  divedit.attr('sub-plan', row.plan.id )
+  div.append(divedit)
+  return div.html()
+
+renderDeleteOptions = (row) ->
+  if row.cancel_at_period_end == false
+    div = $('<div>', {class: "form-group"})
+    divPopup =$('<div>', {class: "popbox2"})
+    divdelete = $('<i>',{class: 'sub-delete fa fa-times icons'})
+    divdelete.attr('title', 'cancel')
+    span = $('<span>', {class: "open-delete"})
+    span.append(divdelete)
+    divPopup.append(span)
+    divCollapsePopup = $('<div>', {class: "collapse-popup"})
+    divBox2 = $('<div>', {class: "box2"})
+    divBox2.append($('<div>', {class: "arrow"}))
+    divBox2.append($('<div>', {class: "arrow-border"}))
+    divMessage = $('<div>', {class: "margin-bottom-10"})
+    divMessage.append($(document.createTextNode("Are you sure?")))
+    divBox2.append(divMessage)
+    divButtons = $('<div>', {class: "margin-bottom-10"})
+    inputDelete = $('<input type="button" value="Yes, Remove">')
+    inputDelete.addClass("btn btn-primary delete-btn delete-sub2")
+    inputDelete.attr("subscription_id", row.id)
+    divButtons.append(inputDelete)
+    divButtons.append('<div class="btn delete-btn closepopup grey">' +
+      '<div class="text-center" fit>CANCEL</div></div>')
+    divBox2.append(divButtons)
+    divCollapsePopup.append(divBox2)
+    divPopup.append(divCollapsePopup)
+    div.append(divPopup)
+    return div.html()
+  else
+    return " "
+
+addSubscription = ->
+  $("#add-modal #add_subs").on "click", ->
+    showImgLoader()
+    NProgress.start()
+    $("#add-modal #add_subs").attr('disabled','disabled')
+    $("#add-modal").modal('hide')
+    data = {}
+    data.plan = $("#add-modal #sub-type").val()
+    data.quantity =  $("#add-modal #sub-quantity").val()
+
+    onError = (jqXHR, status, error) ->
+      hideImgLoader()
+      NProgress.done()
+      $("#add-modal #add_subs").removeAttr('disabled')
+      Notification.show "Something went wrong.\nPlease try again."
+
+    onSuccess = (results, status, jqXHR) ->
+      NProgress.done()
+      $("#add-modal #add_subs").removeAttr('disabled')
+      location.reload()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/x-www-form-urlencoded"
+      type: 'POST'
+      url: "/v1/payments"
+
+    sendAJAXRequest(settings)
+
+editSubscription = ->
+  $("#subscription_data .sub-edit").on "click", ->
+    $("#edit-modal #sub-type").val($(this).attr('sub-plan'))
+    $("#edit-modal #sub-quantity").val($(this).attr('sub-quantity'))
+    $("#edit-modal #edit_subs").attr('subscription_id' , $(this).attr('sub-id'))
+
+saveEditedSubscriptions = ->
+  $("#edit-modal #edit_subs").on "click", ->
+    showImgLoader()
+    NProgress.start()
+    $("#subscriptions .delete-sub2").attr('disabled','disabled')
+    $("#edit-modal").modal('hide')
+    data = {}
+    data.subscription_id = $(this).attr("subscription_id")
+    data.plan = $("#edit-modal #sub-type").val()
+    data.quantity =  $("#edit-modal #sub-quantity").val()
+
+    onError = (jqXHR, status, error) ->
+      $("#add-modal #edit_subs").removeAttr('disabled')
+      Notification.show "Something went wrong while updating your subsccription.\nPlease try again"
+      NProgress.done()
+      hideImgLoader()
+
+    onSuccess = (results, status, jqXHR) ->
+      $("#add-modal #edit_subs").removeAttr('disabled')
+      Notification.show "You have successfuly edited your subscription."
+      NProgress.done()
+      subs_table.ajax.reload()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/x-www-form-urlencoded"
+      type: 'PATCH'
+      url: "/v1/users/#{Evercam.User.username}/billing"
+
+    sendAJAXRequest(settings)
+
+deleteSub = ->
+  $('#subscriptions').on 'click','.delete-sub2', ->
+    showImgLoader()
+    subscription_id = $(this).attr("subscription_id")
+    $("#subscriptions .delete-sub2").attr('disabled','disabled')
+    $("#subscriptions .box2").addClass('hide')
+    NProgress.start()
+    data = {}
+    data.subscription_id = subscription_id
+
+    onError = (jqXHR, status, error) ->
+      $("#subscriptions .delete-sub2").removeAttr('disabled')
+      Notification.show "Something went wrong while deleting your subsccription.\nPlease try again"
+      NProgress.done()
+      hideImgLoader()
+
+    onSuccess = (results, status, jqXHR) ->
+      NProgress.done()
+      $("#subscriptions .delete-sub2").removeAttr('disabled')
+      Notification.show "You have successfuly cancelled auto-renewal for your subscription."
+      subs_table.ajax.reload()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      contentType: "application/x-www-form-urlencoded"
+      type: 'Delete'
+      url: "/v1/users/#{Evercam.User.username}/billing"
+
+    sendAJAXRequest(settings)
+
+showImgLoader = ->
+  $("#subscriptions #img-subscription-loader").removeClass 'hide'
+  $("#subscriptions #subscription_data").addClass 'opacity-transparent'
+
+hideImgLoader = ->
+  $("#subscriptions #img-subscription-loader").addClass 'hide'
+  $("#subscriptions #subscription_data").removeClass 'opacity-transparent'
+
+initializePopup = ->
+  $(".popbox2").popbox
+    open: ".open-delete"
+    box: ".box2"
+    arrow: ".arrow"
+    arrow_border: ".arrow-border"
+    close: ".closepopup"
+
 window.initializeSubscription = ->
+  format_time = new DateFormatter()
+  subscriptions = jQuery.parseJSON($("#subs-all").val()) if $("#subs-all").val()
   NProgress.done()
   Notification.init(".bb-alert")
   initializeInvoiceTable()
@@ -574,6 +806,11 @@ window.initializeSubscription = ->
   addlicencesrquired()
   handleTabOpen()
   payCustomLicence()
+  addSubscription()
+  saveEditedSubscriptions()
+  initializeSubscriptionTable()
+  deleteSub()
+  addCreditCard()
   setTimeout loadBillingHistory, 2000
 
 window.initializeChangePlan = ->

@@ -21,7 +21,10 @@ initializeCamerasDataTable = ->
       },
       {data: userCameraRights},
       {data: (row, type, set, meta ) ->
-        return "#{row.vendor_name} (#{row.model_name})"
+        if row.vendor_name
+          return "#{row.vendor_name} (#{row.model_name})"
+        else
+          ""
       },
       {data: (row, type, set, meta ) ->
         if row.timezone
@@ -37,28 +40,10 @@ initializeCamerasDataTable = ->
       },
       {data: (row, type, set, meta ) ->
         if row.cloud_recordings
-          if row.cloud_recordings.storage_duration is 1
-            return "<span style = '
-              font-weight: bold'>#{row.cloud_recordings.status}</span>,
-              (24 hours recording)"
-          else if row.cloud_recordings.storage_duration is 7
-            return "<span style = '
-              font-weight: bold'>#{row.cloud_recordings.status}</span>,
-              (7 days recording)"
-          else if row.cloud_recordings.storage_duration is 30
-            return "<span style = '
-              font-weight: bold'>#{row.cloud_recordings.status}</span>,
-              (30 days recording)"
-          else if row.cloud_recordings.storage_duration is 90
-            return "<span style = '
-              font-weight: bold'>#{row.cloud_recordings.status}</span>,
-              (90 days recording)"
-          else if row.cloud_recordings.storage_duration is -1
-            return "<span style = '
-              font-weight: bold'>#{row.cloud_recordings.status}</span>,
-              (infinity recording)"
+          cr = row.cloud_recordings
+          getCloudStatus(cr.status, cr.storage_duration)
         else
-          return ""
+          return "<span style='color: red'>Off (No Recordings)</span>"
       },
     ],
     order: [[ 3, "desc" ]],
@@ -67,6 +52,22 @@ initializeCamerasDataTable = ->
     bFilter: false,
     autoWidth: false,
   })
+
+getCloudStatus = (status, duration) ->
+  storage = "#{duration} Days"
+  if duration is 1
+    storage = "24 Hours"
+  else if duration is -1
+    storage = "Inifinity"
+  switch status
+    when "on"
+      return "<span style='color: green'>#{storage} (Continuous)</span>"
+    when "on-scheduled"
+      return "<span style='color: green'>#{storage} (On Schedule)</span>"
+    when "off"
+      return "<span style='color: red'>Off (No Recordings)</span>"
+    when "paused"
+      return "<span style='color: black'>Paused (#{storage})</span>"
 
 userCameraRights = (row) ->
   str = row.rights

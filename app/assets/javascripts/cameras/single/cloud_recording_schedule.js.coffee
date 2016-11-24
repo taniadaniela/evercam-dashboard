@@ -265,8 +265,11 @@ renderCloudRecordingDuration = ->
     $(".recording-text .storage").hide('slow')
     $(".recording-text .off-status").text('Off')
   else if Evercam.Camera.cloud_recording.status is "on"
-    $(".recording-text .off-status").text('On')
+    $(".recording-text .off-status").text('Continuous')
     $(".recording-text .storage").show('slow')
+    $(".storage-duration").text(recording_duration_value)
+  else if Evercam.Camera.cloud_recording.status is "paused"
+    $(".recording-text .off-status").text('Paused')
     $(".storage-duration").text(recording_duration_value)
   else
     $(".recording-text .off-status").text('On Schedule')
@@ -280,8 +283,11 @@ renderCloudRecordingFrequency = ->
     $(".recording-text .frequency-text").hide('slow')
     $(".recording-text .off-status").text('Off')
   else if Evercam.Camera.cloud_recording.status is "on"
-    $(".recording-text .off-status").text('On')
+    $(".recording-text .off-status").text('Continuous')
     $(".recording-text .frequency-text").show('slow')
+    $(".recording-frequency").text(recording_frequency_value)
+  else if Evercam.Camera.cloud_recording.status is "paused"
+    $(".recording-text .off-status").text('Paused')
     $(".recording-frequency").text(recording_frequency_value)
   else
     $(".recording-text .off-status").text('On Schedule')
@@ -309,6 +315,8 @@ renderCloudRecordingStatus = ->
       hideScheduleCalendar()
       hideFrequencySelect()
       hideDurationSelect()
+    when "paused"
+      $("#cloud-recording-paused").iCheck('check')
 
 saveScheduleSettings = ->
   $(".schedule-save").off('click').on 'click', ->

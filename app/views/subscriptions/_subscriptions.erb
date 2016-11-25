@@ -1,7 +1,11 @@
 <div class="subscriptions">
   <div class="col-md-4">
     <% if @subscriptions.present? %>
-      <h3>Subscriptions</h3>
+      <h3 class="marg">Subscriptions</h3>
+    <% elsif has_credit_cards? == false %>
+      <h4>Please add a credit card</h4>
+    <% else %>
+      <h4>Add a new subscription</h4>
     <% end %>
   </div>
   <div class="col-md-8 licence-alert alert alert-danger" style="display:none">
@@ -9,19 +13,19 @@
   </div>
   <% if @subscriptions.present? %>
   <div class="col-md-12">
-    <table id="subscription_data" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <table id="subscription_data" class="subscription-table table table-striped table-bordered" cellspacing="0" width="100%">
       <tr>
-        <div id="img-subscription-loader" class="img-subscription-loader center-gif hide">
+        <div id="img-subscription-loader" class="img-subscription-loader middle-gif hide">
           <%= image_tag('loader3.gif', alt: 'Loading') %>
         </div>
         <thead>
-        <th class="col-md-2">ID</th>
         <th class="col-md-2">Plan</th>
         <th class="col-md-1">Quantity</th>
         <th class="col-md-1">Price (<i class='fa fa-eur'></i>)</th>
-        <th class="col-md-2">Creation</th>
+        <th class="col-md-2">Created On</th>
         <th class="col-md-1">Period</th>
         <th class="col-md-2">Auto-Renewal</th>
+        <th class="col-md-2">Next Renewal On</th>
         <th class="col-md-1">Options</th>
       </tr>
       </thead>

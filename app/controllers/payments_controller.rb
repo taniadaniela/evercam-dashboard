@@ -43,7 +43,7 @@ class PaymentsController < ApplicationController
 
   def create
     buy_subscription(params[:plan], params[:quantity].to_i)
-    flash[:message] = "We've successfully made those changes to your account!"
+    flash[:message] = 'You have succesfully added a new subscription!'
     render json: {result: true}
   end
 

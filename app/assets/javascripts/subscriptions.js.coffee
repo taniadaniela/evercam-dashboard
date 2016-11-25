@@ -15,89 +15,23 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = jQuery.ajax(settings)
   true
 
-createAddRemoveLicence = ->
-  $(".remove-licence").on 'click', ->
-    control_id = $(this).attr("data-val")
-    update_quantity = parseInt($("##{control_id}-qty").val())
-    quantity = parseInt($("##{control_id}-quantity").val())
-    licence_price = parseInt($("##{control_id}").val())
-    new_price = parseInt($("##{control_id}-new-price").text())
+switchTab = ->
+  $(".nav-tab-#{Evercam.request.tabpath}").tab('show')
 
-    if quantity is 0 || quantity < 0
-      current_quantity = parseInt($("##{control_id}-current-qty").text())
-    else
-      quantity--
-      update_quantity--
-      new_price = licence_price *  quantity
-      $("##{control_id}-quantity").val(quantity)
-      $("##{control_id}-new-price").text(new_price)
-      $("##{control_id}-sign").text("+")
-      showTotal()
+handleTabClick = ->
+  $('.nav-tabs a').on 'click', ->
+    click_path = $(this).attr('data-target').replace('#', '')
+    if window.history and window.history.pushState
+      path = window.Evercam.request.rootpath
+      window.history.pushState({} , "#{click_path}", "#{path}/#{click_path}")
+  $(".nav-tabs").tabdrop "layout"
 
-    $("##{control_id}-qty").val(update_quantity)
-
-  $(".add-licence").on 'click', ->
-    control_id = $(this).attr("data-val")
-    update_quantity = parseInt($("##{control_id}-qty").val())
-    quantity = parseInt($("##{control_id}-quantity").val())
-    licence_price = parseInt($("##{control_id}").val())
-    new_price = parseInt($("##{control_id}-new-price").text())
-
-    if quantity < 0 && new_price >= 0
-      current_quantity = parseInt($("##{control_id}-current-qty").text())
-      current_quantity++
-      update_quantity++
-      quantity++
-      $("##{control_id}-current-qty").text(current_quantity)
-      $("##{control_id}-quantity").val(quantity)
-      $("##{control_id}-current-price").text(licence_price * current_quantity)
-      substract_price = Math.abs(new_price - licence_price)
-      if substract_price is 0
-        $("##{control_id}-new-price").text(0)
-        $("##{control_id}-sign").text("+")
-      else
-        $("##{control_id}-new-price").text(substract_price)
-    else
-      quantity++
-      update_quantity++
-      new_price = licence_price *  quantity
-      $("##{control_id}-quantity").val(quantity)
-      $("##{control_id}-new-price").text(new_price)
-
-    $("##{control_id}-qty").val(update_quantity)
-    showTotal()
-
-showTotal = ->
-  calculateCurrentTotal("new-price-monthly", "new-total-price-monthly")
-  calculateCurrentTotal("new-price-annual", "new-total-price-annual")
-
-calculateTotal = (price_control, total_price_control, has_sign) ->
-  $("##{total_price_control}").text(0)
-  new_total_price = 0
-  $(".#{price_control}").each ->
-    price = parseInt($(this).text())
-    total_price = parseInt($("##{total_price_control}").text())
-    $("##{total_price_control}").text(price + total_price)
-
-calculateCurrentTotal = (price_control, total_price_control) ->
-  $("##{total_price_control}").text(0)
-  new_total_price = 0
-  $(".#{price_control}").each ->
-    price = parseInt($(this).text())
-    total_price = parseInt($("##{total_price_control}").text())
-    sign_control_id = $(this).attr("id")
-    sign_control_id = sign_control_id.replace('-new-price', '')
-    if $("##{sign_control_id}-sign").text() is "+"
-      new_total_price = new_total_price + price
-    else
-      new_total_price = new_total_price - price
-
-  if new_total_price >= 0
-    $("##{total_price_control}").text(new_total_price)
-    $("##{total_price_control}-sign").text("+")
-  else
-    $("##{total_price_control}").text(Math.abs(new_total_price))
-    $("##{total_price_control}-sign").text("-")
+handleBackForwardButton = ->
+  window.addEventListener 'popstate', (e) ->
+    tab = document.location.pathname
+    .replace(window.Evercam.request.rootpath, '')
+    .split('/')[1]
+    $(".nav-tab-#{tab}").tab('show')
 
 onCheckoutConfirmCard = ->
   $(".add-card-to-continue").on 'click', ->
@@ -506,7 +440,7 @@ addlicencesrquired = ->
   $('h3#licences').append(licen)
 
 initializeInvoiceTable = ->
-  if $("#insight-id").val() isnt null
+  if $(".subscriptions #insight-id").val()
     table = $('#custom-invoices').DataTable({
       ajax: {
         url: $('#insight-custom-url').val(),
@@ -577,16 +511,12 @@ initializeSubscriptionTable = ->
             Notification.show(xhr.responseJSON.message)
       },
       columns: [
-        { data: "id" },
         { data: ( row, type, set, meta ) ->
           return row.plan.name
         },
         { data: "quantity" },
         { data: ( row, type, set, meta ) ->
-          price = row.plan.amount / 100
-          quantity = parseInt(row.quantity)
-          price  = price*quantity
-          return "<i class='fa fa-eur'></i>" +' '+ price
+          return "<i class='fa fa-eur'></i>  #{calculatePrice(row)}"
         },
         { data: ( row, type, set, meta ) ->
           start = new Date(moment.utc(row.created*1000).format('MM/DD/YYYY, HH:mm:ss'))
@@ -595,20 +525,29 @@ initializeSubscriptionTable = ->
         },
         { data: ( row, type, set, meta ) ->
           if row.plan.id.indexOf('annual') != -1
-            period = "Annually"
+            period = "Annual"
           else
-            period = "Monthly"
+            period = "Month"
           return period
         },
         { data: ( row, type, set, meta ) ->
-          if row.cancel_at_period_end == true
-            description = "No"
+          renderRenewalOptions(row)
+        },
+        { data: ( row, type, set, meta ) ->
+          time = row.created*1000
+          start = new Date(moment.utc(time).format('MM/DD/YYYY, HH:mm:ss'))
+          if row.cancel_at_period_end is false
+            mon = parseInt(start.getMonth())
+            if row.plan.id.indexOf('annual') != -1
+              start.setMonth(mon + 12)
+            else
+              start.setMonth(mon + 1)
+            return format_time.formatDate(start, 'd M Y, H:i:s')
           else
-            description = "Yes"
-          return description
+            return ""
         },
         {data: (row, type, set, meta) ->
-          return renderEditOptions(row) + renderDeleteOptions(row)
+          return renderEditOptions(row)
         }
       ],
       autoWidth: false,
@@ -624,10 +563,36 @@ initializeSubscriptionTable = ->
         initializePopup()
         editSubscription()
         hideImgLoader()
+        deleteEditSubscription()
     })
 
+calculatePrice = (row) ->
+  price = row.plan.amount / 100
+  return price*parseInt(row.quantity)
+
+checkPriceShow = ->
+  $("#edit-modal #sub-type").on "change", ->
+    showPrice("edit")
+  $("#edit-modal #sub-quantity").on "input", ->
+    showPrice("edit")
+  $("#add-modal #sub-type").on "change", ->
+    showPrice("add")
+  $("#add-modal #sub-quantity").on "input", ->
+    showPrice("add")
+  $("#open-modal").on "click", ->
+    showPrice("add")
+
+showPrice = (option) ->
+  selected = $("##{option}-modal #sub-type").find('option:selected')
+  price = selected.data('price')
+  price = price * $("##{option}-modal #sub-quantity").val()
+  if !isNaN(price) && price != 0
+    total_price = " #{price}"
+    $("##{option}-modal #sub-price .fa-eur").text(total_price)
+
 renderEditOptions = (row) ->
-  div = $('<div>', {class: "form-group"})
+  div = $('<div>')
+  div1 = $('<div>', {class: "form-group"})
   divedit = $('<i>',{class: 'sub-edit fa fa-edit icons'})
   divedit.attr('title', 'edit')
   divedit.attr('href','#')
@@ -636,49 +601,42 @@ renderEditOptions = (row) ->
   divedit.attr('sub-id', row.id )
   divedit.attr('sub-quantity', row.quantity )
   divedit.attr('sub-plan', row.plan.id )
-  div.append(divedit)
+  divedit.attr('sub-price', calculatePrice(row) )
+  div1.append(divedit)
+  div.append(div1)
   return div.html()
 
-renderDeleteOptions = (row) ->
-  if row.cancel_at_period_end == false
-    div = $('<div>', {class: "form-group"})
-    divPopup =$('<div>', {class: "popbox2"})
-    divdelete = $('<i>',{class: 'sub-delete fa fa-times icons'})
-    divdelete.attr('title', 'cancel')
-    span = $('<span>', {class: "open-delete"})
-    span.append(divdelete)
-    divPopup.append(span)
-    divCollapsePopup = $('<div>', {class: "collapse-popup"})
-    divBox2 = $('<div>', {class: "box2"})
-    divBox2.append($('<div>', {class: "arrow"}))
-    divBox2.append($('<div>', {class: "arrow-border"}))
-    divMessage = $('<div>', {class: "margin-bottom-10"})
-    divMessage.append($(document.createTextNode("Are you sure?")))
-    divBox2.append(divMessage)
-    divButtons = $('<div>', {class: "margin-bottom-10"})
-    inputDelete = $('<input type="button" value="Yes, Remove">')
-    inputDelete.addClass("btn btn-primary delete-btn delete-sub2")
-    inputDelete.attr("subscription_id", row.id)
-    divButtons.append(inputDelete)
-    divButtons.append('<div class="btn delete-btn closepopup grey">' +
-      '<div class="text-center" fit>CANCEL</div></div>')
-    divBox2.append(divButtons)
-    divCollapsePopup.append(divBox2)
-    divPopup.append(divCollapsePopup)
-    div.append(divPopup)
-    return div.html()
-  else
-    return " "
+renderRenewalOptions = (row) ->
+  div1 = $('<div>')
+  div = $('<div>', {class: "input-group"})
+  select = $('<select>', {class: "renew-del form-control reveal"})
+  option = $('<option>', {value: row.id, text: "Yes"})
+  option.attr('data-subtype', row.plan.id)
+  option.attr('data-subquantity', row.quantity)
+  if row.cancel_at_period_end is false
+    option.attr('selected', 'selected')
+  select.append(option)
+  option = $('<option>', {value: row.id, text: "No"})
+  if row.cancel_at_period_end is true
+    option.attr('selected', 'selected')
+  select.append(option)
+  div.append(select)
+  div1.append(div)
+  return div1.html()
 
 addSubscription = ->
   $("#add-modal #add_subs").on "click", ->
+    $("#add-modal").modal('hide')
+    quantity = $("#add-modal #sub-quantity").val()
+    if quantity is 0 || !quantity.toString().match(/^[0-9]+$/)
+      Notification.show "Quantity is invalid"
+      return
     showImgLoader()
     NProgress.start()
     $("#add-modal #add_subs").attr('disabled','disabled')
-    $("#add-modal").modal('hide')
     data = {}
     data.plan = $("#add-modal #sub-type").val()
-    data.quantity =  $("#add-modal #sub-quantity").val()
+    data.quantity = $("#add-modal #sub-quantity").val()
 
     onError = (jqXHR, status, error) ->
       hideImgLoader()
@@ -708,75 +666,93 @@ editSubscription = ->
     $("#edit-modal #sub-type").val($(this).attr('sub-plan'))
     $("#edit-modal #sub-quantity").val($(this).attr('sub-quantity'))
     $("#edit-modal #edit_subs").attr('subscription_id' , $(this).attr('sub-id'))
+    showPrice("edit")
 
-saveEditedSubscriptions = ->
-  $("#edit-modal #edit_subs").on "click", ->
-    showImgLoader()
-    NProgress.start()
-    $("#subscriptions .delete-sub2").attr('disabled','disabled')
-    $("#edit-modal").modal('hide')
-    data = {}
-    data.subscription_id = $(this).attr("subscription_id")
-    data.plan = $("#edit-modal #sub-type").val()
-    data.quantity =  $("#edit-modal #sub-quantity").val()
+deleteEditSubscription = ->
+  $("#edit-modal #edit_subs").off("click").on "click", ->
+    sub_id = $(this).attr("subscription_id")
+    sub_type = $("#edit-modal #sub-type").val()
+    sub_quantity = $("#edit-modal #sub-quantity").val()
+    message = "You have successfuly edited your subscription."
+    saveEditedSubscriptions(sub_id, sub_type, sub_quantity, message)
+  $(".subscriptions .renew-del").on "change", ->
+    selected = $(this).find('option:selected')
+    if selected.text() is "No"
+      deleteSub(selected.val())
+    else
+      sub_id = selected.val()
+      sub_type = selected.data('subtype')
+      sub_quantity = selected.data('subquantity')
+      msg = 'You have successfuly activated auto-renewal for your subscription'
+      saveEditedSubscriptions(sub_id, sub_type, sub_quantity, msg)
 
-    onError = (jqXHR, status, error) ->
-      $("#add-modal #edit_subs").removeAttr('disabled')
-      Notification.show "Something went wrong while updating your subsccription.\nPlease try again"
-      NProgress.done()
-      hideImgLoader()
+saveEditedSubscriptions = (id, type, quantity, message) ->
+  $("#edit-modal").modal('hide')
+  if quantity is 0 || !quantity.toString().match(/^[0-9]+$/)
+    Notification.show "Quantity is invalid"
+    return
+  showImgLoader()
+  NProgress.start()
+  $("#subscriptions .delete-sub2").attr('disabled','disabled')
+  data = {}
+  data.subscription_id = id
+  data.plan = type
+  data.quantity =  quantity
 
-    onSuccess = (results, status, jqXHR) ->
-      $("#add-modal #edit_subs").removeAttr('disabled')
-      Notification.show "You have successfuly edited your subscription."
-      NProgress.done()
-      subs_table.ajax.reload()
+  onError = (jqXHR, status, error) ->
+    $("#add-modal #edit_subs").removeAttr('disabled')
+    Notification.show "Something went wrong.\nPlease try again"
+    NProgress.done()
+    hideImgLoader()
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/x-www-form-urlencoded"
-      type: 'PATCH'
-      url: "/v1/users/#{Evercam.User.username}/billing"
+  onSuccess = (results, status, jqXHR) ->
+    $("#edit-modal #edit_subs").removeAttr('disabled')
+    Notification.show message
+    NProgress.done()
+    subs_table.ajax.reload()
 
-    sendAJAXRequest(settings)
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'PATCH'
+    url: "/v1/users/#{Evercam.User.username}/billing"
 
-deleteSub = ->
-  $('#subscriptions').on 'click','.delete-sub2', ->
-    showImgLoader()
-    subscription_id = $(this).attr("subscription_id")
-    $("#subscriptions .delete-sub2").attr('disabled','disabled')
-    $("#subscriptions .box2").addClass('hide')
-    NProgress.start()
-    data = {}
-    data.subscription_id = subscription_id
+  sendAJAXRequest(settings)
 
-    onError = (jqXHR, status, error) ->
-      $("#subscriptions .delete-sub2").removeAttr('disabled')
-      Notification.show "Something went wrong while deleting your subsccription.\nPlease try again"
-      NProgress.done()
-      hideImgLoader()
+deleteSub = (sub_id) ->
+  showImgLoader()
+  NProgress.start()
+  data = {}
+  data.subscription_id = sub_id
 
-    onSuccess = (results, status, jqXHR) ->
-      NProgress.done()
-      $("#subscriptions .delete-sub2").removeAttr('disabled')
-      Notification.show "You have successfuly cancelled auto-renewal for your subscription."
-      subs_table.ajax.reload()
+  onError = (jqXHR, status, error) ->
+    msg = 'Something went wrong while deleting your subscription.' +
+      '\nPlease try again'
+    Notification.show msg
+    NProgress.done()
+    hideImgLoader()
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/x-www-form-urlencoded"
-      type: 'Delete'
-      url: "/v1/users/#{Evercam.User.username}/billing"
+  onSuccess = (results, status, jqXHR) ->
+    NProgress.done()
+    msg = "You have successfuly cancelled auto-renewal for your subscription."
+    Notification.show msg
+    subs_table.ajax.reload()
 
-    sendAJAXRequest(settings)
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/x-www-form-urlencoded"
+    type: 'Delete'
+    url: "/v1/users/#{Evercam.User.username}/billing"
+
+  sendAJAXRequest(settings)
 
 showImgLoader = ->
   $("#subscriptions #img-subscription-loader").removeClass 'hide'
@@ -800,23 +776,23 @@ window.initializeSubscription = ->
   NProgress.done()
   Notification.init(".bb-alert")
   initializeInvoiceTable()
-  createAddRemoveLicence()
   validateLicenceForm()
   showAlertMessage()
   addlicencesrquired()
   handleTabOpen()
   payCustomLicence()
   addSubscription()
-  saveEditedSubscriptions()
   initializeSubscriptionTable()
-  deleteSub()
+  checkPriceShow()
   addCreditCard()
   setTimeout loadBillingHistory, 2000
+  handleTabClick()
+  setTimeout switchTab, 200
+  handleBackForwardButton()
 
 window.initializeChangePlan = ->
   onUpgradeDownGrade()
   onCheckoutConfirmCard()
-  createAddOns()
   changePlan()
 
 $ ->

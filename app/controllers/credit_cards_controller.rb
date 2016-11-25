@@ -9,11 +9,18 @@ class CreditCardsController < ApplicationController
 
   def create
     customer = retrieve_stripe_customer
-    card = customer.cards.create(:card => params[:stripeToken])
+    card_fingerprint = Stripe::Token.retrieve(params[:stripeToken]).try(:card).try(:fingerprint)
+    default_card = customer.cards.all.data.select { |card| card.fingerprint == card_fingerprint }.last if card_fingerprint
+    card = customer.cards.create(card: params[:stripeToken]) unless default_card
     begin
-      customer.default_card = card.id
+      if card.present?
+        customer.default_card = card.id
+        flash[:message] = "Your card {#{card.last4}} was successfully added."
+      else
+        customer.default_card = default_card.id
+        flash[:message] = "Your card {#{default_card.last4}} already exists."
+      end
       customer.save
-      flash[:message] = 'Your card was successfully added.'
     rescue Stripe::CardError => error
       flash[:error] = error.message
     end
@@ -23,8 +30,9 @@ class CreditCardsController < ApplicationController
   def destroy
     @customer ||= retrieve_stripe_customer
     begin
+      last_Four = @customer.sources.retrieve(params[:card_id]).last4
       @customer.sources.retrieve(params[:card_id]).delete
-      flash[:message] = 'Your card was successfully deleted.'
+      flash[:message] = "Your card {#{last_Four}} was successfully deleted."
       redirect_to billing_path(current_user.username)
     rescue
       rescue Stripe::CardError => error

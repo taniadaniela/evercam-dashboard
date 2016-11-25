@@ -10,15 +10,15 @@
         <div class="center-tabs">
           <ul id="ul-nav-tab" class="nav nav-tabs">
             <li class="active">
-              <a data-toggle="tab" data-target="#subscriptions" class="nav-tab-cards">Subscriptions</a>
+              <a data-toggle="tab" data-target="#subscriptions" class="nav-tab-subscriptions">Subscriptions</a>
             </li>
             <% if current_user.insight_id.present? %>
                 <li>
-                  <a data-toggle="tab" data-target="#invoices" class="nav-tab-cards">Custom</a>
+                  <a data-toggle="tab" data-target="#invoices" class="nav-tab-custom">Custom</a>
                 </li>
             <% end %>
             <li>
-              <a data-toggle="tab" data-target="#history" class="nav-tab-history">Payment History</a>
+              <a data-toggle="tab" data-target="#paymenthistory" class="nav-tab-paymenthistory">Payment History</a>
             </li>
             <li>
               <a data-toggle="tab" data-target="#cards" class="nav-tab-cards">Credit Cards</a>
@@ -26,7 +26,7 @@
           </ul>
         </div>
         <div class="tab-content">
-          <div id="history" class="tab-pane">
+          <div id="paymenthistory" class="tab-pane">
             <%= render partial: "subscriptions/history/history_tab" %>
           </div>
           <div id="cards" class="tab-pane">
@@ -53,7 +53,8 @@
           <div class='col-lg-12 col-md-12 col-sm-12'>
             <div class='portlet'>
               <div class="portlet-title">
-                <div class="caption"> Edit subscription </div>
+                <div class="caption col-md-12"> Edit subscription </div>
+                <div class="color-grey">*Edit your subscription by changing the Plan and Quantity.</div>
               </div>
               <div class="portlet-body">
                 <div class="add-clip">
@@ -63,12 +64,12 @@
                       </td>
                       <td>
                         <select id="sub-type" name="sub-type" class="form-control">
-                          <option value="7-days-recording">7 days recording</option>
-                          <option value="30-days-recording">30 days recording</option>
-                          <option value="90-days-recording">90 days recording</option>
-                          <option value="7-days-recording-annual">7 days recording annual</option>
-                          <option value="30-days-recording-annual">30 days recording annual</option>
-                          <option value="90-days-recording-annual">90 days recording annual</option>
+                          <option data-price=10 value="7-days-recording">7 days recording</option>
+                          <option data-price=20 value="30-days-recording">30 days recording</option>
+                          <option data-price=30 value="90-days-recording">90 days recording</option>
+                          <option data-price=100 value="7-days-recording-annual">7 days recording annual</option>
+                          <option data-price=200 value="30-days-recording-annual">30 days recording annual</option>
+                          <option data-price=300 value="90-days-recording-annual">90 days recording annual</option>
                         </select>
                       </td>
                     </tr>
@@ -76,6 +77,12 @@
                       <td style="width: 100px;"><label class="control-label quantity" >Quantity:</label></td>
                       <td>
                         <input type="text" class="form-control makeEditable" id="sub-quantity">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 100px;"><label class="control-label price" >Total Price:</label></td>
+                      <td>
+                        <span class="form-control" id="sub-price"><i class='fa fa-eur'></i></span>
                       </td>
                     </tr>
                   </table>
@@ -115,12 +122,12 @@
                       </td>
                       <td>
                         <select id="sub-type" name="sub-type" class="form-control">
-                          <option value="7-days-recording">7 days recording</option>
-                          <option value="30-days-recording">30 days recording</option>
-                          <option value="90-days-recording">90 days recording</option>
-                          <option value="7-days-recording-annual">7 days recording annual</option>
-                          <option value="30-days-recording-annual">30 days recording annual</option>
-                          <option value="90-days-recording-annual">90 days recording annual</option>
+                          <option data-price=10 value="7-days-recording">7 days recording</option>
+                          <option data-price=20 value="30-days-recording">30 days recording</option>
+                          <option data-price=30 value="90-days-recording">90 days recording</option>
+                          <option data-price=100 value="7-days-recording-annual">7 days recording annual</option>
+                          <option data-price=200 value="30-days-recording-annual">30 days recording annual</option>
+                          <option data-price=300 value="90-days-recording-annual">90 days recording annual</option>
                         </select>
                       </td>
                     </tr>
@@ -128,6 +135,12 @@
                       <td style="width: 100px;"><label class="control-label quantity" >Quantity:</label></td>
                       <td>
                         <input type="text" class="form-control makeEditable" id="sub-quantity" value="1">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 100px;"><label class="control-label price" >Total Price:</label></td>
+                      <td>
+                        <span class="form-control" id="sub-price"><i class='fa fa-eur'></i></span>
                       </td>
                     </tr>
                   </table>

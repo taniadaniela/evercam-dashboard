@@ -293,3 +293,23 @@
 <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
 <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
 <input type="hidden" name="snapshot-diff" id="snapshot-diff" value="<%= @snapshot_navigator %>">
+<div id="off-pause-modal" class="modal fade">
+  <div class="modal-dialog width-420">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col-md-12 padding-0">
+          <p class="text-left margin-0">Your recordings were paused <span class="lblPauseFrom"></span> ago. If you resume recording ( <span class="lblResumePeriod"></span> ) then <span class="lblPauseFrom"></span> of your footage will be lost.</p>
+          </br>
+          <p>Are you sure you want to continue?</p>
+        </div>
+      </div>
+      <div class="modal-footer padding-15">
+        <div class="col-sm-8 padding-0">
+          <input type="hidden" id="cr_change_to" name="cr_change_to" value="">
+          <button id="resume-recordings" name="resume-recordings" class="btn btn-danger pull-left">Yes</button>
+          <input type="button" id="resume-recordings-no" class="btn btn-default pull-left" value="No" data-dismiss="modal" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

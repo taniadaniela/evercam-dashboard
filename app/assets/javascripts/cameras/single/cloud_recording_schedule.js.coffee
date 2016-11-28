@@ -1,3 +1,11 @@
+pause_date = null
+display_message = false
+pause_days = 0
+old_frequency = null
+old_storage_duration = null
+old_status = null
+old_schedule = null
+
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
     header:
@@ -101,6 +109,7 @@ updateSchedule = ->
     renderCloudRecordingFrequency()
     $('#cloud-recording-duration').prop("disabled", false)
     showFeedback("Cloud recording schedule was successfully updated.")
+    saveOldCRValues()
     NProgress.done()
 
   settings =
@@ -221,7 +230,7 @@ window.fullWeekSchedule =
 perfomAction = ->
   status = $('input[name=cloud_recording]:checked').val()
   switch status
-    when "on"
+    when "on","paused"
       updateScheduleToOn()
     when "on-scheduled"
       updateScheduleFromCalendar()
@@ -241,22 +250,59 @@ handleStatusSelect = ->
     Evercam.Camera.cloud_recording.status = $(this).val()
     switch $(this).val()
       when "on"
-        hideScheduleCalendar()
-        showFrequencySelect()
-        showDurationSelect()
-        updateFrequencyTo60()
-        updateScheduleToOn()
+        if display_message
+          $("#cr_change_to").val("on")
+          $("#off-pause-modal").modal('show')
+        else
+          hideScheduleCalendar()
+          showFrequencySelect()
+          showDurationSelect()
+          updateFrequencyTo60()
+          updateScheduleToOn()
       when "on-scheduled"
-        showScheduleCalendar()
-        showFrequencySelect()
-        showDurationSelect()
-        updateFrequencyTo60()
-        updateScheduleToOn()
+        if display_message
+          $("#cr_change_to").val("on-scheduled")
+          $("#off-pause-modal").modal('show')
+        else
+          showScheduleCalendar()
+          showFrequencySelect()
+          showDurationSelect()
+          updateFrequencyTo60()
+          updateScheduleToOn()
       when "off"
         hideFrequencySelect()
         hideDurationSelect()
         hideScheduleCalendar()
         updateScheduleToOff()
+
+getLastPaused = (duration) ->
+  data =
+    api_id: Evercam.User.api_id
+    api_key: Evercam.User.api_key
+    objects: true
+    limit: 5
+    page: 0
+    types: "cloud recordings updated"
+
+  onError = (data) ->
+    false
+
+  onSuccess = (data) ->
+    $.each data.logs, (index, log) ->
+      if log.extra.status is "paused"
+        pause_date = new Date(log.done_at*1000)
+        renderPauseMessage(pause_date)
+        return false
+
+  settings =
+    error: onError
+    success: onSuccess
+    data: data
+    dataType: 'json'
+    type: "GET"
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/logs"
+
+  $.ajax(settings)
 
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
@@ -320,10 +366,80 @@ renderCloudRecordingStatus = ->
 
 saveScheduleSettings = ->
   $(".schedule-save").off('click').on 'click', ->
-    updateSchedule()
+    new_cr_values = Evercam.Camera.cloud_recording
+    new_frequency = parseInt(new_cr_values.frequency)
+    new_storage = parseInt(new_cr_values.storage_duration)
+    new_status = new_cr_values.status
+    new_schedule = new_cr_values.schedule
+
+    if new_frequency isnt old_frequency or
+       new_storage isnt old_storage_duration or
+       new_status isnt old_status or
+       is_equal_schedule(new_schedule, old_schedule) isnt true
+      updateSchedule()
     $('#cloud-recording-calendar-wrap').modal('hide')
 
+renderPauseMessage = (from_date) ->
+  storage = Evercam.Camera.cloud_recording.storage_duration
+  to_date = new Date()
+  pause_days = parseInt((to_date - from_date)/86400000)
+  if pause_days >= 1
+    display_message = true
+  else
+    display_message = false
+  storage_text = "#{storage} days"
+  if storage is 1
+    storage_text = "24 hours"
+  $(".lblResumePeriod").text(storage_text)
+  $(".lblPauseFrom").text("#{pause_days} days")
+
+resumeCR = ->
+  $("#resume-recordings").on "click", ->
+    switch $("#cr_change_to").val()
+      when "on"
+        hideScheduleCalendar()
+        showFrequencySelect()
+        showDurationSelect()
+        updateScheduleToOn()
+      when "on-scheduled"
+        showScheduleCalendar()
+        showFrequencySelect()
+        showDurationSelect()
+        updateScheduleToOn()
+    $("#cr_change_to").val("")
+    $("#off-pause-modal").modal('hide')
+
+  $("#resume-recordings-no").on "click", ->
+    $("#cr_change_to").val("")
+    $("#cloud-recording-paused").iCheck('check')
+
+  $("#off-pause-modal").on "hide.bs.modal", ->
+    if $("#cr_change_to").val() isnt ""
+      $("#cr_change_to").val("")
+      $("#cloud-recording-paused").iCheck('check')
+
+is_equal_schedule = (schedule, original) ->
+  if "#{schedule["Monday"]}".trim() is "#{original["Monday"]}".trim() and
+     "#{schedule["Tuesday"]}".trim() is "#{original["Tuesday"]}".trim() and
+     "#{schedule["Wednesday"]}".trim() is "#{original["Wednesday"]}".trim() and
+     "#{schedule["Thursday"]}".trim() is "#{original["Thursday"]}".trim() and
+     "#{schedule["Friday"]}".trim() is "#{original["Friday"]}".trim() and
+     "#{schedule["Saturday"]}".trim() is "#{original["Saturday"]}".trim() and
+     "#{schedule["Sunday"]}".trim() is "#{original["Sunday"]}".trim()
+    return true
+  else
+    return false
+
+saveOldCRValues = ->
+  old_frequency = Evercam.Camera.cloud_recording.frequency
+  old_storage_duration = Evercam.Camera.cloud_recording.storage_duration
+  old_status = Evercam.Camera.cloud_recording.status
+  old_schedule = Evercam.Camera.cloud_recording.schedule
+
 window.initCloudRecordingSettings = ->
+  saveOldCRValues()
+  if Evercam.Camera.cloud_recording.status is "paused"
+    getLastPaused(Evercam.Camera.cloud_recording.storage_duration)
   renderCloudRecordingDuration()
   renderCloudRecordingStatus()
   renderCloudRecordingFrequency()
@@ -332,3 +448,4 @@ window.initCloudRecordingSettings = ->
   showEditButton()
   handleStatusSelect()
   saveScheduleSettings()
+  resumeCR()

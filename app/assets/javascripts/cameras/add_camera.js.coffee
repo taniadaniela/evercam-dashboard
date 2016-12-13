@@ -26,8 +26,12 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
     $("#camera-model").append('<option value="">Select Camera Model</option>');
     $("#snapshot").val("")
     $("#snapshot-readonly").val("")
+    $("#rtsp").val("")
+    $("#rtsp-readonly").val("")
     $("#snapshot").removeClass("hide")
     $("#snapshot-readonly").addClass("hide")
+    $("#rtsp").removeClass("hide")
+    $("#rtsp-readonly").addClass("hide")
     NProgress.done()
     return
 
@@ -54,24 +58,47 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
       if jpg_url is "unknown"
         jpg_url = ""
       if selected is '' && model.name.toLowerCase().indexOf('default') isnt -1
-        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name}</option>")
+        $("#camera-model").prepend("
+          <option jpg-val='#{jpg_url}'
+          rtsp-val='#{model.h264_url}'
+          value='#{model.id}' selected='selected'>#{model.name}
+          </option>"
+        )
       else if model.name.toLowerCase().indexOf('other') isnt -1
-        $("#camera-model").prepend("<option jpg-val='#{jpg_url}' value='#{model.id}' selected='selected'>#{model.name} - Custom URL</option>")
+        $("#camera-model").prepend("
+          <option jpg-val='#{jpg_url}'
+          rtsp-val='#{model.h264_url}'
+          value='#{model.id}' selected='selected'>#{model.name} - Custom URL
+          </option>"
+        )
       else
-        $("#camera-model").append("<option jpg-val='#{jpg_url}' value='#{model.id}' #{selected}>#{model.name}</option>")
+        $("#camera-model").append("
+          <option jpg-val='#{jpg_url}'
+          rtsp-val='#{model.h264_url}'
+          value='#{model.id}' #{selected}>#{model.name}
+          </option>"
+        )
     if $("#last-selected-model").val() is ''
       if model.id isnt "other_default"
         $("#snapshot").val(cleanAndSetJpegUrl($("#camera-model").find(":selected").attr("jpg-val")))
         $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#camera-model").find(":selected").attr("jpg-val")))
+        cleanAndSetRtspUrl($("#camera-model").find(":selected").attr("rtsp-val"))
         $("#snapshot").addClass("hide")
         $("#snapshot-readonly").removeClass("hide")
+        $("#rtsp").addClass("hide")
+        $("#rtsp-readonly").removeClass("hide")
       else
         $("#snapshot").val("") if !stroke_key_up
         $("#snapshot-readonly").val("")
+        $("#rtsp").val("") if !stroke_key_up
+        $("#rtsp-readonly").val("")
         $("#snapshot").removeClass("hide")
         $("#snapshot-readonly").addClass("hide")
+        $("#rtsp").removeClass("hide")
+        $("#rtsp-readonly").addClass("hide")
     $("#last-selected-model").val('')
     NProgress.done()
+    checkRtspInput()
 
   settings =
     cache: false
@@ -139,24 +166,37 @@ handleVendorModelEvents = ->
   $(".camera-model").on "change", ->
     $("#snapshot").val(cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val")))
     $("#snapshot-readonly").val(cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val")))
+    cleanAndSetRtspUrl($(this).find(":selected").attr("rtsp-val"))
     $("#snapshot").addClass("hide")
     $("#snapshot-readonly").removeClass("hide")
+    checkRtspInput()
 
 cleanAndSetJpegUrl = (jpeg_url) ->
   if jpeg_url.indexOf('/') == 0
     jpeg_url = jpeg_url.substr(1)
   return jpeg_url
 
+cleanAndSetRtspUrl = (rtsp_url) ->
+  if rtsp_url.indexOf('/') == 0
+    rtsp_url = rtsp_url.substr(1)
+  $("#rtsp").val rtsp_url
+  $("#rtsp-readonly").val rtsp_url
+
 onLoadPage = ->
   if $("#last-selected-model").val() isnt ''
     if $("#last-selected-model").val() is "other_default"
       $("#snapshot").removeClass("hide")
       $("#snapshot-readonly").addClass("hide")
+      $("#rtsp").removeClass("hide")
+      $("#rtsp-readonly").addClass("hide")
     else
       $("#snapshot").addClass("hide")
       $("#snapshot-readonly").removeClass("hide")
+      $("#rtsp").addClass("hide")
+      $("#rtsp-readonly").removeClass("hide")
     $("#snapshot").val(cleanAndSetJpegUrl($("#snapshot").val()))
     $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#snapshot-readonly").val()))
+    cleanAndSetRtspUrl($("#rtsp-readonly").val())
   $(".settings").hide()
   #toggle the componenet with class msg_body
   $(".additional").click ->
@@ -280,6 +320,16 @@ cursor_visible = ->
     $('#port').focus()
   $('#change').on 'click', ->
     $('#ext-rtsp-port').focus()
+
+checkRtspInput = ->
+  if $("#rtsp").val() in ['<blank>', '/', 'unknown', '']
+    $("#rtsp").removeClass("hide")
+    $("#rtsp-readonly").addClass("hide")
+    $("#rtsp").val("")
+    $("#rtsp-readonly").val("")
+  else
+    $("#rtsp").addClass("hide")
+    $("#rtsp-readonly").removeClass("hide")
 
 window.initializeAddCamera = ->
   ip = $('#camera-url').val()

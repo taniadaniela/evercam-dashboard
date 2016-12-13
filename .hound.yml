@@ -4,3 +4,5 @@ coffeescript:
   config_file: .style-coffeescript.json
 scss:
   config_file: .style-scss.yml
+jshint:
+  enabled: false

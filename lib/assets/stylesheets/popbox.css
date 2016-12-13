@@ -119,6 +119,22 @@
   margin-top: -22px;
   width: 250px !important;
 }
+
+.box-snapmail {
+  display: block;
+  display: none;
+  background: #FFF;
+  border-radius: 2px;
+  box-shadow: -1px 1px 7px 3px rgba(0, 0, 0, 0.26);
+  position: absolute;
+  padding: 15px 15px 8px;
+  text-align:left;
+  right:4px;
+  font-size: 16px;
+  margin-top: -22px;
+  width: 250px !important;
+}
+
 .arrow2 {
   width: 0;
   height: 0;
@@ -154,6 +170,32 @@
   font-size: 0.9em;
   background-color: #fff;
   color: #646464;
+}
+
+.closepopup2{
+  text-decoration:none;
+  color:#2c3e50;
+
+}
+.closepopup2:hover{
+  text-decoration:none;
+  color:#2c3e50;
+
+}
+.closepopup2:active{
+  text-decoration:none;
+  color:#2c3e50;
+
+}
+.closepopup2:visited{
+  text-decoration:none;
+  color:#2c3e50;
+
+}
+.closepopup2:link{
+  text-decoration:none;
+  font-size:14px;
+  color:#2c3e50;
 }
 
 .button.raised {

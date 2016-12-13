@@ -33,6 +33,8 @@
 //= require bs-slider
 //= require jquery.imgareaselect
 //= require old_browsers_alert.js
+//= require jquery-tags-input
+//= require bootstrap-timepicker.js
 
 //=
 //= require alerts
@@ -59,3 +61,4 @@
 //= require subscriptions.js
 //= require user_analytic_tag_script
 //= require cameras_table
+//= require snapmails/snapmails.js

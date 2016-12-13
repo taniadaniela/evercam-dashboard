@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
   get '/v1/users/:id/billing/*subpath' => 'subscriptions#index'
 
+  get '/v1/snapmails' => 'snapmails#index', as: :snapmails_index
+
   get '/v1/public/cameras' => redirect('https://evercam.io/public/cameras/')
   get '/v1/public/cameras/:id' => redirect('https://evercam.io/public/cameras/')
 

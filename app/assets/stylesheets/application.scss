@@ -22,6 +22,9 @@
 //= require select2
 //= require nprogress
 //= require nprogress-bootstrap
+//= require responsiveslides.css
+//= require jquery-tags-input
+//= require bootstrap-timepicker.css
 //= require_self
 
 
@@ -58,5 +61,6 @@
 @import "views/users/cameras_table";
 @import "views/api_docs";
 @import "views/payment/pay";
+@import "views/snapmails/snapmails";
 
 @import "subscriptions";

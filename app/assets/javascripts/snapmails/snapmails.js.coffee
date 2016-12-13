@@ -3,7 +3,7 @@
 
 unselect_all = false
 camera_select = null
-appApiUrl = "http://snapmail.evercam.io/api/snapmails"
+appApiUrl = "https://snapmail.evercam.io/api/snapmails"
 
 initNotification = ->
   Notification.init(".bb-alert")

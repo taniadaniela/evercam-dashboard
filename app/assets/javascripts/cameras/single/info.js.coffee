@@ -146,6 +146,7 @@ loadVendorModels = (vendor_id) ->
       cleanAndSetJpegUrl(jpg_url)
     if rtsp_url isnt ""
       cleanAndSetRtspUrl(rtsp_url)
+    checkRtspInput()
 
   settings =
     cache: false
@@ -203,8 +204,12 @@ loadVendors = ->
 
     if $("#camera-vendor").val() is "other"
       $("#snapshot").removeAttr('disabled')
+      $("#snapshot").removeClass('opacity')
+      $("#rtsp").removeClass('opacity')
     else
       $("#snapshot").attr('disabled', 'disabled')
+      $("#snapshot").addClass('opacity')
+      $("#rtsp").addClass('opacity')
 
   settings =
     cache: false
@@ -561,6 +566,8 @@ checkSnapshotInput = ->
   if $("#camera-vendor").val() is "other"
     $("#snapshot").removeAttr('disabled')
     $("#rtsp").removeAttr('disabled')
+    $("#snapshot").removeClass("opacity")
+    $("#rtsp").removeClass("opacity")
     if $("#vendor-value .vendor-data:contains('Other')").length > 0
       $("#snapshot").val("#{snapshot_val}")
       $("#rtsp").val("#{rtsp_val}")
@@ -570,14 +577,19 @@ checkSnapshotInput = ->
   else
     $("#snapshot").attr('disabled', 'disabled')
     $("#rtsp").attr('disabled', 'disabled')
+    $("#snapshot").addClass("opacity")
+    $("#rtsp").addClass("opacity")
 
 checkRtspInput = ->
   if $("#rtsp").val() in ['<blank>', '/', 'unknown', '']
     $("#rtsp").removeAttr('disabled')
+    $("#rtsp").removeClass("opacity")
     $("#rtsp").val("")
   else
     $("#snapshot").attr('disabled', 'disabled')
     $("#rtsp").attr('disabled', 'disabled')
+    $("#snapshot").addClass("opacity")
+    $("#rtsp").addClass("opacity")
 
 window.initializeInfoTab = ->
   port = $('#port').val()

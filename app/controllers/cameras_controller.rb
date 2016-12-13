@@ -40,6 +40,11 @@ class CamerasController < ApplicationController
           sub("http://#{camera.deep_fetch('external', 'host') { '' }}", '').
           sub(":#{camera.deep_fetch('external', 'http', 'port') { '' }}", '')
       end
+      if camera.deep_fetch('external', 'rtsp', 'h264') { '' }
+        @user['rtsp'] = camera.deep_fetch('external', 'rtsp', 'h264') { '' }.
+          sub("rtsp://#{camera.deep_fetch('external', 'host') { '' }}", '').
+          sub(":#{camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '')
+      end
     end
   end
 

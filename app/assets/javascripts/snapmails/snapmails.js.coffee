@@ -47,7 +47,7 @@ loadSnapmails = ->
   sendAJAXRequest(settings)
 
 getSnapmailHtml = (snapMail, index) ->
-  cameras = snapMail.cameras.split(',')
+  cameras = snapMail.cameras.split(',') if snapMail.cameras
   html = '<div id="dataslot' + snapMail.key + '" class="list-border margin-bottom10">'
   html += '    <div class="col-md-4" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'
@@ -134,10 +134,7 @@ initInputTags = ->
       return
     'onRemoveTag': (email) ->
       return
-    'delimiter': [
-      ','
-      ';'
-    ]
+    'delimiter': [',']
     'removeWithBackspace': true
     'minChars': 0
     'maxChars': 0
@@ -172,6 +169,7 @@ saveSnapmail = ->
       cameraNames += $(selected).text() + ', '
     if cameraIds is ''
       Notification.show 'Please select camera(s) to continue.'
+      return false
     cameraIds = cameraIds.substring(0, cameraIds.lastIndexOf(','))
     cameraNames = cameraNames.substring(0, cameraNames.lastIndexOf(','))
     if $('#txtRecipient').val() != ''
@@ -185,16 +183,16 @@ saveSnapmail = ->
     else
       if $('#txtkey').val() == ''
         Notification.show 'Please enter recipients to continue.'
-        return
+        return false
     if $('#txtTime').val() == ''
       Notification.show 'Please select time to continue.'
-      return
+      return false
     if $('#ddlTimezone').val() == '0'
       Notification.show 'Please select timezone to continue.'
-      return
+      return false
     if GetWeekdaysSelected() == ''
       Notification.show 'Please select day(s) to continue.'
-      return
+      return false
 
     o =
       'user_id': Evercam.User.username
@@ -227,6 +225,7 @@ saveSnapmail = ->
       else
         index = $("#divSnapmails div.card").length
       $('#divSnapmails').prepend getSnapmailHtml(snapMail, index)
+      $("#divLoadingApps").hide()
       initPopup(snapMail.key)
       $("#snapmail-form").modal("hide")
       clearForm()

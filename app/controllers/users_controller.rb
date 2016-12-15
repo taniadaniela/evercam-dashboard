@@ -26,7 +26,6 @@ class UsersController < ApplicationController
     @share_request = nil
     if params[:key]
       @share_request = CameraShareRequest.where(
-        status: CameraShareRequest::PENDING,
         key: params[:key]
       ).first
       unless @share_request.nil?

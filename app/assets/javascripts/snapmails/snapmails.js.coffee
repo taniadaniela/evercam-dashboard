@@ -299,10 +299,7 @@ EditSnapmail = ->
     $('#ddlTimezone').val $('#txtTimezone' + key).val()
     emails = $('#txtRecipient' + key).val()
     if emails != null or emails != ''
-      arEmails = emails.split(',')
-      $.each arEmails, (i, email) ->
-        if email != ''
-          $('#txtRecipient').addTag email
+      $('#txtRecipient').importTags(emails)
     days = $('#txtDays' + key).val().split(',')
     i = 0
     $.each days, (i, day) ->

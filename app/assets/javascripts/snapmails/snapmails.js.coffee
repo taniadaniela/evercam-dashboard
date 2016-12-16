@@ -23,17 +23,20 @@ loadSnapmails = ->
 
   onSuccess = (snapMails, status, jqXHR) ->
     $('#divSnapmails').html()
-    $.each snapMails, (index, snapmail) ->
-      $('#divSnapmails').append getSnapmailHtml(snapmail, index)
-      initPopup(snapmail.key)
-    $(".rslides").responsiveSlides({
-      auto: true,
-      pager: true,
-      nav: false,
-      pause: true,
-      speed: 500,
-      namespace: "centered-btns"
-    })
+    if snapMails.length is 0
+      $("#divLoadingApps").show()
+    else
+      $.each snapMails, (index, snapmail) ->
+        $('#divSnapmails').append getSnapmailHtml(snapmail, index)
+        initPopup(snapmail.key)
+      $(".rslides").responsiveSlides({
+        auto: true,
+        pager: true,
+        nav: false,
+        pause: true,
+        speed: 500,
+        namespace: "centered-btns"
+      })
 
   settings =
     cache: false

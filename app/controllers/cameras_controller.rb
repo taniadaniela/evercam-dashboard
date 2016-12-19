@@ -238,7 +238,9 @@ class CamerasController < ApplicationController
       @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
       @vendor_model = api.get_model(@camera['model_id']) if @camera['model_id'].present?
       @cloud_recording = @camera["cloud_recordings"] if @has_edit_rights
+      @cr_status = nil
       if @cloud_recording.nil?
+        @cr_status = true
         @cloud_recording = {
           "frequency" => 1,
           "status" => "off",

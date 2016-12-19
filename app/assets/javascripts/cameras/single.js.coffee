@@ -100,6 +100,30 @@ readOnlyCameraDeleteOption = ->
       $("#ro-sharing-tab").show()
       return
 
+disabledCreateClipButton = ->
+  if $('#archive-create-button').val()
+    $('#recording-archive-button').attr 'disabled', 'disabled'
+    $('#recording-archive-button').removeAttr 'data-target'
+    $('#archive-button').attr 'disabled', 'disabled'
+    $('#archive-button').removeAttr 'data-target'
+  else
+    $('#recording-archive-button').removeAttr 'disabled'
+    $('#recording-archive-button').attr 'data-target', '#archive-modal'
+    $('#archive-button').removeAttr 'disabled'
+    $('#archive-button').attr 'data-target', '#archive-modal'
+
+showDurationError = ->
+  $('#to-date').keyup ->
+    date_value = @value
+    if date_value > 60
+      $('#to-date').val '60'
+      $('.duration-error').removeClass 'hide'
+    else if date_value < 0
+      $('#to-date').val '1'
+      $('.duration-error').removeClass 'hide'
+    else
+      $('.duration-error').addClass 'hide'
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -124,3 +148,5 @@ window.initializeCameraSingle = ->
   QuickSidebar.init()
   SaveImage.init()
   readOnlyCameraDeleteOption()
+  disabledCreateClipButton()
+  showDurationError()

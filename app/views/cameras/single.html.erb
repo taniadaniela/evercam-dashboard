@@ -145,7 +145,8 @@
                               <tr>
                                 <td class="model-td"><label class="control-label">Duration (min):</label></td>
                                 <td>
-                                  <input id="to-date" name="to-date" class="clip-text-box form-control" type="number" min="1" max="30" step="1" value="30">
+                                  <input id="to-date" name="to-date" class="clip-text-box form-control" type="number" min="1" max="60" step="1" value="60">
+                                  <span class="duration-error hide">Maximum archive clip duration(min) is 60</span>
                                 </td>
                               </tr>
                               <tr>
@@ -182,6 +183,7 @@
 
           <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
           <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
+          <input type="hidden" id="archive-create-button" value="<%= @cr_status %>">
 
         </div>
         <div class="tab-content">

@@ -1,6 +1,7 @@
 archives_table = null
 server_url = "http://timelapse.evercam.io/timelapses"
 format_time = null
+archives_data = {}
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -46,6 +47,9 @@ initializeArchivesDataTable = ->
     autoWidth: false,
     drawCallback: ->
       initializePopup()
+      if archives_table
+        archives_data = archives_table.data()
+        refreshDataTable()
     initComplete: (settings, json) ->
       $("#archives-table_length").hide()
       if json.archives.length is 0
@@ -238,8 +242,8 @@ createClip = ->
       Notification.show("Clip title cannot be empty.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       return false
-    if duration > 30
-      Notification.show("Duration exceeds maximum limit of 30 min.")
+    if duration > 60
+      Notification.show("Duration exceeds maximum limit of 60 min.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       return false
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
@@ -299,7 +303,7 @@ setDate = ->
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  DateTime.setMinutes(DateTime.getMinutes() - 30)
+  DateTime.setMinutes(DateTime.getMinutes() - 60)
   Datefrom = format_time.formatDate(DateTime, 'd/m/Y H:i:s')
   $('#from-date').val Datefrom,true
 
@@ -365,6 +369,15 @@ initializePopup = ->
     arrow: ".arrow"
     arrow_border: ".arrow-border"
     close: ".closepopup"
+
+refreshDataTable = ->
+  status =  jQuery.map(archives_data, (arr) ->
+    arr.status
+  )
+  if ($.inArray('Pending', status)) != -1
+    setTimeout archives_table.ajax.reload, 60000
+  else if ($.inArray('Processing', status)) != -1
+    setTimeout archives_table.ajax.reload, 30000
 
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()

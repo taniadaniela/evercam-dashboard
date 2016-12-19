@@ -3,7 +3,12 @@
   margin: 5px;
 
   .col-md-4 {
-    width: 32.99%;
+    min-width: 355px;
+
+    img {
+      min-width: 270px;
+    }
+
   }
 
   .card {
@@ -17,6 +22,11 @@
     padding: 1.5rem;
     margin-bottom: 30px;
     min-height: 340px !Important;
+
+    .rslides {
+      height: 190px;
+    }
+
   }
 
   .card:nth-child(3n) {
@@ -49,6 +59,7 @@
 
   .card .snapstack-loading {
     width: 100%;
+    height: 230px;
     text-align: center;
     vertical-align:middle;
     min-height: 100px;
@@ -72,8 +83,12 @@
     background-position: center center;
   }
 
-  html .card .rslides {
-    height: auto !important;
+  @media (min-width: 992px) {
+
+    .col-md-4 {
+      width: 25%;
+    }
+
   }
 
   @media (max-width: 480px) {
@@ -85,16 +100,28 @@
     }
   }
 
-  @media (min-width: 992px) and (max-width: 1199px) {
-    .col-md-4 {
-      max-width: 30%;
+  @media (max-width: 380px) {
+
+    .col-md-4 .div-snapmail-values {
+      width: auto;
     }
+
+    .col-md-4 {
+      min-width: 318px;
+    }
+
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+
     .card .snapstack {
       height: 180px;
     }
+
     html .card .rslides {
       height: auto;
     }
+
   }
 
   @media (min-width: 980px) and (max-width: 991px) {
@@ -110,8 +137,8 @@
     color: $grey;
     font-family: 'proxima-nova-regular', 'proxima-nova-regular', "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
     font-size: 16px;
-    margin-bottom: 15px;
-    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
   .hash-label span {
     float: left;
@@ -119,20 +146,29 @@
   }
 
   .camera-name {
-    font-size: 22px;
+    font-size: 15px;
     line-height: 20px;
     color: $main-color;
     margin-right: 5px;
     margin-bottom: 0;
     cursor: pointer;
   }
+
   .spn-label {
     color: $grey;
     float: left;
     margin-right: 5px;
+    width: 45px;
   }
   .div-snapmail-values {
     float: left;
+    width: 83%;
+  }
+
+  .textarea-field {
+    width: 100%;
+    border: none;
+    resize: none;
   }
 
   .camera-time {
@@ -149,6 +185,7 @@
     color: $form-medium-grey;
     font-size: 14px;
     float:left;
+    width: 100%;
   }
 
   .edit-snapmail {
@@ -173,8 +210,6 @@
   .icon-button {
     position: relative;
     display: inline-block;
-    width: 56px;
-    height: 56px;
   }
 
   .icon-trash {
@@ -186,7 +221,6 @@
     color: $main-color;
   }
   .plus-btn {
-    margin: 22px !important;
     display: inline-block !important;
   }
 
@@ -236,8 +270,8 @@
   .new-snapmail {
     width: 48px;
     position: fixed;
-    right: 54px;
-    bottom: 43px;
+    right: 20px;
+    bottom: 10px;
     z-index: 100000;
   }
 
@@ -266,10 +300,16 @@
   }
 
   .plus-btn {
-    font-size: 20px;
-    font-weight: bolder;
-    margin: 22px !important;
+    font-size: 17px;
     display: inline-block !important;
+  }
+
+  .margin-24 {
+    margin: 24px;
+  }
+
+  .main-color {
+    color: $main-color;
   }
 
   .modal-header {
@@ -336,4 +376,47 @@ div.tagsinput input {
 
 .snapmail .row-fluid {
   padding: 10px;
+}
+
+.page-content-wrapper {
+
+  .border-bottom-grey {
+    border-bottom: 1px solid $border-grey;
+  }
+
+  .portlet {
+    margin-bottom: 0px;
+
+    .portlet-title {
+      margin-bottom: 0px;
+
+      .caption-heading {
+        font-size: 12px;
+        font-family: $bold-family;
+        margin-top: 5px;
+        margin-bottom: 6px;
+      }
+
+    }
+
+  }
+
+  .table {
+    margin-top: 20px;
+  }
+
+  .margin-left-5 {
+    margin-left: 5px;
+  }
+
+  .margin-left-0 {
+    margin-left: 0px;
+  }
+
+  .snapmail-edit {
+    float: right;
+    margin-right: 25px;
+    cursor: pointer;
+  }
+
 }

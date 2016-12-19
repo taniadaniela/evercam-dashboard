@@ -16,6 +16,22 @@ window.sendAJAXRequest = (settings) ->
     settings.headers = headers
   xhrRequestChangeMonth = $.ajax(settings)
 
+rslidesInit = ->
+  $(".rslides").responsiveSlides({
+    auto: true,
+    pager: true,
+    nav: false,
+    pause: true,
+    speed: 500,
+    namespace: "centered-btns"
+  })
+
+noSnapmailText = ->
+  if $("#divSnapmails div").length is 0
+    $("#divLoadingApps").show()
+  else
+    $("#divLoadingApps").hide()
+
 loadSnapmails = ->
   onError = (jqXHR, status, error) ->
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -29,14 +45,8 @@ loadSnapmails = ->
       $.each snapMails, (index, snapmail) ->
         $('#divSnapmails').append getSnapmailHtml(snapmail, index)
         initPopup(snapmail.key)
-      $(".rslides").responsiveSlides({
-        auto: true,
-        pager: true,
-        nav: false,
-        pause: true,
-        speed: 500,
-        namespace: "centered-btns"
-      })
+        $("#divLoadingApps").hide()
+        rslidesInit()
 
   settings =
     cache: false
@@ -52,7 +62,7 @@ loadSnapmails = ->
 getSnapmailHtml = (snapMail, index) ->
   cameras = snapMail.cameras.split(',') if snapMail.cameras
   html = '<div id="dataslot' + snapMail.key + '" class="list-border margin-bottom10">'
-  html += '    <div class="col-md-4" style="min-height:0px;">'
+  html += '    <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'
   html += '        <div class="snapstack-loading" id="snaps-' + snapMail.key + '" >'
   html += '           <ul class="rslides" id="snapmail' + index + '">'
@@ -63,15 +73,16 @@ getSnapmailHtml = (snapMail, index) ->
   html += '        </div>'
   html += '        <input type="hidden" id="txtCamerasId' + snapMail.key + '" value="' + snapMail.cameras + '" /><input type="hidden" id="txtRecipient' + snapMail.key + '" value="' + (if snapMail.recipients is null then '' else snapMail.recipients) + '" /><input type="hidden" id="txtTime' + snapMail.key + '" value="' + snapMail.notify_time + '" />'
   html += '        <input type="hidden" id="txtDays' + snapMail.key + '" value="' + snapMail.notify_days + '" /><input type="hidden" id="txtUserId' + snapMail.key + '" value="' + snapMail.user_id + '" /><input type="hidden" id="txtTimezone' + snapMail.key + '" value="' + snapMail.timezone + '" />'
-  html += '        <div class="hash-label"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.key + '" data-action="e"><div class="camera-name">' + snapMail.camera_names + '</div></a></div>'
+  html += '        <div class="hash-label"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.key + '" data-action="e"><div class="camera-name"><textarea class="textarea-field">' + snapMail.camera_names + '</textarea></div></a></div>'
   html +='         <div class="camera-time"><span class="spn-label">@</span><div class="div-snapmail-values">' + snapMail.notify_time + ' (' + snapMail.timezone + ')</div><div class="clear-f"></div></div>'
   html +='         <div class="camera-days"><span class="spn-label">on</span><div class="div-snapmail-values">' + snapMail.notify_days.replace(/,/g, ' ') + ' </div><div class="clear-f"></div></div>'
-  html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values">' + makeMailTo(snapMail.recipients) + '</div><div class="clear-f"></div></div>'
-
+  html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values"><textarea class="textarea-field">' + makeMailTo(snapMail.recipients) + '</textarea></div><div class="clear-f"></div></div>'
+  html +='         <div class="snapmail-edit"> <i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.key + '" data-action="e"></i></div>'
   html += '    </div>'
+
   html += '    <div class="" style="min-height:0px;">'
   html += '        <div class="text-right delete-snapmail">'
-  html += '             <span id=pop-' + snapMail.key + ' class="popbox2"><div id="open-' + snapMail.key + '" href="javascript:;" class="tools-link open2" data-val="' + snapMail.key + '"><div class="icon-button red"><i class="icon-trash plus-btn"></i><paper-ripple class="circle recenteringTouch" fit></paper-ripple></div></div>'
+  html += '             <span id=pop-' + snapMail.key + ' class="popbox2"><div id="open-' + snapMail.key + '" href="javascript:;" class="tools-link open2" data-val="' + snapMail.key + '"><div class="icon-button red margin-24 margin-left-0"><i class="fa fa-trash-o main-color plus-btn" title="delete"></i><paper-ripple class="circle recenteringTouch" fit></paper-ripple></div></div>'
   html += '             <div class="collapse-popup">'
   html += '               <div class="box-snapmail" id="box-' + snapMail.key + '" style="width:288px;">'
   html += '                   <div class="arrow2" id="arrow-' + snapMail.key + '"></div>'
@@ -228,10 +239,11 @@ saveSnapmail = ->
       else
         index = $("#divSnapmails div.card").length
       $('#divSnapmails').prepend getSnapmailHtml(snapMail, index)
-      $("#divLoadingApps").hide()
+      noSnapmailText()
       initPopup(snapMail.key)
       $("#snapmail-form").modal("hide")
       clearForm()
+      rslidesInit()
 
     settings =
       cache: false
@@ -256,7 +268,7 @@ GetWeekdaysSelected = ->
 
 clearForm = ->
   $('.formButtonCancel').click()
-  $('.modal-header h3').html 'New SnapMail'
+  $('.caption').html 'New SnapMail'
   $('#txtkey').val ''
   $('#txtRecipient').val ''
   tz_info = jzTimezoneDetector.determine_timezone()
@@ -333,6 +345,7 @@ EditSnapmail = ->
     camera_select.val(cameraIds).trigger("change")
     $('#txtTime').val $('#txtTime' + key).val()
     $('#s2id_ddlCameras').show()
+    rslidesInit()
 
 handleModelEvents = ->
   $("#snapmail-form").on "hide.bs.modal", ->
@@ -348,8 +361,7 @@ RemoveSnapmail = (key) ->
 
       onSuccess = (snapMail, status, jqXHR) ->
         $('#dataslot' + key).remove()
-        if $("#divSnapmails div").length is 0
-          $("#divLoadingApps").show()
+        noSnapmailText()
 
       settings =
         cache: false
@@ -399,3 +411,4 @@ window.initializeSnapmails = ->
   handleModelEvents()
   initializeiCheck()
   RemoveSnapmail()
+  noSnapmailText()

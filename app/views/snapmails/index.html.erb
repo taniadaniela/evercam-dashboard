@@ -2,10 +2,17 @@
 
 <div class="page-content-wrapper">
   <div class="page-content snapmail">
+    <div class='col-sm-12 border-bottom-grey margin-bottom-15'>
+      <div class='portlet'>
+        <div class="portlet-title">
+          <div class="caption-heading"> Snapmail - Scheduled Emails</div>
+        </div>
+      </div>
+    </div>
     <div id="btnNewApp" class="new-snapmail">
       <a id="lnNewApp" data-toggle="modal" data-target="#snapmail-form">
         <div class="fab blue">
-          <i class="icon- plus-btn">+</i>
+          <i class="icon- plus-btn margin-24">+</i>
         </div>
       </a>
     </div>
@@ -231,7 +238,7 @@
             <fieldset>
               <div class="row save-settings">
                 <div class="col-md-12 pull-left form-group"><label class="control-label" for="add-button"></label>
-                  <input id="add-snapmail" class="alert push btn btn-primary margin-right-10" type="button" value="Save"/>
+                  <input id="add-snapmail" class="alert push btn btn-primary margin-right-10 margin-left-5" type="button" value="Save"/>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
@@ -244,7 +251,12 @@
     <div id="divSnapmails" class="div_snapmails row"></div>
 
     <div class="row-fluid no-timelapse" id="divLoadingApps" style="display:none;">
-      You have not created any SnapMail. <a data-toggle="modal" data-target="#snapmail-form" class="newApp">Click</a> to create one.
+      You have not created any SnapMail.
+    </div>
+    <div class="col-sm-12 margin-bottom-10">
+      <div href="#" class="btn btn-primary new-snapmail-btn" data-toggle="modal" data-target="#snapmail-form">
+        Create a new Snapmail
+      </div>
     </div>
   </div>
 </div>

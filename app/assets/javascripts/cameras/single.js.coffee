@@ -148,5 +148,4 @@ window.initializeCameraSingle = ->
   QuickSidebar.init()
   SaveImage.init()
   readOnlyCameraDeleteOption()
-  disabledCreateClipButton()
   showDurationError()

@@ -2,6 +2,7 @@ class CamerasController < ApplicationController
   before_filter :authenticate_user!
   include SessionsHelper
   include ApplicationHelper
+  include CamerasHelper
   require 'socket'
   require 'timeout'
 
@@ -286,6 +287,23 @@ class CamerasController < ApplicationController
                       "support."
         redirect_to cameras_index_path
       end
+    end
+  end
+
+  def map
+    @cameras = load_user_cameras(true, false)
+    @map_data = @cameras.map do |camera|
+      {
+        name: camera["name"],
+        id: camera["id"],
+        owner: camera["owner"],
+        is_online: camera["is_online"],
+        is_public: camera["is_public"],
+        vendor_id: camera["vendor_id"],
+        location: camera["location"],
+        vendor_name: camera["vendor_name"],
+        thumbnail_url: thumbnail_url(camera)
+      }
     end
   end
 

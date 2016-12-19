@@ -43,6 +43,7 @@
 //= require forms
 //= require cameras.js
 //= require cameras/single.js
+//= require cameras/map.js
 //= require cameras/add_camera.js
 //= require cameras/add_camera_test.js
 //= require user_account.js

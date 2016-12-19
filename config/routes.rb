@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get '/v1/cameras/new-test' => 'cameras#addcam_test', as: :cameras_new_test
   post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
+  get '/v1/cameras/map' => 'cameras#map'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
   get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found

@@ -467,3 +467,9 @@ a:hover, a:focus {
 .sharing-modal .portlet-title {
   border-bottom: 1px solid $border-black;
 }
+
+#map-canvas {
+  min-height: 600px;
+  height: 100%;
+  width: 100%;
+}

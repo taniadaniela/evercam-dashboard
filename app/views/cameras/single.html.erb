@@ -131,21 +131,21 @@
                           <div class="add-clip">
                             <table class="table table-fixed table-borderless">
                               <tr>
-                                <td style="width: 100px;"><label class="control-label camera-name" for="camera-name">Clip Name:</label></td>
+                                <td style="width: 100px;"><label class="control-label camera-name" for="camera-name">Clip Name*</label></td>
                                 <td>
-                                  <input type="text" required placeholder="Clip Name" class="form-control clip-text-box" id="clip-name" name="clip-name">
+                                  <input type="text" required placeholder="i-e evercam" class="form-control clip-text-box" id="clip-name" name="clip-name">
                                 </td>
                               </tr>
                               <tr>
-                                <td class="col-md-4"><label class="control-label" for="camera-vendor">Start:</label></td>
+                                <td class="col-md-4"><label class="control-label" for="camera-vendor">Start*</label></td>
                                 <td>
-                                  <input id="from-date" name="from-date" class="datetimepicker clip-text-box clip-datepicker" type="text" value="<%= (@user_time - (2*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
+                                  <input id="from-date" name="from-date" class=" form-control clip-text-box clip-datepicker" type="text" value="<%= (@user_time - (2*60*60)).strftime('%d/%m/%Y %H:%M:%S') %>">
                                 </td>
                               </tr>
                               <tr>
-                                <td class="model-td"><label class="control-label">Duration (min):</label></td>
+                                <td class="model-td"><label class="control-label">Duration (min)*</label></td>
                                 <td>
-                                  <input id="to-date" name="to-date" class="clip-text-box form-control" type="number" min="1" max="60" step="1" value="60">
+                                  <input id="to-date" name="to-date" class="duration-input clip-text-box form-control" placeholder="1-60" type="number" min="1" max="60" step="1" value="60">
                                   <span class="duration-error hide">Maximum archive clip duration(min) is 60</span>
                                 </td>
                               </tr>

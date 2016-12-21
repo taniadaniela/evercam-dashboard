@@ -42,53 +42,52 @@ loadSnapmails = ->
     if snapMails.length is 0
       $("#divLoadingApps").show()
     else
-      $.each snapMails, (index, snapmail) ->
+      $.each snapMails.snapmails, (index, snapmail) ->
         $('#divSnapmails').append getSnapmailHtml(snapmail, index)
-        initPopup(snapmail.key)
+        initPopup(snapmail.id)
         $("#divLoadingApps").hide()
         rslidesInit()
 
   settings =
-    cache: false
     data: {}
     dataType: 'json'
     error: onError
     success: onSuccess
     type: 'GET'
-    url: "#{appApiUrl}/users/#{Evercam.User.username}"
+    url: "#{Evercam.API_URL}snapmails?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
-  sendAJAXRequest(settings)
+  $.ajax(settings)
 
 getSnapmailHtml = (snapMail, index) ->
-  cameras = snapMail.cameras.split(',') if snapMail.cameras
-  html = '<div id="dataslot' + snapMail.key + '" class="list-border margin-bottom10">'
+  cameras = snapMail.camera_ids.split(',') if snapMail.camera_ids
+  html = '<div id="dataslot' + snapMail.id + '" class="list-border margin-bottom10">'
   html += '    <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'
-  html += '        <div class="snapstack-loading" id="snaps-' + snapMail.key + '" >'
+  html += '        <div class="snapstack-loading" id="snaps-' + snapMail.id + '" >'
   html += '           <ul class="rslides" id="snapmail' + index + '">'
   $.each cameras, (i, camera) ->
     thumbnail_url = "https://media.evercam.io/v1/cameras/#{camera}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}";
-    html += '           <li><img src="' + thumbnail_url + '" class="stackimage" style="visibility: visible" id="stackimage-' + snapMail.key + '-' + camera + '" alt="' + snapMail.camera_names.split(',')[i] + '" ><p>' + snapMail.camera_names.split(',')[i] + '</p></li>'
+    html += '           <li><img src="' + thumbnail_url + '" class="stackimage" style="visibility: visible" id="stackimage-' + snapMail.id + '-' + camera + '" alt="' + snapMail.camera_names.split(',')[i] + '" ><p>' + snapMail.camera_names.split(',')[i] + '</p></li>'
   html += '           </ul>'
   html += '        </div>'
-  html += '        <input type="hidden" id="txtCamerasId' + snapMail.key + '" value="' + snapMail.cameras + '" /><input type="hidden" id="txtRecipient' + snapMail.key + '" value="' + (if snapMail.recipients is null then '' else snapMail.recipients) + '" /><input type="hidden" id="txtTime' + snapMail.key + '" value="' + snapMail.notify_time + '" />'
-  html += '        <input type="hidden" id="txtDays' + snapMail.key + '" value="' + snapMail.notify_days + '" /><input type="hidden" id="txtUserId' + snapMail.key + '" value="' + snapMail.user_id + '" /><input type="hidden" id="txtTimezone' + snapMail.key + '" value="' + snapMail.timezone + '" />'
-  html += '        <div class="hash-label"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.key + '" data-action="e"><div class="camera-name textarea-field">' + snapMail.camera_names + '</div></a></div>'
+  html += '        <input type="hidden" id="txtCamerasId' + snapMail.id + '" value="' + snapMail.camera_ids + '" /><input type="hidden" id="txtRecipient' + snapMail.id + '" value="' + (if snapMail.recipients is null then '' else snapMail.recipients) + '" /><input type="hidden" id="txtTime' + snapMail.id + '" value="' + snapMail.notify_time + '" />'
+  html += '        <input type="hidden" id="txtDays' + snapMail.id + '" value="' + snapMail.notify_days + '" /><input type="hidden" id="txtUserId' + snapMail.id + '" value="' + snapMail.user_id + '" /><input type="hidden" id="txtTimezone' + snapMail.id + '" value="' + snapMail.timezone + '" />'
+  html += '        <div class="hash-label"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.id + '"><div class="camera-name textarea-field">' + snapMail.camera_names + '</div></a></div>'
   html +='         <div class="camera-time"><span class="spn-label">@</span><div class="div-snapmail-values">' + snapMail.notify_time + ' (' + snapMail.timezone + ')</div><div class="clear-f"></div></div>'
   html +='         <div class="camera-days"><span class="spn-label">on</span><div class="div-snapmail-values">' + snapMail.notify_days.replace(/,/g, ' ') + ' </div><div class="clear-f"></div></div>'
   html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values textarea-field">' + makeMailTo(snapMail.recipients) + '</div><div class="clear-f"></div></div>'
-  html +='         <div class="snapmail-edit"> <i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.key + '" data-action="e"></i></div>'
+  html +='         <div class="snapmail-edit"> <i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.id + '" data-action="e"></i></div>'
   html += '    </div>'
 
   html += '    <div class="" style="min-height:0px;">'
   html += '        <div class="text-right delete-snapmail">'
-  html += '             <span id=pop-' + snapMail.key + ' class="popbox2"><div id="open-' + snapMail.key + '" href="javascript:;" class="tools-link open2" data-val="' + snapMail.key + '"><div class="icon-button red margin-24 margin-left-0"><i class="fa fa-trash-o main-color plus-btn" title="delete"></i><paper-ripple class="circle recenteringTouch" fit></paper-ripple></div></div>'
+  html += '             <span id=pop-' + snapMail.id + ' class="popbox2"><div id="open-' + snapMail.id + '" href="javascript:;" class="tools-link open2" data-val="' + snapMail.id + '"><div class="icon-button red margin-24 margin-left-0"><i class="fa fa-trash-o main-color plus-btn" title="delete"></i><paper-ripple class="circle recenteringTouch" fit></paper-ripple></div></div>'
   html += '             <div class="collapse-popup">'
-  html += '               <div class="box-snapmail" id="box-' + snapMail.key + '" style="width:288px;">'
-  html += '                   <div class="arrow2" id="arrow-' + snapMail.key + '"></div>'
-  html += '                   <div class="arrow-border2" id="arrow-border-' + snapMail.key + '"></div>'
+  html += '               <div class="box-snapmail" id="box-' + snapMail.id + '" style="width:288px;">'
+  html += '                   <div class="arrow2" id="arrow-' + snapMail.id + '"></div>'
+  html += '                   <div class="arrow-border2" id="arrow-border-' + snapMail.id + '"></div>'
   html += '                   <div class="margin-bottom-10">Are you sure?</div>'
-  html += '                   <div class="margin-bottom-10"><input class="btn btn-primary delete-btn delete-share" type="button" value="Yes, Remove" data-val="' + snapMail.key + '"/><div href="#" id="close-popup-' + snapMail.key + '" class="btn closepopup2 grey" fit><div class="text-center">Cancel</div></div></div>'
+  html += '                   <div class="margin-bottom-10"><input class="btn btn-primary delete-btn delete-share" type="button" value="Yes, Remove" data-val="' + snapMail.id + '"/><div href="#" id="close-popup-' + snapMail.id + '" class="btn closepopup2 grey" fit><div class="text-center">Cancel</div></div></div>'
   html += '               </div>'
   html += '             </div></span>'
   html += '       </div>'
@@ -168,10 +167,6 @@ initTimepicker = ->
     showSeconds: false
     showMeridian: false
 
-handleDayCheckBox = ->
-  tz_info = jzTimezoneDetector.determine_timezone()
-  $('#ddlTimezone').val GetUtcZoneValue(tz_info.key)
-
 saveSnapmail = ->
   $('#add-snapmail').on 'click', ->
     save_button = $(this)
@@ -209,53 +204,49 @@ saveSnapmail = ->
       return false
 
     o =
-      'user_id': Evercam.User.username
-      'user_name': Evercam.User.fullname
-      'cameras': cameraIds
-      'camera_names': cameraNames
-      'recipients': $('#txtRecipient').val()
-      'notify_days': GetWeekdaysSelected()
-      'notify_time': $('#txtTime').val()
-      'timezone': $('#ddlTimezone').val()
-      'is_active': true
-      'access_token': "#{Evercam.User.api_id}:#{Evercam.User.api_key}"
+      subject: Evercam.User.username
+      camera_exids: cameraIds
+      recipients: $('#txtRecipient').val()
+      notify_days: GetWeekdaysSelected()
+      notify_time: $('#txtTime').val()
+      timezone: $('#ddlTimezone').val()
+
     action = 'POST'
     queryString = ''
     if $('#txtkey').val() != ''
-      action = 'PUT'
-      queryString = '/' + $('#txtkey').val()
+      action = 'PATCH'
+      queryString = "/#{$('#txtkey').val()}"
     save_button.attr 'disabled', true
 
     onError = (jqXHR, status, error) ->
       save_button.removeAttr('disabled')
       Notification.show('Error: ' + response.responseJSON.ExceptionMessage)
 
-    onSuccess = (snapMail, status, jqXHR) ->
+    onSuccess = (result, status, jqXHR) ->
+      snapMail = result.snapmails[0]
       $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
       save_button.removeAttr('disabled')
       if $('#txtkey').val() != ''
-        $("#dataslot#{snapMail.key}").remove()
-        index = $("#divSnapmails").children("#dataslot#{snapMail.key}").index()
+        $("#dataslot#{snapMail.id}").remove()
+        index = $("#divSnapmails").children("#dataslot#{snapMail.id}").index()
       else
         index = $("#divSnapmails div.card").length
       $('#divSnapmails').prepend getSnapmailHtml(snapMail, index)
       noSnapmailText()
-      initPopup(snapMail.key)
+      initPopup(snapMail.id)
       $("#snapmail-form").modal("hide")
       clearForm()
       rslidesInit()
 
     settings =
-      cache: false
       data: o
       dataType: 'json'
-      ContentType: 'application/x-www-form-urlencoded'
       error: onError
       success: onSuccess
       type: action
-      url: appApiUrl + queryString
+      url: "#{Evercam.API_URL}snapmails#{queryString}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
-    sendAJAXRequest(settings)
+    $.ajax(settings)
 
 GetWeekdaysSelected = ->
   wDays = ''
@@ -271,8 +262,7 @@ clearForm = ->
   $('.caption').html 'New SnapMail'
   $('#txtkey').val ''
   $('#txtRecipient').val ''
-  tz_info = jzTimezoneDetector.determine_timezone()
-  $('#ddlTimezone').val GetUtcZoneValue(tz_info.key)
+  $('#ddlTimezone').val "Europe/Dublin"
   d = new Date
   $('#txtTime').val FormatNumTo2(d.getHours()) + ':' + FormatNumTo2(d.getMinutes())
   $('#divAlert').slideUp()
@@ -319,25 +309,25 @@ EditSnapmail = ->
     i = 0
     $.each days, (i, day) ->
       switch day
-        when 'Mon'
+        when 'Monday'
           $('#uniform-chkMon .icheckbox_flat-blue').addClass 'checked'
           $('#chkMon').prop 'checked', true
-        when 'Tue'
+        when 'Tuesday'
           $('#uniform-chkTue .icheckbox_flat-blue').addClass 'checked'
           $('#chkTue').prop 'checked', true
-        when 'Wed'
+        when 'Wednesday'
           $('#uniform-chkWed .icheckbox_flat-blue').addClass 'checked'
           $('#chkWed').prop 'checked', true
-        when 'Thu'
+        when 'Thursday'
           $('#uniform-chkThu .icheckbox_flat-blue').addClass 'checked'
           $('#chkThu').prop 'checked', true
-        when 'Fri'
+        when 'Friday'
           $('#uniform-chkFri .icheckbox_flat-blue').addClass 'checked'
           $('#chkFri').prop 'checked', true
-        when 'Sat'
+        when 'Saturday'
           $('#uniform-chkSat .icheckbox_flat-blue').addClass 'checked'
           $('#chkSat').prop 'checked', true
-        when 'Sun'
+        when 'Sunday'
           $('#uniform-chkSun .icheckbox_flat-blue').addClass 'checked'
           $('#chkSun').prop 'checked', true
     all_selected()
@@ -367,13 +357,12 @@ RemoveSnapmail = (key) ->
         cache: false
         data: {}
         dataType: 'json'
-        ContentType: 'application/x-www-form-urlencoded'
         error: onError
         success: onSuccess
         type: 'DELETE'
-        url: "#{appApiUrl}/#{key}"
+        url: "#{Evercam.API_URL}snapmails/#{key}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
-      sendAJAXRequest(settings)
+      $.ajax(settings)
 
 initializeiCheck = ->
   $("input[type='checkbox']").iCheck

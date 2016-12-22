@@ -32,6 +32,18 @@ noSnapmailText = ->
   else
     $("#divLoadingApps").hide()
 
+initSnapmails = ->
+  snapmails = Evercam.Snapmails
+  $('#divSnapmails').html()
+  if snapmails.length is 0
+    $("#divLoadingApps").show()
+  else
+    $.each snapmails, (index, snapmail) ->
+      $('#divSnapmails').append getSnapmailHtml(snapmail, index)
+      initPopup(snapmail.id)
+      $("#divLoadingApps").hide()
+      rslidesInit()
+
 loadSnapmails = ->
   onError = (jqXHR, status, error) ->
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -74,7 +86,7 @@ getSnapmailHtml = (snapMail, index) ->
   html += '        <input type="hidden" id="txtDays' + snapMail.id + '" value="' + snapMail.notify_days + '" /><input type="hidden" id="txtUserId' + snapMail.id + '" value="' + snapMail.user_id + '" /><input type="hidden" id="txtTimezone' + snapMail.id + '" value="' + snapMail.timezone + '" />'
   html += '        <div class="hash-label"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.id + '"><div class="camera-name textarea-field">' + snapMail.camera_names + '</div></a></div>'
   html +='         <div class="camera-time"><span class="spn-label">@</span><div class="div-snapmail-values">' + snapMail.notify_time + ' (' + snapMail.timezone + ')</div><div class="clear-f"></div></div>'
-  html +='         <div class="camera-days"><span class="spn-label">on</span><div class="div-snapmail-values">' + snapMail.notify_days.replace(/,/g, ' ') + ' </div><div class="clear-f"></div></div>'
+  html +='         <div class="camera-days"><span class="spn-label">on</span><div class="div-snapmail-values">' + displayDays(snapMail.notify_days) + ' </div><div class="clear-f"></div></div>'
   html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values textarea-field">' + makeMailTo(snapMail.recipients) + '</div><div class="clear-f"></div></div>'
   html +='         <div class="snapmail-edit"> <i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.id + '" data-action="e"></i></div>'
   html += '    </div>'
@@ -248,6 +260,13 @@ saveSnapmail = ->
 
     $.ajax(settings)
 
+displayDays = (notify_days) ->
+  days = notify_days.split(',')
+  wDays = ''
+  $.each days, (i, day) ->
+    wDays += "#{day.substring(0, 3)} "
+  wDays
+
 GetWeekdaysSelected = ->
   wDays = ''
   $.each($("input[class='days']:checked"), ->
@@ -389,7 +408,7 @@ all_selected = ->
     $("#chkAllDay").iCheck('check')
 
 window.initializeSnapmails = ->
-  loadSnapmails()
+  initSnapmails()
   initCameraSelect()
   initInputTags()
   initTimepicker()

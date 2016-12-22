@@ -5,5 +5,7 @@ class SnapmailsController < ApplicationController
 
   def index
     @cameras = load_user_cameras(true, false)
+    api = get_evercam_api
+    @snapmails = api.get_snapmails()
   end
 end

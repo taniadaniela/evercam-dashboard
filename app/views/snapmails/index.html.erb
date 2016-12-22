@@ -166,6 +166,7 @@
 </div>
 
 <script>
+  window.Evercam.Snapmails = <%= @snapmails.to_json.html_safe %>;
   $(document).ready(function () {
     window.initializeSnapmails();
   });

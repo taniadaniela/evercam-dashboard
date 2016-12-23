@@ -1,12 +1,38 @@
 class PagesController < ApplicationController
   before_filter :authenticate_user!
   skip_after_filter :intercom_rails_auto_include, only: [:live, :play]
-  skip_before_action :authenticate_user!, only: :revoke_request
+  skip_before_action :authenticate_user!, only: [:revoke_request, :unsubscribe, :unsubscribed]
   include SessionsHelper
   include ApplicationHelper
 
   def revoke_request
     @camera_id = params["id"]
+    render layout: "bare-bones"
+  end
+
+  def unsubscribe
+    begin
+      @id = params["id"]
+      @email = params["email"]
+      @snapmail = get_evercam_api.get_snapmail(@id)
+    rescue => error
+      if error.try(:status_code).present? && error.status_code.equal?(404)
+        @message = "Snapmail '#{params["id"]}' does not exists."
+      else
+        @message = error.message
+      end
+    end
+    render layout: "bare-bones"
+  end
+
+  def unsubscribed
+    begin
+      id = params["id"]
+      email = params["email"]
+      get_evercam_api.unsubscribe_snapmail(id, email)
+    rescue => error
+      flash[:message] = error.message
+    end
     render layout: "bare-bones"
   end
 

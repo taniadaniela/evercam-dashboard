@@ -85,7 +85,6 @@ handleVendorModelEvents = ->
   $("#details").on "change", "#camera-vendor", (e) ->
     e.preventDefault()
     loadVendorModels($(this).val())
-    checkSnapshotInput()
 
   $("#details").on "change", "#camera-model", ->
     cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val"))
@@ -146,6 +145,7 @@ loadVendorModels = (vendor_id) ->
       cleanAndSetJpegUrl(jpg_url)
     if rtsp_url isnt ""
       cleanAndSetRtspUrl(rtsp_url)
+    checkSnapshotInput()
     checkRtspInput()
 
   settings =
@@ -571,6 +571,8 @@ checkSnapshotInput = ->
     if $("#vendor-value .vendor-data:contains('Other')").length > 0
       $("#snapshot").val("#{snapshot_val}")
       $("#rtsp").val("#{rtsp_val}")
+      if $("#rtsp-value span:contains('Not available')").length > 0
+        $("#rtsp").val("")
     else
       $("#snapshot").val("")
       $("#rtsp").val("")

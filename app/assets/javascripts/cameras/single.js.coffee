@@ -117,12 +117,12 @@ showDurationError = ->
     date_value = @value
     if date_value > 60
       $('#to-date').val '60'
-      $('.duration-error').removeClass 'hide'
+      $('.duration-error').addClass 'duration-text-error'
     else if date_value < 0
       $('#to-date').val '1'
-      $('.duration-error').removeClass 'hide'
+      $('.duration-error').addClass 'duration-text-error'
     else
-      $('.duration-error').addClass 'hide'
+      $('.duration-error').removeClass 'duration-text-error'
 
 initializeTabs = ->
   window.initializeInfoTab()

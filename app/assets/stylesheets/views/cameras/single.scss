@@ -90,7 +90,30 @@
 }
 
 .duration-input {
-  min-width: 65px;
-  width: 65px;
-  padding-right: 5px;
+  min-width: 45px;
+  width: 45px;
+  float: left;
+}
+
+.padding-top-7 {
+  padding-top: 7px;
+}
+
+.duration-text-error {
+  color: $evercam-red;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.clip-text {
+  position: fixed;
+  margin-top: 3px;
 }

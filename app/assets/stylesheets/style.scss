@@ -153,10 +153,8 @@ th {
 }
 
 .duration-error {
-  position: absolute;
   font-size: 12px;
-  color: $evercam-red;
-  margin-top: -5px;
+  margin-left: 5px;
 }
 
 @media (max-width: 780px) {

@@ -41,10 +41,10 @@
   <% if @message.present? %>
     <%= @message %>
   <% else %>
-    <form method="post" action="<%= unsubscribed_snapmail_path(@id, @email)%>">
+    <form method="post" action="<%= unsubscribed_snapmail_path(@id) %>?email=<%= @email %>">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
       <p>Please confirm that you wish to unsubscribe '<strong><%= @email %></strong>'
-      from receiving future emails from Scheduled Snapmail @<strong><%= @snapmail["notify_time"] %></strong>.</p>
+      from receiving future emails from Scheduled Snapmail.</p>
       <br>
       <p>
         <button class="btn btn-primary">Unsubscribe</button>

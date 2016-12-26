@@ -14,7 +14,6 @@ class PagesController < ApplicationController
     begin
       @id = params["id"]
       @email = params["email"]
-      @snapmail = get_evercam_api.get_snapmail(@id)
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)
         @message = "Snapmail '#{params["id"]}' does not exists."

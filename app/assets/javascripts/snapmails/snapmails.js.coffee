@@ -72,6 +72,8 @@ loadSnapmails = ->
 
 getSnapmailHtml = (snapMail, index) ->
   cameras = snapMail.camera_ids.split(',') if snapMail.camera_ids
+  camera_names = snapMail.camera_names.replace(/,/g, ", ")
+  recipients = snapMail.recipients.replace(/,/g, ", ")
   html = '<div id="dataslot' + snapMail.id + '" class="list-border margin-bottom10">'
   html += '    <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'
@@ -84,11 +86,14 @@ getSnapmailHtml = (snapMail, index) ->
   html += '        </div>'
   html += '        <input type="hidden" id="txtCamerasId' + snapMail.id + '" value="' + snapMail.camera_ids + '" /><input type="hidden" id="txtRecipient' + snapMail.id + '" value="' + (if snapMail.recipients is null then '' else snapMail.recipients) + '" /><input type="hidden" id="txtTime' + snapMail.id + '" value="' + snapMail.notify_time + '" />'
   html += '        <input type="hidden" id="txtDays' + snapMail.id + '" value="' + snapMail.notify_days + '" /><input type="hidden" id="txtUserId' + snapMail.id + '" value="' + snapMail.user_id + '" /><input type="hidden" id="txtTimezone' + snapMail.id + '" value="' + snapMail.timezone + '" />'
-  html += '        <div class="hash-label"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.id + '"><div class="camera-name textarea-field">' + snapMail.camera_names + '</div></a></div>'
+  html += '        <div class="hash-label snapmail-title"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.id + '" title="' + camera_names + '">' + camera_names + '</a><span class="line-end"></span></div>'
   html +='         <div class="camera-time"><span class="spn-label">@</span><div class="div-snapmail-values">' + snapMail.notify_time + ' (' + snapMail.timezone + ')</div><div class="clear-f"></div></div>'
   html +='         <div class="camera-days"><span class="spn-label">on</span><div class="div-snapmail-values">' + displayDays(snapMail.notify_days) + ' </div><div class="clear-f"></div></div>'
-  html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values textarea-field">' + makeMailTo(snapMail.recipients) + '</div><div class="clear-f"></div></div>'
-  html +='         <div class="snapmail-edit"> <i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.id + '" data-action="e"></i></div>'
+  html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values snapmail-title" title="' + recipients + '">' + recipients + '<span class="line-end"></span></div><div class="clear-f"></div></div>'
+  html +='         <div class="snapmail-edit"><i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.id + '" data-action="e"></i></div>'
+  html +='         <div class="snapmail-pause">'
+  html +='           <i class="fa ' + (if snapMail.is_paused then "fa-play" else "fa-pause") + ' main-color plus-btn tools-link pause-snapmail" title="' + (if snapMail.is_paused then "Resume" else "Pause") + ' Snapmail" data-status="' + !snapMail.is_paused + '" data-val="' + snapMail.id + '"></i>'
+  html +='         </div>'
   html += '    </div>'
 
   html += '    <div class="" style="min-height:0px;">'
@@ -99,7 +104,7 @@ getSnapmailHtml = (snapMail, index) ->
   html += '                   <div class="arrow2" id="arrow-' + snapMail.id + '"></div>'
   html += '                   <div class="arrow-border2" id="arrow-border-' + snapMail.id + '"></div>'
   html += '                   <div class="margin-bottom-10">Are you sure?</div>'
-  html += '                   <div class="margin-bottom-10"><input class="btn btn-primary delete-btn delete-share" type="button" value="Yes, Remove" data-val="' + snapMail.id + '"/><div href="#" id="close-popup-' + snapMail.id + '" class="btn closepopup2 grey" fit><div class="text-center">Cancel</div></div></div>'
+  html += '                   <div class="margin-bottom-10"><input class="btn btn-primary delete-btn delete-snapmail" type="button" value="Yes, Remove" data-val="' + snapMail.id + '"/><div href="#" id="close-popup-' + snapMail.id + '" class="btn closepopup2 grey" fit><div class="text-center">Cancel</div></div></div>'
   html += '               </div>'
   html += '             </div></span>'
   html += '       </div>'
@@ -360,8 +365,8 @@ handleModelEvents = ->
   $("#snapmail-form").on "hide.bs.modal", ->
     clearForm()
 
-RemoveSnapmail = (key) ->
-  $("#divSnapmails").on "click", ".delete-share", ->
+RemoveSnapmail = ->
+  $("#divSnapmails").on "click", ".delete-snapmail", ->
     key = $(this).attr("data-val")
     $('#dataslot' + key).fadeOut 500, ->
       onError = (jqXHR, status, error) ->
@@ -382,6 +387,34 @@ RemoveSnapmail = (key) ->
         url: "#{Evercam.API_URL}snapmails/#{key}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
       $.ajax(settings)
+
+pauseSnapmail = ->
+  $("#divSnapmails").on "click", ".pause-snapmail", ->
+    control = $(this)
+    key = control.attr("data-val")
+    onError = (jqXHR, status, error) ->
+      Notification.show('Error: ' + response.responseJSON.ExceptionMessage)
+
+    onSuccess = (response, status, jqXHR) ->
+      snapmail = response.snapmails[0]
+      control.attr("data-status", "#{!snapmail.is_paused}")
+      if snapmail.is_paused
+        control.removeClass("fa-pause").addClass("fa-play")
+        control.attr("title", "Resume Snapmail")
+      else
+        control.removeClass("fa-play").addClass("fa-pause")
+        control.attr("title", "Pause Snapmail")
+
+    settings =
+      cache: false
+      data: {is_paused: control.attr("data-status")}
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PATCH'
+      url: "#{Evercam.API_URL}snapmails/#{key}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+
+    $.ajax(settings)
 
 initializeiCheck = ->
   $("input[type='checkbox']").iCheck
@@ -420,3 +453,4 @@ window.initializeSnapmails = ->
   initializeiCheck()
   RemoveSnapmail()
   noSnapmailText()
+  pauseSnapmail()

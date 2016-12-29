@@ -47,11 +47,25 @@ toggleCheckboxes = ->
     $("label[for='type-online'] span").addClass("checked")
     $("label[for='type-offline'] span").addClass("checked")
 
+toggleOnlineCheck = ->
+  if $(this).is(':checked')
+    $("input[id='type-offline']").prop("checked", true)
+    $("label[for='type-offline'] span").addClass("checked")
+
+toggleOfflineCheck = ->
+  if $(this).is(':checked')
+    $("input[id='type-online']").prop("checked", true)
+    $("label[for='type-online'] span").addClass("checked")
+  else
+    $("input[id='type-online']").prop("checked", false)
+    $("label[for='type-online'] span").removeClass("checked")
+
 initializeDataTable = ->
   table = $('#logs-table').DataTable({
     ajax: {
       url: $('#ajax-url').val(),
-      dataSrc: 'logs',
+      dataSrc: (d) ->
+        return format_online_log(d.logs)
       error: (xhr, error, thrown) ->
         if xhr.responseJSON
           Notification.show(xhr.responseJSON.message)
@@ -85,7 +99,10 @@ initializeDataTable = ->
           row.action is 'archive deleted'
             return row.action + ip
         else if row.action is 'online'
-          return '<div class="onlines">Camera came online</div>'
+          if row.extra
+            return "<div class='onlines'>#{row.extra.message}</div>"
+          else
+            return '<div class="onlines">Camera came online</div>'
         else if row.extra and row.action is 'offline'
           getOfflineCause(row)
         else if row.action is 'offline'
@@ -112,6 +129,37 @@ initializeDataTable = ->
     drawCallback: ->
       NProgress.done()
   })
+
+format_online_log = (logs) ->
+  online = null
+  offline = null
+  $.each logs, (index, log) ->
+    if log.action is 'online'
+      online = moment(log.done_at*1000)
+      tail = logs.slice((index + 1), logs.length)
+      $.each tail, (i, head) ->
+        if head.action is 'offline'
+          offline = moment(head.done_at*1000)
+          logs[index].extra = {message: "Camera came online after #{getTime2(online, offline)}"}
+          return false
+  return logs
+
+getTime2 = (online, offline) ->
+  s = ""
+  days = online.diff(offline, "days")
+  hours = online.diff(offline, "hours")
+  minutes = online.diff(offline, "minutes")
+  total_seconds = online.diff(offline, "seconds")
+
+  if days > 0
+    s += online.diff(offline, "days") + " days, "
+  if hours > 0
+    s += online.diff(offline, "hours") + " hours, "
+  if minutes > 0
+    s += online.diff(offline, "minutes") + " mins, "
+  seconds = total_seconds - ((days*24) + (hours*60) + (minutes*60))
+  s += seconds + " seconds"
+  return s
 
 getOfflineCause = (row) ->
   switch row.extra.reason
@@ -228,6 +276,8 @@ window.initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
   $('.datetimepicker').datetimepicker(format: 'd/m/Y H:m')
   $('#type-all').click(toggleAllTypeFilters)
+  $('#type-online').click(toggleOnlineCheck)
+  $('#type-offline').click(toggleOfflineCheck)
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   toggleCheckboxes()

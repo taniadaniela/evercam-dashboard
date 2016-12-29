@@ -147,17 +147,19 @@ format_online_log = (logs) ->
 getTime2 = (online, offline) ->
   s = ""
   days = online.diff(offline, "days")
-  hours = online.diff(offline, "hours")
-  minutes = online.diff(offline, "minutes")
+  total_hours = online.diff(offline, "hours")
+  hours = total_hours - (days*24)
+  total_minutes = online.diff(offline, "minutes")
+  minutes = total_minutes - ((days*24*60) + (hours*60))
   total_seconds = online.diff(offline, "seconds")
+  seconds = total_seconds - ((days*24*60*60) + (hours*60*60) + (minutes*60))
 
   if days > 0
-    s += online.diff(offline, "days") + " days, "
+    s += days + " days, "
   if hours > 0
-    s += online.diff(offline, "hours") + " hours, "
+    s += hours + " hours, "
   if minutes > 0
-    s += online.diff(offline, "minutes") + " mins, "
-  seconds = total_seconds - ((days*24) + (hours*60) + (minutes*60))
+    s += minutes + " mins, "
   s += seconds + " seconds"
   return s
 

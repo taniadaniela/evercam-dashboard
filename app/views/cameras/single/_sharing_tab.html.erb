@@ -246,7 +246,7 @@
               <div class="form-group">
                 <div class="popbox2">
                   <span class="open2"><span class="remove"></span><i class="fa fa-trash-o font-size-17" title="Revoke"></i></span>
-                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>">Resend</span>
+                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><i class="fa fa-paper-plane font-size-17" title="Resend Email"></i></span>
                   <div class="collapse-popup">
                     <div class="box2">
                       <div class="arrow2"></div>
@@ -294,6 +294,8 @@
                 <input type="email" placeholder="Email address or Username" class="form-control" id="sharing-user-email" name="sharing-user-email">
               </div>
             </div>
+            <span id="email-duration-error" class="duration-error duration-text-error hide">You have not given a correct e-mail address</span>
+            <span id="email-empty-error" class="duration-error duration-text-error hide">Please enter valid e-mail address</span>
           </td>
         </tr>
         <tr>
@@ -308,7 +310,7 @@
         <tr>
           <td class="col-lg-4">
             <div class="input-group">
-              <button type="submit" class="btn btn-primary" id="submit_share_button">Share</button>
+              <button type="submit" class="btn btn-primary" id="submit_share_button" disabled>Share</button>
             </div>
           </td>
         </tr>

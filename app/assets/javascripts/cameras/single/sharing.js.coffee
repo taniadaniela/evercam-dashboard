@@ -508,6 +508,24 @@ addGravatarFallbacks = ->
       url: "#{favicon_url}"
     jQuery.ajax(settings)
 
+validateEmail = ->
+  $('#sharing-user-email').on 'keyup change', ->
+    if $('#sharing-user-email').val()
+      email = $('#sharing-user-email').val()
+      emailRegex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+      if !emailRegex.test(email)
+        $('#submit_share_button').attr 'disabled', 'disabled'
+        $('#email-duration-error').removeClass 'hide'
+        $('#email-empty-error').addClass 'hide'
+      else
+        $('#submit_share_button').removeAttr 'disabled'
+        $('#email-duration-error').addClass 'hide'
+        $('#email-empty-error').addClass 'hide'
+    else
+      $('#submit_share_button').attr 'disabled', 'disabled'
+      $('#email-empty-error').removeClass 'hide'
+      $('#email-duration-error').addClass 'hide'
+
 window.initializeSharingTab = ->
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
   $('.delete-share').click(onDeleteShareClicked)
@@ -523,5 +541,6 @@ window.initializeSharingTab = ->
   Notification.init(".bb-alert")
   getTransferFromUrl()
   addGravatarFallbacks()
+  validateEmail()
 
 window.Evercam.Share.createShare = createShare

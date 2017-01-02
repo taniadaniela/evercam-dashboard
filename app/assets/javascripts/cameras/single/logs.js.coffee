@@ -140,7 +140,9 @@ format_online_log = (logs) ->
       $.each tail, (i, head) ->
         if head.action is 'offline'
           offline = moment(head.done_at*1000)
-          logs[index].extra = {message: "Camera came online after #{getTime2(online, offline)}"}
+          timeGet = "
+            <span class='message'>after #{getTime2(online, offline)}</span>"
+          logs[index].extra = {message: "Camera came online #{timeGet}"}
           return false
   return logs
 

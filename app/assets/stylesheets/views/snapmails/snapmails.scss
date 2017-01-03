@@ -259,6 +259,11 @@
 }
 
 .snapmail {
+
+  .modal {
+    margin-right: 0px;
+  }
+
   .new-snapmail {
     width: 48px;
     position: fixed;
@@ -441,4 +446,31 @@ div.tagsinput input {
     font-weight: bolder;
   }
 
+}
+
+@media (max-width: 480px) {
+
+  .snapmail {
+
+    .control-label {
+      min-width: 57px;
+      font-size: 10px;
+    }
+
+    .pading-left-0 {
+      padding-left: 0px;
+    }
+
+    .checker {
+      width: 100%;
+    }
+
+    label {
+      font-size: 10px;
+    }
+
+    .margin-left-5 {
+      margin-left: 0px;
+    }
+  }
 }

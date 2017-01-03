@@ -283,7 +283,7 @@ GetWeekdaysSelected = ->
 
 clearForm = ->
   $('.formButtonCancel').click()
-  $('.caption').html 'New SnapMail'
+  $('.caption').html 'New Snapmail'
   $('#txtkey').val ''
   $('#txtRecipient').val ''
   $('#ddlTimezone').val "Europe/Dublin"
@@ -324,7 +324,7 @@ EditSnapmail = ->
     key = $(this).attr("data-val")
     $('#s2id_ddlCameras').hide()
     $('#txtkey').val key
-    $('.caption').html 'Edit SnapMail'
+    $('.caption').html 'Edit Snapmail'
     $('#ddlTimezone').val $('#txtTimezone' + key).val()
     emails = $('#txtRecipient' + key).val()
     if emails != null or emails != ''

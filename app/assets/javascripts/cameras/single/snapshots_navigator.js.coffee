@@ -100,14 +100,10 @@ checkDay = (year, month, day) ->
   data.api_key = Evercam.User.api_key
 
   onError = (response, status, error) ->
-    hideDaysLoadingAnimation()
-    hideHourLoadingAnimation()
     false
 
   onSuccess = (response, status, jqXHR) ->
     HighlightDay(year, month, day, response.exists)
-    hideDaysLoadingAnimation()
-    hideHourLoadingAnimation()
 
   settings =
     cache: true
@@ -365,6 +361,8 @@ HighlightDay = (year, month, day, exists) ->
             BoldDays.push(day)
           else
             calDay.addClass('no-snapshot')
+    hideDaysLoadingAnimation()
+    hideHourLoadingAnimation()
 
 BoldSnapshotHour = (callFromDt) ->
   showHourLoadingAnimation()
@@ -380,7 +378,6 @@ BoldSnapshotHour = (callFromDt) ->
     HideLoader()
     $('#snapshot-tab-save').hide()
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
-    hideHourLoadingAnimation()
 
   settings =
     cache: false
@@ -415,11 +412,8 @@ BoldSnapshotHourSuccess = (result, context) ->
       GetCameraInfo true
     else
       SetImageHour(cameraCurrentHour, "tdI#{cameraCurrentHour}")
-    hideHourLoadingAnimation()
   else
     NoRecordingDayOrHour()
-    hideDaysLoadingAnimation()
-    hideHourLoadingAnimation()
 
 GetCameraInfo = (isShowLoader) ->
   NProgress.start()
@@ -490,6 +484,7 @@ GetCameraInfo = (isShowLoader) ->
       loadImage(snapshotTimeStamp, snapshotNotes)
       BindMDStrip()
     NProgress.done()
+    hideHourLoadingAnimation()
 
   settings =
     cache: false
@@ -687,6 +682,8 @@ NoRecordingDayOrHour = ->
   $("#divNoMd").show()
   $("#divNoMd").text('Motion Detection Not Enabled')
   HideLoader()
+  hideDaysLoadingAnimation()
+  hideHourLoadingAnimation()
 
   totalFrames = 0
 
@@ -730,6 +727,8 @@ SetImageHour = (hr, id) ->
     $("#divNoMd").text('Motion Detection Not Enabled')
     HideLoader()
     $("#snapshot-tab-save").hide()
+
+  hideHourLoadingAnimation()
 
 Pause = ->
   isPlaying = false

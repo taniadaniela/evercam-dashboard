@@ -254,8 +254,12 @@
   }
 }
 
-.box-snapmail input {
-  margin-right: 10px;
+.box-snapmail {
+  margin-left: -30px;
+
+  input {
+    margin-right: 15px;
+  }
 }
 
 .snapmail {

@@ -78,6 +78,7 @@ changeMonthFromArrow = (value) ->
 walkDaysInMonth = (year, month) ->
   showDaysLoadingAnimation()
   showHourLoadingAnimation()
+  showLoader()
   BoldDays = []
   d = new Date()
   currentMonth = d.getMonth() + 1
@@ -375,7 +376,6 @@ BoldSnapshotHour = (callFromDt) ->
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
   onError = (jqXHR, status, error) ->
-    HideLoader()
     $('#snapshot-tab-save').hide()
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
 
@@ -725,8 +725,8 @@ SetImageHour = (hr, id) ->
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
     $("#divNoMd").show()
     $("#divNoMd").text('Motion Detection Not Enabled')
-    HideLoader()
     $("#snapshot-tab-save").hide()
+    HideLoader()
 
   hideHourLoadingAnimation()
 

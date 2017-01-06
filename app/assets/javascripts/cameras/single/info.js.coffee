@@ -89,7 +89,6 @@ handleVendorModelEvents = ->
   $("#details").on "change", "#camera-model", ->
     cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val"))
     cleanAndSetRtspUrl($(this).find(":selected").attr("rtsp-val"))
-    checkRtspInput()
 
 loadVendorModels = (vendor_id) ->
   $("#camera-model option").remove()
@@ -146,7 +145,6 @@ loadVendorModels = (vendor_id) ->
     if rtsp_url isnt ""
       cleanAndSetRtspUrl(rtsp_url)
     checkSnapshotInput()
-    checkRtspInput()
 
   settings =
     cache: false
@@ -560,8 +558,8 @@ hideRefreshGif = ->
   $('.refresh-detail-snap .refresh-gif').hide()
 
 checkSnapshotInput = ->
-  snapshot_val = $("#snapshot-value").text()
-  rtsp_val = $("#rtsp-value").text()
+  snapshot_val = $("#snapshot-value").text().replace(/\s+/g, '')
+  rtsp_val = $("#rtsp-value").text().replace(/\s+/g, '')
 
   if $("#camera-vendor").val() is "other"
     $("#snapshot").removeAttr('disabled')
@@ -571,19 +569,14 @@ checkSnapshotInput = ->
     if $("#vendor-value .vendor-data:contains('Other')").length > 0
       $("#snapshot").val("#{snapshot_val}")
       $("#rtsp").val("#{rtsp_val}")
-      if $("#rtsp-value span:contains('Not available')").length > 0
+      if $("#rtsp_val span:contains('Not available')").length > 0
         $("#rtsp").val("")
     else
       $("#snapshot").val("")
       $("#rtsp").val("")
-  else
+  else if $("#rtsp").val() in ['<blank>', '/', 'unknown', '']
     $("#snapshot").attr('disabled', 'disabled')
-    $("#rtsp").attr('disabled', 'disabled')
     $("#snapshot").addClass("opacity")
-    $("#rtsp").addClass("opacity")
-
-checkRtspInput = ->
-  if $("#rtsp").val() in ['<blank>', '/', 'unknown', '']
     $("#rtsp").removeAttr('disabled')
     $("#rtsp").removeClass("opacity")
     $("#rtsp").val("")
@@ -592,6 +585,11 @@ checkRtspInput = ->
     $("#rtsp").attr('disabled', 'disabled')
     $("#snapshot").addClass("opacity")
     $("#rtsp").addClass("opacity")
+
+handleUnnecessaryWhiteSpace = ->
+  $('#settings-modal').on 'click', '#add-button', ->
+    $("#snapshot").val $("#snapshot").val().replace(RegExp(' +?', 'g'), '')
+    $("#rtsp").val $("#rtsp").val().replace(RegExp(' +?', 'g'), '')
 
 window.initializeInfoTab = ->
   port = $('#port').val()
@@ -617,3 +615,5 @@ window.initializeInfoTab = ->
   port_check(rtsp_port,'rtsp-')
   init_key_events()
   cursor_visible()
+  handleUnnecessaryWhiteSpace()
+  checkSnapshotInput()

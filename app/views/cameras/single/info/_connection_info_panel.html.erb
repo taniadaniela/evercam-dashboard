@@ -31,16 +31,18 @@
       </tr>
       <tr>
         <td>Snapshot URL:</td>
-        <td id="snapshot-value"><%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %>
+        <td>
+          <span id="snapshot-value"><%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %></span>
         </td>
       </tr>
       <tr>
         <td>H264 URL:</td>
-        <td id="rtsp-value">
+        <td id="rtsp_val">
           <% if @camera.deep_fetch('external', 'rtsp', 'h264').present? %>
-            <%= @camera.deep_fetch('external', 'rtsp' , 'h264') { '' }.sub("rtsp://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '') %>
+            <span id="rtsp-value"><%= @camera.deep_fetch('external', 'rtsp' , 'h264') { '' }.sub("rtsp://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '') %>
+            </span>
           <% else %>
-            <span class="grey">Not available</span>
+            <span id="rtsp-value" class="grey">Not available</span>
           <% end %>
         </td>
       </tr>

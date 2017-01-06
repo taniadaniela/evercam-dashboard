@@ -104,7 +104,7 @@ getSnapmailHtml = (snapMail, index) ->
   html += '                   <div class="arrow2" id="arrow-' + snapMail.id + '"></div>'
   html += '                   <div class="arrow-border2" id="arrow-border-' + snapMail.id + '"></div>'
   html += '                   <div class="margin-bottom-10">Are you sure?</div>'
-  html += '                   <div class="margin-bottom-10"><input class="btn btn-primary delete-btn delete-snapmail" type="button" value="Yes, Remove" data-val="' + snapMail.id + '"/><div href="#" id="close-popup-' + snapMail.id + '" class="btn closepopup2 grey" fit><div class="text-center">Cancel</div></div></div>'
+  html += '                   <div class="margin-bottom-10"><input id="delete-snapmail" class="btn btn-primary delete-btn" type="button" value="Yes, Remove" data-val="' + snapMail.id + '"/><div href="#" id="close-popup-' + snapMail.id + '" class="btn closepopup2 grey" fit><div class="text-center">Cancel</div></div></div>'
   html += '               </div>'
   html += '             </div></span>'
   html += '       </div>'
@@ -366,7 +366,7 @@ handleModelEvents = ->
     clearForm()
 
 RemoveSnapmail = ->
-  $("#divSnapmails").on "click", ".delete-snapmail", ->
+  $("#divSnapmails").on "click", "#delete-snapmail", ->
     key = $(this).attr("data-val")
     $('#dataslot' + key).fadeOut 500, ->
       onError = (jqXHR, status, error) ->

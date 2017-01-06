@@ -1,0 +1,13 @@
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <button class="btn"></button>
+    <p id="example"><!-- Visavail.js chart will be placed here --></p>
+  </div>
+</div>
+<script>
+  moment.locale('en');
+  window.Evercam.logs = <%= @formated_data.to_json.html_safe %>;
+  $(document).ready(function () {
+    window.initializeOnlineOfflineReport();
+  });
+</script>

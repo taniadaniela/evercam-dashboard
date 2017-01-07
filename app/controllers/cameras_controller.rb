@@ -309,19 +309,12 @@ class CamerasController < ApplicationController
 
   def online_offline
     @cameras = load_user_cameras(true, false)
-    camera_exids = []
-    @cameras.each do |camera|
-      camera_exids[camera_exids.count] = camera["id"]
-    end
-
-    @user_cameras = Camera.where(exid: camera_exids).order(:id).all
-
-    @camera_logs = @user_cameras.map do |camera|
+    @camera_logs = @cameras.map do |camera|
       {
-        camera_name: camera.name,
-        status: camera.is_online,
+        camera_name: camera["name"],
+        status: camera["is_online"],
         logs: CameraActivity
-                .where(camera_id: camera.id)
+                .where(camera_exid: camera["id"])
                 .where(:action => ["online", "offline"])
                 .where(:done_at => (Date.today - 7)..(Date.today))
                 .order(:done_at).all

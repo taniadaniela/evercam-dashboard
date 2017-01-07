@@ -331,24 +331,22 @@ class CamerasController < ApplicationController
     @formated_data = @camera_logs.map do |camera_log|
       {
         measure: camera_log[:camera_name],
-        data: [
-          format_logs(camera_log[:status], camera_log[:logs])
-        ]
+        data: format_logs(camera_log[:status], camera_log[:logs])
       }
     end
   end
 
   def format_logs(status, logs)
     if logs == [] && status == false
-      [format_date_time(Date.today - 7), 0, format_date_time(Date.today)]
+      [[format_date_time(Date.today - 7), 0, format_date_time(Date.today)]]
     elsif logs == [] && status == true
-      [format_date_time(Date.today - 7), 1, format_date_time(Date.today)]
+      [[format_date_time(Date.today - 7), 1, format_date_time(Date.today)]]
     elsif logs.count > 1
       logs.map.with_index do |log, index|
         [format_date_time(log.done_at), digit_status(log.action), done_at_with_index(logs, index + 1)]
       end
     else
-      [format_date_time(logs.first.done_at), digit_status(logs.first.action), format_date_time(Date.today)]
+      [[format_date_time(logs.first.done_at), digit_status(logs.first.action), format_date_time(Date.today)]]
     end
   end
 

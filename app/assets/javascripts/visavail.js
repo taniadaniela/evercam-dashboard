@@ -10,7 +10,7 @@ function visavailChart() {
     bottom: 20,
 
     // left margin should provide space for y axis titles
-    left: 100,
+    left: 190,
   };
 
   // height of horizontal data bars
@@ -26,7 +26,7 @@ function visavailChart() {
   var paddingBottom = 10;
 
   // space for y axis titles
-  var paddingLeft = -100;
+  var paddingLeft = -170;
 
   var width = 940 - margin.left - margin.right;
 
@@ -103,13 +103,6 @@ function visavailChart() {
         isDateOnlyFormat = true;
       }
       dataset.forEach(function (d) {
-        console.log(d);
-        console.log(d.data);
-        console.log(d.data[0]);
-        console.log((!(d.data[0] instanceof Date)));
-        console.log(parseDateTimeRegEx.test(d.data[0]));
-        console.log(parseDateTime.parse(d.data[0]));
-
         d.data.forEach(function (d1) {
           if (!(d1[0] instanceof Date)) {
             if (parseDateRegEx.test(d1[0])) {
@@ -391,7 +384,7 @@ function visavailChart() {
             .append('text')
             .attr('x', paddingLeft)
             .attr('y', paddingTopHeading)
-            .text('Data Availability Plot')
+            .text('Camera Online/Offline Report')
             .attr('class', 'heading');
       }
 
@@ -430,7 +423,7 @@ function visavailChart() {
       legend.append('text')
           .attr('x', width + margin.right - 150 + 20)
           .attr('y', paddingTopHeading + 8.5)
-          .text('Data available')
+          .text('Online')
           .attr('class', 'legend');
 
       legend.append('rect')
@@ -443,7 +436,7 @@ function visavailChart() {
       legend.append('text')
           .attr('x', width + margin.right - 150 + 20)
           .attr('y', paddingTopHeading + 8.5 + 15 + 2)
-          .text('No data available')
+          .text('Offline')
           .attr('class', 'legend');
     });
   }

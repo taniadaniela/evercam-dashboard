@@ -1,5 +1,5 @@
 require 'active_support/core_ext/object/blank'
-class CameraActivity < Sequel::Model
+class CameraActivity < Sequel::Model(Sequel.connect(ENV['SNAPSHOT_DATABASE_URL'])[:camera_activities])
   def to_s
     if ['shared', 'stopped sharing', 'updated share'].include?(action)
       "[#{camera_exid}] #{name} #{action} with #{extra['with']} at #{done_at} from #{ip}"

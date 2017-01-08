@@ -69,16 +69,16 @@ RSpec.configure do |config|
   # Configure database cleaner.
   config.before(:suite) do
     WebMock.allow_net_connect!
-    DatabaseCleaner[:sequel].strategy = :truncation, {except: %w[spatial_ref_sys]}
-    DatabaseCleaner[:sequel].clean_with(:truncation, except: %w[spatial_ref_sys])
+    DatabaseCleaner[:sequel, {:connection => Sequel::DATBASES[0]}].strategy = :truncation, {except: %w[spatial_ref_sys]}
+    DatabaseCleaner[:sequel, {:connection => Sequel::DATBASES[0]}].clean_with(:truncation, except: %w[spatial_ref_sys])
   end
 
   config.before(:each) do
-    DatabaseCleaner[:sequel].start
+    DatabaseCleaner[:sequel, {:connection => Sequel::DATBASES[0]}].start
   end
 
   config.after(:each) do
-    DatabaseCleaner[:sequel].clean
+    DatabaseCleaner[:sequel, {:connection => Sequel::DATBASES[0]}].clean
   end
 end
 

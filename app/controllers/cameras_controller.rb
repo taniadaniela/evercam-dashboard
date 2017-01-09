@@ -309,15 +309,22 @@ class CamerasController < ApplicationController
 
   def online_offline
     @cameras = load_user_cameras(true, false)
+    camera_exids = []
+    @cameras.each do |camera|
+      camera_exids[camera_exids.count] =  camera["id"]
+    end
+
+    all_logs = CameraActivity
+                .where(camera_exid: camera_exids)
+                .where(:action => ["online", "offline"])
+                .where(:done_at => (Date.today - 7)..(Date.today))
+                .order(:done_at).all
+
     @camera_logs = @cameras.map do |camera|
       {
         camera_name: camera["name"],
         status: camera["is_online"],
-        logs: CameraActivity
-                .where(camera_exid: camera["id"])
-                .where(:action => ["online", "offline"])
-                .where(:done_at => (Date.today - 7)..(Date.today))
-                .order(:done_at).all
+        logs: map_logs(all_logs, camera["id"])
       }
     end
 
@@ -329,6 +336,19 @@ class CamerasController < ApplicationController
     end
   end
 
+  def map_logs(all_logs, id)
+    if all_logs.select{|i| i.camera_exid == id}.empty?
+      []
+    else
+      all_logs.select{|i| i.camera_exid == id}.map do |log|
+        {
+          done_at: log.done_at,
+          action: log.action
+        }
+      end
+    end
+  end
+
   def format_logs(status, logs)
     if logs == [] && status == false
       [[format_date_time(Date.today - 7), 0, format_date_time(Date.today)]]
@@ -336,10 +356,10 @@ class CamerasController < ApplicationController
       [[format_date_time(Date.today - 7), 1, format_date_time(Date.today)]]
     elsif logs.count > 1
       logs.map.with_index do |log, index|
-        [format_date_time(log.done_at), digit_status(log.action), done_at_with_index(logs, index + 1)]
+        [format_date_time(log[:done_at]), digit_status(log[:action]), done_at_with_index(logs, index + 1)]
       end
     else
-      [[format_date_time(logs.first.done_at), digit_status(logs.first.action), format_date_time(Date.today)]]
+      [[format_date_time(logs.first[:done_at]), digit_status(logs.first[:action]), format_date_time(Date.today)]]
     end
   end
 
@@ -347,7 +367,7 @@ class CamerasController < ApplicationController
     if index > logs.length - 1
       Date.today.strftime("%Y-%m-%d %H:%M:%S")
     else
-      logs[index].done_at.strftime("%Y-%m-%d %H:%M:%S")
+      logs[index][:done_at].strftime("%Y-%m-%d %H:%M:%S")
     end
   end
 

@@ -111,10 +111,8 @@ function visavailChart() {
             } else if (parseDateTimeRegEx.test(d1[0])) {
               // d1[0] is date with time data
               d1[0] = parseDateTime.parse(d1[0]);
-              console.log("am here and passed");
               isDateOnlyFormat = false;
             } else {
-              console.log("not heere");
               throw new Error('Date/time format not recognized. Pick between \'YYYY-MM-DD\' or ' +
                 '\'YYYY-MM-DD HH:MM:SS\'.');
             }
@@ -320,10 +318,8 @@ function visavailChart() {
                 return output + moment(parseDate(d[0])).format('l');
               } else {
                 if (d[2] > d3.time.second.offset(d[0], 86400)) {
-                  return output + moment(parseDateTime(d[0])).format('l') + ' '
-                      + moment(parseDateTime(d[0])).format('LTS') + ' - '
-                      + moment(parseDateTime(d[2])).format('l') + ' '
-                      + moment(parseDateTime(d[2])).format('LTS');
+                  return output + moment(parseDateTime(d[0])).format('DD-MM-GGGG HH:mm:ss') + ' - '
+                      + moment(parseDateTime(d[2])).format('DD-MM-GGGG HH:mm:ss');
                 }
                 return output + moment(parseDateTime(d[0])).format('LTS') + ' - '
                     + moment(parseDateTime(d[2])).format('LTS');
@@ -394,10 +390,8 @@ function visavailChart() {
         subtitleText = 'from ' + moment(parseDate(startDate)).format('MMMM Y') + ' to '
           + moment(parseDate(endDate)).format('MMMM Y');
       } else {
-        subtitleText = 'from ' + moment(parseDateTime(startDate)).format('l') + ' '
-            + moment(parseDateTime(startDate)).format('LTS') + ' to '
-            + moment(parseDateTime(endDate)).format('l') + ' '
-            + moment(parseDateTime(endDate)).format('LTS');
+        subtitleText = 'from ' + moment(parseDateTime(startDate)).format('LLL') + ' to '
+            + moment(parseDateTime(endDate)).format('LLL');
       }
 
       svg.select('#g_title')

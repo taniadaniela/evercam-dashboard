@@ -9,7 +9,7 @@ require 'factory_girl'
 require 'rack_session_access/capybara'
 require "simplecov"
 SimpleCov.start
-connection = Sequel.connect(ENV["DATABASE_URL"])
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -69,16 +69,16 @@ RSpec.configure do |config|
   # Configure database cleaner.
   config.before(:suite) do
     WebMock.allow_net_connect!
-    DatabaseCleaner[:sequel, {:connection => connection}].strategy = :truncation, {except: %w[spatial_ref_sys]}
-    DatabaseCleaner[:sequel, {:connection => connection}].clean_with(:truncation, except: %w[spatial_ref_sys])
+    DatabaseCleaner[:sequel].strategy = :truncation, {except: %w[spatial_ref_sys]}
+    DatabaseCleaner[:sequel].clean_with(:truncation, except: %w[spatial_ref_sys])
   end
 
   config.before(:each) do
-    DatabaseCleaner[:sequel, {:connection => connection}].start
+    DatabaseCleaner[:sequel].start
   end
 
   config.after(:each) do
-    DatabaseCleaner[:sequel, {:connection => connection}].clean
+    DatabaseCleaner[:sequel].clean
   end
 end
 

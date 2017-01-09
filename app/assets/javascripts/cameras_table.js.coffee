@@ -14,10 +14,12 @@ initializeCamerasDataTable = ->
     columns: [
       {data: (row, type, set, meta ) ->
         if row.is_online
-          return row.name
+          return "
+          <a href='/v1/cameras/#{row.id}' target='_blank'>#{row.name}</a>"
         else
           return "
-          #{row.name} <i class='red main-sidebar fa fa-chain-broken'></i>"
+          <a href='/v1/cameras/#{row.id}' target='_blank'>#{row.name}</a>
+          <i class='red main-sidebar fa fa-chain-broken'></i>"
       },
       {data: userCameraRights},
       {data: (row, type, set, meta ) ->

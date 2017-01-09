@@ -48,11 +48,6 @@
 //= require cameras/add_camera_test.js
 //= require user_account.js
 //= require header.js
-//= require d3.min.js
-//= require moment-with-locales.js
-//= require font-awesome.js
-//= require cameras/online_offline.js
-//= require visavail.js
 //= require metronic/respond.min.js
 //= require metronic/metronic.js
 //= require metronic/layout.js

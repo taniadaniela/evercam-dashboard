@@ -27,6 +27,7 @@ initializeiCheck = ->
 initializeDropdowns = ->
   $('[data-toggle="tooltip"]').tooltip()
   $(".dropdown-toggle").dropdown()
+  $(".dropdown-toggle i").addClass 'fa fa-bars icon-bar-alignment'
 
 switchToTab = ->
   $(".nav-tab-#{Evercam.request.tabpath}").tab('show')

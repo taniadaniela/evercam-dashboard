@@ -8,19 +8,12 @@
 @import "single/_streams.scss";
 @import "single/_archives.scss";
 
-.icon-align-justify {
-  background-image: asset-url('glyphicons-halflings.png');
-  background-repeat:no-repeat;
-  background-position:-336px -48px;
-  display:inline-block;
-  height:14px;
-  line-height:14px;
-  margin-top: -2px;
-  vertical-align:text-top;
-  width:14px;
-  float: right;
+.center-tabs .icon-bar-alignment {
+  font-size: 16px;
+  margin-top: -5px;
   margin-right: -5px;
 }
+
 #ul-nav-tab .caret{
   display: none;
 }

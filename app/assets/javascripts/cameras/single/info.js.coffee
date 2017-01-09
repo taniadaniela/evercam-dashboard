@@ -587,8 +587,9 @@ checkSnapshotInput = ->
     $("#rtsp").addClass("opacity")
 
 handleUnnecessaryWhiteSpace = ->
-  $('#settings-modal').on 'click', '#add-button', ->
+  $('#snapshot').on 'focusout change', ->
     $("#snapshot").val $("#snapshot").val().replace(RegExp(' +?', 'g'), '')
+  $('#rtsp').on 'focusout change', ->
     $("#rtsp").val $("#rtsp").val().replace(RegExp(' +?', 'g'), '')
 
 window.initializeInfoTab = ->

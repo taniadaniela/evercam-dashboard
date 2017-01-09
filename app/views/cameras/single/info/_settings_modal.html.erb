@@ -13,19 +13,19 @@
                   <div class='col-sm-8'>
                     <table class="table table-fixed table-borderless">
                       <tr>
-                        <td class="id-td width-30"><label class="control-label">ID:</label></td>
+                        <td class="id-td width-25"><label class="margin-top-8 control-label">ID:</label></td>
                         <td class="settings">
                           <div class="settings-id" data-toggle="tooltip" data-placement="top" title="Camera ID can't be changed"><%= @camera['id'] %></div>
                           <input type="hidden" name="camera-id" id="camera-exid" value="<%= @camera['id'] %>"></td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="camera-name">Name:</label></td>
+                        <td><label class="margin-top-8 control-label" for="camera-name">Name:</label></td>
                         <td>
                           <input id="camera-name" class="form-control makeEditable" type="text" value="<%= @camera['name'] %>" data-validation-error-msg="Can only contain letters, numbers, spaces and hyphens. Max length 24 characters" maxlength = "24" data-validation-allowing="-_ " data-validation="alphanumeric" placeholder="" name="camera-name">
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="camera-vendor">Vendor:</label></td>
+                        <td><label class="margin-top-8 control-label" for="margin-top-8 camera-vendor">Vendor:</label></td>
                         <td>
                           <select id="camera-vendor" name="camera-vendor" class="form-control makeEditable">
                             <option value="">Select Vendor</option>
@@ -33,31 +33,31 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="model-td"><label class="control-label">Model:</label></td>
+                        <td class="model-td"><label class="margin-top-8 control-label">Model:</label></td>
                         <td>
                           <select id="camera-model" name="camera-model" class="form-control camera-model"></select>
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="camera-username">Username:</label></td>
+                        <td><label class="margin-top-8 control-label" for="camera-username">Username:</label></td>
                         <td>
                           <input id="camera-username" name="camera-username" placeholder="Not yet provided" class="form-control  makeEditable" type="text" value="<%= @camera['cam_username'] %>">
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="camera-password">Password:</label></td>
+                        <td><label class="margin-top-8 control-label" for="camera-password">Password:</label></td>
                         <td>
                           <input id="camera-password" name="camera-password" placeholder="Not yet provided" class="form-control" type="text" value="<%= @camera['cam_password'] %>">
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="snapshot">Snapshot URL:</label></td>
+                        <td><label class="margin-top-8 control-label" for="snapshot">Snapshot URL:</label></td>
                         <td>
                           <input type="text" id="snapshot" name="snapshot" placeholder="Not yet provided" class="form-control makeEditable" disabled value="<%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %>">
                         </td>
                       </tr>
                       <tr>
-                          <td><label class="control-label" for="snapshot">RTSP:</label></td>
+                          <td><label class="margin-top-8 control-label" for="snapshot">RTSP:</label></td>
                           <td>
                            <input type="text" id="rtsp" name="rtsp" placeholder="Not yet provided" class="form-control makeEditable" disabled value="<%= @camera.deep_fetch('external', 'rtsp' , 'h264') { '' }.sub("rtsp://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'rtsp', 'port') { '' }}", '') if @camera.deep_fetch('external', 'rtsp', 'h264') { '' } %> ">
                           </td>
@@ -86,7 +86,7 @@
                     </div>
                     <table class="table table-fixed table-borderless">
                       <tr>
-                        <td class="width-30"><label class="control-label" for="camera-url">IP (or URL):</label></td>
+                        <td class="width-25"><label class="control-label margin-top-8" for="camera-url">IP (or URL):</label></td>
                         <td>
                           <div class="input-group"><span class="input-group-addon">http://</span>
                             <input id="camera-url" name="camera-url" placeholder="Not yet provided" class="camera-url form-control makeEditable" required="" type="text" data-validation="custom" data-validation-regexp="^[a-zA-Z0-9._/-]{2,100}$" data-validation-error-msg="This doesn't appear to be a valid IP." value="<%= @camera.deep_fetch('external', 'host') {} %>">
@@ -94,7 +94,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="port">HTTP Port:</label></td>
+                        <td><label class="margin-top-8 control-label" for="port">HTTP Port:</label></td>
                         <td>
                         <div class="port-changes">
                           <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable port" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'http', 'port') {} %>">
@@ -102,7 +102,7 @@
                         </div>
                       </tr>
                       <tr>
-                        <td><label class="control-label" for="ext-rtsp-port">RTSP Port:</label></td>
+                        <td><label class="margin-top-8 control-label" for="ext-rtsp-port">RTSP Port:</label></td>
                         <td >
                           <div class="rtsp-port-changes">
                           <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable rtsp-port" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">
@@ -112,7 +112,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <label class="control-label" for="camera-timezone">
+                          <label class="margin-top-8 control-label" for="camera-timezone">
                             Timezone:
                           </label>
                         </td>

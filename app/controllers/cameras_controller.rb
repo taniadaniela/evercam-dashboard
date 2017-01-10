@@ -307,6 +307,89 @@ class CamerasController < ApplicationController
     end
   end
 
+  def online_offline
+    @cameras = load_user_cameras(true, false)
+    camera_exids = []
+    @cameras.each do |camera|
+      camera_exids[camera_exids.count] =  camera["id"]
+    end
+
+    @all_cameras = Camera.where(exid: camera_exids).all
+    camera_ids = []
+    @all_cameras.each do |camera|
+      camera_ids[camera_ids.count] =  camera.id
+    end
+    CameraActivity.db = Sequel.connect(ENV['SNAPSHOT_DATABASE_URL'], max_connections: 100)
+    all_logs = CameraActivity
+                .where(camera_id: camera_ids)
+                .where(:action => ["online", "offline"])
+                .where(:done_at => (Date.today - 7)..(Date.today))
+                .order(:done_at).all
+
+    @camera_logs = @cameras.map do |camera|
+      {
+        camera_name: camera["name"],
+        status: camera["is_online"],
+        timezone: camera["timezone"],
+        logs: map_logs(all_logs, camera["id"])
+      }
+    end
+
+    @formated_data = @camera_logs.map do |camera_log|
+      {
+        measure: camera_log[:camera_name],
+        data: format_logs(camera_log[:status], camera_log[:logs], camera_log[:timezone])
+      }
+    end
+  end
+
+  def map_logs(all_logs, id)
+    if all_logs.select{|i| i.camera_exid == id}.empty?
+      []
+    else
+      all_logs.select{|i| i.camera_exid == id}.map do |log|
+        {
+          done_at: log.done_at,
+          action: log.action
+        }
+      end
+    end
+  end
+
+  def format_logs(status, logs, timezone)
+    if logs == [] && status == false
+      [[format_date_time(Date.today - 7), 0, format_date_time(Date.today)]]
+    elsif logs == [] && status == true
+      [[format_date_time(Date.today - 7), 1, format_date_time(Date.today)]]
+    elsif logs.count > 1
+      logs.map.with_index do |log, index|
+        [format_date_time(log[:done_at].in_time_zone(timezone)), digit_status(log[:action]), done_at_with_index(logs, index + 1, timezone)]
+      end
+    else
+      [[format_date_time(logs.first[:done_at].in_time_zone(timezone)), digit_status(logs.first[:action]), format_date_time(Date.today)]]
+    end
+  end
+
+  def done_at_with_index(logs, index, timezone)
+    if index > logs.length - 1
+      Date.today.strftime("%Y-%m-%d %H:%M:%S")
+    else
+      logs[index][:done_at].in_time_zone(timezone).strftime("%Y-%m-%d %H:%M:%S")
+    end
+  end
+
+  def format_date_time(done_at)
+    done_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
+  def digit_status(action)
+    if action == "online"
+      1
+    else
+      0
+    end
+  end
+
   def camera_not_found
     begin
       @cameras = load_user_cameras(true, false)

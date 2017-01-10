@@ -43,7 +43,7 @@ initializeCamerasDataTable = ->
       {data: (row, type, set, meta ) ->
         if row.cloud_recordings
           cr = row.cloud_recordings
-          getCloudStatus(cr.status, cr.storage_duration)
+          getCloudStatus(cr.status, cr.storage_duration, cr.frequency)
         else
           return "<span style='color: red'>Off (No Recordings)</span>"
       },
@@ -55,7 +55,11 @@ initializeCamerasDataTable = ->
     autoWidth: false,
   })
 
-getCloudStatus = (status, duration) ->
+getCloudStatus = (status, duration, frequency) ->
+  if frequency is 60
+    text_frequency = ", 1 per second"
+  else
+    text_frequency = ", 1 every #{60/frequency} seconds"
   storage = "#{duration} Days"
   if duration is 1
     storage = "24 Hours"
@@ -63,13 +67,19 @@ getCloudStatus = (status, duration) ->
     storage = "Inifinity"
   switch status
     when "on"
-      return "<span style='color: green'>#{storage} (Continuous)</span>"
+      return "
+      <span style='color: green'>#{storage} (Continuous)</span>
+      #{text_frequency}"
     when "on-scheduled"
-      return "<span style='color: green'>#{storage} (On Schedule)</span>"
+      return "
+      <span style='color: green'>#{storage} (On Schedule)</span>
+      #{text_frequency}"
     when "off"
       return "<span style='color: red'>Off (No Recordings)</span>"
     when "paused"
-      return "<span style='color: black'>Paused (#{storage})</span>"
+      return "
+      <span style='color: black'>Paused (#{storage})</span>
+      #{text_frequency}"
 
 userCameraRights = (row) ->
   str = row.rights

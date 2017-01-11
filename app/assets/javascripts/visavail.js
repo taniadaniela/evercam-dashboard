@@ -10,7 +10,7 @@ function visavailChart() {
     bottom: 20,
 
     // left margin should provide space for y axis titles
-    left: 190,
+    left: 170,
   };
 
   // height of horizontal data bars
@@ -26,7 +26,7 @@ function visavailChart() {
   var paddingBottom = 10;
 
   // space for y axis titles
-  var paddingLeft = -170;
+  var paddingLeft = -160;
 
   var width = 940 - margin.left - margin.right;
 
@@ -380,7 +380,7 @@ function visavailChart() {
             .append('text')
             .attr('x', paddingLeft)
             .attr('y', paddingTopHeading)
-            .text('Camera Online/Offline Report')
+            .text('Camera Online/Offline Report (Etc/UTC)')
             .attr('class', 'heading');
       }
 

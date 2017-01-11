@@ -330,7 +330,7 @@ class CamerasController < ApplicationController
       {
         camera_name: camera["name"],
         status: camera["is_online"],
-        timezone: camera["timezone"],
+        created_at: Time.at(camera["created_at"]).utc,
         logs: map_logs(all_logs, camera["id"])
       }
     end
@@ -338,7 +338,7 @@ class CamerasController < ApplicationController
     @formated_data = @camera_logs.map do |camera_log|
       {
         measure: camera_log[:camera_name],
-        data: format_logs(camera_log[:status], camera_log[:logs], camera_log[:timezone])
+        data: format_logs(camera_log[:status], camera_log[:logs], "Etc/UTC", camera_log[:created_at])
       }
     end
   end
@@ -356,7 +356,14 @@ class CamerasController < ApplicationController
     end
   end
 
-  def format_logs(status, logs, timezone)
+  def format_logs(status, logs, timezone, created_at)
+    starting_of_week = Time.now.utc.beginning_of_day - 604800
+    if logs.count >= 1
+      logs.unshift({
+        done_at: if starting_of_week < created_at then created_at else starting_of_week end,
+        action: if logs[0][:action] == "online" then "offline" else "online" end
+      })
+    end
     if logs == [] && status == false
       [[format_date_time(Date.today - 7), 0, format_date_time(Date.today)]]
     elsif logs == [] && status == true
@@ -365,8 +372,6 @@ class CamerasController < ApplicationController
       logs.map.with_index do |log, index|
         [format_date_time(log[:done_at].in_time_zone(timezone)), digit_status(log[:action]), done_at_with_index(logs, index + 1, timezone)]
       end
-    else
-      [[format_date_time(logs.first[:done_at].in_time_zone(timezone)), digit_status(logs.first[:action]), format_date_time(Date.today)]]
     end
   end
 

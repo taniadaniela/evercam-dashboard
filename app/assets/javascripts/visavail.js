@@ -2,7 +2,7 @@ function visavailChart() {
   // define chart layout
   var margin = {
     // top margin includes title and legend
-    top: 70,
+    top: 20,
 
     // right margin should provide space for last horz. axis title
     right: 40,
@@ -10,7 +10,7 @@ function visavailChart() {
     bottom: 20,
 
     // left margin should provide space for y axis titles
-    left: 170,
+    left: 150,
   };
 
   // height of horizontal data bars
@@ -26,7 +26,7 @@ function visavailChart() {
   var paddingBottom = 10;
 
   // space for y axis titles
-  var paddingLeft = -160;
+  var paddingLeft = -150;
 
   var width = 940 - margin.left - margin.right;
 
@@ -211,7 +211,7 @@ function visavailChart() {
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       // create basic element groups
-      svg.append('g').attr('id', 'g_title');
+      // svg.append('g').attr('id', 'g_title');
       svg.append('g').attr('id', 'g_axis');
       svg.append('g').attr('id', 'g_data');
 
@@ -318,11 +318,9 @@ function visavailChart() {
                 return output + moment(parseDate(d[0])).format('l');
               } else {
                 if (d[2] > d3.time.second.offset(d[0], 86400)) {
-                  return output + moment(parseDateTime(d[0])).format('DD-MM-GGGG HH:mm:ss') + ' - '
-                      + moment(parseDateTime(d[2])).format('DD-MM-GGGG HH:mm:ss');
+                  return output + moment(parseDateTime(d[0])).format('DD-MM-GGGG HH:mm:ss');
                 }
-                return output + moment(parseDateTime(d[0])).format('DD-MM-GGGG HH:mm:ss') + ' - '
-                    + moment(parseDateTime(d[2])).format('DD-MM-GGGG HH:mm:ss');
+                return output + moment(parseDateTime(d[0])).format('DD-MM-GGGG HH:mm:ss');
               }
             })
             .style('left', function () {

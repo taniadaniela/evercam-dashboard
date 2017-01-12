@@ -1,6 +1,6 @@
 startReport = ->
   chart = visavailChart()
-  chart.width $('#visavail_container').width() - 240
+  chart.width $('#visavail_container').width() - 200
   $('#draw_report').text ''
   d3.select('#draw_report').datum(Evercam.logs).call chart
   return

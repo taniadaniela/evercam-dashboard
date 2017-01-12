@@ -358,16 +358,17 @@ class CamerasController < ApplicationController
 
   def format_logs(status, logs, timezone, created_at)
     starting_of_week = Time.now.utc.beginning_of_day - 604800
+    no_event_logged = if starting_of_week < created_at then created_at else starting_of_week end
     if logs.count >= 1
       logs.unshift({
-        done_at: if starting_of_week < created_at then created_at else starting_of_week end,
+        done_at: no_event_logged,
         action: if logs[0][:action] == "online" then "offline" else "online" end
       })
     end
     if logs == [] && status == false
-      [[format_date_time(Date.today - 7), 0, format_date_time(Date.today)]]
+      [[format_date_time(no_event_logged), 0, format_date_time(Time.now.utc)]]
     elsif logs == [] && status == true
-      [[format_date_time(Date.today - 7), 1, format_date_time(Date.today)]]
+      [[format_date_time(no_event_logged), 1, format_date_time(Time.now.utc)]]
     elsif logs.count > 1
       logs.map.with_index do |log, index|
         [format_date_time(log[:done_at].in_time_zone(timezone)), digit_status(log[:action]), done_at_with_index(logs, index + 1, timezone)]
@@ -377,7 +378,7 @@ class CamerasController < ApplicationController
 
   def done_at_with_index(logs, index, timezone)
     if index > logs.length - 1
-      Date.today.strftime("%Y-%m-%d %H:%M:%S")
+      Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")
     else
       logs[index][:done_at].in_time_zone(timezone).strftime("%Y-%m-%d %H:%M:%S")
     end

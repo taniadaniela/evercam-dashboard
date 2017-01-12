@@ -236,8 +236,12 @@ saveSnapmail = ->
     save_button.attr 'disabled', true
 
     onError = (jqXHR, status, error) ->
+      if jqXHR.status is 500
+        Notification.show "500 Internal Server Error"
+      else
+        response = JSON.parse(jqXHR.responseText)
+        Notification.show "#{response.message}"
       save_button.removeAttr('disabled')
-      Notification.show('Error: ' + response.responseJSON.ExceptionMessage)
 
     onSuccess = (result, status, jqXHR) ->
       snapMail = result.snapmails[0]

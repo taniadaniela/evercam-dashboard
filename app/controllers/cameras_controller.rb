@@ -323,7 +323,7 @@ class CamerasController < ApplicationController
     all_logs = CameraActivity
                 .where(camera_id: camera_ids)
                 .where(:action => ["online", "offline"])
-                .where(:done_at => (Date.today - 7)..(Date.today))
+                .where(:done_at => (Date.today - 7)..(Time.now.utc))
                 .order(:done_at).all
 
     @camera_logs = @cameras.map do |camera|

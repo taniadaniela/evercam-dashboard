@@ -1,3 +1,6 @@
+images_array = {}
+share_users_select = undefined
+
 showError = (message) ->
   Notification.show(message)
   true
@@ -331,7 +334,7 @@ onDeleteShareRequestClicked = (event) ->
 
 onAddSharingUserClicked = (event) ->
   event.preventDefault()
-  emailAddress = $('#sharing-user-email').val()
+  emailAddress = share_users_select.val()
   emailbodyMsg = $('#sharing-message').val()
   if $('#sharingPermissionLevel').val() != "Full Rights"
     permissions = "minimal"
@@ -350,8 +353,8 @@ onAddSharingUserClicked = (event) ->
         data.type == "share_request"
         addSharingCameraRow(data)
         showFeedback("A notification email has been sent to the specified email address.")
-      $('#sharing-user-email').val("")
       $('#sharing-message').val("")
+      share_users_select.val("").trigger("change")
 
     else
       message = "Adding a camera share failed."
@@ -367,7 +370,7 @@ onAddSharingUserClicked = (event) ->
         when "invalid_parameters"
           message = "Invalid rights specified for share creation request."
         else
-          message = data.message
+          message = data.message.substring(data.message.indexOf('["') + 2, data.message.indexOf('"]'))
       showError(message)
     NProgress.done()
     true
@@ -476,37 +479,46 @@ initializePopup = ->
 
 addGravatarFallbacks = ->
   img_tags = $("#shares .gravatar")
-  favicon = "https://favicon.yandex.net/favicon/"
   img_tags.each ->
     img = $(this)
     email = img.attr "email"
-    signature = hex_md5(email)
-    index = email.indexOf("@")
-    domain = email.substr((index+1))
-    favicon_url = favicon + domain
-    img_src = "https://gravatar.com/avatar/#{signature}?d=#{favicon_url}"
-    if domain is "hotmail.com"
+    getGravatar(img, email)
+
+getGravatar = (img, email) ->
+  favicon = "https://favicon.yandex.net/favicon/"
+  signature = hex_md5(email)
+  index = email.indexOf("@")
+  domain = email.substr((index+1))
+  favicon_url = favicon + domain
+  img_src = "https://gravatar.com/avatar/#{signature}?d=#{favicon_url}"
+  if domain is "hotmail.com"
+    img_src = "https://gravatar.com/avatar/#{signature}"
+  data = {}
+
+  onSuccess = (data, success, jqXHR) ->
+    length = jqXHR.responseText.length
+    if length < 100
       img_src = "https://gravatar.com/avatar/#{signature}"
-    data = {}
-
-    onSuccess = (data, success, jqXHR) ->
-      length = jqXHR.responseText.length
-      if length < 100
-        img_src = "https://gravatar.com/avatar/#{signature}"
+    if img is null
+      images_array["#{email}"] = img_src
+    else
       img.attr "src", img_src
 
-    onError = (jqXHR, status, error) ->
+  onError = (jqXHR, status, error) ->
+    if img is null
+      images_array["#{email}"] = img_src
+    else
       img.attr "src", img_src
 
-    settings =
-      cache: false
-      data: data
-      dataType: 'html'
-      error: onError
-      success: onSuccess
-      type: 'GET'
-      url: "#{favicon_url}"
-    jQuery.ajax(settings)
+  settings =
+    cache: false
+    data: data
+    dataType: 'html'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{favicon_url}"
+  jQuery.ajax(settings)
 
 validateEmail = ->
   $('#sharing-user-email').on 'keyup change', ->
@@ -526,6 +538,51 @@ validateEmail = ->
       $('#email-empty-error').removeClass 'hide'
       $('#email-duration-error').addClass 'hide'
 
+getSharedUsers = ->
+  data =
+    api_id: Evercam.User.api_id
+    api_key: Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    true
+
+  onSuccess = (users, status, jqXHR) ->
+    $.each users, (i, user) ->
+      getGravatar(null, user.email)
+      $("#sharing-user-email").append(
+        "<option value='#{user.email}'>#{user.name} (#{user.email})</option>"
+      )
+    share_users_select = $('#sharing-user-email').select2
+      placeholder: 'Email address or Username',
+      tags: true,
+      allowClear: true,
+      templateSelection: format,
+      templateResult: format
+    share_users_select.val("").trigger("change")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.API_URL}shares/users"
+  jQuery.ajax(settings)
+
+format = (state) ->
+  if !state.id
+    return state.text
+  if state.id == '0'
+    return state.text
+  if state.element
+    image_src = images_array[state.element.value]
+    if image_src is undefined
+      image_src = "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323"
+    return $("<span><img id='#{state.id}' style='width: 25px;height: auto;' src='#{image_src}' class='gravatar1'/>&nbsp;#{state.text}</span>")
+  else
+    state.text
+
 window.initializeSharingTab = ->
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
   $('.delete-share').click(onDeleteShareClicked)
@@ -541,6 +598,6 @@ window.initializeSharingTab = ->
   Notification.init(".bb-alert")
   getTransferFromUrl()
   addGravatarFallbacks()
-  validateEmail()
+  getSharedUsers()
 
 window.Evercam.Share.createShare = createShare

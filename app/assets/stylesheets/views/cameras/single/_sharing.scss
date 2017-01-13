@@ -234,3 +234,51 @@ td .share-camera {
     width: 60px;
   }
 }
+
+.shares_tab .select2-container--default .select2-selection--multiple {
+  border-radius: 2px;
+}
+
+.shares_tab .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #f2f2f2;
+  border-radius: 2px;
+  line-height: 1.6;
+  vertical-align: middle;
+  padding: 0 5px 0 0;
+}
+
+.shares_tab .select2-search__field {
+  width: 200px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  color: $form-dark-grey;
+  font-weight: bold;
+}
+
+.shares_tab .remove-borders td {
+  border-bottom: medium none !important;
+  border-top: medium none !important;
+}
+
+.shares_tab li span {
+  margin-right: 5px;
+  margin-top: 0;
+  vertical-align: top;
+  float: right;
+}
+
+.shares_tab .select2-container .select2-selection--single {
+  border-radius: 2px;
+  height: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.shares_tab .select2-container--default .select2-selection--single .select2-selection__arrow {
+  display: none;
+}
+
+.shares_tab .select2-container--default .select2-selection--single .select2-selection__rendered {
+  background-color: $secondary-grey;
+}

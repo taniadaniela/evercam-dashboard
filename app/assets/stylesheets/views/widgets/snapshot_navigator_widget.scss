@@ -1,3 +1,5 @@
+@import "utils/variables";
+
 .body-transparent{
     background-color: transparent;
 }
@@ -54,9 +56,9 @@ th {
   margin-left: 0px;
 }
 #recording-tab .btn {
-    padding: 9px 14px;
-    border:none;
-    width: 45px;
+  padding: 9px 14px;
+  border-radius: 0px;
+  margin-bottom: 0px;
 }
 
 #fullscreen:hover .play-options {
@@ -491,6 +493,15 @@ ul, menu, dir {
     position: absolute;
     right: 10px;
   }
+
+  .setting-heading .btn {
+    padding: 5px 12px;
+    border: 1px solid $hover-blue;
+    margin-left: 5px;
+    border-radius: 30px;
+    font-size: 11px;
+  }
+
   @media (max-width: 480px) {
     .snapshot-date {
       right: 35px;
@@ -658,4 +669,21 @@ ul, menu, dir {
   position: absolute;
   margin-top: 64px;
   margin-left: 100px;
+}
+
+.margin-left-15 {
+  margin-left: 15px;
+}
+
+.margin-topbottom-10 {
+  margin: 10px 0px;
+}
+
+.recording-heading {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.save-settings .form-group {
+  margin-bottom: 0px;
 }

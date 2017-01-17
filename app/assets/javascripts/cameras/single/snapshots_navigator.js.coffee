@@ -442,12 +442,8 @@ GetCameraInfo = (isShowLoader) ->
     totalFrames = response.snapshots.length
     totalSnaps = response.snapshots.length
     deviceAgent = navigator.userAgent.toLowerCase()
-    agentID = deviceAgent.match(/(iPad|iPhone|iPod)/i)
-    if (agentID)
-      if totalSnaps is 1
-        $("#divPointer").hide()
-      else
-        $("#divPointer").show()
+    if totalSnaps is 1
+      $("#divPointer").hide()
     else
       $("#divPointer").show()
     if response == null || response.snapshots.length == 0

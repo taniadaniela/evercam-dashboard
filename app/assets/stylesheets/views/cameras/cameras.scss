@@ -303,17 +303,17 @@ ul.scroll-menu {
     color: $white;
     margin: 9px;
   }
+
+  .refresh-gif-thumbnail {
+    width: 18px;
+    margin-top: 9px;
+    right: 0%;
+    display: none;
+  }
 }
 
 .refresh-camera-thumbnail:hover {
   background: #68a2d5;
-}
-
-.refresh-gif-thumbnail {
-  width: 18px;
-  margin-top: 10px;
-  right: 0%;
-  display: none;
 }
 
 @media (max-width: 992px) {

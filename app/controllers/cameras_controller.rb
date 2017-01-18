@@ -356,6 +356,10 @@ class CamerasController < ApplicationController
     end
   end
 
+  def cameras_table
+    @cameras = load_user_cameras(true, false)
+  end
+
   def format_logs(status, logs, timezone, created_at)
     starting_of_week = Time.now.utc.beginning_of_day - 604800
     no_event_logged = if starting_of_week < created_at then created_at else starting_of_week end

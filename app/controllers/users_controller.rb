@@ -112,11 +112,6 @@ class UsersController < ApplicationController
     render layout: "user-account"
   end
 
-  def cameras_table
-    @cameras = load_user_cameras(true, false)
-    render layout: "user-account"
-  end
-
   def settings
     @cameras = load_user_cameras(true, false)
     render layout: "user-account"

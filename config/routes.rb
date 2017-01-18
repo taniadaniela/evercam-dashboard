@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get '/v1/users/:id/billing/invoices/:invoice_id/pdf' => 'invoices#create_pdf', as: :create_invoice_pdf
   get '/v1/users/:id/billing/invoices/:invoice_id/send' => 'invoices#send_customer_invoice_email', as: :send_invoic_email
   get '/v1/users/:id/billing/invoices/:custom_id/custom' => 'invoices#custom_user_invoices', as: :custom_show
-  get '/v1/users/:id/cameras_table' => 'users#cameras_table', as: :cameras_table
 
   delete '/v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
 
@@ -39,7 +38,8 @@ Rails.application.routes.draw do
   post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
   get '/status' => 'cameras#online_offline'
-  get '/v1/cameras/map' => 'cameras#map'
+  get '/map' => 'cameras#map'
+  get '/cameras_table' => 'cameras#cameras_table'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
   get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found

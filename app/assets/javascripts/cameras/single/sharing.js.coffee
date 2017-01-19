@@ -542,6 +542,7 @@ getSharedUsers = ->
   data =
     api_id: Evercam.User.api_id
     api_key: Evercam.User.api_key
+    camera_id: Evercam.Camera.id
 
   onError = (jqXHR, status, error) ->
     true
@@ -556,6 +557,7 @@ getSharedUsers = ->
       placeholder: 'Email address or Username',
       tags: true,
       allowClear: true,
+      selectOnClose: true,
       templateSelection: format,
       templateResult: format
     share_users_select.val("").trigger("change")

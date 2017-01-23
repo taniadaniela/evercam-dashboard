@@ -308,6 +308,7 @@ class CamerasController < ApplicationController
   end
 
   def online_offline
+    days = if params[:history_days].to_i != 0 then params[:history_days].to_i else 7 end
     @cameras = load_user_cameras(true, false)
     camera_exids = []
     @cameras.each do |camera|
@@ -323,9 +324,8 @@ class CamerasController < ApplicationController
     all_logs = CameraActivity
                 .where(camera_id: camera_ids)
                 .where(:action => ["online", "offline"])
-                .where(:done_at => (Date.today - 7)..(Time.now.utc))
+                .where(:done_at => (Date.today - days)..(Time.now.utc))
                 .order(:done_at).all
-
     @camera_logs = @cameras.map do |camera|
       {
         camera_name: camera["name"],
@@ -338,7 +338,7 @@ class CamerasController < ApplicationController
     @formated_data = @camera_logs.map do |camera_log|
       {
         measure: camera_log[:camera_name],
-        data: format_logs(camera_log[:status], camera_log[:logs], "Etc/UTC", camera_log[:created_at])
+        data: format_logs(camera_log[:status], camera_log[:logs], "Etc/UTC", camera_log[:created_at], days)
       }
     end
   end
@@ -360,8 +360,8 @@ class CamerasController < ApplicationController
     @cameras = load_user_cameras(true, false)
   end
 
-  def format_logs(status, logs, timezone, created_at)
-    starting_of_week = Time.now.utc.beginning_of_day - 604800
+  def format_logs(status, logs, timezone, created_at, days)
+    starting_of_week = Time.now.utc.beginning_of_day - (days * 24 * 60 * 60)
     no_event_logged = if starting_of_week < created_at then created_at else starting_of_week end
     if logs.count >= 1
       logs.unshift({

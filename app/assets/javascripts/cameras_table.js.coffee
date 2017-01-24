@@ -44,6 +44,8 @@ initializeCamerasDataTable = ->
         if row.cloud_recordings
           cr = row.cloud_recordings
           getCloudStatus(cr.status, cr.storage_duration, cr.frequency)
+        else if row.rights.indexOf("edit") == -1
+          return "<span>Not Available</span>"
         else
           return "<span style='color: red'>Off (No Recordings)</span>"
       },

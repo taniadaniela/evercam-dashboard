@@ -337,9 +337,17 @@ class CamerasController < ApplicationController
 
     @formated_data = @camera_logs.map do |camera_log|
       {
-        measure: camera_log[:camera_name],
+        measure_html: create_measure(camera_log[:camera_name], camera_log[:status]),
         data: format_logs(camera_log[:status], camera_log[:logs], "Etc/UTC", camera_log[:created_at], days)
       }
+    end
+  end
+
+  def create_measure(camera_name, status)
+    if status == true
+      "#{camera_name}"
+    else
+      "#{camera_name} <i class='red fa fa-chain-broken'></i>"
     end
   end
 

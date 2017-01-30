@@ -216,19 +216,50 @@ function visavailChart() {
       svg.append('g').attr('id', 'g_data');
 
       // create y axis labels
-      svg.select('#g_axis').selectAll('text')
+      var labels =  svg.select('#g_axis').selectAll('text')
           .data(dataset.slice(startSet, endSet))
-          .enter()
-          .append('text')
-          .attr('x', paddingLeft)
-          .attr('y', lineSpacing + dataHeight / 2)
-          .text(function (d) {
+          .enter();
+
+      labels.append('text')
+        .attr('x', paddingLeft)
+        .attr('y', lineSpacing + dataHeight / 2)
+        .text(function (d) {
+          if (!(d.measure_html != null)) {
             return d.measure;
-          })
-          .attr('transform', function (d, i) {
-            return 'translate(0,' + ((lineSpacing + dataHeight) * i) + ')';
-          })
-          .attr('class', 'ytitle');
+          }
+        })
+        .attr('transform', function (d, i) {
+          return 'translate(0,' + ((lineSpacing + dataHeight) * i) + ')';
+        })
+        .attr('class', function(d) {
+          var returnCSSClass = 'ytitle';
+          if (d.measure_url != null) {
+            returnCSSClass = returnCSSClass + ' link';
+          }
+          return returnCSSClass;
+        })
+        .on('click', function(d) {
+          if (d.measure_url != null) {
+            return window.open(d.measure_url);
+          }
+          return null;
+        });
+
+    // HTML labels
+    labels.append('foreignObject')
+        .attr('x', paddingLeft)
+        .attr('y', lineSpacing)
+        .attr('transform', function (d, i) {
+          return 'translate(0,' + ((lineSpacing + dataHeight) * i) + ')';
+        })
+        .attr('width', -1 * paddingLeft)
+        .attr('height', dataHeight)
+        .attr('class', 'ytitle')
+        .html(function(d) {
+          if (d.measure_html != null) {
+            return d.measure_html;
+          }
+        });
 
       // create vertical grid
       svg.select('#g_axis').selectAll('line.vert_grid').data(xScale.ticks())

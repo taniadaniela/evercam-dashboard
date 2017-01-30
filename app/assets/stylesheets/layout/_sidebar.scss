@@ -103,9 +103,9 @@
   margin-top: 4px;
 }
 
-.developer-list,
 .setting-list {
   display: none;
+  padding-left: 0px;
 }
 
 .developer-list li:hover,
@@ -127,8 +127,7 @@
 .left-nav-submenu li {
   padding-top: 2px;
   padding-bottom: 2px;
-  margin: 0px 0 0 14px !important;
-  padding-left: 20px;
+  padding-left: 35px;
 }
 
 .cameralist-height {
@@ -452,6 +451,25 @@ li.inactive a {
 
 .active-color {
   background-color: $hover-blue;
+}
+
+.status-list {
+  cursor: pointer;
+}
+
+.status-report-submenu {
+
+  display: none;
+  padding-left: 0px;
+
+  li {
+    padding-left: 55px;
+  }
+}
+
+.right-margin {
+  margin-right: 1em;
+  margin-top: 6px;
 }
 
 .sidebar {

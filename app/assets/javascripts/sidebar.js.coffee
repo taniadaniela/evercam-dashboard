@@ -43,12 +43,22 @@ slideToggleList = ->
     $('#hello .fa-caret-up').show()
     $('#hello .fa-caret-down').hide()
 
+  if $('.status-report-submenu:visible').length == 0
+    $('.status-report .fa-caret-up').hide()
+    $('.status-report .fa-caret-down').show()
+  else
+    $('.status-report .fa-caret-up').show()
+    $('.status-report .fa-caret-down').hide()
+
 slideToggle = ->
   $('.seting').click ->
     $('.setting-list').slideToggle 'slow', ->
       slideToggleList()
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle 'slow', ->
+      slideToggleList()
+  $('.status-list').click ->
+    $('.status-report-submenu').slideToggle 'slow', ->
       slideToggleList()
 
 removeDropdown = ->

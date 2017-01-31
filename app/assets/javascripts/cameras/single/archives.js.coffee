@@ -100,8 +100,16 @@ renderbuttons = (row, type, set, meta) ->
     divPopup.append(divCollapsePopup)
     div.append(divPopup)
   if row.status is "Completed"
-    mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
-    view_url = "clip/#{row.id}/play"
+    DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
+    mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}/play?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    day = DateTime.getDate()
+    month = DateTime.getMonth()
+    year = DateTime.getFullYear()
+    archive_date = new Date(year, month, day)
+    if archive_date < new Date(2017, 0, 31)
+      mp4_url = "#{server_url}/#{row.camera_id}/archives/#{row.id}.mp4"
+
+    view_url = "clip/#{row.id}/play?date=#{year}-#{(parseInt(month) + 1)}-#{day}"
     copy_url = ""
     if row.public is true
       copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'

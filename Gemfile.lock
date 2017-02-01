@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: 6a7764ebb04f760a0c3332310d0f9dc35df8ad17
+  revision: e2fca5e5ea42fcd5ec9270f100afecaf61aefc8d
   specs:
-    evercam (0.3.6)
+    evercam (0.3.7)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
       typhoeus (~> 0.6)
@@ -153,11 +153,11 @@ GEM
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
-    faraday (0.10.0)
+    faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.10.1)
+    faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.9.14)
+    ffi (1.9.17)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.38.0)

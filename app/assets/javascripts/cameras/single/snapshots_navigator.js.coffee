@@ -1019,7 +1019,7 @@ calendarShow = ->
     $('.col-recording-right').toggle 'slow', ->
       $('#calendar .fa').css 'color', 'white'
       checkCalendarDisplay()
-    $('#calendar .fa').css 'color', 'blue'
+    $('#calendar .fa').css 'color', '#68a2d5'
 
 showDaysLoadingAnimation = ->
   $('#img-days-loader').removeClass 'hide'

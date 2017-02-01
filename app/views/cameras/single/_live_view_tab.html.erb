@@ -14,18 +14,16 @@
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= thumbnail_url(@camera) %>" />
-          <div class="live-options">
+          <div class="play-options">
+            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
+            <div id="save-live-snapshot" class="btn-live-player save-live hide">
+              <i class="glyphicon glyphicon-floppy-disk"></i>
+            </div>
             <div class="live-option" id="toggle">
               <span class="glyphicon glyphicon-fullscreen"></span>
             </div>
             <div class="live-option">
               <a id="link-popout"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
-            </div>
-          </div>
-          <div class="play-options">
-            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
-            <div id="save-live-snapshot" class="btn-live-player save-live hide">
-              <i class="glyphicon glyphicon-floppy-disk"></i>
             </div>
           </div>
           <% if has_edit_right && @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
@@ -73,7 +71,7 @@
         <div class="pull-right">
           <table>
             <tr>
-              <td>Feed:&nbsp;</td>
+              <td class="padding-5">Feed:&nbsp;</td>
               <td>
                 <select id="select-stream-type" class="form-control">
                   <option value="jpeg">JPEG</option>

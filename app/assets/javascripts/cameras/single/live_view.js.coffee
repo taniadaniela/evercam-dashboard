@@ -94,7 +94,7 @@ initializePlayer = ->
   clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
   setInterval (->
     if $('.vjs-control-bar').css('visibility') == 'visible'
-      $('#live-view-placeholder .pull-right table').css 'marginTop', '-78px'
+      $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
       $('#live-view-placeholder .pull-right table').stop().animate()
     else
       $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
@@ -223,11 +223,9 @@ getImageRealRatio = ->
         setTimeout (-> getImageRealRatio()), 100
 
 calculateHeight = ->
-  content_height = Metronic.getViewPort().height + $(".page-header").height()
   content_width = Metronic.getViewPort().width
-  tab_menu_height = $("#ul-nav-tab").height()
   side_bar_width = $(".page-sidebar").width()
-  image_height = content_height - (tab_menu_height *2)
+  image_height = Metronic.getViewPort().height
   if $(".page-sidebar").css('display') is "none"
     content_width = content_width - side_bar_width
 

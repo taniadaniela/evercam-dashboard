@@ -196,10 +196,6 @@ th {
   position: relative;
 }
 
-/* adjust as needed so the tab text displays */
-.tabdrop{
-  width: 108px;
-}
 .nav-tabs .dropdown.open > .dropdown-toggle, .nav-pills .dropdown.open > .dropdown-toggle {
   background-color: #ffffff;
 }
@@ -470,4 +466,9 @@ a:hover, a:focus {
   min-height: 600px;
   height: 100%;
   width: 100%;
+}
+
+.nav-tab-shares {
+  margin: 0px;
+  padding: 4.5px 12px;
 }

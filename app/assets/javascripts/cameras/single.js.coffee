@@ -37,6 +37,15 @@ handleTabClick = ->
     clicked_path = $(this).attr('data-target').replace('#', '')
     if window.history and window.history.pushState
       window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath}/#{clicked_path}" );
+    if clicked_path is "live"
+      if $(window).width() >= 992
+        handleLiveViewMenuWidth()
+    else
+      $('.center-tabs').width '100%'
+      $('.center-tabs').removeClass 'center-tabs-live'
+      $('#read-only-sharing-tab').removeClass 'read-only-sharing-tab'
+      $('.delete-share-icon').removeClass 'colour-white'
+      $('#ul-nav-tab').removeClass 'nav-menu-text'
   $(".nav-tabs").tabdrop "layout"
 
 handleBackForwardButton = ->
@@ -125,6 +134,37 @@ showDurationError = ->
     else
       $('.duration-error').removeClass 'duration-text-error'
 
+liveViewMenuDisplay = ->
+  if $("#live-view-tab").hasClass 'active'
+    handleLiveViewMenuWidth()
+  else
+    $('.center-tabs').width '100%'
+    $('.center-tabs').removeClass 'center-tabs-live'
+    $('#read-only-sharing-tab').removeClass 'read-only-sharing-tab'
+    $('.delete-share-icon').removeClass 'colour-white'
+    $('#ul-nav-tab').removeClass 'nav-menu-text'
+
+handleLiveViewMenuWidth = ->
+  if $(window).width() >= 992
+    content_width = Metronic.getViewPort().width
+    side_bar_width = $(".page-sidebar").width()
+    live_view_menu_width = content_width - side_bar_width
+    $('.center-tabs').addClass 'center-tabs-live'
+    $('#ul-nav-tab').addClass 'nav-menu-text'
+    $('#read-only-sharing-tab').addClass 'read-only-sharing-tab'
+    $('.delete-share-icon').addClass 'colour-white'
+    $('.center-tabs').width live_view_menu_width
+  else
+    $('.center-tabs').width '100%'
+    $('.center-tabs').removeClass 'center-tabs-live'
+    $('#read-only-sharing-tab').removeClass 'read-only-sharing-tab'
+    $('.delete-share-icon').removeClass 'colour-white'
+    $('#ul-nav-tab').removeClass 'nav-menu-text'
+
+handleResize = ->
+  $(window).resize ->
+    liveViewMenuDisplay()
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -150,3 +190,5 @@ window.initializeCameraSingle = ->
   SaveImage.init()
   readOnlyCameraDeleteOption()
   showDurationError()
+  liveViewMenuDisplay()
+  handleResize()

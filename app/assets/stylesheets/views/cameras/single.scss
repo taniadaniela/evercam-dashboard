@@ -10,7 +10,7 @@
 
 .center-tabs .icon-bar-alignment {
   font-size: 16px;
-  margin-top: -5px;
+  margin-top: 0px;
   margin-right: -5px;
 }
 
@@ -62,15 +62,23 @@
   overflow: hidden;
 }
 
-.delete-share-icon {
+.center-tabs .delete-share-icon {
   float: right;
   padding: 6px;
   cursor: pointer;
   border-radius: 50%;
-  color: $main-color;
+  color: $secondary-color;
   font-size: 15px;
-  margin-top: 0px;
+  margin-top: 3px;
   margin-right: 2px;
+}
+
+.center-tabs .colour-white {
+  color: $white;
+}
+
+.tabbable .create-share-button {
+  margin-top: -6px;
 }
 
 .delete-share-icon:hover {
@@ -109,4 +117,12 @@ input[type="number"] {
 .clip-text {
   position: fixed;
   margin-top: 3px;
+}
+
+.read-only-sharing-tab {
+  font-size: 15px;
+  color: $white;
+  font-weight: bold;
+  padding: 5.5px 12px;
+  margin: 0px;
 }

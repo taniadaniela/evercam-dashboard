@@ -143,6 +143,10 @@ span.delete-share-control:hover, span.delete-share-request-control:hover, span.r
 }
 .email-input {
   float: left;
+
+  .select2-container {
+    z-index: 9;
+  }
 }
 .glyphicon-remove {
   cursor: pointer;

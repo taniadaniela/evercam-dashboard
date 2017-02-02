@@ -256,6 +256,7 @@ createClip = ->
       return false
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     NProgress.start()
+    $("#create_clip_button").attr 'disabled', 'disabled'
     data =
       title: $("#clip-name").val()
       from_date: from_date
@@ -267,6 +268,7 @@ createClip = ->
       Notification.show(jqXHR.responseJSON.message)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       NProgress.done()
+      $("#create_clip_button").removeAttr 'disabled'
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
@@ -276,9 +278,11 @@ createClip = ->
           NProgress.done()
           formReset()
           setDate()
+          $("#create_clip_button").removeAttr 'disabled'
       else
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         NProgress.done()
+        $("#create_clip_button").removeAttr 'disabled'
       Notification.show(data.message)
 
     settings =

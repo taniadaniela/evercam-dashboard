@@ -217,6 +217,10 @@
 }
 .tab-content #live {
   margin: 0px 0px 0px -15px;
+
+  .camera-preview-offline  {
+    margin-bottom: -4px;
+  }
 }
 #live-view-placeholder .active, .camera-preview-offline .wrap {
   display: block;
@@ -227,7 +231,7 @@
 .offline-message {
   position: absolute;
   width: 147px;
-  top: 7px;
+  top: 30px;
   left: 42%;
   right: 42%;
   color: $white;
@@ -600,7 +604,7 @@
 
 .refresh-camera {
   position: absolute;
-  top: 7px;
+  top: 30px;
   right: 0%;
   width: 36px;
   height: 36px;

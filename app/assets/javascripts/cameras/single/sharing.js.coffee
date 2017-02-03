@@ -26,7 +26,7 @@ addSharingCameraRow = (details) ->
     row.attr("share-username", details['user_id'])
     row.attr("share-email", details['email'])
     $("#new_owner_email").append(
-      "<option value='#{details['user_id']}'>#{details['fullname']}</option>"
+      "<option value='#{details['user_id']}' share_id='#{details['share_id']}'>#{details['fullname']}</option>"
     )
   cell = $('<td>', {class: "col-lg-4"})
   avatar_placeholder = $('<div>', {class: "gravatar-placeholder"})
@@ -34,7 +34,8 @@ addSharingCameraRow = (details) ->
   avatar.attr("src", details['avatar'])
   avatar_placeholder.append(avatar)
   cell.append(avatar_placeholder)
-  username_id = $('<div>', {class: "username-id-margin"})
+  username_id = $('<div>', {class: "username-id"})
+  username_id.addClass("sharee_info")
   username_id.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['fullname'])))
   if details.type == "share_request"
     suffix = $('<small>', {class: "blue"})
@@ -51,7 +52,7 @@ addSharingCameraRow = (details) ->
 
   cell = $('<td>', {class: "col-lg-3"})
   cell.addClass("share-by")
-  username_id = $('<div>', {class: "username-id-margin"})
+  username_id = $('<div>', {class: "username-id"})
   username_id.append(document.createTextNode(" " + details['sharer_name']))
   line_breake = $('<br>')
   username_id.append(line_breake)

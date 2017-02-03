@@ -49,22 +49,20 @@
         </p>
         <p>
           <strong>
-            Once you Transfer, you may lose all rights to the camera and associated artifacts.
+            Once you transfer, Camera will be shared with you with full-rights.
           </strong>
         </p>
-        <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
-        <div class="row">
+        <p id="change_owner_error" class="alert alert-danger" style="padding: 5px; display: none;"></p>
+        <div class="row" style="margin-top: 5px;">
           <div class="col-md-8">
-
-              <select id="new_owner_email" name="new_owner_email" class="form-control">
-                <option value="one">Select a new owner...</option>
-                <% if @camera_shares %>
-                  <% @camera_shares.each do |share| %>
-                   <option value="<%= share["user_id"] %>"><%= share["fullname"] %></option>
-                  <% end %>
+            <select id="new_owner_email" name="new_owner_email" class="form-control">
+              <option value="">Select a new owner...</option>
+              <% if @camera_shares %>
+                <% @camera_shares.each do |share| %>
+                 <option value="<%= share["user_id"] %>" share_id="<%= share["id"] %>" data-email="<%= share["email"] %>"><%= share["fullname"] %></option>
                 <% end %>
-              </select>
-
+              <% end %>
+            </select>
           </div>
         </div>
       </div>
@@ -124,10 +122,10 @@
       </thead>
       <tbody>
       <tr>
-        <td class="owner-email">
+        <td class="owner-email" share-username="<%= @owner.username %>" share-email="<%= @owner.email %>">
           <div class="gravatar-placeholder">
             <% unless @camera['id'] == "evercam-remembrance-camera" %>
-              <img class="gravatar" email = <%= @owner.email %> />
+              <img class="gravatar" email="<%= @owner.email %>"/>
             <% end %>
           </div>
           <div class="username-id">
@@ -155,10 +153,10 @@
             <td class="col-lg-4">
               <div class="gravatar-placeholder">
                 <% unless @camera['id'] == "evercam-remembrance-camera" %>
-                  <img class="gravatar" email = "<%= share['email'] %>" />
+                  <img class="gravatar" email="<%= share['email'] %>" />
                 <% end %>
               </div>
-              <div class="username-id">
+              <div class="username-id sharee_info">
                 <%= share["fullname"] %>
                 <% if share["user_id"] == current_user.username %>
                   <small class="blue"> (you)</small>

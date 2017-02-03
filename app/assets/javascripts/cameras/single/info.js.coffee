@@ -30,13 +30,13 @@ setChangeOwnerDialogError = (message) ->
     $('#change_owner_error').hide()
   else
     $('#change_owner_error').show()
-  true
 
 onChangeOwnerSubmitClicked = (event) ->
   event.preventDefault()
   field  = $('#new_owner_email')
   camera_id = $(this).attr("camera_id")
   current_tab = $(this).attr("data-model")
+
   if current_tab is "setting"
     field  = $('#settings_new_owner_email')
   if field.val() != ''
@@ -49,9 +49,22 @@ onChangeOwnerSubmitClicked = (event) ->
       true
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        alert("Camera ownership has been successfully transferred.")
-        location = window.location
-        location.assign(location.protocol + "//" + location.host)
+        Notification.show("Camera ownership has been successfully transferred.")
+        $('#change_owner2').modal('hide')
+        field.val("")
+        new_owner = $("#row-share-#{$(this)[0].id} div.sharee_info").html()
+        owner_img = $("#row-share-#{$(this)[0].id} img").attr("src")
+        $("#row-share-#{$(this)[0].id} div.sharee_info").html($(".owner-email div.username-id").html())
+        $(".owner-email img.gravatar").attr("email", $(this)[0].email)
+        $(".owner-email div.username-id").html(new_owner)
+        $("#row-share-#{$(this)[0].id} img").attr("src", $(".owner-email img").attr("src"))
+        $(".owner-email img").attr("src", owner_img)
+        $("#row-share-#{$(this)[0].id} td.share-by div.username-id").html(new_owner)
+        $("#transfer").remove()
+        $("#row-share-#{$(this)[0].id} select.reveal").prop("disabled", "disabled")
+        $("#row-share-#{$(this)[0].id} select.reveal").val("full")
+        $("#row-share-#{$(this)[0].id}").attr("share-email", $(".owner-email").attr("share-email"))
+        $("#row-share-#{$(this)[0].id}").attr("share-username", $(".owner-email").attr("share-username"))
       else
         if current_tab is "setting"
           Notification.show data.message
@@ -67,9 +80,15 @@ onChangeOwnerSubmitClicked = (event) ->
       data: data
       error: onError
       success: onSuccess
+      context: {
+        id: field.children(":selected").attr("share_id"),
+        email: field.children(":selected").attr("data-email"),
+        name: field.children(":selected").text()
+      }
       url: '/cameras/transfer'
     jQuery.ajax(settings)
-  true
+  else
+    setChangeOwnerDialogError("Please select new owner to transfer camera.")
 
 showChangeOwnerDialog = (clear) ->
   if clear

@@ -11,6 +11,14 @@ sendAJAXRequest = (settings) ->
     settings.headers = headers
   xhrRequestChangeMonth = $.ajax(settings)
 
+isUnauthorized = (response) ->
+  if response.responseText.indexOf("InvalidAuthenticityToken") isnt -1
+    Notification.show("Your session has been expired.")
+    location = window.location
+    location.assign(location.protocol + "//" + location.host)
+  else
+    Notification.show(jqXHR.responseJSON.message)
+
 initDatePicker = ->
   $('.clip-datepicker').datetimepicker
     step: 1
@@ -265,7 +273,7 @@ createClip = ->
       is_public: $("#is-public").is(":checked")
 
     onError = (jqXHR, status, error) ->
-      Notification.show(jqXHR.responseJSON.message)
+      isUnauthorized(jqXHR)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       NProgress.done()
       $("#create_clip_button").removeAttr 'disabled'
@@ -346,7 +354,7 @@ deleteClip = ->
       archive_id: control.attr("archive_id")
 
     onError = (jqXHR, status, error) ->
-      Notification.show(jqXHR.responseJSON.message)
+      isUnauthorized(jqXHR)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       NProgress.done()
 

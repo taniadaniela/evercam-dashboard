@@ -448,11 +448,6 @@ class CamerasController < ApplicationController
 
       api.create_archive(camera["id"], params["title"], from_date, to_date,
         current_user.username, params["embed_time"], params["is_public"])
-
-      # @time_overlay = params["embed_datetime"] ? "Yes" : "No"
-      # UserMailer.create_clip_email(current_user.fullname, "marco@evercam.io",
-      #   camera["name"], camera["id"], params["title"], params["from_date"],
-      #   params["to_date"], @time_overlay).deliver_now
       result[:message] = "Your clip has been requested."
     rescue => error
       result = {success: false, message: error.message}

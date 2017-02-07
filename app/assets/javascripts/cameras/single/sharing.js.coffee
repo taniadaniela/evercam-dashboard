@@ -2,12 +2,20 @@ images_array = {}
 share_users_select = undefined
 
 showError = (message) ->
+  $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
   Notification.show(message)
-  true
 
 showFeedback = (message) ->
+  $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
   Notification.show(message)
-  true
+
+isUnauthorized = (response, message) ->
+  if response.responseText.indexOf("InvalidAuthenticityToken") isnt -1
+    showError("Your session has been expired.")
+    location = window.location
+    location.assign(location.protocol + "//" + location.host)
+  else
+    showError(message)
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -177,16 +185,15 @@ resendCameraShareRequest = ->
     user_name: $("#user_name").val()
 
   onError = (jqXHR, status, error) ->
-    showError("Failed to resend camera share request.")
+    isUnauthorized(jqXHR, "Failed to resend camera share request.")
     NProgress.done()
-    true
+
   onSuccess = (data, status, jqXHR) ->
     if data.success
       showFeedback("A notification email has been sent to the specified email address.")
     else
       showFeedback(data.message)
     NProgress.done()
-    true
 
   settings =
     cache: false
@@ -197,7 +204,6 @@ resendCameraShareRequest = ->
     type: 'POST'
     url: '/share/request/resend'
   sendAJAXRequest(settings)
-  true
 
 onSetCameraAccessClicked = (event) ->
   event.preventDefault()
@@ -229,9 +235,8 @@ onSetCameraAccessClicked = (event) ->
       divText = $('#Sharesprivate')
 
   onError = (jqXHR, status, error) ->
-    showError("Update of camera permissions failed. Please contact support.")
+    isUnauthorized(jqXHR, "Update of camera permissions failed. Please contact support.")
     button.removeAttr('disabled')
-    false
 
   onSuccess = (data, status, jqXHR) ->
     if data.success
@@ -242,7 +247,6 @@ onSetCameraAccessClicked = (event) ->
       showError("Update of camera permissions failed. Please contact support.")
     button.removeAttr('disabled')
     NProgress.done()
-    true
 
   settings =
     cache: false
@@ -255,7 +259,6 @@ onSetCameraAccessClicked = (event) ->
 
   button.attr('disabled', 'disabled')
   sendAJAXRequest(settings)
-  true
 
 getTransferFromUrl = ->
   is_transfer = window.Evercam.request.subpath.
@@ -273,21 +276,20 @@ onDeleteShareClicked = (event) ->
     camera_id: control.attr("camera_id")
     email: row.attr('share-email')
   onError = (jqXHR, status, error) ->
-    showError("Delete of camera shared failed. Please contact support.")
+    isUnauthorized(jqXHR, "Delete of camera shared failed. Please contact support.")
     NProgress.done()
-    false
+
   onSuccess = (data, status, jqXHR) ->
     if data.success
       onComplete = ->
         row.remove()
       row.fadeOut(onComplete)
-      showError("Camera share deleted successfully.")
+      showFeedback("Camera share deleted successfully.")
       if $("#user_name").val() is row.attr('share-username')
         window.location = '/'
     else
       showError("Delete of camera shared failed. Please contact support.")
     NProgress.done()
-    true
 
   settings =
     cache: false
@@ -298,7 +300,6 @@ onDeleteShareClicked = (event) ->
     type: 'DELETE'
     url: '/share'
   sendAJAXRequest(settings)
-  true
 
 onDeleteShareRequestClicked = (event) ->
   event.preventDefault()
@@ -309,15 +310,15 @@ onDeleteShareRequestClicked = (event) ->
     camera_id: control.attr("camera_id")
     email: row.attr("share-request-email")
   onError = (jqXHR, status, error) ->
-    showError("Delete of share request failed. Please contact support.")
+    isUnauthorized(jqXHR, "Delete of share request failed. Please contact support.")
     NProgress.done()
-    false
+
   onSuccess = (data, success, jqXHR) ->
     if data.success
       onComplete = ->
         row.remove()
       row.fadeOut(onComplete)
-      showError("Camera share request deleted successfully.")
+      showFeedback("Camera share request deleted successfully.")
     else
       showError("Delete of share request failed. Please contact support.")
     NProgress.done()
@@ -342,9 +343,9 @@ onAddSharingUserClicked = (event) ->
   else
     permissions = "full"
   onError = (jqXHR, status, error) ->
-    showError("Failed to share camera.")
+    isUnauthorized(jqXHR, "Failed to share camera.")
     NProgress.done()
-    false
+
   onSuccess = (data, status, jqXHR) ->
     if data.success
       if data.type == "share"
@@ -389,17 +390,17 @@ onSaveShareClicked = (event) ->
     camera_id: Evercam.Camera.id
     email: row.attr('share-username')
   onError = (jqXHR, status, error) ->
-    showError("Update of share failed. Please contact support.")
+    isUnauthorized(jqXHR, "Failed to update camera share.")
     NProgress.done()
-    false
+
   onSuccess = (data, success, jqXHR) ->
     if data.success
-      showFeedback("Share successfully updated.")
+      showFeedback("Camera share updated.")
       button.fadeOut()
     else
       showError("Update of share failed. Please contact support.")
     NProgress.done()
-    true
+
   settings =
     cache: false
     data: data
@@ -409,7 +410,6 @@ onSaveShareClicked = (event) ->
     type: 'PATCH'
     url: '/share/' + Evercam.Camera.id
   sendAJAXRequest(settings)
-  true
 
 onSaveShareRequestClicked = (event) ->
   event.preventDefault()
@@ -422,9 +422,9 @@ onSaveShareRequestClicked = (event) ->
     camera_id: Evercam.Camera.id
     email: row.attr('share-request-email')
   onError = (jqXHR, status, error) ->
-    showError("Update of share request failed. Please contact support.")
+    isUnauthorized(jqXHR, "Failed to update camera share request. Please contact support.")
     NProgress.done()
-    false
+
   onSuccess = (data, success, jqXHR) ->
     if data.success
       showFeedback("Share request successfully updated.")
@@ -432,7 +432,7 @@ onSaveShareRequestClicked = (event) ->
     else
       showError("Update of share request failed. Please contact support.")
     NProgress.done()
-    true
+
   settings =
     cache: false
     data: data
@@ -442,7 +442,6 @@ onSaveShareRequestClicked = (event) ->
     type: 'PATCH'
     url: '/share/request/'
   sendAJAXRequest(settings)
-  true
 
 createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
   NProgress.start()

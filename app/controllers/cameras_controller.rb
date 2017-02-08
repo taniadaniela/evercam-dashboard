@@ -156,7 +156,7 @@ class CamerasController < ApplicationController
       settings = {
         :name => params['camera-name'],
         :external_host => params['camera-url'],
-        :timezone => params['camera-timezone'].blank? ? 'Etc/UTC' : ActiveSupport::TimeZone.new(params['camera-timezone']).tzinfo.name,
+        :timezone => params['camera-timezone'].blank? ? 'Europe/Dublin' : ActiveSupport::TimeZone.new(params['camera-timezone']).tzinfo.name,
         :internal_host => params['local-ip'],
         :external_http_port => params['port'],
         :internal_http_port => params['local-http'],

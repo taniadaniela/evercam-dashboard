@@ -21,35 +21,44 @@
           <%= hidden_field_tag('camera-lat', @user['camera-lat']) %>
           <%= hidden_field_tag('camera-lng', @user['camera-lng']) %>
 
-          <div class="col-sm-8">
+          <div class="col-sm-8 padding-left-0">
             <div class="row">
-              <div class='col-sm-12'>
-                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6">
-                  <div class="form-group">
-                    <%= label_tag('copy-from', "Copy From", class: "control-label") %>
-                    <div class="copy-from">
-                      <ul class="nav add-camera-page">
-                        <li class="pull-left">
-                          <a class="cameras-dropdown-toggle" data-toggle="dropdown">
-                            <% if params[:id].present? %><%=params[:id] %><% else %>Select Camera<% end %> <i class="fa fa-chevron-down fa-copy-from"></i>
-                          </a>
-                          <ul class="dropdown-menu scroll-menu" role="menu">
-                            <% @cameras.each do |camera| %>
-                            <% if camera["rights"].split(",").include?("edit") %>
-                            <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-                              <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
-                            </li>
-                            <% end %>
-                            <% end %>
-                          </ul>
-                        </li>
-                      </ul>
+              <div class='col-sm-12 copy-from-section margin-bottom-20'>
+                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-12 col-md-12">
+                  <div id="copy-from" class="col-md-12 col-sm-12 padding-left-0 copy-from">
+                    <div class="float-left">
+                      <label class="sidebar-type-label">
+                        <input id="copy-from-checkbox" name="type" class="sidebar-chk-span" type="checkbox" value="">
+                      </label>
+                      <%= label_tag('copy-from', "Copy settings from existing camera", class: "control-label copy-from-label margin-right-15") %>
+                    </div>
+                    <div class="copy-from-camera form-group float-left">
+                      <div class="copy-from">
+                        <ul class="nav add-camera-page">
+                          <li id="clone-camera-list" class="pull-left">
+                            <a class="cameras-dropdown-toggle" data-toggle="dropdown" aria-expanded= "true">
+                              <% if params[:id].present? %><%=params[:id] %><% else %>Select Camera<% end %><i class="fa fa-chevron-down fa-copy-from" aria-hidden="true"></i>
+                              <i class="fa fa-chevron-up fa-copy-from" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu scroll-menu" role="menu">
+                              <% @cameras.each do |camera| %>
+                              <% if camera["rights"].split(",").include?("edit") %>
+                                <li class="sub-menu-item <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+                                <%= image_tag("#{EVERCAM_MEDIA_API}cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", :class => 'thumbnail-img') %>
+                                <%= link_to camera['name'], cameras_clone_path(camera['id']) %>
+                              </li>
+                              <% end %>
+                              <% end %>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class='col-sm-12 margin-top-set'>
-                <div class="col-sm-6 <%= field_errors["name"] ? ' has-error' : '' %>">
+              <div id="camera-friendly-name" class='col-sm-12 margin-top-20'>
+                <div class="col-sm-6 col-md-4 <%= field_errors["name"] ? ' has-error' : '' %>">
                   <div class='form-group'>
                     <%= text_field_tag("camera-name", @user['camera-name'], "class" => "form-control", "required" =>"
                     ", "data-validation-help" => "To identify your camera in the dashboard, Max 24 characters.", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "maxlength" => "24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Containing letters, spaces and hyphens.", "data-validation-event" => "click") %>
@@ -59,7 +68,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div class='col-sm-6 model<%= field_errors["id"] ? ' has-error' : '' %>'>
+                <div class='col-sm-6 col-md-4 model<%= field_errors["id"] ? ' has-error' : '' %>'>
                   <div class="form-group">
                     <%= text_field_tag("camera-id", @user['camera-id'], "required" =>"required", "class" => "form-control", "data-validation-help" => "This must be unique and cannot be changed.", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.", "data-validation-event" => "click")%>
                     <%= label_tag('camera-id', "Evercam ID*", class: "float-label") %>
@@ -70,9 +79,9 @@
                 </div>
               </div>
             </div>
-            <div class='row margin-top-40'>
+            <div class='row margin-top-20'>
               <div class='col-sm-12'>
-                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6">
+                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6 col-md-4">
                   <div class="form-group">
                     <%= label_tag('camera-vendor', "Camera Vendor", class: "control-label") %>
                     <div class="dropdown">
@@ -86,7 +95,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-6">
+                <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-6 col-md-4">
                   <div class="form-group">
                     <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
                     <div class="dropdown">
@@ -103,9 +112,9 @@
                 </div>
               </div>
             </div>
-            <div class='row margin-top-30'>
+            <div class='row margin-top-20'>
               <div class='col-sm-12'>
-                <div id="unreveal" class="col-sm-4">
+                <div id="unreveal" class="col-sm-3 col-md-3">
                   <div id="ext-ip" class='<%= field_errors["external_host"] ? ' has-error' : '' %>'>
                     <span class="prepend prepend-3">http://</span>
                     <div class="form-group">
@@ -120,20 +129,20 @@
                     </div>
                   </div>
                 </div>
-                <div class='col-sm-4 <%= field_errors["external_http_port"] ? ' has-error' : '' %>'>
+                <div class='col-sm-2 col-md-2 <%= field_errors["external_http_port"] ? ' has-error' : '' %>'>
                   <div id="camera-port" class="input-group camera-ext-port">
                     <span class="prepend prepend-1">:</span>
                     <div class="form-group external-port">
-                      <%= text_field_tag("port", @user['port'] || 80, "class" => "form-control port-input", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-event" => "click") %>
+                      <%= text_field_tag("port", @user['port'] || 80, "class" => "form-control port-input", "required" => "", "data-validation" => "custom", "data-validation-length" => "max5", "maxlength" => "5", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-event" => "click") %>
                       <%= label_tag('port', raw("HTTP Port*"), class: "float-label") %>
                       <% if field_errors["external_http_port"] %>
                       <span class="help-block form-error text-left"><%= field_errors["external_http_port"] %></span>
                       <% end %>
-                      <div class="port-status"></div><img src="/assets/refresh.gif" class="refresh-gif">
+                      <div class="port-status"></div><img src="/assets/refresh.gif" class="refresh-gif icon-position">
                     </div>
                   </div>
                 </div>
-                <div class='col-sm-4 <%= field_errors["jpg_url"] ? ' has-error' : '' %>'>
+                <div class='col-sm-4 col-md-4 <%= field_errors["jpg_url"] ? ' has-error' : '' %>'>
                   <div class="snap-end">
                     <span class="prepend prepend-2">/</span>
                     <div class="form-group">
@@ -143,12 +152,22 @@
                     </div>
                   </div>
                 </div>
+                <div class='col-sm-3 col-md-3'>
+                  <div class="rtsp-end">
+                    <span class="prepend prepend-2">/</span>
+                    <div class="form-group">
+                      <input id="rtsp-readonly" class="form-control snapshot-readonly opacity hide" type="text" disabled value="<%= @user['rtsp'] %>"/>
+                      <%= text_field_tag("rtsp", @user['rtsp'], "class" => "form-control", "data-validation-help" => "Include the entire rtsp path after the domain eg.axis-media/media.amp", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "", "data-validation-event" => "click") %>
+                      <%= label_tag('rtsp', "RTSP URL", class: "float-label") %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row margin-top-20">
               <div class='col-sm-12'>
                 <div class='<%= field_errors["username"] ? ' has-error' : '' %>'>
-                  <div class="col-sm-4">
+                  <div class="col-sm-4 col-md-4">
                     <div class="form-group">
                       <%= text_field_tag("camera-username", @user['camera-username'], "data-validation-help" => "Required if the camera needs authenticating", "class" => "form-control", "data-validation-event" => "click") %>
                       <%= label_tag('camera-username', "Camera Username", class: "float-label") %>
@@ -159,7 +178,7 @@
                   </div>
                 </div>
                 <div class='<%= field_errors["password"] ? ' has-error' : '' %>'>
-                  <div class="col-sm-4">
+                  <div class="col-sm-4 col-md-4">
                     <div class="form-group">
                       <%= text_field_tag("camera-password", @user['camera-password'], "data-validation-help" => "Enter the Password of the camera.", class: "form-control", "data-validation-event" => "click") %>
                       <%= label_tag('camera-password', "Camera Password", class: "float-label") %>
@@ -171,9 +190,12 @@
                 </div>
               </div>
             </div>
-            <div class="row margin-top-30">
+            <div class="row margin-top-20">
               <div class='col-sm-12'>
-                <div class="btn additional action expand">Additional Settings <i class="fa fa-caret-down"></i></div>
+                <div class="btn additional additional-text expand">Additional Settings
+                  <i  class="fa fa-chevron-down font-14" aria-hidden="true"></i>
+                  <i  class="fa fa-chevron-up font-14" aria-hidden="true"></i>
+                </div>
                 <div class="settings">
                   <div class="row margin-top-20">
                     <div class="col-sm-12">
@@ -183,7 +205,7 @@
                           <span class="prepend prepend-3">http://</span>
                           <div class="form-group">
                             <%= text_field_tag("local-ip", @user['local-ip'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[a-zA-Z0-9._/-]{2,100}$", "data-validation-error-msg" => "This doesn't appear to be a valid IP or URL.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
-                            <label class="float-label">Local IP</label>
+                            <label class="float-label">IP</label>
                             <%= label_tag('local-ip', "Local IP", class: "float-label hide") %>
                             <% if field_errors["internal_host"] %>
                             <span class="help-block form-error text-left"><%= field_errors["internal_host"] %></span>
@@ -195,7 +217,7 @@
                         <div class='<%= field_errors["internal_http_port"] ? ' has-error' : '' %>'>
                           <div class="form-group">
                             <%= text_field_tag("local-http", @user['local-http'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
-                            <%= label_tag('local-http', "Local HTTP Port", class: "float-label") %>
+                            <%= label_tag('local-http', "HTTP Port", class: "float-label") %>
                             <% if field_errors["internal_http_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["internal_http_port"] %></span>
                             <% end %>
@@ -214,7 +236,7 @@
                             <% if field_errors["external_rtsp_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["external_rtsp_port"] %></span>
                             <% end %>
-                            <div class="rtsp-port-status"></div><img src="/assets/refresh.gif" class="rtsp-refresh-gif">
+                            <div class="rtsp-port-status port-status"></div><img src="/assets/refresh.gif" class="rtsp-refresh-gif refresh-gif icon-position">
                           </div>
                         </div>
                       </div>
@@ -222,20 +244,10 @@
                         <div class='<%= field_errors["internal_rtsp_port"] ? ' has-error' : '' %>'>
                           <div class="form-group">
                             <%= text_field_tag("local-rtsp", @user['local-rtsp'], "class" => "form-control", "data-validation" => "custom", "data-validation-regexp" => "^[0-9]{2,5}$", "data-validation-error-msg" => "The Port should be a 2-5 digit number.", "data-validation-optional" => "true", "data-validation-event" => "click") %>
-                            <%= label_tag('local-rtsp', "Local RTSP Port", class: "float-label") %>
+                            <%= label_tag('local-rtsp', "RTSP Port", class: "float-label") %>
                             <% if field_errors["internal_rtsp_port"] %>
                             <span class="help-block form-error text-left"><%= field_errors["internal_rtsp_port"] %></span>
                             <% end %>
-                          </div>
-                        </div>
-                      </div>
-                      <div class='col-sm-4'>
-                        <div class="rtsp-end">
-                          <span class="prepend prepend-2">/</span>
-                          <div class="form-group">
-                            <input id="rtsp-readonly" class="form-control snapshot-readonly opacity hide" type="text" disabled value="<%= @user['rtsp'] %>"/>
-                            <%= text_field_tag("rtsp", @user['rtsp'], "class" => "form-control", "data-validation-help" => "Include the entire rtsp path after the domain eg.axis-media/media.amp", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "", "data-validation-event" => "click") %>
-                            <%= label_tag('rtsp', "RTSP URL", class: "float-label") %>
                           </div>
                         </div>
                       </div>
@@ -258,7 +270,11 @@
           <div class="col-sm-4">
             <div class="media" id="add-test">
               <div class="test-img-holder">
-                <img id="testimg" src="" class="text-center testimg-add" width="100%"></div>
+                <img id="testimg" src="" class="text-center testimg-add hide" width="100%">
+                <div class="img-holder-text">
+                  Fill in your camera details</br> and click below to test the connection
+                </div>
+              </div>
               <div class="test-snapshot">
                 <section class="progress-demo">
                   <a id="test" class="btn btn-primary ladda-button" role="button" data-style="expand-left"><span class="ladda-label">Test Snapshot</span></a>

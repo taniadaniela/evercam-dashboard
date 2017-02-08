@@ -198,9 +198,13 @@ onLoadPage = ->
     $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#snapshot-readonly").val()))
     cleanAndSetRtspUrl($("#rtsp-readonly").val())
   $(".settings").hide()
+  appendCopyFromDropdown()
   #toggle the componenet with class msg_body
   $(".additional").click ->
-    $(this).next(".settings").slideToggle 500
+    slideToggleList()
+    $(this).toggleClass('active')
+    $(this).toggleClass('sidebar-checked')
+    $(".settings").slideToggle 500
 
   $("#hide").click ->
     $("p").fadeOut()
@@ -210,6 +214,39 @@ onLoadPage = ->
 
   $("#unreveal").click ->
     $(".this").fadeOut()
+
+  $("#clone-camera-list .cameras-dropdown-toggle").click ->
+    slideToggleCameraList()
+
+  $('#copy-from-checkbox').on 'click', (event) ->
+    $(this).toggleClass('active')
+    $(this).toggleClass('sidebar-checked')
+    $(".copy-from-camera").slideToggle 500
+    appendCopyFromDropdown()
+
+slideToggleCameraList = ->
+  if $('#clone-camera-list').hasClass 'open'
+    $('#clone-camera-list .fa-chevron-down').show()
+    $('#clone-camera-list .fa-chevron-up').hide()
+  else
+    $('#clone-camera-list .fa-chevron-down').hide()
+    $('#clone-camera-list .fa-chevron-up').show()
+
+slideToggleList = ->
+  if ($('.settings')).css('display') == 'none'
+    $('.additional .fa-chevron-up').show()
+    $('.additional .fa-chevron-down').hide()
+  else
+    $('.additional .fa-chevron-up').hide()
+    $('.additional .fa-chevron-down').show()
+
+appendCopyFromDropdown = ->
+  if $(window).width() < 768
+    $('#camera-friendly-name').addClass 'camera-friendly-name'
+    $('#camera-friendly-name').removeClass 'margin-top-20'
+  else
+    $('#camera-friendly-name').removeClass 'camera-friendly-name'
+    $('#camera-friendly-name').addClass 'margin-top-20'
 
 onAddCamera = ->
   $("#add-button").on 'click', ->
@@ -260,19 +297,28 @@ port_check = (external_port,type) ->
     $(".#{type}refresh-gif").hide()
     $(".#{type}port-status").removeClass('green')
     $(".#{type}port-status").addClass('red')
-    $(".#{type}port-status").text('Port is Closed')
+    $(".#{type}port-status").html('
+      <i class="fa fa-times icon-position"></i>
+        <span>Port is closed</span>'
+    )
 
   onSuccess = (result, status, jqXHR) ->
     if result.open is true
       $(".#{type}refresh-gif").hide()
       $(".#{type}port-status").removeClass('red')
       $(".#{type}port-status").addClass('green')
-      $(".#{type}port-status").text('Port is Open')
+      $(".#{type}port-status").html('
+        <i class="fa fa-check icon-position"></i>
+        <span>Port is open</span>'
+      )
     else
       $(".#{type}refresh-gif").hide()
       $(".#{type}port-status").removeClass('green')
       $(".#{type}port-status").addClass('red')
-      $(".#{type}port-status").text('Port is Closed')
+      $(".#{type}port-status").html(
+        '<i class="fa fa-times icon-position"></i>
+        <span>Port is closed</span>'
+      )
 
 
   settings =
@@ -350,4 +396,5 @@ window.initializeAddCamera = ->
   port_check(port,'')
   port_check(rtsp_port,'rtsp-')
   NProgress.done()
-
+  $(window).resize ->
+    appendCopyFromDropdown()

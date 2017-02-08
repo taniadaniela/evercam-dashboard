@@ -70,11 +70,16 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   border:1px solid transparent;
 }
 
-.copy-from li a {
-  color: #333333;
+.copy-from li {
+  width: 100%;
+
+  a {
+    color: $form-dark-grey;
+  }
 }
 
-.copy-from li a:hover , .nav-tabs li a:active  {
+.copy-from > li > a:hover,
+.nav-tabs li a:active  {
   color: $main-color;
 }
 
@@ -83,20 +88,33 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
 }
 
 .copy-from .dropdown-menu {
-  max-height: 75vh;
-  min-width: 230px;
+  height: 250px;
   margin-left: 24px;
-}
+  margin-top: 0px;
+  border: 1px solid $grey;
+  border-top: none;
+  box-shadow: none;
 
-.copy-from .dropdown-menu li > a {
-  text-align: left;
-  padding-left: 5px !important;
+  li {
+    padding: 5px;
+
+    a {
+      text-align: left;
+      padding-left: 5px;
+      display: inline-block;
+      width: 80%;
+    }
+  }
+
+  li:hover a{
+    color: $white;
+    background-color: $background-hover-red;
+  }
 }
 
 .copy-from .cameras-dropdown-toggle {
-  padding: 10px 5px;
-  border-bottom: 1px solid #AAAAAA;
-  padding-left: 0px;
+  padding: 10px;
+  border: 1px solid $grey;
 }
 
 .tabbable-custom > .tab-content {

@@ -83,6 +83,8 @@ $ ->
       console.log('Error getting the snapshot from the camera. The camera response was:')
       console.log(jqXHR.responseJSON.response)
       loader.stop()
+      $('#testimg').addClass 'hide'
+      $('.img-holder-text').removeClass 'hide'
       NProgress.done()
 
     onSuccess = (result, status, jqXHR) ->
@@ -90,8 +92,12 @@ $ ->
       if result.status is 'ok'
         if (result.data.indexOf('data:text/html') == 0)
           showFeedback("We got a response, but it's not an image")
+          $('#testimg').addClass 'hide'
+          $('.img-holder-text').removeClass 'hide'
         else
           showFeedback("We got a snapshot")
+          $('#testimg').removeClass 'hide'
+          $('.img-holder-text').addClass 'hide'
           $('#testimg').attr('src', result.data)
           if window.Evercam.Camera.is_online isnt undefined && !window.Evercam.Camera.is_online
             location.reload()

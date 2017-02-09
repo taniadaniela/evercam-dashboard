@@ -93,7 +93,7 @@ initializePlayer = ->
   tries = 0
   clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
   setInterval (->
-    if $('.vjs-control-bar').css('visibility') == 'visible'
+    if $('#camera-video-player').hasClass 'vjs-user-active'
       $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
       $('#live-view-placeholder .pull-right table').stop().animate()
     else

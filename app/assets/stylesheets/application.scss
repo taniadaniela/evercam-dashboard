@@ -27,7 +27,6 @@
 //= require bootstrap-timepicker.css
 //= require_self
 
-
 @import "utils/variables";
 @import "utils/mixins";
 
@@ -53,6 +52,7 @@
 @import "views/visavail";
 @import "views/cameras/single";
 @import "views/cameras/add_camera";
+@import "views/cameras/map";
 @import "views/public/index";
 @import "views/public/single";
 @import "views/widgets/local_storage";

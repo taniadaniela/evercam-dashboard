@@ -1,6 +1,6 @@
 loadMap = ->
   options =
-    zoom: 2
+    zoom: 3
     center: new (google.maps.LatLng)(25, 10)
     mapTypeId: google.maps.MapTypeId.TERRAIN
     mapTypeControl: false
@@ -12,16 +12,22 @@ loadMap = ->
       position: new google.maps.LatLng(camera.location.lat, camera.location.lng),
       map: map,
       icon: iconBase(camera.is_online),
-      title: 'Click Me '
+      title: camera.name
     })
     do (marker) ->
       google.maps.event.addListener marker, 'click', ->
+        linkBackToMap(map)
+        map.setZoom 15
+        map.setCenter marker.getPosition()
         infowindow = new (google.maps.InfoWindow)(content:
-          "<table class='table table-striped'>
+          "<table id='map-container' class='table order-column'>
             <tbody>
               <tr>
+                #{thumbnailTag(camera.thumbnail_url)}
+              </tr>
+              <tr>
                 <th></th>
-                <td>#{thumbnailTag(camera.thumbnail_url)}<br/><br/>
+                <td>
                   <div class='center'>
                     <strong>
                       #{camera.name}
@@ -31,22 +37,6 @@ loadMap = ->
                     </strong>
                   </div>
                 </td>
-              </tr>
-              <tr>
-                <th>Data Processor</th>
-                <td>Camba.tv Ltd. 01-5383333</td>
-              </tr>
-              <tr>
-                <th>Data Controller</th>
-                <td>#{camera.owner}</td>
-              </tr>
-              <tr>
-                <th>Online ?</th>
-                <td>#{humanizeStatus(camera.is_online)}</td>
-              </tr>
-              <tr>
-                <th>Public ?</th>
-                <td>#{humanizeStatus(camera.is_public)}</td>
               </tr>
               <tr>
                 <th>Vendor/Model</th>
@@ -62,7 +52,7 @@ vendorLogo = (vendorId) ->
   if vendorId == ''
     "Other"
   else
-    "<img width='80' src='http://evercam-public-assets.s3.amazonaws.com/#{vendorId}/logo.jpg' />"
+    "<img width='60' src='http://evercam-public-assets.s3.amazonaws.com/#{vendorId}/logo.jpg' />"
 
 iconBase = (status) ->
   if status == false
@@ -77,7 +67,13 @@ humanizeStatus = (status) ->
     "No"
 
 thumbnailTag = (url) ->
-  "<img height='140' src='#{url}'/>"
+  "<img class='map-thumbnail-img' src='#{url}'/>"
+
+linkBackToMap = (map) ->
+  $('#lnkBacktoMap').show()
+  $('#lnkBacktoMap').on "click", ->
+    map.setZoom 3
+    $('#lnkBacktoMap').hide()
 
 window.initializeMap = ->
   loadMap()

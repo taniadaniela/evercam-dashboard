@@ -60,7 +60,7 @@
         <i class="fa fa-caret-up pull-right"></i></a>
         <ul class="setting-list left-nav-submenu">
           <li>
-            <i class="fa fa-video-camera" aria-hidden="true"></i>
+            <i class="fa fa-video-camera width-20" aria-hidden="true"></i>
             <span class="offline-span"> Hide Offline Cameras</span>
             <div id="siderbar" class="sidebar">
               <label class="label sidebar-type-label">
@@ -70,21 +70,26 @@
           </li>
           <li class="nprogCall">
             <%= link_to user_account_path(current_user.username) do %>
-              <i class="fa fa-user"></i> Account
+              <i class="fa fa-user width-20"></i> Account
             <% end %>
           </li>
           <li class="nprogCall">
             <%= link_to password_change_path(current_user.username) do %>
-              <i class="fa fa-key"></i> Password
+              <i class="fa fa-key width-20"></i> Password
             <% end %>
           </li>
           <li class="nprogCall">
             <%= link_to cameras_table_path do %>
-              <i class="fa fa-table"></i> Cameras Table
+              <i class="fa fa-table width-20"></i> Cameras Table
+            <% end %>
+          </li>
+          <li class="nprogCall">
+            <%= link_to map_view_path do %>
+              <i class="fa fa-map width-20"></i> Map View
             <% end %>
           </li>
           <li class="status-list">
-            <a class="status-report"><i class="fa fa-barcode icon-font"></i> Status Report <i class="fa fa-caret-down pull-right right-margin"></i>
+            <a class="status-report"><i class="fa fa-barcode icon-font width-20"></i> Status Report <i class="fa fa-caret-down pull-right right-margin"></i>
             <i class="fa fa-caret-up pull-right right-margin"></i></a>
           </li>
           <ul class="status-report-submenu left-nav-submenu">

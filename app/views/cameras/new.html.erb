@@ -157,7 +157,7 @@
                     <span class="prepend prepend-2">/</span>
                     <div class="form-group">
                       <input id="rtsp-readonly" class="form-control snapshot-readonly opacity hide" type="text" disabled value="<%= @user['rtsp'] %>"/>
-                      <%= text_field_tag("rtsp", @user['rtsp'], "class" => "form-control", "data-validation-help" => "Include the entire rtsp path after the domain eg.axis-media/media.amp", "data-validation" => "alphanumeric", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "", "data-validation-event" => "click") %>
+                      <%= text_field_tag("rtsp", @user['rtsp'], "class" => "form-control", "data-validation-help" => "Include the entire rtsp path after the domain eg.axis-media/media.amp", "data-validation-allowing" => "-_/.&?=", "data-validation-error-msg" => "", "data-validation-event" => "click") %>
                       <%= label_tag('rtsp', "RTSP URL", class: "float-label") %>
                     </div>
                   </div>
@@ -199,7 +199,6 @@
                 <div class="settings">
                   <div class="row margin-top-20">
                     <div class="col-sm-12">
-
                       <div class="col-sm-4">
                         <div class='<%= field_errors["internal_host"] ? ' has-error' : '' %>'>
                           <span class="prepend prepend-3">http://</span>

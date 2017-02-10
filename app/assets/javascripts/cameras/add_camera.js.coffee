@@ -218,6 +218,13 @@ onLoadPage = ->
   $("#clone-camera-list .cameras-dropdown-toggle").click ->
     slideToggleCameraList()
 
+  if window.location.href.indexOf('clone') > -1
+    $('#copy-from-checkbox').addClass 'sidebar-checked active'
+    $('.copy-from-camera').show()
+  else
+    $('#copy-from-checkbox').removeClass 'sidebar-checked active'
+    $('.copy-from-camera').hide()
+
   $('#copy-from-checkbox').on 'click', (event) ->
     $(this).toggleClass('active')
     $(this).toggleClass('sidebar-checked')

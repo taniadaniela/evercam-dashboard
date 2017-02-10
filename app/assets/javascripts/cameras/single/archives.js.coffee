@@ -12,7 +12,7 @@ sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 isUnauthorized = (response) ->
-  if response.responseText.indexOf("InvalidAuthenticityToken") isnt -1
+  if response.responseText.indexOf("/v1/users/signin") isnt -1
     Notification.show("Your session has been expired.")
     location = window.location
     location.assign(location.protocol + "//" + location.host)

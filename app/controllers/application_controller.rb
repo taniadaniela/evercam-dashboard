@@ -166,10 +166,10 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error(exception)
-    render :file => "#{Rails.root}/public/500.html", :layout => false, :status => 500
-    error_msg = "ActionController::InvalidAuthenticityToken"
-    unless exception.message == error_msg
-      env["airbrake.error_id"] = notify_airbrake(exception)
+    if exception.message.eql?("ActionController::InvalidAuthenticityToken")
+      redirect_to signin_path
+    else
+      render :file => "#{Rails.root}/public/500.html", :layout => false, :status => 500
     end
   end
 end

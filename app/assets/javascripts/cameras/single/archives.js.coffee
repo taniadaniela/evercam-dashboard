@@ -13,7 +13,7 @@ sendAJAXRequest = (settings) ->
 
 isUnauthorized = (response) ->
   if response.responseText.indexOf("/v1/users/signin") isnt -1
-    Notification.show("Your session has been expired.")
+    Notification.show("Your session has expired.")
     location = window.location
     location.assign(location.protocol + "//" + location.host)
   else

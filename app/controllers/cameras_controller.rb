@@ -497,8 +497,8 @@ class CamerasController < ApplicationController
           # Ignore it
         end
       end
-      render json: {success: true}
     end
+    render json: {success: true}
   end
 
   private

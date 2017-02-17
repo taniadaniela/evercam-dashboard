@@ -6,6 +6,7 @@ image_placeholder = null
 camera_host = null
 tries = 0
 clear_timeout_videojs = null
+is_logged_intercom = false
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -148,6 +149,7 @@ handleChangeStream = ->
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
     playJpegStream()
+    logCameraViewed() unless is_logged_intercom
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
 
@@ -158,6 +160,7 @@ handleTabOpen = ->
       destroyPlayer()
 
   if $(".nav-tabs li.active a").attr("data-target") is "#live"
+    logCameraViewed() unless is_logged_intercom
     if $('#select-stream-type').length
       $("#select-stream-type").trigger "change"
     else
@@ -468,6 +471,27 @@ flashDetection = ->
   if !swfobject.hasFlashPlayerVersion("9.0.115") and Evercam.Camera.is_online and $('#select-stream-type').val() is "video"
     $('.vjs-error-display').hide()
     $('.flash-error-message').show()
+
+logCameraViewed = ->
+  is_logged_intercom = true
+  data = {}
+  data.view = true
+
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+
+  onSuccess = (data, status, jqXHR) ->
+    true
+
+  settings =
+    data: data
+    dataType: 'json'
+    success: onSuccess
+    error: onError
+    type: 'POST'
+    contentType: 'application/x-www-form-urlencoded'
+    url: "/log_intercom"
+  sendAJAXRequest(settings)
 
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()

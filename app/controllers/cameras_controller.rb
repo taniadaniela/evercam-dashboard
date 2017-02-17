@@ -467,6 +467,40 @@ class CamerasController < ApplicationController
     render json: result
   end
 
+  def log_intercom
+    if Evercam::Config.env == :production
+      intercom = Intercom::Client.new(
+          app_id: Evercam::Config[:intercom][:app_id],
+          api_key: Evercam::Config[:intercom][:api_key]
+      )
+      begin
+        ic_user = intercom.users.find(:user_id => current_user.username)
+      rescue
+        # Intercom::ResourceNotFound
+        # Ignore it
+      end
+      unless ic_user.nil?
+        begin
+          if params["view"].present?
+            viewed_count = ic_user.custom_attributes["viewed_camera"].to_i
+            ic_user.custom_attributes = {"viewed_camera": viewed_count + 1}
+          elsif params["recordings"].present?
+            viewed_count = ic_user.custom_attributes["viewed_recordings"].to_i
+            ic_user.custom_attributes = {"viewed_recordings": viewed_count + 1}
+          elsif params["has_shared"].present?
+            ic_user.custom_attributes = {"has_shared": true}
+          elsif params["has_snapmail"].present?
+            ic_user.custom_attributes = {"has_snapmail": true}
+          end
+          intercom.users.save(ic_user)
+        rescue
+          # Ignore it
+        end
+      end
+      render json: {success: true}
+    end
+  end
+
   private
 
   def display_billing_alert

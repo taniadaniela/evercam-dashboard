@@ -1,5 +1,6 @@
 images_array = {}
 share_users_select = undefined
+is_logged_intercom = false
 
 showError = (message) ->
   $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -347,6 +348,7 @@ onAddSharingUserClicked = (event) ->
     NProgress.done()
 
   onSuccess = (data, status, jqXHR) ->
+    logCameraViewed() unless is_logged_intercom
     if data.success
       if data.type == "share"
         addSharingCameraRow(data)
@@ -459,6 +461,27 @@ createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
     success: onSuccess
     type: 'POST'
     url: '/share'
+  sendAJAXRequest(settings)
+
+logCameraViewed = ->
+  is_logged_intercom = true
+  data = {}
+  data.has_shared = true
+
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+
+  onSuccess = (data, status, jqXHR) ->
+    true
+
+  settings =
+    data: data
+    dataType: 'json'
+    success: onSuccess
+    error: onError
+    type: 'POST'
+    contentType: 'application/x-www-form-urlencoded'
+    url: "/log_intercom"
   sendAJAXRequest(settings)
 
 onPermissionsFocus = (event) ->

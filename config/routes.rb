@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   delete 'cameras/clip/delete' => 'cameras#delete_clip', as: :delete_clip
   get '/v1/cameras/:id/clip/:clip_id/play' => 'pages#play', as: :play_clip
   get '/v1/cameras/:id/share/request' => 'pages#revoke_request'
+  post '/log_intercom' => 'cameras#log_intercom'
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
   get '/v1/users/:id/billing/*subpath' => 'subscriptions#index'

@@ -2,6 +2,7 @@
 #= require detect_timezone.js
 
 unselect_all = false
+is_logged_intercom = false
 camera_select = null
 appApiUrl = "https://snapmail.evercam.io/api/snapmails"
 
@@ -258,6 +259,7 @@ saveSnapmail = ->
       $("#snapmail-form").modal("hide")
       clearForm()
       rslidesInit()
+      logCameraViewed() unless is_logged_intercom
 
     settings =
       data: o
@@ -268,6 +270,27 @@ saveSnapmail = ->
       url: "#{Evercam.API_URL}snapmails#{queryString}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     $.ajax(settings)
+
+logCameraViewed = ->
+  is_logged_intercom = true
+  data = {}
+  data.has_snapmail = true
+
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+
+  onSuccess = (data, status, jqXHR) ->
+    true
+
+  settings =
+    data: data
+    dataType: 'json'
+    success: onSuccess
+    error: onError
+    type: 'POST'
+    contentType: 'application/x-www-form-urlencoded'
+    url: "/log_intercom"
+  sendAJAXRequest(settings)
 
 displayDays = (notify_days) ->
   days = notify_days.split(',')

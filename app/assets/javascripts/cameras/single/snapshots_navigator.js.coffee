@@ -24,6 +24,7 @@ playFromDateTime = null
 playFromTimeStamp = null
 CameraOffsetHours = null
 CameraOffsetMinutes = null
+is_logged_intercom = false
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -929,6 +930,7 @@ handleMinSecDropDown = ->
 
 handleTabOpen = ->
   $('.nav-tab-recordings').on 'shown.bs.tab', ->
+    logCameraViewed() unless is_logged_intercom
     window.initScheduleCalendar()
     window.initCloudRecordingSettings()
     if snapshotInfos isnt null
@@ -1043,6 +1045,27 @@ handleResize = ->
   recodringSnapshotDivHeight()
   $(window).resize ->
     checkCalendarDisplay()
+
+logCameraViewed = ->
+  is_logged_intercom = true
+  data = {}
+  data.recordings = true
+
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+
+  onSuccess = (data, status, jqXHR) ->
+    true
+
+  settings =
+    data: data
+    dataType: 'json'
+    success: onSuccess
+    error: onError
+    type: 'POST'
+    contentType: 'application/x-www-form-urlencoded'
+    url: "/log_intercom"
+  sendAJAXRequest(settings)
 
 window.initializeRecordingsTab = ->
   initDatePicker()

@@ -83,14 +83,15 @@ EvercamDashboard::Application.configure do
   config.session_initializer_settings = {key: '_evercam_dashboard_session',
                                          domain: '.evercam.io'}
 
-  # Sendgrid email configuration.
-  ActionMailer::Base.smtp_settings = {
-    user_name:            ENV['SENDGRID_USERNAME'],
-    password:             ENV['SENDGRID_PASSWORD'],
-    domain:               "heroku.com",
-    address:              "smtp.sendgrid.net",
-    port:                 587,
-    authentication:       :plain,
-    enable_starttls_auto: true
+  # Mailgun email configuration.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :port           => 587,
+    :address        => 'smtp.mailgun.org',
+    :user_name      => ENV['MAILGUN_USERNAME'],
+    :password       => ENV['MAILGUN_PASSWORD'],
+    :domain         => ENV['MAILGUN_DOMAIN'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
   }
 end

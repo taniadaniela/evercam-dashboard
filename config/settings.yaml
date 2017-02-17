@@ -57,15 +57,15 @@
     :url: <%= ENV['REDISCLOUD_URL'] %>
     :namespace: sidekiq
   :mail:
-    :from: evercam.io <noreply@evercam.io>
+    :from: Evercam <noreply@evercam.io>
     :via: :smtp
     :via_options:
       :authentication: :plain
-      :user_name: <%= ENV['SENDGRID_USERNAME'] %>
-      :password: <%= ENV['SENDGRID_PASSWORD'] %>
+      :user_name: <%= ENV['MAILGUN_USERNAME'] %>
+      :password: <%= ENV['MAILGUN_PASSWORD'] %>
       :enable_starttls_auto: true
-      :address: 'smtp.sendgrid.net'
-      :domain: 'heroku.com'
+      :address: 'smtp.mailgun.org'
+      :domain: <%= ENV['MAILGUN_DOMAIN'] %>
       :port: 587
 
 :staging:

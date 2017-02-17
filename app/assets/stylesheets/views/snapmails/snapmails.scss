@@ -136,7 +136,7 @@
   .hash-label {
     color: $grey;
     font-family: 'proxima-nova-regular', 'proxima-nova-regular', "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 10px;
     margin-top: 10px;
   }
@@ -170,18 +170,25 @@
   .camera-time {
     color: $form-medium-grey;
     font-size: 14px;
+    height: 26px;
   }
 
   .camera-days {
     color: $form-medium-grey;
     font-size: 14px;
+    height: 26px;
   }
 
   .camera-email {
     color: $form-medium-grey;
     font-size: 14px;
+    height: 24px;
     float:left;
     width: 100%;
+  }
+
+  .margin-top-4 {
+    margin-top: 4px;
   }
 
   .delete-snapmail {
@@ -305,7 +312,7 @@
   }
 
   .plus-btn {
-    font-size: 17px;
+    font-size: 15px;
     display: inline-block !important;
     font-style: inherit;
   }
@@ -362,6 +369,52 @@
 .select2-container--default .select2-selection--multiple,
 .select2-container--default.select2-container--focus .select2-selection--multiple {
   border: 1px solid $main-grey;
+}
+
+.select-camera-input .select2-container--default .select2-selection__choice__remove {
+  float: right;
+  margin-top: -1px;
+  margin-right: -2px;
+  padding-left: 5px;
+  padding-bottom: 3px;
+}
+
+div.tagsinput span.tag a {
+  position: absolute;
+  margin-top: -7px;
+  margin-left: -2px;
+  font-size: 10px;
+}
+
+.days-span {
+  position: absolute;
+  margin-top: 3px;
+}
+
+.days-chek {
+  background-color: $main-color;
+  color: $white;
+  padding: 2px;
+  padding-top: 3px;
+  width: 26px;
+  text-align: center;
+  float: left;
+  margin-right: 5px;
+  border-radius: 25px;
+  border: 1px solid $main-color;
+}
+
+.days-unchek {
+  background-color: $white;
+  color: $evercam-black;
+  padding: 2px;
+  padding-top: 3px;
+  width: 26px;
+  text-align: center;
+  float: left;
+  margin-right: 5px;
+  border-radius: 25px;
+  border: 1px solid $main-color;
 }
 
 #txtRecipient_tag {
@@ -422,14 +475,21 @@ div.tagsinput input {
   .snapmail-edit {
     float: right;
     margin-right: 24px;
-    margin-top: 10px;
+    margin-top: 20px;
     cursor: pointer;
   }
 
   .snapmail-pause {
     float: right;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .snapmail-clone {
+    float: right;
+    margin-right: 10px;
+    margin-top: 19px;
     cursor: pointer;
   }
 

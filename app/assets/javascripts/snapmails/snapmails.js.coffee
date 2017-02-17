@@ -41,6 +41,7 @@ initSnapmails = ->
   else
     $.each snapmails, (index, snapmail) ->
       $('#divSnapmails').append getSnapmailHtml(snapmail, index)
+      selectDays(snapmail.id, snapmail.notify_days)
       initPopup(snapmail.id)
       $("#divLoadingApps").hide()
       rslidesInit()
@@ -57,6 +58,7 @@ loadSnapmails = ->
     else
       $.each snapMails.snapmails, (index, snapmail) ->
         $('#divSnapmails').append getSnapmailHtml(snapmail, index)
+        selectDays(snapmail.id, snapmail.notify_days)
         initPopup(snapmail.id)
         $("#divLoadingApps").hide()
         rslidesInit()
@@ -70,6 +72,12 @@ loadSnapmails = ->
     url: "#{Evercam.API_URL}snapmails?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
   $.ajax(settings)
+
+selectDays = (snapmail_id, notify_days) ->
+  days = notify_days.split(',')
+  $.each days, (i, day) ->
+    span_id = "divDays#{snapmail_id} span.#{day}"
+    $("##{span_id}").removeClass("days-unchek").addClass("days-chek")
 
 getSnapmailHtml = (snapMail, index) ->
   cameras = snapMail.camera_ids.split(',') if snapMail.camera_ids
@@ -89,12 +97,13 @@ getSnapmailHtml = (snapMail, index) ->
   html += '        <input type="hidden" id="txtDays' + snapMail.id + '" value="' + snapMail.notify_days + '" /><input type="hidden" id="txtUserId' + snapMail.id + '" value="' + snapMail.user_id + '" /><input type="hidden" id="txtTimezone' + snapMail.id + '" value="' + snapMail.timezone + '" />'
   html += '        <div class="hash-label snapmail-title"><a data-toggle="modal" data-target="#snapmail-form" class="tools-link edit-snapmail" data-val="' + snapMail.id + '" title="' + camera_names + '">' + camera_names + '</a><span class="line-end"></span></div>'
   html +='         <div class="camera-time"><span class="spn-label">@</span><div class="div-snapmail-values">' + snapMail.notify_time + ' (' + snapMail.timezone + ')</div><div class="clear-f"></div></div>'
-  html +='         <div class="camera-days"><span class="spn-label">on</span><div class="div-snapmail-values">' + displayDays(snapMail.notify_days) + ' </div><div class="clear-f"></div></div>'
   html +='         <div class="camera-email"><span class="spn-label">sent to</span><div class="div-snapmail-values snapmail-title" title="' + recipients + '">' + recipients + '<span class="line-end"></span></div><div class="clear-f"></div></div>'
+  html +='         <div class="camera-days"><span class="spn-label margin-top-4">on</span><div id="divDays' + snapMail.id + '" class="div-snapmail-values"> <span class="days-unchek Monday">M</span><span class="days-unchek Tuesday">T</span><span class="days-unchek Wednesday">W</span><span class="days-unchek Thursday">T</span><span class="days-unchek Friday">F</span><span class="days-unchek Saturday">S</span><span class="days-unchek Sunday">S</span> </div><div class="clear-f"></div></div>'
   html +='         <div class="snapmail-edit"><i class="fa fa-edit main-color plus-btn tools-link edit-snapmail" title="edit" data-toggle="modal" data-target="#snapmail-form" data-val="' + snapMail.id + '" data-action="e"></i></div>'
   html +='         <div class="snapmail-pause">'
   html +='           <i class="fa ' + (if snapMail.is_paused then "fa-play" else "fa-pause") + ' main-color plus-btn tools-link pause-snapmail" title="' + (if snapMail.is_paused then "Resume" else "Pause") + ' Snapmail" data-status="' + !snapMail.is_paused + '" data-val="' + snapMail.id + '"></i>'
   html +='         </div>'
+  html +='         <div class="snapmail-clone" data-val="' + snapMail.id + '"><i class="fa fa-clone main-color tools-link plus-btn" title="clone"></i></div>'
   html += '    </div>'
 
   html += '    <div class="" style="min-height:0px;">'
@@ -254,6 +263,7 @@ saveSnapmail = ->
       else
         index = $("#divSnapmails div.card").length
       $('#divSnapmails').prepend getSnapmailHtml(snapMail, index)
+      selectDays(snapMail.id, snapMail.notify_days)
       noSnapmailText()
       initPopup(snapMail.id)
       $("#snapmail-form").modal("hide")
@@ -292,18 +302,12 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
-displayDays = (notify_days) ->
-  days = notify_days.split(',')
-  wDays = ''
-  $.each days, (i, day) ->
-    wDays += "#{day.substring(0, 3)} "
-  wDays
-
 GetWeekdaysSelected = ->
   wDays = ''
   $.each($("input[class='days']:checked"), ->
     wDays += "#{$(this).val()},"
   )
+
   if wDays.length > 0
     return wDays.substring(0, wDays.lastIndexOf(','))
   wDays
@@ -352,41 +356,44 @@ EditSnapmail = ->
     $('#s2id_ddlCameras').hide()
     $('#txtkey').val key
     $('.caption').html 'Edit Snapmail'
-    $('#ddlTimezone').val $('#txtTimezone' + key).val()
-    emails = $('#txtRecipient' + key).val()
-    if emails != null or emails != ''
-      $('#txtRecipient').importTags(emails)
-    days = $('#txtDays' + key).val().split(',')
-    i = 0
-    $.each days, (i, day) ->
-      switch day
-        when 'Monday'
-          $('#uniform-chkMon .icheckbox_flat-blue').addClass 'checked'
-          $('#chkMon').prop 'checked', true
-        when 'Tuesday'
-          $('#uniform-chkTue .icheckbox_flat-blue').addClass 'checked'
-          $('#chkTue').prop 'checked', true
-        when 'Wednesday'
-          $('#uniform-chkWed .icheckbox_flat-blue').addClass 'checked'
-          $('#chkWed').prop 'checked', true
-        when 'Thursday'
-          $('#uniform-chkThu .icheckbox_flat-blue').addClass 'checked'
-          $('#chkThu').prop 'checked', true
-        when 'Friday'
-          $('#uniform-chkFri .icheckbox_flat-blue').addClass 'checked'
-          $('#chkFri').prop 'checked', true
-        when 'Saturday'
-          $('#uniform-chkSat .icheckbox_flat-blue').addClass 'checked'
-          $('#chkSat').prop 'checked', true
-        when 'Sunday'
-          $('#uniform-chkSun .icheckbox_flat-blue').addClass 'checked'
-          $('#chkSun').prop 'checked', true
-    all_selected()
-    cameraIds = $('#txtCamerasId' + key).val().split(',')
-    camera_select.val(cameraIds).trigger("change")
-    $('#txtTime').val $('#txtTime' + key).val()
-    $('#s2id_ddlCameras').show()
-    rslidesInit()
+    loadExistingSnapmail(key)
+
+loadExistingSnapmail = (key) ->
+  $('#ddlTimezone').val $('#txtTimezone' + key).val()
+  emails = $('#txtRecipient' + key).val()
+  if emails != null or emails != ''
+    $('#txtRecipient').importTags(emails)
+  days = $('#txtDays' + key).val().split(',')
+  i = 0
+  $.each days, (i, day) ->
+    switch day
+      when 'Monday'
+        $('#uniform-chkMon .icheckbox_flat-blue').addClass 'checked'
+        $('#chkMon').prop 'checked', true
+      when 'Tuesday'
+        $('#uniform-chkTue .icheckbox_flat-blue').addClass 'checked'
+        $('#chkTue').prop 'checked', true
+      when 'Wednesday'
+        $('#uniform-chkWed .icheckbox_flat-blue').addClass 'checked'
+        $('#chkWed').prop 'checked', true
+      when 'Thursday'
+        $('#uniform-chkThu .icheckbox_flat-blue').addClass 'checked'
+        $('#chkThu').prop 'checked', true
+      when 'Friday'
+        $('#uniform-chkFri .icheckbox_flat-blue').addClass 'checked'
+        $('#chkFri').prop 'checked', true
+      when 'Saturday'
+        $('#uniform-chkSat .icheckbox_flat-blue').addClass 'checked'
+        $('#chkSat').prop 'checked', true
+      when 'Sunday'
+        $('#uniform-chkSun .icheckbox_flat-blue').addClass 'checked'
+        $('#chkSun').prop 'checked', true
+  all_selected()
+  cameraIds = $('#txtCamerasId' + key).val().split(',')
+  camera_select.val(cameraIds).trigger("change")
+  $('#txtTime').val $('#txtTime' + key).val()
+  $('#s2id_ddlCameras').show()
+  rslidesInit()
 
 handleModelEvents = ->
   $("#snapmail-form").on "hide.bs.modal", ->
@@ -467,6 +474,14 @@ all_selected = ->
   if $("input[class='days']:checked").length is 7
     $("#chkAllDay").iCheck('check')
 
+cloneSnapmail = ->
+  $("#divSnapmails").on "click", ".snapmail-clone", ->
+    key = $(this).attr("data-val")
+    loadExistingSnapmail(key)
+    $('#add-snapmail').click()
+    $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+    Notification.show "Successfully cloned"
+
 window.initializeSnapmails = ->
   initSnapmails()
   initCameraSelect()
@@ -481,3 +496,4 @@ window.initializeSnapmails = ->
   RemoveSnapmail()
   noSnapmailText()
   pauseSnapmail()
+  cloneSnapmail()

@@ -38,7 +38,7 @@
                           </tr>
                           <tr>
                             <td class="col-xs-2 col-sm-2 pading-left-0"><label class="margin-top-12 control-label" for="camera-vendor">Cameras:</label></td>
-                            <td class="col-sm-10">
+                            <td class="select-camera-input col-sm-10">
                               <select id="ddlCameras" class="js-example-basic-multiple" multiple="multiple" style="width: 100%">
                                 <% @cameras.each do |camera| %>
                                   <% css = "onlinec"
@@ -78,45 +78,45 @@
                                 <tr>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="" id="chkAllDay" /> All Days
+                                      <input type="checkbox" value="" id="chkAllDay" /> <span class="days-span">All Days</span>
                                     </label>
                                   </td>
                                   <td>
 
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Monday" id="chkMon"  class="days" /> Mo
+                                      <input type="checkbox" value="Monday" id="chkMon"  class="days" /><span class="days-span">Mo</span>
                                     </label>
                                   </td>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Tuesday" id="chkTue" class="days" /> Tu
+                                      <input type="checkbox" value="Tuesday" id="chkTue" class="days" /> <span class="days-span">Tu</span>
                                     </label>
                                   </td>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Wednesday" id="chkWed" class="days" /> We
+                                      <input type="checkbox" value="Wednesday" id="chkWed" class="days" /> <span class="days-span">We</span>
                                     </label>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Thursday" id="chkThu" class="days" /> Th
+                                      <input type="checkbox" value="Thursday" id="chkThu" class="days" /> <span class="days-span">Th</span>
                                     </label>
                                   </td>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Friday" id="chkFri" class="days" /> Fr
+                                      <input type="checkbox" value="Friday" id="chkFri" class="days" /> <span class="days-span">Fr</span>
                                     </label>
                                   </td>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Saturday" id="chkSat" class="days" /> Sa
+                                      <input type="checkbox" value="Saturday" id="chkSat" class="days" /> <span class="days-span">Sa</span>
                                     </label>
                                   </td>
                                   <td>
                                     <label class="checkbox">
-                                      <input type="checkbox" value="Sunday" id="chkSun" class="days" /> Su
+                                      <input type="checkbox" value="Sunday" id="chkSun" class="days" /> <span class="days-span">Su</span>
                                     </label>
                                   </td>
 

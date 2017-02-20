@@ -1,9 +1,9 @@
 namespace :intercom do
   desc 'update has_shared and has_snapmail for all intercom users'
-  task :update_fields, [:DATABASE_URL, :app_id, :app_key] do |_t, args|
+  task :update_fields, [:DATABASE_URL, :app_id, :app_key, :user_id] do |_t, args|
     require 'intercom'
     ActiveRecord::Base.establish_connection("#{args[:DATABASE_URL]}")
-    users = ActiveRecord::Base.connection.select_all("select * from users")
+    users = ActiveRecord::Base.connection.select_all("select * from users where id > #{args[:user_id]} order by id")
 
     intercom = Intercom::Client.new(
       app_id: args[:app_id],
@@ -28,9 +28,9 @@ namespace :intercom do
         if has_shared || has_snapmail
           ic_user.custom_attributes = {"has_shared": has_shared, "has_snapmail": has_snapmail}
           intercom.users.save(ic_user)
-          puts "Update user: #{user["username"]}\t#{user["email"]}, has_shared=#{has_shared}, has_snapmail=#{has_snapmail}"
+          puts "Update user (#{user["id"]}): #{user["username"]}\t#{user["email"]}, has_shared=#{has_shared}, has_snapmail=#{has_snapmail}"
         else
-          puts "Skip user: #{user["username"]}\t#{user["email"]}"
+          puts "Skip user (#{user["id"]}): #{user["username"]}\t#{user["email"]}"
         end
       end
     end

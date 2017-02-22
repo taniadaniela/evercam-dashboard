@@ -192,6 +192,7 @@ showScheduleLabel = ->
   $('#schdule-label').removeClass('hide')
 
 showScheduleCalendar = ->
+  $("#uniform-cloud-recording-on-scheduled div").addClass 'checked'
   $(".setting-schedule .modal-dialog").animate { "margin-top": "7%" }
   $('#calendarfull-wrap').show('slow')
   scheduleCalendar.fullCalendar('render')
@@ -200,6 +201,7 @@ showScheduleCalendar = ->
 
 hideScheduleCalendar = ->
   $('#calendarfull-wrap').hide('slow')
+  $("#uniform-cloud-recording-on-scheduled div").removeClass 'checked'
 
 showFrequencySelect = ->
   $('#cloud-recording-frequency-wrap').show('slow')

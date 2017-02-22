@@ -1,5 +1,5 @@
 <%= content_for(:title, "Evercam: Add Camera") %>
-<div id="add-ip"/>
+<div id="add-ip" class="add-ip" />
 <div class="page-content-wrapper">
   <div class="page-content">
     <div class="tabbable tabbable-custom">
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div id="camera-friendly-name" class='col-sm-12 margin-top-20'>
-                <div class="col-sm-6 col-md-4 <%= field_errors["name"] ? ' has-error' : '' %>">
+                <div class="col-sm-4 col-md-4 <%= field_errors["name"] ? ' has-error' : '' %>">
                   <div class='form-group'>
                     <%= text_field_tag("camera-name", @user['camera-name'], "class" => "form-control", "required" =>"
                     ", "data-validation-help" => "To identify your camera in the dashboard, Max 24 characters.", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "maxlength" => "24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Containing letters, spaces and hyphens.", "data-validation-event" => "click") %>
@@ -68,20 +68,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div class='col-sm-6 col-md-4 model<%= field_errors["id"] ? ' has-error' : '' %>'>
-                  <div class="form-group">
-                    <%= text_field_tag("camera-id", @user['camera-id'], "required" =>"required", "class" => "form-control", "data-validation-help" => "This must be unique and cannot be changed.", "data-validation" => "alphanumeric length custom", "data-validation-regexp" => "^[a-z0-9._/-]{2,100}$", "data-validation-length" => "min4", "data-validation-allowing" => "-_", "data-validation-error-msg" => "Min 4 characters. Only lowercase letters, numbers &amp; hyphens and underscores. No spaces.", "data-validation-event" => "click")%>
-                    <%= label_tag('camera-id', "Evercam ID*", class: "float-label") %>
-                    <% if field_errors["exid"] %>
-                    <div class="help-block form-error text-left"><%= field_errors["exid"] %></div>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class='row margin-top-20'>
-              <div class='col-sm-12'>
-                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-6 col-md-4">
+                <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-4 col-md-4">
                   <div class="form-group">
                     <%= label_tag('camera-vendor', "Camera Vendor", class: "control-label") %>
                     <div class="dropdown">
@@ -95,7 +82,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-6 col-md-4">
+                <div id="reveal" class="<%= field_errors["model"] ? ' has-error' : '' %> col-sm-4 col-md-4">
                   <div class="form-group">
                     <%= label_tag('camera-model', "Camera Model", class: "control-label") %>
                     <div class="dropdown">

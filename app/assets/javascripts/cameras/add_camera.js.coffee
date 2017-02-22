@@ -263,9 +263,6 @@ onAddCamera = ->
     if $("#camera-name").val().trim() is ""
       Notification.show "Please enter required fields: Camera Name."
       return false
-    if $("#camera-id").val().trim() is ""
-      Notification.show "Please enter required fields: Camera-Id."
-      return false
     if $("#camera-url").val().trim() is ""
       Notification.show "Please enter required fields: Camera URL."
       return false

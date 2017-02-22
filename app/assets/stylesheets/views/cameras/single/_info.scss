@@ -410,17 +410,19 @@ p#search-notes {
     display: inline;
     margin-right: 10px;
     float: right;
-    margin-top: 7px;
+    margin-top: 10px;
     min-width: 100px;
     text-align: right;
+    font-size: 12px;
   }
 
   .rtsp-port-status {
     display: inline;
     margin-right: 10px;
     float: right;
-    margin-top: 7px;
+    margin-top: 10px;
     min-width: 100px;
+    font-size: 12px;
     text-align: right;
   }
 
@@ -428,16 +430,16 @@ p#search-notes {
     display: none;
     margin-right: 20px;
     float: right;
-    width: 20px;
-    margin-top: 7px;
+    width: 16px;
+    margin-top: 10px;
   }
 
   .rtsp-refresh-gif {
     display: none;
     margin-right: 20px;
     float: right;
-    width: 20px;
-    margin-top: 7px;
+    width: 16px;
+    margin-top: 10px;
   }
 
 }
@@ -448,6 +450,10 @@ p#search-notes {
 
 .width-25 {
   width: 25%;
+}
+
+.padding-left-9 {
+  padding-left: 9px;
 }
 
 @media (min-width: 600px) {

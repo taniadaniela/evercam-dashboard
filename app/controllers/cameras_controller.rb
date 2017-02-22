@@ -81,9 +81,7 @@ class CamerasController < ApplicationController
   end
 
   def create
-    camera_id = params['camera-id'].squish if params['camera-id'].present?
     begin
-      raise "No camera id specified in request." if camera_id.blank?
       raise "No camera name specified in request." if params['camera-name'].blank?
 
       body = {external_host: params['camera-url'], jpg_url: params['snapshot']}
@@ -102,18 +100,16 @@ class CamerasController < ApplicationController
       body[:is_online] = true
 
       api = get_evercam_api
-      api.create_camera(
+      new_camera = api.create_camera(
         params['camera-name'],
         false,
-        body,
-        camera_id
+        body
       )
-      redirect_to cameras_single_path(camera_id)
+      redirect_to cameras_single_path(new_camera["id"])
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       flash[:user] = {
         'camera-name' => params['camera-name'],
-        'camera-id' => camera_id,
         'camera-username' => params['camera-username'],
         'camera-password' => params['camera-password'],
         'camera-url' => params['camera-url'],
@@ -142,12 +138,6 @@ class CamerasController < ApplicationController
       else
         return redirect_to cameras_new_path
       end
-    end
-    begin
-      # Storing snapshot is not essential, so don't show any errors to user
-      api.store_snapshot(camera_id, 'Initial snapshot')
-    rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
     end
   end
 

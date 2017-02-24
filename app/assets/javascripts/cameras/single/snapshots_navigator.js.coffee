@@ -80,23 +80,7 @@ walkDaysInMonth = (year, month) ->
   showDaysLoadingAnimation()
   showHourLoadingAnimation()
   showLoader()
-  BoldDays = []
-  d = new Date()
-  currentMonth = d.getMonth() + 1
-  currentYear = d.getFullYear()
-  currentDay = d.getDate()
-  if (month == currentMonth) and (year == currentYear)
-    days = [1..currentDay]
-  else if (month <= currentMonth) and (year is currentYear)
-    days = [1..31]
-  else if (year < currentYear)
-    days = [1..31]
-  else
-    days = []
-  for day in days
-    checkDay(year, month, day)
 
-checkDay = (year, month, day) ->
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
@@ -105,7 +89,8 @@ checkDay = (year, month, day) ->
     false
 
   onSuccess = (response, status, jqXHR) ->
-    HighlightDay(year, month, day, response.exists)
+    for day in response.days
+      HighlightDay(year, month, day, true)
 
   settings =
     cache: true
@@ -115,7 +100,7 @@ checkDay = (year, month, day) ->
     success: onSuccess
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/#{day}"
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/days"
 
   sendAJAXRequest(settings)
 
@@ -337,7 +322,6 @@ fullscreenImage = ->
         $("#imgPlayback").css('width','auto')
       else
         $("#imgPlayback").css('width','100%')
-
 
 HighlightCurrentMonth = ->
   d = $("#ui_date_picker_inline").datepicker('getDate')

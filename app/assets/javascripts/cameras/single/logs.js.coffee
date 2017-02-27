@@ -33,12 +33,21 @@ updateLogTypesFilter = () ->
   true
 
 toggleAllTypeFilters = ->
-  if $('#type-all').is(':checked')
-    $("input[name='type']").prop("checked", true)
-    $(".type-label span").addClass("checked")
-  else
-    $("input[name='type']").prop("checked", false)
-    $(".type-label span").removeClass("checked")
+  $('#type-all').change ->
+    status = this.checked
+    $('.logs-checkbox').each ->
+      this.checked = status
+      if status == true
+        $(".type-label span").addClass("checked")
+      else
+        $(".type-label span").removeClass("checked")
+  $('.logs-checkbox').change ->
+    if this.checked == false
+      $('#type-all')[0].checked = false
+      $("label[for='type-all'] span").removeClass("checked")
+    if $('.logs-checkbox:checked').length == $('.logs-checkbox').length
+      $('#type-all')[0].checked = true
+      $("label[for='type-all'] span").addClass("checked")
 
 toggleCheckboxes = ->
   if !$('#type-online').is(':checked')

@@ -42,13 +42,13 @@
                   </div>
                   <% @types.each do |t| %>
                     <div class="input-group checkbox">
-                      <input id="type-<%= t %>" name="type" class="" type="checkbox" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> checked<% end %> > <label class="type-label" for="type-<%= t %>"><%= t.capitalize %></label>
+                      <input id="type-<%= t %>" name="type" class="logs-checkbox" type="checkbox" value="<%= t %>" <% if params[:types] and params[:types].include?(t) %> checked<% end %> > <label class="type-label" for="type-<%= t %>"><%= t.capitalize %></label>
                     </div>
                   <% end %>
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
           </div>
         </div>
       </div>

@@ -81,6 +81,7 @@ walkDaysInMonth = (year, month) ->
   showHourLoadingAnimation()
   showLoader()
 
+  BoldDays = []
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key

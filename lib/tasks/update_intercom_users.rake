@@ -57,23 +57,29 @@ namespace :intercom do
 
         if ic_user.custom_attributes["viewed_camera"].nil?
           is_update = true
-          ic_user.custom_attributes = {"viewed_camera": 0}
+          ic_user.custom_attributes["viewed_camera"] = 0
         end
+
         if ic_user.custom_attributes["viewed_recordings"].nil?
           is_update = true
-          ic_user.custom_attributes = {"viewed_recordings": 0}
+          ic_user.custom_attributes["viewed_recordings"] = 0
         end
+
         if ic_user.custom_attributes["has_shared"].nil?
           is_update = true
-          ic_user.custom_attributes = {"has_shared": false}
+          ic_user.custom_attributes["has_shared"] = false
         end
+
         if ic_user.custom_attributes["has_snapmail"].nil?
           is_update = true
-          ic_user.custom_attributes = {"has_snapmail": false}
+          ic_user.custom_attributes["has_snapmail"] = false
         end
+
         if is_update
           intercom.users.save(ic_user)
-          puts "Update user (#{user["id"]}): #{user["username"]}\t#{user["email"]}"
+          puts "Update user (#{user["id"]}): #{user["username"]}\t#{user["email"]}, viewed_camera=#{ic_user.custom_attributes["viewed_camera"]},"+
+                   "viewed_recordings=#{ic_user.custom_attributes["viewed_recordings"]}, has_shared=#{ic_user.custom_attributes["has_shared"]},"+
+                   "has_snapmail=#{ic_user.custom_attributes["has_snapmail"]}"
         end
       end
     end

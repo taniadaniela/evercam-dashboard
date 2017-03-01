@@ -126,3 +126,24 @@ input[type="number"] {
   padding: 5.5px 12px;
   margin: 0px;
 }
+
+.date-input {
+  width: 30%;
+  float: left;
+  min-width: 100px;
+  background-color: $white;
+  height: 35px;
+}
+
+.timepicker-default:focus {
+  border-color: $border-grey;
+  box-shadow: none;
+}
+
+body .dropdown-menu {
+  margin-left: 0px;
+}
+
+.margin-top-1 {
+  margin-top: 1px;
+}

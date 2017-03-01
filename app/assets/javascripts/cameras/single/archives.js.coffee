@@ -23,7 +23,8 @@ initDatePicker = ->
   $('.clip-datepicker').datetimepicker
     step: 1
     closeOnDateSelect: 0
-    format: 'd/m/Y H:i:s'
+    format: 'd/m/Y'
+    timepicker: false
 
 initializeArchivesDataTable = ->
   archives_table = $('#archives-table').DataTable({
@@ -251,7 +252,7 @@ tooltip = ->
 
 createClip = ->
   $("#create_clip_button").on "click", ->
-    from_date = $("#from-date").val()
+    from_date = $("#from-date").val() + ' ' + $('.timepicker-default').val()
     duration = $("#to-date").val()
     to_date = setToDate(from_date, duration)
     if $("#clip-name").val() is ""
@@ -313,7 +314,7 @@ setToDate = (date, duration) ->
     date_arr[2],date_arr[1] - 1,date_arr[0],
     time_arr[0],time_arr[1],time_arr[2]
   )
-  min = new_date.getMinutes()
+  min = $('#archive-time').data('timepicker').minute
   new_date.setMinutes(parseInt(min) + parseInt(duration))
   set_date = format_time.formatDate(new_date, 'd/m/Y H:i:s')
   return set_date
@@ -321,10 +322,8 @@ setToDate = (date, duration) ->
 setDate = ->
   offset =  $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
-  DateTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
-  DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  DateTime.setMinutes(DateTime.getMinutes() - 60)
-  Datefrom = format_time.formatDate(DateTime, 'd/m/Y H:i:s')
+  DateTime = new Date(moment.utc().format('MM/DD/YYYY'))
+  Datefrom = format_time.formatDate(DateTime, 'd/m/Y')
   $('#from-date').val Datefrom,true
 
 formReset = ->

@@ -165,6 +165,29 @@ handleResize = ->
   $(window).resize ->
     liveViewMenuDisplay()
 
+initTimepicker = ->
+  $('.timepicker-default').timepicker
+    minuteStep: 1
+    showSeconds: true
+    showMeridian: false
+    $('.timepicker-default').val(getPastOneHour())
+
+  $(document).on 'blur', '.timepicker-default', ->
+    $(this).timepicker 'hideWidget'
+
+getPastOneHour = (d) ->
+  d = new Date()
+  d.setHours(d.getHours() - 1)
+  return "#{FormatNumTo2(d.getHours())}
+    :#{FormatNumTo2(d.getMinutes())}
+    :#{FormatNumTo2(d.getSeconds())}"
+
+FormatNumTo2 = (n) ->
+  if n < 10
+    "0#{n}"
+  else
+    n
+
 initializeTabs = ->
   window.initializeInfoTab()
   window.initializeLiveTab()
@@ -192,3 +215,4 @@ window.initializeCameraSingle = ->
   showDurationError()
   liveViewMenuDisplay()
   handleResize()
+  initTimepicker()

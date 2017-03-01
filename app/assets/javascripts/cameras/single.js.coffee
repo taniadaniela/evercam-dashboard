@@ -172,8 +172,8 @@ initTimepicker = ->
     showMeridian: false
     $('.timepicker-default').val(getPastOneHour())
 
-  $(document).on 'blur', '.timepicker-default', ->
-    $(this).timepicker 'hideWidget'
+  $('#from-date').on 'click', ->
+    $('.timepicker-default').timepicker 'hideWidget'
 
 getPastOneHour = (d) ->
   d = new Date()

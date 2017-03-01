@@ -142,9 +142,8 @@ namespace :intercom do
           # Ignore it
         end
         unless ic_user.nil?
-          # ic_user.companies = [{company_id: "#{args[:company_email]}", name: "#{args[:company_name]}"}]
           ic_user.companies = [{company_id: "#{company.company_id}"}]
-          # intercom.users.save(ic_user)
+          intercom.users.save(ic_user)
           puts "Update user (#{user["id"]}): #{user["username"]}\t#{user["email"]}"
         end
       end

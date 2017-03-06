@@ -144,35 +144,33 @@ class CamerasController < ApplicationController
   def update
     begin
       settings = {
-        :name => params['camera-name'],
-        :external_host => params['camera-url'],
-        :timezone => params['camera-timezone'].blank? ? 'Europe/Dublin' : ActiveSupport::TimeZone.new(params['camera-timezone']).tzinfo.name,
+        :name => params['camera_name'],
+        :external_host => params['camera_url'],
+        :timezone => params['camera_timezone'].blank? ? 'Europe/Dublin' : ActiveSupport::TimeZone.new(params['camera_timezone']).tzinfo.name,
         :internal_host => params['local-ip'],
         :external_http_port => params['port'],
         :internal_http_port => params['local-http'],
-        :external_rtsp_port => params['ext-rtsp-port'],
-        :internal_rtsp_port => params['local-rtsp'],
+        :external_rtsp_port => params['ext_rtsp_port'],
+        :internal_rtsp_port => params['local_rtsp'],
         :jpg_url => params['snapshot'],
-        :vendor => params['camera-vendor'],
-        :model => params['camera-vendor'].blank? ? '' : params['camera-model'],
+        :vendor => params['camera_vendor'],
+        :model => params['camera_vendor'].blank? ? '' : params['camera_model'],
         :location_lat => params['cameraLat'],
         :location_lng => params['cameraLng'],
-        :cam_username => params['camera-username'],
-        :cam_password => params['camera-password'],
+        :cam_username => params['camera_username'],
+        :cam_password => params['camera_password'],
         :is_online_email_owner_notification => params['camera-notification'].blank? ? "false" : "true"
       }
-      get_evercam_api.update_camera(params['camera-id'], settings)
-      flash[:message] = 'Settings updated successfully'
-      redirect_to "#{cameras_single_path(params['camera-id'])}/details"
+      get_evercam_api.update_camera(params['id'], settings)
+      camera = get_evercam_api.get_camera(params["id"], false)
+      result = {success: true, camera: camera}
     rescue => error
       env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +
           error.backtrace.join("\n")
-      flash[:message] = "An error occurred updating the details for your camera. "\
-                        "Please try again and, if this problem persists, contact "\
-                        "support."
-      redirect_to "#{cameras_single_path(params['camera-id'])}/details"
+      result = {success: false, message: error.message}
     end
+    render json: result
   end
 
   def delete

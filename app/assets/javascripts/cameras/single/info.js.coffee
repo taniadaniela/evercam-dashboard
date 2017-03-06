@@ -611,6 +611,66 @@ handleUnnecessaryWhiteSpace = ->
   $('#rtsp').on 'focusout change', ->
     $("#rtsp").val $("#rtsp").val().replace(RegExp(' +?', 'g'), '')
 
+onSaveSettingClicked = (event) ->
+  event.preventDefault()
+  NProgress.start()
+  $('#settings-modal').modal('hide')
+  data = {}
+  data.camera_name = $('#camera-name').val()
+  data.camera_vendor = $('#camera-vendor').val()
+  data.camera_model = $('#camera-model').val()
+  data.camera_username = $('#camera-username').val()
+  data.camera_password = $('#camera-password').val()
+  data.snapshot = $('#snapshot').val()
+  data.rtsp = $('#rtsp').val()
+  data.camera_url = $('#camera-url').val()
+  data.port = $('#port').val()
+  data.ext_rtsp_port = $('#ext-rtsp-port').val()
+  data.camera_timezone = $('#camera-timezone').val()
+
+  onError = (jqXHR, status, error) ->
+    showError(jqXHR.responseJSON.message)
+    NProgress.done()
+
+  onSuccess = (response, success, jqXHR) ->
+    if response.success
+      updateDetails(response.camera, data)
+      showFeedback("Settings updated successfully.")
+    else
+      showError(response.message)
+    NProgress.done()
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'PATCH'
+    url: "/v1/cameras/#{Evercam.Camera.id}"
+
+  sendAJAXRequest(settings)
+  true
+
+updateDetails = (camera, data) ->
+  $('#camera_name').text camera.name
+  $('#vendor_data').text camera.vendor_id
+  $('#model_data').text camera.model_id
+  $('#username').text camera.cam_username
+  $('#password').text camera.cam_password
+  $('#snapshot_url').text data.snapshot
+  $('#rtsp_val').text data.rtsp
+  $('#url_ip').text data.camera_url
+  $('#http_port').text data.port
+  $('#rtsp_port').text data.ext_rtsp_port
+  $('#camera_timezone').text data.camera_timezone
+  $('#camera_link a').text camera.external.http.camera
+  $('#camera_http_jpg a').text camera.external.http.jpg
+  $('#camera_hls a').text
+  "http://media.evercam.io:4000/live/index.m3u8?camera_id=#{camera.id}"
+  $('#camera_h264 a').text camera.external.rtsp.h264
+  $('#camera_rtmp a').text
+  "rtmp://media.evercam.io:1935/live?camera_id=#{camera.id}"
+
 window.initializeInfoTab = ->
   port = $('#port').val()
   rtsp_port = $('#ext-rtsp-port').val()
@@ -618,6 +678,7 @@ window.initializeInfoTab = ->
   $('#change_owner_button').click(onChangeOwnerButtonClicked)
   $('.change_camera_ownership').click(onChangeOwnerSubmitClicked)
   $('#camera-notification').click(NotificationAlert)
+  $('#add-button').click(onSaveSettingClicked)
 
   if Evercam.Camera.location.lng is ""
     $("#info-location").replaceWith "<p>Not set</p>"

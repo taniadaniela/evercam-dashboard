@@ -86,7 +86,7 @@ describe CamerasController do
       it "renders the :new" do
         stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{user.api_id}&api_key=#{user.api_key}&include_shared=true&thumbnail=false&user_id=#{user.username}").
           to_return(status: 200, headers: {}, body: "{\"cameras\": []}")
-        
+
         session['user'] = user.email
         get :new
         expect(response.status).to eq(200)
@@ -188,7 +188,7 @@ describe CamerasController do
       end
     end
 
-    describe 'POST #update with missing parameters' do
+    describe 'PATCH #update with missing parameters' do
       it "renders camera settings form" do
         stub_request(:patch, "#{EVERCAM_API}cameras/#{camera.exid}.json").
           to_return(status: 400, headers: {},
@@ -200,13 +200,11 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
         session['user'] = user.email
-        post :update, {'id' => camera.exid, 'camera-id' => camera.exid}
-        expect(response.status).to eq(302)
-        expect(response).to redirect_to "#{cameras_single_path(camera.exid)}/details"
-        expect(flash[:message]).to eq("An error occurred updating the details for your camera. Please try again and, if this problem persists, contact support.")
+        patch :update, {'id' => camera.exid, 'camera-id' => camera.exid}
+        expect(response.status).to eq(200)
       end
     end
-    
+
     describe 'GET #single' do
       it "renders the :single" do
         pending

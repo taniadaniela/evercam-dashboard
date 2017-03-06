@@ -10,7 +10,7 @@
           <td class="col-md-4 col-xs-4">
             Camera:
           </td>
-          <td>
+          <td id="camera_link">
             <% url = @camera.deep_fetch('external', 'http', 'camera') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
@@ -23,7 +23,7 @@
           <td class="col-md-4 col-xs-4">
             Snapshot URL:
           </td>
-          <td>
+          <td id="camera_http_jpg">
             <% url = @camera.deep_fetch('external', 'http', 'jpg') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
@@ -36,7 +36,7 @@
           <td class="col-md-4 col-xs-4">
             HLS:
           </td>
-          <td>
+          <td id="camera_hls">
             <% url = @camera.deep_fetch('proxy_url', 'hls') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
@@ -49,7 +49,7 @@
           <td class="col-md-4 col-xs-4">
             RTSP:
           </td>
-          <td>
+          <td id="camera_h264">
             <% url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>
@@ -62,7 +62,7 @@
           <td class="col-md-4 col-xs-4">
             RTMP:
           </td>
-          <td>
+          <td id="camera_rtmp">
             <% url = @camera.deep_fetch('proxy_url', 'rtmp') {} %>
             <% if url.blank? %>
               <span class="grey">Not available</span>

@@ -19,7 +19,7 @@
       </tr>
       <tr>
         <td>Name:</td>
-        <td>
+        <td id="camera_name">
           <%= @camera['name'] %>
         </td>
       </tr>
@@ -31,7 +31,7 @@
       </tr>
       <tr id="vendor-value">
         <td>Vendor:</td>
-        <td class="vendor-data">
+        <td id="vendor_data" class="vendor-data">
           <% if @camera['vendor_name'] != "" %>
             <%= @camera['vendor_name'] %>
           <% else %>
@@ -41,7 +41,7 @@
       </tr>
       <tr>
         <td>Model:</td>
-        <td>
+        <td id="model_data">
           <% if @camera['model_name'] != "" %>
             <%= @camera['model_name'] %>
           <% else %>
@@ -75,7 +75,7 @@
       <% end %>
       <tr>
         <td>Timezone</td>
-        <td>
+        <td id="camera_timezone">
           <% camera_timezone = ActiveSupport::TimeZone::MAPPING.key(@camera['timezone']) %>
           <% if camera_timezone.blank? %>
             <%= ActiveSupport::TimeZone.new(@camera['timezone']) %>

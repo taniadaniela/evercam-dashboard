@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
   get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found
-  post '/v1/cameras/:id' => 'cameras#update'
+  patch '/v1/cameras/:id' => 'cameras#update'
   delete '/cameras/:id' => 'cameras#delete'
   post 'cameras/:id/request_clip' => 'cameras#request_clip', as: :request_clip
   delete 'cameras/clip/delete' => 'cameras#delete_clip', as: :delete_clip
@@ -113,4 +113,5 @@ Rails.application.routes.draw do
   patch '/share/:id' => 'sharing#update_share'
 
   get '*path' => 'pages#log_and_redirect'
+
 end

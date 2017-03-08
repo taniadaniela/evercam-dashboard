@@ -121,6 +121,10 @@ highlightActiveCamera = ->
     else
       $(this).parent().removeClass('active-color')
 
+hideIntercomLauncher = ->
+  window.intercomSettings =
+    hide_default_launcher: true
+
 $ ->
   initSocket()
   showOfflineButton()
@@ -135,6 +139,7 @@ $(window).ready ->
   sidebarScrollPosition()
   highlightActiveCamera()
   slideToggleList()
+  hideIntercomLauncher()
   $(window).resize ->
     delay (->
       handleCameraListHeight()

@@ -8,10 +8,6 @@ old_schedule = null
 
 window.initScheduleCalendar = ->
   window.scheduleCalendar = $('#cloud-recording-calendar').fullCalendar
-    header:
-      left: 'prev,next,today'
-      center: 'title'
-      right: 'month,agendaWeek,agendaDay'
     axisFormat: 'HH'
     defaultView: 'agendaWeek'
     allDaySlot: false
@@ -34,23 +30,15 @@ window.initScheduleCalendar = ->
     eventAfterRender: (event, $el, view ) ->
       start = moment(event.start).format('HH:mm')
       end = moment(event.end).format('HH:mm')
-      title = event.title
-      # If FullCalendar has removed the title div,
-      # then add the title to the time div like FullCalendar would do
-      if title
-        $el.find(".fc-bg").text(start + "-" + end + " " + title )
-      else
-        $el.find(".fc-bg").text(start + "-" + end)
+      $el.find(".fc-bg").text(start + "-" + end)
     eventColor: '#458CC7'
     firstDay: 1
     height: 'auto'
     select: (start, end) ->
-      title = prompt('Event Title:')
       # TODO: select whole day range when allDaySlot is selected
       scheduleCalendar.fullCalendar('renderEvent',
-          title: title
-          start: start
-          end: end - 1
+        start: start
+        end: end - 1
       , true)
       scheduleCalendar.fullCalendar('unselect')
       updateScheduleFromCalendar()

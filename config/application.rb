@@ -47,6 +47,7 @@ module EvercamDashboard
       views/widgets/add_camera.css
       videojs/video-js.min
       bare-bones.js
+      good_bye.scss
       widgets.js
       widgets/add_camera.js
       widgets/localstorage_widget.js

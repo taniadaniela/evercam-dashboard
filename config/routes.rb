@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   end
 
   get '/live/:id' => 'pages#live'
+  get '/good_bye' => 'pages#good_bye', as: :good_bye
 
   post '/share' => 'sharing#create'
   delete '/share' => 'sharing#delete'

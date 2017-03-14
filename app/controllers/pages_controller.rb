@@ -73,4 +73,8 @@ class PagesController < ApplicationController
 
     redirect_to root_path
   end
+
+  def good_bye
+    render layout: "bare-bones"
+  end
 end

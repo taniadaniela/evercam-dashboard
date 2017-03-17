@@ -1,14 +1,7 @@
 <%= content_for(:title, "Evercam: SnapMail") %>
 
-<div class="page-content-wrapper">
-  <div class="page-content snapmail">
-    <div class='col-sm-12 border-bottom-grey margin-bottom-15'>
-      <div class='portlet'>
-        <div class="portlet-title">
-          <div class="caption-heading"> Snapmail - Scheduled Emails</div>
-        </div>
-      </div>
-    </div>
+<div class="row padding-right15">
+  <div class="snapmail margin-top-15">
     <div id="btnNewApp" class="new-snapmail">
       <a id="lnNewApp" data-toggle="modal" data-target="#snapmail-form">
         <div class="fab blue">
@@ -37,19 +30,9 @@
                             <td class="col-sm-10"><input type="hidden" id="txtkey" class="m-wrap"></td>
                           </tr>
                           <tr>
-                            <td class="col-xs-2 col-sm-2 pading-left-0"><label class="margin-top-12 control-label" for="camera-vendor">Cameras:</label></td>
+                            <td class="col-xs-2 col-sm-2 pading-left-0">
                             <td class="select-camera-input col-sm-10">
-                              <select id="ddlCameras" class="js-example-basic-multiple" multiple="multiple" style="width: 100%">
-                                <% @cameras.each do |camera| %>
-                                  <% css = "onlinec"
-                                     thumbnail_url = "https://media.evercam.io/v1/cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-                                     unless !camera['is_online']
-                                       css = "offlinec"
-                                     end
-                                  %>
-                                  <option class="<%= css %>" data-val="<%= thumbnail_url %>" value="<%= camera['id'] %>" ><%= camera['name'] %></option>
-                                <% end %>
-                              </select>
+                              <input type="hidden" id="ddlCameras" class="form-input width100 tags" value= "<%= @camera['id'] %>" /></td>
                             </td>
                           </tr>
                           <tr>
@@ -59,22 +42,14 @@
                           <tr>
                             <td class="pading-left-0"><label class="margin-top-12 control-label" for="camera-username">Time:</label></td>
                             <td>
-                              <input id="txtTime" readonly class="form-input col-sm-2 text-center timepicker-default" type="text" />
-                              <select id="ddlTimezone" class="form-input col-sm-10">
-                                <% ActiveSupport::TimeZone.all.each do |time_zone| %>
-                                  <% if time_zone.utc_offset % 3600 == 0 %>
-                                    <option value="<%= time_zone.tzinfo.name %>">
-                                      <%= time_zone %>
-                                    </option>
-                                  <% end %>
-                                <% end %>
-                              </select>
+                              <input id="txtTime" readonly class="form-input col-sm-2 text-center snapmail-timepicker" type="text" />
+                              <input id="ddlTimezone" readonly class="form-input text-center col-sm-10" type="hidden" value="<%= @camera['timezone']%>" />
                             </td>
                           </tr>
                           <tr>
                             <td class="pading-left-0"><label class="margin-top-12 control-label" for="camera-password">Days:</label></td>
                             <td>
-                              <table class="checkbox-snapmail table table-borderless" style="margin-bottom:0px;">
+                              <table class="snapmail-checkbox table table-borderless" style="margin-bottom:0px;">
                                 <tr>
                                   <td>
                                     <label class="checkbox">
@@ -157,7 +132,7 @@
     <div class="row-fluid no-timelapse" id="divLoadingApps" style="display:none;">
       You have not created any Snapmails.
     </div>
-    <div class="col-sm-12 margin-bottom-10">
+    <div class="col-sm-12 margin-bottom-40">
       <div href="#" class="btn btn-primary new-snapmail-btn" data-toggle="modal" data-target="#snapmail-form">
         Create a new Snapmail
       </div>
@@ -166,8 +141,8 @@
 </div>
 
 <script>
-  window.Evercam.Snapmails = <%= @snapmails.to_json.html_safe %>;
   $(document).ready(function () {
-    window.initializeSnapmails();
+    window.initializeSingleSnapmail();
   });
 </script>
+

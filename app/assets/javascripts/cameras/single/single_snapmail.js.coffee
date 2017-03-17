@@ -3,7 +3,6 @@
 
 unselect_all = false
 is_logged_intercom = false
-camera_select = null
 appApiUrl = "https://snapmail.evercam.io/api/snapmails"
 
 initNotification = ->
@@ -17,34 +16,11 @@ window.sendAJAXRequest = (settings) ->
     settings.headers = headers
   xhrRequestChangeMonth = $.ajax(settings)
 
-rslidesInit = ->
-  $(".rslides").responsiveSlides({
-    auto: true,
-    pager: true,
-    nav: false,
-    pause: true,
-    speed: 500,
-    namespace: "centered-btns"
-  })
-
 noSnapmailText = ->
   if $("#divSnapmails div").length is 0
     $("#divLoadingApps").show()
   else
     $("#divLoadingApps").hide()
-
-initSnapmails = ->
-  snapmails = Evercam.Snapmails
-  $('#divSnapmails').html()
-  if snapmails.length is 0
-    $("#divLoadingApps").show()
-  else
-    $.each snapmails, (index, snapmail) ->
-      $('#divSnapmails').append getSnapmailHtml(snapmail, index)
-      selectDays(snapmail.id, snapmail.notify_days)
-      initPopup(snapmail.id)
-      $("#divLoadingApps").hide()
-      rslidesInit()
 
 loadSnapmails = ->
   onError = (jqXHR, status, error) ->
@@ -61,10 +37,9 @@ loadSnapmails = ->
         selectDays(snapmail.id, snapmail.notify_days)
         initPopup(snapmail.id)
         $("#divLoadingApps").hide()
-        rslidesInit()
 
   settings =
-    data: {}
+    data: {camera_id: "#{Evercam.Camera.id}"}
     dataType: 'json'
     error: onError
     success: onSuccess
@@ -80,17 +55,16 @@ selectDays = (snapmail_id, notify_days) ->
     $("##{span_id}").removeClass("days-unchek").addClass("days-chek")
 
 getSnapmailHtml = (snapMail, index) ->
-  cameras = snapMail.camera_ids.split(',') if snapMail.camera_ids
-  camera_names = snapMail.camera_names.replace(/,/g, ", ")
+  cameras = Evercam.Camera.id
+  camera_names = Evercam.Camera.name
   recipients = snapMail.recipients.replace(/,/g, ", ")
   html = '<div id="dataslot' + snapMail.id + '" class="list-border margin-bottom10">'
   html += '    <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'
   html += '        <div class="snapstack-loading" id="snaps-' + snapMail.id + '" >'
   html += '           <ul class="rslides" id="snapmail' + index + '">'
-  $.each cameras, (i, camera) ->
-    thumbnail_url = "https://media.evercam.io/v1/cameras/#{camera}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}";
-    html += '           <li><img src="' + thumbnail_url + '" class="stackimage" style="visibility: visible" id="stackimage-' + snapMail.id + '-' + camera + '" alt="' + snapMail.camera_names.split(',')[i] + '" ><p>' + snapMail.camera_names.split(',')[i] + '</p></li>'
+  thumbnail_url = "https://media.evercam.io/v1/cameras/#{cameras}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+  html += '           <li><img src="' + thumbnail_url + '" class="stackimage" style="visibility: visible" id="stackimage-' + snapMail.id + '-' + cameras + '" alt="' + snapMail.camera_names.split(',')[i] + '" ><p>' + camera_names + '</p></li>'
   html += '           </ul>'
   html += '        </div>'
   html += '        <input type="hidden" id="txtCamerasId' + snapMail.id + '" value="' + snapMail.camera_ids + '" /><input type="hidden" id="txtRecipient' + snapMail.id + '" value="' + (if snapMail.recipients is null then '' else snapMail.recipients) + '" /><input type="hidden" id="txtTime' + snapMail.id + '" value="' + snapMail.notify_time + '" />'
@@ -144,13 +118,7 @@ initPopup = (key) ->
     close: "#close-popup-#{key}"
 
 initCameraSelect = ->
-  camera_select = $('#ddlCameras').select2
-    placeholder: 'Select Camera',
-    allowClear: true,
-    templateSelection: format,
-    templateResult: format
-    escapeMarkup: (m) ->
-      m
+  camera_select = $('#ddlCameras').val()
 
 format = (state) ->
   is_offline = ""
@@ -189,7 +157,7 @@ validateEmailByVal = (email) ->
     true
 
 initTimepicker = ->
-  $('.timepicker-default').timepicker
+  $('.snapmail-timepicker').timepicker
     minuteStep: 5
     showSeconds: false
     showMeridian: false
@@ -198,16 +166,7 @@ saveSnapmail = ->
   $('#add-snapmail').on 'click', ->
     save_button = $(this)
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-    cameraIds = ''
-    cameraNames = ''
-    $('#ddlCameras :selected').each (i, selected) ->
-      cameraIds += $(selected).val() + ','
-      cameraNames += $(selected).text() + ', '
-    if cameraIds is ''
-      Notification.show 'Please select camera(s) to continue.'
-      return false
-    cameraIds = cameraIds.substring(0, cameraIds.lastIndexOf(','))
-    cameraNames = cameraNames.substring(0, cameraNames.lastIndexOf(','))
+    cameraIds = $('#ddlCameras').val()
     if $('#txtRecipient').val() != ''
       emails = $('#txtRecipient').val().split(',')
       i = 0
@@ -222,9 +181,6 @@ saveSnapmail = ->
         return false
     if $('#txtTime').val() == ''
       Notification.show 'Please select time to continue.'
-      return false
-    if $('#ddlTimezone').val() == '0'
-      Notification.show 'Please select timezone to continue.'
       return false
     if GetWeekdaysSelected() == ''
       Notification.show 'Please select day(s) to continue.'
@@ -268,7 +224,6 @@ saveSnapmail = ->
       initPopup(snapMail.id)
       $("#snapmail-form").modal("hide")
       clearForm()
-      rslidesInit()
       logCameraViewed() unless is_logged_intercom
 
     settings =
@@ -317,16 +272,10 @@ clearForm = ->
   $('.caption').html 'New Snapmail'
   $('#txtkey').val ''
   $('#txtRecipient').val ''
-  $('#ddlTimezone').val "Europe/Dublin"
   d = new Date
   $('#txtTime').val FormatNumTo2(d.getHours()) + ':' + FormatNumTo2(d.getMinutes())
   $('#divAlert').slideUp()
-  $('.select2-search-choice').remove()
   $('span.tag').remove()
-  $.fn.select2.defaults.reset()
-  $('#ddlCameras :selected').each (i, selected) ->
-    $(selected).removeAttr 'selected'
-  camera_select.val(null).trigger("change")
   $('#uniform-chkMon .icheckbox_flat-blue').removeClass 'checked'
   $("#chkMon").prop("checked", false)
   $('#uniform-chkTue .icheckbox_flat-blue').removeClass 'checked'
@@ -359,7 +308,6 @@ EditSnapmail = ->
     loadExistingSnapmail(key)
 
 loadExistingSnapmail = (key) ->
-  $('#ddlTimezone').val $('#txtTimezone' + key).val()
   emails = $('#txtRecipient' + key).val()
   if emails != null or emails != ''
     $('#txtRecipient').importTags(emails)
@@ -389,11 +337,10 @@ loadExistingSnapmail = (key) ->
         $('#uniform-chkSun .icheckbox_flat-blue').addClass 'checked'
         $('#chkSun').prop 'checked', true
   all_selected()
-  cameraIds = $('#txtCamerasId' + key).val().split(',')
-  camera_select.val(cameraIds).trigger("change")
+  cameraIds = $('#ddlCameras').val()
+  # camera_select.val(cameraIds).trigger("change")
   $('#txtTime').val $('#txtTime' + key).val()
   $('#s2id_ddlCameras').show()
-  rslidesInit()
 
 handleModelEvents = ->
   $("#snapmail-form").on "hide.bs.modal", ->
@@ -451,7 +398,7 @@ pauseSnapmail = ->
     $.ajax(settings)
 
 initializeiCheck = ->
-  $(".checkbox-snapmail input[type='checkbox']").iCheck
+  $(".snapmail-checkbox input[type='checkbox']").iCheck
     checkboxClass: "icheckbox_flat-blue"
 
   $("input[type='checkbox']").on 'ifChecked', (event) ->
@@ -482,8 +429,8 @@ cloneSnapmail = ->
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     Notification.show "Successfully cloned"
 
-window.initializeSnapmails = ->
-  initSnapmails()
+window.initializeSingleSnapmail = ->
+  loadSnapmails()
   initCameraSelect()
   initInputTags()
   initTimepicker()

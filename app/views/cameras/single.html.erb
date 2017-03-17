@@ -9,7 +9,7 @@
         <div class="center-tabs">
           <ul id="ul-nav-tab" class="nav nav-tabs">
             <li id="live-view-tab" class="active">
-              <a data-toggle="tab" data-target="#live" class="nav-tab-live nav-tab-"><span> Live View</span></a>
+              <a data-toggle="tab" data-target="#live" class="nav-tab-live nav-tab-"><span>Live View</span></a>
             </li>
             <li>
               <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
@@ -30,7 +30,7 @@
               </li>
             <% end %>
             <li>
-              <a id="maps-tab-fix" data-toggle="tab" data-target="#details" class="nav-tab-details"> Details</a>
+              <a id="maps-tab-fix" data-toggle="tab" data-target="#details" class="nav-tab-details">Details</a>
             </li>
             <% if has_edit_right %>
               <li>
@@ -46,6 +46,10 @@
 
             <li>
               <a data-toggle="tab" data-target="#archives" class="nav-tab-archives"> Archives</a>
+            </li>
+
+            <li>
+              <a data-toggle="tab" data-target="#snapmail" class="nav-tab-archives">Snapmail</a>
             </li>
 
             <% if @camera['owner'] != current_user.username && @share.nil? && @camera["is_public"] %>
@@ -198,6 +202,9 @@
           </div>
           <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+          </div>
+          <div id="snapmail" class="tab-pane">
+            <%= render partial: "cameras/single/snapmail_tab" %>
           </div>
           <% if has_edit_right %>
             <div id="motion" class="tab-pane">

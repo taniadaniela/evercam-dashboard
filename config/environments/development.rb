@@ -39,7 +39,7 @@ EvercamDashboard::Application.configure do
   config.action_mailer.delivery_method = :file
   config.action_mailer.file_settings = { :location => Rails.root.join('log/mails') }
 
-  config.websockets_url = "wss://media.evercam.io/socket"
+  config.websockets_url = "wss://staging.evercam.io/socket"
 
   # Evercam API settings. Use "EVERCAM_LOCAL=true bundle exec rails server" to test
   # against a locally running version of evercam-api.

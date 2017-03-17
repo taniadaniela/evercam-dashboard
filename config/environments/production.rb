@@ -83,6 +83,10 @@ EvercamDashboard::Application.configure do
   config.session_initializer_settings = {key: '_evercam_dashboard_session',
                                          domain: '.evercam.io'}
 
+  config.evercam_api = { host: 'staging.evercam.io', scheme: 'https' }
+  config.evercam_media_api = { host: 'staging.evercam.io', scheme: 'https' }
+  config.websockets_url = "ws://staging.evercam.io:4000/socket"
+
   # Mailgun email configuration.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

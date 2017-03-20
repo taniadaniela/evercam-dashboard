@@ -158,8 +158,7 @@ class CamerasController < ApplicationController
         :location_lat => params['cameraLat'],
         :location_lng => params['cameraLng'],
         :cam_username => params['camera_username'],
-        :cam_password => params['camera_password'],
-        :is_online_email_owner_notification => params['camera-notification'].blank? ? "false" : "true"
+        :cam_password => params['camera_password']
       }
       get_evercam_api.update_camera(params['id'], settings)
       camera = get_evercam_api.get_camera(params["id"], false)

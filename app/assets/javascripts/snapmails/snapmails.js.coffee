@@ -89,7 +89,7 @@ getSnapmailHtml = (snapMail, index) ->
   html += '        <div class="snapstack-loading" id="snaps-' + snapMail.id + '" >'
   html += '           <ul class="rslides" id="snapmail' + index + '">'
   $.each cameras, (i, camera) ->
-    thumbnail_url = "https://media.evercam.io/v1/cameras/#{camera}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}";
+    thumbnail_url = "#{Evercam.MEDIA_API_URL}cameras/#{camera}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}";
     html += '           <li><img src="' + thumbnail_url + '" class="stackimage" style="visibility: visible" id="stackimage-' + snapMail.id + '-' + camera + '" alt="' + snapMail.camera_names.split(',')[i] + '" ><p>' + snapMail.camera_names.split(',')[i] + '</p></li>'
   html += '           </ul>'
   html += '        </div>'

@@ -184,13 +184,14 @@ initTimepicker = ->
 openSnapmailDialog = ->
   $('#load-snapmail').on 'click', ->
     camera_select.val(Evercam.Camera.id).trigger("change")
+    User_email = $('#user-email').val()
+    $('#txtRecipient').importTags(User_email)
 
 saveSnapmail = ->
   $('#add-snapmail').on 'click', ->
     save_button = $(this)
     showLoadingAnimation()
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-    openSnapmailDialog()
     cameraIds = ''
     cameraNames = ''
     $('#ddlCameras :selected').each (i, selected) ->
@@ -316,7 +317,6 @@ clearForm = ->
   $('.formButtonCancel').click()
   $('.caption').html 'New Snapmail'
   $('#txtkey').val ''
-  $('#txtRecipient').val ''
   $('#ddlTimezone').val "Europe/Dublin"
   d = new Date
   $('#txtTime').val FormatNumTo2(d.getHours()) + ':' + FormatNumTo2(d.getMinutes())

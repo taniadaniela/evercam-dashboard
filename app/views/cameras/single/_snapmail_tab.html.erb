@@ -55,7 +55,7 @@
                           <tr>
                             <td class="pading-left-0"><label class="margin-top-12 control-label" for="camera-username">Time:</label></td>
                             <td>
-                              <input id="txtTime" readonly class="form-input col-sm-2 text-center snapmail-timepicker" type="text" />
+                              <input id="txtTime" class="form-input col-sm-2 text-center snapmail-timepicker" type="text" />
                               <select id="ddlTimezone" class="form-input col-sm-10">
                                 <% ActiveSupport::TimeZone.all.each do |time_zone| %>
                                   <% if time_zone.utc_offset % 3600 == 0 %>

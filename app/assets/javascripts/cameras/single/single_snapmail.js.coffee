@@ -177,9 +177,10 @@ validateEmailByVal = (email) ->
 
 initTimepicker = ->
   $('.snapmail-timepicker').timepicker
-    minuteStep: 5
-    showSeconds: false
+    template: false
+    showInputs: false
     showMeridian: false
+    minuteStep: 1
 
 openSnapmailDialog = ->
   $('#load-snapmail').on 'click', ->

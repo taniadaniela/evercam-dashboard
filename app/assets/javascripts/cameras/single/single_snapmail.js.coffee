@@ -316,7 +316,7 @@ GetWeekdaysSelected = ->
 
 clearForm = ->
   $('.formButtonCancel').click()
-  $('.caption').html 'New Snapmail'
+  $('#snapmail-form .caption').html 'New Snapmail'
   $('#txtkey').val ''
   $('#ddlTimezone').val "Europe/Dublin"
   d = new Date

@@ -671,6 +671,20 @@ updateDetails = (camera, data) ->
   $('#camera_rtmp a').text
   "rtmp://media.evercam.io:1935/live?camera_id=#{camera.id}"
 
+hideNotAvailableURLS = ->
+  $('#h264-section').toggleClass 'hide',
+    $('#rtsp-value:contains("Not available")').length > 0
+  $('#hls-section').toggleClass 'hide',
+    $('#camera_hls span:contains("Not available")').length > 0
+  $('#rtsp-section').toggleClass 'hide',
+    $('#camera_h264 span:contains("Not available")').length > 0
+  $('#rtmp-section').toggleClass 'hide',
+    $('#camera_rtmp span:contains("Not available")').length > 0
+  $('#camera-section').toggleClass 'hide',
+    $('#camera_link span:contains("Not available")').length > 0
+  $('#snapshot-section').toggleClass 'hide',
+    $('#camera_http_jpg span:contains("Not available")').length > 0
+
 window.initializeInfoTab = ->
   port = $('#port').val()
   rtsp_port = $('#ext-rtsp-port').val()
@@ -692,6 +706,7 @@ window.initializeInfoTab = ->
   $("#save-map-location").on "click", saveMapLocation
   handleMapEvents()
   refreshLastSnaps()
+  hideNotAvailableURLS()
   port_check(port,'')
   port_check(rtsp_port,'rtsp-')
   init_key_events()

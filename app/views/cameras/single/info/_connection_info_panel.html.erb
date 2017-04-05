@@ -35,7 +35,7 @@
           <span id="snapshot-value"><%= @camera.deep_fetch('external', 'http', 'jpg') { '' }.sub("http://#{@camera.deep_fetch('external', 'host') { '' }}", '').sub(":#{@camera.deep_fetch('external', 'http', 'port') { '' }}", '') if @camera.deep_fetch('external', 'http', 'jpg') { '' } %></span>
         </td>
       </tr>
-      <tr>
+      <tr id="h264-section">
         <td>H264 URL:</td>
         <td id="rtsp_val">
           <% if @camera.deep_fetch('external', 'rtsp', 'h264').present? %>

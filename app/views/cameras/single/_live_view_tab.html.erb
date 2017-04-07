@@ -15,12 +15,12 @@
         <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= thumbnail_url(@camera) %>" />
           <div class="play-options">
-            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause"></i></div>
+            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause" title="Pause"></i></div>
             <div id="save-live-snapshot" class="btn-live-player save-live hide">
-              <i class="glyphicon glyphicon-floppy-disk"></i>
+              <i class="fa fa-download font-size-16" aria-hidden="true" title="Download Image"></i>
             </div>
             <div class="live-option" id="toggle">
-              <span class="glyphicon glyphicon-fullscreen"></span>
+              <span class="glyphicon glyphicon-fullscreen" title="Fullscreen"></span>
             </div>
           </div>
           <% if has_edit_right && @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>

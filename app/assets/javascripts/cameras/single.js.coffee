@@ -169,7 +169,7 @@ handleResize = ->
 initTimepicker = ->
   $('.timepicker-default').timepicker
     minuteStep: 1
-    showSeconds: true
+    showSeconds: false
     showMeridian: false
     $('.timepicker-default').val(getPastOneHour())
 

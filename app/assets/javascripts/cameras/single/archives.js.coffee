@@ -312,7 +312,7 @@ setToDate = (date, duration) ->
   time_arr = time.split(":")
   new_date = new Date(
     date_arr[2],date_arr[1] - 1,date_arr[0],
-    time_arr[0],time_arr[1],time_arr[2]
+    time_arr[0],time_arr[1]
   )
   min = $('#archive-time').data('timepicker').minute
   new_date.setMinutes(parseInt(min) + parseInt(duration))

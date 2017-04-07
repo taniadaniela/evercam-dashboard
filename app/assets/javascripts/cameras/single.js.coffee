@@ -200,7 +200,6 @@ initializeTabs = ->
   window.initializeSettingsTab()
   window.initializeArchivesTab()
   window.initializeMotionDetectionTab()
-  window.initializeTimelapse()
 
 window.initializeCameraSingle = ->
   initializeTabs()

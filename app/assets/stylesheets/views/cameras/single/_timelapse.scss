@@ -1,0 +1,223 @@
+.tab_timelapse {
+  label {
+    font-size: 14px;
+  }
+
+  input {
+    font-size: 12px;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .radio {
+    min-height: 37px;
+  }
+
+  .radio-inline {
+    padding-top: 0;
+  }
+
+  .padding-left0 {
+    padding-left: 0;
+  }
+
+  .padding-top5 {
+    padding-top: 5px;
+  }
+
+  .padding-bottom10 {
+    padding-top: 10px;
+    clear: both;
+  }
+
+  .txt-width {
+    width: 95%;
+    border-right: 0;
+  }
+
+  .header-bg{
+    background-color: $white;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+
+  }
+
+  .box-header-padding {
+    background-color: $modal-grey;
+    cursor: pointer;
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+
+  .box-content-padding {
+    clear: both;
+    padding: 14px 28px 10px;
+  }
+
+  .tbl-tab {
+    width: 100%;
+    font-size: 14px;
+    color: $form-dark-grey;
+  }
+
+  .timelapse-label {
+    font-size: 18px;
+    color: $form-dark-grey;
+  }
+
+  .timelapse-camera-name {
+    font-size: 13px;
+    color: $form-dark-grey;
+  }
+
+  .timelapse-label-status {
+    font-size: 18px;
+    color: $form-dark-grey;
+    width: 25%;
+    float: right;
+  }
+
+  .tbl-tab thead tr {
+    border-bottom: 1px solid $light-grey;
+  }
+
+  .tbl-hd1 {
+    width: 28%;
+    text-align: left;
+    padding-bottom: 5px;
+    padding-left: 5px;
+  }
+
+  .tbl-hd2 {
+    float: left;
+    margin-left: 0;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+  }
+
+  .video-bg-width{
+    background-color: $evercam-black;
+    width: 100%;
+    height: 40em;
+  }
+
+  .timelapse-recordhd{
+    float: left;
+    width: 50%;
+  }
+
+  .timelapse-labelhd{
+    float: left;
+    width: 50%;
+  }
+
+  .camera-online {
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+  }
+
+  .camera-offline {
+    background-color: $evercam-red;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+  }
+
+  .copy-to-clipboard {
+    background-color: $secondary-grey;
+    background-image: none;
+    filter: none;
+    border: 0;
+    padding: 6px 5px 7px;
+    margin-left: -4px;
+    border-top: solid 1px $main-grey;
+    border-right: solid 1px $main-grey;
+    border-bottom: solid 1px $main-grey;
+    border-left: 0;
+    font-size: 14px;
+    color: $form-dark-grey;
+    cursor: pointer;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+
+    -webkit-text-shadow: none;
+    -moz-text-shadow: none;
+    text-shadow: none;
+  }
+
+  .copy-to-clipboard:hover,
+  .copy-to-clipboard:focus,
+  .copy-to-clipboard:active,
+  .copy-to-clipboard.active,
+  .copy-to-clipboard[disabled],
+  .copy-to-clipboard.disabled {
+    color: $form-dark-grey;
+    background-color: #d8d8d8;
+  }
+
+  .timelapse-content-box{
+    border: 1px solid $light-grey;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    display: block;
+    line-height: 20px;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  .table,
+  .table > tbody > tr > td {
+    border-top-width: 0px;
+    border-color: transparent;
+  }
+
+  .tab-a{
+    text-decoration: none;
+    font-weight: normal;
+    color: $form-dark-grey;
+  }
+
+  .tab-a:hover{
+    text-decoration: none;
+    font-weight: normal;
+    color: $form-dark-grey;
+  }
+
+  .tab-a:active{
+    text-decoration: none;
+    color: $form-dark-grey;
+  }
+
+  .tab-a:visited{
+    text-decoration: none;
+    font-weight: normal;
+    color: $form-dark-grey;
+  }
+
+  .tab-a:link{
+    text-decoration: none;
+    color: $form-dark-grey;
+  }
+}

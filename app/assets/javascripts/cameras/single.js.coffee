@@ -10,6 +10,7 @@
 #= require cameras/single/testsnapshot.js.coffee
 #= require cameras/single/archives.js.coffee
 #= require cameras/single/single_snapmail.js.coffee
+#= require cameras/single/timelapse.js.coffee
 #= require saveimage.js
 #= require jquery.thumbhover.js
 
@@ -199,6 +200,7 @@ initializeTabs = ->
   window.initializeSettingsTab()
   window.initializeArchivesTab()
   window.initializeMotionDetectionTab()
+  window.initializeTimelapse()
 
 window.initializeCameraSingle = ->
   initializeTabs()

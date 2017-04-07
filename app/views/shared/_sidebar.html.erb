@@ -40,11 +40,6 @@
             <img class="icon-font snapimg" src="//dkzcs7h1dpzak.cloudfront.net/assets/snapmail-fd5f12a06005b85e0247e6fa206e9992c31af9f0c95a79544dcca1f9d216f620.png"><span class="title snapmail-text"> Snapmail</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to "http://timelapse.evercam.io/login.html?id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
-            <i class="fa fa-history icon-font"></i><span class="title"> Timelapse</span>
-        <% end %>
-      </li>
       <li class="sidebar-line nprogCall">
         <%= link_to billing_path(current_user.username) do %>
           <i class="fa fa-credit-card"></i> Billing
@@ -91,34 +86,33 @@
           <li class="status-list">
             <a class="status-report"><i class="fa fa-barcode icon-font width-20"></i> Status Report <i class="fa fa-caret-down pull-right right-margin"></i>
             <i class="fa fa-caret-up pull-right right-margin"></i></a>
-          </li>
-          <ul class="status-report-submenu left-nav-submenu">
-            <li>
-              <%= link_to status_path(:history_days => 1) do %>
-                <i class="fa fa-barcode"></i> 1 Day
-              <% end %>
-            </li>
-            <li>
-              <%= link_to status_path(:history_days => 3) do %>
-                <i class="fa fa-barcode"></i> 3 Days
-              <% end %>
-            </li>
-            <li>
-              <%= link_to status_path(:history_days => 7) do %>
-                <i class="fa fa-barcode"></i> 7 Days
-              <% end %>
-            </li>
-            <li>
-              <%= link_to status_path(:history_days => 30) do %>
-                <i class="fa fa-barcode"></i> 30 Days
-              <% end %>
-            </li>
-            <li>
-              <%= link_to status_path(:history_days => 90) do %>
-                <i class="fa fa-barcode"></i> 90 Days
-              <% end %>
-            </li>
-          </ul>
+            <ul class="status-report-submenu left-nav-submenu">
+              <li>
+                <%= link_to status_path(:history_days => 1) do %>
+                  <i class="fa fa-barcode"></i> 1 Day
+                <% end %>
+              </li>
+              <li>
+                <%= link_to status_path(:history_days => 3) do %>
+                  <i class="fa fa-barcode"></i> 3 Days
+                <% end %>
+              </li>
+              <li>
+                <%= link_to status_path(:history_days => 7) do %>
+                  <i class="fa fa-barcode"></i> 7 Days
+                <% end %>
+              </li>
+              <li>
+                <%= link_to status_path(:history_days => 30) do %>
+                  <i class="fa fa-barcode"></i> 30 Days
+                <% end %>
+              </li>
+              <li>
+                <%= link_to status_path(:history_days => 90) do %>
+                  <i class="fa fa-barcode"></i> 90 Days
+                <% end %>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>

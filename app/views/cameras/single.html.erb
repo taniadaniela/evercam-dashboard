@@ -20,7 +20,7 @@
               <% end %>
             </li>
             <% if has_edit_right %>
-              <% if ["marco", "meherbst", "vinniequinn", "vq"].include? current_user.username %>
+              <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction"].include? current_user.username %>
               <li>
                 <a data-toggle="tab" data-target="#motion" class="nav-tab-motion">Motion</a>
               </li>
@@ -51,6 +51,12 @@
             <li>
               <a data-toggle="tab" data-target="#snapmail" class="nav-tab-archives">Snapmail</a>
             </li>
+
+            <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction"].include?(current_user.username) %>
+              <li>
+                <a data-toggle="tab" data-target="#timelapse" class="nav-tab-timelapse">Timelapse</a>
+              </li>
+            <% end %>
 
             <% if @camera['owner'] != current_user.username && @share.nil? && @camera["is_public"] %>
               <div class="pull-right add-to-share">
@@ -216,6 +222,11 @@
             <div id="logs" class="tab-pane">
               <%= render partial: "cameras/single/logs_tab" %>
             </div>
+            <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction"].include?(current_user.username) %>
+              <div id="timelapse" class="tab-pane">
+                <%= render partial: "cameras/single/timelapse" %>
+              </div>
+            <% end %>
           <% end %>
 
           <% if @camera['vendor_name'] == 'Hikvision Digital Technology' %>

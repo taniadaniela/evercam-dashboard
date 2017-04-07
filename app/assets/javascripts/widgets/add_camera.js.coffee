@@ -238,6 +238,7 @@ testSnapshot = ->
     data.jpg_url = $('#camera-snapshot-url').val()
     data.cam_username = $("#camera-username").val() unless $("#camera-username").val() is ''
     data.cam_password = $("#camera-password").val() unless $("#camera-password").val() is ''
+    data.vendor_id = $("#camera-vendor").val() unless $("#camera-vendor").val() is ''
 
     onError = (jqXHR, status, error) ->
       $(".snapshot-msg").html(jqXHR.responseJSON.message)

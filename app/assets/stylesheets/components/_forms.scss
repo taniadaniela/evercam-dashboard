@@ -283,6 +283,21 @@ select{
   z-index: 1;
 }
 
+@media (max-width: 767px) {
+
+  .form-group {
+    margin-top: 35px;
+  }
+
+  #registration {
+    padding: 20px 0;
+  }
+
+  .use {
+    margin-bottom: 0px;
+  }
+}
+
 @media (max-width: 480px) {
   .mobile-hide {
     display: none;

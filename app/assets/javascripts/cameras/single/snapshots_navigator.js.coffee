@@ -225,13 +225,16 @@ handleSlider = ->
   $("#divSlider").click(onSliderClick)
 
 showLoader = ->
-  if $("#imgPlayback").attr("src").indexOf('nosnapshots') != -1
-    $("#imgPlayback").attr("src","/assets/plain.png")
-  $("#imgLoaderRec").width($('#imgPlayback').width())
-  $("#imgLoaderRec").height($('#imgPlayback').height())
-  $("#imgLoaderRec").css("top", $('#imgPlayback').css('top'))
-  $("#imgLoaderRec").css("left", $('#imgPlayback').css('left'))
-  $("#imgLoaderRec").show()
+  if $('#recording-tab').width() is 0
+    $("#imgLoaderRec").hide()
+  else
+    if $("#imgPlayback").attr("src").indexOf('nosnapshots') != -1
+      $("#imgPlayback").attr("src","/assets/plain.png")
+    $("#imgLoaderRec").width($('.left-column').width())
+    $("#imgLoaderRec").height($('#imgPlayback').height())
+    $("#imgLoaderRec").css("top", $('#imgPlayback').css('top'))
+    $("#imgLoaderRec").css("left", $('#imgPlayback').css('left'))
+    $("#imgLoaderRec").show()
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()

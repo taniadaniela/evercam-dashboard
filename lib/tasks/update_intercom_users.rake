@@ -85,42 +85,6 @@ namespace :intercom do
     end
   end
 
-  # task :save_duplicate_values_to_standard, [:app_id, :app_key] do |_t, args|
-  #   require 'intercom'
-  #   intercom = Intercom::Client.new(
-  #       app_id: args[:app_id],
-  #       api_key: args[:app_key]
-  #   )
-
-  #   intercom.users.all.each do |ic_user|
-  #     is_update = false
-  #     if ic_user.custom_attributes["job_title"].nil?
-  #       is_update = true
-  #       ic_user. = ic_user.custom_attributes["job_title"]
-  #     end
-
-  #     if ic_user.custom_attributes["viewed_recordings"].nil?
-  #       is_update = true
-  #       ic_user.custom_attributes["viewed_recordings"] = 0
-  #     end
-
-  #     if ic_user.custom_attributes["has_shared"].nil?
-  #       is_update = true
-  #       ic_user.custom_attributes["has_shared"] = false
-  #     end
-
-  #     if ic_user.custom_attributes["has_snapmail"].nil?
-  #       is_update = true
-  #       ic_user.custom_attributes["has_snapmail"] = false
-  #     end
-  #     if is_update
-  #       puts %Q(Update user #{ic_user.email} - #{ic_user.user_id}, viewed_camera=#{ic_user.custom_attributes["viewed_camera"]},"+
-  #                  "viewed_recordings=#{ic_user.custom_attributes["viewed_recordings"]}, has_shared=#{ic_user.custom_attributes["has_shared"]},"+
-  #                  "has_snapmail=#{ic_user.custom_attributes["has_snapmail"]})
-  #     end
-  #   end
-  # end
-
   task :add_companies, [:DATABASE_URL, :app_id, :app_key, :company_emails] do |_t, args|
     require 'intercom'
     ActiveRecord::Base.establish_connection("#{args[:DATABASE_URL]}")
@@ -148,5 +112,32 @@ namespace :intercom do
         end
       end
     end
+  end
+
+  task :sync_users_tag, [:DATABASE_URL, :app_id, :app_key, :tag_id] do |_t, args|
+    require 'intercom'
+    ActiveRecord::Base.establish_connection("#{args[:DATABASE_URL]}")
+    intercom = Intercom::Client.new(
+        app_id: args[:app_id],
+        api_key: args[:app_key]
+    )
+    users = intercom.users.find(tag_id: args[:tag_id])
+    puts "Total-Pages: #{users.pages.total_pages}"
+    (1..users.pages.total_pages.to_i).each do |page|
+      puts "Next Page: #{page}"
+      unless page == 1
+        users = intercom.users.find(tag_id: args[:tag_id], page: page)
+        puts "Next Page Info:"
+      end
+      users.users.each do |ic_user|
+        db_user = ActiveRecord::Base.connection.select_all("select * from users where email='#{ic_user["email"]}'")
+        if db_user.present?
+          ActiveRecord::Base.connection.select_all("update users set payment_method=2 where id=#{db_user[0]["id"]} and email='#{ic_user["email"]}'")
+          puts "user #{db_user[0]["email"]} - #{db_user[0]["id"]}"
+          puts "------------------------------------------------"
+        end
+      end
+    end
+    puts "Task finished"
   end
 end

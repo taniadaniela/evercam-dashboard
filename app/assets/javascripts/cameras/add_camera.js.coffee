@@ -82,7 +82,6 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
       if model.id isnt "other_default"
         $("#snapshot").val(cleanAndSetJpegUrl($("#camera-model").find(":selected").attr("jpg-val")))
         $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#camera-model").find(":selected").attr("jpg-val")))
-        cleanAndSetRtspUrl($("#camera-model").find(":selected").attr("rtsp-val"))
         $("#snapshot").addClass("hide")
         $("#snapshot-readonly").removeClass("hide")
         $("#rtsp").addClass("hide")
@@ -98,7 +97,6 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
         $("#rtsp-readonly").addClass("hide")
     $("#last-selected-model").val('')
     NProgress.done()
-    checkRtspInput()
 
   settings =
     cache: false
@@ -166,21 +164,13 @@ handleVendorModelEvents = ->
   $(".camera-model").on "change", ->
     $("#snapshot").val(cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val")))
     $("#snapshot-readonly").val(cleanAndSetJpegUrl($(this).find(":selected").attr("jpg-val")))
-    cleanAndSetRtspUrl($(this).find(":selected").attr("rtsp-val"))
     $("#snapshot").addClass("hide")
     $("#snapshot-readonly").removeClass("hide")
-    checkRtspInput()
 
 cleanAndSetJpegUrl = (jpeg_url) ->
   if jpeg_url.indexOf('/') == 0
     jpeg_url = jpeg_url.substr(1)
   return jpeg_url
-
-cleanAndSetRtspUrl = (rtsp_url) ->
-  if rtsp_url.indexOf('/') == 0
-    rtsp_url = rtsp_url.substr(1)
-  $("#rtsp").val rtsp_url
-  $("#rtsp-readonly").val rtsp_url
 
 onLoadPage = ->
   if $("#last-selected-model").val() isnt ''
@@ -196,7 +186,6 @@ onLoadPage = ->
       $("#rtsp-readonly").removeClass("hide")
     $("#snapshot").val(cleanAndSetJpegUrl($("#snapshot").val()))
     $("#snapshot-readonly").val(cleanAndSetJpegUrl($("#snapshot-readonly").val()))
-    cleanAndSetRtspUrl($("#rtsp-readonly").val())
   $(".settings").hide()
   appendCopyFromDropdown()
   #toggle the componenet with class msg_body
@@ -219,17 +208,23 @@ onLoadPage = ->
     slideToggleCameraList()
 
   if window.location.href.indexOf('clone') > -1
-    $('#copy-from-checkbox').addClass 'sidebar-checked active'
+    $('#copy-from .sidebar-chk-span').addClass 'sidebar-checked active'
     $('.copy-from-camera').show()
   else
-    $('#copy-from-checkbox').removeClass 'sidebar-checked active'
+    $('#copy-from .sidebar-chk-span').removeClass 'sidebar-checked active'
     $('.copy-from-camera').hide()
 
-  $('#copy-from-checkbox').on 'click', (event) ->
-    $(this).toggleClass('active')
-    $(this).toggleClass('sidebar-checked')
-    $(".copy-from-camera").slideToggle 500
-    appendCopyFromDropdown()
+  $('#copy-from-text').on 'click', (event) ->
+    toggleCopyFromDropdown()
+
+  $('#copy-from input[type="checkbox"]').on 'click', (event) ->
+    toggleCopyFromDropdown()
+
+toggleCopyFromDropdown = ->
+  $('#copy-from .sidebar-chk-span').toggleClass('active')
+  $('#copy-from .sidebar-chk-span').toggleClass('sidebar-checked')
+  $(".copy-from-camera").slideToggle 500
+  appendCopyFromDropdown()
 
 slideToggleCameraList = ->
   if $('#clone-camera-list').hasClass 'open'
@@ -349,21 +344,11 @@ check_port = ->
     else
       $('.external-port').css('borderColor',"#aaaaaa")
       port_check(port,'')
+
   $('#camera-url').on 'keyup', ->
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     port_check(port,'') unless !port.match regexp
-    port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
-  $('#ext-rtsp-port').on 'keyup', ->
-    if xhrRequestPortCheck
-      xhrRequestPortCheck.abort()
-    rtsp_port = $('#ext-rtsp-port').val()
-    if rtsp_port and !rtsp_port.match regexp
-      $('#change').css('borderColor',"#b94a48")
-      $(".rtsp-port-status").empty()
-    else
-      $('#change').css('borderColor',"#aaaaaa")
-      port_check(rtsp_port,'rtsp-')
 
 cursor_visible = ->
   $('.external-port').on 'click', ->
@@ -371,20 +356,9 @@ cursor_visible = ->
   $('#change').on 'click', ->
     $('#ext-rtsp-port').focus()
 
-checkRtspInput = ->
-  if $("#rtsp").val() in ['<blank>', '/', 'unknown', '']
-    $("#rtsp").removeClass("hide")
-    $("#rtsp-readonly").addClass("hide")
-    $("#rtsp").val("")
-    $("#rtsp-readonly").val("")
-  else
-    $("#rtsp").addClass("hide")
-    $("#rtsp-readonly").removeClass("hide")
-
 window.initializeAddCamera = ->
   ip = $('#camera-url').val()
   port = $('#port').val()
-  rtsp_port = $('#ext-rtsp-port').val()
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
@@ -398,7 +372,6 @@ window.initializeAddCamera = ->
   cursor_visible()
   check_port()
   port_check(port,'')
-  port_check(rtsp_port,'rtsp-')
   NProgress.done()
   $(window).resize ->
     appendCopyFromDropdown()

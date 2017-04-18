@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   post '/v1/cameras/new' => 'cameras#create'
   get '/cameras/transfer' => 'cameras#transfer'
   get '/status' => 'cameras#online_offline'
+  get '/status_report' => 'cameras#update_status_report'
   get '/map' => 'cameras#map', as: :map_view
   get '/cameras_table' => 'cameras#cameras_table'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single

@@ -1,14 +1,26 @@
 <%= content_for(:title, "Camera Online/Offline Report") %>
 <div class="page-content-wrapper">
-  <div class="page-content">
+  <div id="status-report" class="page-content">
+    <div id="loading-image-div" class="loading-image-div">
+      <i class='fa fa-spinner fa-spin snapmail-animation'></i>
+      <span id="snapmail-loading-image" class="snapmail-loading-text">Loading...</span>
+    </div>
     <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
-      <p id="draw_report"></p>
+      <div id="status-dropdown" class="status-dropdown float-left hide">
+        <select id="select-history-days" class="select-history-days" name="select_days" disabled>
+          <option> 1 Day </option>
+          <option> 3 Days </option>
+          <option selected="selected"> 7 Days </option>
+          <option> 30 Days </option>
+          <option> 90 Days </option>
+        </select>
+      </div>
+      <p id="draw_report" class="margin-top-5"></p>
     </div>
   </div>
 </div>
 <script>
   moment.locale('en');
-  window.Evercam.logs = <%= @formated_data.to_json.html_safe %>;
   $(document).ready(function () {
     window.initializeOnlineOfflineReport();
   });

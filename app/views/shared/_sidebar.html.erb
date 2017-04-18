@@ -89,35 +89,9 @@
             <% end %>
           </li>
           <li class="status-list">
-            <a class="status-report"><i class="fa fa-barcode icon-font width-20"></i> Status Report <i class="fa fa-caret-down pull-right right-margin"></i>
-            <i class="fa fa-caret-up pull-right right-margin"></i></a>
-            <ul class="status-report-submenu left-nav-submenu">
-              <li>
-                <%= link_to status_path(:history_days => 1) do %>
-                  <i class="fa fa-barcode"></i> 1 Day
-                <% end %>
-              </li>
-              <li>
-                <%= link_to status_path(:history_days => 3) do %>
-                  <i class="fa fa-barcode"></i> 3 Days
-                <% end %>
-              </li>
-              <li>
-                <%= link_to status_path(:history_days => 7) do %>
-                  <i class="fa fa-barcode"></i> 7 Days
-                <% end %>
-              </li>
-              <li>
-                <%= link_to status_path(:history_days => 30) do %>
-                  <i class="fa fa-barcode"></i> 30 Days
-                <% end %>
-              </li>
-              <li>
-                <%= link_to status_path(:history_days => 90) do %>
-                  <i class="fa fa-barcode"></i> 90 Days
-                <% end %>
-              </li>
-            </ul>
+            <%= link_to status_path do %>
+              <i class="fa fa-barcode width-20"></i> Status Report
+            <% end %>
           </li>
         </ul>
       </li>

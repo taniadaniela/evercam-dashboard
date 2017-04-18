@@ -106,3 +106,44 @@ div.tooltip {
     -moz-osx-font-smoothing: grayscale;
     fill: #777;
 }
+
+.select-history-days {
+  height: 20px;
+  width: 100px;
+  position: absolute;
+  background-color: transparent;
+}
+
+#status-report {
+
+  .opacity {
+    opacity: 0.2;
+  }
+
+  .snapmail-loading-text {
+    position: relative;
+    margin-top: 5px;
+    font-size: 20px;
+    color: $evercam-black;
+    float: right;
+  }
+
+  .loading-image-div .snapmail-animation {
+    position: relative;
+    font-size: 50px;
+    color: $evercam-black;
+    margin: 0 auto;
+  }
+
+  .loading-image-div {
+    position: absolute;
+    max-width: 90px;
+    text-align: center;
+    margin-left: 40%;
+    margin-top: 20%;
+  }
+
+  .margin-top-5 {
+    margin-top: 5px;
+  }
+}

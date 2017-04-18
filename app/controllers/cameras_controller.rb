@@ -295,6 +295,10 @@ class CamerasController < ApplicationController
   end
 
   def online_offline
+    @cameras = load_user_cameras(true, false)
+  end
+
+  def update_status_report
     days = if params[:history_days].to_i != 0 then params[:history_days].to_i else 7 end
     @cameras = load_user_cameras(true, false)
     camera_exids = []
@@ -328,6 +332,7 @@ class CamerasController < ApplicationController
         data: format_logs(camera_log[:status], camera_log[:logs], "Etc/UTC", camera_log[:created_at], days)
       }
     end
+    render json: @formated_data.to_json.html_safe
   end
 
   def create_measure(camera_name, status)

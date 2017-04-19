@@ -270,8 +270,6 @@ createClip = ->
       title: $("#clip-name").val()
       from_date: from_date
       to_date: to_date
-      embed_time: $("#embed-datetime").is(":checked")
-      is_public: $("#is-public").is(":checked")
 
     onError = (jqXHR, status, error) ->
       isUnauthorized(jqXHR)
@@ -329,10 +327,6 @@ setDate = ->
 formReset = ->
   $("#clip-name").val("")
   $('#archive-modal').modal('hide')
-  $("#embed-datetime").prop("checked", false)
-  $("#lbl-embed-datetime span").removeClass("checked")
-  $("#is-public").prop("checked", false)
-  $("#lbl-is-public span").removeClass("checked")
 
 playClip = ->
   $("#archives-table").on "click", ".play-clip", ->

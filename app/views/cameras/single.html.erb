@@ -45,11 +45,11 @@
             <% end %>
 
             <li>
-              <a data-toggle="tab" data-target="#archives" class="nav-tab-archives"> Archives</a>
+              <a data-toggle="tab" data-target="#archives" class="nav-tab-archives">Archives</a>
             </li>
 
             <li>
-              <a data-toggle="tab" data-target="#snapmail" class="nav-tab-archives">Snapmail</a>
+              <a data-toggle="tab" data-target="#snapmail" class="nav-tab-snapmail">Snapmail</a>
             </li>
 
             <% if @camera['owner'] != current_user.username && @share.nil? && @camera["is_public"] %>

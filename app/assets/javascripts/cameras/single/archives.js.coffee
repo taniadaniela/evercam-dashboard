@@ -110,7 +110,8 @@ renderbuttons = (row, type, set, meta) ->
     div.append(divPopup)
   if row.status is "Completed"
     DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
-    mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}/play?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    # mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}/play?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    mp4_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.id}.mp4"
     day = DateTime.getDate()
     month = DateTime.getMonth()
     year = DateTime.getFullYear()

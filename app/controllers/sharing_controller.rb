@@ -16,7 +16,6 @@ class SharingController < ApplicationController
         api = get_evercam_api
         api.update_camera(params[:id], values)
       rescue => error
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught updating camera permissions.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
         result[:success] = false
@@ -35,7 +34,6 @@ class SharingController < ApplicationController
       begin
         get_evercam_api.delete_camera_share(params[:camera_id], params[:email])
       rescue => error
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught deleting camera share.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
         result[:success] = false
@@ -53,7 +51,6 @@ class SharingController < ApplicationController
       begin
         get_evercam_api.cancel_camera_share_request(params[:camera_id], params[:email])
       rescue => error
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught cancelling camera share request.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
         result[:success] = false
@@ -74,7 +71,6 @@ class SharingController < ApplicationController
       @camera = api.get_camera(camera_id, true)
       UserMailer.sign_up_to_share_email(params[:email], "#{@camera["name"]}(#{camera_id})", user, params[:share_request_id], @camera['thumbnail']).deliver_now
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.warn "Exception caught resending camera share request.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
       result[:success] = false
@@ -108,7 +104,6 @@ class SharingController < ApplicationController
         result[:email] = share["email"]
         result[:user_id] = share["user_id"]
       rescue => error
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught creating camera share.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
         result[:success] = false
@@ -130,7 +125,6 @@ class SharingController < ApplicationController
       begin
         get_evercam_api.update_camera_share(params[:camera_id], params[:email], rights)
       rescue => error
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught updating camera share.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
         result = {success: false, message: "Failed to update share. Please contact support."}
@@ -149,7 +143,6 @@ class SharingController < ApplicationController
       begin
         get_evercam_api.update_camera_share_request(params[:camera_id], params[:email], rights)
       rescue => error
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.warn "Exception caught updating camera share.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
         result = {success: false, message: "Failed to update share request. Please contact support."}

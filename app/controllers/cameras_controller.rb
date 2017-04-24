@@ -107,7 +107,6 @@ class CamerasController < ApplicationController
       )
       redirect_to cameras_single_path(new_camera["id"])
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       flash[:user] = {
         'camera-name' => params['camera-name'],
         'camera-username' => params['camera-username'],
@@ -164,7 +163,6 @@ class CamerasController < ApplicationController
       camera = get_evercam_api.get_camera(params["id"], false)
       result = {success: true, camera: camera}
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught updating camera details.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       result = {success: false, message: error.message}
@@ -186,7 +184,6 @@ class CamerasController < ApplicationController
         end
       end
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting camera.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       message = "An error occurred deleting your camera. Please try again "\
@@ -266,7 +263,6 @@ class CamerasController < ApplicationController
       if error.try(:status_code).present? && error.status_code.equal?(404)
         redirect_to cameras_not_found_path
       else
-        env["airbrake.error_id"] = notify_airbrake(error)
         Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
                              error.backtrace.join("\n")
         flash[:error] = "An error occurred fetching the details for your camera. "\
@@ -420,7 +416,6 @@ class CamerasController < ApplicationController
       raise BadRequestError.new("No user email specified in request.") unless params.include?(:email)
       get_evercam_api.change_camera_owner(params[:camera_id], params[:email])
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught transferring camera ownership.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       message = "An error occurred transferring ownership of this camera. Please "\

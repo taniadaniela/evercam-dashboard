@@ -37,7 +37,6 @@ gem 'country_select',
 gem 'devise'
 gem 'ie_iframe_cookies'
 gem 'heroku-api'
-gem 'airbrake'
 gem 'intercom-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

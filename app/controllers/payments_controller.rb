@@ -56,7 +56,6 @@ class PaymentsController < ApplicationController
       @customer = retrieve_stripe_customer_without_cart(@line_item)
       @customer.change_plan
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.warn "Exception caught while upgrade/downgrade plan.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")
       result[:success] = false

@@ -52,7 +52,6 @@ class PagesController < ApplicationController
       render layout: "bare-bones"
     rescue => error
       puts error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught fetching camera details.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       flash[:error] = "An error occurred fetching the details for your camera. "\

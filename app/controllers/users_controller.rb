@@ -40,8 +40,6 @@ class UsersController < ApplicationController
       if request.safe_location
         params[:user] = { 'country' => request.safe_location.country_code }
       end
-    rescue => error
-      notify_airbrake(error)
     end
   end
 
@@ -67,7 +65,6 @@ class UsersController < ApplicationController
       update_user_intercom user
       redirect_to cameras_index_path
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       if error.kind_of?(Evercam::EvercamError)
         if error.message.eql?("Invalid token.")
           flash[:message] = error.message
@@ -127,7 +124,6 @@ class UsersController < ApplicationController
       get_evercam_api.delete_user(params['id'])
       redirect_to good_bye_path
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught deleting user.\nCause: #{error}\n" +
                            error.backtrace.join("\n")
       flash[:message] = "An error occurred deleting user. Please try again "\
@@ -153,7 +149,6 @@ class UsersController < ApplicationController
       end
       flash[:message] = 'Settings updated successfully'
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       if error.kind_of?(Evercam::EvercamError)

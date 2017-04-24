@@ -81,9 +81,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    airbrake (5.6.1)
-      airbrake-ruby (~> 1.6)
-    airbrake-ruby (1.6.0)
     arel (6.0.3)
     asset_sync (2.0.0)
       activemodel
@@ -598,7 +595,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   asset_sync
   autoprefixer-rails
   bcrypt (~> 3.1.10)

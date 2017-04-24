@@ -47,7 +47,6 @@ class WidgetsController < ApplicationController
       end
       render :layout => true
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught in snapshot navigator.\nCause: #{error}\n" +
                              error.backtrace.join("\n")
       flash[:message] = error.message
@@ -155,7 +154,6 @@ class WidgetsController < ApplicationController
       end
       render :layout => false
     rescue => error
-      env["airbrake.error_id"] = notify_airbrake(error)
       Rails.logger.error "Exception caught in snapshot navigator.\nCause: #{error}\n" +
                              error.backtrace.join("\n")
       flash[:message] = error.message

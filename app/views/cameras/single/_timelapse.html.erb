@@ -13,133 +13,127 @@
                 <div class="portlet-body">
                   <div class="row">
                     <div class='col-sm-12'>
-                      <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                        <table class="table table-fixed table-borderless">
-                          <tr>
-                            <td class="col-xs-3 col-sm-3 pading-left-0"><label>Camera:</label></td>
-                            <td colspan="2">
-                              <select id="timelapse-camera" class="form-control" style="width: 100%;height: 40px;">
-                                <option value="">Select Camera</option>
-                                <% @cameras.each do |camera| %>
-                                  <option value="<%= camera['id'] %>" status="<%= camera['is_online'] %>" thumbnail="<%= "#{EVERCAM_MEDIA_API}cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
-                                    <%= camera["name"] %>
-                                  </option>
-                                  <% end %>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Title:</label></td>
-                            <td colspan="2">
-                              <input type="text" name="timelapse-title" id="timelapse-title" required="required" class="form-control"
-                                     placeholder="Timelapse Title"/>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Interval:</label></td>
-                            <td colspan="2">
-                              <select id="timelapse-frequency" class="form-control">
-                                <option value="0">Select Interval</option>
-                                <option value="1">1 Frame Every 1 min</option>
-                                <option value="5">1 Frame Every 5 min</option>
-                                <option value="15">1 Frame Every 15 min</option>
-                                <option value="30">1 Frame Every 30 min</option>
-                                <option value="60">1 Frame Every 1 hour</option>
-                                <option value="360">1 Frame Every 6 hours</option>
-                                <option value="720">1 Frame Every 12 hours</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Date Range:</label></td>
-                            <td>
-                              <div class="radio-list">
-                                <label class="radio-inline">
-                                  <input id="chkDateRangeAlways" name="date_range" type="radio" checked value="true" class="icheck"/>&nbsp;Always
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="radio-list">
-                                <label class="radio-inline">
-                                  <input id="chkDateRange" name="date_range" type="radio" value="false" class="icheck"/>&nbsp;Range
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr class="range-row">
-                            <td></td>
-                            <td colspan="2">
-                              <div id="row_date_range" style="display: none;">
-                                <div class='col-sm-6 padding-left0'><input type="text" id="txt_from_date" class="form-control daterange" placeholder="From Date"></div>
-                                <div class='col-sm-6 padding-left0'><input type="text" id="txt_to_date" class="form-control daterange" placeholder="To Date"></div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Time Range:</label></td>
-                            <td>
-                              <div class="radio-list">
-                                <label class="radio-inline">
-                                  <input id="chkTimeRangeAlways" name="time_range" type="radio" checked value="true" class="icheck" />&nbsp;Always
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="radio-list">
-                                <label class="radio-inline">
-                                  <input id="chkTimeRange" name="time_range" type="radio" value="false" class="icheck" />&nbsp;Range
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr class="range-row">
-                            <td></td>
-                            <td colspan="2">
-                              <div id="row_time_range" style="display: none;">
-                                <div class='col-sm-6 padding-left0'><input type="text" id="txt_from_time" class="form-control timerange" placeholder="From Time" readonly value="00:00"></div>
-                                <div class='col-sm-6 padding-left0'><input type="text" id="txt_to_time" class="form-control timerange" placeholder="To Time" readonly value="23:59"></div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Watermark Position:</label></td>
-                            <td colspan="2">
-                              <select id="timelapse-watermark-pos" class="form-control">
-                                <option value="TopLeft">Top Left</option>
-                                <option value="TopRight">Top Right</option>
-                                <option value="BottomLeft">Bottom Left</option>
-                                <option value="BottomRight">Bottom Right</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Watermark Logo:</label></td>
-                            <td colspan="2">
-                              <div class='col-sm-11 padding-left0'>
-                                <input id="timelapse-watermark" data-val="" type="file" class="form-control" accept="image/*">
-                              </div>
-                              <div class='col-sm-1 padding-left0'>
-                                <img id="img-watermark" src="" class="" style="height:35px;">
-                                <input type="hidden" id="watermark-base64">
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                        <div id="divRecording" class="control-group hide">
-                          <label class="form-control-label">Recoording</label>
-                          <div class="form-control">
-                            <div class="row-fluid padding-top3">
-                              <label class="radio">
-                                <input id="chkRecordingTimelapse0" name="recording" type="radio" value="a" checked />&nbsp;Active
-                              </label>
-                              <label class="radio span3">
-                                <input id="chkPausedTimelapse0" name="recording" type="radio" value="p" />&nbsp;Paused
+                      <table class="table table-fixed table-borderless">
+                        <tr>
+                          <td class="col-xs-3 col-sm-3 pading-left-0"><label>Camera:</label></td>
+                          <td colspan="2">
+                            <select id="timelapse-camera" class="form-control" style="width: 100%;height: 40px;">
+                              <option value="">Select Camera</option>
+                              <% @cameras.each do |camera| %>
+                                <option value="<%= camera['id'] %>" status="<%= camera['is_online'] %>" thumbnail="<%= "#{EVERCAM_MEDIA_API}cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+                                  <%= camera["name"] %>
+                                </option>
+                                <% end %>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Title:</label></td>
+                          <td colspan="2">
+                            <input type="text" name="timelapse-title" id="timelapse-title" required="required" class="form-control"
+                                   placeholder="Timelapse Title"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Interval:</label></td>
+                          <td colspan="2">
+                            <select id="timelapse-frequency" class="form-control">
+                              <option value="0">Select Interval</option>
+                              <option value="1">1 Frame Every 1 min</option>
+                              <option value="5">1 Frame Every 5 min</option>
+                              <option value="15">1 Frame Every 15 min</option>
+                              <option value="30">1 Frame Every 30 min</option>
+                              <option value="60">1 Frame Every 1 hour</option>
+                              <option value="360">1 Frame Every 6 hours</option>
+                              <option value="720">1 Frame Every 12 hours</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Date Range:</label></td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkDateRangeAlways" name="date_range" type="radio" checked value="true" class="icheck"/>&nbsp;Always
                               </label>
                             </div>
-                          </div>
-                        </div>
-                      </form>
+                          </td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkDateRange" name="date_range" type="radio" value="false" class="icheck"/>&nbsp;Range
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="range-row">
+                          <td></td>
+                          <td colspan="2">
+                            <div id="row_date_range" style="display: none;">
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_from_date" class="form-control daterange" placeholder="From Date"></div>
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_to_date" class="form-control daterange" placeholder="To Date"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Time Range:</label></td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkTimeRangeAlways" name="time_range" type="radio" checked value="true" class="icheck" />&nbsp;Always
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkTimeRange" name="time_range" type="radio" value="false" class="icheck" />&nbsp;Range
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="range-row">
+                          <td></td>
+                          <td colspan="2">
+                            <div id="row_time_range" style="display: none;">
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_from_time" class="form-control timerange" placeholder="From Time" readonly value="00:00"></div>
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_to_time" class="form-control timerange" placeholder="To Time" readonly value="23:59"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Watermark Position:</label></td>
+                          <td colspan="2">
+                            <select id="timelapse-watermark-pos" class="form-control">
+                              <option value="TopLeft">Top Left</option>
+                              <option value="TopRight">Top Right</option>
+                              <option value="BottomLeft">Bottom Left</option>
+                              <option value="BottomRight">Bottom Right</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Watermark Logo:</label></td>
+                          <td colspan="2"><input id="timelapse-watermark" data-val="" type="file" class="form-control" accept="image/*"></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td colspan="2">
+                            <div style="display: none;" id="div-logo-upload">
+                              <div class='col-sm-9 padding-left0'>
+                                <img id="img-watermark" src="" class="" style="width: 70px;">
+                                <input type="hidden" id="watermark-base64">
+                              </div>
+                              <div  class='col-sm-3 padding-left0'>
+                                <button id="btn-cancel-upload" class="btn btn-danger cancel-upload" data-val="">
+                                  <i class="fa fa-upload"></i>
+                                  <span>Cancel</span>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
                     </div>
                   </div>
                 </div>

@@ -3,6 +3,16 @@
 
   .nav-tabs {
     border-bottom: 0px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus {
+    border-bottom-color: $white;
+    border-left: solid 1px $main-grey;
+    border-right: solid 1px $main-grey;
+    border-top: solid 1px $main-grey;
   }
 
   .video-js .vjs-big-play-button {
@@ -19,9 +29,9 @@
   }
 
   .card {
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.26);
+    border: solid 1px $main-grey;
     background: white;
-    border-radius: 2px;
+    border-radius: 0 2px 2px 2px;
     font-weight: normal;
     overflow: auto;
     user-select: none;
@@ -29,7 +39,7 @@
     transform-origin: top left;
     padding: 1.5rem;
     margin-bottom: 30px;
-    min-height: 550px !Important;
+    min-height: 605px !Important;
   }
 
   .card:nth-child(3n) {
@@ -87,7 +97,6 @@
   }
 
   .hash-label {
-    color: $grey;
     font-size: 15px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -107,6 +116,7 @@
   }
 
   .camera-name {
+    color: $grey;
     font-size: 12px;
     margin-left: 5px;
   }
@@ -114,20 +124,6 @@
   .div-snapmail-values {
     float: left;
     width: 70%;
-  }
-
-  .delete-timelapse {
-    position: absolute;
-    z-index: 100;
-  }
-
-  .delete-timelapse .icon-button {
-    color: $main-color;
-    cursor: pointer;
-  }
-
-  .delete-timelapse .icon-button:hover {
-    color: $hover-blue;
   }
 
   .timelapse-edit {

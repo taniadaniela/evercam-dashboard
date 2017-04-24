@@ -69,7 +69,7 @@ getTimelapseHtml = (timelapse, index) ->
   html += "          </video>"
   html += "        </div>"
   html += "        <input type='hidden' id='timelapse-camera-id#{timelapse.id}' value='#{timelapse.camera_id}'/>"
-  html += "        <div class='hash-label snapmail-title'><a data-toggle='modal' data-target='#snapmail-form' class='tools-link edit-snapmail' data-val='#{timelapse.id}' title='#{timelapse.title}'>#{timelapse.title}</a><span class='camera-name'>#{timelapse.camera_name}</span><span class='line-end'></span></div>"
+  html += "        <div class='hash-label snapmail-title'>#{timelapse.title}<span class='camera-name'>#{timelapse.camera_name}</span><span class='line-end'></span></div>"
   html += "        <div class='camera-time'><span class='spn-label'>Total Snapshots:</span><div class='div-snapmail-values'>#{(if timelapse.snapshot_count is null then 0 else timelapse.snapshot_count)}</div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time'><span class='spn-label'>Created At:</span><div class='div-snapmail-values'>#{format_time.formatDate((new Date(timelapse.created_at*1000)), "d M Y, H:i:s")}</div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time'><span class='spn-label'>Last Snapshot At:</span><div class='div-snapmail-values'>#{(if timelapse.snapshot_count == 0 then '---' else format_time.formatDate((new Date(timelapse.last_snapshot_at*1000)), "d M Y, H:i:s"))}</div><div class='clear-f'></div></div>"
@@ -80,10 +80,10 @@ getTimelapseHtml = (timelapse, index) ->
   html += "      <div id='settings#{timelapse.id}' class='tab-pane'>"
   html += "        <table class='table' style='margin-bottom:0px;'>"
   html += "          <tr>"
-  html += "            <td class='col-sm-3'>Title: </td>"
+  html += "            <td class='col-sm-3'><label>Title:</label></td>"
   html += "            <td class='col-sm-9'><input type='text' id='timelapse-title#{timelapse.id}' value='#{timelapse.title}' required='required' class='form-control'/></td>"
   html += "          </tr>"
-  html += "          <tr><td>Interval: </td><td><select id='timelapse-frequency#{timelapse.id}' class='form-control'>"
+  html += "          <tr><td><label>Interval:</label></td><td><select id='timelapse-frequency#{timelapse.id}' class='form-control'>"
   html += "            <option value='0'>Select Interval</option>"
   html += "            <option #{select_frequency(timelapse.frequency, 1)} value='1'>1 Frame Every 1 min</option>"
   html += "            <option #{select_frequency(timelapse.frequency, 5)} value='5'>1 Frame Every 5 min</option>"
@@ -143,21 +143,6 @@ getTimelapseHtml = (timelapse, index) ->
   html += "            </td>"
   html += "          </tr>"
   html += "          <tr>"
-  html += "            <td><label>Recoording:</label></td>"
-  html += "            <td>"
-  html += "              <div class='col-sm-4 radio-list padding-left0'>"
-  html += "                <label class='radio-inline'>"
-  html += "                  <input id='recording_active#{timelapse.id}' name='recording_status#{timelapse.id}' data-val='#{timelapse.id}' type='radio' #{(if timelapse.status is 'Paused' then '' else 'checked')} value='0' class='icheck radio_edit'/>&nbsp;Active"
-  html += "                </label>"
-  html += "              </div>"
-  html += "              <div class='col-sm-5 radio-list padding-left0'>"
-  html += "                <label class='radio-inline'>"
-  html += "                  <input id='recording_paused#{timelapse.id}' name='recording_status#{timelapse.id}' data-val='#{timelapse.id}' type='radio' #{(if timelapse.status is 'Paused' then 'checked' else '')} value='3' class='icheck radio_edit'/>&nbsp;Paused"
-  html += "                </label>"
-  html += "              </div>"
-  html += "            </td>"
-  html += "          </tr>"
-  html += "          <tr>"
   html += "            <td><label>Watermark Pos:</label></td>"
   html += "            <td>"
   html += "              <select id='timelapse-watermark-pos#{timelapse.id}' class='form-control'>"
@@ -171,20 +156,31 @@ getTimelapseHtml = (timelapse, index) ->
   html += "          <tr>"
   html += "            <td><label>Watermark Logo:</label></td>"
   html += "            <td>"
-  html += "              <div class='col-sm-11 padding-left0'>"
-  html += "                <input id='timelapse-watermark#{timelapse.id}' data-val='#{timelapse.id}' type='file' class='form-control' accept='image/*'>"
-  html += "              </div>"
-  html += "              <div class='col-sm-1 padding-left0'>"
-  html += "                <img id='img-watermark#{timelapse.id}' src='#{timelapse.watermark_logo}' style='height:35px;'>"
-  html += "                <input type='hidden' id='watermark-base64#{timelapse.id}' value='#{timelapse.watermark_logo}'>"
-  html += "              </div>"
+  html += "              <input id='timelapse-watermark#{timelapse.id}' data-val='#{timelapse.id}' type='file' class='form-control' accept='image/*'>"
   html += "            </td>"
   html += "          </tr>"
   html += "          <tr>"
   html += "            <td></td>"
   html += "            <td>"
-  html += "              <div class='pull-left form-group'><button type='button' class='btn btn-primary edit-timelapse' data-val='#{timelapse.id}'><i class='fa fa-check'></i> Save</button></div>"
-  html += "              <button type='button' class='btn btn-danger delete-timelapse' data-val='#{timelapse.id}'><i class='fa fa-remove'></i> Delete</button>"
+  html += "              <div style='display: #{(if timelapse.watermark_logo is "" then "none" else "block")};' id='div-logo-upload#{timelapse.id}'>"
+  html += "                <table class='table'><tr><td class='col-sm-8' style='padding: 0;'>"
+  html += "                  <img id='img-watermark#{timelapse.id}' src='#{timelapse.watermark_logo}' style='width:70px;'>"
+  html += "                  <input type='hidden' id='watermark-base64#{timelapse.id}' value='#{timelapse.watermark_logo}'>"
+  html += "                </td>"
+  html += "                <td style='vertical-align: middle; padding: 0;'>"
+  html += "                  <button class='btn btn-danger cancel-upload' data-val='#{timelapse.id}'>"
+  html += "                    <i class='fa fa-upload'></i>"
+  html += "                    <span>Cancel</span>"
+  html += "                  </button>"
+  html += "                </td></tr></table>"
+  html += "              </div>"
+  html += "            </td>"
+  html += "          </tr>"
+  html += "          <tr>"
+  html += "            <td class='text-center' colspan='2'>"
+  html += "              <button type='button' class='btn btn-primary edit-timelapse' data-val='#{timelapse.id}'><i class='fa fa-check'></i> Save</button>&nbsp;"
+  html += "              <button type='button' class='btn btn-danger delete-timelapse' data-val='#{timelapse.id}'><i class='fa fa-remove'></i> Delete</button>&nbsp;"
+  html += "              <button type='button' class='btn btn-danger toggle-status' status='#{(if timelapse.status is "Paused" then "start" else "stop")}' camera-id='#{timelapse.camera_id}' data-val='#{timelapse.id}'><i class='fa #{(if timelapse.status is "Paused" then "fa-play" else "fa-pause")}'></i> #{(if timelapse.status is "Paused" then "Resume" else "Pause")}</button>"
   html += "            </td>"
   html += "          </tr>"
   html += "        </table>"
@@ -321,10 +317,6 @@ saveTimelapse = ->
         Notification.show('To time and from time cannot be same.')
         return false
 
-    watermark_logo = ""
-    if $("#timelapse-watermark").val() isnt ""
-      watermark_logo = $("#watermark-base64").val().replace("data:image/jpeg;base64,", "")
-
     o =
       title: $("#timelapse-title").val()
       date_always: dateAlways
@@ -332,8 +324,9 @@ saveTimelapse = ->
       frequency: $("#timelapse-frequency").val()
       from_datetime: (new Date("#{fromDate} #{fromTime}"))/1000
       to_datetime: (new Date("#{toDate} #{toTime}"))/1000
-      watermark_logo: watermark_logo
       watermark_position: $("#timelapse-watermark-pos").val()
+
+    o.watermark_logo = $("#watermark-base64").val() unless $("#watermark-base64").val() is ""
 
     save_button.attr 'disabled', true
 
@@ -440,7 +433,7 @@ editTimelapse = ->
 
     watermark_logo = ""
     if $("#watermark-base64#{timelapse_id}").val() isnt ""
-      watermark_logo = $("#watermark-base64#{timelapse_id}").val().replace("data:image/jpeg;base64,", "")
+      watermark_logo = $("#watermark-base64#{timelapse_id}").val()
 
     o =
       title: $("#timelapse-title#{timelapse_id}").val()
@@ -449,9 +442,8 @@ editTimelapse = ->
       frequency: $("#timelapse-frequency#{timelapse_id}").val()
       from_datetime: (new Date("#{fromDate} #{fromTime}"))/1000
       to_datetime: (new Date("#{toDate} #{toTime}"))/1000
-      watermark_logo: watermark_logo
       watermark_position: $("#timelapse-watermark-pos#{timelapse_id}").val()
-      status: $("input[name=recording_status#{timelapse_id}]:checked").val()
+      watermark_logo: $("#watermark-base64#{timelapse_id}").val()
 
     save_button.attr 'disabled', true
 
@@ -502,10 +494,10 @@ toggleStatus = ->
       $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
       if timelapse_status is 3
         control.attr('status', 'start')
-        control.removeClass("fa-pause").addClass("fa-play")
+        control.html("<i class='fa fa-play'></i> Resume")
       else
         control.attr('status', 'stop')
-        control.removeClass("fa-play").addClass("fa-pause")
+        control.html("<i class='fa fa-pause'></i> Pause")
 
     settings =
       data: {status: timelapse_status}
@@ -530,6 +522,7 @@ clearForm = ->
   $("#row_date_range").slideUp()
   $('#chkTimeRangeAlways').iCheck('check')
   $("#row_time_range").slideUp()
+  $("#timelapse-watermark").val()
   $('#timelapse-form .caption').html 'New Timelapse'
 
 change_date_format = (date) ->
@@ -615,10 +608,20 @@ readFile = ->
     FR.addEventListener 'load', (e) ->
       $("#img-watermark#{timelapse_id}").attr("src", e.target.result)
       $("#watermark-base64#{timelapse_id}").val(e.target.result)
+      $("#div-logo-upload#{timelapse_id}").slideDown()
     FR.readAsDataURL @files[0]
   else
     $("#img-watermark#{timelapse_id}").attr("src", "")
     $("#watermark-base64#{timelapse_id}").val("")
+    $("#div-logo-upload#{timelapse_id}").slideUp()
+
+cancelUpload = ->
+  $("#tab_timelapse").on "click", ".cancel-upload", ->
+    timelapse_id = $(this).attr("data-val")
+    $("#timelapse-watermark#{timelapse_id}").val("")
+    $("#img-watermark#{timelapse_id}").attr("src", "")
+    $("#watermark-base64#{timelapse_id}").val("")
+    $("#div-logo-upload#{timelapse_id}").slideUp()
 
 window.initializeTimelapse = ->
   loadTimelapses()
@@ -633,5 +636,5 @@ window.initializeTimelapse = ->
   initNotification()
   initSelect2()
   initControls()
-  #selectWatermark()
+  cancelUpload()
   document.getElementById('timelapse-watermark').addEventListener 'change', readFile

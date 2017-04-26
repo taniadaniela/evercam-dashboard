@@ -114,19 +114,17 @@
                         </tr>
                         <tr>
                           <td><label>Watermark Logo:</label></td>
-                          <td colspan="2"><input id="timelapse-watermark" data-val="" type="file" class="form-control" accept="image/*"></td>
-                        </tr>
-                        <tr>
-                          <td></td>
                           <td colspan="2">
-                            <div style="display: none;" id="div-logo-upload">
-                              <div class='col-sm-9 padding-left0'>
-                                <img id="img-watermark" src="" class="" style="width: 70px;">
+                            <label id='custom-fileselect' for='timelapse-watermark' class='custom-file-upload'><i class='fa fa-upload margin-top-4'></i> Choose File</label>
+                            <input id="timelapse-watermark" data-val="" type="file" class="form-control hide dialogue-logo-button" accept="image/*">
+                            <div style="display: none;" id="div-logo-upload" class="col-sm-12 padding-left0">
+                              <div class='col-sm-3 padding-left0'>
+                                <img id="img-watermark" src="" style="width: 70px;">
                                 <input type="hidden" id="watermark-base64">
                               </div>
-                              <div  class='col-sm-3 padding-left0'>
-                                <button id="btn-cancel-upload" class="btn btn-danger cancel-upload" data-val="">
-                                  <i class="fa fa-upload"></i>
+                              <div class='col-sm-3 padding-left0'>
+                                <button id="btn-cancel-upload" class="btn btn-default cancel-upload" data-val="">
+                                  <i class="fa fa-ban"></i>
                                   <span>Cancel</span>
                                 </button>
                               </div>

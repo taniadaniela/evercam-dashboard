@@ -105,7 +105,11 @@
   .camera-time {
     color: $form-medium-grey;
     font-size: 14px;
-    height: 26px;
+    height: 35px;
+  }
+
+  .margin-top-5 {
+    margin-top: 5px;
   }
 
   .spn-label {
@@ -143,6 +147,20 @@
 
   .green {
     color: green;
+  }
+
+  .btn-green {
+    color: $white;
+    background-color: $green;
+    border-color: $green;
+  }
+
+  .btn-green:hover,
+  .btn-green:focus,
+  .btn-green:active,
+  .btn-green.active {
+    background-color: $green-hover;
+    border-color: $green-hover;
   }
 
   .radio {
@@ -322,6 +340,7 @@
   .table > tbody > tr > td {
     border-top-width: 0px;
     border-color: transparent;
+    vertical-align: middle;
   }
 
   .tab-a{
@@ -352,6 +371,27 @@
     color: $form-dark-grey;
   }
 
+  .custom-file-upload {
+    border: 1px solid $border-black;
+    display: inline-block;
+    padding: 0px 12px;
+    height: 36px;
+    cursor: pointer;
+    width: 130px;
+    font-size: 16px;
+  }
+
+  .custom-file-upload:hover,
+  .custom-file-upload:focus,
+  .custom-file-upload:active,
+  .custom-file-upload.active {
+    background-color: $form-grey;
+  }
+
+  .margin-top-9 {
+    margin-top: 9px;
+  }
+
   .select2-container,
   .select2-container .select2-selection--single {
     height: 40px;
@@ -371,4 +411,11 @@
   font-family: "proxima-nova-bold", "Open Sans", Arial, Helvetica, sans-serif;
   margin-bottom: 6px;
   margin-top: 5px;
+}
+
+@media (min-width: 480px) {
+
+  .min-width-325 {
+    min-width: 325px;
+  }
 }

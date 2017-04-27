@@ -9,7 +9,9 @@
   <% end %>
   <div class="col-md-12">
     <div id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="pull-right delete">
-      <% if @share.nil? %>Delete this camera<% else %>Remove camera from my account<% end %>
+      <% if @is_owner || @has_shared %>
+        <% unless @has_shared %>Delete this camera<% else %>Remove camera from my account<% end %>
+      <% end %>
     </div>
   </div>
 </div>

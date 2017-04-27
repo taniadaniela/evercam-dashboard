@@ -27,6 +27,90 @@ sendAJAXRequest = (settings) ->
   jQuery.ajax(settings)
   true
 
+loadShares = (is_for_user) ->
+  data =
+    api_id: Evercam.User.api_id
+    api_key: Evercam.User.api_key
+  data.user_id = Evercam.User.username if is_for_user
+
+  onError = (jqXHR, status, error) ->
+    isUnauthorized(jqXHR, "Failed to load camera share.")
+
+  onSuccess = (response, success, jqXHR) ->
+    if response.shares.length is 0
+      loadShares(true)
+    else
+      $.each response.shares, (index, share) ->
+        share['share_id'] = share['id']
+        share.type = "share"
+        addSharingCameraRow(share)
+      loadSharesRequests()
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/shares"
+  jQuery.ajax(settings)
+
+loadSharesRequests = ->
+  data =
+    api_id: Evercam.User.api_id
+    api_key: Evercam.User.api_key
+    status: "PENDING"
+
+  onError = (jqXHR, status, error) ->
+    isUnauthorized(jqXHR, "Failed to load camera share.")
+
+  onSuccess = (response, success, jqXHR) ->
+    $.each response.share_requests, (index, share_request) ->
+      share_request['share_id'] = share_request['id']
+      share_request.type = "share"
+      share_request.type = "share_request"
+      addSharingCameraRow(share_request)
+    addGravatarFallbacks()
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/shares/requests"
+  jQuery.ajax(settings)
+
+addownerRow = (owner) ->
+  $("#request-share-owner-email").html(owner['email'])
+  $("#request-share-owner").html(owner['fullname'])
+  row = "<tr>"
+  row += "  <td class='owner-email' share-username='#{owner['username']}' share-email='#{owner['email']}'>"
+  row += "    <div class='gravatar-placeholder'>"
+  row += "      <img class='gravatar' email='#{owner['email']}'/>"
+  row += "    </div>"
+  row += "    <div class='username-id'>"
+  row += "      #{owner['fullname']}"
+  if Evercam.Camera.is_owner
+    row += "      <small>(you)</small>"
+  row += "      <br>"
+  row += "      <small class='blue'>#{owner['email']}</small>"
+  row += "    </div>"
+  row += "  </td>"
+  row += "  <td class='share-by'></td>"
+  row += "  <td class='is-owner'>Is Owner</td>"
+  row += "  <td></td>"
+  row += "  <td class='col-lg-2'>"
+  if Evercam.Camera.is_owner
+    row += "    <a href='#' id='transfer' data-toggle='modal' data-target='#change_owner2'>"
+    row += "      Transfer"
+    row += "    </a>"
+  row += "    </td>"
+  row += "</tr>"
+  $('#sharing_list_table tbody').append(row)
+
 addSharingCameraRow = (details) ->
   row = $('<tr id="row-share-'+details['share_id']+'">')
   if details.type == "share_request"
@@ -40,12 +124,19 @@ addSharingCameraRow = (details) ->
   cell = $('<td>', {class: "col-lg-4"})
   avatar_placeholder = $('<div>', {class: "gravatar-placeholder"})
   avatar = $('<img>', {class: "gravatar"})
+  avatar.attr("email", details['email'])
   avatar.attr("src", details['avatar'])
   avatar_placeholder.append(avatar)
   cell.append(avatar_placeholder)
   username_id = $('<div>', {class: "username-id"})
   username_id.addClass("sharee_info")
   username_id.append(document.createTextNode(" " + (if details.type == "share_request" then details['email'] else details['fullname'])))
+  if details.type isnt "share_request" && details["user_id"] is Evercam.User.username
+    suffix = $('<small>', {class: "blue"})
+    suffix.text(" (you)")
+    username_id.append(suffix)
+    $("#share_id").val(details['share_id'])
+
   if details.type == "share_request"
     suffix = $('<small>', {class: "blue"})
     suffix.text(" ...pending")
@@ -101,7 +192,9 @@ addSharingCameraRow = (details) ->
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "form-group"})
   divPopup =$('<div>', {class: "popbox"})
+  divPopup.attr("id", "popbox-#{details["share_id"]}")
   span = $('<span>', {class: "open"})
+  span.attr("id", "open-#{details["share_id"]}")
   span.append($('<span>', {class: "remove"}))
   if details.type == "share"
     remove_icon = $('<i>', {class: "fa"})
@@ -111,8 +204,13 @@ addSharingCameraRow = (details) ->
     divPopup.append(span)
     divCollapsePopup = $('<div>', {class: "collapse-popup"})
     divBox2 = $('<div>', {class: "box-new"})
-    divBox2.append($('<div>', {class: "arrow"}))
-    divBox2.append($('<div>', {class: "arrow-border"}))
+    divBox2.attr("id", "box-#{details["share_id"]}")
+    divArrow = $('<div>', {class: "arrow"})
+    divArrow.attr("id", "arrow-#{details["share_id"]}")
+    divBox2.append(divArrow)
+    divArrowBorder = $('<div>', {class: "arrow-border"})
+    divArrowBorder.attr("id", "arrow-border-#{details["share_id"]}")
+    divBox2.append(divArrowBorder)
     divMessage = $('<div>', {class: "margin-bottom-10"})
     divMessage.append($(document.createTextNode("Are you sure?")))
     divBox2.append(divMessage)
@@ -123,7 +221,7 @@ addSharingCameraRow = (details) ->
     inputDelete.attr("share_id", details["share_id"])
     inputDelete.click(onDeleteShareClicked)
     divButtons.append(inputDelete)
-    divButtons.append('<div class="btn delete-btn closepopup grey"><div class="text-center" fit>CANCEL</div></div>')
+    divButtons.append("<div id='close-popup-#{details["share_id"]}' class='btn delete-btn closepopup grey'><div class='text-center' fit>CANCEL</div></div>")
     divBox2.append(divButtons)
     divCollapsePopup.append(divBox2)
     divPopup.append(divCollapsePopup)
@@ -147,8 +245,13 @@ addSharingCameraRow = (details) ->
     divPopup.append(spanResend)
     divCollapsePopup = $('<div>', {class: "collapse-popup"})
     divBox2 = $('<div>', {class: "box-new"})
-    divBox2.append($('<div>', {class: "arrow"}))
-    divBox2.append($('<div>', {class: "arrow-border"}))
+    divBox2.attr("id", "box-#{details["share_id"]}")
+    divArrow = $('<div>', {class: "arrow"})
+    divArrow.attr("id", "arrow-#{details["share_id"]}")
+    divBox2.append(divArrow)
+    divArrowBorder = $('<div>', {class: "arrow-border"})
+    divArrowBorder.attr("id", "arrow-border-#{details["share_id"]}")
+    divBox2.append(divArrowBorder)
     divMessage = $('<div>', {class: "margin-bottom-10"})
     divMessage.append($(document.createTextNode("Are you sure?")))
     divBox2.append(divMessage)
@@ -160,7 +263,7 @@ addSharingCameraRow = (details) ->
     inputDelete.attr("email", details["email"])
     inputDelete.click(onDeleteShareRequestClicked)
     divButtons.append(inputDelete)
-    divButtons.append('<div class="btn delete-btn closepopup grey"><div class="text-center" fit>CANCEL</div></div>')
+    divButtons.append("<div id='close-popup-#{details["share_id"]}' class='btn delete-btn closepopup grey'><div class='text-center' fit>CANCEL</div></div>")
     divBox2.append(divButtons)
     divCollapsePopup.append(divBox2)
     divPopup.append(divCollapsePopup)
@@ -173,8 +276,15 @@ addSharingCameraRow = (details) ->
   $('#sharing_list_table tbody').append(row)
   row.find('.save').hide()
   row.fadeIn()
-  $(".popbox").popbox()
-  true
+  initPopup(details["share_id"])
+
+initPopup = (id) ->
+  $("#popbox-#{id}").popbox
+    open: "#open-#{id}"
+    box: "#box-#{id}"
+    arrow: "#arrow-#{id}"
+    arrow_border: "#arrow-border-#{id}"
+    close: "#close-popup-#{id}"
 
 resendCameraShareRequest = ->
   NProgress.start()
@@ -609,6 +719,7 @@ format = (state) ->
     state.text
 
 window.initializeSharingTab = ->
+  loadShares(false)
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
   $('.delete-share').click(onDeleteShareClicked)
   $('.delete-share-request-control').click(onDeleteShareRequestClicked)
@@ -622,7 +733,6 @@ window.initializeSharingTab = ->
   initializePopup()
   Notification.init(".bb-alert")
   getTransferFromUrl()
-  addGravatarFallbacks()
   getSharedUsers()
 
 window.Evercam.Share.createShare = createShare

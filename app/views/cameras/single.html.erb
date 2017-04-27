@@ -52,7 +52,7 @@
               <a data-toggle="tab" data-target="#snapmail" class="nav-tab-snapmail">Snapmail</a>
             </li>
 
-            <% if @camera['owner'] != current_user.username && @share.nil? && @camera["is_public"] %>
+            <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
               <div class="pull-right add-to-share">
                 <i id="add-to-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
               </div>
@@ -92,13 +92,13 @@
                 <div class="modal-content">
                   <div class="modal-body">
                     <div class="col-md-12 padding-0">
-                      <% if @share.nil? %>
+                      <% if @is_owner %>
                         <p class="text-left margin-0">Are you sure you want to <strong>Delete</strong> this camera?</p>
                       <% else %>
                         <p class="text-left margin-0">Are you sure you want to <strong>Remove</strong> this camera?</p>
                       <% end %>
                     </div>
-                    <% if @share.nil? %>
+                    <% if @is_owner %>
                       <div class="col-md-12 margin-top-10 padding-0">
                         <p>Enter camera id (<strong><%= @camera['id'] %></strong>) to confirm that you want to permanently delete this camera</p>
                         <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
@@ -108,15 +108,15 @@
                   <div class="modal-footer padding-15">
                     <div class="col-sm-8 padding-0">
                       <input type="hidden" id="id" name="id" value="<%= @camera['id'] %>"/>
-                      <% if @share.nil? %>
+                      <% if @is_owner %>
                         <input type="hidden" id="share" name="share" value="false"/>
                         <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left">Delete</button>
                       <% else %>
-                        <input type="hidden" id="share_id" name="share_id" value="<%= @share['id'] %>"/>
+                        <input type="hidden" id="share_id" name="share_id" value=""/>
                         <input type="hidden" id="share" name="share" value="true"/>
                         <button id="remove-camera" name="remove-camera" class="btn btn-danger pull-left">Yes</button>
                       <% end %>
-                      <input type="button" class="btn btn-default pull-left" value="<% if @share.nil? %>Cancel<% else %>No<% end %>" data-dismiss="modal" />
+                      <input type="button" class="btn btn-default pull-left" value="<% if @is_owner %>Cancel<% else %>No<% end %>" data-dismiss="modal" />
                     </div>
                   </div>
                 </div>
@@ -229,7 +229,7 @@
     is_online: <%= @camera['is_online'] %>,
     vendor_id: '<%= @camera['vendor_id'] %>',
     model_name: '<%= @camera['model_name'] %>',
-    is_owner: <%= @owner[:email] == current_user[:email]? true : false %>,
+    is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
     location: {
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>

@@ -196,7 +196,17 @@ class CamerasController < ApplicationController
   def single
     begin
       api = get_evercam_api
-      @camera = api.get_camera(params[:id], true)
+      @cameras = load_user_cameras(true, false)
+      @has_shared = false
+      @cameras.map do |c|
+        if c['id'].eql?(params[:id])
+          @camera = c
+          @has_shared = true if @camera['owner'] != current_user.username
+          break
+        end
+      end
+      @camera = api.get_camera(params[:id], true) if @camera.nil?
+      @is_owner = @camera['owner'] == current_user[:username]? true : false
       @page = (params[:page].to_i - 1) || 0
       @types = ['accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline',
@@ -211,17 +221,16 @@ class CamerasController < ApplicationController
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset
       @share = nil
-      if @camera['owner'] != current_user.username
-        @share = api.get_camera_share(params[:id], current_user.username)
-        return redirect_to cameras_not_found_path if @share.nil? && !@camera['is_public']
+      @owner = nil
+      unless @is_owner
+        return redirect_to cameras_not_found_path if !@has_shared && !@camera['is_public']
         @owner = User.by_login(@camera['owner'])
       else
         @owner = current_user
       end
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
-      @camera_shares = api.get_camera_shares(params[:id])
-      @share_requests = api.get_camera_share_requests(params[:id], 'PENDING')
-      @vendor_model = api.get_model(@camera['model_id']) if @camera['model_id'].present?
+      @camera_shares = nil
+      @share_requests = nil
       @cloud_recording = @camera["cloud_recordings"] if @has_edit_rights
       @cr_status = nil
       if @cloud_recording.nil?
@@ -241,7 +250,7 @@ class CamerasController < ApplicationController
           }
         }
       end
-      @motion_detection = api.get_motion_detections(params[:id]) if @has_edit_rights
+      @motion_detection = nil
       if @motion_detection.nil?
         @motion_detection_method = "POST"
         @motion_detection = {
@@ -257,7 +266,6 @@ class CamerasController < ApplicationController
           "emails" => []
         }
       end
-      @cameras = load_user_cameras(true, false)
       @snapshot_navigator = false
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)

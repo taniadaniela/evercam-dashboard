@@ -1,6 +1,7 @@
 images_array = {}
 share_users_select = undefined
 is_logged_intercom = false
+retry_once = true
 
 showError = (message) ->
   $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -37,7 +38,8 @@ loadShares = (is_for_user) ->
     isUnauthorized(jqXHR, "Failed to load camera share.")
 
   onSuccess = (response, success, jqXHR) ->
-    if response.shares.length is 0
+    if response.shares.length is 0 && retry_once
+      retry_once = false
       loadShares(true)
     else
       $.each response.shares, (index, share) ->

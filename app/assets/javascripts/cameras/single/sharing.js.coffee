@@ -73,7 +73,7 @@ loadSharesRequests = ->
       share_request.type = "share"
       share_request.type = "share_request"
       addSharingCameraRow(share_request)
-    addGravatarFallbacks()
+    setTimeout(getEmptyImages, 3000)
 
   settings =
     cache: false
@@ -127,7 +127,8 @@ addSharingCameraRow = (details) ->
   avatar_placeholder = $('<div>', {class: "gravatar-placeholder"})
   avatar = $('<img>', {class: "gravatar"})
   avatar.attr("email", details['email'])
-  avatar.attr("src", details['avatar'])
+  avatar.attr("id", "gravatar-#{details['share_id']}")
+  avatar.attr("src", getFavicon(details['email']))
   avatar_placeholder.append(avatar)
   cell.append(avatar_placeholder)
   username_id = $('<div>', {class: "username-id"})
@@ -287,6 +288,14 @@ initPopup = (id) ->
     arrow: "#arrow-#{id}"
     arrow_border: "#arrow-border-#{id}"
     close: "#close-popup-#{id}"
+
+getEmptyImages = ->
+  img_tags = $("#shares .gravatar")
+  img_tags.each ->
+    img_id = $(this).attr("id")
+    img = document.getElementById("#{img_id}")
+    if img.naturalWidth < 3
+      $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
 
 resendCameraShareRequest = ->
   NProgress.start()
@@ -612,6 +621,13 @@ initializePopup = ->
     arrow_border: ".arrow-border2"
     close: ".closepopup2"
 
+getFavicon = (email) ->
+  signature = hex_md5(email)
+  index = email.indexOf("@")
+  domain = email.substr((index+1))
+  favicon = "https://favicon.yandex.net/favicon/#{domain}"
+  "https://gravatar.com/avatar/#{signature}?d=#{favicon}"
+
 addGravatarFallbacks = ->
   img_tags = $("#shares .gravatar")
   img_tags.each ->
@@ -634,15 +650,13 @@ getGravatar = (img, email) ->
     length = jqXHR.responseText.length
     if length < 100
       img_src = "https://gravatar.com/avatar/#{signature}"
-    if img is null
-      images_array["#{email}"] = img_src
-    else
+    images_array["#{domain}"] = img_src
+    if img isnt null
       img.attr "src", img_src
 
   onError = (jqXHR, status, error) ->
-    if img is null
-      images_array["#{email}"] = img_src
-    else
+    images_array["#{domain}"] = img_src
+    if img isnt null
       img.attr "src", img_src
 
   settings =
@@ -684,7 +698,6 @@ getSharedUsers = ->
 
   onSuccess = (users, status, jqXHR) ->
     $.each users, (i, user) ->
-      getGravatar(null, user.email)
       $("#sharing-user-email").append(
         "<option value='#{user.email}'>#{user.name} (#{user.email})</option>"
       )
@@ -696,6 +709,8 @@ getSharedUsers = ->
       templateSelection: format,
       templateResult: format
     share_users_select.val("").trigger("change")
+    share_users_select.on 'select2:open', (e) ->
+      setTimeout(getEmptyImagesForSelect2, 2000)
 
   settings =
     cache: false
@@ -713,12 +728,20 @@ format = (state) ->
   if state.id == '0'
     return state.text
   if state.element
-    image_src = images_array[state.element.value]
+    image_src = getFavicon(state.element.value) #images_array[domain]
     if image_src is undefined
       image_src = "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323"
     return $("<span><img id='#{state.id}' style='width: 25px;height: auto;' src='#{image_src}' class='gravatar1'/>&nbsp;#{state.text}</span>")
   else
     state.text
+
+getEmptyImagesForSelect2 = ->
+  img_tags = $("#select2-sharing-user-email-results .gravatar1")
+  img_tags.each ->
+    img_id = $(this).attr("id")
+    img = document.getElementById("#{img_id}")
+    if img.naturalWidth < 3
+      $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
 
 window.initializeSharingTab = ->
   loadShares(false)

@@ -626,11 +626,12 @@ initializePopup = ->
     close: ".closepopup2"
 
 getFavicon = (email) ->
-  signature = hex_md5(email)
-  index = email.indexOf("@")
-  domain = email.substr((index+1))
-  favicon = "https://favicon.yandex.net/favicon/#{domain}"
-  "https://gravatar.com/avatar/#{signature}?d=#{favicon}"
+  if email isnt undefined
+    signature = hex_md5(email)
+    index = email.indexOf("@")
+    domain = email.substr((index+1))
+    favicon = "https://favicon.yandex.net/favicon/#{domain}"
+    "https://gravatar.com/avatar/#{signature}?d=#{favicon}"
 
 addGravatarFallbacks = ->
   img_tags = $("#shares .gravatar")

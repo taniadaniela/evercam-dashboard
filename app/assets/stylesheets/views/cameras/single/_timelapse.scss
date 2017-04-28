@@ -98,8 +98,8 @@
 
   .hash-label {
     font-size: 15px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
   .camera-time {
@@ -116,7 +116,7 @@
     color: $grey;
     float: left;
     margin-right: 5px;
-    width: 112px;
+    width: 120px;
   }
 
   .camera-name {
@@ -125,9 +125,25 @@
     margin-left: 5px;
   }
 
+  .pre-width {
+    display: block;
+    padding: 9.5px;
+    width: 100%;
+    resize: none;
+    min-height: 120px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: $form-dark-grey;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: $secondary-grey;
+    border: 1px solid $border-black;
+    border-radius: 4px;
+  }
+
   .div-snapmail-values {
     float: left;
-    width: 70%;
   }
 
   .timelapse-edit {
@@ -187,6 +203,11 @@
   .txt-width {
     width: 90%;
     border-right: 0;
+  }
+
+  .hls-url-value {
+    min-width: 270px;
+    width: 75%;
   }
 
   .header-bg{

@@ -113,7 +113,7 @@ addownerRow = (owner) ->
   row += "</tr>"
   $('#sharing_list_table tbody').append(row)
 
-addSharingCameraRow = (details) ->
+addSharingCameraRow = (details, shared_avatar) ->
   row = $('<tr id="row-share-'+details['share_id']+'">')
   if details.type == "share_request"
     row.attr("share-request-email", details['email'])
@@ -128,7 +128,10 @@ addSharingCameraRow = (details) ->
   avatar = $('<img>', {class: "gravatar"})
   avatar.attr("email", details['email'])
   avatar.attr("id", "gravatar-#{details['share_id']}")
-  avatar.attr("src", getFavicon(details['email']))
+  if shared_avatar isnt undefined
+    avatar.attr("src", shared_avatar)
+  else
+    avatar.attr("src", getFavicon(details['email']))
   avatar_placeholder.append(avatar)
   cell.append(avatar_placeholder)
   username_id = $('<div>', {class: "username-id"})
@@ -471,12 +474,13 @@ onAddSharingUserClicked = (event) ->
   onSuccess = (data, status, jqXHR) ->
     logCameraViewed() unless is_logged_intercom
     if data.success
+      shared_avatar = $("#select2-sharing-user-email-container .gravatar1").attr("src")
       if data.type == "share"
-        addSharingCameraRow(data)
+        addSharingCameraRow(data, shared_avatar)
         showFeedback("Camera successfully shared with user")
       else
         data.type == "share_request"
-        addSharingCameraRow(data)
+        addSharingCameraRow(data, shared_avatar)
         showFeedback("A notification email has been sent to the specified email address.")
       $('#sharing-message').val("")
       share_users_select.val("").trigger("change")
@@ -710,7 +714,9 @@ getSharedUsers = ->
       templateResult: format
     share_users_select.val("").trigger("change")
     share_users_select.on 'select2:open', (e) ->
-      setTimeout(getEmptyImagesForSelect2, 2000)
+      setTimeout(getEmptyImagesForSelect2, 1500)
+    share_users_select.on 'select2:close', (e) ->
+      setTimeout(onCloseSelect2SetGravatar, 1000)
 
   settings =
     cache: false
@@ -736,12 +742,21 @@ format = (state) ->
     state.text
 
 getEmptyImagesForSelect2 = ->
+  selected_email = $("#select2-sharing-user-email-container .gravatar1").attr("id")
   img_tags = $("#select2-sharing-user-email-results .gravatar1")
   img_tags.each ->
     img_id = $(this).attr("id")
     img = document.getElementById("#{img_id}")
     if img.naturalWidth < 3
       $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
+    if selected_email isnt undefined && selected_email is img_id
+      $(this).attr("src", $("#select2-sharing-user-email-container .gravatar1").attr("src"))
+
+onCloseSelect2SetGravatar = ->
+  img_id = $("#select2-sharing-user-email-container .gravatar1").attr("id")
+  img = document.getElementById("#{img_id}")
+  if img.naturalWidth < 3
+    $("#select2-sharing-user-email-container .gravatar1").attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
 
 window.initializeSharingTab = ->
   $("#gravatar-0").attr("src", getFavicon($("#gravatar-0").attr("email")))

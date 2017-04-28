@@ -53,13 +53,10 @@ getTimelapseHtml = (timelapse, index) ->
   html += "    <div class='' style='margin-top: 5px;'>"
   html += "      <ul id='ul-nav-tab' class='nav nav-tabs'><li class='dropdown pull-right tabdrop hide'></li>"
   html += "        <li id='live-view-tab' class='active'>"
-  html += "          <a data-toggle='tab' data-target='#live_video#{timelapse.id}' class='nav-tab-live nav-tab-' aria-expanded='false'><span>View</span></a>"
+  html += "          <a data-toggle='tab' data-target='#live_video#{timelapse.id}' class='nav-tab-live nav-tab-' aria-expanded='false'><span>View Video</span></a>"
   html += "        </li>"
   html += "        <li id='info-tab'>"
   html += "          <a data-toggle='tab' data-target='#info_tab#{timelapse.id}' class='nav-tab-live nav-tab-' aria-expanded='true'><span>Info</span></a>"
-  html += "        </li>"
-  html += "        <li id='embed-code-tab'>"
-  html += "          <a data-toggle='tab' data-target='#embed_code#{timelapse.id}' class='nav-tab-live nav-tab-' aria-expanded='true'><span>Embed Code</span></a>"
   html += "        </li>"
   html += "        <li>"
   html += "          <a data-toggle='tab' data-target='#settings#{timelapse.id}' class='nav-tab-recordings' aria-expanded='true'>Settings</i></a>"
@@ -87,15 +84,11 @@ getTimelapseHtml = (timelapse, index) ->
   html += "        <div class='camera-time'><span class='spn-label'>Total Snapshots:</span><div class='div-snapmail-values'>#{(if timelapse.snapshot_count is null then 0 else timelapse.snapshot_count)}</div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time'><span class='spn-label'>File Size:</span><div class='div-snapmail-values'>---</div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time'><span class='spn-label'>Resolution:</span><div class='div-snapmail-values'>#{(if timelapse.resolution is null then '---' else timelapse.resolution)}</div><div class='clear-f'></div></div>"
-  html += "        <div class='camera-time'><span class='spn-label'>Timelapse Status:</span><div class='div-snapmail-values'>#{timelapse.status}</div><div class='clear-f'></div></div>"
-  html += "        <div class='camera-time'><span class='spn-label'>HLS URL:</span><div class='div-snapmail-values hls-url-value'><input id='txtHlsUrl#{timelapse.id}' type='text' readonly class='txt-width' value='#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8'/>"
-  html += "        <span class='copy-to-clipboard' data-val='#{timelapse.id}' alt='Copy to clipboard' title='Copy to clipboard'><i class='fa fa-files-o' aria-hidden='true'></i></span></div><div class='clear-f'></div></div>"
-  html += "      </div>"
-
-  html += "      <div id='embed_code#{timelapse.id}' class='tab-pane'>"
-  html += "        <textarea id='code" + timelapse.id + "' class='pre-width'>&lt;div id='hls-video'&gt;&lt;/div&gt;&nbsp"
+  html += "        <div class='camera-time'><span class='spn-label'>HLS URL:</span><div class='div-snapmail-values hls-url-value'>#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8"
+  html += "        </div><div class='clear-f'></div></div>"
+  html += "        <div class='camera-time margin-top-10'><span class='spn-label'>Embedded Code:</span><div class='div-snapmail-values hls-url-value'><textarea id='code" + timelapse.id + "' class='pre-width'>&lt;div id='hls-video'&gt;&lt;/div&gt;&nbsp"
   html += "&lt;script src='http://timelapse.evercam.io/timelapse_widget.js' class='" + timelapse.camera_id + " " + timelapse.id + " " + timelapse.id + "'&gt;&lt;/script&gt;&nbsp"
-  html += "        </textarea>"
+  html += "        </textarea></div><div class='clear-f'></div></div>"
   html += "      </div>"
 
   html += "      <div id='settings#{timelapse.id}' class='tab-pane'>"
@@ -251,52 +244,6 @@ setDate = (is_always, datetime, format, default_val) ->
     default_val
   else
     return format_time.formatDate((new Date(datetime*1000)), "#{format}")
-
-copyToClipboard = ->
-  $('#divTimelapses').on "click", ".copy-to-clipboard", ->
-    timelapse_id = $(this).attr("data-val")
-    elem = document.getElementById("txtHlsUrl#{timelapse_id}")
-    # create hidden text element, if it doesn't already exist
-    targetId = '_hiddenCopyText_'
-    isInput = elem.tagName == 'INPUT' or elem.tagName == 'TEXTAREA'
-    origSelectionStart = undefined
-    origSelectionEnd = undefined
-    if isInput
-    # can just use the original source element for the selection and copy
-      target = elem
-      origSelectionStart = elem.selectionStart
-      origSelectionEnd = elem.selectionEnd
-    else
-    # must use a temporary form element for the selection and copy
-      target = document.getElementById(targetId)
-      if !target
-        target = document.createElement('textarea')
-        target.style.position = 'absolute'
-        target.style.left = '-9999px'
-        target.style.top = '0'
-        target.id = targetId
-        document.body.appendChild target
-      target.textContent = elem.textContent
-    # select the content
-    currentFocus = document.activeElement
-    target.focus()
-    target.setSelectionRange 0, target.value.length
-    # copy the selection
-    succeed = undefined
-    try
-      succeed = document.execCommand('copy')
-    catch e
-      succeed = false
-    # restore original focus
-    if currentFocus and typeof currentFocus.focus == 'function'
-      currentFocus.focus()
-    if isInput
-    # restore prior selection
-      elem.setSelectionRange origSelectionStart, origSelectionEnd
-    else
-    # clear temporary content
-      target.textContent = ''
-    succeed
 
 saveTimelapse = ->
   $('#save-timelapse').on 'click', ->
@@ -676,7 +623,6 @@ window.initializeTimelapse = ->
   editTimelapse()
   toggleStatus()
   deleteTimelapse()
-  copyToClipboard()
   initNotification()
   initSelect2()
   initControls()

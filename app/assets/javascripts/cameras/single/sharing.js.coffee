@@ -744,6 +744,7 @@ getEmptyImagesForSelect2 = ->
       $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
 
 window.initializeSharingTab = ->
+  $("#gravatar-0").attr("src", getFavicon($("#gravatar-0").attr("email")))
   loadShares(false)
   $('#set_permissions_submit').click(onSetCameraAccessClicked)
   $('.delete-share').click(onDeleteShareClicked)

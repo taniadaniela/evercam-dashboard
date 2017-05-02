@@ -82,10 +82,10 @@ getTimelapseHtml = (timelapse, index) ->
 
   html += "      <div id='info_tab#{timelapse.id}' class='tab-pane'>"
   html += "        <div class='camera-time'><span class='spn-label'>Total Snapshots:</span><div class='div-snapmail-values'>#{(if timelapse.snapshot_count is null then 0 else timelapse.snapshot_count)}</div><div class='clear-f'></div></div>"
-  html += "        <div class='camera-time'><span class='spn-label'>File Size:</span><div class='div-snapmail-values'>---</div><div class='clear-f'></div></div>"
+  html += "        <div class='camera-time'><span class='spn-label'>File Size:</span><div class='div-snapmail-values'>#{if timelapse.snapshot_count is null then "---" else getFileSize(timelapse.resolution, timelapse.snapshot_count)}</div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time'><span class='spn-label'>Resolution:</span><div class='div-snapmail-values'>#{(if timelapse.resolution is null then '---' else timelapse.resolution)}</div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time'><span class='spn-label'>HLS URL:</span><div class='div-snapmail-values hls-url-value'>#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8"
-  html += "        </div><div class='clear-f'></div></div>"
+  html += "        </div><div class='clear-f'></div></div><div class='clear-f'></div>"
   html += "        <div class='camera-time margin-top-10'><span class='spn-label'>Embedded Code:</span><div class='div-snapmail-values hls-url-value'><textarea id='code" + timelapse.id + "' class='pre-width'>&lt;div id='hls-video'&gt;&lt;/div&gt;&nbsp"
   html += "&lt;script src='#{window.location.origin}/widgets/timelapse-widget.js' class='" + timelapse.camera_id + " " + timelapse.id + " " + timelapse.id + "'&gt;&lt;/script&gt;&nbsp"
   html += "        </textarea></div><div class='clear-f'></div></div>"
@@ -227,6 +227,36 @@ getTimelapseHtml = (timelapse, index) ->
   html += "  </div>"
   html
 
+getFileSize = (resolution, files) ->
+  if resolution is null || files is 0
+    return "---"
+  arr = resolution.split("x")
+  if parseInt(arr[0]) > 640 && parseInt(arr[0]) < 799
+    return calculateSize(30720 * files)
+  else if parseInt(arr[0]) > 800 && parseInt(arr[0]) < 1023
+    return calculateSize(43008 * files)
+  else if parseInt(arr[0]) > 1024 && parseInt(arr[0]) < 1199
+    return calculateSize(56320 * files)
+  else if parseInt(arr[0]) > 1200 && parseInt(arr[0]) < 1599
+    return calculateSize(63488 * files)
+  else if parseInt(arr[0]) > 1600 && parseInt(arr[0]) < 1899
+    return calculateSize(81920 * files)
+  else
+    return calculateSize(104448 * files)
+
+calculateSize = (size) ->
+  if size < 1024 * 1024
+    return "#{(size / 1024).toFixed(2)}Kb"
+  if size < 1024 * 1024 * 1024
+    return "#{(size / (1024 * 1024)).toFixed(2)} Mb";
+  if size > 1024 * 1024 * 1024
+    gbs = size / (1024 * 1024 * 1024)
+    if gbs > 1024
+      tbs = gbs / 1024
+      return "#{tbs.toFixed(2)}Tb"
+    return "#{gbs.toFixed(2)}Gb"
+  return "#{size.toFixed(2)}B";
+
 select_frequency = (frequency, option) ->
   if frequency is option
     "selected"
@@ -294,6 +324,8 @@ saveTimelapse = ->
         Notification.show('To time and from time cannot be same.')
         return false
 
+    img = document.getElementById("#{$("#timelapse-camera").val()}")
+
     o =
       title: $("#timelapse-title").val()
       date_always: dateAlways
@@ -302,6 +334,7 @@ saveTimelapse = ->
       from_datetime: (new Date("#{fromDate} #{fromTime}"))/1000
       to_datetime: (new Date("#{toDate} #{toTime}"))/1000
       watermark_position: $("#timelapse-watermark-pos").val()
+      resolution: "#{img.naturalWidth}x#{img.naturalHeight}"
 
     o.watermark_logo = $("#watermark-base64").val() unless $("#watermark-base64").val() is ""
 

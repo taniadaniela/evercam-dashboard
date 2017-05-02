@@ -103,6 +103,9 @@ Rails.application.routes.draw do
     get '/cameras/add' => 'widget_cameras_add#widget_add_camera', as: :widget_camera_add
     get '/cameras/public/add' => 'widget_cameras_add#add_public_camera'
     get '/add.camera' => 'widget_cameras_add#add_camera'
+
+    resources :widget_timelapse, path: :widget_timelapse
+    get '/timelapse-widget' => 'widget_timelapse#timelapse_js'
   end
 
   get '/live/:id' => 'pages#live'

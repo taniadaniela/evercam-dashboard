@@ -87,7 +87,7 @@ getTimelapseHtml = (timelapse, index) ->
   html += "        <div class='camera-time'><span class='spn-label'>HLS URL:</span><div class='div-snapmail-values hls-url-value'>#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8#{Evercam.SEAWEEDFS_URL}#{timelapse.camera_id}/timelapses/#{timelapse.id}/index.m3u8"
   html += "        </div><div class='clear-f'></div></div>"
   html += "        <div class='camera-time margin-top-10'><span class='spn-label'>Embedded Code:</span><div class='div-snapmail-values hls-url-value'><textarea id='code" + timelapse.id + "' class='pre-width'>&lt;div id='hls-video'&gt;&lt;/div&gt;&nbsp"
-  html += "&lt;script src='http://timelapse.evercam.io/timelapse_widget.js' class='" + timelapse.camera_id + " " + timelapse.id + " " + timelapse.id + "'&gt;&lt;/script&gt;&nbsp"
+  html += "&lt;script src='#{window.location.origin}/widgets/timelapse-widget.js' class='" + timelapse.camera_id + " " + timelapse.id + " " + timelapse.id + "'&gt;&lt;/script&gt;&nbsp"
   html += "        </textarea></div><div class='clear-f'></div></div>"
   html += "      </div>"
 

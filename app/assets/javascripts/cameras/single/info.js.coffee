@@ -131,7 +131,14 @@ loadVendorModels = (vendor_id) ->
 
     models = sortByKey(result.models, "name")
     for model in models
-      selected = if model.name == Evercam.Camera.model_name then 'selected="selected"' else ''
+
+      if model.name is Evercam.Camera.model_name
+        selected = 'selected="selected"'
+        if model.ptz && model.onvif
+          getPtzPresets()
+          $("#ptz-control").removeClass("hide")
+      else
+        selected = ''
       jpg_url = if model.defaults.snapshots then model.defaults.snapshots.jpg else ''
       if model.name.toLowerCase().indexOf('default') isnt -1
         $("#camera-model").prepend(
@@ -177,6 +184,44 @@ loadVendorModels = (vendor_id) ->
 
   sendAJAXRequest(settings)
   true
+
+getPtzPresets = ->
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onSuccess = (result) ->
+    for preset in result.Presets
+      if preset.token < 33
+        whole_div = $('<div>', {class: "whole-row"})
+        divPresets =$('<div>', {class: "row-preset"})
+        edit_icon = $('<i>', {class: "fa fa-pencil edit-ptz-ctrl"})
+        delete_icon = $('<i>', {class: "fa fa-trash-o delete-ptz-ctrl"})
+        edit_icon.attr("data-dismiss", "modal")
+        edit_icon.attr("data-target", "#edit-preset")
+        edit_icon.attr("data-toggle", "modal")
+        edit_icon.attr("title", "Edit!")
+        delete_icon.attr("data-dismiss", "modal")
+        delete_icon.attr("data-target", "#delete-preset")
+        delete_icon.attr("data-toggle", "modal")
+        delete_icon.attr("title", "Delete")
+        divPresets.append($(document.createTextNode(preset.Name)))
+        divPresets.attr("token_val", preset.token)
+        whole_div.append(divPresets)
+        whole_div.append(delete_icon)
+        whole_div.append(edit_icon)
+        $("#presets-table").append(whole_div)
+    NProgress.done()
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    success: onSuccess
+    contentType: "application/json; charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/ptz/presets"
+  sendAJAXRequest(settings)
 
 cleanAndSetJpegUrl = (jpeg_url) ->
   if jpeg_url.indexOf('/') == 0

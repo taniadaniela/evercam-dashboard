@@ -23,8 +23,8 @@
               <span class="glyphicon glyphicon-fullscreen" title="Fullscreen"></span>
             </div>
           </div>
-          <% if has_edit_right && @vendor_model && @vendor_model['ptz'] && @vendor_model['onvif'] %>
-            <div class="ptz-controls" id="ptz-control">
+          <% if has_edit_right %>
+            <div class="ptz-controls hide" id="ptz-control">
               <table>
                 <thead>
                   <tr>

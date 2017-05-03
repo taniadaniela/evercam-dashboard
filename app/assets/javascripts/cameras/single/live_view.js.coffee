@@ -299,8 +299,6 @@ handlePtzCommands = ->
     sendAJAXRequest(settings)
 
 getPtzPresets = ->
-  if !$(".ptz-controls").html()
-    return
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
@@ -506,7 +504,6 @@ window.initializeLiveTab = ->
   handleTabOpen()
   handleSaveSnapshot()
   handlePtzCommands()
-  getPtzPresets()
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()

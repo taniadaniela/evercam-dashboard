@@ -43,7 +43,7 @@
 
             <div class="text-center">
               <div class="col-sm-12 no-padding form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-                <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "" , "data-validation" => "custom", "data-validation-regexp" => '^[a-z]+[\w\u00C0-\u00ff-]+$', "data-validation-error-msg" => "Username can consist of lower case letters then numbers, dashes & underscores" , "maxlength" => "40" %>
+                <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "" , "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z0-9]+[\w\u00C0-\u00ff-]+$', "data-validation-error-msg" => "Username can consist of letters then numbers, dashes & underscores" , "maxlength" => "40" %>
                 <% if field_errors.include?("username") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
                 <% end %>

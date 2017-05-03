@@ -96,7 +96,7 @@ label {
   position: absolute;
 }
 .help-block {
-  color: #bdbdbd; // caption
+  color: $help-block-color; // caption
   font-size: 12px;
   font-weight: 300;
 }

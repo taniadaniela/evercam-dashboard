@@ -11,8 +11,10 @@
 #= require cameras/single/archives.js.coffee
 #= require cameras/single/single_snapmail.js.coffee
 #= require cameras/single/timelapse.js.coffee
+#= require cameras/single/compare.js.coffee
 #= require saveimage.js
 #= require jquery.thumbhover.js
+#= require jquery.images-compare.js
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -200,6 +202,7 @@ initializeTabs = ->
   window.initializeSettingsTab()
   window.initializeArchivesTab()
   window.initializeMotionDetectionTab()
+  window.initializeCompareTab()
 
 window.initializeCameraSingle = ->
   initializeTabs()

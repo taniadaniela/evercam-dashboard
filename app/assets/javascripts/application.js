@@ -35,7 +35,6 @@
 //= require old_browsers_alert.js
 //= require jquery-tags-input
 //= require bootstrap-timepicker.js
-//= require hammer.min.js
 
 //=
 //= require alerts

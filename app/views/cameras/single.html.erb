@@ -52,10 +52,6 @@
               <a data-toggle="tab" data-target="#snapmail" class="nav-tab-snapmail">Snapmail</a>
             </li>
 
-            <li>
-              <a data-toggle="tab" data-target="#compare" class="nav-tab-compare">Compare</a>
-            </li>
-
             <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
               <div class="pull-right add-to-share">
                 <i id="add-to-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
@@ -220,9 +216,6 @@
           <div id="archives" class="tab-pane">
             <%= render partial: "cameras/single/archives_tab" %>
           </div>
-          <div id="compare" class="tab-pane compare_tab">
-            <%= render partial: "cameras/single/compare_tab" %>
-          </div>
         </div>
       </div>
     </div>
@@ -234,7 +227,6 @@
     id: '<%= @camera['id'] %>',
     name:'<%= @camera['name'] %>',
     is_online: <%= @camera['is_online'] %>,
-    is_public: <%= @camera['is_public'] %>,
     vendor_id: '<%= @camera['vendor_id'] %>',
     model_name: '<%= @camera['model_name'] %>',
     is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,

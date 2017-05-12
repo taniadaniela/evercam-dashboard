@@ -16,21 +16,6 @@ initCompare = ->
   imagesCompare.on events.changed, (event) ->
     true
 
-  $('.js-front-btn').on 'click', (event) ->
-    event.preventDefault()
-    imagesCompare.setValue 1, true
-
-  $('.js-back-btn').on 'click', (event) ->
-    event.preventDefault()
-    imagesCompare.setValue 0, true
-
-  $('.js-toggle-btn').on 'click', (event) ->
-    event.preventDefault()
-    if imagesCompare.getValue() >= 0 and imagesCompare.getValue() < 1
-      imagesCompare.setValue 1, true
-    else
-      imagesCompare.setValue 0, true
-
 getFirstLastImages = (image_id, query_string, reload, setDate) ->
   data =
     api_id: Evercam.User.api_id
@@ -146,6 +131,8 @@ window.initializeCompareTab = ->
   getFirstLastImages("compare_after", "/latest", false, false)
   handleTabOpen()
   clickOnEmbed()
+  if Evercam.Camera.is_public
+    $(".div-embed-code").removeClass("hide")
 
   $('#calendar-before').datetimepicker
     format: 'm/d/Y H:m'

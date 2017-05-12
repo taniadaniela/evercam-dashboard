@@ -224,7 +224,8 @@
               var content_height = Metronic.getViewPort().height;
               content_height = content_height - $('.center-tabs').height();
               var side_bar_width = $(".page-sidebar").width();
-              content_width = content_width - side_bar_width - 10;
+              if ($(".page-sidebar").css('display') === "block")
+                content_width = content_width - side_bar_width;
               setSize(content_width, content_height, content_width, content_height);
               element.css('min-width', size.maxWidth + 'px');
               element.css('min-height', size.maxHeight + 'px');
@@ -232,6 +233,7 @@
               frontElement.height(size.height);
               backElement.width(size.width);
               backElement.height(size.height);
+              $(".div-compare-placeholder").height(size.height)
             }
         }
 

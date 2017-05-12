@@ -117,6 +117,15 @@
     right: 10px;
   }
 
+  .div-embed-code {
+    bottom: 5px;
+    display: table;
+    padding: 1px 4px 3px 5px;
+    position: absolute;
+    text-decoration: none;
+    z-index: 10;
+  }
+
   .images-compare-embed-code {
     font-family: sans-serif;
     text-transform: uppercase;
@@ -134,17 +143,18 @@
   .evercam-brand {
     bottom: 5px;
     display: table;
-    height: 14px;
     line-height: 14px;
     padding: 1px 4px 1px 5px;
     position: absolute;
+    right: 0;
+    text-align: right;
     text-decoration: none;
     z-index: 10;
   }
 
   .evercam-brand img.svg-logo {
     height: auto;
-    width: 140px;
+    width: 65%;
     margin-left: 3px;
   }
 }

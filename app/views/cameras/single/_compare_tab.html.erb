@@ -1,5 +1,5 @@
-<div class="row padding-right15">
-  <div class="">
+<div class="row">
+  <div class="div-compare-placeholder">
     <input type="hidden" id="txtbefore">
     <input type="hidden" id="txtafter">
     <textarea id="txtEmbedCode" class="embed-code" style="position: absolute;left: -9999px;top: 0;"></textarea>
@@ -12,14 +12,11 @@
         <span id="calendar-after" class="images-compare-label"><i class="fa fa-calendar compare-calendar"></i> After</span>
         <img id="compare_after" src="" alt="After"/>
       </div>
-      <div class="evercam-brand">
+      <div class="div-embed-code hide">
         <span class="images-compare-embed-code" title="Embed Code"><i class="fa fa-code"></i></span>
-        <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
       </div>
-      <div class="hide">
-        <button class="btn js-front-btn">Show front image</button>
-        <button class="btn js-back-btn">Show back image</button>
-        <button class="btn js-toggle-btn">Toggle</button>
+      <div class="evercam-brand">
+        <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
       </div>
     </div>
   </div>

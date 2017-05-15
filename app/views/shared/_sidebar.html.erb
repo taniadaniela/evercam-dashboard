@@ -36,21 +36,21 @@
         <% end %>
       </li>
       <li class="sidebar-line">
-        <%= link_to snapmails_index_path do %>
+        <%= link_to snapmails_index_path, :class => 'padding-bottom-8' do %>
             <img class="icon-font snapimg" src="//dkzcs7h1dpzak.cloudfront.net/assets/snapmail-fd5f12a06005b85e0247e6fa206e9992c31af9f0c95a79544dcca1f9d216f620.png"><span class="title snapmail-text"> Snapmail</span>
         <% end %>
       </li>
-      <li>
+<!--       <li>
         <%= link_to "http://timelapse.evercam.io/login.html?id=#{current_user.username}&api_id=#{current_user.api_id}&api_key=#{current_user.api_key}", target: "_blank" do %>
           <i class="fa fa-history icon-font"></i><span class="title"> Timelapse</span>
         <% end %>
-      </li>
-      <li class="sidebar-line nprogCall">
+      </li> -->
+<!--       <li class="sidebar-line nprogCall">
         <%= link_to billing_path(current_user.username) do %>
           <i class="fa fa-credit-card"></i> Billing
         <% end %>
-      </li>
-      <li class="nprogCall">
+      </li> -->
+      <li class="nprogCall sidebar-line">
         <%= link_to widget_path do %>
           <i class="fa fa-book"></i> Developer
         <% end %>

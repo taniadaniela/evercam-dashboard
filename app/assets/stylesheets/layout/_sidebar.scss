@@ -285,10 +285,16 @@ li span {
 }
 
 /*SUB MENU */
-.page-sidebar .page-sidebar-menu .sub-menu {
-  margin: 0;
-  padding-bottom: 8px;
+.page-sidebar .page-sidebar-menu {
 
+  .padding-bottom-8 {
+    padding-bottom: 8px;
+  }
+
+  .sub-menu {
+    margin: 0;
+    padding-bottom: 8px;
+  }
 }
 
 .sub-menu.cam-active .sidebar-offline{

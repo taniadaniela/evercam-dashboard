@@ -41,7 +41,8 @@ toggleAllTypeFilters = ->
         $(".type-label span").addClass("checked")
       else
         $(".type-label span").removeClass("checked")
-  $('.logs-checkbox').change ->
+
+  $(".logs-checkbox").change ->
     if this.checked == false
       $('#type-all')[0].checked = false
       $("label[for='type-all'] span").removeClass("checked")
@@ -50,24 +51,9 @@ toggleAllTypeFilters = ->
       $("label[for='type-all'] span").addClass("checked")
 
 toggleCheckboxes = ->
-  if !$('#type-online').is(':checked')
-    $("input[id='type-online']").prop("checked", true)
-    $("input[id='type-offline']").prop("checked", true)
-    $("label[for='type-online'] span").addClass("checked")
-    $("label[for='type-offline'] span").addClass("checked")
-
-toggleOnlineCheck = ->
-  if $(this).is(':checked')
-    $("input[id='type-offline']").prop("checked", true)
-    $("label[for='type-offline'] span").addClass("checked")
-
-toggleOfflineCheck = ->
-  if $(this).is(':checked')
-    $("input[id='type-online']").prop("checked", true)
-    $("label[for='type-online'] span").addClass("checked")
-  else
-    $("input[id='type-online']").prop("checked", false)
-    $("label[for='type-online'] span").removeClass("checked")
+  if !$('#type-online-offline').is(':checked')
+    $("input[id='type-online-offline']").prop("checked", true)
+    $("label[for='type-online-offline'] span").addClass("checked")
 
 initializeDataTable = ->
   table = $('#logs-table').DataTable({
@@ -129,8 +115,8 @@ initializeDataTable = ->
     ],
     autoWidth: false,
     info: false,
-    bPaginate: false,
-    bFilter: false,
+    bPaginate: true,
+    pageLength: 50
     "language": {
       "emptyTable": "No data available"
     },
@@ -264,8 +250,8 @@ getDate = (type) ->
     DateFromTime.setMinutes(0)
   if type is "to"
     DateFromTime.setHours(DateFromTime.getHours() + 2)
-  Dateformateed =  format_time.formatDate(DateFromTime, 'd/m/y H:i')
-  return Dateformateed
+  Dateformated =  format_time.formatDate(DateFromTime, 'd/m/y H:i')
+  return Dateformated
 
 onImageHover = ->
   $("#logs-table").on "mouseover", ".thumbs", ->
@@ -288,9 +274,7 @@ window.initializeLogsTab = ->
   callDate()
   $('#apply-types').click(updateLogTypesFilter)
   $('.datetimepicker').datetimepicker(format: 'd/m/Y H:m')
-  $('#type-all').click(toggleAllTypeFilters)
-  $('#type-online').click(toggleOnlineCheck)
-  $('#type-offline').click(toggleOfflineCheck)
+  toggleAllTypeFilters()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   toggleCheckboxes()

@@ -28,6 +28,20 @@
   margin-top: 4px;
 }
 
+@media (min-width: 968px) {
+
+  .checkbox-list > div.input-group:first-child {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 968px) {
+
+  .button-margin-left-10 {
+    margin-left: 10px;
+  }
+}
+
 @media (max-width: 768px) {
 
   .to-time {
@@ -46,9 +60,6 @@
 }
 
 @media (max-width: 540px) {
-  .checkbox-list {
-    padding-left: 35px;
-  }
 
   .dates {
     margin-top: 30px;
@@ -109,6 +120,7 @@
 
 #logs-filter .checkbox {
   margin-bottom: 10px;
+  margin-top: 7px;
 }
 
 .offlines {
@@ -154,6 +166,10 @@
   padding: 0 5px;
 }
 
+.margin-top-3 {
+  margin-top: 3px;
+}
+
 .thumbs {
   cursor: pointer;
 }
@@ -190,4 +206,30 @@
 
 .max-width-300 {
   max-width: 300px;
+}
+
+.min-width-114 {
+  min-width: 114px;
+}
+
+.info-panel .checkbox-list {
+  float: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.checkbox-list .input-group {
+  float: left;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.min-height-67 {
+  min-height: 67px;
+}
+
+#logs-table_length {
+  display: none;
 }

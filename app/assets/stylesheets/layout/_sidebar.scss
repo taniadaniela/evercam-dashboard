@@ -347,29 +347,29 @@ li.inactive a {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     width: 3.2em;
-    height: 1.4em;
+    height: 1.7em;
     display: inline-block;
-    border: 2px solid #8E8E93;
+    border: 1px solid $label-color;
     border-radius: 0.8em;
     background-color: rgba(0, 0, 0, 0.06);
     position: absolute;
     cursor: pointer;
-    margin-top: 3px;
+    margin-top: 5px;
   }
 
   .toggle .toggle-control::after {
     -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
     content: "";
-    width: 1em;
-    height: 1.15em;
+    width: 1.5em;
+    height: 1.5em;
     display: inline-block;
-    background-color: #fff;
+    background-color: $white;
     border-radius: 50%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 3px 2px rgba(0, 0, 0, 0.4);
+    border: 1px solid $label-color;
     position: relative;
     top: 0;
-    left: -1em !important;
+    left: -0.9em;
     cursor: pointer;
   }
 
@@ -378,8 +378,8 @@ li.inactive a {
   }
 
   .toggle input:checked + .toggle-control {
-    border-color: rgba(44, 62, 78, 0.53);
-    background-color: rgba(44, 62, 78, 0.53);
+    border-color: $main-color;
+    background-color: $main-color;
   }
 
   .toggle input:checked + .toggle-control::after {
@@ -389,7 +389,7 @@ li.inactive a {
   .label {
     position: inherit;
     text-align: center;
-    margin-left: -10px;
+    margin-left: -5px;
   }
 
   #lbl {
@@ -398,11 +398,6 @@ li.inactive a {
     right: 8px;
     top: 15px;
   }
-
-  #offline-btn{
-    display: block;
-  }
-
 }
 
 @media only screen and (max-width: 990px) {

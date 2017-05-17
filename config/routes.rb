@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get '/status' => 'cameras#online_offline'
   get '/status_report' => 'cameras#update_status_report'
   get '/map' => 'cameras#map', as: :map_view
-  get '/cameras_table' => 'cameras#cameras_table'
+  get '/table' => 'cameras#cameras_table'
   get '/v1/cameras/:id' => 'cameras#single', as: :cameras_single
   get '/v1/cameras/:id/clone' => 'cameras#new', as: :cameras_clone
   get '/v1/cameras/:id/404' => 'cameras#camera_not_found', as: :cameras_not_found

@@ -65,7 +65,7 @@
 <div class="table-responsive table-borderless table-fixed col-lg-6">
   <table class="table">
     <tr>
-      <td class="col-md-2 api-id">
+      <td class="col-md-3 api-id">
         <strong>API ID</strong>
       </td>
       <td>
@@ -78,6 +78,19 @@
       </td>
       <td>
         <input class="col-md-12" readonly value="<%= current_user.api_key -%>">
+      </td>
+    </tr>
+    <tr>
+      <td class="online-offline-toggle">
+        <strong>Hide Offline Cameras</strong>
+      </td>
+      <td>
+        <div id="siderbar">
+          <label class="label toggle title">
+            <input type="checkbox" class="toggle_input" id="offline-btn"/>
+            <div class="toggle-control"></div>
+          </label>
+        </div>
       </td>
     </tr>
   </table>

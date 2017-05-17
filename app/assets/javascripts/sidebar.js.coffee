@@ -6,12 +6,8 @@ window.showOfflineButton = ->
     $('#siderbar').hide()
   if $.cookie("hide-offline-cameras")
     $("#offline-btn").prop("checked", true)
-    $("#offline-btn").addClass("active")
-    $("#offline-btn").addClass("sidebar-checked")
     $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')
   $('#offline-btn').on 'click', (event) ->
-    $(this).toggleClass('active')
-    $(this).toggleClass('sidebar-checked')
     hide_cameras = $(this).prop("checked")
     if hide_cameras
       $.cookie("hide-offline-cameras", $(this).prop("checked"), { expires: 365, path: "/" })

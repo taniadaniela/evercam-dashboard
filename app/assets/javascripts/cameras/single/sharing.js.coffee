@@ -71,7 +71,7 @@ loadSharesRequests = ->
   onSuccess = (response, success, jqXHR) ->
     $.each response.share_requests, (index, share_request) ->
       share_request['share_id'] = share_request['id']
-      share.permissions = have_full_rights(share['rights'])
+      share_request.permissions = have_full_rights(share_request['rights'])
       share_request.type = "share_request"
       addSharingCameraRow(share_request)
     setTimeout(getEmptyImages, 3000)

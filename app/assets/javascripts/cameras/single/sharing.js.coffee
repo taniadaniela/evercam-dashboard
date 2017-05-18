@@ -44,6 +44,7 @@ loadShares = (is_for_user) ->
     else
       $.each response.shares, (index, share) ->
         share['share_id'] = share['id']
+        share.permissions = have_full_rights(share['rights'])
         share.type = "share"
         addSharingCameraRow(share)
       loadSharesRequests()
@@ -70,7 +71,7 @@ loadSharesRequests = ->
   onSuccess = (response, success, jqXHR) ->
     $.each response.share_requests, (index, share_request) ->
       share_request['share_id'] = share_request['id']
-      share_request.type = "share"
+      share.permissions = have_full_rights(share['rights'])
       share_request.type = "share_request"
       addSharingCameraRow(share_request)
     setTimeout(getEmptyImages, 3000)
@@ -84,6 +85,12 @@ loadSharesRequests = ->
     type: 'GET'
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/shares/requests"
   jQuery.ajax(settings)
+
+have_full_rights = (rights) ->
+  if rights.indexOf("edit") isnt -1
+    "full"
+  else
+    "minimum"
 
 addownerRow = (owner) ->
   $("#request-share-owner-email").html(owner['email'])

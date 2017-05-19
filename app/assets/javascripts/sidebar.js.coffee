@@ -119,7 +119,9 @@ highlightActiveCamera = ->
 
 hideIntercomLauncher = ->
   window.intercomSettings =
+    app_id: $('#intercom_api_key').val()
     hide_default_launcher: true
+    custom_launcher_selector: '#Intercom'
 
 $ ->
   initSocket()

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   prepend_before_filter :authenticate_user!, :set_cache_buster
   rescue_from Exception, :with => :render_error if Rails.env.production?
+  helper_method :intercom_key
 
   def authenticate_user!
     if current_user.nil? or (params.has_key?(:api_id) and params.has_key?(:api_key))
@@ -161,6 +162,10 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  def intercom_key
+    "#{ENV['INTERCOM_APP_ID']}"
   end
 
   private

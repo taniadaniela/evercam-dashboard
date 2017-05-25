@@ -307,8 +307,6 @@ doResize = ->
 
 window.initializeLogsTab = ->
   moment.locale('en')
-  showStatusBar()
-  doResize()
   offset = $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
   format_time = new DateFormatter()

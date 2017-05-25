@@ -3,6 +3,7 @@ format_time = null
 offset = null
 cameraOffset = null
 mouseOverCtrl = undefined
+evercam_logs = undefined
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -267,7 +268,47 @@ onImageHover = ->
   $("#logs-table").on "mouseout", mouseOverCtrl, ->
     $(".div-elms").hide()
 
+showStatusBar = ->
+  data = {}
+  data.camera_id = Evercam.Camera.id
+  data.camera_name = Evercam.Camera.name
+  data.camera_status = Evercam.Camera.is_online
+  data.created_at = Evercam.Camera.created_at
+
+  onSuccess = (response) ->
+    initReport(response)
+
+  onError = (jqXHR, status, error) ->
+    Notification.show("Something went wrong, Please try again.")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json charset=utf-8"
+    type: 'GET'
+    url: "/single_camera_status_bar"
+
+  $.ajax(settings)
+
+initReport = (logs) ->
+  evercam_logs = logs
+  chart = visavailChart()
+  chart.width $('.portlet-body').width() - 240
+  $('#status_bar').text ''
+  d3.select('#status_bar').datum(evercam_logs).call chart
+  return
+
+doResize = ->
+  $(window).resize ->
+    initReport(evercam_logs)
+
 window.initializeLogsTab = ->
+  moment.locale('en')
+  showStatusBar()
+  doResize()
   offset = $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
   format_time = new DateFormatter()

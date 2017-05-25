@@ -302,6 +302,39 @@ class CamerasController < ApplicationController
     @cameras = load_user_cameras(true, false)
   end
 
+  def status_bar_single_camera
+    api = get_evercam_api
+    new_params = {}
+    new_params[:types] = "online,offline"
+    new_params[:from] = (Date.today - 30).to_time.to_i
+    new_params[:to] = Time.now.utc.to_time.to_i
+    new_params[:limit] = 10000
+    all_logs = api.get_logs(params["camera_id"], new_params)
+    sorted_logs = all_logs[:logs].sort_by {|log| log["done_at"]}
+
+    @camera_logs = {
+      camera_name: params["camera_name"],
+      status: humanize_status(params["camera_status"]),
+      created_at: Time.at(params["created_at"].to_i).utc,
+      logs: map_single_camera_logs(sorted_logs)
+    }
+
+    @formated_data = {
+      measure_html: create_measure(@camera_logs[:camera_name], @camera_logs[:status]),
+      data: format_logs(@camera_logs[:status], @camera_logs[:logs], "Etc/UTC", @camera_logs[:created_at], 30)
+    }
+
+    render json: [@formated_data].to_json.html_safe
+  end
+
+  def humanize_status(status)
+    if status == "true"
+      true
+    else
+      false
+    end
+  end
+
   def update_status_report
     days = if params[:history_days].to_i != 0 then params[:history_days].to_i else 7 end
     @cameras = load_user_cameras(true, false)
@@ -355,6 +388,19 @@ class CamerasController < ApplicationController
         {
           done_at: log.done_at,
           action: log.action
+        }
+      end
+    end
+  end
+
+  def map_single_camera_logs(all_logs)
+    if all_logs.empty?
+      []
+    else
+      all_logs.map do |log|
+        {
+          done_at: Time.at(log["done_at"]).utc,
+          action: log["action"]
         }
       end
     end

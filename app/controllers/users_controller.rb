@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
   before_filter :authenticate_user!
   before_filter :owns_data!
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
       sign_out
     end
     unless current_user.nil?
-      return redirect_to cameras_index_path
+      single_camera_redirection(cameras_index_path)
     end
     @share_request = nil
     if params[:key]
@@ -63,7 +64,7 @@ class UsersController < ApplicationController
       user = User.where(Sequel.ilike(:email, user[:email])).first
       sign_in user
       update_user_intercom user
-      redirect_to cameras_index_path
+      single_camera_redirection(cameras_index_path)
     rescue => error
       if error.kind_of?(Evercam::EvercamError)
         if error.message.eql?("Invalid token.")

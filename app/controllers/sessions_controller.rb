@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   include SessionsHelper
+  include ApplicationHelper
 
   skip_before_filter :authenticate_user!
   protect_from_forgery except: :destroy
@@ -32,9 +33,7 @@ class SessionsController < ApplicationController
           session[:redirect_url] = nil
           redirect_to "#{url}#{params[:session][:anchor]}"
         else
-
-          Rails.logger.debug "Redirecting to the cameras index action."
-          redirect_to cameras_index_path
+          single_camera_redirection(cameras_index_path)
         end
       else
         render json: {success: true}

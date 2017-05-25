@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
       redirect_url = request.original_url
       if params.has_key?(:api_id) and params.has_key?(:api_key)
         user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
-        redirect_url = remove_param_credentials(redirect_url)
       end
 
       if user.nil?
@@ -21,7 +20,7 @@ class ApplicationController < ActionController::Base
       else
         sign_in user
         update_user_intercom(user)
-        redirect_to redirect_url
+        single_camera_redirection(redirect_url)
       end
     end
   end
@@ -77,17 +76,6 @@ class ApplicationController < ActionController::Base
       Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
       []
     end
-  end
-
-  def remove_param_credentials(original_url)
-    require 'uri'
-
-    uri = URI original_url
-    params = Rack::Utils.parse_query uri.query
-    params.delete('api_id')
-    params.delete('api_key')
-    uri.query = params.to_param
-    uri.to_s
   end
 
   # Added before_action to decouple @cameras from users controller

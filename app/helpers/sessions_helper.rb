@@ -31,4 +31,26 @@ module SessionsHelper
   def allow_iframe
     headers['X-Frame-Options'] = 'ALLOWALL'
   end
+
+  def single_camera_redirection(redirect_camera_url)
+    @all_cameras = load_user_cameras(true, false)
+    if @all_cameras.count > 1
+      redirect_to remove_param_credentials(redirect_camera_url)
+    elsif @all_cameras.count < 1
+      redirect_to remove_param_credentials(redirect_camera_url)
+    else
+      redirect_to "#{remove_param_credentials(redirect_camera_url)}/#{@all_cameras.first['id']}".gsub("?", '')
+    end
+  end
+
+  def remove_param_credentials(original_url)
+    require 'uri'
+
+    uri = URI original_url
+    params = Rack::Utils.parse_query uri.query
+    params.delete('api_id')
+    params.delete('api_key')
+    uri.query = params.to_param
+    uri.to_s
+  end
 end

@@ -115,14 +115,6 @@
   });
   $.validate()
 
-  $('.btn').on("click",function() {
-    if (Evercam.ENV == "production"){
-      if ($("#create-account input[type=text]").parent('.has-success').length == 4) {
-        mixpanel.track_forms("#create-account", "Create an account", {'Client-Type': 'Dash'});
-      }
-    }
-  });
-
   $( document ).ready(function() {
     if ($('div').find("input[type=text]").val() == '') {
       $('.form-error').hide();

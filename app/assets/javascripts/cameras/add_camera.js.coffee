@@ -269,9 +269,6 @@ onAddCamera = ->
       Notification.show "Its your local IP, please provide camera public IP."
       $("#camera-url").css("border-color", "red")
       return false
-    if Evercam.ENV == 'production'
-      if $('.col-sm-8 input').parent('.has-error').length > 0
-        mixpanel.track_forms '#create-a-camera', 'Create a camera', 'Client-Type': 'Dash'
 
 onCustomizedUrl = ->
   $("#snapshot").on "keyup", ->

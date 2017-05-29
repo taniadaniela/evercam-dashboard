@@ -1,16 +1,4 @@
 <%= content_for(:title, "Evercam: Camera Dashboard") %>
-<% if Rails.env.staging? || Rails.env.production? %>
-<script>
-  mixpanel.identify("<%= current_user.username %>"),
-    mixpanel.people.set({
-      "$first_name": "<%= current_user.firstname %>",
-      "$last_name": "<%= current_user.lastname %>",
-      "$created": "<%= current_user.created_at %>",
-      "$email": "<%= current_user.email %>",
-      "Username": "<%= current_user.username %>"
-    });
-</script>
-<% end %>
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-index">
     <% if params[:controller] == 'cameras' && params[:action] == 'index' && @show_alert_message %>

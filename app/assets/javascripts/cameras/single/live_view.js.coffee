@@ -88,7 +88,7 @@ openPopout = ->
 
 initializePlayer = ->
   window.vjs_player = videojs 'camera-video-player', {
-    techOrder: ["flash", "html5"]
+    techOrder: ["html5"]
   }
   $("#camera-video-player").append($("#ptz-control"))
   tries = 0

@@ -99,7 +99,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery.uniform'
   gem 'rails-assets-ladda'
   gem 'rails-assets-screenfull'
-  gem 'rails-assets-videojs'
   gem 'rails-assets-bs-slider'
   gem 'rails-assets-bootstrap-toggle'
   gem 'rails-assets-select2'

@@ -468,7 +468,6 @@ GEM
     rails-assets-screenfull (3.0.2)
     rails-assets-select2 (4.0.3)
     rails-assets-spin.js (2.0.2)
-    rails-assets-videojs (5.13.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.8)
@@ -657,7 +656,6 @@ DEPENDENCIES
   rails-assets-moment (~> 2.12.0)!
   rails-assets-screenfull!
   rails-assets-select2!
-  rails-assets-videojs!
   rails_12factor
   rspec
   rspec-rails

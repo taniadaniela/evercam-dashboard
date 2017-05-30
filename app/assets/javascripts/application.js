@@ -16,7 +16,7 @@
 //= require ladda/ladda.min.js
 //= require bootbox
 //= require securehash
-//= require videojs
+//= require video.js
 //= require videojs-contrib-media-sources.min.js
 //= require videojs-contrib-hls.min.js
 //= require screenfull

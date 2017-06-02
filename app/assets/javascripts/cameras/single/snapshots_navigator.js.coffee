@@ -1057,6 +1057,34 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
+loadOldestLatestImage = (enter_query) ->
+  data =
+    api_id: Evercam.User.api_id
+    api_key: Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    message = jqXHR.responseJSON.message
+
+  onSuccess = (response, status, jqXHR) ->
+    $("#imgPlayback").attr("src", response.data)
+    HideLoader()
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{enter_query}"
+  sendAJAXRequest(settings)
+
+onClickOldestLatestImage = ->
+  $('.get-image').on "click", ->
+    query_string = $(this).data('query')
+    loadOldestLatestImage(query_string)
+    showLoader()
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1072,3 +1100,4 @@ window.initializeRecordingsTab = ->
   window.initCloudRecordingSettings()
   selectMdImage()
   calendarShow()
+  onClickOldestLatestImage()

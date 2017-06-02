@@ -777,7 +777,8 @@
   margin-top: 1px;
 }
 
-.recording-text {
+.recording-text,
+.old-new-snapshot-link {
   border: 1px solid $evercam-grey;
   padding: 5px;
   border-radius: 5px;
@@ -807,4 +808,28 @@
   position: absolute;
   margin-top: 64px;
   margin-left: 100px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.padding-none {
+  padding: 0px;
+}
+
+.get-image {
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  color: $main-color;
+}
+
+.width-50 {
+  width: 50%;
+  float: left;
+}
+
+.border-right {
+  border-right: 1px solid $main-grey;
 }

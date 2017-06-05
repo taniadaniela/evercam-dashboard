@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       unless @share_request.nil?
         user = User.where(Sequel.ilike(:email, @share_request.email)).first
         unless user.blank?
-          flash[:error] = "You've already registered with this email #{@share_request.email.downcase} address."
+          flash[:error] = "This signup link has already been used by #{@share_request.email.downcase}, You should either login to your existing account or create a new account."
           redirect_to signin_path
         end
       end

@@ -25,6 +25,7 @@ playFromTimeStamp = null
 CameraOffsetHours = null
 CameraOffsetMinutes = null
 is_logged_intercom = false
+query_value = undefined
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -585,6 +586,7 @@ loadImage = (timestamp, notes) ->
       $("#imgPlayback").attr("src", response.snapshots[0].data)
     HideLoader()
     checkCalendarDisplay()
+    showImageSaveOption()
 
   settings =
     cache: false
@@ -936,6 +938,12 @@ saveImage = ->
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 
+saveOldestLatestImage = ->
+  $('#save-oldestlatest-image').on 'click', ->
+    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{query_value}.jpg")
+    $('.play-options').css('display','none')
+    setTimeout opBack , 1500
+
 opBack = ->
   $('.play-options').css('display','inline')
 
@@ -1068,6 +1076,7 @@ loadOldestLatestImage = (enter_query) ->
   onSuccess = (response, status, jqXHR) ->
     $("#imgPlayback").attr("src", response.data)
     HideLoader()
+    HideImageSaveOption()
 
   settings =
     cache: false
@@ -1081,9 +1090,17 @@ loadOldestLatestImage = (enter_query) ->
 
 onClickOldestLatestImage = ->
   $('.get-image').on "click", ->
-    query_string = $(this).data('query')
-    loadOldestLatestImage(query_string)
+    query_value = $(this).data('query')
+    loadOldestLatestImage(query_value)
     showLoader()
+
+showImageSaveOption = ->
+  $('#oldestlatest-image').addClass('hide')
+  $('#snapshot-tab-save').removeClass('hide')
+
+HideImageSaveOption = ->
+  $('#oldestlatest-image').removeClass('hide')
+  $('#snapshot-tab-save').addClass('hide')
 
 window.initializeRecordingsTab = ->
   initDatePicker()
@@ -1101,3 +1118,4 @@ window.initializeRecordingsTab = ->
   selectMdImage()
   calendarShow()
   onClickOldestLatestImage()
+  saveOldestLatestImage()

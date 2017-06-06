@@ -128,6 +128,11 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   padding: 0px 0 4px 0;
   margin-left: -10px;
 }
+
+.page-content .camera-index-height {
+  height: 600px;
+}
+
 .camera-index {
   overflow: hidden;
   height: 412px;
@@ -135,9 +140,11 @@ border-bottom: 1px solid rgba(16, 28, 39, 0.58);
   padding-left: 0px;
   padding-right: 0px;
 }
+
 @media screen and (max-width: 1600px) {
-  .camera-index {
-    height: 300px;
+
+  .page-content .camera-index-height {
+    height: 420px;
   }
 }
 .add-camera-outer {
@@ -341,4 +348,10 @@ ul.scroll-menu {
     margin: 33px 0 0;
   }
 
+}
+
+@media screen and (max-width: 480px) {
+  .page-content .camera-index-height {
+    height: 300px;
+  }
 }

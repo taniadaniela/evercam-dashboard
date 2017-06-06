@@ -8,6 +8,7 @@ class CamerasController < ApplicationController
 
   def index
     @cameras = load_user_cameras(true, false)
+    @camera_count = @cameras.count
     @show_alert_message = false
     @required_licences = 0
     display_billing_alert if ENV['DISPLAY_BILLING_MESSAGE'].eql?("yes") && current_user.payment_method.eql?(Licence::STRIPE)

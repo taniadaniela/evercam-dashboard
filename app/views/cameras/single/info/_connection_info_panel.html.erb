@@ -10,7 +10,7 @@
   <div class="portlet-body col-md-12">
     <table class="table table-fixed table-borderless">
       <tr>
-        <td class="col-md-4">Username:</td>
+        <td class="col-md-4 col-xs-4">Username:</td>
         <td id="username" class="col-md-8">
           <% if @camera['cam_username'] != "" %>
             <%= @camera['cam_username'] %>
@@ -48,11 +48,11 @@
       </tr>
     </table>
     <div class="row">
-      <div class="col-md-4"><span class="title-label">External Ports</span></div>
+      <div class="col-md-12 col-xs-12"><span class="title-label">External Ports</span></div>
     </div>
     <table class="table table-fixed table-borderless">
       <tr>
-        <td class="col-md-4">IP (or URL):</td>
+        <td class="col-md-4 col-xs-4">IP (or URL):</td>
         <td id="url_ip" class="col-md-8">
           <% port = @camera.deep_fetch('external', 'host') {} %>
           <% if port.blank? %>

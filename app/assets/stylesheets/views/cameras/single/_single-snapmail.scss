@@ -7,6 +7,8 @@
 
     img {
       min-width: 270px;
+      height: 213px;
+      width: 100%;
     }
 
   }
@@ -59,7 +61,7 @@
 
   .card .snapstack-loading {
     width: 100%;
-    height: 215px;
+    height: 290px;
     text-align: center;
     vertical-align:middle;
     min-height: 100px;
@@ -259,6 +261,10 @@
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
     transition-delay: 0s;
   }
+}
+
+.snapmail .error-border {
+  border: 1px solid $error-border-color;
 }
 
 .margin-top-12 {
@@ -565,4 +571,8 @@ div.tagsinput input {
       margin-top: 36%;
     }
   }
+}
+
+.bxslider p{
+  margin: 10px 0 7px;
 }

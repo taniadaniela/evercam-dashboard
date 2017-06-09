@@ -18,13 +18,9 @@ window.sendAJAXRequest = (settings) ->
   xhrRequestChangeMonth = $.ajax(settings)
 
 rslidesInit = ->
-  $(".rslides").responsiveSlides({
-    auto: true,
-    pager: true,
-    nav: false,
-    pause: true,
-    speed: 500,
-    namespace: "centered-btns"
+  $('.bxslider').bxSlider({
+    infiniteLoop: true,
+    auto: true
   })
 
 noSnapmailText = ->
@@ -87,7 +83,7 @@ getSnapmailHtml = (snapMail, index) ->
   html += '    <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'
   html += '        <div class="snapstack-loading" id="snaps-' + snapMail.id + '" >'
-  html += '           <ul class="rslides" id="snapmail' + index + '">'
+  html += '           <ul class="bxslider" id="snapmail' + index + '">'
   $.each cameras, (i, camera) ->
     thumbnail_url = "#{Evercam.MEDIA_API_URL}cameras/#{camera}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}";
     html += '           <li><img src="' + thumbnail_url + '" class="stackimage" style="visibility: visible" id="stackimage-' + snapMail.id + '-' + camera + '" alt="' + snapMail.camera_names.split(',')[i] + '" ><p>' + snapMail.camera_names.split(',')[i] + '</p></li>'
@@ -152,6 +148,9 @@ initCameraSelect = ->
     escapeMarkup: (m) ->
       m
 
+  $('#ddlCameras').on 'select2:select', (e) ->
+    $('.select2-container').removeClass('error-border')
+
 format = (state) ->
   is_offline = ""
   if !state.id
@@ -168,9 +167,11 @@ initInputTags = ->
     'width': 'auto'
     'defaultText': 'Add Recipients'
     'onAddTag': (email) ->
+      $('#txtRecipient_tagsinput').removeClass('error-border')
       if !validateEmailByVal(email)
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         Notification.show 'Invalid recipient email.'
+        $('#txtRecipient_tagsinput').addClass('error-border')
       return
     'onRemoveTag': (email) ->
       return
@@ -197,6 +198,7 @@ initTimepicker = ->
 saveSnapmail = ->
   $('#add-snapmail').on 'click', ->
     save_button = $(this)
+    showLoadingAnimation()
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
     cameraIds = ''
     cameraNames = ''
@@ -204,8 +206,12 @@ saveSnapmail = ->
       cameraIds += $(selected).val() + ','
       cameraNames += $(selected).text() + ', '
     if cameraIds is ''
+      $('.select2-container').addClass('error-border')
       Notification.show 'Please select camera(s) to continue.'
+      hideLoadingAnimation()
       return false
+    else
+      $('.select2-container').removeClass('error-border')
     cameraIds = cameraIds.substring(0, cameraIds.lastIndexOf(','))
     cameraNames = cameraNames.substring(0, cameraNames.lastIndexOf(','))
     if $('#txtRecipient').val() != ''
@@ -214,20 +220,26 @@ saveSnapmail = ->
       while i < emails.length
         if !validateEmailByVal(emails[i])
           Notification.show 'Invalid email \'' + emails[i] + '\'.'
+          hideLoadingAnimation()
           return
         i++
     else
       if $('#txtkey').val() == ''
+        $('#txtRecipient_tagsinput').addClass('error-border')
         Notification.show 'Please enter recipients to continue.'
+        hideLoadingAnimation()
         return false
     if $('#txtTime').val() == ''
       Notification.show 'Please select time to continue.'
+      hideLoadingAnimation()
       return false
     if $('#ddlTimezone').val() == '0'
       Notification.show 'Please select timezone to continue.'
+      hideLoadingAnimation()
       return false
     if GetWeekdaysSelected() == ''
       Notification.show 'Please select day(s) to continue.'
+      hideLoadingAnimation()
       return false
 
     o =
@@ -252,6 +264,7 @@ saveSnapmail = ->
         response = JSON.parse(jqXHR.responseText)
         Notification.show "#{response.message}"
       save_button.removeAttr('disabled')
+      hideLoadingAnimation()
 
     onSuccess = (result, status, jqXHR) ->
       snapMail = result.snapmails[0]
@@ -314,6 +327,7 @@ GetWeekdaysSelected = ->
 
 clearForm = ->
   $('.formButtonCancel').click()
+  $('#txtRecipient_tagsinput').removeClass('error-border')
   $('.caption').html 'New Snapmail'
   $('#txtkey').val ''
   $('#txtRecipient').val ''
@@ -343,6 +357,7 @@ clearForm = ->
   $('#chkSun').prop 'checked', false
   $('#uniform-chkAllDay .icheckbox_flat-blue').removeClass 'checked'
   $('#chkAllDay').prop 'checked', false
+  hideLoadingAnimation()
 
 FormatNumTo2 = (n) ->
   if n < 10
@@ -481,6 +496,14 @@ cloneSnapmail = ->
     $('#add-snapmail').click()
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     Notification.show "Successfully cloned"
+
+showLoadingAnimation = ->
+  $("#loading-image-div").removeClass("hide")
+  $("#snapmail-form .modal-content").addClass("opacity0")
+
+hideLoadingAnimation = ->
+  $("#snapmail-form .modal-content").removeClass("opacity0")
+  $("#loading-image-div").addClass("hide")
 
 window.initializeSnapmails = ->
   initSnapmails()

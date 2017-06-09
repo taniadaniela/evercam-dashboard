@@ -6,6 +6,7 @@
 //= require videojs-flash.min.js
 //= require videojs-contrib-media-sources.min.js
 //= require videojs-contrib-hls.min.js
+//= require jquery.bxslider.min.js
 //=
 //= require alerts
 //= require payment/pay.js

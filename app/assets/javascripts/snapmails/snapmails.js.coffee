@@ -168,12 +168,18 @@ initInputTags = ->
     'defaultText': 'Add Recipients'
     'onAddTag': (email) ->
       $('#txtRecipient_tagsinput').removeClass('error-border')
+      $('#add-snapmail').removeAttr("disabled")
       if !validateEmailByVal(email)
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         Notification.show 'Invalid recipient email.'
         $('#txtRecipient_tagsinput').addClass('error-border')
       return
     'onRemoveTag': (email) ->
+      if $('#txtRecipient_tagsinput').find('span').length is 0
+        $('#add-snapmail').attr("disabled", "disabled")
+        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.show 'Please enter recipients to continue.'
+        $('#txtRecipient_tagsinput').addClass('error-border')
       return
     'delimiter': [',']
     'removeWithBackspace': true
@@ -327,6 +333,7 @@ GetWeekdaysSelected = ->
 
 clearForm = ->
   $('.formButtonCancel').click()
+  $('#add-snapmail').removeAttr("disabled")
   $('#txtRecipient_tagsinput').removeClass('error-border')
   $('.caption').html 'New Snapmail'
   $('#txtkey').val ''
@@ -505,6 +512,19 @@ hideLoadingAnimation = ->
   $("#snapmail-form .modal-content").removeClass("opacity0")
   $("#loading-image-div").addClass("hide")
 
+handleModelEvents = ->
+  $(".modal").on "show.bs.modal", centerModal
+  $(window).on "resize", ->
+    $(".modal:visible").each centerModal
+
+centerModal = ->
+  $(this).css "display", "block"
+  $dialog = $(this).find(".modal-dialog")
+  offset = ($(window).height() - $dialog.height()) / 2
+  if $(window).height() > $dialog.height()
+    # Center modal vertically in window
+    $dialog.css "margin-top", offset
+
 window.initializeSnapmails = ->
   initSnapmails()
   initCameraSelect()
@@ -520,3 +540,4 @@ window.initializeSnapmails = ->
   noSnapmailText()
   pauseSnapmail()
   cloneSnapmail()
+  handleModelEvents()

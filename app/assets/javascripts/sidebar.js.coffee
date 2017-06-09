@@ -1,9 +1,4 @@
 window.showOfflineButton = ->
-  offline_cameras = $('.sub-menu.sidebar-cameras-list .sidebar-offline').length
-  if offline_cameras > 0
-    $('#siderbar').show()
-  else
-    $('#siderbar').hide()
   if $.cookie("hide-offline-cameras")
     $("#offline-btn").prop("checked", true)
     $('.sub-menu, .dropdown-menu.scroll-menu, #camera-index').addClass('cam-active')

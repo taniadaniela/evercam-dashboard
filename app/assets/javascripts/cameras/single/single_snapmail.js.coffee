@@ -155,12 +155,18 @@ initInputTags = ->
     'defaultText': 'Add Recipients'
     'onAddTag': (email) ->
       $('#txtRecipient_tagsinput').removeClass('error-border')
+      $('#add-snapmail').removeAttr("disabled")
       if !validateEmailByVal(email)
         $('#txtRecipient_tagsinput').addClass('error-border')
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         Notification.show 'Invalid recipient email.'
       return
     'onRemoveTag': (email) ->
+      if $('#txtRecipient_tagsinput').find('span').length is 0
+        $('#add-snapmail').attr("disabled", "disabled")
+        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.show 'Please enter recipients to continue.'
+        $('#txtRecipient_tagsinput').addClass('error-border')
       return
     'delimiter': [',']
     'removeWithBackspace': true
@@ -321,6 +327,7 @@ GetWeekdaysSelected = ->
 
 clearForm = ->
   $('.formButtonCancel').click()
+  $('#add-snapmail').removeAttr("disabled")
   $('#txtRecipient_tagsinput').removeClass('error-border')
   $('#snapmail-form .caption').html 'New Snapmail'
   $('#txtkey').val ''

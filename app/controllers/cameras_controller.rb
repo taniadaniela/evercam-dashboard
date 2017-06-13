@@ -307,11 +307,12 @@ class CamerasController < ApplicationController
     api = get_evercam_api
     new_params = {}
     new_params[:types] = "online,offline"
-    new_params[:from] = (Date.today - 30).to_time.to_i
-    new_params[:to] = Time.now.utc.to_time.to_i
+    new_params[:from] = params['from'].to_i
+    new_params[:to] = params['to'].to_i
     new_params[:limit] = 10000
     all_logs = api.get_logs(params["camera_id"], new_params)
     sorted_logs = all_logs[:logs].sort_by {|log| log["done_at"]}
+    days = (Time.at(params['to'].to_i) - Time.at(params['from'].to_i)).to_i / 86400
 
     @camera_logs = {
       camera_name: params["camera_name"],
@@ -322,7 +323,7 @@ class CamerasController < ApplicationController
 
     @formated_data = {
       measure_html: create_measure(@camera_logs[:camera_name], @camera_logs[:status]),
-      data: format_logs(@camera_logs[:status], @camera_logs[:logs], "Etc/UTC", @camera_logs[:created_at], 30)
+      data: format_logs(@camera_logs[:status], @camera_logs[:logs], "Etc/UTC", @camera_logs[:created_at], days)
     }
 
     render json: [@formated_data].to_json.html_safe

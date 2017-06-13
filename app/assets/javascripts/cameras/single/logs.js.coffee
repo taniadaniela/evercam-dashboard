@@ -25,6 +25,7 @@ updateLogTypesFilter = () ->
   to_date = moment($('#datetimepicker2').val(), "DD-MM-YYYY H:mm")
   from = from_date._d.getTime()/ 1000
   to = to_date._d.getTime()/ 1000
+  showStatusBar(from, to)
   fromto_seg = ''
   fromto_seg += '&from=' + from unless isNaN(from)
   fromto_seg += '&to=' + to unless isNaN(to)
@@ -268,8 +269,10 @@ onImageHover = ->
   $("#logs-table").on "mouseout", mouseOverCtrl, ->
     $(".div-elms").hide()
 
-showStatusBar = ->
+showStatusBar = (from, to) ->
   data = {}
+  data.to = to
+  data.from = from
   data.camera_id = Evercam.Camera.id
   data.camera_name = Evercam.Camera.name
   data.camera_status = Evercam.Camera.is_online
@@ -307,6 +310,7 @@ doResize = ->
 
 window.initializeLogsTab = ->
   moment.locale('en')
+  doResize()
   offset = $('#camera_time_offset').val()
   cameraOffset = parseInt(offset)/3600
   format_time = new DateFormatter()

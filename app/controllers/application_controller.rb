@@ -73,7 +73,10 @@ class ApplicationController < ActionController::Base
     begin
       api.get_user_cameras(current_user.username, shared, thumbnail) if @cameras.blank?
     rescue => error
-      Rails.logger.error "Exception caught fetching user cameras.\nCause: #{error}"
+      Rails.logger.error "[load_cameras_error] [#{current_user.username}] [#{request.remote_ip}] [Cause: #{error.message}]"
+      if params[:controller].eql?("cameras") && params[:action].eql?("index")
+        redirect_to server_down_path
+      end
       []
     end
   end

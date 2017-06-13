@@ -464,6 +464,10 @@ class CamerasController < ApplicationController
     end
   end
 
+  def server_down
+    @cameras = []
+  end
+
   def transfer
     result = {success: true}
     begin

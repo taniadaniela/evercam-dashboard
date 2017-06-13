@@ -77,8 +77,7 @@ describe CamerasController do
 
         session['user'] = user.email
         get :index
-        expect(response.status).to eq(200)
-        expect(response).to render_template :index
+        expect(response.status).to eq(302)
       end
     end
 

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get '/v1/cameras/:id/share/request' => 'pages#revoke_request'
   post '/log_intercom' => 'cameras#log_intercom'
   get '/single_camera_status_bar' => 'cameras#status_bar_single_camera'
+  get '/server_down' => 'cameras#server_down', as: :server_down
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
   get '/v1/users/:id/billing/*subpath' => 'subscriptions#index'

@@ -174,7 +174,7 @@
         <div class="clear-f"></div>
         <div class="col-sm-12 old-new-snapshot-link align-center padding-none ">
           <div class="col-sm-6 get-image border-right width-50" data-query="oldest"><< First</div>
-          <div class="col-sm-6 get-image" data-query="latest">Last >></div>
+          <div id="latest-get-image" class="col-sm-6 get-image" data-query="latest">Last >></div>
         </div>
         <div class="clear-f"></div>
         <div>
@@ -301,6 +301,7 @@
 <div id="divPopup"></div>
 <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
 <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
+<input type="hidden" name="camera_current_time" id="camera_current_time" value="<%= @current_time %>">
 <input type="hidden" name="snapshot-diff" id="snapshot-diff" value="<%= @snapshot_navigator %>">
 <div id="off-pause-modal" class="modal fade">
   <div class="modal-dialog width-420">

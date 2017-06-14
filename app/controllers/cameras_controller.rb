@@ -218,6 +218,7 @@ class CamerasController < ApplicationController
       @camera['timezone'] = 'Etc/UTC' unless time.utc_offset % 3600 == 0
       @user_time = Time.new.in_time_zone(@camera['timezone'])
       @selected_date = @user_time.strftime("%m/%d/%Y")
+      @current_time = @user_time.strftime("%H")
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset

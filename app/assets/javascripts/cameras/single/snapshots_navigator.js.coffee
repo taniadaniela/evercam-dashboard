@@ -443,7 +443,6 @@ GetCameraInfo = (isShowLoader) ->
       $("#MDSliderItem").html("")
       $("#divNoMd").show()
       NoRecordingDayOrHour()
-      HideLoader()
     else
       $("#divDisableButtons").removeClass("show").addClass("hide")
       $("#divFrameMode").removeClass("hide").addClass("show")
@@ -467,9 +466,17 @@ GetCameraInfo = (isShowLoader) ->
           playFromDateTime = null
           playFromTimeStamp = null
 
-      $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
-      SetInfoMessage(currentFrameNumber, frameDateTime)
-      loadImage(snapshotTimeStamp, snapshotNotes)
+      currentDate = $("#camera_selected_time").val()
+      currentHour = parseInt($("#camera_current_time").val())
+      ImageHour = parseInt(cameraCurrentHour)
+      dt = $("#ui_date_picker_inline").datepicker('getDate')
+      current_camera_date = moment(dt).format('MM/DD/YYYY')
+      if currentDate == current_camera_date && currentHour == ImageHour
+        setLatestImage()
+      else
+        $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
+        SetInfoMessage(currentFrameNumber, frameDateTime)
+        loadImage(snapshotTimeStamp, snapshotNotes)
       BindMDStrip()
     NProgress.done()
     hideHourLoadingAnimation()
@@ -661,19 +668,18 @@ FormatNumTo2 = (n) ->
     n
 
 NoRecordingDayOrHour = ->
+  showLoader()
   $("#divRecent").show()
-  $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
   $("#divInfo").fadeOut()
+  latest = $('#latest-get-image').data('query')
   $("#divPointer").width(0)
   $("#divSliderBackground").width(0)
-
   $("#MDSliderItem").html("")
   $("#divNoMd").show()
   $("#divNoMd").text('Motion Detection Not Enabled')
-  HideLoader()
   hideDaysLoadingAnimation()
   hideHourLoadingAnimation()
-
+  loadOldestLatestImage(latest)
   totalFrames = 0
 
 SetImageHour = (hr, id) ->
@@ -1037,7 +1043,6 @@ hideHourLoadingAnimation = ->
   $('#img-hour-Loader').addClass 'hide'
   $('#hourCalendar').removeClass 'opacity-transparent'
 
-
 handleResize = ->
   calculateWidth()
   recodringSnapshotDivHeight()
@@ -1101,6 +1106,12 @@ showImageSaveOption = ->
 HideImageSaveOption = ->
   $('#oldestlatest-image').removeClass('hide')
   $('#snapshot-tab-save').addClass('hide')
+
+setLatestImage = ->
+  snapshotInfoIdx = snapshotInfos.length - 1
+  currentFrameNumber = snapshotInfos.length
+  $("#divPointer").width("100%")
+  UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
 
 window.initializeRecordingsTab = ->
   initDatePicker()

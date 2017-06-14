@@ -25,7 +25,8 @@ updateLogTypesFilter = () ->
   to_date = moment($('#datetimepicker2').val(), "DD-MM-YYYY H:mm")
   from = from_date._d.getTime()/ 1000
   to = to_date._d.getTime()/ 1000
-  showStatusBar(from, to)
+  if from && to
+    showStatusBar(from, to)
   fromto_seg = ''
   fromto_seg += '&from=' + from unless isNaN(from)
   fromto_seg += '&to=' + to unless isNaN(to)

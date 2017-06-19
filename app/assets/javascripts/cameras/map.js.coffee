@@ -1,3 +1,5 @@
+prev_infowindow = false
+
 loadMap = ->
   options =
     zoom: 3
@@ -15,38 +17,41 @@ loadMap = ->
       title: camera.name
     })
     do (marker) ->
+      infowindow = new (google.maps.InfoWindow)(content:
+        "<table id='map-container' class='table order-column'>
+          <tbody>
+            <tr>
+              #{thumbnailTag(camera.thumbnail_url)}
+            </tr>
+            <tr>
+              <th></th>
+              <td>
+                <div class='center'>
+                  <strong>
+                    #{camera.name}
+                    <a href='https://dash.evercam.io/v1/cameras/#{camera.id}/live' target='_blank'>
+                    <i class='fa fa-external-link'></i>
+                    </a>
+                  </strong>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Vendor/Model</th>
+              <td>#{vendorLogo(camera.vendor_id)} / #{camera.vendor_name}</td>
+            </tr>
+          </tbody>
+        </table>")
       google.maps.event.addListener marker, 'click', ->
         linkBackToMap(map)
         map.setZoom 15
         map.setCenter marker.getPosition()
-        infowindow = new (google.maps.InfoWindow)(content:
-          "<table id='map-container' class='table order-column'>
-            <tbody>
-              <tr>
-                #{thumbnailTag(camera.thumbnail_url)}
-              </tr>
-              <tr>
-                <th></th>
-                <td>
-                  <div class='center'>
-                    <strong>
-                      #{camera.name}
-                      <a href='https://dash.evercam.io/v1/cameras/#{camera.id}/live' target='_blank'>
-                      <i class='fa fa-external-link'></i>
-                      </a>
-                    </strong>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th>Vendor/Model</th>
-                <td>#{vendorLogo(camera.vendor_id)} / #{camera.vendor_name}</td>
-              </tr>
-            </tbody>
-          </table>")
         infowindow.open map, marker
-        return
-      return
+      google.maps.event.addListener marker, 'mouseover', ->
+        if prev_infowindow
+          prev_infowindow.close()
+        prev_infowindow = infowindow
+        infowindow.open map, marker
 
 vendorLogo = (vendorId) ->
   if vendorId == ''

@@ -72,6 +72,10 @@ initializeDataTable = ->
         NProgress.done()
     },
     columns: [
+      {
+        orderable: false,
+        data: null,
+        defaultContent: '' },
       {data: ( row, type, set, meta ) ->
         getImage(row)
         time = row.done_at*1000
@@ -123,10 +127,62 @@ initializeDataTable = ->
     "language": {
       "emptyTable": "No data available"
     },
-    order: [[ 0, "desc" ]],
+    order: [[ 1, "desc" ]],
     drawCallback: ->
+      api = @api()
+      $.each api.rows(page: 'current').data(), (i, data) ->
+        if data.action is 'cloud recordings updated' or
+           data.action is 'cloud recordings created'
+          $("table#logs-table > tbody > tr:eq(#{i}) td:eq(0)")
+            .addClass("details-control")
       NProgress.done()
   })
+
+format = (row) ->
+  if row.action is 'cloud recordings updated' or row.action is 'cloud recordings created'
+    if row.extra.cr_settings
+      return "
+        <table cellpadding='5' cellspacing='0' border='0' style='padding-left:50px;width:100%'>
+          #{getTableValues(row.extra.cr_settings.old, 'Old Settings')}
+          #{getTableValues(row.extra.cr_settings.new, 'New Settings')}
+        </table>
+      "
+    else
+      return "No data available."
+
+getTableValues = (data, type) ->
+  if data
+    return "
+      <tbody style='width: 210px; float: left;'>
+        <th>#{type}</th>
+        <tr>
+          <td>Status</td>
+          <td style='width: 80px;'>#{data.status}</td>
+        </tr>
+        <tr>
+          <td>Storage Duration</td>
+          <td>#{data.storage_duration}</td>
+        </tr>
+        <tr>
+          <td>Frequency</td>
+          <td>#{data.frequency}</td>
+        </tr>
+      </tbody>
+    "
+  else
+    ""
+
+showDetails = ->
+  $('#logs-table tbody').on 'click', 'td.details-control', ->
+    tr = $(this).closest('tr')
+    row = table.row(tr)
+    if row.child.isShown()
+      row.child.hide()
+      tr.removeClass 'shown'
+    else
+      row.child(format(row.data())).show()
+      tr.addClass 'shown'
+    return
 
 format_online_log = (logs) ->
   online = null
@@ -325,3 +381,4 @@ window.initializeLogsTab = ->
   updateLogTypesFilter()
   initializeDataTable()
   onImageHover()
+  showDetails()

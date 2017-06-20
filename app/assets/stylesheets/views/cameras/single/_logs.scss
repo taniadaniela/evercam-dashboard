@@ -248,3 +248,14 @@
 #status_bar foreignObject.ytitle {
   display: none;
 }
+
+td.details-control {
+  background: url('/assets/details_open.png') no-repeat center center;
+  cursor: pointer;
+  width: 20px;
+}
+
+tr.shown td.details-control {
+  width: 20px;
+  background: url('/assets/details_close.png') no-repeat center center;
+}

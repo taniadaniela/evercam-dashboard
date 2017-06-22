@@ -2,12 +2,12 @@ prev_infowindow = false
 
 loadMap = ->
   options =
-    zoom: 3
-    center: new (google.maps.LatLng)(25, 10)
     mapTypeId: google.maps.MapTypeId.TERRAIN
     mapTypeControl: false
   # init map
+
   map = new (google.maps.Map)(document.getElementById('map-canvas'), options)
+  bounds = new google.maps.LatLngBounds()
 
   Evercam.Cameras.forEach (camera) ->
     marker = new google.maps.Marker({
@@ -16,6 +16,7 @@ loadMap = ->
       icon: iconBase(camera.is_online),
       title: camera.name
     })
+    bounds.extend marker.getPosition()
     do (marker) ->
       infowindow = new (google.maps.InfoWindow)(content:
         "<table id='map-container' class='table order-column'>
@@ -52,6 +53,13 @@ loadMap = ->
           prev_infowindow.close()
         prev_infowindow = infowindow
         infowindow.open map, marker
+
+  map.setCenter bounds.getCenter()
+  google.maps.event.addListenerOnce map, 'bounds_changed', (event) ->
+    @setZoom map.getZoom()
+    if @getZoom() > 15
+      @setZoom 15
+  map.fitBounds(bounds)
 
 vendorLogo = (vendorId) ->
   if vendorId == ''

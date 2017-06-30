@@ -27,6 +27,8 @@
       </div>
       <br />
       <input type="text" id="txtDatetime" value=""/>
+      <br />
+      <input style="width: 100%;" class="btn btn-default" type="button" id="btnLoad" value="Go"/>
     </div>
   </div>
 </div>
@@ -42,33 +44,35 @@
     $('#txtDatetime').datetimepicker({
       format: 'm/d/Y H:m',
       inline: true,
-      lang: 'en',
-      onSelectTime:function(dp) {
-        if ($("#ddlCameras").val() == "") {
-          Notification.show("Please select camera.");
-        } else {
-          var d = moment.utc([dp.getFullYear(), dp.getMonth(), dp.getDate(), dp.getHours(), 00, 00, 000]);
-          var from = Math.round(d / 1000);
-          var to_date = new Date(from*1000)
-          to_date.setHours(to_date.getHours()+1);
-          var to = to_date / 1000;
+      lang: 'en'
+    });
 
-          var query_string = "?api_id="+Evercam.User.api_id+"&api_key="+Evercam.User.api_key;
-          query_string += "&starttime="+from+"&endtime="+to;
+    $("#btnLoad").on("click", function(){
+      if ($("#ddlCameras").val() == "") {
+        Notification.show("Please select camera.");
+      } else {
+        var dp = new Date($('#txtDatetime').val());
+        var d = moment.utc([dp.getFullYear(), dp.getMonth(), dp.getDate(), dp.getHours(), 00, 00, 000]);
+        var from = Math.round(d / 1000);
+        var to_date = new Date(from*1000)
+        to_date.setHours(to_date.getHours()+1);
+        var to = to_date / 1000;
 
-          $.ajax({
-            data: {},
-            dataType: 'json',
-            error: function(){
-              Notification.show("Failed to start stream.");
-            },
-            success: function(){
-              setTimeout(play_pause, 5000)
-            },
-            type: 'GET',
-            url: Evercam.API_URL+"cameras/"+$("#ddlCameras").val()+"/nvr/stream"+query_string
-          });
-        }
+        var query_string = "?api_id="+Evercam.User.api_id+"&api_key="+Evercam.User.api_key;
+        query_string += "&starttime="+from+"&endtime="+to;
+
+        $.ajax({
+          data: {},
+          dataType: 'json',
+          error: function(){
+            Notification.show("Failed to start stream.");
+          },
+          success: function(){
+            setTimeout(play_pause, 5000)
+          },
+          type: 'GET',
+          url: Evercam.API_URL+"cameras/"+$("#ddlCameras").val()+"/nvr/stream"+query_string
+        });
       }
     });
   });

@@ -112,6 +112,7 @@ Rails.application.routes.draw do
 
   get '/live/:id' => 'pages#live'
   get '/good_bye' => 'pages#good_bye', as: :good_bye
+  get '/nvr-recordings' => 'pages#nvr_recording'
 
   post '/share' => 'sharing#create'
   delete '/share' => 'sharing#delete'

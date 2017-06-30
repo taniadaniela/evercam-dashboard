@@ -61,6 +61,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def nvr_recording
+    @cameras = load_user_cameras(true, false)
+  end
+
   def log_and_redirect
     Rails.logger.warn "Old Endpoint Requested: '#{request.original_url}'"
     if current_user

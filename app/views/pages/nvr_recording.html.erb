@@ -29,7 +29,9 @@
       <input type="text" id="txtDatetime" value=""/>
       <br />
       <input style="width: 100%;" class="btn btn-default" type="button" id="btnLoad" value="Go"/>
+      <input style="width: 100%;" class="btn btn-default" type="hidden" id="btncapture" value="Capture"/>
     </div>
+    <img src="" id="captured">
   </div>
 </div>
 
@@ -74,6 +76,14 @@
           url: Evercam.API_URL+"cameras/"+$("#ddlCameras").val()+"/nvr/stream"+query_string
         });
       }
+    });
+
+    $("#btncapture").on("click", function(){
+      //var $pop = Popcorn("#camera-video-player"),
+          poster;
+      /*$pop.capture({
+        target: "img#captured"
+      });*/
     });
   });
 

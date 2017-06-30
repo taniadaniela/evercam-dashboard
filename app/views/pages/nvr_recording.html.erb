@@ -26,8 +26,7 @@
         </select>
       </div>
       <br />
-      <div id="txtDatetime"></div>
-
+      <input type="text" id="txtDatetime" value=""/>
     </div>
   </div>
 </div>
@@ -37,9 +36,11 @@
   $(document).ready(function () {
     Notification.init(".bb-alert");
     player = videojs('camera-video-player');
+    var date = new Date()
+    $('#txtDatetime').val((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear()+" "+date.getHours()+":00");
 
     $('#txtDatetime').datetimepicker({
-      format: 'd.m.Y H:i',
+      format: 'm/d/Y H:m',
       inline: true,
       lang: 'en',
       onSelectTime:function(dp) {

@@ -56,6 +56,7 @@
 //= require font-awesome.js
 //= require cameras/online_offline.js
 //= require visavail.js
+//= require single_status_bar.js
 //= require metronic/respond.min.js
 //= require metronic/metronic.js
 //= require metronic/layout.js

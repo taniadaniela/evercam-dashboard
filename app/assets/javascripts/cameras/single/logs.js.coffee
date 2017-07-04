@@ -135,6 +135,7 @@ initializeDataTable = ->
            data.action is 'cloud recordings created'
           $("table#logs-table > tbody > tr:eq(#{i}) td:eq(0)")
             .addClass("details-control")
+            .html("<i class='fa fa-plus expand-icon' aria-hidden='true'></i>")
       NProgress.done()
   })
 
@@ -179,9 +180,11 @@ showDetails = ->
     if row.child.isShown()
       row.child.hide()
       tr.removeClass 'shown'
+      tr.find('td.details-control').html("<i class='fa fa-plus expand-icon' aria-hidden='true'></i>")
     else
       row.child(format(row.data())).show()
       tr.addClass 'shown'
+      tr.find('td.details-control').html("<i class='fa fa-minus expand-icon' aria-hidden='true'></i>")
     return
 
 format_online_log = (logs) ->
@@ -304,7 +307,7 @@ getDate = (type) ->
   DateFromTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
   DateFromTime.setHours(DateFromTime.getHours() + (cameraOffset))
   if type is "from"
-    DateFromTime.setDate(DateFromTime.getDate() - 1)
+    DateFromTime.setDate(DateFromTime.getDate() - 30)
     DateFromTime.setHours(0)
     DateFromTime.setMinutes(0)
   if type is "to"
@@ -355,8 +358,9 @@ showStatusBar = (from, to) ->
 
 initReport = (logs) ->
   evercam_logs = logs
-  chart = visavailChart()
-  chart.width $('.portlet-body').width() - 240
+  chart = singleStatusBar()
+  chart.width $('.portlet-body').width() - 50
+  chart.dataHeight = 10
   $('#status_bar').text ''
   d3.select('#status_bar').datum(evercam_logs).call chart
   return

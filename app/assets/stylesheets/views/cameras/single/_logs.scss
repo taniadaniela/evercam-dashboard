@@ -250,12 +250,24 @@
 }
 
 td.details-control {
-  background: url('https://dash.evercam.io/assets/details_open.png') no-repeat center center;
   cursor: pointer;
   width: 20px;
 }
 
 tr.shown td.details-control {
   width: 20px;
-  background: url('https://dash.evercam.io/assets/details_close.png') no-repeat center center;
+}
+
+.expand-icon {
+  margin-left: 4px;
+  margin-top: 3px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 15px;
+}
+
+.single-status-bar {
+  font-weight: bold;
+  margin-bottom: 0px;
 }

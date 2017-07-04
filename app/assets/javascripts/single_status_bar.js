@@ -10,7 +10,7 @@ function singleStatusBar() {
     bottom: 20,
 
     // left margin should provide space for y axis titles
-    left: 0,
+    left: 30,
   };
 
   // height of horizontal data bars

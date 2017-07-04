@@ -359,7 +359,7 @@ showStatusBar = (from, to) ->
 initReport = (logs) ->
   evercam_logs = logs
   chart = singleStatusBar()
-  chart.width $('.portlet-body').width() - 50
+  chart.width $('.portlet-body').width() - 100
   chart.dataHeight = 10
   $('#status_bar').text ''
   d3.select('#status_bar').datum(evercam_logs).call chart

@@ -26,6 +26,7 @@ CameraOffsetHours = null
 CameraOffsetMinutes = null
 is_logged_intercom = false
 query_value = undefined
+fist_image_date = null
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -241,11 +242,12 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").fadeIn()
   $("#snapshot-notes-text").show()
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
-  snapshot = snapshotInfos[snapshotInfoIdx]
-  if snapshot.motion_level
-    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(' + snapshot.motion_level + ')'
-  else
-    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
+  if snapshotInfoIdx
+    snapshot = snapshotInfos[snapshotInfoIdx]
+    if snapshot.motion_level
+      $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(' + snapshot.motion_level + ')'
+    else
+      $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
 
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -1082,6 +1084,11 @@ loadOldestLatestImage = (enter_query) ->
     $("#imgPlayback").attr("src", response.data)
     HideLoader()
     HideImageSaveOption()
+    hideDaysLoadingAnimation()
+    hideHourLoadingAnimation()
+    if enter_query is 'oldest'
+      first_image_date = response.created_at
+      updateFirstImageCalendar(first_image_date)
 
   settings =
     cache: false
@@ -1095,9 +1102,14 @@ loadOldestLatestImage = (enter_query) ->
 
 onClickOldestLatestImage = ->
   $('.get-image').on "click", ->
+    Pause()
     query_value = $(this).data('query')
-    loadOldestLatestImage(query_value)
+    showDaysLoadingAnimation()
+    showHourLoadingAnimation()
     showLoader()
+    loadOldestLatestImage(query_value)
+    $('#divDisableButtons').addClass('show').removeClass('hide')
+    $('#divFrameMode').addClass('hide').removeClass('show')
 
 showImageSaveOption = ->
   $('#oldestlatest-image').addClass('hide')
@@ -1112,6 +1124,33 @@ setLatestImage = ->
   currentFrameNumber = snapshotInfos.length
   $("#divPointer").width("100%")
   UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
+
+updateFirstImageCalendar = (oldest_image_date) ->
+  currentFrameNumber = 1
+  $("#hourCalendar td[class*='day']").removeClass("active")
+  first_image_date = new Date(moment.unix(oldest_image_date).tz("#{Evercam.Camera.timezone}").format("YYYY-MM-DD HH:mm:ss"))
+  $("#ui_date_picker_inline").datepicker('update', first_image_date)
+  oldest_image_year = first_image_date.getFullYear()
+  oldest_image_month = first_image_date.getMonth() + 1
+  oldest_image_day = first_image_date.getDate()
+  HighlightFirstDay(oldest_image_year, oldest_image_month, oldest_image_day)
+  cameraCurrentHour = first_image_date.getHours()
+  $("#tdI#{cameraCurrentHour}").addClass("active has-snapshot")
+  SetInfoMessage(currentFrameNumber, first_image_date)
+
+HighlightFirstDay = (year, month, day) ->
+  d = $("#ui_date_picker_inline").datepicker('getDate')
+  calendar_year = d.getFullYear()
+  calendar_month = d.getMonth() + 1
+  calendar_day = d.getDate()
+  if year == calendar_year and month == calendar_month
+    calDays = $("#ui_date_picker_inline table td[class*='day']")
+    calDays.each ->
+      calDay = $(this)
+      if !calDay.hasClass('old') && !calDay.hasClass('new')
+        iDay = parseInt(calDay.text())
+        if day == iDay
+          calDay.addClass('has-snapshot active')
 
 window.initializeRecordingsTab = ->
   initDatePicker()

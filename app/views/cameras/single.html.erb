@@ -237,6 +237,7 @@
     is_public: <%= @camera['is_public'] %>,
     vendor_id: '<%= @camera['vendor_id'] %>',
     model_name: '<%= @camera['model_name'] %>',
+    timezone: '<%= @camera['timezone'] %>',
     created_at: <%= @camera['created_at'] %>,
     is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
     location: {

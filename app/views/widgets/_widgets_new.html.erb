@@ -19,13 +19,18 @@
                   <div class="my-row">
                     <label class="col-md-5 control-label" for="widget-camera">Select Camera</label>
                   </div>
-                  <div class="input-group col-md-7">
+                  <div class="input-group col-sm-12 col-md-7 col-xs-12">
                     <select id="widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
                         <% port = camera.deep_fetch('external', 'rtsp', 'port') {} %>
-                        <option value="<%= camera['id'] %>"
-                          val-rtmp-stream="<%= camera.fetch('proxy_url', {}).fetch('rtmp', {}) if camera['external'].blank? || port.present? %>"
-                        >
+                         <% css = "onlinec"
+                             thumbnail_url = "https://media.evercam.io/v1/cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+                             unless !camera['is_online']
+                               css = "offlinec"
+                             end
+                          %>
+                        <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>"
+                          val-rtmp-stream="<%= camera.fetch('proxy_url', {}).fetch('rtmp', {}) if camera['external'].blank? || port.present? %>">
                           <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
                         </option>
                       <% end %>

@@ -16,10 +16,16 @@
                   <div class="my-row">
                     <label class="col-md-4 control-label" for="widget-camera">Camera</label>
                   </div>
-                  <div class="input-group col-md-8">
+                  <div class="input-group col-xs-12 col-sm-12 col-md-8">
                     <select id="snapshot-widget-camera" name="widget-camera" class="form-control is-required">
                       <% @cameras.each do |camera| %>
-                        <option value="<%= camera['id'] %>">
+                        <% css = "onlinec"
+                          thumbnail_url = "https://media.evercam.io/v1/cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+                          unless !camera['is_online']
+                            css = "offlinec"
+                          end
+                        %>
+                        <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>">
                           <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
                         </option>
                       <% end %>
@@ -31,7 +37,7 @@
                   <div class="my-row">
                     <label class="col-md-4 control-label" for="widget-datetime">Date</label>
                   </div>
-                  <div class="input-group col-md-8">
+                  <div class="input-group col-sm-12 col-xs-12 col-md-8">
                     <input type="text" class="form-control" id="widget-datetime" name="widget-datetime">
                   </div>
                 </div>
@@ -40,7 +46,7 @@
                   <div class="my-row">
                     <label class="col-md-4 control-label" for="widget-datetime">Time</label>
                   </div>
-                  <div class="input-group col-md-8">
+                  <div class="input-group col-sm-12 col-xs-12 col-md-8">
                     <div class="col-md-4 dropdown-padding-left"><select id="widget-hour" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
                     <div class="col-md-4 dropdown-padding-left"><select id="widget-minutes" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
                     <div class="col-md-4 dropdown-padding-left"><select id="widget-seconds" name="widget-hour" class="time-dropdown form-control is-required"></select></div>
@@ -51,7 +57,7 @@
                   <div class="my-row">
                     <label class="col-md-4 control-label" for="widget-authenticate">Pre-Authenticate<span style="visibility: hidden;" class="true switch grey">*</span></label>
                   </div>
-                  <div class="input-group col-md-8">
+                  <div class="input-group col-md-8 col-sm-12 col-xs-12">
                     <select id="snapshot-widget-authenticate" name="widget-authenticate" class="form-control is-required">
                       <option class="" value="false">No</option>
                       <option class="" value="true">Yes</option>
@@ -65,7 +71,7 @@
               </form>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-12 col-xs-12">
               <div class="row widget-code">
                 <div class="col-md-12">
                   <h5>Embed this code on your webpage:</h5>
@@ -97,7 +103,7 @@
 </div>
 
 <script type="text/javascript">
-  var lastSelectedDate, iframeWindow;
+  var lastSelectedDate, iframeWindow, format, initCameraSelect;
   $(document).ready(function () {
     $('#widget-datetime').datetimepicker({
       timepicker: false,
@@ -109,6 +115,30 @@
       },
       format: 'Y-m-d'
     });
+
+    initCameraSelect();
+    function initCameraSelect() {
+      $("#snapshot-widget-camera").select2({
+        templateSelection: widgetFormat,
+        templateResult: widgetFormat,
+        escapeMarkup: function(m) {
+          return m;
+        }
+      });
+      $(".widget-input .select2-container--default").width("100%");
+    };
+
+    function widgetFormat(state) {
+      var is_offline;
+      is_offline = "";
+      if (!state.id) {
+        return state.text;
+      }
+      if (state.id === '0') {
+        return state.text;
+      }
+      return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='" + state.element.attributes[2].value + "' class='img-flag' />&nbsp;" + state.text + "</span>");
+    };
 
     initLocalStorage();
     $("#snapshot-widget-authenticate").on("change", showNote);

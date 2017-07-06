@@ -39,7 +39,24 @@ updatePartialValues = ->
   $('#code').text(baseText)
   $("#ec-container-#{camera}").width("#{width}#{option_width}")
 
+initCameraSelect = ->
+  camera_select = $('#widget-camera').select2
+    templateSelection: format,
+    templateResult: format
+    escapeMarkup: (m) ->
+      m
+  $('.widget-input .select2-container--default').width '100%'
+
+format = (state) ->
+  is_offline = ""
+  if !state.id
+    return state.text
+  if state.id == '0'
+    return state.text
+  return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='#{state.element.attributes[2].value}' class='img-flag' />&nbsp;#{state.text}</span>")
+
 $ ->
+  initCameraSelect()
   updateCode()
   $('#widget-camera-width').change(updatePartialValues)
   $('#width-option').change(updatePartialValues)

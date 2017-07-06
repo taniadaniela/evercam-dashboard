@@ -144,29 +144,35 @@ format = (row) ->
     if row.extra.cr_settings
       return "
         <table cellpadding='5' cellspacing='0' border='0' style='padding-left:50px;width:100%'>
-          #{getTableValues(row.extra.cr_settings.old, 'Old Settings')}
-          #{getTableValues(row.extra.cr_settings.new, 'New Settings')}
+          #{getTableValues(row.extra.cr_settings)}
         </table>
       "
     else
       return "No data available."
 
-getTableValues = (data, type) ->
+getTableValues = (data) ->
   if data
     return "
-      <tbody style='width: 210px; float: left;'>
-        <th>#{type}</th>
+      <tbody style='float: left; margin-left: 24px;'>
+        <tr>
+          <th style='background-color: #f1f1f1; font-size: 12px;'>Settings</th>
+          <th style='background-color: #f1f1f1; font-size: 12px;'>Old</th>
+          <th style='background-color: #f1f1f1; font-size: 12px;'>New</th>
+        </tr>
         <tr>
           <td>Status</td>
-          <td style='width: 80px;'>#{data.status}</td>
+          <td>#{data.old.status}</td>
+          <td>#{data.new.status}</td>
         </tr>
         <tr>
           <td>Storage Duration</td>
-          <td>#{data.storage_duration}</td>
+          <td>#{data.old.storage_duration}</td>
+          <td>#{data.new.storage_duration}</td>
         </tr>
         <tr>
           <td>Frequency</td>
-          <td>#{data.frequency}</td>
+          <td>#{data.old.frequency}</td>
+          <td>#{data.new.frequency}</td>
         </tr>
       </tbody>
     "

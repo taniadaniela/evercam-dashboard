@@ -482,28 +482,13 @@ onAddSharingUserClicked = (event) ->
     logCameraViewed() unless is_logged_intercom
     if data.success
       shared_avatar = $("#select2-sharing-user-email-container .gravatar1").attr("src")
-      data.shares.forEach (share) ->
-        addSharingCameraRow(share, shared_avatar)
-      if data.shares.length == 1 && data.errors.length == 0
+      if data.type == "share"
+        addSharingCameraRow(data, shared_avatar)
         showFeedback("Camera successfully shared with user")
-      else if data.shares.length > 1 && data.errors.length == 0
-        showFeedback("Camera successfully shared with all users")
-      else if data.shares.length == 0 && data.errors.length == 1
-        showError(data.errors[0].text)
-      else if data.shares.length == 0 && data.errors.length > 1
-        $ul = $('<ul style="float: left;">')
-        data.errors.forEach (error) ->
-          $ul.append "<li>#{error.text}</li>"
-        showError($ul.html())
       else
-        $ul = $('<ul style="float: left;">')
-        data.errors.forEach (error) ->
-          $ul.append "<li>#{error.text}</li>"
-        html = "
-          <p>Camera has been successfully shared but few errors came along, see below.</p>
-          #{$ul.html()}
-        "
-        showFeedback(html)
+        data.type == "share_request"
+        addSharingCameraRow(data, shared_avatar)
+        showFeedback("A notification email has been sent to the specified email address.")
       $('#sharing-message').val("")
       share_users_select.val("").trigger("change")
 

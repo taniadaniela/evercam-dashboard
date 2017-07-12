@@ -92,11 +92,17 @@ class SharingController < ApplicationController
 
       begin
         share = api.share_camera(camera_id, params[:email], rights, body)
-        all_shares = share["shares"]
-        all_errors = share["errors"]
-        all_share_requests = share["share_requests"]
-        result[:shares] = map_share_values(all_shares, "share") + map_share_values(all_share_requests, "share_request")
-        result[:errors] = all_errors
+        result[:camera_id] = share["camera_id"]
+        result[:share_id] = share["id"]
+        result[:fullname] = share["fullname"]
+        result[:email] = share["email"]
+        result[:sharer_name] = share["sharer_name"]
+        result[:sharer_email] = share["sharer_email"]
+        result[:avatar] = avatar_url(share["email"])
+        result[:type] = share["type"]
+        result[:permissions] = params[:permissions]
+        result[:email] = share["email"]
+        result[:user_id] = share["user_id"]
       rescue => error
         Rails.logger.warn "Exception caught creating camera share.\n"\
                               "Cause: #{error}\n" + error.backtrace.join("\n")

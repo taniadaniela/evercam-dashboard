@@ -38,6 +38,8 @@
 //= require jquery-tags-input
 //= require bootstrap-timepicker.js
 //= require hammer.min.js
+//= require popcorn.js
+//= require popcorn.capture.js
 
 //=
 //= require alerts

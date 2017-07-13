@@ -15,6 +15,7 @@
 #= require saveimage.js
 #= require jquery.thumbhover.js
 #= require jquery.images-compare.js
+#= require cameras/single/nvr_recording.js.coffee
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -203,6 +204,7 @@ initializeTabs = ->
   window.initializeArchivesTab()
   window.initializeMotionDetectionTab()
   window.initializeCompareTab()
+  window.initializeLocalRecordingsTab()
 
 window.initializeCameraSingle = ->
   initializeTabs()

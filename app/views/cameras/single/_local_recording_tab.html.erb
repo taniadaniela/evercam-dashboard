@@ -1,0 +1,141 @@
+<div id="local_recordings_tab">
+  <div class="left-column">
+    <div id="live-view-placeholder">
+      <div id="local-recording-stream" class="">
+        <video id="local-recording-video-player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"
+               poster='<%= "#{thumbnail_url(@camera)}" %>' controls autoplay>
+          <source src="https://media.evercam.io/hls/stream/index.m3u8?nvr=true" type="application/x-mpegURL">
+          <source src="rtmp://media.evercam.io:1935/live/stream?nvr=true" type="rtmp/flv">
+        </video>
+      </div>
+      <div id="div-capture" class="play-options capture-image">
+        <div class="btn-live-player save-live">
+          <i class="fa fa-camera font-size-16" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right-column">
+    <div id="ui_date_picker_inline_lr" class="datepicker-bg"></div>
+
+    <div class="datepicker datepicker-bg datepicker-inline">
+      <div id="img-hour-Loader" class="img-loader-calendar hide">
+        <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+      </div>
+      <div class="datepicker-day show">
+        <table id="local_recording_hourCalendar" class="table-condensed width100">
+          <thead>
+          <tr>
+            <th colspan="7">Hour</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td id="lr_tdI0" class="day">0</td>
+            <td id="lr_tdI1" class="day">1</td>
+            <td id="lr_tdI2" class="day">2</td>
+            <td id="lr_tdI3" class="day">3</td>
+            <td id="lr_tdI4" class="day">4</td>
+            <td id="lr_tdI5" class="day">5</td>
+            <td id="lr_tdI6" class="day">6</td>
+          </tr>
+          <tr>
+            <td id="lr_tdI7" class="day">7</td>
+            <td id="lr_tdI8" class="day">8</td>
+            <td id="lr_tdI9" class="day">9</td>
+            <td id="lr_tdI10" class="day">10</td>
+            <td id="lr_tdI11" class="day">11</td>
+            <td id="lr_tdI12" class="day">12</td>
+            <td id="lr_tdI13" class="day">13</td>
+          </tr>
+          <tr>
+            <td id="lr_tdI14" class="day">14</td>
+            <td id="lr_tdI15" class="day">15</td>
+            <td id="lr_tdI16" class="day">16</td>
+            <td id="lr_tdI17" class="day">17</td>
+            <td id="lr_tdI18" class="day">18</td>
+            <td id="lr_tdI19" class="day">19</td>
+            <td id="lr_tdI20" class="day">20</td>
+          </tr>
+          <tr>
+            <td id="lr_tdI21" class="day">21</td>
+            <td id="lr_tdI22" class="day">22</td>
+            <td id="lr_tdI23" class="day">23</td>
+            <td class="day"></td>
+            <td class="day"></td>
+            <td class="day"></td>
+            <td class="day"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <input style="width: 100%;" class="btn btn-default hide" type="button" id="btnplayer" value="Set Player"/>
+  </div>
+  <img id="captured" style="display: none;" />
+  <div class="clear-f"></div>
+
+
+  <div class="">
+    <div style="padding-left:2px;">
+      <div class="lr-md-slider-outer" id="divCarousel">
+        <div class="lr-md-slider">
+          <div id="lr-md-slider" class="lr-md-slider-inner">
+            <ul id="lr-md-slider-item">
+              <li id="thumb_item1">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item2">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item3">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item4">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item5">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item6">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item7">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item8">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item9">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item10">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item11">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+              <li id="thumb_item12">
+                <div><img src="" class="md-Img" notes="" timestamp=""></div>
+                <div class="time-div"></div>
+              </li>
+            </ul>
+            <div class="clear-f"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear-f"></div>
+  </div>
+</div>

@@ -55,6 +55,11 @@
             <li>
               <a data-toggle="tab" data-target="#compare" class="nav-tab-compare">Compare</a>
             </li>
+            <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+            <li>
+              <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
+            </li>
+            <% end %>
 
             <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
               <div class="pull-right add-to-share">
@@ -223,6 +228,11 @@
           <div id="compare" class="tab-pane compare_tab">
             <%= render partial: "cameras/single/compare_tab" %>
           </div>
+          <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+            <div id="local-recordings" class="tab-pane local_recordings">
+              <%= render partial: "cameras/single/local_recording_tab" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

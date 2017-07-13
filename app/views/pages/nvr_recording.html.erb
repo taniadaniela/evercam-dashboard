@@ -11,6 +11,7 @@
       <div id="live-view-placeholder">
         <div id="camera-video-stream">
           <video id="camera-video-player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin" controls autoplay>
+            <source src="https://media.evercam.io/hls/stream/index.m3u8?nvr=true" type="application/x-mpegURL">
             <source src="rtmp://media.evercam.io:1935/live/stream?nvr=true" type="rtmp/flv">
           </video>
         </div>
@@ -29,9 +30,9 @@
       <input type="text" id="txtDatetime" value=""/>
       <br />
       <input style="width: 100%;" class="btn btn-default" type="button" id="btnLoad" value="Go"/>
-      <input style="width: 100%;" class="btn btn-default" type="hidden" id="btncapture" value="Capture"/>
+      <input style="width: 100%;" class="btn btn-default" type="button" id="btncapture" value="Capture"/>
     </div>
-    <img src="" id="captured">
+    <img id="captured" style="display: none;" />
   </div>
 </div>
 
@@ -79,11 +80,13 @@
     });
 
     $("#btncapture").on("click", function(){
-      //var $pop = Popcorn("#camera-video-player"),
-          poster;
-      /*$pop.capture({
-        target: "img#captured"
-      });*/
+      var $pop = Popcorn("#camera-video-player_html5_api");
+      $pop.capture({
+        set: false,
+        target: "img#captured",
+        reload: false
+      });
+      SaveImage.save($("#captured").attr('src'), $("#ddlCameras").val() + ".jpg")
     });
   });
 

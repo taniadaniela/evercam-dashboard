@@ -80,8 +80,8 @@ re_init_player = ->
 set_stream_source = ->
   if window.vjs_player_local.error() && retries < 6
     window.vjs_player_local.src([
-      { type: "application/x-mpegURL", src: "https://media.evercam.io/hls/stream/index.m3u8?nvr=true" },
-      { type: "rtmp/flv", src: "https://media.evercam.io/hls/stream/index.m3u8?nvr=true" }
+      { type: "application/x-mpegURL", src: "https://media.evercam.io/hls/#{Evercam.Camera.id}/index.m3u8?nvr=true" },
+      { type: "rtmp/flv", src: "rtmp://media.evercam.io:1935/live/#{Evercam.Camera.id}?nvr=true" }
     ])
     $("#local-recording-video-player div.vjs-error-display").hide()
     retries = retries + 1
@@ -122,14 +122,14 @@ loadRecordingStream = (hour, hour_id) ->
   if currentDate is current_camera_date && currentHour is hour
     minutes = moment.utc().minutes()
   year = date.getFullYear()
-  month = date.getMonth()
+  month = date.getMonth() + 1
   day = date.getDate()
   hr = parseInt(hour)
   num = 0
   item = 1
   while num < minutes
-    from = moment.utc([year, month, day, hr, num, 0, 0]) / 1000
-    to = moment.utc([year, month, day, hr, num + 4, 59, 0]) / 1000
+    from = moment.tz("#{year}-#{month}-#{day} #{hr}:#{num}", Evercam.Camera.timezone) / 1000
+    to = moment.tz("#{year}-#{month}-#{day} #{hr}:#{num + 4}:59", Evercam.Camera.timezone) / 1000
     get_thumbnails(from, to, item)
     num = num + 5
     item = item + 1

@@ -204,7 +204,7 @@ initializeTabs = ->
   window.initializeArchivesTab()
   window.initializeMotionDetectionTab()
   window.initializeCompareTab()
-  window.initializeLocalRecordingsTab()
+  window.initializeLocalRecordingsTab() if $("#local-recordings").length > 0
 
 window.initializeCameraSingle = ->
   initializeTabs()

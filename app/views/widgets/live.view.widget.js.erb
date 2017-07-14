@@ -99,7 +99,7 @@
       } else {
         if (rtmp_stream) {
           if (mobile || hasFlash == false) {
-            container.html("<img style='width: 100%; height: auto;'/>");
+            container.html("<img style='width: 100%; height: auto; margin: 0; padding: 0; float: left; border: none;'/>");
             initSocket();
             window.ec_vis_handler = handleVisibilityChange;
             document.addEventListener("visibilitychange", handleVisibilityChange, false);
@@ -108,7 +108,7 @@
             container.html('<iframe id="ec-frame" allowFullScreen style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>'+query_string+'" frameborder="0" scrolling="no"/>');
           }
         } else {
-          container.html("<img style='width: 100%; height: 100%;'/>");
+          container.html("<img style='width: 100%; height: auto; margin: 0; padding: 0; float: left; border: none;'/>");
           initSocket();
           window.ec_vis_handler = handleVisibilityChange;
           document.addEventListener("visibilitychange", handleVisibilityChange, false);

@@ -15,9 +15,38 @@
       margin-right: 2px;
       font-size: 20px;
       border: none;
-      background: rgba(0, 0, 0, 0.2);
+      background: $black-opacity-background;
       position: absolute;
       z-index: 1;
+      border-radius: 0px !important;
+    }
+
+    .ui-snapshot-magnifier {
+      float: right;
+      right: 0%;
+      margin-right: 33px;
+      font-size: 20px;
+      border: none;
+      background: $black-opacity-background;
+      position: absolute;
+      z-index: 1;
+      border-radius: 0px !important;
+    }
+
+    .ui-snapshot-magnifier:active,
+    .ui-datepicker-trigger:active,
+    .ui-snapshot-magnifier:focus,
+    .ui-datepicker-trigger:focus {
+      outline: none;
+    }
+
+
+    .icon-magnifier {
+      color: $white;
+    }
+
+    .enabled .icon-magnifier{
+      color: $hover-blue;
     }
 
     #calendar .fa {
@@ -582,9 +611,15 @@
       transition: all 1s ease-in-out;
       width: 100%;
     }
-    #recording-tab #calendar {
-      .fa {
+
+    #recording-tab {
+
+      .ui-datepicker-trigger {
         display: none !important;
+      }
+
+      .ui-snapshot-magnifier {
+        margin-right: 3px;
       }
     }
   }

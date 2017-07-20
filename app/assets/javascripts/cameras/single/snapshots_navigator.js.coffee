@@ -1016,7 +1016,7 @@ recodringSnapshotDivHeight = ->
 
 checkCalendarDisplay = ->
   if $('.col-recording-right').css('display') == 'none'
-    $('#recording-tab .left-column').animate { width: "99.8%" }, ->
+    $('#recording-tab .left-column').animate { width: "99.4%" }, ->
       recodringSnapshotDivHeight()
   else
     calculateWidth()
@@ -1028,6 +1028,7 @@ calendarShow = ->
       $('#calendar .fa').css 'color', 'white'
       checkCalendarDisplay()
     $('#calendar .fa').css 'color', '#68a2d5'
+    turnOffZoomEffect()
 
 showDaysLoadingAnimation = ->
   $('#img-days-loader').removeClass 'hide'
@@ -1050,6 +1051,7 @@ handleResize = ->
   recodringSnapshotDivHeight()
   $(window).resize ->
     checkCalendarDisplay()
+    turnOffZoomEffect()
 
 logCameraViewed = ->
   is_logged_intercom = true
@@ -1152,6 +1154,24 @@ HighlightFirstDay = (year, month, day) ->
         if day == iDay
           calDay.addClass('has-snapshot active')
 
+onClickSnapshotMagnifier = ->
+  $('#snapshot-magnifier').on 'click', ->
+    $('.zoomContainer').remove()
+    if $('.enabled').length == 0
+      $('#imgPlayback').elevateZoom
+        zoomType: 'lens',
+        scrollZoom: true,
+        lensShape: 'round'
+        lensSize: 230,
+      $(this).toggleClass 'enabled'
+    else
+      $(this).toggleClass 'enabled'
+      $('.zoomContainer').hide()
+
+turnOffZoomEffect = ->
+  $('#snapshot-magnifier').removeClass 'enabled'
+  $('.zoomContainer').hide()
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1167,5 +1187,6 @@ window.initializeRecordingsTab = ->
   window.initCloudRecordingSettings()
   selectMdImage()
   calendarShow()
+  onClickSnapshotMagnifier()
   onClickOldestLatestImage()
   saveOldestLatestImage()

@@ -31,13 +31,13 @@
   }
 
   .lr-md-slider{
-    overflow-y: hidden;
-    overflow-x: scroll;
+    /*overflow-y: hidden;
+    overflow-x: scroll;*/
     height: 114px;
   }
 
   .lr-md-slider-inner {
-    width: 1825px;
+    /*width: 1825px;*/
   }
 
   .lr-md-slider::-webkit-scrollbar {
@@ -64,7 +64,7 @@
     background-image: asset-url("metronic/input-spinner.gif");
     background-position: center center;
     background-repeat: no-repeat;
-    height: 99px;
+    height: auto;
     width: 150px;
   }
 
@@ -78,5 +78,62 @@
 
   #local-recording-stream:hover .capture-image {
     opacity: 1;
+  }
+
+  .thumbnail-scroll {
+    background-color: $evercam-black;
+    color: $white;
+    cursor: pointer;
+    height: 107px;
+    opacity: 0.8;
+    padding: 44px 4px;
+    position: absolute;
+    /*width: 20px;*/
+    z-index: 1;
+  }
+
+  .thumbnail-scroll-right {
+    right: 2px;
+  }
+
+  foreignObject.ytitle {
+    display: none;
+  }
+
+  .rect_has_data {
+    cursor: pointer;
+  }
+
+  .vjs-loading-spinner {
+    display: none;
+    position: absolute;
+    top: 43%;
+    left: 43%;
+    margin: -25px 0 0 -25px;
+    opacity: .85;
+    text-align: left;
+    border: 10px solid rgba(43,51,63,.7);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-clip: padding-box;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+  }
+
+  .vjs-loading-spinner:before, .vjs-loading-spinner:after {
+    margin: -10px;
+  }
+
+  .visavail_container_class {
+    background-color: $evercam-black;
+  }
+
+  #local-recording-video-player div.vjs-error-display {
+    display: none;
+  }
+
+  .rect_has_no_data {
+    fill: $black;
   }
 }

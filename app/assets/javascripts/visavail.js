@@ -10,7 +10,7 @@ function visavailChart() {
     bottom: 20,
 
     // left margin should provide space for y axis titles
-    left: 150,
+    left: 150
   };
 
   // height of horizontal data bars
@@ -40,6 +40,8 @@ function visavailChart() {
   // max. no. of datasets that is displayed, 0: all (default: all)
   var maxDisplayDatasets = 0;
 
+  var toolTipColor = "#000000"
+
   // dataset that is displayed first in the current
   // display, chart will show datasets "curDisplayFirstDataset" to
   // "curDisplayFirstDataset+maxDisplayDatasets"
@@ -48,7 +50,7 @@ function visavailChart() {
   // global div for tooltip
   var div = d3.select('body').append('div')
       .attr('class', 'tooltip')
-      .style('opacity', 0);
+      .style({'opacity': 0});
 
   var definedBlocks = null;
   var isDateOnlyFormat = null;
@@ -323,6 +325,12 @@ function visavailChart() {
             return (xScale(d[2]) - xScale(d[0]));
           })
           .attr('height', dataHeight)
+          .attr('from', function(d) {
+            return moment(parseDateTime(d[0])).format('GGGG-M-D H:m:s');
+          })
+          .attr('to', function(d) {
+            return moment(parseDateTime(d[2])).format('GGGG-M-D H:m:s');
+          })
           .attr('class', function (d) {
             if (d[1] === 1) {
               return 'rect_has_data';
@@ -333,7 +341,7 @@ function visavailChart() {
             var matrix = this.getScreenCTM().translate(+this.getAttribute('x'), +this.getAttribute('y'));
             div.transition()
                 .duration(200)
-                .style('opacity', 0.9);
+                .style({'opacity': 0.9, 'color': toolTipColor});
             div.html(function () {
               var output = '';
               if (d[1] === 1) {
@@ -467,6 +475,30 @@ function visavailChart() {
   chart.width = function (_) {
     if (!arguments.length) return width;
     width = _;
+    return chart;
+  };
+
+  chart.margin_left = function (_) {
+    if (!arguments.length) return margin.left;
+    margin.left = _;
+    return chart;
+  };
+
+  chart.margin_right = function (_) {
+    if (!arguments.length) return margin.right;
+    margin.right = _;
+    return chart;
+  };
+
+  chart.tooltip_color = function (_) {
+    if (!arguments.length) return toolTipColor;
+    toolTipColor = _;
+    return chart;
+  };
+
+  chart.line_spacing = function (_) {
+    if (!arguments.length) return lineSpacing;
+    lineSpacing = _;
     return chart;
   };
 

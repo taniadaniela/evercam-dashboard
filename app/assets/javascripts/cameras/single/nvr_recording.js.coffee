@@ -203,9 +203,9 @@ set_position = ->
     content_width = content_width - side_bar_width;
   $("#local_recordings_tab .left-column").css("width", "#{content_width - 225}px")
   $("#local_recordings_tab .right-column").css("width", "220px")
-  $("#local_recordings_tab #live-view-placeholder").css("height", "#{content_height - 120}px")
-  $("#local_recordings_tab #local-recording-video-player").css("height", "#{content_height - 120}px")
-  $("#local-recording-video-player_html5_api").css("height", "#{content_height - 120}px")
+  $("#local_recordings_tab #local-recording-placeholder").css("height", "#{content_height - 70}px")
+  $("#local_recordings_tab #local-recording-video-player").css("height", "#{content_height - 70}px")
+  $("#local-recording-video-player_html5_api").css("height", "#{content_height - 70}px")
 
 handleResize = ->
   set_position()
@@ -296,11 +296,12 @@ init_graph = (hr) ->
   $.ajax(settings)
 
 load_graph = (times_list) ->
+  console.log times_list
   record_times = [{
     "interval_s": 60 * 5
     "data": times_list
   }]
-  chart = visavailChart().margin_left(1).width($('.portlet-body').width() - 233)
+  chart = visavailChart().margin_left(1).width($("#local_recordings_tab .left-column").width() - 1)
   .line_spacing(6)
   .margin_right(2)
   .tooltip_color("#ffffff")

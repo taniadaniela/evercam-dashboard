@@ -1,4 +1,7 @@
 retries = 0
+total_tries = 6
+times_list = undefined
+
 showFeedback = (message) ->
   Notification.show(message)
 
@@ -48,6 +51,8 @@ load_stream = (from, to) ->
     setTimeout(is_stream_created, 3000)
 
   onError = (jqXHR, status, error) ->
+    $("#local-recording-video-player .vjs-loading-spinner").hide()
+    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
     Notification.show("Something went wrong, Please try again.")
 
   query_string = "?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
@@ -69,7 +74,10 @@ is_stream_created = ->
     set_stream_source()
 
   onError = (jqXHR, status, error) ->
-    false
+    if retries >= total_tries
+      $("#local-recording-video-player .vjs-loading-spinner").hide()
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.show("Failed to load stream.")
 
   settings =
     cache: false
@@ -79,7 +87,7 @@ is_stream_created = ->
     success: onSuccess
     statusCode: {
       404: ->
-        setTimeout(is_stream_created, 2000) if retries < 5
+        setTimeout(is_stream_created, 3000) if retries < total_tries
         retries = retries + 1
     }
     type: 'GET'
@@ -88,12 +96,11 @@ is_stream_created = ->
   $.ajax(settings)
 
 play_pause = ->
-  if (window.vjs_player_local.paused)
-    window.vjs_player_local.play()
-  else
-    window.vjs_player_local.pause()
-    window.vjs_player_local.play()
-  setTimeout(isplayed, 1000)
+  $("#local_recordings_tab .vjs-text-track-display").on "click", ->
+    if (window.vjs_player_local.paused())
+      window.vjs_player_local.play()
+    else
+      window.vjs_player_local.pause()
 
 isplayed = ->
   if (!window.vjs_player_local.played)
@@ -204,14 +211,23 @@ handleResize = ->
   set_position()
   $(window).resize ->
     set_position()
+    load_graph(times_list) unless times_list is undefined
 
 handleTabOpen = ->
   $('.nav-tab-local-recordings').on 'shown.bs.tab', ->
     set_position()
+  $('.nav-tab-local-recordings').on 'hide.bs.tab', ->
+    window.vjs_player_local.pause()
 
 on_ended_play = ->
   window.vjs_player_local.on "ended", ->
     false
+
+  window.vjs_player_local.on "play", ->
+    $("#local-recording-video-player .vjs-big-play-button").hide()
+
+  window.vjs_player_local.on "pause", ->
+    $("#local-recording-video-player .vjs-big-play-button").show()
 
   window.vjs_player_local.on "error", ->
     $("#local-recording-video-player div.vjs-error-display").hide()
@@ -232,9 +248,10 @@ scroll_thumbnails = ->
 init_graph = (hr) ->
   onSuccess = (response) ->
     if response.times_list.length > 0
-      load_graph(response.times_list)
+      times_list = response.times_list
+      load_graph(times_list)
     else
-      array =
+      times_list =
         [
           [
             "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:00:00",
@@ -242,10 +259,10 @@ init_graph = (hr) ->
             "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:59:59"
           ]
         ]
-      load_graph(array)
+      load_graph(times_list)
 
   onError = (jqXHR, status, error) ->
-    array =
+    times_list =
       [
         [
           "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:00:00",
@@ -253,7 +270,7 @@ init_graph = (hr) ->
           "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:59:59"
         ]
       ]
-    load_graph(array)
+    load_graph(times_list)
 
   $("#local_recording_hourCalendar td").removeClass("active")
   $("#lr_tdI#{hr}").addClass("active")
@@ -289,7 +306,7 @@ load_graph = (times_list) ->
   .tooltip_color("#ffffff")
   $('#time_graph').text ''
   d3.select('#time_graph').datum(record_times).call chart
-  true
+  $("#local_recordings_tab g.tick:first text").css("text-anchor", "right")
 
 on_graph_click = ->
   $("#local_recordings_tab").on "click", ".rect_has_data", ->
@@ -309,7 +326,6 @@ window.initializeLocalRecordingsTab = ->
   initDatePicker()
   initializePlayer()
   on_click_timestamp()
-  #loadRecordingStream(current_hour, "lr_tdI#{current_hour}")
   handleResize()
   handleTabOpen()
   capture_image()
@@ -317,5 +333,6 @@ window.initializeLocalRecordingsTab = ->
   scroll_thumbnails()
   init_graph(current_hour)
   on_graph_click()
+  play_pause()
   $("#btnplayer").on "click", ->
     $("#local_recordings_tab g.tick:first text").css("text-anchor", "right")

@@ -482,13 +482,28 @@ onAddSharingUserClicked = (event) ->
     logCameraViewed() unless is_logged_intercom
     if data.success
       shared_avatar = $("#select2-sharing-user-email-container .gravatar1").attr("src")
-      if data.type == "share"
-        addSharingCameraRow(data, shared_avatar)
+      data.shares.forEach (share) ->
+        addSharingCameraRow(share, shared_avatar)
+      if data.shares.length == 1 && data.errors.length == 0
         showFeedback("Camera successfully shared with user")
+      else if data.shares.length > 1 && data.errors.length == 0
+        showFeedback("Camera successfully shared with all users")
+      else if data.shares.length == 0 && data.errors.length == 1
+        showError(data.errors[0].text)
+      else if data.shares.length == 0 && data.errors.length > 1
+        $ul = $('<ul style="float: left;">')
+        data.errors.forEach (error) ->
+          $ul.append "<li>#{error.text}</li>"
+        showError($ul.html())
       else
-        data.type == "share_request"
-        addSharingCameraRow(data, shared_avatar)
-        showFeedback("A notification email has been sent to the specified email address.")
+        $ul = $('<ul style="float: left;">')
+        data.errors.forEach (error) ->
+          $ul.append "<li>#{error.text}</li>"
+        html = "
+          <p>Camera has been successfully shared but few errors came along, see below.</p>
+          #{$ul.html()}
+        "
+        showFeedback(html)
       $('#sharing-message').val("")
       share_users_select.val("").trigger("change")
 
@@ -714,14 +729,20 @@ getSharedUsers = ->
         "<option value='#{user.email}'>#{user.name} (#{user.email})</option>"
       )
     share_users_select = $('#sharing-user-email').select2
-      placeholder: 'Email address or Username',
       tags: true,
-      allowClear: true,
+      tokenSeparators: [',', ';', ' '],
+      placeholder: 'Email Address or Username',
       selectOnClose: true,
+      closeOnSelect: false,
       templateSelection: format,
       templateResult: format
     share_users_select.val("").trigger("change")
-    share_users_select.on 'select2:open', (e) ->
+    share_users_select.on 'select2:unselecting', (e) ->
+      $(this).data 'unselecting', true
+    share_users_select.on 'select2:opening', (e) ->
+      if $(this).data('unselecting')
+        $(this).removeData 'unselecting'
+        e.preventDefault()
       setTimeout(getEmptyImagesForSelect2, 1500)
     share_users_select.on 'select2:close', (e) ->
       setTimeout(onCloseSelect2SetGravatar, 1000)
@@ -745,7 +766,7 @@ format = (state) ->
     image_src = getFavicon(state.element.value) #images_array[domain]
     if image_src is undefined
       image_src = "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323"
-    return $("<span><img id='#{state.id}' style='width: 25px;height: auto;' src='#{image_src}' class='gravatar1'/>&nbsp;#{state.text}</span>")
+    return $("<span><img id='#{state.id}' style='width: 22px;height: auto;' src='#{image_src}' class='gravatar1'/>&nbsp;#{state.text}</span>")
   else
     state.text
 

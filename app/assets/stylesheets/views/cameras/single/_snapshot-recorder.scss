@@ -89,9 +89,12 @@
       font-family: proxima-nova-bold;
       font-weight: bold;
     }
+
     .table-condensed > tbody > tr > td {
       padding: 0px;
+      border-radius: 0px;
     }
+
     .datepicker td {
       width: 25px;
       height: 25px;
@@ -127,7 +130,17 @@
   }
 
 .datepicker table {
+
   width: 100%;
+
+  tr td.disabled {
+    opacity: 0.2;
+  }
+
+  tr td.disabled:hover {
+    background-color: transparent;
+    color: $calendar-text-color;
+  }
 }
 
   #btnFRwd i, #btnFFwd i {
@@ -149,9 +162,18 @@
     width: 80%;
   }
   .right-column {
+
     float: left;
     vertical-align: top;
     width: 220px;
+
+    .datepicker-bg {
+      background-color: $calendar-background;
+    }
+
+    .datepicker-day {
+      background-color: $white;
+    }
   }
 
   .time-div {

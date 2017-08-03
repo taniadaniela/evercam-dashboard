@@ -242,6 +242,10 @@ init_graph = (hr) ->
   onSuccess = (response) ->
     if response.times_list.length > 0
       times_list = response.times_list
+      if window.vjs_player_local
+        window.vjs_player_local.pause()
+      $("#local-recording-video-player .vjs-loading-spinner").show()
+      load_stream(this.from, this.to)
       load_graph(times_list)
     else
       times_list =
@@ -282,7 +286,7 @@ init_graph = (hr) ->
     dataType: 'json'
     error: onError
     success: onSuccess
-    context: {year: year, month: month, day: day, hour: hr}
+    context: {year: year, month: month, day: day, hour: hr, from: from, to: to}
     type: 'GET'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/nvr/videos#{query_string}"
 

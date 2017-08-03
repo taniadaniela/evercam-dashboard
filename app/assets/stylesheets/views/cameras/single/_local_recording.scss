@@ -8,9 +8,7 @@
   }
 
   .active {
-    color: #428bca;
-    font-family: proxima-nova-bold;
-    font-weight: bold;
+
   }
 
   .table-condensed tbody {
@@ -135,5 +133,11 @@
 
   .rect_has_no_data {
     fill: $black;
+  }
+
+  .has-snapshot {
+    color: #428bca;
+    font-family: proxima-nova-bold;
+    font-weight: bold;
   }
 }

@@ -1,6 +1,7 @@
 retries = 0
 total_tries = 6
 times_list = undefined
+BoldDays = []
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -124,51 +125,56 @@ set_stream_source = ->
 initDatePicker = ->
   $("#ui_date_picker_inline_lr").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
   $("#ui_date_picker_inline_lr table th[class*='prev']").on "click", ->
-    #changeMonthFromArrow('p')
-    true
+    changeMonthFromArrow('p')
 
   $("#ui_date_picker_inline_lr table th[class*='next']").on "click", ->
-    #changeMonthFromArrow('n')
-    true
+    changeMonthFromArrow('n')
 
   $("#local_recording_hourCalendar td[class*='day']").on "click", ->
     $("#lr-md-slider-item li").hide()
     $("#lr-md-slider-item img").attr("src", "")
     hour = parseInt($(this).html())
-    #loadRecordingStream(parseInt($(this).html()), "lr_tdI#{$(this).html()}")
     init_graph(hour)
 
 datePickerSelect = (value)->
   dt = value.date
+  ResetDays()
+  boldRecordingHours()
 
 datePickerChange=(value)->
   d = value.date
   year = d.getFullYear()
   month = d.getMonth() + 1
-  #walkDaysInMonth(year, month)
+  walkDaysInMonth(year, month)
 
-loadRecordingStream = (hour, hour_id) ->
-  $("#local_recording_hourCalendar td").removeClass("active")
-  $("##{hour_id}").addClass("active")
-  currentDate = $("#camera_selected_time").val()
-  currentHour = parseInt($("#camera_current_time").val())
-  date = $("#ui_date_picker_inline_lr").datepicker('getDate')
-  current_camera_date = moment(date).format('MM/DD/YYYY')
-  minutes = 60
-  if currentDate is current_camera_date && currentHour is hour
-    minutes = moment.utc().minutes()
-  year = date.getFullYear()
-  month = date.getMonth() + 1
-  day = date.getDate()
-  hr = parseInt(hour)
-  num = 0
-  item = 1
-  while num < minutes
-    from = moment.tz("#{year}-#{month}-#{day} #{hr}:#{num}", Evercam.Camera.timezone) / 1000
-    to = moment.tz("#{year}-#{month}-#{day} #{hr}:#{num + 4}:59", Evercam.Camera.timezone) / 1000
-#    get_thumbnails(from, to, item)
-    num = num + 5
-    item = item + 1
+changeMonthFromArrow = (value) ->
+  $("#ui_date_picker_inline_lr").datepicker('fill')
+  d = $("#ui_date_picker_inline_lr").datepicker('getDate')
+  month = d.getMonth()
+  year = d.getFullYear()
+  if value is 'n'
+    month = month + 2
+  if month is 13
+    month = 1
+    year++
+  if month is 0
+    month = 12
+    year--
+
+  walkDaysInMonth(year, month)
+
+  if value =='n'
+    d.setMonth(d.getMonth()+1)
+  else if value =='p'
+    d.setMonth(d.getMonth()-1)
+  $("#ui_date_picker_inline_lr").datepicker('setDate',d)
+
+clearHourCalendar = ->
+  $("#hourCalendar td[class*='day']").removeClass("active")
+  calDays = $("#hourCalendar td[class*='day']")
+  calDays.each ->
+    calDay = $(this)
+    calDay.removeClass('has-snapshot')
 
 FormatNumTo2 = (n) ->
   if n < 10
@@ -232,19 +238,6 @@ on_ended_play = ->
   window.vjs_player_local.on "error", ->
     $("#local-recording-video-player div.vjs-error-display").hide()
 
-scroll_thumbnails = ->
-  $("#scroll-left").on "click", ->
-    leftPos = $('.lr-md-slider').scrollLeft()
-    alert(leftPos)
-    $('.lr-md-slider').scrollLeft(leftPos - 200)
-    #$("#lr-md-slider").animate({scrollLeft: leftPos - 200}, 800)
-
-  $("#scroll-right").on "click", ->
-    leftPos = $('.lr-md-slider').scrollLeft()
-    alert(leftPos)
-    $('.lr-md-slider').scrollLeft(leftPos + 200)
-    #$("#lr-md-slider").animate({scrollLeft: leftPos + 200}, 800)
-
 init_graph = (hr) ->
   onSuccess = (response) ->
     if response.times_list.length > 0
@@ -296,7 +289,6 @@ init_graph = (hr) ->
   $.ajax(settings)
 
 load_graph = (times_list) ->
-  console.log times_list
   record_times = [{
     "interval_s": 60 * 5
     "data": times_list
@@ -318,20 +310,105 @@ on_graph_click = ->
     to = moment.tz("#{$(this).attr("to")}", Evercam.Camera.timezone) / 1000
     load_stream(from, to)
 
+walkDaysInMonth = (year, month) ->
+  BoldDays = []
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (response, status, error) ->
+    false
+
+  onSuccess = (response, status, jqXHR) ->
+    for day in response.days
+      HighlightDay(year, month, day, true)
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/nvr/recordings/#{year}/#{month}/days"
+
+  $.ajax(settings)
+
+boldRecordingHours = ->
+  $("#local_recording_hourCalendar td").removeClass("has-snapshot")
+  d = $("#ui_date_picker_inline_lr").datepicker('getDate')
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (response, status, error) ->
+    false
+
+  onSuccess = (response, status, jqXHR) ->
+    for hour in response.hours
+      $("#lr_tdI#{hour}").addClass('has-snapshot')
+
+  month = FormatNumTo2(d.getMonth() + 1)
+  day = FormatNumTo2(d.getDate())
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/nvr/recordings/#{d.getFullYear()}/#{month}/#{day}/hours"
+
+  $.ajax(settings)
+
+HighlightDay = (year, month, day, exists) ->
+  d = $("#ui_date_picker_inline_lr").datepicker('getDate')
+  calendar_year = d.getFullYear()
+  calendar_month = d.getMonth() + 1
+  if year == calendar_year and month == calendar_month
+    calDays = $("#ui_date_picker_inline_lr table td[class*='day']")
+    calDays.each ->
+      calDay = $(this)
+      if !calDay.hasClass('old') && !calDay.hasClass('new')
+        iDay = calDay.text()
+        if day == iDay
+          if exists
+            calDay.addClass('has-snapshot')
+            BoldDays.push(day)
+          else
+            calDay.addClass('no-snapshot')
+
+ResetDays = ->
+  return unless BoldDays.length > 0
+  calDays = $("#ui_date_picker_inline_lr table td[class*='day']")
+  calDays.each (idx, el) ->
+    calDay = $(this)
+    if !calDay.hasClass('old') && !calDay.hasClass('new')
+      for day in BoldDays
+        if day is calDay.text()
+          calDay.addClass('has-snapshot')
+        else
+          calDay.addClass('no-snapshot')
+
+highlightDaysInMonth = ->
+  d = $("#ui_date_picker_inline_lr").datepicker('getDate')
+  year = d.getFullYear()
+  month = d.getMonth() + 1
+  walkDaysInMonth(year, month)
+
 window.initializeLocalRecordingsTab = ->
-  $("#lr-md-slider-item li").hide()
   current_hour = parseInt($("#camera_current_time").val())
   $("#lr_tdI#{current_hour}").addClass("active")
   window.local_video_player_html = $('#local-recording-stream').html()
   window.vjs_player_local = {}
   initDatePicker()
+  highlightDaysInMonth()
+  boldRecordingHours()
   initializePlayer()
   on_click_timestamp()
   handleResize()
   handleTabOpen()
   capture_image()
   on_ended_play()
-  scroll_thumbnails()
   init_graph(current_hour)
   on_graph_click()
   play_pause()

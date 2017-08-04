@@ -4,7 +4,7 @@
 
 #local_recordings_tab {
   .video-js {
-
+    outline: none;
   }
 
   .active {
@@ -29,13 +29,10 @@
   }
 
   .lr-md-slider{
-    /*overflow-y: hidden;
-    overflow-x: scroll;*/
     height: 114px;
   }
 
   .lr-md-slider-inner {
-    /*width: 1825px;*/
   }
 
   .lr-md-slider::-webkit-scrollbar {
@@ -70,14 +67,6 @@
     border: solid 2px $evercam-black;
   }
 
-  .capture-image {
-    opacity: 0;
-  }
-
-  #local-recording-stream:hover .capture-image {
-    opacity: 1;
-  }
-
   .thumbnail-scroll {
     background-color: $evercam-black;
     color: $white;
@@ -86,7 +75,6 @@
     opacity: 0.8;
     padding: 44px 4px;
     position: absolute;
-    /*width: 20px;*/
     z-index: 1;
   }
 
@@ -105,8 +93,8 @@
   .vjs-loading-spinner {
     display: none;
     position: absolute;
-    top: 43%;
-    left: 43%;
+    top: 48%;
+    left: 49.3%;
     margin: -25px 0 0 -25px;
     opacity: .85;
     text-align: left;
@@ -114,8 +102,8 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     background-clip: padding-box;
-    width: 150px;
-    height: 150px;
+    width: 7em;
+    height: 7em;
     border-radius: 100px;
   }
 
@@ -139,5 +127,24 @@
     color: #428bca;
     font-family: proxima-nova-bold;
     font-weight: bold;
+  }
+
+  .video-js .vjs-big-play-button {
+    height: 2.5em;
+    line-height: 2.3em;
+    width: 2.5em;
+    top: 40%;
+    left: 47%;
+    border-radius: 100px !important;
+  }
+
+  .image_save {
+    cursor: pointer;
+    font-size: 13px;
+    position: absolute;
+    margin-left: -18px;
+    color: #ffffff;
+    margin-top: 7px;
+    right: 44px;
   }
 }

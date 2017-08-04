@@ -4,12 +4,12 @@
       <div id="local-recording-stream" class="vjs-waiting">
         <video id="local-recording-video-player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"
                controls autoplay>
-          <source src="https://media.evercam.io/hls/<%= @camera['id'] %>/index.m3u8?nvr=true" type="application/x-mpegURL">
-          <source src="rtmp://media.evercam.io:1935/live/<%= @camera['id'] %>?nvr=true" type="rtmp/flv">
+          <!--<source src="https://media.evercam.io/hls/<%= @camera['id'] %>/index.m3u8?nvr=true" type="application/x-mpegURL">
+          <source src="rtmp://media.evercam.io:1935/live/<%= @camera['id'] %>?nvr=true" type="rtmp/flv">-->
         </video>
       </div>
-      <div id="div-capture" class="play-options capture-image">
-        <div class="btn-live-player save-live">
+      <div id="div-capture" class="image_save">
+        <div class="save-live">
           <i class="fa fa-camera font-size-16" aria-hidden="true"></i>
         </div>
       </div>

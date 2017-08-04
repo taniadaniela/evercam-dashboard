@@ -6,47 +6,9 @@ BoldDays = []
 showFeedback = (message) ->
   Notification.show(message)
 
-get_thumbnails = (from, to, item) ->
-  #if item is 1
-  #  load_stream(from, to)
-  $("#thumb_item#{item}").show()
-  data =
-    api_id: Evercam.User.api_id
-    api_key: Evercam.User.api_key
-
-  onSuccess = (response) ->
-    if response.snapshots.length > 0
-      display_thumbnail(response.snapshots[0], this.item, this.from, this.to)
-    else
-      display_thumbnail({data: "/assets/offline.png", created_at: this.from, notes: ""}, this.item, this.from, this.to)
-
-  onError = (jqXHR, status, error) ->
-    display_thumbnail({data: "/assets/offline.png", created_at: this.from, notes: ""}, this.item, this.from, this.to)
-
-  settings =
-    cache: false
-    data: data
-    dataType: 'json'
-    error: onError
-    success: onSuccess
-    context: {item: item, from: from, to: to}
-    type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{from}/nearest"
-
-  $.ajax(settings)
-
-display_thumbnail = (snapshot, item, from, to) ->
-  image_date = moment.utc(from*1000)
-  $("#thumb_item#{item}").show()
-  image = $("#thumb_item#{item} img")
-  image.attr("src", snapshot.data)
-  image.attr("notes", snapshot.notes)
-  image.attr("timestamp", snapshot.created_at)
-  image.attr("from", from)
-  image.attr("to", to)
-  $("#thumb_item#{item} div.time-div").text("#{FormatNumTo2(image_date.hours())}:#{FormatNumTo2(image_date.minutes())}:#{FormatNumTo2(image_date.seconds())}")
-
 load_stream = (from, to) ->
+  $("#local-recording-video-player .vjs-loading-spinner").show()
+  $("#local-recording-video-player .vjs-big-play-button").hide()
   onSuccess = (response) ->
     retries = 0
     setTimeout(is_stream_created, 3000)
@@ -100,8 +62,18 @@ play_pause = ->
   $("#local_recordings_tab .vjs-text-track-display").on "click", ->
     if (window.vjs_player_local.paused())
       window.vjs_player_local.play()
+      $("#local-recording-video-player .vjs-big-play-button").hide()
     else
       window.vjs_player_local.pause()
+      $("#local-recording-video-player .vjs-big-play-button").show()
+
+  $("#local_recordings_tab .vjs-play-control").on "click", ->
+    if (!window.vjs_player_local.paused())
+      window.vjs_player_local.play()
+      $("#local-recording-video-player .vjs-big-play-button").hide()
+    else
+      window.vjs_player_local.pause()
+      $("#local-recording-video-player .vjs-big-play-button").show()
 
 isplayed = ->
   if (!window.vjs_player_local.played)
@@ -112,7 +84,7 @@ isplayed = ->
 
 initializePlayer = ->
   window.vjs_player_local = videojs('local-recording-video-player')
-  $("#local-recording-video-player").append($("#div-capture"))
+  $("#local-recording-video-player div.vjs-control-bar").append($("#div-capture"))
 
 set_stream_source = ->
   $("#local-recording-video-player .vjs-loading-spinner").hide()
@@ -219,21 +191,35 @@ handleResize = ->
     set_position()
     load_graph(times_list) unless times_list is undefined
 
+  $(window).unload ->
+    console.log("Handler for .unload() called.")
+
 handleTabOpen = ->
   $('.nav-tab-local-recordings').on 'shown.bs.tab', ->
+    date = $("#ui_date_picker_inline_lr").datepicker('getDate')
+    year = date.getFullYear()
+    month = date.getMonth() + 1
+    day = date.getDate()
+    hr = $("#local_recording_hourCalendar td.active").text()
+    from = moment.tz("#{year}-#{month}-#{day} #{hr}:00:00", Evercam.Camera.timezone) / 1000
+    to = moment.tz("#{year}-#{month}-#{day} #{hr}:59:59", Evercam.Camera.timezone) / 1000
+    load_stream(from, to)
     set_position()
   $('.nav-tab-local-recordings').on 'hide.bs.tab', ->
     window.vjs_player_local.pause()
+    closeStream()
 
 on_ended_play = ->
   window.vjs_player_local.on "ended", ->
     false
 
   window.vjs_player_local.on "play", ->
-    $("#local-recording-video-player .vjs-big-play-button").hide()
+    #$("#local-recording-video-player .vjs-big-play-button").hide()
+    true
 
   window.vjs_player_local.on "pause", ->
-    $("#local-recording-video-player .vjs-big-play-button").show()
+    #$("#local-recording-video-player .vjs-big-play-button").show()
+    true
 
   window.vjs_player_local.on "error", ->
     $("#local-recording-video-player div.vjs-error-display").hide()
@@ -242,10 +228,11 @@ init_graph = (hr) ->
   onSuccess = (response) ->
     if response.times_list.length > 0
       times_list = response.times_list
-      if window.vjs_player_local
-        window.vjs_player_local.pause()
-      $("#local-recording-video-player .vjs-loading-spinner").show()
-      load_stream(this.from, this.to)
+      if $("#ul-nav-tab li.active a").text() is "Local Recordings"
+        if window.vjs_player_local
+          window.vjs_player_local.pause()
+        $("#local-recording-video-player .vjs-loading-spinner").show()
+        load_stream(this.from, this.to)
       load_graph(times_list)
     else
       times_list =
@@ -399,6 +386,27 @@ highlightDaysInMonth = ->
   month = d.getMonth() + 1
   walkDaysInMonth(year, month)
 
+closeStream = ->
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+
+  onError = (response, status, error) ->
+    false
+
+  onSuccess = (response, status, jqXHR) ->
+    true
+
+  settings =
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/nvr/recordings/stop"
+
+  $.ajax(settings)
+
 window.initializeLocalRecordingsTab = ->
   current_hour = parseInt($("#camera_current_time").val())
   $("#lr_tdI#{current_hour}").addClass("active")
@@ -416,5 +424,3 @@ window.initializeLocalRecordingsTab = ->
   init_graph(current_hour)
   on_graph_click()
   play_pause()
-  $("#btnplayer").on "click", ->
-    $("#local_recordings_tab g.tick:first text").css("text-anchor", "right")

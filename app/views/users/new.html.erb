@@ -42,17 +42,21 @@
             </div>
 
             <div class="text-center">
-              <div class="col-sm-12 no-padding form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
+              <div id="signup-username" class="col-sm-12 no-padding form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
                 <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "" , "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z0-9]+[\w\u00C0-\u00ff-]+$', "data-validation-error-msg" => "Username can consist of letters then numbers, dashes & underscores" , "maxlength" => "40" %>
                 <% if field_errors.include?("username") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
                 <% end %>
                 <%= f.label :username, class: "float-label" %>
+                <img src="/assets/refresh.gif" class="refresh-gif icon-position username-loading-icon">
+                <span id="username-error-block" class="username-error float-left">Username has already been taken.</span>
+                <span id="username-not-available" class="red hide"><i class="fa fa-times icon-position"></i></span>
+                <span id="username-available" class="green hide"><i class="fa fa-check icon-position"></i></span>
               </div>
             </div>
 
             <div class="text-center">
-              <div class="col-sm-12 no-padding form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
+              <div id="signup-email" class="col-sm-12 no-padding form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
                 <% if @share_request.nil? %>
                   <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "data-validation" => "email", "required" => "" %>
                   <%= f.label :email, 'Email', class: "float-label" %>
@@ -65,6 +69,10 @@
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["email"] %></span>
                   <%= f.label :email, 'Email', class: "float-label" %>
                 <% end %>
+                <img src="/assets/refresh.gif" class="refresh-gif icon-position email-loading-icon">
+                <span id="email-error-block" class="username-error float-left">Email has already been taken.</span>
+                <span id="email-not-available" class="red hide"><i class="fa fa-times icon-position"></i></span>
+                <span id="email-available" class="green hide"><i class="fa fa-check icon-position"></i></span>
               </div>
             </div>
 

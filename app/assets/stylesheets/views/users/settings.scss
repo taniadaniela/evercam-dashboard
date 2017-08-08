@@ -236,3 +236,12 @@ span.input-group-addon .custom {
 .table .api-key {
   vertical-align: middle;
 }
+
+.username-error {
+  color: $help-block-color;
+  position: absolute;
+  display: none;
+  line-height: 16px;
+  font-size: 12px;
+  margin-bottom: 0;
+}

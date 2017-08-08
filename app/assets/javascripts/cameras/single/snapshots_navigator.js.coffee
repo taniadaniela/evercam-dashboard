@@ -1059,7 +1059,7 @@ logCameraViewed = ->
   data.recordings = true
 
   onError = (jqXHR, status, error) ->
-    message = jqXHR.responseJSON.message
+    false
 
   onSuccess = (data, status, jqXHR) ->
     true
@@ -1080,7 +1080,7 @@ loadOldestLatestImage = (enter_query) ->
     api_key: Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
-    message = jqXHR.responseJSON.message
+    false
 
   onSuccess = (response, status, jqXHR) ->
     $("#imgPlayback").attr("src", response.data)

@@ -2,13 +2,27 @@ retries = 0
 total_tries = 6
 times_list = undefined
 BoldDays = []
+minutes_select = null
+seconds_select = null
+is_come_from_url = false
 
 showFeedback = (message) ->
   Notification.show(message)
 
+SetInfoMessage = (from, to) ->
+  from_dt = moment(from*1000)
+  to_dt = moment(to*1000).toISOString()
+
+  minutes_select.val(from_dt.minutes()).trigger("change")
+  seconds_select.val(from_dt.seconds()).trigger("change")
+  url = "#{Evercam.request.rootpath}/local-recordings?from=#{from_dt.toISOString()}&to=#{to_dt}"
+  if $("#ul-nav-tab li.active a").text() is "Local Recordings" && history.replaceState
+    window.history.replaceState({}, '', url)
+
 load_stream = (from, to) ->
   $("#local-recording-video-player .vjs-loading-spinner").show()
   $("#local-recording-video-player .vjs-big-play-button").hide()
+  SetInfoMessage(from, to)
   onSuccess = (response) ->
     retries = 0
     setTimeout(is_stream_created, 3000)
@@ -181,9 +195,9 @@ set_position = ->
     content_width = content_width - side_bar_width;
   $("#local_recordings_tab .left-column").css("width", "#{content_width - 225}px")
   $("#local_recordings_tab .right-column").css("width", "220px")
-  $("#local_recordings_tab #local-recording-placeholder").css("height", "#{content_height - 70}px")
-  $("#local_recordings_tab #local-recording-video-player").css("height", "#{content_height - 70}px")
-  $("#local-recording-video-player_html5_api").css("height", "#{content_height - 70}px")
+  $("#local_recordings_tab #local-recording-placeholder").css("height", "#{content_height - 74}px")
+  $("#local_recordings_tab #local-recording-video-player").css("height", "#{content_height - 74}px")
+  $("#local-recording-video-player_html5_api").css("height", "#{content_height - 74}px")
 
 handleResize = ->
   set_position()
@@ -196,18 +210,23 @@ handleResize = ->
 
 handleTabOpen = ->
   $('.nav-tab-local-recordings').on 'shown.bs.tab', ->
-    date = $("#ui_date_picker_inline_lr").datepicker('getDate')
-    year = date.getFullYear()
-    month = date.getMonth() + 1
-    day = date.getDate()
-    hr = $("#local_recording_hourCalendar td.active").text()
-    from = moment.tz("#{year}-#{month}-#{day} #{hr}:00:00", Evercam.Camera.timezone) / 1000
-    to = moment.tz("#{year}-#{month}-#{day} #{hr}:59:59", Evercam.Camera.timezone) / 1000
-    load_stream(from, to)
+    onChangeStream()
     set_position()
   $('.nav-tab-local-recordings').on 'hide.bs.tab', ->
     window.vjs_player_local.pause()
     closeStream()
+  $("#spn_load_stream").on "click", ->
+    onChangeStream()
+
+onChangeStream = ->
+  date = $("#ui_date_picker_inline_lr").datepicker('getDate')
+  year = date.getFullYear()
+  month = date.getMonth() + 1
+  day = date.getDate()
+  hr = $("#local_recording_hourCalendar td.active").text()
+  from = moment.tz("#{year}-#{month}-#{day} #{hr}:#{minutes_select.val()}:#{seconds_select.val()}", Evercam.Camera.timezone) / 1000
+  to = moment.tz("#{year}-#{month}-#{day} #{hr}:59:59", Evercam.Camera.timezone) / 1000
+  load_stream(from, to)
 
 on_ended_play = ->
   window.vjs_player_local.on "ended", ->
@@ -228,12 +247,13 @@ init_graph = (hr) ->
   onSuccess = (response) ->
     if response.times_list.length > 0
       times_list = response.times_list
-      if $("#ul-nav-tab li.active a").text() is "Local Recordings"
+      load_graph(times_list)
+      if !is_come_from_url && $("#ul-nav-tab li.active a").text() is "Local Recordings"
         if window.vjs_player_local
           window.vjs_player_local.pause()
         $("#local-recording-video-player .vjs-loading-spinner").show()
         load_stream(this.from, this.to)
-      load_graph(times_list)
+      is_come_from_url = false
     else
       times_list =
         [
@@ -407,12 +427,48 @@ closeStream = ->
 
   $.ajax(settings)
 
-window.initializeLocalRecordingsTab = ->
-  current_hour = parseInt($("#camera_current_time").val())
+getQueryStringByName = (name) ->
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  results = regex.exec(location.search)
+  if results == null
+    null
+  else
+    decodeURIComponent(results[1].replace(/\+/g, ' '))
+
+handleBodyLoad = ->
+  from = getQueryStringByName("from")
+  to = getQueryStringByName("to")
+  if from && to
+    datetime = new Date(moment.utc(from).format('MM/DD/YYYY HH:mm:ss'))
+    $("#ui_date_picker_inline_lr").datepicker('update', datetime)
+    $("#ui_date_picker_inline_lr").datepicker('setDate', datetime)
+    current_hour = datetime.getHours()
+    minutes_select.val(datetime.getMinutes()).trigger("change")
+    seconds_select.val(datetime.getSeconds()).trigger("change")
+    is_come_from_url = true
+  else
+    current_hour = parseInt($("#camera_current_time").val())
   $("#lr_tdI#{current_hour}").addClass("active")
+  init_graph(current_hour)
+
+initSelect2 = ->
+  i = 0
+  while i < 60
+    $("#ddl_minutes").append("<option value='#{i}'>#{FormatNumTo2(i)}</option>")
+    $("#ddl_seconds").append("<option value='#{i}'>#{FormatNumTo2(i)}</option>")
+    i = i + 1
+  minutes_select = $("#ddl_minutes").select2
+    width: 50
+  seconds_select = $("#ddl_seconds").select2
+    width: 50
+
+window.initializeLocalRecordingsTab = ->
   window.local_video_player_html = $('#local-recording-stream').html()
   window.vjs_player_local = {}
+  initSelect2()
   initDatePicker()
+  handleBodyLoad()
   highlightDaysInMonth()
   boldRecordingHours()
   initializePlayer()
@@ -421,6 +477,5 @@ window.initializeLocalRecordingsTab = ->
   handleTabOpen()
   capture_image()
   on_ended_play()
-  init_graph(current_hour)
   on_graph_click()
   play_pause()

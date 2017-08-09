@@ -226,6 +226,8 @@ onChangeStream = ->
   hr = $("#local_recording_hourCalendar td.active").text()
   from = moment.tz("#{year}-#{month}-#{day} #{hr}:#{minutes_select.val()}:#{seconds_select.val()}", Evercam.Camera.timezone) / 1000
   to = moment.tz("#{year}-#{month}-#{day} #{hr}:59:59", Evercam.Camera.timezone) / 1000
+  if window.vjs_player_local
+    window.vjs_player_local.pause()
   load_stream(from, to)
 
 on_ended_play = ->

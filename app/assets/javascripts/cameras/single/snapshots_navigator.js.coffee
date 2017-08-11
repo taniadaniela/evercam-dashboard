@@ -57,6 +57,7 @@ changeMonthFromArrow = (value) ->
   d = $("#ui_date_picker_inline").datepicker('getDate')
   month = d.getMonth()
   year = d.getFullYear()
+
   if value is 'n'
     month = month + 2
   if month is 13
@@ -134,6 +135,7 @@ datePickerChange=(value)->
   d = value.date
   year = d.getFullYear()
   month = d.getMonth() + 1
+  $("#ui_date_picker_inline").datepicker('setDate', d)
   walkDaysInMonth(year, month)
   snapshotInfos = null
   snapshotInfoIdx = 1
@@ -708,6 +710,7 @@ SetImageHour = (hr, id) ->
     GetCameraInfo true
   else
     xhrRequestChangeMonth.abort()
+
     $("#divRecent").show()
     $("#divInfo").fadeOut()
     $("#snapshot-notes-text").hide()
@@ -1105,6 +1108,7 @@ onClickOldestLatestImage = ->
     query_value = $(this).data('query')
     showDaysLoadingAnimation()
     showHourLoadingAnimation()
+    clearHourCalendar()
     showLoader()
     loadOldestLatestImage(query_value)
     $('#divDisableButtons').addClass('show').removeClass('hide')
@@ -1129,6 +1133,7 @@ updateFirstImageCalendar = (oldest_image_date) ->
   $("#hourCalendar td[class*='day']").removeClass("active")
   first_image_date = new Date(moment.unix(oldest_image_date).tz("#{Evercam.Camera.timezone}").format("YYYY-MM-DD HH:mm:ss"))
   $("#ui_date_picker_inline").datepicker('update', first_image_date)
+  $("#ui_date_picker_inline").datepicker('setDate', first_image_date)
   oldest_image_year = first_image_date.getFullYear()
   oldest_image_month = first_image_date.getMonth() + 1
   oldest_image_day = first_image_date.getDate()
@@ -1136,6 +1141,7 @@ updateFirstImageCalendar = (oldest_image_date) ->
   cameraCurrentHour = first_image_date.getHours()
   $("#tdI#{cameraCurrentHour}").addClass("active has-snapshot")
   SetInfoMessage(currentFrameNumber, first_image_date)
+  BoldSnapshotHour(false)
 
 HighlightFirstDay = (year, month, day) ->
   d = $("#ui_date_picker_inline").datepicker('getDate')

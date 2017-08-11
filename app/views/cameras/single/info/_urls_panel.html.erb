@@ -4,7 +4,6 @@
   </div>
   <div class="portlet-body">
     <section id="unseen">
-      <div class="uppercase-title"><span class="title-label">Base Camera URL</span></div>
       <table class="table table-fixed table-borderless">
         <tr id="camera-section">
           <td class="col-md-4 col-xs-4">
@@ -22,7 +21,7 @@
         <% unless @has_edit_rights %>
           <tr id="thumbail-url-section">
             <td class="col-md-4 col-xs-4">
-              Snapshot URL:
+              Snapshot:
             </td>
             <td id="thumbnail_jpg">
               <%= link_to  @camera['thumbnail_url'], thumbnail_url(@camera), target: '_blank' %>
@@ -31,7 +30,7 @@
         <% end %>
         <tr id="snapshot-section">
           <td class="col-md-4 col-xs-4">
-            Snapshot URL:
+            Snapshot:
           </td>
           <td id="camera_http_jpg">
             <% url = @camera.deep_fetch('external', 'http', 'jpg') {} %>

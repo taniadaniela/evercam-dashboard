@@ -151,7 +151,7 @@ format = (row) ->
     else
       return "No data available."
   else if row.action is 'edited'
-    if row.extra.cam_settings != false
+    if row.extra.cam_settings && row.extra.cam_settings != false
       return "
         <table cellpadding='5' cellspacing='0' border='0' style='padding-left:50px;width:100%'>
           #{getCameraValues(row.extra.cam_settings)}

@@ -461,9 +461,9 @@ initSelect2 = ->
     $("#ddl_seconds").append("<option value='#{i}'>#{FormatNumTo2(i)}</option>")
     i = i + 1
   minutes_select = $("#ddl_minutes").select2
-    width: 50
+    width: 49
   seconds_select = $("#ddl_seconds").select2
-    width: 50
+    width: 49
 
 window.initializeLocalRecordingsTab = ->
   window.local_video_player_html = $('#local-recording-stream').html()

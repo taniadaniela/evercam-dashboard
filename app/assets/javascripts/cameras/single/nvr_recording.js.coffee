@@ -43,7 +43,6 @@ load_stream = (from, to) ->
     success: onSuccess
     type: 'GET'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/nvr/stream#{query_string}"
-
   $.ajax(settings)
 
 is_stream_created = ->
@@ -117,8 +116,6 @@ initDatePicker = ->
     changeMonthFromArrow('n')
 
   $("#local_recording_hourCalendar td[class*='day']").on "click", ->
-    $("#lr-md-slider-item li").hide()
-    $("#lr-md-slider-item img").attr("src", "")
     hour = parseInt($(this).html())
     init_graph(hour)
 
@@ -167,15 +164,6 @@ FormatNumTo2 = (n) ->
     "0#{n}"
   else
     n
-
-on_click_timestamp = ->
-  $("#lr-md-slider-item li").on "click", ->
-    $("#lr-md-slider-item li").removeClass("active")
-    $(this).addClass("active")
-    from = $(this).find("img").attr("from")
-    to = $(this).find("img").attr("to")
-    $("#captured").attr("src", $(this).attr("src"))
-    load_stream(from, to)
 
 capture_image = ->
   $("#div-capture").on "click", ->
@@ -465,6 +453,10 @@ initSelect2 = ->
   seconds_select = $("#ddl_seconds").select2
     width: 49
 
+on_open_archive_model = ->
+  $("#local-recording-archive-button").on "click", ->
+    $("#txtCreateArchiveType").val("true")
+
 window.initializeLocalRecordingsTab = ->
   window.local_video_player_html = $('#local-recording-stream').html()
   window.vjs_player_local = {}
@@ -474,10 +466,10 @@ window.initializeLocalRecordingsTab = ->
   highlightDaysInMonth()
   boldRecordingHours()
   initializePlayer()
-  on_click_timestamp()
   handleResize()
   handleTabOpen()
   capture_image()
   on_ended_play()
   on_graph_click()
   play_pause()
+  on_open_archive_model()

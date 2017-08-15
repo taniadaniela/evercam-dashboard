@@ -253,9 +253,12 @@ tooltip = ->
 
 createClip = ->
   $("#create_clip_button").on "click", ->
-    from_date = $("#from-date").val() + ' ' + $('.timepicker-default').val()
-    duration = $("#to-date").val()
-    to_date = setToDate(from_date, duration)
+    duration = parseInt($("#to-date").val())
+    date = $("#from-date").val().split('/')
+    time = $('.timepicker-default').val().split(":")
+    from = moment.tz("#{date[2]}-#{parseInt(date[1])}-#{parseInt(date[0])} #{parseInt(time[0])}:#{parseInt(time[1])}:0", Evercam.Camera.timezone)
+    to = from.clone().minutes(from.minutes() + duration)
+
     if $("#clip-name").val() is ""
       Notification.show("Clip title cannot be empty.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -269,29 +272,34 @@ createClip = ->
     $("#create_clip_button").attr 'disabled', 'disabled'
     data =
       title: $("#clip-name").val()
-      from_date: from_date
-      to_date: to_date
+      from_date: from / 1000
+      to_date: to / 1000
+      is_nvr_archive: $("#txtCreateArchiveType").val()
+      requested_by: Evercam.User.username
 
     onError = (jqXHR, status, error) ->
-      isUnauthorized(jqXHR)
+      if jqXHR.status is 500
+        Notification.show("Internal Server Error. Please contact to admin.")
+      else
+        Notification.show(jqXHR.responseJSON.message)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       NProgress.done()
       $("#create_clip_button").removeAttr 'disabled'
 
     onSuccess = (data, status, jqXHR) ->
-      if data.success
-        archives_table.ajax.reload (json) ->
-          $('#archives-table').show()
-          $("#no-archive").hide()
-          NProgress.done()
-          formReset()
-          setDate()
-          $("#create_clip_button").removeAttr 'disabled'
-      else
-        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      if $("#txtCreateArchiveType").val() isnt ""
+        window.vjs_player_local.pause()
+        Notification.show("Recording stream will not play until system complete requested clip.")
+        #divMessage = $('<div>', {class: "stream-stop-message"})
+        #divMessage.append($(document.createTextNode("Are you sure?")))
+        #$("#local-recording-video-player").append(divMessage)
+      archives_table.ajax.reload (json) ->
+        $('#archives-table').show()
+        $("#no-archive").hide()
         NProgress.done()
+        formReset()
+        setDate()
         $("#create_clip_button").removeAttr 'disabled'
-      Notification.show(data.message)
 
     settings =
       cache: false
@@ -300,8 +308,14 @@ createClip = ->
       error: onError
       success: onSuccess
       type: 'POST'
-      url: $("#archive-url").val()
-    sendAJAXRequest(settings)
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    $.ajax(settings)
+
+FormatNumTo2 = (n) ->
+  if n < 10
+    "0#{n}"
+  else
+    n
 
 setToDate = (date, duration) ->
   dates = date.split(" ")

@@ -290,9 +290,6 @@ createClip = ->
       if $("#txtCreateArchiveType").val() isnt ""
         window.vjs_player_local.pause()
         Notification.show("Recording stream will not play until system complete requested clip.")
-        #divMessage = $('<div>', {class: "stream-stop-message"})
-        #divMessage.append($(document.createTextNode("Are you sure?")))
-        #$("#local-recording-video-player").append(divMessage)
       archives_table.ajax.reload (json) ->
         $('#archives-table').show()
         $("#no-archive").hide()
@@ -310,12 +307,6 @@ createClip = ->
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     $.ajax(settings)
-
-FormatNumTo2 = (n) ->
-  if n < 10
-    "0#{n}"
-  else
-    n
 
 setToDate = (date, duration) ->
   dates = date.split(" ")

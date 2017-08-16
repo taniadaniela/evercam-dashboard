@@ -289,7 +289,7 @@ createClip = ->
     onSuccess = (data, status, jqXHR) ->
       if $("#txtCreateArchiveType").val() isnt ""
         window.vjs_player_local.pause()
-        Notification.show("Recording stream will not play until system complete requested clip.")
+        $("#clip-create-message").show()
       archives_table.ajax.reload (json) ->
         $('#archives-table').show()
         $("#no-archive").hide()

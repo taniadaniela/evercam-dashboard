@@ -2,19 +2,16 @@ retries = 0
 total_tries = 6
 times_list = undefined
 BoldDays = []
-minutes_select = null
-seconds_select = null
 is_come_from_url = false
 
 showFeedback = (message) ->
   Notification.show(message)
 
 SetInfoMessage = (from, to) ->
-  from_dt = moment(from*1000)
+  from_dt = moment.utc(from*1000)
   to_dt = moment(to*1000).toISOString()
 
-  minutes_select.val(from_dt.minutes()).trigger("change")
-  seconds_select.val(from_dt.seconds()).trigger("change")
+  $("#nvr-time_select").val(from_dt.format("HH:mm:ss"))
   url = "#{Evercam.request.rootpath}/local-recordings?from=#{from_dt.toISOString()}&to=#{to_dt}"
   if $("#ul-nav-tab li.active a").text() is "Local Recordings" && history.replaceState
     window.history.replaceState({}, '', url)
@@ -29,8 +26,13 @@ load_stream = (from, to) ->
 
   onError = (jqXHR, status, error) ->
     $("#local-recording-video-player .vjs-loading-spinner").hide()
-    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-    Notification.show("Something went wrong, Please try again.")
+    if jqXHR.status is 406
+      if window.vjs_player_local
+        window.vjs_player_local.pause()
+      $("#clip-create-message").show()
+    else
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.show("Something went wrong, Please try again.")
 
   query_string = "?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
   query_string += "&starttime=#{from}&endtime=#{to}"
@@ -72,6 +74,13 @@ is_stream_created = ->
   $.ajax(settings)
 
 play_pause = ->
+  $("#local_recordings_tab .vjs-big-play-button").on "click", ->
+    if (!window.vjs_player_local.paused())
+      window.vjs_player_local.play()
+      $("#local-recording-video-player .vjs-big-play-button").hide()
+    else
+      window.vjs_player_local.pause()
+      $("#local-recording-video-player .vjs-big-play-button").show()
   $("#local_recordings_tab .vjs-text-track-display").on "click", ->
     if (window.vjs_player_local.paused())
       window.vjs_player_local.play()
@@ -98,6 +107,7 @@ isplayed = ->
 initializePlayer = ->
   window.vjs_player_local = videojs('local-recording-video-player')
   $("#local-recording-video-player div.vjs-control-bar").append($("#div-capture"))
+  $("#local-recording-video-player").append($("#clip-create-message"))
 
 set_stream_source = ->
   $("#local-recording-video-player .vjs-loading-spinner").hide()
@@ -212,7 +222,7 @@ onChangeStream = ->
   month = date.getMonth() + 1
   day = date.getDate()
   hr = $("#local_recording_hourCalendar td.active").text()
-  from = moment.tz("#{year}-#{month}-#{day} #{hr}:#{minutes_select.val()}:#{seconds_select.val()}", Evercam.Camera.timezone) / 1000
+  from = moment.tz("#{year}-#{month}-#{day} #{$("#nvr-time_select").val()}", Evercam.Camera.timezone) / 1000
   to = moment.tz("#{year}-#{month}-#{day} #{hr}:59:59", Evercam.Camera.timezone) / 1000
   if window.vjs_player_local
     window.vjs_player_local.pause()
@@ -434,33 +444,27 @@ handleBodyLoad = ->
     $("#ui_date_picker_inline_lr").datepicker('update', datetime)
     $("#ui_date_picker_inline_lr").datepicker('setDate', datetime)
     current_hour = datetime.getHours()
-    minutes_select.val(datetime.getMinutes()).trigger("change")
-    seconds_select.val(datetime.getSeconds()).trigger("change")
+    $("#nvr-time_select").val("#{current_hour }:#{datetime.getMinutes()}:#{datetime.getSeconds()}")
     is_come_from_url = true
   else
     current_hour = parseInt($("#camera_current_time").val())
+    $("#nvr-time_select").val("#{current_hour }:00:00")
   $("#lr_tdI#{current_hour}").addClass("active")
   init_graph(current_hour)
-
-initSelect2 = ->
-  i = 0
-  while i < 60
-    $("#ddl_minutes").append("<option value='#{i}'>#{FormatNumTo2(i)}</option>")
-    $("#ddl_seconds").append("<option value='#{i}'>#{FormatNumTo2(i)}</option>")
-    i = i + 1
-  minutes_select = $("#ddl_minutes").select2
-    width: 49
-  seconds_select = $("#ddl_seconds").select2
-    width: 49
 
 on_open_archive_model = ->
   $("#local-recording-archive-button").on "click", ->
     $("#txtCreateArchiveType").val("true")
+    d = $("#ui_date_picker_inline_lr").datepicker('getDate')
+    month = FormatNumTo2(d.getMonth() + 1)
+    day = FormatNumTo2(d.getDate())
+    $('#from-date').val "#{day}/#{month}/#{d.getFullYear()}",true
+    time = $("#nvr-time_select").val().split(":")
+    $('#archive-time').val "#{time[0]}:#{time[1]}"
 
 window.initializeLocalRecordingsTab = ->
   window.local_video_player_html = $('#local-recording-stream').html()
   window.vjs_player_local = {}
-  initSelect2()
   initDatePicker()
   handleBodyLoad()
   highlightDaysInMonth()

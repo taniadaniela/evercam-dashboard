@@ -164,4 +164,33 @@
     border: 1px solid #efefef;
     padding: 3px 7px;
   }
+
+  .clip-create-message {
+    border: 3px solid rgba(43, 51, 63, 0.7);
+    border-radius: 2px;
+    box-sizing: border-box;
+    display: none;
+    font-size: 16px;
+    font-weight: 500;
+    left: 25%;
+    margin: -25px 0 0 -25px;
+    opacity: .80;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    width: 37em;
+  }
+
+  .nvr-time-picker {
+    background-color: $white;
+    margin-top: 1px;
+    height: 27px;
+    width:80px;
+  }
+
+  .padding-right-left-zero {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

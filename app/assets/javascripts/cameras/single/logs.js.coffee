@@ -171,43 +171,35 @@ getCameraValues = (data) ->
         </tr>
         <tr>
           <td>IP</td>
-          <td>#{data.old.external_host}</td>
-          <td>#{data.new.external_host}</td>
+          #{loadTheChange(data.old.external_host, data.new.external_host)}
         </tr>
         <tr>
           <td>HTTP Port</td>
-          <td>#{data.old.external_http_port}</td>
-          <td>#{data.new.external_http_port}</td>
+          #{loadTheChange(data.old.external_http_port, data.new.external_http_port)}
         </tr>
         <tr>
           <td>RTSP Port</td>
-          <td>#{data.old.external_rtsp_port}</td>
-          <td>#{data.new.external_rtsp_port}</td>
+          #{loadTheChange(data.old.external_rtsp_port, data.new.external_rtsp_port)}
         </tr>
         <tr>
           <td>Snapshot URL</td>
-          <td>#{data.old.snapshot_url}</td>
-          <td>#{data.new.snapshot_url}</td>
+          #{loadTheChange(data.old.snapshot_url, data.new.snapshot_url)}
         </tr>
         <tr>
           <td>Username</td>
-          <td>#{data.old.auth.username}</td>
-          <td>#{data.new.auth.username}</td>
+          #{loadTheChange(data.old.auth.username, data.new.auth.username)}
         </tr>
         <tr>
           <td>Password</td>
-          <td>#{data.old.auth.password}</td>
-          <td>#{data.new.auth.password}</td>
+          #{loadTheChange(data.old.auth.password, data.new.auth.password)}
         </tr>
         <tr>
           <td>Model</td>
-          <td>#{data.old.vendor_model_name}</td>
-          <td>#{data.new.vendor_model_name}</td>
+          #{loadTheChange(data.old.vendor_model_name, data.new.vendor_model_name)}
         </tr>
         <tr>
           <td>Vendor</td>
-          <td>#{data.old.vendor_name}</td>
-          <td>#{data.new.vendor_name}</td>
+          #{loadTheChange(data.old.vendor_name, data.new.vendor_name)}
         </tr>
       </tbody>
     "
@@ -225,23 +217,32 @@ getTableValues = (data) ->
         </tr>
         <tr>
           <td>Status</td>
-          <td>#{data.old.status}</td>
-          <td>#{data.new.status}</td>
+          #{loadTheChange(data.old.status, data.new.status)}
         </tr>
         <tr>
           <td>Storage Duration</td>
-          <td>#{data.old.storage_duration}</td>
-          <td>#{data.new.storage_duration}</td>
+          #{loadTheChange(data.old.storage_duration, data.new.storage_duration)}
         </tr>
         <tr>
           <td>Frequency</td>
-          <td>#{data.old.frequency}</td>
-          <td>#{data.new.frequency}</td>
+          #{loadTheChange(data.old.frequency, data.new.frequency)}
         </tr>
       </tbody>
     "
   else
     ""
+
+loadTheChange = (old_val, new_val) ->
+  if old_val == new_val
+    return "
+      <td>#{old_val}</td>
+      <td>#{new_val}</td>
+    "
+  else
+    return "
+      <td style='background-color:yellow;'>#{old_val}</td>
+      <td style='background-color:yellow;'>#{new_val}</td>
+    "
 
 showDetails = ->
   $('#logs-table tbody').on 'click', 'td.details-control', ->

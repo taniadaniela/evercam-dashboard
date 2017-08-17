@@ -3,6 +3,7 @@ map_loaded = false
 xhrRequestPortCheck = null
 port = null
 rtsp_port = null
+flag = true
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -552,11 +553,14 @@ port_check = (external_port,type) ->
       $(".#{type}port-status").removeClass('red').addClass('green')
       $(".#{type}port-status").text('Port is Open')
     else
-      $(".#{type}refresh-gif").hide()
-      $(".#{type}port-status").show()
-      $(".#{type}port-status").removeClass('green').addClass('red')
-      $(".#{type}port-status").text('Port is Closed')
-
+      if flag is true
+        port_check(ex_port, '')
+        flag = false
+      else
+        $(".#{type}refresh-gif").hide()
+        $(".#{type}port-status").show()
+        $(".#{type}port-status").removeClass('green').addClass('red')
+        $(".#{type}port-status").text('Port is Closed')
 
   settings =
     data: data
@@ -575,6 +579,8 @@ init_key_events = ->
   $('#camera-name').on 'keyup', ->
     $.validate()
   $('#port').on 'keyup', ->
+    flag = true
+    @value = @value.replace(/[^\d]/, '')
     $.validate()
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
@@ -596,6 +602,8 @@ init_key_events = ->
     port_check(port,'') unless !port.match regexp
     port_check(rtsp_port,'rtsp-') unless !rtsp_port.match regexp
   $('#ext-rtsp-port').on 'keyup', ->
+    flag = true
+    @value = @value.replace(/[^\d]/, '')
     $.validate()
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()

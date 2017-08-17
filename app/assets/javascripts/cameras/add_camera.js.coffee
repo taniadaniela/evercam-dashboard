@@ -2,6 +2,7 @@ ip = null
 port = null
 rtsp_port = null
 xhrRequestPortCheck = null
+flag = true
 
 initNotification = ->
   Notification.init(".bb-alert");
@@ -308,14 +309,17 @@ port_check = (external_port,type) ->
         <span>Port is open</span>'
       )
     else
-      $(".#{type}refresh-gif").hide()
-      $(".#{type}port-status").removeClass('green')
-      $(".#{type}port-status").addClass('red')
-      $(".#{type}port-status").html(
-        '<i class="fa fa-times icon-position"></i>
-        <span>Port is closed</span>'
-      )
-
+      if flag is true
+        port_check(ex_port, '')
+        flag = false
+      else
+        $(".#{type}refresh-gif").hide()
+        $(".#{type}port-status").removeClass('green')
+        $(".#{type}port-status").addClass('red')
+        $(".#{type}port-status").html(
+          '<i class="fa fa-times icon-position"></i>
+          <span>Port is closed</span>'
+        )
 
   settings =
     data: data
@@ -331,7 +335,9 @@ port_check = (external_port,type) ->
 
 check_port = ->
   regexp = /^[0-9]{2,5}$/
-  $('#port').on 'keyup', ->
+  $('#port').on 'keyup', (e) ->
+    flag = true
+    @value = @value.replace(/[^\d]/, '')
     if xhrRequestPortCheck
       xhrRequestPortCheck.abort()
     port = $('#port').val()

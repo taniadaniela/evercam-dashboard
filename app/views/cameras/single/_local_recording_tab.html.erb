@@ -17,6 +17,7 @@
     <div class="visavail_container_class">
       <p id="time_graph" class="margin-top-5 single-status-bar"></p>
     </div>
+    <div id="div-tooltip" class="div-tooltip"></div>
   </div>
   <div class="right-column">
     <div id="ui_date_picker_inline_lr" class="datepicker-bg"></div>
@@ -79,10 +80,6 @@
       <div class="col-md-3 text-right">
         <span id="spn_load_stream" class="btn btn-primary">GO</span>
       </div>
-      <div class="hide">
-        <select id="ddl_minutes" class="js-example-basic-multiple form-control hide"></select>
-        <select id="ddl_seconds" class="js-example-basic-multiple form-control hide"></select>
-      </div>
       <div class="clear-f"></div>
     </div>
 
@@ -97,3 +94,4 @@
   <img id="captured" style="display: none;" />
   <div class="clear-f"></div>
 </div>
+<input type="hidden" id="txtData">

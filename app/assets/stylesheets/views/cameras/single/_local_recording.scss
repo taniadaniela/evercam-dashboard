@@ -195,4 +195,24 @@
     padding-left: 0;
     padding-right: 0;
   }
+
+  .div-tooltip {
+    position: absolute;
+    text-align: center;
+    display: none;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
+    font-size: 8pt;
+    padding-left: 3px;
+    padding-right:3px;
+    z-index: 1000001;
+  }
+
+  .rect_has_data {
+    fill: #8cbae3;
+  }
+
+  .rect_has_data:hover {
+    fill: #458cc7
+  }
 }

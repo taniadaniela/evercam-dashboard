@@ -1,6 +1,5 @@
 retries = 0
 total_tries = 6
-times_list = undefined
 BoldDays = []
 is_come_from_url = false
 
@@ -201,7 +200,7 @@ handleResize = ->
   set_position()
   $(window).resize ->
     set_position()
-    load_graph(times_list) unless times_list is undefined
+    load_graph(JSON.parse($("#txtData").val())) unless $("#txtData").val() is ""
 
   $(window).unload ->
     console.log("Handler for .unload() called.")
@@ -243,11 +242,23 @@ on_ended_play = ->
   window.vjs_player_local.on "error", ->
     $("#local-recording-video-player div.vjs-error-display").hide()
 
+load_no_video_graph = (year, month, day, hour) ->
+  times_list =
+    [
+      [
+        "#{year}-#{FormatNumTo2(month)}-#{FormatNumTo2(day)} #{FormatNumTo2(hour)}:00:00",
+        0,
+        "#{year}-#{FormatNumTo2(month)}-#{FormatNumTo2(day)} #{FormatNumTo2(hour)}:59:59"
+      ]
+    ]
+  $("#txtData").val(JSON.stringify(times_list))
+  load_graph(times_list)
+
 init_graph = (hr) ->
   onSuccess = (response) ->
     if response.times_list.length > 0
-      times_list = response.times_list
-      load_graph(times_list)
+      $("#txtData").val(JSON.stringify(response.times_list))
+      load_graph(response.times_list)
       if !is_come_from_url && $("#ul-nav-tab li.active a").text() is "Local Recordings"
         if window.vjs_player_local
           window.vjs_player_local.pause()
@@ -255,26 +266,10 @@ init_graph = (hr) ->
         load_stream(this.from, this.to)
       is_come_from_url = false
     else
-      times_list =
-        [
-          [
-            "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:00:00",
-            0,
-            "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:59:59"
-          ]
-        ]
-      load_graph(times_list)
+      load_no_video_graph(this.year, this.month, this.day, this.hour)
 
   onError = (jqXHR, status, error) ->
-    times_list =
-      [
-        [
-          "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:00:00",
-          0,
-          "#{this.year}-#{FormatNumTo2(this.month)}-#{FormatNumTo2(this.day)} #{FormatNumTo2(this.hour)}:59:59"
-        ]
-      ]
-    load_graph(times_list)
+    load_no_video_graph(this.year, this.month, this.day, this.hour)
 
   $("#local_recording_hourCalendar td").removeClass("active")
   $("#lr_tdI#{hr}").addClass("active")
@@ -301,19 +296,30 @@ init_graph = (hr) ->
 
 load_graph = (times_list) ->
   record_times = [{
-    "interval_s": 60 * 5
+    "interval_s": 60 * 1
     "data": times_list
   }]
   chart = visavailChart().margin_left(1).width($("#local_recordings_tab .left-column").width() - 1)
   .line_spacing(6)
   .margin_right(2)
+  .isDisplayPopup(false)
   .tooltip_color("#ffffff")
   $('#time_graph').text ''
   d3.select('#time_graph').datum(record_times).call chart
   $("#local_recordings_tab g.tick:first text").css("text-anchor", "right")
 
 on_graph_click = ->
-  $("#local_recordings_tab").on "click", ".rect_has_data", ->
+  $("#local_recordings_tab").on "mousemove", ".rect_has_data", (ev) ->
+    sliderStartX = $("#time_graph").offset().left
+    sliderEndX = sliderStartX + $("#time_graph").width()
+
+    from = moment("#{$(this).attr("from")}").format('DD-MM-GGGG HH:mm:ss')
+    to = moment("#{$(this).attr("to")}").format('DD-MM-GGGG HH:mm:ss')
+    $("#div-tooltip").html("#{from} - #{to}")
+    $("#div-tooltip").css({ top: "#{ev.pageY + 15}px", left: "#{ev.pageX - 90}px" })
+    $("#div-tooltip").show()
+
+  $("#local_recordings_tab").on "click", ".rect_has_data", (ev) ->
     if window.vjs_player_local
       window.vjs_player_local.pause()
     $("#local-recording-video-player .vjs-loading-spinner").show()

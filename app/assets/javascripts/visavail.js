@@ -33,6 +33,9 @@ function visavailChart() {
   // title of chart is drawn or not (default: yes)
   var drawTitle = 1;
 
+  // display datetime popup or not (default: yes)
+  var displayPopup = true;
+
   // year ticks to be emphasized or not (default: yes)
   var emphasizeYearTicks = 1;
 
@@ -338,6 +341,9 @@ function visavailChart() {
             return 'rect_has_no_data';
           })
           .on('mouseover', function (d, i) {
+            if (!displayPopup) {
+              return;
+            }
             var matrix = this.getScreenCTM().translate(+this.getAttribute('x'), +this.getAttribute('y'));
             div.transition()
                 .duration(200)
@@ -371,6 +377,7 @@ function visavailChart() {
             .style('height', dataHeight + 11 + 'px');
           })
           .on('mouseout', function () {
+            $("#div-tooltip").hide();
             div.transition()
                 .duration(500)
                 .style('opacity', 0);
@@ -523,6 +530,12 @@ function visavailChart() {
   chart.emphasizeYearTicks = function (_) {
     if (!arguments.length) return emphasizeYearTicks;
     emphasizeYearTicks = _;
+    return chart;
+  };
+
+  chart.isDisplayPopup = function (_) {
+    if (!arguments.length) return displayPopup;
+    displayPopup = _;
     return chart;
   };
 

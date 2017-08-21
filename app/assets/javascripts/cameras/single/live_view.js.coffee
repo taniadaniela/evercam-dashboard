@@ -143,11 +143,9 @@ handleChangeStream = ->
       when 'jpeg'
         load_jpeg()
       when 'video'
-        setTimeout (->
-          $("#camera-video-stream").html(video_player_html)
-          initializePlayer()
-          flashDetection()
-        ), 0
+        $("#camera-video-stream").html(video_player_html)
+        initializePlayer()
+        flashDetection()
         $("#fullscreen").removeClass("active").addClass "inactive"
         $("#streams").removeClass("inactive").addClass "active"
         stopJpegStream()

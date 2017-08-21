@@ -86,19 +86,25 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
-  window.vjs_player = videojs 'camera-video-player', {
-    techOrder: ["flash", "html5"]
-  }
-  $("#camera-video-player").append($("#ptz-control"))
-  tries = 0
-  clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
-  setInterval (->
-    if $('#camera-video-player').hasClass 'vjs-user-active'
-      $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
-      $('#live-view-placeholder .pull-right table').stop().animate()
-    else
-      $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
-  ), 10
+  if /Edge/.test(navigator.userAgent)
+    $('#select-stream-table').hide()
+    $("#select-stream-type").val("jpeg")
+    load_jpeg()
+  else
+    $('#select-stream-table').show()
+    window.vjs_player = videojs 'camera-video-player', {
+      techOrder: ["flash", "html5"]
+    }
+    $("#camera-video-player").append($("#ptz-control"))
+    tries = 0
+    clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
+    setInterval (->
+      if $('#camera-video-player').hasClass 'vjs-user-active'
+        $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
+        $('#live-view-placeholder .pull-right table').stop().animate()
+      else
+        $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
+    ), 10
 
 switch_to_jpeg = ->
   if tries < 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
@@ -111,7 +117,10 @@ switch_to_jpeg = ->
 destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
     $("#jpg-portion").append($("#ptz-control"))
-    window.vjs_player.dispose()
+    setTimeout (->
+      window.vjs_player.dispose()
+      return
+    ), 0
     $("#camera-video-stream").html('')
 
 load_jpeg = ->
@@ -465,7 +474,16 @@ $(window).load HideMessage = ->
     $("#offline_message").show()
 
 flashDetection = ->
-  if !swfobject.hasFlashPlayerVersion("9.0.115") and Evercam.Camera.is_online and $('#select-stream-type').val() is "video"
+  hasFlash = false
+  try
+    flash = new ActiveXObject('ShockwaveFlash.ShockwaveFlash')
+    if flash
+      hasFlash = true
+  catch e
+    if navigator.mimeTypes and navigator.mimeTypes['application/x-shockwave-flash'] != undefined and navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin
+      hasFlash = true
+
+  if hasFlash is false and Evercam.Camera.is_online and $('#select-stream-type').val() is "video"
     $('.vjs-error-display').hide()
     $('.flash-error-message').show()
 

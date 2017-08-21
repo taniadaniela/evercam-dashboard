@@ -203,10 +203,14 @@ capture_image = ->
   $("#div-capture").on "click", ->
     $pop = Popcorn("#local-recording-video-player_html5_api");
     $pop.capture
+      type: "jpeg"
       set: false
       target: "img#captured"
       reload: false
-    SaveImage.save($("#captured").attr('src'), "#{Evercam.Camera.id}.png")
+    setTimeout(do_capture, 200)
+
+do_capture = ->
+  SaveImage.save($("#local_recordings_tab #captured").attr('src'), "#{Evercam.Camera.id}.jpg")
 
 set_position = ->
   content_width = Metronic.getViewPort().width
@@ -233,7 +237,8 @@ handleTabOpen = ->
     $("#nvr-time_select").val("#{hr}:00:00")
     onChangeStream()
     $("#local_recordings_tab .rect_has_data").removeClass("rect_has_data_active")
-    $("#g_data rect:first-child").addClass("rect_has_data_active")
+    if $("#time_graph g#g_data rect:first-child").hasClass("rect_has_data")
+      $("#time_graph g#g_data rect:first-child").addClass("rect_has_data_active")
     set_position()
   $('.nav-tab-local-recordings').on 'hide.bs.tab', ->
     window.vjs_player_local.pause()
@@ -349,7 +354,7 @@ on_graph_click = ->
   $("#local_recordings_tab").on "mousemove", ".rect_has_data", (ev) ->
     from_dt = moment.utc("#{$(this).attr("from")}", "YYYY-MM-DD HH:mm:ss")
     from = from_dt.format('DD-MM-GGGG HH:mm:ss')
-    to = moment("#{$(this).attr("to")}", "YYYY-MM-DD HH:mm:ss").format('DD-MM-GGGG HH:mm')
+    to = moment("#{$(this).attr("to")}", "YYYY-MM-DD HH:mm:ss").format('DD-MM-GGGG HH:mm:ss')
     $("#div-tooltip div#spn_datetime").html("#{from} - #{to}")
     if thumbnails_array["#{from_dt / 1000}"] is undefined
       $("#tooltip-img").hide()
@@ -357,7 +362,7 @@ on_graph_click = ->
     else
       $("#tooltip-img").show()
       $("#nvr-img-popup").attr("src", thumbnails_array["#{from_dt / 1000}"])
-      $("#div-tooltip").css({ top: "#{ev.pageY - 140}px", left: "#{ev.pageX - 90}px" })
+      $("#div-tooltip").css({ top: "#{ev.pageY - 215}px", left: "#{ev.pageX - 120}px" })
     $("#div-tooltip").show()
 
   $("#local_recordings_tab").on "click", ".rect_has_data", (ev) ->

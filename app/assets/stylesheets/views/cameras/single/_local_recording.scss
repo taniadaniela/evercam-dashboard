@@ -60,7 +60,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     height: auto;
-    width: 180px;
+    width: 320px;
     padding: 5px 0;
   }
 
@@ -117,7 +117,7 @@
   }
 
   .rect_has_no_data {
-    fill: $black;
+    fill: transparent;
   }
 
   .has-snapshot {
@@ -146,7 +146,7 @@
     margin-left: -18px;
     color: #ffffff;
     margin-top: 7px;
-    right: 44px;
+    right: 90px;
   }
   
   .btn {
@@ -220,5 +220,10 @@
 
   .rect_has_data_active {
     fill: #458cc7 !important;
+  }
+
+  .vjs-playback-rate .vjs-playback-rate-value,
+  .vjs-playback-rate .vjs-menu {
+    left: 5px;
   }
 }

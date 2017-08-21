@@ -353,8 +353,9 @@ load_graph = (times_list) ->
 on_graph_click = ->
   $("#local_recordings_tab").on "mousemove", ".rect_has_data", (ev) ->
     from_dt = moment.utc("#{$(this).attr("from")}", "YYYY-MM-DD HH:mm:ss")
-    from = from_dt.format('DD-MM-GGGG HH:mm:ss')
-    to = moment("#{$(this).attr("to")}", "YYYY-MM-DD HH:mm:ss").format('DD-MM-GGGG HH:mm:ss')
+    from = from_dt.format('HH:mm:ss')
+    to = moment("#{$(this).attr("to")}", "YYYY-MM-DD HH:mm:ss").format('HH:mm:ss')
+    content_width = Metronic.getViewPort().width
     $("#div-tooltip div#spn_datetime").html("#{from} - #{to}")
     if thumbnails_array["#{from_dt / 1000}"] is undefined
       $("#tooltip-img").hide()
@@ -362,7 +363,10 @@ on_graph_click = ->
     else
       $("#tooltip-img").show()
       $("#nvr-img-popup").attr("src", thumbnails_array["#{from_dt / 1000}"])
-      $("#div-tooltip").css({ top: "#{ev.pageY - 215}px", left: "#{ev.pageX - 120}px" })
+      left = ev.pageX - 180
+      if content_width < left + 610
+        left = left - (left + 600 - content_width) - 30
+      $("#div-tooltip").css({ top: "#{ev.pageY - 375}px", left: "#{left}px" })
     $("#div-tooltip").show()
 
   $("#local_recordings_tab").on "click", ".rect_has_data", (ev) ->

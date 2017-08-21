@@ -60,8 +60,8 @@
     background-position: center center;
     background-repeat: no-repeat;
     height: auto;
-    width: 320px;
-    padding: 5px 0;
+    width: 600px;
+    padding: 3px 0;
   }
 
   li.active {
@@ -203,7 +203,8 @@
     display: none;
     background-color: #FFFFE1;
     border: 1px solid #000000;
-    font-size: 8pt;
+    font-size: 15px;
+    font-weight: 500;
     padding-left: 3px;
     padding-right:3px;
     z-index: 1000001;

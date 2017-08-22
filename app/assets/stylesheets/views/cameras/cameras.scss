@@ -57,9 +57,11 @@
   margin-bottom: 5px;
   margin-top: 8px;
 }
+
 .nav-tabs {
-border-bottom: 1px solid rgba(16, 28, 39, 0.58);
+  border-bottom: 1px solid $grey;
 }
+
 .nav-tabs li a {
   color: #333333;
 }

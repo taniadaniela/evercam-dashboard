@@ -145,7 +145,7 @@ handleChangeStream = ->
           $('#select-stream-table').show()
           $("#camera-video-stream").html(video_player_html)
           initializePlayer()
-          flashDetection()
+          # flashDetection()
           $("#fullscreen").removeClass("active").addClass "inactive"
           $("#streams").removeClass("inactive").addClass "active"
           stopJpegStream()
@@ -524,7 +524,7 @@ window.initializeLiveTab = ->
   changePtzPresets()
   handleModelEvents()
   checkPTZExist()
-  flashDetection()
+  # flashDetection()
   onEditPtz()
   onDeletePtz()
   ptzCreation()

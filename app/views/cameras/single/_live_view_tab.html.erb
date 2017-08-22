@@ -54,14 +54,14 @@
           <% end %>
         </div>
       </div>
-      <% unless rtmp_stream.blank? %>
+      <% unless hls_stream.blank? %>
         <div id="camera-video-stream" class="active">
           <video id="camera-video-player" class="video-js vjs-default-skin"
                  poster='<%= "#{thumbnail_url(@camera)}" %>'
                  controls autoplay>
-            <source src="<%= rtmp_stream %>" type="rtmp/flv">
-            <% unless hls_stream.blank? %>
-              <source src="<%= hls_stream %>" type="application/x-mpegURL">
+            <source src="<%= hls_stream %>" type="application/x-mpegURL">
+            <% unless rtmp_stream.blank? %>
+              <source src="<%= rtmp_stream %>" type="rtmp/flv">
             <% end %>
           </video>
         </div>

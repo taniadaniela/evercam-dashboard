@@ -11,7 +11,7 @@ SetInfoMessage = (from, to) ->
   from_dt = moment.utc(from*1000)
   to_dt = moment(to*1000).toISOString()
 
-  $("#nvr-time_select").val(from_dt.format("HH:mm:ss"))
+  $("#nvr_time_select").val(from_dt.format("mm:ss"))
   url = "#{Evercam.request.rootpath}/local-recordings?from=#{from_dt.toISOString()}&to=#{to_dt}"
   if $("#ul-nav-tab li.active a").text() is "Local Recordings" && history.replaceState
     window.history.replaceState({}, '', url)
@@ -36,7 +36,7 @@ get_thumbnail = (from) ->
     success: onSuccess
     context: {from: from}
     type: 'GET'
-    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{from}/nearest" #{Evercam.API_URL}
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{from}/nearest"
 
   $.ajax(settings)
 
@@ -143,6 +143,7 @@ set_stream_source = ->
 
 initDatePicker = ->
   $("#ui_date_picker_inline_lr").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
+
   $("#ui_date_picker_inline_lr table th[class*='prev']").on "click", ->
     changeMonthFromArrow('p')
 
@@ -233,8 +234,7 @@ handleResize = ->
 
 handleTabOpen = ->
   $('.nav-tab-local-recordings').on 'shown.bs.tab', ->
-    hr = FormatNumTo2($("#local_recording_hourCalendar td.active").text())
-    $("#nvr-time_select").val("#{hr}:00:00")
+    $("#nvr_time_select").val("00:00")
     onChangeStream()
     $("#local_recordings_tab .rect_has_data").removeClass("rect_has_data_active")
     if $("#time_graph g#g_data rect:first-child").hasClass("rect_has_data")
@@ -245,10 +245,9 @@ handleTabOpen = ->
     window.vjs_player_local.reset()
     closeStream()
   $("#spn_load_stream").on "click", ->
-    time = $("#nvr-time_select").val().split(":")
-    chunk = Math.ceil(parseInt(time[1]) / 5)
+    time = $("#nvr_time_select").val().split(":")
     $("#local_recordings_tab .rect_has_data").removeClass("rect_has_data_active")
-    $("#time_graph rect:nth-child(#{chunk})").addClass("rect_has_data_active")
+    $("#time_graph rect:nth-child(#{parseInt(time[0]) + 1})").addClass("rect_has_data_active")
     onChangeStream()
 
 onChangeStream = ->
@@ -257,7 +256,7 @@ onChangeStream = ->
   month = date.getMonth() + 1
   day = date.getDate()
   hr = $("#local_recording_hourCalendar td.active").text()
-  from = moment.utc("#{year}-#{month}-#{day} #{$("#nvr-time_select").val()}", "YYYY-MM-DD HH:mm:ss") / 1000
+  from = moment.utc("#{year}-#{month}-#{day} #{hr}:#{$("#nvr_time_select").val()}", "YYYY-MM-DD HH:mm:ss") / 1000
   to = moment.utc("#{year}-#{month}-#{day} #{hr}:59:59", "YYYY-MM-DD HH:mm:ss") / 1000
   if window.vjs_player_local
     window.vjs_player_local.pause()
@@ -359,6 +358,7 @@ on_graph_click = ->
     $("#div-tooltip div#spn_datetime").html("#{from} - #{to}")
     if thumbnails_array["#{from_dt / 1000}"] is undefined
       $("#tooltip-img").hide()
+      $("#spn_datetime").removeClass("thumbnail-times")
       $("#div-tooltip").css({ top: "#{ev.pageY - 25}px", left: "#{ev.pageX - 90}px" })
     else
       $("#tooltip-img").show()
@@ -367,6 +367,7 @@ on_graph_click = ->
       if content_width < left + 610
         left = left - (left + 600 - content_width) - 30
       $("#div-tooltip").css({ top: "#{ev.pageY - 375}px", left: "#{left}px" })
+      $("#spn_datetime").removeClass("thumbnail-times").addClass("thumbnail-times")
     $("#div-tooltip").show()
 
   $("#local_recordings_tab").on "click", ".rect_has_data", (ev) ->
@@ -384,11 +385,13 @@ walkDaysInMonth = (year, month) ->
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
+  showDaysLoadingAnimation()
 
   onError = (response, status, error) ->
     false
 
   onSuccess = (response, status, jqXHR) ->
+    hideDaysLoadingAnimation()
     for day in response.days
       HighlightDay(year, month, day, true)
 
@@ -408,11 +411,13 @@ boldRecordingHours = ->
   data = {}
   data.api_id = Evercam.User.api_id
   data.api_key = Evercam.User.api_key
+  showHourLoadingAnimation()
 
   onError = (response, status, error) ->
     false
 
   onSuccess = (response, status, jqXHR) ->
+    hideHourLoadingAnimation()
     for hour in response.hours
       $("#lr_tdI#{hour}").addClass('has-snapshot')
 
@@ -502,11 +507,11 @@ handleBodyLoad = ->
     $("#ui_date_picker_inline_lr").datepicker('update', datetime)
     $("#ui_date_picker_inline_lr").datepicker('setDate', datetime)
     current_hour = datetime.getHours()
-    $("#nvr-time_select").val("#{current_hour }:#{datetime.getMinutes()}:#{datetime.getSeconds()}")
+    $("#nvr_time_select").val("#{datetime.getMinutes()}:#{datetime.getSeconds()}")
     is_come_from_url = true
   else
     current_hour = parseInt($("#camera_current_time").val())
-    $("#nvr-time_select").val("#{current_hour }:00:00")
+    $("#nvr_time_select").val("00:00")
   $("#lr_tdI#{current_hour}").addClass("active")
   init_graph(current_hour)
 
@@ -517,8 +522,25 @@ on_open_archive_model = ->
     month = FormatNumTo2(d.getMonth() + 1)
     day = FormatNumTo2(d.getDate())
     $('#from-date').val "#{day}/#{month}/#{d.getFullYear()}",true
-    time = $("#nvr-time_select").val().split(":")
-    $('#archive-time').val "#{time[0]}:#{time[1]}"
+    hr = $("#local_recording_hourCalendar td.active").text()
+    time = $("#nvr_time_select").val().split(":")
+    $('#archive-time').val "#{hr}:#{time[1]}"
+
+showDaysLoadingAnimation = ->
+  $('#nvr_days_loader').removeClass 'hide'
+  $('#ui_date_picker_inline_lr').addClass 'opacity-transparent'
+
+hideDaysLoadingAnimation = ->
+  $('#nvr_days_loader').addClass 'hide'
+  $('#ui_date_picker_inline_lr').removeClass 'opacity-transparent'
+
+showHourLoadingAnimation = ->
+  $('#nvr_hour_loader').removeClass 'hide'
+  $('#local_recording_hourCalendar').addClass 'opacity-transparent'
+
+hideHourLoadingAnimation = ->
+  $('#nvr_hour_loader').addClass 'hide'
+  $('#local_recording_hourCalendar').removeClass 'opacity-transparent'
 
 window.initializeLocalRecordingsTab = ->
   window.local_video_player_html = $('#local-recording-stream').html()

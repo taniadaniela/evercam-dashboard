@@ -24,9 +24,13 @@
     </div>
   </div>
   <div class="right-column">
-    <div id="ui_date_picker_inline_lr" class="datepicker-bg"></div>
+    <div id="ui_date_picker_inline_lr" class="datepicker-bg">
+      <div id="nvr_days_loader" class="img-loader-calendar2">
+        <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+      </div>
+    </div>
     <div class="datepicker datepicker-bg datepicker-inline">
-      <div id="img-hour-Loader" class="img-loader-calendar hide">
+      <div id="nvr_hour_loader" class="img-loader-calendar hide">
         <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
       </div>
       <div class="datepicker-day show">
@@ -79,7 +83,7 @@
     </div>
     <div class="time-box">
       <div class="col-md-9 padding-right-left-zero">
-        Jump To: <input id="nvr-time_select" value="12:00:00" class="form-control1 nvr-time-picker"/>
+        Jump To: <input id="nvr_time_select" autocomplete="off" value="12:00:00" class="form-control1 nvr-time-picker"/>
       </div>
       <div class="col-md-3 text-right">
         <span id="spn_load_stream" class="btn btn-primary">GO</span>

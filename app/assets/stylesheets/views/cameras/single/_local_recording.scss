@@ -227,4 +227,12 @@
   .vjs-playback-rate .vjs-menu {
     left: 5px;
   }
+
+  .thumbnail-times {
+    background-color: $white;
+    bottom: 3px;
+    opacity: .6;
+    position: absolute;
+    width: 99%;
+  }
 }

@@ -3,6 +3,7 @@ total_tries = 6
 BoldDays = []
 is_come_from_url = false
 thumbnails_array = {}
+thumbnail_width = 0
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -363,10 +364,12 @@ on_graph_click = ->
     else
       $("#tooltip-img").show()
       $("#nvr-img-popup").attr("src", thumbnails_array["#{from_dt / 1000}"])
+      if thumbnail_width < 1
+        thumbnail_width = $("#nvr-img-popup").width()
       left = ev.pageX - 180
-      if content_width < left + 610
-        left = left - (left + 600 - content_width) - 30
-      $("#div-tooltip").css({ top: "#{ev.pageY - 375}px", left: "#{left}px" })
+      if content_width < left + thumbnail_width + 10
+        left = left - (left + thumbnail_width - content_width) - 30
+      $("#div-tooltip").css({ top: "#{ev.pageY - 490}px", left: "#{left}px" })
       $("#spn_datetime").removeClass("thumbnail-times").addClass("thumbnail-times")
     $("#div-tooltip").show()
 

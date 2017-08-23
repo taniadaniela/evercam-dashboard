@@ -136,22 +136,22 @@ handleChangeStream = ->
       when 'jpeg'
         load_jpeg()
       when 'video'
-        if /Edge/.test(navigator.userAgent)
-          $('#select-stream-table').hide()
-          $("#select-stream-type").val("jpeg")
-          load_jpeg()
-        else
-          $('#select-stream-table').show()
-          $("#camera-video-stream").html(video_player_html)
-          initializePlayer()
-          # flashDetection()
-          $("#fullscreen").removeClass("active").addClass "inactive"
-          $("#streams").removeClass("inactive").addClass "active"
-          stopJpegStream()
-          $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
-          $("#camera-video-stream").show()
-          imgHeight = $("#camera-video-stream").height()
-          $(".video-js").css 'height', "#{imgHeight}px"
+        #if /Edge/.test(navigator.userAgent)
+        #  $('#select-stream-table').hide()
+        #  $("#select-stream-type").val("jpeg")
+        #  load_jpeg()
+        #else
+        $('#select-stream-table').show()
+        $("#camera-video-stream").html(video_player_html)
+        initializePlayer()
+        # flashDetection()
+        $("#fullscreen").removeClass("active").addClass "inactive"
+        $("#streams").removeClass("inactive").addClass "active"
+        stopJpegStream()
+        $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
+        $("#camera-video-stream").show()
+        imgHeight = $("#camera-video-stream").height()
+        $(".video-js").css 'height', "#{imgHeight}px"
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->

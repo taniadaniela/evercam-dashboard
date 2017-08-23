@@ -60,6 +60,10 @@
   margin-top: 10px;
 }
 
+.ul-nav-tab-single li.active a{
+  margin-top: 2px;
+}
+
 @media (max-width: 480px) {
   #ul-nav-tab .add-to-share {
     display: none;

@@ -554,7 +554,7 @@ port_check = (external_port,type) ->
       $(".#{type}port-status").text('Port is Open')
     else
       if flag is true
-        port_check(ex_port, '')
+        port_check(ex_port, type)
         flag = false
       else
         $(".#{type}refresh-gif").hide()

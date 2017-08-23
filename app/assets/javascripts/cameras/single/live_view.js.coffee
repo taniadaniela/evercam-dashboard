@@ -86,9 +86,7 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
-  window.vjs_player = videojs 'camera-video-player', {
-    techOrder: ["flash", "html5"]
-  }
+  window.vjs_player = videojs 'camera-video-player'
   $("#camera-video-player").append($("#ptz-control"))
   tries = 0
   clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
@@ -101,10 +99,10 @@ initializePlayer = ->
   ), 10
 
 switch_to_jpeg = ->
-  if tries < 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+  if tries < 5 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     tries = tries + 1
     clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
-  else if tries >= 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+  else if tries >= 5 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     $("#select-stream-type").val("jpeg")
     load_jpeg()
 
@@ -112,7 +110,8 @@ destroyPlayer = ->
   unless $('#camera-video-stream').html() == ''
     $("#jpg-portion").append($("#ptz-control"))
     setTimeout (->
-      window.vjs_player.dispose()
+      if window.vjs_player
+        window.vjs_player.dispose()
       return
     ), 0
     $("#camera-video-stream").html('')

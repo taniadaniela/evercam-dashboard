@@ -942,7 +942,7 @@ handleTabOpen = ->
 saveImage = ->
   $('#save-recording-image').on 'click', ->
     date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
-    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg")
+    download($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 

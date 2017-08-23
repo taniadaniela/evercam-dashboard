@@ -176,7 +176,7 @@ handleTabOpen = ->
 
 handleSaveSnapshot = ->
   $('#save-live-snapshot').on 'click', ->
-    SaveImage.save($("#live-player-image").attr('src'), "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg")
+    download($("#live-player-image").attr('src'), "#{Evercam.Camera.id}-#{moment().toISOString()}.jpg", "image/jpg")
 
 getImageRealRatio = ->
   $('<img/>').attr('src', $("#live-player-image").attr('src')).load ->

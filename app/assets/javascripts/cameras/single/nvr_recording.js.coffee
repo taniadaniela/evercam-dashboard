@@ -1,5 +1,5 @@
 retries = 0
-total_tries = 6
+total_tries = 4
 BoldDays = []
 is_come_from_url = false
 thumbnails_array = {}
@@ -45,9 +45,10 @@ get_thumbnail = (from) ->
 load_stream = (from, to) ->
   $("#local-recording-video-player .vjs-loading-spinner").show()
   $("#local-recording-video-player .vjs-big-play-button").hide()
+  $("#clip-create-message").hide()
   SetInfoMessage(from, to)
   $("#div-stream-count-down").show()
-  countdown = 6
+  countdown = 9
   start_count_down()
   onSuccess = (response) ->
     retries = 0
@@ -58,10 +59,11 @@ load_stream = (from, to) ->
     if jqXHR.status is 406
       if window.vjs_player_local
         window.vjs_player_local.pause()
+      $("#clip-create-message").text("Recording stream will not play until system complete requested clip.")
       $("#clip-create-message").show()
     else
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-      Notification.show("Something went wrong, Please try again.")
+      $("#clip-create-message").text("Something went wrong, Please try again.")
+      $("#clip-create-message").show()
 
   query_string = "?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
   query_string += "&starttime=#{from}&endtime=#{to}"
@@ -84,8 +86,8 @@ is_stream_created = ->
   onError = (jqXHR, status, error) ->
     if retries >= total_tries
       $("#local-recording-video-player .vjs-loading-spinner").hide()
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-      Notification.show("Failed to load stream.")
+      $("#clip-create-message").text("Video codec hevc (h265) is not compatible with FLV")
+      $("#clip-create-message").show()
 
   settings =
     cache: false

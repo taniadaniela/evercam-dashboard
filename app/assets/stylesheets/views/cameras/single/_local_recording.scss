@@ -104,6 +104,21 @@
     border-radius: 100px;
   }
 
+  .stream-count-down {
+    background-clip: padding-box;
+    border-radius: 100px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 30px;
+    left: 49.3%;
+    opacity: .85;
+    position: absolute;
+    text-align: left;
+    top: 47.5%;
+    -webkit-box-sizing: border-box;
+
+  }
+
   .vjs-loading-spinner:before, .vjs-loading-spinner:after {
     margin: -10px;
   }

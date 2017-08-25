@@ -4,6 +4,7 @@ BoldDays = []
 is_come_from_url = false
 thumbnails_array = {}
 thumbnail_width = 0
+countdown = 0
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -45,6 +46,9 @@ load_stream = (from, to) ->
   $("#local-recording-video-player .vjs-loading-spinner").show()
   $("#local-recording-video-player .vjs-big-play-button").hide()
   SetInfoMessage(from, to)
+  $("#div-stream-count-down").show()
+  countdown = 6
+  start_count_down()
   onSuccess = (response) ->
     retries = 0
     setTimeout(is_stream_created, 3000)
@@ -74,6 +78,7 @@ load_stream = (from, to) ->
 
 is_stream_created = ->
   onSuccess = (response) ->
+    $("#div-stream-count-down").hide()
     set_stream_source()
 
   onError = (jqXHR, status, error) ->
@@ -97,6 +102,14 @@ is_stream_created = ->
     url: "https://media.evercam.io/hls/#{Evercam.Camera.id}/index.m3u8?nvr=true"
 
   $.ajax(settings)
+
+start_count_down = ->
+  if countdown >= 0
+    $("#div-stream-count-down").text("#{countdown}")
+    countdown = countdown - 1
+    setTimeout(start_count_down, 1000)
+  else
+    $("#div-stream-count-down").hide()
 
 play_pause = ->
   $("#local_recordings_tab .vjs-big-play-button").on "click", ->
@@ -133,6 +146,7 @@ initializePlayer = ->
   window.vjs_player_local = videojs('local-recording-video-player')
   $("#local-recording-video-player div.vjs-control-bar").append($("#div-capture"))
   $("#local-recording-video-player").append($("#clip-create-message"))
+  $("#local-recording-video-player").append($("#div-stream-count-down"))
 
 set_stream_source = ->
   $("#local-recording-video-player .vjs-loading-spinner").hide()

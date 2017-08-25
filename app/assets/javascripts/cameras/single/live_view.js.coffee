@@ -136,11 +136,6 @@ handleChangeStream = ->
       when 'jpeg'
         load_jpeg()
       when 'video'
-        #if /Edge/.test(navigator.userAgent)
-        #  $('#select-stream-table').hide()
-        #  $("#select-stream-type").val("jpeg")
-        #  load_jpeg()
-        #else
         $('#select-stream-table').show()
         $("#camera-video-stream").html(video_player_html)
         initializePlayer()

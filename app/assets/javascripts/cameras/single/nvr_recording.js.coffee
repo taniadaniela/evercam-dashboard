@@ -1,5 +1,5 @@
 retries = 0
-total_tries = 4
+total_tries = 5
 BoldDays = []
 is_come_from_url = false
 thumbnails_array = {}
@@ -86,7 +86,7 @@ is_stream_created = ->
   onError = (jqXHR, status, error) ->
     if retries >= total_tries
       $("#local-recording-video-player .vjs-loading-spinner").hide()
-      $("#clip-create-message").text("Video codec hevc (h265) is not compatible with FLV")
+      $("#clip-create-message").text("Failed to load stream. Please try again and, if the problem persists, contact support.")
       $("#clip-create-message").show()
 
   settings =

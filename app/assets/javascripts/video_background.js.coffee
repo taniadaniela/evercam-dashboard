@@ -1,14 +1,7 @@
-setVideoContainerHeight = ->
-  $('#evercam-video-section').css 'width', '100%'
-  $('#evercam-video-section video').css 'min-width', '100%'
-  $('#evercam-video-section').css 'height', $(window).innerHeight()
-  $('#evercam-video-section video').css 'min-height', '100%'
-
 resizeWin = ->
   $(window).resize ->
     $('#evercam-video-section').css height: $(window).innerHeight()
     centerSignIn()
-    setVideoContainerHeight()
     return
 
 centerSignIn = ->
@@ -82,7 +75,6 @@ hideEmailValidationIcons = ->
   $('#email-available').addClass('hide')
 
 window.initializeVideoBackground = ->
-  setVideoContainerHeight()
   centerSignIn()
   resizeWin()
   getInputValue()

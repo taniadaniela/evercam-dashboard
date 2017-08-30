@@ -2,6 +2,7 @@ images_array = {}
 share_users_select = undefined
 is_logged_intercom = false
 retry_once = true
+share_permissions = undefined
 
 showError = (message) ->
   $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
@@ -466,31 +467,50 @@ onDeleteShareRequestClicked = (event) ->
   sendAJAXRequest(settings)
   true
 
+mapShareValues = (shares, type) ->
+  $.map(shares, (share) ->
+    {
+      camera_id: share.camera_id,
+      share_id: share.id,
+      fullname: share.fullname,
+      sharer_name: share.sharer_name,
+      sharer_email: share.sharer_email,
+      avatar: getFavicon(share["email"]),
+      type: type,
+      permissions: share_permissions,
+      email: share.email,
+      user_id: share.user_id,
+    }
+  )
+
 onAddSharingUserClicked = (event) ->
   event.preventDefault()
   emailAddress = share_users_select.val()
   emailbodyMsg = $('#sharing-message').val()
   if $('#sharingPermissionLevel').val() != "Full Rights"
     permissions = "minimal"
+    share_permissions = permissions
   else
     permissions = "full"
+    share_permissions = permissions
   onError = (jqXHR, status, error) ->
     isUnauthorized(jqXHR, "Failed to share camera.")
     NProgress.done()
 
   onSuccess = (data, status, jqXHR) ->
     logCameraViewed() unless is_logged_intercom
-    if data.success
+    if data
+      total_shares = mapShareValues(data.shares, "share").concat(mapShareValues(data.share_requests, "share_request"))
       shared_avatar = $("#select2-sharing-user-email-container .gravatar1").attr("src")
-      data.shares.forEach (share) ->
+      total_shares.forEach (share) ->
         addSharingCameraRow(share, shared_avatar)
-      if data.shares.length == 1 && data.errors.length == 0
+      if total_shares.length == 1 && data.errors.length == 0
         showFeedback("Camera successfully shared with user")
-      else if data.shares.length > 1 && data.errors.length == 0
+      else if total_shares.length > 1 && data.errors.length == 0
         showFeedback("Camera successfully shared with all users")
-      else if data.shares.length == 0 && data.errors.length == 1
+      else if total_shares.length == 0 && data.errors.length == 1
         showError(data.errors[0].text)
-      else if data.shares.length == 0 && data.errors.length > 1
+      else if total_shares.length == 0 && data.errors.length > 1
         $ul = $('<ul style="float: left;">')
         data.errors.forEach (error) ->
           $ul.append "<li>#{error.text}</li>"
@@ -525,7 +545,7 @@ onAddSharingUserClicked = (event) ->
       showError(message)
     NProgress.done()
     true
-  createShare(Evercam.Camera.id, emailAddress, emailbodyMsg, permissions, onSuccess, onError)
+  createShare(Evercam.Camera.id, emailAddress, emailbodyMsg, permissions, onSuccess, onError, Evercam.User.api_key, Evercam.User.api_id)
   true
 
 onSaveShareClicked = (event) ->
@@ -592,13 +612,24 @@ onSaveShareRequestClicked = (event) ->
     url: '/share/request/'
   sendAJAXRequest(settings)
 
-createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
+generateRightList = (permissions) ->
+  rights = ["list", "snapshot"]
+  baseRights = ["snapshot", "view", "edit", "delete", "list"]
+  if permissions == "full"
+    baseRights.forEach (right) ->
+      if right != "delete"
+        rights.push(right)
+        rights.push("grant~#{right}")
+  rights.join(",")
+
+createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError, apiKey, apiId) ->
   NProgress.start()
   data =
-    camera_id: cameraID
     email: email
     message: bodyMessage
-    permissions: permissions
+    rights: generateRightList(permissions)
+    api_key: apiKey
+    api_id: apiId
 
   settings =
     cache: false
@@ -607,7 +638,7 @@ createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError) ->
     error: onError
     success: onSuccess
     type: 'POST'
-    url: '/share'
+    url: "#{Evercam.API_URL}cameras/#{cameraID}/shares"
   sendAJAXRequest(settings)
 
 logCameraViewed = ->

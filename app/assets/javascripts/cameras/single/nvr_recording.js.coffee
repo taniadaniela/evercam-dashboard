@@ -407,7 +407,7 @@ walkDaysInMonth = (year, month) ->
   showDaysLoadingAnimation()
 
   onError = (response, status, error) ->
-    false
+    hideDaysLoadingAnimation()
 
   onSuccess = (response, status, jqXHR) ->
     hideDaysLoadingAnimation()
@@ -433,7 +433,7 @@ boldRecordingHours = ->
   showHourLoadingAnimation()
 
   onError = (response, status, error) ->
-    false
+    hideHourLoadingAnimation()
 
   onSuccess = (response, status, jqXHR) ->
     hideHourLoadingAnimation()

@@ -170,7 +170,7 @@
   }
 
   .create-clip-btn {
-    padding: 3px 13px;
+    padding: 9px 14px;
   }
 
 
@@ -284,8 +284,8 @@
 @media (max-width: 666px) {
 
   .clip-create-message {
-    position: fixed;
-    top: 66px;
+    position: absolute;
+    top: 0px;
     left: 0% !important;
   }
 }

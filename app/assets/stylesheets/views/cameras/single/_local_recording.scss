@@ -163,10 +163,16 @@
     margin-top: 7px;
     right: 90px;
   }
-  
-  .btn {
-    padding: 3px 6px;
+
+  .go-btn {
+    padding: 1px 12px;
+    margin-top: 1px;
   }
+
+  .create-clip-btn {
+    padding: 3px 13px;
+  }
+
 
   .select2-container--default .select2-selection--single {
     border-radius: 0px;
@@ -178,33 +184,31 @@
 
   .time-box{
     border: 1px solid #efefef;
-    padding: 3px 7px;
+    padding: 3px 8px;
   }
 
   .clip-create-message {
     background-color: $white;
-    border: 3px solid rgba(43, 51, 63, 0.7);
     border-radius: 2px;
     box-sizing: border-box;
     color: $evercam-black;
     display: none;
     font-size: 16px;
     font-weight: 700;
-    left: 25%;
-    margin: -25px 0 0 -25px;
+    left: 30%;
     opacity: .80;
-    padding: 10px;
-    position: absolute;
+    padding: 12px;
     text-align: center;
-    top: 10%;
-    width: 37em;
+    margin-top: 0px;
   }
 
   .nvr-time-picker {
     background-color: $white;
     margin-top: 1px;
-    height: 27px;
-    width:80px;
+    width: 65px;
+    margin-left: 10px;
+    padding: 0 12px;
+    padding-top: 2px;
   }
 
   .padding-right-left-zero {
@@ -249,5 +253,39 @@
     opacity: .6;
     position: absolute;
     width: 99%;
+  }
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.width-140 {
+  width: 140px;
+  float: left;
+}
+
+.width-60 {
+  width: 60px;
+  float: left;
+}
+
+.local_recordings .right-column {
+  padding: 0px;
+}
+
+@media (max-width: 840px) {
+
+  .margintop-5 {
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 666px) {
+
+  .clip-create-message {
+    position: fixed;
+    top: 66px;
+    left: 0% !important;
   }
 }

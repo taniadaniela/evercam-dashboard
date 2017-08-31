@@ -707,7 +707,7 @@ onSaveSettingClicked = (event) ->
 updateDetails = (camera, data) ->
   $('#camera_name').text camera.name
   $('#vendor_data').text camera.vendor_id
-  $('#model_data').text camera.model_id
+  $('#model_data').text camera.model_name
   $('#username').text camera.cam_username
   $('#password').text camera.cam_password
   $('#snapshot_url').text data.snapshot

@@ -237,11 +237,17 @@ set_position = ->
   side_bar_width = $(".page-sidebar").width()
   if $(".page-sidebar").css('display') is "block"
     content_width = content_width - side_bar_width;
-  $("#local_recordings_tab .left-column").css("width", "#{content_width - 225}px")
   $("#local_recordings_tab .right-column").css("width", "220px")
-  $("#local_recordings_tab #local-recording-placeholder").css("height", "#{content_height - 74}px")
-  $("#local_recordings_tab #local-recording-video-player").css("height", "#{content_height - 74}px")
-  $("#local-recording-video-player_html5_api").css("height", "#{content_height - 74}px")
+  if $(window).width() > 992
+    $("#local_recordings_tab #local-recording-placeholder").css("height", "#{content_height - 74}px")
+    $("#local_recordings_tab #local-recording-video-player").css("height", "#{content_height - 74}px")
+    $("#local-recording-video-player_html5_api").css("height", "#{content_height - 74}px")
+    $("#local_recordings_tab .left-column").css("width", "#{content_width - 225}px")
+  else
+    $("#local_recordings_tab #local-recording-placeholder").css("height", "auto")
+    $("#local_recordings_tab #local-recording-video-player").css("height", $("#local-recording-video-player_html5_api").height())
+    $("#local-recording-video-player_html5_api").css("height", "auto")
+    $("#local_recordings_tab .left-column").css("width", "100%")
 
 handleResize = ->
   set_position()

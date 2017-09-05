@@ -81,11 +81,13 @@ load_stream = (from, to) ->
 is_stream_created = ->
   onSuccess = (response) ->
     $("#div-stream-count-down").hide()
+    $("#local-recording-video-player_html5_api").css("height", "100%")
     set_stream_source()
 
   onError = (jqXHR, status, error) ->
     if retries >= total_tries
       $("#local-recording-video-player .vjs-loading-spinner").hide()
+      $("#local-recording-video-player_html5_api").css("height", "auto")
       $("#clip-create-message").text("Failed to load stream. Please try again and, if the problem persists, contact support.")
       $("#clip-create-message").show()
 
@@ -371,6 +373,9 @@ load_graph = (times_list) ->
   $('#time_graph').text ''
   d3.select('#time_graph').datum(record_times).call chart
   $("#local_recordings_tab g.tick:first text").css("text-anchor", "right")
+  recording_placeholder_width =  $("#local-recording-placeholder").width()
+  if recording_placeholder_width is 0
+    setTimeout (-> load_graph(times_list)), 100
 
 on_graph_click = ->
   $("#local_recordings_tab").on "mousemove", ".rect_has_data", (ev) ->

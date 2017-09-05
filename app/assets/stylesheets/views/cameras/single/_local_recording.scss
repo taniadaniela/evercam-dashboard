@@ -274,18 +274,19 @@
   padding: 0px;
 }
 
+@media (max-width: 990px) {
+
+  .clip-create-message {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0% !important;
+  }
+}
+
 @media (max-width: 840px) {
 
   .margintop-5 {
     margin-top: 5px;
-  }
-}
-
-@media (max-width: 666px) {
-
-  .clip-create-message {
-    position: absolute;
-    top: 0px;
-    left: 0% !important;
   }
 }

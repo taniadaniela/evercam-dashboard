@@ -681,7 +681,6 @@ NoRecordingDayOrHour = ->
   $("#divNoMd").text('Motion Detection Not Enabled')
   hideDaysLoadingAnimation()
   hideHourLoadingAnimation()
-  loadOldestLatestImage(latest)
   totalFrames = 0
 
 SetImageHour = (hr, id) ->
@@ -1088,9 +1087,8 @@ loadOldestLatestImage = (enter_query) ->
     HideImageSaveOption()
     hideDaysLoadingAnimation()
     hideHourLoadingAnimation()
-    if enter_query is 'oldest'
-      first_image_date = response.created_at
-      updateFirstImageCalendar(first_image_date)
+    image_date = response.created_at
+    updateImageCalendar(image_date)
 
   settings =
     cache: false
@@ -1128,19 +1126,19 @@ setLatestImage = ->
   $("#divPointer").width("100%")
   UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
 
-updateFirstImageCalendar = (oldest_image_date) ->
+updateImageCalendar = (oldest_latest_image_date) ->
   currentFrameNumber = 1
   $("#hourCalendar td[class*='day']").removeClass("active")
-  first_image_date = new Date(moment.unix(oldest_image_date).tz("#{Evercam.Camera.timezone}").format("YYYY-MM-DD HH:mm:ss"))
-  $("#ui_date_picker_inline").datepicker('update', first_image_date)
-  $("#ui_date_picker_inline").datepicker('setDate', first_image_date)
-  oldest_image_year = first_image_date.getFullYear()
-  oldest_image_month = first_image_date.getMonth() + 1
-  oldest_image_day = first_image_date.getDate()
-  HighlightFirstDay(oldest_image_year, oldest_image_month, oldest_image_day)
-  cameraCurrentHour = first_image_date.getHours()
+  image_date = new Date(moment.unix(oldest_latest_image_date).tz("#{Evercam.Camera.timezone}").format("YYYY-MM-DD HH:mm:ss"))
+  $("#ui_date_picker_inline").datepicker('update', image_date)
+  $("#ui_date_picker_inline").datepicker('setDate', image_date)
+  oldest_latest_image_year = image_date.getFullYear()
+  oldest_latest_image_month = image_date.getMonth() + 1
+  oldest_latest_image_day = image_date.getDate()
+  HighlightFirstDay(oldest_latest_image_year, oldest_latest_image_month, oldest_latest_image_day)
+  cameraCurrentHour = image_date.getHours()
   $("#tdI#{cameraCurrentHour}").addClass("active has-snapshot")
-  SetInfoMessage(currentFrameNumber, first_image_date)
+  SetInfoMessage(currentFrameNumber, image_date)
   BoldSnapshotHour(false)
 
 HighlightFirstDay = (year, month, day) ->

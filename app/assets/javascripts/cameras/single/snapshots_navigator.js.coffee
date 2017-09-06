@@ -402,7 +402,6 @@ BoldSnapshotHourSuccess = (result, context) ->
       if selected_hour is 0
         cameraCurrentHour = hour
 
-
   if hasRecords
     if this.isCall
       GetCameraInfo true
@@ -682,6 +681,7 @@ NoRecordingDayOrHour = ->
   hideDaysLoadingAnimation()
   hideHourLoadingAnimation()
   totalFrames = 0
+  HideLoader()
 
 SetImageHour = (hr, id) ->
   value = $("##{id}").html()

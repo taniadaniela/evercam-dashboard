@@ -773,14 +773,16 @@ getSharedUsers = ->
         null
     share_users_select.val("").trigger("change")
     share_users_select.on 'select2:unselecting', (e) ->
-      $(this).data 'unselecting', true
       disableShareButton()
+      $(this).data 'unselecting', true
     share_users_select.on 'select2:opening', (e) ->
       if $(this).data('unselecting')
         $(this).removeData 'unselecting'
+        disableShareButton()
         e.preventDefault()
       setTimeout(getEmptyImagesForSelect2, 1500)
     share_users_select.on 'select2:close', (e) ->
+      disableShareButton()
       setTimeout(onCloseSelect2SetGravatar, 1000)
     share_users_select.on 'select2:select', (e) ->
       disableShareButton()

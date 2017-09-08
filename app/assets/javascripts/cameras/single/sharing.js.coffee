@@ -727,23 +727,15 @@ getGravatar = (img, email) ->
     url: "#{favicon_url}"
   jQuery.ajax(settings)
 
-validateEmail = ->
-  $('#sharing-user-email').on 'keyup change', ->
-    if $('#sharing-user-email').val()
-      email = $('#sharing-user-email').val()
-      emailRegex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
-      if !emailRegex.test(email)
-        $('#submit_share_button').attr 'disabled', 'disabled'
-        $('#email-duration-error').removeClass 'hide'
-        $('#email-empty-error').addClass 'hide'
-      else
-        $('#submit_share_button').removeAttr 'disabled'
-        $('#email-duration-error').addClass 'hide'
-        $('#email-empty-error').addClass 'hide'
-    else
-      $('#submit_share_button').attr 'disabled', 'disabled'
-      $('#email-empty-error').removeClass 'hide'
-      $('#email-duration-error').addClass 'hide'
+validateEmail = (email) ->
+  re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+  re.test email
+
+disableShareButton = ->
+  if $('#sharing-user-email').val()
+    $('#submit_share_button').removeAttr 'disabled'
+  else
+    $('#submit_share_button').attr 'disabled', 'disabled'
 
 getSharedUsers = ->
   data =
@@ -761,15 +753,28 @@ getSharedUsers = ->
       )
     share_users_select = $('#sharing-user-email').select2
       tags: true,
-      tokenSeparators: [',', ';', ' '],
-      placeholder: 'Email Address or Username',
+      placeholder: 'Enter Email Address',
       selectOnClose: true,
       closeOnSelect: false,
+      tokenSeparators: [',', ';', ' '],
       templateSelection: format,
       templateResult: format
+      createTag: (term, data) ->
+        value = term.term
+        if value
+          share_users_select.select2("open")
+        else
+          share_users_select.select2("close")
+        if validateEmail(value)
+          return {
+            id: value
+            text: value
+          }
+        null
     share_users_select.val("").trigger("change")
     share_users_select.on 'select2:unselecting', (e) ->
       $(this).data 'unselecting', true
+      disableShareButton()
     share_users_select.on 'select2:opening', (e) ->
       if $(this).data('unselecting')
         $(this).removeData 'unselecting'
@@ -777,6 +782,8 @@ getSharedUsers = ->
       setTimeout(getEmptyImagesForSelect2, 1500)
     share_users_select.on 'select2:close', (e) ->
       setTimeout(onCloseSelect2SetGravatar, 1000)
+    share_users_select.on 'select2:select', (e) ->
+      disableShareButton()
 
   settings =
     cache: false
@@ -813,6 +820,7 @@ getEmptyImagesForSelect2 = ->
       $(this).attr("src", $("#select2-sharing-user-email-container .gravatar1").attr("src"))
 
 onCloseSelect2SetGravatar = ->
+  disableShareButton()
   img_id = $("#select2-sharing-user-email-container .gravatar1").attr("id")
   img = document.getElementById("#{img_id}")
   if img.naturalWidth < 3

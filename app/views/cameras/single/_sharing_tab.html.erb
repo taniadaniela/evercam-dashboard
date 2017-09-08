@@ -271,7 +271,7 @@
 
 <div class="row form-horizontal margin-top-10">
   <div class="col-md-12">
-    <div class="sharing-title">
+    <div class="sharing-title title-padding">
       <span class="bold">Share Camera with:</span>
     </div>
     <div class="add-user">
@@ -294,15 +294,14 @@
                 <select id="sharing-user-email" name="sharing-user-email" class="js-example-basic-multiple form-control" multiple="multiple" style="width: 500px">
                 </select>
               </div>
+              <span id="email-duration-error" class="duration-error"><b>Note:</b> The input value only allows Email Address.</span>
             </div>
-            <span id="email-duration-error" class="duration-error duration-text-error hide">You have not given a correct e-mail address</span>
-            <span id="email-empty-error" class="duration-error duration-text-error hide">Please enter valid e-mail address</span>
           </td>
         </tr>
         <tr>
           <td class="col-lg-4">
             <div class="email-input">
-              <div class="input-group">
+              <div class="input-group margin-top-10">
                 <textarea id="sharing-message" rows="5" placeholder="Message to send in email" class="form-control"></textarea>
               </div>
             </div>
@@ -311,7 +310,7 @@
         <tr>
           <td class="col-lg-4">
             <div class="input-group">
-              <button type="submit" class="btn btn-primary" id="submit_share_button">Share</button>
+              <button type="submit" class="btn btn-primary" id="submit_share_button" disabled="disable">Share</button>
             </div>
           </td>
         </tr>

@@ -1129,7 +1129,7 @@ setLatestImage = ->
 updateImageCalendar = (oldest_latest_image_date) ->
   currentFrameNumber = 1
   $("#hourCalendar td[class*='day']").removeClass("active")
-  image_date = new Date(moment.unix(oldest_latest_image_date).tz("#{Evercam.Camera.timezone}").format("YYYY-MM-DD HH:mm:ss"))
+  image_date = new Date(moment.unix(oldest_latest_image_date).tz("#{Evercam.Camera.timezone}").format("YYYY/MM/DD HH:mm:ss"))
   $("#ui_date_picker_inline").datepicker('update', image_date)
   $("#ui_date_picker_inline").datepicker('setDate', image_date)
   oldest_latest_image_year = image_date.getFullYear()

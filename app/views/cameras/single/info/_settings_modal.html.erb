@@ -91,7 +91,7 @@
                         <td><label class="margin-top-8 control-label" for="port">HTTP Port:</label></td>
                         <td>
                         <div class="port-changes">
-                          <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable port" required="" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'http', 'port') {} %>">
+                          <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable port" required="" type="text" data-validation="custom" maxlength="5" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'http', 'port') {} %>">
                           <div class="port-status"></div><img src="/assets/refresh.gif" class="refresh-gif">
                         </div>
                       </tr>
@@ -99,7 +99,7 @@
                         <td><label class="margin-top-8 control-label" for="ext-rtsp-port">RTSP Port:</label></td>
                         <td >
                           <div class="rtsp-port-changes">
-                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable rtsp-port" type="text" data-validation="custom" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">
+                          <input id="ext-rtsp-port" name="ext-rtsp-port" placeholder="Not yet provided" class="form-control makeEditable rtsp-port" type="text" data-validation="custom" maxlength="5" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." data-validation-optional="true" value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">
                           <div class="rtsp-port-status"></div><img src="/assets/refresh.gif" class="rtsp-refresh-gif">
                         </div>
                         </td>

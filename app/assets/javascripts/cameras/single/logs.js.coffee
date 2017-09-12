@@ -407,6 +407,7 @@ showStatusBar = (from, to) ->
   data.camera_name = Evercam.Camera.name
   data.camera_status = Evercam.Camera.is_online
   data.created_at = Evercam.Camera.created_at
+  data.timezone = Evercam.Camera.timezone
 
   onSuccess = (response) ->
     initReport(response)

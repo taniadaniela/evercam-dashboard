@@ -374,7 +374,7 @@ callDate = ->
   $('#datetimepicker2').val(getDate('to'))
 
 getDate = (type) ->
-  DateFromTime = new Date(moment.utc().format('MM DD YYYY, HH:mm:ss'))
+  DateFromTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
   DateFromTime.setHours(DateFromTime.getHours() + (cameraOffset))
   if type is "from"
     DateFromTime.setDate(DateFromTime.getDate() - 30)

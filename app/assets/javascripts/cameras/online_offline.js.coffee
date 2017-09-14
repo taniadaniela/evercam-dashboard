@@ -11,6 +11,7 @@ startReport = (logs) ->
 onResize = ->
   $(window).resize ->
     startReport(evercam_logs)
+    centerLoadingAnimation()
 
 selectHistoryDays = ->
   $('#select-history-days').on 'change', ->
@@ -49,7 +50,12 @@ onChangeStatusReportDays = (days) ->
   sendAJAXRequest(settings)
   true
 
+centerLoadingAnimation = ->
+  offset = ($(window).height() - 100) / 2
+  $("#loading-image-div").css "margin-top", offset
+
 window.initializeOnlineOfflineReport = ->
   onResize()
   selectHistoryDays()
   onChangeStatusReportDays()
+  centerLoadingAnimation()

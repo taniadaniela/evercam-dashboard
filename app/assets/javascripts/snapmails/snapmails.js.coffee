@@ -516,6 +516,7 @@ handleModelEvents = ->
   $(".modal").on "show.bs.modal", centerModal
   $(window).on "resize", ->
     $(".modal:visible").each centerModal
+    centerLoadingAnimation()
 
 centerModal = ->
   $(this).css "display", "block"
@@ -524,6 +525,10 @@ centerModal = ->
   if $(window).height() > $dialog.height()
     # Center modal vertically in window
     $dialog.css "margin-top", offset
+
+centerLoadingAnimation = ->
+  offset = ($(window).height() - 200) / 2
+  $(".snapmail-animation").css "margin-top", offset
 
 window.initializeSnapmails = ->
   initSnapmails()
@@ -541,3 +546,4 @@ window.initializeSnapmails = ->
   pauseSnapmail()
   cloneSnapmail()
   handleModelEvents()
+  centerLoadingAnimation()

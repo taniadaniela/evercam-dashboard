@@ -504,14 +504,6 @@ hideLoadingAnimation = ->
   $("#snapmail-form .modal-content").removeClass("opacity0")
   $("#loading-image-div").addClass("hide")
 
-centerLoadingAnimation = ->
-  offset = ($(window).height() - 200) / 2
-  $(".snapmail-animation").css "margin-top", offset
-
-onResize = ->
-  $(window).resize ->
-    centerLoadingAnimation()
-
 window.initializeSingleSnapmail = ->
   loadSnapmails()
   initCameraSelect()
@@ -528,5 +520,3 @@ window.initializeSingleSnapmail = ->
   pauseSnapmail()
   cloneSnapmail()
   openSnapmailDialog()
-  centerLoadingAnimation()
-  onResize()

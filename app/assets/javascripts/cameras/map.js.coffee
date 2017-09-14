@@ -65,11 +65,11 @@ vendorLogo = (vendorId) ->
   if vendorId == ''
     "Other"
   else
-    "<img width='60' src='http://evercam-public-assets.s3.amazonaws.com/#{vendorId}/logo.jpg' />"
+    "<img width='60' src='https://evercam-public-assets.s3.amazonaws.com/#{vendorId}/logo.jpg' />"
 
 iconBase = (status) ->
   if status == false
-    'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|808080'
+    'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|808080'
   else
     ''
 

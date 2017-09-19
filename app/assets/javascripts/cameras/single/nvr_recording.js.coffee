@@ -43,7 +43,7 @@ get_thumbnail = (from) ->
   $.ajax(settings)
 
 load_stream = (from, to) ->
-  $("#local-recording-video-player .vjs-loading-spinner").show()
+  $("#local-recording-stream .evercam-loading-animation").show()
   $("#local-recording-video-player .vjs-big-play-button").hide()
   $("#clip-create-message").hide()
   SetInfoMessage(from, to)
@@ -55,7 +55,7 @@ load_stream = (from, to) ->
     setTimeout(is_stream_created, 3000)
 
   onError = (jqXHR, status, error) ->
-    $("#local-recording-video-player .vjs-loading-spinner").hide()
+    $("#local-recording-stream .evercam-loading-animation").hide()
     if jqXHR.status is 406
       if window.vjs_player_local
         window.vjs_player_local.pause()
@@ -86,7 +86,7 @@ is_stream_created = ->
 
   onError = (jqXHR, status, error) ->
     if retries >= total_tries
-      $("#local-recording-video-player .vjs-loading-spinner").hide()
+      $("#local-recording-stream .evercam-loading-animation").hide()
       $("#local-recording-video-player_html5_api").css("height", "auto")
       $("#clip-create-message").text("Failed to load stream. Please try again and, if the problem persists, contact support.")
       $("#clip-create-message").show()
@@ -144,7 +144,7 @@ isplayed = ->
     window.vjs_player_local.play()
     setTimeout(isplayed, 1000)
   else
-    $("#local-recording-video-player .vjs-loading-spinner").hide()
+    $("#local-recording-stream .evercam-loading-animation").hide()
 
 initializePlayer = ->
   window.vjs_player_local = videojs('local-recording-video-player')
@@ -153,7 +153,7 @@ initializePlayer = ->
   $("#local-recording-video-player").append($("#div-stream-count-down"))
 
 set_stream_source = ->
-  $("#local-recording-video-player .vjs-loading-spinner").hide()
+  $("#local-recording-stream .evercam-loading-animation").hide()
   window.vjs_player_local.play()
   window.vjs_player_local.src([
     { type: "application/x-mpegURL", src: "https://media.evercam.io/hls/#{Evercam.Camera.id}/index.m3u8?nvr=true" },
@@ -255,6 +255,7 @@ handleResize = ->
   set_position()
   $(window).resize ->
     set_position()
+    centerLoadingAnimation()
     load_graph(JSON.parse($("#txtData").val())) unless $("#txtData").val() is ""
 
 handleTabOpen = ->
@@ -328,7 +329,7 @@ init_graph = (hr) ->
       if !is_come_from_url && $("#ul-nav-tab li.active a").text() is "Local Recordings"
         if window.vjs_player_local
           window.vjs_player_local.pause()
-        $("#local-recording-video-player .vjs-loading-spinner").show()
+        $("#local-recording-stream .evercam-loading-animation").show()
         load_stream(this.from, this.to)
       is_come_from_url = false
     else
@@ -403,7 +404,7 @@ on_graph_click = ->
   $("#local_recordings_tab").on "click", ".rect_has_data", (ev) ->
     if window.vjs_player_local
       window.vjs_player_local.pause()
-    $("#local-recording-video-player .vjs-loading-spinner").show()
+    $("#local-recording-stream .evercam-loading-animation").show()
     $("#local_recordings_tab .rect_has_data").removeClass("rect_has_data_active")
     $(this).addClass("rect_has_data_active")
     from = moment.utc("#{$(this).attr("from")}", "YYYY-MM-DD HH:mm:ss") / 1000
@@ -572,6 +573,20 @@ hideHourLoadingAnimation = ->
   $('#nvr_hour_loader').addClass 'hide'
   $('#local_recording_hourCalendar').removeClass 'opacity-transparent'
 
+centerLoadingAnimation = ->
+  local_recording_height = $("#local-recording-placeholder").height()
+  local_recording_width = $("#local-recording-placeholder").width()
+  if $(window).width() > 992
+    offset = (local_recording_height - 115) / 2
+    widthset = (local_recording_width - 115) / 2
+  else
+    offset = (local_recording_height - 90) / 2
+    widthset = (local_recording_width - 90) / 2
+  $("#evercam-loading-animation").css "margin-top", offset
+  $("#evercam-loading-animation").css "margin-left", widthset
+  if local_recording_width is 0
+    setTimeout (-> centerLoadingAnimation()), 100
+
 window.initializeLocalRecordingsTab = ->
   window.local_video_player_html = $('#local-recording-stream').html()
   window.vjs_player_local = {}
@@ -587,3 +602,5 @@ window.initializeLocalRecordingsTab = ->
   on_graph_click()
   play_pause()
   on_open_archive_model()
+  centerLoadingAnimation()
+  $("#local-recording-video-player .vjs-loading-spinner").hide()

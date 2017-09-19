@@ -754,12 +754,8 @@
   font-weight: bold;
 }
 
-.margin-left-45 {
-  margin-left: 45px;
-}
-
-.margin-left-18 {
-  margin-left: 18px;
+.width-135 {
+  width: 135px;
 }
 
 .color-grey {
@@ -770,12 +766,36 @@
   display: none;
 }
 
+.select-schedule-presets {
+  width: 74%;
+}
+
 @media (min-width: 768px) {
 
   .setting-schedule .modal-dialog {
     max-width: 575px;
   }
+}
 
+@media (max-width: 768px) {
+
+  .select-schedule-presets {
+    width: 66%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .select-schedule-presets {
+    width: 175px;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .select-schedule-presets {
+    width: 100%;
+  }
 }
 
 .button-prev-next {

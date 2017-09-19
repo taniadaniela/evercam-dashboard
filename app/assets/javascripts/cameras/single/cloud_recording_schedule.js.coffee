@@ -60,7 +60,49 @@ updateScheduleToOff = ->
   Evercam.Camera.cloud_recording.schedule = fullWeekSchedule
   status = "off"
 
+updateSchedulePresets = ->
+  schedule_preset = $("#select-schedule-presets").val()
+
+  switch schedule_preset
+    when "None"
+      localStorage.setItem 'todoData', @value
+      updateScheduleFromCalendar()
+    when "MF_24_hr"
+      reRenderCalendarEvents(workingDaySchedule)
+    when "MF_Site_Working"
+      reRenderCalendarEvents(siteWorkingSchedule)
+    when "MF_Site_Working_Sat"
+      reRenderCalendarEvents(siteWorkingSaturdaySchedule)
+    when "MF_Sat_sun_off"
+      reRenderCalendarEvents(officeClosedSchedule)
+
+reRenderCalendarEvents = (preset_schedule) ->
+  $('#cloud-recording-calendar').fullCalendar('destroy')
+  Evercam.Camera.cloud_recording.schedule = preset_schedule
+  Evercam.Camera.cloud_recording.frequency =
+    $("#cloud-recording-frequency").val()
+  Evercam.Camera.cloud_recording.storage_duration =
+    $("#cloud-recording-duration").val()
+  initScheduleCalendar()
+  renderEvents()
+
+showSchedulePresetValue = ->
+  schedule_preset_value = Evercam.Camera.cloud_recording.schedule
+
+  switch true
+    when _.isEqual(schedule_preset_value, workingDaySchedule)
+      $("#select-schedule-presets").val("MF_24_hr")
+    when _.isEqual(schedule_preset_value, siteWorkingSchedule)
+      $("#select-schedule-presets").val("MF_Site_Working")
+    when _.isEqual(schedule_preset_value, siteWorkingSaturdaySchedule)
+      $("#select-schedule-presets").val("MF_Site_Working_Sat")
+    when _.isEqual(schedule_preset_value, officeClosedSchedule)
+      $("#select-schedule-presets").val("MF_Sat_sun_off")
+    else
+      $("#select-schedule-presets").val("None")
+
 updateScheduleFromCalendar = ->
+  $('#select-schedule-presets').val("None")
   Evercam.Camera.cloud_recording.schedule = parseCalendar()
   Evercam.Camera.cloud_recording.frequency =
     $("#cloud-recording-frequency").val()
@@ -205,6 +247,12 @@ showDurationSelect = ->
 hideDurationSelect = ->
   $('#cloud-recording-duration-wrap').hide('slow')
 
+showPresetSelect = ->
+  $('#schedule-recording-presets').show('slow')
+
+hidePresetSelect = ->
+  $('#schedule-recording-presets').hide('slow')
+
 updateFrequencyTo60 = ->
   $("#cloud-recording-frequency").val(60)
 
@@ -217,13 +265,49 @@ window.fullWeekSchedule =
   "Saturday": ["00:00-23:59"]
   "Sunday": ["00:00-23:59"]
 
+window.workingDaySchedule =
+  "Monday": ["0:0-23:59"]
+  "Tuesday": ["0:0-23:59"]
+  "Wednesday": ["0:0-23:59"]
+  "Thursday": ["0:0-23:59"]
+  "Friday": ["0:0-23:59"]
+  "Saturday": []
+  "Sunday": []
+
+window.siteWorkingSchedule =
+  "Monday": ["7:0-19:0"]
+  "Tuesday": ["7:0-19:0"]
+  "Wednesday": ["7:0-19:0"]
+  "Thursday": ["7:0-19:0"]
+  "Friday": ["7:0-19:0"]
+  "Saturday": []
+  "Sunday": []
+
+window.siteWorkingSaturdaySchedule =
+  "Monday": ["7:0-19:0"]
+  "Tuesday": ["7:0-19:0"]
+  "Wednesday": ["7:0-19:0"]
+  "Thursday": ["7:0-19:0"]
+  "Friday": ["7:0-19:0"]
+  "Saturday": ["7:0-14:0"]
+  "Sunday": []
+
+window.officeClosedSchedule =
+  "Monday": ["0:0-8:0","18:0-23:59"]
+  "Tuesday": ["0:0-8:0","18:0-23:59"]
+  "Wednesday": ["0:0-8:0","18:0-23:59"]
+  "Thursday": ["0:0-8:0","18:0-23:59"]
+  "Friday": ["0:0-8:0","18:0-23:59"]
+  "Saturday": ["0:0-23:59"]
+  "Sunday": ["0:0-23:59"]
+
 perfomAction = ->
   status = $('input[name=cloud_recording]:checked').val()
   switch status
     when "on","paused"
       updateScheduleToOn()
     when "on-scheduled"
-      updateScheduleFromCalendar()
+      updateSchedulePresets()
 
 handleFrequencySelect = ->
   $("#cloud-recording-frequency").off("change").on "change" , (event) ->
@@ -246,6 +330,7 @@ handleStatusSelect = ->
         else
           hideScheduleCalendar()
           showFrequencySelect()
+          hidePresetSelect()
           showDurationSelect()
           updateFrequencyTo60()
           updateScheduleToOn()
@@ -256,11 +341,13 @@ handleStatusSelect = ->
         else
           showScheduleCalendar()
           showFrequencySelect()
+          showPresetSelect()
           showDurationSelect()
           updateFrequencyTo60()
           updateScheduleToOn()
       when "off"
         hideFrequencySelect()
+        hidePresetSelect()
         hideDurationSelect()
         hideScheduleCalendar()
         updateScheduleToOff()
@@ -335,24 +422,31 @@ renderCloudRecordingStatus = ->
     when "on"
       $("#cloud-recording-on").iCheck('check')
       showFrequencySelect()
+      hidePresetSelect()
       showDurationSelect()
       hideScheduleCalendar()
       renderCloudRecordingDuration()
       renderCloudRecordingFrequency()
+      showSchedulePresetValue()
     when "on-scheduled"
       $("#cloud-recording-on-scheduled").iCheck('check')
       showScheduleCalendar()
       showFrequencySelect()
+      showPresetSelect()
       showDurationSelect()
       renderCloudRecordingDuration()
       renderCloudRecordingFrequency()
+      showSchedulePresetValue()
     when "off"
       $("#cloud-recording-off").iCheck('check')
       hideScheduleCalendar()
       hideFrequencySelect()
+      hidePresetSelect()
       hideDurationSelect()
+      showSchedulePresetValue()
     when "paused"
       $("#cloud-recording-paused").iCheck('check')
+      showSchedulePresetValue()
 
 saveScheduleSettings = ->
   $(".schedule-save").off('click').on 'click', ->
@@ -389,13 +483,17 @@ resumeCR = ->
       when "on"
         hideScheduleCalendar()
         showFrequencySelect()
+        showPresetSelect()
         showDurationSelect()
         updateScheduleToOn()
+        showSchedulePresetValue()
       when "on-scheduled"
         showScheduleCalendar()
         showFrequencySelect()
+        showPresetSelect()
         showDurationSelect()
         updateScheduleToOn()
+        showSchedulePresetValue()
     $("#cr_change_to").val("")
     $("#off-pause-modal").modal('hide')
 
@@ -439,3 +537,4 @@ window.initCloudRecordingSettings = ->
   handleStatusSelect()
   saveScheduleSettings()
   resumeCR()
+  $('#select-schedule-presets').change(updateSchedulePresets)

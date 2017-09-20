@@ -484,6 +484,7 @@ mapShareValues = (shares, type) ->
   )
 
 onAddSharingUserClicked = (event) ->
+  $('#submit_share_button').attr 'disabled', 'disabled'
   event.preventDefault()
   emailAddress = share_users_select.val()
   emailbodyMsg = $('#sharing-message').val()

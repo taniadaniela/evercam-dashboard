@@ -352,12 +352,14 @@ class CamerasController < ApplicationController
     @all_cameras.each do |camera|
       camera_ids[camera_ids.count] =  camera.id
     end
-    CameraActivity.db = Sequel.connect(ENV['SNAPSHOT_DATABASE_URL'], max_connections: 100)
+    CameraActivity.dataset = Sequel.connect(ENV['SNAPSHOT_DATABASE_URL'], max_connections: 100)[:camera_activities]
+
     all_logs = CameraActivity
                 .where(camera_id: camera_ids)
                 .where(:action => ["online", "offline"])
                 .where(:done_at => (Date.today - days)..(Time.now.utc))
                 .order(:done_at).all
+
     @camera_logs = @cameras.map do |camera|
       {
         camera_name: camera["name"],
@@ -385,13 +387,13 @@ class CamerasController < ApplicationController
   end
 
   def map_logs(all_logs, id)
-    if all_logs.select{|i| i.camera_exid == id}.empty?
+    if all_logs.select{|i| i[:camera_exid] == id}.empty?
       []
     else
-      all_logs.select{|i| i.camera_exid == id}.map do |log|
+      all_logs.select{|i| i[:camera_exid] == id}.map do |log|
         {
-          done_at: log.done_at,
-          action: log.action
+          done_at: log[:done_at],
+          action: log[:action]
         }
       end
     end

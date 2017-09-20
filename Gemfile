@@ -24,7 +24,7 @@ gem 'timezone'
 
 
 gem 'pg'
-gem 'sequel', '~> 4.49.0'
+gem 'sequel', '~> 5.0.0'
 gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes'
 gem 'rack-rewrite'

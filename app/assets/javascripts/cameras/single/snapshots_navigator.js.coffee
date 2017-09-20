@@ -402,13 +402,18 @@ BoldSnapshotHourSuccess = (result, context) ->
       if selected_hour is 0
         cameraCurrentHour = hour
 
-  if hasRecords
-    if this.isCall
-      GetCameraInfo true
-    else
-      SetImageHour(cameraCurrentHour, "tdI#{cameraCurrentHour}")
+  if query_value == "latest" && result.hours.length == 0
+    hideDaysLoadingAnimation()
+    hideHourLoadingAnimation()
+    HideLoader()
   else
-    NoRecordingDayOrHour()
+    if hasRecords
+      if this.isCall
+        GetCameraInfo true
+      else
+        SetImageHour(cameraCurrentHour, "tdI#{cameraCurrentHour}")
+    else
+      NoRecordingDayOrHour()
 
 GetCameraInfo = (isShowLoader) ->
   NProgress.start()
@@ -670,9 +675,9 @@ FormatNumTo2 = (n) ->
 
 NoRecordingDayOrHour = ->
   showLoader()
+  $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
   $("#divRecent").show()
   $("#divInfo").fadeOut()
-  latest = $('#latest-get-image').data('query')
   $("#divPointer").width(0)
   $("#divSliderBackground").width(0)
   $("#MDSliderItem").html("")
@@ -680,6 +685,7 @@ NoRecordingDayOrHour = ->
   $("#divNoMd").text('Motion Detection Not Enabled')
   hideDaysLoadingAnimation()
   hideHourLoadingAnimation()
+  $("#snapshot-tab-save").hide()
   totalFrames = 0
   HideLoader()
 
@@ -1135,6 +1141,7 @@ updateImageCalendar = (oldest_latest_image_date) ->
   oldest_latest_image_year = image_date.getFullYear()
   oldest_latest_image_month = image_date.getMonth() + 1
   oldest_latest_image_day = image_date.getDate()
+  walkDaysInMonth(oldest_latest_image_year, oldest_latest_image_month)
   HighlightFirstDay(oldest_latest_image_year, oldest_latest_image_month, oldest_latest_image_day)
   cameraCurrentHour = image_date.getHours()
   $("#tdI#{cameraCurrentHour}").addClass("active has-snapshot")
@@ -1154,6 +1161,8 @@ HighlightFirstDay = (year, month, day) ->
         iDay = parseInt(calDay.text())
         if day == iDay
           calDay.addClass('has-snapshot active')
+  hideDaysLoadingAnimation()
+  hideHourLoadingAnimation()
 
 onClickSnapshotMagnifier = ->
   $('#snapshot-magnifier').on 'click', ->

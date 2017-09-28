@@ -27,7 +27,7 @@ EvercamDashboard::Application.configure do
   config.assets.enabled = false
 
   # Generate digests for assets URLs.
-  config.serve_static_assets = true
+  config.serve_static_assets = false
   config.assets.compress = true
   config.assets.compile = true
   config.assets.digest = true

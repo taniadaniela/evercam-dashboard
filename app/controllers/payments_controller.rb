@@ -1,8 +1,8 @@
 class PaymentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :redirect_when_cart_empty, only: :new
-  prepend_before_filter :ensure_card_exists, only: [:create, :new]
-  prepend_before_filter :customer_id_exists, only: [:ensure_card_exists]
+  before_action :authenticate_user!
+  before_action :redirect_when_cart_empty, only: :new
+  prepend_before_action :ensure_card_exists, only: [:create, :new]
+  prepend_before_action :customer_id_exists, only: [:ensure_card_exists]
   skip_before_action :authenticate_user!, only: [:pay, :make_payment, :thank]
   layout "user-account"
   include SessionsHelper

@@ -1,6 +1,6 @@
 class SubscriptionsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :owns_data!
+  before_action :authenticate_user!
+  before_action :owns_data!
   layout "user-account"
   include SessionsHelper
   include ApplicationHelper

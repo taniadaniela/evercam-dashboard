@@ -7,7 +7,6 @@
 //= require jquery.uniform
 //= require datetimepicker
 //= require jquery-cookie
-//= require jquery.nicescroll/dist/jquery.nicescroll.min.js
 //= require jquery.nicescroll/jquery.nicescroll.min.js
 //= require metronic/jquery.slimscroll.min
 //= require jquery-form-validator

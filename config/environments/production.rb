@@ -19,8 +19,6 @@ EvercamDashboard::Application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  config.serve_static_files = false
-
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   config.assets.css_compressor = :yui
@@ -29,6 +27,9 @@ EvercamDashboard::Application.configure do
   config.assets.enabled = false
 
   # Generate digests for assets URLs.
+  config.serve_static_assets = true
+  config.assets.compress = true
+  config.assets.compile = true
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
@@ -66,19 +67,6 @@ EvercamDashboard::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation can not be found).
-  config.i18n.fallbacks = true
-
-  # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify
-
-  # Disable automatic flushing of the log to improve performance.
-  config.autoflush_log = false
-
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
-
   # Define a Hash for the session initializer.
   config.session_initializer_settings = {key: '_evercam_dashboard_session',
                                          domain: '.evercam.io'}
@@ -94,4 +82,18 @@ EvercamDashboard::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
+
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation can not be found).
+  config.i18n.fallbacks = true
+
+  # Send deprecation notices to registered listeners.
+  config.active_support.deprecation = :notify
+
+  # Disable automatic flushing of the log to improve performance.
+  config.autoflush_log = false
+
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
+
 end

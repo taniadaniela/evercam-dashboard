@@ -55,13 +55,9 @@ group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'wkhtmltopdf-heroku'
-  gem 'heroku_rails_deflate'
 end
 
 group :development do
-  # gem 'jazz_hands',
-  #   github: 'nixme/jazz_hands',
-  #   branch: 'bring-your-own-debugger'
   gem 'spirit_hands'
   gem 'pry-byebug', '~> 3.5'
   gem 'rspec', '~> 3.6.0'

@@ -320,10 +320,6 @@ GEM
     heroku-api (0.4.3)
       excon (~> 0.45)
       multi_json (~> 1.8)
-    heroku_rails_deflate (1.0.3)
-      actionpack (>= 3.2.13)
-      activesupport (>= 3.2.13)
-      rack (>= 1.4.5)
     hirb (0.7.3)
     hirb-unicode-steakknife (0.0.8)
       hirb (~> 0.5)
@@ -636,7 +632,6 @@ DEPENDENCIES
   guard-rspec
   hashie
   heroku-api
-  heroku_rails_deflate
   ie_iframe_cookies!
   imgareaselect-rails (~> 1.0)
   intercom

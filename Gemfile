@@ -21,11 +21,9 @@ gem 'georuby'
 gem 'geocoder'
 gem 'hashie'
 gem 'timezone'
-gem 'websocket-driver', '~> 0.6.1'
-
 
 gem 'pg'
-gem 'sequel', '~> 5.0.0'
+gem 'sequel', '~> 5.1.0'
 gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes_continued',
   github: 'westonganger/protected_attributes_continued'
@@ -48,7 +46,8 @@ gem 'dotenv'
 
 group :evercam do
   gem 'evercam',
-    github: 'evercam/evercam-ruby'
+    github: 'evercam/evercam-ruby',
+    branch: 'update_ruby_gems'
 end
 
 group :production do
@@ -58,8 +57,7 @@ group :production do
 end
 
 group :development do
-  gem 'spirit_hands'
-  gem 'pry-byebug', '~> 3.5'
+  gem 'spirit_hands', '~> 2.1.4'
   gem 'rspec', '~> 3.6.0'
   gem 'guard-rspec'
   gem 'sprockets-rails', '~> 3.2.1'
@@ -74,7 +72,6 @@ group :test do
   gem 'webmock'
   gem 'poltergeist'
   gem 'nokogiri'
-  gem 'simplecov'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
   gem 'launchy'

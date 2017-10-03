@@ -46,8 +46,7 @@ gem 'dotenv'
 
 group :evercam do
   gem 'evercam',
-    github: 'evercam/evercam-ruby',
-    branch: 'update_ruby_gems'
+    github: 'evercam/evercam-ruby'
 end
 
 group :production do

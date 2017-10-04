@@ -251,12 +251,19 @@ tooltip = ->
   $('[data-toggle="tooltip"]').tooltip()
   return
 
+FormatNumTo2 = (n) ->
+  num = parseInt(n)
+  if num < 10
+    "0#{num}"
+  else
+    num
+
 createClip = ->
   $("#create_clip_button").on "click", ->
     duration = parseInt($("#to-date").val())
     date = $("#from-date").val().split('/')
     time = $('.timepicker-default').val().split(":")
-    from = moment.tz("#{date[2]}-#{parseInt(date[1])}-#{parseInt(date[0])} #{parseInt(time[0])}:#{parseInt(time[1])}:0", Evercam.Camera.timezone)
+    from = moment.tz("#{date[2]}-#{FormatNumTo2(date[1])}-#{FormatNumTo2(date[0])} #{FormatNumTo2(time[0])}:#{FormatNumTo2(time[1])}:00", Evercam.Camera.timezone)
     to = from.clone().minutes(from.minutes() + duration)
 
     if $("#clip-name").val() is ""
@@ -270,6 +277,7 @@ createClip = ->
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     NProgress.start()
     $("#create_clip_button").attr 'disabled', 'disabled'
+
     data =
       title: $("#clip-name").val()
       from_date: from / 1000

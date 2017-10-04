@@ -263,7 +263,7 @@ createClip = ->
     duration = parseInt($("#to-date").val())
     date = $("#from-date").val().split('/')
     time = $('.timepicker-default').val().split(":")
-    from = moment.tz("#{date[2]}-#{FormatNumTo2(date[1])}-#{FormatNumTo2(date[0])} #{FormatNumTo2(time[0])}:#{FormatNumTo2(time[1])}:00", Evercam.Camera.timezone)
+    from = moment.tz("#{date[2]}-#{FormatNumTo2(date[1])}-#{FormatNumTo2(date[0])} #{FormatNumTo2(time[0])}:#{FormatNumTo2(time[1])}:00", "UTC")
     to = from.clone().minutes(from.minutes() + duration)
 
     if $("#clip-name").val() is ""

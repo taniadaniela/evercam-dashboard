@@ -102,7 +102,7 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"snapshots": [{"camera": "aaaa11123","notes": null,"created_at": 1401205738,"timezone": "Etc/UTC"}]}', :headers => {})
 
         session['user'] = user.email
-        post :create, params
+        post :create, params: params
         expect(response.status).to eq(302)
         expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
@@ -199,7 +199,7 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
         session['user'] = user.email
-        patch :update, {'id' => camera.exid, 'camera-id' => camera.exid}
+        patch :update, params: {'id' => camera.exid, 'camera-id' => camera.exid}
         expect(response.status).to eq(200)
       end
     end
@@ -243,7 +243,7 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"logs": [{}], "pages": 1}', :headers => {})
 
         session['user'] = user.email
-        get :single, id: camera2.exid
+        get :single, params: { id: camera2.exid }
         expect(response.status).to eq(302)
       end
     end
@@ -254,7 +254,7 @@ describe CamerasController do
           to_return(:status => 200, :body => "", :headers => {})
 
         session['user'] = user.email
-        post :delete, {'id' => params['camera-id']}
+        post :delete, params: {'id' => params['camera-id']}
         expect(response.status).to eq(200)
       end
     end
@@ -275,7 +275,7 @@ describe CamerasController do
           to_return(:status => 200, :body => '{"cameras": []}', :headers => {})
 
         session['user'] = user.email
-        post :delete, {'id' => params['camera-id']}
+        post :delete, params: {'id' => params['camera-id']}
         expect(response.status).to eq(200)
       end
     end

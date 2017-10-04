@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :owns_data!
-  before_filter :get_camares
+  before_action :authenticate_user!
+  before_action :owns_data!
+  before_action :get_camares
   layout "user-account"
   include SessionsHelper
   include ApplicationHelper

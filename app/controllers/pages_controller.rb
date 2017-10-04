@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  before_filter :authenticate_user!
-  skip_after_filter :intercom_rails_auto_include, only: [:live, :play]
+  before_action :authenticate_user!
+  skip_after_action :intercom_rails_auto_include, only: [:live, :play]
   skip_before_action :authenticate_user!, only: [:revoke_request, :unsubscribe, :unsubscribed, :good_bye]
   include SessionsHelper
   include ApplicationHelper
@@ -72,7 +72,7 @@ class PagesController < ApplicationController
     else
       Rails.logger.warn  "Requester is anonymous."
     end
-    Rails.logger.warn  "Request Parameters: #{params.to_hash.inspect}"
+    Rails.logger.warn  "Request Parameters: #{params.permit(params).to_h.inspect}"
 
     redirect_to root_path
   end

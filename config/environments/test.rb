@@ -16,7 +16,6 @@ EvercamDashboard::Application.configure do
   config.assets.enabled = true
   config.assets.debug = false
   config.assets.digest = true
-  config.serve_static_files  = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.
@@ -27,7 +26,7 @@ EvercamDashboard::Application.configure do
   config.action_dispatch.show_exceptions = false
 
   # Disable request forgery protection in test environment.
-  config.action_controller.allow_forgery_protection = false
+  config.action_controller.forgery_protection_origin_check = true
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the

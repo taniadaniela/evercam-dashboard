@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
-gem 'rails'
+gem 'rails', '~> 5.1.4'
 
 gem 'sass-rails'
 gem 'yui-compressor'
@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'sprockets'
 gem 'javascript-securehash-rails'
 gem 'fog'
-gem 'asset_sync'
+gem 'asset_sync', '~> 2.2.0'
 gem 'autoprefixer-rails'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
@@ -22,20 +22,20 @@ gem 'geocoder'
 gem 'hashie'
 gem 'timezone'
 
-
 gem 'pg'
-gem 'sequel', '~> 5.0.0'
+gem 'sequel', '~> 5.1.0'
 gem 'bcrypt', '~> 3.1.10'
-gem 'protected_attributes'
+gem 'protected_attributes_continued',
+  github: 'westonganger/protected_attributes_continued'
 gem 'rack-rewrite'
 gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
-gem 'heroku_rails_deflate'
 gem 'country_select',
   github: 'stefanpenner/country_select'
 gem 'devise'
-gem 'ie_iframe_cookies'
+gem 'ie_iframe_cookies',
+  github: 'affan00/ie_iframe_cookies'
 gem 'heroku-api'
 gem 'intercom-rails'
 gem 'wicked_pdf'
@@ -56,24 +56,21 @@ group :production do
 end
 
 group :development do
-  gem 'quiet_assets'
-  gem 'jazz_hands',
-    github: 'nixme/jazz_hands',
-    branch: 'bring-your-own-debugger'
-  gem 'pry-byebug'
-  gem 'rspec'
+  gem 'spirit_hands', '~> 2.1.4'
+  gem 'rspec', '~> 3.6.0'
   gem 'guard-rspec'
+  gem 'sprockets-rails', '~> 3.2.1'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'vcr'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.6.1'
+  gem 'rails-controller-testing'
   gem 'webmock'
   gem 'poltergeist'
   gem 'nokogiri'
-  gem 'simplecov'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
   gem 'launchy'

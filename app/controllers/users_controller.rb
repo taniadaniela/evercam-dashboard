@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   include ApplicationHelper
-  before_filter :authenticate_user!
-  before_filter :owns_data!
+  before_action :authenticate_user!
+  before_action :owns_data!
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
   skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
-  skip_after_filter  :intercom_rails_auto_include, only: [
+  skip_after_action  :intercom_rails_auto_include, only: [
     :new, :create, :confirm, :password_reset_request,
     :password_update, :password_update_form
   ]

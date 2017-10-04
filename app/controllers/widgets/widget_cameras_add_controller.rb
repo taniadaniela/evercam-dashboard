@@ -1,11 +1,11 @@
 class Widgets::WidgetCamerasAddController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :allow_iframe, only: [:add_public_camera]
+  before_action :authenticate_user!
+  before_action :allow_iframe, only: [:add_public_camera]
   after_action :allow_iframe, only: [:add_public_camera]
   before_action :allow_iframe, only: [:add_public_camera]
   skip_before_action :verify_authenticity_token, only: [:add_camera]
   skip_before_action :authenticate_user!, only: [:add_public_camera, :add_camera]
-  skip_after_filter :intercom_rails_auto_include, only: [:add_camera, :add_public_camera]
+  skip_after_action :intercom_rails_auto_include, only: [:add_camera, :add_public_camera]
 
   include SessionsHelper
   include ApplicationHelper

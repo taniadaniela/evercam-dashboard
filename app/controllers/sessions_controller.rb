@@ -2,10 +2,10 @@ class SessionsController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
 
-  skip_before_filter :authenticate_user!
+  skip_before_action :authenticate_user!
   protect_from_forgery except: :destroy
   after_action :allow_iframe, only: [:widget_new, :live_view_private_widget, :hikvision_private_widget, :snapshot_navigator_widget]
-  skip_after_filter :intercom_rails_auto_include, only: [:new, :widget_new, :create, :destroy]
+  skip_after_action :intercom_rails_auto_include, only: [:new, :widget_new, :create, :destroy]
   layout "bare-bones"
 
   def new

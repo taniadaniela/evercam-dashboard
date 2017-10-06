@@ -574,8 +574,29 @@ port_check = (external_port,type) ->
   xhrRequestPortCheck = jQuery.ajax(settings)
   true
 
+nvr_port_key_event = ->
+  regexp = /^[0-9]{2,5}$/
+  $('#nvr_port').on 'keyup', ->
+    flag = true
+    @value = @value.replace(/[^\d]/, '')
+    $.validate()
+    if xhrRequestPortCheck
+      xhrRequestPortCheck.abort()
+    port = $('#nvr_port').val()
+    if !port.match regexp
+      $(".nvr-port-status").hide()
+      $("#nvr_port").css('width', '100%')
+      $("#nvr_port").css('backgroundColor','#f0f0f0')
+      $(".nvr-port-changes").css('backgroundColor','transparent')
+    else
+      $("#nvr_port").css('width', '50%')
+      $("#nvr_port").css('backgroundColor','transparent')
+      $(".nvr-port-changes").css('backgroundColor','#f0f0f0')
+      port_check(port,'nvr-')
+
 init_key_events = ->
   regexp = /^[0-9]{2,5}$/
+  nvr_port_key_event()
   $('#camera-name').on 'keyup', ->
     $.validate()
   $('#port').on 'keyup', ->
@@ -622,6 +643,8 @@ init_key_events = ->
 cursor_visible = ->
   $('.port-changes').on 'click', ->
     $('#port').focus()
+  $('.nvr-port-changes').on 'click', ->
+    $('#nvr_port').focus()
   $('.rtsp-port-changes').on 'click', ->
     $('#ext-rtsp-port').focus()
 
@@ -678,6 +701,7 @@ onSaveSettingClicked = (event) ->
   data.rtsp = $('#rtsp').val()
   data.camera_url = $('#camera-url').val()
   data.port = $('#port').val()
+  data.nvr_port = $("#nvr_port").val()
   data.ext_rtsp_port = $('#ext-rtsp-port').val()
   data.camera_timezone = $('#camera-timezone').val()
 
@@ -714,6 +738,7 @@ updateDetails = (camera, data) ->
   $('#rtsp_val').text data.rtsp
   $('#url_ip').text data.camera_url
   $('#http_port').text data.port
+  $('#nvr_http_port').text data.nvr_port
   $('#rtsp_port').text data.ext_rtsp_port
   $('#camera_timezone').text data.camera_timezone
   $('#camera_link a').text camera.external.http.camera
@@ -761,6 +786,7 @@ window.initializeInfoTab = ->
   refreshLastSnaps()
   hideNotAvailableURLS()
   port_check(port,'')
+  port_check($('#nvr_port').val(),'nvr-')
   port_check(rtsp_port,'rtsp-')
   init_key_events()
   cursor_visible()

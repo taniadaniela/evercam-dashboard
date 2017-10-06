@@ -388,11 +388,16 @@ p#search-notes {
     background-color: $form-grey;
   }
 
+  .nvr-port-changes {
+    background-color: $form-grey;
+  }
+
   .rtsp-port-changes {
     background-color: $form-grey;
   }
 
-  .port {
+  .port,
+  .nvr-port {
     background-color: transparent;
     border: 0;
     width: 50%;
@@ -406,7 +411,8 @@ p#search-notes {
     display: inline-block;
   }
 
-  .port-status {
+  .port-status,
+  .nvr-port-status {
     display: inline;
     margin-right: 10px;
     float: right;
@@ -426,7 +432,8 @@ p#search-notes {
     text-align: right;
   }
 
-  .refresh-gif {
+  .refresh-gif,
+  .nvr-refresh-gif {
     display: none;
     margin-right: 20px;
     float: right;

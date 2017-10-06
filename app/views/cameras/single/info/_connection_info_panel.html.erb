@@ -58,13 +58,24 @@
         </td>
       </tr>
       <tr>
-        <td>HTTP Port:</td>
+        <td>VH HTTP Port:</td>
         <td id="http_port">
           <% port = @camera.deep_fetch('external', 'http', 'port') {} %>
           <% if port.blank? %>
             <span class="grey">Not set</span>
           <% else %>
             <%= @camera.deep_fetch('external', 'http', 'port') {} %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>NVR HTTP Port:</td>
+        <td id="nvr_http_port">
+          <% port = @camera.deep_fetch('external', 'http', 'nvr_port') {} %>
+          <% if port.blank? %>
+            <span class="grey">Not set</span>
+          <% else %>
+            <%= port %>
           <% end %>
         </td>
       </tr>

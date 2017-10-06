@@ -151,6 +151,7 @@ class CamerasController < ApplicationController
         :external_http_port => params['port'],
         :internal_http_port => params['local-http'],
         :external_rtsp_port => params['ext_rtsp_port'],
+        :nvr_http_port => params["nvr_port"],
         :internal_rtsp_port => params['local_rtsp'],
         :jpg_url => params['snapshot'],
         :vendor => params['camera_vendor'],

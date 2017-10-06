@@ -88,11 +88,19 @@
                         </td>
                       </tr>
                       <tr>
-                        <td><label class="margin-top-8 control-label" for="port">HTTP Port:</label></td>
+                        <td><label class="margin-top-8 control-label" for="port">VH HTTP Port:</label></td>
                         <td>
                         <div class="port-changes">
                           <input id="port" name="port" placeholder="Not yet provided" class="form-control makeEditable port" required="" type="text" data-validation="custom" maxlength="5" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'http', 'port') {} %>">
                           <div class="port-status"></div><img src="/assets/refresh.gif" class="refresh-gif">
+                        </div>
+                      </tr>
+                      <tr>
+                        <td><label class="margin-top-8 control-label" for="port">NVR HTTP Port:</label></td>
+                        <td>
+                        <div class="nvr-port-changes">
+                          <input id="nvr_port" name="nvr_port" placeholder="Not yet provided" class="form-control makeEditable nvr-port" required="" type="text" data-validation="custom" maxlength="5" data-validation-regexp="^[0-9]{1,5}$" data-validation-error-msg="The Port should be a 1-5 digit number." value="<%= @camera.deep_fetch('external', 'http', 'nvr_port') {} %>">
+                          <div class="nvr-port-status"></div><img src="/assets/refresh.gif" class="nvr-refresh-gif">
                         </div>
                       </tr>
                       <tr>

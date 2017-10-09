@@ -20,11 +20,6 @@
               <% end %>
             </li>
             <% if has_edit_right %>
-              <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction"].include? current_user.username %>
-              <li>
-                <a data-toggle="tab" data-target="#motion" class="nav-tab-motion">Motion</a>
-              </li>
-              <% end %>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares"> Sharing</a>
               </li>
@@ -206,9 +201,6 @@
             <%= render partial: "cameras/single/snapmail_tab" %>
           </div>
           <% if has_edit_right %>
-            <div id="motion" class="tab-pane">
-              <%= render partial: "cameras/single/motion_detection_tab" %>
-            </div>
             <div id="shares" class="tab-pane shares_tab">
               <%= render partial: "cameras/single/sharing_tab" %>
             </div>
@@ -261,21 +253,6 @@
       status: '<%= @cloud_recording['status'].to_s %>',
       schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     },
-    motion: {
-      <% if has_edit_right && @motion_detection.present? %>
-      enabled: <%= @motion_detection["enabled"] %>,
-      alert_interval_min: <%= @motion_detection["alert_interval_min"].to_i %>,
-      sensitivity: <%= @motion_detection["sensitivity"].to_i %>,
-      x1: <%= @motion_detection["x1"].to_i %>,
-      y1: <%= @motion_detection["y1"].to_i %>,
-      x2: <%= @motion_detection["x2"].to_i %>,
-      y2: <%= @motion_detection["y2"].to_i %>,
-      schedule: <%= raw((@motion_detection["schedule"]).to_json) %>,
-      alert_email: <%= raw(@motion_detection["alert_email"]) %>,
-      emails: <%= raw(@motion_detection["emails"]) %>,
-      method: "<%= @motion_detection_method %>"
-      <% end %>
-    }
   };
   $(document).ready(function () {
     window.initializeCameraSingle();

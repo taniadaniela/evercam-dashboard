@@ -34,7 +34,6 @@
 //= require download.js
 //= require lib/underscore-min.js
 //= require bs-slider
-//= require jquery.imgareaselect
 //= require old_browsers_alert.js
 //= require jquery-tags-input
 //= require bootstrap-timepicker.js

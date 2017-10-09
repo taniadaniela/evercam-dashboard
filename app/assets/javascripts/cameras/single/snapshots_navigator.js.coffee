@@ -191,9 +191,8 @@ handleSlider = ->
     x = ev.pageX - 80
     if x > sliderEndX - 80
       x = sliderEndX - 80
-    motionVal = ""
     frameNo = idx + 1
-    $("#divPopup").html("Frame #{frameNo}, #{shortDate(new Date(snapshotInfos[idx].created_at*1000)) + motionVal}")
+    $("#divPopup").html("Frame #{frameNo}, #{shortDate(new Date(snapshotInfos[idx].created_at*1000))}")
     $("#divPopup").show()
     $("#divPopup").offset({ top: ev.pageY + 20, left: x })
 
@@ -246,10 +245,7 @@ SetInfoMessage = (currFrame, date_time) ->
   $("#divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
   if snapshotInfoIdx
     snapshot = snapshotInfos[snapshotInfoIdx]
-    if snapshot.motion_level
-      $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(' + snapshot.motion_level + ')'
-    else
-      $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes + " " + '(0)'
+    $('#snapshot-notes-text').text snapshotInfos[snapshotInfoIdx].notes
 
   totalWidth = $("#divSlider").width()
   $("#divPointer").width(totalWidth * currFrame / totalFrames)
@@ -420,8 +416,6 @@ GetCameraInfo = (isShowLoader) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
-  $('#divNoMd').text 'Loading Motion Thumbnails...'
-  $('#divNoMd').show()
   if isShowLoader
     showLoader()
   date = $("#ui_date_picker_inline").datepicker('getDate')
@@ -447,9 +441,6 @@ GetCameraInfo = (isShowLoader) ->
     else
       $("#divPointer").show()
     if response == null || response.snapshots.length == 0
-      $("#divSliderMD").width("100%")
-      $("#MDSliderItem").html("")
-      $("#divNoMd").show()
       NoRecordingDayOrHour()
     else
       $("#divDisableButtons").removeClass("show").addClass("hide")
@@ -485,7 +476,6 @@ GetCameraInfo = (isShowLoader) ->
         $("#snapshot-notes-text").text(snapshotInfos[snapshotInfoIdx].notes)
         SetInfoMessage(currentFrameNumber, frameDateTime)
         loadImage(snapshotTimeStamp, snapshotNotes)
-      BindMDStrip()
     NProgress.done()
     hideHourLoadingAnimation()
 
@@ -500,88 +490,6 @@ GetCameraInfo = (isShowLoader) ->
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/#{day}/#{hour}"
 
   sendAJAXRequest(settings)
-
-BindMDStrip = ->
-  snapshot_list = snapshotInfos.slice()
-  snapshot_list.reverse()
-  extractMdRecords(snapshot_list)
-
-  total_md = $('#MDSliderItem li').length
-  mwidth = total_md * 77
-  if total_md is 0
-    $('#divNoMd').text 'Motion Detection Not Enabled'
-    $('#divNoMd').show()
-  else
-    $('#divNoMd').hide()
-    $('#divSliderMD').width mwidth
-    loadMdImages()
-  $('img[class="md-Img"]').thumbPopup
-    imgSmallFlag: ''
-    imgLargeFlag: ''
-
-extractMdRecords = (snapshot_list) ->
-  for snapshot in snapshotInfos
-    if $('#MDSliderItem li').length > 20
-      break
-    if snapshot.motion_level > 5
-      image_date = new Date(snapshot.created_at*1000)
-      li = $('<li>')
-      div_image = $('<div>')
-      image = $('<img>', {class: "md-Img"})
-      image.attr("src", "")
-      image.attr("width", 75)
-      image.attr("height", 57)
-      image.attr("notes", snapshot.notes)
-      image.attr("timestamp", snapshot.created_at)
-      div_image.append(image)
-      li.append(div_image)
-      div_date = $('<div>', {class: "time-div"})
-      hour = parseInt(cameraCurrentHour)
-      div_date.append(document.createTextNode("#{FormatNumTo2(hour)}:#{FormatNumTo2(image_date.getMinutes())}:#{FormatNumTo2(image_date.getSeconds())}"))
-      li.append(div_date)
-      $('#MDSliderItem').append li
-
-selectMdImage = ->
-  $("#MDSliderItem").on "click", ".md-Img", ->
-    timestamp = $(this).attr("timestamp")
-    i = 0
-    for snapshot in snapshotInfos
-      if snapshot.created_at is parseInt(timestamp)
-        currentFrameNumber = i + 1
-        snapshotInfoIdx = i
-        UpdateSnapshotRec snapshotInfos[snapshotInfoIdx]
-        break
-      i++
-
-loadMdImages = ->
-  $(".md-Img").each ->
-    image_control = $(this)
-    notes = image_control.attr("notes")
-    timestamp = image_control.attr("timestamp")
-    data = {}
-    data.notes = notes
-    data.range = 2
-    data.api_id = Evercam.User.api_id
-    data.api_key = Evercam.User.api_key
-
-    onError = (jqXHR, status, error) ->
-      false
-
-    onSuccess = (response) ->
-      if response.snapshots.length > 0
-        image_control.attr("src", response.snapshots[0].data)
-
-    settings =
-      cache: false
-      data: data
-      dataType: 'json'
-      error: onError
-      success: onSuccess
-      contentType: "application/json charset=utf-8"
-      type: 'GET'
-      url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
-
-    sendAJAXRequest(settings)
 
 loadImage = (timestamp, notes) ->
   data = {}
@@ -680,9 +588,6 @@ NoRecordingDayOrHour = ->
   $("#divInfo").fadeOut()
   $("#divPointer").width(0)
   $("#divSliderBackground").width(0)
-  $("#MDSliderItem").html("")
-  $("#divNoMd").show()
-  $("#divNoMd").text('Motion Detection Not Enabled')
   hideDaysLoadingAnimation()
   hideHourLoadingAnimation()
   $("#snapshot-tab-save").hide()
@@ -708,9 +613,6 @@ SetImageHour = (hr, id) ->
 
   if $("##{id}").hasClass('has-snapshot')
     $("#divSliderBackground").width("100%")
-    $("#divSliderMD").width("100%")
-    $("#MDSliderItem").html("")
-    $("#divNoMd").show()
     $("#btnCreateHourMovie").removeAttr('disabled')
     GetCameraInfo true
   else
@@ -721,13 +623,9 @@ SetImageHour = (hr, id) ->
     $("#snapshot-notes-text").hide()
     $("#divSliderBackground").width("0%")
     $("#txtCurrentUrl").val("")
-    $("#divSliderMD").width("100%")
-    $("#MDSliderItem").html("")
     $("#btnCreateHourMovie").attr('disabled', true)
     totalFrames = 0
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
-    $("#divNoMd").show()
-    $("#divNoMd").text('Motion Detection Not Enabled')
     $("#snapshot-tab-save").hide()
     HideLoader()
 
@@ -1195,7 +1093,6 @@ window.initializeRecordingsTab = ->
   handleResize()
   window.initScheduleCalendar()
   window.initCloudRecordingSettings()
-  selectMdImage()
   calendarShow()
   onClickSnapshotMagnifier()
   onClickOldestLatestImage()

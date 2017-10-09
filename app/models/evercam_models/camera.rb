@@ -8,7 +8,6 @@ class Camera < Sequel::Model
   one_to_many :shares, class: 'CameraShare'
   one_to_many :webhooks, class: 'Webhook'
   one_to_one :cloud_recording
-  one_to_one :motion_detection
   MAC_ADDRESS_PATTERN = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i
   # Finds the camera with a matching external id
   # (exid) string or nil if none exists

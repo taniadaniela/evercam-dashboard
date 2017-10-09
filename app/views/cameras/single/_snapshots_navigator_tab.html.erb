@@ -288,25 +288,6 @@
   <div class="clear-f"></div>
 </div>
 
-<div class="row hide1 margin-bottom-20">
-  <div class="col-md-12">
-    <div style="padding-left:2px;">
-      <% if ["marco", "meherbst", "vinniequinn", "vq"].include? current_user.username %>
-      <div class="MDSlider-outer" id="divCarousel">
-        <div class="MDSlider">
-          <div id="divSliderMD">
-            <ul id="MDSliderItem"></ul>
-            <div id="divNoMd" class="label-noMD">Motion Detection Not Enabled</div>
-            <div class="clear-f"></div>
-          </div>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class="clear-f"></div>
-  </div>
-</div>
-
 <div id="divPopup"></div>
 <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
 <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">

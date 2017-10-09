@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.4.2'
 gem 'rails', '~> 5.1.4'
 
 gem 'sass-rails'
@@ -9,7 +9,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'sprockets'
 gem 'javascript-securehash-rails'
-gem 'fog'
+gem 'fog-aws'
 gem 'asset_sync', '~> 2.2.0'
 gem 'autoprefixer-rails'
 gem 'stripe',
@@ -27,8 +27,6 @@ gem 'sequel', '~> 5.1.0'
 gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes_continued',
   github: 'westonganger/protected_attributes_continued'
-gem 'rack-rewrite'
-gem 'typhoeus'
 gem 'puma'
 gem 'data_uri'
 gem 'country_select',
@@ -36,7 +34,6 @@ gem 'country_select',
 gem 'devise'
 gem 'ie_iframe_cookies',
   github: 'affan00/ie_iframe_cookies'
-gem 'heroku-api'
 gem 'intercom-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
@@ -50,7 +47,6 @@ group :evercam do
 end
 
 group :production do
-  gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'wkhtmltopdf-heroku'
 end
@@ -65,7 +61,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
-  gem 'vcr'
   gem 'rspec-rails', '~> 3.6.1'
   gem 'rails-controller-testing'
   gem 'webmock'

@@ -7,7 +7,7 @@ cache:
   - vendor/cache
 
 rvm:
-- 2.3.1
+- 2.4.2
 
 addons:
   addons:

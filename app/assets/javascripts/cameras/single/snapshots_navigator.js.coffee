@@ -505,6 +505,8 @@ loadImage = (timestamp, notes) ->
     if response.snapshots.length > 0
       $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
+      if $("#snapshot-magnifier").hasClass 'enabled'
+        initElevateZoom()
     HideLoader()
     checkCalendarDisplay()
     showImageSaveOption()
@@ -1066,11 +1068,7 @@ onClickSnapshotMagnifier = ->
   $('#snapshot-magnifier').on 'click', ->
     $('.zoomContainer').remove()
     if $('.enabled').length == 0
-      $('#imgPlayback').elevateZoom
-        zoomType: 'lens',
-        scrollZoom: true,
-        lensShape: 'round'
-        lensSize: 230,
+      initElevateZoom()
       $(this).toggleClass 'enabled'
     else
       $(this).toggleClass 'enabled'
@@ -1079,6 +1077,13 @@ onClickSnapshotMagnifier = ->
 turnOffZoomEffect = ->
   $('#snapshot-magnifier').removeClass 'enabled'
   $('.zoomContainer').hide()
+
+initElevateZoom = ->
+  $('#imgPlayback').elevateZoom
+    zoomType: 'lens',
+    scrollZoom: true,
+    lensShape: 'round',
+    lensSize: 230
 
 window.initializeRecordingsTab = ->
   initDatePicker()

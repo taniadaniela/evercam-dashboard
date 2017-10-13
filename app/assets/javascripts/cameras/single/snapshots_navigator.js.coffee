@@ -1085,6 +1085,11 @@ initElevateZoom = ->
     lensShape: 'round',
     lensSize: 230
 
+centerTabClick = ->
+  $(document).click (e) ->
+    if $(e.target).is('#ul-nav-tab li a,#ul-nav-tab li a span')
+      turnOffZoomEffect()
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1102,3 +1107,4 @@ window.initializeRecordingsTab = ->
   onClickSnapshotMagnifier()
   onClickOldestLatestImage()
   saveOldestLatestImage()
+  centerTabClick()

@@ -98,9 +98,11 @@ initializePlayer = ->
   #     $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
   # ), 10
   if /Edge/.test(navigator.userAgent)
-    $('#select-stream-table').hide()
     $("#select-stream-type").val("jpeg")
-    load_jpeg()
+    $('#select-stream-table').hide()
+    setInterval (->
+      load_jpeg()
+    ), 10
   else
     $('#select-stream-table').show()
     window.vjs_player = videojs 'camera-video-player', {

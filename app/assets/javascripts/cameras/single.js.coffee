@@ -3,6 +3,7 @@
 #= require cameras/single/live_view.js.coffee
 #= require cameras/single/sharing.js.coffee
 #= require cameras/single/snapshots_navigator.js.coffee
+#= require cameras/single/timelapse_recording.js.coffee
 #= require cameras/single/logs.js.coffee
 #= require cameras/single/local_storage.js.coffee
 #= require cameras/single/settings.js.coffee
@@ -203,6 +204,7 @@ initializeTabs = ->
   window.initializeSettingsTab()
   window.initializeArchivesTab()
   window.initializeCompareTab()
+  window.initializeTimelapseRecordingsTab() if $("#timelapse-recording-tab").length > 0
   window.initializeLocalRecordingsTab() if $("#local-recordings").length > 0
 
 window.initializeCameraSingle = ->

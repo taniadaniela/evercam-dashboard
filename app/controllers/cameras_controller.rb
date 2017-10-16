@@ -235,23 +235,12 @@ class CamerasController < ApplicationController
       @camera_shares = nil
       @share_requests = nil
       @cloud_recording = @camera["cloud_recordings"] if @has_edit_rights
+      @timelapse_recording = @camera["timelapse_recordings"] if @has_edit_rights
+      @timelapse_recording = get_default_settings if @timelapse_recording.nil?
       @cr_status = nil
       if @cloud_recording.nil?
         @cr_status = true
-        @cloud_recording = {
-          "frequency" => 1,
-          "status" => "off",
-          "storage_duration" => 1,
-          "schedule" => {
-            "Monday" => ["00:00-23:59"],
-            "Tuesday" => ["00:00-23:59"],
-            "Wednesday" => ["00:00-23:59"],
-            "Thursday" => ["00:00-23:59"],
-            "Friday" => ["00:00-23:59"],
-            "Saturday" => ["00:00-23:59"],
-            "Sunday" => ["00:00-23:59"]
-          }
-        }
+        @cloud_recording = get_default_settings
       end
       @snapshot_navigator = false
     rescue => error
@@ -590,6 +579,23 @@ class CamerasController < ApplicationController
         end
       end
     end
+  end
+
+  def get_default_settings
+    {
+      "frequency" => 1,
+      "status" => "off",
+      "storage_duration" => 1,
+      "schedule" => {
+        "Monday" => ["00:00-23:59"],
+        "Tuesday" => ["00:00-23:59"],
+        "Wednesday" => ["00:00-23:59"],
+        "Thursday" => ["00:00-23:59"],
+        "Friday" => ["00:00-23:59"],
+        "Saturday" => ["00:00-23:59"],
+        "Sunday" => ["00:00-23:59"]
+      }
+    }
   end
 
   def assess_field_errors(error)

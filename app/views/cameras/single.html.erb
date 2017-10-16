@@ -14,6 +14,11 @@
             <li>
               <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
             </li>
+            <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3"].include?(current_user.username) %>
+            <li>
+              <a data-toggle="tab" data-target="#timelapse-recordings" class="nav-tab-timelapse-recordings">Timelapse Recordings</a>
+            </li>
+            <% end %>
             <li id="ro-sharing-tab">
               <% unless has_edit_right %>
                 <p id="read-only-sharing-tab" data-toggle="modal" data-target="#sharing-modal" class="nav-tab-shares read-only-sharing-tab"> Sharing</p>
@@ -197,6 +202,11 @@
           <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
+          <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3"].include?(current_user.username) %>
+          <div id="timelapse-recordings" class="tab-pane">
+            <%= render partial: "cameras/single/timelapse_recording_tab" %>
+          </div>
+          <% end %>
           <div id="snapmail" class="tab-pane">
             <%= render partial: "cameras/single/snapmail_tab" %>
           </div>
@@ -253,6 +263,12 @@
       status: '<%= @cloud_recording['status'].to_s %>',
       schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
     },
+    timelapse_recording: {
+      frequency: <%= @timelapse_recording['frequency'].to_i %>,
+      storage_duration: <%= @timelapse_recording['storage_duration'].to_i %>,
+      status: '<%= @timelapse_recording['status'].to_s %>',
+      schedule: <%= raw(@timelapse_recording['schedule'].to_json) %>
+    }
   };
   $(document).ready(function () {
     window.initializeCameraSingle();

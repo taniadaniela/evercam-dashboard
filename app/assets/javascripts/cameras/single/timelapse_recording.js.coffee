@@ -698,6 +698,7 @@ handleBodyLoadContent = ->
 
 handleTabOpen = ->
   $('.nav-tab-timelapse-recordings').on 'shown.bs.tab', ->
+    undo_recordings()
     initScheduleCalendar()
     initTimelapseRecordings()
     console.log snapshotInfos
@@ -1133,6 +1134,18 @@ saveOldCRValues = ->
   old_status = Evercam.Camera.timelapse_recording.status
   old_schedule = Evercam.Camera.timelapse_recording.schedule
 
+undo_recordings = ->
+  Evercam.Camera.timelapse_recording.schedule = old_schedule
+  Evercam.Camera.timelapse_recording.frequency = old_frequency
+  Evercam.Camera.timelapse_recording.storage_duration = old_storage_duration
+  Evercam.Camera.timelapse_recording.status = old_status
+
+on_hide_modal = ->
+  $("#timelapse-recording-calendar-wrap").on "hide.bs.modal", ->
+    undo_recordings()
+    initScheduleCalendar()
+    initTimelapseRecordings()
+
 initTimelapseRecordings = ->
   saveOldCRValues()
   initScheduleCalendar()
@@ -1143,6 +1156,7 @@ initTimelapseRecordings = ->
   handleStatusSelect()
   $('#tr-select-schedule-presets').change(updateSchedulePresets)
   saveScheduleSettings()
+
 #******************************************************************************************
 
 window.initializeTimelapseRecordingsTab = ->
@@ -1157,3 +1171,4 @@ window.initializeTimelapseRecordingsTab = ->
   handleDurationSelect()
   handleTabOpen()
   saveImage()
+  on_hide_modal()

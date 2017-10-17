@@ -200,10 +200,10 @@ currentCalendarWeek = ->
 editScheduleCalendar = ->
   $('#cloud-recording-calendar-wrap').removeClass('hide' , 'fade')
   $('#cloud-recording-calendar-wrap').addClass('fade in')
-  $('.setting-schedule').show()
+  $('#recording-tab .setting-schedule').show()
   $(document).click (event) ->
     if $(event.target).closest('.modal-content').get(0) == null
-      $('.setting-schedule').hide()
+      $('#recording-tab .setting-schedule').hide()
     return
 
 showEditButton = ->
@@ -223,7 +223,7 @@ showScheduleLabel = ->
 
 showScheduleCalendar = ->
   $("#uniform-cloud-recording-on-scheduled div").addClass 'checked'
-  $(".setting-schedule .modal-dialog").animate { "margin-top": "7%" }
+  $("#recording-tab .setting-schedule .modal-dialog").animate { "margin-top": "7%" }
   $('#calendarfull-wrap').show('slow')
   scheduleCalendar.fullCalendar('render')
   if scheduleCalendar.is(':visible')

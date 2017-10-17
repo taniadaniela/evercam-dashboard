@@ -524,17 +524,33 @@ saveOldCRValues = ->
   old_status = Evercam.Camera.cloud_recording.status
   old_schedule = Evercam.Camera.cloud_recording.schedule
 
+undo_recording_settings = ->
+  Evercam.Camera.cloud_recording.frequency = old_frequency
+  Evercam.Camera.cloud_recording.storage_duration = old_storage_duration
+  Evercam.Camera.cloud_recording.status = old_status
+  Evercam.Camera.cloud_recording.schedule = old_schedule
+
+showRecordingTab = ->
+  $('.nav-tab-recordings').on 'shown.bs.tab', ->
+    saveOldCRValues()
+
+onHideModal = ->
+  $("#cloud-recording-calendar-wrap").on "hide.bs.modal", ->
+    undo_recording_settings()
+
 window.initCloudRecordingSettings = ->
   saveOldCRValues()
   if Evercam.Camera.cloud_recording.status is "paused"
     getLastPaused(Evercam.Camera.cloud_recording.storage_duration)
   renderCloudRecordingDuration()
-  renderCloudRecordingStatus()
   renderCloudRecordingFrequency()
+  renderCloudRecordingStatus()
   handleDurationSelect()
   handleFrequencySelect()
   showEditButton()
   handleStatusSelect()
   saveScheduleSettings()
+  showRecordingTab()
   resumeCR()
+  onHideModal()
   $('#select-schedule-presets').change(updateSchedulePresets)

@@ -19,6 +19,7 @@ old_storage_duration = null
 old_status = null
 old_schedule = null
 xhrRequestChangeMonth = null
+is_saving_recordings = false
 
 initDatePicker = ->
   $("#timelapse_rec_calendar").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
@@ -169,7 +170,7 @@ HighlightCurrentMonth = ->
 
 SetInfoMessage = (currFrame, date_time) ->
   $("#tr_divInfo").fadeIn()
-  $("#tr_divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{shortDate(date_time)}</span>")
+  $("#tr_divInfo").html("<span class='snapshot-frame'>#{currFrame} of #{totalSnaps}</span> <span class='snapshot-date'>#{date_time}</span>")
 
   totalWidth = $("#tr_divSlider").width()
   $("#tr_divPointer").width(totalWidth * currFrame / totalFrames)
@@ -179,18 +180,7 @@ SetInfoMessage = (currFrame, date_time) ->
     window.history.replaceState({}, '', url)
 
 shortDate = (date) ->
-  dt = $("#timelapse_rec_calendar").datepicker('getDate')
-  getDate = dt.getDate()
-  getMonth = dt.getMonth()
-  hour = date.getHours()
-  sec = date.getSeconds()
-  minutes = date.getMinutes()
-  if minutes >= CameraOffsetMinutes
-    minutes = minutes - CameraOffsetMinutes
-  else
-    minutes = minutes + CameraOffsetMinutes
-  "#{FormatNumTo2(getDate)}/#{FormatNumTo2(getMonth+1)}/#{date.getFullYear()}
-  #{FormatNumTo2(hour)}:#{FormatNumTo2(minutes)}:#{FormatNumTo2(sec)}"
+  moment.tz(date*1000, Evercam.Camera.timezone).format('/DDMM/YYYY HH:mm:ss')
 
 FormatNumTo2 = (n) ->
   if n < 10
@@ -239,8 +229,7 @@ GetCameraInfo = (isShowLoader) ->
       $("#tr_divSlider").width("#{sliderpercentage}%")
       $("#tr_divSliderBackground").width("100%")
       currentFrameNumber = 1
-      frameDateTime = new Date(moment(snapshotInfos[snapshotInfoIdx]
-      .created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+      frameDateTime = moment.tz(snapshotInfos[snapshotInfoIdx].created_at*1000, Evercam.Camera.timezone).format('DD/MM/YYYY HH:mm:ss')
       snapshotTimeStamp = snapshotInfos[snapshotInfoIdx].created_at
 
       if playFromDateTime isnt null
@@ -307,13 +296,6 @@ showImageSaveOption = ->
 HideImageSaveOption = ->
   $('#tr_snapshot_tab_save').addClass('hide')
 
-saveImage = ->
-  $('#tr-save-recording-image').on 'click', ->
-    date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
-    download($("#tr_imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
-    $('#tr_snapshot_tab_save').css('display','none')
-    setTimeout opBack , 1500
-
 opBack = ->
   $('#tr_snapshot_tab_save').css('display','inline')
 
@@ -367,16 +349,16 @@ recodringSnapshotDivHeight = ->
   if !(agentID)
     if $(window).width() >= 490
       tab_width = $("#timelapse-recording-tab").width()
-      calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $('div#tr-navbar-section').height()
-      if $('#fullscreen > img').height() < calcuHeight
-        $('div#tr-navbar-section').removeClass 'navbar-section'
-        $('div#tr-navbar-section').css 'width', $('timelapse-recording-tab .left-column').width()
+      calcuHeight = $(window).innerHeight() - $('.center-tabs').height() - $("#tr-navbar-section").height()
+      if $('#tr_fullscreen > img').height() < calcuHeight
+        $("#tr-navbar-section").removeClass 'navbar-section'
+        $("#tr-navbar-section").css 'width', $('#timelapse-recording-tab .left-column').width()
       else
-        $('div#tr-navbar-section').addClass 'navbar-section'
-        $('div#tr-navbar-section').css 'width', $('timelapse-recording-tab .left-column').width()
+        $("#tr-navbar-section").addClass 'navbar-section'
+        $("#tr-navbar-section").css 'width', $('#timelapse-recording-tab .left-column').width()
     else
-      $('div#tr-navbar-section').removeClass 'navbar-section'
-      $('div#tr-navbar-section').css("width", "100%")
+      $("#tr-navbar-section").removeClass 'navbar-section'
+      $("#tr-navbar-section").css("width", "100%")
   if tab_width is 0
     setTimeout (-> recodringSnapshotDivHeight()), 500
 
@@ -412,8 +394,8 @@ DoNextImg = ->
 
   onSuccess = (response) ->
     if response.snapshots.length > 0
-      SetInfoMessage currentFrameNumber,
-        new Date(moment(snapshot.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
+      frameDateTime = moment.tz(snapshot.created_at*1000, Evercam.Camera.timezone).format('DD/MM/YYYY HH:mm:ss')
+      SetInfoMessage(currentFrameNumber, frameDateTime)
     $("#tr_imgPlayback").attr("src", response.snapshots[0].data)
 
     if playDirection is 1 and playStep is 1
@@ -514,8 +496,8 @@ SetSkipFrames = (num, direction) ->
 
 UpdateSnapshotRec = (snapInfo) ->
   showLoader()
-  SetInfoMessage currentFrameNumber, new Date(moment(snapInfo.created_at*1000)
-  .format('MM/DD/YYYY HH:mm:ss'))
+  frameDateTime = moment.tz(snapInfo.created_at*1000, Evercam.Camera.timezone).format('MM/DD/YYYY HH:mm:ss')
+  SetInfoMessage(currentFrameNumber, frameDateTime)
   loadImage(snapInfo.created_at)
 
 SetPlaySpeed = (step, direction) ->
@@ -566,7 +548,7 @@ handleSlider = ->
     if x > sliderEndX - 80
       x = sliderEndX - 80
     frameNo = idx + 1
-    $("#tr_popup").html("Frame #{frameNo}, #{shortDate(new Date(snapshotInfos[idx].created_at*1000))}")
+    $("#tr_popup").html("Frame #{frameNo}, #{shortDate(snapshotInfos[idx].created_at)}")
     $("#tr_popup").show()
     $("#tr_popup").offset({ top: ev.pageY + 20, left: x })
 
@@ -701,12 +683,38 @@ handleTabOpen = ->
     undo_recordings()
     initScheduleCalendar()
     initTimelapseRecordings()
-    console.log snapshotInfos
     if snapshotInfos isnt null && snapshotInfos.length > 0
       date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
       url = "#{Evercam.request.rootpath}/timelapse/recordings/snapshots/#{moment.utc(date_time).toISOString()}"
       if history.replaceState
         window.history.replaceState({}, '', url)
+
+checkCalendarDisplay = ->
+  if $('#timelapse-recording-tab .col-recording-right').css('display') == 'none'
+    $('#timelapse-recording-tab .left-column').animate { width: "99.4%" }, ->
+      recodringSnapshotDivHeight()
+  else
+    calculateWidth()
+    recodringSnapshotDivHeight()
+
+calendarShow = ->
+  $('#timelapse-recording-tab .ui-datepicker-trigger').on 'click', ->
+    $('#timelapse-recording-tab .col-recording-right').toggle 'slow', ->
+      $('#tr_calendar .fa').css 'color', 'white'
+      checkCalendarDisplay()
+    $('#tr_calendar .fa').css 'color', '#68a2d5'
+    turnOffZoomEffect()
+
+fullscreenImage = ->
+  $("#tr_imgPlayback").dblclick ->
+    screenfull.toggle $(this)[0]
+
+  if screenfull.enabled
+    document.addEventListener screenfull.raw.fullscreenchange, ->
+      if screenfull.isFullscreen
+        $("#tr_imgPlayback").css('width','auto')
+      else
+        $("#tr_imgPlayback").css('width','100%')
 
 #****************Timelapse Recordings******************************************************
 
@@ -991,21 +999,21 @@ window.workingDaySchedule =
   "Sunday": []
 
 window.siteWorkingSchedule =
-  "Monday": ["7:0-19:0"]
-  "Tuesday": ["7:0-19:0"]
-  "Wednesday": ["7:0-19:0"]
-  "Thursday": ["7:0-19:0"]
-  "Friday": ["7:0-19:0"]
+  "Monday": ["8:0-18:0"]
+  "Tuesday": ["8:0-18:0"]
+  "Wednesday": ["8:0-18:0"]
+  "Thursday": ["8:0-18:0"]
+  "Friday": ["8:0-18:0"]
   "Saturday": []
   "Sunday": []
 
 window.siteWorkingSaturdaySchedule =
-  "Monday": ["7:0-19:0"]
-  "Tuesday": ["7:0-19:0"]
-  "Wednesday": ["7:0-19:0"]
-  "Thursday": ["7:0-19:0"]
-  "Friday": ["7:0-19:0"]
-  "Saturday": ["7:0-14:0"]
+  "Monday": ["8:0-18:0"]
+  "Tuesday": ["8:0-18:0"]
+  "Wednesday": ["8:0-18:0"]
+  "Thursday": ["8:0-18:0"]
+  "Friday": ["8:0-18:0"]
+  "Saturday": ["8:0-14:0"]
   "Sunday": []
 
 window.officeClosedSchedule =
@@ -1033,7 +1041,7 @@ editScheduleCalendar = ->
     return
 
 updateSchedulePresets = ->
-  schedule_preset = $("#select-schedule-presets").val()
+  schedule_preset = $("#tr-select-schedule-presets").val()
   switch schedule_preset
     when "None"
       localStorage.setItem 'todoData', @value
@@ -1070,6 +1078,7 @@ saveScheduleSettings = ->
        new_status isnt old_status or
        is_equal_schedule(new_schedule, old_schedule) isnt true
       updateSchedule()
+      is_saving_recordings = true
     $('#timelapse-recording-calendar-wrap').modal('hide')
 
 is_equal_schedule = (schedule, original) ->
@@ -1142,9 +1151,10 @@ undo_recordings = ->
 
 on_hide_modal = ->
   $("#timelapse-recording-calendar-wrap").on "hide.bs.modal", ->
-    undo_recordings()
-    initScheduleCalendar()
-    initTimelapseRecordings()
+    unless is_saving_recordings
+      undo_recordings()
+      initScheduleCalendar()
+      initTimelapseRecordings()
 
 initTimelapseRecordings = ->
   saveOldCRValues()
@@ -1172,3 +1182,5 @@ window.initializeTimelapseRecordingsTab = ->
   handleTabOpen()
   saveImage()
   on_hide_modal()
+  calendarShow()
+  fullscreenImage()

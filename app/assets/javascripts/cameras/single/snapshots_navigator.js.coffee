@@ -920,7 +920,7 @@ recodringSnapshotDivHeight = ->
     setTimeout (-> recodringSnapshotDivHeight()), 500
 
 checkCalendarDisplay = ->
-  if $('.col-recording-right').css('display') == 'none'
+  if $('#recording-tab .col-recording-right').css('display') == 'none'
     $('#recording-tab .left-column').animate { width: "99.4%" }, ->
       recodringSnapshotDivHeight()
   else
@@ -928,8 +928,8 @@ checkCalendarDisplay = ->
     recodringSnapshotDivHeight()
 
 calendarShow = ->
-  $('.ui-datepicker-trigger').on 'click', ->
-    $('.col-recording-right').toggle 'slow', ->
+  $('#recording-tab .ui-datepicker-trigger').on 'click', ->
+    $('#recording-tab .col-recording-right').toggle 'slow', ->
       $('#calendar .fa').css 'color', 'white'
       checkCalendarDisplay()
     $('#calendar .fa').css 'color', '#68a2d5'

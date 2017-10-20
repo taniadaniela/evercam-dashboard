@@ -1,3 +1,5 @@
+require 'evercam_misc'
+
 IntercomRails.config do |config|
   # == Intercom app_id
   #
@@ -61,6 +63,8 @@ IntercomRails.config do |config|
   #   :number_of_messages => Proc.new { |app| app.messages.count },
   #   :is_interesting => :is_interesting?
   # }
+
+  config.hide_default_launcher = true
 
   # == Company Plan name
   # This is the name of the plan a company is currently paying (or not paying) for.

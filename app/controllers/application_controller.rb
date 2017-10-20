@@ -155,10 +155,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def intercom_key
-    "#{ENV['INTERCOM_APP_ID']}"
-  end
-
   private
 
   def render_error(exception)

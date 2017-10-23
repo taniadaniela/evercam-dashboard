@@ -137,7 +137,7 @@ GEM
       ffi (>= 1.3.0)
     excon (0.59.0)
     execjs (2.7.0)
-    factory_girl (4.8.1)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
@@ -458,7 +458,7 @@ DEPENDENCIES
   devise
   dotenv
   evercam!
-  factory_girl
+  factory_bot
   fog-aws
   geocoder
   georuby

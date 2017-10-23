@@ -5,7 +5,7 @@ ENV["RACK_ENV"]  = ENV["RAILS_ENV"]
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
-require 'factory_girl'
+require 'factory_bot'
 require 'rack_session_access/capybara'
 require "simplecov"
 SimpleCov.start
@@ -64,7 +64,7 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 
   # Configure factory girl stuff.
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   # Configure database cleaner.
   config.before(:suite) do
@@ -83,4 +83,4 @@ RSpec.configure do |config|
 end
 
 # Load up factories.
-FactoryGirl.find_definitions
+FactoryBot.find_definitions

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
    factory :camera_share do
       to_create {|instance| instance.save}
 

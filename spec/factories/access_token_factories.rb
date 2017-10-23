@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :access_token do
     to_create {|instance| instance.save}
 

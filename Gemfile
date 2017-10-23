@@ -52,7 +52,6 @@ end
 
 group :development do
   gem 'spirit_hands', '~> 2.1.4'
-  gem 'rspec', '~> 3.6.0'
   gem 'guard-rspec'
   gem 'sprockets-rails', '~> 3.2.1'
 end
@@ -60,7 +59,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
-  gem 'rspec-rails', '~> 3.6.1'
+  gem 'rspec-rails', '~> 3.7.1'
   gem 'rails-controller-testing'
   gem 'webmock'
   gem 'poltergeist'

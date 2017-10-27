@@ -86,17 +86,6 @@ openPopout = ->
       window.open("/live/#{Evercam.Camera.id}", "_blank", "width=640, height=600, scrollbars=0")
 
 initializePlayer = ->
-  # window.vjs_player = videojs 'camera-video-player'
-  # $("#camera-video-player").append($("#ptz-control"))
-  # tries = 0
-  # clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
-  # setInterval (->
-  #   if $('#camera-video-player').hasClass 'vjs-user-active'
-  #     $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
-  #     $('#live-view-placeholder .pull-right table').stop().animate()
-  #   else
-  #     $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
-  # ), 10
   if /Edge/.test(navigator.userAgent)
     $("#select-stream-type").val("jpeg")
     $('#select-stream-table').hide()
@@ -523,6 +512,14 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
+onLoadVideoError = ->
+  vjs_player = videojs('camera-video-player').on('error', ->
+    setInterval (->
+      $("#select-stream-type").val("jpeg")
+      load_jpeg()
+    ), 1000
+  )
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -544,6 +541,7 @@ window.initializeLiveTab = ->
   onDeletePtz()
   ptzCreation()
   NProgress.done()
+  onLoadVideoError()
 
 ->
   calculateHeight()

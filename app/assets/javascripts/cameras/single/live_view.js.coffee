@@ -96,7 +96,12 @@ initializePlayer = ->
     $('#select-stream-table').show()
     window.vjs_player = videojs 'camera-video-player', {
       techOrder: ["flash", "html5"]
-    }
+    }, ->
+      @on 'error', ->
+        setInterval (->
+          $("#select-stream-type").val("jpeg")
+          load_jpeg()
+        ), 1000
     $("#camera-video-player").append($("#ptz-control"))
     tries = 0
     clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
@@ -512,14 +517,6 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
-onLoadVideoError = ->
-  vjs_player = videojs('camera-video-player').on('error', ->
-    setInterval (->
-      $("#select-stream-type").val("jpeg")
-      load_jpeg()
-    ), 1000
-  )
-
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -541,7 +538,6 @@ window.initializeLiveTab = ->
   onDeletePtz()
   ptzCreation()
   NProgress.done()
-  onLoadVideoError()
 
 ->
   calculateHeight()

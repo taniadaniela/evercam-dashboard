@@ -23,7 +23,7 @@ gem 'hashie'
 gem 'timezone'
 
 gem 'pg'
-gem 'sequel', '~> 5.1.0'
+gem 'sequel'
 gem 'bcrypt', '~> 3.1.10'
 gem 'protected_attributes_continued',
   github: 'westonganger/protected_attributes_continued'

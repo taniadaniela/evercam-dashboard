@@ -265,6 +265,18 @@ You are not allowed to view this camera
       window.vjs_player = videojs('camera-video-player', {
         techOrder: ["flash", "html5"]
       });
+
+      vjs_player.on('error', function() {
+          fullscreenImage();
+            $("#camera-video-player").html(
+              '<img id="evercam-container-img"  style="width: 100%" src="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>" />'
+            );
+            window.ec_vis_handler = handleVisibilityChange;
+            document.addEventListener(
+              "visibilitychange", handleVisibilityChange, false
+            );
+            initSocket()
+      });
       var count = 0;
       var clear_timeout_videojs;
 
@@ -273,7 +285,6 @@ You are not allowed to view this camera
       }, 3000);
 
       function switch_to_jpeg() {
-
         if (count < 5 && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)) {
             count = count + 1;
             setTimeout(function() {

@@ -17,7 +17,7 @@
       border: none;
       background: $black-opacity-background;
       position: absolute;
-      z-index: 1;
+      z-index: 999999999;
       border-radius: 0px !important;
     }
 
@@ -29,7 +29,7 @@
       border: none;
       background: $black-opacity-background;
       position: absolute;
-      z-index: 1;
+      z-index: 999999999;
       border-radius: 0px !important;
     }
 
@@ -266,6 +266,21 @@
       display: block;
     }
 
+    .no-recording-message {
+      background-color: $white;
+      width: 100%;
+      border-radius: 2px;
+      box-sizing: border-box;
+      color: $evercam-black;
+      font-size: 16px;
+      font-weight: 700;
+      opacity: .80;
+      padding: 12px;
+      text-align: center;
+      margin-top: 0px;
+      position: absolute;
+      z-index: 9999999;
+    }
   }
   .snapshots i {
     color: #ffffff;

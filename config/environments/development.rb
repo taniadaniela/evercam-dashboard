@@ -44,8 +44,8 @@ EvercamDashboard::Application.configure do
   # Evercam API settings. Use "EVERCAM_LOCAL=true bundle exec rails server" to test
   # against a locally running version of evercam-api.
   if ENV['EVERCAM_LOCAL']
-    config.evercam_api = { host: 'localhost', port: 4000, scheme: 'http' }
-    config.evercam_media_api = { host: 'localhost', port: 4000, scheme: 'http' }
-    config.websockets_url = "ws://localhost:4000/socket"
+    config.evercam_api = { host: 'newmedia.evercam.io', scheme: 'https' }
+    config.evercam_media_api = { host: 'newmedia.evercam.io', scheme: 'https' }
+    config.websockets_url = "wss://media.evercam.io:4000/socket"
   end
 end

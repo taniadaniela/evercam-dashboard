@@ -2,7 +2,7 @@
   <% has_right = @camera["rights"].split(",").include?("edit") %>
   <div class="left-column">
     <div class="snapshots">
-      <div id="no-recording-message" class="no-recording-message">
+      <div id="no-recording-message" class="no-recording-message hide">
         Some recordings are unavailable. They are not lost, just currently unavailable.
       </div>
       <button id="calendar" type="button" class="ui-datepicker-trigger"><i class="fa fa-calendar" title="Toggle Calendar"></i></button>

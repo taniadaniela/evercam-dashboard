@@ -373,12 +373,12 @@ BoldSnapshotHour = (callFromDt) ->
     cache: false
     data: data
     dataType: 'json'
+    timeout: 30000
     error: onError
     success: BoldSnapshotHourSuccess
     context: { isCall: callFromDt }
     contentType: "application/json charset=utf-8"
     type: 'GET'
-    timeout: 15000
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{d.getFullYear()}/#{(d.getMonth() + 1)}/#{d.getDate()}/hours"
 
   sendAJAXRequest(settings)

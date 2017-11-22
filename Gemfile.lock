@@ -353,7 +353,7 @@ GEM
     rspec-mocks (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
-    rspec-rails (3.7.1)
+    rspec-rails (3.7.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -502,7 +502,7 @@ DEPENDENCIES
   rails-assets-screenfull!
   rails-assets-select2!
   rails-controller-testing
-  rspec-rails (~> 3.7.1)
+  rspec-rails (~> 3.7.2)
   sass-rails
   selenium-webdriver
   sequel

@@ -103,20 +103,10 @@ class UsersController < ApplicationController
     redirect_to signin_path
   end
 
-  def user_account
+  def settings
     @cameras = load_user_cameras(true, false)
     @countries = Country.all
     @countries.sort_by! { |e| e.name.downcase }
-    render layout: "user-account"
-  end
-
-  def settings
-    @cameras = load_user_cameras(true, false)
-    render layout: "user-account"
-  end
-
-  def password_change
-    @cameras = load_user_cameras(true, false)
     render layout: "user-account"
   end
 
@@ -129,7 +119,7 @@ class UsersController < ApplicationController
                            error.backtrace.join("\n")
       flash[:message] = "An error occurred deleting user. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to user_account_path(params[:id])
+      redirect_to user_settings_path(params[:id])
     end
   end
 
@@ -165,7 +155,7 @@ class UsersController < ApplicationController
                         "again and, if the problem persists, contact support."
       end
     end
-    redirect_to user_account_path(params[:id])
+    redirect_to user_settings_path(params[:id])
   end
 
   def change_password
@@ -182,7 +172,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = 'Invalid Current Password'
     end
-    redirect_to user_account_path(params[:id])
+    redirect_to user_settings_path(params[:id])
   end
 
   def password_reset_request
@@ -245,7 +235,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = t("errors.user_not_found_error")
     end
-    redirect_to user_account_path(params[:id])
+    redirect_to user_settings_path(params[:id])
   end
 
   private

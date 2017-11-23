@@ -81,11 +81,9 @@ Rails.application.routes.draw do
   get '/v1/users/signin' => 'sessions#new', as: :signin
   get '/widget_signin' => 'sessions#widget_new', as: :widget_signin
   delete '/v1/users/signout' => 'sessions#destroy', as: :signout
-  get '/v1/users/:id' => 'users#user_account', as: :user_account
-  get '/v1/users/:id/password' => 'users#password_change', as: :password_change
   get '/v1/users/:id/settings' => 'users#settings', as: :user_settings
-  delete '/v1/users/:id' => 'users#delete'
-  post '/v1/users/:id' => 'users#settings_update'
+  delete '/v1/users/:id/settings' => 'users#delete'
+  post '/v1/users/:id/settings' => 'users#settings_update'
   put '/v1/users/:id/password/change' => 'users#change_password', as: :user_change_password
 
   get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view

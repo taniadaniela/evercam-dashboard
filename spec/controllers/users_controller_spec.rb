@@ -120,7 +120,7 @@ describe UsersController do
         session['user'] = user.email
         post :settings_update, params: {id: user.username, 'user-firstname' => ''}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to user_account_path(user.username)
+        expect(response).to redirect_to user_settings_path(user.username)
         expect(flash[:message]).to eq("An error occurred updating your details. Please try again and, if the problem persists, contact support.")
       end
     end
@@ -144,7 +144,7 @@ describe UsersController do
         session['user'] = params[:user][:email]
         post :settings_update, patch_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to user_account_path(user.username)
+        expect(response).to redirect_to user_settings_path(user.username)
         expect(flash[:message]).to eq('Settings updated successfully')
       end
     end

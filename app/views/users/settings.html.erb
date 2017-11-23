@@ -1,9 +1,26 @@
 <% provide(:title, "Evercam: User Settings") %>
 <div id="user-settings">
-  <div class="page-content-wrapper" id="manage-account">
+  <div class="page-content-wrapper settings-tab" id="manage-account">
     <div class="page-content">
-      <div class="portlet-body margin-top-20">
-        <%= render partial: "users/settings/user_settings_tab" %>
+      <div class="tabbable tabbable-custom">
+        <div class="center-tabs">
+          <ul id="ul-nav-tab" class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" data-target="#account-setting" class="nav-tab-live nav-tab-">Account</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#account-password" class="nav-tab-details">Password</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content margin-top-30">
+          <div id="account-setting" class="tab-pane active">
+            <%= render partial: "users/settings/account_tab" %>
+          </div>
+          <div id="account-password" class="tab-pane">
+            <%= render partial: "users/settings/password_tab" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -114,7 +114,7 @@ renderbuttons = (row, type, set, meta) ->
     month = DateTime.getMonth()
     year = DateTime.getFullYear()
     archive_date = new Date(year, month, day)
-    if archive_date < new Date(2017, 11, 1)
+    if archive_date < new Date(2017, 10, 1)
       mp4_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.id}.mp4"
     else
       mp4_url = "https://seaweedfs2.evercam.io/#{row.camera_id}/clips/#{row.id}.mp4"

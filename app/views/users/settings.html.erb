@@ -11,14 +11,26 @@
             <li>
               <a data-toggle="tab" data-target="#account-password" class="nav-tab-details">Password</a>
             </li>
+            <li>
+              <a data-toggle="tab" data-target="#embedded-live-view" class="nav-tab-live nav-tab-">Live View Widget</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#embedded-recordings" class="nav-tab-details">Recording Widget</a>
+            </li>
           </ul>
         </div>
-        <div class="tab-content margin-top-30">
-          <div id="account-setting" class="tab-pane active">
+        <div class="tab-content margin-top-20">
+          <div id="account-setting" class="account-setting tab-pane active">
             <%= render partial: "users/settings/account_tab" %>
           </div>
-          <div id="account-password" class="tab-pane">
+          <div id="account-password" class="account-password tab-pane">
             <%= render partial: "users/settings/password_tab" %>
+          </div>
+          <div id="embedded-live-view" class="tab-pane">
+            <%= render partial: "widgets/widgets_new" %>
+          </div>
+          <div id="embedded-recordings" class="tab-pane">
+            <%= render partial: "widgets/widget_snapshot_navigator" %>
           </div>
         </div>
       </div>

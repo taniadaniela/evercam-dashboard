@@ -96,7 +96,6 @@ Rails.application.routes.draw do
   get '/widgets-snapshot-navigator' => 'widgets#widget_snapshot_navigator', as: :widget_snapshot_navigator
   get '/snapshot.navigator.widget' => 'widgets#snapshot_navigator_widget'
   get '/snapshot.navigator' => 'widgets#snapshot_navigator'
-  get '/widget' => 'widgets#widget', as: :widget
 
   namespace :widgets do
     resources :widget_cameras_add, path: :widget_cameras_add

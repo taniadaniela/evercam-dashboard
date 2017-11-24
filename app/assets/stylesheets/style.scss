@@ -172,9 +172,17 @@ th {
   margin-top: 0px;
 }
 
-.widget-config .height-160 {
-  min-height: 160px;
-  width: 100%;
+.widget-config {
+
+  .row {
+    margin-left: -15px;
+    margin-right: 0px;
+  }
+
+  .height-160 {
+    min-height: 160px;
+    width: 100%;
+  }
 }
 
 .widget-tabs .tab-content,

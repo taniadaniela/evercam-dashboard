@@ -1,19 +1,12 @@
-#user-settings {
+.account-setting,
+.account-password {
  input, .form-group {
    max-width: 300px;
  }
  .checker {
    display: none;
  }
-}
-.profile {
-  padding: 10px 0px 30px;
-}
-.username {
-  margin-bottom: 2px;
-}
 
-#manage-account {
   .has-error .form-control {
     background-color: #ffffff;
     border-top:none;
@@ -71,6 +64,14 @@
     margin-left: 10px;
   }
 }
+
+.profile {
+  padding: 10px 0px 30px;
+}
+.username {
+  margin-bottom: 2px;
+}
+
 #account {
   min-height: 400px;
 }

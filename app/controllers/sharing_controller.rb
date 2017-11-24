@@ -124,7 +124,6 @@ class SharingController < ApplicationController
         avatar: avatar_url(share["email"]),
         type: type,
         permissions: params[:permissions],
-        email: share["email"],
         user_id: share["user_id"],
       }
     end

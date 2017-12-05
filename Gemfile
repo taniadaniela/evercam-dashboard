@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'sprockets'
 gem 'javascript-securehash-rails'
 gem 'fog-aws'
-gem 'asset_sync', '~> 2.2.0'
+gem 'asset_sync'
 gem 'autoprefixer-rails'
 gem 'stripe',
   github: 'stripe/stripe-ruby'

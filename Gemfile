@@ -69,7 +69,7 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
 end
 
-source 'https://rails-assets.org' do
+source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-bootbox'
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-bootstrap-datepicker'

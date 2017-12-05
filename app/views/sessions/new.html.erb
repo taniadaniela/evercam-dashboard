@@ -6,7 +6,9 @@
     <source src="https://evercam.io/gpoview.ogv" type="video/ogg">
   </video>
 </div>
-
+<div id="signout-user-message" class="logged-out-alert alert-info alert">
+  This is a private camera, To view this camera either Sign in below or <%= link_to "Create New Account", signup_path, :class => 'bold' %>.
+</div>
 <section id="sign-in-section">
   <div class="section section-position no-padding col-sm-12 col-md-12">
 
@@ -58,7 +60,7 @@
         <div class="grey col-md-12 text-center">
           <p>Or <%= link_to "Create New Account", signup_path %></p>
         </div>
-
+        <input type="hidden" name="request_url" id="request_url_value" value="<%= requested_url_value %>"/>
       </div>
     </div>
   </div>

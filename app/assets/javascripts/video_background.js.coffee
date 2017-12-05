@@ -2,6 +2,7 @@ resizeWin = ->
   $(window).resize ->
     $('#evercam-video-section').css height: $(window).innerHeight()
     centerSignIn()
+    centerNotLoggedInNotification()
     return
 
 centerSignIn = ->
@@ -74,7 +75,26 @@ hideEmailValidationIcons = ->
   $('#email-not-available').addClass('hide')
   $('#email-available').addClass('hide')
 
+showNotLoggedInUserNotification = ->
+  requested_url_value = $("#request_url_value").val()
+  if requested_url_value.indexOf('cameras/') > -1
+    $('#signout-user-message').show()
+    setTimeout (->
+      $('#signout-user-message').fadeOut('slow')
+      return
+    ), 15000
+  else
+    $('#signout-user-message').hide()
+
+centerNotLoggedInNotification = ->
+  widthset = ($(window).width() - $('#signout-user-message').width()) / 2
+  if $(window).width() > $('#signout-user-message').width()
+    $('#signout-user-message').css "left", widthset
+    $('#signout-user-message').css "margin-left", "-14px"
+
 window.initializeVideoBackground = ->
   centerSignIn()
   resizeWin()
   getInputValue()
+  showNotLoggedInUserNotification()
+  centerNotLoggedInNotification()

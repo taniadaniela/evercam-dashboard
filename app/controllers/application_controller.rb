@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   prepend_before_action :authenticate_user!, :set_cache_buster
   rescue_from Exception, :with => :render_error if Rails.env.production?
-  helper_method :intercom_key
+  helper_method :requested_url_value
 
   def authenticate_user!
     if current_user.nil? or (params.has_key?(:api_id) and params.has_key?(:api_key))
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
         single_camera_redirection(redirect_url)
       end
     end
+  end
+
+  def requested_url_value
+    session[:redirect_url]
   end
 
   def update_user_intercom(user)

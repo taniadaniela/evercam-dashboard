@@ -35,6 +35,21 @@
   padding: 40px 0;
 }
 
+.logged-out-alert {
+  position: fixed;
+  top: 14px;
+  display: none;
+  padding: 0.8em 1em;
+  z-index: 100000000000;
+  font-size: 13px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.alert-signup-path {
+  color: $evercam-red;
+}
+
 #signin .branding img {
   max-width: 200px;
 }

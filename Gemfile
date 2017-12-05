@@ -31,7 +31,6 @@ gem 'puma'
 gem 'data_uri'
 gem 'country_select',
   github: 'stefanpenner/country_select'
-gem 'devise'
 gem 'ie_iframe_cookies',
   github: 'affan00/ie_iframe_cookies'
 gem 'intercom-rails'

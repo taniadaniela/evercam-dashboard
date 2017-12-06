@@ -38,8 +38,9 @@ class UsersController < ApplicationController
       end
     end
     begin
-      if request.safe_location
-        params[:user] = { 'country' => request.safe_location.country_code }
+      @result = request.safe_location
+      if @result
+        params[:user] = { 'country' => @result.country_code}
       end
     end
   end
@@ -54,6 +55,7 @@ class UsersController < ApplicationController
         user['firstname'],
         user['lastname'],
         user['username'],
+        # user['country'],
         user['email'],
         user['password'],
         ENV['WEB_APP_TOKEN'],

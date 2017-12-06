@@ -40,9 +40,7 @@ class UsersController < ApplicationController
     begin
       @result = request.safe_location
       if @result
-        params[:country] = @result.country_code.downcase
-      else
-        params[:country] = nil
+        params[:user] = { 'country' => @result.country_code }
       end
     end
   end
@@ -60,7 +58,7 @@ class UsersController < ApplicationController
         user['email'],
         user['password'],
         ENV['WEB_APP_TOKEN'],
-        params['country'],
+        user['country'],
         params[:key]
       )
 

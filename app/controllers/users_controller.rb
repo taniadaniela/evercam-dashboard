@@ -37,12 +37,12 @@ class UsersController < ApplicationController
         end
       end
     end
-    begin
-      @result = request.safe_location
-      if @result
-        params[:user] = { 'country' => @result.country_code.downcase }
-      end
-    end
+    # begin
+    #   @result = request.safe_location
+    #   if @result
+    #     params[:user] = { 'country' => @result.country_code.downcase }
+    #   end
+    # end
   end
 
   def create
@@ -51,9 +51,8 @@ class UsersController < ApplicationController
       if user.nil?
         raise "No user details specified in request."
       end
-      @result = request.safe_location
-      if @result
-        params[:user] = { 'country' => @result.country_code.downcase }
+      if request.safe_location
+        params[:country] = request.safe_location.country_code.downcase
       end
       get_evercam_api.create_user(
         user['firstname'],
@@ -62,7 +61,7 @@ class UsersController < ApplicationController
         user['email'],
         user['password'],
         ENV['WEB_APP_TOKEN'],
-        user['country'],
+        params[:country],
         params[:key]
       )
 

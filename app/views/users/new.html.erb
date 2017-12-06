@@ -93,12 +93,11 @@
             <% if @share_request %>
               <input type="hidden" name="key" id="key" value="<%= @share_request.key %>"/>
             <% end %>
-
-            <% if @result %>
-              <input type="hidden" name="user_country" id="user_country" value="<%= @result.country %>"/>
-              <input type="hidden" name="user_country" id="user_country" value="<%= @result.country_code %>"/>
-            <% end %>
           <% end %>
+          <% if @result %>
+              <input type="hidden" name="user_country" id="user_country" value="<%= @result.country %>"/>
+              <input type="hidden" name="user_country_code" id="user_country_code" value="<%= @result.country_code.downcase %>"/>
+            <% end %>
           <div class="col-md-12 col-sm-12 text-center grey margin-top-20">
             <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
           </div>

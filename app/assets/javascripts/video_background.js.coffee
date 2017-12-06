@@ -77,14 +77,15 @@ hideEmailValidationIcons = ->
 
 showNotLoggedInUserNotification = ->
   requested_url_value = $("#request_url_value").val()
-  if requested_url_value.indexOf('cameras/') > -1
-    $('#signout-user-message').show()
-    setTimeout (->
-      $('#signout-user-message').fadeOut('slow')
-      return
-    ), 15000
-  else
-    $('#signout-user-message').hide()
+  if requested_url_value
+    if requested_url_value.indexOf('cameras/') > -1
+      $('#signout-user-message').show()
+      setTimeout (->
+        $('#signout-user-message').fadeOut('slow')
+        return
+      ), 15000
+    else
+      $('#signout-user-message').hide()
 
 centerNotLoggedInNotification = ->
   widthset = ($(window).width() - $('#signout-user-message').width()) / 2

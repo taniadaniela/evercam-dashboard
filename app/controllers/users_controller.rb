@@ -51,6 +51,10 @@ class UsersController < ApplicationController
       if user.nil?
         raise "No user details specified in request."
       end
+      @result = request.safe_location
+      if @result
+        params[:user] = { 'country' => @result.country_code.downcase }
+      end
       get_evercam_api.create_user(
         user['firstname'],
         user['lastname'],

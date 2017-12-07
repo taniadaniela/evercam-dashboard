@@ -37,12 +37,6 @@ class UsersController < ApplicationController
         end
       end
     end
-    # begin
-    #   @result = request.safe_location
-    #   if @result
-    #     params[:user] = { 'country' => @result.country_code.downcase }
-    #   end
-    # end
   end
 
   def create

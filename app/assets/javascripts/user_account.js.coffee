@@ -64,6 +64,94 @@ saveUserSettings = ->
     else
       $.removeCookie("hide-offline-cameras", { path: "/" })
 
+initLiveCameraSelect = ->
+  $('#api-call-camera').select2
+    templateSelection: widgetFormat
+    templateResult: widgetFormat
+    escapeMarkup: (m) ->
+      m
+  $('.api-call-input .select2-container--default').width '100%'
+
+initRecordedCameraSelect = ->
+  $('#recorded-call-camera').select2
+    templateSelection: widgetFormat
+    templateResult: widgetFormat
+    escapeMarkup: (m) ->
+      m
+  $('.api-call-input .select2-container--default').width '100%'
+
+widgetFormat = (state) ->
+  is_offline = undefined
+  is_offline = ''
+  if !state.id
+    return state.text
+  if state.id == '0'
+    return state.text
+  $ '<span><img style=\'height:30px;margin-bottom:1px;margin-top:1px;width:35px;\' src=\'' + state.element.attributes[2].value + '\' class=\'img-flag\' />&nbsp;' + state.text + '</span>'
+
+updateLiveSnapshotUrl =->
+  camera_name = $('#api-call-camera').val()
+  $('#live-snapshot-url').html("<a href='#{Evercam.API_URL}cameras/#{camera_name}/live/snapshot?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}'>#{Evercam.API_URL}cameras/#{camera_name}/live/snapshot?</a>")
+  $('#live-snapshot-dashboard-url').html("<a href='https://dash.evercam.io/v1/cameras/#{camera_name}/live/snapshot?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}'>https://dash.evercam.io/v1/cameras/#{camera_name}/live/snapshot?</a>")
+
+updateRecordedSnapshotUrl = ->
+  date_time = ''
+  stringDateTime = ''
+  camera_name = $('#recorded-call-camera').val()
+  if $('#api-call-datetime').val()
+    stringDateTime = $('#api-call-datetime').val() + 'T' + $('#api-call-hour').val() + ':' + $('#api-call-minutes').val() + ':' + $('#api-call-seconds').val() + '.000Z'
+    date_time = stringDateTime
+  loadRecordedSnapshot(camera_name, date_time)
+
+loadRecordedSnapshot = (recording_camera_name, recording_time) ->
+  data =
+    api_id: Evercam.User.api_id
+    api_key: Evercam.User.api_key
+
+  onError = (jqXHR, status, error) ->
+    $('#recorded-snapshot-url').html("<a href='/assets/nosnapshots.svg'>There are no snapshots available for the selected period</a>")
+    $('#recorded-dashboard-url').html("<a href='https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}'>https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings</a>")
+
+  onSuccess = (response, status, jqXHR) ->
+    if response.snapshots.length > 0
+      $('#recorded-snapshot-url').html("<a href='#{response.snapshots[0].data}'>#{Evercam.API_URL}cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}</a>")
+      $('#recorded-dashboard-url').html("<a href='https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}'>https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}</a>")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'GET'
+    url: "#{Evercam.API_URL}cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}"
+  $.ajax(settings)
+
+initDatepicker = ->
+  $('#api-call-datetime').datetimepicker
+    timepicker: false
+    closeOnDateSelect: 0
+    onChangeDateTime: (dp, $input) ->
+      if $input.val() != lastSelectedDate
+        lastSelectedDate = $input.val()
+      return
+    format: 'Y-m-d'
+
+  i = 0
+  while i < 60
+    option = '<option value="' + FormatNumTo2(i) + '">' + FormatNumTo2(i) + '</option>'
+    if i < 24
+      $('#api-call-hour').append option
+    $('#api-call-minutes').append option
+    $('#api-call-seconds').append option
+    i++
+
+FormatNumTo2 = (n) ->
+  if n < 10
+    '0' + n
+  else
+    n
+
 window.initializeUserAccount = ->
   $.validate()
   Metronic.init()
@@ -76,6 +164,15 @@ window.initializeUserAccount = ->
   saveUserSettings()
   onDeleteClick()
   NProgress.done()
+  initLiveCameraSelect()
+  initRecordedCameraSelect()
+  initDatepicker()
+  $('#api-call-camera').change(updateLiveSnapshotUrl)
+  $('#recorded-call-camera').change(updateRecordedSnapshotUrl)
+  $('#api-call-datetime').change(updateRecordedSnapshotUrl)
+  $('#api-call-hour').change(updateRecordedSnapshotUrl)
+  $('#api-call-minutes').change(updateRecordedSnapshotUrl)
+  $('#api-call-seconds').change(updateRecordedSnapshotUrl)
 
 initialize = ->
   markers = []

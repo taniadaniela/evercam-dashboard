@@ -264,3 +264,52 @@ span.input-group-addon .custom {
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
+
+.api-calls {
+
+  .padding-left-0 {
+    padding-left: 0px;
+  }
+
+  .padding-right-0 {
+    padding-right: 0px;
+  }
+
+  .padding-left-10 {
+    padding-left: 10px;
+  }
+
+  .max-width-310 {
+    max-width: 310px;
+  }
+
+  .max-width-120 {
+    max-width: 120px;
+  }
+
+  .max-width-60 {
+    max-width: 60px;
+  }
+
+  .height-34 {
+    height: 34px;
+  }
+
+  .design-none {
+    padding-left: 0px;
+    border: none;
+    background: none;
+  }
+
+  .font-16 {
+    font-size: 16px;
+  }
+
+  .max-width-135 {
+    max-width: 135px;
+  }
+
+  .max-width-350 {
+    max-width: 350px;
+  }
+}

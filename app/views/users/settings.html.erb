@@ -17,6 +17,9 @@
             <li>
               <a data-toggle="tab" data-target="#embedded-recordings" class="nav-tab-details">Recording Widget</a>
             </li>
+            <li>
+              <a data-toggle="tab" data-target="#simple-api-call" class="nav-tab-api">API</a>
+            </li>
           </ul>
         </div>
         <div class="tab-content margin-top-20">
@@ -31,6 +34,9 @@
           </div>
           <div id="embedded-recordings" class="tab-pane">
             <%= render partial: "widgets/widget_snapshot_navigator" %>
+          </div>
+          <div id="simple-api-call" class="tab-pane">
+            <%= render partial: "users/settings/simple_api_calls" %>
           </div>
         </div>
       </div>

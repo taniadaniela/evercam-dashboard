@@ -1,3 +1,5 @@
+format_time = null
+
 handleEditable = ->
   $('.makeNonEditable').on 'click', ->
     $('#userProfile input:text').attr 'readonly', 'readonly'
@@ -91,8 +93,8 @@ widgetFormat = (state) ->
 
 updateLiveSnapshotUrl =->
   camera_name = $('#api-call-camera').val()
-  $('#live-snapshot-url').html("<a href='#{Evercam.API_URL}cameras/#{camera_name}/live/snapshot?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}'>#{Evercam.API_URL}cameras/#{camera_name}/live/snapshot?</a>")
-  $('#live-snapshot-dashboard-url').html("<a href='https://dash.evercam.io/v1/cameras/#{camera_name}/live/snapshot?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}'>https://dash.evercam.io/v1/cameras/#{camera_name}/live/snapshot?</a>")
+  $('#live-snapshot-url').val("#{Evercam.API_URL}cameras/#{camera_name}/live/snapshot?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
+  $('#live-snapshot-dashboard-url').val("https://dash.evercam.io/v1/cameras/#{camera_name}/live/snapshot?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
 
 updateRecordedSnapshotUrl = ->
   date_time = ''
@@ -109,13 +111,17 @@ loadRecordedSnapshot = (recording_camera_name, recording_time) ->
     api_key: Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
-    $('#recorded-snapshot-url').html("<a href='/assets/nosnapshots.svg'>There are no snapshots available for the selected period</a>")
-    $('#recorded-dashboard-url').html("<a href='https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}'>https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings</a>")
+    $('#recorded-snapshot-url').val("There are no snapshots available for the selected period.")
+    $('#recorded-snapshot-url').css "max-width", "440px"
+    $('#recorded-dashboard-url').val("https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
+    $('.recorded-url .fa').hide()
 
   onSuccess = (response, status, jqXHR) ->
     if response.snapshots.length > 0
-      $('#recorded-snapshot-url').html("<a href='#{response.snapshots[0].data}'>#{Evercam.API_URL}cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}</a>")
-      $('#recorded-dashboard-url').html("<a href='https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}'>https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}</a>")
+      $('#recorded-snapshot-url').val("#{response.snapshots[0].data}")
+      $('#recorded-dashboard-url').val("https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
+      $('#recorded-snapshot-url').css "max-width", "1200px"
+      $('.recorded-url .fa').show()
 
   settings =
     cache: false
@@ -152,7 +158,15 @@ FormatNumTo2 = (n) ->
   else
     n
 
+setDate = ->
+  DateTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
+  Datefrom = format_time.formatDate(DateTime, 'Y-m-d')
+  $('#api-call-datetime').val Datefrom
+  get_hour = DateTime.getHours()
+  $('#api-call-hour').val get_hour
+
 window.initializeUserAccount = ->
+  format_time = new DateFormatter()
   $.validate()
   Metronic.init()
   Layout.init()
@@ -167,6 +181,9 @@ window.initializeUserAccount = ->
   initLiveCameraSelect()
   initRecordedCameraSelect()
   initDatepicker()
+  setDate()
+  updateLiveSnapshotUrl()
+  updateRecordedSnapshotUrl()
   $('#api-call-camera').change(updateLiveSnapshotUrl)
   $('#recorded-call-camera').change(updateRecordedSnapshotUrl)
   $('#api-call-datetime').change(updateRecordedSnapshotUrl)

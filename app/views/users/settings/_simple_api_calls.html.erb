@@ -2,7 +2,10 @@
 
 <div id="api-calls" class="api-calls">
   <div class="col-sm-12 col-md-12">
-    <div class="col-lg-12 col-sm-12-col-md-12 no-padding">
+    <div>
+      <p>API ID & Keys are for use by developers. <strong>Do not share this information,</strong> it gives the holder access to your Evercam account.</p>
+    </div>
+    <div class="col-lg-12 col-sm-12-col-md-12 no-padding margin-top-20">
       <label class="col-md-2 api-id padding-left-0 padding-right-0 margin-top-10">
       <strong class="font-16">ID & Key</strong></label>
       <input class="col-md-12 col-sm-12 max-width-135 height-34" readonly value="ID: <%= current_user.api_id -%>">
@@ -37,18 +40,18 @@
         </div>
         <div class="form-group api-call-input margin-top-10">
           <div class="my-row">
-            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">Copy & Paste URL</label>
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to JPEG</label>
           </div>
           <div class="input-group padding-left-10 col-sm-12 col-xs-12 col-md-10">
-            <span id="live-snapshot-url" name="live-snapshot-url" placeholder="Live Snapshot Url" class="design-none form-control" type="text"></span>
+            <input id="live-snapshot-url" name="live-snapshot-url" placeholder="JPEG URL" class="url-input-design form-control" type="text" readonly><!-- <i class="copy-url-icon fa fa-files-o" aria-hidden="true" title="Copy URL"></i> -->
           </div>
         </div>
         <div class="form-group api-call-input margin-top-10">
           <div class="my-row">
-            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime"></label>
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to Dash</label>
           </div>
           <div class="input-group padding-left-10 col-sm-12 col-xs-12 col-md-10">
-            <span id="live-snapshot-dashboard-url" name="live-snapshot-url" placeholder="Live Snapshot Url" class="design-none form-control" type="text"></span>
+            <input id="live-snapshot-dashboard-url" name="live-snapshot-url" placeholder="Dashboard URL" class="url-input-design form-control" type="text" readonly><!-- <i class="copy-url-icon fa fa-files-o" aria-hidden="true" title="Copy URL"></i> -->
           </div>
         </div>
       </form>
@@ -97,18 +100,18 @@
 
         <div class="form-group api-call-input margin-top-10">
           <div class="my-row">
-            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">Copy & Paste URL</label>
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to JPEG</label>
           </div>
-          <div class="padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
-            <span id="recorded-snapshot-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="design-none form-control" type="text"></span>
+          <div class="recorded-url padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
+            <input id="recorded-snapshot-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="url-input-design form-control" type="text" readonly><!-- <i class="copy-url-icon fa fa-files-o" aria-hidden="true" title="Copy URL"></i> -->
           </div>
         </div>
         <div class="form-group api-call-input margin-top-10">
           <div class="my-row">
-            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime"></label>
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to Dash</label>
           </div>
           <div class="padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
-            <span id="recorded-dashboard-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="design-none form-control" type="text"></span>
+            <input id="recorded-dashboard-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1200 form-control" type="text" readonly><!-- <i class="copy-url-icon fa fa-files-o" aria-hidden="true" title="Copy URL"></i> -->
           </div>
         </div>
       </form>

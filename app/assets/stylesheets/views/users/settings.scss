@@ -122,12 +122,6 @@ span.input-group-addon .custom {
   background-color: transparent;
 }
 
-#user-settings .form-control[readonly] {
-  background-color:#ffffff;
-  border-bottom: 1px solid #e5e5e5;
-  border:none;
-  padding: 0px;
-}
 #user-settings .form-control {
   font-size: 16px;
 }
@@ -265,11 +259,14 @@ span.input-group-addon .custom {
   transform: translateX(-50%) translateY(-50%);
 }
 
-.api-calls {
+.settings-tab {
 
   .padding-left-0 {
     padding-left: 0px;
   }
+}
+
+.api-calls {
 
   .padding-right-0 {
     padding-right: 0px;
@@ -312,4 +309,24 @@ span.input-group-addon .custom {
   .max-width-350 {
     max-width: 350px;
   }
+
+  .url-input-design {
+    max-width: 1000px;
+  }
+
+  .max-width-1200 {
+    max-width: 1200px;
+  }
+
+  // .copy-url-icon {
+  //   padding: 8px;
+  //   margin-top: -0.5px;
+  //   height: 34px;
+  //   background-color: #eeeeee;
+  //   cursor: pointer;
+  //   position: absolute;
+  //   margin-left: -31px;
+  //   z-index: 99999;
+  //   border: 1px solid #e5e5e5;
+  // }
 }

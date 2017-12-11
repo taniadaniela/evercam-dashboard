@@ -111,17 +111,16 @@ loadRecordedSnapshot = (recording_camera_name, recording_time) ->
     api_key: Evercam.User.api_key
 
   onError = (jqXHR, status, error) ->
-    $('#recorded-snapshot-url').val("There are no snapshots available for the selected period.")
-    $('#recorded-snapshot-url').css "max-width", "440px"
+    $('.recorded-url').hide()
+    $('#no-recorded-snapshot').show()
     $('#recorded-dashboard-url').val("https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
-    $('.recorded-url .fa').hide()
 
   onSuccess = (response, status, jqXHR) ->
     if response.snapshots.length > 0
+      $('.recorded-url').show()
+      $('#no-recorded-snapshot').hide()
       $('#recorded-snapshot-url').val("#{response.snapshots[0].data}")
       $('#recorded-dashboard-url').val("https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
-      $('#recorded-snapshot-url').css "max-width", "1200px"
-      $('.recorded-url .fa').show()
 
   settings =
     cache: false
@@ -163,7 +162,14 @@ setDate = ->
   Datefrom = format_time.formatDate(DateTime, 'Y-m-d')
   $('#api-call-datetime').val Datefrom
   get_hour = DateTime.getHours()
-  $('#api-call-hour').val get_hour
+  hour_value = FormatNumTo2(get_hour)
+  $('#api-call-hour').val hour_value
+
+initClipboard = ->
+  clipboard = new Clipboard('.btn')
+  clipboard.on 'success', (e) ->
+    $('.bb-alert').width '100px'
+    Notification.show 'Copied!'
 
 window.initializeUserAccount = ->
   format_time = new DateFormatter()
@@ -182,6 +188,7 @@ window.initializeUserAccount = ->
   initRecordedCameraSelect()
   initDatepicker()
   setDate()
+  initClipboard()
   updateLiveSnapshotUrl()
   updateRecordedSnapshotUrl()
   $('#api-call-camera').change(updateLiveSnapshotUrl)

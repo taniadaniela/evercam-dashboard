@@ -318,15 +318,42 @@ span.input-group-addon .custom {
     max-width: 1200px;
   }
 
-  // .copy-url-icon {
-  //   padding: 8px;
-  //   margin-top: -0.5px;
-  //   height: 34px;
-  //   background-color: #eeeeee;
-  //   cursor: pointer;
-  //   position: absolute;
-  //   margin-left: -31px;
-  //   z-index: 99999;
-  //   border: 1px solid #e5e5e5;
-  // }
+  .copy-url-icon {
+    padding: 8px;
+    margin-top: -0.5px;
+    height: 34px;
+    background-color: $lighter-grey;
+    cursor: pointer;
+    position: absolute;
+    margin-left: -31px;
+    z-index: 99999;
+    border: 1px solid $main-grey;
+  }
+
+  .copy-url-icon:hover {
+    color: $main-color;
+  }
+
+  .max-width-440 {
+    max-width: 440px;
+  }
+}
+
+.online-offline-toggle {
+  width: 152px;
+  min-width: 152px;
+}
+
+@media (max-width: 991px) {
+
+  .api-calls .padding-right-0 {
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 440px) {
+
+  .api-calls .margin-left-10 {
+    margin-left: 0px;
+  }
 }

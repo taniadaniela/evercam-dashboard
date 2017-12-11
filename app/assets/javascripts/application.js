@@ -40,6 +40,7 @@
 //= require hammer.min.js
 //= require popcorn.js
 //= require popcorn.capture.js
+//= require clipboard.min.js
 
 //=
 //= require alerts

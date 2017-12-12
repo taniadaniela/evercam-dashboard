@@ -29,6 +29,7 @@
           <label class="float-label" for="user-lastname">Last Name</label>
         </div>
         <div class="form-group">
+          <input id="camera-timezone" name="type" class="sidebar-chk-span" type="hidden" value="<%= current_user.country %>">
           <label class="grey" for="country">Country</label>
           <select id="country" name="country" class="form-control">
             <% if current_user.country.blank? %>

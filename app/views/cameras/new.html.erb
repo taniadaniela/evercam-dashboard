@@ -20,6 +20,7 @@
           <input style="display:none" type="password" name="fakepasswordremembered"/>
           <%= hidden_field_tag('camera-lat', @user['camera-lat']) %>
           <%= hidden_field_tag('camera-lng', @user['camera-lng']) %>
+          <input id="camera-timezone" name="type" class="sidebar-chk-span" type="hidden" value="<%= current_user.country %>">
 
           <div class="col-sm-8 padding-left-0">
             <div class="row">

@@ -18,7 +18,6 @@ class CamerasController < ApplicationController
     @cameras = load_user_cameras(true, false)
     @user = (flash[:user] || {})
     @ip = request.remote_ip
-
     if @user == {} && params[:id]
       camera = get_evercam_api.get_camera(params[:id], false)
       @user['camera-name'] = camera['name']
@@ -90,7 +89,6 @@ class CamerasController < ApplicationController
       body[:cam_password] = params['camera-password'] unless params['camera-password'].blank?
       body[:vendor] = params['camera-vendor'] unless params['camera-vendor'].blank?
       body[:model] = params["camera-model"] unless params["camera-model"].blank? if body[:vendor]
-
       body[:internal_http_port] = params['local-http'] unless params['local-http'].blank?
       body[:external_http_port] = params['port'] unless params['port'].blank?
       body[:internal_rtsp_port] = params['local-rtsp'] unless params['local-rtsp'].blank?
@@ -99,7 +97,9 @@ class CamerasController < ApplicationController
       body[:location_lat] = params['camera-lat'] unless params['camera-lat'].blank?
       body[:location_lng] = params['camera-lng'] unless params['camera-lng'].blank?
       body[:is_online] = true
-
+      tzc = TZInfo::Country.get(@current_user.country.iso3166_a2.upcase)
+      timezone = Timezone::Zone.new zone:tzc.zone_names.first
+      body[:timezone] = timezone.name[:zone]
       api = get_evercam_api
       new_camera = api.create_camera(
         params['camera-name'],

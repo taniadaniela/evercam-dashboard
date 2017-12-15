@@ -505,9 +505,11 @@ loadImage = (timestamp, notes) ->
     if response.snapshots.length > 0
       $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
+      image_data = response.snapshots[0].data
       if $("#snapshot-magnifier").hasClass 'enabled'
         initElevateZoom()
     HideLoader()
+    window.estimateImageSize(image_data)
     checkCalendarDisplay()
     showImageSaveOption()
 
@@ -522,6 +524,53 @@ loadImage = (timestamp, notes) ->
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
 
   sendAJAXRequest(settings)
+
+window.estimateImageSize = (image_source) ->
+  recording_status = Evercam.Camera.cloud_recording.status
+  storage_duration = Evercam.Camera.cloud_recording.storage_duration
+  storage_frequency = Evercam.Camera.cloud_recording.frequency
+  if storage_duration is -1
+    $("#show-image-info").addClass 'hide'
+  else
+    if recording_status is 'paused' || recording_status is 'off'
+      $("#show-image-info").addClass 'hide'
+    else
+      $("#show-image-info").removeClass 'hide'
+  head = 'data:image/png;base64,'
+  imgFileSize = Math.round((image_source.length - (head.length)) * 3 / 4)
+  $("#image-file-size").text(convertFromBytes(imgFileSize))
+  totalImageFileSize(imgFileSize, storage_duration, storage_frequency)
+  monthlyImageFileSize(imgFileSize, storage_duration, storage_frequency)
+
+totalImageFileSize = (image_file_size, image_storage_duration, image_storage_frequency) ->
+  image_storage_value = (image_storage_duration * 24 * 60)
+  total_image_estimates = (image_storage_value * image_storage_frequency * image_file_size)
+  $("#totalGb-file-size").text(convertFromBytes(total_image_estimates))
+
+monthlyImageFileSize = (image_file_size, image_storage_duration, image_storage_frequency) ->
+  if image_storage_duration > 30
+    image_storage_duration = 30
+  image_storage_value = (image_storage_duration * 24 * 60)
+  monthly_image_estimates = (image_storage_value * image_storage_frequency * image_file_size)
+  $("#monthlyGB-file-size").text(convertFromBytes(monthly_image_estimates))
+
+convertFromBytes = (bytes) ->
+  if bytes == 0
+    return '0 Bytes'
+  k = 1024
+  sizes = [
+    'Bytes'
+    'KB'
+    'MB'
+    'GB'
+    'TB'
+    'PB'
+    'EB'
+    'ZB'
+    'YB'
+  ]
+  i = Math.floor(Math.log(bytes) / Math.log(k))
+  parseFloat((bytes / k ** i).toFixed(2)) + ' ' + sizes[i]
 
 SetPlayFromImage = (timestamp) ->
   i = 0
@@ -1090,6 +1139,10 @@ centerTabClick = ->
     if $(e.target).is('#ul-nav-tab li a,#ul-nav-tab li a span')
       turnOffZoomEffect()
 
+setImageSource = ->
+  data_image_src = $("#imgPlayback").attr('src')
+  window.estimateImageSize(data_image_src)
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1108,3 +1161,4 @@ window.initializeRecordingsTab = ->
   onClickOldestLatestImage()
   saveOldestLatestImage()
   centerTabClick()
+  setImageSource()

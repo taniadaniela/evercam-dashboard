@@ -100,10 +100,22 @@
       height: 25px;
     }
 
-    .setting-heading .btn {
-      padding: 5px 12px;
-      border: 1px solid $hover-blue;
-      margin-left: 5px;
+    .setting-heading {
+
+      .btn {
+        padding: 4px 12px;
+        border: 1px solid $hover-blue;
+        margin-left: 5px;
+      }
+
+      .font-size-27 {
+        font-size: 27px;
+        margin-top: -1px;
+      }
+
+      .show-image-info {
+        position: absolute;
+      }
     }
 
     .modal-dialog .schedule-cancel {
@@ -128,6 +140,15 @@
     }
 
   }
+
+.info-schedule .width-250 {
+  max-width: 250px;
+  margin: 30px auto;
+}
+
+.font-size-12 {
+  font-size: 12px;
+}
 
 .datepicker table {
 
@@ -399,20 +420,26 @@
 }
 
   @media (max-width: 480px) {
+
     .tab-content #recordings {
       min-height: 600px;
       margin: 0 0 0 -14px;
+
       .playback-info-bar {
         font-size: 14px;
       }
+
       #show-info {
         margin-top: -45px;
       }
-      .btn {
-        font-size: 15px !Important;
-      }
+
       #snapshot-notes-text {
         font-size: 14px;
+      }
+
+      .font-size-27 {
+        font-size: 24px;
+        margin-top: -1px;
       }
     }
 

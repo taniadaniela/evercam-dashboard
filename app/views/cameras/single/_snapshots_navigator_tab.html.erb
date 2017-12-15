@@ -185,7 +185,7 @@
           <% if has_right %>
           <div class="recording-text margin-top-10">
             <div class="setting-heading">
-              <b>Recording Settings</b><a id= "show-schedule-calendar" href="#" class="btn btn-edit right padding-left-5" data-toggle="modal" data-target="#cloud-recording-calendar-wrap">Edit</a>
+              <b>Recording Settings</b><a id= "show-schedule-calendar" href="#" class="btn btn-edit right padding-left-5" data-toggle="modal" data-target="#cloud-recording-calendar-wrap">Edit</a><a id= "show-image-info" href="#" class="padding-left-5 show-image-info" data-toggle="modal" data-target="#image-info-box"><i class="fa font-size-27 fa-info-circle" aria-hidden="true" title="Storage Info"></i></a>
             </div>
               <div class="cloud-info margin-top-10">
               <div class="status-off">
@@ -271,6 +271,35 @@
                         <button type="button" class="btn btn-default schedule-cancel" data-dismiss="modal">Cancel</button>
                       </div>
                     </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="image-info-box" class="modal fade info-schedule hide">
+              <div class="modal-dialog width-250">
+                <div class="modal-content">
+                  <div class="modal-body">
+                  <div id="image-info-div">
+                    <div class="recording-header">
+                      <span class="recording-heading">Image Size Estimates</span>
+
+                      <div id="image-size-div" class="image-size-div margin-top-20">
+                        <label class="color-grey width-135">Image Size:</label>
+                        <span id="image-file-size" class="image-file-size font-size-12">O KB</span>
+                      </div>
+
+                      <div id="monthlyGB-size-div" class="monthlyGB-size-div">
+                        <label class="color-grey width-135">Monthly GB (est):</label>
+                        <span id="monthlyGB-file-size" class="monthlyGB-file-size font-size-12">O KB</span>
+                      </div>
+
+                      <div id="totalGb-size-div" class="totalGb-size-div">
+                        <label class="color-grey width-135">Total GB (est):</label>
+                        <span id="totalGb-file-size" class="totalGb-file-size font-size-12">O KB</span>
+                      </div>
+
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>

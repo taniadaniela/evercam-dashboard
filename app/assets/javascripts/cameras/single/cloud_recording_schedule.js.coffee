@@ -140,6 +140,8 @@ updateSchedule = ->
     $('#cloud-recording-duration').prop("disabled", false)
     showFeedback("Cloud recording schedule was successfully updated.")
     saveOldCRValues()
+    data_image_src = $("#imgPlayback").attr('src')
+    window.estimateImageSize(data_image_src)
     NProgress.done()
 
   settings =
@@ -211,6 +213,19 @@ showEditButton = ->
     if Evercam.Camera.cloud_recording.status is "on-scheduled"
       setTimeout showScheduleCalendar, 5
     editScheduleCalendar()
+
+onClickInfoDialogue = ->
+  $('#show-image-info').off('click').on 'click' , ->
+    ShowInfoDialogue()
+
+ShowInfoDialogue = ->
+  $('#image-info-box').removeClass('hide' , 'fade')
+  $('#image-info-box').addClass('fade in')
+  $('#recording-tab .info-schedule').show()
+  $(document).click (event) ->
+    if $(event.target).closest('.modal-content').get(0) == null
+      $('#recording-tab .info-schedule').hide()
+    return
 
 hideEditButton = ->
   $('#schdule-label').removeClass('hide')
@@ -553,4 +568,5 @@ window.initCloudRecordingSettings = ->
   showRecordingTab()
   resumeCR()
   onHideModal()
+  onClickInfoDialogue()
   $('#select-schedule-presets').change(updateSchedulePresets)

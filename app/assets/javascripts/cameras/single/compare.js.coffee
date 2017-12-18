@@ -105,7 +105,6 @@ copyToClipboard = (elem) ->
   succeed = undefined
   try
     succeed = document.execCommand('copy')
-    Notification.show("Embed code copied.")
   catch e
     succeed = false
   if currentFocus and typeof currentFocus.focus == 'function'
@@ -205,16 +204,22 @@ hideBeforeAfterLoadingAnimation = (query_string) ->
 
 export_compare = ->
   $("#export_compare_button").on "click", ->
-
+    $("#spn-success-export").removeClass("alert-info").addClass("alert-danger")
     name = $("#export_name").val()
     if name is ""
-      Notification.show("Please enter export name.")
+      $("#spn-success-export").text("Please enter export name.").removeClass("hide")
       return false
 
+    button = $(this)
+    button.prop("disabled", true)
     $("#row-animation").removeClass("hide")
     after = " #{convert_timestamp_to_path($("#compare_after").attr("timestamp"))}"
     before = " #{convert_timestamp_to_path($("#compare_before").attr("timestamp"))}"
-    $("#txtEmbedCode").val("<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after}'></script>")
+    embed_code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after}'></script>"
+    $("#txtEmbedCode").val(embed_code)
+    $("#compare_embed_code").val(embed_code)
+    $("#compare_embed_code").select()
+    copyToClipboard(document.getElementById("compare_embed_code"))
 
     data =
       api_id: Evercam.User.api_id
@@ -224,17 +229,18 @@ export_compare = ->
       before_image: $("#compare_before").attr("src")
       after: $("#compare_after").attr("timestamp")
       after_image: $("#compare_after").attr("src")
-      embed: $("#txtEmbedCode").val()
+      embed: embed_code
 
     onError = (jqXHR, status, error) ->
-      false
+      $("#spn-success-export").text("Failed to export compare.").removeClass("hide")
+      button.prop("disabled", false)
 
     onSuccess = (response, status, jqXHR) ->
       $("#row-animation").addClass("hide")
       $("#row-textarea").removeClass("hide")
       $("#txtEmbedCode").select()
-      setTimeout(copyToClipboard(document.getElementById("txtEmbedCode")), 1000)
-      $("#spn-success-export").removeClass("hide")
+      $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").removeClass("hide")
+      $("#spn-success-export").text("Export completed and embed code copied.")
 
     settings =
       cache: false
@@ -253,9 +259,10 @@ convert_timestamp_to_path = (timestamp) ->
 cancelForm = ->
   $('#export-compare-modal').on 'hide.bs.modal', ->
     $("#export_name").val("")
-    $("#txtEmbedCode").val()
+    $("#txtEmbedCode").val("")
     $("#row-textarea").addClass("hide")
     $("#spn-success-export").addClass("hide")
+    $("#export_compare_button").prop("disabled", false)
 
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)

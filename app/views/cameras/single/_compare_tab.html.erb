@@ -2,6 +2,7 @@
   <div class="div-compare-placeholder">
     <input type="hidden" id="txtbefore">
     <input type="hidden" id="txtafter">
+    <textarea id="compare_embed_code" class="embed-code" style="position: absolute;left: -9999px;top: 0;"></textarea>
     <div class="js-img-compare">
       <div style="display: none;">
         <span id="calendar-before" class="images-compare-label before-calendar" data-query="before-calendar"><i class="fa fa-calendar compare-calendar"></i> Before</span>
@@ -65,7 +66,7 @@
               <input type="button" class="alert push btn btn-primary margin-right-10" id="export_compare_button" value="Export"/>
             </div>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <span id="spn-success-export" class="alert alert-info hide">Export completed and embed code copied..</span>
+            <span id="spn-success-export" class="alert alert-info hide"></span>
           </div>
         </fieldset>
       </div>

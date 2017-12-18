@@ -547,6 +547,13 @@ hideInfoDivOnClickOutside = ->
       if $('#image-info-box').hasClass 'in'
         $('#show-image-info').click()
 
+showInfoDiv = ->
+  $('#show-image-info').on 'click', ->
+    if $('#image-info-box').hasClass 'in'
+      $('#image-info-box').addClass('hide')
+    else
+      $('#image-info-box').removeClass('hide')
+
 window.initCloudRecordingSettings = ->
   saveOldCRValues()
   if Evercam.Camera.cloud_recording.status is "paused"
@@ -562,5 +569,6 @@ window.initCloudRecordingSettings = ->
   showRecordingTab()
   resumeCR()
   onHideModal()
+  showInfoDiv()
   $('#select-schedule-presets').change(updateSchedulePresets)
   hideInfoDivOnClickOutside()

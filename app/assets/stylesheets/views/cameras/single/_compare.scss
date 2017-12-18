@@ -140,6 +140,10 @@
     cursor: pointer;
   }
 
+  .embed-code {
+    height: 100px;
+  }
+
   .evercam-brand {
     bottom: 5px;
     display: table;
@@ -156,6 +160,18 @@
     height: auto;
     width: 65%;
     margin-left: 3px;
+  }
+
+  .loading-image-div .export-compare-animation {
+    width: 50px;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+  }
+
+  .alert {
+    padding: 7px;
+    margin-bottom: 10px;
   }
 }
 

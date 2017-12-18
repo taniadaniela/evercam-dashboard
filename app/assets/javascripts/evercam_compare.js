@@ -14,6 +14,7 @@ var $;
   function main() {
     jQuery(document).ready(function ($) {
       addVideojsReffrences();
+      var bucket_url = "https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/";
       var params = document.body.getElementsByTagName('script');
       var query = params[0].classList;
       camera_id = query[0];
@@ -35,17 +36,9 @@ var $;
       html += '   </div>';
 
       document.getElementById("evercam-compare").innerHTML = html;
-      //setTimeout(initCompare, 3000);
-      if (after !== undefined) {
-        getFirstLastImages("compare_after", "/" + after + "/nearest", false)
-      } else {
-        getFirstLastImages("compare_after", "/latest", false)
-      }
-      if (before !== undefined) {
-        getFirstLastImages("compare_before", "/" + before + "/nearest", true)
-      } else {
-        getFirstLastImages("compare_before", "/oldest", true)
-      }
+      $("#compare_after").attr("src", bucket_url+camera_id+"/snapshots/"+after+".jpg");
+      $("#compare_before").attr("src", bucket_url+camera_id+"/snapshots/"+before+".jpg");
+      setTimeout(initCompare, 4000);
     });
   }
 

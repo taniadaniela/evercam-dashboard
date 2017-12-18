@@ -30,6 +30,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
       snapshot = response.snapshots[0]
     if snapshot.data isnt undefined
       $("##{image_id}").attr("src", snapshot.data)
+      $("##{image_id}").attr("timestamp", snapshot.created_at)
       if setDate
         d = new Date(snapshot.created_at*1000)
         before_month = d.getUTCMonth()+1
@@ -78,18 +79,6 @@ getQueryStringByName = (name) ->
     null
   else
     decodeURIComponent(results[1].replace(/\+/g, ' '))
-
-clickOnEmbed = ->
-  $(".images-compare-embed-code").on "click", ->
-    if !Evercam.Camera.is_public
-      Notification.show("Embedding is not working for private cameras.")
-    after = " #{getQueryStringByName("after")}"
-    before = " #{getQueryStringByName("before")}"
-    after = "" if after is " null"
-    before = "" if before is " null"
-    $("#txtEmbedCode").val("<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after}'></script>")
-    $("#txtEmbedCode").select();
-    copyToClipboard(document.getElementById("txtEmbedCode"))
 
 copyToClipboard = (elem) ->
   targetId = '_hiddenCopyText_'
@@ -214,15 +203,67 @@ hideBeforeAfterLoadingAnimation = (query_string) ->
   $("##{query_string} .xdsoft_datepicker").removeClass 'opacitypoint5'
   $("##{query_string} .xdsoft_timepicker").removeClass 'opacitypoint5'
 
+export_compare = ->
+  $("#export_compare_button").on "click", ->
+
+    name = $("#export_name").val()
+    if name is ""
+      Notification.show("Please enter export name.")
+      return false
+
+    $("#row-animation").removeClass("hide")
+    after = " #{convert_timestamp_to_path($("#compare_after").attr("timestamp"))}"
+    before = " #{convert_timestamp_to_path($("#compare_before").attr("timestamp"))}"
+    $("#txtEmbedCode").val("<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after}'></script>")
+
+    data =
+      api_id: Evercam.User.api_id
+      api_key: Evercam.User.api_key
+      name: name
+      before: $("#compare_before").attr("timestamp")
+      before_image: $("#compare_before").attr("src")
+      after: $("#compare_after").attr("timestamp")
+      after_image: $("#compare_after").attr("src")
+      embed: $("#txtEmbedCode").val()
+
+    onError = (jqXHR, status, error) ->
+      false
+
+    onSuccess = (response, status, jqXHR) ->
+      $("#row-animation").addClass("hide")
+      $("#row-textarea").removeClass("hide")
+      $("#txtEmbedCode").select()
+      setTimeout(copyToClipboard(document.getElementById("txtEmbedCode")), 1000)
+      $("#spn-success-export").removeClass("hide")
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compare"
+    sendAJAXRequest(settings)
+
+convert_timestamp_to_path = (timestamp) ->
+  timestamp_to_int = parseInt(timestamp)
+  moment.utc(timestamp_to_int*1000).format('YYYY/MM/DD/HH_mm_ss')
+
+cancelForm = ->
+  $('#export-compare-modal').on 'hide.bs.modal', ->
+    $("#export_name").val("")
+    $("#txtEmbedCode").val()
+    $("#row-textarea").addClass("hide")
+    $("#spn-success-export").addClass("hide")
+
 window.initializeCompareTab = ->
-  $("#txtEmbedCode").val("<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}'></script>")
   getFirstLastImages("compare_before", "/oldest", false, true)
   getFirstLastImages("compare_after", "/latest", false, false)
   handleTabOpen()
-  clickOnEmbed()
   removeCurrentDateHighlight()
-  if Evercam.Camera.is_public
-    $(".div-embed-code").removeClass("hide")
+  export_compare()
+  cancelForm()
 
   $('#calendar-before').datetimepicker
     format: 'm/d/Y H:m'

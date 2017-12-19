@@ -188,18 +188,18 @@
               <b>Recording Settings</b><a id= "show-schedule-calendar" href="#" class="btn btn-edit right padding-left-5" data-toggle="modal" data-target="#cloud-recording-calendar-wrap">Edit</a><a id= "show-image-info" href="#" class="padding-left-5 show-image-info btn-primary" data-toggle="modal" data-target="#image-info-box" title="Storage Info"><i class="fa info-icon fa-info" aria-hidden="true"></i></a>
             </div>
               <div class="cloud-info margin-top-10">
-              <div class="status-off">
-                <label class="color-grey">Recording Status:</label>
-                <span class="off-status"></span>
-              </div>
-              <div class="storage">
-                <label class="color-grey">Storage Duration:</label>
-                <span class="storage-duration"></span>
-              </div>
-              <div class="frequency-text">
-                <label class="color-grey">Snapshot per min:</label>
-                <span class="recording-frequency"></span>
-              </div>
+                <div class="status-off">
+                  <label class="color-grey">Recording Status:</label>
+                  <span class="off-status"></span>
+                </div>
+                <div class="storage">
+                  <label class="color-grey">Storage Duration:</label>
+                  <span class="storage-duration"></span>
+                </div>
+                <div class="frequency-text">
+                  <label class="color-grey">Snapshot per min:</label>
+                  <span class="recording-frequency"></span>
+                </div>
               </div>
             </div>
             <div id="cloud-recording-calendar-wrap" class="modal fade setting-schedule hide">
@@ -286,6 +286,11 @@
                       <div id="image-size-div" class="image-size-div margin-top-20">
                         <label class="color-grey width-100">Image Size:</label>
                         <span id="image-file-size" class="image-file-size font-size-12">O KB</span>
+                      </div>
+
+                      <div id="image_dimension" class="image_dimension">
+                        <label class="color-grey width-100">Image Dimension:</label>
+                        <span id="recording_image_dimension" class="recording_image_dimension font-size-12">0x0</span>
                       </div>
 
                       <div id="monthlyGB-size-div" class="monthlyGB-size-div">

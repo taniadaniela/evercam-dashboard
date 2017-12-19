@@ -556,11 +556,11 @@ showInfoDiv = ->
 
 hideInfoBoxOnMouseLeave = ->
   $('#recording-tab .right-column').mouseleave ->
-    setTimeout (->
-      if $('#image-info-box').hasClass 'in'
+    if $('#image-info-box').hasClass 'in'
+      setTimeout (->
         $('#show-image-info').click()
         $('#image-info-box').addClass('hide')
-    ), 5000
+      ), 5000
 
 window.initCloudRecordingSettings = ->
   saveOldCRValues()

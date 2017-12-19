@@ -230,17 +230,25 @@ export_compare = ->
       after: $("#compare_after").attr("timestamp")
       after_image: $("#compare_after").attr("src")
       embed: embed_code
+      create_animation: $('#compare-animated').prop("checked")
 
     onError = (jqXHR, status, error) ->
       $("#spn-success-export").text("Failed to export compare.").removeClass("hide")
       button.prop("disabled", false)
 
     onSuccess = (response, status, jqXHR) ->
+      button.hide()
       $("#row-animation").addClass("hide")
+      $("#row-create-animation").hide()
+      # $("#cancel_export").hide()
       $("#row-textarea").removeClass("hide")
       $("#txtEmbedCode").select()
       $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").removeClass("hide")
       $("#spn-success-export").text("Export completed and embed code copied.")
+      if $('#compare-animated').prop("checked")
+        $("#animation_url").val("https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif")
+        $("#row-animation-url").removeClass("hide")
+        $("#spn-success-export").text("Export completed and embed code copied. Animation GIF will be ready in short.")
 
     settings =
       cache: false
@@ -263,6 +271,12 @@ cancelForm = ->
     $("#row-textarea").addClass("hide")
     $("#spn-success-export").addClass("hide")
     $("#export_compare_button").prop("disabled", false)
+    $("#export_compare_button").show()
+    $("#row-create-animation").show()
+    $("#row-animation-url").addClass("hide")
+    $("#cancel_export").show()
+    $("label[for='compare-animated'] span").removeClass 'checked'
+    $("#compare-animated").prop("checked", false)
 
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)

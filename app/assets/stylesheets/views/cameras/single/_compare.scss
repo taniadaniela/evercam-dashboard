@@ -1,4 +1,6 @@
 .compare_tab {
+  font-size: 14px;
+
   // Images compare main container
   .images-compare-container {
     display: inline-block;
@@ -173,6 +175,10 @@
     font-size: 13px;
     padding: 7px;
     margin-bottom: 10px;
+  }
+
+  .chk-span {
+    margin-top: 6px !important;
   }
 }
 

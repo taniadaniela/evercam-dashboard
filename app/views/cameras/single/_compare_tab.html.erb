@@ -49,9 +49,24 @@
                       </td>
                     </tr>
                     <tr id="row-textarea" class="hide">
-                      <td class="col-md-4"><label class="control-label" for="camera-vendor">Embed Code*</label></td>
+                      <td class="col-md-4"><label class="control-label" for="camera-vendor">Embed Code</label></td>
                       <td>
-                        <textarea id="txtEmbedCode" class="form-control embed-code" style="" readonly="true"></textarea>
+                        <textarea id="txtEmbedCode" class="form-control embed-code" readonly="true"></textarea>
+                      </td>
+                    </tr>
+                    <tr id="row-animation-url" class="hide">
+                      <td class="col-md-4"><label class="control-label" for="camera-vendor">Animation URL</label></td>
+                      <td>
+                        <input type="text" name="animation_url" id="animation_url" class="form-control">
+                      </td>
+                    </tr>
+                    <tr id="row-create-animation">
+                      <td style="width: 100px;"><label class="control-label camera-name" for="export_name"></label></td>
+                      <td>
+                        <div class="checkbox">
+                          <input class="hide" type="checkbox" id="compare-animated" name="compare-animated" />
+                          <label for="compare-animated">Create Animated GIF / MP4.</label>
+                        </div>
                       </td>
                     </tr>
                   </table>
@@ -65,7 +80,7 @@
             <div class='pull-left form-group1'>
               <input type="button" class="alert push btn btn-primary margin-right-10" id="export_compare_button" value="Export"/>
             </div>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="cancel_export" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <span id="spn-success-export" class="alert alert-info hide"></span>
           </div>
         </fieldset>

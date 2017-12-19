@@ -38,7 +38,7 @@ var $;
       document.getElementById("evercam-compare").innerHTML = html;
       $("#compare_after").attr("src", bucket_url+camera_id+"/snapshots/"+after+".jpg");
       $("#compare_before").attr("src", bucket_url+camera_id+"/snapshots/"+before+".jpg");
-      setTimeout(initCompare, 4000);
+      setTimeout(initCompare, 2000);
     });
   }
 

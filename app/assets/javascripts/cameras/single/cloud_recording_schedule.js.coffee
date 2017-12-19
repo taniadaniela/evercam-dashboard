@@ -214,19 +214,6 @@ showEditButton = ->
       setTimeout showScheduleCalendar, 5
     editScheduleCalendar()
 
-onClickInfoDialogue = ->
-  $('#show-image-info').off('click').on 'click' , ->
-    ShowInfoDialogue()
-
-ShowInfoDialogue = ->
-  $('#image-info-box').removeClass('hide' , 'fade')
-  $('#image-info-box').addClass('fade in')
-  $('#recording-tab .info-schedule').show()
-  $(document).click (event) ->
-    if $(event.target).closest('.modal-content').get(0) == null
-      $('#recording-tab .info-schedule').hide()
-    return
-
 hideEditButton = ->
   $('#schdule-label').removeClass('hide')
 
@@ -553,6 +540,28 @@ onHideModal = ->
   $("#cloud-recording-calendar-wrap").on "hide.bs.modal", ->
     undo_recording_settings()
 
+hideInfoDivOnClickOutside = ->
+  $(document).click (e) ->
+    info_container = $('#image-info-box .modal-content')
+    if !info_container.is(e.target) and info_container.has(e.target).length == 0
+      if $('#image-info-box').hasClass 'in'
+        $('#show-image-info').click()
+
+showInfoDiv = ->
+  $('#show-image-info').on 'click', ->
+    if $('#image-info-box').hasClass 'in'
+      $('#image-info-box').addClass('hide')
+    else
+      $('#image-info-box').removeClass('hide')
+
+hideInfoBoxOnMouseLeave = ->
+  $('#recording-tab .right-column').mouseleave ->
+    if $('#image-info-box').hasClass 'in'
+      setTimeout (->
+        $('#show-image-info').click()
+        $('#image-info-box').addClass('hide')
+      ), 5000
+
 window.initCloudRecordingSettings = ->
   saveOldCRValues()
   if Evercam.Camera.cloud_recording.status is "paused"
@@ -568,5 +577,7 @@ window.initCloudRecordingSettings = ->
   showRecordingTab()
   resumeCR()
   onHideModal()
-  onClickInfoDialogue()
+  showInfoDiv()
   $('#select-schedule-presets').change(updateSchedulePresets)
+  hideInfoDivOnClickOutside()
+  hideInfoBoxOnMouseLeave()

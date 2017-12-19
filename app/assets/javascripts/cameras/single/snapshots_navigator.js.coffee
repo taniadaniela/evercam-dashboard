@@ -1147,6 +1147,11 @@ setImageSource = ->
   data_image_src = $("#imgPlayback").attr('src')
   window.estimateImageSize(data_image_src)
 
+removeMagnifierOnEsc = ->
+  $(document).on 'keyup', (evt) ->
+    if evt.keyCode = 27
+      turnOffZoomEffect()
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1166,3 +1171,4 @@ window.initializeRecordingsTab = ->
   saveOldestLatestImage()
   centerTabClick()
   setImageSource()
+  removeMagnifierOnEsc()

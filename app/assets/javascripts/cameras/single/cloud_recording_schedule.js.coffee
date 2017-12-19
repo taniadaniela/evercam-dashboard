@@ -554,6 +554,14 @@ showInfoDiv = ->
     else
       $('#image-info-box').removeClass('hide')
 
+hideInfoBoxOnMouseLeave = ->
+  $('#recording-tab .right-column').mouseleave ->
+    setTimeout (->
+      if $('#image-info-box').hasClass 'in'
+        $('#show-image-info').click()
+        $('#image-info-box').addClass('hide')
+    ), 5000
+
 window.initCloudRecordingSettings = ->
   saveOldCRValues()
   if Evercam.Camera.cloud_recording.status is "paused"
@@ -572,3 +580,4 @@ window.initCloudRecordingSettings = ->
   showInfoDiv()
   $('#select-schedule-presets').change(updateSchedulePresets)
   hideInfoDivOnClickOutside()
+  hideInfoBoxOnMouseLeave()

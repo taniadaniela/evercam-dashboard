@@ -101,7 +101,7 @@ var $;
     style += ".images-compare-left-arrow { border-right: 6px solid white;left: 50%;margin-left: -17px; } .images-compare-right-arrow { border-left: 6px solid white;right: 50%;margin-right: -17px; }";
     style += ".images-compare-label { font-family: sans-serif;text-transform: uppercase;font-weight: bold;position: absolute;top: 10px;left: 10px;z-index: 1;color: rgb(0, 0, 0);color: rgba(0, 0, 0, 0.4);background: rgb(255, 255, 255);background: rgba(255, 255, 255, 0.7);padding: 10px;border-radius: 5px;pointer-events: auto;cursor: pointer;display: none; }";
     style += ".images-compare-container .images-compare-label { display: inherit; } .images-compare-before .images-compare-label { left: 10px; } .images-compare-after .images-compare-label { left: auto;right: 10px; }";
-    style += ".evercam-brand { bottom: 5px;display: table;height: 14px;line-height: 14px;padding: 1px 4px 1px 5px;position: absolute;text-decoration: none;z-index: 10; } .evercam-brand img.svg-logo { height: auto; width: 140px; }"
+    style += ".evercam-brand { bottom: 5px;display: table;height: 14px;line-height: 14px;padding: 1px 4px 1px 5px;position: absolute;text-decoration: none;z-index: 10; right: 0; text-align: right; } .evercam-brand img.svg-logo { height: auto; width: 65%; margin-left: 3px; }"
     style += "</style>";
     jQuery('head').append(style);
   }

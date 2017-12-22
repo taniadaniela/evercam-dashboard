@@ -2,7 +2,6 @@
   <div class="div-compare-placeholder">
     <input type="hidden" id="txtbefore">
     <input type="hidden" id="txtafter">
-    <textarea id="compare_embed_code" class="embed-code" style="position: absolute;left: -9999px;top: 0;"></textarea>
     <div class="js-img-compare">
       <div style="display: none;">
         <span id="calendar-before" class="images-compare-label before-calendar" data-query="before-calendar"><i class="fa fa-calendar compare-calendar"></i> Before</span>
@@ -49,23 +48,29 @@
                       </td>
                     </tr>
                     <tr id="row-textarea" class="hide">
-                      <td class="col-md-4"><label class="control-label" for="camera-vendor">Embed Code</label></td>
+                      <td class="col-md-4"><label class="control-label" for="txtEmbedCode">Embed Code</label></td>
                       <td>
-                        <textarea id="txtEmbedCode" class="form-control embed-code" readonly="true"></textarea>
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <textarea id="txtEmbedCode" class="form-control embed-code copy-text" readonly="true"></textarea>
+                          <i class="btn copy-url-icon copy_embed_code fa fa-files-o" data-clipboard-target="#txtEmbedCode" title="Copy URL"></i>
+                        </div>
                       </td>
                     </tr>
-                    <tr id="row-animation-url" class="hide">
-                      <td class="col-md-4"><label class="control-label" for="camera-vendor">Animation URL</label></td>
+                    <tr id="row-gif-url" class="hide">
+                      <td class="col-md-4"><label class="control-label" for="gif_url">GIF URL</label></td>
                       <td>
-                        <input type="text" name="animation_url" id="animation_url" class="form-control">
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <input type="text" name="gif_url" id="gif_url" class="form-control copy-text" readonly="true">
+                          <i class="btn copy-url-icon fa fa-files-o" data-clipboard-target="#gif_url" title="Copy URL"></i>
+                        </div>
                       </td>
                     </tr>
-                    <tr id="row-create-animation">
-                      <td style="width: 100px;"><label class="control-label camera-name" for="export_name"></label></td>
+                    <tr id="row-mp4-url" class="hide">
+                      <td class="col-md-4"><label class="control-label" for="mp4_url">MP4 URL</label></td>
                       <td>
-                        <div class="checkbox">
-                          <input class="hide" type="checkbox" id="compare-animated" name="compare-animated" />
-                          <label for="compare-animated">Create Animated GIF / MP4.</label>
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <input type="text" name="mp4_url" id="mp4_url" class="form-control copy-text" readonly="true">
+                          <i class="btn copy-url-icon fa fa-files-o" data-clipboard-target="#mp4_url" title="Copy URL"></i>
                         </div>
                       </td>
                     </tr>

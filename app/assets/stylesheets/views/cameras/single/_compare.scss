@@ -180,6 +180,30 @@
   .chk-span {
     margin-top: 6px !important;
   }
+
+  .copy-url-icon {
+    padding: 8px;
+    height: 34px;
+    background-color: $lighter-grey;
+    cursor: pointer;
+    position: absolute;
+    margin-left: -31px;
+    z-index: 99999;
+    border: 1px solid $main-grey;
+  }
+
+  .copy_embed_code {
+    padding: 40px 8px 8px 8px;
+    height: 100px;
+  }
+
+  .copy-url-icon:hover {
+    color: $main-color;
+  }
+
+  .copy-text:focus {
+    border: 1px solid $main-grey !important;
+  }
 }
 
 .opacitypoint5 {

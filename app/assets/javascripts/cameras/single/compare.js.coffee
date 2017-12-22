@@ -80,6 +80,12 @@ getQueryStringByName = (name) ->
   else
     decodeURIComponent(results[1].replace(/\+/g, ' '))
 
+clickToCopy = ->
+  clipboard = new Clipboard('.copy-url-icon')
+  clipboard.on 'success', (e) ->
+    $('.bb-alert').width '100px'
+    Notification.show 'Copied!'
+
 copyToClipboard = (elem) ->
   targetId = '_hiddenCopyText_'
   isInput = elem.tagName == 'INPUT' or elem.tagName == 'TEXTAREA'
@@ -217,9 +223,6 @@ export_compare = ->
     before = " #{convert_timestamp_to_path($("#compare_before").attr("timestamp"))}"
     embed_code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after}'></script>"
     $("#txtEmbedCode").val(embed_code)
-    $("#compare_embed_code").val(embed_code)
-    $("#compare_embed_code").select()
-    copyToClipboard(document.getElementById("compare_embed_code"))
 
     data =
       api_id: Evercam.User.api_id
@@ -230,7 +233,7 @@ export_compare = ->
       after: $("#compare_after").attr("timestamp")
       after_image: $("#compare_after").attr("src")
       embed: embed_code
-      create_animation: $('#compare-animated').prop("checked")
+      create_animation: true
 
     onError = (jqXHR, status, error) ->
       $("#spn-success-export").text("Failed to export compare.").removeClass("hide")
@@ -239,16 +242,13 @@ export_compare = ->
     onSuccess = (response, status, jqXHR) ->
       button.hide()
       $("#row-animation").addClass("hide")
-      $("#row-create-animation").hide()
-      # $("#cancel_export").hide()
       $("#row-textarea").removeClass("hide")
-      $("#txtEmbedCode").select()
-      $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").removeClass("hide")
-      $("#spn-success-export").text("Export completed and embed code copied.")
-      if $('#compare-animated').prop("checked")
-        $("#animation_url").val("https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif")
-        $("#row-animation-url").removeClass("hide")
-        $("#spn-success-export").text("Export completed and embed code copied. Animation GIF will be ready in short.")
+      $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").addClass("hide")
+      # $("#spn-success-export").text("Your request has been submitted and start processing.")
+      $("#gif_url").val(response.compares[0].gif_url.replace("media.evercam.io", "api.evercam.io"))
+      $("#mp4_url").val(response.compares[0].mp4_url.replace("media.evercam.io", "api.evercam.io"))
+      $("#row-gif-url").removeClass("hide")
+      $("#row-mp4-url").removeClass("hide")
 
     settings =
       cache: false
@@ -272,11 +272,9 @@ cancelForm = ->
     $("#spn-success-export").addClass("hide")
     $("#export_compare_button").prop("disabled", false)
     $("#export_compare_button").show()
-    $("#row-create-animation").show()
-    $("#row-animation-url").addClass("hide")
+    $("#row-gif-url").addClass("hide")
+    $("#row-mp4-url").addClass("hide")
     $("#cancel_export").show()
-    $("label[for='compare-animated'] span").removeClass 'checked'
-    $("#compare-animated").prop("checked", false)
 
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)
@@ -285,6 +283,7 @@ window.initializeCompareTab = ->
   removeCurrentDateHighlight()
   export_compare()
   cancelForm()
+  clickToCopy()
 
   $('#calendar-before').datetimepicker
     format: 'm/d/Y H:m'

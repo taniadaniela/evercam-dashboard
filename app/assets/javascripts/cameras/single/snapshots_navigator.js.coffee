@@ -543,6 +543,7 @@ window.estimateImageSize = (image_source) ->
   $("#image-file-size").text(convertFromBytes(imgFileSize))
   totalImageFileSize(imgFileSize, storage_duration, storage_frequency, difference_days)
   monthlyImageFileSize(imgFileSize, storage_duration, storage_frequency)
+  setImageDimension()
 
 totalImageFileSize = (image_file_size, image_storage_duration, image_storage_frequency, days_difference) ->
   if image_storage_duration is -1
@@ -575,6 +576,13 @@ convertFromBytes = (bytes) ->
   ]
   i = Math.floor(Math.log(bytes) / Math.log(k))
   parseFloat((bytes / k ** i).toFixed(2)) + ' ' + sizes[i]
+
+setImageDimension = ->
+  recording_img = $('#imgPlayback')
+  $('<img>').attr('src', $(recording_img).attr('src')).load ->
+    realWidth = @width
+    realHeight = @height
+    $("#recording_image_dimension").text(realWidth + 'x' + realHeight)
 
 SetPlayFromImage = (timestamp) ->
   i = 0

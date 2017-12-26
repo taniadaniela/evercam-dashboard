@@ -528,7 +528,8 @@ loadImage = (timestamp, notes) ->
 window.estimateImageSize = (image_source) ->
   oneDay = 24 * 60 * 60 * 1000
   created_date = (Evercam.Camera.created_at * 1000)
-  camera_created_date = moment.tz(created_date,"#{Evercam.Camera.timezone}")
+  if created_date
+    camera_created_date = moment.tz(created_date,"#{Evercam.Camera.timezone}")
   current_date = new Date()
   difference_days = Math.round(((current_date - camera_created_date) / oneDay))
   recording_status = Evercam.Camera.cloud_recording.status

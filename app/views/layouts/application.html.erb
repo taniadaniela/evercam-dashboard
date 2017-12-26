@@ -40,10 +40,12 @@
   window.Evercam.MEDIA_API_URL = '<%= EVERCAM_MEDIA_API %>';
   window.Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
   window.Evercam.User = {
-    fullname: '<%= current_user.firstname %> <%= current_user.lastname %>',
-    username: '<%= current_user.username %>',
-    api_id: '<%= current_user.api_id %>',
-    api_key: '<%= current_user.api_key %>'
+    <% if current_user %>
+      fullname: '<%= current_user.firstname %> <%= current_user.lastname %>',
+      username: '<%= current_user.username %>',
+      api_id: '<%= current_user.api_id %>',
+      api_key: '<%= current_user.api_key %>'
+    <% end %>
   };
 
   <% params_subpath = params.fetch('subpath', '') %>

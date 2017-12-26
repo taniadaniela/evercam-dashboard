@@ -18,7 +18,10 @@
     </table>
   </div>
 </div>
-<input id="archive-api-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/archives?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+
+<% if current_user %>
+  <input id="archive-api-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/archives?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+<% end %>
 
 <div class="row form-vertical margin-top-15">
   <div class="col-md-12">

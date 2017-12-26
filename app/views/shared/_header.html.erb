@@ -12,11 +12,18 @@
           <span class="camera-caret"><i class="fa fa-caret-down"></i></span>
         </a>
         <ul class="dropdown-menu scroll-menu" role="menu">
-          <% @cameras.each do |camera| %>
-            <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
-              <%= link_to camera['name'] , cameras_single_path(camera['id'])%>
-              <i class="red header-sidebar fa fa-chain-broken"></i>
-            </li>
+          <% if @cameras %>
+            <% @cameras.each do |camera| %>
+              <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+                <%= link_to camera['name'] , cameras_single_path(camera['id'])%>
+                <i class="red header-sidebar fa fa-chain-broken"></i>
+              </li>
+            <% end %>
+          <% else %>
+          <li class="sub-menu-item camera-<%= @camera['id'] %> <%= is_active?("/cameras/#{@camera['id']}") %> <% unless @camera['is_online'] %>sidebar-offline<% end %>">
+            <%= link_to @camera['name'] , cameras_single_path(@camera['id'])%>
+            <i class="red header-sidebar fa fa-chain-broken"></i>
+          </li>
           <% end %>
         </ul>
       </div>

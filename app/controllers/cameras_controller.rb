@@ -1,5 +1,5 @@
 class CamerasController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except=>[:single]
   include SessionsHelper
   include ApplicationHelper
   include CamerasHelper
@@ -198,17 +198,30 @@ class CamerasController < ApplicationController
   def single
     begin
       api = get_evercam_api
-      @cameras = load_user_cameras(true, false)
-      @has_shared = false
-      @cameras.map do |c|
-        if c['id'].eql?(params[:id])
-          @camera = c
-          @has_shared = true if @camera['owner'] != current_user.username
-          break
+      if @current_user
+        @cameras = load_user_cameras(true, false)
+        @has_shared = false
+        @cameras.map do |c|
+          if c['id'].eql?(params[:id])
+            @camera = c
+            @has_shared = true if @camera['owner'] != current_user.username
+            break
+          end
+        end
+        @is_owner = @camera['owner'] == current_user[:username]? true : false
+        @user_time = Time.new.in_time_zone(@camera['timezone'])
+        @selected_date = @user_time.strftime("%m/%d/%Y")
+        @current_time = @user_time.strftime("%H")
+        @share = nil
+        @owner = nil
+        unless @is_owner
+          return redirect_to cameras_not_found_path if !@has_shared && !@camera['is_public']
+          @owner = User.by_login(@camera['owner'])
+        else
+          @owner = current_user
         end
       end
       @camera = api.get_camera(params[:id], true) if @camera.nil?
-      @is_owner = @camera['owner'] == current_user[:username]? true : false
       @page = (params[:page].to_i - 1) || 0
       @types = ['accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline',
@@ -217,20 +230,9 @@ class CamerasController < ApplicationController
       @camera['is_online'] = false if @camera['is_online'].blank?
       time = ActiveSupport::TimeZone.new(@camera['timezone'])
       @camera['timezone'] = 'Etc/UTC' unless time.utc_offset % 3600 == 0
-      @user_time = Time.new.in_time_zone(@camera['timezone'])
-      @selected_date = @user_time.strftime("%m/%d/%Y")
-      @current_time = @user_time.strftime("%H")
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset
-      @share = nil
-      @owner = nil
-      unless @is_owner
-        return redirect_to cameras_not_found_path if !@has_shared && !@camera['is_public']
-        @owner = User.by_login(@camera['owner'])
-      else
-        @owner = current_user
-      end
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = nil
       @share_requests = nil

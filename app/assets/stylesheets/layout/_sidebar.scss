@@ -29,11 +29,11 @@
 }
 
 .page-sidebar .page-sidebar-menu li a:hover {
-  background-color: rgb(66, 23, 22);
+  background-color: $background-hover-red;
 }
 
 .page-sidebar .page-sidebar-menu .sub-menu li:hover {
-  background-color: rgb(66, 23, 22);
+  background-color: $background-hover-red;
 }
 
 #hello a i {
@@ -51,8 +51,9 @@
 .page-sidebar .page-sidebar-menu > li > a {
   color: rgba(255, 255, 255, 0.77);
   font-size: 12px;
-  padding: 8px 4px 4px;
- font-family: $bold-family;
+  padding: 8px;
+  font-family: $bold-family;
+  margin: 0px !important;
 }
 
 #sidebar {
@@ -73,7 +74,7 @@
 .sidebar-title a {
   color: rgba(255, 255, 255, 0.77);
   font-size: 14px;
-  padding: 8px 4px 4px;
+  padding: 8px 4px;
   font-family: $bold-family;
 }
 
@@ -100,12 +101,12 @@
 
 .sidebar-line {
   border-top: 1px solid rgba(170, 170, 170, 0.13) !important;
-  margin-top: 5px !important;
 }
 
-.pull-right {
-  float: right;
-  margin-top: 0px;
+.fa.pull-right {
+  padding-right: 0.3em;
+  padding-top: 3px;
+  width: 15px;
 }
 
 .setting-list {
@@ -293,7 +294,7 @@ li span {
 
   .sub-menu {
     margin: 0;
-    padding-bottom: 8px;
+    padding: 8px 0px;
   }
 }
 
@@ -455,6 +456,12 @@ li.inactive a {
 
 .active-color {
   background-color: $hover-blue;
+}
+
+.public-active-list {
+  background-color: $background-hover-red;
+  font-size: 12px;
+  margin-top: 0px;
 }
 
 .status-list {

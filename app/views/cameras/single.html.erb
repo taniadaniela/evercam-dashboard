@@ -4,6 +4,9 @@
   <div class="page-content camera-<%= @camera['id'] %>" id="camera-single">
 
     <div class="portlet-body">
+      <div class="alert alert-info public-camera-alert">
+        <span>To add this camera into your account, you need to <%= link_to "Sign In",signin_path, :class => "bold" %> or <%= link_to "Create New Account",signup_path, :class => "bold" %></span>
+      </div>
       <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
       <div class="tabbable tabbable-custom">
         <div class="center-tabs">
@@ -11,19 +14,21 @@
             <li id="live-view-tab" class="active">
               <a data-toggle="tab" data-target="#live" class="nav-tab-live nav-tab-"><span>Live View</span></a>
             </li>
-            <li>
-              <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
-            </li>
-            <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3"].include?(current_user.username) %>
-            <li>
-              <a data-toggle="tab" data-target="#timelapse-recordings" class="nav-tab-timelapse-recordings">Timelapse Recordings</a>
-            </li>
-            <% end %>
-            <li id="ro-sharing-tab">
-              <% unless has_edit_right %>
-                <p id="read-only-sharing-tab" data-toggle="modal" data-target="#sharing-modal" class="nav-tab-shares read-only-sharing-tab"> Sharing</p>
+            <% if current_user %>
+              <li>
+                <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
+              </li>
+              <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "affi"].include?(current_user.username) %>
+              <li>
+                <a data-toggle="tab" data-target="#timelapse-recordings" class="nav-tab-timelapse-recordings">Timelapse Recordings</a>
+              </li>
               <% end %>
-            </li>
+              <li id="ro-sharing-tab">
+                <% unless has_edit_right %>
+                  <p id="read-only-sharing-tab" data-toggle="modal" data-target="#sharing-modal" class="nav-tab-shares read-only-sharing-tab"> Sharing</p>
+                <% end %>
+              </li>
+            <% end %>
             <% if has_edit_right %>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares"> Sharing</a>
@@ -43,27 +48,33 @@
                 <a data-toggle="tab" data-target="#local-storage" class="nav-tab-local-storage">Local Storage</a>
               </li>
             <% end %>
-
-            <li>
-              <a data-toggle="tab" data-target="#archives" class="nav-tab-archives">Archives</a>
-            </li>
-
-            <li>
-              <a data-toggle="tab" data-target="#snapmail" class="nav-tab-snapmail">Snapmail</a>
-            </li>
+            <% if current_user %>
+              <li>
+                <a data-toggle="tab" data-target="#archives" class="nav-tab-archives">Archives</a>
+              </li>
+              <li>
+                <a data-toggle="tab" data-target="#snapmail" class="nav-tab-snapmail">Snapmail</a>
+              </li>
+            <% end %>
 
             <li>
               <a data-toggle="tab" data-target="#compare" class="nav-tab-compare">Compare</a>
             </li>
-            <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
-            <li>
-              <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
-            </li>
-            <% end %>
+            <% if current_user %>
+              <% if ["marco", "affi", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+              <li>
+                <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
+              </li>
+              <% end %>
 
-            <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
+              <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
+                <div class="pull-right add-to-share">
+                  <i id="add-to-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
+                </div>
+              <% end %>
+            <% else %>
               <div class="pull-right add-to-share">
-                <i id="add-to-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
+                <i id="add-to-public-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
               </div>
             <% end %>
 
@@ -72,60 +83,69 @@
                 <i class="fa fa-trash-o delete-share-icon" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
               <% end %>
             </div>
-            <div id="sharing-modal" class="modal fade sharing-modal">
-              <div class="modal-dialog max-width-470">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <div class='portlet sharing-portlet'>
-                      <div class="portlet-title">
-                        <div class="caption"> Sharing Camera</div>
+            <% if current_user %>
+              <div id="sharing-modal" class="modal fade sharing-modal">
+                <div class="modal-dialog max-width-470">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class='portlet sharing-portlet'>
+                        <div class="portlet-title">
+                          <div class="caption"> Sharing Camera</div>
+                        </div>
                       </div>
+                      <div class="col-md-12 padding-0">
+                        <p class="text-left margin-0">You have <strong> Read Only </strong>access to this <strong> private camera</strong>.</p><br>
+                        <p class="text-left margin-0">In order to share this camera with other people, it must either be a <strong> public camera </strong> or you must have Full Rights to share.</p>
+                        <br>
+                        <p class="text-left margin-0">If you would like to share this camera, please request <strong> Full Rights </strong> access from the owner, <strong> <%= @owner.fullname %> </strong>on <%= @owner.email %> or contact Evercam Live Support.</p>
+                        <br>
+                        <p class="text-left margin-0">With Evercam, it is possible to share your camera with as many people as you wish.</p>
+                        <br>
+                        <p class="text-left margin-0">Go ahead, share the love !</p>
+                      </div>
+                      <button type="button" class="margin-top-25 btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                    <div class="col-md-12 padding-0">
-                      <p class="text-left margin-0">You have <strong> Read Only </strong>access to this <strong> private camera</strong>.</p><br>
-                      <p class="text-left margin-0">In order to share this camera with other people, it must either be a <strong> public camera </strong> or you must have Full Rights to share.</p>
-                      <br>
-                      <p class="text-left margin-0">If you would like to share this camera, please request <strong> Full Rights </strong> access from the owner, <strong> <%= @owner.fullname %> </strong>on <%= @owner.email %> or contact Evercam Live Support.</p>
-                      <br>
-                      <p class="text-left margin-0">With Evercam, it is possible to share your camera with as many people as you wish.</p>
-                      <br>
-                      <p class="text-left margin-0">Go ahead, share the love !</p>
-                    </div>
-                    <button type="button" class="margin-top-25 btn btn-default" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
-            </div>
+            <% end %>
             <div id="deleteModal" class="modal fade">
               <div class="modal-dialog width-420">
                 <div class="modal-content">
                   <div class="modal-body">
                     <div class="col-md-12 padding-0">
-                      <% if @is_owner %>
-                        <p class="text-left margin-0">Are you sure you want to <strong>Delete</strong> this camera?</p>
-                      <% else %>
-                        <p class="text-left margin-0">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                      <% if current_user %>
+                        <% if @is_owner %>
+                          <p class="text-left margin-0">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                        <% else %>
+                          <p class="text-left margin-0">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                        <% end %>
                       <% end %>
                     </div>
-                    <% if @is_owner %>
-                      <div class="col-md-12 margin-top-10 padding-0">
-                        <p>Enter camera id (<strong><%= @camera['id'] %></strong>) to confirm that you want to permanently delete this camera</p>
-                        <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
-                      </div>
-                    <% end %>
+                    <div class="col-md-12 margin-top-10 padding-0">
+                      <% if current_user %>
+                        <% if @is_owner %>
+                          <div class="col-md-12 margin-top-10 padding-0">
+                            <p>Enter camera id (<strong><%= @camera['id'] %></strong>) to confirm that you want to permanently delete this camera</p>
+                            <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
                   </div>
                   <div class="modal-footer padding-15">
                     <div class="col-sm-8 padding-0">
-                      <input type="hidden" id="id" name="id" value="<%= @camera['id'] %>"/>
-                      <% if @is_owner %>
-                        <input type="hidden" id="share" name="share" value="false"/>
-                        <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left">Delete</button>
-                      <% else %>
-                        <input type="hidden" id="share_id" name="share_id" value=""/>
-                        <input type="hidden" id="share" name="share" value="true"/>
-                        <button id="remove-camera" name="remove-camera" class="btn btn-danger pull-left">Yes</button>
+                      <% if current_user %>
+                        <% if @is_owner %>
+                          <input type="hidden" id="share" name="share" value="false"/>
+                          <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left">Delete</button>
+                        <% else %>
+                          <input type="hidden" id="share_id" name="share_id" value=""/>
+                          <input type="hidden" id="share" name="share" value="true"/>
+                          <button id="remove-camera" name="remove-camera" class="btn btn-danger pull-left">Yes</button>
+                        <% end %>
+                        <input type="button" class="btn btn-default pull-left" value="<% if @is_owner %>Cancel<% else %>No<% end %>" data-dismiss="modal" />
                       <% end %>
-                      <input type="button" class="btn btn-default pull-left" value="<% if @is_owner %>Cancel<% else %>No<% end %>" data-dismiss="modal" />
                     </div>
                   </div>
                 </div>
@@ -202,14 +222,16 @@
           <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
-          <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3"].include?(current_user.username) %>
-          <div id="timelapse-recordings" class="tab-pane">
-            <%= render partial: "cameras/single/timelapse_recording_tab" %>
-          </div>
+          <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "affi"].include?(current_user.username) %>
+            <div id="timelapse-recordings" class="tab-pane">
+              <%= render partial: "cameras/single/timelapse_recording_tab" %>
+            </div>
           <% end %>
-          <div id="snapmail" class="tab-pane">
-            <%= render partial: "cameras/single/snapmail_tab" %>
-          </div>
+          <% if current_user %>
+            <div id="snapmail" class="tab-pane">
+              <%= render partial: "cameras/single/snapmail_tab" %>
+            </div>
+          <% end %>
           <% if has_edit_right %>
             <div id="shares" class="tab-pane shares_tab">
               <%= render partial: "cameras/single/sharing_tab" %>
@@ -224,17 +246,20 @@
               <%= render partial: "cameras/single/local_storage_tab" %>
             </div>
           <% end %>
-
-          <div id="archives" class="tab-pane">
-            <%= render partial: "cameras/single/archives_tab" %>
-          </div>
+          <% if current_user %>
+            <div id="archives" class="tab-pane">
+              <%= render partial: "cameras/single/archives_tab" %>
+            </div>
+          <% end %>
           <div id="compare" class="tab-pane compare_tab">
             <%= render partial: "cameras/single/compare_tab" %>
           </div>
-          <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
-            <div id="local-recordings" class="tab-pane local_recordings">
-              <%= render partial: "cameras/single/local_recording_tab" %>
-            </div>
+          <% if current_user %>
+            <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela", "affi"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+              <div id="local-recordings" class="tab-pane local_recordings">
+                <%= render partial: "cameras/single/local_recording_tab" %>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -252,7 +277,9 @@
     model_name: '<%= @camera['model_name'] %>',
     timezone: '<%= @camera['timezone'] %>',
     created_at: <%= @camera['created_at'] %>,
-    is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
+    <% if current_user %>
+      is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
+    <% end %>
     location: {
       lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
       lng: <%= @camera.deep_fetch('location', 'lng') {} %>

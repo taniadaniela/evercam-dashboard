@@ -42,6 +42,19 @@
   padding: 0px;
 }
 
+.public-camera-alert {
+  position: fixed;
+  display: none;
+  top: 35px;
+  left: 49%;
+  padding: 0.8em 1em;
+  z-index: 99999999999999999999999999;
+  font-size: 13px;
+  max-width: 600px;
+  text-align: center;
+  margin-left: -142px;
+}
+
 #camera-not-found{
   .dialog {
     max-width: 34em;

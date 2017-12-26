@@ -64,6 +64,13 @@ handleCameraModalSubmit = ->
   $('#settings-modal').on 'click', '#add-button', ->
     $('#settings-modal').modal('hide')
 
+showNonAuthorizedUserAlert = ->
+  $('#add-to-public-cameras').on 'click', ->
+    $('.public-camera-alert').fadeIn()
+    setTimeout (->
+      $('.public-camera-alert').fadeOut()
+    ), 5000
+
 handleAddToMyCameras = ->
   $('#add-to-cameras').on 'click', ->
     data =
@@ -224,3 +231,4 @@ window.initializeCameraSingle = ->
   liveViewMenuDisplay()
   handleResize()
   initTimepicker()
+  showNonAuthorizedUserAlert()

@@ -237,6 +237,7 @@ export_compare = ->
 
     onError = (jqXHR, status, error) ->
       $("#spn-success-export").text("Failed to export compare.").removeClass("hide")
+      $("#row-animation").addClass("hide")
       button.prop("disabled", false)
 
     onSuccess = (response, status, jqXHR) ->
@@ -257,7 +258,7 @@ export_compare = ->
       error: onError
       success: onSuccess
       type: 'POST'
-      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compare"
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares"
     sendAJAXRequest(settings)
 
 convert_timestamp_to_path = (timestamp) ->

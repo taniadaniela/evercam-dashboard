@@ -104,8 +104,8 @@
         function initInteractions() {
             options.interactionMode = options.interactionMode.toLowerCase();
 
-            if (options.interactionMode != "drag" && options.interactionMode != "mousemove" && options.interactionMode != "click") {
-                console.warn('No valid interactionMode found, valid values are "drag", "mousemove", "click"');
+            if (options.interactionMode != "drag" && options.interactionMode != "mousemove" && options.interactionMode != "click" && options.interactionMode != "autoplay") {
+                console.warn('No valid interactionMode found, valid values are "drag", "mousemove", "autoplay", "click"');
             }
 
             switch (options.interactionMode) {
@@ -117,6 +117,9 @@
                     break;
                 case "click":
                     initClick();
+                    break;
+                case "autoplay":
+                    initAutoPlay();
                     break;
                 default:
                     initDrag();
@@ -139,6 +142,28 @@
         function initClick() {
             addClick();
             addResize();
+        }
+
+        function initAutoPlay() {
+          setTimeout(function(){ addAutoPlay(0.5, "left"); }, 2000);
+          addResize();
+        }
+
+        function addAutoPlay(ratio, position) {
+          setVisibleRatio(ratio);
+
+          if (ratio <= 0 || position == "right") {
+            if (ratio <= 0) {
+              ratio = 0.0037;
+            } else {
+              ratio = (parseFloat(ratio) + 0.0037).toFixed(5);
+            }
+            position = ratio >= 1 ? "left" : "right";
+          } else {
+            ratio = (ratio - 0.0037).toFixed(5);
+            position = "left";
+          }
+          setTimeout(function(){ addAutoPlay(ratio, position); }, 0.5);
         }
 
         function addClick() {
@@ -316,7 +341,7 @@
          * @return {number}
          */
         function getRatioValue(ratio) {
-            ratio = Math.round((ratio * options.roundFactor)) / options.roundFactor;
+            var ratio = Math.round((ratio * options.roundFactor)) / options.roundFactor;
             return Math.round(frontElement.width() * ratio);
         }
 

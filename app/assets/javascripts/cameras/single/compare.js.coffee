@@ -221,7 +221,7 @@ export_compare = ->
     $("#row-animation").removeClass("hide")
     after = " #{convert_timestamp_to_path($("#compare_after").attr("timestamp"))}"
     before = " #{convert_timestamp_to_path($("#compare_before").attr("timestamp"))}"
-    embed_code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after}'></script>"
+    embed_code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after} autoplay'></script>"
     $("#txtEmbedCode").val(embed_code)
 
     data =

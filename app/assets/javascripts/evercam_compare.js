@@ -8,7 +8,7 @@ var $;
   "use strict";
   // Localize jQuery variable
 
-  var camera_id, before, after;
+  var camera_id, before, after, mode;
 
   /******** Our main function ********/
   function main() {
@@ -20,6 +20,11 @@ var $;
       camera_id = query[0];
       before = query[1];
       after = query[2];
+      mode = query[3];
+
+      if (mode == undefined || mode == "") {
+        mode = "drag";
+      }
 
       var html = '<div id="image-compare" class="js-img-compare embed">';
       html += '     <div style="display: none;">';
@@ -38,12 +43,12 @@ var $;
       document.getElementById("evercam-compare").innerHTML = html;
       $("#compare_after").attr("src", bucket_url+camera_id+"/snapshots/"+after+".jpg");
       $("#compare_before").attr("src", bucket_url+camera_id+"/snapshots/"+before+".jpg");
-      setTimeout(initCompare, 2000);
+      setTimeout(function() { initCompare(mode) }, 2000);
     });
   }
 
-  function initCompare () {
-    var imagesCompareElement = $('.js-img-compare').imagesCompare();
+  function initCompare (mode) {
+    var imagesCompareElement = $('.js-img-compare').imagesCompare({interactionMode: mode});
     var imagesCompare = imagesCompareElement.data('imagesCompare');
   }
 
@@ -65,7 +70,7 @@ var $;
       {
         $("#" + image_id).attr("src", snapshot.data);
         if (reload) {
-          return initCompare();
+          return initCompare("drag");
         }
       }
     };

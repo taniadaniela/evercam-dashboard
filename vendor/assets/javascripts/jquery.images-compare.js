@@ -163,7 +163,7 @@
             ratio = (ratio - 0.0037).toFixed(5);
             position = "left";
           }
-          setTimeout(function(){ addAutoPlay(ratio, position); }, 0.5);
+          setTimeout(function(){ addAutoPlay(ratio, position); }, 10);
         }
 
         function addClick() {
@@ -341,7 +341,7 @@
          * @return {number}
          */
         function getRatioValue(ratio) {
-            var ratio = Math.round((ratio * options.roundFactor)) / options.roundFactor;
+            ratio = Math.round((ratio * options.roundFactor)) / options.roundFactor;
             return Math.round(frontElement.width() * ratio);
         }
 

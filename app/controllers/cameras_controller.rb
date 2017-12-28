@@ -257,7 +257,7 @@ class CamerasController < ApplicationController
         flash[:error] = "An error occurred fetching the details for your camera. "\
                       "Please try again and, if the problem persists, contact "\
                       "support."
-        redirect_to cameras_index_path
+        redirect_to cameras_not_found_path
       end
     end
   end

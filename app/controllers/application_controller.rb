@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     if current_user.nil? or (params.has_key?(:api_id) and params.has_key?(:api_key))
       user = nil
-      redirect_url = request.original_url
+      redirect_url = request.original_url.remove('404')
       if params.has_key?(:api_id) and params.has_key?(:api_key)
         user = User.where(api_id: params[:api_id], api_key: params[:api_key]).first
       end

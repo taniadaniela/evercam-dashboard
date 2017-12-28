@@ -284,6 +284,7 @@ GEM
       rails-assets-jquery (>= 1.7.2)
       rails-assets-jquery-mousewheel (>= 3.1.13)
       rails-assets-php-date-formatter (>= 1.3.3)
+    rails-assets-downloadjs (1.4.7)
     rails-assets-fullcalendar (2.9.1)
       rails-assets-jquery (>= 1.7.1)
       rails-assets-moment (>= 2.5.0)
@@ -476,6 +477,7 @@ DEPENDENCIES
   rails-assets-datatables!
   rails-assets-datatables-plugins!
   rails-assets-datetimepicker!
+  rails-assets-downloadjs!
   rails-assets-fullcalendar!
   rails-assets-iCheck!
   rails-assets-jquery-cookie!

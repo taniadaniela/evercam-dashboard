@@ -16,6 +16,7 @@
 #= require jquery.thumbhover.js
 #= require jquery.images-compare.js
 #= require cameras/single/nvr_recording.js.coffee
+#= require downloadjs
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')

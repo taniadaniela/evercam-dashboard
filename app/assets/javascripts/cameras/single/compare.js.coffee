@@ -277,6 +277,15 @@ cancelForm = ->
     $("#row-mp4-url").addClass("hide")
     $("#cancel_export").show()
 
+download_animation = ->
+  $(".download-animation").on "click", ->
+    src_id = $(this).attr("data-download-target")
+    NProgress.start()
+    download($("#{src_id}").val())
+    setTimeout( ->
+      NProgress.done()
+    , 4000)
+
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)
   getFirstLastImages("compare_after", "/latest", false, false)
@@ -285,6 +294,7 @@ window.initializeCompareTab = ->
   export_compare()
   cancelForm()
   clickToCopy()
+  download_animation()
 
   $('#calendar-before').datetimepicker
     format: 'm/d/Y H:m'

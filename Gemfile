@@ -92,4 +92,5 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-bootstrap-toggle'
   gem 'rails-assets-select2'
   gem 'rails-assets-jquery-tags-input'
+  gem 'rails-assets-downloadjs'
 end

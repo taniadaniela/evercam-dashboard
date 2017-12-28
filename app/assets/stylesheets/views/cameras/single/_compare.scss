@@ -204,6 +204,14 @@
   .copy-text:focus {
     border: 1px solid $main-grey !important;
   }
+
+  input.copy-text {
+    width: 92.7%;
+  }
+
+  .download-animation {
+    margin-left: 0;
+  }
 }
 
 .opacitypoint5 {

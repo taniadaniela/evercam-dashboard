@@ -197,6 +197,9 @@ class CamerasController < ApplicationController
 
   def single
     begin
+      if params[:api_id] and params[:api_key]
+        authenticate_user!
+      end
       api = get_evercam_api
       if @current_user
         @cameras = load_user_cameras(true, false)

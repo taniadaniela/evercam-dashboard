@@ -60,12 +60,12 @@ group :test do
   gem 'factory_bot'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'rails-controller-testing'
-  gem 'webmock'
   gem 'poltergeist'
   gem 'nokogiri'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
   gem 'launchy'
+  gem 'webmock'
   gem 'codeclimate-test-reporter', require: nil
 end
 

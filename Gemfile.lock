@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: ac4d97ff7b6ce26f715799351da28629aa431561
+  revision: fb8654d65f938d3fbe7baf7b7ec06ccd9b892574
   specs:
     evercam (0.3.7)
       faraday (~> 0.9)

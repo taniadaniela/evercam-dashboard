@@ -490,7 +490,7 @@ class CamerasController < ApplicationController
     begin
       api = get_evercam_api
       api.delete_archive(params[:camera_id], params[:archive_id])
-      result[:message] = "Clip deleted successfully."
+      result[:message] = "Archive deleted successfully."
     rescue => error
       result = {success: false, message: error.message}
     end

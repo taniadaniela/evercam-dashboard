@@ -38,13 +38,6 @@ initializeArchivesDataTable = ->
       {data: "title", sClass: 'title' },
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date', sClass: 'from'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date', sClass: 'to'},
-      {data: renderDuration, orderDataType: 'string-date', type: 'string-date', sClass: 'duration'},
-      {data: ( row, type, set, meta ) ->
-        if row.status is 'Pending'
-          return "Pending"
-        else
-          return row.frames
-      },
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
       {data: "status", sClass: 'status'},
       {data: renderbuttons, sClass: 'options'}
@@ -79,7 +72,7 @@ initializeArchivesDataTable = ->
 
 renderbuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
-  if Evercam.Camera.is_owner
+  if Evercam.Camera.has_edit_right
     divPopup =$('<div>', {class: "popbox2"})
     remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
       'class="archive-actions delete-archive" val-archive-id="'+row.id+
@@ -100,6 +93,7 @@ renderbuttons = (row, type, set, meta) ->
     inputDelete.addClass("btn btn-primary delete-btn delete-archive2")
     inputDelete.attr("camera_id", Evercam.Camera.id)
     inputDelete.attr("archive_id", row.id)
+    inputDelete.attr("archive_type", row.type)
     inputDelete.click(deleteClip)
     divButtons.append(inputDelete)
     divButtons.append('<div class="btn delete-btn closepopup grey">' +
@@ -109,26 +103,43 @@ renderbuttons = (row, type, set, meta) ->
     divPopup.append(divCollapsePopup)
     div.append(divPopup)
   if row.status is "Completed"
-    DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
-    day = DateTime.getDate()
-    month = DateTime.getMonth()
-    year = DateTime.getFullYear()
-    archive_date = new Date(year, month, day)
-    if archive_date < new Date(2017, 10, 1)
-      mp4_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.id}.mp4"
+    if row.type is "Compare"
+      getCompareButtons(div, row)
     else
-      mp4_url = "https://seaweedfs2.evercam.io/#{row.camera_id}/clips/#{row.id}.mp4"
+      DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
+      day = DateTime.getDate()
+      month = DateTime.getMonth()
+      year = DateTime.getFullYear()
+      archive_date = new Date(year, month, day)
+      if archive_date < new Date(2017, 10, 1)
+        mp4_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.id}.mp4"
+      else
+        mp4_url = "https://seaweedfs2.evercam.io/#{row.camera_id}/clips/#{row.id}.mp4"
 
-    view_url = "clip/#{row.id}/play?date=#{year}-#{(parseInt(month) + 1)}-#{day}"
-    copy_url = ""
-    if row.public is true
-      copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
+      view_url = "clip/#{row.id}/play?date=#{year}-#{(parseInt(month) + 1)}-#{day}"
+      copy_url = ""
+      if row.public is true
+        copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
-    return '<a class="archive-actions play-clip" href="#" data-toggle="tooltip" title="Play" play-url="' + view_url + '" ><i class="fa fa-play-circle"></i></a>' +
-      '<a class="archive-actions" data-toggle="tooltip" title="Download" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
-        copy_url + div.html()
+      return '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
+        '<a class="archive-actions" data-toggle="tooltip" title="Download" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+          copy_url + div.html()
   else
     return div.html()
+
+getCompareButtons = (div, row) ->
+  animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
+  view_url = ""
+  copy_url = ""
+  return '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
+    '<ul class="dropdown-menu"><li><a class="play-clip" href="#" title="Play GIF" data-width="1280" data-height="720" play-url="' + animation_url + '.gif"><i class="fa fa-play-circle"></i> GIF</a></li>'+
+      '<li><a class="play-clip" href="#" title="Play MP4" data-width="1280" data-height="720" play-url="' + animation_url + '.mp4"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
+    '</div>' +
+    '<div class="dropdown float-left"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
+    '<ul class="dropdown-menu"><li><a class="download-archive" href="' + animation_url + '.gif" title="Download GIF" download="' + animation_url + '.gif"><i class="fa fa-download"></i> GIF</a></li>'+
+      '<li><a class="download-archive" href="' + animation_url + '.mp4" title="Download MP4" download="' + animation_url + '.mp4"><i class="fa fa-download"></i> MP4</a></li></ul>' +
+    '</div>' +
+    copy_url + div.html()
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
@@ -344,8 +355,16 @@ formReset = ->
 
 playClip = ->
   $("#archives-table").on "click", ".play-clip", ->
+    width = parseInt($(this).attr("data-width"))
+    height = parseInt($(this).attr("data-height"))
     view_url = $(this).attr("play-url")
-    window.open view_url, '_blank', 'width=640, Height=480, scrollbars=0, resizable=0'
+    window.open view_url, '_blank', "width=#{width}, Height=#{height}, scrollbars=0, resizable=0"
+
+  $("#archives-table").on "click", ".download-archive", ->
+    NProgress.start()
+    setTimeout( ->
+      NProgress.done()
+    , 4000)
 
 cancelForm = ->
   $('#archive-modal').on 'hidden.bs.modal', ->
@@ -366,18 +385,21 @@ deleteClip = ->
       NProgress.done()
 
     onSuccess = (data, status, jqXHR) ->
-      if data.success
-        archives_table.ajax.reload (json) ->
-          if json.archives.length is 0
-            $('#archives-table_paginate, #archives-table_info').hide()
-            $('#archives-table').hide()
-            $("#no-archive").show()
-          NProgress.done()
-          Notification.show(data.message)
+      if control.attr("archive_type") is "Compare"
+        refresh_archive_table()
+        Notification.show("Archive deleted successfully.")
       else
-        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-        NProgress.done()
-        Notification.show("Only the Camera Owner can delete this clip.")
+        if data.success
+          refresh_archive_table()
+          Notification.show(data.message)
+        else
+          $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+          NProgress.done()
+          Notification.show("Only the Camera Owner can delete this clip.")
+
+    api_url = $("#archive-delete-url").val()
+    if control.attr("archive_type") is "Compare"
+      api_url = "#{Evercam.API_URL}cameras/#{control.attr("camera_id")}/compares/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     settings =
       cache: false
@@ -386,8 +408,16 @@ deleteClip = ->
       error: onError
       success: onSuccess
       type: 'DELETE'
-      url: $("#archive-delete-url").val()
+      url: api_url
     sendAJAXRequest(settings)
+
+refresh_archive_table = ->
+  archives_table.ajax.reload (json) ->
+    if json.archives.length is 0
+      $('#archives-table_paginate, #archives-table_info').hide()
+      $('#archives-table').hide()
+      $("#no-archive").show()
+    NProgress.done()
 
 initializePopup = ->
   $(".popbox2").popbox
@@ -405,6 +435,10 @@ refreshDataTable = ->
     setTimeout archives_table.ajax.reload, 60000
   else if ($.inArray('Processing', status)) != -1
     setTimeout archives_table.ajax.reload, 30000
+
+window.on_export_compare = ->
+  archives_table.ajax.reload()
+  refreshDataTable()
 
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()

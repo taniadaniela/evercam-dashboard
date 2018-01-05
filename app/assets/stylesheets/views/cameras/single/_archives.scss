@@ -90,11 +90,36 @@
 }
 
 #archives {
-
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0px;
   }
 
+  .dropdown {
+    float: left;
+  }
+
+  ul.dropdown-menu {
+    width: 110px;
+  }
+
+  .dropdown-menu li {
+    border-right: solid 1px $main-grey;
+    display: inline-block;
+    width: 80px;
+  }
+
+  .dropdown-menu li > a {
+    color: $form-dark-grey;
+    text-align: center;
+  }
+
+  .dropdown-menu li > a:hover {
+    color: $main-color;
+  }
+
+  .float-left {
+    float: left;
+  }
 }
 
 #archives .dataTables_wrapper .dataTables_paginate .paginate_button:hover {

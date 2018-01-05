@@ -277,6 +277,7 @@
     model_name: '<%= @camera['model_name'] %>',
     timezone: '<%= @camera['timezone'] %>',
     created_at: <%= @camera['created_at'] %>,
+    has_edit_right: <%= @camera["rights"].split(",").include?("edit") %>,
     <% if current_user %>
       is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
     <% end %>

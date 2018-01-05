@@ -1,4 +1,5 @@
 imagesCompare = undefined
+clearTimeOut = null
 
 window.sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -244,12 +245,14 @@ export_compare = ->
       button.hide()
       $("#row-animation").addClass("hide")
       $("#row-textarea").removeClass("hide")
+      $("#row-message").removeClass("hide")
       $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").addClass("hide")
-      # $("#spn-success-export").text("Your request has been submitted and start processing.")
       $("#gif_url").val(response.compares[0].gif_url.replace("media.evercam.io", "api.evercam.io"))
       $("#mp4_url").val(response.compares[0].mp4_url.replace("media.evercam.io", "api.evercam.io"))
-      $("#row-gif-url").removeClass("hide")
-      $("#row-mp4-url").removeClass("hide")
+      window.on_export_compare()
+      clearTimeOut = setTimeout( ->
+        auto_check_compare_status(response.compares[0].id, 0)
+      , 10000)
 
     settings =
       cache: false
@@ -267,15 +270,23 @@ convert_timestamp_to_path = (timestamp) ->
 
 cancelForm = ->
   $('#export-compare-modal').on 'hide.bs.modal', ->
-    $("#export_name").val("")
-    $("#txtEmbedCode").val("")
-    $("#row-textarea").addClass("hide")
-    $("#spn-success-export").addClass("hide")
-    $("#export_compare_button").prop("disabled", false)
-    $("#export_compare_button").show()
-    $("#row-gif-url").addClass("hide")
-    $("#row-mp4-url").addClass("hide")
-    $("#cancel_export").show()
+    clean_form()
+
+  $('#export-compare-modal').on 'show.bs.modal', ->
+    clean_form()
+
+clean_form = ->
+  $("#export_name").val("")
+  $("#txtEmbedCode").val("")
+  $("#row-textarea").addClass("hide")
+  $("#spn-success-export").addClass("hide")
+  $("#export_compare_button").prop("disabled", false)
+  $("#export_compare_button").show()
+  $("#row-gif-url").addClass("hide")
+  $("#row-mp4-url").addClass("hide")
+  $("#cancel_export").show()
+  $("#row-message").addClass("hide")
+  clearTimeout(clearTimeOut)
 
 download_animation = ->
   $(".download-animation").on "click", ->
@@ -286,6 +297,34 @@ download_animation = ->
       NProgress.done()
     , 4000)
 
+switch_to_archive_tab = ->
+  $("#switch_archive").on "click", ->
+    $(".nav-tab-archives").tab('show')
+
+auto_check_compare_status = (compare_id, tries) ->
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (response, status, jqXHR) ->
+    if response.compares[0].status is "Completed"
+      $("#row-gif-url").removeClass("hide")
+      $("#row-mp4-url").removeClass("hide")
+      $("#row-message").addClass("hide")
+    else if response.compares[0].status is "Processing" && tries < 10
+      clearTimeOut = setTimeout( ->
+        auto_check_compare_status(response.compares[0].id, tries++)
+      , 10000)
+
+  settings =
+      cache: false
+      data: {}
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'GET'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{compare_id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    sendAJAXRequest(settings)
+
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)
   getFirstLastImages("compare_after", "/latest", false, false)
@@ -295,6 +334,7 @@ window.initializeCompareTab = ->
   cancelForm()
   clickToCopy()
   download_animation()
+  switch_to_archive_tab()
 
   $('#calendar-before').datetimepicker
     format: 'm/d/Y H:m'

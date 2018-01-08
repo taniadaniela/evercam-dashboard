@@ -72,7 +72,7 @@ initializeArchivesDataTable = ->
 
 renderbuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
-  if Evercam.Camera.has_edit_right
+  if Evercam.Camera.has_edit_right || row.requested_by is Evercam.User.username
     divPopup =$('<div>', {class: "popbox2"})
     remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
       'class="archive-actions delete-archive" val-archive-id="'+row.id+
@@ -387,7 +387,7 @@ deleteClip = ->
     onSuccess = (data, status, jqXHR) ->
       if control.attr("archive_type") is "Compare"
         refresh_archive_table()
-        Notification.show("Archive deleted successfully.")
+        Notification.show("Compare deleted successfully.")
       else
         if data.success
           refresh_archive_table()
@@ -395,7 +395,7 @@ deleteClip = ->
         else
           $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
           NProgress.done()
-          Notification.show("Only the Camera Owner can delete this clip.")
+          Notification.show("Only requester or full-rights user can delete this archive.")
 
     api_url = $("#archive-delete-url").val()
     if control.attr("archive_type") is "Compare"
@@ -438,6 +438,8 @@ refreshDataTable = ->
 
 window.on_export_compare = ->
   archives_table.ajax.reload()
+  $('#archives-table').show()
+  $("#no-archive").hide()
   refreshDataTable()
 
 window.initializeArchivesTab = ->

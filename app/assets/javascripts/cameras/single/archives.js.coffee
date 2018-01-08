@@ -39,7 +39,13 @@ initializeArchivesDataTable = ->
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date', sClass: 'from'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date', sClass: 'to'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
-      {data: "status", sClass: 'status'},
+      {data: "status", sClass: 'center'},
+      {data: ( row, type, set, meta ) ->
+        if row.type is "Compare"
+          return '<i class="fa fa-file-image-o fa-3" title="Compare"></i>'
+        else
+          return '<i class="fa fa-video-camera fa-3" title="Archive"></i>'
+      , sClass: 'text-center'},
       {data: renderbuttons, sClass: 'options'}
     ],
     iDisplayLength: 50,

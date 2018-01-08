@@ -44,7 +44,7 @@ initializeArchivesDataTable = ->
         if row.type is "Compare"
           return '<i class="fa fa-file-image-o fa-3" title="Compare"></i>'
         else
-          return '<i class="fa fa-video-camera fa-3" title="Archive"></i>'
+          return '<i class="fa fa-video-camera fa-3" title="Clip"></i>'
       , sClass: 'text-center'},
       {data: renderbuttons, sClass: 'options'}
     ],

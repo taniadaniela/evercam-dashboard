@@ -2,14 +2,14 @@
   <div class="col-md-12 margin-top-15">
     <table id="archives-table" class="table table-striped table-bordered ">
       <thead>
-      <th class="fullname" id="fullname">Requested By</th>
-      <th class="title" id="title">Title</th>
-      <th class="from" id="from">From</th>
-      <th class="to" id="to">To</th>
-      <th class="public" id ="public">Is Public</th>
-      <th class="status" id="status">Status</th>
-      <th class="type" id="type" >Type</th>
-      <th class="options" id="options">Options</th>
+        <th class="fullname" id="fullname">Requested By</th>
+        <th class="title" id="title">Title</th>
+        <th class="from" id="from">From</th>
+        <th class="to" id="to">To</th>
+        <th class="public" id ="public">Is Public</th>
+        <th class="status" id="status">Status</th>
+        <th class="type" id="type" >Type</th>
+        <th class="options" id="options">Options</th>
       </thead>
       <tbody>
 
@@ -26,6 +26,59 @@
   <div class="col-md-12">
     <div id="archive-button" href="#" class="btn btn-primary margin-bottom-40" data-toggle="modal" data-target="#archive-modal">
       Create a new Clip
+    </div>
+  </div>
+</div>
+
+<div id="modal-archive-info" class="modal fade">
+  <div class="modal-dialog max-width-470">
+    <div class="modal-content">
+      <div id="form-create-clip" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="div-thumbnail">
+              <img id="archive-thumbnail" class="archive-thumbnail" src=""/>
+            </div>
+            <div class="line-separator"></div>
+            <div class="div-row">
+              <div class="col-md-2 archive-label">Frames</div>
+              <div id="div_frames" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+            </div>
+            <div class="div-row">
+              <div class="col-md-2 archive-label">Duration</div>
+              <div id="div_duration" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+            </div>
+            <div id="row-embed-code" class="div-row">
+              <div class="col-md-2 archive-label">Embed</div>
+              <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                <textarea id="archive_embed_code" class="form-control embed-code copy-text" readonly="true"></textarea>
+                <i class="btn copy-url-icon copy-embed-code fa fa-files-o" data-clipboard-target="#archive_embed_code" title="Copy URL"></i>
+              </div>
+            </div>
+            <div id="row-gif" class="div-row">
+              <div class="col-md-2 archive-label">GIF</div>
+              <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                <input type="text" name="archive_gif_url" id="archive_gif_url" class="form-control copy-text" readonly="true" />
+                <i class="btn copy-url-icon fa fa-files-o" data-clipboard-target="#archive_gif_url" title="Copy URL"></i>
+                <i class="btn copy-url-icon fa fa-download download-animation" data-download-target="#archive_gif_url" title="Download GIF"></i>
+              </div>
+            </div>
+            <div class="div-row">
+              <div class="col-md-2 archive-label">MP4</div>
+              <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                <input type="text" name="archive_mp4_url" id="archive_mp4_url" class="form-control copy-text" readonly="true" />
+                <i class="btn copy-url-icon fa fa-files-o" data-clipboard-target="#archive_mp4_url" title="Copy URL"></i>
+                <i class="btn copy-url-icon fa fa-download download-animation" data-download-target="#archive_mp4_url" title="Download MP4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="export-buttons">
+            <button id="cancel_export" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </fieldset>
+      </div>
     </div>
   </div>
 </div>

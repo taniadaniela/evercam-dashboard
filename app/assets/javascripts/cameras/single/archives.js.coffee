@@ -35,12 +35,12 @@ initializeArchivesDataTable = ->
     },
     columns: [
       {data: gravatarName, sClass: 'fullname'},
-      {data: "title", sClass: 'title' },
+      {data: getTitle, sClass: 'title'},
       {data: renderFromDate, orderDataType: 'string-date', type: 'string-date', sClass: 'from'},
       {data: renderToDate, orderDataType: 'string-date', type: 'string-date', sClass: 'to'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
       {data: "status", sClass: 'center'},
-      {data: ( row, type, set, meta ) ->
+      {data: (row, type, set, meta) ->
         if row.type is "Compare"
           return '<i class="fa fa-file-image-o fa-3" title="Compare"></i>'
         else
@@ -128,7 +128,7 @@ renderbuttons = (row, type, set, meta) ->
         copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
       return '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
-        '<a class="archive-actions" data-toggle="tooltip" title="Download" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+        '<a id="archive-download-url' + row.id + '" class="archive-actions" data-toggle="tooltip" title="Download" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
           copy_url + div.html()
   else
     return div.html()
@@ -146,6 +146,15 @@ getCompareButtons = (div, row) ->
       '<li><a class="download-archive" href="' + animation_url + '.mp4" title="Download MP4" download="' + animation_url + '.mp4"><i class="fa fa-download"></i> MP4</a></li></ul>' +
     '</div>' +
     copy_url + div.html()
+
+getTitle = (row, type, set, meta) ->
+  start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
+  end_index = row.embed_code.indexOf("autoplay")
+  return "<a class='archive-info' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+    <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
+    <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
+    <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
+    <input id='archive_embed_code#{row.id}' type='hidden' value='#{row.embed_code.substring(start_index, end_index)}'/>"
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
@@ -210,27 +219,30 @@ renderToDate = (row, type, set, meta) ->
   getDates(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
-  dateTimeFrom = new Date(
-    moment.utc(row.from_date*1000).
-    format('MM/DD/YYYY,HH:mm:ss')
-  )
-  dateTimeTo = new Date(
-    moment.utc(row.to_date*1000).
-    format('MM/DD/YYYY, HH:mm:ss')
-  )
-  diff = dateTimeTo - dateTimeFrom
-  diffSeconds = diff / 1000
-  HH = Math.floor(diffSeconds / 3600)
-  MM = Math.floor(diffSeconds % 3600) / 60
-  MM = Math.round(MM)
-  HH = (HH + 1) if MM is 60
-  hours = HH + ' ' + if HH is 1 then 'hr' else 'hrs'
-  hours = '' if HH is 0
-  minutes = MM + ' ' + if MM is 1 then 'min' else 'mins'
-  minutes = '' if MM is 0
-  minutes = '' if MM is 60
-  formatted = hours + ' ' + minutes
-  return formatted
+  if row.type is "Compare"
+    return "9 secs"
+  else
+    dateTimeFrom = new Date(
+      moment.utc(row.from_date*1000).
+      format('MM/DD/YYYY,HH:mm:ss')
+    )
+    dateTimeTo = new Date(
+      moment.utc(row.to_date*1000).
+      format('MM/DD/YYYY, HH:mm:ss')
+    )
+    diff = dateTimeTo - dateTimeFrom
+    diffSeconds = diff / 1000
+    HH = Math.floor(diffSeconds / 3600)
+    MM = Math.floor(diffSeconds % 3600) / 60
+    MM = Math.round(MM)
+    HH = (HH + 1) if MM is 60
+    hours = HH + ' ' + if HH is 1 then 'hr' else 'hrs'
+    hours = '' if HH is 0
+    minutes = MM + ' ' + if MM is 1 then 'min' else 'mins'
+    minutes = '' if MM is 0
+    minutes = '' if MM is 60
+    formatted = hours + ' ' + minutes
+    return formatted
 
 renderIsPublic = (row, type, set, meta) ->
   if row.public
@@ -448,6 +460,27 @@ window.on_export_compare = ->
   $("#no-archive").hide()
   refreshDataTable()
 
+modal_events = ->
+  $("#archives"). on "click", ".archive-info", ->
+    id = $(this).attr("data-id")
+    type = $(this).attr("data-type")
+    query_string = $("#archive_embed_code#{id}").val()
+    $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
+    url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
+    $("#archive_gif_url").val("#{url}.gif")
+    $("#archive_mp4_url").val("#{url}.mp4")
+    code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{query_string} autoplay'></script>"
+    $("#archive_embed_code").val(code)
+    $("#div_frames").text($("#txt_frames#{id}").val())
+    $("#div_duration").text($("#txt_duration#{id}").val())
+    if type isnt "Compare"
+      $("#row-embed-code").hide()
+      $("#row-gif").hide()
+      $("#archive_mp4_url").val($("#archive-download-url#{id}").attr("href"))
+    else
+      $("#row-embed-code").show()
+      $("#row-gif").show()
+
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
@@ -461,3 +494,4 @@ window.initializeArchivesTab = ->
   setDate()
   deleteClip()
   cancelForm()
+  modal_events()

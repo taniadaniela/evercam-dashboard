@@ -148,12 +148,16 @@ getCompareButtons = (div, row) ->
 
 getinfo = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
-  end_index = row.embed_code.indexOf("autoplay")
+  if row.embed_code.indexOf("autoplay") > 0
+    end_index = row.embed_code.indexOf("autoplay")
+  else
+    end_index = row.embed_code.indexOf("'></script>")
+  query_string = row.embed_code.substring(start_index, end_index) if row.embed_code
   return "<a class='td-archive-info' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fa fa-info-circle fa-4'></i></a>
     <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
     <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
     <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
-    <input id='archive_embed_code#{row.id}' type='hidden' value='#{row.embed_code.substring(start_index, end_index)}'/>"
+    <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>"
 
 getTitle = (row, type, set, meta) ->
   return "<div class='div-title'>#{row.title} <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>"

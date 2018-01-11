@@ -34,10 +34,9 @@ initializeArchivesDataTable = ->
       error: (xhr, error, thrown) ->
     },
     columns: [
+      {data: getinfo, sClass: 'archive-info'},
       {data: gravatarName, sClass: 'fullname'},
       {data: getTitle, sClass: 'title'},
-      {data: renderFromDate, orderDataType: 'string-date', type: 'string-date', sClass: 'from'},
-      {data: renderToDate, orderDataType: 'string-date', type: 'string-date', sClass: 'to'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
       {data: "status", sClass: 'center'},
       {data: (row, type, set, meta) ->
@@ -147,14 +146,17 @@ getCompareButtons = (div, row) ->
     '</div>' +
     copy_url + div.html()
 
-getTitle = (row, type, set, meta) ->
+getinfo = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
   end_index = row.embed_code.indexOf("autoplay")
-  return "<a class='archive-info' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+  return "<a class='td-archive-info' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fa fa-info-circle fa-4'></i></a>
     <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
     <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
     <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
     <input id='archive_embed_code#{row.id}' type='hidden' value='#{row.embed_code.substring(start_index, end_index)}'/>"
+
+getTitle = (row, type, set, meta) ->
+  return "<div class='div-title'>#{row.title} <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>"
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
@@ -461,7 +463,7 @@ window.on_export_compare = ->
   refreshDataTable()
 
 modal_events = ->
-  $("#archives"). on "click", ".archive-info", ->
+  $("#archives"). on "click", ".td-archive-info", ->
     id = $(this).attr("data-id")
     type = $(this).attr("data-type")
     query_string = $("#archive_embed_code#{id}").val()

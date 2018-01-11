@@ -45,7 +45,6 @@
   .fa:hover {
     color: $dark-blue;
   }
-
 }
 
 #uniform-embed-datetime, #uniform-is-public {
@@ -186,6 +185,49 @@
     height: 2px;
     margin-bottom: 15px;
   }
+
+  .td-archive-info {
+    .fa {
+      color: $main-color;
+    }
+
+    .fa:hover {
+      color: $dark-blue;
+    }
+  }
+
+  .div-title {
+    display: inline-block;
+    line-height: 1;
+    margin-top: 5px;
+
+    small {
+      color: $small-grey;
+    }
+  }
+
+  .gravatar-placeholder .gravatar {
+    border-radius: 50%;
+    display: inline-block;
+    float: left;
+    margin-top: 6px;
+    width: 25px;
+  }
+
+  .username-id {
+    display: inline-block;
+    line-height: 1;
+    margin-top: 5px;
+    margin-left: 5px;
+
+    small {
+      color: $small-grey;
+    }
+  }
+
+  table.dataTable tbody th, table.dataTable tbody td {
+    padding: 5px 10px;
+  }
 }
 
 #archives .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
@@ -221,24 +263,6 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   background-color: transparent;
 }
 
-.gravatar-placeholder .gravatar {
-  border-radius: 50%;
-  width: 25px;
-  float: left;
-  display: inline-block;
-}
-
-.username-id {
-  display: inline-block;
-  line-height: 1;
-  margin-top: 2px;
-  margin-left: 5px;
-
-  small {
-    color: $small-grey;
-  }
-}
-
 .table-bordered {
   border: none;
 
@@ -256,8 +280,16 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
     width: 85px;
   }
 
+  .archive-info {
+    width: 20px;
+  }
+
   .fa-3 {
     font-size: 1.3em;
+  }
+
+  .fa-4 {
+    font-size: 1.8em;
   }
 }
 

@@ -34,9 +34,8 @@ initializeArchivesDataTable = ->
       error: (xhr, error, thrown) ->
     },
     columns: [
-      {data: getinfo, sClass: 'archive-info'},
-      {data: gravatarName, sClass: 'fullname'},
       {data: getTitle, sClass: 'title'},
+      {data: gravatarName, sClass: 'fullname'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
       {data: "status", sClass: 'center'},
       {data: (row, type, set, meta) ->
@@ -146,21 +145,20 @@ getCompareButtons = (div, row) ->
     '</div>' +
     copy_url + div.html()
 
-getinfo = (row, type, set, meta) ->
+getTitle = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
   if row.embed_code.indexOf("autoplay") > 0
     end_index = row.embed_code.indexOf("autoplay")
   else
     end_index = row.embed_code.indexOf("'></script>")
   query_string = row.embed_code.substring(start_index, end_index) if row.embed_code
-  return "<a class='td-archive-info' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fa fa-info-circle fa-4'></i></a>
+  return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail}'></div>
+    <div class='username-id'><a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+    <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>
     <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
     <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
     <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
     <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>"
-
-getTitle = (row, type, set, meta) ->
-  return "<div class='div-title'>#{row.title} <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>"
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
@@ -467,7 +465,7 @@ window.on_export_compare = ->
   refreshDataTable()
 
 modal_events = ->
-  $("#archives"). on "click", ".td-archive-info", ->
+  $("#archives"). on "click", ".archive-title", ->
     id = $(this).attr("data-id")
     type = $(this).attr("data-type")
     query_string = $("#archive_embed_code#{id}").val()

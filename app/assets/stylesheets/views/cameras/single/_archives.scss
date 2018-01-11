@@ -211,6 +211,7 @@
     display: inline-block;
     float: left;
     margin-top: 6px;
+    height: 25px;
     width: 25px;
   }
 
@@ -227,6 +228,15 @@
 
   table.dataTable tbody th, table.dataTable tbody td {
     padding: 5px 10px;
+    color: $form-dark-grey;
+  }
+
+  .archive-title {
+    color: $form-dark-grey;
+  }
+
+  .archive-title:hover {
+    color: $form-dark-grey;
   }
 }
 

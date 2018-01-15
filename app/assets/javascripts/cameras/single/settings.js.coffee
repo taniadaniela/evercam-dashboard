@@ -25,7 +25,7 @@ handleCameraDelete = ->
       error: onCameraDeleteError
       success: onCameraDeleteSuccess
       context: 'deleted'
-      url: "/cameras/#{$("#id").val()}"
+      url: "/cameras/#{Evercam.Camera.id}"
       type: 'DELETE'
     $.ajax(settings)
 
@@ -41,7 +41,7 @@ handleCameraDelete = ->
       error: onCameraDeleteError
       success: onCameraDeleteSuccess
       context: 'removed'
-      url: "/cameras/#{$("#id").val()}"
+      url: "/cameras/#{Evercam.Camera.id}"
       type: 'DELETE'
     $.ajax(settings)
 

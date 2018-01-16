@@ -13,6 +13,7 @@
       float: right;
       right: 0%;
       margin-right: 2px;
+      width: 31px;
       font-size: 20px;
       border: none;
       background: $black-opacity-background;
@@ -25,6 +26,7 @@
       float: right;
       right: 0%;
       margin-right: 33px;
+      width: 31px;
       font-size: 20px;
       border: none;
       background: $black-opacity-background;
@@ -43,6 +45,8 @@
 
     .icon-magnifier {
       color: $white;
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .enabled .icon-magnifier{
@@ -52,6 +56,7 @@
     #calendar .fa {
       color: white;
       margin-top: 0px;
+      font-size: 18px;
     }
 
     #imgPlayback {

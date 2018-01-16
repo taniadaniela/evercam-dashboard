@@ -14,7 +14,7 @@ updateCode = () ->
   baseText = "<div id='ec-container-#{camera}' style='width:
     #{width}#{option_width}'></div>
     <script src='#{url}/live.view.widget.js?refresh=#{refresh}&camera=#{camera}&private=#{priv}#{api_credentials}' async></script>"
-  $('#code').text(baseText)
+  $('#code').val(baseText)
   document.removeEventListener("visibilitychange", window.ec_vis_handler, false);
   clearTimeout(window.ec_watcher) if window.ec_watcher?
   $('.preview').html(baseText) unless offline
@@ -36,7 +36,8 @@ updatePartialValues = ->
   baseText = "<div id='ec-container-#{camera}' style='width:
     #{width}#{option_width}'><div>
     <script src='#{url}/live.view.widget.js?refresh=#{refresh}&camera=#{camera}&private=#{priv}#{api_credentials}' async></script>"
-  $('#code').text(baseText)
+  console.log baseText
+  $('#code').val(baseText)
   $("#ec-container-#{camera}").width("#{width}#{option_width}")
 
 initCameraSelect = ->

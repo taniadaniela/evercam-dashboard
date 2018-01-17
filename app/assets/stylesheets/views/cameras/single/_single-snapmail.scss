@@ -422,7 +422,10 @@ div.tagsinput span.tag a {
 
 .days-span {
   position: absolute;
-  margin-top: 3px;
+}
+
+.checkbox input[type="checkbox"] {
+  margin-left: -30px;
 }
 
 .days-chek {

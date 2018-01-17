@@ -442,34 +442,6 @@ input:-webkit-autofill {
   width: 100%;
 }
 
-.copy-from .sidebar-chk-span {
-  display: inline-block;
-  margin-right: -1px;
-  position: relative;
-  margin-top: -1px;
-}
-
-.copy-from .sidebar-checked {
-  border-color: transparent transparent $main-color $main-color;
-  border-style: solid;
-  border-width: 0px 0px 4px 2px;
-  outline-color: $ever-background;
-  opacity: 1;
-  top: -1px;
-  right: 3px;
-  height: 14px;
-  width: 14px;
-  outline: 0px;
-  -webkit-transform: rotate(-45deg) scaleY(0.5);
-  transform: rotate(-45deg) scaleY(0.5);
-}
-
-.copy-from .sidebar-checked:focus {
-  box-shadow: none;
-  outline: 0px;
-  outline-color: $ever-background;
-}
-
 .copy-from .sidebar-type-label {
   border: 1px solid $grey;
   color: $evercam-grey;
@@ -498,7 +470,7 @@ input:-webkit-autofill {
 }
 
 .copy-from-text {
-  padding-left: 5px;
+  margin-top: -3px;
 }
 
 #copy-from {
@@ -513,7 +485,7 @@ input:-webkit-autofill {
 
   .copy-from-camera {
     margin-top: 0px;
-    min-width: 315px;
+    min-width: 300px;
   }
 
   .sidebar-type-label {

@@ -51,39 +51,6 @@
   display: none;
 }
 
-#form-create-clip .checkbox .chk-span {
-  border: 1px solid #aaaaaa;
-  color: #aaaaaa;
-  cursor: pointer;
-  display: inline-block;
-  float: left;
-  height: 14px;
-  margin: 10px 10px 14px 1px;
-  outline-color: #eaeaea;
-  padding: 0;
-  position: relative;
-  top: 0;
-  transition: all 0.2s ease-in-out 0s;
-  width: 14px;
-  z-index: 1;
-}
-
-#form-create-clip .checkbox .chk-span.checked {
-  border-bottom-color: #428bca;
-  border-left-color: #428bca;
-}
-#form-create-clip .checkbox .chk-span.checked {
-  border-color: transparent transparent #428bca #428bca;
-  border-style: solid;
-  border-width: 1px 1px 4px 2px;
-  top: -2px;
-  transform: rotate(-45deg) scaleY(0.5);
-}
-
-#form-create-clip .checkbox {
-  margin-bottom: 0;
-}
-
 #form-create-clip .table {
   margin-bottom: 5px;
 }

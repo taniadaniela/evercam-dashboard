@@ -450,6 +450,36 @@ a:hover, a:focus {
   padding: 5px 0;
 }
 
+.checkbox .chk-span {
+  border: 1px solid $grey;
+  color: $grey;
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  height: 14px;
+  margin-right: 5px;
+  outline-color: $border-grey;
+  padding: 0;
+  position: relative;
+  top: 0px;
+  transition: all 0.2s ease-in-out 0s;
+  width: 14px;
+  z-index: 1;
+}
+
+.checkbox .chk-span.checked {
+  top: -2px;
+  border-left: 2px solid $main-color;
+  border-bottom: 4px solid $main-color;
+  border-top: 1px solid $line-end-gredient-background;
+  border-right: 1px solid $line-end-gredient-background;
+  -webkit-transform: rotate(-45deg) scaleY(0.5);
+  -moz-transform: rotate(-45deg) scaleY(0.5);
+  -ms-transform: rotate(-45deg) scaleY(0.5);
+  -o-transform: rotate(-45deg) scaleY(0.5);
+  transform: rotate(-45deg) scaleY(0.5);
+}
+
 @media screen and (max-width: 992px) {
 
   .widget-tabs .page-content-wrapper {

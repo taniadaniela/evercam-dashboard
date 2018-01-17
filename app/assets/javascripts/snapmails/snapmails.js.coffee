@@ -348,21 +348,21 @@ clearForm = ->
   $('#ddlCameras :selected').each (i, selected) ->
     $(selected).removeAttr 'selected'
   camera_select.val(null).trigger("change")
-  $('#uniform-chkMon .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkMon .chk-span').removeClass 'checked'
   $("#chkMon").prop("checked", false)
-  $('#uniform-chkTue .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkTue .chk-span').removeClass 'checked'
   $('#chkTue').prop 'checked', false
-  $('#uniform-chkWed .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkWed .chk-span').removeClass 'checked'
   $('#chkWed').prop 'checked', false
-  $('#uniform-chkThu .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkThu .chk-span').removeClass 'checked'
   $('#chkThu').prop 'checked', false
-  $('#uniform-chkFri .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkFri .chk-span').removeClass 'checked'
   $('#chkFri').prop 'checked', false
-  $('#uniform-chkSat .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkSat .chk-span').removeClass 'checked'
   $('#chkSat').prop 'checked', false
-  $('#uniform-chkSun .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkSun .chk-span').removeClass 'checked'
   $('#chkSun').prop 'checked', false
-  $('#uniform-chkAllDay .icheckbox_flat-blue').removeClass 'checked'
+  $('#uniform-chkAllDay .chk-span').removeClass 'checked'
   $('#chkAllDay').prop 'checked', false
   hideLoadingAnimation()
 
@@ -390,25 +390,25 @@ loadExistingSnapmail = (key) ->
   $.each days, (i, day) ->
     switch day
       when 'Monday'
-        $('#uniform-chkMon .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkMon .chk-span').addClass 'checked'
         $('#chkMon').prop 'checked', true
       when 'Tuesday'
-        $('#uniform-chkTue .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkTue .chk-span').addClass 'checked'
         $('#chkTue').prop 'checked', true
       when 'Wednesday'
-        $('#uniform-chkWed .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkWed .chk-span').addClass 'checked'
         $('#chkWed').prop 'checked', true
       when 'Thursday'
-        $('#uniform-chkThu .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkThu .chk-span').addClass 'checked'
         $('#chkThu').prop 'checked', true
       when 'Friday'
-        $('#uniform-chkFri .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkFri .chk-span').addClass 'checked'
         $('#chkFri').prop 'checked', true
       when 'Saturday'
-        $('#uniform-chkSat .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkSat .chk-span').addClass 'checked'
         $('#chkSat').prop 'checked', true
       when 'Sunday'
-        $('#uniform-chkSun .icheckbox_flat-blue').addClass 'checked'
+        $('#uniform-chkSun .chk-span').addClass 'checked'
         $('#chkSun').prop 'checked', true
   all_selected()
   cameraIds = $('#txtCamerasId' + key).val().split(',')
@@ -474,7 +474,7 @@ pauseSnapmail = ->
 
 initializeiCheck = ->
   $(".checkbox-snapmail input[type='checkbox']").iCheck
-    checkboxClass: "icheckbox_flat-blue"
+    checkboxClass: "chk-span"
 
   $("input[type='checkbox']").on 'ifChecked', (event) ->
     control_id = $(this).context.id

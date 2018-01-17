@@ -209,10 +209,10 @@ onLoadPage = ->
     slideToggleCameraList()
 
   if window.location.href.indexOf('clone') > -1
-    $('#copy-from .sidebar-chk-span').addClass 'sidebar-checked active'
+    $('#copy-from .chk-span').addClass 'checked active'
     $('.copy-from-camera').show()
   else
-    $('#copy-from .sidebar-chk-span').removeClass 'sidebar-checked active'
+    $('#copy-from .chk-span').removeClass 'checked active'
     $('.copy-from-camera').hide()
 
   $('#copy-from-text').on 'click', (event) ->

@@ -26,11 +26,8 @@
               <div class='col-sm-12 copy-from-section margin-bottom-20'>
                 <div class="<%= field_errors["vendor"] ? ' has-error' : '' %> col-sm-12 col-md-12">
                   <div id="copy-from" class="col-md-12 col-sm-12 padding-left-0 copy-from">
-                    <label  class="sidebar-type-label">
-                      <input name="type" class="sidebar-chk-span" type="checkbox" value="">
-                    </label>
-                    <div id="copy-from-text" class="float-left copy-from-text">
-                      <%= label_tag('copy-from', "Copy settings from existing camera", class: "control-label copy-from-label margin-right-15") %>
+                    <div class="input-group float-left checkbox margin-right-10">
+                      <input id="type-all" name="type" class="" type="checkbox" value="" /> <label class="type-label copy-from-text" for="type-all">Copy settings from existing camera</label>
                     </div>
                     <div class="copy-from-camera form-group float-left">
                       <div class="copy-from">

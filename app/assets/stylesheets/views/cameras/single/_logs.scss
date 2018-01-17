@@ -92,40 +92,6 @@
   display: none !important;
 }
 
-#logs-filter .checkbox .chk-span {
-  border: 1px solid #aaaaaa;
-  color: #aaaaaa;
-  cursor: pointer;
-  display: inline-block;
-  float: left;
-  height: 14px;
-  margin-right: 5px;
-  outline-color: #eaeaea;
-  padding: 0;
-  position: relative;
-  top: 1px;
-  transition: all 0.2s ease-in-out 0s;
-  width: 14px;
-  z-index: 1;
-}
-
-#logs-filter .checkbox .chk-span.checked {
-  border-bottom-color: #428bca;
-  border-left-color: #428bca;
-}
-#logs-filter .checkbox .chk-span.checked {
-  border-color: transparent transparent #428bca #428bca;
-  border-style: solid;
-  border-width: 1px 1px 4px 2px;
-  top: -2px;
-  transform: rotate(-45deg) scaleY(0.5);
-}
-
-#logs-filter .checkbox {
-  margin-bottom: 10px;
-  margin-top: 7px;
-}
-
 .offlines {
   color: $evercam-red;
 }

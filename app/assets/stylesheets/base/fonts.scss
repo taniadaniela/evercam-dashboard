@@ -188,6 +188,13 @@
   line-height: 2em;
   vertical-align: middle;
 }
+.fa-compare {
+  background-image: asset-url("compare-scale.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 19px;
+  width: 16px;
+}
 .fa-stack-1x,
 .fa-stack-2x {
   position: absolute;

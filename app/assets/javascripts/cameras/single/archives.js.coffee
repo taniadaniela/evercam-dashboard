@@ -40,7 +40,7 @@ initializeArchivesDataTable = ->
       {data: "status", sClass: 'center'},
       {data: (row, type, set, meta) ->
         if row.type is "Compare"
-          return '<i class="fa fa-file-image-o fa-3" title="Compare"></i>'
+          return '<i class="fa fa-compare fa-3" title="Compare"></i>'
         else
           return '<i class="fa fa-video-camera fa-3" title="Clip"></i>'
       , sClass: 'text-center'},
@@ -485,6 +485,71 @@ modal_events = ->
       $("#row-embed-code").show()
       $("#row-gif").show()
 
+open_window = ->
+  $(".type-link").on "click", ->
+    type = $(this).attr("data-type")
+    switch type
+      when "local"
+        $("#archive_create_caption").text("Create Local Recording Clip")
+        $("#txtCreateArchiveType").val("true")
+      when "cloud"
+        $("#archive_create_caption").text("Create Cloud Recording Clip")
+      when "compare"
+        $(".nav-tab-compare").tab('show')
+
+init_fileupload = ->
+  $("#file-upload").on "change", (e) ->
+    lbl_old_val = $("#spn-upload-file-name").html()
+    fileName = ''
+    if $(this).files && $(this).files.length > 1
+      fileName = ( $(this).getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', $(this).files.length )
+    else
+      fileName = e.target.value.split( '\\' ).pop()
+
+    if fileName
+      $("#spn-upload-file-name").html(fileName)
+    else
+      label.innerHTML = lbl_old_val
+
+  $("#upload-file-modal").on "hide.bs.modal", ->
+    $("#file-upload").val("")
+    $("#spn-upload-file-name").html("Choose a file&hellip;")
+
+detect_validate_url = ->
+  $("#social_media_url").on "keyup paste change", ->
+    url = $("#social_media_url").val()
+    setTimeout(->
+      console.log url
+      if url is ""
+        $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-youtube").addClass("fa-link")
+      if detect_url(url, ".*\.youtu.be\..*") or detect_url(url, ".*\.youtube.com\..*")
+        $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-link").addClass("fa-youtube")
+      else if detect_url(url, ".*\.vimeo.com\..*")
+        $("#icon-media-type").removeClass("fa-youtube").removeClass("fa-link").addClass("fa-vimeo")
+      else
+        $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-youtube").addClass("fa-link")
+    , 200)
+
+detect_url = (url, regex) ->
+  patt = new RegExp(regex)
+  patt.test(url)
+
+handle_submenu = ->
+  $("#archive-add").on "click", ->
+    top = $(this).position().top
+    archive_height = $("#archives").height()
+    view_height = Metronic.getViewPort().height
+    if view_height - archive_height > 245
+      $(".m-menu__submenu").css("top", top - 10)
+      $(".triangle-right-border").css("top", "25px")
+    else
+      $(".triangle-right-border").css("top", "180px")
+      $(".m-menu__submenu").css("top", top - 170)
+    $(".m-menu__submenu").toggle( "slow")
+
+  $(document).on 'mouseup', (evt) ->
+    $(".m-menu__submenu").hide()
+
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
@@ -499,3 +564,7 @@ window.initializeArchivesTab = ->
   deleteClip()
   cancelForm()
   modal_events()
+  open_window()
+  init_fileupload()
+  detect_validate_url()
+  handle_submenu()

@@ -256,7 +256,7 @@ renderIsPublic = (row, type, set, meta) ->
 
 renderStatus = (row, type, set, meta) ->
   if row.status is 'Processing'
-    return "<img alt='Loading' class='margin-left-20' src='/assets/loader3.gif'>"
+    return "<img alt='Loading' style='margin-left: 20px;' src='/assets/loader3.gif'>"
   else
     return row.status
 

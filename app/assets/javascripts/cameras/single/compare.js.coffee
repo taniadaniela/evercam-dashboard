@@ -222,7 +222,7 @@ setCompareEmbedCodeTitle = ->
 export_compare = ->
   $("#export_compare_button").on "click", ->
     $("#spn-success-export").removeClass("alert-info").addClass("alert-danger")
-    name = $("#export_name").val()
+    name = $("#export-compare-title").val()
     if name is ""
       $("#spn-success-export").text("Please enter export name.").removeClass("hide")
       return false
@@ -286,7 +286,6 @@ cancelForm = ->
     clean_form()
 
 clean_form = ->
-  $("#export_name").val("")
   $("#txtEmbedCode").val("")
   $("#row-textarea").addClass("hide")
   $("#spn-success-export").addClass("hide")

@@ -654,8 +654,8 @@ handle_submenu = ->
       $(".m-menu__submenu").css("top", top - 10)
       $(".triangle-right-border").css("top", "25px")
     else
-      $(".triangle-right-border").css("top", "180px")
-      $(".m-menu__submenu").css("top", top - 170)
+      $(".triangle-right-border").css("top", "148px")
+      $(".m-menu__submenu").css("top", top - 135)
     $(".m-menu__submenu").toggle( "slow")
 
   $(document).on 'mouseup', (evt) ->

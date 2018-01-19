@@ -1,3 +1,5 @@
+upload = null;
+uploadIsRunning = false;
 archives_table = null
 server_url = "http://timelapse.evercam.io/timelapses"
 format_time = null
@@ -518,14 +520,117 @@ init_fileupload = ->
       label.innerHTML = lbl_old_val
 
   $("#upload-file-modal").on "hide.bs.modal", ->
+    $("#file-upload-progress .bar").css("width", "0%")
+    $("#file-upload-progress .bar").text("0%")
     $("#file-upload").val("")
     $("#spn-upload-file-name").html("Choose a file&hellip;")
+    $("#upload_file_title").val("")
+
+  $("#start-file-upload").on "click", ->
+    input = document.querySelector("#file-upload")
+    if upload
+      if uploadIsRunning
+        upload.abort()
+        $("#start-file-upload").val("Resume upload")
+        uploadIsRunning = false
+      else
+        upload.start()
+        $("#start-file-upload").val("Pause upload")
+        uploadIsRunning = true
+    else
+      if $("#upload_file_title").val() is ""
+        Notification.show("Title cannot be empty.")
+        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        return false
+      if input.files.length is 0
+        Notification.show("Choose file to upload.")
+        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        return false
+      startUpload()
+
+startUpload = ->
+  file = document.querySelector("#file-upload").files[0]
+  if !file
+    return
+
+  $("#start-file-upload").val("Pause upload")
+
+  options =
+    endpoint: Evercam.TUS_URL
+    resume: true
+    chunkSize: Infinity
+    retryDelays: [0, 1000, 3000, 5000]
+    onError: (error) ->
+      if error.originalRequest
+        if window.confirm("Failed because: #{error}\nDo you want to retry?")
+          upload.start()
+          uploadIsRunning = true
+          return
+      else
+        Notification.show("Failed because: #{error}")
+      reset()
+    onProgress: (bytesUploaded, bytesTotal) ->
+      percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
+      $("#file-upload-progress .bar").css("width", "#{percentage}%")
+      $("#file-upload-progress .bar").text("#{parseInt(percentage)}%")
+    onSuccess: ->
+      save_upload_file(upload.url)
+      reset()
+
+  upload = new tus.Upload(file, options)
+  upload.start()
+  uploadIsRunning = true
+
+reset = ->
+  $("#file-upload").val("")
+  $("#start-file-upload").val("Start upload")
+  $("#file-upload-progress .bar").css("width", "0%")
+  $("#file-upload-progress .bar").text("0%")
+  upload = null
+  uploadIsRunning = false
+
+save_upload_file = (file_url) ->
+  duration = parseInt($("#to-date").val())
+  timespan = moment().utc() /1000
+
+  $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+
+  data =
+    title: $("#upload_file_title").val()
+    from_date: timespan
+    to_date: timespan
+    requested_by: Evercam.User.username
+    type: "file"
+    file_url: file_url.replace("api.evercam.io", "localhost")
+
+  onError = (jqXHR, status, error) ->
+    if jqXHR.status is 500
+      Notification.show("Internal Server Error. Please contact to admin.")
+    else
+      Notification.show(jqXHR.responseJSON.message)
+    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+
+  onSuccess = (data, status, jqXHR) ->
+    $("#clip-create-message").show()
+    archives_table.ajax.reload (json) ->
+      $('#archives-table').show()
+      $("#no-archive").hide()
+      $("#upload-file-modal").modal("hide")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    type: 'POST'
+    url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+  $.ajax(settings)
 
 detect_validate_url = ->
   $("#social_media_url").on "keyup paste change", ->
     url = $("#social_media_url").val()
     setTimeout(->
-      console.log url
       if url is ""
         $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-youtube").addClass("fa-link")
       if detect_url(url, ".*\.youtu.be\..*") or detect_url(url, ".*\.youtube.com\..*")

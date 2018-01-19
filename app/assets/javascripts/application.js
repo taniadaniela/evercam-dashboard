@@ -41,6 +41,7 @@
 //= require popcorn.js
 //= require popcorn.capture.js
 //= require clipboard.min.js
+//= require tus.min.js
 
 //=
 //= require alerts

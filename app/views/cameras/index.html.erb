@@ -2,13 +2,11 @@
 <div class="page-content-wrapper">
   <div class="page-content" id="camera-index">
     <% if params[:controller] == 'cameras' && params[:action] == 'index' && @show_alert_message %>
-      <% if current_user.username != "grainne" %>
-        <div class="biling-alert alert alert-danger">
-          <span>You require <%= @required_licences %> additional licences.
-            <%= link_to "Buy Licences", billing_path(current_user.username), class: "billing-link" %>
-          </span>
-        </div>
-      <% end %>
+      <div class="biling-alert alert alert-danger">
+        <span>You require <%= @required_licences %> additional licences.
+          <%= link_to "Buy Licences", billing_path(current_user.username), class: "billing-link" %>
+        </span>
+      </div>
     <% end %>
     <% @cameras.each do |camera| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index camera-<%= camera['id'] %> <%= "camera-offline" unless camera['is_online'] %>">

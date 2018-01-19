@@ -11,7 +11,7 @@
     camera_id = '<%= params[:camera] %>',
     request_ip = '<%= request.ip %>',
     denied = false,
-    priv = <%= params[:private] %>;
+    priv = <%= !@camera['is_public'] %>;
 
   if (!window.Evercam) {
     window.Evercam = {};

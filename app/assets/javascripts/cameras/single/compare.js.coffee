@@ -209,6 +209,16 @@ hideBeforeAfterLoadingAnimation = (query_string) ->
   $("##{query_string} .xdsoft_datepicker").removeClass 'opacitypoint5'
   $("##{query_string} .xdsoft_timepicker").removeClass 'opacitypoint5'
 
+setCompareEmbedCodeTitle = ->
+  $("#div-embed-code").on "click", ->
+    after_image_time = $("#compare_after").attr("timestamp")
+    before_image_time = $("#compare_before").attr("timestamp")
+    day_before = moment.utc(before_image_time*1000).format("Do")
+    day_after = moment.utc(after_image_time*1000).format("Do")
+    month_before = moment.utc(before_image_time*1000).format("MMM")
+    month_after = moment.utc(after_image_time*1000).format("MMM")
+    $("#export-compare-title").val("#{day_before} #{month_before} to #{day_after} #{month_after}")
+
 export_compare = ->
   $("#export_compare_button").on "click", ->
     $("#spn-success-export").removeClass("alert-info").addClass("alert-danger")
@@ -335,6 +345,7 @@ window.initializeCompareTab = ->
   clickToCopy()
   download_animation()
   switch_to_archive_tab()
+  setCompareEmbedCodeTitle()
 
   $('#calendar-before').datetimepicker
     format: 'm/d/Y H:m'

@@ -37,7 +37,7 @@ initializeArchivesDataTable = ->
       {data: getTitle, sClass: 'title'},
       {data: gravatarName, sClass: 'fullname'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
-      {data: "status", sClass: 'center'},
+      {data: renderStatus, sClass: 'center'},
       {data: (row, type, set, meta) ->
         if row.type is "Compare"
           return '<i class="fa fa-compare fa-3" title="Compare"></i>'
@@ -253,6 +253,12 @@ renderIsPublic = (row, type, set, meta) ->
     return 'Yes'
   else
     return 'No'
+
+renderStatus = (row, type, set, meta) ->
+  if row.status is 'Processing'
+    return "<img alt='Loading' class='margin-left-20' src='/assets/loader3.gif'>"
+  else
+    return row.status
 
 getDates = (times) ->
   offset =  $('#camera_time_offset').val()

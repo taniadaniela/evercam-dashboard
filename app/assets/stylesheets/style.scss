@@ -5,6 +5,10 @@ input:focus {
   box-shadow: none;
 }
 
+body {
+  font-size: 14px;
+}
+
 ul li {
   padding-left: 0px;
   margin: 0;
@@ -154,6 +158,7 @@ th {
 
 .duration-error {
   font-size: 12px;
+  margin-top: 5px;
   margin-left: 5px;
   position: absolute;
   color: $small-grey;
@@ -514,4 +519,8 @@ a:hover, a:focus {
 .nav-tab-shares {
   margin: 0px;
   padding: 4.5px 12px;
+}
+
+.margin-top-2 {
+  margin-top: 2px;
 }

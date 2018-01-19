@@ -3,6 +3,7 @@
   margin-top: 1px;
   min-width: 220px;
   width:100%;
+  font-size: 14px;
 }
 
 .add-clip  {
@@ -40,6 +41,7 @@
   .fa {
     font-size: 18px;
     color: $main-color;
+    margin-top: 2px;
   }
 
   .fa:hover {
@@ -60,6 +62,10 @@
     padding: 0px;
   }
 
+  .delete-archive2 {
+    margin-top: -2px;
+  }
+
   .dropdown {
     float: left;
   }
@@ -78,10 +84,12 @@
   .dropdown-menu li > a {
     color: $form-dark-grey;
     text-align: center;
+    font-size: 14px;
   }
 
   .dropdown-menu li > a:hover {
-    color: $main-color;
+    background-color: $main-color;
+    color: $white;
   }
 
   .float-left {
@@ -96,23 +104,13 @@
     position: absolute;
     margin-left: -31px;
     z-index: 99999;
+    margin-top: 0px;
     border: 1px solid $main-grey;
-  }
-
-  .media-type-url {
-    padding: 8px;
-    height: 34px;
-    background-color: #eee;
-    position: absolute;
-    margin-left: -31px;
-    z-index: 99999;
-    border: 1px solid #e5e5e5;
-    font-size: 20px;
   }
 
   .copy-embed-code {
     padding: 40px 8px 8px;
-    height: 100px;
+    height: 89px;
   }
 
   .copy-url-icon:hover {
@@ -129,7 +127,7 @@
   }
 
   .embed-code {
-    height: 100px;
+    height: 90px;
     background-color: $white;
   }
 
@@ -139,13 +137,14 @@
 
   .archive-thumbnail {
     height: auto;
-    width: 438px;
+    width: 100%;
   }
 
   .archive-label {
     color: $grey;
     padding-left: 0;
     padding-right: 0;
+    font-size: 12px;
   }
 
   .div-thumbnail {
@@ -206,14 +205,6 @@
 
   table.dataTable tbody th, table.dataTable tbody td {
     padding: 5px 10px;
-    color: $form-dark-grey;
-  }
-
-  .archive-title {
-    color: $form-dark-grey;
-  }
-
-  .archive-title:hover {
     color: $form-dark-grey;
   }
 
@@ -287,30 +278,13 @@
     padding: 0.625rem 1.25rem;
   }
 
-  .inputfile-4 + label {
-    color: #d3394c;
-  }
-
-  .inputfile-4:focus + label,
-  .inputfile-4.has-focus + label,
-  .inputfile-4 + label:hover {
-    color: #722040;
-  }
-
   .inputfile-4 + label figure {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: #d3394c;
     display: block;
     padding: 20px;
     margin: 0 auto 10px;
-  }
-
-  .inputfile-4:focus + label figure,
-  .inputfile-4.has-focus + label figure,
-  .inputfile-4 + label:hover figure {
-    background-color: #722040;
   }
 
   .inputfile-4 + label svg {
@@ -379,6 +353,16 @@
 
 #archive-modal {
   z-index: 9999;
+}
+
+.archive-title {
+  text-decoration: none;
+  color: $form-medium-grey;
+}
+
+.archive-title:hover {
+  color: $main-color;
+  text-decoration: none;
 }
 
 .archive-modal .modal-dialog {
@@ -511,4 +495,8 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
     width: 92%;
   }
 
+}
+
+.modal-archive-info .form-control {
+  font-size: 14px;
 }

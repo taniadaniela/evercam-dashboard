@@ -38,11 +38,13 @@ initializeArchivesDataTable = ->
     columns: [
       {data: getTitle, sClass: 'title'},
       {data: gravatarName, sClass: 'fullname'},
-      {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public'},
+      {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public', visible: false},
       {data: renderStatus, sClass: 'center'},
       {data: (row, type, set, meta) ->
         if row.type is "Compare"
           return '<i class="fa fa-compare fa-3" title="Compare"></i>'
+        else if row.type is "URL"
+          return '<i class="fa fa-link fa-3" title="URL"></i>'
         else
           return '<i class="fa fa-video-camera fa-3" title="Clip"></i>'
       , sClass: 'text-center'},
@@ -111,6 +113,8 @@ renderbuttons = (row, type, set, meta) ->
   if row.status is "Completed"
     if row.type is "Compare"
       getCompareButtons(div, row)
+    else if row.type is "URL"
+      return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link'></i></a>#{div.html()}"
     else
       DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
       day = DateTime.getDate()
@@ -154,13 +158,18 @@ getTitle = (row, type, set, meta) ->
   else
     end_index = row.embed_code.indexOf("'></script>")
   query_string = row.embed_code.substring(start_index, end_index) if row.embed_code
-  return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail}'></div>
-    <div class='username-id'><a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
-    <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>
-    <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
-    <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
-    <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
-    <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>"
+
+  if row.type is "URL"
+    return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'></div>
+      <div class='media-url-title'>#{row.title}</div>"
+  else
+    return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail}'></div>
+      <div class='username-id'><a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+      <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>
+      <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
+      <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
+      <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
+      <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>"
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
@@ -180,6 +189,13 @@ gravatarName = (row, type, set, meta) ->
   main_div.append(div_user)
   changeImageSource(row.requester_email, row.id)
   return main_div.html()
+
+getHostName = (url) ->
+  match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i)
+  if match isnt null && match.length > 2 && typeof match[2] is 'string' && match[2].length > 0
+    return match[2]
+  else
+    return null
 
 changeImageSource = (email, id) ->
   favicon_url = "https://favicon.yandex.net/favicon/"
@@ -590,7 +606,6 @@ reset = ->
   uploadIsRunning = false
 
 save_upload_file = (file_url) ->
-  duration = parseInt($("#to-date").val())
   timespan = moment().utc() /1000
 
   $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
@@ -661,6 +676,46 @@ handle_submenu = ->
   $(document).on 'mouseup', (evt) ->
     $(".m-menu__submenu").hide()
 
+save_media_url = ->
+  $("#save_social_media_url").on "click", ->
+    timespan = moment().utc() /1000
+    $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+    NProgress.start()
+
+    data =
+      title: $("#media_title_title").val()
+      url: $("#social_media_url").val()
+      from_date: timespan
+      to_date: timespan
+      requested_by: Evercam.User.username
+      type: "url"
+
+    onError = (jqXHR, status, error) ->
+      if jqXHR.status is 500
+        Notification.show("Internal Server Error. Please contact to admin.")
+      else
+        Notification.show(jqXHR.responseJSON.message)
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+
+    onSuccess = (data, status, jqXHR) ->
+      $("#media_title_title").val("")
+      $("#social_media_url").val("")
+      archives_table.ajax.reload (json) ->
+        $('#archives-table').show()
+        $("#no-archive").hide()
+        $("#save_social_media_url").modal("hide")
+        NProgress.done()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'POST'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    $.ajax(settings)
+
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
@@ -679,3 +734,4 @@ window.initializeArchivesTab = ->
   init_fileupload()
   detect_validate_url()
   handle_submenu()
+  save_media_url()

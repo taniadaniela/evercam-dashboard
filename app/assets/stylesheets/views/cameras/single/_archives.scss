@@ -192,6 +192,19 @@
     width: 25px;
   }
 
+  .gravatar-placeholder .gravatar-logo {
+    border-radius: 50%;
+    display: inline-block;
+    float: left;
+    width: 18px;
+  }
+
+  .media-url-title {
+    display: inline-block;
+    line-height: 1;
+    margin-left: 5px;
+  }
+
   .username-id {
     display: inline-block;
     line-height: 1;

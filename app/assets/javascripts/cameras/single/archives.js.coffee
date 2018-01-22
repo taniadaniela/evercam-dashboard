@@ -509,6 +509,12 @@ modal_events = ->
       $("#row-embed-code").show()
       $("#row-gif").show()
 
+  $('#social-media-url-modal').on 'hide.bs.modal', ->
+    reset_media_url_form()
+
+  $('#social-media-url-modal').on 'show.bs.modal', ->
+    reset_media_url_form()
+
 open_window = ->
   $(".type-link").on "click", ->
     type = $(this).attr("data-type")
@@ -645,16 +651,22 @@ save_upload_file = (file_url) ->
 detect_validate_url = ->
   $("#social_media_url").on "keyup paste change", ->
     url = $("#social_media_url").val()
+    domain = getHostName(url)
     setTimeout(->
-      if url is ""
-        $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-youtube").addClass("fa-link")
-      if detect_url(url, ".*\.youtu.be\..*") or detect_url(url, ".*\.youtube.com\..*")
-        $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-link").addClass("fa-youtube")
-      else if detect_url(url, ".*\.vimeo.com\..*")
-        $("#icon-media-type").removeClass("fa-youtube").removeClass("fa-link").addClass("fa-vimeo")
+      if url is "" or domain is null
+        $("#icon-media-type").addClass("fa-link")
+        $("#media_url_type").hide()
       else
-        $("#icon-media-type").removeClass("fa-vimeo").removeClass("fa-youtube").addClass("fa-link")
+        $("#media_url_type").attr("src", "https://favicon.yandex.net/favicon/#{getHostName(url)}")
+        $("#media_url_type").show()
+        $("#icon-media-type").removeClass("fa-link")
     , 200)
+
+reset_media_url_form = ->
+  $("#media_title_title").val("")
+  $("#social_media_url").val("")
+  $("#icon-media-type").addClass("fa-link")
+  $("#media_url_type").hide()
 
 detect_url = (url, regex) ->
   patt = new RegExp(regex)
@@ -698,13 +710,12 @@ save_media_url = ->
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
 
     onSuccess = (data, status, jqXHR) ->
-      $("#media_title_title").val("")
-      $("#social_media_url").val("")
       archives_table.ajax.reload (json) ->
         $('#archives-table').show()
         $("#no-archive").hide()
-        $("#save_social_media_url").modal("hide")
         NProgress.done()
+        $("#social-media-url-modal").modal("hide")
+        reset_media_url_form()
 
     settings =
       cache: false

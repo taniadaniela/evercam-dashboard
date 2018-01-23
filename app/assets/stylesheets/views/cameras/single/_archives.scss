@@ -196,13 +196,40 @@
     border-radius: 50%;
     display: inline-block;
     float: left;
-    width: 18px;
+    width: 25px;
   }
 
   .media-url-title {
     display: inline-block;
     line-height: 1;
     margin-left: 5px;
+    margin-top: 5px;
+  }
+
+  .type-icon {
+    color: $small-grey;
+    font-size: 75%;
+    width: 10px;
+  }
+
+  .type-icon-url {
+    margin-right: 5px;
+  }
+
+  .type-icon-alignment {
+    margin-right: 6px;
+    margin-top: 6px;
+  }
+
+  .requester {
+    display: inline-block;
+    line-height: 1;
+    margin-top: 5px;
+
+    label {
+      width: 22px;
+      font-size: 85%;
+    }
   }
 
   .username-id {
@@ -275,6 +302,7 @@
   .upload-file {
     max-width: 450px;
   }
+
   /**********File input style******************/
   .inputfile {
     width: 0.1px;

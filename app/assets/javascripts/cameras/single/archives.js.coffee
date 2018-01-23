@@ -39,7 +39,7 @@ initializeArchivesDataTable = ->
       {data: getTitle, sClass: 'title'},
       {data: gravatarName, sClass: 'fullname'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public', visible: false},
-      {data: renderStatus, sClass: 'center'},
+      {data: renderStatus, sClass: 'center', visible: false},
       {data: (row, type, set, meta) ->
         if row.type is "Compare"
           return '<i class="fa fa-compare fa-3" title="Compare"></i>'
@@ -47,7 +47,7 @@ initializeArchivesDataTable = ->
           return '<i class="fa fa-link fa-3" title="URL"></i>'
         else
           return '<i class="fa fa-video-camera fa-3" title="Clip"></i>'
-      , sClass: 'text-center'},
+      , sClass: 'text-center', visible: false},
       {data: renderbuttons, sClass: 'options'}
     ],
     iDisplayLength: 50,
@@ -161,11 +161,18 @@ getTitle = (row, type, set, meta) ->
 
   if row.type is "URL"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'></div>
-      <div class='media-url-title'>#{row.title}</div>"
+      <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i> #{row.title}</div>"
   else
+    fa_class = "<i class='fa fa-video-camera type-icon'></i>"
+    if row.type is "Compare"
+      fa_class = "<svg fill='#a0a0a0' height='15' viewBox='0 0 24 24' width='15'>
+        <path d='M0 0h24v24H0z' fill='none'/>
+        <path d='M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/>
+        </svg>"
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail}'></div>
-      <div class='username-id'><a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
-      <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div>
+      <div class='username-id'><div class='float-left type-icon-alignment'>#{fa_class}</div><div class='float-left'>
+      <a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+      <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div></div>
       <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
       <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
       <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
@@ -173,21 +180,28 @@ getTitle = (row, type, set, meta) ->
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
-  div = $('<div>', {class: "gravatar-placeholder"})
+  div = $('<div>', {class: "gravatar-placeholder hide"})
   img = $('<img>', {class: "gravatar #{row.id}"})
   div.append(img)
-  div_user = $('<div>', {class: "username-id"})
+  div_user = $('<div>', {class: "requester"})
   if row.requester_email
-    div_user.append(row.requester_name)
+    small = $("<small>")
+    small.append(row.requester_name)
+    div_user.append("<label>By:</label>")
+    div_user.append(small)
+    if row.status is 'Processing'
+      div_user.append(" ( Processing )")
+    else if row.status is 'Failed'
+      div_user.append(" ( <span class='offlines'>Failed</span> )")
   else
     div_user.append("Deleted User")
   div_user.append('<br>')
-  small = $('<small>', {class: "blue"})
+  small = $("<small>")
   small.append(renderDate(row, type, set, meta))
+  div_user.append("<label>On:</label>")
   div_user.append(small)
   main_div.append(div)
   main_div.append(div_user)
-  changeImageSource(row.requester_email, row.id)
   return main_div.html()
 
 getHostName = (url) ->

@@ -161,7 +161,8 @@ getTitle = (row, type, set, meta) ->
 
   if row.type is "URL"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'></div>
-      <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i> #{row.title}</div>"
+      <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
+      <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
   else
     fa_class = "<i class='fa fa-video-camera type-icon'></i>"
     if row.type is "Compare"

@@ -674,6 +674,7 @@ SetImageHour = (hr, id) ->
   $("#divDisableButtons").removeClass("hide").addClass("show")
   $("#divFrameMode").removeClass("show").addClass("hide")
   $("#divPlayMode").removeClass("show").addClass("hide")
+  setCreateClipDate(hr)
 
   if $("##{id}").hasClass('has-snapshot')
     $("#divSliderBackground").width("100%")
@@ -1161,6 +1162,14 @@ removeMagnifierOnEsc = ->
     if evt.keyCode = 27
       turnOffZoomEffect()
 
+setCreateClipDate = (hour_selected) ->
+  $("#recording-tab #recording-archive-button").on "click", ->
+    d = $("#recording-tab #ui_date_picker_inline").datepicker('getDate')
+    current_calendar_date = moment(d).format('DD/MM/YYYY')
+    if hour_selected
+      $('#archive-time').val "#{hour_selected}:00"
+    $('#from-date').val current_calendar_date
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1181,3 +1190,4 @@ window.initializeRecordingsTab = ->
   centerTabClick()
   setImageSource()
   removeMagnifierOnEsc()
+  setCreateClipDate()

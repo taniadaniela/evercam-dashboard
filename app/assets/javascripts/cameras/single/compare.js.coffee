@@ -211,6 +211,7 @@ hideBeforeAfterLoadingAnimation = (query_string) ->
 
 setCompareEmbedCodeTitle = ->
   $("#div-embed-code").on "click", ->
+    $(".export-buttons #cancel_export").html 'Close'
     after_image_time = $("#compare_after").attr("timestamp")
     before_image_time = $("#compare_before").attr("timestamp")
     day_before = moment.utc(before_image_time*1000).format("Do")
@@ -253,6 +254,7 @@ export_compare = ->
 
     onSuccess = (response, status, jqXHR) ->
       button.hide()
+      $(".export-buttons #cancel_export").html 'Ok'
       $("#row-animation").addClass("hide")
       $("#row-textarea").removeClass("hide")
       $("#row-message").removeClass("hide")

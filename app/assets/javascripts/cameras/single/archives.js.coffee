@@ -536,8 +536,10 @@ open_window = ->
       when "local"
         $("#archive_create_caption").text("Create Local Recording Clip")
         $("#txtCreateArchiveType").val("true")
+        $('#archive-time').val(getPastOneHour())
       when "cloud"
         $("#archive_create_caption").text("Create Cloud Recording Clip")
+        $('#archive-time').val(getPastOneHour())
       when "compare"
         $(".nav-tab-compare").tab('show')
 
@@ -740,6 +742,11 @@ save_media_url = ->
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     $.ajax(settings)
+
+getPastOneHour = (d) ->
+  d = moment().tz(Evercam.Camera.timezone)
+  d.hours(d.hours() - 1)
+  return "#{FormatNumTo2(d.hours())}:#{FormatNumTo2(d.minutes())}"
 
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()

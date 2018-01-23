@@ -4,6 +4,8 @@ archives_table = null
 server_url = "http://timelapse.evercam.io/timelapses"
 format_time = null
 archives_data = {}
+xhrRequestCheckSnapshot = null
+has_snapshots = false
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -27,6 +29,17 @@ initDatePicker = ->
     closeOnDateSelect: 0
     format: 'd/m/Y'
     timepicker: false
+    onSelectDate: (ct, $i) ->
+      if $("#txtCreateArchiveType").val() is ""
+        GetSnapshotInfo()
+
+  $("#archive-time").on "keyup", ->
+    if $("#txtCreateArchiveType").val() is ""
+      GetSnapshotInfo()
+
+  $("#to-date").on "keyup", ->
+    if $("#txtCreateArchiveType").val() is ""
+      GetSnapshotInfo()
 
 initializeArchivesDataTable = ->
   archives_table = $('#archives-table').DataTable({
@@ -332,6 +345,10 @@ FormatNumTo2 = (n) ->
 
 createClip = ->
   $("#create_clip_button").on "click", ->
+    if $("#txtCreateArchiveType").val() is "" && !has_snapshots
+      $("#td-has-snapshot").removeClass("alert-info").addClass("alert-danger")
+      return false
+
     duration = parseInt($("#to-date").val())
     date = $("#from-date").val().split('/')
     time = $('.timepicker-default').val().split(":")
@@ -388,6 +405,48 @@ createClip = ->
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     $.ajax(settings)
 
+GetSnapshotInfo = ->
+  xhrRequestCheckSnapshot.abort() if xhrRequestCheckSnapshot
+  duration = parseInt($("#to-date").val())
+  date = $("#from-date").val().split('/')
+  time = $('.timepicker-default').val().split(":")
+  from = moment.tz("#{date[2]}-#{FormatNumTo2(date[1])}-#{FormatNumTo2(date[0])} #{FormatNumTo2(time[0])}:#{FormatNumTo2(time[1])}:00", "UTC")
+  to = from.clone().minutes(from.minutes() + duration)
+
+  data = {}
+  data.api_id = Evercam.User.api_id
+  data.api_key = Evercam.User.api_key
+  data.from = from / 1000
+  data.to = to / 1000
+  data.limit = 3600
+  data.page = 1
+
+  onError = (jqXHR, status, error) ->
+    false
+
+  onSuccess = (response) ->
+    $("#row-archive-has-snapshots").slideDown()
+    if response == null || response.snapshots.length == 0
+      has_snapshots = false
+      $("#td-has-snapshot").removeClass("alert-info").addClass("alert-danger")
+      $("#td-has-snapshot").text("There is no image between given time period.")
+    else
+      has_snapshots = true
+      $("#td-has-snapshot").addClass("alert-info").removeClass("alert-danger")
+      $("#td-has-snapshot").text("Found #{response.snapshots.length} snapshots.")
+
+  settings =
+    cache: false
+    data: data
+    dataType: 'json'
+    error: onError
+    success: onSuccess
+    contentType: "application/json charset=utf-8"
+    type: 'GET'
+    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots"
+
+  xhrRequestCheckSnapshot = $.ajax(settings)
+
 setToDate = (date, duration) ->
   dates = date.split(" ")
   date = dates[0]
@@ -412,6 +471,7 @@ setDate = ->
 
 formReset = ->
   $("#clip-name").val("")
+  $("#txtCreateArchiveType").val("")
   $('#archive-modal').modal('hide')
 
 playClip = ->
@@ -430,6 +490,9 @@ playClip = ->
 cancelForm = ->
   $('#archive-modal').on 'hidden.bs.modal', ->
     $("#clip-name").val("")
+    $("#txtCreateArchiveType").val("")
+    $("#row-archive-has-snapshots").slideUp()
+    has_snapshots = false
     setDate()
 
 deleteClip = ->
@@ -533,6 +596,7 @@ modal_events = ->
 open_window = ->
   $(".type-link").on "click", ->
     type = $(this).attr("data-type")
+    $("#row-archive-has-snapshots").slideUp()
     switch type
       when "local"
         $("#archive_create_caption").text("Create Local Recording Clip")
@@ -541,6 +605,7 @@ open_window = ->
       when "cloud"
         $("#archive_create_caption").text("Create Cloud Recording Clip")
         $('#archive-time').val(getPastOneHour())
+        GetSnapshotInfo()
       when "compare"
         $(".nav-tab-compare").tab('show')
 

@@ -29,13 +29,13 @@ controlButtonEvents = ->
     stream_paused = !stream_paused
 
   $('#refresh-offline-camera').on "click", ->
-    $('.fa-still').css 'display', 'none'
+    $('.fav-icon-still').css 'display', 'none'
     $('.fa-spin').css 'display', 'block'
     refreshCameraStatus()
 
 hidegif = ->
   $('.fa-spin').css 'display', 'none'
-  $('.fa-still').css 'display', 'block'
+  $('.fav-icon-still').css 'display', 'block'
 
 refreshCameraStatus = ->
   NProgress.start()
@@ -326,7 +326,7 @@ getPtzPresets = ->
         whole_div = $('<div>', {class: "whole-row"})
         divPresets =$('<div>', {class: "row-preset"})
         edit_icon = $('<i>', {class: "fa fa-pencil edit-ptz-ctrl"})
-        delete_icon = $('<i>', {class: "fa fa-trash-o delete-ptz-ctrl"})
+        delete_icon = $('<i>', {class: "fas fa-trash-alt delete-ptz-ctrl"})
         edit_icon.attr("data-dismiss", "modal")
         edit_icon.attr("data-target", "#edit-preset")
         edit_icon.attr("data-toggle", "modal")

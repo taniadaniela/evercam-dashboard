@@ -59,7 +59,7 @@ initializeArchivesDataTable = ->
         else if row.type is "URL"
           return '<i class="fa fa-link fa-3" title="URL"></i>'
         else
-          return '<i class="fa fa-video-camera fa-3" title="Clip"></i>'
+          return '<i class="fas fa-video fa-3" title="Clip"></i>'
       , sClass: 'text-center', visible: false},
       {data: renderbuttons, sClass: 'options'}
     ],
@@ -98,7 +98,7 @@ renderbuttons = (row, type, set, meta) ->
     remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
       'class="archive-actions delete-archive" val-archive-id="'+row.id+
       '" val-camera-id="'+row.camera_id+'">' +
-      '<i class="fa fa-trash-o"></i></span>'
+      '<i class="fas fa-trash-alt"></i></span>'
     span = $('<span>', {class: "open-archive"})
     span.append(remove_icon)
     divPopup.append(span)
@@ -127,7 +127,7 @@ renderbuttons = (row, type, set, meta) ->
     if row.type is "Compare"
       getCompareButtons(div, row)
     else if row.type is "URL"
-      return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link'></i></a>#{div.html()}"
+      return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
       DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
       day = DateTime.getDate()
@@ -177,7 +177,7 @@ getTitle = (row, type, set, meta) ->
       <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
   else
-    fa_class = "<i class='fa fa-video-camera type-icon'></i>"
+    fa_class = "<i class='fas fa-video type-icon'></i>"
     if row.type is "Compare"
       fa_class = "<svg fill='#a0a0a0' height='15' viewBox='0 0 24 24' width='15'>
         <path d='M0 0h24v24H0z' fill='none'/>

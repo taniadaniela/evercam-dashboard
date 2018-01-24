@@ -23,13 +23,13 @@
             <% @cameras.each do |camera| %>
               <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
                 <%= link_to camera['name'] , cameras_single_path(camera['id']), data: {"camera-id" => camera['id']} %>
-                <i class="red header-sidebar fa fa-chain-broken"></i>
+                <i class="red header-sidebar fa fa-unlink"></i>
               </li>
             <% end %>
           <% else %>
           <li class="sub-menu-item public-active-list camera-<%= @camera['id'] %> <%= is_active?("/cameras/#{@camera['id']}") %> <% unless @camera['is_online'] %>sidebar-offline<% end %>">
             <span class="title"> <%= @camera['name'] %></span>
-            <i class="red header-sidebar fa fa-chain-broken"></i>
+            <i class="red header-sidebar fa fa-unlink"></i>
           </li>
           <% end %>
         </ul>
@@ -37,7 +37,7 @@
       <% if @current_user %>
         <li class="sidebar-line nprogCall">
           <%= link_to cameras_new_path do %>
-          <i class="fa fa-video-camera icon-font"></i><span class="title"> Add IP Camera</span>
+          <i class="fas fa-video icon-font"></i><span class="title"> Add IP Camera</span>
           <% end %>
         </li>
         <li class="sidebar-line">
@@ -64,12 +64,12 @@
           <a id="Intercom"><i class="fa fa-comment icon-font"></i><span class="title"> Live Support</span></a>
         </li>
         <li class="nprogCall">
-          <a rel="nofollow" data-method="delete" href=<%= signout_path %>><i class="fa fa-sign-out right-ajustment icon-font"></i><span class="title"> Sign out </span></a>
+          <a rel="nofollow" data-method="delete" href=<%= signout_path %>><i class="fas fa-sign-out-alt right-ajustment icon-font"></i><span class="title"> Sign out </span></a>
         </li>
       <% else %>
         <li class="nprogCall sidebar-line">
           <%= link_to signin_path do %>
-            <i class="fa fa-sign-in icon-font"></i> Sign In
+            <i class="fas fa-sign-in-alt icon-font"></i> Sign In
           <% end %>
         </li>
         <li class="nprogCall sidebar-line">
@@ -93,5 +93,3 @@
     <input type="hidden" id="controller" value="<%= params[:controller] %>">
   </div>
 </div>
-
-

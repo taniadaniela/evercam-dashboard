@@ -361,7 +361,7 @@ class CamerasController < ApplicationController
     if status == true
       "#{camera_name}"
     else
-      "#{camera_name} <i class='red fa fa-chain-broken'></i>"
+      "#{camera_name} <i class='red fa fa-unlink font-12'></i>"
     end
   end
 
@@ -609,4 +609,3 @@ class CamerasController < ApplicationController
     flash[:field_errors] = field_errors
   end
 end
-

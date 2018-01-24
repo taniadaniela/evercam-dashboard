@@ -105,7 +105,7 @@
     </div>
     <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
       <p>
-        <i class="icon-users"></i>
+        <i class="fas fa-users"></i>
         Only specific users (listed below) can access this camera
         <small> - Is Public: [No] &amp; Discoverable: [No]</small>
         <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
@@ -191,7 +191,7 @@
             <td class="col-lg-2">
               <div class="form-group">
                 <div class="popbox2">
-                  <span class="open2"><span class="remove"></span><i title="Remove" class="fa fa-trash-o font-size-17"></i></span>
+                  <span class="open2"><span class="remove"></span><i title="Remove" class="fas fa-trash-alt font-size-17"></i></span>
                   <div class="collapse-popup">
                     <div class="box2">
                       <div class="arrow2"></div>
@@ -245,7 +245,7 @@
             <td class="col-lg-2">
               <div class="form-group">
                 <div class="popbox2">
-                  <span class="open2"><span class="remove"></span><i class="fa fa-trash-o font-size-17" title="Revoke"></i></span>
+                  <span class="open2"><span class="remove"></span><i class="fas fa-trash-alt font-size-17" title="Revoke"></i></span>
                   <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><i class="fa fa-paper-plane font-size-17" title="Resend Email"></i></span>
                   <div class="collapse-popup">
                     <div class="box2">

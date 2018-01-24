@@ -43,18 +43,18 @@
     }
 
 
-    .icon-magnifier {
+    .magnifier-icon {
       color: $white;
       font-size: 18px;
       font-weight: bold;
     }
 
-    .enabled .icon-magnifier{
+    .enabled .magnifier-icon {
       color: $hover-blue;
     }
 
-    #calendar .fa {
-      color: white;
+    #calendar .fas {
+      color: $white;
       margin-top: 0px;
       font-size: 18px;
     }
@@ -115,10 +115,10 @@
       }
 
       .info-icon {
-        font-size: 17px;
+        font-size: 14px;
         position: relative;
         margin-left: 5px;
-        top: 3px;
+        top: 4px;
         color: $white;
       }
 

@@ -993,9 +993,9 @@ checkCalendarDisplay = ->
 calendarShow = ->
   $('#recording-tab .ui-datepicker-trigger').on 'click', ->
     $('#recording-tab .col-recording-right').toggle 'slow', ->
-      $('#calendar .fa').css 'color', 'white'
+      $('#calendar .fas').css 'color', 'white'
       checkCalendarDisplay()
-    $('#calendar .fa').css 'color', '#68a2d5'
+    $('#calendar .fas').css 'color', '#68a2d5'
     turnOffZoomEffect()
 
 showDaysLoadingAnimation = ->

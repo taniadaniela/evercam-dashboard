@@ -11,8 +11,8 @@
     <% @cameras.each do |camera| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 camera-index camera-<%= camera['id'] %> <%= "camera-offline" unless camera['is_online'] %>">
         <% unless camera['is_online'] %>
-          <div id= "<%= camera['id'] %>" class="refresh-camera-thumbnail"><i class="fa fa-refresh fa-still"></i>
-            <i class='fa fa-refresh fa-spin fa-1x fa-fw refresh-gif-thumbnail' aria-hidden='true'></i>
+          <div id= "<%= camera['id'] %>" class="refresh-camera-thumbnail"><i class="fas fa-sync fav-icon-still"></i>
+            <i class='fas fa-sync fa-spin fa-1x fa-fw refresh-gif-thumbnail' aria-hidden='true'></i>
           </div>
         <% end %>
         <%= link_to cameras_single_path(camera['id']) do %>
@@ -22,7 +22,7 @@
           <div class="camera-info">
             <div class="camera-name">
               <%= camera['name'] %>
-              <i class="red fa fa-chain-broken"></i>
+              <i class="red fa fa-unlink"></i>
             </div>
           </div>
         <% end %>

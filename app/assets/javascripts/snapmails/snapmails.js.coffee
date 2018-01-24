@@ -104,7 +104,7 @@ getSnapmailHtml = (snapMail, index) ->
 
   html += '    <div class="" style="min-height:0px;">'
   html += '        <div class="text-right delete-snapmail">'
-  html += '             <span id=pop-' + snapMail.id + ' class="popbox2"><div id="open-' + snapMail.id + '" href="javascript:;" class="tools-link open2" data-val="' + snapMail.id + '"><div class="icon-button red margin-24 margin-left-0"><i class="fa fa-trash-o main-color plus-btn" title="Delete"></i><paper-ripple class="circle recenteringTouch" fit></paper-ripple></div></div>'
+  html += '             <span id=pop-' + snapMail.id + ' class="popbox2"><div id="open-' + snapMail.id + '" href="javascript:;" class="tools-link open2" data-val="' + snapMail.id + '"><div class="icon-button red margin-24 margin-left-0"><i class="fas fa-trash-alt main-color plus-btn" title="Delete"></i><paper-ripple class="circle recenteringTouch" fit></paper-ripple></div></div>'
   html += '             <div class="collapse-popup">'
   html += '               <div class="box-snapmail" id="box-' + snapMail.id + '" style="width:288px;">'
   html += '                   <div class="arrow2" id="arrow-' + snapMail.id + '"></div>'
@@ -158,7 +158,7 @@ format = (state) ->
   if state.id == '0'
     return state.text
   if state.element.className is "onlinec"
-    is_offline = '<i class="red main-sidebar fa fa-chain-broken"></i>'
+    is_offline = '<i class="red main-sidebar fa fa-unlink"></i>'
   return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='#{state.element.attributes[1].value}' class='img-flag' />&nbsp;#{state.text}</span>&nbsp;#{is_offline}")
 
 initInputTags = ->

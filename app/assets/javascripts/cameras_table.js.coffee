@@ -19,7 +19,7 @@ initializeCamerasDataTable = ->
         else
           return "
           <a href='/v1/cameras/#{row.id}' target='_blank'>#{row.name}</a>
-          <i class='red main-sidebar fa fa-chain-broken'></i>"
+          <i class='red main-sidebar fa fa-unlink font-12'></i>"
       },
       {data: userCameraRights},
       {data: (row, type, set, meta ) ->

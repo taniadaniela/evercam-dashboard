@@ -102,22 +102,30 @@ initializePlayer = ->
           $("#select-stream-type").val("jpeg")
           load_jpeg()
         ), 1000
+
     $("#camera-video-player").append($("#ptz-control"))
+
     tries = 0
     clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
     setInterval (->
       if $('#camera-video-player').hasClass 'vjs-user-active'
         $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
         $('#live-view-placeholder .pull-right table').stop().animate()
+        if window.vjs_player.readyState() > 1
+          $('#live-view-placeholder .live-image-capture').show()
+        else
+          $('#live-view-placeholder .live-image-capture').hide()
       else
         $('#live-view-placeholder .pull-right table').animate { 'marginTop': '-39px' }, 500
+        $('#live-view-placeholder .live-image-capture').hide()
     ), 10
 
 switch_to_jpeg = ->
-  if tries < 5 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+  if tries < 7 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     tries = tries + 1
+    $('#live-view-placeholder .live-image-capture').hide()
     clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
-  else if tries >= 5 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+  else if tries >= 7 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     $("#select-stream-type").val("jpeg")
     load_jpeg()
 
@@ -517,6 +525,19 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
+capture_image = ->
+  $("#live-image-capture").on "click", ->
+    $pop = Popcorn("#camera-video-player_html5_api")
+    $pop.capture
+      type: "jpeg"
+      set: false
+      target: "img#captured"
+      reload: false
+    setTimeout(do_capture, 200)
+
+do_capture = ->
+  SaveImage.save($("#live-view-placeholder #captured").attr('src'), "#{Evercam.Camera.id}.jpg")
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -535,6 +556,7 @@ window.initializeLiveTab = ->
   checkPTZExist()
   # flashDetection()
   onEditPtz()
+  capture_image()
   onDeletePtz()
   ptzCreation()
   NProgress.done()

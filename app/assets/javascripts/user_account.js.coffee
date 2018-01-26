@@ -123,7 +123,8 @@ loadRecordedSnapshot = (recording_camera_name, recording_time) ->
     if response.snapshots.length > 0
       $('.recorded-url').show()
       $('#no-recorded-snapshot').hide()
-      $('#recorded-snapshot-url').val("#{response.snapshots[0].data}")
+      $('#recorded-snapshot-url').val("#{Evercam_API_URL}cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}&view=true")
+      $("#recorded-api-link").attr("href", "#{Evercam_API_URL}cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}&view=true")
       $('#recorded-dashboard-url').val("https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}")
       $("#recorded-dashboard-link").attr 'href', "https://dash.evercam.io/v1/cameras/#{recording_camera_name}/recordings/snapshots/#{recording_time}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
@@ -141,10 +142,11 @@ initDatepicker = ->
   $('#api-call-datetime').datetimepicker
     timepicker: false
     closeOnDateSelect: 0
-    onChangeDateTime: (dp, $input) ->
+    onSelectDate: (dp, $input) ->
       if $input.val() != lastSelectedDate
         lastSelectedDate = $input.val()
-      return
+        updateRecordedSnapshotUrl()
+
     format: 'Y-m-d'
 
   i = 0
@@ -198,7 +200,6 @@ window.initializeUserAccount = ->
   updateRecordedSnapshotUrl()
   $('#api-call-camera').change(updateLiveSnapshotUrl)
   $('#recorded-call-camera').change(updateRecordedSnapshotUrl)
-  $('#api-call-datetime').change(updateRecordedSnapshotUrl)
   $('#api-call-hour').change(updateRecordedSnapshotUrl)
   $('#api-call-minutes').change(updateRecordedSnapshotUrl)
   $('#api-call-seconds').change(updateRecordedSnapshotUrl)

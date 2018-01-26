@@ -17,12 +17,12 @@ hideThumbnailGif = ->
     gifid = $(this)
     camera_id = gifid.attr 'id'
     control_id = '#' + camera_id
-    $("#{control_id} > .fa-still").css 'display', 'none'
+    $("#{control_id} > .fav-icon-still").css 'display', 'none'
     $("#{control_id} > .refresh-gif-thumbnail").css 'display', 'block'
     refreshCameraStatus(camera_id, control_id)
 
 hide_gif = (control_id) ->
-  $("#{control_id} .fa-still").css 'display', 'block'
+  $("#{control_id} .fav-icon-still").css 'display', 'block'
   $("#{control_id} .refresh-gif-thumbnail").css 'display', 'none'
 
 refreshCameraStatus = (cam_id, contr_id) ->

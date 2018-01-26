@@ -41,15 +41,15 @@
   padding-top: 4px;
   width: 100%;
 
-  .fa-refresh {
-    font-size: 18px;
+  .fa-sync{
+    font-size: 16px;
     color: $white;
     margin: 9px;
   }
 
   .refresh-gif {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     right: 0%;
     display: none;
   }
@@ -93,12 +93,23 @@
 .pull-right .fa {
   display: inline-block;
   float: right;
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   font-style: normal;
-  font-weight: normal;
+  font-weight: 900;
   line-height: 1;
   font-size: 10px;
   margin-top: -23px;
+}
+
+.live-image-capture {
+  position: absolute;
+  color: $white;
+  float: right;
+  right: 38px;
+  bottom: 5px;
+  display: none;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 #live-view-placeholder .pull-right {
@@ -310,7 +321,7 @@
     height: 26px;
   }
 
-  .wrap .fa-refresh {
+  .wrap .fa-sync {
     font-size: 14px;
     margin: 5px;
   }
@@ -437,7 +448,7 @@
     font-size: 20px;
   }
 
-  .fa-trash-o {
+  .fa-trash-alt {
     display: inline-block;
     float: right;
     width: 10%;

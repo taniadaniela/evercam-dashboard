@@ -212,7 +212,7 @@ addSharingCameraRow = (details, shared_avatar) ->
   span.append($('<span>', {class: "remove"}))
   if details.type == "share"
     remove_icon = $('<i>', {class: "fa"})
-    remove_icon.addClass("fa-trash-o").addClass("font-size-17")
+    remove_icon.addClass("fa-trash-alt").addClass("font-size-17")
     remove_icon.attr("title", "Remove")
     span.append(remove_icon)
     divPopup.append(span)
@@ -241,8 +241,8 @@ addSharingCameraRow = (details, shared_avatar) ->
     divPopup.append(divCollapsePopup)
     div.append(divPopup)
   else
-    revoke_icon = $('<i>', {class: "fa"})
-    revoke_icon.addClass("fa-trash-o").addClass("font-size-17")
+    revoke_icon = $('<i>', {class: "fas"})
+    revoke_icon.addClass("fa-trash-alt").addClass("font-size-17")
     revoke_icon.attr("title", "Revoke")
     span.append(revoke_icon)
     divPopup.append(span)

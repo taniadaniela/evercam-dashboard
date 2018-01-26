@@ -235,11 +235,12 @@ select{
   border-radius: 0px !important;
   border-bottom: 1px solid #aaaaaa !important;
 }
-.dropdown:after{
+.dropdown::after{
   background: transparent;
   color: #a0a0a0;
+  font-family: "Font Awesome 5 Free";
   content: "\f078";
-  font-family: FontAwesome;
+  font-weight: 900;
   font-size: 12px;
   padding: 8px 0px;
   position: absolute;

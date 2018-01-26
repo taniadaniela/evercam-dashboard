@@ -33,7 +33,7 @@ initializeiCheck = ->
 initializeDropdowns = ->
   $('[data-toggle="tooltip"]').tooltip()
   $(".dropdown-toggle").dropdown()
-  $(".dropdown-toggle i").addClass 'fa fa-bars icon-bar-alignment'
+  $(".dropdown-toggle i").addClass 'fas fa-bars icon-bar-alignment'
 
 switchToTab = ->
   $(".nav-tab-#{Evercam.request.tabpath}").tab('show')
@@ -184,9 +184,23 @@ initTimepicker = ->
     showSeconds: false
     showMeridian: false
     template: false
+    $('.timepicker-default').val(getPastOneHour())
 
   $('#from-date').on 'click', ->
     $('.timepicker-default').timepicker 'hideWidget'
+
+getPastOneHour = (d) ->
+  d = moment().tz(Evercam.Camera.timezone)
+  d.hours(d.hours() - 1)
+  return "#{FormatNumTo2(d.hours())}
+    :#{FormatNumTo2(d.minutes())}
+    :#{FormatNumTo2(d.seconds())}"
+
+FormatNumTo2 = (n) ->
+  if n < 10
+    "0#{n}"
+  else
+    n
 
 initializeTabs = ->
   window.initializeInfoTab()

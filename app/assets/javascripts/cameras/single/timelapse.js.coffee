@@ -212,7 +212,7 @@ getTimelapseHtml = (timelapse, index) ->
 
   html += "    <div style='min-height:0px;display: none;'>"
   html += "        <div class='text-right delete-timelapse'>"
-  html += "             <span id='pop-#{timelapse.id}' class='popbox2'><div id='open-#{timelapse.id}' href='javascript:;' class='tools-link open2' data-val='#{timelapse.id}'><div class='icon-button red margin-24 margin-left-0'><i class='fa fa-trash-o main-color plus-btn' title='Delete'></i><paper-ripple class='circle recenteringTouch' fit></paper-ripple></div></div>"
+  html += "             <span id='pop-#{timelapse.id}' class='popbox2'><div id='open-#{timelapse.id}' href='javascript:;' class='tools-link open2' data-val='#{timelapse.id}'><div class='icon-button red margin-24 margin-left-0'><i class='fas fa-trash-alt main-color plus-btn' title='Delete'></i><paper-ripple class='circle recenteringTouch' fit></paper-ripple></div></div>"
   html += "             <div class='collapse-popup'>"
   html += "               <div class='box-snapmail' id='box-#{timelapse.id}' style='width:288px;'>"
   html += "                   <div class='arrow2' id='arrow-#{timelapse.id}'></div>"
@@ -598,7 +598,7 @@ format = (state) ->
     return state.text
   if state.element
     if state.element.attributes[1].value is "false"
-      camera_status = "<i class='red main-sidebar fa fa-chain-broken'></i>"
+      camera_status = "<i class='red main-sidebar fa fa-unlink'></i>"
     else
       camera_status = ""
     return $("<span><img id='#{state.id}' style='width: 25px;height: auto;' src='#{state.element.attributes[2].value}' class='gravatar1'/>&nbsp;#{state.text}#{camera_status}</span>")

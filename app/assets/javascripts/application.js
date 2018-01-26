@@ -57,7 +57,6 @@
 //= require header.js
 //= require d3.min.js
 //= require moment-with-locales.js
-//= require font-awesome.js
 //= require cameras/online_offline.js
 //= require visavail.js
 //= require single_status_bar.js

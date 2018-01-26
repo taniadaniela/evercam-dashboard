@@ -28,11 +28,11 @@ var $;
 
       var html = '<div id="image-compare" class="js-img-compare embed">';
       html += '     <div style="display: none;">';
-      html += '       <span id="calendar-before" class="images-compare-label"><i class="fa fa-calendar compare-calendar"></i> Before</span>';
+      html += '       <span id="calendar-before" class="images-compare-label"><i class="fas fa-calendar-alt compare-calendar"></i> Before</span>';
       html += '       <img id="compare_before" src="" alt="Before"/>';
       html += '     </div>';
       html += '     <div>';
-      html += '       <span id="calendar-after" class="images-compare-label"><i class="fa fa-calendar compare-calendar"></i> After</span>';
+      html += '       <span id="calendar-after" class="images-compare-label"><i class="fas fa-calendar-alt compare-calendar"></i> After</span>';
       html += '       <img id="compare_after" src="" alt="After"/>';
       html += '     </div>';
       html += '     <div class="evercam-brand">';

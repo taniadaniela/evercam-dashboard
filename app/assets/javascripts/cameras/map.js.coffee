@@ -31,7 +31,7 @@ loadMap = ->
                   <strong>
                     #{camera.name}
                     <a href='https://dash.evercam.io/v1/cameras/#{camera.id}/live' target='_blank'>
-                    <i class='fa fa-external-link'></i>
+                    <i class='fa fa-external-link-alt font-12'></i>
                     </a>
                   </strong>
                 </div>

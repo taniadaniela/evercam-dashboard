@@ -3,7 +3,7 @@
 //= require uniform.default.min.css
 //= require metronic/metronic-components.css
 //= require metronic/metronic-layout.css
-@import "base/fonts";
+@import "base/font-awesome-v5.0.4";
 @import "base/glyphicons";
 
 body{
@@ -327,11 +327,12 @@ select {
   border-radius: 0px !important;
   border-bottom: 2px solid #aaaaaa !important;
 }
-.dropdown:after {
+.dropdown::after {
   background: transparent;
   color: #a0a0a0;
+  font-family: "Font Awesome 5 Free";
   content: "\f078";
-  font-family: FontAwesome;
+  font-weight: 900;
   font-size: 12px;
   padding: 8px 0px;
   position: absolute;

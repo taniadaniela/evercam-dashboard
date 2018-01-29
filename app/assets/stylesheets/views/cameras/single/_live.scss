@@ -104,12 +104,16 @@
 .live-image-capture {
   position: absolute;
   color: $white;
-  float: right;
+  top: 50%;
+  left: 48%;
   right: 38px;
+  z-index: 99998;
   bottom: 5px;
   display: none;
   font-size: 13px;
   cursor: pointer;
+  margin-left: -18px;
+  margin-top: -5px;
 }
 
 #live-view-placeholder .pull-right {

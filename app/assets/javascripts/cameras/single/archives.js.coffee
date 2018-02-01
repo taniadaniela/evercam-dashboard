@@ -504,7 +504,7 @@ deleteClip = ->
       archive_id: control.attr("archive_id")
 
     onError = (jqXHR, status, error) ->
-      isUnauthorized(jqXHR)
+      Notification.show(jqXHR.responseJSON.message)
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       NProgress.done()
 
@@ -513,15 +513,16 @@ deleteClip = ->
         refresh_archive_table()
         Notification.show("Compare deleted successfully.")
       else
-        if data.success
-          refresh_archive_table()
-          Notification.show(data.message)
-        else
+        if data.message
           $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+          Notification.show(data.message)
           NProgress.done()
-          Notification.show("Only requester or full-rights user can delete this archive.")
+        else
+          refresh_archive_table()
+          Notification.show("Archive deleted successfully.")
 
-    api_url = $("#archive-delete-url").val()
+
+    api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     if control.attr("archive_type") is "Compare"
       api_url = "#{Evercam.API_URL}cameras/#{control.attr("camera_id")}/compares/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
@@ -533,7 +534,7 @@ deleteClip = ->
       success: onSuccess
       type: 'DELETE'
       url: api_url
-    sendAJAXRequest(settings)
+    $.ajax(settings)
 
 refresh_archive_table = ->
   archives_table.ajax.reload (json) ->

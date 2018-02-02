@@ -194,11 +194,11 @@ getTitle = (row, type, set, meta) ->
         <path d='M0 0h24v24H0z' fill='none'/>
         <path d='M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/>
         </svg>"
-    return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail}'></div>
+    return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'></div>
       <div class='username-id'><div class='float-left type-icon-alignment'>#{fa_class}</div><div class='float-left'>
       <a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
       <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div></div>
-      <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail}'>
+      <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail_url}'>
       <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
       <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
       <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>"

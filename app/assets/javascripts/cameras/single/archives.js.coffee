@@ -167,7 +167,7 @@ getCompareButtons = (div, row) ->
     copy_url + div.html()
 
 getFileButtons = (row, div) ->
-  file_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.file_name}"
+  file_url = "#{Evercam.SEAWEEDFS_URL2}#{row.camera_id}/clips/#{row.file_name}"
   return "<a target='_blank' class='archive-actions' href='#{file_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
 
 getTitle = (row, type, set, meta) ->
@@ -183,7 +183,7 @@ getTitle = (row, type, set, meta) ->
       <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
   else if row.type is "File"
-    file_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.file_name}"
+    file_url = "#{Evercam.SEAWEEDFS_URL2}#{row.camera_id}/clips/#{row.file_name}"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/evercam.io'></div>
       <div class='media-url-title'><i class='fa fa-file type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{file_url}'>#{row.title}</a></div>"

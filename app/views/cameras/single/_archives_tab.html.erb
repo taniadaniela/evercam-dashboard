@@ -58,7 +58,7 @@
           </span>
         </a>
       </li>
-      <li class="m-menu__item hide" aria-haspopup="true"  data-redirect="true">
+      <li class="m-menu__item" aria-haspopup="true"  data-redirect="true">
         <a  href="#" class="type-link" data-type="upload" data-toggle="modal" data-target="#upload-file-modal">
           <i class="fa fa-upload"></i>
           <span class="menu-ink-text">
@@ -141,22 +141,18 @@
                       <td style="width: 70px;"><label class="control-label camera-name" for="upload_file_title">Title</label></td>
                       <td><input type="text" required placeholder="e.g. My Video" class="form-control clip-text-box" id="upload_file_title" name="upload_file_title"></td>
                     </tr>
-
+                    <tr>
+                      <td colspan="2">
+                        <div class="file-drag-drop text-center" for="file-upload">
+                          <span class="file-label" id="spn-upload-file-name">Choose a file or drag it here.</span>
+                          <input type="file" name="file-upload" id="file-upload" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" />
+                        </div>
+                        <div id="file-upload-progress" class="progress progress-striped progress-success">
+                          <div class="bar" style="width: 0%;"></div>
+                        </div>
+                      </td>
+                    </tr>
                   </table>
-                  <div class="text-center">
-                    <input type="file" name="file-upload" id="file-upload" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" />
-                    <label for="file-upload">
-                      <figure class="btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
-                          <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/>
-                        </svg>
-                      </figure>
-                      <a href=""><span id="spn-upload-file-name">Choose a file&hellip;</span></a>
-                    </label>
-                  </div>
-                  <div id="file-upload-progress" class="progress progress-striped progress-success">
-                    <div class="bar" style="width: 0%;"></div>
-                  </div>
                 </div>
               </div>
             </div>

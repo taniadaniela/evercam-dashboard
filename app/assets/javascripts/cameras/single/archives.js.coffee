@@ -126,6 +126,8 @@ renderbuttons = (row, type, set, meta) ->
   if row.status is "Completed"
     if row.type is "Compare"
       getCompareButtons(div, row)
+    else if row.type is "File"
+      getFileButtons(row, div)
     else if row.type is "URL"
       return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
@@ -164,6 +166,10 @@ getCompareButtons = (div, row) ->
     '</div>' +
     copy_url + div.html()
 
+getFileButtons = (row, div) ->
+  file_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.file_name}"
+  return "<a target='_blank' class='archive-actions' href='#{file_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
+
 getTitle = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
   if row.embed_code.indexOf("autoplay") > 0
@@ -176,6 +182,11 @@ getTitle = (row, type, set, meta) ->
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'></div>
       <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
+  else if row.type is "File"
+    file_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.file_name}"
+    return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/evercam.io'></div>
+      <div class='media-url-title'><i class='fa fa-file type-icon type-icon-url'></i>
+      <a target='_blank' class='archive-title' href='#{file_url}'>#{row.title}</a></div>"
   else
     fa_class = "<i class='fas fa-video type-icon'></i>"
     if row.type is "Compare"
@@ -429,11 +440,13 @@ GetSnapshotInfo = ->
     if response == null || response.snapshots.length == 0
       has_snapshots = false
       $("#td-has-snapshot").removeClass("alert-info").addClass("alert-danger")
-      $("#td-has-snapshot").text("There is no image between given time period.")
+      $("#td-has-snapshot").html("There are no images for this time period.")
     else
       has_snapshots = true
       $("#td-has-snapshot").addClass("alert-info").removeClass("alert-danger")
-      $("#td-has-snapshot").text("Found #{response.snapshots.length} snapshots.")
+      total_snapshots = parseInt(response.snapshots.length)
+      total_seconds = Math.round(total_snapshots / 6)
+      $("#td-has-snapshot").html("#{total_snapshots} snapshots (<b>#{total_seconds} seconds</b> @ <b>6 FPS</b>).")
 
   settings =
     cache: false
@@ -622,13 +635,13 @@ init_fileupload = ->
     if fileName
       $("#spn-upload-file-name").html(fileName)
     else
-      label.innerHTML = lbl_old_val
+      $("#spn-upload-file-name").html(lbl_old_val)
 
   $("#upload-file-modal").on "hide.bs.modal", ->
     $("#file-upload-progress .bar").css("width", "0%")
     $("#file-upload-progress .bar").text("0%")
     $("#file-upload").val("")
-    $("#spn-upload-file-name").html("Choose a file&hellip;")
+    $("#spn-upload-file-name").html("Choose a file or drag it here.")
     $("#upload_file_title").val("")
 
   $("#start-file-upload").on "click", ->
@@ -666,20 +679,15 @@ startUpload = ->
     chunkSize: Infinity
     retryDelays: [0, 1000, 3000, 5000]
     onError: (error) ->
-      if error.originalRequest
-        if window.confirm("Failed because: #{error}\nDo you want to retry?")
-          upload.start()
-          uploadIsRunning = true
-          return
-      else
-        Notification.show("Failed because: #{error}")
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.show("Failed because: #{error}")
       reset()
     onProgress: (bytesUploaded, bytesTotal) ->
       percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
       $("#file-upload-progress .bar").css("width", "#{percentage}%")
       $("#file-upload-progress .bar").text("#{parseInt(percentage)}%")
     onSuccess: ->
-      save_upload_file(upload.url)
+      save_upload_file(upload.url, upload.file.name)
       reset()
 
   upload = new tus.Upload(file, options)
@@ -687,14 +695,13 @@ startUpload = ->
   uploadIsRunning = true
 
 reset = ->
-  $("#file-upload").val("")
   $("#start-file-upload").val("Start upload")
   $("#file-upload-progress .bar").css("width", "0%")
   $("#file-upload-progress .bar").text("0%")
   upload = null
   uploadIsRunning = false
 
-save_upload_file = (file_url) ->
+save_upload_file = (file_url, filename) ->
   timespan = moment().utc() /1000
 
   $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
@@ -705,7 +712,8 @@ save_upload_file = (file_url) ->
     to_date: timespan
     requested_by: Evercam.User.username
     type: "file"
-    file_url: file_url.replace("api.evercam.io", "localhost")
+    file_url: file_url
+    file_extension: filename.slice (filename.lastIndexOf('.') - 1 >>> 0) + 2
 
   onError = (jqXHR, status, error) ->
     if jqXHR.status is 500
@@ -764,8 +772,8 @@ handle_submenu = ->
       $(".m-menu__submenu").css("top", top - 10)
       $(".triangle-right-border").css("top", "25px")
     else
-      $(".triangle-right-border").css("top", "148px")
-      $(".m-menu__submenu").css("top", top - 135)
+      $(".triangle-right-border").css("top", "180px")
+      $(".m-menu__submenu").css("top", top - 170)
     $(".m-menu__submenu").toggle( "slow")
 
   $(document).on 'mouseup', (evt) ->
@@ -815,6 +823,22 @@ getPastOneHour = (d) ->
   d.hours(d.hours() - 1)
   return "#{FormatNumTo2(d.hours())}:#{FormatNumTo2(d.minutes())}"
 
+file_drag_drop = ->
+  droppedFiles = false
+  $('.file-drag-drop').on "drag dragstart dragend dragover dragenter dragleave drop", (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+  .on "dragover dragenter", ->
+    $(this).addClass 'is-dragover'
+  .on "dragleave dragend drop", ->
+    $(this).removeClass 'is-dragover'
+  .on 'drop', (e) ->
+    droppedFiles = e.originalEvent.dataTransfer.files
+    showFiles(droppedFiles)
+
+showFiles = (files) ->
+  $("#spn-upload-file-name").text if files.length > 1 then (input.getAttribute('data-multiple-caption') or '').replace('{count}', files.length) else files[0].name
+
 window.initializeArchivesTab = ->
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
@@ -834,3 +858,4 @@ window.initializeArchivesTab = ->
   detect_validate_url()
   handle_submenu()
   save_media_url()
+  # file_drag_drop()

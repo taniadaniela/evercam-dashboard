@@ -14,8 +14,8 @@ onResize = ->
     centerLoadingAnimation()
 
 selectHistoryDays = ->
-  $('#select-history-days').on 'change', ->
-    onChangeStatusReportDays($("#select-history-days").val())
+  $('#select-history-days, #type-all').on 'change', ->
+    onChangeStatusReportDays($("#select-history-days").val(), $("input[name='offline_only']:checked").val())
     $('#visavail_container').addClass 'opacity'
     $('#status-report .loading-image-div').removeClass 'hide'
     $('#select-history-days ').attr 'disabled', 'disabled'
@@ -26,9 +26,10 @@ toggleLoadingImage = ->
   $('#status-dropdown').removeClass 'hide'
   $('#select-history-days ').removeAttr 'disabled'
 
-onChangeStatusReportDays = (days) ->
+onChangeStatusReportDays = (days, offline_only) ->
   data = {}
   data.history_days = days
+  data.offline_only = offline_only
 
   onError = (jqXHR, status, error) ->
     showError(jqXHR.responseJSON.message)

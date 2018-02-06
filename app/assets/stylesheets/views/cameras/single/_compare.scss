@@ -189,3 +189,10 @@
 .opacitypoint5 {
   opacity: 0.5;
 }
+
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
+  color: $main-color;
+  background-color: $secondary-grey;
+  box-shadow: none;
+}

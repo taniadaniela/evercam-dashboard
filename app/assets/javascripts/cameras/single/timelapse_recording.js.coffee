@@ -700,9 +700,9 @@ checkCalendarDisplay = ->
 calendarShow = ->
   $('#timelapse-recording-tab .ui-datepicker-trigger').on 'click', ->
     $('#timelapse-recording-tab .col-recording-right').toggle 'slow', ->
-      $('#tr_calendar .fa').css 'color', 'white'
+      $('#tr_calendar .fas').css 'color', 'white'
       checkCalendarDisplay()
-    $('#tr_calendar .fa').css 'color', '#68a2d5'
+    $('#tr_calendar .fas').css 'color', '#68a2d5'
     turnOffZoomEffect()
 
 fullscreenImage = ->

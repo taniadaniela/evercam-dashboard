@@ -42,18 +42,14 @@
   width: 100%;
 
   .fa-sync{
-    font-size: 16px;
     color: $white;
     margin: 9px;
   }
 
   .refresh-gif {
-    width: 16px;
-    height: 16px;
     right: 0%;
     display: none;
   }
-
 }
 
 #live-view-placeholder {
@@ -326,15 +322,8 @@
   }
 
   .wrap .fa-sync {
-    font-size: 14px;
     margin: 5px;
   }
-
-  .wrap .refresh-gif {
-    width: 14px;
-    height: 14px;
-  }
-
 }
 
 .ptz-controls {
@@ -637,7 +626,6 @@
 }
 
 .center-tabs .nav-tabs > li > a {
-  font-size: 15px;
   padding: 4.5px 12px;
 }
 

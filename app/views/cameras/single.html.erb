@@ -69,18 +69,18 @@
 
               <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
                 <div class="pull-right add-to-share">
-                  <i id="add-to-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
+                  <i id="add-to-cameras" class="fa fa-plus delete-share-icon icon-font create-share-button" title="Add to my camera" aria-hidden="true"></i>
                 </div>
               <% end %>
             <% else %>
               <div class="pull-right add-to-share">
-                <i id="add-to-public-cameras" class="fa fa-plus delete-share-icon create-share-button" title="Add to my camera" aria-hidden="true"></i>
+                <i id="add-to-public-cameras" class="fa fa-plus delete-share-icon icon-font create-share-button" title="Add to my camera" aria-hidden="true"></i>
               </div>
             <% end %>
 
             <div id="delete-read-only-camera">
               <% unless has_edit_right %>
-                <i class="fas fa-trash-alt delete-share-icon" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
+                <i class="fas fa-trash-alt delete-share-icon icon-font" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
               <% end %>
             </div>
             <% if current_user %>

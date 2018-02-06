@@ -212,7 +212,7 @@ addSharingCameraRow = (details, shared_avatar) ->
   span.append($('<span>', {class: "remove"}))
   if details.type == "share"
     remove_icon = $('<i>', {class: "fa"})
-    remove_icon.addClass("fa-trash-alt").addClass("font-size-17")
+    remove_icon.addClass("fa-trash-alt").addClass("icon-font")
     remove_icon.attr("title", "Remove")
     span.append(remove_icon)
     divPopup.append(span)
@@ -242,14 +242,14 @@ addSharingCameraRow = (details, shared_avatar) ->
     div.append(divPopup)
   else
     revoke_icon = $('<i>', {class: "fas"})
-    revoke_icon.addClass("fa-trash-alt").addClass("font-size-17")
+    revoke_icon.addClass("fa-trash-alt").addClass("icon-font")
     revoke_icon.attr("title", "Revoke")
     span.append(revoke_icon)
     divPopup.append(span)
 
     spanResend = $('<span>', {class: "resend-share-request"})
     resend_icon = $('<i>', {class: "fa"})
-    resend_icon.addClass("fa-paper-plane").addClass("font-size-17")
+    resend_icon.addClass("fa-paper-plane").addClass("icon-font")
     resend_icon.attr("title", "Resend Email")
     spanResend.append(resend_icon)
     spanResend.attr("camera_id", details["camera_id"])

@@ -55,11 +55,6 @@ th {
   margin-right: 0px;
   margin-left: 0px;
 }
-#recording-tab .btn {
-  padding: 9px 14px;
-  border-radius: 0px;
-  margin-bottom: 0px;
-}
 
 #fullscreen:hover .play-options {
   opacity: 1;
@@ -300,11 +295,6 @@ ul, menu, dir {
 }
 
 /*Start Recording tab stylesheet*/
-@media (min-width: 840px) {
-    .col-recording-right {
-
-    }
-}
 .loader-bg{
     left: 2px;
     top: 2px;
@@ -379,10 +369,6 @@ ul, menu, dir {
 .playback-buttons-bar{
     width: 100%;
     text-align: center;
-}
-
-.width100{
-    width: 100%;
 }
 
 .MDSlider-outer{
@@ -644,7 +630,6 @@ ul, menu, dir {
 .ui-datepicker-trigger {
   float: right;
   right: 0%;
-  font-size: 20px;
   border: none;
   background: rgba(0, 0, 0, 0.2);
   position: absolute;

@@ -1,12 +1,6 @@
 <% provide(:title, "Create New Account") %>
 <section id="new-account" class="site-min-height">
-  <div id="evercam-video-section" class="evercam-video-section">
-    <video autoplay loop muted poster="/assets/poster.jpg" id="loop-video">
-    <source src="https://evercam.io/gpoview.webm" type="video/webm">
-    <source src="https://evercam.io/gpoview.mp4" type="video/mp4">
-    <source src="https://evercam.io/gpoview.ogv" type="video/ogg">
-  </video>
-  </div>
+  <%= render partial: "users/background_video" %>
   <div class="container section section-position no-padding" id="new-account">
     <div id="signin" class="col-md-12 text-center no-padding">
       <div class="bb-alert alert alert-danger" style="display:none;">
@@ -51,8 +45,8 @@
                 <%= f.label :username, class: "float-label" %>
                 <img src="/assets/refresh.gif" class="refresh-gif icon-position username-loading-icon">
                 <span id="username-error-block" class="username-error float-left">Username has already been taken.</span>
-                <span id="username-not-available" class="red hide"><i class="fa fa-times icon-position"></i></span>
-                <span id="username-available" class="green hide"><i class="fa fa-check icon-position"></i></span>
+                <span id="username-not-available" class="red hide"><i class="fa fa-times icon-position icon-font"></i></span>
+                <span id="username-available" class="green hide"><i class="fa fa-check icon-position icon-font"></i></span>
               </div>
             </div>
 
@@ -72,8 +66,8 @@
                 <% end %>
                 <img src="/assets/refresh.gif" class="refresh-gif icon-position email-loading-icon">
                 <span id="email-error-block" class="username-error float-left">Email has already been taken.</span>
-                <span id="email-not-available" class="red hide"><i class="fa fa-times icon-position"></i></span>
-                <span id="email-available" class="green hide"><i class="fa fa-check icon-position"></i></span>
+                <span id="email-not-available" class="red hide"><i class="fa fa-times  icon-font"></i></span>
+                <span id="email-available" class="green hide"><i class="fa fa-check icon-position icon-font"></i></span>
               </div>
             </div>
 

@@ -15,12 +15,12 @@
         <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= thumbnail_url(@camera) %>" />
           <div class="play-options">
-            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause" title="Pause"></i></div>
+            <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause icon-font" title="Pause"></i></div>
             <div id="save-live-snapshot" class="btn-live-player save-live hide">
-              <i class="fa fa-download font-size-16" aria-hidden="true" title="Download Image"></i>
+              <i class="fa fa-download icon-font" aria-hidden="true" title="Download Image"></i>
             </div>
             <div class="live-option" id="toggle">
-              <span class="glyphicon glyphicon-fullscreen" title="Fullscreen"></span>
+              <span class="glyphicon glyphicon-fullscreen icon-font" title="Fullscreen"></span>
             </div>
           </div>
           <% if has_edit_right %>
@@ -82,7 +82,7 @@
       <% end %>
       <div id="live-image-capture" class="live-image-capture">
         <div class="btn-live-player">
-          <i class="fa fa-download font-size-16" aria-hidden="true" title="Download Image"></i>
+          <i class="fa fa-download icon-font" aria-hidden="true" title="Download Image"></i>
         </div>
       </div>
       <img id="captured" style="display: none;" />
@@ -94,8 +94,8 @@
       <div class="wrap">
         <div class="offline-image">
           <%= preview(@camera, true) %>
-          <div id="refresh-offline-camera" title="refresh" class="refresh-camera"><i class="fas fa-sync fa-still"></i>
-           <i class='fas fa-sync fa-spin fa-1x fa-fw refresh-gif' aria-hidden='true'></i>
+          <div id="refresh-offline-camera" title="refresh" class="refresh-camera"><i class="fas fa-sync icon-font fa-still"></i>
+           <i class='fas fa-sync fa-spin fa-1x fa-fw refresh-gif icon-font' aria-hidden='true'></i>
             <!-- <img src="/assets/refresh.gif" class="refresh-gif"> -->
           </div>
           <span id="offline_message" class="offline-message" style="display:none;">Camera is Offline</span>

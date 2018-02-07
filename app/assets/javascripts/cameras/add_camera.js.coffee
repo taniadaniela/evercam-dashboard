@@ -295,7 +295,7 @@ port_check = (external_port,type) ->
     $(".#{type}port-status").removeClass('green')
     $(".#{type}port-status").addClass('red')
     $(".#{type}port-status").html('
-      <i class="fa fa-times icon-position"></i>
+      <i class="fa fa-times icon-font icon-position"></i>
         <span>Port is closed</span>'
     )
 
@@ -305,7 +305,7 @@ port_check = (external_port,type) ->
       $(".#{type}port-status").removeClass('red')
       $(".#{type}port-status").addClass('green')
       $(".#{type}port-status").html('
-        <i class="fa fa-check icon-position"></i>
+        <i class="fa fa-check icon-font icon-position"></i>
         <span>Port is open</span>'
       )
     else
@@ -317,7 +317,7 @@ port_check = (external_port,type) ->
         $(".#{type}port-status").removeClass('green')
         $(".#{type}port-status").addClass('red')
         $(".#{type}port-status").html(
-          '<i class="fa fa-times icon-position"></i>
+          '<i class="fa fa-times icon-font icon-position"></i>
           <span>Port is closed</span>'
         )
 

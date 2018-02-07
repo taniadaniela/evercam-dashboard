@@ -168,24 +168,9 @@
     margin-top: 6px !important;
   }
 
-  .copy-url-icon {
-    padding: 8px;
-    height: 34px;
-    background-color: $lighter-grey;
-    cursor: pointer;
-    position: absolute;
-    margin-left: -31px;
-    z-index: 99999;
-    border: 1px solid $main-grey;
-  }
-
   .copy_embed_code {
     padding: 40px 8px 8px 8px;
     height: 100px;
-  }
-
-  .copy-url-icon:hover {
-    color: $main-color;
   }
 
   .copy-text:focus {
@@ -203,4 +188,11 @@
 
 .opacitypoint5 {
   opacity: 0.5;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
+  color: $main-color;
+  background-color: $secondary-grey;
+  box-shadow: none;
 }

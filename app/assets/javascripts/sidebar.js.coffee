@@ -27,19 +27,9 @@ slideToggleList = ->
     $('#hello .fa-caret-up').show()
     $('#hello .fa-caret-down').hide()
 
-  if $('.status-report-submenu:visible').length == 0
-    $('.status-report .fa-caret-up').hide()
-    $('.status-report .fa-caret-down').show()
-  else
-    $('.status-report .fa-caret-up').show()
-    $('.status-report .fa-caret-down').hide()
-
 slideToggle = ->
   $('.camera-fadrop').click ->
     $('.cameralist-height').slideToggle 'slow', ->
-      slideToggleList()
-  $('.status-list').click ->
-    $('.status-report-submenu').slideToggle 'slow', ->
       slideToggleList()
 
 removeDropdown = ->
@@ -65,13 +55,6 @@ updateCameraStatus = (camera_id, status) ->
     $(".page-header.camera-#{camera_id} .camera-switch").addClass("camera-offline")
     $(".page-content .camera-index.camera-#{camera_id}").addClass("camera-offline")
     $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status red">Offline</div>')
-
-handleToggle = ->
-  value = $('#controller').val()
-  if value is 'users' || value is 'apps'
-    $('.setting-list').show()
-  else if value is 'widgets' || value is 'pages'
-    $('.developer-list').show()
 
 handleCameraListHeight = ->
   $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 310
@@ -111,7 +94,6 @@ $(window).ready ->
   nProgressCall()
   slideToggle()
   removeDropdown()
-  handleToggle()
   handleCameraListHeight()
   sidebarScrollPosition()
   highlightActiveCamera()

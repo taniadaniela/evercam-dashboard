@@ -318,29 +318,21 @@ span.input-group-addon .custom {
     max-width: 1240px;
   }
 
-  .copy-url-icon {
-    padding: 8px;
-    margin-top: -0.5px;
-    height: 34px;
-    background-color: $lighter-grey;
-    cursor: pointer;
-    position: absolute;
-    margin-left: -64px;
-    z-index: 99999;
-    border: 1px solid $main-grey;
+  .margin-left-62 {
+    margin-left: -62px;
   }
 
   .external-link-url {
     color: $black;
-    margin-left: -31px;
+    margin-left: -33px;
+  }
+
+  .external-link-url:hover {
+    color: $main-color;
   }
 
   .minus-margin-left-31 {
     margin-left: -31px;
-  }
-
-  .copy-url-icon:hover {
-    color: $main-color;
   }
 
   .max-width-440 {

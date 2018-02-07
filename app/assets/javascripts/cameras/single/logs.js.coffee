@@ -136,7 +136,7 @@ initializeDataTable = ->
            data.action is 'edited'
           $("table#logs-table > tbody > tr:eq(#{i}) td:eq(0)")
             .addClass("details-control")
-            .html("<i class='fa fa-plus expand-icon' aria-hidden='true'></i>")
+            .html("<i class='fa fa-plus font-12 expand-icon' aria-hidden='true'></i>")
       NProgress.done()
   })
 
@@ -251,11 +251,11 @@ showDetails = ->
     if row.child.isShown()
       row.child.hide()
       tr.removeClass 'shown'
-      tr.find('td.details-control').html("<i class='fa fa-plus expand-icon' aria-hidden='true'></i>")
+      tr.find('td.details-control').html("<i class='fa fa-plus font-12 expand-icon' aria-hidden='true'></i>")
     else
       row.child(format(row.data())).show()
       tr.addClass 'shown'
-      tr.find('td.details-control').html("<i class='fa fa-minus expand-icon' aria-hidden='true'></i>")
+      tr.find('td.details-control').html("<i class='fa fa-minus font-12 expand-icon' aria-hidden='true'></i>")
     return
 
 format_online_log = (logs) ->

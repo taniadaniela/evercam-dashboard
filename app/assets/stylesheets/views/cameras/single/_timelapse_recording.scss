@@ -13,18 +13,28 @@
     position: absolute;
     z-index: 1;
     border-radius: 0px !important;
+
+    i {
+      color: $white;
+      margin-top: 0px;
+    }
   }
 
   .ui-snapshot-magnifier {
     float: right;
     right: 0%;
-    margin-right: 33px;
+    margin-right: 30px;
     font-size: 20px;
     border: none;
     background: $black-opacity-background;
     position: absolute;
     z-index: 1;
     border-radius: 0px !important;
+
+    i {
+      color: $white;
+      margin-top: 0px;
+    }
   }
 
   .ui-snapshot-magnifier:active,
@@ -33,7 +43,6 @@
   .ui-datepicker-trigger:focus {
     outline: none;
   }
-
 
   .magnifier-icon {
     color: $white;
@@ -92,11 +101,6 @@
 
   .modal-dialog .schedule-cancel {
     border: 1px solid $border-black;
-  }
-
-  .btn {
-    padding: 9px 14px;
-    border: none;
   }
 
   .btn-padding-tab {

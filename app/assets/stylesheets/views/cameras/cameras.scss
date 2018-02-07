@@ -110,7 +110,7 @@
 
   li:hover a{
     color: $white;
-    background-color: $background-hover-red;
+    background-color: $hover-blue;
   }
 }
 
@@ -330,7 +330,6 @@ ul.scroll-menu {
   z-index: 1;
 
   i {
-    font-size: 16px;
     color: $white;
     margin: 9px;
   }

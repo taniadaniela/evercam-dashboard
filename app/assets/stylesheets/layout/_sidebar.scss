@@ -19,13 +19,6 @@
   font-size: 10px;
 }
 
-.evercam-e-sidebar {
-  margin: 12px 5px 0px 19px;
-  float: left;
-}
-.evercam-e-sidebar img {
-  max-height: 21px;
-}
 .page-sidebar .page-sidebar-menu .sub-menu li > a {
   font-size: 12px;
   display: inline-block;
@@ -33,11 +26,11 @@
 }
 
 .page-sidebar .page-sidebar-menu li a:hover {
-  background-color: $background-hover-red;
+  background-color: $hover-blue;
 }
 
 .page-sidebar .page-sidebar-menu .sub-menu li:hover {
-  background-color: $background-hover-red;
+  background-color: $hover-blue;
 }
 
 #hello a i {
@@ -53,8 +46,8 @@
   color: $secondary-color;
 }
 .page-sidebar .page-sidebar-menu > li > a {
-  color: rgba(255, 255, 255, 0.77);
-  font-size: 12px;
+  color: $white-transparent-background;
+  font-size: 14px;
   padding: 8px;
   font-family: $bold-family;
   margin: 0px !important;
@@ -75,28 +68,27 @@
   z-index: 10000 !important;
 }
 
-.sidebar-title a {
-  color: rgba(255, 255, 255, 0.77);
-  font-size: 14px;
-  padding: 8px 4px;
-  font-family: $bold-family;
-}
-
 .sidebar-title {
+
   padding-top: 10px;
   padding-bottom: 8px;
-  position: relative;
-}
 
-.sidebar-title .tooltip {
-  font-size: 15px;
-  width: 150px;
-  margin-top: 2px;
-  left: 35px !important;
-}
+  a {
+    color: $white-transparent-background;
+    padding: 8px 4px;
+    font-family: $bold-family;
+  }
 
-.sidebar-title .tooltip-arrow {
-  display: none;
+  .tooltip {
+    font-size: 15px;
+    width: 150px;
+    margin-top: 2px;
+    left: 35px !important;
+  }
+
+  .tooltip-arrow {
+    display: none;
+  }
 }
 
 #total-offline-cameras {
@@ -109,28 +101,7 @@
 
 .fa.pull-right {
   padding-right: 0.3em;
-  padding-top: 3px;
   width: 15px;
-}
-
-.setting-list {
-  display: none;
-  padding-left: 0px;
-
-  .width-20 {
-    width: 20px;
-  }
-}
-
-.developer-list li:hover,
-.setting-list li:hover {
-  background-color: rgb(66, 23, 22);
-}
-
-.developer-list li a,
-.setting-list li a {
-  color: #FFFFFF;
-  font-size: 12px;
 }
 
 .left-nav-submenu {
@@ -166,10 +137,9 @@
     display: none;
   }
 
-}
-
-.camera-fadrop:hover {
-  background-color: rgb(66, 23, 22);
+  i:hover {
+    color: $hover-blue;
+  }
 }
 
 .tooltip-inner {
@@ -213,30 +183,11 @@
   color: #34393d;
   font-size: 16px;
 }
-li .dev-menu-title:hover {
-  background-color: lighten($secondary-color, 5%);
-  cursor: default !important;
-}
-ul .widgets-menu {
-  margin-bottom: -11px;
-  margin-top: -3px;
-}
+
 li span {
   margin-top: 5px;
 }
-.menu-title {
-  text-transform: uppercase;
-  padding-left: 23px;
-  color:$main-grey;
-  font-size: 12px;
-  margin: 15px 0 5px;
-}
-.menu-title a {
-  color:$main-grey;
-}
-.menu-title a:hover {
-  color:$main-grey;
-}
+
 .snapimg {
   margin-top: -8px;
 }
@@ -247,24 +198,6 @@ li span {
   margin-left: 3px;
 }
 
-@media (max-width: 980px) {
-.menu-title {
-  text-transform: capitalize;
-  padding-left: 23px;
-  color:$main-grey;
-  font-size: 16px;
-  margin: 16px 0 7px;
-  padding-bottom: 10px;
-  box-shadow:0 1px 0 rgba(0, 0, 0, 0.1);
-}
-}
-.dev-menu-title {
-  text-transform: uppercase;
-  padding-left: 15px;
-  color:$main-grey;
-  font-size: 12px;
-  margin: 15px 0 5px;
-}
 @media (max-width: 980px) {
   .sidebar-toggler-wrapper {
     display: none;
@@ -336,9 +269,6 @@ li span {
 @media (max-width: 980px) {
   .desktop-user {
     display: none !Important;
-  }
-  .evercam-e-sidebar {
-    display: none;
   }
 }
 
@@ -463,7 +393,7 @@ li.inactive a {
 }
 
 .public-active-list {
-  background-color: $background-hover-red;
+  background-color: $hover-blue;
   font-size: 12px;
   margin-top: 0px;
 }
@@ -495,47 +425,6 @@ li.inactive a {
     margin-top: 0px;
     width: 16px;
   }
-
-  .sidebar-chk-span {
-    display: inline-block;
-    margin-right: -1px;
-    position: relative;
-    margin-top: -1px;
-  }
-
-  .sidebar-checked {
-    border-color: transparent transparent $main-color $main-color;
-    border-style: solid;
-    border-width: 0px 0px 4px 2px;
-    outline-color: $ever-background;
-    opacity: 1;
-    top: -5px;
-    right: 6px;
-    height: 14px;
-    width: 14px;
-    outline: 0px;
-    -webkit-transform: rotate(-45deg) scaleY(0.5);
-    transform: rotate(-45deg) scaleY(0.5);
-  }
-
-  .sidebar-checked:focus {
-    box-shadow: none;
-    outline: 0px;
-    outline-color: $ever-background;
-  }
-
-  .sidebar-type-label {
-    border: 1px solid $evercam-grey;
-    color: $evercam-grey;
-    cursor: pointer;
-    float: right;
-    border-radius: 0px;
-    margin-right: 12px;
-    height: 16px;
-    margin-top: 3px;
-    width: 16px;
-  }
-
 }
 
 #intercom-container .intercom-notifications-frame {

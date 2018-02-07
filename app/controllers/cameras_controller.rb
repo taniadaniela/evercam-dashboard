@@ -320,7 +320,12 @@ class CamerasController < ApplicationController
 
   def update_status_report
     days = if params[:history_days].to_i != 0 then params[:history_days].to_i else 7 end
-    @cameras = load_user_cameras(true, false)
+    initial_cameras = load_user_cameras(true, false)
+    if params["offline_only"] == "true" || params["offline_only"] == true
+      @cameras = initial_cameras.reject {|cam| cam["is_online"] == true }
+    else
+      @cameras = initial_cameras
+    end
     camera_exids = []
     @cameras.each do |camera|
       camera_exids[camera_exids.count] =  camera["id"]

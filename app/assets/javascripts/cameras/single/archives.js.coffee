@@ -184,8 +184,8 @@ getTitle = (row, type, set, meta) ->
       <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
   else if row.type is "File"
     file_url = "#{Evercam.SEAWEEDFS_URL2}#{row.camera_id}/clips/#{row.file_name}"
-    return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/evercam.io'></div>
-      <div class='media-url-title'><i class='fa fa-file type-icon type-icon-url'></i>
+    return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='#{row.thumbnail_url}'></div>
+      <div class='media-url-title'><i class='fa fa-upload type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{file_url}'>#{row.title}</a></div>"
   else
     fa_class = "<i class='fas fa-video type-icon'></i>"
@@ -688,7 +688,6 @@ startUpload = ->
       $("#file-upload-progress .bar").text("#{parseInt(percentage)}%")
     onSuccess: ->
       save_upload_file(upload.url, upload.file.name)
-      reset()
 
   upload = new tus.Upload(file, options)
   upload.start()
@@ -728,6 +727,7 @@ save_upload_file = (file_url, filename) ->
       $('#archives-table').show()
       $("#no-archive").hide()
       $("#upload-file-modal").modal("hide")
+      reset()
 
   settings =
     cache: false

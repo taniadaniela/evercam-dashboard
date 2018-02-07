@@ -56,6 +56,10 @@
   height: 100%;
   max-width: 100%;
 
+  .vjs-modal-dialog-content {
+    font-size: 2em;
+    margin-top: 20px;
+  }
 }
 
 #live-view-placeholder .pull-right {

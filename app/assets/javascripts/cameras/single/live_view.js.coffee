@@ -106,7 +106,7 @@ initializePlayer = ->
     $("#camera-video-player").append($("#ptz-control"))
 
     tries = 0
-    clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
+    clear_timeout_videojs = setTimeout switch_to_jpeg, 5000
     setInterval (->
       if $('#camera-video-player').hasClass 'vjs-user-active'
         $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
@@ -121,11 +121,15 @@ initializePlayer = ->
     ), 10
 
 switch_to_jpeg = ->
-  if tries < 7 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+  if tries < 11 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
     tries = tries + 1
     $('#live-view-placeholder .live-image-capture').hide()
-    clear_timeout_videojs = setTimeout switch_to_jpeg, 3000
-  else if tries >= 7 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+    clear_timeout_videojs = setTimeout switch_to_jpeg, 5000
+  else if tries >= 11 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+    $("#camera-video-player .vjs-error-display").removeClass("vjs-hidden")
+    $("#camera-video-player .vjs-error-display div").html("Stream inactive for more than 60 seconds. To continue <a href='#' id='lnk_no_stream'>click here.</a>")
+
+  $("#camera-video-stream").on "click", "#lnk_no_stream", ->
     $("#select-stream-type").val("jpeg")
     load_jpeg()
 

@@ -42,12 +42,12 @@
   function connectToSocket() {
     var channel;
     Evercam.socket.connect();
-    channel = Evercam.socket.channel("cameras:" + Evercam.Camera.id, {});
+    channel = Evercam.socket.channel("cameras:<%= params[:camera]%>", {});
     channel.join();
     return channel.on('snapshot-taken', function(payload) {
       if (payload.timestamp >= live_view_timestamp) {
         live_view_timestamp = payload.timestamp;
-        jQuery(container.find('img')).attr('src', 'data:image/jpeg;base64,' + payload.image);
+        jQuery(container.find("img")).attr('src', 'data:image/jpeg;base64,' + payload.image);
       }
     });
   };

@@ -11,7 +11,8 @@
     camera_id = '<%= params[:camera] %>',
     request_ip = '<%= request.ip %>',
     denied = false,
-    priv = <%= !@camera['is_public'] %>;
+    priv = <%= !@camera['is_public'] %>,
+    offline_camera = <%= !@camera['is_online'] %>;
 
   if (!window.Evercam) {
     window.Evercam = {};
@@ -42,14 +43,20 @@
   function connectToSocket() {
     var channel;
     Evercam.socket.connect();
+    var image_source = jQuery('<%= preview(@camera, true) %>');
     channel = Evercam.socket.channel("cameras:<%= params[:camera]%>", {});
     channel.join();
-    return channel.on('snapshot-taken', function(payload) {
-      if (payload.timestamp >= live_view_timestamp) {
-        live_view_timestamp = payload.timestamp;
-        jQuery(container.find("img")).attr('src', 'data:image/jpeg;base64,' + payload.image);
-      }
-    });
+    if (offline_camera == false) {
+      return channel.on('snapshot-taken', function(payload) {
+        if (payload.timestamp >= live_view_timestamp) {
+          live_view_timestamp = payload.timestamp;
+          jQuery(container.find("img")).attr('src', 'data:image/jpeg;base64,' + payload.image);
+        }
+      });
+    }
+    else {
+      jQuery(container.find("img")).attr('src', image_source.attr('src'));
+    }
   };
 
   function disconnectFromSocket() {

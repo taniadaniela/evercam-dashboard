@@ -126,8 +126,12 @@ switch_to_jpeg = ->
     $('#live-view-placeholder .live-image-capture').hide()
     clear_timeout_videojs = setTimeout switch_to_jpeg, 5000
   else if tries >= 11 && window.vjs_player && (window.vjs_player.readyState() == undefined || window.vjs_player.readyState() <= 0)
+    snap_height = $("#camera-video-stream").height()
+    span_width = $("#camera-video-stream").width()
+
     $("#camera-video-player .vjs-error-display").removeClass("vjs-hidden")
-    $("#camera-video-player .vjs-error-display div").html("Stream inactive for more than 60 seconds. To continue <a href='#' id='lnk_no_stream'>click here.</a>")
+    $("#camera-video-player .vjs-error-display div").html("<span style='top: #{(snap_height / 2) - 30}px; left: #{(span_width / 2) - 250}px;'
+      class='spn-message'>Stream inactive for more than 60 seconds. To continue <a href='#' id='lnk_no_stream'>click here.</a></span>")
 
   $("#camera-video-stream").on "click", "#lnk_no_stream", ->
     $("#select-stream-type").val("jpeg")
@@ -285,6 +289,10 @@ calculateHeight = ->
     $("#camera-video-stream").css({"height": "auto"})
     $(".video-js").css({"width": "100%"})
     $(".video-js").css({"height": "auto"})
+
+  snap_height = $("#camera-video-stream").height()
+  span_width = $("#camera-video-stream").width()
+  $(".spn-message").css({"top": "#{(snap_height / 2) - 30}px", "left": "#{(span_width / 2) - 250}px"})
 
   if $(window).width() <= 992
     $("#fullscreen").css({"width": "100%"})

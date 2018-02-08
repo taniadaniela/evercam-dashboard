@@ -57,8 +57,18 @@
   max-width: 100%;
 
   .vjs-modal-dialog-content {
-    font-size: 2em;
+    font-size: 16px;
     margin-top: 20px;
+  }
+
+  .spn-message {
+    background-color: $white;
+    color: $evercam-black;
+    top: 47%;
+    opacity: .80;
+    padding: 10px 20px;
+    position: absolute;
+    left: 30%;
   }
 }
 
@@ -270,7 +280,6 @@
 }
 
 @media (max-width: 992px) {
-
   .tab-content #live {
     margin-top: 0px;
   }

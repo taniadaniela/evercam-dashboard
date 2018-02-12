@@ -457,6 +457,31 @@
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff57a957', GradientType=0);
   }
+
+  .archive-tabs {
+    color: $form-dark-grey;
+    padding-left: 15px;
+    padding-top: 10px;
+  }
+
+  .archive-tabs .active {
+    color: $dark-grey;
+  }
+
+  .archive-tab-item {
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .archive-tab-item:hover {
+    color: $dark-grey;
+  }
+
+  .active-icon {
+    font-size: 12px;
+    margin-top: 10px;
+  }
 }
 
 #archives .dataTables_wrapper .dataTables_paginate .paginate_button:hover {

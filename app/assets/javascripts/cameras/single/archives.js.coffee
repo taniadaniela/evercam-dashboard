@@ -53,20 +53,13 @@ initializeArchivesDataTable = ->
       {data: gravatarName, sClass: 'fullname'},
       {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public', visible: false},
       {data: renderStatus, sClass: 'center', visible: false},
-      {data: (row, type, set, meta) ->
-        if row.type is "Compare"
-          return '<i class="fa fa-compare fa-3" title="Compare"></i>'
-        else if row.type is "URL"
-          return '<i class="fa fa-link fa-3" title="URL"></i>'
-        else
-          return '<i class="fas fa-video fa-3" title="Clip"></i>'
-      , sClass: 'text-center', visible: false},
+      {data: "type", sClass: 'text-center', visible: false},
       {data: renderbuttons, sClass: 'options'}
     ],
     iDisplayLength: 50,
     order: [[ 2, "desc" ]],
     bSort: false,
-    bFilter: false,
+    bFilter: true,
     autoWidth: false,
     drawCallback: ->
       initializePopup()
@@ -75,6 +68,7 @@ initializeArchivesDataTable = ->
         refreshDataTable()
     initComplete: (settings, json) ->
       $("#archives-table_length").hide()
+      $("#archives-table_filter").hide()
       if json.archives.length is 0
         $('#archives-table_paginate, #archives-table_info').hide()
         $('#archives-table').hide()
@@ -859,3 +853,7 @@ window.initializeArchivesTab = ->
   handle_submenu()
   save_media_url()
   # file_drag_drop()
+  $(".archive-tab-item").on "click", ->
+    $(".archive-tab-item i").removeClass("fas").addClass("far")
+    $(this).find("i").removeClass("far").addClass("fas")
+    archives_table.column(4).search($(this).attr("data-val")).draw()

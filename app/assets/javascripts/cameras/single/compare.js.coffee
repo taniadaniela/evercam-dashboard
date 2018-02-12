@@ -1,13 +1,14 @@
 imagesCompare = undefined
 clearTimeOut = null
+xhrChangeMonth = null
 
-window.sendAJAXRequest = (settings) ->
+window.sendRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
     headers =
       "X-CSRF-Token": token.attr("content")
     settings.headers = headers
-  xhrRequestChangeMonth = $.ajax(settings)
+  xhrChangeMonth = $.ajax(settings)
 
 initCompare = ->
   imagesCompareElement = $('.js-img-compare').imagesCompare()
@@ -50,7 +51,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
     success: onSuccess
     type: 'GET'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots#{query_string}"
-  sendAJAXRequest(settings)
+  sendRequest(settings)
 
 handleTabOpen = ->
   $('.nav-tab-compare').on 'shown.bs.tab', ->
@@ -147,7 +148,7 @@ HighlightDaysInMonth = (query_string, year, month) ->
     type: 'GET'
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/days"
 
-  sendAJAXRequest(settings)
+  sendRequest(settings)
 
 HighlightBeforeAfterDay = (query_string, before_year, before_month, before_day) ->
   beforeDays = $("##{query_string} .xdsoft_datepicker table td[class*='xdsoft_date'] div")
@@ -183,7 +184,7 @@ HighlightSnapshotHour = (query_string, year, month, date) ->
     timeout: 15000
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{(month)}/#{date}/hours"
 
-  sendAJAXRequest(settings)
+  sendRequest(settings)
 
 HighlightBeforeAfterHour = (query_string, before_year, before_month, before_day, before_hour) ->
   beforeHours = $("##{query_string} .xdsoft_timepicker [class*='xdsoft_time']")
@@ -274,7 +275,7 @@ export_compare = ->
       success: onSuccess
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares"
-    sendAJAXRequest(settings)
+    sendRequest(settings)
 
 convert_timestamp_to_path = (timestamp) ->
   timestamp_to_int = parseInt(timestamp)
@@ -334,7 +335,7 @@ auto_check_compare_status = (compare_id, tries) ->
       success: onSuccess
       type: 'GET'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{compare_id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-    sendAJAXRequest(settings)
+    sendRequest(settings)
 
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)
@@ -361,6 +362,7 @@ window.initializeCompareTab = ->
         window.history.replaceState({}, '', url)
       getFirstLastImages("compare_before", "/#{(new Date($input.val())) / 1000}/nearest", true, false)
     onChangeMonth: (dp, $input) ->
+      xhrChangeMonth.abort()
       month = dp.getMonth() + 1
       year = dp.getFullYear()
       HighlightDaysInMonth("before-calendar", year, month)
@@ -394,6 +396,7 @@ window.initializeCompareTab = ->
         window.history.replaceState({}, '', url)
       getFirstLastImages("compare_after", "/#{(new Date($input.val())) / 1000}/nearest", true, false)
     onChangeMonth: (dp, $input) ->
+      xhrChangeMonth.abort()
       month = dp.getMonth() + 1
       year = dp.getFullYear()
       removeCurrentHourHighlight("after-calendar")

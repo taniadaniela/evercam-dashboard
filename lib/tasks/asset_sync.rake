@@ -14,8 +14,8 @@ namespace :assets do
     end
   end
 
-  # desc 'Synchronize assets to remote (assumes assets are already compiled)'
-  # task :sync => [:environment, :gzip] do
-  #   AssetSync.sync
-  # end
+  desc 'Synchronize assets to remote (assumes assets are already compiled)'
+  task :sync => [:environment, :gzip] do
+    AssetSync.sync
+  end
 end

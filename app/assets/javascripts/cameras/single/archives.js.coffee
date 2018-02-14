@@ -8,6 +8,7 @@ xhrRequestCheckSnapshot = null
 has_snapshots = false
 archive_js_player = null
 imagesCompare = undefined
+is_reload = true
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -64,7 +65,8 @@ initializeArchivesDataTable = ->
     bFilter: true,
     autoWidth: false,
     drawCallback: ->
-      initializePopup()
+      initializePopup() if is_reload
+      is_reload = true
       if archives_table
         archives_data = archives_table.data()
         refreshDataTable()
@@ -889,6 +891,7 @@ showFiles = (files) ->
 
 filter_archives = ->
   $(".archive-tab-item").on "click", ->
+    is_reload = false
     $(".archive-tab-item i").removeClass("fas").addClass("far")
     $(this).find("i").removeClass("far").addClass("fas")
     archives_table.column(4).search($(this).attr("data-val")).draw()

@@ -84,15 +84,35 @@
       <div id="form-create-clip" class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <div class="div-thumbnail">
-              <img id="archive-thumbnail" class="archive-thumbnail" src=""/>
+            <div id="row-compare" class="div-archive-compare">
+              <div id="image-compare" class="archive-img-compare embed">
+                <div style="display: none;">
+                  <span class="images-compare-label">Before</span>
+                  <img id="archive_compare_before" src="" alt="Before"/>
+                </div>
+                <div>
+                  <span class="images-compare-label">After</span>
+                  <img id="archive_compare_after" src="" alt="After"/>
+                </div>
+                <div class="evercam-brand">
+                  <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
+                </div>
+              </div>
             </div>
-            <div class="line-separator"></div>
-            <div class="div-row">
+            <div class="div-thumbnail">
+              <img id="archive-thumbnail" class="archive-thumbnail hide" src=""/>
+              <video id="archive_player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin" data-setup="{}" controls="">
+              </video>
+            </div>
+            <div class="div-row margin-top-10">
+              <div class="col-md-2 archive-label margin-top-2">Title</div>
+              <div id="div_title" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+            </div>
+            <div id="row-frames" class="div-row">
               <div class="col-md-2 archive-label margin-top-2">Frames</div>
               <div id="div_frames" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
             </div>
-            <div class="div-row">
+            <div id="row-duration" class="div-row">
               <div class="col-md-2 archive-label margin-top-2">Duration</div>
               <div id="div_duration" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
             </div>
@@ -107,16 +127,16 @@
               <div class="col-md-2 archive-label margin-top-10">GIF</div>
               <div class="input-group col-sm-10 col-xs-10 col-md-10">
                 <input type="text" name="archive_gif_url" id="archive_gif_url" class="form-control copy-text" readonly="true" />
-                <i class="icon-font copy-url-icon far fa-copy" data-clipboard-target="#archive_gif_url" title="Copy URL"></i>
                 <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#archive_gif_url" title="Download GIF"></i>
+                <i class="icon-font copy-url-icon far fa-copy copy-animation" data-clipboard-target="#archive_gif_url" title="Copy URL"></i>
               </div>
             </div>
             <div class="div-row">
               <div class="col-md-2 archive-label margin-top-10">MP4</div>
               <div class="input-group col-sm-10 col-xs-10 col-md-10">
                 <input type="text" name="archive_mp4_url" id="archive_mp4_url" class="form-control copy-text" readonly="true" />
-                <i class="icon-font copy-url-icon far fa-copy" data-clipboard-target="#archive_mp4_url" title="Copy URL"></i>
                 <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#archive_mp4_url" title="Download MP4"></i>
+                <i class="icon-font copy-url-icon far fa-copy copy-animation" data-clipboard-target="#archive_mp4_url" title="Copy URL"></i>
               </div>
             </div>
           </div>

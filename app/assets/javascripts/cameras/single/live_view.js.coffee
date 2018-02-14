@@ -156,7 +156,7 @@ load_jpeg = ->
   $('#live-view-placeholder .pull-right table').css 'margin-top', '-39px'
   $('.tabbable-custom > .tab-content').css 'padding-bottom', '0px'
   $("#camera-video-stream").hide()
-  $(".video-js").css 'height', '0px'
+  $("#camera-video-stream .video-js").css 'height', '0px'
   $(".wrap").css 'padding-top', '0px'
   getImageRealRatio()
   clearTimeout(clear_timeout_videojs)
@@ -177,7 +177,7 @@ handleChangeStream = ->
         $('#live-view-placeholder .pull-right table').css 'background-color', 'transparent'
         $("#camera-video-stream").show()
         imgHeight = $("#camera-video-stream").height()
-        $(".video-js").css 'height', "#{imgHeight}px"
+        $("#camera-video-stream .video-js").css 'height', "#{imgHeight}px"
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
@@ -278,7 +278,7 @@ calculateHeight = ->
       "height": "#{image_height}px",
       "width": "100%"
     })
-    $(".video-js").css({"height": "#{image_height}px"})
+    $("#camera-video-stream .video-js").css({"height": "#{image_height}px"})
   else
     $(".offline-camera-placeholder .offline-image").css({
       "height": "auto",
@@ -287,8 +287,8 @@ calculateHeight = ->
     })
     $("#camera-video-stream").css({"width": "100%"})
     $("#camera-video-stream").css({"height": "auto"})
-    $(".video-js").css({"width": "100%"})
-    $(".video-js").css({"height": "auto"})
+    $("#camera-video-stream .video-js").css({"width": "100%"})
+    $("#camera-video-stream .video-js").css({"height": "auto"})
 
   snap_height = $("#camera-video-stream").height()
   span_width = $("#camera-video-stream").width()

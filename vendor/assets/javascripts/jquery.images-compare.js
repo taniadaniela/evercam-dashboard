@@ -238,7 +238,6 @@
         function patchSize() {
             if ($("#image-compare").hasClass("embed")) {
               var imgRef = backElement.find('img').first();
-              setSize(content_width, content_height, content_width, content_height);
               setSize(imgRef.width(), imgRef.height(), imgRef.naturalWidth(), imgRef.naturalHeight());
               element.css('max-width', size.maxWidth + 'px');
               element.css('max-height', size.maxHeight + 'px');

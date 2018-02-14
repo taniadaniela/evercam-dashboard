@@ -6,6 +6,8 @@ format_time = null
 archives_data = {}
 xhrRequestCheckSnapshot = null
 has_snapshots = false
+archive_js_player = null
+imagesCompare = undefined
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -67,6 +69,7 @@ initializeArchivesDataTable = ->
         archives_data = archives_table.data()
         refreshDataTable()
     initComplete: (settings, json) ->
+      getArchiveIdFromUrl()
       $("#archives-table_length").hide()
       $("#archives-table_filter").hide()
       if json.archives.length is 0
@@ -190,8 +193,9 @@ getTitle = (row, type, set, meta) ->
         </svg>"
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'></div>
       <div class='username-id'><div class='float-left type-icon-alignment'>#{fa_class}</div><div class='float-left'>
-      <a class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+      <a id='archive_link_#{row.id}' class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
       <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div></div>
+      <input id='txtArchiveTitle#{row.id}' type='hidden' value='#{row.title}'>
       <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail_url}'>
       <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
       <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
@@ -574,12 +578,23 @@ window.on_export_compare = ->
   $("#no-archive").hide()
   refreshDataTable()
 
+getArchiveIdFromUrl = ->
+  archive_id = window.Evercam.request.subpath.
+    replace(RegExp("archives", "g"), "").
+    replace(RegExp("/", "g"), "")
+  if archive_id
+    $("#archive_link_#{archive_id}").trigger("click")
+
 modal_events = ->
   $("#archives"). on "click", ".archive-title", ->
     id = $(this).attr("data-id")
     type = $(this).attr("data-type")
+    root_url = "#{Evercam.request.rootpath}/archives/#{id}"
+    if history.replaceState
+      window.history.replaceState({}, '', root_url)
+
     query_string = $("#archive_embed_code#{id}").val()
-    $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
+    # $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
     $("#archive_gif_url").val("#{url}.gif")
     $("#archive_mp4_url").val("#{url}.mp4")
@@ -587,19 +602,58 @@ modal_events = ->
     $("#archive_embed_code").val(code)
     $("#div_frames").text($("#txt_frames#{id}").val())
     $("#div_duration").text($("#txt_duration#{id}").val())
+    $("#div_title").text($("#txtArchiveTitle#{id}").val())
     if type isnt "Compare"
+      $("#row-compare").hide()
+      $(".div-thumbnail").show()
       $("#row-embed-code").hide()
+      $("#row-frames").show()
+      $("#row-duration").show()
       $("#row-gif").hide()
-      $("#archive_mp4_url").val($("#archive-download-url#{id}").attr("href"))
+      $("#archive_mp4_url").val("#{Evercam.request.url}/archives/#{id}")
+      archive_js_player.poster($("#txtArchiveThumb#{id}").val())
+      archive_js_player.src([
+        { type: "video/mp4", src: $("#archive-download-url#{id}").attr("href") }
+      ])
+      archive_js_player.play()
     else
+      $("#row-compare").html(window.compare_html)
+      params = query_string.split(" ")
+      bucket_url = "https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/"
+      before_image = "#{bucket_url}#{Evercam.Camera.id}/snapshots/#{params[1]}.jpg?#{Math.random()}"
+      after_image = "#{bucket_url}#{Evercam.Camera.id}/snapshots/#{params[2]}.jpg?#{Math.random()}"
+      $("#archive_compare_before").attr("src", before_image)
+      $("#archive_compare_after").attr("src", after_image)
+      $("#row-frames").hide()
+      $("#row-duration").hide()
       $("#row-embed-code").show()
       $("#row-gif").show()
+      $("#row-compare").show()
+      $(".div-thumbnail").hide()
+      initCompare()
+
+  $('#modal-archive-info').on 'hide.bs.modal', ->
+    archive_js_player.pause()
+    archive_js_player.reset()
+    $("#row-compare").html("")
+    imagesCompare = undefined
+    url = "#{Evercam.request.rootpath}/archives"
+    if history.replaceState
+      window.history.replaceState({}, '', url)
 
   $('#social-media-url-modal').on 'hide.bs.modal', ->
     reset_media_url_form()
 
   $('#social-media-url-modal').on 'show.bs.modal', ->
     reset_media_url_form()
+
+initCompare = ->
+  imagesCompareElement = $('.archive-img-compare').imagesCompare()
+  imagesCompare = imagesCompareElement.data('imagesCompare')
+  events = imagesCompare.events()
+
+  imagesCompare.on events.changed, (event) ->
+    true
 
 open_window = ->
   $(".type-link").on "click", ->
@@ -833,7 +887,15 @@ file_drag_drop = ->
 showFiles = (files) ->
   $("#spn-upload-file-name").text if files.length > 1 then (input.getAttribute('data-multiple-caption') or '').replace('{count}', files.length) else files[0].name
 
+filter_archives = ->
+  $(".archive-tab-item").on "click", ->
+    $(".archive-tab-item i").removeClass("fas").addClass("far")
+    $(this).find("i").removeClass("far").addClass("fas")
+    archives_table.column(4).search($(this).attr("data-val")).draw()
+
 window.initializeArchivesTab = ->
+  window.compare_html = $("#row-compare").html()
+  archive_js_player = videojs("archive_player")
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
@@ -852,8 +914,6 @@ window.initializeArchivesTab = ->
   detect_validate_url()
   handle_submenu()
   save_media_url()
-  # file_drag_drop()
-  $(".archive-tab-item").on "click", ->
-    $(".archive-tab-item i").removeClass("fas").addClass("far")
-    $(this).find("i").removeClass("far").addClass("fas")
-    archives_table.column(4).search($(this).attr("data-val")).draw()
+  getArchiveIdFromUrl()
+  filter_archives()
+

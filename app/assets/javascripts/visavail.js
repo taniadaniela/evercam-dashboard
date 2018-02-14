@@ -51,7 +51,7 @@ function visavailChart() {
   var curDisplayFirstDataset = 0;
 
   // global div for tooltip
-  var div = d3.select('body').append('div')
+  var div = d3.select('#status-report').append('div')
       .attr('class', 'tooltip')
       .style({'opacity': 0});
 

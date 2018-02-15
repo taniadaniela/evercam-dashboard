@@ -106,12 +106,13 @@ initializePlayer = ->
     $("#camera-video-player").append($("#ptz-control"))
 
     tries = 0
+    isSafari = navigator.userAgent.indexOf('Safari') != -1 and navigator.userAgent.indexOf('Chrome') == -1
     clear_timeout_videojs = setTimeout switch_to_jpeg, 5000
     setInterval (->
       if $('#camera-video-player').hasClass 'vjs-user-active'
         $('#live-view-placeholder .pull-right table').css 'marginTop', '-65px'
         $('#live-view-placeholder .pull-right table').stop().animate()
-        if window.vjs_player.readyState() > 1
+        if window.vjs_player.readyState() > 1 && !isSafari
           $('#live-view-placeholder .live-image-capture').show()
         else
           $('#live-view-placeholder .live-image-capture').hide()

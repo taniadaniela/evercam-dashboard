@@ -17,7 +17,7 @@
             <% field_errors = (flash[:field_errors] || {}) %>
 
             <div class="text-center">
-              <div class="col-sm-12 no-padding form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
+              <div class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
                 <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[A-Za-z\/\s\']*$", "data-validation-error-msg" => "First names can consist of alphabetical characters and spaces only" %>
                 <% if field_errors.include?("firstname") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["firstname"] %></span>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="text-center">
-              <div class="col-sm-12 no-padding form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
+              <div class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
                 <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^[A-Za-z\/\s\']*$", "data-validation-error-msg" => "Last names can consist of alphabetical characters and spaces only" %>
                 <% if field_errors.include?("lastname") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["lastname"] %></span>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="text-center">
-              <div id="signup-username" class="col-sm-12 no-padding form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
+              <div id="signup-username" class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
                 <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "" , "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z0-9]+[\w\u00C0-\u00ff-]+$', "data-validation-error-msg" => "Username can consist of letters then numbers, dashes & underscores" , "maxlength" => "40" %>
                 <% if field_errors.include?("username") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="text-center">
-              <div id="signup-email" class="col-sm-12 no-padding form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
+              <div id="signup-email" class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
                 <% if @share_request.nil? %>
                   <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "data-validation" => "email", "required" => "" %>
                   <%= f.label :email, 'Email', class: "float-label" %>
@@ -72,7 +72,7 @@
             </div>
 
             <div class="text-center">
-              <div class="col-sm-12 no-padding form-group<%= field_errors.include?("password") ? " has-error" : "" %>">
+              <div class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("password") ? " has-error" : "" %>">
                 <%= f.password_field :password, autocomplete: "off", class: "form-control", "required" => "", "data-validation" => "custom", "data-validation-regexp" => "^.{6,}$", "data-validation-error-msg" => "Password should be at least 6 characters"%>
                 <% if field_errors.include?("password") %>
                   <span class="help-block form-error arrow_box text-left"><%= field_errors["password"] %></span>

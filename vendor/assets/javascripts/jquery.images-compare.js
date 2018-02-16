@@ -236,7 +236,7 @@
         }
 
         function patchSize() {
-            if ($("#image-compare").hasClass("embed")) {
+            if ($(".nav-tabs li.active a").html() != "Compare" && $("#image-compare").hasClass("embed")) {
               var imgRef = backElement.find('img').first();
               setSize(imgRef.width(), imgRef.height(), imgRef.naturalWidth(), imgRef.naturalHeight());
               element.css('max-width', size.maxWidth + 'px');

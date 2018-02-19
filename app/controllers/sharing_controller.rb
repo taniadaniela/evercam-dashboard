@@ -175,6 +175,8 @@ class SharingController < ApplicationController
           rights << "#{AccessRight::GRANT}~#{right}"
         end
       end
+    elsif permissions == "minimal+share"
+      rights = [AccessRight::LIST, AccessRight::SNAPSHOT, AccessRight::SHARE]
     end
     rights
   end

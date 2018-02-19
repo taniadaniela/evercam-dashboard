@@ -19,21 +19,23 @@
                 <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
               </li>
               <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "affi"].include?(current_user.username) %>
-              <li>
-                <a data-toggle="tab" data-target="#timelapse-recordings" class="nav-tab-timelapse-recordings">Timelapse Recordings</a>
-              </li>
+                <li>
+                  <a data-toggle="tab" data-target="#timelapse-recordings" class="nav-tab-timelapse-recordings">Timelapse Recordings</a>
+                </li>
               <% end %>
-              <li id="ro-sharing-tab">
-                <% unless has_edit_right %>
-                  <p id="read-only-sharing-tab" data-toggle="modal" data-target="#sharing-modal" class="nav-tab-shares read-only-sharing-tab"> Sharing</p>
-                <% end %>
-              </li>
+              <% if !has_edit_right && !@camera["rights"].include?("share") %>
+                <li id="ro-sharing-tab">
+                  <p id="read-only-sharing-tab" data-toggle="modal" data-target="#sharing-modal" class="nav-tab-shares read-only-sharing-tab">Sharing</p>
+                </li>
+              <% end %>
             <% end %>
-            <% if has_edit_right %>
+
+            <% if has_edit_right || @camera["rights"].include?("share") %>
               <li>
                 <a data-toggle="tab" data-target="#shares" class="nav-tab-shares"> Sharing</a>
               </li>
             <% end %>
+
             <li>
               <a id="maps-tab-fix" data-toggle="tab" data-target="#details" class="nav-tab-details">Details</a>
             </li>
@@ -231,15 +233,19 @@
               <%= render partial: "cameras/single/timelapse_recording_tab" %>
             </div>
           <% end %>
+
           <% if current_user %>
             <div id="snapmail" class="tab-pane">
               <%= render partial: "cameras/single/snapmail_tab" %>
             </div>
           <% end %>
-          <% if has_edit_right %>
+
+          <% if has_edit_right || @camera["rights"].include?("share") %>
             <div id="shares" class="tab-pane shares_tab">
               <%= render partial: "cameras/single/sharing_tab" %>
             </div>
+          <% end %>
+          <% if has_edit_right %>
             <div id="logs" class="tab-pane">
               <%= render partial: "cameras/single/logs_tab" %>
             </div>
@@ -282,6 +288,7 @@
     timezone: '<%= @camera['timezone'] %>',
     created_at: <%= @camera['created_at'] %>,
     has_edit_right: <%= @camera["rights"].split(",").include?("edit") %>,
+    has_share_right: <%= @camera["rights"].include?("share") %>,
     <% if current_user %>
       is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
     <% end %>

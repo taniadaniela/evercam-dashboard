@@ -83,7 +83,7 @@
     </div>
   </div>
 </div>
-
+<% has_edit_right = @camera["rights"].split(",").include?("edit") %>
 <div class="row padding-right15">
   <div class="col-md-12">
     <% styling = 'display: none;' %>
@@ -92,7 +92,9 @@
         <i class="fa fa-globe"></i>
         This Camera is Public on the Web
         <small> - Is Public: [Yes] &amp; Discoverable: [Yes]</small>
-        <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% if has_edit_right %>
+          <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% end %>
       </p>
     </div>
     <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
@@ -100,7 +102,9 @@
         <i class="fa fa-link"></i>
         This camera can be accessed by anyone with the link
         <small> - Is Public: [Yes] &amp; Discoverable: [No]</small>
-        <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% if has_edit_right %>
+          <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% end %>
       </p>
     </div>
     <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
@@ -108,7 +112,9 @@
         <i class="fas fa-users"></i>
         Only specific users (listed below) can access this camera
         <small> - Is Public: [No] &amp; Discoverable: [No]</small>
-        <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% if has_edit_right %>
+          <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% end %>
       </p>
     </div>
     <input type="hidden" id="user_name" value="<%= current_user.username %>">
@@ -280,8 +286,9 @@
           <td class="col-lg-4">
             <div class="input-group">
               <select id="sharingPermissionLevel" class="form-control">
-                <option>Read Only</option>
-                <option>Full Rights</option>
+                <option value="minimal">Read Only</option>
+                <option value="minimal+share">Read Only + Share</option>
+                <option value="full" <% unless has_edit_right %> disabled="disabled" <% end %>>Full Rights</option>
               </select>
             </div>
           </td>

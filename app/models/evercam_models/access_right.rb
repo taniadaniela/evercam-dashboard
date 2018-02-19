@@ -5,8 +5,9 @@ class AccessRight < Sequel::Model
   EDIT                       = 'edit'.freeze
   DELETE                     = 'delete'.freeze
   LIST                       = "list".freeze
+  SHARE                      = "share".freeze
   GRANT                      = 'grant'.freeze
-  BASE_RIGHTS                = [SNAPSHOT, VIEW, EDIT, DELETE, LIST]
+  BASE_RIGHTS                = [SNAPSHOT, VIEW, EDIT, DELETE, LIST, SHARE]
   ALL_RIGHTS                 = BASE_RIGHTS + [GRANT]
   # Scope constants.
   CAMERAS                    = "cameras".freeze

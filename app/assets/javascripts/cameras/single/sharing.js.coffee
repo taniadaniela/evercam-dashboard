@@ -90,6 +90,8 @@ loadSharesRequests = ->
 have_full_rights = (rights) ->
   if rights.indexOf("edit") isnt -1
     "full"
+  else if rights.indexOf("share") isnt -1
+    "minimal+share"
   else
     "minimum"
 
@@ -178,17 +180,29 @@ addSharingCameraRow = (details, shared_avatar) ->
   cell = $('<td>', {class: "col-lg-2"})
   div = $('<div>', {class: "input-group"})
   select = $('<select>', {class: "form-control reveal", "show-class": "show-save"})
-  select.focus(onPermissionsFocus)
+  select.change(onPermissionsFocus)
   option = $('<option>', {value: "minimal"})
   if details.permissions != "full"
     option.attr("selected", "selected")
   option.text("Read Only")
   select.append(option)
+
+  option = $('<option>', {value: "minimal+share"})
+  option.text("Read Only + Share")
+  if details.permissions == "minimal+share"
+    option.attr("selected", "selected")
+  select.append(option)
+
   option = $('<option>', {value: "full"})
   if details.permissions == "full"
     option.attr("selected", "selected")
+
+  if !Evercam.Camera.has_edit_right && Evercam.Camera.has_share_right
+    option.attr("disabled", "disabled")
+
   option.text("Full Rights")
   select.append(option)
+
   div.append(select)
   cell.append(div)
   row.append(cell)
@@ -488,12 +502,9 @@ onAddSharingUserClicked = (event) ->
   event.preventDefault()
   emailAddress = share_users_select.val()
   emailbodyMsg = $('#sharing-message').val()
-  if $('#sharingPermissionLevel').val() != "Full Rights"
-    permissions = "minimal"
-    share_permissions = permissions
-  else
-    permissions = "full"
-    share_permissions = permissions
+  permissions = $('#sharingPermissionLevel').val()
+  share_permissions = permissions
+
   onError = (jqXHR, status, error) ->
     isUnauthorized(jqXHR, "Failed to share camera.")
     NProgress.done()
@@ -615,12 +626,14 @@ onSaveShareRequestClicked = (event) ->
 
 generateRightList = (permissions) ->
   rights = ["list", "snapshot"]
-  baseRights = ["snapshot", "view", "edit", "delete", "list"]
+  baseRights = ["snapshot", "view", "edit", "delete", "list", "share"]
   if permissions == "full"
     baseRights.forEach (right) ->
       if right != "delete"
         rights.push(right)
         rights.push("grant~#{right}")
+  else if permissions == "minimal+share"
+    rights = ["list", "snapshot", "share"]
   rights.join(",")
 
 createShare = (cameraID, email, bodyMessage, permissions, onSuccess, onError, apiKey, apiId) ->

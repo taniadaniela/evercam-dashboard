@@ -898,7 +898,8 @@ filter_archives = ->
 
 window.initializeArchivesTab = ->
   window.compare_html = $("#row-compare").html()
-  archive_js_player = videojs("archive_player")
+  if Evercam.User.username
+    archive_js_player = videojs("archive_player")
   format_time = new DateFormatter()
   jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
@@ -919,4 +920,3 @@ window.initializeArchivesTab = ->
   save_media_url()
   getArchiveIdFromUrl()
   filter_archives()
-

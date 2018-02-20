@@ -516,7 +516,8 @@ logCameraViewed = ->
   data.view = true
 
   onError = (jqXHR, status, error) ->
-    message = jqXHR.responseJSON.message
+    if Evercam.User.username
+      message = jqXHR.responseJSON.message
 
   onSuccess = (data, status, jqXHR) ->
     true

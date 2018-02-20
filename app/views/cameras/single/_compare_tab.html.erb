@@ -11,9 +11,11 @@
         <span id="calendar-after" class="images-compare-label after-calendar btn-primary" data-query="after-calendar"><i class="fas fa-calendar-alt compare-calendar icon-font"></i> After</span>
         <img id="compare_after" src="" alt="After"/>
       </div>
-      <div id="div-embed-code" class="div-embed-code">
-        <span class="images-compare-embed-code btn-primary" title="Share Embed Code" href="#" data-toggle="modal" data-target="#export-compare-modal"><i class="fa fa-share-alt icon-font"></i></span>
-      </div>
+      <% if current_user %>
+        <div id="div-embed-code" class="div-embed-code">
+          <span class="images-compare-embed-code btn-primary" title="Share Embed Code" href="#" data-toggle="modal" data-target="#export-compare-modal"><i class="fa fa-share-alt icon-font"></i></span>
+        </div>
+      <% end %>
       <div class="evercam-brand">
         <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
       </div>

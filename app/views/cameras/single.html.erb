@@ -58,17 +58,15 @@
                 <a data-toggle="tab" data-target="#snapmail" class="nav-tab-snapmail">Snapmail</a>
               </li>
             <% end %>
-
             <li>
               <a data-toggle="tab" data-target="#compare" class="nav-tab-compare">Compare</a>
             </li>
             <% if current_user %>
               <% if ["marco", "affi", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
-              <li>
-                <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
-              </li>
+                <li>
+                  <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
+                </li>
               <% end %>
-
               <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
                 <div class="pull-right add-to-share">
                   <i id="add-to-cameras" class="fa fa-plus delete-share-icon icon-font create-share-button" title="Add to my camera" aria-hidden="true"></i>
@@ -79,13 +77,12 @@
                 <i id="add-to-public-cameras" class="fa fa-plus delete-share-icon icon-font create-share-button" title="Add to my camera" aria-hidden="true"></i>
               </div>
             <% end %>
-
-            <div id="delete-read-only-camera">
-              <% unless has_edit_right %>
-                <i class="fas fa-trash-alt delete-share-icon icon-font" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
-              <% end %>
-            </div>
             <% if current_user %>
+              <div id="delete-read-only-camera">
+                <% unless has_edit_right %>
+                  <i class="fas fa-trash-alt delete-share-icon icon-font" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
+                <% end %>
+              </div>
               <div id="sharing-modal" class="modal fade sharing-modal">
                 <div class="modal-dialog max-width-470">
                   <div class="modal-content">

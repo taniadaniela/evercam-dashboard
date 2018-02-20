@@ -370,8 +370,12 @@ getImage = (row) ->
   #sendAJAXRequest(settings)
 
 callDate = ->
+  DateFromCalendar = new Date(moment.utc().format('MM/DD/YYYY'))
+  DateFromCalendar.setDate(DateFromCalendar.getDate() - 30)
+  CalendarDateformated =  format_time.formatDate(DateFromCalendar, 'd/m/y')
   $('#datetimepicker').val(getDate('from'))
   $('#datetimepicker2').val(getDate('to'))
+  $('#datetimepicker').datetimepicker({value: CalendarDateformated})
 
 getDate = (type) ->
   DateFromTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))

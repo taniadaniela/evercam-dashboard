@@ -37,7 +37,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
         d = new Date(snapshot.created_at*1000)
         before_month = d.getUTCMonth()+1
         before_year = d.getUTCFullYear()
-        string_date = "#{before_month}/#{d.getUTCDate()}/#{before_year} #{d.getUTCHours()}:#{d.getUTCMinutes()}"
+        string_date = "#{before_month}/#{d.getUTCDate()}/#{before_year}"
         $('#calendar-before').datetimepicker({value: string_date})
       initCompare() if reload
     else

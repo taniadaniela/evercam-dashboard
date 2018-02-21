@@ -430,3 +430,13 @@ li.inactive a {
 #intercom-container .intercom-notifications-frame {
   display: none;
 }
+
+.red-dot {
+  background-color: $green;
+  padding: 1px;
+  border-radius: 20px;
+  width: 2px;
+  float: left;
+  margin-left: -8px;
+  margin-top: 12px;
+}

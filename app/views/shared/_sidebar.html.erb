@@ -22,6 +22,12 @@
           <% if @cameras %>
             <% @cameras.each do |camera| %>
               <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
+                <% if camera['cloud_recordings'] %>
+                  <% recording_status = camera['cloud_recordings'].fetch('status') %>
+                  <% if recording_status != 'off' && recording_status != 'paused' %>
+                    <div class="red-dot"></div>
+                  <% end %>
+                <% end %>
                 <%= link_to camera['name'] , cameras_single_path(camera['id']), data: {"camera-id" => camera['id']} %>
                 <i class="red header-sidebar fa fa-unlink"></i>
               </li>

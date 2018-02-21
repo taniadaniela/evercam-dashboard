@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   delete 'cameras/clip/delete' => 'cameras#delete_clip', as: :delete_clip
   get '/v1/cameras/:id/clip/:clip_id/play' => 'pages#play', as: :play_clip
   get '/v1/cameras/:id/share/request' => 'pages#revoke_request'
+  get '/v1/swagger' => "pages#swagger"
   post '/log_intercom' => 'cameras#log_intercom'
   get '/single_camera_status_bar' => 'cameras#status_bar_single_camera'
   get '/server_down' => 'cameras#server_down', as: :server_down

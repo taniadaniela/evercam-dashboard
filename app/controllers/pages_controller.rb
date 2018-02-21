@@ -61,6 +61,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def swagger
+    @cameras = load_user_cameras(true, false)
+  end
+
   def nvr_recording
     @cameras = load_user_cameras(true, false)
   end

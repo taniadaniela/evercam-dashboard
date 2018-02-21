@@ -33,12 +33,24 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
     if snapshot.data isnt undefined
       $("##{image_id}").attr("src", snapshot.data)
       $("##{image_id}").attr("timestamp", snapshot.created_at)
-      if setDate
+      if setDate is true && query_string.indexOf("nearest") < 0
         d = new Date(snapshot.created_at*1000)
         before_month = d.getUTCMonth()+1
         before_year = d.getUTCFullYear()
+        camera_created_date = new Date(Evercam.Camera.created_at*1000)
+        camera_created_month = camera_created_date.getUTCMonth()+1
+        camera_created_year = camera_created_date.getUTCFullYear()
         string_date = "#{before_month}/#{d.getUTCDate()}/#{before_year}"
-        $('#calendar-before').datetimepicker({value: string_date})
+        camera_created_at = "#{camera_created_year}/#{camera_created_month}/#{camera_created_date.getUTCDate()}"
+        $('#calendar-before').datetimepicker({value: string_date, minDate: camera_created_at})
+        $('#calendar-after').datetimepicker({minDate: camera_created_at})
+      if setDate is false && query_string.indexOf("nearest") < 0
+        date_after = new Date(snapshot.created_at*1000)
+        after_month = date_after.getUTCMonth()+1
+        after_year = date_after.getUTCFullYear()
+        string_after_date = "#{after_year}/#{after_month}/#{date_after.getUTCDate()}"
+        $('#calendar-before').datetimepicker({maxDate: string_after_date})
+        $('#calendar-after').datetimepicker({maxDate: string_after_date})
       initCompare() if reload
     else
       Notification.show("No image found")

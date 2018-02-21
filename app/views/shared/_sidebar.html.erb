@@ -24,8 +24,14 @@
               <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% unless camera['is_online'] %>sidebar-offline<% end %>">
                 <% if camera['cloud_recordings'] %>
                   <% recording_status = camera['cloud_recordings'].fetch('status') %>
+                  <% recording_duration = camera['cloud_recordings'].fetch('storage_duration') %>
+                  <% if recording_duration == -1 %>
+                    <% recording_duration = '∞' %>
+                  <% end %>
                   <% if recording_status != 'off' && recording_status != 'paused' %>
-                    <div class="red-dot"></div>
+                    <div id="green-dot-div" class="green-dot-div" title='<%= recording_duration %>'>
+                      <i class="fas fa-circle green-dot"></i>
+                    </div>
                   <% end %>
                 <% end %>
                 <%= link_to camera['name'] , cameras_single_path(camera['id']), data: {"camera-id" => camera['id']} %>

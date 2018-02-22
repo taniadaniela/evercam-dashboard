@@ -79,39 +79,6 @@ class SharingController < ApplicationController
     render json: result
   end
 
-  def create
-    result = {success: true}
-    if params.include?(:camera_id) && params.include?(:permissions) && params.include?(:email)
-      camera_id = params[:camera_id]
-      body = {}
-      body[:message] = params["message"] unless params["message"].blank?
-      body[:grantor] = current_user.username
-      rights = generate_rights_list(params[:permissions])
-      share = nil
-      api = get_evercam_api
-
-      begin
-        share = api.share_camera(camera_id, params[:email], rights, body)
-        all_shares = share["shares"]
-        all_errors = share["errors"]
-        all_share_requests = share["share_requests"]
-        result[:shares] = map_share_values(all_shares, "share") + map_share_values(all_share_requests, "share_request")
-        result[:errors] = all_errors
-      rescue => error
-        Rails.logger.warn "Exception caught creating camera share.\n"\
-                              "Cause: #{error}\n" + error.backtrace.join("\n")
-        result[:success] = false
-        result[:message] = error.message
-        result[:code] = error.code
-      end
-    else
-      result = {success: false,
-        message: "Insufficient parameters provided.",
-        code: "insufficient_parameters"}
-    end
-    render json: result
-  end
-
   def map_share_values(shares, type)
     shares.map do |share|
       {

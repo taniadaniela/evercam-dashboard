@@ -112,7 +112,6 @@ Rails.application.routes.draw do
   get '/good_bye' => 'pages#good_bye', as: :good_bye
   get '/nvr-recordings' => 'pages#nvr_recording'
 
-  post '/share' => 'sharing#create'
   delete '/share' => 'sharing#delete'
   post '/share/camera/:id' => 'sharing#update_camera'
   delete '/share/request' => 'sharing#cancel_share_request'

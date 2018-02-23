@@ -42,15 +42,15 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
         camera_created_year = camera_created_date.getUTCFullYear()
         string_date = "#{before_month}/#{d.getUTCDate()}/#{before_year}"
         camera_created_at = "#{camera_created_year}/#{camera_created_month}/#{camera_created_date.getUTCDate()}"
-        $('#calendar-before').datetimepicker({value: string_date, minDate: camera_created_at})
-        $('#calendar-after').datetimepicker({minDate: camera_created_at})
+        $('#calendar-before').datetimepicker({value: string_date, minDate: camera_created_at, yearStart: camera_created_year})
+        $('#calendar-after').datetimepicker({minDate: camera_created_at, yearStart: camera_created_year})
       if setDate is false && query_string.indexOf("nearest") < 0
         date_after = new Date(snapshot.created_at*1000)
         after_month = date_after.getUTCMonth()+1
         after_year = date_after.getUTCFullYear()
         string_after_date = "#{after_year}/#{after_month}/#{date_after.getUTCDate()}"
-        $('#calendar-before').datetimepicker({maxDate: string_after_date})
-        $('#calendar-after').datetimepicker({maxDate: string_after_date})
+        $('#calendar-before').datetimepicker({maxDate: string_after_date, yearEnd: after_year})
+        $('#calendar-after').datetimepicker({maxDate: string_after_date, yearEnd: after_year})
       initCompare() if reload
     else
       Notification.show("No image found")

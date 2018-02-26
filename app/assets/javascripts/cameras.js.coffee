@@ -59,10 +59,14 @@ initNotification = ->
     Notification.show notifyMessage
 
 setLayoutOnCamerasCount = ->
-  if $('#index-camera-count').val() < 3
+  if $('#index-camera-count').val() < 3 || $(window).width() <= 1400
     $('#camera-index .camera-index').removeClass('col-lg-4').addClass('col-lg-6 camera-index-height')
   else
     $('#camera-index .camera-index').removeClass('col-lg-6 camera-index-height').addClass('col-lg-4')
+
+handleResize = ->
+  $(window).resize ->
+    setLayoutOnCamerasCount()
 
 window.initializeCameraIndex = ->
   Metronic.init()
@@ -74,3 +78,4 @@ window.initializeCameraIndex = ->
   $('[data-toggle="tooltip"]').tooltip()
   NProgress.done()
   setLayoutOnCamerasCount()
+  handleResize()

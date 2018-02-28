@@ -51,11 +51,13 @@
         if (payload.timestamp >= live_view_timestamp) {
           live_view_timestamp = payload.timestamp;
           jQuery(container.find("img")).attr('src', 'data:image/jpeg;base64,' + payload.image);
+          jQuery('#embed_offline_message').hide();
         }
       });
     }
     else {
       jQuery(container.find("img")).attr('src', image_source.attr('src'));
+      jQuery('#embed_offline_message').show();
     }
   };
 
@@ -106,16 +108,22 @@
       } else {
         if (rtmp_stream) {
           if (mobile) {
-            container.html("<img style='width: 100%; height: auto; margin: 0; padding: 0; float: left; border: none;'/>");
+            container.html('<span id="embed_offline_message" class="embed_offline_message" style="display:none; position: absolute;width: 117px;top: 15px;left: 49%;color: #ffffff;background: rgba(0, 0, 0, 0.65);font-size: 15px;font-family: sans-serif;padding: 8px 8px;">Camera is Offline</span>' + "<img style='width: 100%; height: auto; margin: 0; padding: 0; float: left; border: none;'/>");
             initSocket();
             window.ec_vis_handler = handleVisibilityChange;
             document.addEventListener("visibilitychange", handleVisibilityChange, false);
           }
           else {
-            container.html('<iframe id="ec-frame" allowFullScreen style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>'+query_string+'" frameborder="0" scrolling="no"/>');
+            container.html('<span id="embed_offline_message" class="embed_offline_message-message" style="display:none; position: absolute;width: 117px;top: 15px;left: 49%;color: #ffffff;background: rgba(0, 0, 0, 0.65);font-size: 15px;font-family: sans-serif;padding: 8px 8px;">Camera is Offline</span>' + '<iframe id="ec-frame" allowFullScreen style="width: 100%;min-height:' + window_height + 'px; height:100%;" src="<%= request.base_url %>/live.view.private.widget?camera=<%= params[:camera] %>&refresh=<%= params[:refresh] %>&api_id=<%= params[:api_id] %>&api_key=<%= params[:api_key] %>'+query_string+'" frameborder="0" scrolling="no"/>');
+            if (offline_camera == false) {
+              jQuery('#embed_offline_message').hide();
+            }
+            else {
+              jQuery('#embed_offline_message').show();
+            }
           }
         } else {
-          container.html("<img style='width: 100%; height: auto; margin: 0; padding: 0; float: left; border: none;'/>");
+          container.html('<span id="embed_offline_message" class="embed_offline_message-message" style="display:none; position: absolute;width: 117px;top: 15px;left: 49%;color: #ffffff;background: rgba(0, 0, 0, 0.65);font-size: 15px;font-family: sans-serif;padding: 8px 8px;">Camera is Offline</span>' + "<img style='width: 100%; height: auto; margin: 0; padding: 0; float: left; border: none;'/>");
           initSocket();
           window.ec_vis_handler = handleVisibilityChange;
           document.addEventListener("visibilitychange", handleVisibilityChange, false);

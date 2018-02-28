@@ -223,15 +223,23 @@ hideBeforeAfterLoadingAnimation = (query_string) ->
   $("##{query_string} .xdsoft_timepicker").removeClass 'opacitypoint5'
 
 setCompareEmbedCodeTitle = ->
-  $("#div-embed-code").on "click", ->
+  $("#div-embed-code").on "click", (e)->
     $(".export-buttons #cancel_export").html 'Close'
     after_image_time = $("#compare_after").attr("timestamp")
     before_image_time = $("#compare_before").attr("timestamp")
-    day_before = moment.utc(before_image_time*1000).format("Do")
-    day_after = moment.utc(after_image_time*1000).format("Do")
-    month_before = moment.utc(before_image_time*1000).format("MMM")
-    month_after = moment.utc(after_image_time*1000).format("MMM")
-    $("#export-compare-title").val("#{day_before} #{month_before} to #{day_after} #{month_after}")
+    if after_image_time && before_image_time isnt undefined
+      day_before = moment.utc(before_image_time*1000).format("Do")
+      day_after = moment.utc(after_image_time*1000).format("Do")
+      month_before = moment.utc(before_image_time*1000).format("MMM")
+      month_after = moment.utc(after_image_time*1000).format("MMM")
+      $("#export-compare-title").val("#{day_before} #{month_before} to #{day_after} #{month_after}")
+      e.stopPropagation()
+      $('#export-compare-modal').modal 'show'
+    else
+      e.stopPropagation()
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      $(".bb-alert").css "width", "410px"
+      Notification.show("Unable to export compare, before/after image is not available.")
 
 export_compare = ->
   $("#export_compare_button").on "click", ->

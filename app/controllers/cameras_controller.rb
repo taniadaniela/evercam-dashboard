@@ -20,7 +20,6 @@ class CamerasController < ApplicationController
     @ip = request.remote_ip
     if @user == {} && params[:id]
       camera = get_evercam_api.get_camera(params[:id], false)
-      @user['camera-name'] = camera['name']
       @user['camera-id'] = camera['id']
       @user['camera-username'] = camera['cam_username']
       @user['camera-password'] = camera['cam_password']

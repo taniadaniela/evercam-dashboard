@@ -1,12 +1,4 @@
 <div class="margin-top-40 row">
-  <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
-  <% if has_edit_right %>
-    <div class="col-md-12 margin-bottom-20">
-      <%= link_to cameras_clone_path(@camera['id']), class: 'action pull-right ' do %>
-      Clone this camera
-      <% end %>
-    </div>
-  <% end %>
   <div class="col-md-12">
     <div id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="pull-right delete">
       <% if @is_owner || @has_shared %>

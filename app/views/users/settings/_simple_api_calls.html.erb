@@ -7,8 +7,8 @@
     </div>
     <div class="col-lg-12 col-sm-12-col-md-12 no-padding margin-top-20">
       <label class="col-md-2 api-id padding-right-10-media-992 float-left padding-left-0 padding-right-0 margin-top-10"><strong class="font-16">ID & Key</strong></label>
-      <input class="col-md-12 col-sm-12 max-width-135 height-34" readonly value="ID: <%= current_user.api_id -%>">
-      <input class="col-md-12 col-sm-12 max-width-350 height-34 margin-left-10" readonly value="Key: <%= current_user.api_key -%>">
+      <input class="col-md-12 col-sm-12 max-width-115 height-34 font-14" readonly value="ID: <%= current_user.api_id -%>">
+      <input class="col-md-12 col-sm-12 max-width-310 height-34 font-14 margin-left-10" readonly value="Key: <%= current_user.api_key -%>">
     </div>
     <div class="col-md-12 no-padding margin-top-20">
       <div class="portlet margin-bottom-20">
@@ -105,7 +105,7 @@
             <input class="max-width-440 url-input-design form-control" type="text" value="There are no snapshots available for the selected period." readonly>
           </div>
           <div class="recorded-url padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
-            <input id="recorded-snapshot-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1240 url-input-design form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#recorded-snapshot-url" title="Copy URL"></i><a id="recorded-api-link" href="" src="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
+            <input id="recorded-snapshot-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1075 url-input-design form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#recorded-snapshot-url" title="Copy URL"></i><a id="recorded-api-link" href="" src="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
           </div>
         </div>
         <div class="form-group api-call-input margin-top-10">
@@ -113,8 +113,11 @@
             <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to Dash</label>
           </div>
           <div class="padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
-            <input id="recorded-dashboard-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1240 form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#recorded-dashboard-url" title="Copy URL"></i><a id="recorded-dashboard-link" href="" src="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
+            <input id="recorded-dashboard-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1075 form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#recorded-dashboard-url" title="Copy URL"></i><a id="recorded-dashboard-link" href="" src="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
           </div>
+        </div>
+        <div class="col-lg-12 col-sm-12-col-md-12 no-padding margin-top-20">
+          <label class="col-md-2 api-id padding-right-10-media-992 float-left padding-left-0 padding-right-0 margin-top-10"><strong class="font-16">API Documentation available here.</strong><a id="api-document-link" href="https://media.evercam.io/v1/swagger/index.html" src="https://media.evercam.io/v1/swagger/index.html" target="_blank"><i class="fa fa-external-link-alt icon-font margin-left-5" title="Open URL"></i></a></label>
         </div>
       </form>
     </div>

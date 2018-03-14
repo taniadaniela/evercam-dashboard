@@ -122,9 +122,6 @@ span.input-group-addon .custom {
   background-color: transparent;
 }
 
-#user-settings .form-control {
-  font-size: 16px;
-}
 .user-settings-portal {
   min-height: 340px;
   margin-bottom: 40px;
@@ -276,6 +273,10 @@ span.input-group-addon .custom {
     padding-left: 10px;
   }
 
+  .font-14 {
+    font-size: 14px;
+  }
+
   .max-width-310 {
     max-width: 310px;
   }
@@ -302,24 +303,24 @@ span.input-group-addon .custom {
     font-size: 16px;
   }
 
-  .max-width-135 {
-    max-width: 135px;
-  }
-
-  .max-width-350 {
-    max-width: 350px;
+  .max-width-115 {
+    max-width: 115px;
   }
 
   .url-input-design {
-    max-width: 1000px;
+    max-width: 860px;
   }
 
-  .max-width-1240 {
-    max-width: 1240px;
+  .max-width-1075 {
+    max-width: 1075px;
   }
 
   .margin-left-62 {
     margin-left: -62px;
+  }
+
+  .margin-left-5 {
+    margin-left: 5px;
   }
 
   .external-link-url {

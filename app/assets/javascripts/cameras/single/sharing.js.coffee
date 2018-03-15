@@ -743,7 +743,11 @@ getGravatar = (img, email) ->
 
 validateEmail = (email) ->
   re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
-  re.test email
+  addresstrimed = email.replace(RegExp(' ', 'gi'), '')
+  if re.test(addresstrimed) == false
+    false
+  else
+    true
 
 disableShareButton = ->
   if $('#sharing-user-email').val()

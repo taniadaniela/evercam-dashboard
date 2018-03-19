@@ -956,6 +956,7 @@ calculateWidth = ->
           if $("#recording-tab .left-column").width() is 0
             setTimeout(calculateWidth, 500)
           recodringSnapshotDivHeight()
+          centerSaveIcon()
       $("#recording-tab .right-column").css("width", "220px")
     else
       $("#recording-tab .left-column").css("width", "100%")
@@ -986,6 +987,7 @@ checkCalendarDisplay = ->
   if $('#recording-tab .col-recording-right').css('display') == 'none'
     $('#recording-tab .left-column').animate { width: "99.4%" }, ->
       recodringSnapshotDivHeight()
+      centerSaveIcon()
   else
     calculateWidth()
     recodringSnapshotDivHeight()
@@ -1017,9 +1019,11 @@ hideHourLoadingAnimation = ->
 handleResize = ->
   calculateWidth()
   recodringSnapshotDivHeight()
+  centerSaveIcon()
   $(window).resize ->
     checkCalendarDisplay()
     turnOffZoomEffect()
+    centerSaveIcon()
 
 logCameraViewed = ->
   is_logged_intercom = true
@@ -1170,6 +1174,16 @@ setCreateClipDate = (hour_selected) ->
       $('#archive-time').val "#{hour_selected}:00"
     $('#from-date').val current_calendar_date
 
+detectMobile = ->
+  mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  if mobile
+    $('#snapshot-magnifier').hide()
+
+centerSaveIcon = ->
+  offset = ($('#imgPlayback').height() - $('#save-recording-image').height()) / 2
+  $('#save-recording-image').css "margin-top", offset
+  $('#recordings .play-options').css "top", "0"
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1191,3 +1205,4 @@ window.initializeRecordingsTab = ->
   setImageSource()
   removeMagnifierOnEsc()
   setCreateClipDate()
+  detectMobile()

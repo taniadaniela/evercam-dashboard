@@ -1615,6 +1615,7 @@ Page sidebar
     border-top: 0 !important;
     /*margin: 0px;*/
     position: fixed;
+    z-index: 99999999999;
     overflow: hidden !important;
     overflow-y: auto !important;
     display: block !important;

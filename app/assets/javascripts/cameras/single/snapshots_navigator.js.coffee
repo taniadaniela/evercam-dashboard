@@ -1180,9 +1180,12 @@ detectMobile = ->
     $('#snapshot-magnifier').hide()
 
 centerSaveIcon = ->
+  tab_width = $("#recording-tab").width()
   offset = ($('#imgPlayback').height() - $('#save-recording-image').height()) / 2
   $('#save-recording-image').css "margin-top", offset
   $('#recordings .play-options').css "top", "0"
+  if tab_width is 0
+    setTimeout (-> centerSaveIcon()), 500
 
 window.initializeRecordingsTab = ->
   initDatePicker()

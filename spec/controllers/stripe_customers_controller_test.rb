@@ -1,22 +1,25 @@
-require 'test_helper'
+require 'spec_helper'
 
-class StripeCustomersControllerTest < ActionController::TestCase
-  setup do
-    @stripe_customer = stripe_customers(:one)
-  end
+describe StripeCustomersControllerTest do
+  let(:stripe_customers(:one)) {
+    @stripe_customer
+  }
 
-  test "should get index" do
+  it "should get index" do
+    pending
     get :index
     assert_response :success
     assert_not_nil assigns(:stripe_customers)
   end
 
-  test "should get new" do
+  it "should get new" do
+    pending
     get :new
     assert_response :success
   end
 
-  test "should create stripe_customer" do
+  it "should create stripe_customer" do
+    pending
     assert_difference('StripeCustomer.count') do
       post :create, stripe_customer: {  }
     end
@@ -24,22 +27,26 @@ class StripeCustomersControllerTest < ActionController::TestCase
     assert_redirected_to stripe_customer_path(assigns(:stripe_customer))
   end
 
-  test "should show stripe_customer" do
+  it "should show stripe_customer" do
+    pending
     get :show, id: @stripe_customer
     assert_response :success
   end
 
-  test "should get edit" do
+  it "should get edit" do
+    pending
     get :edit, id: @stripe_customer
     assert_response :success
   end
 
-  test "should update stripe_customer" do
+  it "should update stripe_customer" do
+    pending
     patch :update, id: @stripe_customer, stripe_customer: {  }
     assert_redirected_to stripe_customer_path(assigns(:stripe_customer))
   end
 
-  test "should destroy stripe_customer" do
+  it "should destroy stripe_customer" do
+    pending
     assert_difference('StripeCustomer.count', -1) do
       delete :destroy, id: @stripe_customer
     end

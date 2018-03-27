@@ -77,19 +77,24 @@
     width: 110px;
   }
 
-  .dropdown-menu li {
+  .dropdown-menu li,
+  .dropdown-menu .archive-icon {
     border-right: solid 1px $main-grey;
     display: inline-block;
     width: 80px;
   }
 
-  .dropdown-menu li > a {
+  .dropdown-menu li > a,
+  .dropdown-menu .archive-icon {
     color: $form-dark-grey;
     text-align: center;
     font-size: 14px;
+    padding: 7px 13px 6px 6px;
+    height: 30px;
   }
 
-  .dropdown-menu li > a:hover {
+  .dropdown-menu li > a:hover,
+  .dropdown-menu .archive-icon:hover {
     background-color: $main-color;
     color: $white;
   }

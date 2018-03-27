@@ -159,9 +159,11 @@ getCompareButtons = (div, row) ->
     '<ul class="dropdown-menu"><li><a class="play-clip" href="#" title="Play GIF" data-width="1280" data-height="720" play-url="' + animation_url + '.gif"><i class="fa fa-play-circle"></i> GIF</a></li>'+
       '<li><a class="play-clip" href="#" title="Play MP4" data-width="1280" data-height="720" play-url="' + animation_url + '.mp4"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
     '</div>' +
+    '<input id="gif-' + row.id + '" value= "' + animation_url + '.gif" type="hidden">' +
+    '<input id="mp4-' + row.id + '" value= "' + animation_url + '.mp4" type="hidden">' +
     '<div class="dropdown float-left"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
-    '<ul class="dropdown-menu"><li><a class="download-archive" href="' + animation_url + '.gif" title="Download GIF" download="' + animation_url + '.gif"><i class="fa fa-download"></i> GIF</a></li>'+
-      '<li><a class="download-archive" href="' + animation_url + '.mp4" title="Download MP4" download="' + animation_url + '.mp4"><i class="fa fa-download"></i> MP4</a></li></ul>' +
+    '<ul class="dropdown-menu"><li><i class="fa fa-download download-animation archive-icon"  data-download-target="#gif-' + row.id + '" title="Download GIF"> GIF</i></li>'+
+      '<li><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4-' + row.id  + '" title="Download MP4"> MP4</i></li></ul>' +
     '</div>' +
     copy_url + div.html()
 
@@ -494,8 +496,10 @@ playClip = ->
     view_url = $(this).attr("play-url")
     window.open view_url, '_blank', "width=#{width}, Height=#{height}, scrollbars=0, resizable=0"
 
-  $("#archives-table").on "click", ".download-archive", ->
+  $("#archives-table").on "click", ".download-animation", ->
+    src_id = $(this).attr("data-download-target")
     NProgress.start()
+    download($("#{src_id}").val())
     setTimeout( ->
       NProgress.done()
     , 4000)

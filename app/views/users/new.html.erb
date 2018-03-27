@@ -57,8 +57,6 @@
                   <%= f.label :email, 'Email', class: "float-label" %>
                 <% else %>
                   <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control grey-background" %>
-                  <i class="fa fa-info-circle info-icon" aria-hidden="true" title="User cannot edit email"></i>
-                  <%= f.label :email, 'Email', class: "left-0" %>
                 <% end %>
                 <% if field_errors.include?("email") %>
                   <span class="help-block arrow_box form-error text-left"><%= field_errors["email"] %></span>
@@ -81,7 +79,7 @@
               </div>
             </div>
             <div class="col-sm-12 no-padding text-center">
-              <%= f.submit "Create New Account", class: "btn btn-large btn-primary width100" %>
+              <%= f.submit "Create Account", class: "btn btn-large btn-primary width100" %>
             </div>
 
             <% if @share_request %>

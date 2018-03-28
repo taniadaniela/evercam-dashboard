@@ -3,7 +3,7 @@
     :secret: qwertyuiop
   :intercom:
     :app_id: f9c1fd60de50d31bcbc3f4d8d74c9c6dbc40e95a
-    :api_key: <%= ENV['INTERCOM_API_KEY'] %>
+    :api_key: <%= ENV['INTERCOM_ACCESS_TOKEN'] %>
   :api:
     :timeout: 5
     :ssl:
@@ -81,4 +81,3 @@
       :hide_documentation_path: true
       :base_path: https://proxy.evr.cm:9292/v1
   :testserver: true
-

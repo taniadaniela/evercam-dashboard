@@ -252,9 +252,11 @@ export_compare = ->
     button = $(this)
     button.prop("disabled", true)
     $("#row-animation").removeClass("hide")
+    namePart = name.replace(/[^A-Z0-9]/ig, "")
+    exid = "#{namePart.slice(0, 5)}-#{makeRandString()}".toLowerCase()
     after = " #{convert_timestamp_to_path($("#compare_after").attr("timestamp"))}"
     before = " #{convert_timestamp_to_path($("#compare_before").attr("timestamp"))}"
-    embed_code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after} autoplay'></script>"
+    embed_code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{Evercam.Camera.id}#{before}#{after} #{exid} autoplay'></script>"
     $("#txtEmbedCode").val(embed_code)
 
     data =
@@ -266,6 +268,7 @@ export_compare = ->
       after: $("#compare_after").attr("timestamp")
       after_image: $("#compare_after").attr("src")
       embed: embed_code
+      exid: exid
       create_animation: true
 
     onError = (jqXHR, status, error) ->
@@ -299,7 +302,7 @@ export_compare = ->
 
 convert_timestamp_to_path = (timestamp) ->
   timestamp_to_int = parseInt(timestamp)
-  moment.utc(timestamp_to_int*1000).format('YYYY/MM/DD/HH_mm_ss')
+  moment.utc(timestamp_to_int*1000).format('YYYY-MM-DD-HH_mm_ss')
 
 cancelForm = ->
   $('#export-compare-modal').on 'hide.bs.modal', ->
@@ -356,6 +359,15 @@ auto_check_compare_status = (compare_id, tries) ->
       type: 'GET'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{compare_id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     sendRequest(settings)
+
+makeRandString = ->
+  text = ''
+  possible = 'abcdefghijklmnopqrstuvwxyz'
+  i = 0
+  while i < 7
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+    i++
+  text
 
 window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)

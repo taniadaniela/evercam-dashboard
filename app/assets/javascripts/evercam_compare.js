@@ -20,7 +20,13 @@ var $;
       camera_id = query[0];
       before = query[1];
       after = query[2];
-      mode = query[3];
+
+      if (query.length == 5) {
+        mode = query[4];
+        var compare_exid = query[3];
+      } else {
+        mode = query[3];
+      }
 
       if (mode == undefined || mode == "") {
         mode = "drag";
@@ -41,8 +47,13 @@ var $;
       html += '   </div>';
 
       document.getElementById("evercam-compare").innerHTML = html;
-      $("#compare_after").attr("src", bucket_url+camera_id+"/snapshots/"+after+".jpg");
-      $("#compare_before").attr("src", bucket_url+camera_id+"/snapshots/"+before+".jpg");
+      if (query.length == 5) {
+        $("#compare_after").attr("src", bucket_url+camera_id+"/compares/"+compare_exid+"/end-"+after+".jpg");
+        $("#compare_before").attr("src", bucket_url+camera_id+"/compares/"+compare_exid+"/start-"+before+".jpg");
+      } else {
+        $("#compare_after").attr("src", bucket_url+camera_id+"/snapshots/"+after+".jpg");
+        $("#compare_before").attr("src", bucket_url+camera_id+"/snapshots/"+before+".jpg");
+      }
       setTimeout(function() { initCompare(mode) }, 2000);
     });
   }

@@ -626,8 +626,8 @@ modal_events = ->
       $("#row-compare").html(window.compare_html)
       params = query_string.split(" ")
       bucket_url = "https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/"
-      before_image = "#{bucket_url}#{Evercam.Camera.id}/snapshots/#{params[1]}.jpg?#{Math.random()}"
-      after_image = "#{bucket_url}#{Evercam.Camera.id}/snapshots/#{params[2]}.jpg?#{Math.random()}"
+      before_image = "#{bucket_url}#{Evercam.Camera.id}/compares/#{params[3]}/start-#{params[1]}.jpg?#{Math.random()}"
+      after_image = "#{bucket_url}#{Evercam.Camera.id}/compares/#{params[3]}/end-#{params[2]}.jpg?#{Math.random()}"
       $("#archive_compare_before").attr("src", before_image)
       $("#archive_compare_after").attr("src", after_image)
       $("#row-frames").hide()

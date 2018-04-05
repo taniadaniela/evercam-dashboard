@@ -146,7 +146,8 @@ renderbuttons = (row, type, set, meta) ->
         copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
       return '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
-        '<a id="archive-download-url' + row.id + '" class="archive-actions" data-toggle="tooltip" title="Download" href="' + mp4_url + '" download="' + mp4_url + '"><i class="fa fa-download"></i></a>' +
+        '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '" type="hidden">' +
+        '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4clip-' + row.id  + '" title="Download MP4"></i></div>' +
           copy_url + div.html()
   else
     return div.html()

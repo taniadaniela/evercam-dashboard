@@ -120,18 +120,22 @@ class UsersController < ApplicationController
 
   def settings_update
     begin
+      user_email = current_user.email
       parameters = {}
       parameters[:firstname] = params['user-firstname'] if params.include?('user-firstname')
       parameters[:lastname] = params['user-lastname'] if params.include?('user-lastname')
       parameters[:country] = params['country'] if params.include?('country')
       if params.include?('email')
-        parameters[:email] = params['email'] unless params['email'] == current_user.email
-        parameters[:username] = params['email'] unless params['email'] == current_user.email
+        unless params['email'] == current_user.email
+          parameters[:email] = params['email']
+          parameters[:username] = params['email']
+          user_email = params['email']
+        end
       end
       if !parameters.empty?
         old_email = current_user.username
         get_evercam_api.update_user(current_user.username, parameters)
-        session[:user] = User.by_login(current_user.username).email
+        session[:user] = User.by_login(user_email).email
         update_user_intercom(current_user, old_email)
         refresh_user
       end

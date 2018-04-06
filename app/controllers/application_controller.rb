@@ -29,21 +29,24 @@ class ApplicationController < ActionController::Base
     session[:redirect_url]
   end
 
-  def update_user_intercom(user)
+  def update_user_intercom(user, old_email = nil)
+    if old_email.nil?
+      old_email = user.username
+    end
     if Evercam::Config.env == :production
       intercom = Intercom::Client.new(
         app_id: Evercam::Config[:intercom][:app_id],
         api_key: Evercam::Config[:intercom][:api_key]
       )
       begin
-        ic_user = intercom.users.find(:user_id => user.username)
+        ic_user = intercom.users.find(:user_id => old_email)
       rescue
         # Intercom::ResourceNotFound
         # Ignore it
       end
       unless ic_user.nil?
         begin
-          ic_user.user_id = user.username if ic_user.user_id.nil?
+          ic_user.user_id = user.username
           ic_user.email = user.email
           ic_user.name = user.fullname
           ic_user.signed_up_at = user.created_at.to_i if ic_user.signed_up_at

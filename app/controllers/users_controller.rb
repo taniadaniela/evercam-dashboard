@@ -129,9 +129,10 @@ class UsersController < ApplicationController
         parameters[:username] = params['email'] unless params['email'] == current_user.email
       end
       if !parameters.empty?
+        old_email = current_user.username
         get_evercam_api.update_user(current_user.username, parameters)
         session[:user] = User.by_login(current_user.username).email
-        update_user_intercom(current_user)
+        update_user_intercom(current_user, old_email)
         refresh_user
       end
       result = send_confirmation_email

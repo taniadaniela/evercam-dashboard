@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!
-  before_action :owns_data!
   skip_before_action :authenticate_user!, only: [:new, :create, :confirm,
-                     :password_reset_request, :password_update, :password_update_form]
-  skip_before_action :owns_data!, only: [:new, :create, :confirm,
                      :password_reset_request, :password_update, :password_update_form]
   skip_after_action  :intercom_rails_auto_include, only: [
     :new, :create, :confirm, :password_reset_request,
@@ -45,13 +42,13 @@ class UsersController < ApplicationController
       if user.nil?
         raise "No user details specified in request."
       end
-      if request.safe_location
+      if request.safe_location && Evercam::Config.env == :production
         params[:country] = request.safe_location.country_code.downcase
       end
       get_evercam_api.create_user(
         user['firstname'],
         user['lastname'],
-        user['username'],
+        "",
         user['email'],
         user['password'],
         ENV['WEB_APP_TOKEN'],
@@ -110,14 +107,14 @@ class UsersController < ApplicationController
 
   def delete
     begin
-      get_evercam_api.delete_user(params['id'])
+      get_evercam_api.delete_user(current_user.email)
       redirect_to good_bye_path
     rescue => error
       Rails.logger.error "Exception caught deleting user.\nCause: #{error}\n" +
                            error.backtrace.join("\n")
       flash[:message] = "An error occurred deleting user. Please try again "\
                       "and, if the problem persists, contact support."
-      redirect_to user_settings_path(params[:id])
+      redirect_to user_settings_path
     end
   end
 
@@ -129,6 +126,7 @@ class UsersController < ApplicationController
       parameters[:country] = params['country'] if params.include?('country')
       if params.include?('email')
         parameters[:email] = params['email'] unless params['email'] == current_user.email
+        parameters[:username] = params['email'] unless params['email'] == current_user.email
       end
       if !parameters.empty?
         get_evercam_api.update_user(current_user.username, parameters)
@@ -136,14 +134,19 @@ class UsersController < ApplicationController
         update_user_intercom(current_user)
         refresh_user
       end
-      flash[:message] = 'Settings updated successfully'
+      result = send_confirmation_email
+      if result
+        flash[:message] = 'Settings updated successfully and we’ve sent you a confirmation email with instructions.'
+      else
+        flash[:message] = 'Settings updated successfully'
+      end
     rescue => error
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       if error.kind_of?(Evercam::EvercamError)
-        if error.code
-          flash[:message] = t("errors.#{error.code}")
-          assess_field_errors(error)
+        response = instance_eval(error.message).first
+        if response[1] && response[1][0]
+          flash[:message] = response[1][0]
         else
           flash[:message] = "An error occurred updating your details. Please try "\
           "again and, if the problem persists, contact support."
@@ -153,12 +156,12 @@ class UsersController < ApplicationController
                         "again and, if the problem persists, contact support."
       end
     end
-    redirect_to user_settings_path(params[:id])
+    redirect_to user_settings_path
   end
 
   def change_password
     begin
-      user = User.by_login(params[:id])
+      user = User.by_login(current_user.email)
     rescue NoMethodError => error
       Rails.logger.error "Error caught fetching user details.\nCause: #{error}\n" + error.backtrace.join("\n")
     end
@@ -170,7 +173,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = 'Invalid Current Password'
     end
-    redirect_to user_settings_path(params[:id])
+    redirect_to user_settings_path
   end
 
   def password_reset_request
@@ -225,18 +228,27 @@ class UsersController < ApplicationController
   end
 
   def resend_confirmation_email
-    user = User.where(Sequel.ilike(:username, params[:id])).first
-    unless user.nil?
-      code = Digest::SHA1.hexdigest(user.username + user.created_at.utc.to_s)
-      UserMailer.resend_confirmation_email(user, code).deliver_now
+    result = send_confirmation_email
+    unless result
       flash[:message] = 'We’ve sent you a confirmation email with instructions.'
     else
       flash[:message] = t("errors.user_not_found_error")
     end
-    redirect_to user_settings_path(params[:id])
+    redirect_to user_settings_path
   end
 
   private
+
+  def send_confirmation_email
+    user = User.where(Sequel.ilike(:email, current_user.email)).first
+    unless user.nil?
+      code = Digest::SHA1.hexdigest(user.username + user.created_at.utc.to_s)
+      UserMailer.resend_confirmation_email(user, code).deliver_now
+      true
+    else
+      false
+    end
+  end
 
   def assess_field_errors(error)
     field_errors = {}

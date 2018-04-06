@@ -3,7 +3,7 @@
     <div class="profile">
       <%= image_tag avatar_url(current_user.email), class: 'gravatar pull-left' %>
       <div class="username">
-        <span class="grey">Username </span><span> <%= current_user.username -%></span>
+        <span class="grey">Email </span><span> <%= current_user.email -%></span>
       </div>
       <p class="small grey">Manage your avatar with <a href="https://en.gravatar.com/" target="_blank">Gravatar</a> </p>
     </div>
@@ -53,7 +53,7 @@
             <span aria-hidden="true">&times;</span></button>
               <span>
                 It looks like your account has not been verified yet.
-                <%= link_to 'Resend verification email.', user_email_resend_path(current_user.username), class: 'resend-email' %>
+                <%= link_to 'Resend verification email.', user_email_resend_path, class: 'resend-email' %>
               </span>
         </div>
       <% end %>

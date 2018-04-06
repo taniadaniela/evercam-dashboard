@@ -37,20 +37,6 @@
             </div>
 
             <div class="text-center">
-              <div id="signup-username" class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("username") ? " has-error" : "" %>">
-                <%= f.text_field :username, value: params.fetch('user', {})[:username], class: "form-control", "required" => "" , "data-validation" => "custom", "data-validation-regexp" => '^[a-zA-Z0-9]+[\w\u00C0-\u00ff-]+$', "data-validation-error-msg" => "Username can consist of letters then numbers, dashes & underscores" , "maxlength" => "40" %>
-                <% if field_errors.include?("username") %>
-                  <span class="help-block arrow_box form-error text-left"><%= field_errors["username"] %></span>
-                <% end %>
-                <%= f.label :username, class: "float-label" %>
-                <img src="/assets/refresh.gif" class="refresh-gif icon-position username-loading-icon">
-                <span id="username-error-block" class="username-error float-left">Username has already been taken.</span>
-                <span id="username-not-available" class="red hide"><i class="fa fa-times icon-position icon-font"></i></span>
-                <span id="username-available" class="green hide"><i class="fa fa-check icon-position icon-font"></i></span>
-              </div>
-            </div>
-
-            <div class="text-center">
               <div id="signup-email" class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
                 <% if @share_request.nil? %>
                   <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "data-validation" => "email", "required" => "" %>
@@ -114,7 +100,7 @@
       $("." + $(this).attr("data-hide")).hide();
       });
   });
-  $.validate()
+  $.validate();
 
   $( document ).ready(function() {
     if ($('div').find("input[type=text]").val() == '') {

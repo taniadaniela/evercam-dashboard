@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def owns_data!
-    if current_user.username != params[:id]
+    if params[:id] && current_user.username != params[:id]
       sign_out
       redirect_to signin_path
     end

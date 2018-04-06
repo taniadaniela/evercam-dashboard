@@ -77,15 +77,18 @@ Rails.application.routes.draw do
   post '/v1/users/password-reset' => 'users#password_reset_request'
   get '/v1/users/password-new' => 'users#password_update_form', as: :password_new
   post '/v1/users/password-new' => 'users#password_update'
-  get '/v1/users/:id/resend' => 'users#resend_confirmation_email', as: :user_email_resend
   get '/confirm' => 'users#confirm'
   get '/v1/users/signin' => 'sessions#new', as: :signin
   get '/widget_signin' => 'sessions#widget_new', as: :widget_signin
   delete '/v1/users/signout' => 'sessions#destroy', as: :signout
-  get '/v1/users/:id/settings' => 'users#settings', as: :user_settings
-  delete '/v1/users/:id/settings' => 'users#delete'
-  post '/v1/users/:id/settings' => 'users#settings_update'
-  put '/v1/users/:id/password/change' => 'users#change_password', as: :user_change_password
+
+  # Removed username from url
+  get '/v1/users/resend' => 'users#resend_confirmation_email', as: :user_email_resend
+  get '/v1/users/settings' => 'users#settings', as: :user_settings
+  delete '/v1/users/settings' => 'users#delete'
+  post '/v1/users/settings' => 'users#settings_update'
+  put '/v1/users/password/change' => 'users#change_password', as: :user_change_password
+  # Removed username from url
 
   get '/widgets-new' => 'widgets#widgets_new', as: :widget_live_view
   get '/live.view.widget' => 'widgets#live_view_widget'

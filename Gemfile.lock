@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/evercam/evercam-ruby.git
-  revision: fb8654d65f938d3fbe7baf7b7ec06ccd9b892574
+  revision: 5fcae618649fcf01fe6f5af43c66cae1c229bf14
   specs:
     evercam (0.3.7)
       faraday (~> 0.9)
@@ -371,7 +371,7 @@ GEM
     selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    sequel (5.7.0)
+    sequel (5.7.1)
     shellany (0.0.1)
     simplecov (0.13.0)
       docile (~> 1.1.0)
@@ -403,7 +403,7 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    timezone (1.2.10)
+    timezone (1.2.11)
     turbolinks (5.1.0)
       turbolinks-source (~> 5.1)
     turbolinks-source (5.1.0)

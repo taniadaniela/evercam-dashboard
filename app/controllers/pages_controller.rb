@@ -38,10 +38,6 @@ class PagesController < ApplicationController
   def play
     @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:clip_id]}/play?"\
                "api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
-    archive_date = Date.parse(params["date"])
-    if archive_date < Date.parse("2017-01-31")
-      @mp4_url = "http://timelapse.evercam.io/timelapses/#{params[:id]}/archives/#{params[:clip_id]}.mp4"
-    end
     render layout: "bare-bones"
   end
 

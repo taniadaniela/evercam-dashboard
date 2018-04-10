@@ -130,17 +130,8 @@ renderbuttons = (row, type, set, meta) ->
     else if row.type is "URL"
       return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
-      DateTime = new Date(moment.utc(row.created_at*1000).format('MM/DD/YYYY, HH:mm:ss'))
-      day = DateTime.getDate()
-      month = DateTime.getMonth()
-      year = DateTime.getFullYear()
-      archive_date = new Date(year, month, day)
-      if archive_date < new Date(2017, 10, 1)
-        mp4_url = "#{Evercam.SEAWEEDFS_URL}#{row.camera_id}/clips/#{row.id}.mp4"
-      else
-        mp4_url = "https://seaweedfs2.evercam.io/#{row.camera_id}/clips/#{row.id}.mp4"
-
-      view_url = "clip/#{row.id}/play?date=#{year}-#{(parseInt(month) + 1)}-#{day}"
+      mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}/play?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+      view_url = "clip/#{row.id}/play"
       copy_url = ""
       if row.public is true
         copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
@@ -169,7 +160,7 @@ getCompareButtons = (div, row) ->
     copy_url + div.html()
 
 getFileButtons = (row, div) ->
-  file_url = "#{Evercam.SEAWEEDFS_URL2}#{row.camera_id}/clips/#{row.file_name}"
+  file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
   return "<a target='_blank' class='archive-actions' href='#{file_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
 
 getTitle = (row, type, set, meta) ->
@@ -185,7 +176,7 @@ getTitle = (row, type, set, meta) ->
       <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
   else if row.type is "File"
-    file_url = "#{Evercam.SEAWEEDFS_URL2}#{row.camera_id}/clips/#{row.file_name}"
+    file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='#{row.thumbnail_url}'></div>
       <div class='media-url-title'><i class='fa fa-upload type-icon type-icon-url'></i>
       <a target='_blank' class='archive-title' href='#{file_url}'>#{row.title}</a></div>"

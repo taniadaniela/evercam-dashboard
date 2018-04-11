@@ -1190,7 +1190,7 @@ centerSaveIcon = ->
 handle_info_submenu = ->
   $("#show-image-info").on "click", ->
     top = $(this).position().top
-    archive_height = $("#archives").height()
+    archive_height = $("#recordings").height()
     view_height = Metronic.getViewPort().height
     if view_height - archive_height > 245
       $(".m-menu__submenu").css("top", top - 10)

@@ -130,14 +130,15 @@ renderbuttons = (row, type, set, meta) ->
     else if row.type is "URL"
       return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
-      mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
+      mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}"
       view_url = "clip/#{row.id}/play"
       copy_url = ""
       if row.public is true
         copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
       return '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
-        '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '" type="hidden">' +
+        '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '.mp4" type="hidden">' +
+        '<input id="mp4play-' + row.id + '" value= "' + mp4_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
         '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4clip-' + row.id  + '" title="Download MP4"></i></div>' +
           copy_url + div.html()
   else
@@ -587,10 +588,10 @@ modal_events = ->
   $("#archives"). on "click", ".archive-title", ->
     id = $(this).attr("data-id")
     type = $(this).attr("data-type")
-    root_url = "#{Evercam.request.rootpath}/archives/#{id}"
-    if history.replaceState
-      window.history.replaceState({}, '', root_url)
-
+    if type isnt undefined
+      root_url = "#{Evercam.request.rootpath}/archives/#{id}"
+      if history.replaceState
+        window.history.replaceState({}, '', root_url)
     query_string = $("#archive_embed_code#{id}").val()
     # $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
@@ -612,7 +613,7 @@ modal_events = ->
       $("#archive_mp4_url").val("#{MP4_URL}")
       archive_js_player.poster($("#txtArchiveThumb#{id}").val())
       archive_js_player.src([
-        { type: "video/mp4", src: $("#mp4clip-#{id}").attr("value") }
+        { type: "video/mp4", src: $("#mp4play-#{id}").attr("value") }
       ])
       archive_js_player.play()
     else

@@ -130,7 +130,7 @@ renderbuttons = (row, type, set, meta) ->
     else if row.type is "URL"
       return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
-      mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}/play?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+      mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
       view_url = "clip/#{row.id}/play"
       copy_url = ""
       if row.public is true
@@ -594,6 +594,7 @@ modal_events = ->
     query_string = $("#archive_embed_code#{id}").val()
     # $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
+    MP4_URL = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
     $("#archive_gif_url").val("#{url}.gif")
     $("#archive_mp4_url").val("#{url}.mp4")
     code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{query_string} autoplay'></script>"
@@ -608,10 +609,10 @@ modal_events = ->
       $("#row-frames").show()
       $("#row-duration").show()
       $("#row-gif").hide()
-      $("#archive_mp4_url").val("#{Evercam.request.url}/archives/#{id}")
+      $("#archive_mp4_url").val("#{MP4_URL}")
       archive_js_player.poster($("#txtArchiveThumb#{id}").val())
       archive_js_player.src([
-        { type: "video/mp4", src: $("#archive-download-url#{id}").attr("href") }
+        { type: "video/mp4", src: $("#mp4clip-#{id}").attr("value") }
       ])
       archive_js_player.play()
     else

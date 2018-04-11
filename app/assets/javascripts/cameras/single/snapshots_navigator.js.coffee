@@ -1187,6 +1187,17 @@ centerSaveIcon = ->
   if tab_width is 0
     setTimeout (-> centerSaveIcon()), 500
 
+handle_info_submenu = ->
+  $("#show-image-info").on "click", ->
+    top = $(this).position().top
+    archive_height = $("#archives").height()
+    view_height = Metronic.getViewPort().height
+    if view_height - archive_height > 245
+      $(".m-menu__submenu").css("top", top - 10)
+    else
+      $(".m-menu__submenu").css("top", top - 190)
+    $(".m-menu__submenu").toggle( "slow")
+
 window.initializeRecordingsTab = ->
   initDatePicker()
   handleSlider()
@@ -1209,3 +1220,4 @@ window.initializeRecordingsTab = ->
   removeMagnifierOnEsc()
   setCreateClipDate()
   detectMobile()
+  handle_info_submenu()

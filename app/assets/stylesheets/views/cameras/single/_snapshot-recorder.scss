@@ -108,8 +108,8 @@
       .info-icon {
         font-size: 12px;
         position: relative;
-        margin-left: 6px;
-        top: 3px;
+        margin-left: -2px;
+        top: -3px;
         color: $white;
       }
 
@@ -118,6 +118,10 @@
         width: 25px;
         height: 25px;
         border-radius: 50px;
+      }
+
+      .style-none {
+        list-style: none;
       }
     }
 
@@ -138,17 +142,6 @@
     }
 
   }
-
-.info-schedule .width-250 {
-  max-width: 220px;
-  min-width: 220px;
-  position: absolute;
-  margin-top: -300px;
-}
-
-.modal-backdrop.fade.in {
-  display: none;
-}
 
 .font-size-12 {
   font-size: 12px;
@@ -950,4 +943,30 @@
 
 .border-right {
   border-right: 1px solid $main-grey;
+}
+
+.m-menu__submenu {
+  background-color: $white;
+  border: solid 1px $light-grey;
+  display: none;
+  margin-right: 20px;
+  position: absolute;
+  right: 0;
+  border-radius: 4px;
+  text-align: left;
+  top: 250px;
+  width: 220px;
+  -webkit-animation: m-aside-menu-submenu-fade-in .3s ease 1, m-aside-menu-submenu-move-up .3s ease-out 1;
+  -moz-animation: m-aside-menu-submenu-fade-in .3s ease 1, m-aside-menu-submenu-move-up .3s ease-out 1;
+  -ms-animation: m-aside-menu-submenu-fade-in .3s ease 1, m-aside-menu-submenu-move-up .3s ease-out 1;
+  -o-animation: m-aside-menu-submenu-fade-in .3s ease 1, m-aside-menu-submenu-move-up .3s ease-out 1;
+  animation: m-aside-menu-submenu-fade-in .3s ease 1, m-aside-menu-submenu-move-up .3s ease-out 1;
+
+  -webkit-box-shadow: 0px 0px 15px 3px rgba(69, 65, 78, 0.2);
+  -moz-box-shadow: 0px 0px 15px 3px rgba(69, 65, 78, 0.2);
+  box-shadow: 0px 0px 15px 3px rgba(69, 65, 78, 0.2);
+}
+
+.m-menu__submenu .m-menu__subnav {
+  padding: 20px;
 }

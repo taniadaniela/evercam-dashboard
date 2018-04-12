@@ -34,6 +34,11 @@ class User < Sequel::Model
     values[:password] = Password.create(val, cost: 10)
   end
 
+  def before_save
+    values[:encrypted_password] = values[:password]
+    super
+  end
+
   def confirmed?
     false == confirmed_at.nil?
   end

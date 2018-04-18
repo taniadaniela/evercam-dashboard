@@ -31,40 +31,33 @@ class ApplicationController < ActionController::Base
 
   def update_user_intercom(user, old_email = nil)
     if old_email.nil?
-      old_email = user.username
+      old_email = user.email
     end
 
-    # if Evercam::Config.env == :development
-    #   intercom = Intercom::Client.new(
-    #     app_id: Evercam::Config[:intercom][:app_id],
-    #     api_key: Evercam::Config[:intercom][:api_key]
-    #   )
-    #   begin
-    #     ic_user = intercom.users.find(:email => old_email)
-    #     pry
-    #   rescue => error
-    #     @e = error
-    #     pry
-    #     # Intercom::ResourceNotFound
-    #     # Ignore it
-    #   end
-    #   unless ic_user.nil?
-    #     begin
-    #       ic_user.user_id = user.username
-    #       ic_user.email = user.email
-    #       ic_user.name = user.fullname
-    #       ic_user.signed_up_at = user.created_at.to_i if ic_user.signed_up_at
-    #       ic_user.last_seen_user_agent = request.user_agent
-    #       ic_user.last_request_at = Time.now.to_i
-    #       ic_user.new_session = true
-    #       ic_user.last_seen_ip = request.remote_ip
-    #       pry
-    #       intercom.users.save(ic_user)
-    #     rescue
-    #       # Ignore it
-    #     end
-    #   end
-    # end
+    if Evercam::Config.env == :production
+      intercom = Intercom::Client.new(token: Evercam::Config[:intercom][:api_key])
+      begin
+        ic_user = intercom.users.find(:email => old_email)
+      rescue
+        # Intercom::ResourceNotFound
+        # Ignore it
+      end
+      unless ic_user.nil?
+        begin
+          ic_user.user_id = user.username
+          ic_user.email = user.email
+          ic_user.name = user.fullname
+          ic_user.signed_up_at = user.created_at.to_i if ic_user.signed_up_at
+          ic_user.last_seen_user_agent = request.user_agent
+          ic_user.last_request_at = Time.now.to_i
+          ic_user.new_session = true
+          ic_user.last_seen_ip = request.remote_ip
+          intercom.users.save(ic_user)
+        rescue
+          # Ignore it
+        end
+      end
+    end
   end
 
   def owns_data!

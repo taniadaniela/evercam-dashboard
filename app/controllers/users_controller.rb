@@ -133,7 +133,7 @@ class UsersController < ApplicationController
         end
       end
       if !parameters.empty?
-        old_email = current_user.username
+        old_email = current_user.email
         get_evercam_api.update_user(current_user.username, parameters)
         session[:user] = User.by_login(user_email).email
         update_user_intercom(current_user, old_email)

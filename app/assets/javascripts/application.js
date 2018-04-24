@@ -74,7 +74,6 @@
 //= require nprogress-turbolinks
 //= require nprogress-call.js
 //= require subscriptions.js
-//= require user_analytic_tag_script
 //= require cameras_table
 //= require snapmails/snapmails.js
 //= require moment-timezone.js

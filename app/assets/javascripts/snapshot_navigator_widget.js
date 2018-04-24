@@ -35,7 +35,6 @@
 //= require nprogress-turbolinks
 //= require nprogress-call.js
 //= require jquery.thumbhover.js
-//= require user_analytic_tag_script
 //= require moment-with-locales.js
 //= require moment-timezone.js
 //= require jquery.elevateZoom-3.0.8.min.js

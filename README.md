@@ -9,4 +9,4 @@
 | Evercam API Version  | 1.0  |
 | Licence | [AGPL](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-%28agpl-3.0%29) |
 
-Any questions, drop us a line: http://www.evercam.io/contact
+Any questions, drop us a line: https://evercam.io/contact

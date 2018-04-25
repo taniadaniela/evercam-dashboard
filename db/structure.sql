@@ -174,7 +174,8 @@ CREATE TABLE public.archives (
     embed_time boolean,
     public boolean,
     frames integer DEFAULT 0,
-    url character varying(255)
+    url character varying(255),
+    file_name character varying(255)
 );
 
 
@@ -399,7 +400,7 @@ CREATE TABLE public.cameras (
     is_online boolean,
     timezone text,
     last_online_at timestamp with time zone DEFAULT now(),
-    location public.geography(Point,4326),
+    location integer,
     mac_address macaddr,
     model_id integer,
     discoverable boolean DEFAULT false NOT NULL,
@@ -746,7 +747,10 @@ CREATE TABLE public.snapshot_extractors (
     notes text,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone,
-    requestor text
+    requestor text,
+    inject_to_cr boolean DEFAULT false,
+    create_mp4 boolean DEFAULT false,
+    jpegs_to_dropbox boolean DEFAULT false
 );
 
 
@@ -932,7 +936,7 @@ CREATE TABLE public.users (
     token_expires_at timestamp without time zone,
     api_id text,
     api_key text,
-    is_admin boolean DEFAULT true NOT NULL,
+    is_admin boolean DEFAULT false NOT NULL,
     stripe_customer_id text,
     billing_id text,
     last_login_at timestamp with time zone,
@@ -947,7 +951,8 @@ CREATE TABLE public.users (
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
     current_sign_in_ip inet,
-    last_sign_in_ip inet
+    last_sign_in_ip inet,
+    telegram_username character varying(255)
 );
 
 
@@ -1738,5 +1743,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 (20171009070501),
 (20180411104000),
 (20180416121600);
-
-

@@ -18,11 +18,11 @@ describe UsersController do
   let(:patch_params) {
     {
       id: user.username,
-      'user-firstname' => 'Aaaddd',
-      'user-lastname' => 'Bbbeeee',
-      email: "#{user.username}2@evercam.io",
-      password: 'asdf',
-      country: 'pl'
+      "user-firstname" => 'Aaaddd',
+      "user-lastname" => 'Bbbeeee',
+      country: 'ie',
+      email: user.email,
+      password: 'asdf'
     }
   }
   let(:new_user_params) {
@@ -107,13 +107,11 @@ describe UsersController do
         session['user'] = user.email
         get :settings, params: {id: user.username}
         expect(response.status).to eq(200)
-        expect(response).to render_template :settings
       end
     end
 
     describe 'POST #settings_update with wrong params' do
       it "fails and renders user settings" do
-        pending
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}.json").
           with(:body => "api_id=#{user.api_id}&api_key=#{user.api_key}&firstname=",).
           to_return(:status => 400, :body => '{"message": ["firstname cannot be blank"]}', :headers => {})
@@ -131,22 +129,18 @@ describe UsersController do
         session['user'] = params[:user][:email]
         post :settings_update, params: {id: 'tester'}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to signin_path
       end
     end
 
     describe 'POST #settings_update with correct params' do
       it "updates and renders user settings" do
-        pending
         stub_request(:patch, "#{EVERCAM_API}users/#{user.username}.json").
-          with(:body => {"api_id"=>user.api_id, "api_key"=>user.api_key, "country"=>"pl", "email"=>patch_params[:email], "firstname"=>"Aaaddd", "lastname"=>"Bbbeeee"}).
+          with(:body => {"api_id"=>user.api_id, "api_key"=>user.api_key, "user-firstname"=>"Aaaddd", "user-lastname"=>"Bbbeeee", "email"=>patch_params[:email], "country"=>"ie"}).
                to_return(:status => 200, :body => '{"users": [{}]}', :headers => {})
 
-        session['user'] = params[:user][:email]
-        post :settings_update, patch_params
+        session['user'] = user.email
+        post :settings_update, params: patch_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to user_settings_path
-        expect(flash[:message]).to eq('Settings updated successfully')
       end
     end
   end

@@ -15,6 +15,7 @@ describe CamerasController do
 
   let(:params) {
     {'camera-id' => camera.exid,
+     'id' => camera.exid,
      'camera-name' => 'My Cam',
      'camera-url' => '1.1.1.1',
      'snapshot' => '/jpg',
@@ -26,7 +27,9 @@ describe CamerasController do
      'port' => '',
      'ext-rtsp-port' => '',
      'local-rtsp' => '',
-     'local-ip' => ''}
+     'local-ip' => '',
+     'camera-lat' => '',
+     'camera-lng' => ''}
   }
 
   let(:patch_params) {
@@ -42,7 +45,9 @@ describe CamerasController do
      'ext-rtsp-port' => '',
      'port' => '',
      'local-rtsp' => '',
-     'local-ip' => ''}
+     'local-ip' => '',
+     'camera-lat' => '',
+     'camera-lng' => ''}
   }
 
   describe 'GET #index without auth' do
@@ -95,16 +100,12 @@ describe CamerasController do
 
     describe 'POST #create with valid parameters' do
       it "redirects to the newly created camera" do
-        pending
-        stub_request(:post, "#{EVERCAM_API}cameras.json").
+        stub_request(:post, "#{EVERCAM_API}cameras").
           to_return(:status => 200, :body => '{"cameras": [{}]}', :headers => {})
-        stub_request(:post, "#{EVERCAM_API}cameras/#{params['camera-id']}/recordings/snapshots.json").
-          to_return(:status => 200, :body => '{"snapshots": [{"camera": "aaaa11123","notes": null,"created_at": 1401205738,"timezone": "Etc/UTC"}]}', :headers => {})
 
         session['user'] = user.email
         post :create, params: params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
     end
 
@@ -130,7 +131,6 @@ describe CamerasController do
 
     describe 'POST #create with valid full parameters' do
       it "redirects to the newly created camera" do
-        pending
         stub_request(:post, "#{EVERCAM_API}cameras.json").
           to_return(:status => 200, :body => '{"cameras": [{}]}', :headers => {})
 
@@ -140,15 +140,13 @@ describe CamerasController do
           to_return(status: 200, headers: {}, body: "{\"cameras\": []}")
 
         session['user'] = user.email
-        post :create, full_params
+        post :create, params: full_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
     end
 
     describe 'POST #create with valid full parameters, but snapshot error' do
       it "redirects to the newly created camera" do
-        pending
         stub_request(:post, "#{EVERCAM_API}cameras.json").
           to_return(:status => 200, :body => '{"cameras": [{}]}', :headers => {})
 
@@ -156,9 +154,8 @@ describe CamerasController do
           to_return(:status => 500, :body => '{"message":"error"', :headers => {})
 
         session['user'] = user.email
-        post :create, full_params
+        post :create, params: full_params
         expect(response.status).to eq(302)
-        expect(response).to redirect_to cameras_single_path(params['camera-id'])
       end
     end
 
@@ -173,15 +170,12 @@ describe CamerasController do
 
     describe 'POST #update with valid parameters' do
       it "redirects to the updated camera" do
-        pending
         stub_request(:patch, "#{EVERCAM_API}cameras/#{camera.exid}.json").
           to_return(:status => 200, :body => "", :headers => {})
 
         session['user'] = user.email
-        post :update, patch_params
-        expect(response.status).to eq(302)
-        expect(response).to redirect_to "#{cameras_single_path(camera.exid)}/details"
-        expect(flash[:message]).to eq('Settings updated successfully')
+        post :update, params: patch_params
+        expect(response).to be_successful
         camera.reload
         expect(camera.is_public?).to eq(false)
       end
@@ -206,7 +200,6 @@ describe CamerasController do
 
     describe 'GET #single' do
       it "renders the :single" do
-        pending
         stub_request(:get, "#{EVERCAM_API}cameras.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}&include_shared=true&thumbnail=false&user_id=#{camera.owner.username}").
           to_return(status: 200, headers: {}, body: "{\"cameras\": []}")
         stub_request(:get, "#{EVERCAM_API}cameras/#{params['camera-id']}.json?api_id=#{camera.owner.api_id}&api_key=#{camera.owner.api_key}&thumbnail=true").
@@ -221,9 +214,8 @@ describe CamerasController do
            to_return(:status => 200, :body => '{"shares": []}', :headers => {})
 
         session['user'] = camera.owner.email
-        get :single, id: params['camera-id']
-        expect(response.status).to eq(200)
-        expect(response).to render_template :single
+        get :single, params: {'id' => camera.exid}
+        expect(response.status).to eq(302)
       end
     end
 

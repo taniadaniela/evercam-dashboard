@@ -122,7 +122,7 @@ class CamerasController < ApplicationController
         'local-rtsp' => params['local-rtsp']
       }
       if error.kind_of?(Evercam::EvercamError)
-        response = instance_eval(error.message).first
+        response = instance_eval{(error.message).first}
         flash[:message] = t("errors.#{error.code}") unless error.code.nil?
         assess_field_errors(response)
       else

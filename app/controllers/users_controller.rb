@@ -65,7 +65,7 @@ class UsersController < ApplicationController
         if error.message.eql?("Invalid token.")
           flash[:message] = error.message
         else
-          response = instance_eval(error.message).first
+          response = instance_eval{(error.message).first}
           if error.try(:status_code).present? && error.status_code.equal?(400)
             assess_field_errors(response)
           else
@@ -149,7 +149,7 @@ class UsersController < ApplicationController
       Rails.logger.error "Exception caught in update user request.\nCause: #{error}\n" +
           error.backtrace.join("\n")
       if error.kind_of?(Evercam::EvercamError)
-        response = instance_eval(error.message).first
+        response = instance_eval{(error.message).first}
         if response[1] && response[1][0]
           flash[:message] = response[1][0]
         else

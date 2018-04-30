@@ -504,6 +504,13 @@ hideLoadingAnimation = ->
   $("#snapmail-form .modal-content").removeClass("opacity0")
   $("#loading-image-div").addClass("hide")
 
+handleTabOpen = ->
+  $('.nav-tab-snapmail').on 'shown.bs.tab', ->
+    card_width = $('#divSnapmails .card').width()
+    if $('#divSnapmails .bx-viewport').height() is 0
+      $('#divSnapmails .bx-viewport').height("auto")
+      $('#divSnapmails .bx-viewport li').width(card_width)
+
 window.initializeSingleSnapmail = ->
   loadSnapmails()
   initCameraSelect()
@@ -520,3 +527,4 @@ window.initializeSingleSnapmail = ->
   pauseSnapmail()
   cloneSnapmail()
   openSnapmailDialog()
+  handleTabOpen()

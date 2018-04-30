@@ -88,7 +88,7 @@ GEM
       fog-core
       mime-types (>= 2.99)
       unf
-    autoprefixer-rails (8.3.0)
+    autoprefixer-rails (8.4.1)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.11)
@@ -251,7 +251,7 @@ GEM
       yard (~> 0.9)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    public_suffix (3.0.1)
+    public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.4)
     rack-test (1.0.0)
@@ -427,7 +427,7 @@ GEM
     unf_ext (0.0.7.4)
     unicode-display_width (1.3.0)
     unicode_utils (1.4.0)
-    webmock (3.3.0)
+    webmock (3.4.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff

@@ -773,7 +773,7 @@ getSharedUsers = ->
       tags: true,
       placeholder: 'Enter Email Address',
       selectOnClose: true,
-      closeOnSelect: false,
+      closeOnSelect: true,
       tokenSeparators: [',', ';', ' '],
       templateSelection: format,
       templateResult: format

@@ -10,7 +10,11 @@ class SessionsController < ApplicationController
 
   def new
     if current_user.nil?
-      session[:referral_url] = request.referer unless session[:referral_url]
+      if params["url"]
+        session[:referral_url] = params["url"]
+      else
+        session[:referral_url] = request.referer unless session[:referral_url]
+      end
     else
       redirect_to cameras_index_path
     end

@@ -9,7 +9,11 @@ class SessionsController < ApplicationController
   layout "bare-bones"
 
   def new
-    redirect_to cameras_index_path unless current_user.nil?
+    if current_user.nil?
+      session[:referral_url] = request.referer
+    else
+      redirect_to cameras_index_path
+    end
   end
 
   def widget_new
@@ -26,6 +30,7 @@ class SessionsController < ApplicationController
     if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
       update_user_intercom(@user)
+      session[:referral_url] = nil
       if params[:session][:widget].blank?
         if session[:redirect_url]
           url = session[:redirect_url]

@@ -45,6 +45,11 @@ class UsersController < ApplicationController
       if request.safe_location && Evercam::Config.env == :production
         params[:country] = request.safe_location.country_code.downcase
       end
+      if session[:referral_url]
+        referral_url = session[:referral_url]
+      else
+        referral_url = request.referer
+      end
       get_evercam_api.create_user(
         user['firstname'],
         user['lastname'],
@@ -53,7 +58,8 @@ class UsersController < ApplicationController
         user['password'],
         ENV['WEB_APP_TOKEN'],
         params[:country],
-        params[:key]
+        params[:key],
+        referral_url
       )
 
       user = User.where(Sequel.ilike(:email, user[:email])).first

@@ -188,6 +188,7 @@ class UsersController < ApplicationController
   end
 
   def password_reset_request
+    session[:referral_url] = request.referer unless session[:referral_url]
     email = params[:email].downcase if params[:email]
     unless email.nil?
       user = User.by_login(email)

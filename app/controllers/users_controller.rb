@@ -22,8 +22,7 @@ class UsersController < ApplicationController
       single_camera_redirection(cameras_index_path)
     end
     @share_request = nil
-
-    session[:referral_url] = request.referer unless session[:referral_url]
+    get_referral_url()
 
     if params[:key]
       @share_request = CameraShareRequest.where(
@@ -188,7 +187,7 @@ class UsersController < ApplicationController
   end
 
   def password_reset_request
-    session[:referral_url] = request.referer unless session[:referral_url]
+    get_referral_url()
     email = params[:email].downcase if params[:email]
     unless email.nil?
       user = User.by_login(email)

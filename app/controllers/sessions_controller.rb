@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       if params["url"]
         session[:referral_url] = params["url"]
       else
-        session[:referral_url] = request.referer unless session[:referral_url]
+        get_referral_url()
       end
     else
       redirect_to cameras_index_path

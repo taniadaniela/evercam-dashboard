@@ -67,6 +67,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_referral_url
+    unless request.referer.nil? && request.referer.include?("dash.evercam.io")
+      session[:referral_url] = request.referer
+    end
+  end
+
   def set_cache_buster
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"

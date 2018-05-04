@@ -68,8 +68,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_referral_url
-    unless request.referer.nil? && request.referer.include?("dash.evercam.io")
-      session[:referral_url] = request.referer
+    if !request.referer.nil? && !request.referer.include?("dash.evercam.io")
+      session[:referral_url] = request.referer unless session[:referral_url]
     end
   end
 

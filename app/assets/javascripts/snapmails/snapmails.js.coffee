@@ -78,7 +78,10 @@ selectDays = (snapmail_id, notify_days) ->
 getSnapmailHtml = (snapMail, index) ->
   cameras = snapMail.camera_ids.split(',') if snapMail.camera_ids
   camera_names = snapMail.camera_names.replace(/,/g, ", ")
-  recipients = snapMail.recipients.replace(/,/g, ", ")
+  if snapMail.recipients
+    recipients = snapMail.recipients.replace(/,/g, ", ")
+  else
+    recipients = ""
   html = '<div id="dataslot' + snapMail.id + '" class="list-border margin-bottom10">'
   html += '    <div class="col-xs-12 col-sm-6 col-md-4 padding-left-0" style="min-height:0px;">'
   html += '    <div class="card" style="min-height:0px;">'

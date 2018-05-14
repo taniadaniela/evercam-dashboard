@@ -53,15 +53,14 @@ initializeArchivesDataTable = ->
     },
     columns: [
       {data: getTitle, sClass: 'title'},
-      {data: gravatarName, sClass: 'fullname'},
-      {data: renderIsPublic, orderDataType: 'string', type: 'string', sClass: 'public', visible: false},
+      {data: gravatarName, sType: 'uk_datetime'},
+      {data: renderIsPublic, sClass: 'public', visible: false},
       {data: renderStatus, sClass: 'center', visible: false},
       {data: "type", sClass: 'text-center', visible: false},
-      {data: renderbuttons, sClass: 'options'}
+      {data: renderbuttons, sClass: 'options',"searchable": false, "orderable": false}
     ],
     iDisplayLength: 50,
-    order: [[ 2, "desc" ]],
-    bSort: false,
+    order: [ 0, 'asc' ],
     bFilter: true,
     autoWidth: false,
     drawCallback: ->
@@ -175,7 +174,7 @@ getTitle = (row, type, set, meta) ->
   if row.type is "URL"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'></div>
       <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
-      <a target='_blank' class='archive-title' href='#{row.media_url}'>#{row.title}</a></div>"
+      <a id='archive_url_link_#{row.id}' class='archive-title' href='#' data-id='#{row.id}' data-url='#{row.media_url}' data-type='#{row.type}' data-toggle='modal' data-target='#social-media-url-modal'>#{row.title}</a></div>"
   else if row.type is "File"
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='#{row.thumbnail_url}'></div>
@@ -200,10 +199,12 @@ getTitle = (row, type, set, meta) ->
 
 gravatarName = (row, type, set, meta) ->
   main_div = $('<div>', {class: "main_div"})
-  div = $('<div>', {class: "gravatar-placeholder hide"})
-  img = $('<img>', {class: "gravatar #{row.id}"})
-  div.append(img)
   div_user = $('<div>', {class: "requester"})
+  small = $("<small>")
+  small.append(renderDate(row, type, set, meta))
+  div_user.append("<label>On:</label>")
+  div_user.append(small)
+  div_user.append('<br>')
   if row.requester_email
     small = $("<small>")
     small.append(row.requester_name)
@@ -215,12 +216,6 @@ gravatarName = (row, type, set, meta) ->
       div_user.append(" ( <span class='offlines'>Failed</span> )")
   else
     div_user.append("Deleted User")
-  div_user.append('<br>')
-  small = $("<small>")
-  small.append(renderDate(row, type, set, meta))
-  div_user.append("<label>On:</label>")
-  div_user.append(small)
-  main_div.append(div)
   main_div.append(div_user)
   return main_div.html()
 
@@ -325,7 +320,7 @@ getDate = (timestamp) ->
   cameraOffset = parseInt(offset)/3600
   DateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateformateed = format_time.formatDate(DateTime, 'd M Y, H:i:s')
+  Dateformateed = format_time.formatDate(DateTime, 'M d Y, H:i:s')
   return Dateformateed
 
 shareURL = ->
@@ -588,21 +583,27 @@ modal_events = ->
   $("#archives"). on "click", ".archive-title", ->
     id = $(this).attr("data-id")
     type = $(this).attr("data-type")
+    media_url = $(this).attr("data-url")
     if type isnt undefined
       root_url = "#{Evercam.request.rootpath}/archives/#{id}"
       if history.replaceState
         window.history.replaceState({}, '', root_url)
     query_string = $("#archive_embed_code#{id}").val()
     # $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
+    if type is "URL"
+      showArchiveUrlSaveButton()
+      save_edited_archive_url(id)
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
     MP4_URL = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
     $("#archive_gif_url").val("#{url}.gif")
     $("#archive_mp4_url").val("#{url}.mp4")
+    $("#social_media_url").val("#{media_url}")
     code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{query_string} autoplay'></script>"
     $("#archive_embed_code").val(code)
     $("#div_frames").text($("#txt_frames#{id}").val())
     $("#div_duration").text($("#txt_duration#{id}").val())
     $("#div_title").text($("#txtArchiveTitle#{id}").val())
+    $("#media_title_title").val($("#archive_url_link_#{id}").text())
     if type isnt "Compare"
       $("#row-compare").hide()
       $(".div-thumbnail").show()
@@ -612,10 +613,11 @@ modal_events = ->
       $("#row-gif").hide()
       $("#archive_mp4_url").val("#{MP4_URL}")
       archive_js_player.poster($("#txtArchiveThumb#{id}").val())
-      archive_js_player.src([
-        { type: "video/mp4", src: $("#mp4play-#{id}").attr("value") }
-      ])
-      archive_js_player.play()
+      if type isnt "URL"
+        archive_js_player.src([
+          { type: "video/mp4", src: $("#mp4play-#{id}").attr("value") }
+        ])
+        archive_js_player.play()
     else
       $("#row-compare").html(window.compare_html)
       params = query_string.split(" ")
@@ -643,9 +645,17 @@ modal_events = ->
 
   $('#social-media-url-modal').on 'hide.bs.modal', ->
     reset_media_url_form()
+    url = "#{Evercam.request.rootpath}/archives"
+    if history.replaceState
+      window.history.replaceState({}, '', url)
 
-  $('#social-media-url-modal').on 'show.bs.modal', ->
-    reset_media_url_form()
+showArchiveUrlSaveButton = ->
+  $("#edit_social_media_archive").removeClass 'hide'
+  $("#save_social_media_url").addClass 'hide'
+
+hideArchiveUrlSaveButton = ->
+  $("#save_social_media_url").removeClass 'hide'
+  $("#edit_social_media_archive").addClass 'hide'
 
 initCompare = ->
   imagesCompareElement = $('.archive-img-compare').imagesCompare()
@@ -806,6 +816,7 @@ reset_media_url_form = ->
   $("#social_media_url").val("")
   $("#icon-media-type").addClass("fa-link")
   $("#media_url_type").hide()
+  hideArchiveUrlSaveButton()
 
 detect_url = (url, regex) ->
   patt = new RegExp(regex)
@@ -826,6 +837,45 @@ handle_submenu = ->
 
   $(document).on 'mouseup', (evt) ->
     $(".m-menu__submenu").hide()
+
+save_edited_archive_url = (id) ->
+  $("#edit_social_media_archive").on "click", ->
+    timespan = moment().utc() /1000
+    $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+    NProgress.start()
+
+    data =
+      title: $("#media_title_title").val()
+      url: $("#social_media_url").val()
+      from_date: timespan
+      to_date: timespan
+      requested_by: Evercam.User.username
+      type: "url"
+
+    onError = (jqXHR, status, error) ->
+      if jqXHR.status is 500
+        Notification.show("Internal Server Error. Please contact to admin.")
+      else
+        Notification.show(jqXHR.responseJSON.message)
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+
+    onSuccess = (data, status, jqXHR) ->
+      archives_table.ajax.reload (json) ->
+        $('#archives-table').show()
+        $("#no-archive").hide()
+        NProgress.done()
+        $("#social-media-url-modal").modal("hide")
+        reset_media_url_form()
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PATCH'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    $.ajax(settings)
 
 save_media_url = ->
   $("#save_social_media_url").on "click", ->

@@ -45,15 +45,12 @@
 
           <div class="col-md-12 text-center">
             <div class="grey margin-top-20">
-              <p>I've <%= link_to "forgotten my password", password_reset_path %></p>
+              <p class="margin-bottom-0">I've <%= link_to "forgotten my password", password_reset_path %></p>
             </div>
           </div>
           <input type="hidden" id="session_anchor" name="session[anchor]">
         <% end %>
 
-        <div class="grey col-md-12 text-center">
-          <p>Or <%= link_to "create an account", signup_path %></p>
-        </div>
         <input type="hidden" name="request_url" id="request_url_value" value="<%= requested_url_value %>"/>
       </div>
     </div>

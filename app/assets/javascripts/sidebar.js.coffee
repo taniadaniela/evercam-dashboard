@@ -65,57 +65,17 @@ update_cameras = (camera) ->
         <i class='fas fa-circle green-dot'></i>
       </div>"
 
-  $(".sidebar-cameras-list").append(
+  list_element =
     "<li class='sub-menu-item camera-#{camera.camera_id} #{offline_class}'>
       #{cr_html}
       <a data-camera-id='#{camera.camera_id}' href='/v1/cameras/#{camera.camera_id}'>#{camera.name}</a>
       <i class='red header-sidebar fa fa-unlink'></i>
-    </li>")
+    </li>"
 
-sortList = ->
-  list = undefined
-  i = undefined
-  switching = undefined
-  b = undefined
-  shouldSwitch = undefined
-  list = document.getElementsByClassName('sidebar-cameras-list')
-  switching = true
-
-  ### Make a loop that will continue until
-  no switching has been done:
-  ###
-
-  while switching
-    # Start by saying: no switching is done:
-    switching = false
-    b = list.find('li')
-    # Loop through all list items:
-    i = 0
-    while i < b.length - 1
-      # Start by saying there should be no switching:
-      shouldSwitch = false
-
-      ### Check if the next item should
-      switch place with the current item:
-      ###
-
-      if b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()
-
-        ### If next item is alphabetically lower than current item,
-        mark as a switch and break the loop:
-        ###
-
-        shouldSwitch = true
-        break
-      i++
-    if shouldSwitch
-
-      ### If a switch has been marked, make the switch
-      and mark the switch as done:
-      ###
-
-      b[i].parentNode.insertBefore b[i + 1], b[i]
-      switching = true
+  $.each $(".sidebar-cameras-list li"), (i, list) ->
+    if $(list).find("a").text().toLowerCase() > camera.name.toLowerCase()
+      $(".sidebar-cameras-list li:eq(#{i})").before(list_element)
+      return false
 
 updateCameraStatus = (camera_id, status) ->
   if status

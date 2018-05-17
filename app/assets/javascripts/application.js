@@ -42,6 +42,8 @@
 //= require popcorn.capture.js
 //= require clipboard.min.js
 //= require tus.min.js
+//= require test.js
+//= require bowser.js
 
 //=
 //= require alerts

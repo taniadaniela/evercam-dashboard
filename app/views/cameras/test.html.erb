@@ -1,0 +1,66 @@
+<%= content_for(:title, "Evercam: Evercam Compatibility Tests") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content" id="browser-compatiblity">
+    <div class="portlet-body">
+      <div class="col-sm-12 col-md-12 margin-top-20">
+        <div class="javascipt-section">
+          <div>
+            <p class="yes-javascript"></p>
+            <noscript>
+              <div class="no-javascript">Javascript is disable on this browser.</div>
+            </noscript>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="flash-section">
+          <div>
+            <p class="yes-flash"></p>
+            <p class="no-flash hide"></p>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="media-resquest-section">
+          <div class="margin-top-10">
+            <p class="yes-blocked hide">Your media sending requests are blocked.</p>
+            <p class="no-blocked hide">Your media sending requests are not blocked.</p>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="os-section">
+          <div>
+            <p class="os-info"></p>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="browser-section">
+          <div>
+            <p class="browser-info"></p>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="listNurl-section">
+          <div>
+            <p>List of the URLs and IP addresses that should not be blocked and are used to run dashboard smoothly.</p>
+          </div>
+          <div class="col-sm-12 col-md-12">
+            <ul>
+              <li>94.130.139.38:8888</li>
+              <li>seaweedfs2.evercam.io</li>
+              <li>rtmp://media.evercam.io</li>
+              <li>rtsp://media.evercam.io</li>
+              <li>media.evercam.io</li>
+              <li>data:image (base64 image)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function () {
+  window.initializeBrowserCompatiblity();
+});
+</script>

@@ -535,6 +535,10 @@ class CamerasController < ApplicationController
     render json: {success: true}
   end
 
+  def test
+    @cameras = load_user_cameras(true, false)
+  end
+
   private
 
   def display_billing_alert

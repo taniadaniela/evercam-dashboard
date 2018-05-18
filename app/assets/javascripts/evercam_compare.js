@@ -42,7 +42,7 @@ var $;
       html += '       <img id="compare_after" src="" alt="After"/>';
       html += '     </div>';
       html += '     <div class="evercam-brand">';
-      html += '       <img src="https://dashboard.evercam.io/assets/evercam-logo-white.png" class="svg-logo" alt="Evercam.io" />';
+      html += '       <img src="https://dash.evercam.io/assets/evercam-logo-white.png" class="svg-logo" alt="Evercam.io" />';
       html += '     </div>';
       html += '   </div>';
 
@@ -101,12 +101,12 @@ var $;
   function addVideojsReffrences() {
     var videojs_tag = document.createElement('script');
     videojs_tag.setAttribute("type","text/javascript");
-    videojs_tag.setAttribute("src", "https://dashboard.evercam.io/assets/hammer.min.js");
+    videojs_tag.setAttribute("src", "https://dash.evercam.io/assets/hammer.min.js");
     (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(videojs_tag);
 
     var videojs_hls_tag = document.createElement('script');
     videojs_hls_tag.setAttribute("type","text/javascript");
-    videojs_hls_tag.setAttribute("src", "https://dashboard.evercam.io/assets/jquery.images-compare.js");
+    videojs_hls_tag.setAttribute("src", "https://dash.evercam.io/assets/jquery.images-compare.js");
     (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(videojs_hls_tag);
 
     var style = "<style>";

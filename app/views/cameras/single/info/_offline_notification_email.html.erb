@@ -8,7 +8,7 @@
         <td class="col-md-4 col-xs-4">Notifications:</td>
         <td class="col-md-8">
           <div class="form-group checkbox uniform-camera-notification">
-            <input type="checkbox" id="camera-notification" name="camera-notification"/>
+            <input type="checkbox" id="camera-notification" name="camera-notification" <%= "checked" if @camera['is_online_email_owner_notification'] == true %>/>
             <label id="cameras" class="camera-notification" for="camera-notification">Send me a notification if this camera goes offline (<%= current_user.email %>)</label>
           </div>
         </td>
@@ -18,7 +18,7 @@
 </div>
 
 <script>
-  is_notification_enabled = <%= @is_notification_enabled %>;
+  is_notification_enabled = <%= @camera['is_online_email_owner_notification'] %>;
   $(document).ready(function () {
     if (is_notification_enabled === true) {
       $(".camera-notification span").addClass("checked");

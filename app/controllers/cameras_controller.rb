@@ -235,6 +235,7 @@ class CamerasController < ApplicationController
       time_zone = TZInfo::Timezone.get(@camera['timezone'])
       current = time_zone.current_period
       @offset = current.utc_offset + current.std_offset
+      @is_notification_enabled = @camera["alert_emails"].split(",").include?(current_user.email) if @camera["alert_emails"]
       @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
       @camera_shares = nil
       @share_requests = nil

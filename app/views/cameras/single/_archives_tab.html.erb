@@ -105,8 +105,10 @@
               </video>
             </div>
             <div class="div-row margin-top-10">
-              <div class="col-md-2 archive-label margin-top-2">Title</div>
-              <div id="div_title" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+              <div class="col-md-2 archive-label margin-top-10">Title</div>
+              <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                <input type="text" required placeholder="" class="form-control clip-text-box" id="txt_title" name="div_title">
+              </div>
             </div>
             <div id="row-frames" class="div-row">
               <div class="col-md-2 archive-label margin-top-2">Frames</div>
@@ -143,6 +145,9 @@
         </div>
         <fieldset>
           <div class="export-buttons">
+            <input type="hidden" id="txt-archive-type">
+            <input type="hidden" id="txt-archive-id">
+            <input type="button" class="push btn btn-primary margin-right-10 save-buuton" id="update-archive" value="Save"/>
             <button id="cancel_export" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </fieldset>
@@ -214,7 +219,7 @@
                   <table class="table table-fixed table-borderless">
                     <tr>
                       <td style="width: 70px;"><label class="control-label camera-name" for="media_title">Title</label></td>
-                      <td><input type="text" required placeholder="e.g. My Video" class="form-control clip-text-box" id="media_title_title" name="media_title"></td>
+                      <td><input type="text" required placeholder="e.g. My Video" class="form-control clip-text-box" id="media_title_title" name="media_title_title"></td>
                     </tr>
                     <tr>
                       <td><label class="control-label camera-name" for="social_media_url">URL</label></td>
@@ -235,7 +240,7 @@
           <div class="export-buttons">
             <div class='pull-left form-group1'>
               <input type="button" class="push btn btn-primary margin-right-10 margin-left-5" id="save_social_media_url" value="Save"/>
-              <input type="button" class="push btn btn-primary margin-right-10 margin-left-5 hide" id="edit_social_media_archive" value="Save"/>
+              <input type="button" class="push btn btn-primary margin-right-10 margin-left-5 hide save-buuton" id="update_archive" value="Save"/>
             </div>
             <button id="cancel_export" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <span id="spn-success-export" class="alert alert-info hide"></span>

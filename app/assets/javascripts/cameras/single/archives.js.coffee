@@ -127,7 +127,8 @@ renderbuttons = (row, type, set, meta) ->
     else if row.type is "File"
       getFileButtons(row, div)
     else if row.type is "URL"
-      return "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
+      return '<a class="archive-actions archive-title" href="#" title="Edit" data-id="' + row.id + '" data-url="' + row.media_url + '" data-type="' + row.type + '" data-toggle="modal" data-target="#social-media-url-modal"><i class="fas fa-edit"></i></a>' +
+        "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
       mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}"
       view_url = "clip/#{row.id}/play"
@@ -135,7 +136,8 @@ renderbuttons = (row, type, set, meta) ->
       if row.public is true
         copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
-      return '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
+      return '<a class="archive-actions archive-title" href="#" title="Edit" data-id="' + row.id + '" data-url="' + row.media_url + '" data-type="' + row.type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-edit"></i></a>' +
+        '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
         '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '.mp4" type="hidden">' +
         '<input id="mp4play-' + row.id + '" value= "' + mp4_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
         '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4clip-' + row.id  + '" title="Download MP4"></i></div>' +
@@ -147,15 +149,16 @@ getCompareButtons = (div, row) ->
   animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
   view_url = ""
   copy_url = ""
-  return '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
+  return '<div class="dropdown"><a class="archive-actions dropdown-toggle archive-title" href="#" title="Edit" data-id="'+ row.id + '" data-type="' + row.type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-edit"></i></a>' +
+    '<a class="archive-actions" href="#" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
     '<ul class="dropdown-menu"><li><a class="play-clip" href="#" title="Play GIF" data-width="1280" data-height="720" play-url="' + animation_url + '.gif"><i class="fa fa-play-circle"></i> GIF</a></li>'+
       '<li><a class="play-clip" href="#" title="Play MP4" data-width="1280" data-height="720" play-url="' + animation_url + '.mp4"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
     '</div>' +
     '<input id="gif-' + row.id + '" value= "' + animation_url + '.gif" type="hidden">' +
     '<input id="mp4-' + row.id + '" value= "' + animation_url + '.mp4" type="hidden">' +
     '<div class="dropdown float-left"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
-    '<ul class="dropdown-menu"><li><i class="fa fa-download download-animation archive-icon"  data-download-target="#gif-' + row.id + '" title="Download GIF"> GIF</i></li>'+
-      '<li><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4-' + row.id  + '" title="Download MP4"> MP4</i></li></ul>' +
+    '<ul class="dropdown-menu"><li><i class="fa fa-download download-animation archive-icon"  data-download-target="#gif-' + row.id + '" title="Download GIF"><span class="regular-font"> GIF<span></i></li>'+
+      '<li><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><span class="regular-font"> MP4</span></i></li></ul>' +
     '</div>' +
     copy_url + div.html()
 
@@ -165,6 +168,7 @@ getFileButtons = (row, div) ->
 
 getTitle = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
+  mp4Url = "clip/#{row.id}/play"
   if row.embed_code.indexOf("autoplay") > 0
     end_index = row.embed_code.indexOf("autoplay")
   else
@@ -174,22 +178,24 @@ getTitle = (row, type, set, meta) ->
   if row.type is "URL"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'></div>
       <div class='media-url-title'><i class='fa fa-link type-icon type-icon-url'></i>
-      <a id='archive_url_link_#{row.id}' class='archive-title' href='#' data-id='#{row.id}' data-url='#{row.media_url}' data-type='#{row.type}' data-toggle='modal' data-target='#social-media-url-modal'>#{row.title}</a></div>"
+      <a id='archive_url_link_#{row.id}' target='_blank' class='archive-title-color' href='#{row.media_url}'>#{row.title}</a></div>"
   else if row.type is "File"
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='#{row.thumbnail_url}'></div>
       <div class='media-url-title'><i class='fa fa-upload type-icon type-icon-url'></i>
-      <a target='_blank' class='archive-title' href='#{file_url}'>#{row.title}</a></div>"
+      <a target='_blank' class='archive-title-color' href='#{file_url}'>#{row.title}</a></div>"
   else
     fa_class = "<i class='fas fa-video type-icon'></i>"
     if row.type is "Compare"
+      mp4Url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{row.id}.mp4"
       fa_class = "<svg fill='#a0a0a0' height='15' viewBox='0 0 24 24' width='15'>
         <path d='M0 0h24v24H0z' fill='none'/>
         <path d='M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/>
         </svg>"
+
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'></div>
       <div class='username-id'><div class='float-left type-icon-alignment'>#{fa_class}</div><div class='float-left'>
-      <a id='archive_link_#{row.id}' class='archive-title' href='#' data-id='#{row.id}' data-type='#{row.type}' data-toggle='modal' data-target='#modal-archive-info'>#{row.title}</a>
+      <a target='_blank' class='archive-title-color' href='#{mp4Url}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       <br /><small class='blue'>#{renderFromDate(row, type, set, meta)} - #{renderToDate(row, type, set, meta)}</small></div></div>
       <input id='txtArchiveTitle#{row.id}' type='hidden' value='#{row.title}'>
       <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail_url}'>
@@ -589,10 +595,11 @@ modal_events = ->
       if history.replaceState
         window.history.replaceState({}, '', root_url)
     query_string = $("#archive_embed_code#{id}").val()
+    $("#txt-archive-type").val(type)
+    $("#txt-archive-id").val(id)
     # $('#archive-thumbnail').attr("src", $("#txtArchiveThumb#{id}").val())
     if type is "URL"
       showArchiveUrlSaveButton()
-      save_edited_archive_url(id)
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
     MP4_URL = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
     $("#archive_gif_url").val("#{url}.gif")
@@ -602,7 +609,7 @@ modal_events = ->
     $("#archive_embed_code").val(code)
     $("#div_frames").text($("#txt_frames#{id}").val())
     $("#div_duration").text($("#txt_duration#{id}").val())
-    $("#div_title").text($("#txtArchiveTitle#{id}").val())
+    $("#txt_title").val($("#txtArchiveTitle#{id}").val())
     $("#media_title_title").val($("#archive_url_link_#{id}").text())
     if type isnt "Compare"
       $("#row-compare").hide()
@@ -650,12 +657,20 @@ modal_events = ->
       window.history.replaceState({}, '', url)
 
 showArchiveUrlSaveButton = ->
-  $("#edit_social_media_archive").removeClass 'hide'
+  $("#update_archive").removeClass 'hide'
   $("#save_social_media_url").addClass 'hide'
 
 hideArchiveUrlSaveButton = ->
   $("#save_social_media_url").removeClass 'hide'
-  $("#edit_social_media_archive").addClass 'hide'
+  $("#update_archive").addClass 'hide'
+
+showClipSaveButton = ->
+  $("#edit_create_clip").removeClass 'hide'
+  $("#edit_compare").addClass 'hide'
+
+hideClipSaveButton = ->
+  $("#edit_create_clip").addClass 'hide'
+  $("#edit_compare").removeClass 'hide'
 
 initCompare = ->
   imagesCompareElement = $('.archive-img-compare').imagesCompare()
@@ -838,19 +853,23 @@ handle_submenu = ->
   $(document).on 'mouseup', (evt) ->
     $(".m-menu__submenu").hide()
 
-save_edited_archive_url = (id) ->
-  $("#edit_social_media_archive").on "click", ->
-    timespan = moment().utc() /1000
-    $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
+update_url = ->
+  $("#update_archive").on "click", ->
+    id = $("#txt-archive-id").val()
+    console.log id
+    if $("#media_title_title").val() is ""
+      Notification.show("Title cannot be empty.")
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      return false
+    if $("#social_media_url").val() is ""
+      Notification.show("URL cannot be empty.")
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      return false
     NProgress.start()
 
     data =
       title: $("#media_title_title").val()
       url: $("#social_media_url").val()
-      from_date: timespan
-      to_date: timespan
-      requested_by: Evercam.User.username
-      type: "url"
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
@@ -875,7 +894,50 @@ save_edited_archive_url = (id) ->
       success: onSuccess
       type: 'PATCH'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-    $.ajax(settings)
+    sendAJAXRequest(settings)
+
+update_archive = ->
+  $("#update-archive").on "click", ->
+    id = $("#txt-archive-id").val()
+    if $("#txt_title").val() is ""
+      Notification.show("Title cannot be empty.")
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      return false
+    NProgress.start()
+
+    data =
+      title: $("#txt_title").val()
+      name: $("#txt_title").val()
+
+    onError = (jqXHR, status, error) ->
+      if jqXHR.status is 500
+        Notification.show("Internal Server Error. Please contact to admin.")
+      else
+        Notification.show(jqXHR.responseJSON.message)
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      NProgress.done()
+
+    onSuccess = (data, status, jqXHR) ->
+      archives_table.ajax.reload (json) ->
+        $('#archives-table').show()
+        $("#no-archive").hide()
+        NProgress.done()
+        formReset()
+        $("#modal-archive-info").modal("hide")
+
+    controller = "archives"
+    if $("#txt-archive-type").val() is "Compare"
+      controller = "compares"
+
+    settings =
+      cache: false
+      data: data
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PATCH'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/#{controller}/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    sendAJAXRequest(settings)
 
 save_media_url = ->
   $("#save_social_media_url").on "click", ->
@@ -968,3 +1030,5 @@ window.initializeArchivesTab = ->
   save_media_url()
   getArchiveIdFromUrl()
   filter_archives()
+  update_archive()
+  update_url()

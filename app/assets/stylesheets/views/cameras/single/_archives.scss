@@ -661,12 +661,14 @@
   z-index: 9999;
 }
 
-.archive-title {
+.archive-title,
+.archive-title-color {
   text-decoration: none;
   color: $form-medium-grey;
 }
 
-.archive-title:hover {
+.archive-title:hover,
+.archive-title-color:hover {
   color: $main-color;
   text-decoration: none;
 }
@@ -695,6 +697,11 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   background-color: transparent;
 }
 
+.options .regular-font {
+  font-family: $regular-family;
+  font-weight: normal;
+}
+
 .table-bordered {
   border: none;
 
@@ -709,7 +716,7 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   }
 
   .options {
-    width: 85px;
+    width: 115px;
   }
 
   .archive-info {

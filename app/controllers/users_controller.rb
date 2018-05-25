@@ -144,8 +144,8 @@ class UsersController < ApplicationController
         update_user_intercom(current_user, old_email)
         refresh_user
       end
-      result = send_confirmation_email
-      if result
+
+      if old_email != current_user.email && send_confirmation_email
         flash[:message] = 'Settings updated successfully and we’ve sent you a confirmation email with instructions.'
       else
         flash[:message] = 'Settings updated successfully'

@@ -24,7 +24,7 @@ gem 'timezone'
 
 gem 'pg'
 gem 'sequel'
-gem 'bcrypt', '~> 3.1.10'
+gem 'bcrypt'
 gem 'protected_attributes_continued',
   github: 'westonganger/protected_attributes_continued'
 gem 'puma'

@@ -21,7 +21,7 @@
     user-select:none;
     animation:fly-in-from-left .5s 1s ease both;
     transform-origin:top left;
-    padding: 1.5rem;
+    padding-bottom: 1.5rem;
     margin-bottom: 30px;
     min-height: 340px !Important;
 
@@ -29,6 +29,9 @@
       height: 190px;
     }
 
+    .bx-wrapper {
+      border: 0px;
+    }
   }
 
   .card:nth-child(3n) {
@@ -156,7 +159,8 @@
     color: $grey;
     float: left;
     margin-right: 5px;
-    width: 45px;
+    width: 40px;
+    margin-top: 1px;
   }
   .div-snapmail-values {
     float: left;
@@ -189,8 +193,8 @@
     width: 100%;
   }
 
-  .margin-top-4 {
-    margin-top: 4px;
+  .margin-top-5 {
+    margin-top: 5px;
   }
 
   .delete-snapmail {
@@ -258,6 +262,10 @@
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
     transition-delay: 0s;
   }
+}
+
+.font-16 {
+  font-size: 16px;
 }
 
 .snapmail .error-border {
@@ -340,7 +348,8 @@
   }
 
   .margin-24 {
-    margin: 23px;
+    margin-bottom: 23px;
+    margin-right: 20px;
   }
 
   .main-color {
@@ -499,7 +508,7 @@ div.tagsinput input {
 
   .snapmail-edit {
     float: right;
-    margin-right: 24px;
+    margin-right: 22px;
     margin-top: 20px;
     cursor: pointer;
   }

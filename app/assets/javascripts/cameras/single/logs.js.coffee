@@ -78,7 +78,7 @@ initializeDataTable = ->
         defaultContent: '' },
       {data: ( row, type, set, meta ) ->
         getImage(row)
-        time = row.done_at*1000
+        time = moment.tz(row.done_at*1000, Evercam.Camera.timezone)
         return "
           <div class='#{row.done_at} thumb-div'>
           </div>\

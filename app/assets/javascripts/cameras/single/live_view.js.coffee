@@ -87,7 +87,7 @@ openPopout = ->
 
 initializePlayer = ->
   if /Edge/.test(navigator.userAgent)
-    $("#select-stream-type").val("jpeg")
+    $("#select-stream-type").val("jpeg").trigger("change")
     $('#select-stream-table').hide()
     setInterval (->
       load_jpeg()
@@ -99,7 +99,7 @@ initializePlayer = ->
     }, ->
       @on 'error', ->
         setInterval (->
-          $("#select-stream-type").val("jpeg")
+          $("#select-stream-type").val("jpeg").trigger("change")
           load_jpeg()
         ), 1000
 
@@ -128,7 +128,7 @@ switch_to_jpeg = ->
       class='spn-message'>Stream inactive for more than 60 seconds. To continue <a href='#' id='lnk_no_stream'>click here.</a></span>")
 
   $("#camera-video-stream").on "click", "#lnk_no_stream", ->
-    $("#select-stream-type").val("jpeg")
+    $("#select-stream-type").val("jpeg").trigger("change")
     load_jpeg()
 
 destroyPlayer = ->
@@ -532,6 +532,22 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
+initSelectStream = ->
+  camera_select = $('#select-stream-type').select2
+    minimumResultsForSearch: Infinity
+    templateSelection: format,
+    templateResult: format
+    escapeMarkup: (m) ->
+      m
+
+format = (state) ->
+  is_offline = ""
+  if !state.id
+    return state.text
+  if state.id == '0'
+    return state.text
+  return $("<span>#{state.text}</span>")
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -553,6 +569,7 @@ window.initializeLiveTab = ->
   onDeletePtz()
   ptzCreation()
   NProgress.done()
+  initSelectStream()
 
 ->
   calculateHeight()

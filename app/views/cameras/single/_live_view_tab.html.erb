@@ -14,6 +14,7 @@
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">
           <img id="live-player-image" src="<%= thumbnail_url(@camera) %>" />
+          <div class="inactive-jpeg-error-display hide"><div></div></div>
           <div class="play-options">
             <div class="btn-live-player play-pause hide"><i class="glyphicon glyphicon-pause icon-font" title="Pause"></i></div>
             <div id="save-live-snapshot" class="btn-live-player save-live hide">
@@ -64,6 +65,7 @@
               <source src="<%= hls_stream %>" type="application/x-mpegURL">
             <% end %>
           </video>
+          <div class="inactive-error-display hide"><div></div></div>
         </div>
         <div class="pull-right">
           <table id="select-stream-table" class="select-stream-table">

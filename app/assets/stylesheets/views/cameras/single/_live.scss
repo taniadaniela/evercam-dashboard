@@ -4,6 +4,11 @@
 }
 #fullscreen {
   position: relative;
+
+  .inactive-jpeg-error-display a {
+    margin-right: 0px;
+    color: $main-color;
+  }
 }
 #fullscreen a {
   color:$white;

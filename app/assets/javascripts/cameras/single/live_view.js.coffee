@@ -94,6 +94,7 @@ initializePlayer = ->
     ), 10
   else
     $('#select-stream-table').show()
+    $("#camera-video-stream .inactive-error-display").addClass("hide")
     window.vjs_player = videojs 'camera-video-player', {
       techOrder: ["flash", "html5"]
     }, ->
@@ -479,6 +480,7 @@ handleModelEvents = ->
 playJpegStream = ->
   Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}")
   Evercam.camera_channel.join()
+  $("#fullscreen .inactive-jpeg-error-display").addClass("hide")
   Evercam.camera_channel.on 'snapshot-taken', (payload) ->
     $(".btn-live-player").removeClass "hide"
     if payload.timestamp >= live_view_timestamp and not stream_paused
@@ -548,6 +550,58 @@ format = (state) ->
     return state.text
   return $("<span>#{state.text}</span>")
 
+inactiveWindow = ->
+  timeout = undefined
+  document.onmousemove = resetTimer
+  document.onclick = resetTimer
+
+resetTimer = ->
+  clearTimeout timeout
+  timeout = setTimeout((->
+    showInactiveMessage()
+    return
+  ), 2 * 60 * 1000)
+  return
+
+showInactiveMessage = ->
+  snap_height = $("#camera-video-stream").height()
+  snap_width = $("#camera-video-stream").width()
+  jpeg_snap_height = $("#fullscreen").height()
+  jpeg_snap_width = $("#fullscreen").width()
+  stream_type = $("#select-stream-type").val()
+  switch stream_type
+    when 'jpeg'
+      stopJpegStream()
+      $(".play-options").hide()
+      $("#fullscreen .inactive-jpeg-error-display").removeClass("hide")
+      $("#fullscreen .inactive-jpeg-error-display div").html("<span style='top: #{(jpeg_snap_height / 2) - 30}px; left: #{(jpeg_snap_width / 2) - 250}px;'
+        class='spn-message'>Stream inactive for more than 2 minutes. To continue <a href='#' id='play_inactive_jpeg_stream'>click here.</a></span>")
+    when 'video'
+      vjs_player.pause()
+      onClickPlayVideoControl()
+      $("#camera-video-player .vjs-error-display").addClass("vjs-hidden")
+      $("#camera-video-stream .inactive-error-display").removeClass("hide")
+      $(".vjs-control-bar .vjs-play-control").removeClass("vjs-playing").addClass("vjs-paused")
+      $("#camera-video-stream .inactive-error-display div").html("<span style='top: #{(snap_height / 2) - 30}px; left: #{(snap_width / 2) - 250}px;'
+        class='spn-message'>Stream inactive for more than 2 minutes. To continue <a href='#' id='play_inactive_stream'>click here.</a></span>")
+
+  $("#camera-video-stream").on "click", "#play_inactive_stream", ->
+    playInActiveVideoStream()
+
+  $("#fullscreen").on "click", "#play_inactive_jpeg_stream", ->
+    playJpegStream()
+    $("#fullscreen .inactive-jpeg-error-display").addClass("hide")
+    $(".play-options").show()
+
+onClickPlayVideoControl = ->
+  $(".vjs-control-bar .vjs-play-control").on "click", ->
+    playInActiveVideoStream()
+
+playInActiveVideoStream = ->
+  vjs_player.play()
+  $("#camera-video-stream .inactive-error-display").addClass("hide")
+  $(".vjs-control-bar .vjs-play-control").addClass("vjs-playing").removeClass("vjs-paused")
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -570,6 +624,7 @@ window.initializeLiveTab = ->
   ptzCreation()
   NProgress.done()
   initSelectStream()
+  inactiveWindow()
 
 ->
   calculateHeight()

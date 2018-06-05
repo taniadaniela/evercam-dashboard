@@ -334,6 +334,7 @@ download_animation = ->
 
 switch_to_archive_tab = ->
   $("#switch_archive").on "click", ->
+    $('#export-compare-modal').modal('hide')
     $(".nav-tab-archives").tab('show')
 
 auto_check_compare_status = (compare_id, tries) ->

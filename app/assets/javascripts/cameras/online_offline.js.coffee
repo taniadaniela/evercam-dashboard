@@ -36,8 +36,13 @@ onChangeStatusReportDays = (days, offline_only) ->
     toggleLoadingImage()
 
   onSuccess = (response, success, jqXHR) ->
-    startReport(response)
-    toggleLoadingImage()
+    if response.length is 0
+      toggleLoadingImage()
+      $('#draw_report').hide()
+    else
+      startReport(response)
+      toggleLoadingImage()
+      $('#draw_report').show()
 
   settings =
     cache: false

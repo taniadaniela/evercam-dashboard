@@ -776,7 +776,13 @@ getSharedUsers = ->
       closeOnSelect: true,
       tokenSeparators: [',', ';', ' '],
       templateSelection: format,
-      templateResult: format
+      templateResult: format,
+      escapeMarkup: (markup) ->
+        if markup is "No results found"
+          $('.select2-container .select2-dropdown').hide()
+        else
+          $('.select2-container .select2-dropdown').show()
+        return markup
       createTag: (term, data) ->
         value = term.term
         if value

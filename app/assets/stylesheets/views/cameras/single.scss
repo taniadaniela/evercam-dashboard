@@ -69,8 +69,11 @@
   margin-top: 10px;
 }
 
-.ul-nav-tab-single li.active a{
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
   margin-top: 2px;
+  border-bottom: 5px solid $evercam-red;
 }
 
 @media (max-width: 480px) {

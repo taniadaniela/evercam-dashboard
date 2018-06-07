@@ -7,6 +7,9 @@ camera_host = null
 tries = 0
 clear_timeout_videojs = null
 is_logged_intercom = false
+timoutWarning = 120000
+warningTimer = undefined
+timeoutTimer = undefined
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -87,7 +90,7 @@ openPopout = ->
 
 initializePlayer = ->
   if /Edge/.test(navigator.userAgent)
-    $("#select-stream-type").val("jpeg")
+    $("#select-stream-type").val("jpeg").trigger("change")
     $('#select-stream-table').hide()
     setInterval (->
       load_jpeg()
@@ -99,7 +102,7 @@ initializePlayer = ->
     }, ->
       @on 'error', ->
         setInterval (->
-          $("#select-stream-type").val("jpeg")
+          $("#select-stream-type").val("jpeg").trigger("change")
           load_jpeg()
         ), 1000
 
@@ -128,7 +131,7 @@ switch_to_jpeg = ->
       class='spn-message'>Stream inactive for more than 60 seconds. To continue <a href='#' id='lnk_no_stream'>click here.</a></span>")
 
   $("#camera-video-stream").on "click", "#lnk_no_stream", ->
-    $("#select-stream-type").val("jpeg")
+    $("#select-stream-type").val("jpeg").trigger("change")
     load_jpeg()
 
 destroyPlayer = ->
@@ -532,6 +535,71 @@ logCameraViewed = ->
     url: "/log_intercom"
   sendAJAXRequest(settings)
 
+initSelectStream = ->
+  camera_select = $('#select-stream-type').select2
+    minimumResultsForSearch: Infinity
+    templateSelection: format,
+    templateResult: format
+    escapeMarkup: (m) ->
+      m
+
+format = (state) ->
+  is_offline = ""
+  if !state.id
+    return state.text
+  if state.id == '0'
+    return state.text
+  return $("<span>#{state.text}</span>")
+
+inactiveWindow = ->
+  document.onmousemove = ResetTimers
+
+StartTimers = ->
+  warningTimer = setTimeout((->
+    IdleWarning()
+    ), timoutWarning)
+
+ResetTimers = ->
+  clearTimeout warningTimer
+  StartTimers()
+  stream_type = $("#select-stream-type").val()
+  switch stream_type
+    when 'jpeg'
+      playJpegStream()
+      $("#fullscreen .inactive-jpeg-error-display").addClass("hide")
+      $(".play-options").show()
+    when 'video'
+      playInActiveVideoStream()
+
+IdleWarning = ->
+  showInactiveMessage()
+
+showInactiveMessage = ->
+  snap_height = $("#camera-video-stream").height()
+  snap_width = $("#camera-video-stream").width()
+  jpeg_snap_height = $("#fullscreen").height()
+  jpeg_snap_width = $("#fullscreen").width()
+  stream_type = $("#select-stream-type").val()
+  switch stream_type
+    when 'jpeg'
+      stopJpegStream()
+      $(".play-options").hide()
+      $("#fullscreen .inactive-jpeg-error-display").removeClass("hide")
+      $("#fullscreen .inactive-jpeg-error-display div").html("<span style='top: #{(jpeg_snap_height / 2) - 30}px; left: #{(jpeg_snap_width / 2) - 250}px;'
+        class='spn-message'>Stream is paused, User is inactive for more than 2 minutes.")
+    when 'video'
+      vjs_player.pause()
+      $("#camera-video-player .vjs-error-display").addClass("vjs-hidden")
+      $("#camera-video-stream .inactive-error-display").removeClass("hide")
+      $(".vjs-control-bar .vjs-play-control").removeClass("vjs-playing").addClass("vjs-paused")
+      $("#camera-video-stream .inactive-error-display div").html("<span style='top: #{(snap_height / 2) - 30}px; left: #{(snap_width / 2) - 250}px;'
+        class='spn-message'>Stream is paused, User is inactive for more than 2 minutes.")
+
+playInActiveVideoStream = ->
+  vjs_player.play()
+  $("#camera-video-stream .inactive-error-display").addClass("hide")
+  $(".vjs-control-bar .vjs-play-control").addClass("vjs-playing").removeClass("vjs-paused")
+
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()
   window.vjs_player = {}
@@ -553,6 +621,9 @@ window.initializeLiveTab = ->
   onDeletePtz()
   ptzCreation()
   NProgress.done()
+  initSelectStream()
+  StartTimers()
+  inactiveWindow()
 
 ->
   calculateHeight()

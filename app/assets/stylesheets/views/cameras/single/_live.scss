@@ -4,6 +4,11 @@
 }
 #fullscreen {
   position: relative;
+
+  .inactive-jpeg-error-display a {
+    margin-right: 0px;
+    color: $main-color;
+  }
 }
 #fullscreen a {
   color:$white;
@@ -37,6 +42,54 @@
 }
 #live .camera-preview {
   max-width:100%;
+}
+
+#select-stream-table {
+  width: 114px;
+
+  .select2-selection.select2-selection--single {
+    width: 63px;
+    padding-left: 2px;
+    padding-right: 18px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .padding-right-0 {
+    padding-right: 0px;
+  }
+
+  .select2-dropdown {
+    width: 69px;
+  }
+
+  .select2-results {
+    margin-top: -2px;
+  }
+
+  .select2-container--open .select2-selection__arrow b {
+    border-color: transparent transparent $white transparent;
+  }
+
+  .select2-selection__arrow {
+    width: 12px;
+    right: 0px;
+
+    b {
+      border-color: $white transparent transparent transparent;
+    }
+  }
+
+  .select2-selection__rendered {
+    width: 72px;
+    padding-left: 4px;
+
+    span {
+      color: $white;
+      font-weight: bold;
+    }
+  }
 }
 
 .wrap {
@@ -100,25 +153,6 @@
       border: none !important;
       padding-left: 0px;
       padding-right: 14px;
-    }
-  }
-}
-
-.pull-right .fa {
-  display: inline-block;
-  float: right;
-  font-family: "Font Awesome 5 Free";
-  font-style: normal;
-  font-weight: 900;
-  line-height: 1;
-  font-size: 10px;
-  margin-top: -23px;
-}
-
-#live-view-placeholder .pull-right {
-  table tbody {
-    td .form-control option {
-      background-color: rgba(0, 0, 0, 0.5) !important;
     }
   }
 }
@@ -654,7 +688,6 @@
       color: $menu-text-color;
       margin-top: 1px;
       font-family: $bold-family;
-      border-bottom: 3px solid $menu-text-color;
     }
 
     a {

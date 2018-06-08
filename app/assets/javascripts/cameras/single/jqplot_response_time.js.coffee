@@ -3,6 +3,9 @@
 
 presets = window.chartColors
 utils = Samples.utils
+labels = []
+start_index = 0
+
 inputs =
   min: 0
   max: 10
@@ -17,10 +20,12 @@ generateLabels = ->
   utils.months count: inputs.count
 
 draw_graph = (data) ->
-  # ["00 hr", "","","","", "", "01 hr","","","","", "", "02 hr","","","","", "", "03 hr","","","","", "", "04 hr","","","","", "", "05 hr","","","","", "", "06 hr",]
-  # [8.85884, 9.58989, 5.6193, 6.54943, 1.63233, 3.1247, 6.70555, 5.95941, 7.02996, 7.10258, 7.41182, 9.933,8.85884, 9.58989, 5.6193, 6.54943, 1.63233, 3.1247, 6.70555, 5.95941, 7.02996, 7.10258, 7.41182, 9.933]
+  while start_index < data.res_success.length
+    labels.push ""
+    start_index += 1
+
   data =
-    labels: data.label
+    labels: labels
     datasets: [
       {
         backgroundColor: utils.transparentize(presets.green)
@@ -44,7 +49,15 @@ draw_graph = (data) ->
     scales: yAxes: [ { stacked: true } ]
     plugins:
       filler: propagate: false
-  console.log data
+    tooltips:
+      custom: (tooltipModel) ->
+        tooltipEl = document.getElementById('chartjs-tooltip')
+        if tooltipModel and tooltipModel.body
+          arr = get_error(tooltipModel.body[0].lines[0])
+          if arr[0] isnt "else"
+            tooltipModel.width = arr[1]
+            tooltipModel.body[0].lines = [arr[0]]
+
   chart = new Chart('myChart',
     type: 'line'
     data: data
@@ -74,6 +87,31 @@ get_responses = ->
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/response-time"
 
   $.ajax(settings)
+
+get_error = (str) ->
+  switch str
+    when "Error: 0" then ["unhandled", 80]
+    when "Error: 0.5" then ["system_limit", 95]
+    when "Error: 1" then ["emfile", 57]
+    when "Error: 1.5" then ["case_clause", 95]
+    when "Error: 2" then ["bad_request", 95]
+    when "Error: 2.5" then ["closed", 59]
+    when "Error: 3" then ["nxdomain", 75]
+    when "Error: 3.5" then ["ehostunreach", 96]
+    when "Error: 4" then ["enetunreach", 94]
+    when "Error: 4.5" then ["req_timedout", 96]
+    when "Error: 5" then ["timeout", 65]
+    when "Error: 5.5" then ["connect_timeout", 112]
+    when "Error: 6" then ["econnrefused", 103]
+    when "Error: 6.5" then ["not_found", 80]
+    when "Error: 7" then ["forbidden", 80]
+    when "Error: 7.5" then ["unauthorized", 95]
+    when "Error: 8" then ["device_error", 95]
+    when "Error: 8.5" then ["device_busy", 95]
+    when "Error: 9" then ["invalid_operation", 120]
+    when "Error: 9.5" then ["moved", 60]
+    when "Error: 10" then ["not_a_jpeg", 90]
+    else ["else", 0]
 
 window.initJqueryPlotResponseTime = ->
   get_responses()

@@ -24,6 +24,12 @@
   .checkbox label {
     font-size: 12px;
   }
+
+  .graph-label {
+    position: absolute;
+    margin-left: -15px;
+    padding: 0 5px;
+  }
 }
 
 .checkbox-inline input[type="checkbox"] {

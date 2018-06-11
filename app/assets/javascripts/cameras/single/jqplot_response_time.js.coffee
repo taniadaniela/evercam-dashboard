@@ -20,9 +20,11 @@ generateLabels = ->
   utils.months count: inputs.count
 
 draw_graph = (data) ->
-  while start_index < data.res_success.length
+  errors = []
+  $.each data, (i, val) ->
     labels.push ""
-    start_index += 1
+    if "#{val}".length < 4
+      errors.push val
 
   data =
     labels: labels
@@ -30,25 +32,21 @@ draw_graph = (data) ->
       {
         backgroundColor: utils.transparentize(presets.green)
         borderColor: presets.green
-        data: data.res_success
+        borderWidth: 1
+        data: data
         label: 'Snapshot'
-        fill: "origin"
       }
       {
         backgroundColor: utils.transparentize(presets.red)
         borderColor: presets.red
-        data: data.res_error
+        borderWidth: 1
+        data: errors
         label: 'Error'
-        fill: "origin"
       }
     ]
   options =
     maintainAspectRatio: false
-    spanGaps: false
-    elements: line: tension: 0.4
-    scales: yAxes: [ { stacked: true } ]
-    plugins:
-      filler: propagate: false
+    legend: { position: top }
     tooltips:
       custom: (tooltipModel) ->
         tooltipEl = document.getElementById('chartjs-tooltip')
@@ -59,7 +57,7 @@ draw_graph = (data) ->
             tooltipModel.body[0].lines = [arr[0]]
 
   chart = new Chart('myChart',
-    type: 'line'
+    type: 'bar'
     data: data
     options: options)
   $("#myChart").height(250)

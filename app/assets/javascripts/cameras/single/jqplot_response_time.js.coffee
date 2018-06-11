@@ -20,6 +20,7 @@ generateLabels = ->
   utils.months count: inputs.count
 
 draw_graph = (data) ->
+  data.splice(0, 1)
   errors = []
   $.each data, (i, val) ->
     labels.push ""

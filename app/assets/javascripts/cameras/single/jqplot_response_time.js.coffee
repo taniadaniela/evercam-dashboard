@@ -52,6 +52,7 @@ draw_graph = (data) ->
       success.push null
     else
       success.push val
+      sum += parseInt(val, 10)
       errors.push null
   $("#spn_success_average").text(parseFloat(sum/success.length).toFixed(4))
 

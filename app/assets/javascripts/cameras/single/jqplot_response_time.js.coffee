@@ -3,7 +3,6 @@
 
 presets = window.chartColors
 utils = Samples.utils
-labels = []
 start_index = 0
 
 inputs =
@@ -16,30 +15,59 @@ inputs =
 generateData = ->
   utils.numbers inputs
 
-generateLabels = ->
-  utils.months count: inputs.count
+FormatNumTo2 = (n) ->
+  if n < 10
+    "0#{n}"
+  else
+    n
+
+generateLabels = (hour, success_arr, error_arr) ->
+  d = new Date()
+  date_time = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0, 0);
+  labels = ["#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(date_time.getMinutes())}:#{FormatNumTo2(date_time.getSeconds())}"]
+
+  count = 3400
+  if success_arr.length > error_arr.length
+    count = success_arr.length - 1
+  else
+    count = error_arr.length - 1
+  while(start_index < count)
+    date_time.setSeconds(date_time.getSeconds() + 1);
+    labels.push ""
+    # labels.push "#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(date_time.getMinutes())}:#{FormatNumTo2(date_time.getSeconds())}"
+    start_index += 1
+  labels.push "#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(d.getMinutes())}:#{FormatNumTo2(d.getSeconds())}"
+  labels
+
 
 draw_graph = (data) ->
+  sum = 0
+  hour = data[0]
   data.splice(0, 1)
   errors = []
+  success = []
   $.each data, (i, val) ->
-    labels.push ""
     if "#{val}".length < 4
       errors.push val
+      success.push null
+    else
+      success.push val
+      errors.push null
+  $("#spn_success_average").text(parseFloat(sum/success.length).toFixed(4))
 
   data =
-    labels: labels
+    labels: generateLabels(hour, success, errors)
     datasets: [
       {
-        backgroundColor: utils.transparentize(presets.green)
-        borderColor: presets.green
+        backgroundColor: utils.transparentize('rgb(46, 204, 113)')
+        borderColor: 'rgb(46, 204, 113)'
         borderWidth: 1
-        data: data
+        data: success
         label: 'Snapshot'
       }
       {
-        backgroundColor: utils.transparentize(presets.red)
-        borderColor: presets.red
+        backgroundColor: utils.transparentize('rgb(220, 76, 63)')
+        borderColor: 'rgb(220, 76, 63)'
         borderWidth: 1
         data: errors
         label: 'Error'
@@ -47,6 +75,10 @@ draw_graph = (data) ->
     ]
   options =
     maintainAspectRatio: false
+    scales:
+      xAxes: [{
+        time: {unit: 'minute'}
+      }]
     legend: { position: top }
     tooltips:
       custom: (tooltipModel) ->

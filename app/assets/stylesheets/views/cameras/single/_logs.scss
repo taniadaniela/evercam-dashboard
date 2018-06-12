@@ -28,6 +28,20 @@
   .graph-label {
     margin-left: -15px;
     padding: 0 5px;
+
+    label {
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      line-height: 1.1;
+      font-family: "proxima-nova-bold", "Open Sans", Arial, Helvetica, sans-serif;
+    }
+
+    span {
+      color: $green;
+      font-size: 12px;
+      font-weight: 600;
+    }
   }
 }
 

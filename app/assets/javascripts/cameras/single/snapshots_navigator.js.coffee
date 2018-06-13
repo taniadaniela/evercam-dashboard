@@ -27,6 +27,7 @@ CameraOffsetMinutes = null
 is_logged_intercom = false
 query_value = undefined
 fist_image_date = null
+status_flag = true
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -51,6 +52,7 @@ initDatePicker = ->
     SetImageHour $(this).html(), "tdI#{$(this).html()}"
 
 changeMonthFromArrow = (value) ->
+  status_flag = false
   clearHourCalendar()
   xhrRequestChangeMonth.abort()
   $("#ui_date_picker_inline").datepicker('fill')
@@ -647,7 +649,12 @@ FormatNumTo2 = (n) ->
 
 NoRecordingDayOrHour = ->
   showLoader()
-  $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
+  if status_flag is true
+    query_string = "latest"
+    loadOldestLatestImage(query_string)
+    status_flag = false
+  else
+    $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
   $("#divRecent").show()
   $("#divInfo").fadeOut()
   $("#divPointer").width(0)
@@ -1056,12 +1063,12 @@ loadOldestLatestImage = (enter_query) ->
 
   onSuccess = (response, status, jqXHR) ->
     $("#imgPlayback").attr("src", response.data)
-    HideLoader()
     HideImageSaveOption()
     hideDaysLoadingAnimation()
     hideHourLoadingAnimation()
     image_date = response.created_at
     updateImageCalendar(image_date)
+    HideLoader()
 
   settings =
     cache: false
@@ -1113,7 +1120,6 @@ updateImageCalendar = (oldest_latest_image_date) ->
   cameraCurrentHour = image_date.getHours()
   $("#tdI#{cameraCurrentHour}").addClass("active has-snapshot")
   SetInfoMessage(currentFrameNumber, image_date)
-  BoldSnapshotHour(false)
 
 HighlightFirstDay = (year, month, day) ->
   d = $("#ui_date_picker_inline").datepicker('getDate')

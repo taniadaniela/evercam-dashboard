@@ -52,15 +52,15 @@ initializeArchivesDataTable = ->
       error: (xhr, error, thrown) ->
     },
     columns: [
-      {data: getTitle, sClass: 'title'},
-      {data: gravatarName, sType: 'uk_datetime'},
+      {data: getTitle, sClass: 'title', orderable: false},
+      {data: gravatarName, sType: "uk_datetime"},
       {data: renderIsPublic, sClass: 'public', visible: false},
       {data: renderStatus, sClass: 'center', visible: false},
       {data: "type", sClass: 'text-center', visible: false},
-      {data: renderbuttons, sClass: 'options',"searchable": false, "orderable": false}
+      {data: renderbuttons, sClass: 'options', "searchable": false, orderable: false}
     ],
     iDisplayLength: 50,
-    order: [ 0, 'asc' ],
+    aaSorting: [1, "desc"]
     bFilter: true,
     autoWidth: false,
     drawCallback: ->
@@ -267,7 +267,11 @@ changeImageSource = (email, id) ->
   jQuery.ajax(settings)
 
 renderDate = (row, type, set, meta) ->
-  getDate(row.created_at*1000)
+  time = moment.tz(row.created_at*1000, Evercam.Camera.timezone)
+  return "
+    <div class='#{row.created_at} hide'>
+    </div>\
+    <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
 
 renderFromDate = (row, type, set, meta) ->
   getDates(row.from_date*1000)
@@ -319,14 +323,6 @@ getDates = (times) ->
   DateTime = new Date(moment.utc(times).format('MM/DD/YYYY, HH:mm:ss'))
   DateTime.setHours(DateTime.getHours() + (cameraOffset))
   Dateformateed =  format_time.formatDate(DateTime, 'd/m/y H:i')
-  return Dateformateed
-
-getDate = (timestamp) ->
-  offset =  $('#camera_time_offset').val()
-  cameraOffset = parseInt(offset)/3600
-  DateTime = new Date(moment.utc(timestamp).format('MM/DD/YYYY, HH:mm:ss'))
-  DateTime.setHours(DateTime.getHours() + (cameraOffset))
-  Dateformateed = format_time.formatDate(DateTime, 'M d Y, H:i:s')
   return Dateformateed
 
 shareURL = ->
@@ -856,7 +852,6 @@ handle_submenu = ->
 update_url = ->
   $("#update_archive").on "click", ->
     id = $("#txt-archive-id").val()
-    console.log id
     if $("#media_title_title").val() is ""
       Notification.show("Title cannot be empty.")
       $(".bb-alert").removeClass("alert-info").addClass("alert-danger")

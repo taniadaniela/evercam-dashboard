@@ -1,7 +1,11 @@
 <div class="info-panel padding-right15">
 
   <div style="margin-top: 10px;">
-    <div class="graph-label "><label>Camera Response Time:</label> <span class="graph-avg-label">Avg:<span id="spn_success_average"></span></span></div>
+    <div class="graph-label ">
+      <label>Camera Response Time:</label>
+      <span class="graph-avg-label">Average Success Response Time:<span id="spn_success_average"></span></span>
+      <span class="graph-failed-request"><span id="spn_failed_persent"></span> Failed Resuests</span>
+    </div>
     <div style="padding: 10px;" id="div-graph" class="hide">
       <canvas id="myChart"></canvas>
     </div>

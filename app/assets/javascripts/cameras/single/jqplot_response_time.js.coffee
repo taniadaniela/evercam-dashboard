@@ -5,36 +5,29 @@ presets = window.chartColors
 utils = Samples.utils
 start_index = 0
 
-inputs =
-  min: 0
-  max: 10
-  count: 6
-  decimals: 5
-  continuity: 1
-
-generateData = ->
-  utils.numbers inputs
-
 FormatNumTo2 = (n) ->
   if n < 10
     "0#{n}"
   else
     n
 
-generateLabels = (hour, success_arr, error_arr) ->
+generateLabels = (hour, count, total_errors) ->
   d = new Date()
-  date_time = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0, 0);
+  curr_date_time = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hour, d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+  date_time = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0, 0);
   labels = ["#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(date_time.getMinutes())}:#{FormatNumTo2(date_time.getSeconds())}"]
 
-  count = 3400
-  if success_arr.length > error_arr.length
-    count = success_arr.length - 1
+  total_seconds = parseInt((curr_date_time-date_time)/1000)
+  calc_minutes = Math.floor(total_seconds / 60)
+  failed_perc = (total_errors / (Evercam.Camera.cloud_recording.frequency * 60)) * 100
+  if total_errors is 0
+    $("#spn_failed_persent").text("0%")
   else
-    count = error_arr.length - 1
+    $("#spn_failed_persent").text("#{parseFloat(failed_perc).toFixed(2)}%")
+
   while(start_index < count)
     date_time.setSeconds(date_time.getSeconds() + 1);
     labels.push ""
-    # labels.push "#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(date_time.getMinutes())}:#{FormatNumTo2(date_time.getSeconds())}"
     start_index += 1
   labels.push "#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(d.getMinutes())}:#{FormatNumTo2(d.getSeconds())}"
   labels
@@ -42,6 +35,8 @@ generateLabels = (hour, success_arr, error_arr) ->
 
 draw_graph = (data) ->
   sum = 0
+  total_success = 0
+  total_errors = 0
   hour = data[0]
   data.splice(0, 1)
   errors = []
@@ -49,15 +44,17 @@ draw_graph = (data) ->
   $.each data, (i, val) ->
     if "#{val}".length < 4
       errors.push val
-      success.push null
+      success.push 0
+      total_errors += 1
     else
       success.push val
-      sum += parseInt(val, 10)
-      errors.push null
-  $("#spn_success_average").text(parseFloat(sum/success.length).toFixed(4))
+      sum += val
+      total_success += 1
+      errors.push 0
+  $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
 
   data =
-    labels: generateLabels(hour, success, errors)
+    labels: generateLabels(hour, success.length - 1, total_errors)
     datasets: [
       {
         backgroundColor: utils.transparentize('rgb(46, 204, 113)')
@@ -78,6 +75,7 @@ draw_graph = (data) ->
     maintainAspectRatio: false
     scales:
       xAxes: [{
+        stacked: true
         time: {unit: 'minute'}
       }]
     legend: { position: top }
@@ -96,6 +94,18 @@ draw_graph = (data) ->
     options: options)
   $("#myChart").height(250)
   $("#div-graph").removeClass("hide")
+  # add_average_line()
+
+add_average_line = ->
+  c = document.getElementById("myChart")
+  ctx = c.getContext("2d")
+  ctx.beginPath()
+  ctx.moveTo(0, 10)
+  ctx.strokeStyle = "#FF0000"
+  ctx.offsetX = 100000
+  ctx.offsetY = 1000000
+  ctx.lineTo(500,10)
+  ctx.stroke()
 
 get_responses = ->
   data =

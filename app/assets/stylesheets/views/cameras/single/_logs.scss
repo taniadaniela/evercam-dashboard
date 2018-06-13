@@ -38,9 +38,16 @@
     }
 
     span {
-      color: $green;
       font-size: 12px;
       font-weight: 600;
+    }
+
+    .graph-avg-label {
+      color: $green;
+    }
+
+    .graph-failed-request {
+      color: $evercam-red;
     }
   }
 }

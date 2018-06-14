@@ -1,46 +1,35 @@
 #= require Chart.min.js
 #= require utils.js
 
+chart = null
 presets = window.chartColors
 utils = Samples.utils
 start_index = 0
+errors = []
+success = []
+sum = 0
+total_success = 0
+total_errors = 0
 
-FormatNumTo2 = (n) ->
-  if n < 10
-    "0#{n}"
-  else
-    n
+generateLabels = (date_time, count, total_errors) ->
+  curr_date_time = moment()
+  minutes = curr_date_time.diff(date_time, 'minutes')
+  labels = [date_time.format('HH:mm:ss')]
+  failed_perc = (total_errors / (Evercam.Camera.cloud_recording.frequency * minutes)) * 100
 
-generateLabels = (hour, count, total_errors) ->
-  d = new Date()
-  curr_date_time = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hour, d.getMinutes(), d.getSeconds(), d.getMilliseconds());
-  date_time = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hour, 0, 0, 0);
-  labels = ["#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(date_time.getMinutes())}:#{FormatNumTo2(date_time.getSeconds())}"]
-
-  total_seconds = parseInt((curr_date_time-date_time)/1000)
-  calc_minutes = Math.floor(total_seconds / 60)
-  failed_perc = (total_errors / (Evercam.Camera.cloud_recording.frequency * 60)) * 100
   if total_errors is 0
     $("#spn_failed_persent").text("0%")
   else
     $("#spn_failed_persent").text("#{parseFloat(failed_perc).toFixed(2)}%")
 
   while(start_index < count)
-    date_time.setSeconds(date_time.getSeconds() + 1);
     labels.push ""
     start_index += 1
-  labels.push "#{FormatNumTo2(date_time.getHours())}:#{FormatNumTo2(d.getMinutes())}:#{FormatNumTo2(d.getSeconds())}"
+  labels.push curr_date_time.format('HH:mm:ss')
   labels
 
-
-draw_graph = (data) ->
-  sum = 0
-  total_success = 0
-  total_errors = 0
-  hour = data[0]
+arrange_datasets = (data) ->
   data.splice(0, 1)
-  errors = []
-  success = []
   $.each data, (i, val) ->
     if "#{val}".length < 4
       errors.push val
@@ -53,8 +42,12 @@ draw_graph = (data) ->
       errors.push 0
   $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
 
+draw_graph = (data) ->
+  start_date = moment(data[0])
+  arrange_datasets(data)
+
   data =
-    labels: generateLabels(hour, success.length - 1, total_errors)
+    labels: generateLabels(start_date, success.length - 1, total_errors)
     datasets: [
       {
         backgroundColor: utils.transparentize('rgb(46, 204, 113)')
@@ -94,6 +87,7 @@ draw_graph = (data) ->
     options: options)
   $("#myChart").height(250)
   $("#div-graph").removeClass("hide")
+  # setTimeout (-> get_responses(true)), 60000
   # add_average_line()
 
 add_average_line = ->
@@ -102,12 +96,10 @@ add_average_line = ->
   ctx.beginPath()
   ctx.moveTo(0, 10)
   ctx.strokeStyle = "#FF0000"
-  ctx.offsetX = 100000
-  ctx.offsetY = 1000000
   ctx.lineTo(500,10)
   ctx.stroke()
 
-get_responses = ->
+get_responses = (is_update) ->
   data =
     api_id: Evercam.User.api_id
     api_key: Evercam.User.api_key
@@ -117,7 +109,14 @@ get_responses = ->
 
   onSuccess = (data) ->
     if data isnt null
-      draw_graph(data)
+      if is_update
+        arrange_datasets(data)
+        chart.config.data.datasets[0].data = success
+        chart.config.data.datasets[1].data = errors
+        chart.update()
+        setTimeout (-> get_responses(true)), 60000
+      else
+        draw_graph(data)
 
   settings =
     error: onError

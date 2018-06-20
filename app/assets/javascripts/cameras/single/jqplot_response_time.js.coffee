@@ -49,7 +49,6 @@ arrange_datasets = (data) ->
       errors.push 0
     start_index += 2
 
-  setTimeout(initial_scroll_to_end, 3000)
   $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
 
 draw_graph = (data) ->
@@ -216,7 +215,7 @@ stop_live_tail = ->
 
 handleTabOpen = ->
   $('.nav-tab-logs').on 'show.bs.tab', ->
-    initial_scroll_to_end()
+    setTimeout initial_scroll_to_end, 500
     start_live_tail()
 
   $('.nav-tab-logs').on 'hide.bs.tab', ->

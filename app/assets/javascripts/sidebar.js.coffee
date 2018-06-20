@@ -74,7 +74,7 @@ update_cameras = (camera) ->
 
   $.each $(".sidebar-cameras-list li"), (i, list) ->
     if $(list).find("a").text().toLowerCase() > camera.name.toLowerCase()
-      $(".sidebar-cameras-list li:eq(#{i})").before(list_element)
+      $(".sidebar-cameras-list li:eq(#{i})").before(list)
       return false
 
 updateCameraStatus = (camera_id, status) ->

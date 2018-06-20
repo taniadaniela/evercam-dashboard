@@ -50,6 +50,14 @@
       color: $evercam-red;
     }
   }
+
+  .disabled-textarea {
+    background-color: $white;
+    padding: 5px;
+    width: 100%;
+    height: 250px;
+    line-height: 1.8;
+  }
 }
 
 .checkbox-inline input[type="checkbox"] {

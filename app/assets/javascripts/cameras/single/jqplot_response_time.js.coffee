@@ -30,21 +30,32 @@ generateLabels = (date_time, count, total_errors) ->
 
 arrange_datasets = (data) ->
   data.splice(0, 1)
-  $.each data, (i, val) ->
+  textarea = $("#txt-response-live-tail")
+  line_break = "\n"
+  while(start_index < data.length)
+    if start_index + 2 is data.length
+      line_break = ""
+    val = data[start_index + 1]
     if "#{val}".length < 4
+      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: [error] [#{get_error_text(val)}]#{line_break}")
       errors.push val
       success.push 0
       total_errors += 1
     else
       success.push val
+      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: [snapshot] [#{val}]#{line_break}")
       sum += val
       total_success += 1
       errors.push 0
+    start_index += 2
+
+  setTimeout(initial_scroll_to_end, 3000)
   $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
 
 draw_graph = (data) ->
   start_date = moment(data[0])
   arrange_datasets(data)
+  start_index = 0
 
   data =
     labels: generateLabels(start_date, success.length - 1, total_errors)
@@ -86,9 +97,7 @@ draw_graph = (data) ->
     data: data
     options: options)
   $("#myChart").height(250)
-  $("#div-graph").removeClass("hide")
-  # setTimeout (-> get_responses(true)), 60000
-  # add_average_line()
+  # $("#div-graph").removeClass("hide")
 
 add_average_line = ->
   c = document.getElementById("myChart")
@@ -154,5 +163,65 @@ get_error = (str) ->
     when "Error: 10" then ["not_a_jpeg", 90]
     else ["else", 0]
 
+get_error_text = (str) ->
+  switch str
+    when 0 then "unhandled"
+    when 0.5 then "system_limit"
+    when 1 then "emfile"
+    when 1.5 then "case_clause"
+    when 2 then "bad_request"
+    when 2.5 then "closed"
+    when 3 then "nxdomain"
+    when 3.5 then "ehostunreach"
+    when 4 then "enetunreach"
+    when 4.5 then "req_timedout"
+    when 5 then "timeout"
+    when 5.5 then "connect_timeout"
+    when 6 then "econnrefused"
+    when 6.5 then "not_found"
+    when 7 then "forbidden"
+    when 7.5 then "unauthorized"
+    when 8 then "device_error"
+    when 8.5 then "device_busy"
+    when 9 then "invalid_operation"
+    when 9.5 then "moved"
+    when 10 then "not_a_jpeg"
+    else "Unhandled"
+
+scroll_to_end = ->
+  textarea = $("#txt-response-live-tail")
+  if textarea.length
+    scroll_diff = textarea[0].scrollHeight - textarea.scrollTop()
+    if scroll_diff <= 400
+      textarea.scrollTop(textarea[0].scrollHeight - textarea.height())
+
+initial_scroll_to_end = ->
+  textarea = $("#txt-response-live-tail")
+  if textarea.length
+    textarea.scrollTop(textarea[0].scrollHeight - textarea.height())
+
+start_live_tail = ->
+  Evercam.camera_channel = Evercam.socket.channel("livetail:#{Evercam.Camera.id}")
+  Evercam.camera_channel.join()
+  Evercam.camera_channel.on 'camera-response', (payload) ->
+    textarea = $("#txt-response-live-tail")
+    if payload.response_type is "ok"
+      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [snapshot] [#{payload.response_time}]")
+    else
+      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [error] [#{payload.response_type}]")
+    scroll_to_end()
+
+stop_live_tail = ->
+  Evercam.camera_channel.leave() if Evercam.camera_channel
+
+handleTabOpen = ->
+  $('.nav-tab-logs').on 'show.bs.tab', ->
+    initial_scroll_to_end()
+    start_live_tail()
+
+  $('.nav-tab-logs').on 'hide.bs.tab', ->
+    stop_live_tail()
+
 window.initJqueryPlotResponseTime = ->
   get_responses()
+  handleTabOpen()

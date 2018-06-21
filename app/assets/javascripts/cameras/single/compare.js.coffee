@@ -407,6 +407,7 @@ window.initializeCompareTab = ->
       date = ct.getDate()
       HighlightSnapshotHour("before-calendar", year, month, date)
       HighlightDaysInMonth("before-calendar", year, month)
+      showBeforeAfterLoadingAnimation("before-calendar")
     onShow: (current_time, $input) ->
       month = current_time.getMonth() + 1
       year = current_time.getFullYear()
@@ -440,6 +441,7 @@ window.initializeCompareTab = ->
       date = ct.getDate()
       HighlightSnapshotHour("after-calendar", year, month, date)
       HighlightDaysInMonth("after-calendar", year, month)
+      showBeforeAfterLoadingAnimation("after-calendar")
     onShow: (current_time, $input) ->
       month = current_time.getMonth() + 1
       year = current_time.getFullYear()

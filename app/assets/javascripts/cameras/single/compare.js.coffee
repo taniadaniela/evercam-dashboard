@@ -204,7 +204,7 @@ HighlightBeforeAfterHour = (query_string, before_year, before_month, before_day,
     beforeHour = $(this)
     iHour = parseInt(beforeHour.text())
     if before_hour == iHour
-      beforeHour.addClass 'xdsoft_current'
+      beforeHour.addClass 'active-class-css'
 
 removeCurrentHourHighlight = (query_string) ->
   beforeHours = $("##{query_string} .xdsoft_timepicker [class*='xdsoft_time']")
@@ -398,8 +398,8 @@ window.initializeCompareTab = ->
       xhrChangeMonth.abort()
       month = dp.getMonth() + 1
       year = dp.getFullYear()
-      HighlightDaysInMonth("before-calendar", year, month)
       removeCurrentHourHighlight("before-calendar")
+      HighlightDaysInMonth("before-calendar", year, month)
       showBeforeAfterLoadingAnimation("before-calendar")
     onSelectDate: (ct, $i) ->
       month = ct.getMonth() + 1
@@ -410,7 +410,6 @@ window.initializeCompareTab = ->
     onShow: (current_time, $input) ->
       month = current_time.getMonth() + 1
       year = current_time.getFullYear()
-      removeCurrentHourHighlight("before-calendar")
       HighlightDaysInMonth("before-calendar", year, month)
       showBeforeAfterLoadingAnimation("before-calendar")
 
@@ -444,6 +443,5 @@ window.initializeCompareTab = ->
     onShow: (current_time, $input) ->
       month = current_time.getMonth() + 1
       year = current_time.getFullYear()
-      removeCurrentHourHighlight("after-calendar")
       HighlightDaysInMonth("after-calendar", year, month)
       showBeforeAfterLoadingAnimation("after-calendar")

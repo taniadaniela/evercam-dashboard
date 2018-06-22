@@ -211,9 +211,9 @@ initial_scroll_to_end = ->
     textarea.scrollTop(textarea[0].scrollHeight - textarea.height())
 
 start_live_tail = ->
-  Evercam.camera_channel = Evercam.socket.channel("livetail:#{Evercam.Camera.id}")
-  Evercam.camera_channel.join()
-  Evercam.camera_channel.on 'camera-response', (payload) ->
+  Evercam.livetail_channel = Evercam.socket.channel("livetail:#{Evercam.Camera.id}")
+  Evercam.livetail_channel.join()
+  Evercam.livetail_channel.on 'camera-response', (payload) ->
     textarea = $("#txt-response-live-tail")
     if payload.response_type is "ok"
       sum += payload.response_time
@@ -228,7 +228,7 @@ start_live_tail = ->
     scroll_to_end()
 
 stop_live_tail = ->
-  Evercam.camera_channel.leave() if Evercam.camera_channel
+  Evercam.livetail_channel.leave() if Evercam.livetail_channel
 
 handleTabOpen = ->
   $('.nav-tab-logs').on 'show.bs.tab', ->

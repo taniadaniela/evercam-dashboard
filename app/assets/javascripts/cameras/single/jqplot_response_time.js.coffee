@@ -10,6 +10,7 @@ success = []
 sum = 0
 total_success = 0
 total_errors = 0
+start_date = moment()
 
 generateLabels = (date_time, count, total_errors) ->
   curr_date_time = moment()
@@ -28,7 +29,17 @@ generateLabels = (date_time, count, total_errors) ->
   labels.push curr_date_time.format('HH:mm:ss')
   labels
 
+calculate_failed_percentage = ->
+  curr_date_time = moment()
+  minutes = curr_date_time.diff(start_date, 'minutes')
+  failed_perc = (total_errors / (Evercam.Camera.cloud_recording.frequency * minutes)) * 100
+  if total_errors is 0
+    $("#spn_failed_persent").text("0%")
+  else
+    $("#spn_failed_persent").text("#{parseFloat(failed_perc).toFixed(2)}%")
+
 arrange_datasets = (data) ->
+  start_date = moment(data[0])
   data.splice(0, 1)
   textarea = $("#txt-response-live-tail")
   line_break = "\n"
@@ -36,19 +47,19 @@ arrange_datasets = (data) ->
     if start_index + 2 is data.length
       line_break = ""
     val = data[start_index + 1]
-    if "#{val}".length < 4
-      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: #{get_error_text(val)}#{line_break}")
+    textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: #{val}#{line_break}")
+    if val.indexOf("[Error]") >= 0
       errors.push val
       success.push 0
       total_errors += 1
     else
       success.push val
-      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: #{val}#{line_break}")
-      sum += val
+      sum += parseFloat(val.split(" ")[1].replace("[", "").replace("]", ""))
       total_success += 1
       errors.push 0
     start_index += 2
 
+  calculate_failed_percentage()
   $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
 
 draw_graph = (data) ->
@@ -205,9 +216,15 @@ start_live_tail = ->
   Evercam.camera_channel.on 'camera-response', (payload) ->
     textarea = $("#txt-response-live-tail")
     if payload.response_type is "ok"
+      sum += payload.response_time
+      total_success += 1
       textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [Snapshot] [#{payload.response_time}] [#{payload.description}]")
     else
+      total_errors += 1
       textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [Error] [#{payload.response_time}] [#{payload.response_type}] [#{payload.description}]")
+
+    calculate_failed_percentage()
+    $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
     scroll_to_end()
 
 stop_live_tail = ->

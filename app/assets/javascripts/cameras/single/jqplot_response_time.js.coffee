@@ -37,13 +37,13 @@ arrange_datasets = (data) ->
       line_break = ""
     val = data[start_index + 1]
     if "#{val}".length < 4
-      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: [error] [#{get_error_text(val)}]#{line_break}")
+      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: #{get_error_text(val)}#{line_break}")
       errors.push val
       success.push 0
       total_errors += 1
     else
       success.push val
-      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: [snapshot] [#{val}]#{line_break}")
+      textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: #{val}#{line_break}")
       sum += val
       total_success += 1
       errors.push 0
@@ -122,9 +122,9 @@ get_responses = (is_update) ->
         chart.config.data.datasets[0].data = success
         chart.config.data.datasets[1].data = errors
         chart.update()
-        setTimeout (-> get_responses(true)), 60000
+        setTimeout (-> arrange_datasets(data)), 60000
       else
-        draw_graph(data)
+        arrange_datasets(data)
 
   settings =
     error: onError
@@ -205,9 +205,9 @@ start_live_tail = ->
   Evercam.camera_channel.on 'camera-response', (payload) ->
     textarea = $("#txt-response-live-tail")
     if payload.response_type is "ok"
-      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [snapshot] [#{payload.response_time}]")
+      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [Snapshot] [#{payload.response_time}] [#{payload.description}]")
     else
-      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [error] [#{payload.response_type}]")
+      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [Error] [#{payload.response_time}] [#{payload.response_type}] [#{payload.description}]")
     scroll_to_end()
 
 stop_live_tail = ->

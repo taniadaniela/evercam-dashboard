@@ -13,7 +13,7 @@
       </div>
       <% if current_user %>
         <div id="div-embed-code" class="div-embed-code">
-          <span class="images-compare-embed-code btn-primary" title="Share Embed Code" href="#" data-toggle="modal" data-target="#export-compare-modal"><i class="fa fa-share-alt icon-font"></i></span>
+          <span class="images-compare-embed-code btn btn-primary" title="Share Embed Code" href="#" data-toggle="modal" data-target="#export-compare-modal">Share This Compare</i></span>
         </div>
       <% end %>
       <div class="evercam-brand">
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<div id="export-compare-modal" class="modal fade">
+<div id="export-compare-modal" class="modal fade export-compare-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div id="form-create-clip" class="modal-body">
@@ -31,6 +31,7 @@
           <div class='col-lg-12 col-md-12 col-sm-12'>
             <div class='portlet'>
               <div class="portlet-title">
+                <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
                 <div class="caption"> Share this Compare</div>
               </div>
               <div class="portlet-body">
@@ -95,7 +96,6 @@
             <div class='pull-left form-group1'>
               <input type="button" class="push btn btn-primary margin-right-10 margin-left-5" id="export_compare_button" value="Create Compare"/>
             </div>
-            <button id="cancel_export" type="button" class="btn btn-default" data-dismiss="modal" value=""></button>
             <span id="spn-success-export" class="alert alert-info hide"></span>
           </div>
         </fieldset>

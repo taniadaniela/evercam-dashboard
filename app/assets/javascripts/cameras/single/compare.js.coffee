@@ -224,7 +224,6 @@ hideBeforeAfterLoadingAnimation = (query_string) ->
 
 setCompareEmbedCodeTitle = ->
   $("#div-embed-code").on "click", (e)->
-    $(".export-buttons #cancel_export").html 'Close'
     after_image_time = $("#compare_after").attr("timestamp")
     before_image_time = $("#compare_before").attr("timestamp")
     if after_image_time && before_image_time isnt undefined
@@ -232,7 +231,7 @@ setCompareEmbedCodeTitle = ->
       day_after = moment.utc(after_image_time*1000).format("Do")
       month_before = moment.utc(before_image_time*1000).format("MMM")
       month_after = moment.utc(after_image_time*1000).format("MMM")
-      $("#export-compare-title").val("#{day_before} #{month_before} to #{day_after} #{month_after}")
+      $("#export-compare-title").val("Compare: #{day_before} #{month_before} to #{day_after} #{month_after}")
       e.stopPropagation()
       $('#export-compare-modal').modal 'show'
     else
@@ -278,7 +277,6 @@ export_compare = ->
 
     onSuccess = (response, status, jqXHR) ->
       button.hide()
-      $(".export-buttons #cancel_export").html 'Ok'
       $("#row-animation").addClass("hide")
       $("#row-textarea").removeClass("hide")
       $("#row-message").removeClass("hide")
@@ -319,7 +317,6 @@ clean_form = ->
   $("#export_compare_button").show()
   $("#row-gif-url").addClass("hide")
   $("#row-mp4-url").addClass("hide")
-  $("#cancel_export").show()
   $("#row-message").addClass("hide")
   clearTimeout(clearTimeOut)
 

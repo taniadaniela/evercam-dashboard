@@ -55,6 +55,7 @@
   <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>
   window.Evercam.request = {
     url: '<%= request.url %>',
+    ip: '<%= request.remote_ip %>',
     path: '<%= request.path %>',
     subpath: '<%= params_subpath %>',
     tabpath: '<%= params_subpath.split('/').first %>',

@@ -36,7 +36,7 @@
   }
 
   function initSocket() {
-    window.Evercam.socket = new Phoenix.Socket(Evercam.websockets_url);
+    window.Evercam.socket = new Phoenix.Socket(Evercam.websockets_url, {params: {ip: request_ip, source: "public_widget"}});
     connectToSocket();
   };
 

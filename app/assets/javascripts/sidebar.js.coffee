@@ -37,7 +37,7 @@ removeDropdown = ->
     $('#live_support').removeClass('open')
 
 initSocket = ->
-  Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url, {params: {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key}})
+  Evercam.socket = new (Phoenix.Socket)(Evercam.websockets_url, {params: {api_id: Evercam.User.api_id, api_key: Evercam.User.api_key, ip: Evercam.request.ip, source: "dashboard"}})
   Evercam.socket.connect()
   Evercam.user_channel = Evercam.socket.channel("users:#{Evercam.User.username}")
   Evercam.user_channel.join()

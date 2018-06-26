@@ -240,7 +240,7 @@ You are not allowed to view this camera
     function initSocket() {
       var api_id = '<%= if current_user.nil? then "" else current_user.api_id end %>';
       var api_key = '<%= if current_user.nil? then "" else current_user.api_key end %>';
-      window.Evercam.socket = new Phoenix.Socket(Evercam.websockets_url, {params: {api_id: api_id, api_key: api_key}});
+      window.Evercam.socket = new Phoenix.Socket(Evercam.websockets_url, {params: {api_id: api_id, api_key: api_key, ip: "<%= request.ip %>", source: "private_widget"}});
       connectToSocket();
     };
 

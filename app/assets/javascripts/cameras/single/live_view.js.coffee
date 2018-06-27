@@ -178,6 +178,7 @@ handleChangeStream = ->
 
 handleTabOpen = ->
   $('.nav-tab-live').on 'show.bs.tab', ->
+    StartTimers()
     playJpegStream()
     logCameraViewed() unless is_logged_intercom
     if $('#select-stream-type').length
@@ -480,13 +481,14 @@ handleModelEvents = ->
     $('#ptz-control table thead tr th').html 'PTZ'
 
 playJpegStream = ->
-  Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}")
-  Evercam.camera_channel.join()
-  Evercam.camera_channel.on 'snapshot-taken', (payload) ->
-    $(".btn-live-player").removeClass "hide"
-    if payload.timestamp >= live_view_timestamp and not stream_paused
-      live_view_timestamp = payload.timestamp
-      $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
+  if !Evercam.camera_channel || Evercam.camera_channel.state is "closed"
+    Evercam.camera_channel = Evercam.socket.channel("cameras:#{Evercam.Camera.id}")
+    Evercam.camera_channel.join()
+    Evercam.camera_channel.on 'snapshot-taken', (payload) ->
+      $(".btn-live-player").removeClass "hide"
+      if payload.timestamp >= live_view_timestamp and not stream_paused
+        live_view_timestamp = payload.timestamp
+        $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
 stopJpegStream = ->
   Evercam.camera_channel.leave() if Evercam.camera_channel
@@ -564,7 +566,7 @@ ResetTimers = ->
   StartTimers()
   stream_type = $("#select-stream-type").val()
   switch stream_type
-    when 'jpeg'
+    when 'jpeg', undefined
       playJpegStream()
       $("#fullscreen .inactive-jpeg-error-display").addClass("hide")
       $(".play-options").show()
@@ -581,7 +583,7 @@ showInactiveMessage = ->
   jpeg_snap_width = $("#fullscreen").width()
   stream_type = $("#select-stream-type").val()
   switch stream_type
-    when 'jpeg'
+    when 'jpeg', undefined
       stopJpegStream()
       $(".play-options").hide()
       $("#fullscreen .inactive-jpeg-error-display").removeClass("hide")

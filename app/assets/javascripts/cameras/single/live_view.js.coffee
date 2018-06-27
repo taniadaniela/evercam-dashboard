@@ -491,7 +491,9 @@ playJpegStream = ->
         $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
 
 stopJpegStream = ->
-  Evercam.camera_channel.leave() if Evercam.camera_channel
+  if Evercam.camera_channel
+    Evercam.camera_channel.leave()
+    Evercam.camera_channel = undefined
 
 checkPTZExist = ->
   if $(".ptz-controls").length > 0
@@ -562,16 +564,17 @@ StartTimers = ->
     ), timoutWarning)
 
 ResetTimers = ->
-  clearTimeout warningTimer
-  StartTimers()
-  stream_type = $("#select-stream-type").val()
-  switch stream_type
-    when 'jpeg', undefined
-      playJpegStream()
-      $("#fullscreen .inactive-jpeg-error-display").addClass("hide")
-      $(".play-options").show()
-    when 'video'
-      playInActiveVideoStream()
+  if $(".nav-tabs li.active a").attr("data-target") is "#live"
+    clearTimeout warningTimer
+    StartTimers()
+    stream_type = $("#select-stream-type").val()
+    switch stream_type
+      when 'jpeg', undefined
+        playJpegStream()
+        $("#fullscreen .inactive-jpeg-error-display").addClass("hide")
+        $(".play-options").show()
+      when 'video'
+        playInActiveVideoStream()
 
 IdleWarning = ->
   showInactiveMessage()

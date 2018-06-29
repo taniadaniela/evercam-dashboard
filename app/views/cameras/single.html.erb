@@ -18,7 +18,7 @@
               <li>
                 <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
               </li>
-              <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "affi"].include?(current_user.username) %>
+              <% if has_edit_right && ["marco@evercam.io", "vq@evercam.io", "oldconstruction", "construction@evercam.io", "azhar@evercam.io"].include?(current_user.username) %>
                 <li>
                   <a data-toggle="tab" data-target="#timelapse-recordings" class="nav-tab-timelapse-recordings">Timelapse Recordings</a>
                 </li>
@@ -62,7 +62,7 @@
               <a data-toggle="tab" data-target="#compare" class="nav-tab-compare">Compare</a>
             </li>
             <% if current_user %>
-              <% if ["marco", "affi", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+              <% if ["marco@evercam.io", "vq@evercam.io", "oldconstruction", "construction@evercam.io", "azhar@evercam.io", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
                 <li>
                   <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
                 </li>
@@ -226,7 +226,7 @@
           <div id="recordings" class="tab-pane">
             <%= render partial: "cameras/single/snapshots_navigator_tab" %>
           </div>
-          <% if has_edit_right && ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "affi"].include?(current_user.username) %>
+          <% if has_edit_right && ["marco@evercam.io", "vq@evercam.io", "oldconstruction", "construction@evercam.io", "azhar@evercam.io"].include?(current_user.username) %>
             <div id="timelapse-recordings" class="tab-pane">
               <%= render partial: "cameras/single/timelapse_recording_tab" %>
             </div>
@@ -263,7 +263,7 @@
             <%= render partial: "cameras/single/compare_tab" %>
           </div>
           <% if current_user %>
-            <% if ["marco", "meherbst", "vinniequinn", "vq", "oldconstruction", "construction", "azharmalik3", "lauranela", "affi"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+            <% if ["marco@evercam.io", "vq@evercam.io", "oldconstruction", "construction@evercam.io", "azhar@evercam.io", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
               <div id="local-recordings" class="tab-pane local_recordings">
                 <%= render partial: "cameras/single/local_recording_tab" %>
               </div>

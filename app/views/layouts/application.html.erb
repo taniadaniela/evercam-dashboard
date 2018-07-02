@@ -9,6 +9,9 @@
   <meta name="description" content="">
   <title><%= yield(:title) %></title>
   <%= render partial: "shared/favicon" %>
+  <% if @camera %>
+    <%= render partial: "shared/ogp_metadata" %>
+  <% end %>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

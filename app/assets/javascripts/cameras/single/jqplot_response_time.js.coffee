@@ -42,17 +42,19 @@ arrange_datasets = (data) ->
   start_date = moment(data[0])
   data.splice(0, 1)
   textarea = $("#txt-response-live-tail")
-  line_break = "\n"
+  line_break = "<br>"
   while(start_index < data.length)
     if start_index + 2 is data.length
       line_break = ""
     val = data[start_index + 1]
-    textarea.append("#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}: #{val}#{line_break}")
+    row = "<div class='float-left'>[#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}]</div> <div class='float-left'>#{val}</div>"
     if val.indexOf("[Error]") >= 0
+      textarea.append("<div class='col-sm-12 tail-padding-left5' style='color: red;'>#{row}</div>")
       errors.push val
       success.push 0
       total_errors += 1
     else
+      textarea.append("<div class='col-sm-12 tail-padding-left5'>#{row}</div>")
       success.push val
       sum += parseFloat(val.split(" ")[1].replace("[", "").replace("]", ""))
       total_success += 1
@@ -215,13 +217,16 @@ start_live_tail = ->
   Evercam.livetail_channel.join()
   Evercam.livetail_channel.on 'camera-response', (payload) ->
     textarea = $("#txt-response-live-tail")
+    timestamp = "<div class='float-left'>[#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}:]</div>"
+    response_time = "<div class='float-left'>[#{payload.response_time}]</div>"
+    description = "<div class='float-left'>[#{payload.description}]</div>"
     if payload.response_type is "ok"
       sum += payload.response_time
       total_success += 1
-      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [Snapshot] [#{payload.response_time}] [#{payload.description}]")
+      textarea.append("<div class='col-sm-12 tail-padding-left5'>#{timestamp} <div class='float-left'>[Snapshot]</div>#{response_time} #{description}</div>")
     else
       total_errors += 1
-      textarea.append("\n#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}: [Error] [#{payload.response_time}] [#{payload.response_type}] [#{payload.description}]")
+      textarea.append("<div class='col-sm-12 tail-padding-left5' style='color: red;'>#{timestamp} <div class='float-left'>[Error]</div>#{response_time} <div class='float-left'>[#{payload.response_type}]</div> #{description}</div>")
 
     calculate_failed_percentage()
     $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))

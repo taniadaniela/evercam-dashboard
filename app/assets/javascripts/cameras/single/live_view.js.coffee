@@ -186,6 +186,7 @@ handleTabOpen = ->
 
   $('.nav-tab-live').on 'hide.bs.tab', ->
     clearTimeout(clear_timeout_videojs)
+    clearTimeout(warningTimer)
     stopJpegStream()
     if $('#select-stream-type').length
       destroyPlayer()
@@ -557,8 +558,9 @@ format = (state) ->
 
 inactiveWindow = ->
   document.onmousemove = ->
-    clearTimeout warningTimer
-    StartTimers()
+    if $(".nav-tabs li.active a").attr("data-target") is "#live"
+      clearTimeout warningTimer
+      StartTimers()
 
   $("#live-view-placeholder").on "click", ".click_to_start_stream", ->
     ResetTimers()
@@ -582,7 +584,8 @@ ResetTimers = ->
         playInActiveVideoStream()
 
 IdleWarning = ->
-  showInactiveMessage()
+  if $(".nav-tabs li.active a").attr("data-target") is "#live"
+    showInactiveMessage()
 
 showInactiveMessage = ->
   snap_height = $("#camera-video-stream").height()

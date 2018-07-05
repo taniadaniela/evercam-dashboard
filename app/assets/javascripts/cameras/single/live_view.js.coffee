@@ -556,7 +556,12 @@ format = (state) ->
   return $("<span>#{state.text}</span>")
 
 inactiveWindow = ->
-  document.onmousemove = ResetTimers
+  document.onmousemove = ->
+    clearTimeout warningTimer
+    StartTimers()
+
+  $("#live-view-placeholder").on "click", ".click_to_start_stream", ->
+    ResetTimers()
 
 StartTimers = ->
   warningTimer = setTimeout((->
@@ -585,20 +590,22 @@ showInactiveMessage = ->
   jpeg_snap_height = $("#fullscreen").height()
   jpeg_snap_width = $("#fullscreen").width()
   stream_type = $("#select-stream-type").val()
+  html = "Stream is paused, User is inactive for more than 2 minutes. <a href='#' class='click_to_start_stream'>Click To Play</a>"
+
   switch stream_type
     when 'jpeg', undefined
       stopJpegStream()
       $(".play-options").hide()
       $("#fullscreen .inactive-jpeg-error-display").removeClass("hide")
       $("#fullscreen .inactive-jpeg-error-display div").html("<span style='top: #{(jpeg_snap_height / 2) - 30}px; left: #{(jpeg_snap_width / 2) - 250}px;'
-        class='spn-message'>Stream is paused, User is inactive for more than 2 minutes.")
+        class='spn-message'>#{html}</span>")
     when 'video'
       vjs_player.pause()
       $("#camera-video-player .vjs-error-display").addClass("vjs-hidden")
       $("#camera-video-stream .inactive-error-display").removeClass("hide")
       $(".vjs-control-bar .vjs-play-control").removeClass("vjs-playing").addClass("vjs-paused")
       $("#camera-video-stream .inactive-error-display div").html("<span style='top: #{(snap_height / 2) - 30}px; left: #{(snap_width / 2) - 250}px;'
-        class='spn-message'>Stream is paused, User is inactive for more than 2 minutes.")
+        class='spn-message'>#{html}</span>")
 
 playInActiveVideoStream = ->
   vjs_player.play()

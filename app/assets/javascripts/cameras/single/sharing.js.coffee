@@ -784,7 +784,7 @@ getSharedUsers = ->
           $('.select2-container .select2-dropdown').show()
         return markup
       createTag: (term, data) ->
-        value = term.term
+        value = $.trim(term.term)
         if value
           share_users_select.select2("open")
         else

@@ -60,8 +60,6 @@
 //= require d3.min.js
 //= require moment-with-locales.js
 //= require cameras/online_offline.js
-//= require cameras/swagger-ui.js
-//= require cameras/swagger-ui-standalone.js
 //= require visavail.js
 //= require single_status_bar.js
 //= require metronic/respond.min.js

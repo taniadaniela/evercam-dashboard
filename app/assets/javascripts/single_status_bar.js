@@ -246,7 +246,7 @@ function singleStatusBar() {
         });
 
     // HTML labels
-    labels.append('text')
+    labels.append('foreignObject')
         .attr('x', paddingLeft)
         .attr('y', lineSpacing)
         .attr('transform', function (d, i) {

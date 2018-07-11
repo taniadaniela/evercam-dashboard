@@ -1,7 +1,12 @@
 #= require Chart.min.js
 #= require utils.js
 
+#= require amcharts.js
+#= require serial.js
+
 chart = null
+amChart = null
+chartData = []
 presets = window.chartColors
 utils = Samples.utils
 start_index = 0
@@ -12,16 +17,10 @@ total_success = 0
 total_errors = 0
 start_date = moment()
 
-generateLabels = (date_time, count, total_errors) ->
+generateLabels = ->
+  count = success.length - 1
   curr_date_time = moment()
-  minutes = curr_date_time.diff(date_time, 'minutes')
-  labels = [date_time.format('HH:mm:ss')]
-  failed_perc = (total_errors / (Evercam.Camera.cloud_recording.frequency * minutes)) * 100
-
-  if total_errors is 0
-    $("#spn_failed_persent").text("0%")
-  else
-    $("#spn_failed_persent").text("#{parseFloat(failed_perc).toFixed(2)}%")
+  labels = [start_date.format('HH:mm:ss')]
 
   while(start_index < count)
     labels.push ""
@@ -39,38 +38,110 @@ calculate_failed_percentage = ->
     $("#spn_failed_persent").text("#{parseFloat(failed_perc).toFixed(2)}%")
 
 arrange_datasets = (data) ->
-  start_date = moment(data[0])
-  data.splice(0, 1)
+  start_date = moment(parseInt(data[0].split("\t")[0])*1000)
   textarea = $("#txt-response-live-tail")
-  line_break = "<br>"
-  while(start_index < data.length)
-    if start_index + 2 is data.length
-      line_break = ""
-    val = data[start_index + 1]
-    row = "<div class='float-left'>[#{moment(data[start_index]*1000).format('MM/DD/YYYY HH:mm:ss')}]</div> <div class='float-left'>#{val}</div>"
-    if val.indexOf("[Error]") >= 0
-      textarea.append("<div class='col-sm-12 tail-padding-left5' style='color: red;'>#{row}</div>")
-      errors.push val
+
+  $.each data, (i, val) ->
+    arr = val.split("\t")
+    date_time = moment(parseInt(arr[0]) * 1000)
+    timestamp = "<div class='float-left'>[#{date_time.format('MM/DD/YYYY HH:mm:ss')}]</div>"
+    response_time = "<div class='float-left'>[#{arr[1]}]</div>"
+    description = "<div class='float-left'>[#{arr[3]}]</div>"
+
+    if arr[2] isnt "Snapshot"
+      textarea.append("<div class='col-sm-12 tail-padding-left5' style='color: red;'>#{timestamp}<div class='float-left'>[Error]</div>#{response_time}<div class='float-left'>[#{arr[2]}]</div>#{description}</div>")
+      errors.push parseFloat(arr[1])
       success.push 0
       total_errors += 1
+      chartData.push
+        date: date_time
+        error: parseFloat(arr[1])
     else
-      textarea.append("<div class='col-sm-12 tail-padding-left5'>#{row}</div>")
-      success.push val
-      sum += parseFloat(val.split(" ")[1].replace("[", "").replace("]", ""))
+      textarea.append("<div class='col-sm-12 tail-padding-left5'>#{timestamp}<div class='float-left'>[Snapshot]</div>#{response_time}#{description}</div>")
+      success.push parseFloat(arr[1])
+      sum += parseFloat(arr[1])
       total_success += 1
       errors.push 0
-    start_index += 2
+      chartData.push
+        date: new Date(date_time)
+        snapshot: parseFloat(arr[1])
 
   calculate_failed_percentage()
-  $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
+  if sum is 0
+    $("#spn_success_average").text("0.00")
+  else
+    $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
+  draw_amcharts()
 
-draw_graph = (data) ->
-  start_date = moment(data[0])
-  arrange_datasets(data)
-  start_index = 0
+draw_amcharts = ->
+  chartData = chartData.slice(chartData.length - 2000)
 
+  amChart = AmCharts.makeChart('chartdiv',
+    type: 'serial'
+    dataProvider: chartData
+    categoryField: 'date'
+    path: "/assets/"
+    pathToImages: "/assets/"
+    categoryAxis:
+      parseDates: true
+      gridAlpha: 0.15
+      minorGridEnabled: true
+      axisColor: '#DADADA'
+    valueAxes: [ {
+      axisAlpha: 0.2
+      id: 'v1'
+    } ]
+    graphs: [
+      {
+        type: 'column'
+        title: 'Snapshot'
+        id: 'g1'
+        valueField: 'snapshot'
+        lineAlpha: 0
+        fillAlphas: 0.8
+        fillAlphas: 1
+        lineColor: "#2ecc71"
+        balloonText: '[[title]] in [[category]]: <b>[[value]]</b>'
+      }
+      {
+        type: 'column'
+        title: 'Error'
+        id: 'g2'
+        valueField: 'error'
+        lineThickness: 2
+        lineAlpha: 0
+        fillAlphas: 0.8
+        fillAlphas: 1
+        lineColor: "#DC4C3F"
+        fillColorsField: '#DC4C3F'
+        balloonText: '[[title]] in [[category]]: <b>[[value]]</b>'
+      }
+    ]
+    chartCursor:
+      categoryBalloonDateFormat: "MMM DD JJ:NN:SS",
+      cursorPosition: "mouse",
+      fullWidth: true
+      cursorAlpha: 0.1
+    categoryAxis:
+      minPeriod: 'ss'
+      parseDates: true
+    chartScrollbar:
+      scrollbarHeight: 30
+      color: '#FFFFFF'
+      dragIconHeight: 22
+      dragIconWidth: 22
+      graph: 'g1'
+    mouseWheelZoomEnabled: true)
+
+  amChart.addListener 'dataUpdated', zoomChart
+
+zoomChart = ->
+  # different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+  amChart.zoomToIndexes chartData.length - 40, chartData.length - 1
+
+draw_graph = ->
   data =
-    labels: generateLabels(start_date, success.length - 1, total_errors)
+    labels: generateLabels()
     datasets: [
       {
         backgroundColor: utils.transparentize('rgb(46, 204, 113)')
@@ -87,6 +158,7 @@ draw_graph = (data) ->
         label: 'Error'
       }
     ]
+
   options =
     maintainAspectRatio: false
     scales:
@@ -95,30 +167,13 @@ draw_graph = (data) ->
         time: {unit: 'minute'}
       }]
     legend: { position: top }
-    tooltips:
-      custom: (tooltipModel) ->
-        tooltipEl = document.getElementById('chartjs-tooltip')
-        if tooltipModel and tooltipModel.body
-          arr = get_error(tooltipModel.body[0].lines[0])
-          if arr[0] isnt "else"
-            tooltipModel.width = arr[1]
-            tooltipModel.body[0].lines = [arr[0]]
 
   chart = new Chart('myChart',
     type: 'bar'
     data: data
     options: options)
   $("#myChart").height(250)
-  # $("#div-graph").removeClass("hide")
-
-add_average_line = ->
-  c = document.getElementById("myChart")
-  ctx = c.getContext("2d")
-  ctx.beginPath()
-  ctx.moveTo(0, 10)
-  ctx.strokeStyle = "#FF0000"
-  ctx.lineTo(500,10)
-  ctx.stroke()
+  $("#div-graph").removeClass("hide")
 
 get_responses = (is_update) ->
   data =
@@ -218,18 +273,21 @@ start_live_tail = ->
   Evercam.livetail_channel.on 'camera-response', (payload) ->
     textarea = $("#txt-response-live-tail")
     timestamp = "<div class='float-left'>[#{moment(payload.timestamp*1000).format('MM/DD/YYYY HH:mm:ss')}:]</div>"
-    response_time = "<div class='float-left'>[#{payload.response_time}]</div>"
+    response_time = "<div class='float-left'>[#{payload.res_time}]</div>"
     description = "<div class='float-left'>[#{payload.description}]</div>"
-    if payload.response_type is "ok"
-      sum += payload.response_time
+    if payload.response is "Snapshot"
+      sum += payload.res_time
       total_success += 1
       textarea.append("<div class='col-sm-12 tail-padding-left5'>#{timestamp} <div class='float-left'>[Snapshot]</div>#{response_time} #{description}</div>")
     else
       total_errors += 1
-      textarea.append("<div class='col-sm-12 tail-padding-left5' style='color: red;'>#{timestamp} <div class='float-left'>[Error]</div>#{response_time} <div class='float-left'>[#{payload.response_type}]</div> #{description}</div>")
+      textarea.append("<div class='col-sm-12 tail-padding-left5' style='color: red;'>#{timestamp} <div class='float-left'>[Error]</div>#{response_time} <div class='float-left'>[#{payload.response}]</div> #{description}</div>")
 
     calculate_failed_percentage()
-    $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
+    if sum is 0
+      $("#spn_success_average").text("0.00")
+    else
+      $("#spn_success_average").text(parseFloat(sum/total_success).toFixed(4))
     scroll_to_end()
 
 stop_live_tail = ->

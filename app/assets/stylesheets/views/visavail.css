@@ -53,6 +53,8 @@ div.tooltip {
     font-family: "Muli", "Helvetica", Arial, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     font-size: 12px;
+    x: -150;
+    y: 25;
 }
 
 .axis path,

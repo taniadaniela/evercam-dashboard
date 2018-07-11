@@ -251,7 +251,7 @@ function visavailChart() {
         });
 
     // HTML labels
-    labels.append('foreignObject')
+    labels.append('text')
         .attr('x', paddingLeft)
         .attr('y', lineSpacing)
         .attr('transform', function (d, i) {

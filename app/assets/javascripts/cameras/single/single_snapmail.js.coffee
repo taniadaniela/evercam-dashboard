@@ -146,7 +146,7 @@ format = (state) ->
     return state.text
   if state.element.className is "onlinec"
     is_offline = '<i class="red main-sidebar fa fa-unlink"></i>'
-  return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='#{state.element.attributes[1].value}' class='img-flag' />&nbsp;#{state.text}</span>&nbsp;#{is_offline}")
+  return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='#{Evercam.MEDIA_API_URL}cameras/#{state.id}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}' class='img-flag' />&nbsp;#{state.text}</span>&nbsp;#{is_offline}")
 
 initInputTags = ->
   $("#txtRecipient").tagsInput

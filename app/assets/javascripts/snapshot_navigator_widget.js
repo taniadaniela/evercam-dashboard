@@ -38,3 +38,4 @@
 //= require moment-with-locales.js
 //= require moment-timezone.js
 //= require jquery.elevateZoom-3.0.8.min.js
+//= require download.js

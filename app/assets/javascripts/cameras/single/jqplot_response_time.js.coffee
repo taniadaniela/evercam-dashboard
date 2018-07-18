@@ -118,7 +118,7 @@ draw_amcharts = ->
       graph: 'g1'
     mouseWheelZoomEnabled: true)
 
-  # amChart.addListener 'dataUpdated', zoomChart
+  amChart.addListener 'dataUpdated', zoomChart
   $("#chartdiv").removeClass("hide")
 
 zoomChart = ->

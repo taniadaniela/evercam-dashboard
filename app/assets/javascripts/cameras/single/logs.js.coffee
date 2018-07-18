@@ -1,4 +1,3 @@
-#= require cameras/single/jqplot_response_time.js.coffee
 table = null
 format_time = null
 offset = null
@@ -462,4 +461,4 @@ window.initializeLogsTab = ->
   initializeDataTable()
   onImageHover()
   showDetails()
-  window.initJqueryPlotResponseTime()
+  # window.initJqueryPlotResponseTime()

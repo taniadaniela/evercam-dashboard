@@ -123,7 +123,10 @@ draw_amcharts = ->
 
 zoomChart = ->
   # different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-  amChart.zoomToIndexes chartData.length - 40, chartData.length - 1
+  try
+    amChart.zoomToIndexes chartData.length - 40, chartData.length - 1
+  catch e
+    error = e
 
 get_responses = (is_update) ->
   data =

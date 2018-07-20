@@ -57,16 +57,16 @@ $ ->
               'cam_username=' + $('#camera-username').val(),
               'cam_password=' + $('#camera-password').val()]
 
-    # loader = Ladda.create(this)
-    # loader.start()
-    # progress = 0
-    # interval = setInterval(->
-    #   progress = Math.min(progress + 0.025, 1)
-    #   loader.setProgress(progress)
-    #   if (progress == 1)
-    #     loader.stop()
-    #     clearInterval(interval)
-    # , 200)
+    loader = Ladda.create(this)
+    loader.start()
+    progress = 0
+    interval = setInterval(->
+      progress = Math.min(progress + 0.025, 1)
+      loader.setProgress(progress)
+      if (progress == 1)
+        loader.stop()
+        clearInterval(interval)
+    , 200)
     NProgress.start()
 
     #send request for test snapshot
@@ -82,7 +82,7 @@ $ ->
       $('#test-error').text(jqXHR.responseJSON.message)
       console.log('Error getting the snapshot from the camera. The camera response was:')
       console.log(jqXHR.responseJSON.response)
-      # loader.stop()
+      loader.stop()
       $('#testimg').addClass 'hide'
       $('.img-holder-text').removeClass 'hide'
       NProgress.done()
@@ -101,7 +101,7 @@ $ ->
           $('#testimg').attr('src', result.data)
           if window.Evercam.Camera.is_online isnt undefined && !window.Evercam.Camera.is_online
             location.reload()
-      # loader.stop()
+      loader.stop()
       NProgress.done()
 
     settings =

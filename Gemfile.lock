@@ -23,9 +23,9 @@ GIT
 
 GIT
   remote: git://github.com/stripe/stripe-ruby.git
-  revision: 9e35a5e0d9514f1cb2f0dc121bff6497d6ae4a1b
+  revision: 7c9492b37d74c459d5c6cba24e2467000e5fd38a
   specs:
-    stripe (3.17.0)
+    stripe (3.17.2)
       faraday (~> 0.10)
 
 GIT
@@ -88,7 +88,7 @@ GEM
       fog-core
       mime-types (>= 2.99)
       unf
-    autoprefixer-rails (8.6.5)
+    autoprefixer-rails (8.6.3)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.12)
@@ -380,7 +380,7 @@ GEM
     selenium-webdriver (3.13.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    sequel (5.10.0)
+    sequel (5.9.0)
     shellany (0.0.1)
     simplecov (0.13.0)
       docile (~> 1.1.0)
@@ -420,7 +420,7 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.15)
+    uglifier (4.1.12)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -447,7 +447,7 @@ PLATFORMS
 
 DEPENDENCIES
   asset_sync
-  autoprefixer-rails
+  autoprefixer-rails (= 8.6.3)
   bcrypt
   codeclimate-test-reporter
   coffee-rails
@@ -504,7 +504,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7.2)
   sass-rails
   selenium-webdriver
-  sequel
+  sequel (~> 5.9.0)
   spirit_hands (~> 2.1.4)
   sprockets
   sprockets-rails (~> 3.2.1)
@@ -512,7 +512,7 @@ DEPENDENCIES
   stripe_event
   timezone
   turbolinks
-  uglifier
+  uglifier (= 4.1.12)
   webmock
   wicked_pdf
   wkhtmltopdf-binary

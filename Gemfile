@@ -11,7 +11,7 @@ gem 'sprockets'
 gem 'javascript-securehash-rails'
 gem 'fog-aws'
 gem 'asset_sync'
-gem 'autoprefixer-rails', '8.6.3'
+gem 'autoprefixer-rails'
 gem 'stripe',
   github: 'stripe/stripe-ruby'
 gem 'stripe_event'
@@ -23,7 +23,7 @@ gem 'hashie'
 gem 'timezone'
 
 gem 'pg'
-gem 'sequel', '~> 5.9.0'
+gem 'sequel'
 gem 'bcrypt'
 gem 'protected_attributes_continued',
   github: 'westonganger/protected_attributes_continued'

@@ -88,7 +88,7 @@ GEM
       fog-core
       mime-types (>= 2.99)
       unf
-    autoprefixer-rails (8.6.3)
+    autoprefixer-rails (9.0.0)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.12)
@@ -380,7 +380,7 @@ GEM
     selenium-webdriver (3.13.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    sequel (5.9.0)
+    sequel (5.10.0)
     shellany (0.0.1)
     simplecov (0.13.0)
       docile (~> 1.1.0)
@@ -447,7 +447,7 @@ PLATFORMS
 
 DEPENDENCIES
   asset_sync
-  autoprefixer-rails (= 8.6.3)
+  autoprefixer-rails
   bcrypt
   codeclimate-test-reporter
   coffee-rails
@@ -504,7 +504,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7.2)
   sass-rails
   selenium-webdriver
-  sequel (~> 5.9.0)
+  sequel
   spirit_hands (~> 2.1.4)
   sprockets
   sprockets-rails (~> 3.2.1)

@@ -25,10 +25,9 @@
                        css = "offlinec"
                      end
                   %>
-                <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>"
-                  val-rtmp-stream="<%= camera.fetch('proxy_url', {}).fetch('rtmp', {}) if camera['external'].blank? || port.present? %>">
-                  <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
-                </option>
+                  <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>">
+                    <%= camera['name'] %> <% unless camera['is_online'] %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
+                  </option>
               <% end %>
             </select>
           </div>

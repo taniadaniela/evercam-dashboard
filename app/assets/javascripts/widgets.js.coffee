@@ -54,7 +54,7 @@ format = (state) ->
     return state.text
   if state.id == '0'
     return state.text
-  return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='#{state.element.attributes[2].value}' class='img-flag' />&nbsp;#{state.text}</span>")
+  return $("<span><img style='height:30px;margin-bottom:1px;margin-top:1px;width:35px;' src='#{Evercam.MEDIA_API_URL}cameras/#{state.id}/thumbnail?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}' class='img-flag' />&nbsp;#{state.text}</span>")
 
 $ ->
   initCameraSelect()

@@ -277,16 +277,22 @@ handleTabOpen = ->
     onChangeStream()
 
 onChangeStream = ->
-  date = $("#ui_date_picker_inline_lr").datepicker('getDate')
-  year = date.getFullYear()
-  month = date.getMonth() + 1
-  day = date.getDate()
-  hr = $("#local_recording_hourCalendar td.active").text()
-  from = moment.utc("#{year}-#{month}-#{day} #{hr}:#{$("#nvr_time_select").val()}", "YYYY-MM-DD HH:mm:ss") / 1000
-  to = moment.utc("#{year}-#{month}-#{day} #{hr}:59:59", "YYYY-MM-DD HH:mm:ss") / 1000
-  if window.vjs_player_local
-    window.vjs_player_local.pause()
-  load_stream(from, to)
+  rtspValue = $('#rtspValue').val()
+  if rtspValue || Evercam.Camera.has_edit_right is false
+    date = $("#ui_date_picker_inline_lr").datepicker('getDate')
+    year = date.getFullYear()
+    month = date.getMonth() + 1
+    day = date.getDate()
+    hr = $("#local_recording_hourCalendar td.active").text()
+    from = moment.utc("#{year}-#{month}-#{day} #{hr}:#{$("#nvr_time_select").val()}", "YYYY-MM-DD HH:mm:ss") / 1000
+    to = moment.utc("#{year}-#{month}-#{day} #{hr}:59:59", "YYYY-MM-DD HH:mm:ss") / 1000
+    if window.vjs_player_local
+      window.vjs_player_local.pause()
+    load_stream(from, to)
+  else
+    $("#local-recording-stream .evercam-loading-animation").hide()
+    $("#clip-create-message").text("No RTSP Port Found.")
+    $("#clip-create-message").show()
 
 on_ended_play = ->
   window.vjs_player_local.on "ended", ->

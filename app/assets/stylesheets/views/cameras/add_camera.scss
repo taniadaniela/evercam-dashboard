@@ -465,13 +465,36 @@ input:-webkit-autofill {
 }
 
 .vendor-help-icon {
-  position: absolute;
-  margin-left: 90px;
-  margin-top: -16px;
-  color: $label-color;
+  margin-left: 88px;
 }
 
-.vendor-help-icon:hover {
+.snapshot-help-icon {
+  margin-left: 85px;
+}
+
+.username-help-icon {
+  margin-left: 110px;
+}
+
+.password-help-icon {
+  margin-left: 108px;
+}
+
+.camera-name-help-icon {
+  margin-left: 138px;
+}
+
+.url-help-icon {
+  margin-left: 116px;
+}
+
+.help-icon {
+  position: absolute;
+  color: $label-color;
+  margin-top: -17px;
+}
+
+.help-icon:hover {
   color: $main-color;
 }
 

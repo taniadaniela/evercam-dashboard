@@ -3,6 +3,7 @@
 #= require bootstrap
 #= require ladda/spin.min.js
 #= require ladda/ladda.min.js
+#= require bugsnag.js
 Evercam_MEDIA_URL = 'https://media.evercam.io/v1/'
 Evercam_API_URL = 'https://api.evercam.io/v1/'
 Dasboard_URL = 'https://dash.evercam.io'

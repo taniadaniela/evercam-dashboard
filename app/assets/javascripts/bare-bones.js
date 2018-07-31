@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery-form-validator
+//= require bugsnag.js
 //= require video.js
 //= require videojs-flash.min.js
 //= require videojs-contrib-media-sources.min.js

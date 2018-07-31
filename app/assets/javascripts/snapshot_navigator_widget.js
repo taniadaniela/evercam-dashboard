@@ -9,6 +9,7 @@
 //= require screenfull
 //= require saveimage.js
 //= require evercam.js.coffee
+//= require bugsnag.js
 //= require fullcalendar/fullcalendar.js
 
 //=

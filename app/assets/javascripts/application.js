@@ -11,6 +11,8 @@
 //= require metronic/jquery.slimscroll.min
 //= require jquery-form-validator
 //= require moment
+//= require cameras/swagger-ui.js
+//= require cameras/swagger-ui-standalone.js
 //= require ladda/spin.min.js
 //= require ladda/ladda.min.js
 //= require bootbox

@@ -4,7 +4,7 @@ gem 'rails'
 
 gem 'sass-rails'
 gem 'yui-compressor'
-gem 'uglifier', '4.1.12'
+gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'sprockets'

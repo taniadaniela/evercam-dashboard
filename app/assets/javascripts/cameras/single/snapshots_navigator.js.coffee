@@ -1071,11 +1071,11 @@ loadOldestLatestImage = (enter_query) ->
     HideLoader()
 
   settings =
-    cache: false
     data: data
     dataType: 'json'
     error: onError
     success: onSuccess
+    contentType: "application/json charset=utf-8"
     type: 'GET'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{enter_query}"
   sendAJAXRequest(settings)

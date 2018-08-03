@@ -42,6 +42,7 @@ sendAJAXRequest = (settings) ->
 
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
+
   $("#ui_date_picker_inline table th[class*='prev']").on "click", ->
     changeMonthFromArrow('p')
 
@@ -354,6 +355,8 @@ HighlightDay = (year, month, day, exists) ->
             BoldDays.push(day)
           else
             calDay.addClass('no-snapshot')
+      else
+        calDay.addClass('disabled')
     hideDaysLoadingAnimation()
     hideHourLoadingAnimation()
 
@@ -664,6 +667,11 @@ NoRecordingDayOrHour = ->
   $("#snapshot-tab-save").hide()
   totalFrames = 0
   HideLoader()
+  calDays = $("#ui_date_picker_inline table td[class*='day']")
+  calDays.each ->
+    calDay = $(this)
+    if calDay.hasClass('old') || calDay.hasClass('new')
+      calDay.addClass('disabled')
 
 SetImageHour = (hr, id) ->
   value = $("##{id}").html()

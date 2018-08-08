@@ -317,6 +317,11 @@ li.inactive a {
     background-color: $main-color;
   }
 
+  .toggle input:disabled + .toggle-control {
+    border-color: $dark-grey;
+    background-color: $dark-grey;
+  }
+
   .toggle input:checked + .toggle-control::after {
     left: 1em !important;
   }

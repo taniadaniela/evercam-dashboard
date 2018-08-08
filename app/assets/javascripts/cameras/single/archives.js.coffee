@@ -54,7 +54,8 @@ initializeArchivesDataTable = ->
     columns: [
       {data: getTitle, sClass: 'title', orderable: false},
       {data: gravatarName, sType: "uk_datetime"},
-      {data: renderIsPublic, sClass: 'public', visible: false},
+      {data: renderIsPublic, sClass: 'public', orderable: false},
+      {data: rendersharebuttons, sClass: 'center', "searchable": false, orderable: false},
       {data: renderStatus, sClass: 'center', visible: false},
       {data: "type", sClass: 'text-center', visible: false},
       {data: renderbuttons, sClass: 'options', "searchable": false, orderable: false}
@@ -133,10 +134,8 @@ renderbuttons = (row, type, set, meta) ->
       mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}"
       view_url = "clip/#{row.id}/play"
       copy_url = ""
-      if row.public is true
-        copy_url = '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + view_url + '" val-archive-id="'+row.id+'" val-camera-id="'+row.camera_id+'"><i class="fa fa-share-alt"></i></a>'
 
-      return '<a class="archive-actions archive-title" href="#" title="Edit" data-id="' + row.id + '" data-url="' + row.media_url + '" data-type="' + row.type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-edit"></i></a>' +
+      return '<div class="dropdown"><a class="archive-actions archive-title" href="#" title="Edit" data-id="' + row.id + '" data-url="' + row.media_url + '" data-type="' + row.type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-edit"></i></a>' +
         '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
         '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '.mp4" type="hidden">' +
         '<input id="mp4play-' + row.id + '" value= "' + mp4_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
@@ -144,6 +143,80 @@ renderbuttons = (row, type, set, meta) ->
           copy_url + div.html()
   else
     return div.html()
+
+rendersharebuttons = (row, type, set, meta) ->
+  div = $('<div>', {class: "form-group"})
+  url = ""
+  if row.status is "Completed"
+    if row.type is "URL"
+      return ''
+    else
+      if row.public
+        if row.type is "Clip"
+          url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
+        else
+          url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}.mp4"
+        return '<div class="enabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
+            '<a href="https://web.whatsapp.com/send?text=' + url + '" target="_blank" title="Whatsapp" data-width="1280" data-height="720"><i class="fab fa-whatsapp"></i></a>' +
+            '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
+            '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a></div>' +
+            div.html()
+      else
+        return '<div class="disabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
+            '<a href="https://web.whatsapp.com/send?text=' + url + '" target="_blank" title="Whatsapp" data-width="1280" data-height="720"><i class="fab fa-whatsapp"></i></a>' +
+            '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
+            '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a></div>' +
+            div.html()
+  else
+    return div.html()
+
+makePublic = ->
+  $("#archives-table").on "change", ".toggle_input_public", ->
+    id = $(this).attr('alt')
+    typeArchive = $(this).attr('archive_type')
+    onError = (jqXHR, status, error) ->
+      if jqXHR.status is 500
+        Notification.show("Internal Server Error. Please contact to admin.")
+      else
+        Notification.show(jqXHR.responseJSON.message)
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      NProgress.done()
+      $("#create_clip_button").removeAttr 'disabled'
+
+    onSuccess = (data, status, jqXHR) ->
+      index = $("input.toggle_input_public").index(this)
+      if $(this).is(":checked")
+        $(".share-buttons:eq(" + index + ")").removeClass('disabled').addClass('enabled')
+        refresh_archive_table()
+      else
+        $(".share-buttons:eq(" + index + ")").removeClass('enabled').addClass('disabled')
+        refresh_archive_table()
+    if typeArchive is "Clip"
+      togglePublic = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      if $(this).is(":checked")
+        data =
+          public: true
+        settings =
+          cache: false
+          data: data
+          dataType: 'json'
+          error: onError
+          success: onSuccess
+          type: 'PATCH'
+          url: togglePublic
+        $.ajax(settings)
+      else
+        data =
+          public: false
+        settings =
+          cache: false
+          data: data
+          dataType: 'json'
+          error: onError
+          success: onSuccess
+          type: 'PATCH'
+          url: togglePublic
+        $.ajax(settings)
 
 getCompareButtons = (div, row) ->
   animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
@@ -306,10 +379,30 @@ renderDuration = (row, type, set, meta) ->
     return formatted
 
 renderIsPublic = (row, type, set, meta) ->
-  if row.public
-    return 'Yes'
+  if row.status is "Completed"
+    if row.type is "URL"
+      return ''
+    else
+      if row.public
+        enabled = "checked"
+      else
+        enabled = ""
+      if row.type is "Compare"
+        return '<div id="siderbar">
+                  <label class="label toggle title">
+                    <input type="checkbox" class="toggle_input_public toggle_input_public_compare" alt="' + row.id + '" archive_type="' + row.type + '"' + enabled + ' disabled/>
+                    <div class="toggle-control"></div>
+                  </label>
+                </div>'
+      else
+        return '<div id="siderbar">
+                  <label class="label toggle title">
+                    <input type="checkbox" class="toggle_input_public toggle_input_public_clip" alt="' + row.id + '" archive_type="' + row.type + '"' + enabled + '/>
+                    <div class="toggle-control"></div>
+                  </label>
+                </div>'
   else
-    return 'No'
+    return ''
 
 renderStatus = (row, type, set, meta) ->
   if row.status is 'Processing'
@@ -328,11 +421,16 @@ getDates = (times) ->
 shareURL = ->
   $("#archives-table").on "click",".share-archive", ->
     url = $(this).attr("play-url")
-    share_url ="https://dash.evercam.io/v1/cameras/#{$(this).attr("val-camera-id")}/#{url}"
-    copyToClipboard share_url
+    copyToClipboard url
 
 copyToClipboard = (text) ->
-  window.prompt 'Copy to URL from here', text
+  dummy = document.createElement("input")
+  document.body.appendChild(dummy)
+  dummy.setAttribute('value', text)
+  dummy.select()
+  document.execCommand("copy")
+  document.body.removeChild(dummy)
+  Notification.show("URL copied!")
   return
 
 tooltip = ->
@@ -999,7 +1097,7 @@ filter_archives = ->
     is_reload = false
     $(".archive-tab-item i").removeClass("fas").addClass("far")
     $(this).find("i").removeClass("far").addClass("fas")
-    archives_table.column(4).search($(this).attr("data-val")).draw()
+    archives_table.column(5).search($(this).attr("data-val")).draw()
 
 window.initializeArchivesTab = ->
   window.compare_html = $("#row-compare").html()
@@ -1027,3 +1125,4 @@ window.initializeArchivesTab = ->
   filter_archives()
   update_archive()
   update_url()
+  makePublic()

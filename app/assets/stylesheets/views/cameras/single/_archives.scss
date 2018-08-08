@@ -48,14 +48,46 @@
 .archive-actions {
   margin-right: 12px;
   .fas,
-  .fa {
+  .fa,
+  .fab {
     font-size: 16px;
     color: $main-color;
     margin-top: 5px;
   }
 
   .fas:hover,
-  .fa:hover {
+  .fa:hover,
+  .fab:hover {
+    color: $dark-blue;
+  }
+}
+
+.disabled > a {
+  pointer-events: none;
+  cursor: default;
+  margin-right: 12px;
+  .fas,
+  .fa,
+  .fab {
+    font-size: 16px;
+    color: $main-grey;
+    margin-top: 5px;
+  }
+}
+
+.enabled > a {
+  margin-right: 12px;
+  .fas,
+  .fa,
+  .fab {
+    font-size: 16px;
+    color: $main-color;
+    margin-top: 5px;
+  }
+
+  .fas:hover,
+  .fa:hover,
+  .fab:hover {
     color: $dark-blue;
   }
 }
@@ -716,7 +748,7 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   }
 
   .options {
-    width: 115px;
+    width: 145px;
   }
 
   .archive-info {

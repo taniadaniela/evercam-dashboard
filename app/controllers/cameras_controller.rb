@@ -247,6 +247,7 @@ class CamerasController < ApplicationController
         @cloud_recording = get_default_settings
       end
       @snapshot_navigator = false
+      @ip = request.remote_ip
     rescue => error
       if error.try(:status_code).present? && error.status_code.equal?(404)
         redirect_to cameras_not_found_path

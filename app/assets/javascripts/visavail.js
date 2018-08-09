@@ -225,7 +225,7 @@ function visavailChart() {
           .data(dataset.slice(startSet, endSet))
           .enter();
 
-      labels.append('foreignObject')
+      labels.append('text')
         .attr('x', paddingLeft)
         .attr('y', lineSpacing + dataHeight / 2)
         .text(function (d) {

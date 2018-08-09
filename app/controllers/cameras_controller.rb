@@ -354,7 +354,7 @@ class CamerasController < ApplicationController
 
     @formated_data = @camera_logs.map do |camera_log|
       {
-        measure_html: create_measure(camera_log[:camera_name], camera_log[:status]),
+        measure: create_measure(camera_log[:camera_name], camera_log[:status]),
         data: format_logs(camera_log[:status], camera_log[:logs], "Etc/UTC", camera_log[:created_at], days)
       }
     end
@@ -365,7 +365,7 @@ class CamerasController < ApplicationController
     if status == true
       "#{camera_name}"
     else
-      "#{camera_name} <i class='red fa fa-unlink font-12'></i>"
+      "#{camera_name} (offline)"
     end
   end
 

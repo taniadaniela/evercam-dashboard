@@ -44,6 +44,7 @@ You are not allowed to view this camera
 
 <div>
   <% if params[:rtmp] %>
+  <input type="hidden" value="<%= params[:rtmp] %>">
   <video id="camera-video-player" class="video-js vjs-default-skin"
          poster="<%= EVERCAM_MEDIA_API %>cameras/<%= params[:camera] %>/thumbnail?api_id=<%= current_user.api_id unless current_user.nil? %>&api_key=<%= current_user.api_key unless current_user.nil? %>"
          controls autoplay>

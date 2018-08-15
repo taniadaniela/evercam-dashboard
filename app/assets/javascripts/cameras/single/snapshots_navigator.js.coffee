@@ -1148,7 +1148,7 @@ HighlightFirstDay = (year, month, day) ->
 onClickSnapshotMagnifier = ->
   $('#snapshot-magnifier').on 'click', ->
     $('.zoomContainer').remove()
-    if $('.enabled').length == 0
+    if $('#snapshot-magnifier.enabled').length == 0
       initElevateZoom()
       $(this).toggleClass 'enabled'
     else

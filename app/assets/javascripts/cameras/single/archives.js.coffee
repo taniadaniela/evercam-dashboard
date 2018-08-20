@@ -380,27 +380,19 @@ renderDuration = (row, type, set, meta) ->
 
 renderIsPublic = (row, type, set, meta) ->
   if row.status is "Completed"
-    if row.type is "URL"
-      return ''
-    else
+    if row.type is "Clip"
       if row.public
         enabled = "checked"
       else
         enabled = ""
-      if row.type is "Compare"
-        return '<div id="siderbar">
-                  <label class="label toggle title">
-                    <input type="checkbox" class="toggle_input_public toggle_input_public_compare" alt="' + row.id + '" archive_type="' + row.type + '"' + enabled + ' disabled/>
-                    <div class="toggle-control"></div>
-                  </label>
-                </div>'
-      else
-        return '<div id="siderbar">
-                  <label class="label toggle title">
-                    <input type="checkbox" class="toggle_input_public toggle_input_public_clip" alt="' + row.id + '" archive_type="' + row.type + '"' + enabled + '/>
-                    <div class="toggle-control"></div>
-                  </label>
-                </div>'
+      return '<div id="siderbar">
+                <label class="label toggle title">
+                  <input type="checkbox" class="toggle_input_public toggle_input_public_clip" alt="' + row.id + '" archive_type="' + row.type + '"' + enabled + '/>
+                  <div class="toggle-control"></div>
+                </label>
+              </div>'
+    else
+      return ''
   else
     return ''
 
@@ -1097,6 +1089,16 @@ filter_archives = ->
     is_reload = false
     $(".archive-tab-item i").removeClass("fas").addClass("far")
     $(this).find("i").removeClass("far").addClass("fas")
+    if $(this).attr("data-val") is "Compare"
+      archives_table.column(2).visible(false)
+      archives_table.column(3).visible(true)
+    else
+      if $(this).attr("data-val") is "URL" || $(this).attr("data-val") is "File"
+        archives_table.column(3).visible(false)
+        archives_table.column(2).visible(false)
+      else
+        archives_table.column(3).visible(true)
+        archives_table.column(2).visible(true)
     archives_table.column(5).search($(this).attr("data-val")).draw()
 
 window.initializeArchivesTab = ->

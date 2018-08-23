@@ -27,6 +27,8 @@ isUnauthorized = (response) ->
     Notification.show(jqXHR.responseJSON.message)
 
 initDatePicker = ->
+  $('#recording-archive-button').on "click", ->
+    GetSnapshotInfo()
   $('.clip-datepicker').datetimepicker
     step: 1
     closeOnDateSelect: 0

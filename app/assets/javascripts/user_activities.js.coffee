@@ -44,7 +44,16 @@ initializeDataTable = ->
           <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
       , sType: 'uk_datetime', orderable: false },
       {data: ( row, type, set, meta ) ->
-        return row.action
+        if row.action is 'shared' or row.action is 'stopped sharing' or row.action is "updated share"
+          desc = ""
+          if row.action is "updated share"
+            desc = "rights "
+          if row.extra && row.extra.with
+            return ("#{row.action} #{desc}with #{row.extra.with}")
+          else
+            return row.action
+        else
+            return row.action
       , orderable: false}
     ],
     autoWidth: false,

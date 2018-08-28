@@ -15,7 +15,7 @@ initializeDataTable = ->
     },
     columns: [
       {data: (row, type, set, meta) ->
-        if row.extra.agent
+        if row.extra && row.extra.agent
           agent = parse_agent_string(row.extra.agent)
           if agent.browser.name
             return "<i class='fab fa-#{agent.browser.name.toLowerCase()}'></i> #{agent.browser.name} on #{agent.os.name}"
@@ -25,13 +25,13 @@ initializeDataTable = ->
           ""
       , orderable: false},
       {data: (row, type, set, meta) ->
-        if row.extra.ip
+        if row.extra && row.extra.ip
           return row.extra.ip
         else
           ""
       , orderable: false},
       {data: (row, type, set, meta) ->
-        if row.extra.country && row.extra.country_code
+        if row.extra && row.extra.country && row.extra.country_code
           return "<img src='https://www.countryflags.io/#{row.extra.country_code}/shiny/16.png'> #{row.extra.country}"
         else
           ""
@@ -64,7 +64,6 @@ initializeDataTable = ->
   })
 
 parse_agent_string = (agent_string) ->
-  uastring = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
   parser.setUA(agent_string)
   result = parser.getResult()
   data =

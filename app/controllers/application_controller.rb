@@ -81,8 +81,10 @@ class ApplicationController < ActionController::Base
   end
 
   def add_user_activity(action, user_agent, camera_id = nil)
-    api = get_evercam_api
-    api.create_log(action, {}, camera_id)
+    if Evercam::Config.env == :production
+      api = get_evercam_api
+      api.create_log(action, {}, camera_id)
+    end
   end
 
   def load_user_cameras(shared, thumbnail)

@@ -38,6 +38,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'intercom', require: 'intercom'
 gem 'dotenv'
+gem 'useragent'
+gem 'iso_country_codes'
 
 group :evercam do
   gem 'evercam',

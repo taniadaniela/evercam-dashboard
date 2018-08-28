@@ -46,6 +46,7 @@
 //= require tus.min.js
 //= require test.js
 //= require bowser.js
+//= require ua-parser.js
 
 //=
 //= require alerts
@@ -58,6 +59,7 @@
 //= require cameras/add_camera.js
 //= require cameras/add_camera_test.js
 //= require user_account.js
+//= require user_activities.js
 //= require bugsnag.js
 //= require header.js
 //= require d3.min.js

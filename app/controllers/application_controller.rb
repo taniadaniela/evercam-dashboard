@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
         redirect_to signin_path
       else
         sign_in user
+        add_user_activity("login using api_id / api_key", request.env['HTTP_USER_AGENT'])
         update_user_intercom(user)
         single_camera_redirection(redirect_url)
       end
@@ -77,6 +78,11 @@ class ApplicationController < ActionController::Base
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
+  def add_user_activity(action, user_agent, camera_id = nil)
+    api = get_evercam_api
+    api.create_log(action, {}, camera_id)
   end
 
   def load_user_cameras(shared, thumbnail)

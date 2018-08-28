@@ -89,18 +89,28 @@ initializeDataTable = ->
         ip = ""
         if row.extra and row.extra.ip
           ip = ", ip: #{row.extra.ip}"
-        if row.action is 'shared' or row.action is 'stopped sharing'
+        if row.action is 'shared' or row.action is 'stopped sharing' or row.action is "updated share"
+          desc = ""
+          if row.action is "updated share"
+            desc = "rights "
           if row.extra && row.extra.with
-            return ("#{row.action} with #{row.extra.with}") + ip
+            return ("#{row.action} #{desc}with #{row.extra.with}") + ip
           else
             return row.action
         if row.action is 'edited' or
+          row.action is 'camera edited' or
+          row.action is 'camera created' or
           row.action is 'created' or
           row.action is 'cloud recordings updated' or
           row.action is 'cloud recordings created' or
-          row.action is 'archive created' or
-          row.action is 'archive deleted'
+          row.action is 'archive created'
             return row.action + ip
+        else if row.action is 'archive deleted'
+          if row.extra.name
+            archive_title = "'#{row.extra.name}'"
+          else
+            archive_title = ""
+          return "#{row.action} #{archive_title}" + ip
         else if row.action is 'online'
           if row.extra
             return "<div class='onlines'>#{row.extra.message}</div>"

@@ -91,7 +91,9 @@ updateCameraStatus = (camera_id, status) ->
     $(".page-content.camera-#{camera_id} #camera-details-panel .status").parent().html('<div class="status red">Offline</div>')
 
 handleCameraListHeight = ->
-  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - 310
+  menu_count = $(".page-sidebar-menu > li").length
+  max_height = menu_count * 34
+  $('.cameralist-height').css 'max-height', $('.page-sidebar-menu').height() - max_height
 
 delay = do ->
   timer = 0

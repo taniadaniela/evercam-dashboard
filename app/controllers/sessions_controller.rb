@@ -33,6 +33,7 @@ class SessionsController < ApplicationController
 
     if !@user.nil? and @user.password == params[:session][:password]
       sign_in @user
+      add_user_activity("login", request.env['HTTP_USER_AGENT'])
       update_user_intercom(@user)
       session[:referral_url] = nil
       if params[:session][:widget].blank?
@@ -55,6 +56,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    add_user_activity("logout", request.env['HTTP_USER_AGENT'])
     sign_out
     redirect_to signin_path
   end

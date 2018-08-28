@@ -17,10 +17,20 @@ module ApplicationHelper
   def get_evercam_api
     configuration = Rails.application.config
     parameters = {logger: Rails.logger}
+
+    country_code = "ie"
+    unless request.safe_location.country_code.downcase.eql?("")
+      country_code = request.safe_location.country_code.downcase
+    end
+    code = IsoCountryCodes.find(country_code)
+
     if current_user
       parameters = parameters.merge(
         api_id: current_user.api_id,
-        api_key: current_user.api_key
+        api_key: current_user.api_key,
+        agent: request.env['HTTP_USER_AGENT'],
+        country: code.name,
+        country_code: code.alpha2
       )
     end
     settings = {}

@@ -16,11 +16,16 @@ initializeDataTable = ->
     columns: [
       {data: (row, type, set, meta) ->
         if row.extra && row.extra.agent
-          agent = parse_agent_string(row.extra.agent)
-          if agent.browser.name
-            return "<i class='fab fa-#{agent.browser.name.toLowerCase()}'></i> #{agent.browser.name} on #{agent.os.name}"
+          if row.extra.agent.indexOf("iPhone") isnt -1
+            return "<i class='fab fa-apple'></i> iOS APP"
+          else if row.extra.agent.indexOf("java") isnt -1
+            return "<i class='fab fa-android'></i> Andriod APP"
           else
-            ""
+            agent = parse_agent_string(row.extra.agent)
+            if agent.browser.name
+              return "<i class='fab fa-#{agent.browser.name.toLowerCase()}'></i> #{agent.browser.name} on #{agent.os.name}"
+            else
+              ""
         else
           ""
       , orderable: false},

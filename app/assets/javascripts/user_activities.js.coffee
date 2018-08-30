@@ -1,9 +1,11 @@
 parser = undefined
+format_time = null
+table = undefined
 
 initializeDataTable = ->
   table = $('#user-activity').DataTable({
     ajax: {
-      url: "#{Evercam.API_URL}users/session/activities?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}&limit=10000",
+      url: "#{Evercam.API_URL}users/session/activities?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}&limit=10000#{get_search_query()}",
       dataSrc: (d) ->
         d.user_logs
       error: (xhr, error, thrown) ->
@@ -90,6 +92,45 @@ parse_agent_string = (agent_string) ->
     engine_name: result.engine.name
     cpu_architecture: result.cpu.architecture
 
+initDatepicker = ->
+  $(".datetimepicker").datetimepicker
+    timepicker: false
+    closeOnDateSelect: 0
+    format: 'd/m/Y'
+
+getDate = (type) ->
+  DateFromTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
+  if type is "from"
+    DateFromTime.setMonth(DateFromTime.getMonth() - 5)
+    DateFromTime.setHours(0)
+    DateFromTime.setMinutes(0)
+  if type is "to"
+    DateFromTime.setHours(23)
+    DateFromTime.setMinutes(59)
+  Dateformated =  format_time.formatDate(DateFromTime, 'd/m/Y')
+  return Dateformated
+
+get_search_query = ->
+  from_date = moment($('#datetimepicker_from').val(), "DD-MM-YYYY H:mm")
+  to_date = moment($('#datetimepicker_to').val(), "DD-MM-YYYY H:mm")
+  from = from_date._d.getTime()/ 1000
+  to = to_date._d.getTime()/ 1000
+
+  fromto_seg = ''
+  fromto_seg += '&from=' + from unless isNaN(from)
+  fromto_seg += '&to=' + to unless isNaN(to)
+  return fromto_seg
+
+searchLogs = ->
+  $("#search-logs").on "click", ->
+    url = "#{Evercam.API_URL}users/session/activities?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}&limit=10000#{get_search_query()}"
+    table.ajax.url(url).load() if table?
+
 window.initializeUserActivity = ->
+  format_time = new DateFormatter()
+  $("#datetimepicker_from").val(getDate("from"))
+  $("#datetimepicker_to").val(getDate("to"))
+  initDatepicker()
   initializeDataTable()
   parser = new UAParser()
+  searchLogs()

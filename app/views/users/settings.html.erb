@@ -25,23 +25,23 @@
             </li>
           </ul>
         </div>
-        <div class="tab-content margin-top-20">
-          <div id="account-setting" class="account-setting tab-pane active">
+        <div class="tab-content">
+          <div id="account-setting" class="account-setting margin-top-20 tab-pane active">
             <%= render partial: "users/settings/account_tab" %>
           </div>
-          <div id="account-password" class="account-password tab-pane">
+          <div id="account-password" class="account-password margin-top-20 tab-pane">
             <%= render partial: "users/settings/password_tab" %>
           </div>
           <div id="user-activities" class="user-history tab-pane">
             <%= render partial: "users/settings/user_activities_tab" %>
           </div>
-          <div id="embedded-live-view" class="tab-pane">
+          <div id="embedded-live-view" class="tab-pane margin-top-20">
             <%= render partial: "widgets/widgets_new" %>
           </div>
-          <div id="embedded-recordings" class="tab-pane">
+          <div id="embedded-recordings" class="tab-pane margin-top-20">
             <%= render partial: "widgets/widget_snapshot_navigator" %>
           </div>
-          <div id="simple-api-call" class="tab-pane">
+          <div id="simple-api-call" class="tab-pane margin-top-20">
             <%= render partial: "users/settings/simple_api_calls" %>
           </div>
         </div>

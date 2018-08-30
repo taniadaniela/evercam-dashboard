@@ -1,4 +1,15 @@
 <% provide(:title, "Evercam: User Activities") %>
+
+<div id="logs-filter" class="filter">
+  <div class="row dates margin-top-10">
+    <div class="col-sm-1 min-width-114 set-margin padding-right-left-10"><h5>Filter by:</h5></div>
+    <div class="col-sm-6 min-width200">
+      From: <input id="datetimepicker_from" class="datetimepicker" type="text" value="" placeholder="From Date">
+      To: <input id="datetimepicker_to" class="datetimepicker to-time" type="text" value="" placeholder="To Date">
+      <button id="search-logs" class="btn btn-primary btn-setting filter-button">Filter</button>
+    </div>
+  </div>
+</div>
 <div class="container-margin">
   <table id="user-activity" class="table table-logs table-striped table-bordered table cell-border display compact">
     <thead>

@@ -76,6 +76,8 @@ initializeDataTable = ->
       $("#user-activity_filter").hide()
       $("#user-activity_wrapper div.col-sm-12").removeClass("col-sm-12")
   })
+  $("#user-activity_filter").hide()
+  $("#user-activity_wrapper div.col-sm-12").removeClass("col-sm-12")
 
 parse_agent_string = (agent_string) ->
   parser.setUA(agent_string)

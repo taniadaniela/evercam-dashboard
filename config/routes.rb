@@ -84,9 +84,10 @@ Rails.application.routes.draw do
 
   # Removed username from url
   get '/v1/users/resend' => 'users#resend_confirmation_email', as: :user_email_resend
-  get '/v1/users/settings' => 'users#settings', as: :user_settings
-  delete '/v1/users/settings' => 'users#delete'
-  post '/v1/users/settings' => 'users#settings_update'
+  get '/v1/users/account' => 'users#settings', as: :user_settings
+  get '/v1/users/settings', to: redirect("/v1/users/account")
+  delete '/v1/users/account' => 'users#delete'
+  post '/v1/users/account' => 'users#settings_update'
   put '/v1/users/password/change' => 'users#change_password', as: :user_change_password
   # Removed username from url
 

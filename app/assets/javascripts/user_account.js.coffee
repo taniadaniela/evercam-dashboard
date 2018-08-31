@@ -178,6 +178,16 @@ initClipboard = ->
     $('.bb-alert').width '100px'
     Notification.show 'Copied!'
 
+handleTabClick = ->
+  $('.nav-tabs a').on 'click', ->
+    clicked_path = $(this).attr('data-target').replace('#', '')
+    if window.history and window.history.pushState
+      if clicked_path is "account"
+        window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath}" );
+      else
+        window.history.pushState( {} , "#{clicked_path}", "#{window.Evercam.request.rootpath.replace("account", "")}#{clicked_path}" );
+  $(".nav-tabs").tabdrop "layout"
+
 window.initializeUserAccount = ->
   format_time = new DateFormatter()
   $.validate()
@@ -198,6 +208,7 @@ window.initializeUserAccount = ->
   initClipboard()
   updateLiveSnapshotUrl()
   updateRecordedSnapshotUrl()
+  handleTabClick()
   $('#api-call-camera').change(updateLiveSnapshotUrl)
   $('#recorded-call-camera').change(updateRecordedSnapshotUrl)
   $('#api-call-hour').change(updateRecordedSnapshotUrl)

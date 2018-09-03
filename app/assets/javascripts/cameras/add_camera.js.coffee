@@ -359,6 +359,28 @@ cursor_visible = ->
   $('#change').on 'click', ->
     $('#ext-rtsp-port').focus()
 
+onFocusOut = ->
+  $('#camera-name').focusout ->
+    camera_value = $("#camera-name").val()
+    if camera_value
+      $('#camera-name').attr('data-validation-error-msg', 'Containing letters, spaces and hyphens.')
+    else
+      $('#camera-name').attr('data-validation-error-msg', ' ')
+
+  $('#camera-url').focusout ->
+    camera_value = $("#camera-url").val()
+    if camera_value
+      $('#camera-url').attr('data-validation-error-msg', 'This should be in the form of <strong>149.5.43.10</strong> or <strong>portlarochelle.com</strong>.')
+    else
+      $('#camera-url').attr('data-validation-error-msg', ' ')
+
+  $('#snapshot').focusout ->
+    camera_value = $("#snapshot").val()
+    if camera_value
+      $('#snapshot').attr('data-validation-error-msg', 'The input value can only contain alphanumeric characters  and -_/.&?=')
+    else
+      $('#snapshot').attr('data-validation-error-msg', ' ')
+
 window.initializeAddCamera = ->
   ip = $('#camera-url').val()
   port = $('#port').val()
@@ -371,6 +393,7 @@ window.initializeAddCamera = ->
   initNotification()
   loadVendors()
   onAddCamera()
+  onFocusOut()
   onCustomizedUrl()
   cursor_visible()
   check_port()

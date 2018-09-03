@@ -58,7 +58,7 @@
                 <div class="col-sm-4 col-md-4 <%= field_errors["name"] ? ' has-error' : '' %>">
                   <div class='form-group'>
                     <i class="far fa-question-circle help-icon camera-name-help-icon" aria-hidden="true" title="To identify your camera in the dashboard, Max 24 characters. Containing letters, spaces and hyphens."></i>
-                    <%= text_field_tag("camera-name", @user['camera-name'], "class" => "form-control", "required" =>"
+                    <%= text_field_tag("camera-name", @user['camera-name'], "class" => "form-control", "id" => "camera-name", "required" =>"
                     ", "data-validation" => "alphanumeric length", "data-validation-length" => "max24", "maxlength" => "24", "data-validation-allowing" => "-_ ", "data-validation-error-msg" => "Containing letters, spaces and hyphens.") %>
                     <%= label_tag('camera-name', "Camera Friendly Name*") %>
                     <% if field_errors["name"] %>
@@ -109,7 +109,7 @@
                     </div>
                     <div id="box" class="box">
                       <% if field_errors["external_host"] %>
-                      <span class="help-block form-error text-left"><%= field_errors["external_host"] %></span>
+                        <span class="help-block form-error text-left"><%= field_errors["external_host"] %></span>
                       <% end %>
                     </div>
                   </div>

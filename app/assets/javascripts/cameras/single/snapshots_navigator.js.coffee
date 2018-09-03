@@ -28,6 +28,7 @@ is_logged_intercom = false
 query_value = undefined
 fist_image_date = null
 status_flag = true
+mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 showFeedback = (message) ->
   Notification.show(message)
@@ -925,13 +926,19 @@ handleTabOpen = ->
 saveImage = ->
   $('#save-recording-image').on 'click', ->
     date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
-    download($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
+    if mobile
+      SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
+    else
+      download($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 
 saveOldestLatestImage = ->
   $('#save-oldestlatest-image').on 'click', ->
-    SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{query_value}.jpg")
+    if mobile
+      SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{query_value}.jpg")
+    else
+      download($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{query_value}.jpg")
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 

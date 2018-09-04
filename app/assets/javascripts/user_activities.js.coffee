@@ -48,7 +48,7 @@ initializeDataTable = ->
         return "
           <div class='#{row.done_at} thumb-div'>
           </div>\
-          <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
+          <span>#{moment(time).format('MMMM Do YYYY, HH:mm:ss')}</span>"
       , sType: 'uk_datetime', orderable: false },
       {data: ( row, type, set, meta ) ->
         if row.extra && row.extra.name
@@ -88,6 +88,12 @@ initializeDataTable = ->
           return "Compare #{action_title.replace("Compare: ", "")} deleted from camera <b>#{row.camera_exid}</b>"
         else if row.action is "user edited"
           return "User settings updated"
+        else if row.action is "login using api_id / api_key"
+          return "Login using API_ID and API_KEY"
+        else if row.action is "login"
+          return "Login"
+        else if row.action is "logout"
+          return "Logout"
         else
             return row.action
       , orderable: false}

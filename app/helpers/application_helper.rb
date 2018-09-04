@@ -29,6 +29,7 @@ module ApplicationHelper
         api_id: current_user.api_id,
         api_key: current_user.api_key,
         agent: request.env['HTTP_USER_AGENT'],
+        requester_ip: request.remote_ip,
         country: code.name,
         country_code: code.alpha2
       )

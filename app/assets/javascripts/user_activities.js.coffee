@@ -51,14 +51,43 @@ initializeDataTable = ->
           <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
       , sType: 'uk_datetime', orderable: false },
       {data: ( row, type, set, meta ) ->
+        if row.extra && row.extra.name
+          action_title = "<b>#{row.extra.name}</b>"
+        else
+          action_title = ""
+
         if row.action is 'shared' or row.action is 'stopped sharing' or row.action is "updated share"
           desc = ""
           if row.action is "updated share"
             desc = "rights "
           if row.extra && row.extra.with
-            return ("#{row.action} #{desc}with #{row.extra.with}")
+            return ("Camera <b>#{row.camera_exid}</b> #{row.action} #{desc}with #{row.extra.with}")
           else
             return row.action
+        else if row.action is 'cloud recordings updated' or row.action is 'cloud recordings created'
+          return "#{row.action} for <b>#{row.camera_exid}</b>"
+        else if row.action is 'created' or row.action is 'camera created'
+          return "Camera <b>#{row.camera_exid}</b> created"
+        else if row.action is 'edited' or row.action is 'camera edited'
+          return "Camera <b>#{row.camera_exid}</b> updated"
+        else if row.action is 'camera deleted'
+          return "Camera <b>#{row.camera_exid}</b> deleted"
+        else if row.action is 'archive deleted'
+          return "Archive #{action_title} deleted from camera <b>#{row.camera_exid}</b>"
+        else if row.action is 'archive created'
+          return "Archive #{action_title} created for camera <b>#{row.camera_exid}</b>"
+        else if row.action is 'file uploaded'
+          return "File #{action_title} uploaded in camera <b>#{row.camera_exid}</b>"
+        else if row.action is 'saved media URL'
+          return "Saved media URL #{action_title} in camera <b>#{row.camera_exid}</b>"
+        else if row.action is "archive edited"
+          return "Archive #{action_title} updated in camera <b>#{row.camera_exid}</b>"
+        else if row.action is "compare created"
+          return "Compare #{action_title.replace("Compare: ", "")} created for camera <b>#{row.camera_exid}</b>"
+        else if row.action is "compare deleted"
+          return "Compare #{action_title.replace("Compare: ", "")} deleted from camera <b>#{row.camera_exid}</b>"
+        else if row.action is "user edited"
+          return "User settings updated"
         else
             return row.action
       , orderable: false}
@@ -96,7 +125,7 @@ initDatepicker = ->
   $(".datetimepicker").datetimepicker
     timepicker: false
     closeOnDateSelect: 0
-    format: 'd/m/Y'
+    format: 'd/m/Y H:i'
 
 getDate = (type) ->
   DateFromTime = new Date(moment.utc().format('MM/DD/YYYY, HH:mm:ss'))
@@ -107,7 +136,7 @@ getDate = (type) ->
   if type is "to"
     DateFromTime.setHours(23)
     DateFromTime.setMinutes(59)
-  Dateformated =  format_time.formatDate(DateFromTime, 'd/m/Y')
+  Dateformated =  format_time.formatDate(DateFromTime, 'd/m/Y H:i')
   return Dateformated
 
 get_search_query = ->

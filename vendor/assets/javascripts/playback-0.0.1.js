@@ -1,6 +1,6 @@
 ﻿/*!
  * Playback JavaScript v0.0.1
- * http://www.evercam.io/
+ * https://www.evercam.io/
  *
  * Copyright 2014 Evercam.io
  * Released

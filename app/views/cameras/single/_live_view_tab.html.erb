@@ -93,7 +93,10 @@
            <i class='fas fa-sync fa-spin fa-1x fa-fw refresh-gif icon-font' aria-hidden='true'></i>
             <!-- <img src="/assets/refresh.gif" class="refresh-gif"> -->
           </div>
-          <span id="offline_message" class="offline-message" style="display:none;">Camera is Offline</span>
+          <span id="offline_message" class="offline-message" style="display:none;">
+            Camera is Offline<br>
+            Cause: <%= @camera['offline_reason'] %>
+          </span>
         </div>
       </div>
     </div>

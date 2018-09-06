@@ -1,12 +1,43 @@
 <div class="row padding-right15">
-  <div class="archive-tabs"><b>Filter By:</b>
+  <div id="toggle-tabs">
+    <div class="archive-tab-item-th" data-val="File"><a id="toggle-list">List</a><span> | </span><a id="toggle-grid">Grid</a></div>
+  </div>
+  <div class="archive-tabs"><span><b>Filter By:</b>
     <span class="archive-tab-item" data-val=""><i class="fas fa-circle active-icon"></i> All</span> |
     <span class="archive-tab-item" data-val="Clip"><i class="far fa-circle active-icon"></i> Clips</span> |
     <span class="archive-tab-item" data-val="Compare"><i class="far fa-circle active-icon"></i> Compares</span> |
     <span class="archive-tab-item" data-val="URL"><i class="far fa-circle active-icon"></i> URLS</span> |
-    <span class="archive-tab-item" data-val="File"><i class="far fa-circle active-icon"></i> File Upload</span>
+    <span class="archive-tab-item" data-val="File"><i class="far fa-circle active-icon"></i> File Upload</span></span>
   </div>
-  <div class="col-md-12 margin-top-15">
+  <div id="archives-tab" class="col-md-12 margin-top-15">
+    <div id="archives-box">
+      <div id="back-button"><a style="display: none" id="back-archives"><i class="fas fa-arrow-left"></i> Back</a>&nbsp;</div>
+      <div id="camera-video-archive" style="float: left; display: none">
+        <div>
+          <video id="archive-play" class="video-js vjs-default-skin" width="100%" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }'></video>
+        </div>
+        <div id="text-info">
+          <div class="player-header">
+            <div id="player-buttons">
+            </div>
+            <strong class="div-archive-values" id="txt_title"></strong>
+            <input type="hidden" id="txt-archive-type">
+            <input type="hidden" id="txt-archive-id">
+            <input type="hidden" id="txt-archive-title">
+            <a id="edit-archive-title"><i class="fas fa-edit"></i></a>
+            <a style="display: none" id="update-archive"><i class="far fa-save"></i></a>
+            <a style="display: none" id="cancel-title"><i class="fas fa-times"></i></a>
+          </div>
+          <div id="info-archive">
+            <span id="archive-autor"></span></br>
+            <span id="archive-dates"></span></br>
+            <span id="archive-time-1"></span>
+          </div>
+        </div>
+        <div class="inactive-error-display hide"><div></div></div>
+      </div>
+      <div id="archives-box-2" style="float: right"></div>
+    </div>
     <table id="archives-table" class="table table-striped table-bordered ">
       <thead>
         <th class="fullname" id="fullname">Title</th>
@@ -28,7 +59,7 @@
   <input id="archive-api-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/archives?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
 <% end %>
 
-<div class="row text-right margin-top-15">
+<div id="add-button" class="hide-add-button row text-right margin-top-15">
   <div id="archive-add" class="btn btn-primary archive-add margin-bottom-30">+</div>
 
   <div class="m-menu__submenu">
@@ -84,7 +115,7 @@
     <div class="modal-content">
       <div id="form-create-clip" class="modal-body">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" id="list-content">
             <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
             <div id="row-compare" class="div-archive-compare">
               <div id="image-compare" class="archive-img-compare embed">
@@ -105,12 +136,6 @@
               <img id="archive-thumbnail" class="archive-thumbnail hide" src=""/>
               <video id="archive_player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin" data-setup="{}" controls="">
               </video>
-            </div>
-            <div class="div-row margin-top-10">
-              <div class="col-md-2 archive-label margin-top-10">Title</div>
-              <div class="input-group col-sm-10 col-xs-10 col-md-10">
-                <input type="text" required placeholder="" class="form-control clip-text-box" id="txt_title" name="div_title">
-              </div>
             </div>
             <div id="row-frames" class="div-row">
               <div class="col-md-2 archive-label margin-top-2">Frames</div>
@@ -143,15 +168,19 @@
                 <i class="icon-font copy-url-icon far fa-copy copy-animation" data-clipboard-target="#archive_mp4_url" title="Copy URL"></i>
               </div>
             </div>
+            <div class="div-row">
+              <div class="col-md-2 archive-label margin-top-10">Share</div>
+              <div class="input-group col-sm-10 col-xs-10 col-md-10" id="share-buttons-new">
+                <a class="facebook" target="_blank" title="Facebook" style="background-color:#3B5998;"><i class="fab fa-facebook-f"></i> Share</a>
+                <a class="whatsapp" target="_blank" title="Whatsapp" style="background-color:#25D366;"><i class="fab fa-whatsapp"></i> Message</a>
+                <a class="linkedin" target="_blank" title="Linkedin" style="background-color:#0077B5;"><i class="fab fa-linkedin-in"></i> Post</a>
+                <a class="twitter" target="_blank" title="Twitter" style="background-color:#1DA1F2;"><i class="fab fa-twitter"></i> Tweet</a>
+              </div>
+            </div>
+            <div class="disabled share-buttons">
+            </div>
           </div>
         </div>
-        <fieldset>
-          <div class="export-buttons">
-            <input type="hidden" id="txt-archive-type">
-            <input type="hidden" id="txt-archive-id">
-            <input type="button" class="push btn btn-primary margin-right-10 save-buuton" id="update-archive" value="Save"/>
-          </div>
-        </fieldset>
       </div>
     </div>
   </div>

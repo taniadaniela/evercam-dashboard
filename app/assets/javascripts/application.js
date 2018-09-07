@@ -57,7 +57,6 @@
 //= require cameras/single.js
 //= require cameras/map.js
 //= require cameras/add_camera.js
-//= require cameras/add_camera_test.js
 //= require user_account.js
 //= require user_activities.js
 //= require bugsnag.js

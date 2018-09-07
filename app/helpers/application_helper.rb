@@ -18,21 +18,14 @@ module ApplicationHelper
     configuration = Rails.application.config
     parameters = {logger: Rails.logger}
 
-    country_code = "ie"
-    unless request.safe_location.country_code.downcase.eql?("")
-      country_code = request.safe_location.country_code.downcase
-    end
-    code = IsoCountryCodes.find(country_code)
-
     if current_user
       parameters = parameters.merge(
         api_id: current_user.api_id,
         api_key: current_user.api_key,
         agent: request.env['HTTP_USER_AGENT'],
-        requester_ip: request.remote_ip,
-        country: code.name,
-        country_code: code.alpha2
+        requester_ip: request.remote_ip
       )
+      parameters = parameters.merge(get_country_code())
     end
     settings = {}
     begin
@@ -42,6 +35,24 @@ module ApplicationHelper
     end
     parameters = parameters.merge(settings) if !settings.empty?
     Evercam::API.new(parameters)
+  end
+
+  def get_country_code
+    country_info = {}
+    begin
+      if session[:country_info].nil? or session[:country_info] == {}
+        country_code = request.safe_location.country_code.downcase
+        country_code = "ie" if country_code.eql?("")
+        code = IsoCountryCodes.find(country_code)
+        country_info = country_info.merge(country: code.name, country_code: code.alpha2)
+        session[:country_info] = country_info
+      else
+        country_info = session[:country_info]
+      end
+    rescue => _e
+      # Deliberately ignored.
+    end
+    country_info
   end
 
   def format_time stamp

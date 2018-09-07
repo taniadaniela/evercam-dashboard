@@ -11,6 +11,7 @@ archive_js_player2 = null
 imagesCompare = undefined
 is_reload = true
 is_list_view = true
+pagination = false
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -88,9 +89,11 @@ initializeArchivesDataTable = ->
       else if json.archives.length < 50
         $("#archives-table_info").hide()
         $('#archives-table_paginate').hide()
+        pagination = false
       else if json.archives.length >= 50
         $("#archives-table_info").show()
-        $('#archives-table_paginate').hide()
+        $('#archives-table_paginate').show()
+        pagination = true
       true
   })
 
@@ -111,13 +114,16 @@ toggleView = ->
     $(".archive-tabs").hide()
     $("#archives").css("width", "100%")
     $("#archives").css("margin-left", "0")
-    $("#back-archives").hide()
     $(".hide-add-button").show()
     $(".stackimage").addClass("stackimage-view")
     $(".stackimage").removeClass("stackimage-player")
     $("#archives-box-2").show()
     $("#camera-video-archive").hide()
     $('.dropdown').show()
+    $('#archives-table_paginate').hide()
+    $("#archives-table_info").hide()
+    $("#back-archives").hide()
+    $("#back-button").hide()
     is_list_view = false
 
   $("#toggle-list").on "click", ->
@@ -128,24 +134,13 @@ toggleView = ->
     $(".archive-tabs").show()
     $("#archives").css("width", "100%")
     $("#archives").css("margin-left", "0")
+    if pagination
+      $('#archives-table_paginate').show()
+      $("#archives-table_info").show()
     is_list_view = true
 
   $("#back-archives").on "click", ->
-    $(this).hide()
-    $("#toggle-tabs").show()
-    $("#archives").css("width", "100%")
-    $("#archives").css("margin-left", "0")
-    $(".hide-add-button").show()
-    $(".stackimage").addClass("stackimage-view")
-    $(".stackimage").removeClass("stackimage-player")
-    $("#archives-box-2").show()
-    $("#camera-video-archive").hide()
-    $('.dropdown').show()
-    if is_list_view
-      $("#archives-box").hide()
-      $("#archives-table").show()
-      $(".archive-tabs").show()
-      $("#archives-tab").addClass("margin-top-15")
+    hide_player_view()
 
 initializeArchivesDataBox = ->
   url = "#{$("#archive-api-url").val()}"
@@ -198,36 +193,6 @@ getArchivesHtml = (archives) ->
 
 renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, media_ispublic) ->
   div = $('<div>', {class: "form-group"})
-  if Evercam.Camera.has_edit_right || requested_by is Evercam.User.username
-    divPopup =$('<div>', {class: "popbox2"})
-    remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
-      'class="archive-actions delete-archive" val-archive-id="'+id+
-      '" val-camera-id="'+camera_id+'">' +
-      '<a><i class="fas fa-trash-alt"></i> Delete</a></span>'
-    span = $('<span>', {class: "open-archive"})
-    span.append(remove_icon)
-    divPopup.append(span)
-    divCollapsePopup = $('<div>', {class: "collapse-popup"})
-    divBox2 = $('<div>', {class: "box2"})
-    divBox2.append($('<div>', {class: "arrow"}))
-    divBox2.append($('<div>', {class: "arrow-border"}))
-    divMessage = $('<div>', {class: "margin-bottom-10"})
-    divMessage.append($(document.createTextNode("Are you sure?")))
-    divBox2.append(divMessage)
-    divButtons = $('<div>', {class: "margin-bottom-10"})
-    inputDelete = $('<input type="button" value="Yes, Remove">')
-    inputDelete.addClass("btn btn-primary delete-btn delete-archive2")
-    inputDelete.attr("camera_id", Evercam.Camera.id)
-    inputDelete.attr("archive_id", id)
-    inputDelete.attr("archive_type", type)
-    inputDelete.click(deleteClip)
-    divButtons.append(inputDelete)
-    divButtons.append('<div class="btn delete-btn closepopup grey">' +
-      '<div class="text-center" fit>CANCEL</div></div>')
-    divBox2.append(divButtons)
-    divCollapsePopup.append(divBox2)
-    divPopup.append(divCollapsePopup)
-    div.append(divPopup)
   if status is "Completed"
     if type is "Compare"
       animation_url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}"
@@ -819,6 +784,7 @@ deleteClip = ->
     onSuccess = (data, status, jqXHR) ->
       if control.attr("archive_type") is "Compare"
         refresh_archive_table()
+        hide_player_view()
         Notification.show("Compare deleted successfully.")
       else
         if data.message
@@ -827,8 +793,8 @@ deleteClip = ->
           NProgress.done()
         else
           refresh_archive_table()
+          hide_player_view()
           Notification.show("Archive deleted successfully.")
-
 
     api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     if control.attr("archive_type") is "Compare"
@@ -843,6 +809,28 @@ deleteClip = ->
       type: 'DELETE'
       url: api_url
     $.ajax(settings)
+
+hide_player_view = ->
+  $(this).hide()
+  $("#back-archives").hide()
+  $("#back-button").hide()
+  $("#toggle-tabs").show()
+  $("#archives").css("width", "100%")
+  $("#archives").css("margin-left", "0")
+  $(".hide-add-button").show()
+  $(".stackimage").addClass("stackimage-view")
+  $(".stackimage").removeClass("stackimage-player")
+  $("#archives-box-2").show()
+  $("#camera-video-archive").hide()
+  $('.dropdown').show()
+  if is_list_view
+    $("#archives-box").hide()
+    $("#archives-table").show()
+    $(".archive-tabs").show()
+    $("#archives-tab").addClass("margin-top-15")
+    if pagination
+      $('#archives-table_paginate').show()
+      $("#archives-table_info").show()
 
 refresh_archive_table = ->
   archives_table.ajax.reload (json) ->
@@ -886,22 +874,59 @@ modal_events = ->
   $("#archives").on "click", ".archive-title-color", ->
     id = $(this).attr("data-id")
     type = $(this).attr("data-type")
+    status = $(this).attr("data-status")
+    camera_id = $(this).attr("data-camera")
+    media_url = $(this).attr("data-url")
+    media_title = $(this).attr('data-title')
+    media_autor = $(this).attr('data-autor')
+    media_from = $(this).attr('data-from')
+    media_to = $(this).attr('data-to')
+    media_thumbnail = $(this).attr('data-thumbnail')
+    media_time = $(this).attr('data-time')
+    media_ispublic = $(this).attr('data-ispublic')
+    newTime = moment.tz(media_time * 1000, Evercam.Camera.timezone)
+    div = $('<div>', {class: "form-group"})
+    if Evercam.Camera.has_edit_right || media_autor is Evercam.User.username
+      divPopup =$('<div>', {class: "popbox2 float-right"})
+      remove_icon = '<span href="#" data-toggle="tooltip" title="Delete" ' +
+        'class="archive-actions delete-archive" val-archive-id="'+id+
+        '" val-camera-id="'+camera_id+'">' +
+        '<i class="fas fa-trash-alt"></i></span>'
+      span = $('<span>', {class: "open-archive"})
+      span.append(remove_icon)
+      divPopup.append(span)
+      divCollapsePopup = $('<div>', {class: "collapse-popup"})
+      divBox2 = $('<div>', {class: "box2"})
+      divBox2.append($('<div>', {class: "arrow"}))
+      divBox2.append($('<div>', {class: "arrow-border"}))
+      divMessage = $('<div>', {class: "margin-bottom-10"})
+      divMessage.append($(document.createTextNode("Are you sure?")))
+      divBox2.append(divMessage)
+      divButtons = $('<div>', {class: "margin-bottom-10"})
+      inputDelete = $('<input type="button" value="Yes, Remove">')
+      inputDelete.addClass("btn btn-primary delete-btn delete-archive2")
+      inputDelete.attr("camera_id", Evercam.Camera.id)
+      inputDelete.attr("archive_id", id)
+      inputDelete.attr("archive_type", type)
+      inputDelete.click(deleteClip)
+      divButtons.append(inputDelete)
+      divButtons.append('<div class="btn delete-btn closepopup grey">' +
+        '<div class="text-center" fit>CANCEL</div></div>')
+      divBox2.append(divButtons)
+      divCollapsePopup.append(divBox2)
+      divPopup.append(divCollapsePopup)
+      div.append(divPopup)
     if type is "Clip" || type is "Compare"
-      status = $(this).attr("data-status")
-      camera_id = $(this).attr("data-camera")
-      media_url = $(this).attr("data-url")
-      media_title = $(this).attr('data-title')
-      media_autor = $(this).attr('data-autor')
-      media_from = $(this).attr('data-from')
-      media_to = $(this).attr('data-to')
-      media_thumbnail = $(this).attr('data-thumbnail')
-      media_time = $(this).attr('data-time')
-      media_ispublic = $(this).attr('data-ispublic')
-      newTime = moment.tz(media_time * 1000, Evercam.Camera.timezone)
+      $('#archives-table_paginate').hide()
+      $("#archives-table_info").hide()
       $("#toggle-tabs").hide()
       $("#archives-table").hide()
       $("#archives-box").show()
       $("#back-archives").show()
+      $("#back-button").show()
+      $('#back-button div').empty()
+      $("#back-button").append(div.html())
+      initializePopup()
       $("#camera-video-archive").show()
       $(".archive-tabs").hide()
       $(".hide-add-button").hide()
@@ -1254,6 +1279,10 @@ update_archive = ->
     $("#update-archive").show()
     $("#cancel-title").show()
     $("#edit-archive-title").hide()
+    $("#txt_title").css("width", "50%")
+    $("#txt_title").css("font-size", "22px")
+    $("#update-archive i").css("font-size", "17px")
+    $("#cancel-title i").css("font-size", "17px")
 
   $("#update-archive").on "click", ->
     id = $("#txt-archive-id").val()
@@ -1285,6 +1314,7 @@ update_archive = ->
         $("#update-archive").hide()
         $("#cancel-title").hide()
         $("#edit-archive-title").show()
+        $("#edit-archive-title i").css("font-size", "17px")
 
     controller = "archives"
     if $("#txt-archive-type").val() is "Compare"
@@ -1307,6 +1337,7 @@ update_archive = ->
     $("#update-archive").hide()
     $("#cancel-title").hide()
     $("#edit-archive-title").show()
+    $("#edit-archive-title i").css("font-size", "17px")
 
 save_media_url = ->
   $("#save_social_media_url").on "click", ->
@@ -1378,7 +1409,7 @@ filter_archives = ->
       archives_table.column(2).visible false
       archives_table.column(3).visible true
     else
-      if type is "URL" || type is "File"
+      if type is "URL"
         archives_table.column(3).visible false
         archives_table.column(2).visible false
       else

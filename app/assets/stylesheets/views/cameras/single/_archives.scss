@@ -138,6 +138,8 @@
 }
 
 #archives {
+  height: 100%;
+
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0px;
   }
@@ -921,6 +923,11 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   margin-bottom: 30px;
   min-height: 140px !Important;
 
+  .div-archive-values {
+    overflow: hidden;
+    height: 28px;
+  }
+
   .rslides {
       height: 190px;
     }
@@ -948,6 +955,7 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   overflow-y: visible;
   padding-left: 15px;
   position: relative;
+  padding-top: 20px;
 }
 
 #camera-video-archive {
@@ -964,11 +972,14 @@ html .video-js {
   background-color: $evercam-black;
 }
 
-#back-button * {
-  font-size: 20px;
-  font-weight: bold;
-  padding-bottom: 20px;
-  padding-top: 20px;
+#back-button {
+  padding-bottom: 15px;
+  padding-top: 15px;
+
+  a, div.span {
+    font-size: 20px;
+    font-weight: bold;
+  }
 }
 
 #download-button {

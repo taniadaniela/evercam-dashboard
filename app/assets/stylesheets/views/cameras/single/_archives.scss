@@ -45,12 +45,16 @@
   padding: 0px 4px;
 }
 
+.margin-right12 {
+  margin-right: 12px;
+}
+
 .archive-actions {
   margin-right: 12px;
   .fas,
   .fa,
   .fab {
-    font-size: 16px;
+    font-size: 20px !important;
     color: $main-color;
     margin-top: 5px;
   }
@@ -62,7 +66,7 @@
   }
 }
 
-.disabled > a {
+div.disabled > a {
   pointer-events: none;
   cursor: default;
   margin-right: 12px;
@@ -126,7 +130,7 @@
     color: $form-dark-grey;
     text-align: center;
     font-size: 14px;
-    padding: 7px 13px 6px 6px;
+    padding: 7px 18px 6px 15px;
     height: 30px;
   }
 
@@ -138,6 +142,8 @@
 }
 
 #archives {
+  height: 100%;
+
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0px;
   }
@@ -921,6 +927,11 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   margin-bottom: 30px;
   min-height: 140px !Important;
 
+  .div-archive-values {
+    overflow: hidden;
+    height: 28px;
+  }
+
   .rslides {
       height: 190px;
     }
@@ -948,6 +959,7 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   overflow-y: visible;
   padding-left: 15px;
   position: relative;
+  padding-top: 20px;
 }
 
 #camera-video-archive {
@@ -964,11 +976,14 @@ html .video-js {
   background-color: $evercam-black;
 }
 
-#back-button * {
-  font-size: 20px;
-  font-weight: bold;
-  padding-bottom: 20px;
-  padding-top: 20px;
+#back-button {
+  padding-bottom: 15px;
+  padding-top: 15px;
+
+  a, div.span {
+    font-size: 20px;
+    font-weight: bold;
+  }
 }
 
 #download-button {
@@ -1122,21 +1137,52 @@ html .video-js {
   }
 }
 
-#share-buttons-new i {
-  font-size: 20px;
-}
+#share-buttons-new {
+  height: 92px;
 
-#share-buttons-new a {
-  width: 100%;
-  color: $white;
-  border-radius: 10px;
-  padding: 8px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
+  .facebook {
+    background-color: #3B5998;
+  }
 
-#share-buttons-new a:hover {
-  font-size: 20px;
+  .whatsapp {
+    background-color: #25D366;
+  }
+
+  .linkedin {
+    background-color:#0077B5;
+  }
+
+  .twitter {
+    background-color:#1DA1F2;
+  }
+
+  i {
+    font-size: 20px;
+  }
+
+  a {
+    text-align: center;
+    width: 45%;
+    color: $white;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 10px;
+    float: left;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+  }
+
+  a:hover {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  }
 }
 
 .player-header strong {

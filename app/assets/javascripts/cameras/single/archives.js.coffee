@@ -63,7 +63,7 @@ initializeArchivesDataTable = ->
       {data: rendersharebuttons, sClass: 'center', "searchable": false, orderable: false},
       {data: renderStatus, sClass: 'center', visible: false},
       {data: "type", sClass: 'text-center', visible: false},
-      {data: renderbuttons, sClass: 'options', visible: false, "searchable": false, orderable: false}
+      {data: renderbuttons, sClass: 'options', visible: true, "searchable": false, orderable: false}
     ],
     iDisplayLength: 50,
     aaSorting: [1, "desc"]
@@ -74,6 +74,7 @@ initializeArchivesDataTable = ->
       is_reload = true
       if archives_table
         archives_data = archives_table.data()
+        initializeArchivesDataBox()
         refreshDataTable()
     initComplete: (settings, json) ->
       getArchiveIdFromUrl()
@@ -143,11 +144,9 @@ toggleView = ->
     hide_player_view()
 
 initializeArchivesDataBox = ->
-  url = "#{$("#archive-api-url").val()}"
-  $.getJSON url, (data) ->
-    $.each data.archives, (index, archives) ->
-      $("#archives-box-2").append getArchivesHtml(archives)
-      $("#archives-#{archives.id}").append renderbuttons(archives, _, _, _)
+  $.each archives_data, (index, archives) ->
+    $("#archives-box-2").append getArchivesHtml(archives)
+    # $("#archives-#{archives.id}").append renderbuttons(archives, _, _, _)
 
 getTime = (dateBefore, dateAfter) ->
   timeDiff = Math.abs(dateAfter - dateBefore)
@@ -171,6 +170,7 @@ getArchivesHtml = (archives) ->
     fa_class = "<i class='fa fa-upload type-icon type-icon-url'></i>"
   else
     fa_class = "<i fa fa-link type-icon type-icon-url></i>"
+
   html = '<div id="dataslot' + archives.id + '" class="list-border margin-bottom10">'
   html += '    <div class="padding-left-0" style="min-height:0px;">'
   html += '    <div class="col-xs-12 col-sm-6 col-md-3 card-archives" style="min-height:0px;">'
@@ -266,11 +266,11 @@ renderbuttons = (row, type, set, meta) ->
       view_url = "clip/#{row.id}/play"
       copy_url = ""
 
-      return '<div class="dropdown"><a class="archive-actions archive-title" href="#" title="Edit" data-id="' + row.id + '" data-url="' + row.media_url + '" data-type="' + row.type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-edit"></i></a>' +
+      return '<div class="dropdown">' +
         '<a class="archive-actions play-clip" href="#" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
         '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '.mp4" type="hidden">' +
         '<input id="mp4play-' + row.id + '" value= "' + mp4_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
-        '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4clip-' + row.id  + '" title="Download MP4"></i></div>' +
+        # '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4clip-' + row.id  + '" title="Download MP4"></i></div>' +
           copy_url + div.html()
   else
     return div.html()
@@ -287,12 +287,19 @@ rendersharebuttons = (row, type, set, meta) ->
           url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
         else
           url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}.mp4"
+
+        download_link = '<a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
+        if row.type is "Compare"
+          download_link = '<div class="dropdown float-left"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
+                          '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
+                            '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
+                          '</div>'
         return '<div class="enabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
-            '<a href="https://web.whatsapp.com/send?text=' + url + '" target="_blank" title="Whatsapp" data-width="1280" data-height="720"><i class="fab fa-whatsapp"></i></a>' +
+            # '<a href="https://web.whatsapp.com/send?text=' + url + '" target="_blank" title="Whatsapp" data-width="1280" data-height="720"><i class="fab fa-whatsapp"></i></a>' +
             '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
-            '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a></div>' +
-            # '<a href="http://twitter.com/share?url=' + url + '&text=This is a photo from evercam&via=evrcm"" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>'+
-            div.html()
+            '<a href="#" data-toggle="tooltip" title="share" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a>' +
+            '<a href="http://twitter.com/share?url=' + url + '&text=This is a photo from evercam&via=evrcm"" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>'+
+            download_link + div.html()
       else
         return '<div class="disabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
             '<a href="https://web.whatsapp.com/send?text=' + url + '" target="_blank" title="Whatsapp" data-width="1280" data-height="720"><i class="fab fa-whatsapp"></i></a>' +
@@ -362,17 +369,17 @@ getCompareButtons = (div, row) ->
   animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
   view_url = ""
   copy_url = ""
-  return '<div class="dropdown"><a class="archive-actions dropdown-toggle archive-title" href="#" title="Edit" data-id="'+ row.id + '" data-type="' + row.type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-edit"></i></a>' +
-    '<a class="archive-actions" href="#" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
+  return '<div class="dropdown">' +
+    '<a class="margin-right12" href="#" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
     '<ul class="dropdown-menu"><li><a class="play-clip" href="#" title="Play GIF" data-width="1280" data-height="720" play-url="' + animation_url + '.gif"><i class="fa fa-play-circle"></i> GIF</a></li>'+
       '<li><a class="play-clip" href="#" title="Play MP4" data-width="1280" data-height="720" play-url="' + animation_url + '.mp4"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
     '</div>' +
     '<input id="gif-' + row.id + '" value= "' + animation_url + '.gif" type="hidden">' +
     '<input id="mp4-' + row.id + '" value= "' + animation_url + '.mp4" type="hidden">' +
-    '<div class="dropdown float-left"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
-    '<ul class="dropdown-menu"><li><i class="fa fa-download download-animation archive-icon"  data-download-target="#gif-' + row.id + '" title="Download GIF"><span class="regular-font"> GIF<span></i></li>'+
-      '<li><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><span class="regular-font"> MP4</span></i></li></ul>' +
-    '</div>' +
+    # '<div class="dropdown float-left"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
+    # '<ul class="dropdown-menu"><li><i class="fa fa-download download-animation archive-icon"  data-download-target="#gif-' + row.id + '" title="Download GIF"><span class="regular-font"> GIF<span></i></li>'+
+    #   '<li><i class="fa fa-download download-animation archive-icon" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><span class="regular-font"> MP4</span></i></li></ul>' +
+    # '</div>' +
     copy_url + div.html()
 
 getFileButtons = (row, div) ->
@@ -752,8 +759,9 @@ playClip = ->
     view_url = $(this).attr("play-url")
     window.open view_url, '_blank', "width=#{width}, Height=#{height}, scrollbars=0, resizable=0"
 
-  $("#archives-box").on "click", ".download-animation", ->
+  $("#archives-box, #archives-table").on "click", ".download-animation", ->
     src_id = $(this).attr("data-download-target")
+    console.log $("#{src_id}").val()
     NProgress.start()
     download($("#{src_id}").val())
     setTimeout( ->
@@ -1427,7 +1435,6 @@ window.initializeArchivesTab = ->
     return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   initDatePicker()
   initializeArchivesDataTable()
-  initializeArchivesDataBox()
   tooltip()
   createClip()
   playClip()

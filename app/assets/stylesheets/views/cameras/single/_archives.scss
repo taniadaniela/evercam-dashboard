@@ -45,6 +45,10 @@
   padding: 0px 4px;
 }
 
+.margin-right12 {
+  margin-right: 12px;
+}
+
 .archive-actions {
   margin-right: 12px;
   .fas,
@@ -62,7 +66,7 @@
   }
 }
 
-.disabled > a {
+div.disabled > a {
   pointer-events: none;
   cursor: default;
   margin-right: 12px;
@@ -126,7 +130,7 @@
     color: $form-dark-grey;
     text-align: center;
     font-size: 14px;
-    padding: 7px 13px 6px 6px;
+    padding: 7px 18px 6px 15px;
     height: 30px;
   }
 

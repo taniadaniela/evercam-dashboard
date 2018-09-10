@@ -54,7 +54,7 @@
   .fas,
   .fa,
   .fab {
-    font-size: 16px;
+    font-size: 20px !important;
     color: $main-color;
     margin-top: 5px;
   }
@@ -1137,21 +1137,52 @@ html .video-js {
   }
 }
 
-#share-buttons-new i {
-  font-size: 20px;
-}
+#share-buttons-new {
+  height: 92px;
 
-#share-buttons-new a {
-  width: 100%;
-  color: $white;
-  border-radius: 10px;
-  padding: 8px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
+  .facebook {
+    background-color: #3B5998;
+  }
 
-#share-buttons-new a:hover {
-  font-size: 20px;
+  .whatsapp {
+    background-color: #25D366;
+  }
+
+  .linkedin {
+    background-color:#0077B5;
+  }
+
+  .twitter {
+    background-color:#1DA1F2;
+  }
+
+  i {
+    font-size: 20px;
+  }
+
+  a {
+    text-align: center;
+    width: 45%;
+    color: $white;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 10px;
+    float: left;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+  }
+
+  a:hover {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  }
 }
 
 .player-header strong {

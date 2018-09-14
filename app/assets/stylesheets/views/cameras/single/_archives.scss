@@ -157,7 +157,7 @@ div.disabled > a {
   }
 
   .float-right {
-    float: right;
+    float: right !important;
   }
 
   .copy-embed-code {
@@ -189,10 +189,10 @@ div.disabled > a {
   }
 
   .archive-label {
-    color: $grey;
     padding-left: 0;
     padding-right: 0;
-    font-size: 12px;
+    font-size: 15px;
+    font-weight: 900;
   }
 
   .div-thumbnail {

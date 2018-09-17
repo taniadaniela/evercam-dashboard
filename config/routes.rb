@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   post 'cameras/:id/request_clip' => 'cameras#request_clip', as: :request_clip
   delete 'cameras/clip/delete' => 'cameras#delete_clip', as: :delete_clip
   get '/v1/cameras/:id/clip/:clip_id/play' => 'pages#play', as: :play_clip
+  get '/v1/cameras/:id/compare/:compare_id/play' => 'pages#play_compare', as: :play_compare
   get '/v1/cameras/:id/share/request' => 'pages#revoke_request'
   get '/v1/swagger' => "pages#swagger"
   post '/log_intercom' => 'cameras#log_intercom'

@@ -297,20 +297,17 @@ rendersharebuttons = (row, type, set, meta) ->
       return ''
     else
       if row.public
-        if row.type is "Clip"
-          url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
-        else
-          url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}.mp4"
-
+        url = "https://dash.evercam.io/v1/cameras/#{row.camera_id}/clip/#{row.id}/play"
         download_link = '<div class="float-left"><a class="archive-actions download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
         if row.type is "Compare"
+          url = "https://dash.evercam.io/v1/cameras/#{row.camera_id}/compare/#{row.id}/play"
           download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
                           '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
                             '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
                           '</div>'
         return '<div class="enabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
             '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
-            '<a href="http://twitter.com/share?url=' + url + '&text=This is a photo from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>'+
+            '<a href="http://twitter.com/share?url=' + url + '&text=This is an archive from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>'+
             '<a href="#" data-toggle="tooltip" title="Copy URL" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a>' +
             download_link + div.html()
       else
@@ -1014,10 +1011,10 @@ modal_events = ->
     if type is "URL"
       showArchiveUrlSaveButton()
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
-    MP4_URL = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
     $("#txt-archive-id").val(id)
     $("#archive_gif_url").val("#{url}.gif")
     $("#archive_mp4_url").val("#{url}.mp4")
+    $("#txt-archive-id").val(id)
     $("#social_media_url").val("#{media_url}")
     code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{query_string} autoplay'></script>"
     $("#archive_embed_code").val(code)
@@ -1025,10 +1022,6 @@ modal_events = ->
     $("#div_duration").text($("#txt_duration#{id}").val())
     $("#txt_title").val($("#txtArchiveTitle#{id}").val())
     $("#media_title_title").val($("#archive_url_link_#{id}").text())
-    $("#share-buttons-new .facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{url}.mp4")
-    $("#share-buttons-new .whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{url}.mp4")
-    $("#share-buttons-new .linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{url}.mp4&title=My photo&summary=This is a photo from evercam")
-    $("#share-buttons-new .twitter").attr("href", "http://twitter.com/share?url=#{url}.mp4&text=This is a photo from evercam&via=evrcm")
     if type isnt "Compare"
       $("#row-compare").hide()
       $(".div-thumbnail").show()
@@ -1036,9 +1029,15 @@ modal_events = ->
       $("#row-frames").show()
       $("#row-duration").show()
       $("#row-gif").hide()
-      $("#archive_mp4_url").val("#{MP4_URL}")
+      $("#archive_mp4_url").val("#{share_url}")
       $("#archive-thumbnail").attr("src", $("#txtArchiveThumb#{id}").val())
       $("#row-mp4").show()
+      if type is "Clip"
+        share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/clip/#{id}/play"
+        $("#share-buttons-new .facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
+        $("#share-buttons-new .whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")
+        $("#share-buttons-new .linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{share_url}&title=My photo&summary=This is a photo from evercam")
+        $("#share-buttons-new .twitter").attr("href", "http://twitter.com/share?url=#{share_url}&text=This is a photo from evercam&via=evrcm")
       # $(".div-thumbnail").hide() if type isnt "URL"
       if type is "File"
         $(".div-thumbnail").hide()
@@ -1047,6 +1046,7 @@ modal_events = ->
         $("#row-mp4").hide()
     else
       $("#row-compare").html(window.compare_html)
+      share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/compare/#{id}/play"
       params = query_string.split(" ")
       bucket_url = "https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/"
       before_image = "#{bucket_url}#{Evercam.Camera.id}/compares/#{params[3]}/start-#{params[1]}.jpg?#{Math.random()}"
@@ -1061,6 +1061,10 @@ modal_events = ->
       $("#row-compare").show()
       $("#row-mp4").show()
       $(".div-thumbnail").hide()
+      $("#share-buttons-new .facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
+      $("#share-buttons-new .whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")
+      $("#share-buttons-new .linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{share_url}&title=My photo&summary=This is a photo from evercam")
+      $("#share-buttons-new .twitter").attr("href", "http://twitter.com/share?url=#{share_url}&text=This is a photo from evercam&via=evrcm")
       initCompare()
 
   $('#modal-archive-info').on 'hide.bs.modal', ->

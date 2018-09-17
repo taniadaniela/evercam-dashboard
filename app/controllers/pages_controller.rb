@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
   skip_after_action :intercom_rails_auto_include, only: [:live, :play]
-  skip_before_action :authenticate_user!, only: [:revoke_request, :unsubscribe, :unsubscribed, :good_bye]
+  skip_before_action :authenticate_user!, only: [:revoke_request, :unsubscribe, :unsubscribed, :good_bye, :play]
   include SessionsHelper
   include ApplicationHelper
 
@@ -36,8 +36,16 @@ class PagesController < ApplicationController
   end
 
   def play
-    @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:clip_id]}/play?"\
-               "api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+    @camera_id = params[:id]
+    @archive_id = params[:clip_id]
+    @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:clip_id]}.mp4"
+    render layout: "bare-bones"
+  end
+
+  def play_compare
+    @camera_id = params[:id]
+    @archive_id = params[:compare_id]
+    @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:compare_id]}.mp4"
     render layout: "bare-bones"
   end
 

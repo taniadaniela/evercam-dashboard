@@ -18,9 +18,10 @@
     <div class="portlet-body">
       <div id="camera-not-found">
         <div class="dialog">
+          <%= image_tag("server-down.jpg", :alt => "Schedule Snapmails", :class =>"server-down-image margin-bottom-10") %>
           <p>The server is not responding. We're working on it.</p>
           <p>If the problem persists, feel free to contact <span style="color:#428BCA;"> support@evercam.io</span>.</p>
-          <p>This page will automatically check the server status and try reconnecting
+          <p class="margin-bottom-0">This page will automatically check the server status and try reconnecting
             in <strong id="seconds">5</strong> seconds.
           </p>
         </div>

@@ -23,9 +23,9 @@ GIT
 
 GIT
   remote: git://github.com/stripe/stripe-ruby.git
-  revision: 27f39aed85b596fb276c898b56f77c87e619deae
+  revision: 0b4802cdeaf129c60723426da2bcb9c6adde4a1a
   specs:
-    stripe (3.26.0)
+    stripe (3.26.1)
       faraday (~> 0.10)
 
 GIT
@@ -186,8 +186,7 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
-    intercom (3.5.25)
-      json (>= 1.8)
+    intercom (3.5.26)
     intercom-rails (0.4.0)
       activesupport (> 3.0)
     ipaddress (0.8.3)
@@ -226,7 +225,7 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     nenv (0.3.0)
-    newrelic_rpm (5.3.0.346)
+    newrelic_rpm (5.4.0.347)
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)

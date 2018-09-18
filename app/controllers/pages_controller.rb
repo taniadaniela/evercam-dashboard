@@ -36,6 +36,8 @@ class PagesController < ApplicationController
   end
 
   def play
+    @camera_id = params[:id]
+    @archive_id = params[:archive_id]
     @archive_type = params[:archive_type]
     if @archive_type == "compare"
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:archive_id]}.mp4"

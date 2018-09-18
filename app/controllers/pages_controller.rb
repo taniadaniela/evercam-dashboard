@@ -36,16 +36,12 @@ class PagesController < ApplicationController
   end
 
   def play
-    @camera_id = params[:id]
-    @archive_id = params[:clip_id]
-    @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:clip_id]}.mp4"
-    render layout: "bare-bones"
-  end
-
-  def play_compare
-    @camera_id = params[:id]
-    @archive_id = params[:compare_id]
-    @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:compare_id]}.mp4"
+    @archive_type = params[:archive_type]
+    if @archive_type == "compare"
+      @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:archive_id]}.mp4"
+    else
+      @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:archive_id]}.mp4"
+    end
     render layout: "bare-bones"
   end
 

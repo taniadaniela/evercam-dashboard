@@ -1096,6 +1096,10 @@ load_player = (media_thumbnail, media_url) ->
     .done()
 
 convert_to_embed_url = (media_url) ->
+  split = media_url.split("/")
+  if split.length > 4
+    cut_size = split.length - 4
+    media_url = split.slice(0, split.length - cut_size).join("/") + "/"
   media_url = media_url.replace("watch?v=", "embed/")
   media_url = media_url.replace("vimeo.com", "player.vimeo.com/video")
   return media_url

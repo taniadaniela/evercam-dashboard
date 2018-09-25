@@ -208,6 +208,10 @@ td .share-camera {
       min-width: 0;
     }
   }
+
+  .email-input .select2-container {
+    width: 100% !important;
+  }
 }
 
 @media (max-width: 480px) {

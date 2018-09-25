@@ -109,7 +109,7 @@ toggleView = ->
     $("#archives-tab").removeClass("margin-top-15")
 
   $("#toggle-grid").on "click", ->
-    $("#archives-tab").removeClass("margin-top-15")
+    $("#archives-tab").addClass("margin-top-15")
     $("#archives-table").hide()
     $("#archives-box").show()
     $(".archive-tabs").hide()
@@ -120,7 +120,6 @@ toggleView = ->
     $(".stackimage").removeClass("stackimage-player")
     $("#archives-box-2").show()
     $("#camera-video-archive").hide()
-    $('.dropdown').show()
     $('#archives-table_paginate').hide()
     $("#archives-table_info").hide()
     $("#back-archives").hide()
@@ -854,7 +853,6 @@ hide_player_view = ->
   $(".stackimage").removeClass("stackimage-player")
   $("#archives-box-2").show()
   $("#camera-video-archive").hide()
-  $('.dropdown').show()
   archive_js_player2.reset()
   $('#iframe_archive').prop('src', "")
 
@@ -959,7 +957,6 @@ modal_events = ->
       $("#txt-archive-id").val(id)
       $("#txt-archive-title").val(media_title)
       $('.hide-add-button').hide()
-      $('.dropdown').hide()
       $('#player-buttons').empty()
       $('#player-buttons').append renderplayerbuttons(requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name)
 
@@ -1011,9 +1008,10 @@ modal_events = ->
     if type is "URL"
       showArchiveUrlSaveButton()
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
+    mp4_url_value = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}"
     $("#txt-archive-id").val(id)
     $("#archive_gif_url").val("#{url}.gif")
-    $("#archive_mp4_url").val("#{url}.mp4")
+    $("#archive_mp4_url").val("#{mp4_url_value}.mp4")
     $("#txt-archive-id").val(id)
     $("#social_media_url").val("#{media_url}")
     code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{query_string} autoplay'></script>"
@@ -1029,7 +1027,6 @@ modal_events = ->
       $("#row-frames").show()
       $("#row-duration").show()
       $("#row-gif").hide()
-      $("#archive_mp4_url").val("#{share_url}")
       $("#archive-thumbnail").attr("src", $("#txtArchiveThumb#{id}").val())
       $("#row-mp4").show()
       if type is "Clip"

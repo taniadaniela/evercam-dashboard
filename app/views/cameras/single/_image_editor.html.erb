@@ -13,7 +13,7 @@
         <li class="menu-item activatable" id="selection"><i class="far fa-hand-paper fa-1x" aria-hidden="true"></i></li>
         <li class="menu-item" id="btn-clear-objects"><i class="fas fa-trash-alt fa-1x"></i></input></li>
 
-        <li class="menu-item hide" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
+        <li class="menu-item" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
 
         <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></input></li>
         <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></img></input></li>
@@ -59,6 +59,13 @@
           </div>
         </li>
       </ul>
+
+      <div class="sub-menu-container" id="crop-sub-menu">
+        <ul class="menu">
+          <li class="menu-item" id="btn-apply-crop">Apply</li>
+          <li class="menu-item" id="btn-cancel-crop">Cancel</li>
+        </ul>
+      </div>
     </div>
     <div class="clear-f"></div>
     <div class="tui-image-editor" id="tui-image-editor"></div>

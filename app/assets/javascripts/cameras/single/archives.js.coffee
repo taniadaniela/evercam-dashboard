@@ -207,6 +207,7 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
         '</div>' +
         div.html()
     else
+      mp4_media_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
       share_button = '<a class="archive-actions archive-title" href="#" title="share" data-id="' + id + '" data-url="' + media_url + '" data-type="' + type + '" data-status="' + status + '" data-camera_id="' + camera_id + '" data-ispublic="' + media_ispublic + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-share-alt"></i> share</a>'
       if media_ispublic is "true"
         isEnabled = "enabled"
@@ -216,7 +217,7 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
       publicButtons = renderIsPublicPlayer(id, type, status, media_ispublic)
 
       return '<div class="dropdown">' + share_button +
-        '<input id="mp4clip-' + id + '" value= "' + media_url + '" type="hidden">' +
+        '<input id="mp4clip-' + id + '" value= "' + mp4_media_url + '" type="hidden">' +
         '<input id="mp4play-' + id + '" value= "' + media_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
         '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><a class="download-animation archive-icon" data-download-target="#mp4clip-' + id  + '" title="Download MP4"><i class="fa fa-download"></i> Download</a></div>' +
         div.html() + publicButtons

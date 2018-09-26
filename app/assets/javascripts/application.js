@@ -47,6 +47,7 @@
 //= require test.js
 //= require bowser.js
 //= require ua-parser.js
+//= require FileSaver
 
 //=
 //= require alerts

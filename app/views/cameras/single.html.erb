@@ -151,6 +151,9 @@
                 </div>
               </div>
             </div>
+            <li id="tab_image_editor" class="hide">
+              <a data-toggle="tab" data-target="#image-editor" class="nav-tab-image-editor">Image Editor</a>
+            </li>
           </ul>
           <div id="archive-modal" class="modal fade archive-modal">
             <div class="modal-dialog">
@@ -269,6 +272,9 @@
               </div>
             <% end %>
           <% end %>
+          <div id="image-editor" class="tab-pane image_editor_tab">
+            <%= render partial: "cameras/single/image_editor" %>
+          </div>
         </div>
       </div>
     </div>

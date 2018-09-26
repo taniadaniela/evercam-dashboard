@@ -12,6 +12,7 @@
 #= require cameras/single/single_snapmail.js.coffee
 #= require cameras/single/timelapse.js.coffee
 #= require cameras/single/compare.js.coffee
+#= require cameras/single/image_editor.js.coffee
 #= require saveimage.js
 #= require jquery.thumbhover.js
 #= require jquery.images-compare.js
@@ -212,6 +213,7 @@ initializeTabs = ->
   window.initializeSettingsTab()
   window.initializeArchivesTab()
   window.initializeCompareTab()
+  window.initializeImageEditorTab()
   window.initializeTimelapseRecordingsTab() if $("#timelapse-recording-tab").length > 0
   window.initializeLocalRecordingsTab() if $("#local-recordings").length > 0
 

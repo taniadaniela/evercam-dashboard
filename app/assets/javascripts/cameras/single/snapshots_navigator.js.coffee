@@ -374,6 +374,7 @@ BoldSnapshotHour = (callFromDt) ->
   onError = (jqXHR, status, error) ->
     $('#snapshot-tab-save').hide()
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
+    $("#imgPlayback").removeAttr("data-timestamp")
 
   settings =
     cache: false
@@ -511,13 +512,13 @@ loadImage = (timestamp, notes) ->
     if response.snapshots.length > 0
       $("#snapshot-tab-save").show()
       $("#imgPlayback").attr("src", response.snapshots[0].data)
+      $("#imgPlayback").attr("data-timestamp", response.snapshots[0].created_at)
       image_data = response.snapshots[0].data
       if $("#snapshot-magnifier").hasClass 'enabled'
         initElevateZoom()
     HideLoader()
     window.estimateImageSize(image_data)
     checkCalendarDisplay()
-    showImageSaveOption()
 
   settings =
     cache: false
@@ -659,6 +660,7 @@ NoRecordingDayOrHour = ->
     status_flag = false
   else
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
+    $("#imgPlayback").removeAttr("data-timestamp")
   $("#divRecent").show()
   $("#divInfo").fadeOut()
   $("#divPointer").width(0)
@@ -707,6 +709,7 @@ SetImageHour = (hr, id) ->
     $("#btnCreateHourMovie").attr('disabled', true)
     totalFrames = 0
     $("#imgPlayback").attr("src", "/assets/nosnapshots.svg")
+    $("#imgPlayback").removeAttr("data-timestamp")
     $("#snapshot-tab-save").hide()
     HideLoader()
 
@@ -829,6 +832,7 @@ DoNextImg = ->
       SetInfoMessage currentFrameNumber,
         new Date(moment(snapshot.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
     $("#imgPlayback").attr("src", response.snapshots[0].data)
+    $("#imgPlayback").attr("data-timestamp", response.snapshots[0].created_at)
 
     if playDirection is 1 and playStep is 1
       currentFrameNumber++
@@ -925,22 +929,20 @@ handleTabOpen = ->
 
 saveImage = ->
   $('#save-recording-image').on 'click', ->
-    date_time = new Date(snapshotInfos[snapshotInfoIdx].created_at*1000)
+    created_at = parseInt($("#imgPlayback").attr("data-timestamp"))
+    date_time = new Date(created_at*1000)
+    file_name = "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg"
     if mobile
-      SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
+      SaveImage.save($("#imgPlayback").attr('src'), "#{file_name}", "image/jpg")
     else
-      download($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg", "image/jpg")
+      download($("#imgPlayback").attr('src'), file_name, "image/jpg")
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 
-saveOldestLatestImage = ->
-  $('#save-oldestlatest-image').on 'click', ->
-    if mobile
-      SaveImage.save($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{query_value}.jpg")
-    else
-      download($("#imgPlayback").attr('src'), "#{Evercam.Camera.id}-#{query_value}.jpg")
-    $('.play-options').css('display','none')
-    setTimeout opBack , 1500
+  $("#edit-recording-image").on "click", ->
+    $("#tab_image_editor").removeClass("hide")
+    # $("#img_editor").attr("src", $("#imgPlayback").attr('src'))
+    $(".nav-tab-image-editor").tab('show')
 
 opBack = ->
   $('.play-options').css('display','inline')
@@ -1078,7 +1080,8 @@ loadOldestLatestImage = (enter_query) ->
 
   onSuccess = (response, status, jqXHR) ->
     $("#imgPlayback").attr("src", response.data)
-    HideImageSaveOption()
+    $("#imgPlayback").attr("data-timestamp", response.created_at)
+    $("#snapshot-tab-save").show()
     hideDaysLoadingAnimation()
     hideHourLoadingAnimation()
     image_date = response.created_at
@@ -1106,14 +1109,6 @@ onClickOldestLatestImage = ->
     loadOldestLatestImage(query_value)
     $('#divDisableButtons').addClass('show').removeClass('hide')
     $('#divFrameMode').addClass('hide').removeClass('show')
-
-showImageSaveOption = ->
-  $('#oldestlatest-image').addClass('hide')
-  $('#snapshot-tab-save').removeClass('hide')
-
-HideImageSaveOption = ->
-  $('#oldestlatest-image').removeClass('hide')
-  $('#snapshot-tab-save').addClass('hide')
 
 setLatestImage = ->
   snapshotInfoIdx = snapshotInfos.length - 1
@@ -1204,7 +1199,7 @@ centerSaveIcon = ->
   tab_width = $("#recording-tab").width()
   offset = ($('#imgPlayback').height() - $('#save-recording-image').height()) / 2
   $('#save-recording-image').css "margin-top", offset
-  $('#save-oldestlatest-image').css "margin-top", offset
+  $('#edit-recording-image').css "margin-top", offset
   $('#recordings .play-options').css "top", "0"
   if tab_width is 0
     setTimeout (-> centerSaveIcon()), 500
@@ -1236,7 +1231,6 @@ window.initializeRecordingsTab = ->
   calendarShow()
   onClickSnapshotMagnifier()
   onClickOldestLatestImage()
-  saveOldestLatestImage()
   centerTabClick()
   setImageSource()
   removeMagnifierOnEsc()

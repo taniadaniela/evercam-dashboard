@@ -409,6 +409,7 @@ getTitle = (row, type, set, meta) ->
   query_string = row.embed_code.substring(start_index, end_index) if row.embed_code
 
   if row.type is "URL"
+    "<div class='social-media-icon'><i class='fab fa-youtube youtube'></i></div>"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'><div class='type-icon-alignment'><i class='fa fa-link type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
       <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{row.media_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
@@ -844,6 +845,7 @@ deleteClip = ->
 
 hide_player_view = ->
   $(this).hide()
+  update_request_url()
   $("#back-archives").hide()
   $("#back-button").hide()
   $("#toggle-tabs").show()
@@ -934,6 +936,7 @@ modal_events = ->
       $("#archive-play video").attr("loop", "false")
 
     if type is "Clip" || type is "Compare" || type is "URL" || type is "File"
+      update_request_url(id)
       $('#archives-table_paginate').hide()
       $("#archives-table_info").hide()
       $("#toggle-tabs").hide()
@@ -1079,6 +1082,14 @@ modal_events = ->
     url = "#{Evercam.request.rootpath}/archives"
     if history.replaceState
       window.history.replaceState({}, '', url)
+
+update_request_url = (id) ->
+  if id
+    url = "#{Evercam.request.rootpath}/archives/#{id}"
+  else
+    url = "#{Evercam.request.rootpath}/archives"
+  if $(".nav-tabs li.active a").html() is "Archives" && history.replaceState
+    window.history.replaceState({}, '', url)
 
 load_player = (media_thumbnail, media_url) ->
   archive_js_player2.poster(media_thumbnail)
@@ -1498,6 +1509,13 @@ filter_archives = ->
         archives_table.column(2).visible true
     archives_table.column(5).search(type).draw()
 
+tab_events = ->
+  $('.nav-tab-archives').on 'shown.bs.tab', ->
+    hide_player_view()
+    archives_table.ajax.reload (json) ->
+      $('#archives-table').show()
+      $("#no-archive").hide()
+
 window.initializeArchivesTab = ->
   window.compare_html = $("#row-compare").html()
   if Evercam.User.username
@@ -1535,3 +1553,4 @@ window.initializeArchivesTab = ->
   toggleView()
   makePublic()
   handleResize()
+  tab_events()

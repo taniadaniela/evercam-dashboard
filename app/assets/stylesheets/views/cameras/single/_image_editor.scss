@@ -1,0 +1,130 @@
+.image-editor-placeholder {
+  .border {
+    border: 1px solid $black;
+  }
+
+  .body-container {
+    width: 1000px;
+    margin: 0 auto;
+  }
+
+  .tui-image-editor-controls {
+    z-index: 1;
+  }
+
+  .menu {
+    padding: 0;
+    margin-bottom: 5px;
+    text-align: center;
+    color: $form-dark-grey;
+    font-weight: 400;
+    list-style-type: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .header .menu {
+    display: inline-block;
+  }
+
+  .menu-item {
+    padding: 10px;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  .new-menu{
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .menu-item a {
+    text-decoration: none;
+  }
+
+  .menu-item.no-pointer {
+    cursor: default;
+  }
+
+  .menu-item.active,
+  .menu-item:hover {
+    background-color: $evercam-grey;
+  }
+
+  .menu-item.disabled {
+    cursor: default;
+    color: $lighter-grey;
+  }
+
+  .align-left-top {
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .range-narrow {
+    width: 80px;
+  }
+
+  .sub-menu-container {
+    font-size: 14px;
+    display: none;
+  }
+
+  .tui-image-editor {
+    margin-right: 15px;
+    z-index: -1;
+  }
+
+  .tui-image-editor-canvas-container {
+    margin: 0 auto;
+    top: 260px;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    border: 1px dashed $black;
+    overflow: hidden;
+  }
+
+  .tui-colorpicker-container {
+    margin: 5px auto 0;
+  }
+
+  .tui-colorpicker-palette-toggle-slider, div.tui-colorpicker-clearfix {
+    display: none;
+  }
+
+  .input-wrapper{
+    position: relative;
+  }
+
+  .input-wrapper input{
+    cursor: pointer;
+    position: absolute;
+    font-size: 999px;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .icon-text{
+    font-size: 20px;
+  }
+
+  .select-line-type{
+    outline: 0;
+    vertical-align: middle;
+  }
+
+  #tui-color-picker{
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

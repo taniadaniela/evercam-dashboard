@@ -178,6 +178,11 @@ initClipboard = ->
     $('.bb-alert').width '100px'
     Notification.show 'Copied!'
 
+initializeDropdowns = ->
+  $('[data-toggle="tooltip"]').tooltip()
+  $(".dropdown-toggle").dropdown()
+  $(".dropdown-toggle i").addClass 'fas fa-bars icon-bar-alignment'
+
 handleTabClick = ->
   $('.nav-tabs a').on 'click', ->
     clicked_path = $(this).attr('data-target').replace('#', '')
@@ -209,6 +214,7 @@ window.initializeUserAccount = ->
   updateLiveSnapshotUrl()
   updateRecordedSnapshotUrl()
   handleTabClick()
+  initializeDropdowns()
   $('#api-call-camera').change(updateLiveSnapshotUrl)
   $('#recorded-call-camera').change(updateRecordedSnapshotUrl)
   $('#api-call-hour').change(updateRecordedSnapshotUrl)

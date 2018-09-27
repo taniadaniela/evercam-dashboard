@@ -201,3 +201,25 @@
     box-shadow: none;
   }
 }
+
+@media (max-width: 767px) {
+
+  .export-compare-modal .modal-dialog {
+    width: 95%;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .export-compare-modal .modal-dialog {
+    width: 94%;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .export-compare-modal .modal-dialog {
+    width: 91%;
+  }
+}

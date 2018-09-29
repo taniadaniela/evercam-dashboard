@@ -742,12 +742,21 @@ getGravatar = (img, email) ->
   jQuery.ajax(settings)
 
 validateEmail = (email) ->
-  re = /^[a-zA-Z0-9.-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
+  re = /^(?!.*\.{2})[a-zA-Z0-9.-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
   addresstrimed = email.replace(RegExp(' ', 'gi'), '')
   if re.test(addresstrimed) == false
     false
   else
     true
+
+highlightInvalidEmailsTag = ->
+  emailAddresses = $(".email-input .select2-container .select2-selection__rendered li.select2-selection__choice")
+  emailAddresses.each ->
+    value = $(this)
+    email_address = value.attr "title"
+    if !validateEmail(email_address)
+      value.css 'border', '1px solid #DC4C3F'
+      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
 
 disableShareButton = ->
   if $('#sharing-user-email').val()
@@ -767,7 +776,7 @@ getSharedUsers = ->
   onSuccess = (users, status, jqXHR) ->
     $.each users, (i, user) ->
       $("#sharing-user-email").append(
-        "<option value='#{user.email}'>#{user.name} (#{user.email})</option>"
+        "<option value='#{user.email}'>#{user.email}</option>"
       )
     share_users_select = $('#sharing-user-email').select2
       tags: true,
@@ -784,31 +793,35 @@ getSharedUsers = ->
           $('.select2-container .select2-dropdown').show()
         return markup
       createTag: (term, data) ->
+        highlightInvalidEmailsTag()
         value = $.trim(term.term)
         if value
           share_users_select.select2("open")
         else
           share_users_select.select2("close")
-        if validateEmail(value)
-          return {
-            id: value
-            text: value
-          }
-        null
+        return {
+          id: value
+          text: value
+        }
+
     share_users_select.val("").trigger("change")
     share_users_select.on 'select2:unselecting', (e) ->
+      highlightInvalidEmailsTag()
       disableShareButton()
       $(this).data 'unselecting', true
     share_users_select.on 'select2:opening', (e) ->
+      highlightInvalidEmailsTag()
       if $(this).data('unselecting')
         $(this).removeData 'unselecting'
         disableShareButton()
         e.preventDefault()
       setTimeout(getEmptyImagesForSelect2, 1500)
     share_users_select.on 'select2:close', (e) ->
+      highlightInvalidEmailsTag()
       disableShareButton()
       setTimeout(onCloseSelect2SetGravatar, 1000)
     share_users_select.on 'select2:select', (e) ->
+      highlightInvalidEmailsTag()
       disableShareButton()
 
   settings =
@@ -846,6 +859,7 @@ getEmptyImagesForSelect2 = ->
       $(this).attr("src", $("#select2-sharing-user-email-container .gravatar1").attr("src"))
 
 onCloseSelect2SetGravatar = ->
+  highlightInvalidEmailsTag()
   disableShareButton()
   img_id = $("#select2-sharing-user-email-container .gravatar1").attr("id")
   img = document.getElementById("#{img_id}")

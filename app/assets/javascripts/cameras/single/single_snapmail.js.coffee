@@ -175,7 +175,7 @@ initInputTags = ->
     'placeholderColor': '#666666'
 
 validateEmailByVal = (email) ->
-  reg = /^[a-zA-Z0-9.-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
+  reg = /^(?!.*\.{2})[a-zA-Z0-9.-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
   addresstrimed = email.replace(RegExp(' ', 'gi'), '')
   if reg.test(addresstrimed) == false
     false

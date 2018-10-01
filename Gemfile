@@ -4,7 +4,7 @@ gem 'rails'
 
 gem 'sass-rails'
 gem 'yui-compressor'
-gem 'uglifier', '4.1.12'
+gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'sprockets'
@@ -60,7 +60,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot'
-  gem 'rspec-rails', '~> 3.7.2'
+  gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'poltergeist'
   gem 'nokogiri'

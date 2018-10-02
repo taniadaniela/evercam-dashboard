@@ -1,73 +1,68 @@
 <div class="row">
   <div id="image-editor" class="col-md-12 image-editor-placeholder">
     <div class="tui-image-editor-controls">
-      <ul class="menu">
-        <li class="menu-item"><a id="back-to-archives"><i class="fas fa-arrow-left"></i> Back</a></li>
-        <li class="menu-item" id="btn-save-edited-file"><i class="fa fa-save fa-1x"></i></input></li>
-        <li class="menu-item input-wrapper hide">
-          <i class="fa fa-upload fa-1x"></i></input> <input type="file" accept="image/*" id="input-image-file">
-        </li>
-        <li class="menu-item" id="btn-download"><i class="fa fa-download fa-1x"></i></input></li>
-        <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></input></li>
-        <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></input></li>
-        <li class="menu-item activatable" id="selection"><i class="far fa-hand-paper fa-1x" aria-hidden="true"></i></li>
-        <li class="menu-item" id="btn-clear-objects"><i class="fas fa-trash-alt fa-1x"></i></input></li>
-
-        <li class="menu-item" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
-
-        <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></input></li>
-        <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></img></input></li>
-        <li class="menu-item activatable" id="btn-draw-rect"><i class="far fa-square fa-1x"></i></li>
-        <li class="menu-item activatable" id="btn-draw-circle"><i class="far fa-circle fa-1x"></i></li>
-        <li class="menu-item icon-text activatable" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
-        <li class="menu-item activatable" id="btn-text"><i class="fa fa-font fa-1x"></i></li>
-        <li class="menu-item">
-          <div class="sub-menu-container menu" id="draw-line-sub-menu">
-              <ul class="menu">
-                  <li class="menu-item">
-                      <div id="tui-brush-color-picker"></div>
-                  </li>
-              </ul>
-          </div>
-          <div class="sub-menu-container menu" id="draw-free-sub-menu">
-              <ul class="menu">
-                  <li class="menu-item">
-                      <div id="tui-line-color-picker"></div>
-                  </li>
-              </ul>
-          </div>
-          <div class="sub-menu-container" id="draw-shape-sub-menu">
-              <ul class="menu">
-                  <li class="menu-item">
-                      <div id="tui-shape-color-picker"></div>
-                  </li>
-              </ul>
-          </div>
-          <div class="sub-menu-container" id="icon-sub-menu">
-              <ul class="menu">
-                  <li class="menu-item">
-                      <div id="tui-arrow-color-picker"></div>
-                  </li>
-              </ul>
-          </div>
-          <div class="sub-menu-container" id="text-sub-menu">
-              <ul class="menu">
-                  <li class="menu-item">
-                      <div id="tui-text-color-picker"></div>
-                  </li>
-              </ul>
-          </div>
-        </li>
-      </ul>
-
-      <div class="sub-menu-container" id="crop-sub-menu">
+      <div class="back-btn-container">
+        <div class="back-container-left"><a id="back-to-archives"><i class="fas fa-arrow-left"></i> Back</a></div>
+        <div class="back-container-right"><a id="btn-clear-objects"><i class="fas fa-trash-alt size20"></i></a></div>
+        <div class="clear-f"></div>
+      </div>
+      <div>
         <ul class="menu">
-          <li class="menu-item" id="btn-apply-crop">Apply</li>
-          <li class="menu-item" id="btn-cancel-crop">Cancel</li>
+          <li class="menu-item"></li>
+          <li class="menu-item input-wrapper hide">
+            <i class="fa fa-upload fa-1x"></i></input> <input type="file" accept="image/*" id="input-image-file">
+          </li>
+          <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></input></li>
+          <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></input></li>
+
+          <li class="menu-item" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
+
+          <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></input></li>
+          <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></img></input></li>
+          <li class="menu-item activatable" id="btn-draw-rect"><i class="far fa-square fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-draw-circle"><i class="far fa-circle fa-1x"></i></li>
+          <li class="menu-item icon-text activatable" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-text"><i class="fa fa-font fa-1x"></i></li>
+          <li class="menu-item">
+            <div class="sub-menu-container menu" id="draw-line-sub-menu">
+                <ul class="menu">
+                    <li class="sub-menu-item">
+                      <div id="tui-brush-color-picker"></div>
+                    </li>
+                </ul>
+            </div>
+          </li>
         </ul>
+        <div class="sub-menu-container" id="crop-sub-menu">
+          <ul class="menu">
+            <li class="menu-item" id="btn-apply-crop">Apply</li>
+            <li class="menu-item" id="btn-cancel-crop">Cancel</li>
+          </ul>
+        </div>
       </div>
     </div>
+
     <div class="clear-f"></div>
     <div class="tui-image-editor" id="tui-image-editor"></div>
+    <div class="div-save-edit-image">
+      <%= image_tag("evercam-loading-gif", :class => "svg-logo", width: "150px", height: "150px", alt: "Evercam.io") %>
+      <br><br>
+      <span style="background-color: #fff;">Saving...</span>
+    </div>
+
+    <div class="container-info">
+      <div class="player-header">
+        <div id="player-buttons">
+          <div class="dropdown">
+            <a class="archive-actions archive-title" title="Save Image" id="btn-save-edited-file"><i class="fa fa-save"></i> Save</a>
+            <div style="display:inline-block;cursor:pointer;" class=" archive-actions">
+              <a id="btn-download" title="Download Image"><i class="fa fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+        <strong class="div-archive-values" id="edit-image-title"></strong>
+      </div>
+    </div>
+
   </div>
 </div>

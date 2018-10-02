@@ -1,6 +1,6 @@
 #= require fabric.js
 #= require tui-code-snippet.min.js
-#= require tui-color-picker.min.js
+#= require tui-color-picker.js
 #= require tui-image-editor.js
 #= require image_editor_basic.js
 #= require js.cookie.min.js

@@ -56,7 +56,7 @@ module EvercamDashboard
       widgets.scss
       clip_play.scss
       tui-color-picker.min.js
-      tui-image-editor.js
+      tui-image-editor.min.js
       tui-color-picker.css
     ]
   end

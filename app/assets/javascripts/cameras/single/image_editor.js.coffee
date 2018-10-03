@@ -1,4 +1,4 @@
-#= require fabric.js
+#= require fabric.min.js
 #= require tui-code-snippet.min.js
 #= require tui-color-picker.min.js
 #= require tui-image-editor.min.js

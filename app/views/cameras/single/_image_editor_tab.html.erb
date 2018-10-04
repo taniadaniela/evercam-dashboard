@@ -8,28 +8,23 @@
       </div>
       <div>
         <ul class="menu">
-          <li class="menu-item"></li>
-          <li class="menu-item input-wrapper hide">
-            <i class="fa fa-upload fa-1x"></i></input> <input type="file" accept="image/*" id="input-image-file">
-          </li>
-          <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></input></li>
-          <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></input></li>
-
+          <li class="menu-item input-wrapper hide"><i class="fa fa-upload fa-1x"></i> <input type="file" accept="image/*" id="input-image-file"></li>
+          <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></li>
+          <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></li>
           <li class="menu-item" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
-
-          <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></input></li>
-          <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></img></input></li>
+          <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></li>
           <li class="menu-item activatable" id="btn-draw-rect"><i class="far fa-square fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-circle"><i class="far fa-circle fa-1x"></i></li>
           <li class="menu-item icon-text activatable" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-text"><i class="fa fa-font fa-1x"></i></li>
           <li class="menu-item">
             <div class="sub-menu-container menu" id="draw-line-sub-menu">
-                <ul class="menu">
-                    <li class="sub-menu-item">
-                      <div id="tui-brush-color-picker"></div>
-                    </li>
-                </ul>
+              <ul class="menu">
+                <li class="sub-menu-item">
+                  <div id="tui-brush-color-picker"></div>
+                </li>
+              </ul>
             </div>
           </li>
         </ul>
@@ -44,6 +39,7 @@
 
     <div class="clear-f"></div>
     <div class="tui-image-editor" id="tui-image-editor"></div>
+
     <div class="div-save-edit-image">
       <%= image_tag("evercam-loading-gif", :class => "svg-logo", width: "150px", height: "150px", alt: "Evercam.io") %>
       <br><br>
@@ -55,7 +51,7 @@
         <div id="player-buttons">
           <div class="dropdown">
             <a class="archive-actions archive-title" title="Save Image" id="btn-save-edited-file"><i class="fa fa-save"></i> Save</a>
-            <div style="display:inline-block;cursor:pointer;" class=" archive-actions">
+            <div style="display:inline-block;cursor:pointer;" class="archive-actions">
               <a id="btn-download" title="Download Image"><i class="fa fa-download"></i> Download</a>
             </div>
           </div>

@@ -213,7 +213,7 @@ initializeTabs = ->
   window.initializeSettingsTab()
   window.initializeArchivesTab()
   window.initializeCompareTab()
-  window.initializeImageEditorTab()
+  # window.initializeImageEditorTab()
   window.initializeTimelapseRecordingsTab() if $("#timelapse-recording-tab").length > 0
   window.initializeLocalRecordingsTab() if $("#local-recordings").length > 0
 

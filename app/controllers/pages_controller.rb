@@ -43,6 +43,9 @@ class PagesController < ApplicationController
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:archive_id]}.mp4"
     else
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:archive_id]}.mp4"
+      if current_user
+        @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:archive_id]}.mp4?api_key=#{current_user.api_key}&api_id=#{current_user.api_id}"
+      end
     end
     render layout: "bare-bones"
   end

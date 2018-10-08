@@ -1314,12 +1314,8 @@ handle_submenu = ->
     top = $(this).position().top
     archive_height = $("#archives").height()
     view_height = Metronic.getViewPort().height
-    if view_height - archive_height > 245
-      $(".m-menu__submenu").css("top", top - 10)
-      $(".triangle-right-border").css("top", "25px")
-    else
-      $(".triangle-right-border").css("top", "180px")
-      $(".m-menu__submenu").css("top", top - 170)
+    $(".triangle-right-border").css("top", "180px")
+    $(".m-menu__submenu").css("top", top - 170)
     $(".m-menu__submenu").toggle( "slow")
 
   $(document).on 'mouseup', (evt) ->

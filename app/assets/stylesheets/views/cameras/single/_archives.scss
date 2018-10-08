@@ -54,7 +54,7 @@
   .fas,
   .fa,
   .fab {
-    font-size: 20px !important;
+    font-size: 16px;
     color: $main-color;
     margin-top: 5px;
   }
@@ -139,6 +139,10 @@ div.disabled > a {
     background-color: $main-color;
     color: $white;
   }
+
+  .toggle .toggle-control {
+    margin-top: 0px;
+  }
 }
 
 #archives {
@@ -152,6 +156,10 @@ div.disabled > a {
 
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0px;
+
+    a {
+      position: inherit;
+    }
   }
 
   .social-media-icon {
@@ -277,7 +285,8 @@ div.disabled > a {
     float: left;
     margin-top: 6px;
     height: 50px;
-    width: 76px;
+    width: 60px;
+    border-radius: 50%;
   }
 
   .gravatar-placeholder .gravatar-logo {
@@ -286,14 +295,15 @@ div.disabled > a {
     float: left;
     margin-top: 6px;
     height: 50px;
-    width: 76px;
+    width: 60px;
+    border-radius: 50%;
   }
 
   .media-url-title {
     display: inline-block;
     line-height: 1;
-    margin-left: 5px;
-    margin-top: 5px;
+    margin-left: 12px;
+    margin-top: 22px;
   }
 
   .type-icon-alignment-big {
@@ -310,7 +320,7 @@ div.disabled > a {
   }
 
   .type-icon-alignment {
-    border: solid 1px $main-grey;
+    // border: solid 1px $main-grey;
     background-color: $white-transparent-background;
     margin-top: 34px;
     margin-left: 54px;
@@ -321,7 +331,7 @@ div.disabled > a {
 
   .type-icon-alignment i {
     color: $black;
-    font-size: 100%;
+    font-size: 15px;
     padding: 0px 3px 0px 3px;
   }
 
@@ -339,8 +349,8 @@ div.disabled > a {
   .username-id {
     display: inline-block;
     line-height: 1;
-    margin-top: 5px;
-    margin-left: 5px;
+    margin-top: 15px;
+    margin-left: 12px;
 
     small {
       color: $small-grey;
@@ -762,7 +772,7 @@ div.disabled > a {
 .archive-title,
 .archive-title-color {
   text-decoration: none;
-  font-size: 20px;
+  font-size: 14px;
   //color: $form-medium-grey;
 }
 

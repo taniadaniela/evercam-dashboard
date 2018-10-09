@@ -620,6 +620,7 @@ window.initializeLiveTab = ->
   window.vjs_player = {}
   image_placeholder = document.getElementById("live-player-image")
   camera_host = $('.hidden-input').val()
+  initializePlayer()
   controlButtonEvents()
   fullscreenImage()
   openPopout()

@@ -139,8 +139,9 @@ destroyPlayer = ->
     $("#jpg-portion").append($("#ptz-control"))
     setTimeout (->
       if window.vjs_player
-        window.vjs_player.dispose()
-      return
+        if window.vjs_player.isReady_ is true
+          window.vjs_player.dispose()
+        return
     ), 0
     $("#camera-video-stream").html('')
 

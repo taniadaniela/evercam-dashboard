@@ -939,11 +939,6 @@ saveImage = ->
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 
-  $("#edit-recording-image").on "click", ->
-    $("#tab_image_editor").removeClass("hide")
-    # $("#img_editor").attr("src", $("#imgPlayback").attr('src'))
-    $(".nav-tab-image-editor").tab('show')
-
 opBack = ->
   $('.play-options').css('display','inline')
 

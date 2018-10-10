@@ -490,6 +490,7 @@ playJpegStream = ->
       if payload.timestamp >= live_view_timestamp and not stream_paused
         live_view_timestamp = payload.timestamp
         $('#live-player-image').attr('src', 'data:image/jpeg;base64,' + payload.image)
+        $("#live-player-image").attr("data-timestamp", payload.timestamp)
 
 stopJpegStream = ->
   if Evercam.camera_channel

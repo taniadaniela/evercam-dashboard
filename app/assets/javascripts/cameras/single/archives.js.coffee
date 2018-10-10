@@ -307,6 +307,7 @@ rendersharebuttons = (row, type, set, meta) ->
                         '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
                           '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
                         '</div>'
+
       if row.public
         return '<div class="enabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
             '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
@@ -315,10 +316,10 @@ rendersharebuttons = (row, type, set, meta) ->
             download_link + div.html()
       else
         return download_link + '<div class="disabled share-buttons">'+
-            '<a href="http://www.facebook.com/sharer.php?u=' + url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
-            '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
-            '<a href="http://twitter.com/share?url=' + url + '&text=This is a photo from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>' +
-            '<a href="#" data-toggle="tooltip" title="Copy URL" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a></div>'+
+            '<a href="http://www.facebook.com/sharer.php?u=" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
+            '<a href="http://www.linkedin.com/shareArticle?url=&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
+            '<a href="http://twitter.com/share?url=&text=This is a photo from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>' +
+            '<a href="#" data-toggle="tooltip" title="Copy URL" class="archive-actions share-archive" play-url="" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a></div>'+
             div.html()
   else
     return div.html()
@@ -393,14 +394,18 @@ getCompareButtons = (div, row) ->
     copy_url + div.html()
 
 getFileButtons = (row, div) ->
-  fileType = row.file_name.split "."
-  fileType = fileType[fileType.length-1]
+  arr = row.file_name.split('.')
+  fileType = get_file_type(arr.pop())
+
   file_url = ""
-  if fileType is "jpg"
+  edit_link = ""
+  if fileType is "image"
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+    edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><i class='fas fa-edit'></i></a>"
   else
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-  return "<a target='_blank' class='archive-actions' href='#{file_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
+  return edit_link + "<a target='_blank' class='archive-actions' href='#{file_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}" +
+    "<input id='mp4clip-#{row.id}' value='#{file_url}' type='hidden'>"
 
 getTitle = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
@@ -994,7 +999,6 @@ modal_events = ->
         $("#archive-play").show()
         $("#archive-dates").show()
         load_player(media_thumbnail, media_url)
-
 
   $("#archives"). on "click", ".archive-title", ->
     id = $(this).attr("data-id")

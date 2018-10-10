@@ -55,11 +55,6 @@ module EvercamDashboard
       phoenix.js
       widgets.scss
       clip_play.scss
-      fabric.min.js
-      tui-code-snippet.min.js
-      tui-color-picker.min.js
-      tui-image-editor.min.js
-      tui-color-picker.css
     ]
   end
 end

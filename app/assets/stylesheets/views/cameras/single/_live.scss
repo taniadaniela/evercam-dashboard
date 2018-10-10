@@ -169,7 +169,9 @@
 .live-option:hover {
   background: $hover-blue;
 }
-#fullscreen:hover .live-options, #fullscreen:hover .play-options, #fullscreen:hover .ptz-controls {
+#fullscreen:hover .live-options,
+#fullscreen:hover .play-options,
+#fullscreen:hover .ptz-controls {
   opacity: 1;
 }
 .play-options{

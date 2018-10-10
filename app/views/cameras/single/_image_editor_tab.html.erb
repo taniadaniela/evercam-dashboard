@@ -11,6 +11,7 @@
           <li class="menu-item input-wrapper hide"><i class="fa fa-upload fa-1x"></i> <input type="file" accept="image/*" id="input-image-file"></li>
           <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></li>
           <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></li>
+          <li class="menu-item activatable" id="selection"><i class="far fa-hand-paper fa-1x" aria-hidden="true"></i></li>
           <li class="menu-item" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></li>
@@ -41,24 +42,22 @@
     <div class="tui-image-editor" id="tui-image-editor"></div>
 
     <div class="div-save-edit-image">
-      <%= image_tag("evercam-loading-gif", :class => "svg-logo", width: "150px", height: "150px", alt: "Evercam.io") %>
-      <br><br>
-      <span style="background-color: #fff;">Saving...</span>
+      <div class="saving-light-box"></div>
+      <img class="saving-image-animation" src="/assets/evercam-loading-gif.gif">
     </div>
 
     <div class="container-info">
-      <div class="player-header">
-        <div id="player-buttons">
+      <div class="editor-info-box">
+        <div class="edit-image-buttons">
           <div class="dropdown">
-            <a class="archive-actions archive-title" title="Save Image" id="btn-save-edited-file"><i class="fa fa-save"></i> Save</a>
-            <div style="display:inline-block;cursor:pointer;" class="archive-actions">
+            <a class="image-edit-actions" title="Save Image" id="btn-save-edited-file"><i class="fa fa-save"></i> Save</a>
+            <div style="display:inline-block;cursor:pointer;" class="image-edit-actions">
               <a id="btn-download" title="Download Image"><i class="fa fa-download"></i> Download</a>
             </div>
           </div>
         </div>
-        <strong class="div-archive-values" id="edit-image-title"></strong>
+        <strong class="edit-image-label" id="edit-image-title"></strong>
       </div>
     </div>
-
   </div>
 </div>

@@ -286,7 +286,7 @@ div.disabled > a {
     margin-top: 6px;
     height: 50px;
     width: 60px;
-    border-radius: 50%;
+    border-radius: 10%;
   }
 
   .gravatar-placeholder .gravatar-logo {
@@ -296,7 +296,7 @@ div.disabled > a {
     margin-top: 6px;
     height: 50px;
     width: 60px;
-    border-radius: 5%;
+    border-radius: 10%;
   }
 
   .media-url-title {
@@ -1051,6 +1051,7 @@ html .video-js {
 #player-buttons {
   float: right;
   padding-top: 10px;
+  min-width: 140px;
 
   a {
     font-size: 17px;
@@ -1082,6 +1083,77 @@ html .video-js {
     background-color: $main-color;
     color: $white;
   }
+
+  #siderbar {
+    span {
+      margin-top: 20px;
+      font-size: 20px;
+      color: $black;
+      float: left;
+    }
+
+    .toggle .toggle-control {
+      -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      width: 3.2em;
+      height: 1.7em;
+      display: inline-block;
+      border: 1px solid $label-color;
+      border-radius: 0.8em;
+      background-color: rgba(0, 0, 0, 0.06);
+      position: absolute;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-left: 10px;
+    }
+
+    .toggle .toggle-control::after {
+      -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      content: "";
+      width: 1.5em;
+      height: 1.5em;
+      display: inline-block;
+      background-color: $white;
+      border-radius: 50%;
+      border: 1px solid $label-color;
+      position: relative;
+      top: 0;
+      left: -0.9em;
+      cursor: pointer;
+    }
+
+    .toggle input {
+      display: none;
+    }
+
+    .toggle input:checked + .toggle-control {
+      border-color: $main-color;
+      background-color: $main-color;
+    }
+
+    .toggle input:disabled + .toggle-control {
+      border-color: $dark-grey;
+      background-color: $dark-grey;
+    }
+
+    .toggle input:checked + .toggle-control::after {
+      left: 1em !important;
+    }
+
+    .label {
+      position: inherit;
+      text-align: center;
+      margin-left: -5px;
+    }
+
+    #lbl {
+      display: inline-block;
+      position: absolute;
+      right: 8px;
+      top: 15px;
+    }
+  }
 }
 
 .player-header {
@@ -1092,78 +1164,6 @@ html .video-js {
 
 #toggle-tabs {
   float: right;
-}
-
-#siderbar2 {
-
-  span {
-    margin-top: 20px;
-    font-size: 20px;
-    color: $black;
-    float: left;
-  }
-
-  .toggle .toggle-control {
-    -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    width: 3.2em;
-    height: 1.7em;
-    display: inline-block;
-    border: 1px solid $label-color;
-    border-radius: 0.8em;
-    background-color: rgba(0, 0, 0, 0.06);
-    position: absolute;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-left: 10px;
-  }
-
-  .toggle .toggle-control::after {
-    -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    content: "";
-    width: 1.5em;
-    height: 1.5em;
-    display: inline-block;
-    background-color: $white;
-    border-radius: 50%;
-    border: 1px solid $label-color;
-    position: relative;
-    top: 0;
-    left: -0.9em;
-    cursor: pointer;
-  }
-
-  .toggle input {
-    display: none;
-  }
-
-  .toggle input:checked + .toggle-control {
-    border-color: $main-color;
-    background-color: $main-color;
-  }
-
-  .toggle input:disabled + .toggle-control {
-    border-color: $dark-grey;
-    background-color: $dark-grey;
-  }
-
-  .toggle input:checked + .toggle-control::after {
-    left: 1em !important;
-  }
-
-  .label {
-    position: inherit;
-    text-align: center;
-    margin-left: -5px;
-  }
-
-  #lbl {
-    display: inline-block;
-    position: absolute;
-    right: 8px;
-    top: 15px;
-  }
 }
 
 #share-buttons-new {

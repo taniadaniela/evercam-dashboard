@@ -197,28 +197,24 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
       return div.html()
     else if type is "Compare"
       animation_url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}"
-      return '<a class="archive-actions dropdown-toggle archive-title" href="#" title="share" data-id="'+ id + '" data-type="' + type + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-share-alt"></i> Share</a>' +
-        '<input id="gif-' + id + '" value= "' + animation_url + '.gif" type="hidden">' +
-        '<input id="mp4-' + id + '" value= "' + animation_url + '.mp4" type="hidden">' +
-        '<div id="download-button" class="dropdown float-right"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i> Download</a>' +
-        '<ul class="dropdown-menu">
-          <li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</a></li>'+
-          '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
-        '</div>' +
-        div.html()
+      return "<a class='archive-actions dropdown-toggle archive-title' href='#'' title='share' data-id='#{id}' data-type='#{type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> Share</a>" +
+        "'<input id='gif-#{id}' value= '#{animation_url}.gif' type='hidden'>" +
+        "<input id='mp4-#{id}' value='#{animation_url}.mp4' type='hidden'>" +
+        "<div id='download-button' class='dropdown float-right'><a class='archive-actions dropdown-toggle' href='#' data-toggle='dropdown' title='Download'><i class='fa fa-download'></i> Download</a>" +
+        "<ul class='dropdown-menu'>
+          <li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#gif-#{id}' title='Download GIF'><i class='fa fa-download'></i> GIF</a></li>" +
+          "<li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#mp4-#{id}' title='Download MP4'><i class='fa fa-download'></i> MP4</a></li></ul>" +
+        "</div>" + div.html()
     else
       mp4_media_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
-      share_button = '<a class="archive-actions archive-title" href="#" title="share" data-id="' + id + '" data-url="' + media_url + '" data-type="' + type + '" data-status="' + status + '" data-camera_id="' + camera_id + '" data-ispublic="' + media_ispublic + '" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-share-alt"></i> share</a>'
-      if media_ispublic is "true"
-        isEnabled = "enabled"
-      else
-        share_button = '' if type is "File"
-        isEnabled = "disabled"
-      publicButtons = renderIsPublicPlayer(id, type, status, media_ispublic)
+      is_enable = ""
+      if media_ispublic isnt "true"
+        is_enable = "hide"
+      share_button = "<a id='share-link-#{id}' class='archive-actions archive-title #{is_enable}' href='#' title='share' data-id='#{id}' data-url='#{media_url}' data-type='#{type}' data-status='#{status}' data-camera_id='#{camera_id}' data-ispublic='#{media_ispublic}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> share</a>"
 
-      return '<div class="dropdown">' + share_button +
-        '<input id="mp4clip-' + id + '" value= "' + mp4_media_url + '" type="hidden">' +
-        '<input id="mp4play-' + id + '" value= "' + media_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
+      publicButtons = renderIsPublicPlayer(id, type, status, media_ispublic, true)
+
+      return "<div class='dropdown'>" + share_button +
         '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><a class="download-animation archive-icon" data-download-target="#mp4clip-' + id  + '" title="Download MP4"><i class="fa fa-download"></i> Download</a></div>' +
         div.html() + publicButtons
   else
@@ -329,6 +325,7 @@ makePublic = ->
     is_checked = $(this)
     id = $(this).attr('alt')
     typeArchive = $(this).attr('archive_type')
+
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
         Notification.show("Internal Server Error. Please contact to admin.")
@@ -342,40 +339,26 @@ makePublic = ->
       index = $("input.toggle_input_public").index(this)
       if is_checked.is(":checked")
         is_checked.attr("checked")
-        $(".share-buttons:eq(" + index + ")").removeClass('disabled').addClass('enabled')
+        $(".share-buttons:eq(#{index})").removeClass('disabled').addClass('enabled')
         $("#share-buttons-player").removeClass('disabled').addClass('enabled')
-        refresh_archive_table()
+        $("#share-link-#{id}").removeClass("hide")
       else
         is_checked.removeAttr("checked")
-        $(".share-buttons:eq(" + index + ")").removeClass('enabled').addClass('disabled')
+        $(".share-buttons:eq(#{index})").removeClass('enabled').addClass('disabled')
         $("#share-buttons-player").removeClass('enabled').addClass('disabled')
-        refresh_archive_table()
+        $("#share-link-#{id}").addClass("hide")
+      refresh_archive_table()
+
     if typeArchive is "Clip" || typeArchive is "File"
-      togglePublic = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-      if $(this).is(":checked")
-        data =
-          public: true
-        settings =
-          cache: false
-          data: data
-          dataType: 'json'
-          error: onError
-          success: onSuccess
-          type: 'PATCH'
-          url: togglePublic
-        $.ajax(settings)
-      else
-        data =
-          public: false
-        settings =
-          cache: false
-          data: data
-          dataType: 'json'
-          error: onError
-          success: onSuccess
-          type: 'PATCH'
-          url: togglePublic
-        $.ajax(settings)
+      settings =
+        cache: false
+        data: {public: $(this).is(":checked")}
+        dataType: 'json'
+        error: onError
+        success: onSuccess
+        type: 'PATCH'
+        url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+      $.ajax(settings)
     else
       refresh_archive_table()
       Notification.show("The comparisons are always public")
@@ -571,45 +554,27 @@ renderDuration = (row, type, set, meta) ->
     return formatted
 
 renderIsPublic = (row, type, set, meta) ->
-  if row.status is "Completed"
-    if row.type is "URL"
-      return ''
-    else
-      if row.public
-        enabled = "checked"
-      else
-        enabled = ""
-      if row.type is "Compare"
-        return ''
-      else
-        return '<div id="siderbar">
-                  <label class="label toggle title">
-                    <input type="checkbox" class="toggle_input_public toggle_input_public_clip" alt="' + row.id + '" archive_type="' + row.type + '" ' + enabled + '/>
-                    <div class="toggle-control"></div>
-                  </label>
-                </div>'
-  else
-    return ''
+  renderIsPublicPlayer(row.id, row.type, row.status, "#{row.public}", false)
 
-renderIsPublicPlayer = (id, type, status, media_ispublic) ->
+renderIsPublicPlayer = (id, type, status, media_ispublic, add_label) ->
   if status is "Completed"
-    if type is "URL"
+    if type is "URL" || type is "Compare"
       return ''
     else
+      radio_label = ""
+      enabled = ""
       if media_ispublic is "true"
         enabled = "checked"
-      else
-        enabled = ""
-      if type is "Compare"
-        return ''
-      else
-        return '<div id="siderbar2">
-                  <label class="label toggle title">
-                    <span>Is public: </span>
-                    <input type="checkbox" class="toggle_input_public toggle_input_public_clip" alt="' + id + '" archive_type="' + type + '" ' + enabled + '/>
-                    <div class="toggle-control"></div>
-                  </label>
-                </div>'
+      if add_label
+        radio_label = "<span>Is public: </span>"
+
+      return "<div id='siderbar'>
+                <label class='label toggle title'>
+                  #{radio_label}
+                  <input type='checkbox' class='toggle_input_public toggle_input_public_clip' alt='#{id}' archive_type='#{type}' #{enabled} />
+                  <div class='toggle-control'></div>
+                </label>
+              </div>"
   else
     return ''
 

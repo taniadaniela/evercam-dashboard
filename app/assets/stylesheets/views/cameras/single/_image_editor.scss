@@ -114,6 +114,9 @@
     -webkit-transform: translateY(-50%);
     border: 1px dashed $black;
     overflow: hidden;
+    background-image: asset-url("evercam-loading-gif.gif");
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .tui-colorpicker-container {

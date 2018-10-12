@@ -1151,12 +1151,15 @@ onClickSnapshotMagnifier = ->
     else
       $(this).toggleClass 'enabled'
       $('.zoomContainer').hide()
+      $("#fullscreen #snapshot-tab-save").show()
 
 turnOffZoomEffect = ->
   $('#snapshot-magnifier').removeClass 'enabled'
   $('.zoomContainer').hide()
+  $("#fullscreen #snapshot-tab-save").show()
 
 initElevateZoom = ->
+  $("#fullscreen #snapshot-tab-save").hide()
   $('#imgPlayback').elevateZoom
     zoomType: 'lens',
     scrollZoom: true,

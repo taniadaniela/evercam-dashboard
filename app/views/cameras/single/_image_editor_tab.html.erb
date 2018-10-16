@@ -3,7 +3,28 @@
     <div class="tui-image-editor-controls">
       <div class="back-btn-container">
         <div class="back-container-left"><a id="back-to-archives"><i class="fas fa-arrow-left"></i> Back</a></div>
-        <div class="back-container-right"><a id="btn-clear-objects"><i class="fas fa-trash-alt size20"></i></a></div>
+        <div class="back-container-right">
+          <div id="popup-delete-edit-view" class="popbox float-right">
+            <span id="open-delete-edit-view" class="open">
+              <span href="#" class="archive-actions delete-archive" val-archive-id="howtom-h62i" val-camera-id="everc-dupzo">
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </span>
+            <div class="collapse-popup">
+              <div class="box-new" id="box-delete-edit-view">
+                <div class="arrow" id="arrow-delete-edit-view"></div>
+                <div class="arrow-border" id="arrow-border-delete-edit-view"></div>
+                <div class="margin-bottom-10">Are you sure?</div>
+                <div class="margin-bottom-10">
+                  <input type="button" value="Yes, Remove" id="btn-clear-objects" class="btn btn-primary">
+                  <div id="closepopup-delete-edit-view" class="btn delete-btn closepopup grey">
+                    <div class="text-center" fit="">CANCEL</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="clear-f"></div>
       </div>
       <div>
@@ -17,7 +38,7 @@
           <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></li>
           <li class="menu-item activatable" id="btn-draw-rect"><i class="far fa-square fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-circle"><i class="far fa-circle fa-1x"></i></li>
-          <li class="menu-item icon-text activatable" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
+          <li class="menu-item icon-text activatable hide" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-text"><i class="fa fa-font fa-1x"></i></li>
           <li class="menu-item">
             <div class="sub-menu-container menu" id="draw-line-sub-menu">
@@ -57,6 +78,9 @@
           </div>
         </div>
         <strong class="edit-image-label" id="edit-image-title"></strong>
+        <a id="change-archive-title"><i class="fas fa-pencil-alt" style="font-size:17px;"></i></a>
+        <a style="display: none" id="editor-update-title"><i class="far fa-save"></i></a>
+        <a style="display: none" id="editor-cancel-title"><i class="fas fa-times"></i></a>
       </div>
     </div>
   </div>

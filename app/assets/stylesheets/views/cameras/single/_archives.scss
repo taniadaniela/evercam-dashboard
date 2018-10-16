@@ -148,6 +148,27 @@ div.disabled > a {
 #archives {
   height: 100%;
 
+  .div-thumbnail-hover {
+    position: absolute;
+    text-align: center;
+    display: none;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
+    font-size: 15px;
+    font-weight: 500;
+    padding-left: 3px;
+    padding-right:3px;
+    z-index: 1000001;
+  }
+
+  .fullsize-thumbnail {
+    background-image: asset-url("metronic/input-spinner.gif");
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: auto;
+    padding: 3px 0;
+  }
+
   .add-archive-button {
     position: fixed;
     bottom: 0;
@@ -283,7 +304,7 @@ div.disabled > a {
     border: solid 1px $main-grey;
     display: inline-block;
     float: left;
-    margin-top: 6px;
+    margin-top: 0;
     height: 50px;
     width: 60px;
     border-radius: 10%;
@@ -293,7 +314,7 @@ div.disabled > a {
     border: solid 1px $main-grey;
     display: inline-block;
     float: left;
-    margin-top: 6px;
+    margin-top: 0;
     height: 50px;
     width: 60px;
     border-radius: 10%;
@@ -322,8 +343,8 @@ div.disabled > a {
   .type-icon-alignment {
     // border: solid 1px $main-grey;
     background-color: $white-transparent-background;
-    margin-top: 34px;
-    margin-left: 45px;
+    margin-top: 28px;
+    margin-left: 38px;
     height: 22px;
     position: absolute;
     z-index: 0;
@@ -358,7 +379,7 @@ div.disabled > a {
   }
 
   table.dataTable tbody th, table.dataTable tbody td {
-    padding: 5px 10px;
+    padding: 1px 10px;
     color: $form-dark-grey;
   }
 

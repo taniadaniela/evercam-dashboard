@@ -98,6 +98,34 @@ initializeArchivesDataTable = ->
       true
   })
 
+hover_thumbnail = ->
+  $("#archives-tab").on "mousemove", ".gravatar", (ev) ->
+    content_width = Metronic.getViewPort().width
+    content_height = Metronic.getViewPort().height
+    $("#fullsize-thumbnail").attr("src", $(this).attr("src"))
+    thumbnail_width = $("#fullsize-thumbnail").width()
+    thumbnail_height =$("#fullsize-thumbnail").height()
+    top = ev.pageY
+    screen_top = ev.screenY
+    if ((content_height - screen_top) > thumbnail_height)
+      top = top - 70
+    else
+      hidden_height = thumbnail_height - (content_height - screen_top)
+      top = (top - hidden_height) - 100
+
+    if $(".page-sidebar").css('display') is "block"
+      left = ev.pageX - 195
+      if content_width < left + thumbnail_width + 10
+        left = left - (left + thumbnail_width - content_width) - 30
+    else
+      left = ev.pageX + 10
+
+    $("#div-full-thumbnail").css({ top: "#{top}px", left: "#{left}px" })
+    $("#div-full-thumbnail").show()
+
+  $("#archives-tab").on "mouseout", ".gravatar", (ev) ->
+    $("#div-full-thumbnail").hide()
+
 toggleView = ->
   if is_list_view
     $("#archives-table").show()
@@ -152,19 +180,19 @@ getTime = (dateBefore, dateAfter) ->
   return diffDays
 
 getArchivesHtml = (archives) ->
-  if archives.type is "Clip"
+  if archives.type is "clip"
     fa_class = "<svg width='50' height='50' viewBox='0 0 24 24' fill='none' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
     <polygon points='23 7 16 12 23 17 23 7'></polygon>
     <rect x='1' y='5' width='15' height='14' rx='2' ry='2'></rect>
     </svg>"
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.id}/play?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-  else if archives.type is "Compare"
+  else if archives.type is "compare"
     fa_class = "<svg fill='#000000' height='50' viewBox='0 0 24 24' width='50'>
       <path d='M0 0h24v24H0z' fill='none'/>
       <path d='M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/>
       </svg>"
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/compares/#{archives.id}.mp4"
-  else if archives.type is "File"
+  else if archives.type is "file"
     fa_class = "<i class='fa fa-upload type-icon type-icon-url'></i>"
   else
     fa_class = "<i fa fa-link type-icon type-icon-url></i>"
@@ -193,9 +221,9 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
   div = $('<div>', {class: "form-group"})
 
   if status is "Completed"
-    if type is "URL"
+    if type is "url"
       return div.html()
-    else if type is "Compare"
+    else if type is "compare"
       animation_url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}"
       return "<a class='archive-actions dropdown-toggle archive-title' href='#'' title='share' data-id='#{id}' data-type='#{type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> Share</a>" +
         "'<input id='gif-#{id}' value= '#{animation_url}.gif' type='hidden'>" +
@@ -265,11 +293,11 @@ renderbuttons = (row, type, set, meta) ->
     divPopup.append(divCollapsePopup)
     div.append(divPopup)
   if row.status is "Completed"
-    if row.type is "Compare"
+    if row.type is "compare"
       getCompareButtons(div, row)
-    else if row.type is "File"
+    else if row.type is "file" || row.type is "edit"
       getFileButtons(row, div)
-    else if row.type is "URL"
+    else if row.type is "url"
       return "<a class='archive-actions archive-title' href='javascript:;' title='Edit' data-id='#{row.id}' data-url='#{row.media_url}' data-type='#{row.type}' data-toggle='modal' data-target='#social-media-url-modal'><i class='fas fa-edit'></i></a>" +
       "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
@@ -289,15 +317,15 @@ rendersharebuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
   url = ""
   if row.status is "Completed"
-    if row.type is "URL"
+    if row.type is "url"
       return ''
     else
       download_link = '<div class="float-left"><a class="archive-actions download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
       url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
 
-      if row.type is "File"
+      if row.type is "file" || row.type is "edit"
         url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}"
-      else if row.type is "Compare"
+      else if row.type is "compare"
         url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}.mp4"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
                         '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
@@ -349,7 +377,7 @@ makePublic = ->
         $("#share-link-#{id}").addClass("hide")
       refresh_archive_table()
 
-    if typeArchive is "Clip" || typeArchive is "File"
+    if typeArchive is "clip" || typeArchive is "file"
       settings =
         cache: false
         data: {public: $(this).is(":checked")}
@@ -387,8 +415,7 @@ getFileButtons = (row, div) ->
     edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><i class='fas fa-edit'></i></a>"
   else
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-  return edit_link + "<a target='_blank' class='archive-actions' href='#{file_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}" +
-    "<input id='mp4clip-#{row.id}' value='#{file_url}' type='hidden'>"
+  return edit_link + "#{div.html()}<input id='mp4clip-#{row.id}' value='#{file_url}' type='hidden'>"
 
 getTitle = (row, type, set, meta) ->
   start_index = row.embed_code.indexOf("#{Evercam.Camera.id}")
@@ -399,13 +426,22 @@ getTitle = (row, type, set, meta) ->
     end_index = row.embed_code.indexOf("'></script>")
   query_string = row.embed_code.substring(start_index, end_index) if row.embed_code
 
-  if row.type is "URL"
+  if row.type is "url"
     "<div class='social-media-icon'><i class='fab fa-youtube youtube'></i></div>"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'><div class='type-icon-alignment'><i class='fa fa-link type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
       <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{row.media_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       </div>"
-  else if row.type is "File"
+  else if row.type is "edit"
+    arr = row.file_name.split('.')
+    file_type = get_file_type(arr.pop())
+    snap_date_time = moment.utc(row.from_date*1000).format('MM/DD/YYYY, HH:mm:ss')
+    file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+    return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-image type-icon type-icon-url'></i></div><div class='float-left'></div>
+      <div class='username-id'>
+      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{snap_date_time}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
+      <br /><small class='blue'>Cloud Recording #{snap_date_time}</small></div></div>"
+  else if row.type is "file"
     arr = row.file_name.split('.')
     file_type = get_file_type(arr.pop())
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
@@ -414,12 +450,12 @@ getTitle = (row, type, set, meta) ->
     else
       file_link = "<a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>"
 
-    return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-upload type-icon type-icon-url'></i></div></div>
+    return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-upload type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
       #{file_link}</div>"
   else
     fa_class = "<i class='fas fa-video type-icon'></i>"
-    if row.type is "Compare"
+    if row.type is "compare"
       mp4Url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{row.id}.mp4"
       fa_class = "<svg fill='#000000' height='20' viewBox='0 0 24 24' width='20'>
         <path d='M0 0h24v24H0z' fill='none'/>
@@ -528,7 +564,7 @@ renderToDate = (row, type, set, meta) ->
   getDates(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
-  if row.type is "Compare"
+  if row.type is "compare"
     return "9 secs"
   else
     dateTimeFrom = new Date(
@@ -558,7 +594,7 @@ renderIsPublic = (row, type, set, meta) ->
 
 renderIsPublicPlayer = (id, type, status, media_ispublic, add_label) ->
   if status is "Completed"
-    if type is "URL" || type is "Compare"
+    if type is "url" || type is "compare"
       return ''
     else
       radio_label = ""
@@ -788,7 +824,7 @@ deleteClip = ->
       NProgress.done()
 
     onSuccess = (data, status, jqXHR) ->
-      if control.attr("archive_type") is "Compare"
+      if control.attr("archive_type") is "compare"
         refresh_archive_table()
         hide_player_view()
         Notification.show("Compare deleted successfully.")
@@ -803,7 +839,7 @@ deleteClip = ->
           Notification.show("Archive deleted successfully.")
 
     api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-    if control.attr("archive_type") is "Compare"
+    if control.attr("archive_type") is "compare"
       api_url = "#{Evercam.API_URL}cameras/#{control.attr("camera_id")}/compares/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
 
     settings =
@@ -903,12 +939,12 @@ modal_events = ->
     else
       $("#popup-delete-view").hide()
 
-    if type is "Compare"
+    if type is "compare"
       $("#archive-play video").attr("loop", "true")
     else
       $("#archive-play video").attr("loop", "false")
 
-    if type is "Clip" || type is "Compare" || type is "URL" || type is "File"
+    if type is "clip" || type is "compare" || type is "url" || type is "file" || type is "edit"
       update_request_url(id)
       $('#archives-table_paginate').hide()
       $("#archives-table_info").hide()
@@ -937,7 +973,7 @@ modal_events = ->
       $('#player-buttons').empty()
       $('#player-buttons').append renderplayerbuttons(requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name)
 
-      if type is "URL"
+      if type is "url"
         $("#archive-play").hide()
         $("#file_upload_viewer").hide()
         $("#archive-dates").hide()
@@ -946,9 +982,11 @@ modal_events = ->
         view_height = Metronic.getViewPort().height
         $("#iframe_archive").height(view_height - info_total)
         $('#iframe_archive').prop('src', convert_to_embed_url(media_url))
-      else if type is "File"
+      else if type is "file" || type is "edit"
         $("#iframe_archive").hide()
-        $("#archive-dates").hide()
+        $('#archive-dates').html("Cloud Recordings #{media_from}</br>")
+        if type is "file"
+          $("#archive-dates").hide()
         calculateHeight()
         if file_type is "image"
           $("#archive-play").hide()
@@ -981,7 +1019,7 @@ modal_events = ->
       if history.replaceState
         window.history.replaceState({}, '', root_url)
     query_string = $("#archive_embed_code#{id}").val()
-    if type is "URL"
+    if type is "url"
       showArchiveUrlSaveButton()
     url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}"
     mp4_url_value = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}"
@@ -996,7 +1034,7 @@ modal_events = ->
     $("#div_duration").text($("#txt_duration#{id}").val())
     $("#txt_title").val($("#txtArchiveTitle#{id}").val())
     $("#media_title_title").val($("#archive_url_link_#{id}").text())
-    if type isnt "Compare"
+    if type isnt "compare"
       $("#row-compare").hide()
       $(".div-thumbnail").show()
       $("#row-embed-code").hide()
@@ -1005,14 +1043,14 @@ modal_events = ->
       $("#row-gif").hide()
       $("#archive-thumbnail").attr("src", $("#txtArchiveThumb#{id}").val())
       $("#row-mp4").show()
-      if type is "Clip"
+      if type is "clip"
         share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/clip/#{id}/play"
         $("#share-buttons-new .facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
         $("#share-buttons-new .whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")
         $("#share-buttons-new .linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{share_url}&title=My photo&summary=This is a photo from evercam")
         $("#share-buttons-new .twitter").attr("href", "http://twitter.com/share?url=#{share_url}&text=This is a photo from evercam&via=evrcm")
-      # $(".div-thumbnail").hide() if type isnt "URL"
-      if type is "File"
+      # $(".div-thumbnail").hide() if type isnt "url"
+      if type is "file"
         $(".div-thumbnail").hide()
         $("#row-frames").hide()
         $("#row-duration").hide()
@@ -1377,7 +1415,7 @@ update_archive = ->
         $("#edit-archive-title i").css("font-size", "17px")
 
     controller = "archives"
-    if $("#txt-archive-type").val() is "Compare"
+    if $("#txt-archive-type").val() is "compare"
       controller = "compares"
 
     settings =
@@ -1465,11 +1503,11 @@ filter_archives = ->
     $(".archive-tab-item i").removeClass("fas").addClass("far")
     $(this).find("i").removeClass("far").addClass("fas")
     type = $(this).attr("data-val")
-    if type is "Compare"
+    if type is "compare"
       archives_table.column(2).visible false
       archives_table.column(3).visible true
     else
-      if type is "URL"
+      if type is "url"
         archives_table.column(3).visible false
         archives_table.column(2).visible false
       else
@@ -1522,3 +1560,4 @@ window.initializeArchivesTab = ->
   makePublic()
   handleResize()
   tab_events()
+  hover_thumbnail()

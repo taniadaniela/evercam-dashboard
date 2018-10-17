@@ -407,12 +407,12 @@ getCompareButtons = (div, row) ->
 getFileButtons = (row, div) ->
   arr = row.file_name.split('.')
   fileType = get_file_type(arr.pop())
-
+  snap_date_time = moment.tz(row.from_date * 1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
   file_url = ""
   edit_link = ""
   if fileType is "image"
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-    edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><i class='fas fa-edit'></i></a>"
+    edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-from='#{snap_date_time}' data-time=#{row.created_at} data-autor='#{row.requester_name}' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><i class='fas fa-edit'></i></a>"
   else
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
   return edit_link + "#{div.html()}<input id='mp4clip-#{row.id}' value='#{file_url}' type='hidden'>"
@@ -435,7 +435,7 @@ getTitle = (row, type, set, meta) ->
   else if row.type is "edit"
     arr = row.file_name.split('.')
     file_type = get_file_type(arr.pop())
-    snap_date_time = moment.utc(row.from_date*1000).format('MM/DD/YYYY, HH:mm:ss')
+    snap_date_time = moment.tz(row.from_date * 1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-image type-icon type-icon-url'></i></div><div class='float-left'></div>
       <div class='username-id'>
@@ -555,7 +555,7 @@ renderDate = (row, type, set, meta) ->
   return "
     <div class='#{row.created_at} hide'>
     </div>\
-    <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
+    <span>#{moment(time).format('MMMM Do YYYY, HH:mm:ss')}</span>"
 
 renderFromDate = (row, type, set, meta) ->
   getDates(row.from_date*1000)

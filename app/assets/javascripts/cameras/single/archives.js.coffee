@@ -238,7 +238,7 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
       is_enable = ""
       if media_ispublic isnt "true"
         is_enable = "hide"
-      share_button = "<a id='share-link-#{id}' class='archive-actions archive-title #{is_enable}' href='#' title='share' data-id='#{id}' data-url='#{media_url}' data-type='#{type}' data-status='#{status}' data-camera_id='#{camera_id}' data-ispublic='#{media_ispublic}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> share</a>"
+      share_button = "<a id='share-link-#{id}' class='archive-actions archive-title #{is_enable}' href='#' title='share' data-file-name='#{file_name}' data-id='#{id}' data-url='#{media_url}' data-type='#{type}' data-status='#{status}' data-camera_id='#{camera_id}' data-ispublic='#{media_ispublic}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> share</a>"
 
       publicButtons = renderIsPublicPlayer(id, type, status, media_ispublic, true)
 
@@ -321,23 +321,28 @@ rendersharebuttons = (row, type, set, meta) ->
       return ''
     else
       download_link = '<div class="float-left"><a class="archive-actions download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
+      copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
       url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
 
       if row.type is "file" || row.type is "edit"
         url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}"
       else if row.type is "compare"
-        url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}.mp4"
+        main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
+        url = "#{main_url}.mp4"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
                         '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
                           '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
                         '</div>'
+        copy_url_link = "<div class='dropdown'><a class='archive-actions dropdown-toggle' href='#'' data-toggle='dropdown' title='Download'><i class='fas fa-link'></i></a>" +
+                        "<ul class='dropdown-menu'><li><a class='share-archive archive-icon' href='javascript:;' play-url='#{main_url}.gif' title='Copy GIF URL'><i class='fas fa-link'></i> GIF</li></a>" +
+                          "<li><a class='share-archive archive-icon' href='javascript:;' play-url='#{main_url}.mp4' title='Copy MP4 URL'><i class='fas fa-link'></i> MP4</a></li></ul>" +
+                        "</div>"
 
       if row.public
-        return '<div class="enabled share-buttons"><a href="http://www.facebook.com/sharer.php?u=' + url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
+        return download_link + '<div class="enabled share-buttons"><div class="dropdown"><a href="http://www.facebook.com/sharer.php?u=' + url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>' +
             '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
-            '<a href="http://twitter.com/share?url=' + url + '&text=This is an archive from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a>'+
-            '<a href="#" data-toggle="tooltip" title="Copy URL" class="archive-actions share-archive" play-url="' + url + '" val-archive-id="' + row.id + '" val-camera-id="' + row.camera_id + '"><i class="fas fa-link"></i></a>' +
-            download_link + div.html()
+            '<a href="http://twitter.com/share?url=' + url + '&text=This is an archive from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a></div>' +
+            copy_url_link + div.html()
       else
         return download_link + '<div class="disabled share-buttons">'+
             '<a href="http://www.facebook.com/sharer.php?u=" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>'+
@@ -426,12 +431,14 @@ getTitle = (row, type, set, meta) ->
     end_index = row.embed_code.indexOf("'></script>")
   query_string = row.embed_code.substring(start_index, end_index) if row.embed_code
 
+  archive_inputs = "<input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail_url}'><input id='txtArchiveTitle#{row.id}' type='hidden' value='#{row.title}'>"
+
   if row.type is "url"
     "<div class='social-media-icon'><i class='fab fa-youtube youtube'></i></div>"
     return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'><div class='type-icon-alignment'><i class='fa fa-link type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
       <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{row.media_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
-      </div>"
+      </div>#{archive_inputs}"
   else if row.type is "edit"
     arr = row.file_name.split('.')
     file_type = get_file_type(arr.pop())
@@ -440,7 +447,7 @@ getTitle = (row, type, set, meta) ->
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-image type-icon type-icon-url'></i></div><div class='float-left'></div>
       <div class='username-id'>
       <a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{snap_date_time}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
-      <br /><small class='blue'>Cloud Recording #{snap_date_time}</small></div></div>"
+      <br /><small class='blue'>Cloud Recording #{snap_date_time}</small></div></div>#{archive_inputs}"
   else if row.type is "file"
     arr = row.file_name.split('.')
     file_type = get_file_type(arr.pop())
@@ -452,7 +459,7 @@ getTitle = (row, type, set, meta) ->
 
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-upload type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
-      #{file_link}</div>"
+      #{file_link}</div>#{archive_inputs}"
   else
     fa_class = "<i class='fas fa-video type-icon'></i>"
     if row.type is "compare"
@@ -471,11 +478,9 @@ getTitle = (row, type, set, meta) ->
       <div class='username-id'>
       <a class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-id='#{row.id}' data-url='#{mp4Url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       <br /><small class='blue'>From #{renderFromDate(row, type, set, meta)} to #{renderToDate(row, type, set, meta)}</small></div></div>
-      <input id='txtArchiveTitle#{row.id}' type='hidden' value='#{row.title}'>
-      <input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail_url}'>
       <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
       <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
-      <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>"
+      <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>#{archive_inputs}"
 
 get_file_type = (extension) ->
   image_ext = ["jpg", "jpeg", "bmp", "gif", "png"]
@@ -1010,6 +1015,7 @@ modal_events = ->
     status = $(this).attr("data-status")
     ispublic = $(this).attr("data-ispublic")
     camera_id = $(this).attr("data-camera_id")
+    file_name = $(this).attr("data-file-name")
     if ispublic is "true"
       $("#div_shares").show()
     else
@@ -1034,6 +1040,18 @@ modal_events = ->
     $("#div_duration").text($("#txt_duration#{id}").val())
     $("#txt_title").val($("#txtArchiveTitle#{id}").val())
     $("#media_title_title").val($("#archive_url_link_#{id}").text())
+
+    share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
+    if type is "file" || type is "edit"
+      share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{file_name}"
+    else if type is "compare"
+      share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}.mp4"
+
+    $("#share-buttons-new a.facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
+    $("#share-buttons-new a.whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")
+    $("#share-buttons-new a.linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{share_url}&title=My photo&summary=This is a photo from evercam")
+    $("#share-buttons-new a.twitter").attr("href", "http://twitter.com/share?url=#{share_url}&text=This is a photo from evercam&via=evrcm")
+
     if type isnt "compare"
       $("#row-compare").hide()
       $(".div-thumbnail").show()
@@ -1043,21 +1061,15 @@ modal_events = ->
       $("#row-gif").hide()
       $("#archive-thumbnail").attr("src", $("#txtArchiveThumb#{id}").val())
       $("#row-mp4").show()
-      if type is "clip"
-        share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/clip/#{id}/play"
-        $("#share-buttons-new .facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
-        $("#share-buttons-new .whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")
-        $("#share-buttons-new .linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{share_url}&title=My photo&summary=This is a photo from evercam")
-        $("#share-buttons-new .twitter").attr("href", "http://twitter.com/share?url=#{share_url}&text=This is a photo from evercam&via=evrcm")
+
       # $(".div-thumbnail").hide() if type isnt "url"
-      if type is "file"
-        $(".div-thumbnail").hide()
+      if type is "file" || type is "edit"
+        # $(".div-thumbnail").hide()
         $("#row-frames").hide()
         $("#row-duration").hide()
         $("#row-mp4").hide()
     else
       $("#row-compare").html(window.compare_html)
-      share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/compare/#{id}/play"
       params = query_string.split(" ")
       bucket_url = "https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/"
       before_image = "#{bucket_url}#{Evercam.Camera.id}/compares/#{params[3]}/start-#{params[1]}.jpg?#{Math.random()}"
@@ -1072,10 +1084,6 @@ modal_events = ->
       $("#row-compare").show()
       $("#row-mp4").show()
       $(".div-thumbnail").hide()
-      $("#share-buttons-new .facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
-      $("#share-buttons-new .whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")
-      $("#share-buttons-new .linkedin").attr("href", "http://www.linkedin.com/shareArticle?url=#{share_url}&title=My photo&summary=This is a photo from evercam")
-      $("#share-buttons-new .twitter").attr("href", "http://twitter.com/share?url=#{share_url}&text=This is a photo from evercam&via=evrcm")
       initCompare()
 
   $('#modal-archive-info').on 'hide.bs.modal', ->

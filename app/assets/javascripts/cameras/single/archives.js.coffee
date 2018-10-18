@@ -100,23 +100,21 @@ initializeArchivesDataTable = ->
 
 hover_thumbnail = ->
   $("#archives-tab").on "mousemove", ".gravatar", (ev) ->
-    content_width = Metronic.getViewPort().width
-    content_height = Metronic.getViewPort().height
+    view_width = Metronic.getViewPort().width
+    view_height = Metronic.getViewPort().height
     $("#fullsize-thumbnail").attr("src", $(this).attr("src"))
     thumbnail_width = $("#fullsize-thumbnail").width()
     thumbnail_height =$("#fullsize-thumbnail").height()
     top = ev.pageY
     screen_top = ev.screenY
-    if ((content_height - screen_top) > thumbnail_height)
-      top = top - 70
-    else
-      hidden_height = thumbnail_height - (content_height - screen_top)
-      top = (top - hidden_height) - 100
+    if ((view_height - screen_top) < thumbnail_height)
+      hidden_height = thumbnail_height - (view_height - screen_top)
+      top = (top - hidden_height)
 
     if $(".page-sidebar").css('display') is "block"
-      left = ev.pageX - 195
-      if content_width < left + thumbnail_width + 10
-        left = left - (left + thumbnail_width - content_width) - 30
+      left = ev.pageX + 10
+      if view_width < left + thumbnail_width + 10
+        left = left - (left + thumbnail_width - view_width) - 30
     else
       left = ev.pageX + 10
 

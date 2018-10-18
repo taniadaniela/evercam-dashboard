@@ -373,11 +373,13 @@ makePublic = ->
         $(".share-buttons:eq(#{index})").removeClass('disabled').addClass('enabled')
         $("#share-buttons-player").removeClass('disabled').addClass('enabled')
         $("#share-link-#{id}").removeClass("hide")
+        $("#share-link-#{id}").attr("data-ispublic", "true")
       else
         is_checked.removeAttr("checked")
         $(".share-buttons:eq(#{index})").removeClass('enabled').addClass('disabled')
         $("#share-buttons-player").removeClass('enabled').addClass('disabled')
         $("#share-link-#{id}").addClass("hide")
+        $("#share-link-#{id}").attr("data-ispublic", "false")
       refresh_archive_table()
 
     if typeArchive is "clip" || typeArchive is "file"

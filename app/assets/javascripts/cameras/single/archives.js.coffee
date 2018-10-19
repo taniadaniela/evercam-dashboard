@@ -434,8 +434,9 @@ getTitle = (row, type, set, meta) ->
   archive_inputs = "<input id='txtArchiveThumb#{row.id}' type='hidden' value='#{row.thumbnail_url}'><input id='txtArchiveTitle#{row.id}' type='hidden' value='#{row.title}'>"
 
   if row.type is "url"
-    "<div class='social-media-icon'><i class='fab fa-youtube youtube'></i></div>"
-    return "<div class='gravatar-placeholder'><img class='gravatar-logo' src='https://favicon.yandex.net/favicon/#{getHostName(row.media_url)}'><div class='type-icon-alignment'><i class='fa fa-link type-icon type-icon-url'></i></div></div>
+    arr_host = getHostName(row.media_url).split('.')
+    domain = arr_host.shift()
+    return "<div class='gravatar-placeholder'><div class='social-media-icon'><i class='fab fa-#{domain} #{domain}'></i></div><div class='type-icon-alignment'><i class='fa fa-link type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
       <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{row.media_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       </div>#{archive_inputs}"

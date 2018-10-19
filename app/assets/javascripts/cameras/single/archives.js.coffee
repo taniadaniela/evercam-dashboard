@@ -1530,6 +1530,10 @@ tab_events = ->
       $('#archives-table').show()
       $("#no-archive").hide()
 
+  $(".nav-tab-archives").on "click", ->
+    if $("#archives-box").css("display") is "block"
+      hide_player_view()
+
 window.initializeArchivesTab = ->
   window.compare_html = $("#row-compare").html()
   if Evercam.User.username

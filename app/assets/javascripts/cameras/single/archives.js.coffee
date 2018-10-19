@@ -73,10 +73,10 @@ initializeArchivesDataTable = ->
       initializePopup() if is_reload
       is_reload = true
       if archives_table
-        archives_data = archives_table.data()
-        initializeArchivesDataBox()
         refreshDataTable()
     initComplete: (settings, json) ->
+      archives_data = json.archives
+      initializeArchivesDataBox()
       getArchiveIdFromUrl()
       $("#archives-table_length").hide()
       $("#archives-table_filter").hide()
@@ -168,7 +168,14 @@ toggleView = ->
   $("#back-archives").on "click", ->
     hide_player_view()
 
+sortByKey = (array, key) ->
+  array.sort (a, b) ->
+    x = a[key]
+    y = b[key]
+    (if (x < y) then -1 else ((if (x > y) then 1 else 0)))
+
 initializeArchivesDataBox = ->
+  archives = sortByKey(archives_data, "created_at").reverse()
   $.each archives_data, (index, archives) ->
     $("#archives-box-2").append getArchivesHtml(archives)
 
@@ -191,28 +198,35 @@ getArchivesHtml = (archives) ->
       </svg>"
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/compares/#{archives.id}.mp4"
   else if archives.type is "file"
+    arr = archives.file_name.split('.')
+    file_type = get_file_type(arr.pop())
+    url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     fa_class = "<i class='fa fa-upload type-icon type-icon-url'></i>"
+  else if archives.type is "edit"
+    url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+    fa_class = "<i class='fa fa-image type-icon type-icon-url'></i>"
   else
-    fa_class = "<i fa fa-link type-icon type-icon-url></i>"
+    url = archives.media_url
+    fa_class = "<i class='fa fa-link type-icon type-icon-url'></i>"
 
-  html = '<div id="dataslot' + archives.id + '" class="list-border margin-bottom10">'
-  html += '    <div class="padding-left-0" style="min-height:0px;">'
-  html += '    <div class="col-xs-12 col-sm-6 col-md-3 card-archives" style="min-height:0px;">'
-  html += '             <div class="gravatar-placeholder"><div class="type-icon-alignment-big">' + fa_class + '</div></div>'
-  html += '        <div class="snapstack-loading" id="snaps-' + archives.id + '" >'
-  html += '           <a class="archive-title-color" data-ispublic="' + archives.public + '" data-status="' + archives.status + '" data-camera="' + archives.camera_id + '" data-type="' + archives.type + '" data-id="' + archives.id + '" data-url="' + url + '" data-thumbnail="' + archives.thumbnail_url + '" data-title="' + archives.title + '" data-to="' + getDates(archives.to_date * 1000) + '" data-from="' + getDates(archives.from_date * 1000) + '" data-time="' + archives.created_at + '" data-autor="' + archives.requester_name + '">'
-  html += '             <img alt="' + url + '" src="' + archives.thumbnail_url + '" class="stackimage stackimage-view" style="visibility: visible" id="stackimage-' + archives.title + '"></a>'
-  html += '        </div>'
-  html += '        <div class="card-padding">'
-  html += '        <div class="camera-email">'
-  html += '          <div class="nav-tabs div-archive-values"><a class="archive-title-color" data-ispublic="' + archives.public + '" data-status="' + archives.status + '" data-camera="' + archives.camera_id + '" data-type="' + archives.type + '" data-id="' + archives.id + '" data-url="' + url + '" data-thumbnail="' + archives.thumbnail_url + '" data-title="' + archives.title + '" data-to="' + getDates(archives.to_date * 1000) + '" data-from="' + getDates(archives.from_date * 1000) + '" data-time="' + archives.created_at + '" data-autor="' + archives.requester_name + '">' + archives.title + '</a>'
-  html += '          </div>'
-  html += '          <span class="spn-label"><i class="fas fa-users"></i></span><div class="div-snapmail-values snapmail-title" title="' + archives.requester_name + '"><span class="small-text">&nbsp;&nbsp;' + archives.requester_name + '</span><span class="line-end"></span></div><div class="clear-f"></div>'
-  html += '          <span class="spn-label"><i class="far fa-calendar-alt font-16"></i></span><div class="div-snapmail-values snapmail-title""><span class="small-text">&nbsp;&nbsp;' + getDates(archives.from_date * 1000) + ' - ' + getDates(archives.to_date * 1000) + '</span><span class="line-end"></span></div><div class="clear-f"></div>'
-  html += '          <span class="spn-label"><i class="far fa-clock font-16"></i></span><div class="div-snapmail-values snapmail-title""><span class="small-text">&nbsp;&nbsp;' + moment(archives.created_at*1000).format("MMMM Do YYYY, H:mm:ss") + '</span><span class="line-end"></span></div><div class="clear-f"></div></div>'
-  html += '    </div>'
-  html += '    </div>'
-  html += '</div>'
+  html = "<div id='dataslot#{archives.id}' class='list-border margin-bottom10'>"
+  html += "    <div class='padding-left-0' style='min-height:0px;'>"
+  html += "    <div class='col-xs-12 col-sm-6 col-md-3 card-archives' style='min-height:0px;'>"
+  html += "             <div class='gravatar-placeholder'><div class='type-icon-alignment-big'>#{fa_class}</div></div>"
+  html += "        <div class='snapstack-loading' id='snaps-#{archives.id}' >"
+  html += "           <a class='archive-title-color' data-ispublic='#{archives.public}' data-file-type='#{file_type}' data-file-name='#{archives.file_name}' data-status='#{archives.status}' data-camera='#{archives.camera_id}' data-type='#{archives.type}' data-id='#{archives.id}' data-url='#{url}' data-thumbnail='#{archives.thumbnail_url}' data-title='#{archives.title}' data-to='#{getDates(archives.to_date * 1000)}' data-from='#{getDates(archives.from_date * 1000)}' data-time='#{archives.created_at}' data-autor='#{archives.requester_name}'>"
+  html += "             <img alt='#{url}' src='#{archives.thumbnail_url}' class='stackimage stackimage-view' style='visibility: visible' id='stackimage-#{archives.title}'></a>"
+  html += "        </div>"
+  html += "        <div class='card-padding'>"
+  html += "        <div class='camera-email'>"
+  html += "          <div class='nav-tabs div-archive-values'><a class='archive-title-color' data-file-type='#{file_type}' data-file-name='#{archives.file_name}' data-ispublic='#{archives.public}' data-status='#{archives.status}' data-camera='#{archives.camera_id}' data-type='#{archives.type}' data-id='#{archives.id}' data-url='#{url}' data-thumbnail='#{archives.thumbnail_url}' data-title='#{archives.title}' data-to='#{getDates(archives.to_date * 1000)}' data-from='#{getDates(archives.from_date * 1000)}' data-time='#{archives.created_at}' data-autor='#{archives.requester_name}'>#{archives.title}</a>"
+  html += "          </div>"
+  html += "          <span class='spn-label'><i class='fas fa-users'></i></span><div class='div-snapmail-values snapmail-title' title='#{archives.requester_name}'><span class='small-text'>&nbsp;&nbsp;#{archives.requester_name}</span><span class='line-end'></span></div><div class='clear-f'></div>"
+  html += "          <span class='spn-label'><i class='far fa-calendar-alt font-16'></i></span><div class='div-snapmail-values snapmail-title'><span class='small-text'>&nbsp;&nbsp;#{getDates(archives.from_date * 1000)} - #{getDates(archives.to_date * 1000)}</span><span class='line-end'></span></div><div class='clear-f'></div>"
+  html += "          <span class='spn-label'><i class='far fa-clock font-16'></i></span><div class='div-snapmail-values snapmail-title'><span class='small-text'>&nbsp;&nbsp;#{moment(archives.created_at*1000).format("MMMM Do YYYY, H:mm:ss")}</span><span class='line-end'></span></div><div class='clear-f'></div></div>"
+  html += "    </div>"
+  html += "    </div>"
+  html += "</div>"
   html
 
 renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name) ->
@@ -382,7 +396,7 @@ makePublic = ->
         $("#share-link-#{id}").attr("data-ispublic", "false")
       refresh_archive_table()
 
-    if typeArchive is "clip" || typeArchive is "file"
+    if typeArchive isnt "compare"
       settings =
         cache: false
         data: {public: $(this).is(":checked")}
@@ -1528,7 +1542,6 @@ tab_events = ->
   $('.nav-tab-archives').on 'shown.bs.tab', ->
     hide_player_view()
     archives_table.ajax.reload (json) ->
-      $('#archives-table').show()
       $("#no-archive").hide()
 
   $(".nav-tab-archives").on "click", ->

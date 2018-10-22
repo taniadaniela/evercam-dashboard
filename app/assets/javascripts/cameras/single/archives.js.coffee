@@ -73,10 +73,10 @@ initializeArchivesDataTable = ->
       initializePopup() if is_reload
       is_reload = true
       if archives_table
+        archives_data = archives_table.data()
+        initializeArchivesDataBox()
         refreshDataTable()
     initComplete: (settings, json) ->
-      archives_data = json.archives
-      initializeArchivesDataBox()
       getArchiveIdFromUrl()
       $("#archives-table_length").hide()
       $("#archives-table_filter").hide()
@@ -175,6 +175,7 @@ sortByKey = (array, key) ->
     (if (x < y) then -1 else ((if (x > y) then 1 else 0)))
 
 initializeArchivesDataBox = ->
+  $("#archives-box-2").html("")
   archives = sortByKey(archives_data, "created_at").reverse()
   $.each archives_data, (index, archives) ->
     $("#archives-box-2").append getArchivesHtml(archives)
@@ -185,6 +186,8 @@ getTime = (dateBefore, dateAfter) ->
   return diffDays
 
 getArchivesHtml = (archives) ->
+  hide_dates = ""
+  image_html = "<img alt='#{archives.title}' src='#{archives.thumbnail_url}' class='stackimage stackimage-view' style='visibility: visible' id='stackimage-#{archives.title}'></a>"
   if archives.type is "clip"
     fa_class = "<svg width='50' height='50' viewBox='0 0 24 24' fill='none' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
     <polygon points='23 7 16 12 23 17 23 7'></polygon>
@@ -202,12 +205,19 @@ getArchivesHtml = (archives) ->
     file_type = get_file_type(arr.pop())
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     fa_class = "<i class='fa fa-upload type-icon type-icon-url'></i>"
+    hide_dates = "hide"
   else if archives.type is "edit"
+    arr = archives.file_name.split('.')
+    file_type = get_file_type(arr.pop())
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     fa_class = "<i class='fa fa-image type-icon type-icon-url'></i>"
   else
+    arr_host = getHostName(archives.media_url).split('.')
+    domain = arr_host.shift()
     url = archives.media_url
+    image_html = "<div class='stacklink_view'><i class='fab fa-#{domain} #{domain}'></i></div>"
     fa_class = "<i class='fa fa-link type-icon type-icon-url'></i>"
+    hide_dates = "hide"
 
   html = "<div id='dataslot#{archives.id}' class='list-border margin-bottom10'>"
   html += "    <div class='padding-left-0' style='min-height:0px;'>"
@@ -215,14 +225,17 @@ getArchivesHtml = (archives) ->
   html += "             <div class='gravatar-placeholder'><div class='type-icon-alignment-big'>#{fa_class}</div></div>"
   html += "        <div class='snapstack-loading' id='snaps-#{archives.id}' >"
   html += "           <a class='archive-title-color' data-ispublic='#{archives.public}' data-file-type='#{file_type}' data-file-name='#{archives.file_name}' data-status='#{archives.status}' data-camera='#{archives.camera_id}' data-type='#{archives.type}' data-id='#{archives.id}' data-url='#{url}' data-thumbnail='#{archives.thumbnail_url}' data-title='#{archives.title}' data-to='#{getDates(archives.to_date * 1000)}' data-from='#{getDates(archives.from_date * 1000)}' data-time='#{archives.created_at}' data-autor='#{archives.requester_name}'>"
-  html += "             <img alt='#{url}' src='#{archives.thumbnail_url}' class='stackimage stackimage-view' style='visibility: visible' id='stackimage-#{archives.title}'></a>"
+  html += image_html
   html += "        </div>"
   html += "        <div class='card-padding'>"
   html += "        <div class='camera-email'>"
   html += "          <div class='nav-tabs div-archive-values'><a class='archive-title-color' data-file-type='#{file_type}' data-file-name='#{archives.file_name}' data-ispublic='#{archives.public}' data-status='#{archives.status}' data-camera='#{archives.camera_id}' data-type='#{archives.type}' data-id='#{archives.id}' data-url='#{url}' data-thumbnail='#{archives.thumbnail_url}' data-title='#{archives.title}' data-to='#{getDates(archives.to_date * 1000)}' data-from='#{getDates(archives.from_date * 1000)}' data-time='#{archives.created_at}' data-autor='#{archives.requester_name}'>#{archives.title}</a>"
   html += "          </div>"
   html += "          <span class='spn-label'><i class='fas fa-users'></i></span><div class='div-snapmail-values snapmail-title' title='#{archives.requester_name}'><span class='small-text'>&nbsp;&nbsp;#{archives.requester_name}</span><span class='line-end'></span></div><div class='clear-f'></div>"
-  html += "          <span class='spn-label'><i class='far fa-calendar-alt font-16'></i></span><div class='div-snapmail-values snapmail-title'><span class='small-text'>&nbsp;&nbsp;#{getDates(archives.from_date * 1000)} - #{getDates(archives.to_date * 1000)}</span><span class='line-end'></span></div><div class='clear-f'></div>"
+  if archives.type is "edit"
+    html += "          <span class='spn-label'><i class='far fa-calendar-alt font-16'></i></span><div class='div-snapmail-values snapmail-title'><span class='small-text'>&nbsp;&nbsp;#{moment.tz(archives.from_date * 1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')}</span><span class='line-end'></span></div><div class='clear-f'></div>"
+  else
+    html += "          <span class='spn-label'><i class='far fa-calendar-alt font-16'></i></span><div class='div-snapmail-values snapmail-title #{hide_dates}'><span class='small-text'>&nbsp;&nbsp;#{getDates(archives.from_date * 1000)} - #{getDates(archives.to_date * 1000)}</span><span class='line-end'></span></div><div class='clear-f'></div>"
   html += "          <span class='spn-label'><i class='far fa-clock font-16'></i></span><div class='div-snapmail-values snapmail-title'><span class='small-text'>&nbsp;&nbsp;#{moment(archives.created_at*1000).format("MMMM Do YYYY, H:mm:ss")}</span><span class='line-end'></span></div><div class='clear-f'></div></div>"
   html += "    </div>"
   html += "    </div>"

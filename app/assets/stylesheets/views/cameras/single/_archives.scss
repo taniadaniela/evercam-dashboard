@@ -964,6 +964,22 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   padding-right: 2.5rem;
 }
 
+.stacklink_view {
+  min-width: 270px;
+  font-size: 20px;
+  color: red;
+  height: 213px;
+  width: 100%;
+
+  i {
+    margin-left: 27%;
+    margin-top: 20%;
+    font-size: 5em;
+  }
+  i.youtube { color: red; }
+  i.vimeo { color: $main-color; }
+}
+
 .card-archives {
   background:white;
   border-radius:2px;

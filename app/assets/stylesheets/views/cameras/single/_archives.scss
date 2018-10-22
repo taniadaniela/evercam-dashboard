@@ -184,13 +184,9 @@ div.disabled > a {
   }
 
   .social-media-icon {
-    width: 76px;
-    height: 50px;
+    width: 60px;
     float: left;
-    margin-top: 6px;
-    border: solid 1px $main-grey;
     color: black;
-    padding-left: 5px;
 
     i { font-size: 50px; }
     i.youtube { color: red; }
@@ -966,6 +962,22 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   height: 213px;
   width: 100%;
   padding-right: 2.5rem;
+}
+
+.stacklink_view {
+  min-width: 270px;
+  font-size: 20px;
+  color: red;
+  height: 213px;
+  width: 100%;
+
+  i {
+    margin-left: 27%;
+    margin-top: 20%;
+    font-size: 5em;
+  }
+  i.youtube { color: red; }
+  i.vimeo { color: $main-color; }
 }
 
 .card-archives {

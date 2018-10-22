@@ -174,7 +174,8 @@
 #fullscreen:hover .ptz-controls {
   opacity: 1;
 }
-.play-options{
+.play-options,
+.offline-edit {
   position: absolute;
   opacity: 0;
   top: 50%;
@@ -186,7 +187,8 @@
   margin-top: -5px;
 }
 
-.btn-live-player {
+.btn-live-player,
+.edit-offline-image {
   float: left;
   padding: 8px 11px;
   background: rgba(0,0,0,0.7);
@@ -197,9 +199,16 @@
   margin-right: 5px;
   cursor: pointer;
 }
-.btn-live-player:hover {
+
+.btn-live-player:hover,
+.edit-offline-image:hover {
   background: #68a2d5;
 }
+
+.offline-camera-placeholder:hover .offline-edit {
+  opacity: 1;
+}
+
 .refresh-live-snap{
   bottom: 9px;
   left: 68px;

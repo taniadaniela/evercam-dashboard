@@ -122,6 +122,7 @@ class CamerasController < ApplicationController
         :nvr_http_port => params["nvr_port"],
         :internal_rtsp_port => params['local_rtsp'],
         :jpg_url => params['snapshot'],
+        :h264_url => params['rtsp'],
         :vendor => params['camera_vendor'],
         :model => params['camera_vendor'].blank? ? '' : params['camera_model'],
         :location_lat => params['cameraLat'],

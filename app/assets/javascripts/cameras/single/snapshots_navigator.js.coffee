@@ -1192,6 +1192,7 @@ detectMobile = ->
   mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
   if mobile
     $('#snapshot-magnifier').hide()
+    $('#edit-recording-image').hide()
 
 centerSaveIcon = ->
   tab_width = $("#recording-tab").width()

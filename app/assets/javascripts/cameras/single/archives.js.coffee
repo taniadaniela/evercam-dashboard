@@ -967,6 +967,9 @@ modal_events = ->
     media_time = $(this).attr('data-time')
     media_ispublic = $(this).attr('data-ispublic')
     newTime = moment.tz(media_time * 1000, Evercam.Camera.timezone)
+    $("#archive_delete_view").attr("camera_id", camera_id)
+    $("#archive_delete_view").attr("archive_id", id)
+    $("#archive_delete_view").attr("archive_type", type)
 
     if Evercam.Camera.has_edit_right || requested_by is Evercam.User.username
       $("#popup-delete-view").show()

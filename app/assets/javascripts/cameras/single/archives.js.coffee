@@ -12,6 +12,7 @@ imagesCompare = undefined
 is_reload = true
 is_list_view = true
 pagination = false
+archive_id_from_url = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -74,29 +75,151 @@ initializeArchivesDataTable = ->
       is_reload = true
       if archives_table
         archives_data = archives_table.data()
+        load_archive_view_by_id(archives_data)
+        table_init_complete(archives_data)
         initializeArchivesDataBox()
         refreshDataTable()
     initComplete: (settings, json) ->
-      getArchiveIdFromUrl()
-      $("#archives-table_length").hide()
-      $("#archives-table_filter").hide()
-      if json.archives.length is 0
-        $('#archives-table_paginate, #archives-table_info').hide()
-        $('#archives-table').hide()
-        span = $("<span>")
-        span.append($(document.createTextNode("There are no clips.")))
-        span.attr("id", "no-archive")
-        $('#archives-table_wrapper .col-sm-12').append(span)
-      else if json.archives.length < 50
-        $("#archives-table_info").hide()
-        $('#archives-table_paginate').hide()
-        pagination = false
-      else if json.archives.length >= 50
-        $("#archives-table_info").show()
-        $('#archives-table_paginate').show()
-        pagination = true
-      true
+      table_init_complete(json.archives)
   })
+
+table_init_complete = (archives) ->
+  $("#archives-table_length").hide()
+  $("#archives-table_filter").hide()
+  if archives.length is 0
+    $('#archives-table_paginate, #archives-table_info').hide()
+    $('#archives-table').hide()
+    span = $("<span>")
+    span.append($(document.createTextNode("There are no clips.")))
+    span.attr("id", "no-archive")
+    $('#archives-table_wrapper .col-sm-12').append(span)
+  else if archives.length < 50
+    $("#archives-table_info").hide()
+    $('#archives-table_paginate').hide()
+    pagination = false
+  else if archives.length >= 50
+    $("#archives-table_info").show()
+    $('#archives-table_paginate').show()
+    pagination = true
+
+load_archive_view_by_id = (archives) ->
+  if archive_id_from_url
+    archive = search_by_id(archives, archive_id_from_url)
+    $("#archive_url_link_#{archive_id}").click()
+    archive_id_from_url = null
+
+    id = archive.id
+    file_name = archive.file_name
+    file_type = null
+    type = archive.type
+    status = archive.status
+    camera_id = archive.camera_id
+    media_url = get_media_url(id, camera_id, file_name, archive.media_url, type)
+    media_title = archive.title
+    media_autor = archive.requester_name
+    requested_by = archive.requested_by
+    media_from = moment.tz(archive.from_date*1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
+    media_to = moment.tz(archive.to_date*1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
+    media_thumbnail = archive.thumbnail_url
+    media_time = archive.created_at
+    media_ispublic = "#{archive.public}"
+    newTime = moment.tz(media_time * 1000, Evercam.Camera.timezone)
+
+    if Evercam.Camera.has_edit_right || requested_by is Evercam.User.username
+      $("#popup-delete-view").show()
+    else
+      $("#popup-delete-view").hide()
+
+    if type is "compare"
+      $("#archive-play video").attr("loop", "true")
+    else
+      $("#archive-play video").attr("loop", "false")
+
+    if type is "clip" || type is "compare" || type is "url" || type is "file" || type is "edit"
+      update_request_url(id)
+      $('#archives-table_paginate').hide()
+      $("#archives-table_info").hide()
+      $("#toggle-tabs").hide()
+      $("#archives-table").hide()
+      $("#archives-box").show()
+      $("#back-archives").show()
+      $("#back-button").show()
+      $("#camera-video-archive").show()
+      $(".archive-tabs").hide()
+      $(".hide-add-button").hide()
+      $("#archives-box-2").hide()
+      $(".stackimage").removeClass("stackimage-view")
+      $(".stackimage").addClass("stackimage-player")
+      $("#archives-tab").removeClass("margin-top-15")
+      $('#txt_title').text(media_title)
+      $('#archive-autor').html("Requested by: #{media_autor}</br>")
+      $('#archive-dates').html("From #{media_from} to #{media_to}</br>")
+      $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
+      $("#archives").css("width", "80%")
+      $("#archives").css("margin-left", "10%")
+      $("#txt-archive-type").val(type)
+      $("#txt-archive-id").val(id)
+      $("#txt-archive-title").val(media_title)
+      $('.hide-add-button').hide()
+      $('#player-buttons').empty()
+      $('#player-buttons').append renderplayerbuttons(requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name)
+      calculateHeight()
+
+      if type is "url"
+        $("#archive-play").hide()
+        $("#file_upload_viewer").hide()
+        $("#archive-dates").hide()
+        $("#iframe_archive").show()
+        info_total = $("#back-button").height() + $("#info-archive").height() + $(".player-header").height() + $("#ul-nav-tab").height() + 52
+        view_height = Metronic.getViewPort().height
+        $("#iframe_archive").height(view_height - info_total)
+        $('#iframe_archive').prop('src', convert_to_embed_url(media_url))
+      else if type is "file" || type is "edit"
+        arr = file_name.split('.')
+        file_type = get_file_type(arr.pop())
+        $("#iframe_archive").hide()
+        $('#archive-dates').html("Cloud Recordings #{media_from}</br>")
+        if type is "file"
+          $("#archive-dates").hide()
+        if file_type is "image"
+          $("#archive-play").hide()
+          $("#file_upload_viewer").show()
+          $("#file_upload_viewer").attr("src", media_url)
+        else
+          $("#archive-play").show()
+          $("#file_upload_viewer").hide()
+          load_player(media_thumbnail, media_url)
+      else
+        $("#file_upload_viewer").hide()
+        $("#iframe_archive").hide()
+        $("#archive-play").show()
+        $("#archive-dates").show()
+        load_player(media_thumbnail, media_url)
+
+search_by_id = (archives, archive_id) ->
+  found_archive = null
+  $.each archives, (i, archive) ->
+    if archive.id is archive_id
+      found_archive = archive
+  return found_archive
+
+get_media_url = (id, camera_id, file_name, media_url, type) ->
+  url = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{id}.mp4?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+
+  if type is "url"
+    url = media_url
+  else if type is "edit"
+    url = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+  else if type is "file"
+    url = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+  else if type is "compare"
+    url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}.mp4?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
+  return url
+
+getArchiveIdFromUrl = ->
+  archive_id_from_url = window.Evercam.request.subpath.
+    replace(RegExp("archives", "g"), "").
+    replace(RegExp("/", "g"), "")
 
 hover_thumbnail = ->
   $("#archives-tab").on "mousemove", ".gravatar", (ev) ->
@@ -505,7 +628,7 @@ getTitle = (row, type, set, meta) ->
 
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'>#{fa_class}</div><div class='float-left'></div>
       <div class='username-id'>
-      <a class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-id='#{row.id}' data-url='#{mp4Url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
+      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-id='#{row.id}' data-url='#{mp4Url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       <br /><small class='blue'>From #{renderFromDate(row, type, set, meta)} to #{renderToDate(row, type, set, meta)}</small></div></div>
       <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
       <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
@@ -942,13 +1065,6 @@ window.on_export_compare = ->
   $("#no-archive").hide()
   refreshDataTable()
 
-getArchiveIdFromUrl = ->
-  archive_id = window.Evercam.request.subpath.
-    replace(RegExp("archives", "g"), "").
-    replace(RegExp("/", "g"), "")
-  if archive_id
-    $("#archive_link_#{archive_id}").trigger("click")
-
 modal_events = ->
   $("#archives").on "click", ".archive-title-color", ->
     id = $(this).attr("data-id")
@@ -1009,6 +1125,7 @@ modal_events = ->
       $('.hide-add-button').hide()
       $('#player-buttons').empty()
       $('#player-buttons').append renderplayerbuttons(requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name)
+      calculateHeight()
 
       if type is "url"
         $("#archive-play").hide()
@@ -1024,7 +1141,7 @@ modal_events = ->
         $('#archive-dates').html("Cloud Recordings #{media_from}</br>")
         if type is "file"
           $("#archive-dates").hide()
-        calculateHeight()
+
         if file_type is "image"
           $("#archive-play").hide()
           $("#file_upload_viewer").show()
@@ -1053,9 +1170,7 @@ modal_events = ->
     else
       $("#div_shares").hide()
     if type isnt undefined
-      root_url = "#{Evercam.request.rootpath}/archives/#{id}"
-      if history.replaceState
-        window.history.replaceState({}, '', root_url)
+      update_request_url(id)
     query_string = $("#archive_embed_code#{id}").val()
     if type is "url"
       showArchiveUrlSaveButton()
@@ -1094,9 +1209,7 @@ modal_events = ->
       $("#archive-thumbnail").attr("src", $("#txtArchiveThumb#{id}").val())
       $("#row-mp4").show()
 
-      # $(".div-thumbnail").hide() if type isnt "url"
       if type is "file" || type is "edit"
-        # $(".div-thumbnail").hide()
         $("#row-frames").hide()
         $("#row-duration").hide()
         $("#row-mp4").hide()
@@ -1123,15 +1236,11 @@ modal_events = ->
     archive_js_player.reset()
     $("#row-compare").html("")
     imagesCompare = undefined
-    url = "#{Evercam.request.rootpath}/archives"
-    if history.replaceState
-      window.history.replaceState({}, '', url)
+    update_request_url()
 
   $('#social-media-url-modal').on 'hide.bs.modal', ->
     reset_media_url_form()
-    url = "#{Evercam.request.rootpath}/archives"
-    if history.replaceState
-      window.history.replaceState({}, '', url)
+    update_request_url()
 
 update_request_url = (id) ->
   if id
@@ -1169,7 +1278,7 @@ calculateHeight = ->
   total_height = view_height - info_total
   $("#iframe_archive").height(total_height)
   $("#file_upload_viewer").height(total_height)
-  # $("#archive-play").height(total_height)
+  $("#archive-play").height(total_height)
 
 handleResize = ->
   $(window).resize ->
@@ -1557,7 +1666,8 @@ filter_archives = ->
 
 tab_events = ->
   $('.nav-tab-archives').on 'shown.bs.tab', ->
-    hide_player_view()
+    unless archive_id_from_url
+      hide_player_view()
     archives_table.ajax.reload (json) ->
       $("#no-archive").hide()
 
@@ -1566,6 +1676,7 @@ tab_events = ->
       hide_player_view()
 
 window.initializeArchivesTab = ->
+  getArchiveIdFromUrl()
   window.compare_html = $("#row-compare").html()
   if Evercam.User.username
     archive_js_player = videojs("archive_player")
@@ -1595,7 +1706,6 @@ window.initializeArchivesTab = ->
   detect_validate_url()
   handle_submenu()
   save_media_url()
-  getArchiveIdFromUrl()
   filter_archives()
   update_archive()
   update_url()

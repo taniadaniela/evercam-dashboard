@@ -1,3 +1,38 @@
+<% if @archive_view %>
+  <%= content_for(:title, "Evercam: Archive View") %>
+  <div class="page-content-wrapper">
+    <div class="page-content" id="camera-single">
+      <div class="tab-content">
+        <%= render partial: "cameras/single/public_archive_view" %>
+      </div>
+    </div>
+  </div>
+  <script>
+  window.Evercam.Archive = {
+    id: '<%= @archive['id'] %>',
+    title:'<%= @archive['title'] %>',
+    camera_id: '<%= @archive['camera_id'] %>',
+    type: '<%= @archive['type'] %>',
+    from_date: '<%= @archive['from_date'] %>',
+    to_date: '<%= @archive['to_date'] %>',
+    thumbnail_url: '<%= @archive['thumbnail_url'] %>',
+    status: '<%= @archive['status'] %>',
+    public: '<%= @archive['public'] %>',
+    requester_name: '<%= @archive['requester_name'] %>',
+    requester_email: '<%= @archive['requester_email'] %>',
+    requested_by: '<%= @archive['requested_by'] %>',
+    frames: <%= @archive['frames'] %>,
+    file_name: '<%= @archive['file_name'] %>',
+    embed_time: '<%= @archive['embed_time'] %>',
+    embed_code: '<%= @archive['embed_code'] %>',
+    media_url: '<%= @archive['media_url']%>',
+    created_at: <%= @archive['created_at'] %>
+  };
+  $(document).ready(function () {
+    window.initializePublicArchivesView();
+  });
+</script>
+<% else %>
 <%= content_for(:title, "#{@camera['name']} | Evercam: Camera View") %>
 
 <div class="page-content-wrapper">
@@ -317,3 +352,4 @@
     window.initializeCameraSingle();
   });
 </script>
+<% end %>

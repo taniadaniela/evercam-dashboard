@@ -17,6 +17,7 @@
           </div>
         </li>
       <% end %>
+      <% unless @archive_view %>
       <li class="cameralist-height title">
         <ul class="sub-menu sidebar-cameras-list">
           <% if @cameras %>
@@ -46,6 +47,7 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
       <% if @current_user %>
         <li class="sidebar-line nprogCall">
           <%= link_to cameras_new_path do %>

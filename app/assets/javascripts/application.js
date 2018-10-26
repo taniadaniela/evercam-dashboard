@@ -56,6 +56,7 @@
 //= require forms
 //= require cameras.js
 //= require cameras/single.js
+//= require cameras/single/public_archive_view.js
 //= require cameras/map.js
 //= require cameras/add_camera.js
 //= require user_account.js

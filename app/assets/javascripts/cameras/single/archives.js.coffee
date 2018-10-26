@@ -1316,10 +1316,8 @@ open_window = ->
       when "local"
         $("#archive_create_caption").text("Create Local Recording Clip")
         $("#txtCreateArchiveType").val("true")
-        $('#archive-time').val(getPastOneHour())
       when "cloud"
         $("#archive_create_caption").text("Create Cloud Recording Clip")
-        $('#archive-time').val(getPastOneHour())
         GetSnapshotInfo()
       when "compare"
         $(".nav-tab-compare").tab('show')
@@ -1624,24 +1622,6 @@ save_media_url = ->
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     $.ajax(settings)
-
-getPastOneHour = (d) ->
-  d = moment().tz(Evercam.Camera.timezone)
-  d.hours(d.hours() - 1)
-  return "#{FormatNumTo2(d.hours())}:#{FormatNumTo2(d.minutes())}"
-
-file_drag_drop = ->
-  droppedFiles = false
-  $('.file-drag-drop').on "drag dragstart dragend dragover dragenter dragleave drop", (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-  .on "dragover dragenter", ->
-    $(this).addClass 'is-dragover'
-  .on "dragleave dragend drop", ->
-    $(this).removeClass 'is-dragover'
-  .on 'drop', (e) ->
-    droppedFiles = e.originalEvent.dataTransfer.files
-    showFiles(droppedFiles)
 
 showFiles = (files) ->
   $("#spn-upload-file-name").text if files.length > 1 then (input.getAttribute('data-multiple-caption') or '').replace('{count}', files.length) else files[0].name

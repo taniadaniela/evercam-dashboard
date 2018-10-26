@@ -1192,6 +1192,13 @@ setCreateClipDate = (hour_selected) ->
       $('#archive-time').val "#{hour_selected}:00"
     $('#from-date').val current_calendar_date
 
+  $("#add-button .create-clip-link").on "click", ->
+    d = $("#recording-tab #ui_date_picker_inline").datepicker('getDate')
+    current_calendar_date = moment(d).format('DD/MM/YYYY')
+    if hour_selected
+      $('#archive-time').val "#{hour_selected}:00"
+    $('#from-date').val current_calendar_date
+
 detectMobile = ->
   mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
   if mobile

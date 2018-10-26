@@ -1,6 +1,7 @@
 imagesCompare = undefined
 clearTimeOut = null
 xhrChangeMonth = null
+removeCalendarHighlightflag = false
 
 window.sendRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -42,7 +43,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
         camera_created_year = camera_created_date.getUTCFullYear()
         string_date = "#{before_month}/#{d.getUTCDate()}/#{before_year}"
         camera_created_at = "#{camera_created_year}/#{camera_created_month}/#{camera_created_date.getUTCDate()}"
-        $('#calendar-before').datetimepicker({value: string_date, minDate: camera_created_at, yearStart: camera_created_year})
+        $('#calendar-before').datetimepicker({value: d, minDate: camera_created_at, yearStart: camera_created_year})
         $('#calendar-after').datetimepicker({minDate: camera_created_at, yearStart: camera_created_year})
       if setDate is false && query_string.indexOf("nearest") < 0
         date_after = new Date(snapshot.created_at*1000)
@@ -50,7 +51,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
         after_year = date_after.getUTCFullYear()
         string_after_date = "#{after_year}/#{after_month}/#{date_after.getUTCDate()}"
         $('#calendar-before').datetimepicker({maxDate: string_after_date, yearEnd: after_year})
-        $('#calendar-after').datetimepicker({maxDate: string_after_date, yearEnd: after_year})
+        $('#calendar-after').datetimepicker({value: date_after, maxDate: string_after_date, yearEnd: after_year})
       initCompare() if reload
     else
       Notification.show("No image found")
@@ -144,8 +145,9 @@ HighlightDaysInMonth = (query_string, year, month) ->
     false
 
   onSuccess = (response, status, jqXHR) ->
-    removeCurrentDateHighlight(query_string)
-    removeCurrentHourHighlight(query_string)
+    if removeCalendarHighlightflag is true
+      removeCurrentDateHighlight(query_string)
+      removeCurrentHourHighlight(query_string)
     hideBeforeAfterLoadingAnimation(query_string)
     for day in response.days
       HighlightBeforeAfterDay(query_string, year, month, day)
@@ -169,7 +171,7 @@ HighlightBeforeAfterDay = (query_string, before_year, before_month, before_day) 
     if !beforeDay.parent().hasClass('xdsoft_other_month')
       iDay = parseInt(beforeDay.text())
       if before_day == iDay
-        beforeDay.parent().addClass 'xdsoft_current'
+        beforeDay.parent().addClass 'active-class-css'
 
 HighlightSnapshotHour = (query_string, year, month, date) ->
   data = {}
@@ -180,7 +182,8 @@ HighlightSnapshotHour = (query_string, year, month, date) ->
     false
 
   onSuccess = (response, status, jqXHR) ->
-    removeCurrentHourHighlight(query_string)
+    if removeCalendarHighlightflag is true
+      removeCurrentHourHighlight(query_string)
     hideBeforeAfterLoadingAnimation(query_string)
     for hour in response.hours
       HighlightBeforeAfterHour(query_string, year, month, date, hour)
@@ -207,11 +210,11 @@ HighlightBeforeAfterHour = (query_string, before_year, before_month, before_day,
       beforeHour.addClass 'active-class-css'
 
 removeCurrentHourHighlight = (query_string) ->
-  beforeHours = $("##{query_string} .xdsoft_timepicker [class*='xdsoft_time']")
+  beforeHours = $("##{query_string} .xdsoft_timepicker div[class*='xdsoft_time']")
   beforeHours.removeClass 'xdsoft_current'
 
 removeCurrentDateHighlight = (query_string) ->
-  beforeDays = $("##{query_string} .xdsoft_datepicker table td[class*='xdsoft_date']")
+  beforeDays = $("##{query_string} .xdsoft_calendar table td[class*='xdsoft_date']")
   beforeDays.removeClass 'xdsoft_current'
 
 showBeforeAfterLoadingAnimation = (query_string) ->
@@ -371,7 +374,6 @@ window.initializeCompareTab = ->
   getFirstLastImages("compare_before", "/oldest", false, true)
   getFirstLastImages("compare_after", "/latest", false, false)
   handleTabOpen()
-  removeCurrentDateHighlight()
   export_compare()
   cancelForm()
   clickToCopy()
@@ -395,20 +397,24 @@ window.initializeCompareTab = ->
       xhrChangeMonth.abort()
       month = dp.getMonth() + 1
       year = dp.getFullYear()
-      removeCurrentHourHighlight("before-calendar")
+      removeCalendarHighlightflag = true
       HighlightDaysInMonth("before-calendar", year, month)
       showBeforeAfterLoadingAnimation("before-calendar")
     onSelectDate: (ct, $i) ->
       month = ct.getMonth() + 1
       year = ct.getFullYear()
       date = ct.getDate()
+      removeCalendarHighlightflag = true
       HighlightSnapshotHour("before-calendar", year, month, date)
       HighlightDaysInMonth("before-calendar", year, month)
       showBeforeAfterLoadingAnimation("before-calendar")
     onShow: (current_time, $input) ->
       month = current_time.getMonth() + 1
       year = current_time.getFullYear()
+      date = current_time.getDate()
+      removeCalendarHighlightflag = false
       HighlightDaysInMonth("before-calendar", year, month)
+      HighlightSnapshotHour("before-calendar", year, month, date)
       showBeforeAfterLoadingAnimation("before-calendar")
 
   $('#calendar-after').datetimepicker
@@ -429,18 +435,22 @@ window.initializeCompareTab = ->
       xhrChangeMonth.abort()
       month = dp.getMonth() + 1
       year = dp.getFullYear()
-      removeCurrentHourHighlight("after-calendar")
+      removeCalendarHighlightflag = true
       HighlightDaysInMonth("after-calendar", year, month)
       showBeforeAfterLoadingAnimation("after-calendar")
     onSelectDate: (ct, $i) ->
       month = ct.getMonth() + 1
       year = ct.getFullYear()
       date = ct.getDate()
+      removeCalendarHighlightflag = true
       HighlightSnapshotHour("after-calendar", year, month, date)
       HighlightDaysInMonth("after-calendar", year, month)
       showBeforeAfterLoadingAnimation("after-calendar")
     onShow: (current_time, $input) ->
       month = current_time.getMonth() + 1
       year = current_time.getFullYear()
+      date = current_time.getDate()
+      removeCalendarHighlightflag = false
       HighlightDaysInMonth("after-calendar", year, month)
+      HighlightSnapshotHour("after-calendar", year, month, date)
       showBeforeAfterLoadingAnimation("after-calendar")

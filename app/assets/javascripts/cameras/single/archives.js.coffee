@@ -852,16 +852,18 @@ createClip = ->
       $("#create_clip_button").removeAttr 'disabled'
 
     onSuccess = (data, status, jqXHR) ->
-      if $("#txtCreateArchiveType").val() isnt ""
-        window.vjs_player_local.pause()
-        $("#clip-create-message").show()
+      $('#archive-modal').modal('hide')
+      NProgress.done()
+      $("#create_clip_button").removeAttr 'disabled'
       archives_table.ajax.reload (json) ->
         $('#archives-table').show()
         $("#no-archive").hide()
-        NProgress.done()
         formReset()
         setDate()
         $("#create_clip_button").removeAttr 'disabled'
+      if $("#txtCreateArchiveType").val() isnt ""
+        window.vjs_player_local.pause()
+        $("#clip-create-message").show()
 
     settings =
       cache: false

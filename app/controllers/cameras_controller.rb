@@ -169,6 +169,7 @@ class CamerasController < ApplicationController
       if params[:api_id] and params[:api_key]
         authenticate_user!
       end
+      @archive_view = false
       api = get_evercam_api
       if @current_user
         @cameras = load_user_cameras(true, false)
@@ -193,19 +194,30 @@ class CamerasController < ApplicationController
           @owner = current_user
         end
       end
-      @camera = api.get_camera(params[:id], true) if @camera.nil?
+
+      params_subpath = params.fetch('subpath', '')
+      tab_name = params_subpath.split('/').first
+      archive_id = params_subpath.split('/').last
+      if @current_user.nil? && !tab_name.eql?(archive_id)
+        @archive_view = true
+        @archive = api.get_archive(params[:id], archive_id)
+      else
+        @camera = api.get_camera(params[:id], true) if @camera.nil?
+        @camera['is_online'] = false if @camera['is_online'].blank?
+        @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
+        time = ActiveSupport::TimeZone.new(@camera['timezone'])
+        @camera['timezone'] = 'Etc/UTC' unless time.utc_offset % 3600 == 0
+        time_zone = TZInfo::Timezone.get(@camera['timezone'])
+        current = time_zone.current_period
+        @offset = current.utc_offset + current.std_offset
+      end
+
       @page = (params[:page].to_i - 1) || 0
       @types = ['accessed', 'viewed', 'edited', 'captured',
         'shared', 'stopped sharing', 'online', 'offline',
         'cloud recordings updated', 'cloud recordings created',
         'archive created', 'archive deleted']
-      @camera['is_online'] = false if @camera['is_online'].blank?
-      time = ActiveSupport::TimeZone.new(@camera['timezone'])
-      @camera['timezone'] = 'Etc/UTC' unless time.utc_offset % 3600 == 0
-      time_zone = TZInfo::Timezone.get(@camera['timezone'])
-      current = time_zone.current_period
-      @offset = current.utc_offset + current.std_offset
-      @has_edit_rights = @camera["rights"].split(",").include?("edit") if @camera["rights"]
+
       @camera_shares = nil
       @share_requests = nil
       @cloud_recording = @camera["cloud_recordings"] if @has_edit_rights
@@ -219,6 +231,7 @@ class CamerasController < ApplicationController
       @snapshot_navigator = false
       @ip = request.remote_ip
     rescue => error
+
       if error.try(:status_code).present? && error.status_code.equal?(404)
         redirect_to cameras_not_found_path
       else

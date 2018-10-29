@@ -464,11 +464,13 @@ renderbuttons = (row, type, set, meta) ->
 rendersharebuttons = (row, type, set, meta) ->
   div = $('<div>', {class: "form-group"})
   url = ""
+  play_url = ""
   if row.status is "Completed"
     if row.type is "url"
       return ''
     else
       url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
+      play_url = "https://dash.evercam.io/v1/cameras/#{row.camera_id}/clip/#{row.id}/play"
       download_link = '<div class="float-left"><a class="archive-actions download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
       copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
 
@@ -478,6 +480,7 @@ rendersharebuttons = (row, type, set, meta) ->
       else if row.type is "compare"
         main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
         url = "#{main_url}.mp4"
+        play_url = "https://dash.evercam.io/v1/cameras/#{row.camera_id}/compare/#{row.id}/play"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
                         '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
                           '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
@@ -488,9 +491,9 @@ rendersharebuttons = (row, type, set, meta) ->
                         "</div>"
 
       if row.public
-        return download_link + '<div class="enabled share-buttons"><div class="dropdown"><a href="http://www.facebook.com/sharer.php?u=' + url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>' +
-            '<a href="http://www.linkedin.com/shareArticle?url=' + url + '&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
-            '<a href="http://twitter.com/share?url=' + url + '&text=This is an archive from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a></div>' +
+        return download_link + '<div class="enabled share-buttons"><div class="dropdown"><a href="http://www.facebook.com/sharer.php?u=' + play_url + '" class="archive-actions" target="_blank" title="Facebook" data-width="1280" data-height="720"><i class="fab fa-facebook-f"></i></a>' +
+            '<a href="http://www.linkedin.com/shareArticle?url=' + play_url + '&title=My photo&summary=This is a photo from evercam" class="archive-actions" target="_blank" title="Linkedin" data-width="1280" data-height="720"><i class="fab fa-linkedin-in"></i></a>' +
+            '<a href="http://twitter.com/share?url=' + play_url + '&text=This is an archive from evercam&via=evrcm" class="archive-actions" target="_blank" title="Twitter" data-width="1280" data-height="720"><i class="fab fa-twitter"></i></a></div>' +
             copy_url_link + div.html()
       else
         return download_link + '<div class="disabled share-buttons">'+

@@ -266,7 +266,9 @@ export_compare = ->
       api_key: Evercam.User.api_key
       name: name
       before_date: $("#compare_before").attr("timestamp")
+      before_image: $("#compare_before").attr("src")
       after_date: $("#compare_after").attr("timestamp")
+      after_image: $("#compare_after").attr("src")
       embed: embed_code
       exid: exid
       create_animation: true

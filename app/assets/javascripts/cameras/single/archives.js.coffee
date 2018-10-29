@@ -1059,7 +1059,7 @@ refreshDataTable = ->
   if ($.inArray('Pending', status)) != -1
     setTimeout archives_table.ajax.reload, 60000
   else if ($.inArray('Processing', status)) != -1
-    setTimeout archives_table.ajax.reload, 30000
+    setTimeout archives_table.ajax.reload, 20000
 
 window.on_export_compare = ->
   archives_table.ajax.reload()

@@ -138,8 +138,13 @@ onShare = ->
     file_type = null
 
     $("#div_shares").show()
-    query_string = Evercam.Archive.embed_code
-
+    embed_code = $("#archive_embed_code").val()
+    start_index = embed_code.indexOf("#{camera_id}")
+    if embed_code.indexOf("autoplay") > 0
+      end_index = embed_code.indexOf("autoplay")
+    else
+      end_index = embed_code.indexOf("'></script>")
+    query_string = embed_code.substring(start_index, end_index) if embed_code
 
     url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}"
     mp4_url_value = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{id}"
@@ -147,12 +152,8 @@ onShare = ->
     $("#archive_gif_url").val("#{url}.gif")
     $("#archive_mp4_url").val("#{mp4_url_value}.mp4")
     $("#social_media_url").val("#{media_url}")
-    code = "<div id='evercam-compare'></div><script src='#{window.location.origin}/assets/evercam_compare.js' class='#{query_string} autoplay'></script>"
-    $("#archive_embed_code").val(code)
     $("#div_frames").text(Evercam.Archive.frames)
     $("#div_duration").text(renderDuration(type, Evercam.Archive.from_date, Evercam.Archive.to_date))
-    # $("#txt_title").val(Evercam.Archive.title)
-    # $("#media_title_title").val($("#{}").text())
 
     share_url = media_url
     $("#share-buttons-new a.facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
@@ -178,8 +179,8 @@ onShare = ->
       $("#row-compare").html(window.compare_html)
       params = query_string.split(" ")
       bucket_url = "https://s3-eu-west-1.amazonaws.com/evercam-camera-assets/"
-      before_image = "#{bucket_url}#{Evercam.Camera.id}/compares/#{params[3]}/start-#{params[1]}.jpg?#{Math.random()}"
-      after_image = "#{bucket_url}#{Evercam.Camera.id}/compares/#{params[3]}/end-#{params[2]}.jpg?#{Math.random()}"
+      before_image = "#{bucket_url}#{camera_id}/compares/#{params[3]}/start-#{params[1]}.jpg?#{Math.random()}"
+      after_image = "#{bucket_url}#{camera_id}/compares/#{params[3]}/end-#{params[2]}.jpg?#{Math.random()}"
       $("#archive_compare_before").attr("src", before_image)
       $("#archive_compare_after").attr("src", after_image)
       $("#row-frames").hide()

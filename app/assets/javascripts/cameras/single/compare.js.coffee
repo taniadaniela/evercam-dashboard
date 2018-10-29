@@ -284,8 +284,8 @@ export_compare = ->
       $("#row-textarea").removeClass("hide")
       $("#row-message").removeClass("hide")
       $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").addClass("hide")
-      $("#gif_url").val(response.compares[0].gif_url.replace("media.evercam.io", "api.evercam.io"))
-      $("#mp4_url").val(response.compares[0].mp4_url.replace("media.evercam.io", "api.evercam.io"))
+      $("#gif_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif".replace("media.evercam.io", "api.evercam.io"))
+      $("#mp4_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif".replace("media.evercam.io", "api.evercam.io"))
       window.on_export_compare()
       clearTimeOut = setTimeout( ->
         auto_check_compare_status(response.compares[0].id, 0)

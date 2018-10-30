@@ -1194,11 +1194,11 @@ modal_events = ->
     $("#txt_title").val($("#txtArchiveTitle#{id}").val())
     $("#media_title_title").val($("#archive_url_link_#{id}").text())
 
-    share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
+    share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/clip/#{id}/play"
     if type is "file" || type is "edit"
       share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{file_name}"
     else if type is "compare"
-      share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{id}.mp4"
+      share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/compare/#{id}/play"
 
     $("#share-buttons-new a.facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
     $("#share-buttons-new a.whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")

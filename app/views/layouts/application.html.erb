@@ -11,6 +11,8 @@
   <%= render partial: "shared/favicon" %>
   <% if @camera %>
     <%= render partial: "shared/ogp_metadata" %>
+  <% elsif @archive_view %>
+    <%= render partial: "shared/ogp_metadata_archives" %>
   <% end %>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>

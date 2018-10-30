@@ -476,6 +476,7 @@ rendersharebuttons = (row, type, set, meta) ->
 
       if row.type is "file" || row.type is "edit"
         url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}"
+        play_url = url
         copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
       else if row.type is "compare"
         main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"

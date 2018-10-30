@@ -201,6 +201,12 @@ class CamerasController < ApplicationController
       if @current_user.nil? && !tab_name.eql?(archive_id)
         @archive_view = true
         @archive = api.get_archive(params[:id], archive_id)
+        @camera_id = @archive['camera_id']
+        @archive_id = @archive['id']
+        @archive_type = "clip"
+        if @archive['type'].eql?("compare")
+          @archive_type = "compare"
+        end
       else
         @camera = api.get_camera(params[:id], true) if @camera.nil?
         @camera['is_online'] = false if @camera['is_online'].blank?

@@ -450,7 +450,7 @@ renderbuttons = (row, type, set, meta) ->
       "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
       mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}"
-      view_url = "clip/#{row.id}/play"
+      view_url = "archives/#{row.id}/play"
       copy_url = ""
 
       return '<div class="dropdown">' +
@@ -470,7 +470,7 @@ rendersharebuttons = (row, type, set, meta) ->
       return ''
     else
       url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
-      play_url = "https://dash.evercam.io/v1/cameras/#{row.camera_id}/clip/#{row.id}/play"
+      play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
       download_link = '<div class="float-left"><a class="archive-actions download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
       copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
 
@@ -481,7 +481,7 @@ rendersharebuttons = (row, type, set, meta) ->
       else if row.type is "compare"
         main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
         url = "#{main_url}.mp4"
-        play_url = "https://dash.evercam.io/v1/cameras/#{row.camera_id}/compare/#{row.id}/play"
+        play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
                         '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
                           '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
@@ -553,12 +553,13 @@ makePublic = ->
 
 getCompareButtons = (div, row) ->
   animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
+  play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
   view_url = ""
   copy_url = ""
   return '<div class="dropdown">' +
     '<a class="margin-right12 archive-actions" href="javascript:;" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
     '<ul class="dropdown-menu"><li><a class="play-clip" href="javascript:;" title="Play GIF" data-width="1280" data-height="720" play-url="' + animation_url + '.gif"><i class="fa fa-play-circle"></i> GIF</a></li>'+
-      '<li><a class="play-clip" href="javascript:;" title="Play MP4" data-width="1280" data-height="720" play-url="' + animation_url + '.mp4"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
+      '<li><a class="play-clip" href="javascript:;" title="Play MP4" data-width="1280" data-height="720" play-url="' + play_url + '"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
     '</div>' +
     '<input id="gif-' + row.id + '" value= "' + animation_url + '.gif" type="hidden">' +
     '<input id="mp4-' + row.id + '" value= "' + animation_url + '.mp4" type="hidden">' +
@@ -1194,11 +1195,9 @@ modal_events = ->
     $("#txt_title").val($("#txtArchiveTitle#{id}").val())
     $("#media_title_title").val($("#archive_url_link_#{id}").text())
 
-    share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/clip/#{id}/play"
+    share_url = "#{document.location.origin}/v1/cameras/#{Evercam.Camera.id}/archives/#{id}/play"
     if type is "file" || type is "edit"
       share_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{file_name}"
-    else if type is "compare"
-      share_url = "https://dash.evercam.io/v1/cameras/#{Evercam.Camera.id}/compare/#{id}/play"
 
     $("#share-buttons-new a.facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
     $("#share-buttons-new a.whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")

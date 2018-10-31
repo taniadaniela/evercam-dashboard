@@ -42,12 +42,12 @@ class PagesController < ApplicationController
     api = get_evercam_api
     @archive = api.get_archive(params[:id], @archive_id)
 
-    if @archive_type == "compare"
+    if @archive['type'].eql?("compare")
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:archive_id]}.mp4"
     else
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:archive_id]}.mp4"
       if current_user
-        @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:archive_id]}.mp4?api_key=#{current_user.api_key}&api_id=#{current_user.api_id}"
+        @mp4_url = "#{@mp4_url}?api_key=#{current_user.api_key}&api_id=#{current_user.api_id}"
       end
     end
     render layout: "bare-bones"

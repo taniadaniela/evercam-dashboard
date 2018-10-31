@@ -155,11 +155,9 @@ onShare = ->
     $("#div_frames").text(Evercam.Archive.frames)
     $("#div_duration").text(renderDuration(type, Evercam.Archive.from_date, Evercam.Archive.to_date))
 
-    share_url = "https://dash.evercam.io/v1/cameras/#{camera_id}/clip/#{id}/play"
+    share_url = "#{document.location.origin}/v1/cameras/#{camera_id}/archives/#{id}/play"
     if type is "file" || type is "edit"
       share_url = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{file_name}"
-    else if type is "compare"
-      share_url = "https://dash.evercam.io/v1/cameras/#{camera_id}/compare/#{id}/play"
 
     $("#share-buttons-new a.facebook").attr("href", "http://www.facebook.com/sharer.php?u=#{share_url}")
     $("#share-buttons-new a.whatsapp").attr("href", "https://web.whatsapp.com/send?text=#{share_url}")

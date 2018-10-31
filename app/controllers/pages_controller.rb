@@ -39,6 +39,9 @@ class PagesController < ApplicationController
     @camera_id = params[:id]
     @archive_id = params[:archive_id]
     @archive_type = params[:archive_type]
+    api = get_evercam_api
+    @archive = api.get_archive(params[:id], @archive_id)
+
     if @archive_type == "compare"
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:archive_id]}.mp4"
     else

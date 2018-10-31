@@ -833,6 +833,9 @@ DoNextImg = ->
         new Date(moment(snapshot.created_at*1000).format('MM/DD/YYYY HH:mm:ss'))
     $("#imgPlayback").attr("src", response.snapshots[0].data)
     $("#imgPlayback").attr("data-timestamp", response.snapshots[0].created_at)
+    if $("#snapshot-magnifier").hasClass 'enabled'
+      $('.zoomWindowContainer').hide()
+      $('.zoomContainer div').css 'background-image', 'url(' + response.snapshots[0].data + ')'
 
     if playDirection is 1 and playStep is 1
       currentFrameNumber++
@@ -1166,6 +1169,7 @@ initElevateZoom = ->
   $("#fullscreen #snapshot-tab-save").hide()
   $('#imgPlayback').elevateZoom
     zoomType: 'lens',
+    responsive: 'true'
     scrollZoom: true,
     lensShape: 'round',
     lensSize: 230

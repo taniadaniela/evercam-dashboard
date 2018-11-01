@@ -1655,6 +1655,7 @@ tab_events = ->
       hide_player_view()
     archives_table.ajax.reload (json) ->
       $("#no-archive").hide()
+      refreshDataTable()
 
   $(".nav-tab-archives").on "click", ->
     if $("#archives-box").css("display") is "block"

@@ -41,8 +41,13 @@ class PagesController < ApplicationController
     @archive_type = params[:archive_type]
     api = get_evercam_api
     @archive = api.get_archive(params[:id], @archive_id)
+    @archive_type = "clip"
 
-    if @archive['type'].eql?("compare")
+    if @archive['type'].eql?("edit") || @archive['type'].eql?("file")
+      upload_type = get_file_type(@archive['file_name'])
+      @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{@archive['file_name']}"
+      @archive_type = "image" if upload_type.eql?("image")
+    elsif @archive['type'].eql?("compare")
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/compares/#{params[:archive_id]}.mp4"
     else
       @mp4_url = "#{EVERCAM_MEDIA_API}cameras/#{params[:id]}/archives/#{params[:archive_id]}.mp4"
@@ -91,5 +96,23 @@ class PagesController < ApplicationController
 
   def good_bye
     render layout: "bare-bones"
+  end
+
+  # private function
+
+  def get_file_type(file_name)
+    image_ext = ["jpg", "jpeg", "bmp", "gif", "png"]
+    video_ext = ["mp4", "ogg", "webm", "avi", "flv", "wmv", "mov"]
+
+    arr = file_name.split('.')
+    extension = arr.pop()
+
+    if image_ext.include?(extension)
+      return "image"
+    elsif video_ext.include?(extension)
+      return "video"
+    else
+      return "unknown"
+    end
   end
 end

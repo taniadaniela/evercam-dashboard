@@ -476,12 +476,10 @@ rendersharebuttons = (row, type, set, meta) ->
 
       if row.type is "file" || row.type is "edit"
         url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}"
-        play_url = url
         copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
       else if row.type is "compare"
         main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
         url = "#{main_url}.mp4"
-        play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
                         '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
                           '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +

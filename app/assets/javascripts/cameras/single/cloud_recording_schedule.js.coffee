@@ -383,6 +383,20 @@ getLastPaused = (duration) ->
 
   $.ajax(settings)
 
+showInfinityMessageButton = ->
+  $('#show-infinity-camera-info').show()
+  $('#show-schedule-calendar').hide()
+
+hideInfinityMessageButton = ->
+  $('#show-schedule-calendar').show()
+  $('#show-infinity-camera-info').hide()
+
+renderRecordingDurationValue = ->
+  if Evercam.Camera.cloud_recording.storage_duration is -1
+    showInfinityMessageButton()
+  else
+    hideInfinityMessageButton()
+
 renderCloudRecordingDuration = ->
   $("#cloud-recording-duration").val(Evercam.Camera.cloud_recording.storage_duration)
   recording_duration_value = $("#cloud-recording-duration :selected").text()
@@ -572,6 +586,7 @@ window.initCloudRecordingSettings = ->
   handleDurationSelect()
   handleFrequencySelect()
   showEditButton()
+  renderRecordingDurationValue()
   handleStatusSelect()
   saveScheduleSettings()
   showRecordingTab()

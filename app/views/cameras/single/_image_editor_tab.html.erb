@@ -33,13 +33,18 @@
           <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></li>
           <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></li>
           <li class="menu-item activatable" id="selection"><i class="far fa-hand-paper fa-1x" aria-hidden="true"></i></li>
-          <li class="menu-item" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
+          <li class="menu-item activatable" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></li>
           <li class="menu-item activatable" id="btn-draw-rect"><i class="far fa-square fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-draw-circle"><i class="far fa-circle fa-1x"></i></li>
           <li class="menu-item icon-text activatable hide" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
           <li class="menu-item activatable" id="btn-text"><i class="fa fa-font fa-1x"></i></li>
+          <li class="menu-item blur-item">
+            <div class="checkbox">
+              <input type="checkbox" id="input-check-blur" /><label class="type-label" for="input-check-blur">Blur</label>
+            </div>
+          </li>
           <li class="menu-item">
             <div class="sub-menu-container menu" id="draw-line-sub-menu">
               <ul class="menu">

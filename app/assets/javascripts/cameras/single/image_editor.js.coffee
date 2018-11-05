@@ -16,3 +16,4 @@ handle_tab_events = ->
 window.initializeImageEditorTab = ->
   handle_tab_events()
   initEditorTool()
+  $("#uniform-input-check-blur").hide()

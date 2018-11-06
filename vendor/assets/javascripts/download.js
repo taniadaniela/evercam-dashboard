@@ -36,14 +36,14 @@
 			blob,
 			reader;
 			myBlob= myBlob.call ? myBlob.bind(self) : Blob ;
-	  
+
 		if(String(this)==="true"){ //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
 			payload=[payload, mimeType];
 			mimeType=payload[0];
 			payload=payload[1];
 		}
 
-
+    console.log(url);
 		if(url && url.length< 2048){ // if no filename and no mime, assume a url was passed as the only argument
 			fileName = url.split("/").pop().split("?")[0];
 			anchor.href = url; // assign href prop to temp anchor
@@ -51,7 +51,7 @@
         		var ajax=new XMLHttpRequest();
         		ajax.open( "GET", url, true);
         		ajax.responseType = 'blob';
-        		ajax.onload= function(e){ 
+        		ajax.onload= function(e){
 				  download(e.target.response, fileName, defaultMime);
 				};
         		setTimeout(function(){ ajax.send();}, 0); // allows setting custom ajax headers using the return:
@@ -62,16 +62,16 @@
 
 		//go ahead and download dataURLs right away
 		if(/^data\:[\w+\-]+\/[\w+\-]+[,;]/.test(payload)){
-		
+
 			if(payload.length > (1024*1024*1.999) && myBlob !== toString ){
 				payload=dataUrlToBlob(payload);
 				mimeType=payload.type || defaultMime;
-			}else{			
+			}else{
 				return navigator.msSaveBlob ?  // IE10 can't do a[download], only Blobs:
 					navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
 					saver(payload) ; // everyone else can save dataURLs un-processed
 			}
-			
+
 		}//end if dataURL passed?
 
 		blob = payload instanceof myBlob ?

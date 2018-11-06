@@ -471,7 +471,7 @@ rendersharebuttons = (row, type, set, meta) ->
     else
       url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
       play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
-      download_link = '<div class="float-left"><a class="archive-actions download-animation archive-icon" href="javascript:;" data-download-target="#mp4clip-' + row.id  + '"><i class="fa fa-download" title="Download MP4"></i></a></div>'
+      download_link = "<div class='float-left'><a class='archive-actions download-animation archive-icon' data-from='#{row.from_date}' data-to='#{row.to_date}' data-type='#{row.type}' href='javascript:;'' data-download-target='#mp4clip-#{row.id}'><i class='fa fa-download' title='Download MP4'></i></a></div>"
       copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
 
       if row.type is "file" || row.type is "edit"
@@ -481,8 +481,8 @@ rendersharebuttons = (row, type, set, meta) ->
         main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
         url = "#{main_url}.mp4"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
-                        '<ul class="dropdown-menu"><li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#gif-' + row.id + '" title="Download GIF"><i class="fa fa-download"></i> GIF</li></a>'+
-                          '<li><a class="download-animation archive-icon" href="javascript:;" data-download-target="#mp4-' + row.id  + '" title="Download MP4"><i class="fa fa-download "></i> MP4</a></li></ul>' +
+                        "<ul class='dropdown-menu'><li><a class='download-animation archive-icon' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' href='javascript:;' data-download-target='#gif-#{row.id}' title='Download GIF'><i class='fa fa-download'></i> GIF</li></a>" +
+                          "<li><a class='download-animation archive-icon' href='javascript:;' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' data-download-target='#mp4-#{row.id}' title='Download MP4'><i class='fa fa-download'></i> MP4</a></li></ul>" +
                         '</div>'
         copy_url_link = "<div class='dropdown'><a class='archive-actions dropdown-toggle' href='#'' data-toggle='dropdown' title='Download'><i class='fas fa-link'></i></a>" +
                         "<ul class='dropdown-menu'><li><a class='share-archive archive-icon' href='javascript:;' play-url='#{main_url}.gif' title='Copy GIF URL'><i class='fas fa-link'></i> GIF</li></a>" +
@@ -958,11 +958,32 @@ playClip = ->
 
   $("#archives-box, #archives-table").on "click", ".download-animation", ->
     src_id = $(this).attr("data-download-target")
+    type = $(this).attr("data-type")
+    from = moment.tz(parseInt($(this).attr("data-from"))*1000, Evercam.Camera.timezone).format('MMDDYYYY-HHmmss')
+    to = moment.tz(parseInt($(this).attr("data-to"))*1000, Evercam.Camera.timezone).format('MMDDYYYY-HHmmss')
+    camera_name = Evercam.Camera.name.replace(/ /g, "-")
+    if type is "edit"
+      file_name = "Evercam-Snapshot-#{camera_name}-#{from}"
+    else if type is "compare"
+      file_name = "Evercam-Compare-#{camera_name}-From-#{from}-To-#{to}"
+    else if type is "clip"
+      file_name = "Evercam-Clip-#{camera_name}-From-#{from}-To-#{to}"
+    else
+      file_name = "Evercam-File-#{camera_name}-From-#{from}-To-#{to}"
     NProgress.start()
-    download("#{$("#{src_id}").val()}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}")
-    setTimeout( ->
-      NProgress.done()
-    , 4000)
+
+    download_archive("#{$("#{src_id}").val()}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}", file_name)
+
+download_archive = (url, name, opts) ->
+  xhr = new XMLHttpRequest()
+  xhr.open('GET', url)
+  xhr.responseType = 'blob'
+  xhr.onload = ->
+    saveAs(xhr.response, name, opts)
+    NProgress.done()
+  xhr.onerror = ->
+    console.error('could not download file')
+  xhr.send()
 
 cancelForm = ->
   $('#archive-modal').on 'hidden.bs.modal', ->

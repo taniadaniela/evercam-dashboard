@@ -101,7 +101,7 @@ initializeDataTable = ->
     autoWidth: false,
     info: false,
     bPaginate: false,
-    pageLength: 100
+    pageLength: 50
     "language": {
       "emptyTable": "No data available"
     },

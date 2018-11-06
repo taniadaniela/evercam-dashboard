@@ -50,9 +50,9 @@
             <input type="hidden" id="txt-archive-type">
             <input type="hidden" id="txt-archive-id">
             <input type="hidden" id="txt-archive-title">
-            <a id="edit-archive-title"><i class="fas fa-pencil-alt" style="font-size:17px;"></i></a>
-            <a style="display: none" id="update-archive"><i class="far fa-save"></i></a>
-            <a style="display: none" id="cancel-title"><i class="fas fa-times"></i></a>
+            <a id="edit-archive-title"><i class="fas fa-pencil-alt font-16"></i></a>
+            <a style="display: none" id="update-archive"><i class="far fa-save font-16"></i></a>
+            <a style="display: none" id="cancel-title"><i class="fas fa-times font-16"></i></a>
           </div>
           <div id="info-archive">
             <span id="archive-autor"></span>
@@ -64,15 +64,13 @@
       </div>
       <div id="archives-box-2" style="float: right"></div>
     </div>
-    <table id="archives-table" class="table table-striped table-bordered ">
+    <table id="archives-table" class="table table-striped table-bordered responsive">
       <thead>
-        <th class="fullname" id="fullname">Title</th>
-        <th class="title" id="title">Created</th>
-        <th class="public" id ="public">Is Public</th>
-        <th class="share" id="status">Share</th>
-        <th class="status" id="status">Status</th>
-        <th class="type" id="type" >Type</th>
-        <th class="options" id="options">Actions</th>
+        <th data-priority="1" class="all">Title</th>
+        <th data-priority="5" class="landscape">Created</th>
+        <th data-priority="4" class="all">Public</th>
+        <th data-priority="2" class="all">Share</th>
+        <th data-priority="3" class="all">Actions</th>
       </thead>
       <tbody>
 

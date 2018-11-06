@@ -62,9 +62,8 @@ initializeArchivesDataTable = ->
       {data: gravatarName, sType: "uk_datetime"},
       {data: renderIsPublic, sClass: 'public', orderable: false},
       {data: rendersharebuttons, sClass: 'center', "searchable": false, orderable: false},
-      {data: renderStatus, sClass: 'center', visible: false},
-      {data: "type", sClass: 'text-center', visible: false},
-      {data: renderbuttons, sClass: 'options', visible: true, "searchable": false, orderable: false}
+      {data: renderbuttons, sClass: 'options', visible: true, "searchable": false, orderable: false},
+      {data: "type", sClass: 'text-center', visible: false}
     ],
     iDisplayLength: 50,
     aaSorting: [1, "desc"]
@@ -147,6 +146,7 @@ load_archive_view_by_id = (archives) ->
       $("#camera-video-archive").show()
       $(".archive-tabs").hide()
       $(".hide-add-button").hide()
+      $("#archives-table_wrapper.dataTables_wrapper").css 'margin-bottom', '0px'
       $("#archives-box-2").hide()
       $(".stackimage").removeClass("stackimage-view")
       $(".stackimage").addClass("stackimage-player")
@@ -155,8 +155,6 @@ load_archive_view_by_id = (archives) ->
       $('#archive-autor').html("Requested by: #{media_autor}</br>")
       $('#archive-dates').html("From #{media_from} to #{media_to}</br>")
       $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
-      $("#archives").css("width", "80%")
-      $("#archives").css("margin-left", "10%")
       $("#txt-archive-type").val(type)
       $("#txt-archive-id").val(id)
       $("#txt-archive-title").val(media_title)
@@ -374,9 +372,9 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
     else if type is "compare"
       animation_url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}"
       return "<a class='archive-actions dropdown-toggle archive-title' href='#'' title='share' data-id='#{id}' data-type='#{type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> Share</a>" +
-        "'<input id='gif-#{id}' value= '#{animation_url}.gif' type='hidden'>" +
+        "<input id='gif-#{id}' value= '#{animation_url}.gif' type='hidden'>" +
         "<input id='mp4-#{id}' value='#{animation_url}.mp4' type='hidden'>" +
-        "<div id='download-button' class='dropdown float-right'><a class='archive-actions dropdown-toggle' href='#' data-toggle='dropdown' title='Download'><i class='fa fa-download'></i> Download</a>" +
+        "<div id='download-button' class='dropdown float-right'><a class='archive-actions dropdown-toggle margin-right-0' href='#' data-toggle='dropdown' title='Download'><i class='fa fa-download'></i> Download</a>" +
         "<ul class='dropdown-menu'>
           <li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#gif-#{id}' title='Download GIF'><i class='fa fa-download'></i> GIF</a></li>" +
           "<li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#mp4-#{id}' title='Download MP4'><i class='fa fa-download'></i> MP4</a></li></ul>" +
@@ -1043,6 +1041,7 @@ hide_player_view = ->
   $("#toggle-tabs").show()
   $("#archives").css("width", "100%")
   $("#archives").css("margin-left", "0")
+  $("#archives-table_wrapper.dataTables_wrapper").css 'margin-bottom', '90px'
   $(".hide-add-button").show()
   $(".stackimage").addClass("stackimage-view")
   $(".stackimage").removeClass("stackimage-player")
@@ -1112,6 +1111,8 @@ modal_events = ->
     $("#archive_delete_view").attr("camera_id", camera_id)
     $("#archive_delete_view").attr("archive_id", id)
     $("#archive_delete_view").attr("archive_type", type)
+    $("#archive_delete_view").attr("archive_type", type)
+    $("#archives-table_wrapper.dataTables_wrapper").css 'margin-bottom', '0px'
 
     if Evercam.Camera.has_edit_right || requested_by is Evercam.User.username
       $("#popup-delete-view").show()
@@ -1143,8 +1144,6 @@ modal_events = ->
       $('#archive-autor').html("Requested by: #{media_autor}</br>")
       $('#archive-dates').html("From #{media_from} to #{media_to}</br>")
       $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
-      $("#archives").css("width", "80%")
-      $("#archives").css("margin-left", "10%")
       $("#txt-archive-type").val(type)
       $("#txt-archive-id").val(id)
       $("#txt-archive-title").val(media_title)

@@ -26,6 +26,7 @@
 //= require screenfull
 //= require bootstrap-tabdrop
 //= require datatables
+//= require dataTables.responsive.min.js
 //= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js
 //= require iCheck
 //= require select2

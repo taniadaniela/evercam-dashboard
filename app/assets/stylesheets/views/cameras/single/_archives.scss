@@ -144,6 +144,10 @@ div.disabled > a {
   .toggle .toggle-control {
     margin-top: 0px;
   }
+
+  td.child {
+    display: none;
+  }
 }
 
 #archives {
@@ -891,6 +895,17 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
   .tab-content .video-js {
     height: auto !important;
   }
+
+  #archives .div-archive-compare {
+    min-height: 165px;
+  }
+
+  #div_shares #share-buttons-new {
+
+    a {
+      width: 42%;
+    }
+  }
 }
 
 .margin-bottom-40 {
@@ -901,6 +916,28 @@ table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc,table.dat
 
   .archive-modal .modal-dialog {
     width: 91%;
+  }
+
+  #row-gif {
+
+    .copy-url-icon {
+      margin-left: -40px;
+    }
+
+    .copy-animation {
+      margin-left: -10px;
+    }
+  }
+
+  #row-mp4 {
+
+    .copy-url-icon {
+      margin-left: -40px;
+    }
+
+    .copy-animation {
+      margin-left: -10px;
+    }
   }
 }
 

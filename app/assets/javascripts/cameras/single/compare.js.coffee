@@ -99,7 +99,7 @@ clickToCopy = ->
   clipboard = new Clipboard('.copy-url-icon')
   clipboard.on 'success', (e) ->
     $('.bb-alert').width '100px'
-    Notification.show 'Copied!'
+    Notification.info 'Copied!'
 
 copyToClipboard = (elem) ->
   targetId = '_hiddenCopyText_'

@@ -13,6 +13,7 @@ is_reload = true
 is_list_view = true
 pagination = false
 archive_id_from_url = null
+xhrRequestChangeMonth = null
 
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
@@ -507,15 +508,14 @@ makePublic = ->
     is_checked = $(this)
     id = $(this).attr('alt')
     typeArchive = $(this).attr('archive_type')
+    xhrRequestChangeMonth.abort() if xhrRequestChangeMonth
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show("Internal Server Error. Please contact to admin.")
-      else
-        Notification.show(jqXHR.responseJSON.message)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error("Internal Server Error. Please contact to admin.")
+      else if jqXHR.statusText isnt "abort"
+        Notification.error(jqXHR.responseJSON.message)
       NProgress.done()
-      $("#create_clip_button").removeAttr 'disabled'
 
     onSuccess = (data, status, jqXHR) ->
       index = $("input.toggle_input_public").index(this)
@@ -542,7 +542,7 @@ makePublic = ->
         success: onSuccess
         type: 'PATCH'
         url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-      $.ajax(settings)
+      xhrRequestChangeMonth = $.ajax(settings)
     else
       refresh_archive_table()
       Notification.show("The comparisons are always public")
@@ -798,8 +798,7 @@ copyToClipboard = (text) ->
   dummy.select()
   document.execCommand("copy")
   document.body.removeChild(dummy)
-  Notification.show("URL copied!")
-  return
+  Notification.info("URL copied!")
 
 tooltip = ->
   $('[data-toggle="tooltip"]').tooltip()

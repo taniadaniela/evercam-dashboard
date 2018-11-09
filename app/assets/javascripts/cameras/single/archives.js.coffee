@@ -841,7 +841,7 @@ createClip = ->
       to_date: to / 1000
       is_nvr_archive: $("#txtCreateArchiveType").val()
       requested_by: Evercam.User.username
-      type: clip
+      type: "clip"
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500

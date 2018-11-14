@@ -742,7 +742,7 @@ getGravatar = (img, email) ->
   jQuery.ajax(settings)
 
 validateEmail = (email) ->
-  re = /^(?!.*\.{2})[a-zA-Z0-9.-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
+  re = /^(?!.*\.{2})[a-zA-Z0-9._-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
   addresstrimed = email.replace(RegExp(' ', 'gi'), '')
   if re.test(addresstrimed) == false
     false

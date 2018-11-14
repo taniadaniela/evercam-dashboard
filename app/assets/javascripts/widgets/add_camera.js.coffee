@@ -209,7 +209,7 @@ validateInt = (value) ->
   reg.test value
 
 validateEmail = (email) ->
-  reg = /^(?!.*\.{2})[a-zA-Z0-9.-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
+  reg = /^(?!.*\.{2})[a-zA-Z0-9._-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
   #remove all white space from value before validating
   emailtrimed = email.replace(RegExp(' ', 'gi'), '')
   reg.test emailtrimed

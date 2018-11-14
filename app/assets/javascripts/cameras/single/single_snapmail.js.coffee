@@ -152,12 +152,14 @@ initInputTags = ->
   $("#txtRecipient").tagsInput
     'height': 'auto'
     'width': 'auto'
-    'defaultText': 'Add Recipients'
+    'defaultText': 'Recipients'
     'onAddTag': (email) ->
       $('#txtRecipient_tagsinput').removeClass('error-border')
+      $('#txtRecipient').removeClass('error-border')
       $('#add-snapmail').removeAttr("disabled")
       if !validateEmailByVal(email)
         $('#txtRecipient_tagsinput').addClass('error-border')
+        $('#txtRecipient').addClass('error-border')
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         Notification.show 'Invalid recipient email.'
       return
@@ -167,12 +169,56 @@ initInputTags = ->
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
         Notification.show 'Please enter recipients to continue.'
         $('#txtRecipient_tagsinput').addClass('error-border')
+        $('#txtRecipient').addClass('error-border')
       return
     'delimiter': [',']
     'removeWithBackspace': true
     'minChars': 0
     'maxChars': 0
-    'placeholderColor': '#666666'
+
+hideTagsInput = ->
+  $('#txtRecipient_tagsinput').hide()
+  $('#txtRecipient').show()
+
+validateTagsEmails = ->
+  if $('#txtRecipient').val() != ''
+    valid_flag = true
+    emails = $('#txtRecipient').val().split(',')
+    i = 0
+    while i < emails.length
+      if !validateEmailByVal(emails[i])
+        valid_flag = false
+      i++
+    
+    if valid_flag
+      $('#txtRecipient_tagsinput').removeClass('error-border')
+      $('#txtRecipient').removeClass('error-border')
+    else
+      $('#txtRecipient_tagsinput').addClass('error-border')
+      $('#txtRecipient').addClass('error-border')
+
+focusInTimeField = ->
+  $('#txtTime').focusin ->
+    validateTagsEmails()
+    hideTagsInput()
+
+showTagsInput = ->
+  $('#txtRecipient').hide()
+  $('#txtRecipient_tagsinput').show()
+  $('#txtRecipient_tag').focus()
+
+onClickTxtRecipient = ->
+  $("#recepients-input-field span.email-field-line-end").click ->
+    showTagsInput()
+  
+  $('#txtRecipient').focusin ->
+    showTagsInput()
+
+clickOutsideTheEmailInputField = ->
+  $(document).click (e) ->
+    if !$(e.target).is('#snapmail-form table #recepients-input-field') and !$(e.target).parents().is('#snapmail-form table #recepients-input-field')
+      hideTagsInput()
+      validateTagsEmails()
 
 validateEmailByVal = (email) ->
   reg = /^(?!.*\.{2})[a-zA-Z0-9._-]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z*$/
@@ -329,6 +375,7 @@ clearForm = ->
   $('.formButtonCancel').click()
   $('#add-snapmail').removeAttr("disabled")
   $('#txtRecipient_tagsinput').removeClass('error-border')
+  $('#txtRecipient').removeClass('error-border')
   $('#snapmail-form .caption').html 'New Snapmail'
   $('#txtkey').val ''
   $('#ddlTimezone').val "Europe/Dublin"
@@ -526,5 +573,10 @@ window.initializeSingleSnapmail = ->
   noSnapmailText()
   pauseSnapmail()
   cloneSnapmail()
+  hideTagsInput()
+  showTagsInput()
   openSnapmailDialog()
   handleTabOpen()
+  clickOutsideTheEmailInputField()
+  focusInTimeField()
+  onClickTxtRecipient()

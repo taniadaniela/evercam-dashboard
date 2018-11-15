@@ -377,8 +377,8 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
         "<input id='mp4-#{id}' value='#{animation_url}.mp4' type='hidden'>" +
         "<div id='download-button' class='dropdown float-right'><a class='archive-actions dropdown-toggle margin-right-0' href='#' data-toggle='dropdown' title='Download'><i class='fa fa-download'></i> Download</a>" +
         "<ul class='dropdown-menu'>
-          <li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#gif-#{id}' title='Download GIF'><i class='fa fa-download'></i> GIF</a></li>" +
-          "<li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#mp4-#{id}' title='Download MP4'><i class='fa fa-download'></i> MP4</a></li></ul>" +
+          <li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#gif-#{id}' title='Download GIF (Good for emails)'><i class='fa fa-download'></i> GIF</a></li>" +
+          "<li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#mp4-#{id}' title='Download MP4 (Good for everything else)'><i class='fa fa-download'></i> MP4</a></li></ul>" +
         "</div>" + div.html()
     else
       mp4_media_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
@@ -470,7 +470,7 @@ rendersharebuttons = (row, type, set, meta) ->
     else
       url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}.mp4"
       play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
-      download_link = "<div class='float-left'><a class='archive-actions download-animation archive-icon' data-from='#{row.from_date}' data-to='#{row.to_date}' data-type='#{row.type}' href='javascript:;'' data-download-target='#mp4clip-#{row.id}'><i class='fa fa-download' title='Download MP4'></i></a></div>"
+      download_link = "<div class='float-left'><a class='archive-actions download-animation archive-icon' data-from='#{row.from_date}' data-to='#{row.to_date}' data-type='#{row.type}' href='javascript:;'' data-download-target='#mp4clip-#{row.id}'><i class='fa fa-download' title='Download'></i></a></div>"
       copy_url_link = "<a href='javascript:;' data-toggle='tooltip' title='Copy URL' class='archive-actions share-archive' play-url='#{url}' val-archive-id='#{row.id}' val-camera-id='#{row.camera_id}'><i class='fas fa-link'></i></a>"
 
       if row.type is "file" || row.type is "edit"
@@ -480,8 +480,8 @@ rendersharebuttons = (row, type, set, meta) ->
         main_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
         url = "#{main_url}.mp4"
         download_link = '<div class="dropdown"><a class="archive-actions dropdown-toggle" href="#" data-toggle="dropdown" title="Download"><i class="fa fa-download"></i></a>' +
-                        "<ul class='dropdown-menu'><li><a class='download-animation archive-icon' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' href='javascript:;' data-download-target='#gif-#{row.id}' title='Download GIF'><i class='fa fa-download'></i> GIF</li></a>" +
-                          "<li><a class='download-animation archive-icon' href='javascript:;' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' data-download-target='#mp4-#{row.id}' title='Download MP4'><i class='fa fa-download'></i> MP4</a></li></ul>" +
+                        "<ul class='dropdown-menu'><li><a class='download-animation archive-icon' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' href='javascript:;' data-download-target='#gif-#{row.id}' title='Download GIF (Good for emails)'><i class='fa fa-download'></i> GIF</li></a>" +
+                          "<li><a class='download-animation archive-icon' href='javascript:;' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' data-download-target='#mp4-#{row.id}' title='Download MP4 (Good for everything else)'><i class='fa fa-download'></i> MP4</a></li></ul>" +
                         '</div>'
         copy_url_link = "<div class='dropdown'><a class='archive-actions dropdown-toggle' href='#'' data-toggle='dropdown' title='Download'><i class='fas fa-link'></i></a>" +
                         "<ul class='dropdown-menu'><li><a class='share-archive archive-icon' href='javascript:;' play-url='#{main_url}.gif' title='Copy GIF URL'><i class='fas fa-link'></i> GIF</li></a>" +

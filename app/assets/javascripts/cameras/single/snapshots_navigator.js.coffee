@@ -30,17 +30,6 @@ fist_image_date = null
 status_flag = true
 mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
-showFeedback = (message) ->
-  Notification.show(message)
-
-sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = $.ajax(settings)
-
 initDatePicker = ->
   $("#ui_date_picker_inline").datepicker().on("changeDate", datePickerSelect).on "changeMonth", datePickerChange
 
@@ -110,7 +99,7 @@ walkDaysInMonth = (year, month) ->
     type: 'GET'
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/days"
 
-  sendAJAXRequest(settings)
+  xhrRequestChangeMonth = sendAJAXRequest(settings)
 
 datePickerSelect = (value)->
   dt = value.date
@@ -935,10 +924,12 @@ saveImage = ->
     created_at = parseInt($("#imgPlayback").attr("data-timestamp"))
     date_time = new Date(created_at*1000)
     file_name = "#{Evercam.Camera.id}-#{getSnapshotDate(date_time).toISOString()}.jpg"
-    if mobile
-      SaveImage.save($("#imgPlayback").attr('src'), "#{file_name}", "image/jpg")
-    else
-      download($("#imgPlayback").attr('src'), file_name, "image/jpg")
+    blob = base64ToBlob($("#imgPlayback").attr('src'))
+    saveAs(blob, file_name)
+    # if mobile
+    #   SaveImage.save($("#imgPlayback").attr('src'), "#{file_name}", "image/jpg")
+    # else
+    #   download($("#imgPlayback").attr('src'), file_name, "image/jpg")
     $('.play-options').css('display','none')
     setTimeout opBack , 1500
 

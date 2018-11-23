@@ -3,14 +3,6 @@ clearTimeOut = null
 xhrChangeMonth = null
 removeCalendarHighlightflag = false
 
-window.sendRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrChangeMonth = $.ajax(settings)
-
 initCompare = ->
   imagesCompareElement = $('.js-img-compare').imagesCompare()
   imagesCompare = imagesCompareElement.data('imagesCompare')
@@ -54,7 +46,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
         $('#calendar-after').datetimepicker({value: date_after, maxDate: string_after_date, yearEnd: after_year})
       initCompare() if reload
     else
-      Notification.show("No image found")
+      Notification.error("No image found")
 
   settings =
     cache: false
@@ -64,7 +56,7 @@ getFirstLastImages = (image_id, query_string, reload, setDate) ->
     success: onSuccess
     type: 'GET'
     url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots#{query_string}"
-  sendRequest(settings)
+  sendAJAXRequest(settings)
 
 handleTabOpen = ->
   $('.nav-tab-compare').on 'shown.bs.tab', ->
@@ -95,47 +87,6 @@ getQueryStringByName = (name) ->
   else
     decodeURIComponent(results[1].replace(/\+/g, ' '))
 
-clickToCopy = ->
-  clipboard = new Clipboard('.copy-url-icon')
-  clipboard.on 'success', (e) ->
-    $('.bb-alert').width '100px'
-    Notification.info 'Copied!'
-
-copyToClipboard = (elem) ->
-  targetId = '_hiddenCopyText_'
-  isInput = elem.tagName == 'INPUT' or elem.tagName == 'TEXTAREA'
-  origSelectionStart = undefined
-  origSelectionEnd = undefined
-  if isInput
-    target = elem
-    origSelectionStart = elem.selectionStart
-    origSelectionEnd = elem.selectionEnd
-  else
-    target = document.getElementById(targetId)
-    if !target
-      target = document.createElement('textarea')
-      target.style.position = 'absolute'
-      target.style.left = '-9999px'
-      target.style.top = '0'
-      target.id = targetId
-      document.body.appendChild target
-    target.textContent = elem.textContent
-  currentFocus = document.activeElement
-  target.focus()
-  target.setSelectionRange 0, target.value.length
-  succeed = undefined
-  try
-    succeed = document.execCommand('copy')
-  catch e
-    succeed = false
-  if currentFocus and typeof currentFocus.focus == 'function'
-    currentFocus.focus()
-  if isInput
-    elem.setSelectionRange origSelectionStart, origSelectionEnd
-  else
-    target.textContent = ''
-  succeed
-
 HighlightDaysInMonth = (query_string, year, month) ->
   data = {}
   data.api_id = Evercam.User.api_id
@@ -162,7 +113,7 @@ HighlightDaysInMonth = (query_string, year, month) ->
     type: 'GET'
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{month}/days"
 
-  sendRequest(settings)
+  xhrChangeMonth = sendAJAXRequest(settings)
 
 HighlightBeforeAfterDay = (query_string, before_year, before_month, before_day) ->
   beforeDays = $("##{query_string} .xdsoft_datepicker table td[class*='xdsoft_date'] div")
@@ -199,7 +150,7 @@ HighlightSnapshotHour = (query_string, year, month, date) ->
     timeout: 15000
     url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{year}/#{(month)}/#{date}/hours"
 
-  sendRequest(settings)
+  xhrChangeMonth = sendAJAXRequest(settings)
 
 HighlightBeforeAfterHour = (query_string, before_year, before_month, before_day, before_hour) ->
   beforeHours = $("##{query_string} .xdsoft_timepicker [class*='xdsoft_time']")
@@ -239,9 +190,8 @@ setCompareEmbedCodeTitle = ->
       $('#export-compare-modal').modal 'show'
     else
       e.stopPropagation()
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
       $(".bb-alert").css "width", "410px"
-      Notification.show("Unable to export compare, before/after image is not available.")
+      Notification.warning("Unable to export compare, before/after image is not available.")
 
 export_compare = ->
   $("#export_compare_button").on "click", ->
@@ -286,7 +236,6 @@ export_compare = ->
       $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").addClass("hide")
       $("#gif_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif".replace("media.evercam.io", "api.evercam.io"))
       $("#mp4_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif".replace("media.evercam.io", "api.evercam.io"))
-      # window.on_export_compare()
       clearTimeOut = setTimeout( ->
         auto_check_compare_status(response.compares[0].id, 0)
       , 10000)
@@ -299,7 +248,7 @@ export_compare = ->
       success: onSuccess
       type: 'POST'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares"
-    sendRequest(settings)
+    sendAJAXRequest(settings)
 
 convert_timestamp_to_path = (timestamp) ->
   timestamp_to_int = parseInt(timestamp)
@@ -359,7 +308,7 @@ auto_check_compare_status = (compare_id, tries) ->
       success: onSuccess
       type: 'GET'
       url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{compare_id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-    sendRequest(settings)
+    sendAJAXRequest(settings)
 
 makeRandString = ->
   text = ''
@@ -376,7 +325,7 @@ window.initializeCompareTab = ->
   handleTabOpen()
   export_compare()
   cancelForm()
-  clickToCopy()
+  copyToClipboard(".copy-url-icon")
   download_animation()
   switch_to_archive_tab()
   setCompareEmbedCodeTitle()

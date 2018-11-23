@@ -6,9 +6,6 @@ thumbnails_array = {}
 thumbnail_width = 0
 countdown = 0
 
-showFeedback = (message) ->
-  Notification.show(message)
-
 SetInfoMessage = (from, to) ->
   from_dt = moment.utc(from*1000)
   to_dt = moment(to*1000).toISOString()

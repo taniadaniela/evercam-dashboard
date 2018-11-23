@@ -1,18 +1,18 @@
 onCameraDeleteError = (jqXHR, status, error) ->
-  Notification.show "An error occurred removing your camera. Please try again and, if the problem persists, contact support."
+  Notification.error "An error occurred removing your camera. Please try again and, if the problem persists, contact support."
 
 onCameraDeleteSuccess = (data, status, jqXHR) ->
   if data.success
-    Notification.show "Camera #{this} successfully."
+    Notification.info "Camera #{this} successfully."
     window.location = '/'
   else
-    Notification.show data.message
+    Notification.info data.message
 
 handleCameraDelete = ->
   $("#delete-camera").on "click", (event) ->
     event.preventDefault()
     if $("#camera_specified_id") && $("#camera_specified_id").val() is ''
-      Notification.show "Please enter camera id to confirm delete camera."
+      Notification.error "Please enter camera id to confirm delete camera."
       return
 
     data =

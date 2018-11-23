@@ -5,10 +5,6 @@ validate_hostname = (str) ->
   ValidHostnameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/
   ValidIpAddressRegex.test(str) || ValidHostnameRegex.test(str)
 
-showFeedback = (message) ->
-  Notification.show(message)
-  true
-
 $ ->
   $(document).on 'input', "#camera-url-web", () ->
     val = $(this).val()
@@ -34,22 +30,22 @@ $ ->
 
     # Check for vendor model and snap-url
     if vandor_model is "Select Camera Vendor" || jpg_url is ""
-      showFeedback("Please choose camera vendor or add your camera snapshot URL.")
+      Notification.error("Please choose camera vendor or add your camera snapshot URL.")
       return
 
     # Validate port
     if(port != '' && (!intRegex.test(port) || port > 65535))
-      showFeedback("Port value is incorrect")
+      Notification.error("Port value is incorrect")
       return
     else if (port != '')
       port = ':' + port
 
     # Validate host
     if (ext_url == '' || !validate_hostname(ext_url))
-      showFeedback("External IP Address (or URL) is incorrect")
+      Notification.error("External IP Address (or URL) is incorrect")
       return
     else if (ext_url.indexOf('192.168') == 0 || ext_url.indexOf('127.0.0') == 0 || ext_url.indexOf('10.') == 0)
-      showFeedback("This is the Internal IP. Please use the External IP.")
+      Notification.error("This is the Internal IP. Please use the External IP.")
       return
 
     params = ['external_url=http://' + ext_url + port,
@@ -91,11 +87,11 @@ $ ->
       $('#test-error').text('')
       if result.status is 'ok'
         if (result.data.indexOf('data:text/html') == 0)
-          showFeedback("We got a response, but it's not an image")
+          Notification.error("We got a response, but it's not an image")
           $('#testimg').addClass 'hide'
           $('.img-holder-text').removeClass 'hide'
         else
-          showFeedback("We got a snapshot")
+          Notification.info("We got a snapshot")
           $('#testimg').removeClass 'hide'
           $('.img-holder-text').addClass 'hide'
           $('#testimg').attr('src', result.data)

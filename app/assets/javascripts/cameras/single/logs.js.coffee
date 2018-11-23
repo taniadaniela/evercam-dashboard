@@ -6,14 +6,6 @@ cameraOffset = null
 mouseOverCtrl = undefined
 evercam_logs = undefined
 
-sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = $.ajax(settings)
-
 updateLogTypesFilter = () ->
   NProgress.start()
   exid = $('#exid').val()
@@ -67,9 +59,9 @@ initializeDataTable = ->
         return format_online_log(d.logs)
       error: (xhr, error, thrown) ->
         if xhr.responseJSON
-          Notification.show(xhr.responseJSON.message)
+          Notification.error(xhr.responseJSON.message)
         else
-          Notification.show("Something went wrong, Please try again.")
+          Notification.error("Something went wrong, Please try again.")
         NProgress.done()
     },
     columns: [
@@ -78,12 +70,8 @@ initializeDataTable = ->
         data: null,
         defaultContent: '' },
       {data: ( row, type, set, meta ) ->
-        getImage(row)
         time = moment.tz(row.done_at*1000, Evercam.Camera.timezone)
-        return "
-          <div class='#{row.done_at} thumb-div'>
-          </div>\
-          <span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
+        return "<span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
       , sType: 'uk_datetime' },
       {data: ( row, type, set, meta ) ->
         ip = ""
@@ -345,41 +333,6 @@ getOfflineCause = (row) ->
   error = "<span class='message'>( Cause: #{message} )</span>"
   return "<div class='offlines'>Camera went offline #{error}</div>"
 
-getImage = (row) ->
-  timestamp = row.done_at
-  data = {}
-  data.api_id = Evercam.User.api_id
-  data.api_key = Evercam.User.api_key
-
-  onSuccess = (response) ->
-    if response.snapshots and response.snapshots.length > 0
-      img_src = response.snapshots[0].data
-    else
-      img_src = "/assets/offline.png"
-    img = $('<i>',{class: "thumbs fa fa-picture-o"})
-    img.attr "aria-hidden", true
-    img.attr "src",img_src
-    $("#logs .#{timestamp}").empty()
-    $("#logs .#{timestamp}").append(img)
-
-  onError = (jqXHR, status, error) ->
-    icon = $('<i>',{class: "thumbs fa fa-picture-o"})
-    icon.attr "aria-hidden", true
-    icon.attr "src", "/assets/offline.png"
-    $("#logs .#{timestamp}").empty()
-    $("#logs .#{timestamp}").append(icon)
-
-  settings =
-    cache: false
-    data: data
-    dataType: 'json'
-    error: onError
-    success: onSuccess
-    contentType: "application/json charset=utf-8"
-    type: 'GET'
-    url: "#{Evercam.MEDIA_API_URL}cameras/#{Evercam.Camera.id}/recordings/snapshots/#{timestamp}"
-  #sendAJAXRequest(settings)
-
 callDate = ->
   DateFromCalendar = new Date(moment.utc().format('MM/DD/YYYY'))
   DateFromCalendar.setDate(DateFromCalendar.getDate() - 30)
@@ -428,7 +381,7 @@ showStatusBar = (from, to) ->
     initReport(response)
 
   onError = (jqXHR, status, error) ->
-    Notification.show("Something went wrong, Please try again.")
+    Notification.error("Something went wrong, Please try again.")
 
   settings =
     cache: false

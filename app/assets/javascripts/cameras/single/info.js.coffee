@@ -5,15 +5,6 @@ port = null
 rtsp_port = null
 flag = true
 
-sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = jQuery.ajax(settings)
-  true
-
 showSharingTab = ->
   $('.nav-tabs a[href=#sharing]').tab('show');
   setTimeout(->
@@ -50,7 +41,7 @@ onChangeOwnerSubmitClicked = (event) ->
       true
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        Notification.show("Camera ownership has been successfully transferred.")
+        Notification.info("Camera ownership has been successfully transferred.")
         $('#change_owner2').modal('hide')
         field.val("")
         new_owner = $("#row-share-#{$(this)[0].id} div.sharee_info").html()
@@ -68,7 +59,7 @@ onChangeOwnerSubmitClicked = (event) ->
         $("#row-share-#{$(this)[0].id}").attr("share-username", $(".owner-email").attr("share-username"))
       else
         if current_tab is "setting"
-          Notification.show data.message
+          Notification.info data.message
         else
           setChangeOwnerDialogError(data.message)
           showChangeOwnerDialog(false)
@@ -297,19 +288,15 @@ saveMapLocation = ->
     ilng = parseFloat(locs[1], 10)
 
     if isNaN(ilat) || isNaN(ilng)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-      Notification.show "Invalid latitude or longitude value"
+      Notification.error "Invalid latitude or longitude value"
       return
     else
       $("#cameraLats").val(ilat)
       $("#cameraLng").val(ilng)
 
   else
-    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-    Notification.show "Invalid latitude or longitude value"
+    Notification.error "Invalid latitude or longitude value"
     return
-
-  $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
 
   data.location_lat = $("#cameraLats").val()
   data.location_lng = $("#cameraLng").val()
@@ -327,7 +314,7 @@ saveMapLocation = ->
     $("#search-notes").toggle()
 
     $("#coordinates-value").text("#{$('#cameraLats').val()}, #{$('#cameraLng').val()}")
-    Notification.show "Camera location updated successfully"
+    Notification.info "Camera location updated successfully"
     NProgress.done()
     true
 
@@ -355,9 +342,9 @@ NotificationAlert = ->
 
   onSuccess = (result, status, jqXHR) ->
     if data.is_online_email_owner_notification == true
-      Notification.show "Camera Offline Notification Enabled"
+      Notification.info "Camera Offline Notification Enabled"
     else
-      Notification.show "Camera Offline Notification Disabled"
+      Notification.info "Camera Offline Notification Disabled"
     NProgress.done()
 
   settings =
@@ -498,7 +485,7 @@ centerModal = ->
 initNotification = ->
   Notification.init(".bb-alert");
   if notifyMessage
-    Notification.show notifyMessage
+    Notification.info notifyMessage
 
 handleMapEvents = ->
   $('#search-location').keydown (event) ->

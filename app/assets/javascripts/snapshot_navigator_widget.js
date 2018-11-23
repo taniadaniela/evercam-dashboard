@@ -7,7 +7,6 @@
 //= require editable-1.5.1.min
 //= require metronic/metronic.js
 //= require screenfull
-//= require saveimage.js
 //= require evercam.js.coffee
 //= require bugsnag.js
 //= require fullcalendar/fullcalendar.js
@@ -39,4 +38,3 @@
 //= require moment-with-locales.js
 //= require moment-timezone.js
 //= require jquery.elevateZoom-3.0.8.min.js
-//= require download.js

@@ -54,7 +54,6 @@ onChangeStatusReportDays = (days, offline_only) ->
     url: "/status_report"
 
   sendAJAXRequest(settings)
-  true
 
 centerLoadingAnimation = ->
   offset = ($(window).height() - 100) / 2

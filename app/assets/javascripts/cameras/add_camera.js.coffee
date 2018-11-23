@@ -9,15 +9,6 @@ initNotification = ->
   if notifyMessage
     Notification.show notifyMessage
 
-sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = jQuery.ajax(settings)
-  true
-
 loadVendorModels = (vendor_id, stroke_key_up) ->
   NProgress.start()
   $("#camera-model option").remove()
@@ -110,7 +101,6 @@ loadVendorModels = (vendor_id, stroke_key_up) ->
     url: "#{Evercam.API_URL}models"
 
   sendAJAXRequest(settings)
-  true
 
 sortByKey = (array, key) ->
   array.sort (a, b) ->
@@ -151,7 +141,6 @@ loadVendors = ->
     url: "#{Evercam.API_URL}vendors"
 
   sendAJAXRequest(settings)
-  true
 
 validate_hostname = (str) ->
   ValidIpAddressRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
@@ -253,21 +242,21 @@ appendCopyFromDropdown = ->
 
 onAddCamera = ->
   $("#add-button").on 'click', ->
-    if $("#camera-name").val().trim() is "" && $("#camera-id").val().trim() is "" && $("#camera-url").val().trim() is "" && $("#snapshot").val().trim() is ""
-      Notification.show "Please enter required camera fields: Camera Name, Camera-Id, Camera URL and Snapshot Url."
-      return false
     if $("#camera-name").val().trim() is ""
-      Notification.show "Please enter required fields: Camera Name."
+      Notification.error "Please enter required fields: Camera Name."
+      return false
+    if $("#camera-name").val().trim() is "" && $("#camera-id").val().trim() is "" && $("#camera-url").val().trim() is "" && $("#snapshot").val().trim() is ""
+      Notification.error "Please enter required camera fields: Camera Name, Camera-Id, Camera URL and Snapshot Url."
       return false
     if $("#camera-url").val().trim() is ""
-      Notification.show "Please enter required fields: Camera URL."
+      Notification.error "Please enter required fields: Camera URL."
       return false
     if $("#snapshot").val().trim() is ""
-      Notification.show "Please enter required fields: Snapshot Url."
+      Notification.error "Please enter required fields: Snapshot Url."
       return false
     regularExpression = /^(^127\.0\.0\.1)|(^192\.168\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)$/
     if regularExpression.test($("#camera-url").val())
-      Notification.show "Its your local IP, please provide camera public IP."
+      Notification.error "Its your local IP, please provide camera public IP."
       $("#camera-url").css("border-color", "red")
       return false
 
@@ -331,7 +320,6 @@ port_check = (external_port,type) ->
     url: "#{Evercam.MEDIA_API_URL}cameras/port-check?address=#{ex_ip}&port=#{ex_port}"
 
   xhrRequestPortCheck = jQuery.ajax(settings)
-  true
 
 check_port = ->
   regexp = /^[0-9]{2,5}$/

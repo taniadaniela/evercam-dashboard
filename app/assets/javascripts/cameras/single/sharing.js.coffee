@@ -20,15 +20,6 @@ isUnauthorized = (response, message) ->
   else
     showError(message)
 
-sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  jQuery.ajax(settings)
-  true
-
 loadShares = (is_for_user) ->
   data =
     api_id: Evercam.User.api_id
@@ -469,7 +460,7 @@ onDeleteShareRequestClicked = (event) ->
     else
       showError("Delete of share request failed. Please contact support.")
     NProgress.done()
-    true
+
   settings =
     cache: false
     data: data
@@ -479,7 +470,6 @@ onDeleteShareRequestClicked = (event) ->
     type: 'DELETE'
     url: '/share/request'
   sendAJAXRequest(settings)
-  true
 
 mapShareValues = (shares, type) ->
   $.map(shares, (share) ->

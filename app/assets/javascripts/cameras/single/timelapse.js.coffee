@@ -7,8 +7,7 @@ initNotification = ->
 
 loadTimelapses = ->
   onError = (jqXHR, status, error) ->
-    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-    Notification.show("Failed to retrive timelapses.")
+    Notification.error("Failed to retrive timelapses.")
 
   onSuccess = (timelapses, status, jqXHR) ->
     if timelapses.length is 0
@@ -281,15 +280,15 @@ saveTimelapse = ->
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
 
     if $("#timelapse-camera").val() is ''
-      Notification.show("Please select camera to continue.")
+      Notification.error("Please select camera to continue.")
       return false
 
     if $("#timelapse-title").val() is ''
-      Notification.show("Please enter timelapse title.")
+      Notification.error("Please enter timelapse title.")
       return false
 
     if $("#timelapse-frequency").val() is "0"
-      Notification.show("Please select timelapse interval.")
+      Notification.error("Please select timelapse interval.")
       return false
 
     d = new Date()
@@ -302,26 +301,26 @@ saveTimelapse = ->
     if dateAlways is "false"
       fromDate = change_date_format($("#txt_from_date").val())
       if fromDate is ""
-        Notification.show("Please select from date range.")
+        Notification.error("Please select from date range.")
         return false
       toDate = change_date_format($("#txt_to_date").val())
       if toDate is ""
-        Notification.show("Please select to date range.")
+        Notification.error("Please select to date range.")
         return false
 
     if timeAlways is "false"
       fromTime = $("#txt_from_time").val()
       if fromTime is ""
-        Notification.show("Please select from time range.")
+        Notification.error("Please select from time range.")
         return false
 
       toTime = $("#txt_to_time").val()
       if toTime is ""
-        Notification.show("Please select to time range.")
+        Notification.error("Please select to time range.")
         return false
 
       if fromTime is toTime
-        Notification.show('To time and from time cannot be same.')
+        Notification.error('To time and from time cannot be same.')
         return false
 
     img = document.getElementById("#{$("#timelapse-camera").val()}")
@@ -343,9 +342,9 @@ saveTimelapse = ->
     onError = (jqXHR, status, error) ->
       response = JSON.parse(jqXHR.responseText)
       if jQuery.type(response.message) is "object"
-        Notification.show "#{response["message"]}"
+        Notification.error "#{response["message"]}"
       else
-        Notification.show "#{response.message}"
+        Notification.error "#{response.message}"
       save_button.removeAttr('disabled')
 
     onSuccess = (result, status, jqXHR) ->
@@ -373,14 +372,14 @@ deleteTimelapse = ->
     camera_id = $("#timelapse-camera-id#{timelapse_id}").val()
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 403
-        Notification.show "You don't have sufficient permission."
+        Notification.error "You don't have sufficient permission."
       else
         response = JSON.parse(jqXHR.responseText)
-        Notification.show "#{response.message}"
+        Notification.error "#{response.message}"
 
     onSuccess = (result, status, jqXHR) ->
       $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
-      Notification.show('Timelapse deleted successfully.')
+      Notification.info('Timelapse deleted successfully.')
       player = videojs_array["#{timelapse_id}"]
       player.dispose()
       $("#dataslot#{timelapse_id}").remove()
@@ -402,11 +401,11 @@ editTimelapse = ->
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
 
     if $("#timelapse-title#{timelapse_id}").val() is ''
-      Notification.show("Please enter timelapse title.")
+      Notification.error("Please enter timelapse title.")
       return false
 
     if $("#timelapse-frequency#{timelapse_id}").val() is "0"
-      Notification.show("Please select timelapse interval.")
+      Notification.error("Please select timelapse interval.")
       return false
 
     d = new Date()
@@ -419,26 +418,26 @@ editTimelapse = ->
     if dateAlways is "false"
       fromDate = change_date_format($("#txt_from_date#{timelapse_id}").val())
       if fromDate is ""
-        Notification.show("Please select from date range.")
+        Notification.error("Please select from date range.")
         return false
       toDate = change_date_format($("#txt_to_date#{timelapse_id}").val())
       if toDate is ""
-        Notification.show("Please select to date range.")
+        Notification.error("Please select to date range.")
         return false
 
     if timeAlways is "false"
       fromTime = $("#txt_from_time#{timelapse_id}").val()
       if fromTime is ""
-        Notification.show("Please select from time range.")
+        Notification.error("Please select from time range.")
         return false
 
       toTime = $("#txt_to_time#{timelapse_id}").val()
       if toTime is ""
-        Notification.show("Please select to time range.")
+        Notification.error("Please select to time range.")
         return false
 
       if fromTime is toTime
-        Notification.show('To time and from time cannot be same.')
+        Notification.error('To time and from time cannot be same.')
         return false
 
     watermark_logo = ""
@@ -459,16 +458,16 @@ editTimelapse = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show "500 Internal Server Error"
+        Notification.error "500 Internal Server Error"
       else
         response = JSON.parse(jqXHR.responseText)
-        Notification.show "#{response.message}"
+        Notification.error "#{response.message}"
       save_button.removeAttr('disabled')
 
     onSuccess = (result, status, jqXHR) ->
       snapMail = result.timelapses[0]
       $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
-      Notification.show('Timelapse updated.')
+      Notification.info('Timelapse updated.')
       save_button.removeAttr('disabled')
 
     settings =
@@ -493,10 +492,10 @@ toggleStatus = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 403
-        Notification.show "You don't have sufficient permission."
+        Notification.error "You don't have sufficient permission."
       else
         response = JSON.parse(jqXHR.responseText)
-        Notification.show "#{response.message}"
+        Notification.error "#{response.message}"
 
 
     onSuccess = (result, status, jqXHR) ->

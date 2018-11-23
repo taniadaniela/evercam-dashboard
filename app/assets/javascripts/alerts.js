@@ -19,7 +19,15 @@ var Notification = (function() {
   that.error = function(text) {
     clearTimeout(hideHandler);
 
-    elem.removeClass("alert-info").addClass("alert-danger")
+    elem.removeClass("alert-info").removeClass("alert-warning").addClass("alert-danger")
+    elem.find("span").html(text);
+    elem.delay(200).fadeIn().delay(4000).fadeOut();
+  };
+
+  that.warning = function(text) {
+    clearTimeout(hideHandler);
+
+    elem.removeClass("alert-info").removeClass("alert-danger").addClass("alert-warning")
     elem.find("span").html(text);
     elem.delay(200).fadeIn().delay(4000).fadeOut();
   };
@@ -27,7 +35,7 @@ var Notification = (function() {
   that.info = function(text) {
     clearTimeout(hideHandler);
 
-    elem.removeClass("alert-danger").addClass("alert-info")
+    elem.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-info")
     elem.find("span").html(text);
     elem.delay(200).fadeIn().delay(4000).fadeOut();
   };

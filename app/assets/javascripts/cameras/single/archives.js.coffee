@@ -13,23 +13,15 @@ is_reload = true
 is_list_view = true
 pagination = false
 archive_id_from_url = null
-xhrRequestChangeMonth = null
-
-sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = $.ajax(settings)
+xhrRequest = null
 
 isUnauthorized = (response) ->
   if response.responseText.indexOf("/v1/users/signin") isnt -1
-    Notification.show("Your session has expired.")
+    Notification.warning("Your session has expired.")
     location = window.location
     location.assign(location.protocol + "//" + location.host)
   else
-    Notification.show(jqXHR.responseJSON.message)
+    Notification.error(jqXHR.responseJSON.message)
 
 initDatePicker = ->
   $('#recording-archive-button').on "click", ->
@@ -103,7 +95,7 @@ table_init_complete = (archives) ->
     pagination = true
 
 load_archive_view_by_id = (archives) ->
-  if archive_id_from_url
+  if archive_id_from_url && archives.length > 0
     archive = search_by_id(archives, archive_id_from_url)
     $("#archive_url_link_#{archive_id}").click()
     archive_id_from_url = null
@@ -135,65 +127,66 @@ load_archive_view_by_id = (archives) ->
     else
       $("#archive-play video").attr("loop", "false")
 
-    if type is "clip" || type is "compare" || type is "url" || type is "file" || type is "edit"
-      update_request_url(id)
-      $('#archives-table_paginate').hide()
-      $("#archives-table_info").hide()
-      $("#toggle-tabs").hide()
-      $("#archives-table").hide()
-      $("#archives-box").show()
-      $("#back-archives").show()
-      $("#back-button").show()
-      $("#camera-video-archive").show()
-      $(".archive-tabs").hide()
-      $(".hide-add-button").hide()
-      $("#archives-table_wrapper.dataTables_wrapper").css 'margin-bottom', '0px'
-      $("#archives-box-2").hide()
-      $(".stackimage").removeClass("stackimage-view")
-      $(".stackimage").addClass("stackimage-player")
-      $("#archives-tab").removeClass("margin-top-15")
-      $('#txt_title').text(media_title)
-      $('#archive-autor').html("Requested by: #{media_autor}</br>")
-      $('#archive-dates').html("From #{media_from} to #{media_to}</br>")
-      $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
-      $("#txt-archive-type").val(type)
-      $("#txt-archive-id").val(id)
-      $("#txt-archive-title").val(media_title)
-      $('.hide-add-button').hide()
-      $('#player-buttons').empty()
-      $('#player-buttons').append renderplayerbuttons(requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name)
-      calculateHeight()
+    # if type is "clip" || type is "compare" || type is "url" || type is "file" || type is "edit"
+    update_request_url(id)
+    $('#archives-table_paginate').hide()
+    $("#archives-table_info").hide()
+    $("#toggle-tabs").hide()
+    $("#archives-table").hide()
+    $("#archives-box").show()
+    $("#back-archives").show()
+    $("#back-button").show()
+    $("#camera-video-archive").show()
+    $(".archive-tabs").hide()
+    $(".hide-add-button").hide()
+    $("#archives-table_wrapper.dataTables_wrapper").css 'margin-bottom', '0px'
+    $("#archives-box-2").hide()
+    $(".stackimage").removeClass("stackimage-view")
+    $(".stackimage").addClass("stackimage-player")
+    $("#archives-tab").removeClass("margin-top-15")
+    $('#txt_title').text(media_title)
+    $('#archive-autor').html("Requested by: #{media_autor}</br>")
+    $('#archive-dates').html("From #{media_from} to #{media_to}</br>")
+    $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
+    $("#txt-archive-type").val(type)
+    $("#txt-archive-id").val(id)
+    $("#txt-archive-title").val(media_title)
+    $('.hide-add-button').hide()
+    $('#player-buttons').empty()
+    $('#player-buttons').append renderplayerbuttons(id, camera_id, type, status, media_url, media_ispublic, file_name, archive.from_date, archive.to_date)
+    calculateHeight()
 
-      if type is "url"
-        $("#archive-play").hide()
-        $("#file_upload_viewer").hide()
+    if type is "url"
+      $("#archive-play").hide()
+      $("#file_upload_viewer").hide()
+      $("#archive-dates").hide()
+      $("#iframe_archive").show()
+      info_total = $("#back-button").height() + $("#info-archive").height() + $(".player-header").height() + $("#ul-nav-tab").height() + 52
+      view_height = Metronic.getViewPort().height
+      $("#iframe_archive").height(view_height - info_total)
+      $('#iframe_archive').prop('src', convert_to_embed_url(media_url))
+    else if type is "file" || type is "edit"
+      arr = file_name.split('.')
+      file_type = get_file_type(arr.pop())
+      $("#iframe_archive").hide()
+      snap_date_time = moment.tz(media_from * 1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
+      $('#archive-dates').html("Cloud Recordings #{snap_date_time}</br>")
+      if type is "file"
         $("#archive-dates").hide()
-        $("#iframe_archive").show()
-        info_total = $("#back-button").height() + $("#info-archive").height() + $(".player-header").height() + $("#ul-nav-tab").height() + 52
-        view_height = Metronic.getViewPort().height
-        $("#iframe_archive").height(view_height - info_total)
-        $('#iframe_archive').prop('src', convert_to_embed_url(media_url))
-      else if type is "file" || type is "edit"
-        arr = file_name.split('.')
-        file_type = get_file_type(arr.pop())
-        $("#iframe_archive").hide()
-        $('#archive-dates').html("Cloud Recordings #{media_from}</br>")
-        if type is "file"
-          $("#archive-dates").hide()
-        if file_type is "image"
-          $("#archive-play").hide()
-          $("#file_upload_viewer").show()
-          $("#file_upload_viewer").attr("src", media_url)
-        else
-          $("#archive-play").show()
-          $("#file_upload_viewer").hide()
-          load_player(media_thumbnail, media_url)
+      if file_type is "image"
+        $("#archive-play").hide()
+        $("#file_upload_viewer").show()
+        $("#file_upload_viewer").attr("src", media_url)
       else
-        $("#file_upload_viewer").hide()
-        $("#iframe_archive").hide()
         $("#archive-play").show()
-        $("#archive-dates").show()
+        $("#file_upload_viewer").hide()
         load_player(media_thumbnail, media_url)
+    else
+      $("#file_upload_viewer").hide()
+      $("#iframe_archive").hide()
+      $("#archive-play").show()
+      $("#archive-dates").show()
+      load_player(media_thumbnail, media_url)
 
 search_by_id = (archives, archive_id) ->
   found_archive = null
@@ -207,9 +200,7 @@ get_media_url = (id, camera_id, file_name, media_url, type) ->
 
   if type is "url"
     url = media_url
-  else if type is "edit"
-    url = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-  else if type is "file"
+  else if type is "edit" or type is "file"
     url = "#{Evercam.API_URL}cameras/#{camera_id}/archives/#{file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
   else if type is "compare"
     url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}.mp4?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
@@ -322,17 +313,15 @@ getArchivesHtml = (archives) ->
       <path d='M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/>
       </svg>"
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/compares/#{archives.id}.mp4"
-  else if archives.type is "file"
+  else if archives.type is "file" or archives.type is "edit"
     arr = archives.file_name.split('.')
     file_type = get_file_type(arr.pop())
     url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-    fa_class = "<i class='fa fa-upload type-icon type-icon-url'></i>"
-    hide_dates = "hide"
-  else if archives.type is "edit"
-    arr = archives.file_name.split('.')
-    file_type = get_file_type(arr.pop())
-    url = "#{Evercam.API_URL}cameras/#{archives.camera_id}/archives/#{archives.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
-    fa_class = "<i class='fa fa-image type-icon type-icon-url'></i>"
+    css_class = "fa-image"
+    if archives.type is "file"
+      hide_dates = "hide"
+      css_class = "fa-upload"
+    fa_class = "<i class='fa #{css_class} type-icon type-icon-url'></i>"
   else
     arr_host = getHostName(archives.media_url).split('.')
     domain = arr_host.shift()
@@ -364,7 +353,7 @@ getArchivesHtml = (archives) ->
   html += "</div>"
   html
 
-renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name) ->
+renderplayerbuttons = (id, camera_id, type, status, media_url, media_ispublic, file_name, from_dt, to_dt) ->
   div = $('<div>', {class: "form-group"})
 
   if status is "Completed"
@@ -373,12 +362,11 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
     else if type is "compare"
       animation_url = "#{Evercam.API_URL}cameras/#{camera_id}/compares/#{id}"
       return "<a class='archive-actions dropdown-toggle archive-title' href='#'' title='share' data-id='#{id}' data-type='#{type}' data-toggle='modal' data-target='#modal-archive-info'><i class='fas fa-share-alt'></i> Share</a>" +
-        "<input id='gif-#{id}' value= '#{animation_url}.gif' type='hidden'>" +
-        "<input id='mp4-#{id}' value='#{animation_url}.mp4' type='hidden'>" +
+        "<input id='gif-#{id}' value= '#{animation_url}.gif' type='hidden'><input id='mp4-#{id}' value='#{animation_url}.mp4' type='hidden'>" +
         "<div id='download-button' class='dropdown float-right'><a class='archive-actions dropdown-toggle margin-right-0' href='#' data-toggle='dropdown' title='Download'><i class='fa fa-download'></i> Download</a>" +
         "<ul class='dropdown-menu'>
-          <li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#gif-#{id}' title='Download GIF (Good for emails)'><i class='fa fa-download'></i> GIF</a></li>" +
-          "<li><a class='download-animation archive-icon' href='javascript:;' data-download-target='#mp4-#{id}' title='Download MP4 (Good for everything else)'><i class='fa fa-download'></i> MP4</a></li></ul>" +
+          <li><a class='download-animation archive-icon' href='javascript:;' data-from='#{from_dt}' data-to='#{to_dt}' data-download-target='#gif-#{id}' title='Download GIF (Good for emails)'><i class='fa fa-download'></i> GIF</a></li>" +
+          "<li><a class='download-animation archive-icon' href='javascript:;' data-from='#{from_dt}' data-to='#{to_dt}' data-download-target='#mp4-#{id}' title='Download MP4 (Good for everything else)'><i class='fa fa-download'></i> MP4</a></li></ul>" +
         "</div>" + div.html()
     else
       mp4_media_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}.mp4"
@@ -390,7 +378,7 @@ renderplayerbuttons = (requested_by, id, camera_id, type, status, media_url, med
       publicButtons = renderIsPublicPlayer(id, type, status, media_ispublic, true)
 
       return "<div class='dropdown'>" + share_button +
-        '<div style="display:inline-block;cursor:pointer;" class=" archive-actions"><a class="download-animation archive-icon" data-download-target="#mp4clip-' + id  + '" title="Download MP4"><i class="fa fa-download"></i> Download</a></div>' +
+        "<div style='display:inline-block;cursor:pointer;' class='archive-actions'><a class='download-animation archive-icon' data-from='#{from_dt}' data-to='#{to_dt}' data-download-target='#mp4clip-#{id}' title='Download MP4'><i class='fa fa-download'></i> Download</a></div>" +
         div.html() + publicButtons
   else
     return div.html()
@@ -508,7 +496,7 @@ makePublic = ->
     is_checked = $(this)
     id = $(this).attr('alt')
     typeArchive = $(this).attr('archive_type')
-    xhrRequestChangeMonth.abort() if xhrRequestChangeMonth
+    xhrRequest.abort() if xhrRequest
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
@@ -542,10 +530,10 @@ makePublic = ->
         success: onSuccess
         type: 'PATCH'
         url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-      xhrRequestChangeMonth = $.ajax(settings)
+      xhrRequest = $.ajax(settings)
     else
       refresh_archive_table()
-      Notification.show("The comparisons are always public")
+      Notification.warning("The comparisons are always public")
 
 getCompareButtons = (div, row) ->
   animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
@@ -565,13 +553,10 @@ getFileButtons = (row, div) ->
   arr = row.file_name.split('.')
   fileType = get_file_type(arr.pop())
   snap_date_time = moment.tz(row.from_date * 1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
-  file_url = ""
+  file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
   edit_link = ""
   if fileType is "image"
-    file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-from='#{snap_date_time}' data-time=#{row.created_at} data-autor='#{row.requester_name}' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><i class='fas fa-edit'></i></a>"
-  else
-    file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
   return edit_link + "#{div.html()}<input id='mp4clip-#{row.id}' value='#{file_url}' type='hidden'>"
 
 getTitle = (row, type, set, meta) ->
@@ -590,7 +575,7 @@ getTitle = (row, type, set, meta) ->
     domain = arr_host.shift()
     return "<div class='gravatar-placeholder'><div class='social-media-icon'><i class='fab fa-#{domain} #{domain}'></i></div><div class='type-icon-alignment'><i class='fa fa-link type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
-      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{row.media_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
+      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{row.media_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{row.from_date}' data-to='#{row.to_date}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       </div>#{archive_inputs}"
   else if row.type is "edit"
     arr = row.file_name.split('.')
@@ -599,7 +584,7 @@ getTitle = (row, type, set, meta) ->
     file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-image type-icon type-icon-url'></i></div><div class='float-left'></div>
       <div class='username-id'>
-      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{snap_date_time}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
+      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{row.from_date}' data-to='#{row.to_date}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
       <br /><small class='blue'>Cloud Recording #{snap_date_time}</small></div></div>#{archive_inputs}"
   else if row.type is "file"
     arr = row.file_name.split('.')
@@ -608,7 +593,7 @@ getTitle = (row, type, set, meta) ->
     if get_file_type(arr.pop()) is "other"
       file_link = "<a target='_blank' href='#{file_url}' class='archive-title-color'>#{row.title}</a>"
     else
-      file_link = "<a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>"
+      file_link = "<a id='archive_url_link_#{row.id}' class='archive-title-color' data-file-name='#{row.file_name}' data-file-type='#{file_type}' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-url='#{file_url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{row.from_date}' data-to='#{row.to_date}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>"
 
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'><i class='fa fa-upload type-icon type-icon-url'></i></div></div>
       <div class='media-url-title'>
@@ -629,8 +614,8 @@ getTitle = (row, type, set, meta) ->
 
     return "<div class='gravatar-placeholder'><img class='gravatar' src='#{row.thumbnail_url}'><div class='type-icon-alignment'>#{fa_class}</div><div class='float-left'></div>
       <div class='username-id'>
-      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-id='#{row.id}' data-url='#{mp4Url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{renderFromDate(row, type, set, meta)}' data-to='#{renderToDate(row, type, set, meta)}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
-      <br /><small class='blue'>From #{renderFromDate(row, type, set, meta)} to #{renderToDate(row, type, set, meta)}</small></div></div>
+      <a id='archive_url_link_#{row.id}' class='archive-title-color' data-ispublic='#{row.public}' data-status='#{row.status}' data-camera='#{row.camera_id}' data-id='#{row.id}' data-url='#{mp4Url}' data-thumbnail='#{row.thumbnail}' data-title='#{row.title}' data-from='#{row.from_date}' data-to='#{row.to_date}' data-time=#{row.created_at} data-requester-by='#{row.requested_by}' data-autor='#{row.requester_name}' data-id='#{row.id}' data-type='#{row.type}'>#{row.title}</a>
+      <br /><small class='blue'>From #{getDates(row.from_date*1000)} to #{getDates(row.to_date*1000)}</small></div></div>
       <input id='txt_frames#{row.id}' type='hidden' value='#{row.frames}'>
       <input id='txt_duration#{row.id}' type='hidden' value='#{renderDuration(row, type, set, meta)}'>
       <input id='archive_embed_code#{row.id}' type='hidden' value='#{query_string}'/>#{archive_inputs}"
@@ -676,23 +661,24 @@ getHostName = (url) ->
 
 changeImageSource = (email, id) ->
   favicon_url = "https://favicon.yandex.net/favicon/"
+  gravatar_url = "https://gravatar.com/avatar"
   if email
     signature = hex_md5(email)
     index = email.indexOf("@")
     domain = email.substr((index+1))
     favicon_url = favicon_url + domain
-    img_src = "https://gravatar.com/avatar/#{signature}?d=#{favicon_url}"
+    img_src = "#{gravatar_url}/#{signature}?d=#{favicon_url}"
     if domain is "hotmail.com"
-      img_src = "https://gravatar.com/avatar/#{signature}"
+      img_src = "#{gravatar_url}/#{signature}"
   else
-    img_src = "https://gravatar.com/avatar"
+    img_src = "#{gravatar_url}"
 
   data = {}
 
   onSuccess = (data, success, jqXHR) ->
     length = jqXHR.responseText.length
     if length < 100
-      img_src = "https://gravatar.com/avatar/#{signature}"
+      img_src = "#{gravatar_url}/#{signature}"
     $("#archives-table .#{id}").attr "src", img_src
 
   onError = (jqXHR, status, error) ->
@@ -714,12 +700,6 @@ renderDate = (row, type, set, meta) ->
     <div class='#{row.created_at} hide'>
     </div>\
     <span>#{moment(time).format('MMMM Do YYYY, HH:mm:ss')}</span>"
-
-renderFromDate = (row, type, set, meta) ->
-  getDates(row.from_date*1000)
-
-renderToDate = (row, type, set, meta) ->
-  getDates(row.to_date*1000)
 
 renderDuration = (row, type, set, meta) ->
   if row.type is "compare"
@@ -802,7 +782,6 @@ copyToClipboard = (text) ->
 
 tooltip = ->
   $('[data-toggle="tooltip"]').tooltip()
-  return
 
 FormatNumTo2 = (n) ->
   num = parseInt(n)
@@ -824,14 +803,11 @@ createClip = ->
     to = from.clone().minutes(from.minutes() + duration)
 
     if $("#clip-name").val() is ""
-      Notification.show("Clip title cannot be empty.")
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error("Clip title cannot be empty.")
       return false
     if duration > 60
-      Notification.show("Duration exceeds maximum limit of 60 min.")
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error("Duration exceeds maximum limit of 60 min.")
       return false
-    $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     NProgress.start()
     $("#create_clip_button").attr 'disabled', 'disabled'
 
@@ -845,10 +821,9 @@ createClip = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show("Internal Server Error. Please contact to admin.")
+        Notification.error("Internal Server Error. Please contact to admin.")
       else
-        Notification.show(jqXHR.responseJSON.message)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error(jqXHR.responseJSON.message)
       NProgress.done()
       $("#create_clip_button").removeAttr 'disabled'
 
@@ -1000,24 +975,22 @@ deleteClip = ->
       archive_id: control.attr("archive_id")
 
     onError = (jqXHR, status, error) ->
-      Notification.show(jqXHR.responseJSON.message)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error(jqXHR.responseJSON.message)
       NProgress.done()
 
     onSuccess = (data, status, jqXHR) ->
       if control.attr("archive_type") is "compare"
         refresh_archive_table()
         hide_player_view()
-        Notification.show("Compare deleted successfully.")
+        Notification.info("Compare deleted successfully.")
       else
         if data.message
-          $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-          Notification.show(data.message)
+          Notification.error(data.message)
           NProgress.done()
         else
           refresh_archive_table()
           hide_player_view()
-          Notification.show("Archive deleted successfully.")
+          Notification.info("Archive deleted successfully.")
 
     api_url = "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{control.attr("archive_id")}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
     if control.attr("archive_type") is "compare"
@@ -1124,63 +1097,63 @@ modal_events = ->
     else
       $("#archive-play video").attr("loop", "false")
 
-    if type is "clip" || type is "compare" || type is "url" || type is "file" || type is "edit"
-      update_request_url(id)
-      $('#archives-table_paginate').hide()
-      $("#archives-table_info").hide()
-      $("#toggle-tabs").hide()
-      $("#archives-table").hide()
-      $("#archives-box").show()
-      $("#back-archives").show()
-      $("#back-button").show()
-      $("#camera-video-archive").show()
-      $(".archive-tabs").hide()
-      $(".hide-add-button").hide()
-      $("#archives-box-2").hide()
-      $(".stackimage").removeClass("stackimage-view")
-      $(".stackimage").addClass("stackimage-player")
-      $("#archives-tab").removeClass("margin-top-15")
-      $('#txt_title').text(media_title)
-      $('#archive-autor').html("Requested by: #{media_autor}</br>")
-      $('#archive-dates').html("From #{media_from} to #{media_to}</br>")
-      $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
-      $("#txt-archive-type").val(type)
-      $("#txt-archive-id").val(id)
-      $("#txt-archive-title").val(media_title)
-      $('.hide-add-button').hide()
-      $('#player-buttons').empty()
-      $('#player-buttons').append renderplayerbuttons(requested_by, id, camera_id, type, status, media_url, media_ispublic, file_name)
-      calculateHeight()
+    update_request_url(id)
+    $('#archives-table_paginate').hide()
+    $("#archives-table_info").hide()
+    $("#toggle-tabs").hide()
+    $("#archives-table").hide()
+    $("#archives-box").show()
+    $("#back-archives").show()
+    $("#back-button").show()
+    $("#camera-video-archive").show()
+    $(".archive-tabs").hide()
+    $(".hide-add-button").hide()
+    $("#archives-box-2").hide()
+    $(".stackimage").removeClass("stackimage-view")
+    $(".stackimage").addClass("stackimage-player")
+    $("#archives-tab").removeClass("margin-top-15")
+    $('#txt_title').text(media_title)
+    $('#archive-autor').html("Requested by: #{media_autor}</br>")
+    $('#archive-dates').html("From #{getDates(media_from*1000)} to #{getDates(media_to*1000)}</br>")
+    $('#archive-time-1').text("Created at #{moment(newTime).format('MMMM Do YYYY, H:mm:ss')}")
+    $("#txt-archive-type").val(type)
+    $("#txt-archive-id").val(id)
+    $("#txt-archive-title").val(media_title)
+    $('.hide-add-button').hide()
+    $('#player-buttons').empty()
+    $('#player-buttons').append renderplayerbuttons(id, camera_id, type, status, media_url, media_ispublic, file_name, media_from, media_to)
+    calculateHeight()
 
-      if type is "url"
-        $("#archive-play").hide()
-        $("#file_upload_viewer").hide()
+    if type is "url"
+      $("#archive-play").hide()
+      $("#file_upload_viewer").hide()
+      $("#archive-dates").hide()
+      $("#iframe_archive").show()
+      info_total = $("#back-button").height() + $("#info-archive").height() + $(".player-header").height() + $("#ul-nav-tab").height() + 52
+      view_height = Metronic.getViewPort().height
+      $("#iframe_archive").height(view_height - info_total)
+      $('#iframe_archive').prop('src', convert_to_embed_url(media_url))
+    else if type is "file" || type is "edit"
+      $("#iframe_archive").hide()
+      snap_date_time = moment.tz(media_from * 1000, Evercam.Camera.timezone).format('MM/DD/YYYY, HH:mm:ss')
+      $('#archive-dates').html("Cloud Recordings #{snap_date_time}</br>")
+      if type is "file"
         $("#archive-dates").hide()
-        $("#iframe_archive").show()
-        info_total = $("#back-button").height() + $("#info-archive").height() + $(".player-header").height() + $("#ul-nav-tab").height() + 52
-        view_height = Metronic.getViewPort().height
-        $("#iframe_archive").height(view_height - info_total)
-        $('#iframe_archive').prop('src', convert_to_embed_url(media_url))
-      else if type is "file" || type is "edit"
-        $("#iframe_archive").hide()
-        $('#archive-dates').html("Cloud Recordings #{media_from}</br>")
-        if type is "file"
-          $("#archive-dates").hide()
 
-        if file_type is "image"
-          $("#archive-play").hide()
-          $("#file_upload_viewer").show()
-          $("#file_upload_viewer").attr("src", media_url)
-        else
-          $("#archive-play").show()
-          $("#file_upload_viewer").hide()
-          load_player(media_thumbnail, media_url)
+      if file_type is "image"
+        $("#archive-play").hide()
+        $("#file_upload_viewer").show()
+        $("#file_upload_viewer").attr("src", media_url)
       else
-        $("#file_upload_viewer").hide()
-        $("#iframe_archive").hide()
         $("#archive-play").show()
-        $("#archive-dates").show()
+        $("#file_upload_viewer").hide()
         load_player(media_thumbnail, media_url)
+    else
+      $("#file_upload_viewer").hide()
+      $("#iframe_archive").hide()
+      $("#archive-play").show()
+      $("#archive-dates").show()
+      load_player(media_thumbnail, media_url)
 
   $("#archives"). on "click", ".archive-title", ->
     id = $(this).attr("data-id")
@@ -1315,14 +1288,6 @@ hideArchiveUrlSaveButton = ->
   $("#save_social_media_url").removeClass 'hide'
   $("#update_archive").addClass 'hide'
 
-showClipSaveButton = ->
-  $("#edit_create_clip").removeClass 'hide'
-  $("#edit_compare").addClass 'hide'
-
-hideClipSaveButton = ->
-  $("#edit_create_clip").addClass 'hide'
-  $("#edit_compare").removeClass 'hide'
-
 initCompare = ->
   imagesCompareElement = $('.archive-img-compare').imagesCompare()
   imagesCompare = imagesCompareElement.data('imagesCompare')
@@ -1379,12 +1344,10 @@ init_fileupload = ->
         uploadIsRunning = true
     else
       if $("#upload_file_title").val() is ""
-        Notification.show("Title cannot be empty.")
-        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error("Title cannot be empty.")
         return false
       if input.files.length is 0
-        Notification.show("Choose file to upload.")
-        $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error("Choose file to upload.")
         return false
       startUpload()
 
@@ -1401,8 +1364,7 @@ startUpload = ->
     chunkSize: Infinity
     retryDelays: [0, 1000, 3000, 5000]
     onError: (error) ->
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-      Notification.show("Failed because: #{error}")
+      Notification.error("Failed because: #{error}")
       reset()
     onProgress: (bytesUploaded, bytesTotal) ->
       percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
@@ -1425,8 +1387,6 @@ reset = ->
 save_upload_file = (file_url, filename) ->
   timespan = moment().utc() /1000
 
-  $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
-
   data =
     title: $("#upload_file_title").val()
     from_date: timespan
@@ -1438,10 +1398,9 @@ save_upload_file = (file_url, filename) ->
 
   onError = (jqXHR, status, error) ->
     if jqXHR.status is 500
-      Notification.show("Internal Server Error. Please contact to admin.")
+      Notification.error("Internal Server Error. Please contact to admin.")
     else
-      Notification.show(jqXHR.responseJSON.message)
-    $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error(jqXHR.responseJSON.message)
 
   onSuccess = (data, status, jqXHR) ->
     $("#clip-create-message").show()
@@ -1502,12 +1461,10 @@ update_url = ->
   $("#update_archive").on "click", ->
     id = $("#txt-archive-id").val()
     if $("#media_title_title").val() is ""
-      Notification.show("Title cannot be empty.")
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error("Title cannot be empty.")
       return false
     if $("#social_media_url").val() is ""
-      Notification.show("URL cannot be empty.")
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error("URL cannot be empty.")
       return false
     NProgress.start()
 
@@ -1517,10 +1474,9 @@ update_url = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show("Internal Server Error. Please contact to admin.")
+        Notification.error("Internal Server Error. Please contact to admin.")
       else
-        Notification.show(jqXHR.responseJSON.message)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error(jqXHR.responseJSON.message)
 
     onSuccess = (data, status, jqXHR) ->
       archives_table.ajax.reload (json) ->
@@ -1556,8 +1512,7 @@ update_archive = ->
     id = $("#txt-archive-id").val()
     title = $("#txt_title").val()
     if title is ""
-      Notification.show("Title cannot be empty.")
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+      Notification.error("Title cannot be empty.")
       return false
     NProgress.start()
 
@@ -1567,10 +1522,9 @@ update_archive = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show("Internal Server Error. Please contact to admin.")
+        Notification.error("Internal Server Error. Please contact to admin.")
       else
-        Notification.show(jqXHR.responseJSON.message)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error(jqXHR.responseJSON.message)
       NProgress.done()
 
     onSuccess = (data, status, jqXHR) ->
@@ -1610,7 +1564,6 @@ update_archive = ->
 save_media_url = ->
   $("#save_social_media_url").on "click", ->
     timespan = moment().utc() /1000
-    $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
     NProgress.start()
 
     data =
@@ -1623,10 +1576,9 @@ save_media_url = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show("Internal Server Error. Please contact to admin.")
+        Notification.error("Internal Server Error. Please contact to admin.")
       else
-        Notification.show(jqXHR.responseJSON.message)
-      $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
+        Notification.error(jqXHR.responseJSON.message)
 
     onSuccess = (data, status, jqXHR) ->
       archives_table.ajax.reload (json) ->

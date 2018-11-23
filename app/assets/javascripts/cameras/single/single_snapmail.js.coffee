@@ -32,7 +32,7 @@ noSnapmailText = ->
 loadSnapmails = ->
   onError = (jqXHR, status, error) ->
     $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-    Notification.show("Failed to retrive snapmails.")
+    Notification.error("Failed to retrive snapmails.")
 
   onSuccess = (snapMails, status, jqXHR) ->
     $('#divSnapmails').html()
@@ -161,13 +161,13 @@ initInputTags = ->
         $('#txtRecipient_tagsinput').addClass('error-border')
         $('#txtRecipient').addClass('error-border')
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-        Notification.show 'Invalid recipient email.'
+        Notification.error 'Invalid recipient email.'
       return
     'onRemoveTag': (email) ->
       if $('#txtRecipient_tagsinput').find('span').length is 0
         $('#add-snapmail').attr("disabled", "disabled")
         $(".bb-alert").removeClass("alert-info").addClass("alert-danger")
-        Notification.show 'Please enter recipients to continue.'
+        Notification.error 'Please enter recipients to continue.'
         $('#txtRecipient_tagsinput').addClass('error-border')
         $('#txtRecipient').addClass('error-border')
       return
@@ -253,7 +253,7 @@ saveSnapmail = ->
       cameraNames += $(selected).text() + ', '
     if cameraIds is ''
       $('.select2-container').addClass('error-border')
-      Notification.show 'Please select camera(s) to continue.'
+      Notification.error 'Please select camera(s) to continue.'
       hideLoadingAnimation()
       return false
     else
@@ -265,26 +265,26 @@ saveSnapmail = ->
       i = 0
       while i < emails.length
         if !validateEmailByVal(emails[i])
-          Notification.show 'Invalid email \'' + emails[i] + '\'.'
+          Notification.error 'Invalid email \'' + emails[i] + '\'.'
           hideLoadingAnimation()
           return
         i++
     else
       if $('#txtkey').val() == ''
         $('#txtRecipient_tagsinput').addClass('error-border')
-        Notification.show 'Please enter recipients to continue.'
+        Notification.error 'Please enter recipients to continue.'
         hideLoadingAnimation()
         return false
     if $('#txtTime').val() == ''
-      Notification.show 'Please select time to continue.'
+      Notification.error 'Please select time to continue.'
       hideLoadingAnimation()
       return false
     if $('#ddlTimezone').val() == '0'
-      Notification.show 'Please select timezone to continue.'
+      Notification.error 'Please select timezone to continue.'
       hideLoadingAnimation()
       return false
     if GetWeekdaysSelected() == ''
-      Notification.show 'Please select day(s) to continue.'
+      Notification.error 'Please select day(s) to continue.'
       hideLoadingAnimation()
       return false
 
@@ -305,10 +305,10 @@ saveSnapmail = ->
 
     onError = (jqXHR, status, error) ->
       if jqXHR.status is 500
-        Notification.show "500 Internal Server Error"
+        Notification.error "500 Internal Server Error"
       else
         response = JSON.parse(jqXHR.responseText)
-        Notification.show "#{response.message}"
+        Notification.error "#{response.message}"
       save_button.removeAttr('disabled')
       hideLoadingAnimation()
 
@@ -466,7 +466,7 @@ RemoveSnapmail = ->
     $('#dataslot' + key).fadeOut 500, ->
       onError = (jqXHR, status, error) ->
         $('#dataslot' + key).fadeIn 1000
-        Notification.show('Error: ' + response.responseJSON.ExceptionMessage)
+        Notification.error('Error: ' + response.responseJSON.ExceptionMessage)
 
       onSuccess = (snapMail, status, jqXHR) ->
         $('#dataslot' + key).remove()
@@ -488,7 +488,7 @@ pauseSnapmail = ->
     control = $(this)
     key = control.attr("data-val")
     onError = (jqXHR, status, error) ->
-      Notification.show('Error: ' + response.responseJSON.ExceptionMessage)
+      Notification.error('Error: ' + response.responseJSON.ExceptionMessage)
 
     onSuccess = (response, status, jqXHR) ->
       snapmail = response.snapmails[0]
@@ -541,7 +541,7 @@ cloneSnapmail = ->
     loadExistingSnapmail(key)
     $('#add-snapmail').click()
     $(".bb-alert").removeClass("alert-danger").addClass("alert-info")
-    Notification.show "Successfully cloned"
+    Notification.info "Successfully cloned"
 
 showLoadingAnimation = ->
   $("#loading-image-div").removeClass("hide")

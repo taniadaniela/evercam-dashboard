@@ -13,19 +13,9 @@
 #= require cameras/single/timelapse.js.coffee
 #= require cameras/single/compare.js.coffee
 #= require cameras/single/image_editor.js.coffee
-#= require saveimage.js
 #= require jquery.thumbhover.js
 #= require jquery.images-compare.js
 #= require cameras/single/nvr_recording.js.coffee
-#= require downloadjs
-
-window.sendAJAXRequest = (settings) ->
-  token = $('meta[name="csrf-token"]')
-  if token.size() > 0
-    headers =
-      "X-CSRF-Token": token.attr("content")
-    settings.headers = headers
-  xhrRequestChangeMonth = $.ajax(settings)
 
 initializeiCheck = ->
   $("input[type=radio]").iCheck
@@ -81,11 +71,11 @@ handleAddToMyCameras = ->
       permissions: "minimal"
 
     onError = (jqXHR, status, error) ->
-      Notification.show("Failed to add camera.")
+      Notification.error("Failed to add camera.")
 
     onSuccess = (data, status, jqXHR) ->
       if data.success
-        Notification.show("Camera successfully added.")
+        Notification.info("Camera successfully added.")
         window.location = "/v1/cameras/#{Evercam.Camera.id}"
       else
         message = "Adding a camera share failed."
@@ -102,7 +92,7 @@ handleAddToMyCameras = ->
             message = "Invalid rights specified for share creation request."
           else
             message = data.message
-        Notification.show(message)
+        Notification.error(message)
 
     settings =
       cache: false
@@ -228,7 +218,6 @@ window.initializeCameraSingle = ->
   Metronic.init()
   Layout.init()
   QuickSidebar.init()
-  SaveImage.init()
   readOnlyCameraDeleteOption()
   showDurationError()
   liveViewMenuDisplay()

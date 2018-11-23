@@ -310,8 +310,9 @@ getEmptyImages = ->
   img_tags.each ->
     img_id = $(this).attr("id")
     img = document.getElementById("#{img_id}")
-    if img.naturalWidth < 3
-      $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
+    if img
+      if img.naturalWidth < 3
+        $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
 
 resendCameraShareRequest = ->
   NProgress.start()
@@ -843,8 +844,9 @@ getEmptyImagesForSelect2 = ->
   img_tags.each ->
     img_id = $(this).attr("id")
     img = document.getElementById("#{img_id}")
-    if img.naturalWidth < 3
-      $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
+    if img
+      if img.naturalWidth < 3
+        $(this).attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
     if selected_email isnt undefined && selected_email is img_id
       $(this).attr("src", $("#select2-sharing-user-email-container .gravatar1").attr("src"))
 
@@ -853,8 +855,9 @@ onCloseSelect2SetGravatar = ->
   disableShareButton()
   img_id = $("#select2-sharing-user-email-container .gravatar1").attr("id")
   img = document.getElementById("#{img_id}")
-  if img.naturalWidth < 3
-    $("#select2-sharing-user-email-container .gravatar1").attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
+  if img
+    if img.naturalWidth < 3
+      $("#select2-sharing-user-email-container .gravatar1").attr("src", "https://gravatar.com/avatar/446b9c716e6561d9318bc34f55870323")
 
 window.initializeSharingTab = ->
   $("#gravatar-0").attr("src", getFavicon($("#gravatar-0").attr("email")))

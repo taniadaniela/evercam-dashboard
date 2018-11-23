@@ -952,7 +952,8 @@ download_archive = (url, name, opts) ->
   xhr.open('GET', url)
   xhr.responseType = 'blob'
   xhr.onload = ->
-    saveAs(xhr.response, name, opts)
+    type = xhr.response.type.split('/')[1]
+    saveAs(xhr.response, "#{name}.#{type}", opts)
     NProgress.done()
   xhr.onerror = ->
     console.error('could not download file')

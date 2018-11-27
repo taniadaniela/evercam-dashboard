@@ -65,15 +65,11 @@ initializeDataTable = ->
         NProgress.done()
     },
     columns: [
-      {
-        orderable: false,
-        data: null,
-        defaultContent: '' },
-      {data: ( row, type, set, meta ) ->
-        time = moment.tz(row.done_at*1000, Evercam.Camera.timezone)
-        return "<span>#{moment(time).format('MMMM Do YYYY, H:mm:ss')}</span>"
-      , sType: 'uk_datetime' },
-      {data: ( row, type, set, meta ) ->
+      { data: null, orderable: false, defaultContent: '' },
+      { data: ( row, type, set, meta ) ->
+        return moment.tz(row.done_at*1000, Evercam.Camera.timezone).format('ddd, DD MMM YYYY, HH:mm:ss')
+      , sType: 'uk_datetime', orderable: true },
+      { data: ( row, type, set, meta ) ->
         ip = ""
         if row.extra and row.extra.ip
           ip = ", ip: #{row.extra.ip}"
@@ -122,11 +118,15 @@ initializeDataTable = ->
     autoWidth: false,
     info: false,
     bPaginate: true,
-    pageLength: 50
+    columnDefs: [
+      type: "date-uk"
+      targets: 'datatable-date'
+    ],
+    pageLength: 50,
     "language": {
       "emptyTable": "No data available"
     },
-    order: [[ 1, "desc" ]],
+    order: [[ 0, "desc" ]],
     drawCallback: ->
       api = @api()
       $.each api.rows(page: 'current').data(), (i, data) ->
@@ -418,10 +418,11 @@ window.initializeLogsTab = ->
   $('#apply-types').click(updateLogTypesFilter)
   $('.datetimepicker').datetimepicker(format: 'd/m/Y H:m')
   toggleAllTypeFilters()
-  jQuery.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
-    return moment(x, 'MMMM Do YYYY, H:mm:ss').format('X')
   toggleCheckboxes()
   updateLogTypesFilter()
+  $.fn.dataTable.moment('ddd, DD MMM YYYY, HH:mm:ss');
+  $.fn.DataTable.ext.type.order['string-date-pre'] = (x) ->
+    return moment(x, 'ddd, DD MMM YYYY, HH:mm:ss').format('X')
   initializeDataTable()
   onImageHover()
   showDetails()

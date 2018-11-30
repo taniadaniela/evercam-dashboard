@@ -29,7 +29,7 @@
 //= require dataTables.responsive.min.js
 //= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js
 //= require iCheck
-//= require select2
+//= require select2.min.js
 //= require popbox.js
 //= require swfobject.js
 //= require phoenix

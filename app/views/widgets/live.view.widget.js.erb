@@ -182,12 +182,17 @@
   function addVideojsReffrences() {
     var link_tag = document.createElement('link');
     link_tag.setAttribute("rel","stylesheet");
-    link_tag.setAttribute("href", "http://vjs.zencdn.net/4.11/video-js.css");
+    link_tag.setAttribute("href", "http://vjs.zencdn.net/7.3.0/video-js.min.css");
     (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(link_tag);
     var videojs_tag = document.createElement('script');
     videojs_tag.setAttribute("type","text/javascript");
-    videojs_tag.setAttribute("src", "http://vjs.zencdn.net/4.11/video.js");
+    videojs_tag.setAttribute("src", "http://vjs.zencdn.net/7.3.0/video.min.js");
     (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(videojs_tag);
+
+    var videojs_contribe_hls_tag = document.createElement('script');
+    videojs_contribe_hls_tag.setAttribute("type","text/javascript");
+    videojs_contribe_hls_tag.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js");
+    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(videojs_contribe_hls_tag);
   }
 
   /******** Called once jQuery has loaded ******/

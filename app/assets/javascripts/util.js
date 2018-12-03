@@ -39,7 +39,7 @@ function base64ToBlob(data) {
 }
 
 function copyToClipboard(element) {
-  var clipboard = new Clipboard(element);
+  var clipboard = new ClipboardJS(element);
   return clipboard.on('success', function(e) {
     Notification.info('Copied!');
   });

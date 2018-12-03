@@ -173,7 +173,7 @@ setDate = ->
   $('#api-call-hour').val hour_value
 
 initClipboard = ->
-  clipboard = new Clipboard('.btn')
+  clipboard = new ClipboardJS('.btn')
   clipboard.on 'success', (e) ->
     $('.bb-alert').width '100px'
     Notification.show 'Copied!'

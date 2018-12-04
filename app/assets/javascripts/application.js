@@ -21,6 +21,9 @@
 //= require videojs-flash.min.js
 //= require videojs-contrib-media-sources.min.js
 //= require videojs-contrib-hls.min.js
+//= require videojs-bitrate-graph.js
+//= require videojs.zoomrotate.js
+//= require jquery.mousewheel.min.js
 //= require jquery.bxslider.min.js
 //= require jquery.elevateZoom-3.0.8.min.js
 //= require screenfull

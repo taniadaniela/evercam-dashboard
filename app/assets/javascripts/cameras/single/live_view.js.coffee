@@ -10,6 +10,7 @@ is_logged_intercom = false
 timoutWarning = 120000
 warningTimer = undefined
 timeoutTimer = undefined
+zoom_level = 0
 
 controlButtonEvents = ->
   $(".play-pause").on "click", ->
@@ -97,7 +98,6 @@ initializePlayer = ->
           $("#select-stream-type").val("jpeg").trigger("change")
           load_jpeg()
         ), 1000
-
     $("#camera-video-player").append($("#ptz-control"))
 
     tries = 0
@@ -610,6 +610,16 @@ playInActiveVideoStream = ->
   vjs_player.play()
   $("#camera-video-stream .inactive-error-display").addClass("hide")
   $(".vjs-control-bar .vjs-play-control").addClass("vjs-playing").removeClass("vjs-paused")
+
+initZoom = ->
+  $("#camera-video-stream").on "mousewheel", (e) ->
+    if e.deltaY < 0
+      zoom_level = zoom_level - 0.1
+    else
+      zoom_level = zoom_level + 0.1
+    console.log(zoom_level, e.deltaY)
+    if zoom_level > -1 && zoom_level <= 1
+      window.vjs_player.zoomrotate({zoom: zoom_level, rotate: 0});
 
 window.initializeLiveTab = ->
   window.video_player_html = $('#camera-video-stream').html()

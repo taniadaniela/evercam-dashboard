@@ -32,8 +32,9 @@ onChangeStatusReportDays = (days, offline_only) ->
   data.offline_only = offline_only
 
   onError = (jqXHR, status, error) ->
-    showError(jqXHR.responseJSON.message)
-    toggleLoadingImage()
+    if showError
+      showError(jqXHR.responseJSON.message)
+      toggleLoadingImage()
 
   onSuccess = (response, success, jqXHR) ->
     if response.length is 0

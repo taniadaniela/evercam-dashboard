@@ -235,7 +235,7 @@ export_compare = ->
       $("#row-message").removeClass("hide")
       $("#spn-success-export").addClass("alert-info").removeClass("alert-danger").addClass("hide")
       $("#gif_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif".replace("media.evercam.io", "api.evercam.io"))
-      $("#mp4_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.gif".replace("media.evercam.io", "api.evercam.io"))
+      $("#mp4_url").val("#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/compares/#{response.compares[0].id}.mp4".replace("media.evercam.io", "api.evercam.io"))
       clearTimeOut = setTimeout( ->
         auto_check_compare_status(response.compares[0].id, 0)
       , 10000)
@@ -275,11 +275,21 @@ clean_form = ->
 download_animation = ->
   $(".download-animation").on "click", ->
     src_id = $(this).attr("data-download-target")
+    file_name= $("#export-compare-title").val()
     NProgress.start()
-    download($("#{src_id}").val())
-    setTimeout( ->
-      NProgress.done()
-    , 4000)
+    download_compare($("#{src_id}").val(), file_name)
+    
+download_compare = (url, file_name) ->
+  xhr = new XMLHttpRequest()
+  xhr.open('GET', url)
+  xhr.responseType = 'blob'
+  xhr.onload = ->
+    type = xhr.response.type.split('/')[1]
+    saveAs(xhr.response, file_name)
+    NProgress.done()
+  xhr.onerror = ->
+    console.error('could not download file')
+  xhr.send()
 
 switch_to_archive_tab = ->
   $("#switch_archive").on "click", ->

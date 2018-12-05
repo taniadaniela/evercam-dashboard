@@ -471,7 +471,7 @@ rendersharebuttons = (row, type, set, meta) ->
                         "<ul class='dropdown-menu'><li><a class='download-animation archive-icon' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' href='javascript:;' data-download-target='#gif-#{row.id}' title='Download GIF (Good for emails)'><i class='fa fa-download'></i> GIF</li></a>" +
                           "<li><a class='download-animation archive-icon' href='javascript:;' data-type='compare' data-from='#{row.from_date}' data-to='#{row.to_date}' data-download-target='#mp4-#{row.id}' title='Download MP4 (Good for everything else)'><i class='fa fa-download'></i> MP4</a></li></ul>" +
                         '</div>'
-        copy_url_link = "<div class='dropdown'><a class='archive-actions dropdown-toggle' href='#'' data-toggle='dropdown' title='Download'><i class='fas fa-link'></i></a>" +
+        copy_url_link = "<div class='dropdown'><a class='archive-actions dropdown-toggle' href='#'' data-toggle='dropdown' title='Copy'><i class='fas fa-link'></i></a>" +
                         "<ul class='dropdown-menu'><li><a class='share-archive archive-icon' href='javascript:;' play-url='#{main_url}.gif' title='Copy GIF URL'><i class='fas fa-link'></i> GIF</li></a>" +
                           "<li><a class='share-archive archive-icon' href='javascript:;' play-url='#{main_url}.mp4' title='Copy MP4 URL'><i class='fas fa-link'></i> MP4</a></li></ul>" +
                         "</div>"

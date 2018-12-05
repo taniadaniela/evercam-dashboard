@@ -285,7 +285,7 @@ download_compare = (url, file_name) ->
   xhr.responseType = 'blob'
   xhr.onload = ->
     type = xhr.response.type.split('/')[1]
-    saveAs(xhr.response, file_name)
+    saveAs(xhr.response, "#{file_name}.#{type}")
     NProgress.done()
   xhr.onerror = ->
     console.error('could not download file')

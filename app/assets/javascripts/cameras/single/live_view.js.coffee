@@ -133,9 +133,29 @@ destroyPlayer = ->
       if window.vjs_player
         if window.vjs_player.isReady_ is true
           window.vjs_player.dispose()
+          remove_user_from_feed()
         return
     ), 0
     $("#camera-video-stream").html('')
+
+remove_user_from_feed = ->
+  stream_url = $("#hls_stream_url").val()
+  if stream_url isnt "" || stream_url isnt null
+    api_url = stream_url.replace("/index.m3u8", "").replace("/live", "/close")
+
+    onComplete = (result) ->
+      true
+
+    settings =
+      cache: false
+      data: {}
+      dataType: 'json'
+      error: onComplete
+      success: onComplete
+      contentType: "application/json; charset=utf-8"
+      type: 'DELETE'
+      url: api_url
+    sendAJAXRequest(settings)
 
 load_jpeg = ->
   destroyPlayer()

@@ -10,6 +10,7 @@
     <% h264url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
     <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
     <% hls_stream = @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>
+    <input type="hidden" id="hls_stream_url" value="<%= hls_stream %>">
     <div id="live-view-placeholder">
       <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
         <div id="jpg-portion" class="wrap">

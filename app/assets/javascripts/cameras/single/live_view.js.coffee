@@ -141,7 +141,7 @@ destroyPlayer = ->
 remove_user_from_feed = ->
   stream_url = $("#hls_stream_url").val()
   if stream_url isnt "" || stream_url isnt null
-    api_url = stream_url.replace("/index.m3u8", "").replace("/live", "/close")
+    api_url = stream_url.replace("/index.m3u8", "")
 
     onComplete = (result) ->
       true

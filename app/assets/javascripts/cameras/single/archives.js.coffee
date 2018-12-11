@@ -441,10 +441,13 @@ renderbuttons = (row, type, set, meta) ->
       copy_url = ""
 
       return '<div class="dropdown">' +
-        '<a class="archive-actions play-clip" href="javascript:;" data-width="640" data-height="480" data-toggle="tooltip" title="Play" play-url="' + view_url + '"><i class="fa fa-play-circle"></i></a>' +
-        '<input id="mp4clip-' + row.id + '" value= "' + mp4_url + '.mp4" type="hidden">' +
-        '<input id="mp4play-' + row.id + '" value= "' + mp4_url + '/play?api_key='+ Evercam.User.api_key + '&api_id=' + Evercam.User.api_id + '" type="hidden">' +
-          copy_url + div.html()
+        "<a class='archive-actions play-clip' href='javascript:;' data-toggle='tooltip' title='Play' data-archive-id='#{row.id}'><i class='fa fa-play-circle'></i></a>" +
+        "<input id='mp4clip-#{row.id}' value='#{mp4_url}.mp4' type='hidden'>" +
+        "<input id='mp4play-#{row.id}' value='#{mp4_url}/play?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}' type='hidden'>" +
+        copy_url + div.html()
+  else if row.status is "Failed" && row.type is "clip"
+    return "<div class='dropdown'><a class='archive-actions retry-create' href='javascript:;' data-toggle='tooltip' title='Retry' data-archive-id='#{row.id}'><i class='fa fa-sync' aria-hidden='true'></i></a>" +
+      div.html()
   else
     return div.html()
 
@@ -535,18 +538,40 @@ makePublic = ->
       refresh_archive_table()
       Notification.warning("The comparisons are always public")
 
+retry_create = ->
+  $("#archives-tab").on "click", ".retry-create", ->
+    id = $(this).attr("data-archive-id")
+    typeArchive = $(this).attr('archive_type')
+    xhrRequest.abort() if xhrRequest
+
+    onError = (jqXHR, status, error) ->
+      if jqXHR.status is 500
+        Notification.error("Internal Server Error. Please contact to admin.")
+      else if jqXHR.statusText isnt "abort"
+        Notification.error(jqXHR.responseJSON.message)
+      NProgress.done()
+
+    onSuccess = (data, status, jqXHR) ->
+      refresh_archive_table()
+
+    settings =
+      cache: false
+      data: {}
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PUT'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    xhrRequest = $.ajax(settings)
+
 getCompareButtons = (div, row) ->
   animation_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/compares/#{row.id}"
   play_url = "#{document.location.origin}/v1/cameras/#{row.camera_id}/archives/#{row.id}/play"
   view_url = ""
   copy_url = ""
-  return '<div class="dropdown">' +
-    '<a class="margin-right12 archive-actions" href="javascript:;" data-toggle="dropdown" title="Play"><i class="fa fa-play-circle"></i></a>' +
-    '<ul class="dropdown-menu"><li><a class="play-clip" href="javascript:;" title="Play GIF" data-width="1280" data-height="720" play-url="' + animation_url + '.gif"><i class="fa fa-play-circle"></i> GIF</a></li>'+
-      '<li><a class="play-clip" href="javascript:;" title="Play MP4" data-width="1280" data-height="720" play-url="' + play_url + '"><i class="fa fa-play-circle"></i> MP4</a></li></ul>' +
-    '</div>' +
-    '<input id="gif-' + row.id + '" value= "' + animation_url + '.gif" type="hidden">' +
-    '<input id="mp4-' + row.id + '" value= "' + animation_url + '.mp4" type="hidden">' +
+  return "<div class='dropdown'><a class='margin-right12 archive-actions play-clip' href='javascript:;' data-archive-id='#{row.id}' title='Play'><i class='fa fa-play-circle'></i></a></div>" +
+    "<input id='gif-#{row.id}' value='#{animation_url}.gif' type='hidden'>" +
+    "<input id='mp4-#{row.id}' value='#{animation_url}.mp4' type='hidden'>" +
     copy_url + div.html()
 
 getFileButtons = (row, div) ->
@@ -924,10 +949,8 @@ formReset = ->
 
 playClip = ->
   $("#archives").on "click", ".play-clip", ->
-    width = parseInt($(this).attr("data-width"))
-    height = parseInt($(this).attr("data-height"))
-    view_url = $(this).attr("play-url")
-    window.open view_url, '_blank', "width=#{width}, Height=#{height}, scrollbars=0, resizable=0"
+    archive_id = $(this).attr("data-archive-id")
+    $("#archive_url_link_#{archive_id}").click()
 
   $("#archives-box, #archives-table").on "click", ".download-animation", ->
     src_id = $(this).attr("data-download-target")
@@ -1258,7 +1281,6 @@ load_player = (media_thumbnail, media_url) ->
       console.log 'done'
     .catch (err) ->
       console.log 'error occured', err
-    .done()
 
 convert_to_embed_url = (media_url) ->
   split = media_url.split("/")
@@ -1671,3 +1693,4 @@ window.initializeArchivesTab = ->
   handleResize()
   tab_events()
   hover_thumbnail()
+  retry_create()

@@ -494,49 +494,62 @@ rendersharebuttons = (row, type, set, meta) ->
   else
     return div.html()
 
-makePublic = ->
-  $("#archives-tab").on "change", ".toggle_input_public", ->
+onClickPublicInputToggle = ->
+  $("#archives-tab").off('click', '.toggle_input_public').on 'click', '.toggle_input_public', (e) ->
+    e.preventDefault()
     is_checked = $(this)
-    id = $(this).attr('alt')
-    typeArchive = $(this).attr('archive_type')
-    xhrRequest.abort() if xhrRequest
-
-    onError = (jqXHR, status, error) ->
-      if jqXHR.status is 500
-        Notification.error("Internal Server Error. Please contact to admin.")
-      else if jqXHR.statusText isnt "abort"
-        Notification.error(jqXHR.responseJSON.message)
-      NProgress.done()
-
-    onSuccess = (data, status, jqXHR) ->
-      index = $("input.toggle_input_public").index(this)
-      if is_checked.is(":checked")
+    id = is_checked.attr('alt')
+    index = $("input.toggle_input_public").index(this)
+    if is_checked.is(":checked")
+      $('#popup-warning-modal').modal('show')
+      $("#popup-warning-modal").off('click', '#make-archive-public').on 'click', '#make-archive-public', ->
+        is_checked.prop('checked', true).change()
         is_checked.attr("checked")
+        is_checked.prop('checked', true).change()
         $(".share-buttons:eq(#{index})").removeClass('disabled').addClass('enabled')
         $("#share-buttons-player").removeClass('disabled').addClass('enabled')
         $("#share-link-#{id}").removeClass("hide")
         $("#share-link-#{id}").attr("data-ispublic", "true")
-      else
-        is_checked.removeAttr("checked")
-        $(".share-buttons:eq(#{index})").removeClass('enabled').addClass('disabled')
-        $("#share-buttons-player").removeClass('enabled').addClass('disabled')
-        $("#share-link-#{id}").addClass("hide")
-        $("#share-link-#{id}").attr("data-ispublic", "false")
-      refresh_archive_table()
-
-    if typeArchive isnt "compare"
-      settings =
-        cache: false
-        data: {public: $(this).is(":checked")}
-        dataType: 'json'
-        error: onError
-        success: onSuccess
-        type: 'PATCH'
-        url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
-      xhrRequest = $.ajax(settings)
+        makePublic(is_checked, id)
     else
-      refresh_archive_table()
-      Notification.warning("The comparisons are always public")
+      $(this).prop('checked', false).change()
+      is_checked.removeAttr("checked")
+      is_checked.prop('checked', false).change()
+      $(".share-buttons:eq(#{index})").removeClass('enabled').addClass('disabled')
+      $("#share-buttons-player").removeClass('enabled').addClass('disabled')
+      $("#share-link-#{id}").addClass("hide")
+      $("#share-link-#{id}").attr("data-ispublic", "false")
+      makePublic(is_checked, id)
+
+makePublic = (is_checked, id) ->
+  typeArchive = is_checked.attr('archive_type')
+  xhrRequest.abort() if xhrRequest
+
+  onError = (jqXHR, status, error) ->
+    if jqXHR.status is 500
+      Notification.error("Internal Server Error. Please contact to admin.")
+    else if jqXHR.statusText isnt "abort"
+      Notification.error(jqXHR.responseJSON.message)
+    $('#popup-warning-modal').modal('hide')
+    NProgress.done()
+
+  onSuccess = (data, status, jqXHR) ->
+    refresh_archive_table()
+    $('#popup-warning-modal').modal('hide')
+
+  if typeArchive isnt "compare"
+    settings =
+      cache: false
+      data: {public: is_checked.prop('checked')}
+      dataType: 'json'
+      error: onError
+      success: onSuccess
+      type: 'PATCH'
+      url: "#{Evercam.API_URL}cameras/#{Evercam.Camera.id}/archives/#{id}?api_id=#{Evercam.User.api_id}&api_key=#{Evercam.User.api_key}"
+    xhrRequest = $.ajax(settings)
+  else
+    refresh_archive_table()
+    Notification.warning("The comparisons are always public")
 
 retry_create = ->
   $("#archives-tab").on "click", ".retry-create", ->
@@ -1689,7 +1702,11 @@ window.initializeArchivesTab = ->
   update_archive()
   update_url()
   toggleView()
-  makePublic()
+  onClickPublicInputToggle()
+  # makePublic(is_checked)
+  # onClickYesForMakePublic()
+  # onHidePopupWarningModal()
+  # makePublic()
   handleResize()
   tab_events()
   hover_thumbnail()

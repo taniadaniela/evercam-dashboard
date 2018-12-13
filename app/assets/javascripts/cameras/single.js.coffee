@@ -1,4 +1,4 @@
-#= require evercam.js.coffee
+#= require evercam.js
 #= require datetime-moment.js
 #= require cameras/single/info.js.coffee
 #= require cameras/single/live_view.js.coffee

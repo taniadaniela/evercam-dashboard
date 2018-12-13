@@ -503,25 +503,25 @@ onClickPublicInputToggle = ->
     if is_checked.is(":checked")
       $('#popup-warning-modal').modal('show')
       $("#popup-warning-modal").off('click', '#make-archive-public').on 'click', '#make-archive-public', ->
-        is_checked.prop('checked', true).change()
         is_checked.attr("checked")
+        flag = true
         is_checked.prop('checked', true).change()
         $(".share-buttons:eq(#{index})").removeClass('disabled').addClass('enabled')
         $("#share-buttons-player").removeClass('disabled').addClass('enabled')
         $("#share-link-#{id}").removeClass("hide")
         $("#share-link-#{id}").attr("data-ispublic", "true")
-        makePublic(is_checked, id)
+        makePublic(is_checked, id, true)
     else
-      $(this).prop('checked', false).change()
+      flag = false
       is_checked.removeAttr("checked")
       is_checked.prop('checked', false).change()
       $(".share-buttons:eq(#{index})").removeClass('enabled').addClass('disabled')
       $("#share-buttons-player").removeClass('enabled').addClass('disabled')
       $("#share-link-#{id}").addClass("hide")
       $("#share-link-#{id}").attr("data-ispublic", "false")
-      makePublic(is_checked, id)
+      makePublic(is_checked, id, flag)
 
-makePublic = (is_checked, id) ->
+makePublic = (is_checked, id, flag) ->
   typeArchive = is_checked.attr('archive_type')
   xhrRequest.abort() if xhrRequest
 
@@ -535,7 +535,10 @@ makePublic = (is_checked, id) ->
 
   onSuccess = (data, status, jqXHR) ->
     refresh_archive_table()
-    $('#popup-warning-modal').modal('hide')
+    if flag is false
+      is_checked.prop('checked', false).change()
+    else
+      $('#popup-warning-modal').modal('hide')
 
   if typeArchive isnt "compare"
     settings =

@@ -12,6 +12,7 @@
         <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
         <div class="form-group">
           <input data-validation="email" type="text" value="<%= current_user.email -%>" class="form-control" id="email" name="email" required>
+          <i class="minus-margin-top-25 float-right margin-right-10 far fa-envelope font-16 icon-color"></i>
           <span class="form-highlight"></span>
           <span class="form-bar"></span>
           <label class="float-label" for="email">Email</label>
@@ -27,6 +28,15 @@
           <span class="form-highlight"></span>
           <span class="form-bar"></span>
           <label class="float-label" for="user-lastname">Last Name</label>
+        </div>
+        <div class="form-group">
+          <input data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.telegram_username -%>" class="form-control" id="telegram-username" name="telegram-username">
+          <%# <div class="input-icon right"> %>
+          <i class="minus-margin-top-25 float-right margin-right-10 fab fa-telegram font-16 icon-color"></i>
+          <%# </div> %>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="user-lastname">Telegram Username</label>
         </div>
         <div class="form-group">
           <label class="grey" for="country">Country</label>

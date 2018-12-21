@@ -7,6 +7,18 @@
    display: none;
  }
 
+  .minus-margin-top-25 {
+    margin-top: -25px;
+  }
+
+  .icon-color {
+    color: $label-color;
+  }
+
+  .float-right {
+    float: right;
+  }
+
   .has-error .form-control {
     background-color: #ffffff;
     border-top:none;

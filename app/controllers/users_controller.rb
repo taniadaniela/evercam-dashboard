@@ -129,6 +129,7 @@ class UsersController < ApplicationController
       parameters = {}
       parameters[:firstname] = params['user-firstname'] if params.include?('user-firstname')
       parameters[:lastname] = params['user-lastname'] if params.include?('user-lastname')
+      parameters[:telegram_username] = params['telegram-username'] if params.include?('telegram-username')
       parameters[:country] = params['country'] if params.include?('country')
       if params.include?('email')
         unless params['email'] == current_user.email

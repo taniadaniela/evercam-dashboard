@@ -23,9 +23,9 @@ GIT
 
 GIT
   remote: git://github.com/stripe/stripe-ruby.git
-  revision: 98851f9ad37ee46bd915c1a413ee869479fc77c2
+  revision: e2c352de07377c11c442ee52a9d99390bd837adf
   specs:
-    stripe (4.3.0)
+    stripe (4.4.0)
       faraday (~> 0.13)
       net-http-persistent (~> 3.0)
 
@@ -220,7 +220,7 @@ GEM
     mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     money (6.10.1)
       i18n (>= 0.6.4, < 1.0)
@@ -231,8 +231,8 @@ GEM
       connection_pool (~> 2.2)
     newrelic_rpm (5.6.0.349)
     nio4r (2.3.1)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.9.1)
+      mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)

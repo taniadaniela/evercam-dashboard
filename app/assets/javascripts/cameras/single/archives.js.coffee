@@ -433,7 +433,7 @@ renderbuttons = (row, type, set, meta) ->
     else if row.type is "file" || row.type is "edit"
       getFileButtons(row, div)
     else if row.type is "url"
-      return "<a class='archive-actions archive-title' href='javascript:;' title='Edit' data-id='#{row.id}' data-url='#{row.media_url}' data-type='#{row.type}' data-toggle='modal' data-target='#social-media-url-modal'><i class='fas fa-edit'></i></a>" +
+      return "<a class='archive-actions archive-title' href='javascript:;' title='Edit' data-id='#{row.id}' data-url='#{row.media_url}' data-type='#{row.type}' data-toggle='modal' data-target='#social-media-url-modal'><img class='edit-icon-archive' src='/assets/edit-icon-blue.svg'></a>" +
       "<a target='_blank' class='archive-actions' href='#{row.media_url}'><i class='fa fa-external-link-alt'></i></a>#{div.html()}"
     else
       mp4_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.id}"
@@ -597,7 +597,7 @@ getFileButtons = (row, div) ->
   file_url = "#{Evercam.API_URL}cameras/#{row.camera_id}/archives/#{row.file_name}?api_key=#{Evercam.User.api_key}&api_id=#{Evercam.User.api_id}"
   edit_link = ""
   if fileType is "image"
-    edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-from='#{snap_date_time}' data-time=#{row.created_at} data-autor='#{row.requester_name}' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><i class='fas fa-edit'></i></a>"
+    edit_link = "<a class='archive-actions archive-image-edit' href='javascript:;' title='Edit Image' data-from='#{snap_date_time}' data-time=#{row.created_at} data-autor='#{row.requester_name}' data-id='#{row.id}' data-url='#{file_url}' data-title='#{row.title}'><img class='edit-icon-archive' src='/assets/edit-icon-blue.svg'></a>"
   return edit_link + "#{div.html()}<input id='mp4clip-#{row.id}' value='#{file_url}' type='hidden'>"
 
 getTitle = (row, type, set, meta) ->

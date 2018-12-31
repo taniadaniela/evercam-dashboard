@@ -1292,11 +1292,58 @@ load_player = (media_thumbnail, media_url) ->
     { type: "video/mp4", src: media_url }
   ])
   playPromise = archive_js_player2.play()
+  archive_js_player2.zoomrotate()
+  handleZoomRotateValue()
   if playPromise != undefined
     playPromise.then (_) ->
       console.log 'done'
     .catch (err) ->
       console.log 'error occured', err
+
+handleZoomRotateValue = ->
+  controls = document.getElementById('zoom-rotate-controls')
+  v = archive_js_player2
+  zoom = 1
+  top = 0
+  left = 0
+
+  controls.addEventListener 'click', ((e) ->
+    t = e.target
+    console.log(t)
+    if t.nodeName.toLowerCase() == "i"
+      switch t.id
+        when 'zoomin'
+          zoom = zoom + 0.1
+          v.zoomrotate
+            zoom: "#{zoom}"
+        when 'zoomout'
+          if zoom >= 1
+            zoom = zoom - 0.1
+            v.zoomrotate
+              zoom: "#{zoom}"
+        when 'left'
+          left = left - 5
+          $("#camera-video-archive .vjs-tech").css('left', left + 'px')
+        when 'right'
+          left = left + 5
+          $("#camera-video-archive .vjs-tech").css('left', left + 'px')
+        when 'up'
+          top = top + 5
+          $("#camera-video-archive .vjs-tech").css('top', top + 'px')
+        when 'down'
+          top = top - 5
+          $("#camera-video-archive .vjs-tech").css('top', top + 'px')
+        when 'reset'
+          zoom = 1
+          top = 0
+          left = 0
+          $("#camera-video-archive .vjs-tech").css('left', '0px')
+          $("#camera-video-archive .vjs-tech").css('top', '0px')
+          v.zoomrotate
+            zoom: 1
+      e.preventDefault()
+    return
+  ), false
 
 convert_to_embed_url = (media_url) ->
   split = media_url.split("/")
@@ -1670,6 +1717,9 @@ tab_events = ->
     if $("#archives-box").css("display") is "block"
       hide_player_view()
 
+initializeZoomRotate = ->
+  videojs("archive-play").zoomrotate()
+
 window.initializeArchivesTab = ->
   getArchiveIdFromUrl()
   window.compare_html = $("#row-compare").html()
@@ -1706,10 +1756,6 @@ window.initializeArchivesTab = ->
   update_url()
   toggleView()
   onClickPublicInputToggle()
-  # makePublic(is_checked)
-  # onClickYesForMakePublic()
-  # onHidePopupWarningModal()
-  # makePublic()
   handleResize()
   tab_events()
   hover_thumbnail()

@@ -38,10 +38,27 @@
 
       </div>
       <div id="camera-video-archive" style="float: left; display: none">
-        <div>
+        <div id= "stage">
           <video id="archive-play" class="video-js vjs-default-skin" width="100%" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }'></video>
           <iframe id="iframe_archive" width="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           <img id="file_upload_viewer" src="" width="100%">
+        </div>
+        <div id="zoom-rotate-controls" class="ptz-controls">
+          <table>
+            <tr>
+              <td class="text-center large-column" colspan="3"><i id="up" title="Move Up" class="fa fa-chevron-up"></i></td>
+              <td class="text-center small-column" style="vertical-align: bottom;"><i id="zoomin" title="Zoom In" class="zoomin fa fa-plus"></i></td>
+            </tr>
+            <tr>
+              <td class="text-center small-column"><i id="left" title="Move Left" class="fa fa-chevron-left"></i></td>
+              <td class="text-center small-column"><i id="reset" title="Reset" class="fa fa-redo reset"></i></td>
+              <td class="text-center small-column"><i id="right" title="Move Right" class="fa fa-chevron-right"></i></td>
+            </tr>
+            <tr>
+              <td class="text-center large-column" colspan="3"><i id="down" title="Move Down" class="fa fa-chevron-down down"></i></td>
+              <td class="text-center small-column"><i id="zoomout" title="Zoom Out" class="zoomout fa fa-minus"></i></td>
+            </tr>
+          </table>
         </div>
         <div id="text-info">
           <div class="player-header">

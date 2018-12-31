@@ -64,13 +64,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def owns_data!
-    if params[:id] && current_user.username != params[:id]
-      sign_out
-      redirect_to signin_path
-    end
-  end
-
   def get_referral_url
     if !request.referer.nil? && !request.referer.include?("dash.evercam.io")
       session[:referral_url] = request.referer
@@ -107,73 +100,6 @@ class ApplicationController < ActionController::Base
   def ensure_cameras_loaded
     if @cameras.nil?
       load_user_cameras(true, false)
-    end
-  end
-
-  def set_prices
-    @prices = Prices.new
-  end
-
-  def is_stripe_customer?
-    current_user.stripe_customer_id.present?
-  rescue
-    return false
-  end
-  helper_method :is_stripe_customer?
-
-  # Started to move some methods from helper to application controller because
-  # helpers should not make calls to db/API calls
-  def retrieve_stripe_subscriptions
-    if is_stripe_customer?
-      @subscriptions = Stripe::Customer.retrieve(current_user.stripe_customer_id).subscriptions.all
-    end
-  end
-
-  def current_subscription
-    if current_user.stripe_customer_id.present?
-      customer = StripeCustomer.new(current_user.stripe_customer_id)
-      subscription = customer.current_plan ? customer.current_plan : false
-    else
-      false
-    end
-  end
-
-  def retrieve_plans_quantity(subscriptions)
-    @twenty_four_hours_recording = 0
-    @twenty_four_hours_recording_annual = 0
-    @seven_days_recording = 0
-    @seven_days_recording_annual = 0
-    @thirty_days_recording = 0
-    @thirty_days_recording_annual = 0
-    @ninety_days_recording = 0
-    @ninety_days_recording_annual = 0
-    @infinity = 0
-    @infinity_annual = 0
-    if subscriptions.present?
-      subscriptions[:data].each do |subscription|
-        case subscription.plan.id
-        when "24-hours-recording"
-          @twenty_four_hours_recording = @twenty_four_hours_recording + subscription.quantity
-        when "24-hours-recording-annual"
-          @twenty_four_hours_recording_annual = @twenty_four_hours_recording_annual + subscription.quantity
-        when "7-days-recording"
-          @seven_days_recording = @seven_days_recording + subscription.quantity
-        when "7-days-recording-annual"
-          @seven_days_recording_annual = @seven_days_recording_annual + subscription.quantity
-        when "30-days-recording"
-          @thirty_days_recording = @thirty_days_recording + subscription.quantity
-        when "30-days-recording-annual"
-          @thirty_days_recording_annual = @thirty_days_recording_annual + subscription.quantity
-        when "90-days-recording"
-          @ninety_days_recording = @ninety_days_recording + subscription.quantity
-        when "90-days-recording-annual"
-          @ninety_days_recording_annual = @ninety_days_recording_annual + subscription.quantity
-        when "infinity"
-          @infinity = subscription.quantity
-        when "infinity-annual"
-          @infinity_annual = subscription.quantity
-        end
-      end
     end
   end
 

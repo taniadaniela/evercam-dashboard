@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   layout "bare-bones", except: [:settings, :delete]
   include SessionsHelper
   include ApplicationHelper
-  include StripeCustomersHelper
-  require "stripe"
   require "date"
 
   def new

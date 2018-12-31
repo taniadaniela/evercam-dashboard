@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   get '/confirm' => 'users#confirm'
   get '/v1/users/signin' => 'sessions#new', as: :signin
   get '/widget_signin' => 'sessions#widget_new', as: :widget_signin
+  get '/v1/users/signout' => 'sessions#destroy'
   delete '/v1/users/signout' => 'sessions#destroy', as: :signout
 
   # Removed username from url

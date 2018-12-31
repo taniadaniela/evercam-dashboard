@@ -15,8 +15,13 @@ class SessionsController < ApplicationController
       else
         get_referral_url()
       end
+      @remote_auth = is_remote_auth_req
     else
-      redirect_to cameras_index_path
+      if is_remote_auth_req
+        create_to_zoho_and_login(current_user)
+      else
+        redirect_to cameras_index_path
+      end
     end
   end
 
@@ -25,6 +30,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+    @remote_auth = params["remote_auth"]
     begin
       @user = User.by_login(params[:session][:login].downcase)
     rescue NoMethodError => error
@@ -37,7 +43,9 @@ class SessionsController < ApplicationController
       update_user_intercom(@user)
       session[:referral_url] = nil
       if params[:session][:widget].blank?
-        if session[:redirect_url]
+        if @remote_auth.eql?("true")
+          create_to_zoho_and_login(@user)
+        elsif session[:redirect_url]
           url = session[:redirect_url]
           Rails.logger.debug "Redirecting to #{url}."
           session[:redirect_url] = nil
@@ -59,5 +67,34 @@ class SessionsController < ApplicationController
     add_user_activity("logout", request.env['HTTP_USER_AGENT'])
     sign_out
     redirect_to signin_path
+  end
+
+  def do_remote_login(user)
+    ts = Time.new.utc.to_i
+    email = user.email
+    remoteauthkey = ENV['REMOTE_AUTH_KEY']
+    operation = "signin"
+
+    apikey = Digest::MD5.hexdigest("#{operation}#{email}#{remoteauthkey}#{ts}")
+    redirectURL = "https://support.evercam.io/support/RemoteAuth?operation=#{URI::encode(operation, "UTF8")}&email=#{URI::encode(email,"UTF8")}&ts=#{URI::encode("#{ts}","UTF8")}&apikey=#{apikey}"
+    redirect_to redirectURL
+  end
+
+
+  def create_to_zoho_and_login(user)
+    email = user.email
+    ts = Time.new.utc.to_i
+    remoteauthkey = ENV['REMOTE_AUTH_KEY']
+    operation = "signup"
+    utype = "portal"
+    fullName = user.fullname
+    loginName = "#{user.firstname.downcase}.#{user.lastname.downcase}".gsub(" ", ".")
+    apikey = Digest::MD5.hexdigest("#{operation}#{email}#{loginName}#{fullName}#{utype}#{remoteauthkey}#{ts}")
+    redirectURL = "https://support.evercam.io/support/RemoteAuth?operation=#{URI::encode(operation)}&email=#{URI::encode(email)}&fullname=#{URI::encode(fullName)}&loginname=#{URI::encode(loginName)}&utype=#{URI::encode(utype)}&ts=#{URI::encode("#{ts}")}&apikey=#{apikey}"
+    redirect_to redirectURL
+  end
+
+  def is_remote_auth_req
+    !request.referer.nil? && request.referer.include?("support.evercam.io")
   end
 end

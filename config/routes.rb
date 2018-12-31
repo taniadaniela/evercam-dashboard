@@ -1,25 +1,9 @@
 Rails.application.routes.draw do
-  get '/v1/users/:id/billing' => 'subscriptions#index', as: :billing
-  patch '/v1/users/:id/billing' => 'subscriptions#edit_subscription', as: :edit_subscription
-  get '/v1/users/:id/billing/history' => 'subscriptions#billing_history', as: :billing_history
-  get '/v1/subscriptions/new' =>'subscriptions#new', as: :new_subscription
-  delete '/v1/users/:id/billing' => 'subscriptions#destroy', as: :subscription
-  get '/v1/users/:id/billing/sub_data' => 'subscriptions#subscription_data', as: :sub_data
-
-  get '/v1/users/:id/billing/invoices' => 'invoices#index', as: :invoices
-  get '/v1/users/:id/billing/invoices/:invoice_id' => 'invoices#show', as: :invoice_show
-  get '/v1/users/:id/billing/invoices/:invoice_id/pdf' => 'invoices#create_pdf', as: :create_invoice_pdf
-  get '/v1/users/:id/billing/invoices/:invoice_id/send' => 'invoices#send_customer_invoice_email', as: :send_invoic_email
-  get '/v1/users/:id/billing/invoices/:custom_id/custom' => 'invoices#custom_user_invoices', as: :custom_show
-
-  delete '/v1/users/:id/billing/add-ons/:add_ons_id' => 'subscriptions#delete_add_ons', as: :delete_add_ons
-
   get '/pay' => 'payments#pay', as: :pay
   get '/thank-for-payment' => 'payments#thank', as: :thank_payment
   post '/pay' => 'payments#make_payment', as: :make_payment
   get '/v1/payments' => 'payments#new', as: :new_checkout
   post '/v1/payments' => 'payments#create', as: :new_charge
-  post '/v1/users/:id/billing/plans/change' => 'payments#upgrade_downgrade_plan'
 
   # These routes are for managing customer cards on Stripe
   resources :stripe_customers, only: [:create, :update]
@@ -55,7 +39,6 @@ Rails.application.routes.draw do
   get '/server_down' => 'cameras#server_down', as: :server_down
 
   get '/v1/cameras/:id/*subpath' => 'cameras#single'
-  get '/v1/users/:id/billing/*subpath' => 'subscriptions#index'
 
   get '/v1/snapmails' => 'snapmails#index', as: :snapmails_index
   get '/v1/snapmails/:id/unsubscribe' => 'pages#unsubscribe'

@@ -34,8 +34,6 @@ gem 'country_select',
 gem 'ie_iframe_cookies',
   github: 'affan00/ie_iframe_cookies'
 gem 'intercom-rails'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
 gem 'intercom', require: 'intercom'
 gem 'dotenv'
 gem 'useragent'
@@ -48,7 +46,6 @@ end
 
 group :production do
   gem 'newrelic_rpm'
-  gem 'wkhtmltopdf-heroku'
 end
 
 group :development do

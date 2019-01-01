@@ -506,7 +506,7 @@ refreshLastSnaps = ->
     $('.refresh-detail-snap .refresh-gif').show()
     img = $('.info-preview .camera-thumbnail')
     img_url = img.attr "data-proxy"
-    if img_url.endsWith "thumbnail"
+    if img_url.substr(img_url.length - 9) == 'thumbnail'
       src = "#{img_url}?rand=" + new Date().getTime()
     else
       src = "#{img_url}&rand=" + new Date().getTime()

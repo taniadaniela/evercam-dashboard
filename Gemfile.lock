@@ -23,18 +23,18 @@ GIT
 
 GIT
   remote: git://github.com/stripe/stripe-ruby.git
-  revision: e2c352de07377c11c442ee52a9d99390bd837adf
+  revision: 6f81c907e883e9ee23fd4096dd186444fb4c54f4
   specs:
-    stripe (4.4.0)
+    stripe (4.4.1)
       faraday (~> 0.13)
       net-http-persistent (~> 3.0)
 
 GIT
   remote: git://github.com/westonganger/protected_attributes_continued.git
-  revision: b660fcde3e231b1b040f76e8f385f85c8933159d
+  revision: 33cd06e3d0ad25ee2f119590cf8bd5a758ee3289
   specs:
-    protected_attributes_continued (1.3.0)
-      activemodel (~> 5.0)
+    protected_attributes_continued (1.4.0)
+      activemodel (>= 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -178,13 +178,13 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    hashdiff (0.3.7)
+    hashdiff (0.3.8)
     hashie (3.6.0)
     hirb (0.7.3)
     hirb-unicode-steakknife (0.0.8)
       hirb (~> 0.5)
       unicode-display_width (~> 1.1)
-    i18n (1.3.0)
+    i18n (1.4.0)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
     intercom (3.7.1)
@@ -252,7 +252,7 @@ GEM
       yard (~> 0.9.11)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    public_suffix (3.0.2)
+    public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
     rack-test (1.1.0)
@@ -429,7 +429,7 @@ GEM
     unicode-display_width (1.3.2)
     unicode_utils (1.4.0)
     useragent (0.16.10)
-    webmock (3.4.2)
+    webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
